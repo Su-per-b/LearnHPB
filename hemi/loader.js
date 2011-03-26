@@ -6,7 +6,7 @@
  * of the GNU General Public License as published by the Free Software Foundation; either 
  * version 2 of the License, or (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
+ * This program is distributed in the hope that fit will be useful, but WITHOUT ANY WARRANTY; 
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
  * See the GNU General Public License for more details.
  *
@@ -17,6 +17,8 @@
 
 o3djs.require('hemi.octane');
 o3djs.require('hemi.world');
+
+
 
 var hemi = (function(hemi) {
 	/**
@@ -30,6 +32,81 @@ var hemi = (function(hemi) {
 	 * @default ''
 	 */
 	hemi.loader.loadPath = '';
+	
+	var knownFiles = new Hashtable(),
+		intervalId = null,
+		locked = false;
+	
+	var syncedIntervalFcn = function(url, loadInfo) {			
+		var obj = {
+			percent: 0,
+			loadInfo: loadInfo
+		};
+		
+		knownFiles.put(url, obj);
+			
+		createIntervalFcn();
+	};
+	
+	var createIntervalFcn = function() {
+		if (intervalId == null) {
+			intervalId = window.setInterval(function(){
+				var keys = knownFiles.keys(),
+					percent = 0;
+				
+				for (var ndx = 0, len = keys.length; ndx < len; ndx++) {
+					var url = keys[ndx],
+						fileObj = knownFiles.get(url), 
+						loadInfo = fileObj.loadInfo;					
+					
+					// check for finished (may have finished very quickly)
+					fileObj.percent = loadInfo.request_ == null ? 100 : 
+						loadInfo.getKnownProgressInfoSoFar().percent;
+					hemi.world.send(hemi.msg.progress, {
+						url: url,
+						percent: fileObj.percent,
+						isTotal: false
+					});
+					
+					if (checkFinished()) {
+						break;
+					}
+				}
+			}, 50);
+		}
+	};
+	
+	var updateTotal = function() {
+		var total = knownFiles.size(),
+			values = knownFiles.values(),
+			percent = 0;
+			
+		for (var ndx = 0; ndx < total; ndx++) {
+			var fileObj = values[ndx];
+			
+			percent += fileObj.percent / total;
+		}
+		
+		hemi.world.send(hemi.msg.progress, {
+			isTotal: true,
+			percent: percent
+		});
+		
+		return percent;
+	};
+	
+	var checkFinished = function() {					
+		var percent = updateTotal();
+		
+		if (percent >= 99.9) {
+			knownFiles.clear();
+			window.clearInterval(intervalId);
+			intervalId = null;
+			return true;
+		}
+		
+		return false;
+	};
 	
 	/**
 	 * Load the HTML (or HTM) file at the given URL. If an error occurs, an
@@ -74,7 +151,17 @@ var hemi = (function(hemi) {
 				} else {
 					callback(bitmaps);
 				}
+				var fileObj = knownFiles.get(url);
+				
+				if (fileObj)
+					fileObj.percent = 100;
+				checkFinished();
 			});
+		
+		var list = hemi.world.loader.loadInfo.children_,
+			loadInfo = list[list.length - 1];
+		
+		syncedIntervalFcn(url, loadInfo);
 	};
 
 	/**
@@ -98,9 +185,19 @@ var hemi = (function(hemi) {
 				if (exception) {
 					alert(exception);
 				}
-
+				
+				var fileObj = knownFiles.get(url);
+				
+				if (fileObj)
+					fileObj.percent = 100;
+				checkFinished();
 				onLoadTexture.call(opt_this, texture);
 			});
+		
+		var list = hemi.world.loader.loadInfo.children_,
+			loadInfo = list[list.length - 1];
+		
+		syncedIntervalFcn(url, loadInfo);
 	};
 
 	/**
@@ -129,9 +226,58 @@ var hemi = (function(hemi) {
 				} else if (opt_callback) {
 					opt_callback(pack, parent);
 				}
+				var fileObj = knownFiles.get(url);
+				
+				if (fileObj)
+					fileObj.percent = 100;
+				checkFinished();
 			}, opt_options);
+		
+		var list = hemi.world.loader.loadInfo.children_,
+			loadInfo = list[list.length - 1];
+		
+		syncedIntervalFcn(url, loadInfo);
 	};
 
+
+	hemi.loader.fileLoadCallback = function(data, status, xhr) {
+	
+  
+			if (status === 'error') {
+				alert(xhr.statusText);
+			} else {
+				if (typeof data === 'string') {
+				
+
+				data = JSON.decode(data);
+
+				}
+				
+				if (data.type) {
+					var obj = hemi.octane.createObject(data);
+					
+					if (opt_callback) {
+						opt_callback(obj);
+					}
+				} else {
+				
+
+					hemi.octane.createWorld(data);
+				    
+					if (fileLoadCallback) {
+						fileLoadCallback();
+					}
+					
+					hemi.world.ready();
+					
+				}
+			}
+	}
+	
+	var fileLoadCallback;
+	
+
+	
 	/**
 	 * Load the Octane file at the given URL. If an error occurs, an alert is
 	 * thrown. Otherwise the loaded data is decoded into JSON and passed to the
@@ -148,33 +294,18 @@ var hemi = (function(hemi) {
 	 */
 	hemi.loader.loadOctane = function(url, opt_callback) {
 		url = getPath(url);
+        fileLoadCallback = opt_callback;
 
-		jQuery.get(url, function(data, status, xhr) {
-			if (status === 'error') {
-				alert(xhr.statusText);
-			} else {
-				if (typeof data === 'string') {
-					data = JSON.decode(data);
-				}
-				
-				if (data.type) {
-					var obj = hemi.octane.createObject(data);
-					
-					if (opt_callback) {
-						opt_callback(obj);
-					}
-				} else {
-					hemi.octane.createWorld(data);
-				
-					if (opt_callback) {
-						opt_callback();
-					}
-					
-					hemi.world.ready();
-				}
-			}
-		});
+		//console.profile('Profile: jQuery.get') ;
+        jQuery.get(url, hemi.loader.fileLoadCallback);
+	//	console.profileEnd(); 
+
 	};
+	
+	
+
+	
+	
 	
 	/*
 	 * Get the correct path for the given URL. If the URL is absolute, then

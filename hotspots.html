@@ -7,35 +7,60 @@
 
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 
-<link rel="stylesheet" href="stylz.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="css/stylz.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="css/progress.css" type="text/css" media="screen" />
 
+    <script type="text/javascript" src="lib/jquery.js"></script>
+    <script type="text/javascript" src="lib/jshashtable.js"></script>
+    <script type="text/javascript" src="lib/JSON.js"></script>
+    <script type="text/javascript" src="lib/JSONError.js"></script>
+    <script type="text/javascript" src="o3djs/base.js"></script>
+    <script type="text/javascript" src="hemi/core.js"></script>
+	<script type="text/javascript" src="js/Progressbar.class.js"></script>
+    <script type="text/javascript" src="js/o3dLoader.js"></script>
 
-
-<style type="text/css">
-<!--
-.style2 {color: #0B9DCE}
-.style1 {color: #ob9dce}
--->
-</style>
-
-        <script type="text/javascript" src="lib/jquery.js">
-        </script>
-        <script type="text/javascript" src="lib/jshashtable.js">
-        </script>
-        <script type="text/javascript" src="lib/JSON.js">
-        </script>
-        <script type="text/javascript" src="lib/JSONError.js">
-        </script>
-        <script type="text/javascript" src="o3djs/base.js">
-        </script>
-        <script type="text/javascript" src="hemi/core.js">
-        </script>
-        <script type="text/javascript" src="hotspot_red_cubes.js">
-        </script>
         
+		<script type="text/javascript">
+		
+			var progressbar = new Progressbar();
+			
+
+			
+
+			
+			function onProgressHemi(arg) {
+			    // console.log('onProgress: ' + arg);
+			     return;
+				progressbar.onProgress(arg.data.percent);
+				
+				if (arg.data.isTotal && arg.data.percent == '0') {
+				   //console.log('isTotal: true');
+				   progressbar.init("Generating Particle Systems");
+
+				}
+			}
+			
+			
+			function loadNow() {
+		  	    //this is NOT threadblocking
+
+					//progressbar.init();
+				//loadWorld(this, onLoadComplete);
+				//progressbar.show();
+			//	loadWorld('hotspot_red_cubes.json', progressbar);
+			
+			hemi.loader.loadOctane('assets/hotspot_red_cubes.json' , loadComplete);
+				 
+			}
+			
+	
+			
+			
+			
+		</script>
 </head>
 
-<body>
+<body onload="loadNow();">
 
 <div id="container">
 
@@ -56,9 +81,14 @@
             </p>
         </div>
     
-        <div id="content"  >
-        <button onclick="loadWorld();">Load</button>
-           <div id="o3d" style="width: 1024px; height: 768px;"></div>
+        <div id="content" >
+        
+
+        
+           <div id="o3d">
+
+           </div>
+           
         </div>
     
     </div>
