@@ -17,29 +17,42 @@
     <script type="text/javascript" src="lib/JSONError.js"></script>
     <script type="text/javascript" src="o3djs/base.js"></script>
     <script type="text/javascript" src="hemi/core.js"></script>
-	<script type="text/javascript" src="js/progressbar.class.js"></script>
+	<script type="text/javascript" src="js/Progressbar.class.js"></script>
     <script type="text/javascript" src="js/particle_systems.js"></script>
 
   
 		<script type="text/javascript">
 		
 			var progressbar = new Progressbar();
+			var hasReached100 = false;
+			var hascompleted = false;
+			
 			//var timer = new Timer('#page#');
 			
 			function onLoadHandler() {
 				progressbar.init("Loading Geometry");
-				loadNow();
+
+				 window.setTimeout('loadNow()',200);
 			}
 			
 			function onProgress(arg) {
-			    // console.log('onProgress: ' + arg);
-			     
+			   // console.log('onProgress: ' + arg.data.percent);
+
 				progressbar.onProgress(arg.data.percent);
+				//sleep(100);
 				
-				if (arg.data.isTotal && arg.data.percent == '0') {
-				   //console.log('isTotal: true');
-				   progressbar.init("Generating Particle Systems");
-				   window.setTimeout('setupParticleSystems1()',50);
+				if (arg.data.percent == 100) {
+					hasReached100 = true;
+				}
+				
+				if (arg.data.isTotal == true && hasReached100 && (!hascompleted)) {
+					//console.log('arg.data.percent: ' + arg.data.percent);
+					//console.log('arg.data.percent: ' + arg.data.percent);
+				 //  console.log('isTotal: true');
+				   hascompleted = true;
+				   
+				  progressbar.init("Generating Particle Systems");
+				   window.setTimeout('setupParticleSystems1()',200);
 				}
 			}
 			
@@ -50,7 +63,9 @@
 				progressbar.onProgress(percent);
 				
 				if (percent == 100) {
+					 resetView();
 					 window.setTimeout('progressbar.hide();',200);
+					 
 				}
 			}
 			
@@ -112,7 +127,7 @@
            		
                 <div id="progressbarBackground">  
                     <div id="progressbar">
-                        <div id="progressbarTitle">Title Not Set</div>
+                        <div id="progressbarTitle">Loading Geometry</div>
                         <div id="indicator"><div id="progressnum">0</div></div>
                     </div>
                 </div>
