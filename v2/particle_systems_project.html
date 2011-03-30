@@ -10,7 +10,6 @@
 	<link rel="stylesheet" href="css/stylz.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="css/progress.css" type="text/css" media="screen" />
     
-
     <script type="text/javascript" src="lib/jquery.js"></script>
     <script type="text/javascript" src="lib/jshashtable.js"></script>
     <script type="text/javascript" src="lib/JSON.js"></script>
@@ -20,8 +19,7 @@
 	<script type="text/javascript" src="js/Progressbar.class.js"></script>
     <script type="text/javascript" src="js/HVACloader.class.js"></script>
 
-  
-		<script type="text/javascript">
+	<script type="text/javascript">
 		
 			var progressbar = new Progressbar();
 			var hasReached100 = false;
@@ -99,7 +97,7 @@
 				progressbar.onProgress(percent);
 				
 				if (percent == 100) {
-					 hvacLoader.setViewNumber(1);
+					 hvacLoader.setViewPointNumber(1);
 					 window.setTimeout('progressbar.hide();',200);
 					 
 				}
@@ -139,13 +137,24 @@
 				<li><a href="#" onclick="hvacLoader.stopAllSystems();">Stop All Systems</a></li>
 			</ul>
             <ul>
-				<li><a href="#" onclick="hvacLoader.setViewNumber(0);">0</a></li>
-				<li><a href="#" onclick="hvacLoader.setViewNumber(1);">1</a></li>
-				<li><a href="#" onclick="hvacLoader.setViewNumber(2);">2</a></li>
-				<li><a href="#" onclick="hvacLoader.setViewNumber(3);">3</a></li>
-				<li><a href="#" onclick="hvacLoader.setViewNumber(4);">4</a></li>
-				<li><a href="#" onclick="hvacLoader.setViewNumber(5);">5</a></li>
+				<li><a href="#" onclick="hvacLoader.setViewPointName('lookUp');">lookUp</a></li>
+				<li><a href="#" onclick="hvacLoader.setViewPointName('vavBox');">VAV Box</a></li>
+                <li><a href="#" onclick="hvacLoader.setViewPointName('lookDown');">Look Down</a></li>
+                
+				<li><a href="#" onclick="hvacLoader.setViewPointName('zone1');" onmouseover="hvacLoader.showZone(1);" onmouseout="hvacLoader.hideZone(1);">Zone 1</a></li>
+                
+                
+				<li><a href="#" onclick="hvacLoader.setViewPointName('zone2');">Zone 2</a></li>
+				<li><a href="#" onclick="hvacLoader.setViewPointName('zone3');">Zone 3</a></li>
+				<li><a href="#" onclick="hvacLoader.setViewPointName('zone4');">Zone 4</a></li>
+				<li><a href="#" onclick="hvacLoader.setViewPointName('zone5');">Zone 5</a></li>
+				<li><a href="#" onclick="hvacLoader.setViewPointName('zone6');">Zone 6</a></li>
 			</ul>
+            
+            <ul>
+
+			</ul>
+            
  		</div>
         
         

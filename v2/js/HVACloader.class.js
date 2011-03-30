@@ -211,14 +211,43 @@
 		
 	}
 	
-	HVACloader.prototype.setViewNumber = function(viewNumber) {
+	HVACloader.prototype.setViewPointNumber = function(viewNumber) {
 		var vps = hemi.world.getViewpoints();
 		hemi.world.camera.moveToView(vps[viewNumber]);
 	}
 	
+	HVACloader.prototype.setViewPointName = function(viewName) {
+		
+		var obj = {"name":viewName}
+		var vps = hemi.world.getViewpoints(obj);
+		
+		hemi.world.camera.moveToView(vps[0]);
+	}	
 
+	HVACloader.prototype.hideZone = function(zoneNumber) {
+		
+		var shapeName = 'zone' + zoneNumber + 'Volume';
+		var theShape = this.getShape(shapeName);
+		
+		theShape.setVisible({"vis":false});
+	}
 	
+	HVACloader.prototype.showZone = function(zoneNumber) {
+		
+		var shapeName = 'zone' + zoneNumber + 'Volume';
+		var theShape = this.getShape(shapeName);
+		
+		theShape.setVisible({"vis":true});
+	}
 
+	HVACloader.prototype.getShape = function(shapeName) {
+		
+		var obj = {"name":shapeName}
+		var shapes = hemi.world.getShapes(obj);
+		var theShape = shapes[0];
+		
+		return theShape;
+	}
 	
 
 

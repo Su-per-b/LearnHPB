@@ -17,7 +17,7 @@
                 {
                     "name":"pan",
                     "val":{
-                        "current":-0.019999996132849484,
+                        "current":-5.377642775528102e-17,
                         "min":null,
                         "max":null
                     }
@@ -25,7 +25,7 @@
                 {
                     "name":"tilt",
                     "val":{
-                        "current":-0.10014861226911531,
+                        "current":-0.4449786631268642,
                         "min":-1.5700113211343294,
                         "max":1.5700113211343294
                     }
@@ -56,7 +56,7 @@
                 },
                 {
                     "name":"distance",
-                    "val":1141.8677490515718
+                    "val":41.23105625617661
                 },
                 {
                     "name":"up",
@@ -88,6 +88,187 @@
         },
         {
             "id":51,
+            "type":"hemi.model.Model",
+            "props":[
+                {
+                    "name":"name",
+                    "val":"particle_systems"
+                },
+                {
+                    "name":"setFileName",
+                    "arg":[
+                        "assets/particle_systems.o3dtgz"
+                    ]
+                },
+                {
+                    "name":"transformUpdates",
+                    "oct":[
+                        {
+                            "type":"hemi.model.TransformUpdate",
+                            "props":[
+                                {
+                                    "name":"transformName",
+                                    "val":"particle_systems"
+                                },
+                                {
+                                    "name":"localMatrix",
+                                    "val":[
+                                        [
+                                            0,
+                                            0,
+                                            -49.99999237060547,
+                                            0
+                                        ],
+                                        [
+                                            -49.99999237060547,
+                                            0,
+                                            0,
+                                            0
+                                        ],
+                                        [
+                                            0,
+                                            49.99999237060547,
+                                            0,
+                                            0
+                                        ],
+                                        [
+                                            0,
+                                            0,
+                                            0,
+                                            1
+                                        ]
+                                    ]
+                                },
+                                {
+                                    "name":"visible",
+                                    "val":null
+                                },
+                                {
+                                    "name":"pickable",
+                                    "val":null
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id":91,
+            "type":"hemi.view.Viewpoint",
+            "props":[
+                {
+                    "name":"name",
+                    "val":"lookUp"
+                },
+                {
+                    "name":"eye",
+                    "val":[
+                        -0.1273617297410965,
+                        -1225.4468994140625,
+                        25.474210739135742
+                    ]
+                },
+                {
+                    "name":"target",
+                    "val":[
+                        0,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "name":"up",
+                    "val":[
+                        0,
+                        1,
+                        0
+                    ]
+                },
+                {
+                    "name":"fov",
+                    "val":0.707107
+                },
+                {
+                    "name":"np",
+                    "val":1
+                },
+                {
+                    "name":"fp",
+                    "val":10000
+                }
+            ]
+        },
+        {
+            "id":140,
+            "type":"hemi.shape.Shape",
+            "props":[
+                {
+                    "name":"name",
+                    "val":"zone1Volume"
+                },
+                {
+                    "name":"color",
+                    "val":[
+                        0.9,
+                        0.54,
+                        0.54,
+                        0.2
+                    ]
+                },
+                {
+                    "name":"dim",
+                    "val":{
+                        "position":[
+                            -400,
+                            1200,
+                            300
+                        ],
+                        "height":100,
+                        "width":400,
+                        "depth":400
+                    }
+                },
+                {
+                    "name":"shapeType",
+                    "val":"box"
+                },
+                {
+                    "name":"create",
+                    "arg":[
+                        [
+                            [
+                                1,
+                                0,
+                                0,
+                                0
+                            ],
+                            [
+                                0,
+                                1,
+                                0,
+                                0
+                            ],
+                            [
+                                0,
+                                0,
+                                1,
+                                0
+                            ],
+                            [
+                                -400,
+                                1500,
+                                300,
+                                1
+                            ]
+                        ],
+                        false
+                    ]
+                }
+            ]
+        },
+        {
+            "id":52,
             "type":"hemi.hud.HudText",
             "props":[
                 {
@@ -148,7 +329,7 @@
             ]
         },
         {
-            "id":52,
+            "id":53,
             "type":"hemi.hud.HudText",
             "props":[
                 {
@@ -209,7 +390,7 @@
             ]
         },
         {
-            "id":53,
+            "id":54,
             "type":"hemi.hud.HudText",
             "props":[
                 {
@@ -270,7 +451,7 @@
             ]
         },
         {
-            "id":54,
+            "id":55,
             "type":"hemi.hud.HudText",
             "props":[
                 {
@@ -331,73 +512,12 @@
             ]
         },
         {
-            "id":55,
-            "type":"hemi.hud.HudText",
-            "props":[
-                {
-                    "name":"name",
-                    "val":"EditorCitizen:ShapeBoundMinX"
-                },
-                {
-                    "name":"top",
-                    "val":0
-                },
-                {
-                    "name":"bottom",
-                    "val":0
-                },
-                {
-                    "name":"left",
-                    "val":0
-                },
-                {
-                    "name":"right",
-                    "val":0
-                },
-                {
-                    "name":"config",
-                    "val":{
-                        "color":[
-                            0.6,
-                            0.9,
-                            1,
-                            1
-                        ],
-                        "textAlign":0,
-                        "textSize":10
-                    }
-                },
-                {
-                    "name":"x",
-                    "val":0
-                },
-                {
-                    "name":"y",
-                    "val":0
-                },
-                {
-                    "name":"setText",
-                    "arg":[
-                        [
-                            
-                        ]
-                    ]
-                },
-                {
-                    "name":"setWidth",
-                    "arg":[
-                        300
-                    ]
-                }
-            ]
-        },
-        {
             "id":56,
             "type":"hemi.hud.HudText",
             "props":[
                 {
                     "name":"name",
-                    "val":"EditorCitizen:ShapeBoundMinY"
+                    "val":"EditorCitizen:ShapeBoundMinX"
                 },
                 {
                     "name":"top",
@@ -458,7 +578,7 @@
             "props":[
                 {
                     "name":"name",
-                    "val":"EditorCitizen:ShapeBoundMinZ"
+                    "val":"EditorCitizen:ShapeBoundMinY"
                 },
                 {
                     "name":"top",
@@ -519,7 +639,7 @@
             "props":[
                 {
                     "name":"name",
-                    "val":"EditorCitizen:ShapeBoundMaxX"
+                    "val":"EditorCitizen:ShapeBoundMinZ"
                 },
                 {
                     "name":"top",
@@ -580,7 +700,7 @@
             "props":[
                 {
                     "name":"name",
-                    "val":"EditorCitizen:ShapeBoundMaxY"
+                    "val":"EditorCitizen:ShapeBoundMaxX"
                 },
                 {
                     "name":"top",
@@ -641,7 +761,7 @@
             "props":[
                 {
                     "name":"name",
-                    "val":"EditorCitizen:ShapeBoundMaxZ"
+                    "val":"EditorCitizen:ShapeBoundMaxY"
                 },
                 {
                     "name":"top",
@@ -698,6 +818,67 @@
         },
         {
             "id":61,
+            "type":"hemi.hud.HudText",
+            "props":[
+                {
+                    "name":"name",
+                    "val":"EditorCitizen:ShapeBoundMaxZ"
+                },
+                {
+                    "name":"top",
+                    "val":0
+                },
+                {
+                    "name":"bottom",
+                    "val":0
+                },
+                {
+                    "name":"left",
+                    "val":0
+                },
+                {
+                    "name":"right",
+                    "val":0
+                },
+                {
+                    "name":"config",
+                    "val":{
+                        "color":[
+                            0.6,
+                            0.9,
+                            1,
+                            1
+                        ],
+                        "textAlign":0,
+                        "textSize":10
+                    }
+                },
+                {
+                    "name":"x",
+                    "val":0
+                },
+                {
+                    "name":"y",
+                    "val":0
+                },
+                {
+                    "name":"setText",
+                    "arg":[
+                        [
+                            
+                        ]
+                    ]
+                },
+                {
+                    "name":"setWidth",
+                    "arg":[
+                        300
+                    ]
+                }
+            ]
+        },
+        {
+            "id":62,
             "type":"hemi.hud.HudPage",
             "props":[
                 {
@@ -746,31 +927,15 @@
                 {
                     "name":"elements",
                     "id":[
-                        51,
                         52,
                         53,
-                        55,
+                        54,
                         56,
                         57,
-                        54,
                         58,
+                        55,
                         59,
-                        60
-                    ]
-                }
-            ]
-        },
-        {
-            "id":62,
-            "type":"hemi.hud.HudDisplay",
-            "props":[
-                {
-                    "name":"name",
-                    "val":"EditorCitizen:ShapeDisplay"
-                },
-                {
-                    "name":"pages",
-                    "id":[
+                        60,
                         61
                     ]
                 }
@@ -778,93 +943,98 @@
         },
         {
             "id":63,
-            "type":"hemi.model.Model",
+            "type":"hemi.hud.HudPage",
             "props":[
                 {
                     "name":"name",
-                    "val":"hvacparticle"
+                    "val":"EditorCitizen:TexturePage"
                 },
                 {
-                    "name":"setFileName",
-                    "arg":[
-                        "assets/hvacparticle.o3dtgz"
-                    ]
+                    "name":"top",
+                    "val":0
                 },
                 {
-                    "name":"transformUpdates",
-                    "oct":[
-                        {
-                            "type":"hemi.model.TransformUpdate",
-                            "props":[
-                                {
-                                    "name":"transformName",
-                                    "val":"hvacparticle"
-                                },
-                                {
-                                    "name":"localMatrix",
-                                    "val":[
-                                        [
-                                            0,
-                                            0,
-                                            -49.99999237060547,
-                                            0
-                                        ],
-                                        [
-                                            -49.99999237060547,
-                                            0,
-                                            0,
-                                            0
-                                        ],
-                                        [
-                                            0,
-                                            49.99999237060547,
-                                            0,
-                                            0
-                                        ],
-                                        [
-                                            0,
-                                            0,
-                                            0,
-                                            1
-                                        ]
-                                    ]
-                                },
-                                {
-                                    "name":"visible",
-                                    "val":null
-                                },
-                                {
-                                    "name":"pickable",
-                                    "val":null
-                                }
-                            ]
-                        }
+                    "name":"bottom",
+                    "val":0
+                },
+                {
+                    "name":"left",
+                    "val":0
+                },
+                {
+                    "name":"right",
+                    "val":0
+                },
+                {
+                    "name":"config",
+                    "val":{
+                        "color":[
+                            0,
+                            0,
+                            0,
+                            0.3
+                        ]
+                    }
+                },
+                {
+                    "name":"auto",
+                    "val":true
+                },
+                {
+                    "name":"drawBackground",
+                    "val":true
+                },
+                {
+                    "name":"margin",
+                    "val":5
+                },
+                {
+                    "name":"elements",
+                    "id":[
+                        
                     ]
                 }
             ]
         },
         {
             "id":64,
+            "type":"hemi.hud.HudDisplay",
+            "props":[
+                {
+                    "name":"name",
+                    "val":"EditorCitizen:ModelBrowserDisplay"
+                },
+                {
+                    "name":"pages",
+                    "id":[
+                        62,
+                        63
+                    ]
+                }
+            ]
+        },
+        {
+            "id":65,
             "type":"hemi.view.Viewpoint",
             "props":[
                 {
                     "name":"name",
-                    "val":"cam1"
+                    "val":"vavBox"
                 },
                 {
                     "name":"eye",
                     "val":[
-                        147.74551391601562,
-                        1489.62451171875,
-                        978.1314086914062
+                        -0.0000016853298347996315,
+                        3950.12158203125,
+                        62.35810852050781
                     ]
                 },
                 {
                     "name":"target",
                     "val":[
-                        170.4669189453125,
-                        1375.4591064453125,
-                        -157.78758239746094
+                        0,
+                        0,
+                        0
                     ]
                 },
                 {
@@ -890,7 +1060,53 @@
             ]
         },
         {
-            "id":65,
+            "id":66,
+            "type":"hemi.view.Viewpoint",
+            "props":[
+                {
+                    "name":"name",
+                    "val":"lookDown"
+                },
+                {
+                    "name":"eye",
+                    "val":[
+                        -0.0000016853298347996315,
+                        3950.12158203125,
+                        62.35810852050781
+                    ]
+                },
+                {
+                    "name":"target",
+                    "val":[
+                        0,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "name":"up",
+                    "val":[
+                        0,
+                        1,
+                        0
+                    ]
+                },
+                {
+                    "name":"fov",
+                    "val":0.707107
+                },
+                {
+                    "name":"np",
+                    "val":1
+                },
+                {
+                    "name":"fp",
+                    "val":10000
+                }
+            ]
+        },
+        {
+            "id":67,
             "type":"hemi.hud.HudText",
             "props":[
                 {
@@ -951,7 +1167,7 @@
             ]
         },
         {
-            "id":66,
+            "id":68,
             "type":"hemi.hud.HudText",
             "props":[
                 {
@@ -1012,7 +1228,7 @@
             ]
         },
         {
-            "id":67,
+            "id":69,
             "type":"hemi.hud.HudText",
             "props":[
                 {
@@ -1073,7 +1289,7 @@
             ]
         },
         {
-            "id":68,
+            "id":70,
             "type":"hemi.hud.HudText",
             "props":[
                 {
@@ -1134,134 +1350,12 @@
             ]
         },
         {
-            "id":69,
-            "type":"hemi.hud.HudText",
-            "props":[
-                {
-                    "name":"name",
-                    "val":"EditorCitizen:ShapeBoundMinX"
-                },
-                {
-                    "name":"top",
-                    "val":0
-                },
-                {
-                    "name":"bottom",
-                    "val":0
-                },
-                {
-                    "name":"left",
-                    "val":0
-                },
-                {
-                    "name":"right",
-                    "val":0
-                },
-                {
-                    "name":"config",
-                    "val":{
-                        "color":[
-                            0.6,
-                            0.9,
-                            1,
-                            1
-                        ],
-                        "textAlign":0,
-                        "textSize":10
-                    }
-                },
-                {
-                    "name":"x",
-                    "val":0
-                },
-                {
-                    "name":"y",
-                    "val":0
-                },
-                {
-                    "name":"setText",
-                    "arg":[
-                        [
-                            
-                        ]
-                    ]
-                },
-                {
-                    "name":"setWidth",
-                    "arg":[
-                        300
-                    ]
-                }
-            ]
-        },
-        {
-            "id":70,
-            "type":"hemi.hud.HudText",
-            "props":[
-                {
-                    "name":"name",
-                    "val":"EditorCitizen:ShapeBoundMinY"
-                },
-                {
-                    "name":"top",
-                    "val":0
-                },
-                {
-                    "name":"bottom",
-                    "val":0
-                },
-                {
-                    "name":"left",
-                    "val":0
-                },
-                {
-                    "name":"right",
-                    "val":0
-                },
-                {
-                    "name":"config",
-                    "val":{
-                        "color":[
-                            0.6,
-                            0.9,
-                            1,
-                            1
-                        ],
-                        "textAlign":0,
-                        "textSize":10
-                    }
-                },
-                {
-                    "name":"x",
-                    "val":0
-                },
-                {
-                    "name":"y",
-                    "val":0
-                },
-                {
-                    "name":"setText",
-                    "arg":[
-                        [
-                            
-                        ]
-                    ]
-                },
-                {
-                    "name":"setWidth",
-                    "arg":[
-                        300
-                    ]
-                }
-            ]
-        },
-        {
             "id":71,
             "type":"hemi.hud.HudText",
             "props":[
                 {
                     "name":"name",
-                    "val":"EditorCitizen:ShapeBoundMinZ"
+                    "val":"EditorCitizen:ShapeBoundMinX"
                 },
                 {
                     "name":"top",
@@ -1322,7 +1416,7 @@
             "props":[
                 {
                     "name":"name",
-                    "val":"EditorCitizen:ShapeBoundMaxX"
+                    "val":"EditorCitizen:ShapeBoundMinY"
                 },
                 {
                     "name":"top",
@@ -1383,7 +1477,7 @@
             "props":[
                 {
                     "name":"name",
-                    "val":"EditorCitizen:ShapeBoundMaxY"
+                    "val":"EditorCitizen:ShapeBoundMinZ"
                 },
                 {
                     "name":"top",
@@ -1444,630 +1538,6 @@
             "props":[
                 {
                     "name":"name",
-                    "val":"EditorCitizen:ShapeBoundMaxZ"
-                },
-                {
-                    "name":"top",
-                    "val":0
-                },
-                {
-                    "name":"bottom",
-                    "val":0
-                },
-                {
-                    "name":"left",
-                    "val":0
-                },
-                {
-                    "name":"right",
-                    "val":0
-                },
-                {
-                    "name":"config",
-                    "val":{
-                        "color":[
-                            0.6,
-                            0.9,
-                            1,
-                            1
-                        ],
-                        "textAlign":0,
-                        "textSize":10
-                    }
-                },
-                {
-                    "name":"x",
-                    "val":0
-                },
-                {
-                    "name":"y",
-                    "val":0
-                },
-                {
-                    "name":"setText",
-                    "arg":[
-                        [
-                            
-                        ]
-                    ]
-                },
-                {
-                    "name":"setWidth",
-                    "arg":[
-                        300
-                    ]
-                }
-            ]
-        },
-        {
-            "id":75,
-            "type":"hemi.hud.HudPage",
-            "props":[
-                {
-                    "name":"name",
-                    "val":"EditorCitizen:ShapePage"
-                },
-                {
-                    "name":"top",
-                    "val":0
-                },
-                {
-                    "name":"bottom",
-                    "val":0
-                },
-                {
-                    "name":"left",
-                    "val":0
-                },
-                {
-                    "name":"right",
-                    "val":0
-                },
-                {
-                    "name":"config",
-                    "val":{
-                        "color":[
-                            0,
-                            0,
-                            0,
-                            0.5
-                        ]
-                    }
-                },
-                {
-                    "name":"auto",
-                    "val":true
-                },
-                {
-                    "name":"drawBackground",
-                    "val":true
-                },
-                {
-                    "name":"margin",
-                    "val":5
-                },
-                {
-                    "name":"elements",
-                    "id":[
-                        65,
-                        66,
-                        67,
-                        69,
-                        70,
-                        71,
-                        68,
-                        72,
-                        73,
-                        74
-                    ]
-                }
-            ]
-        },
-        {
-            "id":76,
-            "type":"hemi.hud.HudPage",
-            "props":[
-                {
-                    "name":"name",
-                    "val":"EditorCitizen:TexturePage"
-                },
-                {
-                    "name":"top",
-                    "val":0
-                },
-                {
-                    "name":"bottom",
-                    "val":0
-                },
-                {
-                    "name":"left",
-                    "val":0
-                },
-                {
-                    "name":"right",
-                    "val":0
-                },
-                {
-                    "name":"config",
-                    "val":{
-                        "color":[
-                            0,
-                            0,
-                            0,
-                            0.3
-                        ]
-                    }
-                },
-                {
-                    "name":"auto",
-                    "val":true
-                },
-                {
-                    "name":"drawBackground",
-                    "val":true
-                },
-                {
-                    "name":"margin",
-                    "val":5
-                },
-                {
-                    "name":"elements",
-                    "id":[
-                        
-                    ]
-                }
-            ]
-        },
-        {
-            "id":77,
-            "type":"hemi.hud.HudDisplay",
-            "props":[
-                {
-                    "name":"name",
-                    "val":"EditorCitizen:ModelBrowserDisplay"
-                },
-                {
-                    "name":"pages",
-                    "id":[
-                        75,
-                        76
-                    ]
-                }
-            ]
-        },
-        {
-            "id":78,
-            "type":"hemi.hud.HudText",
-            "props":[
-                {
-                    "name":"name",
-                    "val":"EditorCitizen:ShapeName"
-                },
-                {
-                    "name":"top",
-                    "val":0
-                },
-                {
-                    "name":"bottom",
-                    "val":0
-                },
-                {
-                    "name":"left",
-                    "val":0
-                },
-                {
-                    "name":"right",
-                    "val":0
-                },
-                {
-                    "name":"config",
-                    "val":{
-                        "color":[
-                            0.6,
-                            0.9,
-                            1,
-                            1
-                        ],
-                        "textAlign":0,
-                        "textSize":10
-                    }
-                },
-                {
-                    "name":"x",
-                    "val":0
-                },
-                {
-                    "name":"y",
-                    "val":5
-                },
-                {
-                    "name":"setText",
-                    "arg":[
-                        [
-                            
-                        ]
-                    ]
-                },
-                {
-                    "name":"setWidth",
-                    "arg":[
-                        300
-                    ]
-                }
-            ]
-        },
-        {
-            "id":79,
-            "type":"hemi.hud.HudText",
-            "props":[
-                {
-                    "name":"name",
-                    "val":"EditorCitizen:ShapeBound"
-                },
-                {
-                    "name":"top",
-                    "val":0
-                },
-                {
-                    "name":"bottom",
-                    "val":0
-                },
-                {
-                    "name":"left",
-                    "val":0
-                },
-                {
-                    "name":"right",
-                    "val":0
-                },
-                {
-                    "name":"config",
-                    "val":{
-                        "color":[
-                            0.6,
-                            0.9,
-                            1,
-                            1
-                        ],
-                        "textAlign":0,
-                        "textSize":10
-                    }
-                },
-                {
-                    "name":"x",
-                    "val":0
-                },
-                {
-                    "name":"y",
-                    "val":0
-                },
-                {
-                    "name":"setText",
-                    "arg":[
-                        [
-                            "Bounding Box:"
-                        ]
-                    ]
-                },
-                {
-                    "name":"setWidth",
-                    "arg":[
-                        300
-                    ]
-                }
-            ]
-        },
-        {
-            "id":80,
-            "type":"hemi.hud.HudText",
-            "props":[
-                {
-                    "name":"name",
-                    "val":"EditorCitizen:ShapeBoundMin"
-                },
-                {
-                    "name":"top",
-                    "val":0
-                },
-                {
-                    "name":"bottom",
-                    "val":0
-                },
-                {
-                    "name":"left",
-                    "val":0
-                },
-                {
-                    "name":"right",
-                    "val":0
-                },
-                {
-                    "name":"config",
-                    "val":{
-                        "color":[
-                            0.6,
-                            0.9,
-                            1,
-                            1
-                        ],
-                        "textAlign":0,
-                        "textSize":10
-                    }
-                },
-                {
-                    "name":"x",
-                    "val":0
-                },
-                {
-                    "name":"y",
-                    "val":0
-                },
-                {
-                    "name":"setText",
-                    "arg":[
-                        [
-                            "Min Extent:"
-                        ]
-                    ]
-                },
-                {
-                    "name":"setWidth",
-                    "arg":[
-                        300
-                    ]
-                }
-            ]
-        },
-        {
-            "id":81,
-            "type":"hemi.hud.HudText",
-            "props":[
-                {
-                    "name":"name",
-                    "val":"EditorCitizen:ShapeBoundMax"
-                },
-                {
-                    "name":"top",
-                    "val":0
-                },
-                {
-                    "name":"bottom",
-                    "val":0
-                },
-                {
-                    "name":"left",
-                    "val":0
-                },
-                {
-                    "name":"right",
-                    "val":0
-                },
-                {
-                    "name":"config",
-                    "val":{
-                        "color":[
-                            0.6,
-                            0.9,
-                            1,
-                            1
-                        ],
-                        "textAlign":0,
-                        "textSize":10
-                    }
-                },
-                {
-                    "name":"x",
-                    "val":0
-                },
-                {
-                    "name":"y",
-                    "val":0
-                },
-                {
-                    "name":"setText",
-                    "arg":[
-                        [
-                            "Max Extent:"
-                        ]
-                    ]
-                },
-                {
-                    "name":"setWidth",
-                    "arg":[
-                        300
-                    ]
-                }
-            ]
-        },
-        {
-            "id":82,
-            "type":"hemi.hud.HudText",
-            "props":[
-                {
-                    "name":"name",
-                    "val":"EditorCitizen:ShapeBoundMinX"
-                },
-                {
-                    "name":"top",
-                    "val":0
-                },
-                {
-                    "name":"bottom",
-                    "val":0
-                },
-                {
-                    "name":"left",
-                    "val":0
-                },
-                {
-                    "name":"right",
-                    "val":0
-                },
-                {
-                    "name":"config",
-                    "val":{
-                        "color":[
-                            0.6,
-                            0.9,
-                            1,
-                            1
-                        ],
-                        "textAlign":0,
-                        "textSize":10
-                    }
-                },
-                {
-                    "name":"x",
-                    "val":0
-                },
-                {
-                    "name":"y",
-                    "val":0
-                },
-                {
-                    "name":"setText",
-                    "arg":[
-                        [
-                            
-                        ]
-                    ]
-                },
-                {
-                    "name":"setWidth",
-                    "arg":[
-                        300
-                    ]
-                }
-            ]
-        },
-        {
-            "id":83,
-            "type":"hemi.hud.HudText",
-            "props":[
-                {
-                    "name":"name",
-                    "val":"EditorCitizen:ShapeBoundMinY"
-                },
-                {
-                    "name":"top",
-                    "val":0
-                },
-                {
-                    "name":"bottom",
-                    "val":0
-                },
-                {
-                    "name":"left",
-                    "val":0
-                },
-                {
-                    "name":"right",
-                    "val":0
-                },
-                {
-                    "name":"config",
-                    "val":{
-                        "color":[
-                            0.6,
-                            0.9,
-                            1,
-                            1
-                        ],
-                        "textAlign":0,
-                        "textSize":10
-                    }
-                },
-                {
-                    "name":"x",
-                    "val":0
-                },
-                {
-                    "name":"y",
-                    "val":0
-                },
-                {
-                    "name":"setText",
-                    "arg":[
-                        [
-                            
-                        ]
-                    ]
-                },
-                {
-                    "name":"setWidth",
-                    "arg":[
-                        300
-                    ]
-                }
-            ]
-        },
-        {
-            "id":84,
-            "type":"hemi.hud.HudText",
-            "props":[
-                {
-                    "name":"name",
-                    "val":"EditorCitizen:ShapeBoundMinZ"
-                },
-                {
-                    "name":"top",
-                    "val":0
-                },
-                {
-                    "name":"bottom",
-                    "val":0
-                },
-                {
-                    "name":"left",
-                    "val":0
-                },
-                {
-                    "name":"right",
-                    "val":0
-                },
-                {
-                    "name":"config",
-                    "val":{
-                        "color":[
-                            0.6,
-                            0.9,
-                            1,
-                            1
-                        ],
-                        "textAlign":0,
-                        "textSize":10
-                    }
-                },
-                {
-                    "name":"x",
-                    "val":0
-                },
-                {
-                    "name":"y",
-                    "val":0
-                },
-                {
-                    "name":"setText",
-                    "arg":[
-                        [
-                            
-                        ]
-                    ]
-                },
-                {
-                    "name":"setWidth",
-                    "arg":[
-                        300
-                    ]
-                }
-            ]
-        },
-        {
-            "id":85,
-            "type":"hemi.hud.HudText",
-            "props":[
-                {
-                    "name":"name",
                     "val":"EditorCitizen:ShapeBoundMaxX"
                 },
                 {
@@ -2124,7 +1594,7 @@
             ]
         },
         {
-            "id":86,
+            "id":75,
             "type":"hemi.hud.HudText",
             "props":[
                 {
@@ -2185,7 +1655,7 @@
             ]
         },
         {
-            "id":87,
+            "id":76,
             "type":"hemi.hud.HudText",
             "props":[
                 {
@@ -2246,7 +1716,7 @@
             ]
         },
         {
-            "id":88,
+            "id":77,
             "type":"hemi.hud.HudPage",
             "props":[
                 {
@@ -2295,22 +1765,22 @@
                 {
                     "name":"elements",
                     "id":[
-                        78,
-                        79,
-                        80,
-                        82,
-                        83,
-                        84,
-                        81,
-                        85,
-                        86,
-                        87
+                        67,
+                        68,
+                        69,
+                        71,
+                        72,
+                        73,
+                        70,
+                        74,
+                        75,
+                        76
                     ]
                 }
             ]
         },
         {
-            "id":89,
+            "id":78,
             "type":"hemi.hud.HudPage",
             "props":[
                 {
@@ -2365,7 +1835,7 @@
             ]
         },
         {
-            "id":90,
+            "id":79,
             "type":"hemi.hud.HudDisplay",
             "props":[
                 {
@@ -2375,71 +1845,25 @@
                 {
                     "name":"pages",
                     "id":[
-                        88,
-                        89
+                        77,
+                        78
                     ]
-                }
-            ]
-        },
-        {
-            "id":91,
-            "type":"hemi.view.Viewpoint",
-            "props":[
-                {
-                    "name":"name",
-                    "val":"cam1"
-                },
-                {
-                    "name":"eye",
-                    "val":[
-                        -30.263093948364258,
-                        -1146.8006591796875,
-                        431.6260681152344
-                    ]
-                },
-                {
-                    "name":"target",
-                    "val":[
-                        0,
-                        0,
-                        0
-                    ]
-                },
-                {
-                    "name":"up",
-                    "val":[
-                        0,
-                        1,
-                        0
-                    ]
-                },
-                {
-                    "name":"fov",
-                    "val":0.707107
-                },
-                {
-                    "name":"np",
-                    "val":1
-                },
-                {
-                    "name":"fp",
-                    "val":10000
                 }
             ]
         }
     ],
-    "nextId":92,
+    "nextId":80,
     "camera":50,
     "fog":null,
     "dispatch":{
-        "nextId":20,
+        "nextId":8,
         "ents":[
             {
                 "type":"hemi.dispatch.MessageSpec",
                 "props":[
                     {
                         "name":"src",
-                        "val":63
+                        "val":51
                     },
                     {
                         "name":"msg",
