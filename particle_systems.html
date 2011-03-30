@@ -26,13 +26,15 @@
 			var progressbar = new Progressbar();
 			var hasReached100 = false;
 			var hascompleted = false;
+			var hvacLoader = new HVACloader();
+			
 			
 			//var timer = new Timer('#page#');
 			
 			function onLoadHandler() {
 				progressbar.init("Loading Geometry");
 
-				 window.setTimeout('loadNow()',200);
+				window.setTimeout('loadNow()',200);
 			}
 			
 			function onProgress(arg) {

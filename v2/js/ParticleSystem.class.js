@@ -4,8 +4,6 @@
 	
 	function ParticleSystem(callbackObj, onComplete) {
 		
-
-	
 		this.particleSystem;
 		this.vavSystem;
 		this.boxSystem;

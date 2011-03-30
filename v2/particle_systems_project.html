@@ -18,7 +18,7 @@
     <script type="text/javascript" src="o3djs/base.js"></script>
     <script type="text/javascript" src="hemi/core.js"></script>
 	<script type="text/javascript" src="js/Progressbar.class.js"></script>
-    <script type="text/javascript" src="js/particle_systems2.js"></script>
+    <script type="text/javascript" src="js/HVACloader.class.js"></script>
 
   
 		<script type="text/javascript">
@@ -26,15 +26,45 @@
 			var progressbar = new Progressbar();
 			var hasReached100 = false;
 			var hascompleted = false;
-			var particleSystem2  = new ParticleSystem2();
-	
+			var hvacLoader = new HVACloader(this, onLoadFinished);
 	
 			//var timer = new Timer('#page#');
 			
-			function onLoadHandler() {
+			jQuery(window).load(function() {
 				progressbar.init("Loading Geometry");
+				progressbar.show();
+				
+				o3djs.util.makeClients(init,'LargeGeometry');
+				
+				
+				//hvacLoader.loadWorld()
+				
+				//loadNow();
+				
+			});
+			
+			
+			function init(clientElements) {
+				hemi.core.init(clientElements[0]);
+				hemi.view.setBGColor([0.7, 0.8, 1, 1]);
+				hvacLoader.loadWorld();
+			}
+			
+	
+			jQuery(window).unload(function() {
+				if (hemi.core.client) {
+					hemi.core.client.cleanup();
+				}
+			});
+	
+	
+				function onLoadFinished() {
+				
+			}
+			
+			function onLoadHandler() {
 
-				 window.setTimeout('loadNow()',200);
+				// window.setTimeout('loadNow()',200);
 			}
 			
 			function onProgress(arg) {
@@ -55,7 +85,7 @@
 				   
 				  progressbar.init("Generating Particle Systems");
 				  
-				  var del = delegate( particleSystem2, particleSystem2.setupParticleSystem1 );
+				  var del = delegate( hvacLoader, hvacLoader.setupParticleSystems1 );
 				  
 				   window.setTimeout(del,150);
 				  //onProgress(100);
@@ -69,7 +99,7 @@
 				progressbar.onProgress(percent);
 				
 				if (percent == 100) {
-					 setView(1);
+					 hvacLoader.setViewNumber(1);
 					 window.setTimeout('progressbar.hide();',200);
 					 
 				}
@@ -88,10 +118,7 @@
 
 
 		  	    //this is NOT threadblocking
-				progressbar.show();
-				
-				loadWorld(this, onLoadComplete)
-				 
+
 			}
 			
 		</script>
@@ -105,19 +132,19 @@
         
         <div id="nav">
 			<ul>
-				<li><a href="#" onclick="particleSystemStart();">Start Particle System</a></li>
-				<li><a href="#" onclick="vavSystemStart();">Start VAV System</a></li>
-				<li><a href="#" onclick="boxSystemStart();">Start Box System</a></li>
-				<li><a href="#" onclick="toggleBoxes();">Toggle Bounding Boxes</a></li>
-				<li><a href="#" onclick="stopAllSystems();">Stop All Systems</a></li>
+				<li><a href="#" onclick="hvacLoader.particleSystemStart();">Start Particle System</a></li>
+				<li><a href="#" onclick="hvacLoader.vavSystemStart();">Start VAV System</a></li>
+				<li><a href="#" onclick="hvacLoader.boxSystemStart();">Start Box System</a></li>
+				<li><a href="#" onclick="hvacLoader.toggleBoxes();">Toggle Bounding Boxes</a></li>
+				<li><a href="#" onclick="hvacLoader.stopAllSystems();">Stop All Systems</a></li>
 			</ul>
             <ul>
-				<li><a href="#" onclick="setView(0);">0</a></li>
-				<li><a href="#" onclick="setView(1);">1</a></li>
-				<li><a href="#" onclick="setView(2);">2</a></li>
-				<li><a href="#" onclick="setView(3);">3</a></li>
-				<li><a href="#" onclick="setView(4);">4</a></li>
-				<li><a href="#" onclick="setView(5);">5</a></li>
+				<li><a href="#" onclick="hvacLoader.setViewNumber(0);">0</a></li>
+				<li><a href="#" onclick="hvacLoader.setViewNumber(1);">1</a></li>
+				<li><a href="#" onclick="hvacLoader.setViewNumber(2);">2</a></li>
+				<li><a href="#" onclick="hvacLoader.setViewNumber(3);">3</a></li>
+				<li><a href="#" onclick="hvacLoader.setViewNumber(4);">4</a></li>
+				<li><a href="#" onclick="hvacLoader.setViewNumber(5);">5</a></li>
 			</ul>
  		</div>
         
