@@ -104,7 +104,7 @@
 			this.particleSystemConfig);
 			
 
-	 	this.theCallbackObject.onProgress2(100);
+	 	this.theCallbackObject.onProgress2(33);
 		var del = delegate(this, this.setupParticleSystems2);
 		
 		window.setTimeout(del,150);
