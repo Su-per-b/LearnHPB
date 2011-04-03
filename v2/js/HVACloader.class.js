@@ -65,9 +65,10 @@
 		var scaleKey2 = {key: 1, value: [8,8,8]};
 		var scaleKey3 = {key: 1, value: [8,8,8]};
 		
+		var rate = 1;
 		
 		this.particleSystemConfig = {
-			rate : 20,
+			rate : rate,
 			life : 10,
 			boundingBoxes : [box1, box3, box4,boxBump, boxFan, box6, box7],
 			shape : hemi.curve.shapeType.SPHERE,
@@ -76,7 +77,7 @@
 		};
 		
 		this.vavConfig = {
-			rate : 20,
+			rate : rate,
 			life : 10,
 			boundingBoxes : [box1, box3, box4,boxBump, boxFan, box6, box8, vavBox, box9, box10],
 			shape : hemi.curve.shapeType.ARROW,
@@ -86,7 +87,7 @@
 		
 		
 		this.boxConfig = {
-			rate : 20,
+			rate : rate,
 			life : 10,
 			boundingBoxes : [box1, box3, box4,boxBump, boxFan, box6, box8, box11, box12, box13,box14, box15],
 			shape : hemi.curve.shapeType.ARROW,

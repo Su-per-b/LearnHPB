@@ -12,6 +12,9 @@ ul {
 }
 
 
+#topNav {
+		height:160px;
+}
 
 
 #o3d {
@@ -143,6 +146,8 @@ img {
 	text-transform:uppercase;
 	width:140px;
 }
+
+
 .selected {
 	background:#fff;
 }
@@ -164,10 +169,10 @@ img {
 
 /*** Content ***/
 
-	#content,#contentalt {
+	#content, {
 	background-color:#fafcff;
 	color:#2a2a2a;
-	padding:15px 20px 5px;
+	padding:0;
 	min-height:800px;
 
 }
