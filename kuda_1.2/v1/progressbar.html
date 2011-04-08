@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+
+<title>Superb Demos: Hotspots</title>
+
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+
+<link rel="stylesheet" href="stylz.css" type="text/css" media="screen" />
+
+
+<style type="text/css">
+
+	#pwidget
+	{
+		background-color:lightgray;
+		width:254px;
+		padding:2px;
+	    -moz-border-radius:3px;
+		border-radius:3px;
+		text-align:left;
+		border:1px solid gray;	
+	}
+	#progressbar
+	{
+		width:250px;
+		padding:1px;
+		background-color:white;
+		border:1px solid black;
+		height:28px;
+	}
+	#indicator
+	{
+		width:10px;
+		background-image:url("shaded-green.png");
+		height:22px;
+		margin:0;
+	}
+	#progressnum
+	{
+		text-align:center;
+		width:250px;
+		font-weight:bold;
+	}
+
+</style>
+ 
+
+
+
+
+        
+<script type="text/javascript">
+        
+var maxprogress = 250;   // total to reach
+var actualprogress = 0;  // current value
+var itv = 0;  // id to setinterval
+
+
+function prog()
+{
+  if(actualprogress >= maxprogress) 
+  {
+    clearInterval(itv);   	
+    return;
+  }	
+  var progressnum = document.getElementById("progressnum");
+  var indicator = document.getElementById("indicator");
+  
+  actualprogress += 1;	
+  indicator.style.width=actualprogress + 'px';
+  progressnum.innerHTML = actualprogress;
+  if(actualprogress == maxprogress) clearInterval(itv);   
+}
+
+</script>
+            
+
+        
+</head>
+
+<body>
+
+
+
+        
+        
+        
+        
+<div id="pwidget">  
+<div id="progressbar">
+    <div id="indicator"></div>
+</div>
+
+<div id="progressnum">0</div>
+
+</div>
+
+
+<input type="button" name="Submit" value="Start the progression"
+    onclick="itv = setInterval(prog, 100)" />
+    
+<input type="button" name="Submit" value="Stop"
+    onclick="clearInterval(itv)" />
+    
+    
+    
+        
+
+
+
+
+</body>
+</html>
