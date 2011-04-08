@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA version="1.4.0" xmlns="http://www.collada.org/2005/11/COLLADASchema">
+	<asset>
+		<contributor>
+			<author>Illusoft Collada 1.4.0 plugin for Blender - http://colladablender.illusoft.com</author>
+			<authoring_tool>Blender v:249 - Illusoft Collada Exporter v:0.3.162</authoring_tool>
+			<comments></comments>
+			<copyright></copyright>
+			<source_data>file://C://</source_data>
+		</contributor>
+		<created>2011-04-07T18:27:37.856000</created>
+		<modified>2011-04-07T18:27:37.856000</modified>
+		<unit meter="0.01" name="centimeter"/>
+		<up_axis>Z_UP</up_axis>
+	</asset>
+	<library_cameras>
+		<camera id="Camera-Camera" name="Camera-Camera">
+			<optics>
+				<technique_common>
+					<perspective>
+						<yfov>49.13434</yfov>
+						<znear>0.1</znear>
+						<zfar>100.0</zfar>
+					</perspective>
+				</technique_common>
+			</optics>
+		</camera>
+	</library_cameras>
+	<library_effects>
+		<effect id="Sky_Blue-fx" name="Sky_Blue-fx">
+			<profile_COMMON>
+				<technique sid="blender">
+					<phong>
+						<emission>
+							<color>0.00000 0.00000 0.00000 1</color>
+						</emission>
+						<ambient>
+							<color>0.17645 0.35295 0.42940 1</color>
+						</ambient>
+						<diffuse>
+							<color>0.35290 0.70590 0.85880 1</color>
+						</diffuse>
+						<specular>
+							<color>0.50000 0.50000 0.50000 1</color>
+						</specular>
+						<shininess>
+							<float>0.25</float>
+						</shininess>
+						<reflective>
+							<color>0.00000 0.00000 0.00000 1</color>
+						</reflective>
+						<reflectivity>
+							<float>0.0</float>
+						</reflectivity>
+						<transparent>
+							<color>1 1 1 1</color>
+						</transparent>
+						<transparency>
+							<float>0.0</float>
+						</transparency>
+					</phong>
+				</technique>
+			</profile_COMMON>
+		</effect>
+		<effect id="Brown_Earth-fx" name="Brown_Earth-fx">
+			<profile_COMMON>
+				<technique sid="blender">
+					<phong>
+						<emission>
+							<color>0.00000 0.00000 0.00000 1</color>
+						</emission>
+						<ambient>
+							<color>0.24900 0.12155 0.08430 1</color>
+						</ambient>
+						<diffuse>
+							<color>0.49800 0.24310 0.16860 1</color>
+						</diffuse>
+						<specular>
+							<color>0.50000 0.50000 0.50000 1</color>
+						</specular>
+						<shininess>
+							<float>0.25</float>
+						</shininess>
+						<reflective>
+							<color>0.00000 0.00000 0.00000 1</color>
+						</reflective>
+						<reflectivity>
+							<float>0.0</float>
+						</reflectivity>
+						<transparent>
+							<color>1 1 1 1</color>
+						</transparent>
+						<transparency>
+							<float>0.0</float>
+						</transparency>
+					</phong>
+				</technique>
+			</profile_COMMON>
+		</effect>
+		<effect id="Green_Hills-fx" name="Green_Hills-fx">
+			<profile_COMMON>
+				<technique sid="blender">
+					<phong>
+						<emission>
+							<color>0.00000 0.00000 0.00000 1</color>
+						</emission>
+						<ambient>
+							<color>0.16865 0.28040 0.09610 1</color>
+						</ambient>
+						<diffuse>
+							<color>0.33730 0.56080 0.19220 1</color>
+						</diffuse>
+						<specular>
+							<color>0.50000 0.50000 0.50000 1</color>
+						</specular>
+						<shininess>
+							<float>0.25</float>
+						</shininess>
+						<reflective>
+							<color>0.00000 0.00000 0.00000 1</color>
+						</reflective>
+						<reflectivity>
+							<float>0.0</float>
+						</reflectivity>
+						<transparent>
+							<color>1 1 1 1</color>
+						</transparent>
+						<transparency>
+							<float>0.0</float>
+						</transparency>
+					</phong>
+				</technique>
+			</profile_COMMON>
+		</effect>
+	</library_effects>
+	<library_lights>
+		<light id="Spot" name="Spot">
+			<technique_common>
+				<point>
+					<color>1.00000 1.00000 1.00000</color>
+					<constant_attenuation>1.0</constant_attenuation>
+					<linear_attenuation>0.0</linear_attenuation>
+					<quadratic_attenuation>0.0</quadratic_attenuation>
+				</point>
+			</technique_common>
+		</light>
+	</library_lights>
+	<library_materials>
+		<material id="Sky_Blue" name="Sky_Blue">
+			<instance_effect url="#Sky_Blue-fx"/>
+		</material>
+		<material id="Brown_Earth" name="Brown_Earth">
+			<instance_effect url="#Brown_Earth-fx"/>
+		</material>
+		<material id="Green_Hills" name="Green_Hills">
+			<instance_effect url="#Green_Hills-fx"/>
+		</material>
+	</library_materials>
+	<library_geometries>
+		<geometry id="Box_001" name="Box_001">
+			<mesh>
+				<source id="Box_001-Position">
+					<float_array count="60" id="Box_001-Position-array">1.00000 -0.00000 0.00000 1.00000 -0.00000 1.08333 1.00000 1.20833 0.00000 1.00000 1.20833 1.08333 1.00000 1.20833 0.00000 1.00000 1.20833 1.08333 0.00000 1.20833 0.00000 0.00000 1.20833 1.08333 0.00000 1.20833 0.00000 0.00000 1.20833 1.08333 0.00000 -0.00000 0.00000 0.00000 -0.00000 1.08333 0.00000 -0.00000 0.00000 0.00000 1.20833 0.00000 1.00000 -0.00000 0.00000 1.00000 1.20833 0.00000 0.00000 -0.00000 1.08333 0.00000 1.20833 1.08333 1.00000 -0.00000 1.08333 1.00000 1.20833 1.08333</float_array>
+					<technique_common>
+						<accessor count="20" source="#Box_001-Position-array" stride="3">
+							<param type="float" name="X"></param>
+							<param type="float" name="Y"></param>
+							<param type="float" name="Z"></param>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Box_001-Normals">
+					<float_array count="15" id="Box_001-Normals-array">1.00000 0.00000 0.00000 0.00000 1.00000 -0.00000 -1.00000 0.00000 0.00000 0.00000 0.00000 -1.00000 0.00000 -0.00000 1.00000</float_array>
+					<technique_common>
+						<accessor count="5" source="#Box_001-Normals-array" stride="3">
+							<param type="float" name="X"></param>
+							<param type="float" name="Y"></param>
+							<param type="float" name="Z"></param>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Box_001-UV">
+					<float_array count="40" id="Box_001-UV-array">0.00000 0.00000 1.00000 0.00000 1.00000 1.00000 0.00000 1.00000 1.00000 1.00000 0.00000 1.00000 0.00000 0.00000 1.00000 0.00000 1.00000 1.00000 0.00000 1.00000 0.00000 0.00000 1.00000 0.00000 1.00000 1.00000 1.00000 0.00000 0.00000 0.00000 0.00000 1.00000 1.00000 1.00000 0.00000 1.00000 0.00000 0.00000 1.00000 0.00000</float_array>
+					<technique_common>
+						<accessor count="20" source="#Box_001-UV-array" stride="2">
+							<param type="float" name="S"></param>
+							<param type="float" name="T"></param>
+						</accessor>
+					</technique_common>
+				</source>
+				<vertices id="Box_001-Vertex">
+					<input semantic="POSITION" source="#Box_001-Position"/>
+				</vertices>
+				<polygons count="1" material="Sky_Blue">
+					<input offset="0" semantic="VERTEX" source="#Box_001-Vertex"/>
+					<input offset="1" semantic="NORMAL" source="#Box_001-Normals"/>
+					<input offset="2" semantic="TEXCOORD" source="#Box_001-UV"/>
+					<p>19 4 16 17 4 17 16 4 18 18 4 19</p>
+				</polygons>
+				<polygons count="1" material="Brown_Earth">
+					<input offset="0" semantic="VERTEX" source="#Box_001-Vertex"/>
+					<input offset="1" semantic="NORMAL" source="#Box_001-Normals"/>
+					<input offset="2" semantic="TEXCOORD" source="#Box_001-UV"/>
+					<p>15 3 12 14 3 13 12 3 14 13 3 15</p>
+				</polygons>
+				<polygons count="3" material="Green_Hills">
+					<input offset="0" semantic="VERTEX" source="#Box_001-Vertex"/>
+					<input offset="1" semantic="NORMAL" source="#Box_001-Normals"/>
+					<input offset="2" semantic="TEXCOORD" source="#Box_001-UV"/>
+					<p>0 0 0 2 0 1 3 0 2 1 0 3</p>
+					<p>7 1 4 5 1 5 4 1 6 6 1 7</p>
+					<p>11 2 8 9 2 9 8 2 10 10 2 11</p>
+				</polygons>
+			</mesh>
+		</geometry>
+	</library_geometries>
+	<library_visual_scenes>
+		<visual_scene id="Scene" name="Scene">
+			<node layer="L1" id="Box" name="Box">
+				<translate sid="translate">0.00000 0.00000 0.00000</translate>
+				<rotate sid="rotateZ">0 0 1 0.00000</rotate>
+				<rotate sid="rotateY">0 1 0 -0.00000</rotate>
+				<rotate sid="rotateX">1 0 0 0.00000</rotate>
+				<scale sid="scale">1.00000 1.00000 1.00000</scale>
+				<instance_geometry url="#Box_001">
+					<bind_material>
+						<technique_common>
+							<instance_material symbol="Sky_Blue" target="#Sky_Blue">
+								<bind_vertex_input input_semantic="TEXCOORD" input_set="1" semantic="CHANNEL1"/>
+							</instance_material>
+							<instance_material symbol="Brown_Earth" target="#Brown_Earth">
+								<bind_vertex_input input_semantic="TEXCOORD" input_set="1" semantic="CHANNEL1"/>
+							</instance_material>
+							<instance_material symbol="Green_Hills" target="#Green_Hills">
+								<bind_vertex_input input_semantic="TEXCOORD" input_set="1" semantic="CHANNEL1"/>
+							</instance_material>
+						</technique_common>
+					</bind_material>
+				</instance_geometry>
+			</node>
+			<node layer="L1" id="Lamp" name="Lamp">
+				<translate sid="translate">4.07625 1.00545 5.90386</translate>
+				<rotate sid="rotateZ">0 0 1 106.93632</rotate>
+				<rotate sid="rotateY">0 1 0 3.16371</rotate>
+				<rotate sid="rotateX">1 0 0 37.26105</rotate>
+				<scale sid="scale">1.00000 1.00000 1.00000</scale>
+				<instance_light url="#Spot"/>
+			</node>
+			<node layer="L1" id="Camera" name="Camera">
+				<translate sid="translate">7.48113 -6.50764 5.34367</translate>
+				<rotate sid="rotateZ">0 0 1 46.69194</rotate>
+				<rotate sid="rotateY">0 1 0 0.61977</rotate>
+				<rotate sid="rotateX">1 0 0 63.55930</rotate>
+				<scale sid="scale">1.00000 1.00000 1.00000</scale>
+				<instance_camera url="#Camera-Camera"/>
+			</node>
+		</visual_scene>
+	</library_visual_scenes>
+	<library_physics_materials>
+		<physics_material id="Box-PhysicsMaterial" name="Box-PhysicsMaterial">
+			<technique_common>
+				<dynamic_friction>0.5</dynamic_friction>
+				<restitution>0.0</restitution>
+				<static_friction>0.5</static_friction>
+			</technique_common>
+		</physics_material>
+	</library_physics_materials>
+	<library_physics_models>
+		<physics_model id="Scene-PhysicsModel" name="Scene-PhysicsModel">
+			<rigid_body name="Box-RigidBody" sid="Box-RigidBody">
+				<technique_common>
+					<dynamic>false</dynamic>
+					<mass>0</mass>
+					<instance_physics_material url="#Box-PhysicsMaterial"/>
+					<shape>
+						<instance_geometry url="#Box_001"/>
+					</shape>
+				</technique_common>
+			</rigid_body>
+		</physics_model>
+	</library_physics_models>
+	<library_physics_scenes>
+		<physics_scene id="Scene-Physics" name="Scene-Physics">
+			<instance_physics_model url="#Scene-PhysicsModel">
+				<instance_rigid_body body="Box-RigidBody" target="#Box"/>
+			</instance_physics_model>
+		</physics_scene>
+	</library_physics_scenes>
+	<scene>
+		<instance_physics_scene url="#Scene-Physics"/>
+		<instance_visual_scene url="#Scene"/>
+	</scene>
+</COLLADA>
