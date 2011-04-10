@@ -19,6 +19,20 @@
  * This is a simple hello world, showing how to set up a simple world, 
  *		load a model, and set the camera to a viewpoint once the model
  *		has loaded.
+
+ 
+function traceview() {
+	var vp = hemi.view.createViewpoint("myvp", hemi.world.camera) 
+}
+function  rotateX() {
+	hemi.model.modelRoot.rotateX(1.57);
+}
+function  rotateY() {
+	hemi.model.modelRoot.rotateY(1);
+}
+function  rotateZ() {
+	hemi.model.modelRoot.rotateZ(1);
+}
  */
 (function() {
 	o3djs.require('o3djs.util');
@@ -74,16 +88,30 @@
 
 	function setupScene() {
 		var vp = new hemi.view.Viewpoint();		// Create a new Viewpoint
-		vp.eye = [2.26,2.17,3.16];					// Set viewpoint eye
-		vp.target = [0,0,0];					// Set viewpoint target
-		vp.fov = 40.5
+		vp.eye = [-56,61,39];					// Set viewpoint eye
+		vp.target = [0,10,0];					// Set viewpoint target
+	//	vp.fov = 52;
 		/**
 		 * Move the camera from it's default position (eye : [0,0,-1],
 		 *		target : [0,0,0]} to the new viewpoint, and take 120
 		 *		render cycles (~2 seconds) to do so.
 		 */
-		hemi.world.camera.moveToView(vp,120);
+		hemi.world.camera.moveToView(vp,40);
+		//hemi.console.addToPage();
+		//trace (hemi.version);
+		console.log("kuda version: %s", hemi.version);
+		
 		hemi.world.camera.enableControl();	// Enable camera mouse control
+		
+		hemi.model.modelRoot.rotateX(4.72);
+			
+		//var c = hemi.world.getCitizens();
+		
+		onWorldSetup();
+	//	var scenes = hemi.world.getScenes();
+//		hemi.model.modelRoot.rotateX(90);
+	//	hemi.model.modelRoot.rotateY(90);
+		//hemi.model.modelRoot.rotateZ(-90);
 	}
 
 	jQuery(window).load(function() {

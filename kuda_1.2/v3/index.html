@@ -34,8 +34,11 @@
 
 			jQuery(window).load(function() {
 				
-				document.documentElement.style.overflow = 'hidden';	 // firefox, chrome
-				document.body.scroll = "no";	// ie only
+                var oTop = document.documentElement.scrollTop;  
+                document.documentElement.scroll = "no";  
+                document.documentElement.style.overflow = "hidden";  
+                document.documentElement.scrollTop = oTop;  
+
 
 				setCanvasSize();
 				
