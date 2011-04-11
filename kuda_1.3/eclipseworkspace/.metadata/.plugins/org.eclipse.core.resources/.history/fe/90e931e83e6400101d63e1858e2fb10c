@@ -1,0 +1,21 @@
+/**
+ * 
+ */
+
+var hvacLoader = (function(hvacLoader) {
+	
+	
+	
+	
+	hemi.core.init = function(clientElement) {
+
+	};
+	
+	
+	
+	
+	
+	
+	return hvacLoader;
+	
+})(hvacLoader || {});

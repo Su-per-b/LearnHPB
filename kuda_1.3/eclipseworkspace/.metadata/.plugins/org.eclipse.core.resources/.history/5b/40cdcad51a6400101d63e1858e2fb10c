@@ -1,0 +1,105 @@
+
+
+/**
+ * This is a simple hello world, showing how to set up a simple world, 
+ *		load a model, and set the camera to a viewpoint once the model
+ *		has loaded.
+
+ 
+function traceview() {
+	var vp = hemi.view.createViewpoint("myvp", hemi.world.camera) 
+}
+function  rotateX() {
+	hemi.model.modelRoot.rotateX(1.57);
+}
+function  rotateY() {
+	hemi.model.modelRoot.rotateY(1);
+}
+function  rotateZ() {
+	hemi.model.modelRoot.rotateZ(1);
+}
+ */
+
+	o3djs.require('o3djs.util');
+
+	function init(clientElements) {
+		/**
+		 * It is possible to have multiple clients (i.e. multiple frames
+		 * 		rendering 3d content) on one page that would have to be
+		 * 		initialized. In this case, we only want to initialize the
+		 *		first one.
+		 */
+		hemi.core.init(clientElements[0]);
+		
+		/**
+		 * Set the background color to a light-bluish. The parameter is in
+		 * 		the form [red,blue,green,alpha], with each value on a 
+		 *		scale of 0-1.
+		 */
+		hemi.view.setBGColor([0.8, 0.8, 0.8, 1]);
+		
+		/**
+		 * Set a prefix for the loader that will allow us to load assets as if
+		 * the helloWorld.html file was in the root directory.
+		 */
+	//	hemi.loader.loadPath = '../../';
+		
+		createWorld();
+	}
+
+	function createWorld() {
+
+
+		var house = new hemi.model.Model();				// Create a new Model
+		house.setFileName('scene.json'); // Set the model file
+		
+
+		hemi.world.subscribe(hemi.msg.ready,
+			function(msg) {
+				setupScene();
+			});
+		
+		hemi.world.ready();   // Indicate that we are ready to start our script
+	}
+
+	function setupScene() {
+		var vp = new hemi.view.Viewpoint();		// Create a new Viewpoint
+		vp.eye = [-56,61,39];					// Set viewpoint eye
+		vp.target = [0,10,0];					// Set viewpoint target
+	//	vp.fov = 52;
+		/**
+		 * Move the camera from it's default position (eye : [0,0,-1],
+		 *		target : [0,0,0]} to the new viewpoint, and take 120
+		 *		render cycles (~2 seconds) to do so.
+		 */
+		
+		//hemi.console.addToPage();
+		//trace (hemi.version);
+		console.log("kuda version: %s", hemi.version);
+		
+		hemi.world.camera.enableControl();	// Enable camera mouse control
+		hemi.model.modelRoot.rotateX(4.72);
+		
+		
+		hemi.world.camera.subscribe(
+				hemi.msg.stop,
+				onCameraMoved);
+		
+		hemi.world.camera.moveToView(vp,40);
+		
+
+		
+
+			
+		//var c = hemi.world.getCitizens();
+		
+		//onWorldSetup();
+
+	}
+	
+	
+	function onCameraMoved(msg) {
+		onWorldSetup();
+	}
+
+

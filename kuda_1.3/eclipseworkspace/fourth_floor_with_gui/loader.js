@@ -1,19 +1,4 @@
-/* 
- * Kuda includes a library and editor for authoring interactive 3D content for the web.
- * Copyright (C) 2011 SRI International.
- *
- * This program is free software; you can redistribute it and/or modify it under the terms
- * of the GNU General Public License as published by the Free Software Foundation; either 
- * version 2 of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
- * See the GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License along with this program; 
- * if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, 
- * Boston, MA 02110-1301 USA.
- */
+
 
 /**
  * This is a simple hello world, showing how to set up a simple world, 
@@ -21,9 +6,7 @@
  *		has loaded.
 
  
-function traceview() {
-	var vp = hemi.view.createViewpoint("myvp", hemi.world.camera) 
-}
+
 function  rotateX() {
 	hemi.model.modelRoot.rotateX(1.57);
 }
@@ -36,7 +19,15 @@ function  rotateZ() {
  */
 
 	o3djs.require('o3djs.util');
-
+	var theModel;
+	var msgHandler;
+	
+	
+	
+	function traceview() {
+		var vp = hemi.view.createViewpoint("myvp", hemi.world.camera);
+	}
+	
 	function init(clientElements) {
 		/**
 		 * It is possible to have multiple clients (i.e. multiple frames
@@ -62,22 +53,16 @@ function  rotateZ() {
 		createWorld();
 	}
 
+	
+	
 	function createWorld() {
 
-		/**
-		 * hemi.world is the default world created to manage all of our models,
-		 *		cameras, effects, etc. When we set the model's file name, it
-		 *		will begin loading that file.
-		 */
-		var house = new hemi.model.Model();				// Create a new Model
-		house.setFileName('scene.json'); // Set the model file
+
+		theModel = new hemi.model.Model();				// Create a new Model
+		theModel.setFileName('scene.json'); // Set the model file
 		
-		/**
-		 * When we call the world's 'ready' function, it will wait for the model
-		 *		to finish loading and then it will send out a Ready message.
-		 *		Here we register a handler, setupScene(), to be run when the
-		 *		message is sent.
-		 */
+		
+		
 		hemi.world.subscribe(hemi.msg.ready,
 			function(msg) {
 				setupScene();
@@ -85,8 +70,68 @@ function  rotateZ() {
 		
 		hemi.world.ready();   // Indicate that we are ready to start our script
 	}
+	
+	var count = 0;			// Counter to keep track of wall opacity
+	var dir = 1;			// Whether wall is becoming more or less opaque
+	
+	function leftNavClick(buttonNumber) {
+		
+		switch(buttonNumber)
+		{
+		case 0:
+			
+			if (count == 0) {
+				count = 40;
+				dir = -dir;
+			} 
+			
+		  break;
+		case 1:
 
+		  break;
+		default:
+
+		}
+		
+		
+	}
+	
 	function setupScene() {
+		
+
+		var transformList = theModel.getTransforms('Mesh_033');
+		var transform = transformList[0];
+		
+		var theMaterial = transform.shapes[0].elements[0].material;
+		
+		var drawList = theMaterial.getParam('o3d.drawList').value;
+		var zdrawList = hemi.view.viewInfo.zOrderedDrawList;
+		
+		theMaterial.getParam('o3d.drawList').value = zdrawList;
+		
+		var theMaterialOpacity = hemi.fx.addOpacity(theMaterial);
+		theMaterialOpacity.value = 1.0;
+		
+		/* Create a transform-level opacity paramater that will override the
+		 * material-level opacity parameter. That way, we can make this wall
+		 * fade without fading every object that uses the wall material.
+		 */
+		var opacity = transform.createParam('opacity','ParamFloat');
+		opacity.value = 1.0;
+		
+		/* On any keyDown, begin the fading. Reverse the direction each time */
+
+			
+		/* Fade the wall a little more on each frame, between 1 and 0.4 */
+		hemi.view.addRenderListener({
+			onRender : function(e) {
+				if (count > 0) {
+					opacity.value += dir*0.02;
+					count--;
+				}
+			}});
+		
+		
 		var vp = new hemi.view.Viewpoint();		// Create a new Viewpoint
 		vp.eye = [-56,61,39];					// Set viewpoint eye
 		vp.target = [0,10,0];					// Set viewpoint target
@@ -105,24 +150,20 @@ function  rotateZ() {
 		hemi.model.modelRoot.rotateX(4.72);
 		
 		
-		hemi.world.camera.subscribe(
+		msgHandler = hemi.world.camera.subscribe(
 				hemi.msg.stop,
 				onCameraMoved);
 		
+		
 		hemi.world.camera.moveToView(vp,40);
 		
-
-		
-
-			
-		//var c = hemi.world.getCitizens();
-		
-		//onWorldSetup();
-
 	}
 	
 	
 	function onCameraMoved(msg) {
+		
+		var result = hemi.world.camera.unsubscribe(msgHandler, hemi.msg.stop);
+		
 		onWorldSetup();
 	}
 

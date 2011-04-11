@@ -1,0 +1,17 @@
+
+function leftNavClick(buttonNumber) {
+	
+	switch(buttonNumber)
+	{
+	case 0:
+
+	  break;
+	case 1:
+
+	  break;
+	default:
+
+	}
+	
+	
+}

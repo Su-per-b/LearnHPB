@@ -1,0 +1,21 @@
+/**
+ * 
+ */
+
+var hvacLoader = (function(hvacLoader) {
+	
+	
+	
+	
+	hvacLoader.init = function(clientElement) {
+
+	};
+	
+	
+	
+	
+	
+	
+	return hvacLoader;
+	
+})(hvacLoader || {});
