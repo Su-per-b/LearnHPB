@@ -1,0 +1,24 @@
+
+
+#guiimage {
+	position:absolute;  
+	top:10px;
+	left:10px;
+	z-index:100;
+}
+
+#o3d {
+	position:absolute;  
+	z-index:1;
+}
+
+#leftnav {
+    position:absolute;  
+	width:63px;
+	height:352px;
+    z-index:100;
+    background-color:transparent;  
+    background-image:url('../images/leftnav.png');
+    background-repeat:no-repeat;
+    opacity:0.85;
+}

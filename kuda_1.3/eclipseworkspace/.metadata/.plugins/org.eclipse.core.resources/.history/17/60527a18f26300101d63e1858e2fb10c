@@ -1,0 +1,45 @@
+#floatdiv {
+	position:absolute;  
+	width:63px;
+	height:352px;
+	background-color:transparent;  
+	background-image:url('../images/leftnav.png'); 
+	background-repeat:no-repeat;
+	z-index:100;
+}
+
+#floatdiv2 {
+	position:absolute;  
+	width:63px;
+	height:352px;
+	background-color:rgba(255, 255, 255, 0.2); 
+	background-image:url('../images/leftnav.png'); 
+	background-repeat:no-repeat;
+	z-index:100;
+}
+
+
+#guiimage {
+	position:absolute;  
+	top:10px;
+	left:10px;
+	z-index:100;
+}
+
+#o3d {
+	position:absolute;  
+	z-index:1;
+}
+
+#floatdiv {
+    position:absolute;  
+    width:200px;
+    height:50px;
+    bottom:10px;
+    left:10px;  
+    padding:16px;
+    background:#FFFFFF;  
+    border:2px solid #2266AA;  
+    z-index:100
+    background-image:url('../images/leftnav.png'); 
+}

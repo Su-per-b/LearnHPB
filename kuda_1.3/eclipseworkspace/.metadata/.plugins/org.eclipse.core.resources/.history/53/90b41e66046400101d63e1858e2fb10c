@@ -1,0 +1,31 @@
+
+
+
+#o3d {
+	position:absolute;  
+	z-index:1;
+}
+
+#leftNav {
+    position:absolute;  
+	width:63px;
+	height:352px; 
+	left:-2000px; 
+    z-index:100;
+    background-color:transparent;  
+    background-image:url('../images/leftnav.png');
+    background-repeat:no-repeat;
+    opacity:0.85;
+}
+
+#topTitle {
+    position:absolute;
+    left:-2000px; 
+	width:245px;
+	height:41px;
+    z-index:101;
+    background-color:transparent;  
+    background-image:url('../images/top_title');
+    background-repeat:no-repeat;
+    opacity:0.85;
+}
