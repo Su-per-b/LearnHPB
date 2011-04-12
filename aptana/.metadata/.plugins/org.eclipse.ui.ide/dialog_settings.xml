@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<list key="installedFeatures">
+		<item value="com.aptana.ide.feature.editors:2.0.5.1278523018-8o57z9icbz-hWlJZG"/>
+		<item value="com.aptana.ide.feature.rcp:2.0.5.1278522500-7g7W8tFDeS_tNIOZ7qse3rLx3Def"/>
+		<item value="com.aptana.ide.feature:2.0.5.1278614541-7D-7O7iRJci-jVhz-KFyoijH"/>
+		<item value="com.jquery.1.4:1.4.2.00001"/>
+		<item value="org.eclipse.eclipsemonkey:2.0.5.1278523018-7D-47HNqtkUneQb"/>
+		<item value="org.eclipse.help:1.1.2.R35x_v20100119-7e7eFAnFEx2X_fZltJhDjz-D"/>
+		<item value="org.eclipse.platform:3.5.2.R35x_v20100210-0800-9hEiFzmFst-TiEn9hNYgDWg1XN8ulH_JvCNGB"/>
+		<item value="org.eclipse.rcp:3.5.2.R35x_v20100119-9SA0FxwFnoCU5XxWItFdXXb27BA6"/>
+	</list>
+	<section name="ExternalProjectImportWizard">
+		<item value="false" key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED"/>
+		<item value="false" key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID"/>
+	</section>
+	<section name="NewWizardAction">
+	</section>
+</section>
