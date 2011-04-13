@@ -18,9 +18,9 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>kuda</name>
+			<name>kudalink</name>
 			<type>2</type>
-			<location>C:/projects/superb/WebGL_sandbox/kuda_1.3/js</location>
+			<location>C:/projects/superb/WebGL_sandbox/aptana/kuda</location>
 		</link>
 	</linkedResources>
 </projectDescription>
