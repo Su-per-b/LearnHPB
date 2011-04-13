@@ -4,6 +4,11 @@
 //o3djs.base.o3d = o3d;
 //o3djs.require('o3djs.webgl');
 
+o3djs.require('lgb.utils');
+o3djs.require('lgb.loader');
+o3djs.require('lgb.gui');
+o3djs.require('lgb.animation');
+
 var lgb = (function(lgb) {
 	
 		
@@ -12,19 +17,30 @@ var lgb = (function(lgb) {
 	 * The version of LGB released
 	 * @constant
 	 */
-	lgb.version = '0.1';
+	lgb.version = '0.11';
 	
 	/**
 	 * @namespace A module for managing 3D models and their assets.
 	 */
-	hemi.loader = hemi.loader || {};
+	lgb.core = lgb.core || {};
+	
+	
+	lgb.core.init = function() {
+		
+		console.log("kuda version: " + hemi.version);
+		console.log("lgb version: " + lgb.version);
+		
+		lgb.gui.init();
+		lgb.loader.init();
+		lgb.animation.init();
+		lgb.utils.init();
+	};
+	
 	
 	/**
 	 * @class A Loader to get all the 3d content and init the GUI
 	 */
-	lgb.Loader = function() {
-
-
+	lgb.core.Loader = function() {
 		this.theModel = null;
 		this.msgHandler = null;
 		this.count = 0; // Counter to keep track of wall opacity
@@ -34,18 +50,18 @@ var lgb = (function(lgb) {
 		this.opacity = null;
 		var that = this;
 		
+		this.makeClientsCallback = function(clientElements) {
+			hemi.core.init(clientElements[0]);
+			hemi.view.setBGColor([0.8, 0.8, 0.8, 1]);
+			that.createWorld();
+		}
+		
 	};
 	
 	
-	lgb.Loader.prototype = {
+	lgb.core.Loader.prototype = {
 			filePath : 'scene.json',
 
-			init: function(clientElements) {
-				hemi.core.init(clientElements[0]);
-				hemi.view.setBGColor([0.8, 0.8, 0.8, 1]);
-				this.createWorld();
-			},
-	
 			
 			createWorld: function() {
 				this.theModel = new hemi.model.Model();	// Create a new Model
@@ -144,7 +160,7 @@ var lgb = (function(lgb) {
 					}
 			}	
 			
-			
+
 			
 			
 			

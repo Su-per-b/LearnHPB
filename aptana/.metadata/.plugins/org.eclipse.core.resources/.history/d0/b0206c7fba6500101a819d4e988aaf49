@@ -1,0 +1,36 @@
+/**
+ * 
+ */
+
+
+var lgb = (function(lgb) {
+	
+		
+	
+
+	/**
+	 * @namespace A module for managing 3D models and their assets.
+	 */
+	lgb.animator = lgb.animator || {};
+	
+	
+	lgb.animator.init = function() {
+
+	};
+	
+	/**
+	 * Remove the given Loop from the Animation.
+	 * 
+	 * @param {hemi.animation.Loop} loop the Loop to remove
+	 * @return {hemi.animation.Loop} the removed Loop or null
+	 */
+	lgb.animator.createAlphaParam = function(meshName) {
+
+	};
+	
+	
+
+	
+	return lgb;
+	
+})(lgb || {});

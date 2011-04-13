@@ -225,3 +225,1074 @@ java.net.URISyntaxException: Illegal character in query at index 196: http://vie
 	at com.aptana.ide.debug.internal.core.model.DebugConnection.handleMessage(DebugConnection.java:190)
 	at com.aptana.ide.debug.internal.core.model.DebugConnection.access$2(DebugConnection.java:186)
 	at com.aptana.ide.debug.internal.core.model.DebugConnection$1.run(DebugConnection.java:133)
+!SESSION 2011-04-12 11:18:24.328 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.6.0_20
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_US
+Framework arguments:  -application com.aptana.ide.desktop.integration.Application -application com.aptana.ide.desktop.integration.Application
+Command-line arguments:  -os win32 -ws win32 -arch x86 -application com.aptana.ide.desktop.integration.Application -data C:\projects\superb\WebGL_sandbox\aptana\ -application com.aptana.ide.desktop.integration.Application
+
+!ENTRY org.eclipse.ui 4 4 2011-04-12 11:37:40.319
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action2js
+
+!ENTRY org.eclipse.ui 4 4 2011-04-12 11:37:40.322
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action4js
+
+!ENTRY org.eclipse.ui 4 4 2011-04-12 11:37:40.322
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action5js
+
+!ENTRY org.eclipse.ui 4 4 2011-04-12 11:37:40.323
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action6js
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-04-12 12:06:35.538
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-04-12 12:33:20.843
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+!SESSION 2011-04-12 16:53:53.732 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.6.0_20
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_US
+Framework arguments:  -application com.aptana.ide.desktop.integration.Application
+Command-line arguments:  -os win32 -ws win32 -arch x86 -application com.aptana.ide.desktop.integration.Application
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-04-12 17:04:14.664
+!MESSAGE Socket connection error. Please try shutting down and restarting your web browser, and then run 'debug' again.
+!STACK 0
+java.net.SocketTimeoutException: Accept timed out
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(Unknown Source)
+	at java.net.ServerSocket.implAccept(Unknown Source)
+	at java.net.ServerSocket.accept(Unknown Source)
+	at com.aptana.ide.debug.core.JSLaunchConfigurationDelegate.launch(JSLaunchConfigurationDelegate.java:416)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:853)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:703)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:866)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1069)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-04-12 17:39:14.223
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-04-12 18:21:09.230
+!MESSAGE Socket connection error. Please try shutting down and restarting your web browser, and then run 'debug' again.
+!STACK 0
+java.net.SocketTimeoutException: Accept timed out
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(Unknown Source)
+	at java.net.ServerSocket.implAccept(Unknown Source)
+	at java.net.ServerSocket.accept(Unknown Source)
+	at com.aptana.ide.debug.core.JSLaunchConfigurationDelegate.launch(JSLaunchConfigurationDelegate.java:416)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:853)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:703)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:866)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1069)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-04-12 18:22:15.478
+!MESSAGE Socket connection error. Please try shutting down and restarting your web browser, and then run 'debug' again.
+!STACK 0
+java.net.SocketTimeoutException: Accept timed out
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(Unknown Source)
+	at java.net.ServerSocket.implAccept(Unknown Source)
+	at java.net.ServerSocket.accept(Unknown Source)
+	at com.aptana.ide.debug.core.JSLaunchConfigurationDelegate.launch(JSLaunchConfigurationDelegate.java:416)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:853)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:703)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:866)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1069)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-04-12 18:30:11.757
+!MESSAGE Socket connection error. Please try shutting down and restarting your web browser, and then run 'debug' again.
+!STACK 0
+java.net.SocketTimeoutException: Accept timed out
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(Unknown Source)
+	at java.net.ServerSocket.implAccept(Unknown Source)
+	at java.net.ServerSocket.accept(Unknown Source)
+	at com.aptana.ide.debug.core.JSLaunchConfigurationDelegate.launch(JSLaunchConfigurationDelegate.java:416)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:853)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:703)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:866)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1069)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-04-13 01:05:55.104
+!MESSAGE Socket connection error. Please try shutting down and restarting your web browser, and then run 'debug' again.
+!STACK 0
+java.net.SocketTimeoutException: Accept timed out
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(Unknown Source)
+	at java.net.ServerSocket.implAccept(Unknown Source)
+	at java.net.ServerSocket.accept(Unknown Source)
+	at com.aptana.ide.debug.core.JSLaunchConfigurationDelegate.launch(JSLaunchConfigurationDelegate.java:416)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:853)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:703)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:866)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1069)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-04-13 01:28:51.650
+!MESSAGE Socket connection error. Please try shutting down and restarting your web browser, and then run 'debug' again.
+!STACK 0
+java.net.SocketTimeoutException: Accept timed out
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(Unknown Source)
+	at java.net.ServerSocket.implAccept(Unknown Source)
+	at java.net.ServerSocket.accept(Unknown Source)
+	at com.aptana.ide.debug.core.JSLaunchConfigurationDelegate.launch(JSLaunchConfigurationDelegate.java:416)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:853)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:703)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:866)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1069)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-04-13 01:29:00.841
+!MESSAGE Socket connection error. Please try shutting down and restarting your web browser, and then run 'debug' again.
+!STACK 0
+java.net.SocketTimeoutException: Accept timed out
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(Unknown Source)
+	at java.net.ServerSocket.implAccept(Unknown Source)
+	at java.net.ServerSocket.accept(Unknown Source)
+	at com.aptana.ide.debug.core.JSLaunchConfigurationDelegate.launch(JSLaunchConfigurationDelegate.java:416)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:853)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:703)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:866)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1069)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-04-13 02:40:50.324
+!MESSAGE Socket connection error. Please try shutting down and restarting your web browser, and then run 'debug' again.
+!STACK 0
+java.net.SocketTimeoutException: Accept timed out
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(Unknown Source)
+	at java.net.ServerSocket.implAccept(Unknown Source)
+	at java.net.ServerSocket.accept(Unknown Source)
+	at com.aptana.ide.debug.core.JSLaunchConfigurationDelegate.launch(JSLaunchConfigurationDelegate.java:416)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:853)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:703)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:866)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1069)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-04-13 02:41:25.455
+!MESSAGE Socket connection error. Please try shutting down and restarting your web browser, and then run 'debug' again.
+!STACK 0
+java.net.SocketTimeoutException: Accept timed out
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(Unknown Source)
+	at java.net.ServerSocket.implAccept(Unknown Source)
+	at java.net.ServerSocket.accept(Unknown Source)
+	at com.aptana.ide.debug.core.JSLaunchConfigurationDelegate.launch(JSLaunchConfigurationDelegate.java:416)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:853)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:703)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:866)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1069)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-04-13 03:10:57.183
+!MESSAGE Socket connection error. Please try shutting down and restarting your web browser, and then run 'debug' again.
+!STACK 0
+java.net.SocketTimeoutException: Accept timed out
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(Unknown Source)
+	at java.net.ServerSocket.implAccept(Unknown Source)
+	at java.net.ServerSocket.accept(Unknown Source)
+	at com.aptana.ide.debug.core.JSLaunchConfigurationDelegate.launch(JSLaunchConfigurationDelegate.java:416)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:853)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:703)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:866)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1069)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.ui 4 4 2011-04-13 03:37:14.095
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action2js
+
+!ENTRY org.eclipse.ui 4 4 2011-04-13 03:37:14.096
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action4js
+
+!ENTRY org.eclipse.ui 4 4 2011-04-13 03:37:14.097
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action5js
+
+!ENTRY org.eclipse.ui 4 4 2011-04-13 03:37:14.097
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action6js
+
+!ENTRY org.eclipse.ui 4 4 2011-04-13 03:59:07.940
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action2js
+
+!ENTRY org.eclipse.ui 4 4 2011-04-13 03:59:07.941
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action4js
+
+!ENTRY org.eclipse.ui 4 4 2011-04-13 03:59:07.941
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action5js
+
+!ENTRY org.eclipse.ui 4 4 2011-04-13 03:59:07.941
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action6js
+
+!ENTRY org.eclipse.ui 4 4 2011-04-13 04:17:58.116
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action2js
+
+!ENTRY org.eclipse.ui 4 4 2011-04-13 04:17:58.117
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action4js
+
+!ENTRY org.eclipse.ui 4 4 2011-04-13 04:17:58.117
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action5js
+
+!ENTRY org.eclipse.ui 4 4 2011-04-13 04:17:58.118
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action6js
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:37.051
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:37.120
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:37.186
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:37.213
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:37.288
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:37.344
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:37.389
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:37.441
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:37.512
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:37.554
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:37.607
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:37.655
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:37.703
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:37.755
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:37.802
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:37.852
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:37.898
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:37.947
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:37.996
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:38.042
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:38.105
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:38.137
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:38.187
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:38.236
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:38.319
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:38.444
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:38.492
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:38.538
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:38.591
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:38.654
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:38.700
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:38.752
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:38.799
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:38.847
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:38.897
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:38.944
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:38.995
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:39.042
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:39.076
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:39.123
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:39.172
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:39.221
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:39.252
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:39.306
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:39.353
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:39.402
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:39.458
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:39.498
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:39.562
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:39.629
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:39.682
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:39.721
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:39.767
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:39.816
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:39.861
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:39.916
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:39.943
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:40.003
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:40.080
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:40.129
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:40.177
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:40.228
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:40.276
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:40.326
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:40.373
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:40.424
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:40.470
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:40.522
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:40.568
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:40.619
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:40.667
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:40.680
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:40.725
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:40.753
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:40.787
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:40.901
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-04-13 04:29:40.901
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 97
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
