@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="30" version="2.0">
+<workbench progressCount="32" version="2.0">
 <workbenchAdvisor/>
 <window height="1095" width="1160" x="16" y="9">
 <fastViewData fastViewLocation="1024"/>
@@ -10,7 +10,7 @@
 <coolItem id="group.file" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.file" itemType="typeToolBarContribution" x="122" y="22"/>
 <coolItem id="additions" itemType="typeGroupMarker"/>
-<coolItem id="com.aptana.ide.editors.HTMLEditor" itemType="typePlaceholder" x="-1" y="-1"/>
+<coolItem id="com.aptana.ide.editors.HTMLEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="com.aptana.ide.editors.JSEditor" itemType="typeToolBarContribution" x="37" y="22"/>
 <coolItem id="com.aptana.ui.globalActionSet" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="172" y="22"/>
@@ -35,17 +35,22 @@
 <part id="0"/>
 <part id="1"/>
 <part id="2"/>
+<part id="3"/>
+<part id="4"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor id="com.aptana.ide.editors.JSEditor" name="core.js" partName="core.js" path="C:/projects/superb/WebGL_sandbox/aptana/fourth_floor_with_gui2/js/lgb/core.js" title="core.js" tooltip="fourth_floor_with_gui2/js/lgb/core.js" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/fourth_floor_with_gui2/js/lgb/core.js"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1076" selectionTopPixel="510"/>
-</editor>
 <editor id="com.aptana.ide.editors.JSEditor" name="animation.js" partName="animation.js" path="C:/projects/superb/WebGL_sandbox/aptana/kuda13/hemi/animation.js" title="animation.js" tooltip="fourth_floor_with_gui2/kuda13c/hemi/animation.js" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/fourth_floor_with_gui2/kuda13c/hemi/animation.js"/>
 <editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1055" selectionTopPixel="0"/>
+</editor>
+<editor id="com.aptana.ide.editors.HTMLEditor" name="index.html" partName="index.html" path="C:/projects/superb/WebGL_sandbox/aptana/fourth_floor_with_gui/index.html" title="index.html" tooltip="fourth_floor_with_gui/index.html" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/fourth_floor_with_gui/index.html"/>
+</editor>
+<editor activePart="true" focus="true" id="com.aptana.ide.editors.JSEditor" name="loader.js" partName="loader.js" path="C:/projects/superb/WebGL_sandbox/aptana/fourth_floor_with_gui/js/lgb/loader.js" title="loader.js" tooltip="fourth_floor_with_gui/js/lgb/loader.js" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/fourth_floor_with_gui/js/lgb/loader.js"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="979" selectionTopPixel="680"/>
 </editor>
 </editors>
 <views>
@@ -86,7 +91,7 @@
 <viewState/>
 </view>
 </views>
-<perspectives activePart="com.aptana.ide.server.portal.ui.MyAptanaEditor" activePerspective="&lt;Aptana_Web&gt;">
+<perspectives activePart="com.aptana.ide.ui.io.fileExplorerView" activePerspective="&lt;Aptana_Web&gt;">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor descriptor="com.aptana.ide.js.ui.WebPerspective" id="&lt;Aptana_Web&gt;" label="&lt;Aptana Web&gt;"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
@@ -128,13 +133,14 @@
 <show_view_action id="com.aptana.ide.logging.LogView"/>
 <show_view_action id="com.aptana.ide.server.ui.serversView"/>
 <new_wizard_action id="com.aptana.ide.wizards.WebProjectWizard"/>
-<new_wizard_action id="com.aptana.ide.editors.wizards.file.CssUntitledWizard"/>
-<new_wizard_action id="com.aptana.ide.editors.wizards.file.HtmlUntitledWizard"/>
-<new_wizard_action id="com.aptana.ide.editors.wizards.file.JsUntitledWizard"/>
-<new_wizard_action id="com.aptana.ide.editors.wizards.file.ScriptDocUntitledWizard"/>
-<new_wizard_action id="com.aptana.ide.editors.wizards.file.UntitledTextFileWizard"/>
-<new_wizard_action id="com.aptana.ide.editors.wizards.file.XmlUntitledWizard"/>
-<new_wizard_action id="om.aptana.ide.editors.wizards.file.JsonUntitledFileWizard"/>
+<new_wizard_action id="com.aptana.ide.editors.wizards.CssNewWizard"/>
+<new_wizard_action id="com.aptana.ide.editors.wizards.HtmlNewWizard"/>
+<new_wizard_action id="com.aptana.ide.editors.wizards.JsNewWizard"/>
+<new_wizard_action id="com.aptana.ide.editors.wizards.JsonNewFileWizard"/>
+<new_wizard_action id="com.aptana.ide.editors.wizards.ScriptDocNewWizard"/>
+<new_wizard_action id="com.aptana.ide.editors.wizards.XmlNewWizard"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.file"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.folder"/>
 <hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
 <view id="org.eclipse.ui.views.ContentOutline"/>
 <view id="org.eclipse.ui.console.ConsoleView"/>
@@ -322,17 +328,10 @@
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/fourth_floor_with_gui2/js/lgb/core.js"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/fourth_floor_with_gui2/kuda13c/hemi/animation.js"/>
 <editor factoryID="com.aptana.ide.server.portal.ui.MyAptanaElementFactory" id="com.aptana.ide.server.portal.ui.MyAptanaEditor"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/fourth_floor_with_gui2/js/lgb/core.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.HTMLEditor" path="/fourth_floor_with_gui/index.html"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/fourth_floor_with_gui/js/lgb/loader.js"/>
 </editors>
-<item historyLabel="core.js" index="2">
-<position info="not_deleted" x="567" y="0"/>
-</item>
-<item historyLabel="index.html" index="1"/>
-<item historyLabel="core.js" index="2">
-<position info="not_deleted" x="75" y="27"/>
-</item>
-<item historyLabel="core.js" index="2">
-<position info="not_deleted" x="192" y="0"/>
-</item>
 <item historyLabel="core.js" index="2">
 <position info="not_deleted" x="75" y="27"/>
 </item>
@@ -440,7 +439,17 @@
 <item historyLabel="index.html" index="11">
 <position info="not_deleted" x="1414" y="0"/>
 </item>
-<item active="true" historyLabel="My Studio" index="16"/>
+<item historyLabel="My Studio" index="16"/>
+<item historyLabel="core.js" index="17">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="My Studio" index="16"/>
+<item historyLabel="index.html" index="18">
+<position info="not_deleted" x="1500" y="0"/>
+</item>
+<item active="true" historyLabel="loader.js" index="19">
+<position info="not_deleted" x="979" y="0"/>
+</item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
@@ -458,5 +467,12 @@
 </trimArea>
 </trimLayout>
 </window>
-<mruList/>
+<mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="loader.js" tooltip="fourth_floor_with_gui/js/lgb/loader.js">
+<persistable path="/fourth_floor_with_gui/js/lgb/loader.js"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.HTMLEditor" name="index.html" tooltip="fourth_floor_with_gui/index.html">
+<persistable path="/fourth_floor_with_gui/index.html"/>
+</file>
+</mruList>
 </workbench>

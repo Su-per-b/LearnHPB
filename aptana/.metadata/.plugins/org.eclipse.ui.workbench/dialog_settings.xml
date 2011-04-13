@@ -10,8 +10,8 @@
 		<item value="280" key="DIALOG_WIDTH"/>
 		<item value="com.aptana.ide.js.ui.views.profilesView" key="ShowViewDialog.STORE_SELECTED_VIEW_ID"/>
 		<item value="480" key="DIALOG_Y_ORIGIN"/>
-		<item value="414" key="DIALOG_HEIGHT"/>
 		<item value="588" key="DIALOG_X_ORIGIN"/>
+		<item value="414" key="DIALOG_HEIGHT"/>
 		<item value="1|Tahoma|8.25|0|WINDOWS|1|-11|0|0|0|400|0|0|0|1|0|0|0|0|Tahoma" key="DIALOG_FONT_NAME"/>
 		<list key="ShowViewDialog.STORE_EXPANDED_CATEGORIES_ID">
 			<item value="com.aptana.ide.documentation"/>
@@ -26,6 +26,7 @@
 		<item value="org.eclipse.ui.wizards.import.ExternalProject" key="ImportExportPage.STORE_SELECTED_IMPORT_WIZARD_ID"/>
 		<list key="ImportExportPage.STORE_EXPANDED_IMPORT_CATEGORIES">
 			<item value="org.eclipse.ui.Basic"/>
+			<item value="com.aptana.ide.aptana"/>
 		</list>
 	</section>
 </section>
