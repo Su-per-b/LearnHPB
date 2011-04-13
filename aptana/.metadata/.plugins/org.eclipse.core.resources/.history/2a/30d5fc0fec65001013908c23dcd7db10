@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        
+	<link rel="stylesheet" href="css/stylz.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/gui.css" type="text/css" media="screen" />
+    
+    <title>4thFloorHvac with HTML 5</title>
+
+    <script type="text/javascript" src="kuda/lib/jquery.js"></script>
+    <script type="text/javascript" src="kuda/lib/jshashtable.js"></script>
+	
+	<script type="text/javascript" src="kuda/o3d-webgl/base.js"></script>
+    <script type="text/javascript" src="kuda/o3djs/base.js"></script>
+	
+    <script type="text/javascript" src="kuda/hemi/core.js"></script>
+	
+    <script type="text/javascript" src="js/misc/floating-1.6.js"></script>
+    <script type="text/javascript" src="js/lgb/core.js"></script>
+	<script type="text/javascript" src="js/lgb/gui.js"></script>
+	<script type="text/javascript" src="js/lgb/loader.js"></script>
+	<script type="text/javascript" src="js/lgb/animation.js"></script>
+	<script type="text/javascript" src="js/lgb/utils.js"></script>
+	
+	<script type="text/javascript" src="js/fourth_floor_with_gui.js"></script>
+		
+       <script type="text/javascript">
+        
+			setupHandlers();
+			
+			function setupHandlers() {
+
+				jQuery(window).load(this.onWindowLoad);			
+				jQuery(window).resize(this.onWindowResize);
+			}
+			
+			
+			function onWindowLoad(event) {
+				lgb.core.init();
+				
+				lgb.gui.setCanvasSize();
+				lgb.loader.loadScene(onSceneLoaded);
+			}
+				
+			function onWindowResize(event) {
+				lgb.gui.resizeNow();
+			}
+			
+	   </script>
+			
+			
+
+
+        
+    </head>
+    
+    <body> 
+    
+
+	<div id="o3d"></div>
+	
+	<div id="topTitle"></div>
+	
+	<div id="leftNav">
+		<a id="leftNavButtonGeneral" class="leftNavButton" title="General" onClick="lgb.gui.onLeftNavClick_1();" href="#"></a>
+		<a id="leftNavButtonHvac" class="leftNavButton" title="HVAC" href="#"></a>
+		<a id="leftNavButtonEnvelope" class="leftNavButton" title="External Envelope" href="#"></a>
+		<a id="leftNavButtonLighting" class="leftNavButton" title="Lighting" href="#"></a>
+	</div>
+
+
+    </body>
+</html>

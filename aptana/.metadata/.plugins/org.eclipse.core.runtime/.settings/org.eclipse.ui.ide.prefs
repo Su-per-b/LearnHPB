@@ -1,6 +1,10 @@
-#Wed Apr 13 04:34:41 PDT 2011
-eclipse.preferences.version=1
-TASKS_FILTERS_MIGRATE=true
+#Wed Apr 13 08:59:39 PDT 2011
+SHOW_PERSPECTIVEBAR=true
+quickStart=false
 tipsAndTricks=true
-platformState=1302560938420
+TASKS_FILTERS_MIGRATE=true
+eclipse.preferences.version=1
+SHOW_COOLBAR=true
+platformState=1302491105383
 EXIT_PROMPT_ON_CLOSE_LAST_WINDOW=false
+OPEN_REQUIRED_PROJECTS=always

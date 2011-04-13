@@ -1296,3 +1296,1899 @@ java.lang.StringIndexOutOfBoundsException: String index out of range: 97
 	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
 	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SESSION 2011-04-13 04:34:50.500 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.6.0_20
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_US
+Framework arguments:  -application com.aptana.ide.desktop.integration.Application
+Command-line arguments:  -os win32 -ws win32 -arch x86 -application com.aptana.ide.desktop.integration.Application
+
+!ENTRY com.aptana.ide.ui.io 4 0 2011-04-13 06:54:26.291
+!MESSAGE (Build 2.0.5.1278614541) [ERROR] Failed to copy C:\projects\superb\WebGL_sandbox\aptana\kuda1_3_release\hemi to /k13/hemi
+!STACK 1
+org.eclipse.core.runtime.CoreException: File not found: /k13/hemi.
+	at org.eclipse.core.internal.filesystem.Policy.error(Policy.java:55)
+	at org.eclipse.core.internal.filesystem.Policy.error(Policy.java:50)
+	at com.aptana.ide.core.io.efs.WorkspaceFile.putInfo(WorkspaceFile.java:348)
+	at org.eclipse.core.filesystem.provider.FileStore.transferAttributes(FileStore.java:489)
+	at org.eclipse.core.filesystem.provider.FileStore.copyDirectory(FileStore.java:172)
+	at org.eclipse.core.filesystem.provider.FileStore.copy(FileStore.java:138)
+	at org.eclipse.core.internal.filesystem.local.LocalFile.copy(LocalFile.java:111)
+	at com.aptana.ide.ui.io.actions.CopyFilesOperation.copyFile(CopyFilesOperation.java:287)
+	at com.aptana.ide.ui.io.actions.CopyFilesOperation.copyFiles(CopyFilesOperation.java:165)
+	at com.aptana.ide.ui.io.actions.CopyFilesOperation$3.run(CopyFilesOperation.java:375)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.filesystem 4 269 2011-04-13 06:54:26.292
+!MESSAGE File not found: /k13/hemi.
+
+!ENTRY com.aptana.ide.ui.io 4 0 2011-04-13 06:54:26.317
+!MESSAGE (Build 2.0.5.1278614541) [ERROR] Failed to copy C:\projects\superb\WebGL_sandbox\aptana\kuda1_3_release\hext to /k13/hext
+!STACK 1
+org.eclipse.core.runtime.CoreException: File not found: /k13/hext.
+	at org.eclipse.core.internal.filesystem.Policy.error(Policy.java:55)
+	at org.eclipse.core.internal.filesystem.Policy.error(Policy.java:50)
+	at com.aptana.ide.core.io.efs.WorkspaceFile.putInfo(WorkspaceFile.java:348)
+	at org.eclipse.core.filesystem.provider.FileStore.transferAttributes(FileStore.java:489)
+	at org.eclipse.core.filesystem.provider.FileStore.copyDirectory(FileStore.java:172)
+	at org.eclipse.core.filesystem.provider.FileStore.copy(FileStore.java:138)
+	at org.eclipse.core.internal.filesystem.local.LocalFile.copy(LocalFile.java:111)
+	at com.aptana.ide.ui.io.actions.CopyFilesOperation.copyFile(CopyFilesOperation.java:287)
+	at com.aptana.ide.ui.io.actions.CopyFilesOperation.copyFiles(CopyFilesOperation.java:165)
+	at com.aptana.ide.ui.io.actions.CopyFilesOperation$3.run(CopyFilesOperation.java:375)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.filesystem 4 269 2011-04-13 06:54:26.317
+!MESSAGE File not found: /k13/hext.
+
+!ENTRY com.aptana.ide.ui.io 4 0 2011-04-13 06:54:26.319
+!MESSAGE (Build 2.0.5.1278614541) [ERROR] Failed to copy C:\projects\superb\WebGL_sandbox\aptana\kuda1_3_release\lib to /k13/lib
+!STACK 1
+org.eclipse.core.runtime.CoreException: File not found: /k13/lib.
+	at org.eclipse.core.internal.filesystem.Policy.error(Policy.java:55)
+	at org.eclipse.core.internal.filesystem.Policy.error(Policy.java:50)
+	at com.aptana.ide.core.io.efs.WorkspaceFile.putInfo(WorkspaceFile.java:348)
+	at org.eclipse.core.filesystem.provider.FileStore.transferAttributes(FileStore.java:489)
+	at org.eclipse.core.filesystem.provider.FileStore.copyDirectory(FileStore.java:172)
+	at org.eclipse.core.filesystem.provider.FileStore.copy(FileStore.java:138)
+	at org.eclipse.core.internal.filesystem.local.LocalFile.copy(LocalFile.java:111)
+	at com.aptana.ide.ui.io.actions.CopyFilesOperation.copyFile(CopyFilesOperation.java:287)
+	at com.aptana.ide.ui.io.actions.CopyFilesOperation.copyFiles(CopyFilesOperation.java:165)
+	at com.aptana.ide.ui.io.actions.CopyFilesOperation$3.run(CopyFilesOperation.java:375)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.filesystem 4 269 2011-04-13 06:54:26.319
+!MESSAGE File not found: /k13/lib.
+
+!ENTRY com.aptana.ide.ui.io 4 0 2011-04-13 06:54:26.321
+!MESSAGE (Build 2.0.5.1278614541) [ERROR] Failed to copy C:\projects\superb\WebGL_sandbox\aptana\kuda1_3_release\o3d-webgl to /k13/o3d-webgl
+!STACK 1
+org.eclipse.core.runtime.CoreException: File not found: /k13/o3d-webgl.
+	at org.eclipse.core.internal.filesystem.Policy.error(Policy.java:55)
+	at org.eclipse.core.internal.filesystem.Policy.error(Policy.java:50)
+	at com.aptana.ide.core.io.efs.WorkspaceFile.putInfo(WorkspaceFile.java:348)
+	at org.eclipse.core.filesystem.provider.FileStore.transferAttributes(FileStore.java:489)
+	at org.eclipse.core.filesystem.provider.FileStore.copyDirectory(FileStore.java:172)
+	at org.eclipse.core.filesystem.provider.FileStore.copy(FileStore.java:138)
+	at org.eclipse.core.internal.filesystem.local.LocalFile.copy(LocalFile.java:111)
+	at com.aptana.ide.ui.io.actions.CopyFilesOperation.copyFile(CopyFilesOperation.java:287)
+	at com.aptana.ide.ui.io.actions.CopyFilesOperation.copyFiles(CopyFilesOperation.java:165)
+	at com.aptana.ide.ui.io.actions.CopyFilesOperation$3.run(CopyFilesOperation.java:375)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.filesystem 4 269 2011-04-13 06:54:26.322
+!MESSAGE File not found: /k13/o3d-webgl.
+
+!ENTRY com.aptana.ide.ui.io 4 0 2011-04-13 06:54:26.325
+!MESSAGE (Build 2.0.5.1278614541) [ERROR] Failed to copy C:\projects\superb\WebGL_sandbox\aptana\kuda1_3_release\o3djs to /k13/o3djs
+!STACK 1
+org.eclipse.core.runtime.CoreException: File not found: /k13/o3djs.
+	at org.eclipse.core.internal.filesystem.Policy.error(Policy.java:55)
+	at org.eclipse.core.internal.filesystem.Policy.error(Policy.java:50)
+	at com.aptana.ide.core.io.efs.WorkspaceFile.putInfo(WorkspaceFile.java:348)
+	at org.eclipse.core.filesystem.provider.FileStore.transferAttributes(FileStore.java:489)
+	at org.eclipse.core.filesystem.provider.FileStore.copyDirectory(FileStore.java:172)
+	at org.eclipse.core.filesystem.provider.FileStore.copy(FileStore.java:138)
+	at org.eclipse.core.internal.filesystem.local.LocalFile.copy(LocalFile.java:111)
+	at com.aptana.ide.ui.io.actions.CopyFilesOperation.copyFile(CopyFilesOperation.java:287)
+	at com.aptana.ide.ui.io.actions.CopyFilesOperation.copyFiles(CopyFilesOperation.java:165)
+	at com.aptana.ide.ui.io.actions.CopyFilesOperation$3.run(CopyFilesOperation.java:375)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.filesystem 4 269 2011-04-13 06:54:26.325
+!MESSAGE File not found: /k13/o3djs.
+
+!ENTRY org.eclipse.ui.ide 2 4 2011-04-13 06:57:54.382
+!MESSAGE Problems occurred closing the selected resources.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2011-04-13 06:57:54.382
+!MESSAGE The project description file (.project) for 'fourth_floor_with_gui2' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-04-13 06:58:14.526
+!MESSAGE Launch URL is not defined
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-04-13 07:03:25.887
+!MESSAGE Socket connection error. Please try shutting down and restarting your web browser, and then run 'debug' again.
+!STACK 0
+java.net.SocketTimeoutException: Accept timed out
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(Unknown Source)
+	at java.net.ServerSocket.implAccept(Unknown Source)
+	at java.net.ServerSocket.accept(Unknown Source)
+	at com.aptana.ide.debug.core.JSLaunchConfigurationDelegate.launch(JSLaunchConfigurationDelegate.java:416)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:853)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:703)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:866)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1069)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-04-13 07:03:53.115
+!MESSAGE Socket connection error. Please try shutting down and restarting your web browser, and then run 'debug' again.
+!STACK 0
+java.net.SocketTimeoutException: Accept timed out
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(Unknown Source)
+	at java.net.ServerSocket.implAccept(Unknown Source)
+	at java.net.ServerSocket.accept(Unknown Source)
+	at com.aptana.ide.debug.core.JSLaunchConfigurationDelegate.launch(JSLaunchConfigurationDelegate.java:416)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:853)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:703)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:866)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1069)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SESSION 2011-04-13 07:07:52.847 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.6.0_20
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_US
+Framework arguments:  -application com.aptana.ide.desktop.integration.Application
+Command-line arguments:  -os win32 -ws win32 -arch x86 -application com.aptana.ide.desktop.integration.Application
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-04-13 07:14:24.020
+!MESSAGE Socket connection error. Please try shutting down and restarting your web browser, and then run 'debug' again.
+!STACK 0
+java.net.SocketTimeoutException: Accept timed out
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(Unknown Source)
+	at java.net.ServerSocket.implAccept(Unknown Source)
+	at java.net.ServerSocket.accept(Unknown Source)
+	at com.aptana.ide.debug.core.JSLaunchConfigurationDelegate.launch(JSLaunchConfigurationDelegate.java:416)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:853)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:703)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:866)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1069)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SESSION 2011-04-13 07:30:24.878 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.6.0_23
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86 -data C:\projects\superb\WebGL_sandbox\aptana
+
+!ENTRY org.eclipse.ui 4 0 2011-04-13 07:30:27.433
+!MESSAGE Unable to create editor ID com.aptana.ide.editors.HTMLEditor: No editor descriptor for id com.aptana.ide.editors.HTMLEditor
+!STACK 1
+org.eclipse.ui.PartInitException: No editor descriptor for id com.aptana.ide.editors.HTMLEditor
+	at org.eclipse.ui.internal.EditorReference.createPartHelper(EditorReference.java:601)
+	at org.eclipse.ui.internal.EditorReference.createPart(EditorReference.java:465)
+	at org.eclipse.ui.internal.WorkbenchPartReference.getPart(WorkbenchPartReference.java:595)
+	at org.eclipse.ui.internal.EditorAreaHelper.setVisibleEditor(EditorAreaHelper.java:271)
+	at org.eclipse.ui.internal.EditorManager.setVisibleEditor(EditorManager.java:1429)
+	at org.eclipse.ui.internal.EditorManager$5.runWithException(EditorManager.java:942)
+	at org.eclipse.ui.internal.StartupThreading$StartupRunnable.run(StartupThreading.java:31)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4041)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3660)
+	at org.eclipse.ui.application.WorkbenchAdvisor.openWindows(WorkbenchAdvisor.java:803)
+	at org.eclipse.ui.internal.Workbench$31.runWithException(Workbench.java:1567)
+	at org.eclipse.ui.internal.StartupThreading$StartupRunnable.run(StartupThreading.java:31)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4041)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3660)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2548)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at com.aptana.rcp.IDEApplication.start(IDEApplication.java:125)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:619)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:574)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1407)
+!SUBENTRY 1 org.eclipse.ui 4 0 2011-04-13 07:30:27.434
+!MESSAGE No editor descriptor for id com.aptana.ide.editors.HTMLEditor
+
+!ENTRY org.eclipse.ui 2 2 2011-04-13 07:30:27.473
+!MESSAGE Ignored attempt to add saveable that was already registered
+!STACK 0
+org.eclipse.core.runtime.AssertionFailedException: unknown saveable: org.eclipse.ui.internal.DefaultSaveable@a84b47 from part: org.eclipse.ui.internal.ErrorEditorPart@a84b47
+	at org.eclipse.ui.internal.SaveablesList.logWarning(SaveablesList.java:187)
+	at org.eclipse.ui.internal.SaveablesList.addModel(SaveablesList.java:117)
+	at org.eclipse.ui.internal.SaveablesList.addModels(SaveablesList.java:289)
+	at org.eclipse.ui.internal.SaveablesList.postOpen(SaveablesList.java:684)
+	at org.eclipse.ui.internal.PartList.partOpened(PartList.java:234)
+	at org.eclipse.ui.internal.PartList.access$0(PartList.java:210)
+	at org.eclipse.ui.internal.PartList$1.propertyChanged(PartList.java:40)
+	at org.eclipse.ui.internal.WorkbenchPartReference.fireInternalPropertyChange(WorkbenchPartReference.java:375)
+	at org.eclipse.ui.internal.WorkbenchPartReference.getPart(WorkbenchPartReference.java:610)
+	at org.eclipse.ui.internal.EditorAreaHelper.setVisibleEditor(EditorAreaHelper.java:271)
+	at org.eclipse.ui.internal.EditorManager.setVisibleEditor(EditorManager.java:1429)
+	at org.eclipse.ui.internal.EditorManager$5.runWithException(EditorManager.java:942)
+	at org.eclipse.ui.internal.StartupThreading$StartupRunnable.run(StartupThreading.java:31)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4041)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3660)
+	at org.eclipse.ui.application.WorkbenchAdvisor.openWindows(WorkbenchAdvisor.java:803)
+	at org.eclipse.ui.internal.Workbench$31.runWithException(Workbench.java:1567)
+	at org.eclipse.ui.internal.StartupThreading$StartupRunnable.run(StartupThreading.java:31)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4041)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3660)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2548)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at com.aptana.rcp.IDEApplication.start(IDEApplication.java:125)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:619)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:574)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1407)
+
+!ENTRY org.eclipse.ui 2 2 2011-04-13 07:30:27.684
+!MESSAGE Perspective Aptana Web has been made into a local copy
+
+!ENTRY org.eclipse.ui 4 0 2011-04-13 07:30:27.918
+!MESSAGE Problems occurred restoring workbench.
+!SUBENTRY 1 unknown 0 0 2011-04-13 07:30:27.919
+!MESSAGE OK
+!SUBENTRY 1 unknown 0 0 2011-04-13 07:30:27.919
+!MESSAGE OK
+!SUBENTRY 1 unknown 0 0 2011-04-13 07:30:27.919
+!MESSAGE OK
+!SUBENTRY 1 unknown 0 0 2011-04-13 07:30:27.919
+!MESSAGE OK
+!SUBENTRY 1 org.eclipse.ui 4 0 2011-04-13 07:30:27.919
+!MESSAGE Unable to restore perspective: Workspace - Aptana Web.
+!SUBENTRY 2 org.eclipse.ui 0 0 2011-04-13 07:30:27.919
+!MESSAGE Problems occurred restoring perspective.
+!SUBENTRY 3 org.eclipse.ui 0 0 2011-04-13 07:30:27.919
+!MESSAGE 
+!SUBENTRY 2 unknown 0 0 2011-04-13 07:30:27.919
+!MESSAGE OK
+!SUBENTRY 2 unknown 0 0 2011-04-13 07:30:27.919
+!MESSAGE OK
+!SUBENTRY 2 unknown 0 0 2011-04-13 07:30:27.919
+!MESSAGE OK
+!SUBENTRY 2 org.eclipse.ui 4 4 2011-04-13 07:30:27.919
+!MESSAGE Could not create view: com.aptana.ide.ui.io.fileExplorerView
+!STACK 1
+org.eclipse.ui.PartInitException: Could not create view: com.aptana.ide.ui.io.fileExplorerView
+	at org.eclipse.ui.internal.ViewFactory.createView(ViewFactory.java:158)
+	at org.eclipse.ui.internal.Perspective.createReferences(Perspective.java:1249)
+	at org.eclipse.ui.internal.Perspective.restoreState(Perspective.java:1219)
+	at org.eclipse.ui.internal.WorkbenchPage$17.runWithException(WorkbenchPage.java:3211)
+	at org.eclipse.ui.internal.StartupThreading$StartupRunnable.run(StartupThreading.java:31)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4041)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3660)
+	at org.eclipse.ui.application.WorkbenchAdvisor.openWindows(WorkbenchAdvisor.java:803)
+	at org.eclipse.ui.internal.Workbench$31.runWithException(Workbench.java:1567)
+	at org.eclipse.ui.internal.StartupThreading$StartupRunnable.run(StartupThreading.java:31)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4041)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3660)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2548)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at com.aptana.rcp.IDEApplication.start(IDEApplication.java:125)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:619)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:574)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1407)
+!SUBENTRY 3 org.eclipse.ui 4 0 2011-04-13 07:30:27.919
+!MESSAGE Could not create view: com.aptana.ide.ui.io.fileExplorerView
+!SUBENTRY 2 org.eclipse.ui 4 4 2011-04-13 07:30:27.919
+!MESSAGE Could not create view: com.aptana.ide.js.ui.views.profilesView
+!STACK 1
+org.eclipse.ui.PartInitException: Could not create view: com.aptana.ide.js.ui.views.profilesView
+	at org.eclipse.ui.internal.ViewFactory.createView(ViewFactory.java:158)
+	at org.eclipse.ui.internal.Perspective.createReferences(Perspective.java:1249)
+	at org.eclipse.ui.internal.Perspective.restoreState(Perspective.java:1219)
+	at org.eclipse.ui.internal.WorkbenchPage$17.runWithException(WorkbenchPage.java:3211)
+	at org.eclipse.ui.internal.StartupThreading$StartupRunnable.run(StartupThreading.java:31)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4041)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3660)
+	at org.eclipse.ui.application.WorkbenchAdvisor.openWindows(WorkbenchAdvisor.java:803)
+	at org.eclipse.ui.internal.Workbench$31.runWithException(Workbench.java:1567)
+	at org.eclipse.ui.internal.StartupThreading$StartupRunnable.run(StartupThreading.java:31)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4041)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3660)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2548)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at com.aptana.rcp.IDEApplication.start(IDEApplication.java:125)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:619)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:574)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1407)
+!SUBENTRY 3 org.eclipse.ui 4 0 2011-04-13 07:30:27.919
+!MESSAGE Could not create view: com.aptana.ide.js.ui.views.profilesView
+!SUBENTRY 2 org.eclipse.ui 4 4 2011-04-13 07:30:27.919
+!MESSAGE Could not create view: com.aptana.ide.ui.ViewPlugins
+!STACK 1
+org.eclipse.ui.PartInitException: Could not create view: com.aptana.ide.ui.ViewPlugins
+	at org.eclipse.ui.internal.ViewFactory.createView(ViewFactory.java:158)
+	at org.eclipse.ui.internal.Perspective.createReferences(Perspective.java:1249)
+	at org.eclipse.ui.internal.Perspective.restoreState(Perspective.java:1219)
+	at org.eclipse.ui.internal.WorkbenchPage$17.runWithException(WorkbenchPage.java:3211)
+	at org.eclipse.ui.internal.StartupThreading$StartupRunnable.run(StartupThreading.java:31)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4041)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3660)
+	at org.eclipse.ui.application.WorkbenchAdvisor.openWindows(WorkbenchAdvisor.java:803)
+	at org.eclipse.ui.internal.Workbench$31.runWithException(Workbench.java:1567)
+	at org.eclipse.ui.internal.StartupThreading$StartupRunnable.run(StartupThreading.java:31)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4041)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3660)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2548)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at com.aptana.rcp.IDEApplication.start(IDEApplication.java:125)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:619)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:574)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1407)
+!SUBENTRY 3 org.eclipse.ui 4 0 2011-04-13 07:30:27.920
+!MESSAGE Could not create view: com.aptana.ide.ui.ViewPlugins
+!SUBENTRY 2 org.eclipse.ui 4 4 2011-04-13 07:30:27.920
+!MESSAGE Could not create view: com.aptana.ide.documentation.libraryname.sampleview
+!STACK 1
+org.eclipse.ui.PartInitException: Could not create view: com.aptana.ide.documentation.libraryname.sampleview
+	at org.eclipse.ui.internal.ViewFactory.createView(ViewFactory.java:158)
+	at org.eclipse.ui.internal.Perspective.createReferences(Perspective.java:1249)
+	at org.eclipse.ui.internal.Perspective.restoreState(Perspective.java:1219)
+	at org.eclipse.ui.internal.WorkbenchPage$17.runWithException(WorkbenchPage.java:3211)
+	at org.eclipse.ui.internal.StartupThreading$StartupRunnable.run(StartupThreading.java:31)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4041)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3660)
+	at org.eclipse.ui.application.WorkbenchAdvisor.openWindows(WorkbenchAdvisor.java:803)
+	at org.eclipse.ui.internal.Workbench$31.runWithException(Workbench.java:1567)
+	at org.eclipse.ui.internal.StartupThreading$StartupRunnable.run(StartupThreading.java:31)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4041)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3660)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2548)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at com.aptana.rcp.IDEApplication.start(IDEApplication.java:125)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:619)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:574)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1407)
+!SUBENTRY 3 org.eclipse.ui 4 0 2011-04-13 07:30:27.920
+!MESSAGE Could not create view: com.aptana.ide.documentation.libraryname.sampleview
+!SUBENTRY 2 unknown 0 0 2011-04-13 07:30:27.920
+!MESSAGE OK
+!SUBENTRY 2 unknown 0 0 2011-04-13 07:30:27.920
+!MESSAGE OK
+!SUBENTRY 2 unknown 0 0 2011-04-13 07:30:27.920
+!MESSAGE OK
+!SUBENTRY 2 unknown 0 0 2011-04-13 07:30:27.920
+!MESSAGE OK
+!SUBENTRY 2 unknown 0 0 2011-04-13 07:30:27.920
+!MESSAGE OK
+!SUBENTRY 2 unknown 0 0 2011-04-13 07:30:27.920
+!MESSAGE OK
+!SUBENTRY 2 unknown 0 0 2011-04-13 07:30:27.920
+!MESSAGE OK
+!SUBENTRY 2 org.eclipse.ui 4 0 2011-04-13 07:30:27.920
+!MESSAGE Could not find view: com.aptana.ide.ui.io.fileExplorerView
+!SUBENTRY 2 org.eclipse.ui 4 0 2011-04-13 07:30:27.920
+!MESSAGE Could not find view: com.aptana.ide.js.ui.views.profilesView
+!SUBENTRY 2 org.eclipse.ui 4 0 2011-04-13 07:30:27.920
+!MESSAGE Could not find view: com.aptana.ide.ui.ViewPlugins
+!SUBENTRY 2 org.eclipse.ui 4 0 2011-04-13 07:30:27.920
+!MESSAGE Could not find view: com.aptana.ide.documentation.libraryname.sampleview
+!SUBENTRY 1 unknown 0 0 2011-04-13 07:30:27.920
+!MESSAGE OK
+
+!ENTRY com.aptana.scripting 1 0 2011-04-13 07:30:29.133
+!MESSAGE C:\Users\raj\AppData\Local\Aptana Studio 3\configuration\org.eclipse.osgi\bundles\75\1\.cp\bundles\bundle-development.ruble\commands\install_bundle.rb is newer than cache file, invalidating cache
+!SESSION 2011-04-13 07:30:57.006 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.6.0_23
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY org.eclipse.ui 4 0 2011-04-13 07:30:59.441
+!MESSAGE Unable to create editor ID com.aptana.ide.editors.HTMLEditor: No editor descriptor for id com.aptana.ide.editors.HTMLEditor
+!STACK 1
+org.eclipse.ui.PartInitException: No editor descriptor for id com.aptana.ide.editors.HTMLEditor
+	at org.eclipse.ui.internal.EditorReference.createPartHelper(EditorReference.java:601)
+	at org.eclipse.ui.internal.EditorReference.createPart(EditorReference.java:465)
+	at org.eclipse.ui.internal.WorkbenchPartReference.getPart(WorkbenchPartReference.java:595)
+	at org.eclipse.ui.internal.EditorAreaHelper.setVisibleEditor(EditorAreaHelper.java:271)
+	at org.eclipse.ui.internal.EditorManager.setVisibleEditor(EditorManager.java:1429)
+	at org.eclipse.ui.internal.EditorManager$5.runWithException(EditorManager.java:942)
+	at org.eclipse.ui.internal.StartupThreading$StartupRunnable.run(StartupThreading.java:31)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4041)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3660)
+	at org.eclipse.ui.application.WorkbenchAdvisor.openWindows(WorkbenchAdvisor.java:803)
+	at org.eclipse.ui.internal.Workbench$31.runWithException(Workbench.java:1567)
+	at org.eclipse.ui.internal.StartupThreading$StartupRunnable.run(StartupThreading.java:31)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4041)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3660)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2548)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at com.aptana.rcp.IDEApplication.start(IDEApplication.java:125)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:619)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:574)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1407)
+!SUBENTRY 1 org.eclipse.ui 4 0 2011-04-13 07:30:59.442
+!MESSAGE No editor descriptor for id com.aptana.ide.editors.HTMLEditor
+
+!ENTRY org.eclipse.ui 2 2 2011-04-13 07:30:59.465
+!MESSAGE Ignored attempt to add saveable that was already registered
+!STACK 0
+org.eclipse.core.runtime.AssertionFailedException: unknown saveable: org.eclipse.ui.internal.DefaultSaveable@2f75e5 from part: org.eclipse.ui.internal.ErrorEditorPart@2f75e5
+	at org.eclipse.ui.internal.SaveablesList.logWarning(SaveablesList.java:187)
+	at org.eclipse.ui.internal.SaveablesList.addModel(SaveablesList.java:117)
+	at org.eclipse.ui.internal.SaveablesList.addModels(SaveablesList.java:289)
+	at org.eclipse.ui.internal.SaveablesList.postOpen(SaveablesList.java:684)
+	at org.eclipse.ui.internal.PartList.partOpened(PartList.java:234)
+	at org.eclipse.ui.internal.PartList.access$0(PartList.java:210)
+	at org.eclipse.ui.internal.PartList$1.propertyChanged(PartList.java:40)
+	at org.eclipse.ui.internal.WorkbenchPartReference.fireInternalPropertyChange(WorkbenchPartReference.java:375)
+	at org.eclipse.ui.internal.WorkbenchPartReference.getPart(WorkbenchPartReference.java:610)
+	at org.eclipse.ui.internal.EditorAreaHelper.setVisibleEditor(EditorAreaHelper.java:271)
+	at org.eclipse.ui.internal.EditorManager.setVisibleEditor(EditorManager.java:1429)
+	at org.eclipse.ui.internal.EditorManager$5.runWithException(EditorManager.java:942)
+	at org.eclipse.ui.internal.StartupThreading$StartupRunnable.run(StartupThreading.java:31)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4041)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3660)
+	at org.eclipse.ui.application.WorkbenchAdvisor.openWindows(WorkbenchAdvisor.java:803)
+	at org.eclipse.ui.internal.Workbench$31.runWithException(Workbench.java:1567)
+	at org.eclipse.ui.internal.StartupThreading$StartupRunnable.run(StartupThreading.java:31)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4041)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3660)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2548)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at com.aptana.rcp.IDEApplication.start(IDEApplication.java:125)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:619)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:574)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1407)
+
+!ENTRY com.aptana.scripting 1 0 2011-04-13 07:31:01.065
+!MESSAGE C:\Users\raj\AppData\Local\Aptana Studio 3\configuration\org.eclipse.osgi\bundles\75\1\.cp\bundles\bundle-development.ruble\commands\install_bundle.rb is newer than cache file, invalidating cache
+!SESSION 2011-04-13 08:15:50.985 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.6.0_20
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_US
+Framework arguments:  -application com.aptana.ide.desktop.integration.Application
+Command-line arguments:  -os win32 -ws win32 -arch x86 -application com.aptana.ide.desktop.integration.Application
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-04-13 08:20:39.808
+!MESSAGE Socket connection error. Please try shutting down and restarting your web browser, and then run 'debug' again.
+!STACK 0
+java.net.SocketTimeoutException: Accept timed out
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(Unknown Source)
+	at java.net.ServerSocket.implAccept(Unknown Source)
+	at java.net.ServerSocket.accept(Unknown Source)
+	at com.aptana.ide.debug.core.JSLaunchConfigurationDelegate.launch(JSLaunchConfigurationDelegate.java:416)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:853)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:703)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:866)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1069)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-04-13 08:33:02.939
+!MESSAGE Socket connection error. Please try shutting down and restarting your web browser, and then run 'debug' again.
+!STACK 0
+java.net.SocketTimeoutException: Accept timed out
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(Unknown Source)
+	at java.net.ServerSocket.implAccept(Unknown Source)
+	at java.net.ServerSocket.accept(Unknown Source)
+	at com.aptana.ide.debug.core.JSLaunchConfigurationDelegate.launch(JSLaunchConfigurationDelegate.java:416)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:853)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:703)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:866)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1069)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SESSION 2011-04-13 08:33:35.248 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.6.0_20
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_US
+Framework arguments:  -application com.aptana.ide.desktop.integration.Application
+Command-line arguments:  -os win32 -ws win32 -arch x86 -application com.aptana.ide.desktop.integration.Application
+
+!ENTRY org.eclipse.core.resources 2 10035 2011-04-13 08:33:36.307
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY org.eclipse.equinox.p2.ui 4 0 2011-04-13 08:33:45.087
+!MESSAGE Unable to load the repository http://download.eclipse.org/releases/galileo/200909241140
+!STACK 1
+org.eclipse.equinox.internal.provisional.p2.core.ProvisionException: Unable to read repository at file:/C:/Users/raj/AppData/Local/Aptana Studio 2.0/p2/org.eclipse.equinox.p2.repository/cache/content808444004.jar.
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryIO.read(MetadataRepositoryIO.java:73)
+	at org.eclipse.equinox.internal.provisional.spi.p2.metadata.repository.SimpleMetadataRepositoryFactory.validateAndLoad(SimpleMetadataRepositoryFactory.java:119)
+	at org.eclipse.equinox.internal.provisional.spi.p2.metadata.repository.SimpleMetadataRepositoryFactory.load(SimpleMetadataRepositoryFactory.java:87)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.factoryLoad(MetadataRepositoryManager.java:54)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:669)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:617)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:92)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.operations.ProvisioningUtil.loadMetadataRepository(ProvisioningUtil.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableMetadataRepositoryManager.doLoadRepository(QueryableMetadataRepositoryManager.java:55)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadRepository(QueryableRepositoryManager.java:195)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadAll(QueryableRepositoryManager.java:108)
+	at org.eclipse.equinox.internal.p2.ui.sdk.PreloadingRepositoryHandler$2.run(PreloadingRepositoryHandler.java:71)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+Caused by: java.io.IOException: Premature end of file.
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryIO$Parser.parse(MetadataRepositoryIO.java:206)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryIO.read(MetadataRepositoryIO.java:55)
+	... 13 more
+!SUBENTRY 1 org.eclipse.equinox.p2.metadata.repository 4 1002 2011-04-13 08:33:45.087
+!MESSAGE Unable to read repository at file:/C:/Users/raj/AppData/Local/Aptana Studio 2.0/p2/org.eclipse.equinox.p2.repository/cache/content808444004.jar.
+!STACK 0
+java.io.IOException: Premature end of file.
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryIO$Parser.parse(MetadataRepositoryIO.java:206)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryIO.read(MetadataRepositoryIO.java:55)
+	at org.eclipse.equinox.internal.provisional.spi.p2.metadata.repository.SimpleMetadataRepositoryFactory.validateAndLoad(SimpleMetadataRepositoryFactory.java:119)
+	at org.eclipse.equinox.internal.provisional.spi.p2.metadata.repository.SimpleMetadataRepositoryFactory.load(SimpleMetadataRepositoryFactory.java:87)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.factoryLoad(MetadataRepositoryManager.java:54)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:669)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:617)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:92)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.operations.ProvisioningUtil.loadMetadataRepository(ProvisioningUtil.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableMetadataRepositoryManager.doLoadRepository(QueryableMetadataRepositoryManager.java:55)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadRepository(QueryableRepositoryManager.java:195)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadAll(QueryableRepositoryManager.java:108)
+	at org.eclipse.equinox.internal.p2.ui.sdk.PreloadingRepositoryHandler$2.run(PreloadingRepositoryHandler.java:71)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.equinox.p2.core 4 0 2011-04-13 08:33:46.768
+!MESSAGE Provisioning exception
+!STACK 1
+org.eclipse.equinox.internal.provisional.p2.core.ProvisionException: No repository found at http://download.eclipse.org/releases/galileo/200909241140.
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.fail(AbstractRepositoryManager.java:380)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:606)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:92)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:88)
+	at org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepository.addChild(CompositeMetadataRepository.java:146)
+	at org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepository.<init>(CompositeMetadataRepository.java:101)
+	at org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepositoryFactory.validateAndLoad(CompositeMetadataRepositoryFactory.java:127)
+	at org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepositoryFactory.load(CompositeMetadataRepositoryFactory.java:87)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.factoryLoad(MetadataRepositoryManager.java:54)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:669)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:617)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:92)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.operations.ProvisioningUtil.loadMetadataRepository(ProvisioningUtil.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableMetadataRepositoryManager.doLoadRepository(QueryableMetadataRepositoryManager.java:55)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadRepository(QueryableRepositoryManager.java:195)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadAll(QueryableRepositoryManager.java:108)
+	at org.eclipse.equinox.internal.p2.ui.sdk.PreloadingRepositoryHandler$2.run(PreloadingRepositoryHandler.java:71)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.equinox.p2.metadata.repository 4 1000 2011-04-13 08:33:46.769
+!MESSAGE No repository found at http://download.eclipse.org/releases/galileo/200909241140.
+
+!ENTRY org.eclipse.equinox.p2.ui 4 0 2011-04-13 08:34:47.846
+!MESSAGE Unable to load the repository http://download.eclipse.org/releases/galileo/200909241140
+!STACK 1
+org.eclipse.equinox.internal.provisional.p2.core.ProvisionException: No repository found at http://download.eclipse.org/releases/galileo/200909241140.
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.fail(AbstractRepositoryManager.java:380)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:606)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:92)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.operations.ProvisioningUtil.loadMetadataRepository(ProvisioningUtil.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableMetadataRepositoryManager.doLoadRepository(QueryableMetadataRepositoryManager.java:55)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadRepository(QueryableRepositoryManager.java:195)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadAll(QueryableRepositoryManager.java:108)
+	at org.eclipse.equinox.internal.p2.ui.sdk.PreloadingRepositoryHandler$2.run(PreloadingRepositoryHandler.java:71)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.equinox.p2.metadata.repository 4 1000 2011-04-13 08:34:47.846
+!MESSAGE No repository found at http://download.eclipse.org/releases/galileo/200909241140.
+
+!ENTRY org.eclipse.equinox.p2.ui 4 0 2011-04-13 08:34:50.267
+!MESSAGE Unable to load the repository http://next.aptana.com/pydev-pro
+!STACK 1
+org.eclipse.equinox.internal.provisional.p2.core.ProvisionException: No repository found at http://next.aptana.com/pydev-pro.
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.fail(AbstractRepositoryManager.java:380)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:641)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:92)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.operations.ProvisioningUtil.loadMetadataRepository(ProvisioningUtil.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableMetadataRepositoryManager.doLoadRepository(QueryableMetadataRepositoryManager.java:55)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadRepository(QueryableRepositoryManager.java:195)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadAll(QueryableRepositoryManager.java:108)
+	at org.eclipse.equinox.internal.p2.ui.sdk.PreloadingRepositoryHandler$2.run(PreloadingRepositoryHandler.java:71)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.equinox.p2.metadata.repository 4 1000 2011-04-13 08:34:50.267
+!MESSAGE No repository found at http://next.aptana.com/pydev-pro.
+
+!ENTRY org.eclipse.equinox.p2.ui 4 0 2011-04-13 08:34:50.653
+!MESSAGE Unable to load the repository http://next.aptana.com/pydev
+!STACK 1
+org.eclipse.equinox.internal.provisional.p2.core.ProvisionException: No repository found at http://next.aptana.com/pydev.
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.fail(AbstractRepositoryManager.java:380)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:641)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:92)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.operations.ProvisioningUtil.loadMetadataRepository(ProvisioningUtil.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableMetadataRepositoryManager.doLoadRepository(QueryableMetadataRepositoryManager.java:55)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadRepository(QueryableRepositoryManager.java:195)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadAll(QueryableRepositoryManager.java:108)
+	at org.eclipse.equinox.internal.p2.ui.sdk.PreloadingRepositoryHandler$2.run(PreloadingRepositoryHandler.java:71)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.equinox.p2.metadata.repository 4 1000 2011-04-13 08:34:50.653
+!MESSAGE No repository found at http://next.aptana.com/pydev.
+
+!ENTRY org.eclipse.equinox.p2.ui 4 0 2011-04-13 08:34:52.395
+!MESSAGE Unable to load the repository http://next.aptana.com/pro
+!STACK 1
+org.eclipse.equinox.internal.provisional.p2.core.ProvisionException: No repository found at http://next.aptana.com/pro.
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.fail(AbstractRepositoryManager.java:380)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:641)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:92)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.operations.ProvisioningUtil.loadMetadataRepository(ProvisioningUtil.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableMetadataRepositoryManager.doLoadRepository(QueryableMetadataRepositoryManager.java:55)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadRepository(QueryableRepositoryManager.java:195)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadAll(QueryableRepositoryManager.java:108)
+	at org.eclipse.equinox.internal.p2.ui.sdk.PreloadingRepositoryHandler$2.run(PreloadingRepositoryHandler.java:71)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.equinox.p2.metadata.repository 4 1000 2011-04-13 08:34:52.395
+!MESSAGE No repository found at http://next.aptana.com/pro.
+
+!ENTRY org.eclipse.equinox.p2.ui 4 0 2011-04-13 08:34:53.970
+!MESSAGE Unable to load the repository http://next.aptana.com/db-tools
+!STACK 1
+org.eclipse.equinox.internal.provisional.p2.core.ProvisionException: No repository found at http://next.aptana.com/db-tools.
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.fail(AbstractRepositoryManager.java:380)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:641)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:92)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.operations.ProvisioningUtil.loadMetadataRepository(ProvisioningUtil.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableMetadataRepositoryManager.doLoadRepository(QueryableMetadataRepositoryManager.java:55)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadRepository(QueryableRepositoryManager.java:195)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadAll(QueryableRepositoryManager.java:108)
+	at org.eclipse.equinox.internal.p2.ui.sdk.PreloadingRepositoryHandler$2.run(PreloadingRepositoryHandler.java:71)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.equinox.p2.metadata.repository 4 1000 2011-04-13 08:34:53.970
+!MESSAGE No repository found at http://next.aptana.com/db-tools.
+
+!ENTRY org.eclipse.equinox.p2.touchpoint.natives 2 0 2011-04-13 08:36:44.105
+!MESSAGE Could not remove temporary backup directory (it is safe to manually delete it and its contents): C:\Users\raj\AppData\Local\Temp\AptanaProfile_25e9f03a3480_c0a8000cdb46
+!SESSION 2011-04-13 08:36:48.564 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.6.0_20
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_US
+Framework arguments:  -application com.aptana.ide.desktop.integration.Application
+Command-line arguments:  -os win32 -ws win32 -arch x86 -application com.aptana.ide.desktop.integration.Application
+
+!ENTRY org.eclipse.ui.navigator 4 0 2011-04-13 08:36:54.889
+!MESSAGE A navigatorContent extension does not exist with id: com.aptana.ide.syncing.ui.navigatorContent.sorter in plugin com.aptana.ide.syncing.ui
+
+!ENTRY org.eclipse.ui 4 0 2011-04-13 08:36:55.975
+!MESSAGE Missing attribute: triggerPoints in extension "com.aptana.ide.syncing.ui.navigatorContent.sorter" defined in bundle "com.aptana.ide.syncing.ui".
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-04-13 08:37:39.185
+!MESSAGE Socket connection error. Please try shutting down and restarting your web browser, and then run 'debug' again.
+!STACK 0
+java.net.SocketTimeoutException: Accept timed out
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(Unknown Source)
+	at java.net.ServerSocket.implAccept(Unknown Source)
+	at java.net.ServerSocket.accept(Unknown Source)
+	at com.aptana.ide.debug.core.JSLaunchConfigurationDelegate.launch(JSLaunchConfigurationDelegate.java:416)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:853)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:703)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:866)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1069)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-04-13 08:38:13.971
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY org.eclipse.equinox.p2.ui 4 0 2011-04-13 08:42:48.267
+!MESSAGE Unable to load the repository http://download.eclipse.org/releases/galileo/200909241140
+!STACK 1
+org.eclipse.equinox.internal.provisional.p2.core.ProvisionException: Unable to read repository at file:/C:/Users/raj/AppData/Local/Aptana Studio 2.0/p2/org.eclipse.equinox.p2.repository/cache/content808444004.jar.
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryIO.read(MetadataRepositoryIO.java:73)
+	at org.eclipse.equinox.internal.provisional.spi.p2.metadata.repository.SimpleMetadataRepositoryFactory.validateAndLoad(SimpleMetadataRepositoryFactory.java:119)
+	at org.eclipse.equinox.internal.provisional.spi.p2.metadata.repository.SimpleMetadataRepositoryFactory.load(SimpleMetadataRepositoryFactory.java:87)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.factoryLoad(MetadataRepositoryManager.java:54)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:669)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:617)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:92)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.operations.ProvisioningUtil.loadMetadataRepository(ProvisioningUtil.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableMetadataRepositoryManager.doLoadRepository(QueryableMetadataRepositoryManager.java:55)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadRepository(QueryableRepositoryManager.java:195)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadAll(QueryableRepositoryManager.java:108)
+	at org.eclipse.equinox.internal.p2.ui.sdk.PreloadingRepositoryHandler$2.run(PreloadingRepositoryHandler.java:71)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+Caused by: java.io.IOException: Premature end of file.
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryIO$Parser.parse(MetadataRepositoryIO.java:206)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryIO.read(MetadataRepositoryIO.java:55)
+	... 13 more
+!SUBENTRY 1 org.eclipse.equinox.p2.metadata.repository 4 1002 2011-04-13 08:42:48.268
+!MESSAGE Unable to read repository at file:/C:/Users/raj/AppData/Local/Aptana Studio 2.0/p2/org.eclipse.equinox.p2.repository/cache/content808444004.jar.
+!STACK 0
+java.io.IOException: Premature end of file.
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryIO$Parser.parse(MetadataRepositoryIO.java:206)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryIO.read(MetadataRepositoryIO.java:55)
+	at org.eclipse.equinox.internal.provisional.spi.p2.metadata.repository.SimpleMetadataRepositoryFactory.validateAndLoad(SimpleMetadataRepositoryFactory.java:119)
+	at org.eclipse.equinox.internal.provisional.spi.p2.metadata.repository.SimpleMetadataRepositoryFactory.load(SimpleMetadataRepositoryFactory.java:87)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.factoryLoad(MetadataRepositoryManager.java:54)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:669)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:617)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:92)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.operations.ProvisioningUtil.loadMetadataRepository(ProvisioningUtil.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableMetadataRepositoryManager.doLoadRepository(QueryableMetadataRepositoryManager.java:55)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadRepository(QueryableRepositoryManager.java:195)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadAll(QueryableRepositoryManager.java:108)
+	at org.eclipse.equinox.internal.p2.ui.sdk.PreloadingRepositoryHandler$2.run(PreloadingRepositoryHandler.java:71)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.equinox.p2.core 4 0 2011-04-13 08:43:18.559
+!MESSAGE Provisioning exception
+!STACK 1
+org.eclipse.equinox.internal.provisional.p2.core.ProvisionException: No repository found at http://download.eclipse.org/releases/galileo/200909241140.
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.fail(AbstractRepositoryManager.java:380)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:606)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:92)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:88)
+	at org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepository.addChild(CompositeMetadataRepository.java:146)
+	at org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepository.<init>(CompositeMetadataRepository.java:101)
+	at org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepositoryFactory.validateAndLoad(CompositeMetadataRepositoryFactory.java:127)
+	at org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepositoryFactory.load(CompositeMetadataRepositoryFactory.java:87)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.factoryLoad(MetadataRepositoryManager.java:54)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:669)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:617)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:92)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.operations.ProvisioningUtil.loadMetadataRepository(ProvisioningUtil.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableMetadataRepositoryManager.doLoadRepository(QueryableMetadataRepositoryManager.java:55)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadRepository(QueryableRepositoryManager.java:195)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadAll(QueryableRepositoryManager.java:108)
+	at org.eclipse.equinox.internal.p2.ui.sdk.PreloadingRepositoryHandler$2.run(PreloadingRepositoryHandler.java:71)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.equinox.p2.metadata.repository 4 1000 2011-04-13 08:43:18.559
+!MESSAGE No repository found at http://download.eclipse.org/releases/galileo/200909241140.
+
+!ENTRY org.eclipse.equinox.p2.ui 4 0 2011-04-13 08:50:21.910
+!MESSAGE Unable to load the repository http://download.eclipse.org/releases/galileo/200909241140
+!STACK 1
+org.eclipse.equinox.internal.provisional.p2.core.ProvisionException: Unable to read repository at file:/C:/Users/raj/AppData/Local/Aptana Studio 2.0/p2/org.eclipse.equinox.p2.repository/cache/content808444004.jar.
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryIO.read(MetadataRepositoryIO.java:73)
+	at org.eclipse.equinox.internal.provisional.spi.p2.metadata.repository.SimpleMetadataRepositoryFactory.validateAndLoad(SimpleMetadataRepositoryFactory.java:119)
+	at org.eclipse.equinox.internal.provisional.spi.p2.metadata.repository.SimpleMetadataRepositoryFactory.load(SimpleMetadataRepositoryFactory.java:87)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.factoryLoad(MetadataRepositoryManager.java:54)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:669)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:617)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:92)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.operations.ProvisioningUtil.loadMetadataRepository(ProvisioningUtil.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableMetadataRepositoryManager.doLoadRepository(QueryableMetadataRepositoryManager.java:55)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadRepository(QueryableRepositoryManager.java:195)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadAll(QueryableRepositoryManager.java:108)
+	at org.eclipse.equinox.internal.p2.ui.sdk.PreloadingRepositoryHandler$2.run(PreloadingRepositoryHandler.java:71)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+Caused by: java.io.IOException: Premature end of file.
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryIO$Parser.parse(MetadataRepositoryIO.java:206)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryIO.read(MetadataRepositoryIO.java:55)
+	... 13 more
+!SUBENTRY 1 org.eclipse.equinox.p2.metadata.repository 4 1002 2011-04-13 08:50:21.910
+!MESSAGE Unable to read repository at file:/C:/Users/raj/AppData/Local/Aptana Studio 2.0/p2/org.eclipse.equinox.p2.repository/cache/content808444004.jar.
+!STACK 0
+java.io.IOException: Premature end of file.
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryIO$Parser.parse(MetadataRepositoryIO.java:206)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryIO.read(MetadataRepositoryIO.java:55)
+	at org.eclipse.equinox.internal.provisional.spi.p2.metadata.repository.SimpleMetadataRepositoryFactory.validateAndLoad(SimpleMetadataRepositoryFactory.java:119)
+	at org.eclipse.equinox.internal.provisional.spi.p2.metadata.repository.SimpleMetadataRepositoryFactory.load(SimpleMetadataRepositoryFactory.java:87)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.factoryLoad(MetadataRepositoryManager.java:54)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:669)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:617)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:92)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.operations.ProvisioningUtil.loadMetadataRepository(ProvisioningUtil.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableMetadataRepositoryManager.doLoadRepository(QueryableMetadataRepositoryManager.java:55)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadRepository(QueryableRepositoryManager.java:195)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadAll(QueryableRepositoryManager.java:108)
+	at org.eclipse.equinox.internal.p2.ui.sdk.PreloadingRepositoryHandler$2.run(PreloadingRepositoryHandler.java:71)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.equinox.p2.ui 4 0 2011-04-13 08:50:24.135
+!MESSAGE Unable to load the repository http://next.aptana.com/pydev-pro
+!STACK 1
+org.eclipse.equinox.internal.provisional.p2.core.ProvisionException: No repository found at http://next.aptana.com/pydev-pro.
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.fail(AbstractRepositoryManager.java:380)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:641)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:92)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.operations.ProvisioningUtil.loadMetadataRepository(ProvisioningUtil.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableMetadataRepositoryManager.doLoadRepository(QueryableMetadataRepositoryManager.java:55)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadRepository(QueryableRepositoryManager.java:195)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadAll(QueryableRepositoryManager.java:108)
+	at org.eclipse.equinox.internal.p2.ui.sdk.PreloadingRepositoryHandler$2.run(PreloadingRepositoryHandler.java:71)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.equinox.p2.metadata.repository 4 1000 2011-04-13 08:50:24.136
+!MESSAGE No repository found at http://next.aptana.com/pydev-pro.
+
+!ENTRY org.eclipse.equinox.p2.ui 4 0 2011-04-13 08:50:24.585
+!MESSAGE Unable to load the repository http://next.aptana.com/pydev
+!STACK 1
+org.eclipse.equinox.internal.provisional.p2.core.ProvisionException: No repository found at http://next.aptana.com/pydev.
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.fail(AbstractRepositoryManager.java:380)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:641)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:92)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.operations.ProvisioningUtil.loadMetadataRepository(ProvisioningUtil.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableMetadataRepositoryManager.doLoadRepository(QueryableMetadataRepositoryManager.java:55)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadRepository(QueryableRepositoryManager.java:195)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadAll(QueryableRepositoryManager.java:108)
+	at org.eclipse.equinox.internal.p2.ui.sdk.PreloadingRepositoryHandler$2.run(PreloadingRepositoryHandler.java:71)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.equinox.p2.metadata.repository 4 1000 2011-04-13 08:50:24.585
+!MESSAGE No repository found at http://next.aptana.com/pydev.
+
+!ENTRY org.eclipse.equinox.p2.ui 4 0 2011-04-13 08:50:25.613
+!MESSAGE Unable to load the repository http://next.aptana.com/pro
+!STACK 1
+org.eclipse.equinox.internal.provisional.p2.core.ProvisionException: No repository found at http://next.aptana.com/pro.
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.fail(AbstractRepositoryManager.java:380)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:641)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:92)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.operations.ProvisioningUtil.loadMetadataRepository(ProvisioningUtil.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableMetadataRepositoryManager.doLoadRepository(QueryableMetadataRepositoryManager.java:55)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadRepository(QueryableRepositoryManager.java:195)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadAll(QueryableRepositoryManager.java:108)
+	at org.eclipse.equinox.internal.p2.ui.sdk.PreloadingRepositoryHandler$2.run(PreloadingRepositoryHandler.java:71)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.equinox.p2.metadata.repository 4 1000 2011-04-13 08:50:25.613
+!MESSAGE No repository found at http://next.aptana.com/pro.
+
+!ENTRY org.eclipse.equinox.p2.core 4 0 2011-04-13 08:50:32.212
+!MESSAGE Provisioning exception
+!STACK 1
+org.eclipse.equinox.internal.provisional.p2.core.ProvisionException: No repository found at http://download.eclipse.org/releases/galileo/200909241140.
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.fail(AbstractRepositoryManager.java:380)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:606)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:92)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:88)
+	at org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepository.addChild(CompositeMetadataRepository.java:146)
+	at org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepository.<init>(CompositeMetadataRepository.java:101)
+	at org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepositoryFactory.validateAndLoad(CompositeMetadataRepositoryFactory.java:127)
+	at org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepositoryFactory.load(CompositeMetadataRepositoryFactory.java:87)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.factoryLoad(MetadataRepositoryManager.java:54)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:669)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:617)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:92)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.operations.ProvisioningUtil.loadMetadataRepository(ProvisioningUtil.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableMetadataRepositoryManager.doLoadRepository(QueryableMetadataRepositoryManager.java:55)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadRepository(QueryableRepositoryManager.java:195)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadAll(QueryableRepositoryManager.java:108)
+	at org.eclipse.equinox.internal.p2.ui.sdk.PreloadingRepositoryHandler$2.run(PreloadingRepositoryHandler.java:71)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.equinox.p2.metadata.repository 4 1000 2011-04-13 08:50:32.212
+!MESSAGE No repository found at http://download.eclipse.org/releases/galileo/200909241140.
+
+!ENTRY org.eclipse.equinox.p2.ui 4 0 2011-04-13 08:50:37.003
+!MESSAGE Unable to load the repository http://next.aptana.com/db-tools
+!STACK 1
+org.eclipse.equinox.internal.provisional.p2.core.ProvisionException: No repository found at http://next.aptana.com/db-tools.
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.fail(AbstractRepositoryManager.java:380)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:641)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:92)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.operations.ProvisioningUtil.loadMetadataRepository(ProvisioningUtil.java:88)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableMetadataRepositoryManager.doLoadRepository(QueryableMetadataRepositoryManager.java:55)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadRepository(QueryableRepositoryManager.java:195)
+	at org.eclipse.equinox.internal.provisional.p2.ui.QueryableRepositoryManager.loadAll(QueryableRepositoryManager.java:108)
+	at org.eclipse.equinox.internal.p2.ui.sdk.PreloadingRepositoryHandler$2.run(PreloadingRepositoryHandler.java:71)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.equinox.p2.metadata.repository 4 1000 2011-04-13 08:50:37.003
+!MESSAGE No repository found at http://next.aptana.com/db-tools.
+!SESSION 2011-04-13 08:59:21.984 -----------------------------------------------
+eclipse.buildId=M20110210-1200
+java.version=1.6.0_24
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.javascript.product
+Command-line arguments:  -data C:\projects\superb\WebGL_sandbox\aptana -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.javascript.product
+
+!ENTRY org.eclipse.jface 2 0 2011-04-13 08:59:28.711
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2011-04-13 08:59:28.711
+!MESSAGE A conflict occurred for CTRL+SHIFT+U:
+Binding(CTRL+SHIFT+U,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.search.occurrences.in.file.quickMenu,Show Occurrences in File Quick Menu,
+		Shows the Occurrences in File quick menu,
+		Category(org.eclipse.search.ui.category.search,Search,Search command category,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+U,
+	ParameterizedCommand(Command(com.aptana.ide.syncing.ui.commands.upload,Upload...,
+		,
+		Category(com.aptana.ide.syncing.ui.commands.category,File Transfer,File Transfer Commands,true),
+		com.aptana.ide.syncing.ui.handlers.UploadHandler,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+!SESSION 2011-04-13 08:59:46.081 -----------------------------------------------
+eclipse.buildId=M20110210-1200
+java.version=1.6.0_24
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.javascript.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.javascript.product
+
+!ENTRY org.eclipse.jface 2 0 2011-04-13 08:59:51.855
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2011-04-13 08:59:51.855
+!MESSAGE A conflict occurred for CTRL+SHIFT+U:
+Binding(CTRL+SHIFT+U,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.search.occurrences.in.file.quickMenu,Show Occurrences in File Quick Menu,
+		Shows the Occurrences in File quick menu,
+		Category(org.eclipse.search.ui.category.search,Search,Search command category,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+U,
+	ParameterizedCommand(Command(com.aptana.ide.syncing.ui.commands.upload,Upload...,
+		,
+		Category(com.aptana.ide.syncing.ui.commands.category,File Transfer,File Transfer Commands,true),
+		com.aptana.ide.syncing.ui.handlers.UploadHandler,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+!SESSION 2011-04-13 09:00:14.315 -----------------------------------------------
+eclipse.buildId=M20110210-1200
+java.version=1.6.0_24
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.javascript.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.javascript.product
+
+!ENTRY org.eclipse.jface 2 0 2011-04-13 09:00:20.001
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2011-04-13 09:00:20.001
+!MESSAGE A conflict occurred for CTRL+SHIFT+U:
+Binding(CTRL+SHIFT+U,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.search.occurrences.in.file.quickMenu,Show Occurrences in File Quick Menu,
+		Shows the Occurrences in File quick menu,
+		Category(org.eclipse.search.ui.category.search,Search,Search command category,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+U,
+	ParameterizedCommand(Command(com.aptana.ide.syncing.ui.commands.upload,Upload...,
+		,
+		Category(com.aptana.ide.syncing.ui.commands.category,File Transfer,File Transfer Commands,true),
+		com.aptana.ide.syncing.ui.handlers.UploadHandler,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.ui.navigator.resources 4 0 2011-04-13 09:00:35.774
+!MESSAGE Required filter org.eclipse.ui.navigator.resources.filters.workingSet is not present. Working set support will not function correctly.
+
+!ENTRY org.eclipse.ui.navigator.resources 4 0 2011-04-13 09:00:35.775
+!MESSAGE 
+!SESSION 2011-04-13 09:27:22.003 -----------------------------------------------
+eclipse.buildId=M20110210-1200
+java.version=1.6.0_24
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.javascript.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.javascript.product
+
+!ENTRY org.eclipse.jface 2 0 2011-04-13 09:27:27.883
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2011-04-13 09:27:27.883
+!MESSAGE A conflict occurred for CTRL+SHIFT+U:
+Binding(CTRL+SHIFT+U,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.search.occurrences.in.file.quickMenu,Show Occurrences in File Quick Menu,
+		Shows the Occurrences in File quick menu,
+		Category(org.eclipse.search.ui.category.search,Search,Search command category,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+U,
+	ParameterizedCommand(Command(com.aptana.ide.syncing.ui.commands.upload,Upload...,
+		,
+		Category(com.aptana.ide.syncing.ui.commands.category,File Transfer,File Transfer Commands,true),
+		com.aptana.ide.syncing.ui.handlers.UploadHandler@28bd133e,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.ui.navigator.resources 4 0 2011-04-13 09:27:28.480
+!MESSAGE Required filter org.eclipse.ui.navigator.resources.filters.workingSet is not present. Working set support will not function correctly.
+
+!ENTRY org.eclipse.ui.navigator.resources 4 0 2011-04-13 09:27:28.481
+!MESSAGE 
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 09:37:56.182
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:237)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 09:37:56.182
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 09:37:56.183
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:237)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 09:37:56.183
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 09:37:56.184
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:237)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 09:37:56.184
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 09:37:56.185
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:237)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 09:37:56.185
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 09:37:56.186
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.pruneShortcuts(LaunchingResourceManager.java:387)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getLabel(LaunchingResourceManager.java:312)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:241)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 09:37:56.186
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 09:37:56.186
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.pruneShortcuts(LaunchingResourceManager.java:387)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getLabel(LaunchingResourceManager.java:312)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:241)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 09:37:56.187
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 09:37:56.187
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.pruneShortcuts(LaunchingResourceManager.java:387)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getLabel(LaunchingResourceManager.java:312)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:241)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 09:37:56.187
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 09:37:56.188
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.pruneShortcuts(LaunchingResourceManager.java:387)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getLabel(LaunchingResourceManager.java:312)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:241)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 09:37:56.188
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 09:37:56.189
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getApplicableConfigurationTypes(LaunchConfigurationManager.java:744)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getApplicableLaunchConfigurations(LaunchConfigurationManager.java:780)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getParticipatingLaunchConfigurations(LaunchingResourceManager.java:506)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getLabel(LaunchingResourceManager.java:320)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:241)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 09:37:56.189
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 09:37:56.190
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getApplicableConfigurationTypes(LaunchConfigurationManager.java:744)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getApplicableLaunchConfigurations(LaunchConfigurationManager.java:780)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getParticipatingLaunchConfigurations(LaunchingResourceManager.java:506)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getLabel(LaunchingResourceManager.java:320)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:241)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 09:37:56.190
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 09:37:56.190
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getApplicableConfigurationTypes(LaunchConfigurationManager.java:744)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getApplicableLaunchConfigurations(LaunchConfigurationManager.java:780)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getParticipatingLaunchConfigurations(LaunchingResourceManager.java:506)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getLabel(LaunchingResourceManager.java:320)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:241)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 09:37:56.191
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 09:37:56.191
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getApplicableConfigurationTypes(LaunchConfigurationManager.java:744)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getApplicableLaunchConfigurations(LaunchConfigurationManager.java:780)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getParticipatingLaunchConfigurations(LaunchingResourceManager.java:506)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getLabel(LaunchingResourceManager.java:320)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:241)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 09:37:56.191
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 09:37:56.192
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:237)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 09:37:56.192
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 09:37:56.193
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:237)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 09:37:56.193
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 09:37:56.194
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:237)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 09:37:56.194
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 09:37:56.194
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:237)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 09:37:56.195
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 09:37:56.195
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.pruneShortcuts(LaunchingResourceManager.java:387)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getLabel(LaunchingResourceManager.java:312)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:241)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 09:37:56.195
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 09:37:56.196
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.pruneShortcuts(LaunchingResourceManager.java:387)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getLabel(LaunchingResourceManager.java:312)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:241)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 09:37:56.196
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 09:37:56.197
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.pruneShortcuts(LaunchingResourceManager.java:387)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getLabel(LaunchingResourceManager.java:312)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:241)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 09:37:56.197
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 09:37:56.198
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.pruneShortcuts(LaunchingResourceManager.java:387)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getLabel(LaunchingResourceManager.java:312)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:241)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 09:37:56.198
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 09:37:56.198
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getApplicableConfigurationTypes(LaunchConfigurationManager.java:744)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getApplicableLaunchConfigurations(LaunchConfigurationManager.java:780)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getParticipatingLaunchConfigurations(LaunchingResourceManager.java:506)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getLabel(LaunchingResourceManager.java:320)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:241)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 09:37:56.199
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 09:37:56.199
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getApplicableConfigurationTypes(LaunchConfigurationManager.java:744)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getApplicableLaunchConfigurations(LaunchConfigurationManager.java:780)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getParticipatingLaunchConfigurations(LaunchingResourceManager.java:506)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getLabel(LaunchingResourceManager.java:320)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:241)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 09:37:56.199
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 09:37:56.200
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getApplicableConfigurationTypes(LaunchConfigurationManager.java:744)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getApplicableLaunchConfigurations(LaunchConfigurationManager.java:780)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getParticipatingLaunchConfigurations(LaunchingResourceManager.java:506)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getLabel(LaunchingResourceManager.java:320)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:241)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 09:37:56.200
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 09:37:56.201
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getApplicableConfigurationTypes(LaunchConfigurationManager.java:744)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getApplicableLaunchConfigurations(LaunchConfigurationManager.java:780)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getParticipatingLaunchConfigurations(LaunchingResourceManager.java:506)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getLabel(LaunchingResourceManager.java:320)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:241)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 09:37:56.201
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui2/index.html'.
+
+!ENTRY org.eclipse.ui.ide 2 4 2011-04-13 09:38:17.127
+!MESSAGE Problems occurred closing the selected resources.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2011-04-13 09:38:17.127
+!MESSAGE The project description file (.project) for 'fourth_floor_with_gui2' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
+!SESSION 2011-04-13 09:38:36.683 -----------------------------------------------
+eclipse.buildId=M20110210-1200
+java.version=1.6.0_24
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.javascript.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.javascript.product
+
+!ENTRY org.eclipse.jface 2 0 2011-04-13 09:38:41.870
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2011-04-13 09:38:41.870
+!MESSAGE A conflict occurred for CTRL+SHIFT+U:
+Binding(CTRL+SHIFT+U,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.search.occurrences.in.file.quickMenu,Show Occurrences in File Quick Menu,
+		Shows the Occurrences in File quick menu,
+		Category(org.eclipse.search.ui.category.search,Search,Search command category,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+U,
+	ParameterizedCommand(Command(com.aptana.ide.syncing.ui.commands.upload,Upload...,
+		,
+		Category(com.aptana.ide.syncing.ui.commands.category,File Transfer,File Transfer Commands,true),
+		com.aptana.ide.syncing.ui.handlers.UploadHandler@43ad637e,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.ui.navigator.resources 4 0 2011-04-13 09:38:42.247
+!MESSAGE Required filter org.eclipse.ui.navigator.resources.filters.workingSet is not present. Working set support will not function correctly.
+
+!ENTRY org.eclipse.ui.navigator.resources 4 0 2011-04-13 09:38:42.248
+!MESSAGE 
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-04-13 09:39:47.362
+!MESSAGE Launch URL is not defined
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-04-13 09:39:52.578
+!MESSAGE Launch URL is not defined
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-04-13 09:40:01.202
+!MESSAGE Launch URL is not defined
