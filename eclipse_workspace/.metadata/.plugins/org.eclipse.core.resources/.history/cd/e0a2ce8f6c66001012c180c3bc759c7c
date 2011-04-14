@@ -23,15 +23,18 @@
     
     <body> 
     
-		<div id="o3d"></div>
-		<div id="topTitle"></div>
-		
-		<div id="leftNav">
-			<a id="leftNavButtonGeneral" class="leftNavButton" title="General" onClick="lgb.gui.onLeftNavClick_1();" href="#"></a>
-			<a id="leftNavButtonHvac" class="leftNavButton" title="HVAC" href="#"></a>
-			<a id="leftNavButtonEnvelope" class="leftNavButton" title="External Envelope" href="#"></a>
-			<a id="leftNavButtonLighting" class="leftNavButton" title="Lighting" href="#"></a>
-		</div>
+
+	<div id="o3d"></div>
+	
+	<div id="topTitle"></div>
+	
+	<div id="leftNav">
+		<a id="leftNavButtonGeneral" class="leftNavButton" title="General" onClick="lgb.gui.onLeftNavClick_1();" href="#"></a>
+		<a id="leftNavButtonHvac" class="leftNavButton" title="HVAC" href="#"></a>
+		<a id="leftNavButtonEnvelope" class="leftNavButton" title="External Envelope" href="#"></a>
+		<a id="leftNavButtonLighting" class="leftNavButton" title="Lighting" href="#"></a>
+	</div>
+
 
     </body>
 </html>
