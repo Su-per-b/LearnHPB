@@ -1,5 +1,5 @@
-#Wed Apr 13 04:34:41 PDT 2011
-httpServerSettings.column.1=20
+#Thu Apr 14 00:06:21 PDT 2011
+httpServerSettings.column.1=166
 httpServerSettings.column.0=24
 com.aptana.ide.debug.ui.confirm_exit_debugger=false
 ajaxMonitorPage.requestsPart.column.4=157
@@ -8,4 +8,4 @@ ajaxMonitorPage.requestsPart.column.2=157
 eclipse.preferences.version=1
 ajaxMonitorPage.requestsPart.column.1=944
 ajaxMonitorPage.requestsPart.column.0=20
-httpServerSettings.column.2=20
+httpServerSettings.column.2=247

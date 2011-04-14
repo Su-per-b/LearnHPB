@@ -3534,3 +3534,1614 @@ Binding(CTRL+SHIFT+U,
 
 !ENTRY org.eclipse.ui.navigator.resources 4 0 2011-04-13 10:08:19.838
 !MESSAGE 
+
+!ENTRY org.eclipse.ui.ide 4 4 2011-04-13 10:17:10.053
+!MESSAGE While executing the operation, an exception occurred
+
+!ENTRY org.eclipse.ui.ide 4 4 2011-04-13 10:17:10.053
+!MESSAGE While executing the operation, an exception occurred
+!STACK 0
+org.eclipse.core.commands.ExecutionException: While executing the operation, an exception occurred
+	at org.eclipse.core.commands.operations.DefaultOperationHistory.execute(DefaultOperationHistory.java:519)
+	at org.eclipse.ui.actions.CopyFilesAndFoldersOperation.performCopy(CopyFilesAndFoldersOperation.java:1294)
+	at org.eclipse.ui.actions.CopyFilesAndFoldersOperation.copyResources(CopyFilesAndFoldersOperation.java:1816)
+	at org.eclipse.ui.actions.CopyFilesAndFoldersOperation.access$1(CopyFilesAndFoldersOperation.java:1770)
+	at org.eclipse.ui.actions.CopyFilesAndFoldersOperation$3.run(CopyFilesAndFoldersOperation.java:622)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: org.eclipse.core.runtime.AssertionFailedException: null argument:
+	at org.eclipse.core.runtime.Assert.isNotNull(Assert.java:85)
+	at org.eclipse.core.runtime.Assert.isNotNull(Assert.java:73)
+	at org.eclipse.core.filesystem.URIUtil.toPath(URIUtil.java:60)
+	at org.eclipse.core.internal.resources.Workspace.copyVariable(Workspace.java:855)
+	at org.eclipse.core.internal.resources.Workspace.transferVariableDefinition(Workspace.java:828)
+	at org.eclipse.core.internal.localstore.CopyVisitor.copyContents(CopyVisitor.java:81)
+	at org.eclipse.core.internal.localstore.CopyVisitor.copy(CopyVisitor.java:71)
+	at org.eclipse.core.internal.localstore.CopyVisitor.visit(CopyVisitor.java:202)
+	at org.eclipse.core.internal.localstore.UnifiedTree.accept(UnifiedTree.java:108)
+	at org.eclipse.core.internal.localstore.FileSystemResourceManager.copy(FileSystemResourceManager.java:229)
+	at org.eclipse.core.internal.resources.Resource.copy(Resource.java:548)
+	at org.eclipse.ui.ide.undo.WorkspaceUndoUtil.copy(WorkspaceUndoUtil.java:488)
+	at org.eclipse.ui.ide.undo.CopyResourcesOperation.copy(CopyResourcesOperation.java:157)
+	at org.eclipse.ui.ide.undo.CopyResourcesOperation.doExecute(CopyResourcesOperation.java:125)
+	at org.eclipse.ui.ide.undo.AbstractWorkspaceOperation$1.run(AbstractWorkspaceOperation.java:206)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at org.eclipse.ui.ide.undo.AbstractWorkspaceOperation.execute(AbstractWorkspaceOperation.java:204)
+	at org.eclipse.core.commands.operations.DefaultOperationHistory.execute(DefaultOperationHistory.java:511)
+	... 5 more
+
+!ENTRY org.eclipse.ui.ide 4 4 2011-04-13 10:18:01.717
+!MESSAGE While executing the operation, an exception occurred
+
+!ENTRY org.eclipse.ui.ide 4 4 2011-04-13 10:18:01.718
+!MESSAGE While executing the operation, an exception occurred
+!STACK 0
+org.eclipse.core.commands.ExecutionException: While executing the operation, an exception occurred
+	at org.eclipse.core.commands.operations.DefaultOperationHistory.execute(DefaultOperationHistory.java:519)
+	at org.eclipse.ui.actions.CopyFilesAndFoldersOperation.performCopy(CopyFilesAndFoldersOperation.java:1294)
+	at org.eclipse.ui.actions.CopyFilesAndFoldersOperation.copyResources(CopyFilesAndFoldersOperation.java:1816)
+	at org.eclipse.ui.actions.CopyFilesAndFoldersOperation.access$1(CopyFilesAndFoldersOperation.java:1770)
+	at org.eclipse.ui.actions.CopyFilesAndFoldersOperation$3.run(CopyFilesAndFoldersOperation.java:622)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: org.eclipse.core.runtime.AssertionFailedException: null argument:
+	at org.eclipse.core.runtime.Assert.isNotNull(Assert.java:85)
+	at org.eclipse.core.runtime.Assert.isNotNull(Assert.java:73)
+	at org.eclipse.core.filesystem.URIUtil.toPath(URIUtil.java:60)
+	at org.eclipse.core.internal.resources.Workspace.copyVariable(Workspace.java:855)
+	at org.eclipse.core.internal.resources.Workspace.transferVariableDefinition(Workspace.java:828)
+	at org.eclipse.core.internal.localstore.CopyVisitor.copyContents(CopyVisitor.java:81)
+	at org.eclipse.core.internal.localstore.CopyVisitor.copy(CopyVisitor.java:71)
+	at org.eclipse.core.internal.localstore.CopyVisitor.visit(CopyVisitor.java:202)
+	at org.eclipse.core.internal.localstore.UnifiedTree.accept(UnifiedTree.java:108)
+	at org.eclipse.core.internal.localstore.FileSystemResourceManager.copy(FileSystemResourceManager.java:229)
+	at org.eclipse.core.internal.resources.Resource.copy(Resource.java:548)
+	at org.eclipse.ui.ide.undo.WorkspaceUndoUtil.copy(WorkspaceUndoUtil.java:488)
+	at org.eclipse.ui.ide.undo.CopyResourcesOperation.copy(CopyResourcesOperation.java:157)
+	at org.eclipse.ui.ide.undo.CopyResourcesOperation.doExecute(CopyResourcesOperation.java:125)
+	at org.eclipse.ui.ide.undo.AbstractWorkspaceOperation$1.run(AbstractWorkspaceOperation.java:206)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at org.eclipse.ui.ide.undo.AbstractWorkspaceOperation.execute(AbstractWorkspaceOperation.java:204)
+	at org.eclipse.core.commands.operations.DefaultOperationHistory.execute(DefaultOperationHistory.java:511)
+	... 5 more
+
+!ENTRY com.aptana.ide.editor.html 4 0 2011-04-13 10:24:28.984
+!MESSAGE (Build 2.0.0.1278523018) [ERROR] Unable to update HTML preview: !isFileEditorInput
+!SESSION 2011-04-13 10:25:27.145 -----------------------------------------------
+eclipse.buildId=M20110210-1200
+java.version=1.6.0_24
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.javascript.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.javascript.product
+
+!ENTRY org.eclipse.jface 2 0 2011-04-13 10:25:31.223
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2011-04-13 10:25:31.223
+!MESSAGE A conflict occurred for CTRL+SHIFT+U:
+Binding(CTRL+SHIFT+U,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.search.occurrences.in.file.quickMenu,Show Occurrences in File Quick Menu,
+		Shows the Occurrences in File quick menu,
+		Category(org.eclipse.search.ui.category.search,Search,Search command category,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+U,
+	ParameterizedCommand(Command(com.aptana.ide.syncing.ui.commands.upload,Upload...,
+		,
+		Category(com.aptana.ide.syncing.ui.commands.category,File Transfer,File Transfer Commands,true),
+		com.aptana.ide.syncing.ui.handlers.UploadHandler@2cc7d960,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.ui.navigator.resources 4 0 2011-04-13 10:25:31.462
+!MESSAGE Required filter org.eclipse.ui.navigator.resources.filters.workingSet is not present. Working set support will not function correctly.
+
+!ENTRY org.eclipse.ui.navigator.resources 4 0 2011-04-13 10:25:31.463
+!MESSAGE 
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-04-13 10:27:39.025
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY com.aptana.ide.editor.html 4 0 2011-04-13 22:52:39.921
+!MESSAGE (Build 2.0.0.1278523018) [ERROR] Unable to update HTML preview: !isFileEditorInput
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-04-13 22:54:42.317
+!MESSAGE (Build 2.0.0.1278523018) [ERROR] 
+!STACK 0
+java.net.URISyntaxException: Illegal character in query at index 196: http://view.atdmt.com/NYC/iview/311411625/direct;wi.160;hi.600/01/5657646418?click=http://r1-ads.ace.advertising.com/click/site=0000712270/mnum=0000997379/cstr=85151645=_4da68c25,5657646418,712270^997379^1^0,1_/xsxdata=$XSXDATA/bnum=85151645/optn=64?trg=
+	at java.net.URI$Parser.fail(Unknown Source)
+	at java.net.URI$Parser.checkChars(Unknown Source)
+	at java.net.URI$Parser.parseHierarchical(Unknown Source)
+	at java.net.URI$Parser.parse(Unknown Source)
+	at java.net.URI.<init>(Unknown Source)
+	at com.aptana.ide.debug.internal.core.model.JSDebugTarget.resolveSourceFile(JSDebugTarget.java:2133)
+	at com.aptana.ide.debug.internal.core.model.JSDebugTarget.handleScripts(JSDebugTarget.java:796)
+	at com.aptana.ide.debug.internal.core.model.JSDebugTarget.handleMessage(JSDebugTarget.java:387)
+	at com.aptana.ide.debug.internal.core.model.DebugConnection.handleMessage(DebugConnection.java:190)
+	at com.aptana.ide.debug.internal.core.model.DebugConnection.access$2(DebugConnection.java:186)
+	at com.aptana.ide.debug.internal.core.model.DebugConnection$1.run(DebugConnection.java:133)
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-04-13 22:54:42.335
+!MESSAGE (Build 2.0.0.1278523018) [ERROR] 
+!STACK 0
+java.net.URISyntaxException: Illegal character in query at index 196: http://view.atdmt.com/NYC/iview/311411625/direct;wi.160;hi.600/01/5657646418?click=http://r1-ads.ace.advertising.com/click/site=0000712270/mnum=0000997379/cstr=85151645=_4da68c25,5657646418,712270^997379^1^0,1_/xsxdata=$XSXDATA/bnum=85151645/optn=64?trg=
+	at java.net.URI$Parser.fail(Unknown Source)
+	at java.net.URI$Parser.checkChars(Unknown Source)
+	at java.net.URI$Parser.parseHierarchical(Unknown Source)
+	at java.net.URI$Parser.parse(Unknown Source)
+	at java.net.URI.<init>(Unknown Source)
+	at com.aptana.ide.debug.internal.core.model.JSDebugTarget.resolveSourceFile(JSDebugTarget.java:2133)
+	at com.aptana.ide.debug.internal.core.model.JSDebugTarget.handleScripts(JSDebugTarget.java:796)
+	at com.aptana.ide.debug.internal.core.model.JSDebugTarget.handleMessage(JSDebugTarget.java:387)
+	at com.aptana.ide.debug.internal.core.model.DebugConnection.handleMessage(DebugConnection.java:190)
+	at com.aptana.ide.debug.internal.core.model.DebugConnection.access$2(DebugConnection.java:186)
+	at com.aptana.ide.debug.internal.core.model.DebugConnection$1.run(DebugConnection.java:133)
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-04-13 22:54:42.336
+!MESSAGE (Build 2.0.0.1278523018) [ERROR] 
+!STACK 0
+java.net.URISyntaxException: Illegal character in query at index 196: http://view.atdmt.com/NYC/iview/311411625/direct;wi.160;hi.600/01/5657646418?click=http://r1-ads.ace.advertising.com/click/site=0000712270/mnum=0000997379/cstr=85151645=_4da68c25,5657646418,712270^997379^1^0,1_/xsxdata=$XSXDATA/bnum=85151645/optn=64?trg=
+	at java.net.URI$Parser.fail(Unknown Source)
+	at java.net.URI$Parser.checkChars(Unknown Source)
+	at java.net.URI$Parser.parseHierarchical(Unknown Source)
+	at java.net.URI$Parser.parse(Unknown Source)
+	at java.net.URI.<init>(Unknown Source)
+	at com.aptana.ide.debug.internal.core.model.JSDebugTarget.resolveSourceFile(JSDebugTarget.java:2133)
+	at com.aptana.ide.debug.internal.core.model.JSDebugTarget.handleScripts(JSDebugTarget.java:796)
+	at com.aptana.ide.debug.internal.core.model.JSDebugTarget.handleMessage(JSDebugTarget.java:387)
+	at com.aptana.ide.debug.internal.core.model.DebugConnection.handleMessage(DebugConnection.java:190)
+	at com.aptana.ide.debug.internal.core.model.DebugConnection.access$2(DebugConnection.java:186)
+	at com.aptana.ide.debug.internal.core.model.DebugConnection$1.run(DebugConnection.java:133)
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-04-13 22:54:42.337
+!MESSAGE (Build 2.0.0.1278523018) [ERROR] 
+!STACK 0
+java.net.URISyntaxException: Illegal character in query at index 196: http://view.atdmt.com/NYC/iview/311411625/direct;wi.160;hi.600/01/5657646418?click=http://r1-ads.ace.advertising.com/click/site=0000712270/mnum=0000997379/cstr=85151645=_4da68c25,5657646418,712270^997379^1^0,1_/xsxdata=$XSXDATA/bnum=85151645/optn=64?trg=
+	at java.net.URI$Parser.fail(Unknown Source)
+	at java.net.URI$Parser.checkChars(Unknown Source)
+	at java.net.URI$Parser.parseHierarchical(Unknown Source)
+	at java.net.URI$Parser.parse(Unknown Source)
+	at java.net.URI.<init>(Unknown Source)
+	at com.aptana.ide.debug.internal.core.model.JSDebugTarget.resolveSourceFile(JSDebugTarget.java:2133)
+	at com.aptana.ide.debug.internal.core.model.JSDebugTarget.handleScripts(JSDebugTarget.java:796)
+	at com.aptana.ide.debug.internal.core.model.JSDebugTarget.handleMessage(JSDebugTarget.java:387)
+	at com.aptana.ide.debug.internal.core.model.DebugConnection.handleMessage(DebugConnection.java:190)
+	at com.aptana.ide.debug.internal.core.model.DebugConnection.access$2(DebugConnection.java:186)
+	at com.aptana.ide.debug.internal.core.model.DebugConnection$1.run(DebugConnection.java:133)
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-04-13 22:54:42.339
+!MESSAGE (Build 2.0.0.1278523018) [ERROR] 
+!STACK 0
+java.net.URISyntaxException: Illegal character in query at index 196: http://view.atdmt.com/NYC/iview/311411625/direct;wi.160;hi.600/01/5657646418?click=http://r1-ads.ace.advertising.com/click/site=0000712270/mnum=0000997379/cstr=85151645=_4da68c25,5657646418,712270^997379^1^0,1_/xsxdata=$XSXDATA/bnum=85151645/optn=64?trg=
+	at java.net.URI$Parser.fail(Unknown Source)
+	at java.net.URI$Parser.checkChars(Unknown Source)
+	at java.net.URI$Parser.parseHierarchical(Unknown Source)
+	at java.net.URI$Parser.parse(Unknown Source)
+	at java.net.URI.<init>(Unknown Source)
+	at com.aptana.ide.debug.internal.core.model.JSDebugTarget.resolveSourceFile(JSDebugTarget.java:2133)
+	at com.aptana.ide.debug.internal.core.model.JSDebugTarget.handleScripts(JSDebugTarget.java:796)
+	at com.aptana.ide.debug.internal.core.model.JSDebugTarget.handleMessage(JSDebugTarget.java:387)
+	at com.aptana.ide.debug.internal.core.model.DebugConnection.handleMessage(DebugConnection.java:190)
+	at com.aptana.ide.debug.internal.core.model.DebugConnection.access$2(DebugConnection.java:186)
+	at com.aptana.ide.debug.internal.core.model.DebugConnection$1.run(DebugConnection.java:133)
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-04-13 22:56:17.285
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-04-13 22:57:41.738
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-04-13 22:59:00.445
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-04-13 22:59:51.180
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-04-13 22:59:55.467
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-04-13 23:01:20.684
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY com.aptana.ide.editor.html 4 0 2011-04-13 23:06:15.908
+!MESSAGE (Build 2.0.0.1278523018) [ERROR] Unable to update HTML preview: !isFileEditorInput
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:09:02.040
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.core.resources.MarkerUtils.createMarker(MarkerUtils.java:79)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:158)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:09:02.128
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.internal.core.resources.UniformResourceMarker.setAttributes(UniformResourceMarker.java:287)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:166)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:09:03.151
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.core.resources.MarkerUtils.createMarker(MarkerUtils.java:79)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:158)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:09:03.153
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.internal.core.resources.UniformResourceMarker.setAttributes(UniformResourceMarker.java:287)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:166)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:09:07.697
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.core.resources.MarkerUtils.createMarker(MarkerUtils.java:79)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:158)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:09:07.699
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.internal.core.resources.UniformResourceMarker.setAttributes(UniformResourceMarker.java:287)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:166)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:09:08.712
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.core.resources.MarkerUtils.createMarker(MarkerUtils.java:79)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:158)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:09:08.713
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.internal.core.resources.UniformResourceMarker.setAttributes(UniformResourceMarker.java:287)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:166)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:09:11.236
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.core.resources.MarkerUtils.createMarker(MarkerUtils.java:79)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:158)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:09:11.237
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.internal.core.resources.UniformResourceMarker.setAttributes(UniformResourceMarker.java:287)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:166)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:09:14.980
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.core.resources.MarkerUtils.createMarker(MarkerUtils.java:79)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:158)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:09:14.982
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.internal.core.resources.UniformResourceMarker.setAttributes(UniformResourceMarker.java:287)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:166)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:09:33.917
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.core.resources.MarkerUtils.createMarker(MarkerUtils.java:79)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:158)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:09:33.919
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.internal.core.resources.UniformResourceMarker.setAttributes(UniformResourceMarker.java:287)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:166)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:13:02.413
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.core.resources.MarkerUtils.createMarker(MarkerUtils.java:79)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:158)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:13:02.414
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.internal.core.resources.UniformResourceMarker.setAttributes(UniformResourceMarker.java:287)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:166)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:13:03.701
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.core.resources.MarkerUtils.createMarker(MarkerUtils.java:79)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:158)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:13:03.703
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.internal.core.resources.UniformResourceMarker.setAttributes(UniformResourceMarker.java:287)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:166)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:13:04.460
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.core.resources.MarkerUtils.createMarker(MarkerUtils.java:79)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:158)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:13:04.461
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.internal.core.resources.UniformResourceMarker.setAttributes(UniformResourceMarker.java:287)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:166)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:13:05.443
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.core.resources.MarkerUtils.createMarker(MarkerUtils.java:79)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:158)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:13:05.445
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.internal.core.resources.UniformResourceMarker.setAttributes(UniformResourceMarker.java:287)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:166)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:13:05.865
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.core.resources.MarkerUtils.createMarker(MarkerUtils.java:79)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:158)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:13:05.867
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.internal.core.resources.UniformResourceMarker.setAttributes(UniformResourceMarker.java:287)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:166)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:13:07.061
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.core.resources.MarkerUtils.createMarker(MarkerUtils.java:79)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:158)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:13:07.062
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.internal.core.resources.UniformResourceMarker.setAttributes(UniformResourceMarker.java:287)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:166)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:13:11.076
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.core.resources.MarkerUtils.createMarker(MarkerUtils.java:79)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:158)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:13:11.078
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.internal.core.resources.UniformResourceMarker.setAttributes(UniformResourceMarker.java:287)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:166)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:13:11.724
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.core.resources.MarkerUtils.createMarker(MarkerUtils.java:79)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:158)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:13:11.726
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.internal.core.resources.UniformResourceMarker.setAttributes(UniformResourceMarker.java:287)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:166)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:13:12.537
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.core.resources.MarkerUtils.createMarker(MarkerUtils.java:79)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:158)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:13:12.539
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.internal.core.resources.UniformResourceMarker.setAttributes(UniformResourceMarker.java:287)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:166)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:13:13.107
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.core.resources.MarkerUtils.createMarker(MarkerUtils.java:79)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:158)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:13:13.108
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.internal.core.resources.UniformResourceMarker.setAttributes(UniformResourceMarker.java:287)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:166)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:13:15.279
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.core.resources.MarkerUtils.createMarker(MarkerUtils.java:79)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:158)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:13:15.280
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.internal.core.resources.UniformResourceMarker.setAttributes(UniformResourceMarker.java:287)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:166)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:13:19.865
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.core.resources.MarkerUtils.createMarker(MarkerUtils.java:79)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:158)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:13:19.867
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.internal.core.resources.UniformResourceMarker.setAttributes(UniformResourceMarker.java:287)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:166)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:13:20.538
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.core.resources.MarkerUtils.createMarker(MarkerUtils.java:79)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:158)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:13:20.539
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.internal.core.resources.UniformResourceMarker.setAttributes(UniformResourceMarker.java:287)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:166)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:13:21.398
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.core.resources.MarkerUtils.createMarker(MarkerUtils.java:79)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:158)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:13:21.401
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.internal.core.resources.UniformResourceMarker.setAttributes(UniformResourceMarker.java:287)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:166)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:13:27.154
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.core.resources.MarkerUtils.createMarker(MarkerUtils.java:79)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:158)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:13:27.156
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.internal.core.resources.UniformResourceMarker.setAttributes(UniformResourceMarker.java:287)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:166)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:14:16.664
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.core.resources.MarkerUtils.createMarker(MarkerUtils.java:79)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:158)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.core 4 0 2011-04-13 23:14:16.665
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+!STACK 0
+java.lang.NoSuchMethodException: com.aptana.ide.internal.core.resources.MarkerInfo.setAttributes(java.util.Map, java.lang.Boolean)
+	at java.lang.Class.getDeclaredMethod(Unknown Source)
+	at com.aptana.ide.internal.core.resources.UniformResourceMarker.setAttributes(UniformResourceMarker.java:287)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint$2.run(JSDebugLineBreakpoint.java:166)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1975)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:173)
+	at com.aptana.ide.debug.internal.core.model.JSDebugLineBreakpoint.<init>(JSDebugLineBreakpoint.java:100)
+	at com.aptana.ide.debug.core.model.JSDebugModel.createLineBreakpoint(JSDebugModel.java:119)
+	at com.aptana.ide.debug.internal.ui.actions.ToggleBreakpointAdapter$1.run(ToggleBreakpointAdapter.java:113)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-04-13 23:16:26.644
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-04-13 23:21:32.412
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-04-13 23:30:18.431
+!MESSAGE Socket connection error. Please try shutting down and restarting your web browser, and then run 'debug' again.
+!STACK 0
+java.net.SocketTimeoutException: Accept timed out
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(Unknown Source)
+	at java.net.ServerSocket.implAccept(Unknown Source)
+	at java.net.ServerSocket.accept(Unknown Source)
+	at com.aptana.ide.debug.core.JSLaunchConfigurationDelegate.launch(JSLaunchConfigurationDelegate.java:416)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:853)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:702)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:924)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1128)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.ui.workbench 4 0 2011-04-13 23:38:21.013
+!MESSAGE The specified source provider  is not connected. Already connected to 
+!STACK 0
+java.lang.IllegalStateException: The specified source provider  is not connected. Already connected to 
+	at com.aptana.ide.editors.unified.FileService.disconnectSourceProvider(FileService.java:236)
+	at com.aptana.ide.editors.managers.FileContextManager.disconnectSourceProvider(FileContextManager.java:199)
+	at com.aptana.ide.editor.html.HTMLDocumentProvider.disconnect(HTMLDocumentProvider.java:218)
+	at org.eclipse.ui.texteditor.AbstractTextEditor.disposeDocumentProvider(AbstractTextEditor.java:4360)
+	at org.eclipse.ui.texteditor.AbstractDecoratedTextEditor.disposeDocumentProvider(AbstractDecoratedTextEditor.java:1427)
+	at com.aptana.ide.editors.unified.UnifiedEditor.dispose(UnifiedEditor.java:2261)
+	at com.aptana.ide.editor.html.HTMLSourceEditor.dispose(HTMLSourceEditor.java:414)
+	at com.aptana.ide.editor.html.HTMLEditor.dispose(HTMLEditor.java:453)
+	at org.eclipse.ui.internal.WorkbenchPartReference.doDisposePart(WorkbenchPartReference.java:737)
+	at org.eclipse.ui.internal.EditorReference.doDisposePart(EditorReference.java:327)
+	at org.eclipse.ui.internal.WorkbenchPartReference.dispose(WorkbenchPartReference.java:684)
+	at org.eclipse.ui.internal.WorkbenchPage.disposePart(WorkbenchPage.java:1721)
+	at org.eclipse.ui.internal.WorkbenchPage.handleDeferredEvents(WorkbenchPage.java:1426)
+	at org.eclipse.ui.internal.WorkbenchPage.deferUpdates(WorkbenchPage.java:1410)
+	at org.eclipse.ui.internal.WorkbenchPage.closeEditors(WorkbenchPage.java:1384)
+	at org.eclipse.ui.internal.WorkbenchPage.closeAllEditors(WorkbenchPage.java:1188)
+	at org.eclipse.ui.internal.WorkbenchPage.dispose(WorkbenchPage.java:1770)
+	at org.eclipse.ui.internal.WorkbenchWindow.closeAllPages(WorkbenchWindow.java:867)
+	at org.eclipse.ui.internal.WorkbenchWindow.hardClose(WorkbenchWindow.java:1702)
+	at org.eclipse.ui.internal.WorkbenchWindow.busyClose(WorkbenchWindow.java:734)
+	at org.eclipse.ui.internal.WorkbenchWindow.access$0(WorkbenchWindow.java:710)
+	at org.eclipse.ui.internal.WorkbenchWindow$5.run(WorkbenchWindow.java:832)
+	at org.eclipse.swt.custom.BusyIndicator.showWhile(BusyIndicator.java:70)
+	at org.eclipse.ui.internal.WorkbenchWindow.close(WorkbenchWindow.java:830)
+	at org.eclipse.jface.window.WindowManager.close(WindowManager.java:109)
+	at org.eclipse.ui.internal.Workbench$18.run(Workbench.java:1106)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.ui.internal.Workbench.busyClose(Workbench.java:1103)
+	at org.eclipse.ui.internal.Workbench.access$15(Workbench.java:1032)
+	at org.eclipse.ui.internal.Workbench$25.run(Workbench.java:1276)
+	at org.eclipse.swt.custom.BusyIndicator.showWhile(BusyIndicator.java:70)
+	at org.eclipse.ui.internal.Workbench.close(Workbench.java:1274)
+	at org.eclipse.ui.internal.Workbench.close(Workbench.java:1246)
+	at org.eclipse.ui.internal.WorkbenchWindow.busyClose(WorkbenchWindow.java:731)
+	at org.eclipse.ui.internal.WorkbenchWindow.access$0(WorkbenchWindow.java:710)
+	at org.eclipse.ui.internal.WorkbenchWindow$5.run(WorkbenchWindow.java:832)
+	at org.eclipse.swt.custom.BusyIndicator.showWhile(BusyIndicator.java:70)
+	at org.eclipse.ui.internal.WorkbenchWindow.close(WorkbenchWindow.java:830)
+	at org.eclipse.jface.window.Window.handleShellCloseEvent(Window.java:741)
+	at org.eclipse.jface.window.Window$3.shellClosed(Window.java:687)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:98)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1053)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1077)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1062)
+	at org.eclipse.swt.widgets.Decorations.closeWidget(Decorations.java:308)
+	at org.eclipse.swt.widgets.Decorations.WM_CLOSE(Decorations.java:1665)
+	at org.eclipse.swt.widgets.Control.windowProc(Control.java:4164)
+	at org.eclipse.swt.widgets.Canvas.windowProc(Canvas.java:341)
+	at org.eclipse.swt.widgets.Decorations.windowProc(Decorations.java:1598)
+	at org.eclipse.swt.widgets.Shell.windowProc(Shell.java:2038)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:4873)
+	at org.eclipse.swt.internal.win32.OS.DefWindowProcW(Native Method)
+	at org.eclipse.swt.internal.win32.OS.DefWindowProc(OS.java:2454)
+	at org.eclipse.swt.widgets.Shell.callWindowProc(Shell.java:497)
+	at org.eclipse.swt.widgets.Control.windowProc(Control.java:4253)
+	at org.eclipse.swt.widgets.Canvas.windowProc(Canvas.java:341)
+	at org.eclipse.swt.widgets.Decorations.windowProc(Decorations.java:1598)
+	at org.eclipse.swt.widgets.Shell.windowProc(Shell.java:2038)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:4873)
+	at org.eclipse.swt.internal.win32.OS.DefWindowProcW(Native Method)
+	at org.eclipse.swt.internal.win32.OS.DefWindowProc(OS.java:2454)
+	at org.eclipse.swt.widgets.Shell.callWindowProc(Shell.java:497)
+	at org.eclipse.swt.widgets.Control.windowProc(Control.java:4253)
+	at org.eclipse.swt.widgets.Canvas.windowProc(Canvas.java:341)
+	at org.eclipse.swt.widgets.Decorations.windowProc(Decorations.java:1598)
+	at org.eclipse.swt.widgets.Shell.windowProc(Shell.java:2038)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:4873)
+	at org.eclipse.swt.internal.win32.OS.DispatchMessageW(Native Method)
+	at org.eclipse.swt.internal.win32.OS.DispatchMessage(OS.java:2459)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3655)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2640)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2604)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:115)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:620)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:575)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1408)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1384)
+!SESSION 2011-04-13 23:46:42.997 -----------------------------------------------
+eclipse.buildId=M20110210-1200
+java.version=1.6.0_24
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.javascript.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.javascript.product
+
+!ENTRY org.eclipse.jface 2 0 2011-04-13 23:46:57.052
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2011-04-13 23:46:57.053
+!MESSAGE A conflict occurred for CTRL+SHIFT+U:
+Binding(CTRL+SHIFT+U,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.search.occurrences.in.file.quickMenu,Show Occurrences in File Quick Menu,
+		Shows the Occurrences in File quick menu,
+		Category(org.eclipse.search.ui.category.search,Search,Search command category,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+U,
+	ParameterizedCommand(Command(com.aptana.ide.syncing.ui.commands.upload,Upload...,
+		,
+		Category(com.aptana.ide.syncing.ui.commands.category,File Transfer,File Transfer Commands,true),
+		com.aptana.ide.syncing.ui.handlers.UploadHandler,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.ui.navigator.resources 4 0 2011-04-13 23:47:09.494
+!MESSAGE Required filter org.eclipse.ui.navigator.resources.filters.workingSet is not present. Working set support will not function correctly.
+
+!ENTRY org.eclipse.ui.navigator.resources 4 0 2011-04-13 23:47:09.495
+!MESSAGE 
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 23:47:10.736
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:237)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 23:47:10.737
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 23:47:10.739
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:237)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 23:47:10.739
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 23:47:10.740
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:237)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 23:47:10.740
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 23:47:10.741
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:237)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 23:47:10.741
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 23:47:10.742
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.pruneShortcuts(LaunchingResourceManager.java:387)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getLabel(LaunchingResourceManager.java:312)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:241)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 23:47:10.742
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 23:47:10.743
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.pruneShortcuts(LaunchingResourceManager.java:387)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getLabel(LaunchingResourceManager.java:312)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:241)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 23:47:10.743
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 23:47:10.744
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.pruneShortcuts(LaunchingResourceManager.java:387)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getLabel(LaunchingResourceManager.java:312)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:241)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 23:47:10.744
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 23:47:10.745
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.pruneShortcuts(LaunchingResourceManager.java:387)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getLabel(LaunchingResourceManager.java:312)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:241)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 23:47:10.745
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 23:47:10.806
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:237)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 23:47:10.806
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 23:47:10.807
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:237)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 23:47:10.807
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 23:47:10.808
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:237)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 23:47:10.808
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 23:47:10.808
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:237)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 23:47:10.809
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 23:47:10.810
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.pruneShortcuts(LaunchingResourceManager.java:387)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getLabel(LaunchingResourceManager.java:312)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:241)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 23:47:10.810
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 23:47:10.811
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.pruneShortcuts(LaunchingResourceManager.java:387)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getLabel(LaunchingResourceManager.java:312)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:241)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 23:47:10.811
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 23:47:10.811
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.pruneShortcuts(LaunchingResourceManager.java:387)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getLabel(LaunchingResourceManager.java:312)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:241)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 23:47:10.812
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+
+!ENTRY org.eclipse.core.resources 4 1 2011-04-13 23:47:10.812
+!MESSAGE Core exception while retrieving the content description
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+	at org.eclipse.core.internal.resources.File.checkSynchronized(File.java:103)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:273)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.testContentType(FilePropertyTester.java:108)
+	at org.eclipse.core.internal.propertytester.FilePropertyTester.test(FilePropertyTester.java:60)
+	at org.eclipse.core.internal.expressions.Property.test(Property.java:58)
+	at org.eclipse.core.internal.expressions.TestExpression.evaluate(TestExpression.java:99)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateOr(CompositeExpression.java:68)
+	at org.eclipse.core.internal.expressions.OrExpression.evaluate(OrExpression.java:21)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.AdaptExpression.evaluate(AdaptExpression.java:91)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.IterateExpression.evaluate(IterateExpression.java:150)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.WithExpression.evaluate(WithExpression.java:72)
+	at org.eclipse.core.internal.expressions.CompositeExpression.evaluateAnd(CompositeExpression.java:53)
+	at org.eclipse.core.internal.expressions.EnablementExpression.evaluate(EnablementExpression.java:53)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchShortcutExtension.evalEnablementExpression(LaunchShortcutExtension.java:287)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getShortcutsForSelection(LaunchingResourceManager.java:452)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.pruneShortcuts(LaunchingResourceManager.java:387)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.getLabel(LaunchingResourceManager.java:312)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager.computeLabels(LaunchingResourceManager.java:241)
+	at org.eclipse.debug.internal.ui.contextlaunching.LaunchingResourceManager$2.run(LaunchingResourceManager.java:138)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 274 2011-04-13 23:47:10.812
+!MESSAGE Resource is out of sync with the file system: '/fourth_floor_with_gui/index.html'.
+
+!ENTRY com.aptana.ide.editor.html 4 0 2011-04-13 23:47:51.384
+!MESSAGE (Build 2.0.0.1278523018) [ERROR] Unable to update HTML preview: !isFileEditorInput
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-04-13 23:49:54.033
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY com.aptana.ide.editor.html 4 0 2011-04-13 23:50:40.060
+!MESSAGE (Build 2.0.0.1278523018) [ERROR] Unable to update HTML preview: !isFileEditorInput
+!SESSION 2011-04-14 00:06:29.598 -----------------------------------------------
+eclipse.buildId=M20110210-1200
+java.version=1.6.0_24
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.javascript.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.javascript.product
+
+!ENTRY org.eclipse.jface 2 0 2011-04-14 00:06:42.155
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2011-04-14 00:06:42.155
+!MESSAGE A conflict occurred for CTRL+SHIFT+U:
+Binding(CTRL+SHIFT+U,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.search.occurrences.in.file.quickMenu,Show Occurrences in File Quick Menu,
+		Shows the Occurrences in File quick menu,
+		Category(org.eclipse.search.ui.category.search,Search,Search command category,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+U,
+	ParameterizedCommand(Command(com.aptana.ide.syncing.ui.commands.upload,Upload...,
+		,
+		Category(com.aptana.ide.syncing.ui.commands.category,File Transfer,File Transfer Commands,true),
+		com.aptana.ide.syncing.ui.handlers.UploadHandler@11ba1db5,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.ui.navigator.resources 4 0 2011-04-14 00:06:43.230
+!MESSAGE Required filter org.eclipse.ui.navigator.resources.filters.workingSet is not present. Working set support will not function correctly.
+
+!ENTRY org.eclipse.ui.navigator.resources 4 0 2011-04-14 00:06:43.232
+!MESSAGE 
+
+!ENTRY org.eclipse.ui.workbench 2 0 2011-04-14 00:10:10.212
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2011-04-14 00:10:10.212
+!MESSAGE Conflict for 'org.eclipse.wst.jsdt.ui.edit.text.java.open.editor':
+HandlerActivation(commandId=org.eclipse.wst.jsdt.ui.edit.text.java.open.editor,
+	handler=ActionHandler(org.eclipse.wst.jsdt.ui.actions.OpenAction@3579c3a8),
+	expression=AndExpression(AndExpression(org.eclipse.ui.SubActionBars$1@55aef45,ActivePartExpression(org.eclipse.ui.navigator.resources.ProjectExplorer@746dd488)),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@4980f545)),sourcePriority=1064961)
+HandlerActivation(commandId=org.eclipse.wst.jsdt.ui.edit.text.java.open.editor,
+	handler=ActionHandler(org.eclipse.wst.jsdt.ui.actions.OpenAction@3579c3a8),
+	expression=AndExpression(AndExpression(org.eclipse.ui.SubActionBars$1@55aef45,ActivePartExpression(org.eclipse.ui.navigator.resources.ProjectExplorer@746dd488)),WorkbenchWindowExpression(org.eclipse.ui.internal.WorkbenchWindow@4980f545)),sourcePriority=1064961)
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-04-14 00:13:39.567
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-04-14 00:14:06.032
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-04-14 00:15:15.640
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-04-14 00:16:23.437
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+!SESSION 2011-04-14 00:16:41.184 -----------------------------------------------
+eclipse.buildId=M20110210-1200
+java.version=1.6.0_24
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.javascript.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.javascript.product
+
+!ENTRY org.eclipse.jface 2 0 2011-04-14 00:16:50.504
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2011-04-14 00:16:50.504
+!MESSAGE A conflict occurred for CTRL+SHIFT+U:
+Binding(CTRL+SHIFT+U,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.search.occurrences.in.file.quickMenu,Show Occurrences in File Quick Menu,
+		Shows the Occurrences in File quick menu,
+		Category(org.eclipse.search.ui.category.search,Search,Search command category,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+U,
+	ParameterizedCommand(Command(com.aptana.ide.syncing.ui.commands.upload,Upload...,
+		,
+		Category(com.aptana.ide.syncing.ui.commands.category,File Transfer,File Transfer Commands,true),
+		com.aptana.ide.syncing.ui.handlers.UploadHandler,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.ui.navigator.resources 4 0 2011-04-14 00:18:37.027
+!MESSAGE Required filter org.eclipse.ui.navigator.resources.filters.workingSet is not present. Working set support will not function correctly.
+
+!ENTRY org.eclipse.ui.navigator.resources 4 0 2011-04-14 00:18:37.057
+!MESSAGE 
+
+!ENTRY org.eclipse.osgi 2 1 2011-04-14 00:20:20.890
+!MESSAGE NLS unused message: osgi.nls.warnings in: org.eclipse.wst.jsdt.debug.internal.ui.messages
+
+!ENTRY org.eclipse.wst.jsdt.debug.core 4 0 2011-04-14 00:20:35.475
+!MESSAGE Error occured while launching
+!STACK 0
+java.net.ConnectException: Connection refused: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method)
+	at java.net.PlainSocketImpl.doConnect(Unknown Source)
+	at java.net.PlainSocketImpl.connectToAddress(Unknown Source)
+	at java.net.PlainSocketImpl.connect(Unknown Source)
+	at java.net.SocksSocketImpl.connect(Unknown Source)
+	at java.net.Socket.connect(Unknown Source)
+	at java.net.Socket.connect(Unknown Source)
+	at java.net.Socket.<init>(Unknown Source)
+	at java.net.Socket.<init>(Unknown Source)
+	at org.eclipse.wst.jsdt.debug.internal.rhino.transport.SocketTransportService.attach(SocketTransportService.java:134)
+	at org.eclipse.wst.jsdt.debug.internal.rhino.jsdi.connect.RhinoAttachingConnector.attach(RhinoAttachingConnector.java:44)
+	at org.eclipse.wst.jsdt.debug.internal.core.launching.RemoteJavaScriptLaunchDelegate.launch(RemoteJavaScriptLaunchDelegate.java:60)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:853)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:702)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:924)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1128)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
