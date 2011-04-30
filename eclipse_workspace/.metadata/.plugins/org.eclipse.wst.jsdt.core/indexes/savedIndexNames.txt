@@ -1,6 +1,0 @@
-INDEX VERSION 1.122+C:\projects\superb\WebGL_sandbox\eclipse_workspace\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-3238692556.index
-508803783.index
-3989049467.index
-2393119828.index
-1974035940.index

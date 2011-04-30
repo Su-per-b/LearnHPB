@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;damper/kuda&apos; to &apos;kudalink&apos;" description="Rename resource &apos;kuda&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="kuda" name="kudalink" stamp="1302715241018" updateReferences="true"/>
-</session>
