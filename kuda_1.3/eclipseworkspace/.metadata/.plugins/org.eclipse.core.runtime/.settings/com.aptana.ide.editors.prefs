@@ -1,0 +1,11 @@
+#Wed Apr 13 09:04:39 PDT 2011
+com.aptana.ide.editors.templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates/>
+regionViewer.column.6=16
+regionViewer.column.5=16
+regionViewer.column.4=16
+regionViewer.column.3=16
+regionViewer.column.2=75
+regionViewer.column.1=75
+regionViewer.column.0=125
+eclipse.preferences.version=1
+com.aptana.ide.editor.js.colorization=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<colorizer xmlns\="http\://www.aptana.com/2007/colorizer/1.0" background\="rgb(255,255,255)" caret-color\="rgb(0,0,0)" folding-background\="rgb(212,208,200)" folding-foreground\="rgb(139,139,139)" language\="text/javascript" line-highlight\="rgb(232,242,254)" selection-background\="rgb(10,36,106)" selection-foreground\="rgb(255,255,255)">\r\n<category name\="WHITESPACE" style\="WHITESPACE"/>\r\n<style foreground\="rgb(0,128,0)" id\="WHITESPACE"/>\r\n<category name\="LITERAL" style\="LITERAL">\r\n<token style\="LITERAL_STRING" type\="STRING"/>\r\n<token style\="LITERAL_NUMBER" type\="NUMBER"/>\r\n</category>\r\n<style foreground\="rgb(128,0,64)" id\="LITERAL"/>\r\n<style foreground\="rgb(0,92,0)" id\="LITERAL_STRING"/>\r\n<style foreground\="rgb(0,64,128)" id\="LITERAL_NUMBER"/>\r\n<category name\="KEYWORD" style\="KEYWORD"/>\r\n<style font-weight\="bold" foreground\="rgb(0,0,192)" id\="KEYWORD"/>\r\n<category name\="ERROR" style\="ERROR"/>\r\n<style foreground\="rgb(255,0,0)" id\="ERROR"/>\r\n<category name\="PUNCTUATOR" style\="PUNCTUATOR"/>\r\n<style foreground\="rgb(92,92,92)" id\="PUNCTUATOR"/>\r\n<category name\="IDENTIFIER" style\="IDENTIFIER"/>\r\n<style foreground\="rgb(0,0,0)" id\="IDENTIFIER"/>\r\n</colorizer>\r\n

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;kuda_master/kuda_lib/lgb_misc/ qunit.j&apos; to &apos; qunit.js&apos;" description="Rename resource &apos; qunit.j&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="kuda_lib/lgb_misc/ qunit.j" name=" qunit.js" stamp="1302968714294" updateReferences="true"/>
+</session>

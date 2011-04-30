@@ -1,0 +1,2 @@
+INDEX VERSION 1.122+W:\demos\kuda_1.3\eclipseworkspace\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+1974035940.index

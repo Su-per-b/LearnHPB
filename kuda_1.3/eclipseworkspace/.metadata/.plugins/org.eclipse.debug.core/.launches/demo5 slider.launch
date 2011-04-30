@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="com.aptana.ide.debug.core.jsLaunchConfigurationType">
+<booleanAttribute key="advancedRunEnabled" value="false"/>
+<booleanAttribute key="appendProjectName" value="false"/>
+<stringAttribute key="browserCmdLine" value=""/>
+<stringAttribute key="browserExecutable" value="C:\Program Files (x86)\Mozilla Firefox\firefox.exe"/>
+<stringAttribute key="browserNature" value="Firefox"/>
+<stringAttribute key="externalBaseUrl" value=""/>
+<stringAttribute key="httpGetData" value=""/>
+<stringAttribute key="httpPostContentType" value=""/>
+<stringAttribute key="httpPostData" value=""/>
+<listAttribute key="org.eclipse.debug.ui.favoriteGroups">
+<listEntry value="org.eclipse.debug.ui.launchGroup.debug"/>
+</listAttribute>
+<booleanAttribute key="overrideDebugPreferences" value="true"/>
+<stringAttribute key="pathsMapping" value=""/>
+<intAttribute key="serverType" value="1"/>
+<intAttribute key="startActionType" value="2"/>
+<stringAttribute key="startPagePath" value="/kuda_master/projects/demo5/index2.html"/>
+<stringAttribute key="startPageUrl" value=""/>
+<booleanAttribute key="suspendOnDebuggerKeywords" value="true"/>
+<booleanAttribute key="suspendOnErrors" value="true"/>
+<booleanAttribute key="suspendOnExceptions" value="true"/>
+<booleanAttribute key="suspendOnFirstLine" value="false"/>
+</launchConfiguration>

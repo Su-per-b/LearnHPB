@@ -1,0 +1,109 @@
+
+#o3d {
+	position:absolute;  
+	z-index:-1;
+	padding:0;
+	margin:0;
+}
+
+#leftNav {
+    position:absolute;  
+	width:63px;
+	height:352px; 
+	left:-2000px; 
+    z-index:100;
+    background-color:transparent;  
+    background-image:url('../images/leftnav.png');
+    background-repeat:no-repeat;
+    opacity:0.85;
+    padding: 60px 0 0 10px;
+}
+
+#topTitle {
+    position:absolute;
+	width:245px;
+	height:41px;
+	left:-2000px;
+    z-index:101;
+    background-color:transparent;  
+    background-image:url('../images/top_title.png');
+    background-repeat:no-repeat;
+    opacity:0.85;
+}
+
+#configButton {
+	position:absolute;
+	width:21px;
+	height:21px;
+	left:-2000px;
+    z-index:101;
+    background-color:transparent;  
+    background-image:url('../images/icon_wrench_21px.png');
+    background-repeat:no-repeat;
+    opacity:0.85;
+}
+#configButton:hover {
+	 background-image:url('../images/icon_wrench_over_21px.png');
+}
+
+#adminPanel {
+	position:absolute;
+	left:-2000px;
+    background-color:#fff;  
+    opacity:0.85;
+	width:300px;
+	padding:8px;
+}
+
+.viewPointLink {
+	font-size:11px;
+}
+
+
+	
+
+.leftNavButton {
+	width:42px;
+	height:42px;
+	display:block;
+	background-color:transparent;  
+	margin:0 0 10px 0;
+}
+
+#leftNavButton_1 {
+	background-image:url('../images/icon_general.png');
+}
+#leftNavButton_1:hover {
+	background-image:url('../images/icon_general_over.png');
+}
+
+#leftNavButton_2 {
+	background-image:url('../images/icon_hvac.png');
+}
+#leftNavButton_2:hover {
+	background-image:url('../images/icon_hvac_over.png');
+}
+
+#leftNavButton_3 {
+	background-image:url('../images/icon_exterior_envelope.png');
+}
+#leftNavButton_3:hover  {
+	background-image:url('../images/icon_exterior_envelope_over.png');
+}
+
+#leftNavButton_4 {
+	display:none;
+	background-image:url('../images/icon_lighting.png');
+}
+#leftNavButton_4:hover {
+	background-image:url('../images/icon_lighting_over.png');
+}
+
+#leftNavButton_5 {
+	display:none;
+	background-image:url('../images/icon_lighting.png');
+}
+#leftNavButton_5:hover {
+	background-image:url('../images/icon_lighting_over.png');
+}
+

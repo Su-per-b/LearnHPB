@@ -1,0 +1,26 @@
+.ui-layout-center {
+	padding:0;
+	background:none;
+
+	z-index:-10;
+	visibility:hidden;
+}
+
+.ui-layout-east {
+	z-index:103;
+}
+
+#accordion {
+	z-index:103;
+	width:340px;
+	
+}
+#accordionContainer {
+	width:340px;
+	height: 600px;
+	z-index:103;
+}
+
+.ui-layout-content {
+	z-index:103;
+}

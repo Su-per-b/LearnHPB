@@ -1,0 +1,111 @@
+//o3djs.require('lgb.animation');
+
+/**
+ * @namespace MVC controller for the project
+ */
+var sceneController = (function(sceneController) {
+
+
+	/**
+	 * @namespace MVC controller for the project
+	 */
+	sceneController = sceneController || {};
+	
+	
+	sceneController.init = function(controller){
+		jQuery(document).ready(this.onDocumentReady);	
+		jQuery(window).resize(this.onWindowResize);
+		
+		sceneController.progressbar = null; // the progress bar that we display
+	}
+	
+	sceneController.onDocumentReady = function(event) {
+	
+		this.progressbar = new lgb.progressBar.Progressbar();	
+		this.progressbar.init("Loading Geometry");
+		this.progressbar.show();
+			
+//		var left = window.innerWidth / 2 + 100;
+//		
+//		var backg = document.getElementById("progressbarBackground");
+//		backg.style.left=left + 'px';
+			
+		
+		lgb.core.init();
+		lgb.loader.init(this);
+		lgb.gui.setCanvasSize();
+		
+		//	var delegateProgress = jQuery.proxy(this.onProgress, this);
+		//	var delegateComplete = jQuery.proxy(this.onSceneLoaded, this);
+		
+		lgb.loader.loadScene(onSceneLoaded, onProgress);
+	}
+	
+		 this.onWindowResize = function(event) {
+			lgb.gui.resizeNow();
+		}
+		
+			
+			/*
+		function returnKey(evt)
+		{
+			var evt  = (evt) ? evt : ((event) ? event : null);
+		 
+			if (evt.keyCode == 13) 
+			{
+				var vd = new hemi.view.ViewData();
+				vd.eye = [16.6,25.3,-23.6];
+				
+				hemi.world.camera.moveToView(vd,40);
+				
+			}
+		}
+		*/
+		
+		this.onSceneLoaded = function() {
+
+			console.log('onSceneLoaded');
+			window.setTimeout('progressbar.hide();',200);
+			
+			this.opacity = lgb.animation.createAlphaParam('Mesh_033');
+			
+
+			var vp = new hemi.view.Viewpoint();		// Create a new Viewpoint
+			vp.eye = [-56,61,39];					// Set viewpoint eye
+			vp.target = [0,10,0];					// Set viewpoint target
+
+			
+			this.subscriberCameraStopped = hemi.world.camera.subscribe(
+					hemi.msg.stop,
+					onCameraMoved);
+					
+					
+			hemi.model.modelRoot.rotateX(4.72);
+			hemi.world.camera.enableControl();	// Enable camera mouse control
+			hemi.world.camera.moveToView(vp,40);
+			
+		}
+		
+		
+		this.onCameraMoved = function(msg) {
+			console.log('onCameraMoved');
+			var result = hemi.world.camera.unsubscribe(this.subscriberCameraStopped, hemi.msg.stop);
+			lgb.gui.showHud();
+	
+			lgb.utils.preload('icon_exterior_envelope_over.png,icon_lighting_over.png,icon_general_over.png,icon_exterior_envelope_over.png');
+		}
+	
+		this.onProgress = function(percent) {
+			progressbar.onProgress(percent);
+		}
+		
+		
+		
+	
+	return sceneController;
+	
+})(sceneController || {});
+
+
+
+sceneController.init();

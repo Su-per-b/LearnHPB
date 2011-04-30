@@ -1,0 +1,15 @@
+jqUnit.module("PASS");
+
+jqUnit.test("LGB", function() {
+	
+	jqMock.assertThat(lgb,is.anything);
+
+
+
+	
+	
+});
+
+
+
+

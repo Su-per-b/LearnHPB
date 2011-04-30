@@ -1,0 +1,36 @@
+jqUnit.module("PASS");
+
+jqMock.addShortcut();  
+
+
+o3djs.require('lgb.core');
+o3djs.require('lgb.animation');
+o3djs.require('lgb.gui');
+o3djs.require('lgb.loader');
+o3djs.require('lgb.progressBar');
+
+
+
+
+	//jQuery(document).ready($.proxy(this.onDocumentReady, this));	
+
+	
+//var onDocumentReady = function(event) {
+
+
+//}
+
+	
+jqUnit.test("LGB", function() {
+	
+	jqMock.assertThat(lgb,is.anything);
+	jqMock.assertThat(lgb.core,is.anything);
+	jqMock.assertThat(lgb.animation,is.anything);
+	jqMock.assertThat(lgb.animation,is.anything);
+	
+
+});
+
+
+
+

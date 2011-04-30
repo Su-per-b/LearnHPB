@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	    
+	<link rel="stylesheet" href="css/stylz.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="css/gui.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="css/progress.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="css/layout.css" type="text/css" media="screen" />
+		
+	<link rel="stylesheet" type="text/css" href="lib/css/layout-default-latest.css" />
+	<link rel="stylesheet" type="text/css" href="lib/css/themes/base/jquery.ui.all.css" />
+	<link rel="stylesheet" type="text/css" href="lib/css/themes/smoothness/jquery-ui.css" />
+		
+	<title>LGB Demo 5</title>
+	
+	<script type="text/javascript" src="js/lib/jquery.js"></script>
+	<script type="text/javascript" src="js/lib/jshashtable.js"></script>
+	<script type="text/javascript" src="js/o3d-webgl/base.js"></script>
+	<script type="text/javascript" src="js/o3djs/base.js"></script>
+	<script type="text/javascript" src="js/hemi/core.js"></script>
+	<script type="text/javascript" src="js/lgb_misc/ba-debug.js"></script>
+	<script type="text/javascript" src="js/lgb_misc/floating-1.6.js"></script>
+	<script type="text/javascript" src="js/hext/utils/debug.js"></script>
+	<script type="text/javascript" src="js/lgb/core.js"></script>
+	<script type="text/javascript" src="sceneController.js"></script>
+		
+		
+	<!-- REQUIRED scripts for layout widget -->
+	<script type="text/javascript" src="lib/js/jquery-ui-latest.js"></script>
+	<script type="text/javascript" src="lib/js/jquery.layout-latest.js"></script>
+	<script type="text/javascript" src="lib/js/debug.js"></script>
+	<script type="text/javascript">
+
+		var myLayout,  $eastAccordion; // init global vars
+	
+		function resizeWidgets () {
+			//myLayout.resizeAll();
+	
+			$eastAccordion.accordion("resize");
+		};
+	
+	
+		$(document).ready( function() {
+	
+			myLayout = $('body').layout({
+	
+				east__size:			300
+				// RESIZE Accordion widget when panes resize
+			,	east__onresize:		function () { $("#accordion2").accordion("resize"); }
+			});
+	
+	
+			
+			// ACCORDION - in the East pane - in a 'content-div'
+			$eastAccordion = $("#accordion2").accordion({
+				fillSpace:	true
+			,	active:		0
+			});
+	
+		});
+
+	</script>
+	
+	
+    </head>
+	
+    
+    <body> 
+    
+
+
+		
+		
+<div class="ui-layout-center" style="display: none;"></div>
+
+
+
+
+
+<div class="ui-layout-east" style="display: none;">
+	<h3 class="ui-widget-header">Admin Panel</h3>
+
+	<div class="ui-layout-content">
+		<div id="accordion2" class="basic">
+
+			<h3><a href="#">Section 1</a></h3>
+			<div>
+				<p>Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. 
+					Integer ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit amet, nunc.</p>
+
+				<p>Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut odio. Curabitur malesuada. 
+					Vestibulum a velit eu ante scelerisque vulputate.</p>
+			</div>
+
+			<h3><a href="#">Section 2</a></h3>
+			<div>
+				<h5>Sed Non Urna</h5>
+				<p>Donec et ante. Phasellus eu ligula. Vestibulum sit amet purus.
+					Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor velit,
+					faucibus interdum tellus libero ac justo.</p>
+
+				<p>Vivamus non quam. In suscipit faucibus urna.</p>
+			</div>
+
+			<h3><a href="#">Section 3</a></h3>
+			<div>
+				<p>Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis.
+					Phasellus pellentesque purus in massa. Aenean in pede.</p>
+				<p>Phasellus ac libero ac tellus pellentesque semper. Sed ac felis. Sed commodo, 
+					magna quis lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui.</p>
+
+				<ul>
+					<li>List item one</li>
+					<li>List item two</li>
+					<li>List item three</li>
+				</ul>
+			</div>
+
+			<h3><a href="#">Section 4</a></h3>
+
+			<div>
+				<p>Cras dictum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames 
+					ac turpis egestas.</p>
+				<p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+					Aenean lacinia mauris vel est.</p>
+				<p>Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus.
+					Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+			</div>
+
+		</div>
+
+	</div>
+
+
+</div>
+
+
+	<div id="o3d"></div>
+	<div id="topTitle"></div>
+	
+	<div id="leftNav">
+		<a id="leftNavButton_1" class="leftNavButton" title="General" href="#"></a>
+		<a id="leftNavButton_2" class="leftNavButton" title="HVAC" href="#"></a>
+		<a id="leftNavButton_3" class="leftNavButton" title="External Envelope" href="#"></a>
+		<a id="leftNavButton_4" class="leftNavButton" title="Lighting" href="#"></a>
+		<a id="leftNavButton_5" class="leftNavButton" title="Day Lighting" href="#"></a>
+	</div>
+	
+    <div id="progressbarBackground">  
+        <div id="progressbar">
+            <div id="progressbarTitle">Loading Geometry</div>
+            <div id="indicator"><div id="progressnum">0</div></div>
+        </div>
+    </div>
+	
+	<a id="configButton" title="Configure" href="#"></a>
+		
+				
+    </body>
+</html>

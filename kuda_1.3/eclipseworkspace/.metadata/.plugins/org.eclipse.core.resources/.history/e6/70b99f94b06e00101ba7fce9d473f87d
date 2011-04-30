@@ -1,0 +1,26 @@
+jqUnit.module("PASS");
+
+jqMock.addShortcut();  
+
+
+o3djs.require('lgb.core');
+
+
+	jQuery(document).ready($.proxy(this.onDocumentReady, this));	
+
+	
+var onDocumentReady = function(event) {
+
+
+}
+	
+	
+jqUnit.test("LGB", function() {
+	
+	jqMock.assertThat(lgb,is.anything);
+
+});
+
+
+
+

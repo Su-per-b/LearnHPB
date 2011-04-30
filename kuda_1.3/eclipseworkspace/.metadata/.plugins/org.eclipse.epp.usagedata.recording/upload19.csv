@@ -1,0 +1,269 @@
+what,kind,bundleId,bundleVersion,description,time
+activated,perspective,,,"<Aptana_Web>",1303394769321
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303394791465
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303395699893
+activated,editor,com.aptana.ide.editor.html,2.0.0.1278523018,"com.aptana.ide.editors.HTMLEditor",1303395702407
+activated,view,com.aptana.ide.ui.io,2.0.5.1278614541,"com.aptana.ide.ui.io.fileExplorerView",1303395705463
+activated,editor,com.aptana.ide.editor.html,2.0.0.1278523018,"com.aptana.ide.editors.HTMLEditor",1303395705661
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303395710641
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303395738958
+activated,view,com.aptana.ide.ui.io,2.0.5.1278614541,"com.aptana.ide.ui.io.fileExplorerView",1303395738990
+activated,editor,com.aptana.ide.editor.js,2.0.0.1278523018,"com.aptana.ide.editors.JSEditor",1303395740603
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.copy",1303395747097
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303395747767
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396121598
+activated,view,org.eclipse.ui.console,3.5.0.v20100526,"org.eclipse.ui.console.ConsoleView",1303396122324
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.copy",1303396129617
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396129917
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396131439
+activated,editor,com.aptana.ide.editor.js,2.0.0.1278523018,"com.aptana.ide.editors.JSEditor",1303396131478
+activated,perspective,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.DebugPerspective",1303396134428
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396134542
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396136406
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396136597
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396136605
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396139622
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396155046
+activated,view,org.eclipse.ui.console,3.5.0.v20100526,"org.eclipse.ui.console.ConsoleView",1303396156422
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.copy",1303396159461
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396160352
+error,log,,,"Socket connection error. Please try shutting down and restarting your web browser, and then run 'debug' again.",1303396166506
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396168735
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396174177
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396179279
+activated,editor,com.aptana.ide.editor.js,2.0.0.1278523018,"com.aptana.ide.editors.JSEditor",1303396180178
+executed,command,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.commands.DebugLast",1303396181314
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396182108
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396191573
+activated,view,org.eclipse.ui.console,3.5.0.v20100526,"org.eclipse.ui.console.ConsoleView",1303396191600
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.copy",1303396202784
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396203513
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396211740
+activated,editor,com.aptana.ide.editor.js,2.0.0.1278523018,"com.aptana.ide.editors.JSEditor",1303396216770
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396217144
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396255065
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.copy",1303396261542
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396262095
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396630606
+activated,perspective,,,"<Aptana_Web>",1303396632537
+activated,view,com.aptana.ide.ui.io,2.0.5.1278614541,"com.aptana.ide.ui.io.fileExplorerView",1303396637197
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.copy",1303396651496
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396652465
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396691298
+activated,editor,com.aptana.ide.editor.js,2.0.0.1278523018,"com.aptana.ide.editors.JSEditor",1303396692777
+activated,view,com.aptana.ide.ui.io,2.0.5.1278614541,"com.aptana.ide.ui.io.fileExplorerView",1303396693461
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396700251
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396705080
+executed,command,org.eclipse.ltk.ui.refactoring,3.5.0.v20100526-0800,"org.eclipse.ltk.ui.refactoring.commands.renameResource",1303396705088
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.rename",1303396705088
+activated,editor,com.aptana.ide.editor.html,2.0.0.1278523018,"com.aptana.ide.editors.HTMLEditor",1303396706265
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.file.save",1303396711610
+activated,view,com.aptana.ide.ui.io,2.0.5.1278614541,"com.aptana.ide.ui.io.fileExplorerView",1303396713188
+activated,editor,com.aptana.ide.editor.html,2.0.0.1278523018,"com.aptana.ide.editors.HTMLEditor",1303396713334
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.copy",1303396719808
+activated,view,com.aptana.ide.ui.io,2.0.5.1278614541,"com.aptana.ide.ui.io.fileExplorerView",1303396720294
+error,log,,,"Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action2js",1303396720764
+error,log,,,"Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action4js",1303396720768
+error,log,,,"Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action5js",1303396720773
+error,log,,,"Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action6js",1303396720778
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396722101
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.paste",1303396722835
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.paste",1303396726751
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396727991
+executed,command,org.eclipse.ltk.ui.refactoring,3.5.0.v20100526-0800,"org.eclipse.ltk.ui.refactoring.commands.renameResource",1303396727998
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.rename",1303396727999
+activated,editor,com.aptana.ide.editor.html,2.0.0.1278523018,"com.aptana.ide.editors.HTMLEditor",1303396734767
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396737326
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396839901
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396842821
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396859297
+activated,perspective,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.DebugPerspective",1303396861908
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396862003
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396865546
+error,log,,,"Multiple JavaScript Debug Sessions is not supported.\nPlease terminate the active session before starting a new session.",1303396865559
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396865582
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396866364
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396868419
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396873404
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396876324
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396893977
+activated,view,org.eclipse.ui.ide,3.6.2.M20101201-0800,"org.eclipse.ui.views.ProgressView",1303396895137
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396899624
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396902376
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396904644
+error,log,,,"Socket connection error. Please try shutting down and restarting your web browser, and then run 'debug' again.",1303396906286
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396908152
+activated,view,org.eclipse.ui.console,3.5.0.v20100526,"org.eclipse.ui.console.ConsoleView",1303396908157
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396911008
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396911089
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396920220
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396921936
+error,log,,,"Multiple JavaScript Debug Sessions is not supported.\nPlease terminate the active session before starting a new session.",1303396921947
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396921963
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396923119
+activated,editor,com.aptana.ide.editor.html,2.0.0.1278523018,"com.aptana.ide.editors.HTMLEditor",1303396923591
+executed,command,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui.commands.Terminate",1303396924065
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396927285
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396944894
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396946081
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396947822
+activated,perspective,,,"<Aptana_Web>",1303396947929
+activated,view,com.aptana.ide.ui.io,2.0.5.1278614541,"com.aptana.ide.ui.io.fileExplorerView",1303396950840
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.copy",1303396954877
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396955705
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396980916
+activated,editor,com.aptana.ide.editor.html,2.0.0.1278523018,"com.aptana.ide.editors.HTMLEditor",1303396981773
+activated,view,com.aptana.ide.ui.io,2.0.5.1278614541,"com.aptana.ide.ui.io.fileExplorerView",1303396983730
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303396984753
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303397667511
+activated,editor,com.aptana.ide.editor.html,2.0.0.1278523018,"com.aptana.ide.editors.HTMLEditor",1303397669287
+activated,editor,com.aptana.ide.editor.html,2.0.0.1278523018,"com.aptana.ide.editors.HTMLEditor",1303397676270
+activated,editor,com.aptana.ide.editor.js,2.0.0.1278523018,"com.aptana.ide.editors.JSEditor",1303397678501
+activated,editor,com.aptana.ide.editor.html,2.0.0.1278523018,"com.aptana.ide.editors.HTMLEditor",1303397679465
+activated,editor,com.aptana.ide.editor.html,2.0.0.1278523018,"com.aptana.ide.editors.HTMLEditor",1303397682260
+activated,editor,com.aptana.ide.editor.js,2.0.0.1278523018,"com.aptana.ide.editors.JSEditor",1303397685793
+activated,editor,com.aptana.ide.editor.html,2.0.0.1278523018,"com.aptana.ide.editors.HTMLEditor",1303397690171
+closed,editor,com.aptana.ide.editor.js,2.0.0.1278523018,"com.aptana.ide.editors.JSEditor",1303397690171
+opened,editor,com.aptana.ide.editor.js,2.0.0.1278523018,"com.aptana.ide.editors.JSEditor",1303397702985
+activated,editor,com.aptana.ide.editor.js,2.0.0.1278523018,"com.aptana.ide.editors.JSEditor",1303397703084
+activated,editor,com.aptana.ide.editor.html,2.0.0.1278523018,"com.aptana.ide.editors.HTMLEditor",1303397705985
+closed,editor,com.aptana.ide.editor.js,2.0.0.1278523018,"com.aptana.ide.editors.JSEditor",1303397705985
+opened,editor,com.aptana.ide.editor.js,2.0.0.1278523018,"com.aptana.ide.editors.JSEditor",1303397708873
+activated,editor,com.aptana.ide.editor.js,2.0.0.1278523018,"com.aptana.ide.editors.JSEditor",1303397708955
+activated,editor,com.aptana.ide.editor.html,2.0.0.1278523018,"com.aptana.ide.editors.HTMLEditor",1303397714172
+closed,editor,com.aptana.ide.editor.js,2.0.0.1278523018,"com.aptana.ide.editors.JSEditor",1303397714172
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303397718791
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303397723456
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303397723858
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303397724998
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303397726089
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303397767883
+opened,editor,com.aptana.ide.editor.js,2.0.0.1278523018,"com.aptana.ide.editors.JSEditor",1303397769733
+activated,editor,com.aptana.ide.editor.js,2.0.0.1278523018,"com.aptana.ide.editors.JSEditor",1303397769816
+activated,view,com.aptana.ide.ui.io,2.0.5.1278614541,"com.aptana.ide.ui.io.fileExplorerView",1303397775806
+activated,editor,com.aptana.ide.editor.js,2.0.0.1278523018,"com.aptana.ide.editors.JSEditor",1303397776627
+activated,view,com.aptana.ide.ui.io,2.0.5.1278614541,"com.aptana.ide.ui.io.fileExplorerView",1303397777953
+activated,editor,com.aptana.ide.editor.js,2.0.0.1278523018,"com.aptana.ide.editors.JSEditor",1303397778717
+activated,view,com.aptana.ide.ui.io,2.0.5.1278614541,"com.aptana.ide.ui.io.fileExplorerView",1303397779285
+activated,editor,com.aptana.ide.editor.js,2.0.0.1278523018,"com.aptana.ide.editors.JSEditor",1303397779606
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303397785385
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303398060728
+activated,view,com.aptana.ide.ui.io,2.0.5.1278614541,"com.aptana.ide.ui.io.fileExplorerView",1303398071149
+activated,editor,com.aptana.ide.editor.html,2.0.0.1278523018,"com.aptana.ide.editors.HTMLEditor",1303398071356
+activated,view,com.aptana.ide.ui.io,2.0.5.1278614541,"com.aptana.ide.ui.io.fileExplorerView",1303398072918
+activated,editor,com.aptana.ide.editor.js,2.0.0.1278523018,"com.aptana.ide.editors.JSEditor",1303398073129
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303398083474
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303398092529
+executed,command,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui.edit.copy",1303398094729
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303398095376
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303401917775
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303401918628
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303401919551
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303401924335
+error,log,,,"(Build 2.0.0.1278523018) [ERROR] ",1303402290879
+error,log,,,"(Build 2.0.0.1278523018) [ERROR] ",1303402290890
+error,log,,,"(Build 2.0.0.1278523018) [ERROR] ",1303402290931
+error,log,,,"(Build 2.0.0.1278523018) [ERROR] ",1303402291935
+error,log,,,"(Build 2.0.0.1278523018) [ERROR] ",1303402291952
+error,log,,,"(Build 2.0.0.1278523018) [ERROR] ",1303402291964
+error,log,,,"(Build 2.0.0.1278523018) [ERROR] ",1303402372153
+error,log,,,"(Build 2.0.0.1278523018) [ERROR] ",1303402372159
+error,log,,,"(Build 2.0.0.1278523018) [ERROR] ",1303402372166
+error,log,,,"(Build 2.0.0.1278523018) [ERROR] ",1303402372175
+error,log,,,"(Build 2.0.0.1278523018) [ERROR] ",1303402372185
+error,log,,,"(Build 2.0.0.1278523018) [ERROR] ",1303402550247
+error,log,,,"(Build 2.0.0.1278523018) [ERROR] ",1303402550254
+error,log,,,"(Build 2.0.0.1278523018) [ERROR] ",1303402550262
+error,log,,,"(Build 2.0.0.1278523018) [ERROR] ",1303402550273
+error,log,,,"(Build 2.0.0.1278523018) [ERROR] ",1303402550282
+error,log,,,"(Build 2.0.0.1278523018) [ERROR] ",1303402911458
+error,log,,,"(Build 2.0.0.1278523018) [ERROR] ",1303402911465
+error,log,,,"(Build 2.0.0.1278523018) [ERROR] ",1303402911471
+error,log,,,"(Build 2.0.0.1278523018) [ERROR] ",1303402911486
+error,log,,,"(Build 2.0.0.1278523018) [ERROR] ",1303402911520
+activated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303403128713
+closed,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1303403132602
+stopped,bundle,org.eclipse.compare.win32,1.0.101.R36x_v20101103-0618,"org.eclipse.compare.win32",1303403137511
+stopped,bundle,org.eclipse.equinox.p2.ui.sdk,1.0.100.v20100513,"org.eclipse.equinox.p2.ui.sdk",1303403137533
+stopped,bundle,org.eclipse.wst.xsl.jaxp.debug.ui,1.0.100.v201004290328,"org.eclipse.wst.xsl.jaxp.debug.ui",1303403137578
+stopped,bundle,org.eclipse.jdt.debug.ui,3.5.2.v20100928a_r362,"org.eclipse.jdt.debug.ui",1303403137603
+stopped,bundle,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui",1303403137603
+stopped,bundle,org.eclipse.wst.dtd.ui,1.0.500.v201004290328,"org.eclipse.wst.dtd.ui",1303403137637
+stopped,bundle,org.eclipse.wst.jsdt.web.ui,1.0.304.v201012160349,"org.eclipse.wst.jsdt.web.ui",1303403137680
+stopped,bundle,org.eclipse.wst.web.ui,1.1.400.v201004141630,"org.eclipse.wst.web.ui",1303403137719
+stopped,bundle,org.eclipse.wst.html.ui,1.0.504.v201101122108,"org.eclipse.wst.html.ui",1303403137719
+activated,perspective,,,"<Aptana_Web>",1303403764606
+started,bundle,org.eclipse.osgi,3.6.2.R36x_v20110210,"org.eclipse.osgi",1303403764610
+started,bundle,org.eclipse.equinox.simpleconfigurator,1.0.200.v20100503,"org.eclipse.equinox.simpleconfigurator",1303403764610
+started,bundle,com.ibm.icu,4.2.1.v20100412,"com.ibm.icu",1303403764611
+started,bundle,org.eclipse.compare.core,3.5.101.R36x_v20100929-0800,"org.eclipse.compare.core",1303403764612
+started,bundle,org.eclipse.core.contenttype,3.4.100.v20100505-1235,"org.eclipse.core.contenttype",1303403764612
+started,bundle,org.eclipse.core.databinding.observable,1.3.0.I20100601-0800,"org.eclipse.core.databinding.observable",1303403764613
+started,bundle,org.eclipse.core.expressions,3.4.200.v20100505,"org.eclipse.core.expressions",1303403764613
+started,bundle,org.eclipse.core.filebuffers,3.5.100.v20100520-0800,"org.eclipse.core.filebuffers",1303403764614
+started,bundle,org.eclipse.core.filesystem,1.3.1.R36x_v20100727-0745,"org.eclipse.core.filesystem",1303403764615
+started,bundle,org.eclipse.core.jobs,3.5.1.R36x_v20100824,"org.eclipse.core.jobs",1303403764616
+started,bundle,org.eclipse.core.net,1.2.100.I20100511-0800,"org.eclipse.core.net",1303403764617
+started,bundle,org.eclipse.core.resources,3.6.1.R36x_v20110131-1630,"org.eclipse.core.resources",1303403764617
+started,bundle,org.eclipse.core.runtime,3.6.0.v20100505,"org.eclipse.core.runtime",1303403764618
+started,bundle,org.eclipse.core.runtime.compatibility,3.2.100.v20100505,"org.eclipse.core.runtime.compatibility",1303403764619
+started,bundle,org.eclipse.core.runtime.compatibility.auth,3.2.200.v20100517,"org.eclipse.core.runtime.compatibility.auth",1303403764619
+started,bundle,org.eclipse.core.variables,3.2.400.v20100505,"org.eclipse.core.variables",1303403764620
+started,bundle,org.eclipse.debug.core,3.6.0.v20100519,"org.eclipse.debug.core",1303403764621
+started,bundle,org.eclipse.debug.ui,3.6.3.v20101201_r362,"org.eclipse.debug.ui",1303403764684
+started,bundle,org.eclipse.epp.usagedata.gathering,1.3.1.R201102081640,"org.eclipse.epp.usagedata.gathering",1303403764685
+started,bundle,org.eclipse.epp.usagedata.recording,1.3.1.R201102081640,"org.eclipse.epp.usagedata.recording",1303403764686
+started,bundle,org.eclipse.equinox.app,1.3.1.R36x_v20100803,"org.eclipse.equinox.app",1303403764686
+started,bundle,org.eclipse.equinox.common,3.6.0.v20100503,"org.eclipse.equinox.common",1303403764687
+started,bundle,org.eclipse.equinox.ds,1.2.1.R36x_v20100803,"org.eclipse.equinox.ds",1303403764688
+started,bundle,org.eclipse.equinox.event,1.2.0.v20100503,"org.eclipse.equinox.event",1303403764688
+started,bundle,org.eclipse.equinox.p2.core,2.0.3.R36x_v20110111,"org.eclipse.equinox.p2.core",1303403764688
+started,bundle,org.eclipse.equinox.p2.directorywatcher,1.0.203.R36x_v20101220,"org.eclipse.equinox.p2.directorywatcher",1303403764689
+started,bundle,org.eclipse.equinox.p2.engine,2.0.1.R36x_v20110201,"org.eclipse.equinox.p2.engine",1303403764690
+started,bundle,org.eclipse.equinox.p2.metadata,2.0.1.R36x_v20101202,"org.eclipse.equinox.p2.metadata",1303403764691
+started,bundle,org.eclipse.equinox.p2.metadata.repository,1.1.0.v20100513,"org.eclipse.equinox.p2.metadata.repository",1303403764693
+started,bundle,org.eclipse.equinox.p2.operations,2.0.0.v20100510,"org.eclipse.equinox.p2.operations",1303403764694
+started,bundle,org.eclipse.equinox.p2.reconciler.dropins,1.1.2.R36x_v20110114,"org.eclipse.equinox.p2.reconciler.dropins",1303403764695
+started,bundle,org.eclipse.equinox.p2.repository,2.0.2.R36x_v20110111-1500,"org.eclipse.equinox.p2.repository",1303403764696
+started,bundle,org.eclipse.equinox.p2.ui.sdk.scheduler,1.0.0.v20100507-1815,"org.eclipse.equinox.p2.ui.sdk.scheduler",1303403764697
+started,bundle,org.eclipse.equinox.p2.updatechecker,1.1.101.R36x_v20100823,"org.eclipse.equinox.p2.updatechecker",1303403764698
+started,bundle,org.eclipse.equinox.preferences,3.3.0.v20100503,"org.eclipse.equinox.preferences",1303403764699
+started,bundle,org.eclipse.equinox.registry,3.5.0.v20100503,"org.eclipse.equinox.registry",1303403764700
+started,bundle,org.eclipse.equinox.security,1.0.200.v20100503,"org.eclipse.equinox.security",1303403764700
+started,bundle,org.eclipse.equinox.util,1.0.200.v20100503,"org.eclipse.equinox.util",1303403764701
+started,bundle,org.eclipse.help,3.5.0.v20100524,"org.eclipse.help",1303403764702
+started,bundle,org.eclipse.jdt.core,3.6.2.v_A76_R36x,"org.eclipse.jdt.core",1303403764703
+started,bundle,org.eclipse.jdt.core.manipulation,1.3.0.v20100520-0800,"org.eclipse.jdt.core.manipulation",1303403764703
+started,bundle,org.eclipse.jdt.ui,3.6.2.r362_v20110203,"org.eclipse.jdt.ui",1303403764731
+started,bundle,org.eclipse.jface,3.6.2.M20110210-1200,"org.eclipse.jface",1303403764732
+started,bundle,org.eclipse.jsch.core,1.1.200.I20100505-1245,"org.eclipse.jsch.core",1303403764733
+started,bundle,org.eclipse.team.core,3.5.101.R36x_v20110203-1036,"org.eclipse.team.core",1303403764733
+started,bundle,org.eclipse.team.cvs.core,3.3.301.R36x_v20110119-0815,"org.eclipse.team.cvs.core",1303403764734
+started,bundle,org.eclipse.team.ui,3.5.102.R36x_v20110203-1036,"org.eclipse.team.ui",1303403764735
+started,bundle,org.eclipse.ui,3.6.2.M20110203-1100,"org.eclipse.ui",1303403764737
+started,bundle,org.eclipse.ui.console,3.5.0.v20100526,"org.eclipse.ui.console",1303403764738
+started,bundle,org.eclipse.ui.editors,3.6.1.r361_v20100825-0800,"org.eclipse.ui.editors",1303403764738
+started,bundle,org.eclipse.ui.ide,3.6.2.M20101201-0800,"org.eclipse.ui.ide",1303403764764
+started,bundle,org.eclipse.ui.navigator,3.5.0.I20100601-0800,"org.eclipse.ui.navigator",1303403764765
+started,bundle,org.eclipse.ui.navigator.resources,3.4.202.M20101124-0800,"org.eclipse.ui.navigator.resources",1303403764766
+started,bundle,org.eclipse.ui.net,1.2.100.I20100505-1245,"org.eclipse.ui.net",1303403764767
+started,bundle,org.eclipse.ui.views,3.5.1.M20110202-0800,"org.eclipse.ui.views",1303403764768
+started,bundle,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"org.eclipse.ui.workbench",1303403764770
+started,bundle,org.eclipse.ui.workbench.texteditor,3.6.1.r361_v20100714-0800,"org.eclipse.ui.workbench.texteditor",1303403764771
+started,bundle,org.eclipse.update.configurator,3.3.100.v20100512,"org.eclipse.update.configurator",1303403764772
+started,bundle,org.eclipse.update.core,3.2.402.R36x_v20100629,"org.eclipse.update.core",1303403764821
+started,bundle,org.eclipse.update.scheduler,3.2.300.v20100512,"org.eclipse.update.scheduler",1303403764822
+started,bundle,org.eclipse.update.ui,3.2.300.v20100512,"org.eclipse.update.ui",1303403764823
+started,bundle,org.eclipse.wst.jsdt.core,1.1.4.v201102102045,"org.eclipse.wst.jsdt.core",1303403764823
+started,bundle,org.eclipse.wst.jsdt.manipulation,1.0.200.v201004150600,"org.eclipse.wst.jsdt.manipulation",1303403764824
+started,bundle,org.eclipse.wst.jsdt.ui,1.1.4.v201102160540,"org.eclipse.wst.jsdt.ui",1303403764829
+started,bundle,com.aptana.ide.core,2.0.5.1278523018,"com.aptana.ide.core",1303403764829
+started,bundle,com.aptana.ide.core.epl,2.0.0.1278614541,"com.aptana.ide.core.epl",1303403764830
+started,bundle,com.aptana.ide.core.io,2.0.5.1278614541,"com.aptana.ide.core.io",1303403764830
+started,bundle,com.aptana.ide.core.spellcheck,2.0.0.1278523018,"com.aptana.ide.core.spellcheck",1303403764831
+started,bundle,com.aptana.ide.core.ui,2.0.5.1278523018,"com.aptana.ide.core.ui",1303403764831
+started,bundle,com.aptana.ide.debug.core,2.0.0.1278523018,"com.aptana.ide.debug.core",1303403764878
+started,bundle,com.aptana.ide.debug.ui,2.0.0.1254164293,"com.aptana.ide.debug.ui",1303403764879
+started,bundle,com.aptana.ide.desktop.integration.protocolhandler,2.0.0.1278523018,"com.aptana.ide.desktop.integration.protocolhandler",1303403764899
+started,bundle,com.aptana.ide.desktop.integration.server,2.0.0.1278523018,"com.aptana.ide.desktop.integration.server",1303403764900
+started,bundle,com.aptana.ide.editor.html,2.0.0.1278523018,"com.aptana.ide.editor.html",1303403764908

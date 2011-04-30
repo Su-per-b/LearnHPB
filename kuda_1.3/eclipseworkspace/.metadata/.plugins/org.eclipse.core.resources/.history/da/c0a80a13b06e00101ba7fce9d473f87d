@@ -1,0 +1,19 @@
+jqUnit.module("PASS");
+
+jqMock.addShortcut();  
+
+
+jqUnit.test("LGB", function() {
+	
+	
+	jqMock.assertThat(lgb,is.anything);
+	
+
+
+	
+	
+});
+
+
+
+

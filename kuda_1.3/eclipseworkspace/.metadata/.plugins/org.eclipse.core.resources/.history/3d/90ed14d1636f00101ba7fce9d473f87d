@@ -1,0 +1,54 @@
+
+#progressbarBackground
+{
+	position: absolute;
+	width:202px;
+	height:58px;
+	background-color:#999;
+	padding:2px 2px 2px 2px;
+	margin:0 0 0 0;
+	border-radius:3px;
+	text-align:left;
+	border:1px solid gray;	
+	z-index:100;
+	font-family:Verdana,Tahoma,Arial,sans-serif;
+	font-weight: bold;
+}
+
+#progressbar
+{
+	width:200px;
+	padding:0px;
+	background-color:#fff;
+	border:1px solid black;
+	height:56px;
+}
+
+#progressbarTitle {
+	width:204px;
+	height:20px;
+	padding:2px 2px 2px 2px;
+	text-align:center;
+	font-size:0.7em;
+	color:#999;
+	
+}
+
+
+#indicator
+{
+  width:0px;
+  background-color:#00aa00;
+  height:28px;
+  margin:0;
+}
+
+#progressnum
+{
+  color:#eee;
+  padding-top:6px;
+  text-align:center;
+  width:200px;
+
+  font-size:0.8em;
+}
