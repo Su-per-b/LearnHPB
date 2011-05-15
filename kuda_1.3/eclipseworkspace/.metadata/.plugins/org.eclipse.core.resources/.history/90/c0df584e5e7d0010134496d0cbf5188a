@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+		<script type="text/javascript" src="js/lib/jquery.js"></script>
+		<script type="text/javascript" src="js/lgb_misc/html5slider.js"></script>
+
+		<script>
+			
+
+				
+			//$(document).ready(onReady());	
+			$(window).load(onReady());
+			
+			
+			function onReady(event) {
+
+				
+				//var element = document.getElementById("button");
+			//	element.addEventListener('click',onClickHandler,false);
+				
+			//	var element2 = document.getElementById("range");
+				//element2.addEventListener('change',onChangeHandler,false);
+				
+				$('#rangeId').bind( 'change', onChangeHandler);
+			
+				//alert (event);
+				//	$('#r').bind( 'change', function() { alert('mouseover!'); });
+				//$('#r').bind( 'onChange', onChangeHandler);
+				//$('#r').bind( 'mousedown', onChangeHandler);
+			}
+			
+			function onClickHandler(event) {
+				//alert ('onClickHandler');
+			}
+			
+			function onChangeHandler(event) {
+				
+				var element = document.getElementById("rangeId");
+				
+				console.log ('rangeId: ' + element.value);
+				
+			}
+
+			
+		</script>
+    </head>
+	
+    
+    <body onload="onReady()"> 
+
+			<button id="button" type="button">test</button>
+			<input id="rangeId" type="range" name="bet" min="20" max="200" step="20" value="40"></input>
+			
+    </body>
+</html>
+

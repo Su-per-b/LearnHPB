@@ -1,0 +1,46 @@
+
+
+/**
+ * @namespace A module for managing the 2D GUI
+ */
+var lgb = (function(lgb) {
+
+
+	/**
+	 * @namespace MVC controller 
+	 */
+	lgb.model = lgb.model || {};
+	
+	lgb.model.UserAction = function(){
+		this.actionName = null;
+		this.actionType = null;
+		
+		
+	};
+	
+	
+	lgb.model.UserAction.prototype = {
+		
+		init: function(){
+
+		}
+	};
+	
+	
+	
+	lgb.model.UserActionType = function() {
+		
+		this.BUTTON = 'BUTTON';
+		this.TOGGLE_BUTTON = 'TOGGLE_BUTTON';
+		this.SLIDER = 'SLIDER';
+		this.RADIO_BUTTON_GROUP = 'RADIO_BUTTON_GROUP';
+		
+	};
+	
+
+	return lgb;
+	
+})(lgb || {});
+
+
+

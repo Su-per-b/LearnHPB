@@ -1,0 +1,85 @@
+
+
+
+/**
+ * @namespace A module for managing the 2D GUI
+ */
+var lgb = (function(lgb) {
+
+
+	/**
+	 * @namespace MVC controller 
+	 */
+	lgb.model = lgb.model || {};
+	
+	lgb.model.XmlParser = function(xml){
+
+		this.xml = xml;
+		this.rootNode = null;
+	};
+	
+	
+	
+	lgb.controller.ModeController.prototype = {
+		
+		makeRootNode: function(xpath) {
+
+			var xPathRes = this.xml.evaluate(xpath, this.xml, null, XPathResult.ANY_TYPE, null);
+			this.rootNode = xPathRes.iterateNext();
+			
+			return this.rootNode;
+		},
+		getId: function(xpath) {
+
+			var xPathRes = this.xml.evaluate("@id", this.rootNode, null, XPathResult.ANY_TYPE, null);
+			var theNode = xPathRes.iterateNext();
+			
+			return theNode.nodeValue;
+			
+			return getNodeValue("@id",  this.rootNode);
+			
+		},
+		
+		getNodeValue : function(xpath, node) {
+			
+			//var node = xml.evaluate("@id", node, null, XPathResult.ANY_TYPE, null)
+			
+			var node;
+			if (xpath ==null) {
+				node = this.rootNode;
+			}
+			
+			node.iterateNext();
+			
+			return node.nodeValue;
+		},
+		
+		getFloatArray : function () {
+			
+			var ary = this.node.textContent.split(',');
+			return ary;
+			
+		}
+		
+		
+		
+		
+		
+
+	};
+	
+
+
+	return lgb;
+	
+})(lgb || {});
+
+
+
+
+
+
+
+
+
+

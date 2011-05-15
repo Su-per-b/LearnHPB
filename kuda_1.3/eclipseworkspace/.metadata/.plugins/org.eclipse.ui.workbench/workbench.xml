@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workbench progressCount="34" version="2.0">
 <workbenchAdvisor/>
-<window height="748" maximized="true" width="1004" x="-4" y="2">
+<window height="1466" maximized="true" width="1155" x="54" y="-4">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="160"/>
@@ -14,6 +14,7 @@
 <coolItem id="com.aptana.ide.editors.JSEditor" itemType="typeToolBarContribution" x="37" y="22"/>
 <coolItem id="com.aptana.ui.globalActionSet" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="172" y="22"/>
+<coolItem id="org.eclipse.jdt.ui.JavaElementCreationActionSet" itemType="typeToolBarContribution" x="74" y="22"/>
 <coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="50" y="22"/>
 <coolItem id="org.eclipse.team.ui.actionSet" itemType="typeToolBarContribution" x="50" y="22"/>
 <coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typePlaceholder" x="-1" y="-1"/>
@@ -25,6 +26,7 @@
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="185" y="22"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
+<coolItem id="com.aptana.ide.editors.XMLEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="com.aptana.ide.editor.text" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="com.aptana.ide.editors.CSSEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
@@ -46,50 +48,45 @@
 <part id="7"/>
 <part id="8"/>
 <part id="9"/>
-<part id="10"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor id="com.aptana.ide.editors.JSEditor" name="ZoneController.js" partName="ZoneController.js" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo6/js/lgb/controller/ZoneController.js" title="ZoneController.js" tooltip="kuda_master/projects/demo6/js/lgb/controller/ZoneController.js" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo6/js/lgb/controller/ZoneController.js"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1678" selectionTopPixel="867"/>
+<editor id="com.aptana.ide.editors.JSEditor" name="animation.js" partName="animation.js" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo8/js/lgb/animation.js" title="animation.js" tooltip="kuda_master/projects/demo8/js/lgb/animation.js" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo8/js/lgb/animation.js"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1732" selectionTopPixel="132"/>
 </editor>
-<editor id="com.aptana.ide.editors.JSEditor" name="ModeController.js" partName="ModeController.js" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo6/js/lgb/controller/ModeController.js" title="ModeController.js" tooltip="kuda_master/projects/demo6/js/lgb/controller/ModeController.js" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo6/js/lgb/controller/ModeController.js"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="375" selectionTopPixel="678"/>
+<editor id="com.aptana.ide.editors.JSEditor" name="core.js" partName="core.js" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo8/js/lgb/core.js" title="core.js" tooltip="kuda_master/projects/demo8/js/lgb/core.js" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo8/js/lgb/core.js"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="473" selectionTopPixel="0"/>
 </editor>
-<editor id="com.aptana.ide.editors.JSEditor" name="gui.js" partName="gui.js" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo6/js/lgb/view/gui.js" title="gui.js" tooltip="kuda_master/projects/demo6/js/lgb/view/gui.js" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo6/js/lgb/view/gui.js"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="8007" selectionTopPixel="3991"/>
+<editor id="com.aptana.ide.editors.JSEditor" name="HvacDamperView.js" partName="HvacDamperView.js" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo8/js/lgb/view/HvacDamperView.js" title="HvacDamperView.js" tooltip="kuda_master/projects/demo8/js/lgb/view/HvacDamperView.js" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo8/js/lgb/view/HvacDamperView.js"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2795" selectionTopPixel="969"/>
 </editor>
-<editor id="com.aptana.ide.editors.JSEditor" name="jquery.js" partName="jquery.js" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo6/js/lib/jquery.js" title="jquery.js" tooltip="kuda_master/projects/demo6/js/lib/jquery.js" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo6/js/lib/jquery.js"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="116034" selectionTopPixel="76653"/>
+<editor activePart="true" focus="true" id="com.aptana.ide.editors.JSEditor" name="UserAction.js" partName="UserAction.js" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo8/js/lgb/model/UserAction.js" title="UserAction.js" tooltip="kuda_master/projects/demo8/js/lgb/model/UserAction.js" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo8/js/lgb/model/UserAction.js"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="809" selectionTopPixel="0"/>
 </editor>
-<editor id="com.aptana.ide.editors.JSEditor" name="sceneController.js" partName="sceneController.js" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo6/sceneController.js" title="sceneController.js" tooltip="kuda_master/projects/demo6/sceneController.js" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo6/sceneController.js"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2589" selectionTopPixel="984"/>
+<editor id="com.aptana.ide.editors.HTMLEditor" name="index.html" partName="index.html" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo8/index.html" title="index.html" tooltip="kuda_master/projects/demo8/index.html" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo8/index.html"/>
 </editor>
-<editor activePart="true" focus="true" id="com.aptana.ide.editors.HTMLEditor" name="index.html" partName="index.html" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo6/index.html" title="index.html" tooltip="kuda_master/projects/demo6/index.html" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo6/index.html"/>
+<editor id="com.aptana.ide.editors.CSSEditor" name="gui.css" partName="gui.css" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo8/css/gui.css" title="gui.css" tooltip="kuda_master/projects/demo8/css/gui.css" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo8/css/gui.css"/>
 </editor>
-<editor id="com.aptana.ide.editors.CSSEditor" name="gui.css" partName="gui.css" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo6/css/gui.css" title="gui.css" tooltip="kuda_master/projects/demo6/css/gui.css" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo6/css/gui.css"/>
+<editor id="com.aptana.ide.editors.CSSEditor" name="layout.css" partName="layout.css" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo8/css/layout.css" title="layout.css" tooltip="kuda_master/projects/demo8/css/layout.css" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo8/css/layout.css"/>
 </editor>
-<editor id="com.aptana.ide.editors.CSSEditor" name="ui.panel.css" partName="ui.panel.css" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo6/ui.panel.css" title="ui.panel.css" tooltip="kuda_master/projects/demo6/ui.panel.css" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo6/ui.panel.css"/>
+<editor id="com.aptana.ide.editors.CSSEditor" name="stylz.css" partName="stylz.css" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo8/css/stylz.css" title="stylz.css" tooltip="kuda_master/projects/demo8/css/stylz.css" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo8/css/stylz.css"/>
 </editor>
-<editor id="com.aptana.ide.editors.HTMLEditor" name="demo_simple.htm" partName="demo_simple.htm" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo_ui_panel/demo_simple.htm" title="demo_simple.htm" tooltip="kuda_master/projects/demo_ui_panel/demo_simple.htm" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo_ui_panel/demo_simple.htm"/>
+<editor id="com.aptana.ide.editors.JSEditor" name="sceneController.js" partName="sceneController.js" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo8/sceneController.js" title="sceneController.js" tooltip="kuda_master/projects/demo8/sceneController.js" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo8/sceneController.js"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1026" selectionTopPixel="1781"/>
 </editor>
-<editor id="com.aptana.ide.editors.JSEditor" name="view.js" partName="view.js" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo6/js/hemi/view.js" title="view.js" tooltip="kuda_master/projects/demo6/js/hemi/view.js" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo6/js/hemi/view.js"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="29393" selectionTopPixel="16371"/>
-</editor>
-<editor id="com.aptana.ide.editors.JSEditor" name="transform.js" partName="transform.js" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo6/js/o3d-webgl/transform.js" title="transform.js" tooltip="kuda_master/projects/demo6/js/o3d-webgl/transform.js" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo6/js/o3d-webgl/transform.js"/>
-<editorState selectionHorizontalPixel="0" selectionLength="25" selectionOffset="5601" selectionTopPixel="2227"/>
+<editor id="com.aptana.ide.editors.JSEditor" name="loader.js" partName="loader.js" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo8/js/lgb/loader.js" title="loader.js" tooltip="kuda_master/projects/demo8/js/lgb/loader.js" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo8/js/lgb/loader.js"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1583" selectionTopPixel="765"/>
 </editor>
 </editors>
 <views>
@@ -99,14 +96,14 @@
 <view id="org.eclipse.ui.views.ProgressView" partName="Progress">
 <viewState/>
 </view>
-<view id="org.eclipse.search.ui.views.SearchView" partName="Search">
-<viewState isPinned="false">
-<view IMemento.internal.id="org.eclipse.search.text.AptanaFileSearchResultPage" org.eclipse.search.lastActivation="1" org.eclipse.search.resultpage.layout="2"/>
-<view IMemento.internal.id="" org.eclipse.search.lastActivation="0"/>
-</viewState>
-</view>
 <view id="com.aptana.ide.js.ui.views.profilesView" partName="References">
 <viewState/>
+</view>
+<view id="org.eclipse.search.ui.views.SearchView" partName="Search">
+<viewState isPinned="false">
+<view IMemento.internal.id="" org.eclipse.search.lastActivation="0"/>
+<view IMemento.internal.id="org.eclipse.search.text.AptanaFileSearchResultPage" org.eclipse.search.lastActivation="1" org.eclipse.search.resultpage.layout="2"/>
+</viewState>
 </view>
 <view id="org.eclipse.debug.ui.DebugView" partName="Debug">
 <viewState/>
@@ -115,6 +112,9 @@
 <viewState CommonNavigator.LINKING_ENABLED="1"/>
 </view>
 <view id="org.eclipse.debug.ui.BreakpointView" partName="Breakpoints">
+<viewState/>
+</view>
+<view id="org.eclipse.debug.ui.VariableView" partName="Variables">
 <viewState/>
 </view>
 <view id="org.eclipse.ui.views.TaskList" partName="Tasks">
@@ -129,21 +129,55 @@
 <visible IMemento.internal.id="org.eclipse.ui.ide.markerType"/>
 </viewState>
 </view>
-<view id="org.eclipse.debug.ui.VariableView" partName="Variables">
-<viewState/>
-</view>
 <view id="org.eclipse.ui.views.ContentOutline" partName="Outline">
 <viewState/>
 </view>
-<view id="org.eclipse.ui.views.ProblemView" partName="Problems"/>
+<view id="org.eclipse.ui.views.ProblemView" partName="Problems">
+<viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
+<columnWidths org.eclipse.ui.ide.locationField="54" org.eclipse.ui.ide.markerType="79" org.eclipse.ui.ide.pathField="104" org.eclipse.ui.ide.resourceField="79" org.eclipse.ui.ide.severityAndDescriptionField="250"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.pathField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.locationField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.markerType"/>
+</viewState>
+</view>
+<view id="org.eclipse.jdt.ui.PackageExplorer" partName="Package Explorer">
+<viewState group_libraries="1" layout="2" linkWithEditor="0" rootMode="1" workingSetName="">
+<customFilters userDefinedPatternsEnabled="false">&#x0A;<xmlDefinedFilters>&#x0A;<child filterId="org.eclipse.jdt.ui.PackageExplorer.LibraryFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.LocalTypesFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.StaticsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.ClosedProjectsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonSharedProjectsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonJavaElementFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.ContainedLibraryFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.CuAndClassFileFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonJavaProjectsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.internal.ui.PackageExplorer.EmptyInnerPackageFilter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.PackageDeclarationFilter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.internal.ui.PackageExplorer.EmptyPackageFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.ImportDeclarationFilter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.FieldsFilter" isEnabled="false"/>
+<child filterId="jdt.external.source.project.filter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.internal.ui.PackageExplorer.HideInnerClassFilesFilter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonPublicFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer_patternFilterId_.*" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.EmptyLibraryContainerFilter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.SyntheticMembersFilter" isEnabled="true"/>
+</xmlDefinedFilters>
+</customFilters>
+</viewState>
+</view>
 <view id="org.eclipse.ui.console.ConsoleView" partName="Console">
 <viewState/>
 </view>
 <view id="com.aptana.ide.ui.io.fileExplorerView" partName="File">
 <viewState CommonNavigator.LINKING_ENABLED="0" org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets="0"/>
 </view>
+<view id="org.eclipse.jdt.ui.SourceView" partName="Declaration"/>
+<view id="org.eclipse.jdt.ui.JavadocView" partName="Javadoc"/>
 </views>
-<perspectives activePart="com.aptana.ide.editors.HTMLEditor" activePerspective="&lt;Aptana_Web&gt;">
+<perspectives activePart="com.aptana.ide.editors.JSEditor" activePerspective="&lt;Aptana_Web&gt;">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor descriptor="com.aptana.ide.js.ui.WebPerspective" id="&lt;Aptana_Web&gt;" label="&lt;Aptana Web&gt;"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
@@ -193,13 +227,13 @@
 <new_wizard_action id="com.aptana.ide.editors.wizards.file.XmlUntitledWizard"/>
 <new_wizard_action id="om.aptana.ide.editors.wizards.file.JsonUntitledFileWizard"/>
 <hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
+<view id="org.eclipse.ui.views.ContentOutline"/>
+<view id="com.aptana.ide.js.ui.views.profilesView"/>
+<view id="com.aptana.ide.ui.io.fileExplorerView"/>
 <view id="org.eclipse.ui.console.ConsoleView"/>
 <view id="org.eclipse.search.ui.views.SearchView"/>
 <view id="org.eclipse.ui.views.ProgressView"/>
 <view id="org.eclipse.egit.ui.RepositoriesView"/>
-<view id="org.eclipse.ui.views.ContentOutline"/>
-<view id="com.aptana.ide.js.ui.views.profilesView"/>
-<view id="com.aptana.ide.ui.io.fileExplorerView"/>
 <fastViewBars/>
 <layout>
 <mainWindow>
@@ -227,12 +261,8 @@
 <page content="com.aptana.ide.scripting.SnippetsView" label="LabelNotFound"/>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@b90a6e" ratio="0.8304989" ratioLeft="1465" ratioRight="299" relationship="4" relative="org.eclipse.ui.editorss">
-<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
-<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
-<page content="org.eclipse.search.ui.views.SearchView" label="Search"/>
-<page content="org.eclipse.ui.views.ProgressView" label="Progress"/>
-<page content="org.eclipse.egit.ui.RepositoriesView" label="Git Repositories"/>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@b90a6e" ratio="0.71036375" ratioLeft="1035" ratioRight="422" relationship="4" relative="org.eclipse.ui.editorss">
+<folder appearance="2" expanded="2">
 <page content="com.aptana.ide.documentation.libraryname.sampleview" label="LabelNotFound"/>
 <page content="com.aptana.ide.ui.ViewPlugins" label="LabelNotFound"/>
 <page content="com.aptana.ide.js.ui.views.problemsView" label="LabelNotFound"/>
@@ -240,15 +270,10 @@
 <page content="com.aptana.ide.documentation.jquery.visualjquery" label="LabelNotFound"/>
 <page content="com.aptana.ide.js.ui.views.GenericScriptableView:*" label="LabelNotFound"/>
 <page content="com.aptana.ide.logging.LogView" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
-<part id="1"/>
-<part id="2"/>
-<part id="3"/>
-</presentation>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@7276f103" ratio="0.74600506" ratioLeft="887" ratioRight="302" relationship="2" relative="org.eclipse.ui.editorss">
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@7276f103" ratio="0.76619005" ratioLeft="911" ratioRight="278" relationship="2" relative="org.eclipse.ui.editorss">
 <folder activePageID="com.aptana.ide.ui.io.fileExplorerView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
 <page content="com.aptana.ide.js.ui.views.profilesView" label="References"/>
@@ -257,6 +282,20 @@
 <part id="0"/>
 <part id="1"/>
 <part id="2"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@77c9ff04" ratio="0.72732425" ratioLeft="1283" ratioRight="481" relationship="4" relative="org.eclipse.ui.editorss">
+<folder activePageID="org.eclipse.search.ui.views.SearchView" appearance="2" expanded="2">
+<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
+<page content="org.eclipse.search.ui.views.SearchView" label="Search"/>
+<page content="org.eclipse.ui.views.ProgressView" label="Progress"/>
+<page content="org.eclipse.egit.ui.RepositoriesView" label="Git Repositories"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+<part id="3"/>
 </presentation>
 </folder>
 </info>
@@ -301,19 +340,19 @@
 <show_view_action id="org.eclipse.pde.runtime.LogView"/>
 <hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
 <view id="org.eclipse.debug.ui.BreakpointView"/>
+<view id="org.eclipse.debug.ui.VariableView"/>
 <view id="org.eclipse.debug.ui.DebugView"/>
-<view id="org.eclipse.ui.views.ContentOutline"/>
 <view id="org.eclipse.ui.console.ConsoleView"/>
 <view id="org.eclipse.ui.views.TaskList"/>
 <view id="org.eclipse.ui.views.ProgressView"/>
 <view id="org.eclipse.search.ui.views.SearchView"/>
-<view id="org.eclipse.debug.ui.VariableView"/>
 <fastViewBars/>
 <layout>
 <mainWindow>
 <info folder="true" part="org.eclipse.debug.internal.ui.NavigatorFolderView">
 <folder activePageID="org.eclipse.debug.ui.DebugView" appearance="2" expanded="2">
 <page content="org.eclipse.debug.ui.BreakpointView" label="Breakpoints"/>
+<page content="org.eclipse.debug.ui.VariableView" label="Variables"/>
 <page content="org.eclipse.debug.ui.DebugView" label="Debug"/>
 <page content="org.eclipse.ui.views.ResourceNavigator" label="LabelNotFound"/>
 <page content="org.eclipse.debug.ui.ExpressionView" label="LabelNotFound"/>
@@ -321,6 +360,7 @@
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
 <part id="1"/>
+<part id="2"/>
 </presentation>
 </folder>
 </info>
@@ -332,7 +372,7 @@
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.debug.internal.ui.ConsoleFolderView" ratio="0.88378686" ratioLeft="1559" ratioRight="205" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<info folder="true" part="org.eclipse.debug.internal.ui.ConsoleFolderView" ratio="0.8594104" ratioLeft="1516" ratioRight="248" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
 <folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
 <page content="org.eclipse.ui.views.TaskList" label="Tasks"/>
@@ -349,27 +389,17 @@
 </presentation>
 </folder>
 </info>
-<info part="org.eclipse.ui.editorss" ratio="0.22043702" ratioLeft="343" ratioRight="1213" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView"/>
-<info folder="true" part="org.eclipse.debug.internal.ui.OutlineFolderView" ratio="0.76703113" ratioLeft="912" ratioRight="277" relationship="2" relative="org.eclipse.ui.editorss">
-<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">
-<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
-</presentation>
+<info part="org.eclipse.ui.editorss" ratio="0.18175809" ratioLeft="275" ratioRight="1238" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView"/>
+<info folder="true" part="org.eclipse.debug.internal.ui.OutlineFolderView" ratio="0.79226243" ratioLeft="942" ratioRight="247" relationship="2" relative="org.eclipse.ui.editorss">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.ContentOutline" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
 <info folder="true" part="org.eclipse.debug.internal.ui.ToolsFolderView" ratio="0.5" ratioLeft="676" ratioRight="676" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
 <folder appearance="2" expanded="2">
 <page content="org.eclipse.debug.ui.RegisterView" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
-</folder>
-</info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@383e328" ratio="0.5" ratioLeft="596" ratioRight="596" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
-<folder activePageID="org.eclipse.debug.ui.VariableView" appearance="2" expanded="2">
-<page content="org.eclipse.debug.ui.VariableView" label="Variables"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
-</presentation>
 </folder>
 </info>
 </mainWindow>
@@ -428,158 +458,265 @@
 </mainWindow>
 </layout>
 </perspective>
+<perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
+<descriptor class="org.eclipse.jdt.internal.ui.JavaPerspectiveFactory" id="org.eclipse.jdt.ui.JavaPerspective" label="Java"/>
+<alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.search.searchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.annotationNavigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.navigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo"/>
+<alwaysOnActionSet id="org.eclipse.ui.externaltools.ExternalToolsSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.keyBindings"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.openFiles"/>
+<alwaysOnActionSet id="a.com.aptana.ide.core.ui.actionSet.myaptana"/>
+<alwaysOnActionSet id="x.com.aptana.ide.core.ui.actionSet.myaptana"/>
+<alwaysOnActionSet id="eclipsemonkeyAction.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.launchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.ui.JavaActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.ui.JavaElementCreationActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.NavigateActionSet"/>
+<alwaysOnActionSet id="com.aptana.ide.core.ui.actionSet.aptanamenu"/>
+<alwaysOnActionSet id="s.com.aptana.ide.core.ui.actionSet.ShowAptanaView"/>
+<alwaysOnActionSet id="com.aptana.ide.desktop.integration.protocolhandler.actionSet"/>
+<alwaysOnActionSet id="com.aptana.ide.core.ui.actionSet.documentation"/>
+<alwaysOnActionSet id="com.aptana.ide.installer.actionSet"/>
+<alwaysOnActionSet id="com.aptana.ide.intro.menuActionSet"/>
+<alwaysOnActionSet id="com.aptana.ide.pathtools.actionSet"/>
+<alwaysOnActionSet id="com.aptana.ide.update.ui.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.breakpointActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.debug.ui.JDTDebugActionSet"/>
+<show_view_action id="org.eclipse.jdt.ui.PackageExplorer"/>
+<show_view_action id="org.eclipse.jdt.ui.TypeHierarchy"/>
+<show_view_action id="org.eclipse.jdt.ui.SourceView"/>
+<show_view_action id="org.eclipse.jdt.ui.JavadocView"/>
+<show_view_action id="org.eclipse.search.ui.views.SearchView"/>
+<show_view_action id="org.eclipse.ui.console.ConsoleView"/>
+<show_view_action id="org.eclipse.ui.views.ContentOutline"/>
+<show_view_action id="org.eclipse.ui.views.ProblemView"/>
+<show_view_action id="org.eclipse.ui.views.ResourceNavigator"/>
+<show_view_action id="org.eclipse.ui.views.TaskList"/>
+<show_view_action id="org.eclipse.ui.views.ProgressView"/>
+<show_view_action id="org.eclipse.ui.navigator.ProjectExplorer"/>
+<show_view_action id="org.eclipse.ui.texteditor.TemplatesView"/>
+<show_view_action id="org.eclipse.pde.runtime.LogView"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.JavaProjectWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewPackageCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewClassCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewInterfaceCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewEnumCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewAnnotationCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewSourceFolderCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewSnippetFileCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewJavaWorkingSetWizard"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.folder"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.file"/>
+<new_wizard_action id="org.eclipse.ui.editors.wizards.UntitledTextFileWizard"/>
+<perspective_action id="org.eclipse.jdt.ui.JavaBrowsingPerspective"/>
+<perspective_action id="org.eclipse.debug.ui.DebugPerspective"/>
+<perspective_action id="org.eclipse.wst.jsdt.ui.JavaPerspective"/>
+<hide_toolbar_item_id id="org.eclipse.jdt.ui.actions.OpenProjectWizard"/>
+<hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
+<view id="org.eclipse.jdt.ui.PackageExplorer"/>
+<view id="org.eclipse.ui.views.ProblemView"/>
+<view id="org.eclipse.jdt.ui.JavadocView"/>
+<view id="org.eclipse.jdt.ui.SourceView"/>
+<view id="org.eclipse.ui.views.ContentOutline"/>
+<fastViewBars/>
+<layout>&#x0A;<mainWindow>&#x0A;<info folder="true" part="left">&#x0A;<folder activePageID="org.eclipse.jdt.ui.PackageExplorer" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.jdt.ui.PackageExplorer" label="Package Explorer"/>
+<page content="org.eclipse.jdt.ui.TypeHierarchy" label="LabelNotFound"/>
+<page content="org.eclipse.ui.views.ResourceNavigator" label="LabelNotFound"/>
+<page content="org.eclipse.ui.navigator.ProjectExplorer" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="stickyFolderRight" ratio="0.75" ratioLeft="894" ratioRight="298" relationship="2" relative="left">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
+<page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
+</folder>
+</info>
+<info part="org.eclipse.ui.editorss" ratio="0.25" ratioLeft="298" ratioRight="894" relationship="2" relative="left"/>
+<info folder="true" part="bottom" ratio="0.7498566" ratioLeft="1307" ratioRight="436" relationship="4" relative="org.eclipse.ui.editorss">&#x0A;<folder activePageID="org.eclipse.ui.views.ProblemView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
+<page content="org.eclipse.jdt.ui.JavadocView" label="Javadoc"/>
+<page content="org.eclipse.jdt.ui.SourceView" label="Declaration"/>
+<page content="org.eclipse.search.ui.views.SearchView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.console.ConsoleView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.views.ProgressView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="right" ratio="0.7494407" ratioLeft="670" ratioRight="224" relationship="2" relative="org.eclipse.ui.editorss">&#x0A;<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
+<page content="org.eclipse.ui.texteditor.TemplatesView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+</presentation>
+</folder>
+</info>
+</mainWindow>
+</layout>
+</perspective>
 </perspectives>
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo6/js/lgb/controller/ZoneController.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo6/js/lgb/view/gui.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo6/sceneController.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.HTMLEditor" path="/kuda_master/projects/demo6/index.html"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.CSSEditor" path="/kuda_master/projects/demo6/css/gui.css"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo6/js/lgb/controller/ModeController.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo6/js/o3d-webgl/transform.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo8/js/lgb/model/UserAction.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo8/js/o3d-webgl/counter.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo8/js/o3d-webgl/event.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo8/js/o3d-webgl/buffer.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo8/js/o3d-webgl/base.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo8/js/o3djs/rendergraph.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo8/js/o3djs/fps.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo8/js/lgb/animation.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo8/js/lgb/core.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo8/js/lgb/view/HvacDamperView.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo8/js/lgb/model/UserAction.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo8/js/o3djs/fps.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.HTMLEditor" path="/kuda_master/projects/demo8/index.html"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.CSSEditor" path="/kuda_master/projects/demo8/css/gui.css"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.CSSEditor" path="/kuda_master/projects/demo8/css/layout.css"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.CSSEditor" path="/kuda_master/projects/demo8/css/stylz.css"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo8/sceneController.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo8/js/lgb/loader.js"/>
 </editors>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="6349" y="0"/>
+<item historyLabel="fps.js" index="6">
+<position info="not_deleted" x="2091" y="0"/>
 </item>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="8119" y="38"/>
+<item historyLabel="UserAction.js" index="0">
+<position info="not_deleted" x="414" y="0"/>
 </item>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="8195" y="0"/>
+<item historyLabel="counter.js" index="1">
+<position info="not_deleted" x="687" y="0"/>
 </item>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="6014" y="0"/>
+<item historyLabel="UserAction.js" index="0">
+<position info="not_deleted" x="414" y="0"/>
 </item>
-<item historyLabel="gui.css" index="4"/>
-<item historyLabel="ZoneController.js" index="0">
-<position info="not_deleted" x="4777" y="0"/>
+<item historyLabel="fps.js" index="6">
+<position info="not_deleted" x="2091" y="0"/>
 </item>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="8015" y="0"/>
+<item historyLabel="rendergraph.js" index="5">
+<position info="not_deleted" x="1645" y="6"/>
 </item>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="8119" y="0"/>
+<item historyLabel="base.js" index="4">
+<position info="not_deleted" x="1911" y="0"/>
 </item>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="9350" y="0"/>
+<item historyLabel="buffer.js" index="3">
+<position info="not_deleted" x="1808" y="0"/>
 </item>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="8015" y="0"/>
+<item historyLabel="event.js" index="2">
+<position info="not_deleted" x="1963" y="0"/>
 </item>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="8119" y="0"/>
+<item historyLabel="counter.js" index="1">
+<position info="not_deleted" x="281" y="0"/>
 </item>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="6889" y="0"/>
+<item historyLabel="UserAction.js" index="0">
+<position info="not_deleted" x="414" y="0"/>
 </item>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="8015" y="0"/>
+<item historyLabel="animation.js" index="7">
+<position info="not_deleted" x="657" y="0"/>
 </item>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="8119" y="0"/>
+<item historyLabel="core.js" index="8">
+<position info="not_deleted" x="600" y="0"/>
 </item>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="8005" y="0"/>
+<item historyLabel="HvacDamperView.js" index="9">
+<position info="not_deleted" x="2645" y="0"/>
 </item>
-<item historyLabel="sceneController.js" index="2">
-<position info="not_deleted" x="2677" y="585"/>
+<item historyLabel="UserAction.js" index="10">
+<position info="not_deleted" x="719" y="0"/>
 </item>
-<item historyLabel="ZoneController.js" index="0">
-<position info="not_deleted" x="4777" y="0"/>
+<item historyLabel="HvacDamperView.js" index="9">
+<position info="not_deleted" x="2645" y="0"/>
 </item>
-<item historyLabel="ModeController.js" index="5">
-<position info="not_deleted" x="375" y="0"/>
+<item historyLabel="core.js" index="8">
+<position info="not_deleted" x="600" y="0"/>
 </item>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="8005" y="0"/>
+<item historyLabel="animation.js" index="7">
+<position info="not_deleted" x="1696" y="0"/>
 </item>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="7692" y="0"/>
+<item historyLabel="HvacDamperView.js" index="9">
+<position info="not_deleted" x="2795" y="0"/>
 </item>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="7808" y="0"/>
+<item historyLabel="UserAction.js" index="10">
+<position info="not_deleted" x="191" y="0"/>
 </item>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="7660" y="0"/>
+<item historyLabel="UserAction.js" index="10">
+<position info="not_deleted" x="94" y="0"/>
 </item>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="7692" y="0"/>
+<item historyLabel="UserAction.js" index="10">
+<position info="not_deleted" x="401" y="0"/>
 </item>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="7808" y="0"/>
+<item historyLabel="animation.js" index="7">
+<position info="not_deleted" x="1696" y="0"/>
 </item>
-<item historyLabel="transform.js" index="6">
-<position info="not_deleted" x="5601" y="25"/>
+<item historyLabel="core.js" index="8">
+<position info="not_deleted" x="600" y="0"/>
 </item>
-<item historyLabel="ZoneController.js" index="0">
-<position info="not_deleted" x="1678" y="0"/>
+<item historyLabel="HvacDamperView.js" index="9">
+<position info="not_deleted" x="2795" y="0"/>
 </item>
-<item historyLabel="ModeController.js" index="5">
-<position info="not_deleted" x="375" y="0"/>
+<item historyLabel="UserAction.js" index="10">
+<position info="not_deleted" x="401" y="0"/>
 </item>
-<item historyLabel="ZoneController.js" index="0">
-<position info="not_deleted" x="1678" y="0"/>
+<item historyLabel="animation.js" index="7">
+<position info="not_deleted" x="1696" y="0"/>
 </item>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="7808" y="0"/>
+<item historyLabel="core.js" index="8">
+<position info="not_deleted" x="600" y="0"/>
 </item>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="7260" y="0"/>
+<item historyLabel="fps.js" index="11">
+<position info="not_deleted" x="2137" y="0"/>
 </item>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="7808" y="0"/>
+<item historyLabel="core.js" index="8">
+<position info="not_deleted" x="473" y="0"/>
 </item>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="7696" y="0"/>
+<item historyLabel="UserAction.js" index="10">
+<position info="not_deleted" x="191" y="0"/>
 </item>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="7808" y="0"/>
+<item historyLabel="UserAction.js" index="10">
+<position info="not_deleted" x="128" y="0"/>
 </item>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="7692" y="0"/>
+<item historyLabel="UserAction.js" index="10">
+<position info="not_deleted" x="774" y="0"/>
 </item>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="7808" y="0"/>
+<item historyLabel="HvacDamperView.js" index="9">
+<position info="not_deleted" x="2795" y="0"/>
 </item>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="7091" y="0"/>
+<item historyLabel="core.js" index="8">
+<position info="not_deleted" x="473" y="0"/>
 </item>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="7808" y="0"/>
+<item historyLabel="animation.js" index="7">
+<position info="not_deleted" x="1732" y="0"/>
 </item>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="8007" y="0"/>
+<item historyLabel="UserAction.js" index="10">
+<position info="not_deleted" x="191" y="0"/>
 </item>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="7260" y="0"/>
+<item historyLabel="index.html" index="12"/>
+<item historyLabel="gui.css" index="13"/>
+<item historyLabel="layout.css" index="14"/>
+<item historyLabel="stylz.css" index="15"/>
+<item historyLabel="UserAction.js" index="10">
+<position info="not_deleted" x="191" y="0"/>
 </item>
-<item historyLabel="index.html" index="3"/>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="8063" y="12"/>
+<item historyLabel="stylz.css" index="15"/>
+<item historyLabel="index.html" index="12"/>
+<item historyLabel="sceneController.js" index="16">
+<position info="not_deleted" x="1026" y="0"/>
 </item>
-<item historyLabel="sceneController.js" index="2">
-<position info="not_deleted" x="2587" y="0"/>
+<item historyLabel="loader.js" index="17">
+<position info="not_deleted" x="1659" y="0"/>
 </item>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="4070" y="31"/>
+<item historyLabel="UserAction.js" index="10">
+<position info="not_deleted" x="191" y="0"/>
 </item>
-<item historyLabel="sceneController.js" index="2">
-<position info="not_deleted" x="2589" y="0"/>
+<item historyLabel="layout.css" index="14"/>
+<item historyLabel="loader.js" index="17">
+<position info="not_deleted" x="1583" y="0"/>
 </item>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="9371" y="109"/>
+<item active="true" historyLabel="UserAction.js" index="10">
+<position info="not_deleted" x="191" y="0"/>
 </item>
-<item historyLabel="index.html" index="3"/>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="7395" y="0"/>
-</item>
-<item historyLabel="index.html" index="3"/>
-<item historyLabel="gui.js" index="1">
-<position info="not_deleted" x="8007" y="0"/>
-</item>
-<item active="true" historyLabel="index.html" index="3"/>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
@@ -598,50 +735,50 @@
 </trimLayout>
 </window>
 <mruList>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="transform.js" tooltip="kuda_master/projects/demo6/js/o3d-webgl/transform.js">
-<persistable path="/kuda_master/projects/demo6/js/o3d-webgl/transform.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="loader.js" tooltip="kuda_master/projects/demo8/js/lgb/loader.js">
+<persistable path="/kuda_master/projects/demo8/js/lgb/loader.js"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="view.js" tooltip="kuda_master/projects/demo6/js/hemi/view.js">
-<persistable path="/kuda_master/projects/demo6/js/hemi/view.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="sceneController.js" tooltip="kuda_master/projects/demo8/sceneController.js">
+<persistable path="/kuda_master/projects/demo8/sceneController.js"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.HTMLEditor" name="demo_simple.htm" tooltip="kuda_master/projects/demo_ui_panel/demo_simple.htm">
-<persistable path="/kuda_master/projects/demo_ui_panel/demo_simple.htm"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.CSSEditor" name="stylz.css" tooltip="kuda_master/projects/demo8/css/stylz.css">
+<persistable path="/kuda_master/projects/demo8/css/stylz.css"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.CSSEditor" name="ui.panel.css" tooltip="kuda_master/projects/demo6/ui.panel.css">
-<persistable path="/kuda_master/projects/demo6/ui.panel.css"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.CSSEditor" name="layout.css" tooltip="kuda_master/projects/demo8/css/layout.css">
+<persistable path="/kuda_master/projects/demo8/css/layout.css"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="ui.panel.min.js" tooltip="kuda_master/projects/demo6/ui.panel.min.js">
-<persistable path="/kuda_master/projects/demo6/ui.panel.min.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.CSSEditor" name="gui.css" tooltip="kuda_master/projects/demo8/css/gui.css">
+<persistable path="/kuda_master/projects/demo8/css/gui.css"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.CSSEditor" name="gui.css" tooltip="kuda_master/projects/demo6/css/gui.css">
-<persistable path="/kuda_master/projects/demo6/css/gui.css"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.HTMLEditor" name="index.html" tooltip="kuda_master/projects/demo8/index.html">
+<persistable path="/kuda_master/projects/demo8/index.html"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.HTMLEditor" name="index.html" tooltip="kuda_master/projects/demo6/index.html">
-<persistable path="/kuda_master/projects/demo6/index.html"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="fps.js" tooltip="kuda_master/projects/demo8/js/o3djs/fps.js">
+<persistable path="/kuda_master/projects/demo8/js/o3djs/fps.js"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="sceneController.js" tooltip="kuda_master/projects/demo6/sceneController.js">
-<persistable path="/kuda_master/projects/demo6/sceneController.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="UserAction.js" tooltip="kuda_master/projects/demo8/js/lgb/model/UserAction.js">
+<persistable path="/kuda_master/projects/demo8/js/lgb/model/UserAction.js"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="jquery.js" tooltip="kuda_master/projects/demo6/js/lib/jquery.js">
-<persistable path="/kuda_master/projects/demo6/js/lib/jquery.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="HvacDamperView.js" tooltip="kuda_master/projects/demo8/js/lgb/view/HvacDamperView.js">
+<persistable path="/kuda_master/projects/demo8/js/lgb/view/HvacDamperView.js"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="gui.js" tooltip="kuda_master/projects/demo6/js/lgb/view/gui.js">
-<persistable path="/kuda_master/projects/demo6/js/lgb/view/gui.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="core.js" tooltip="kuda_master/projects/demo8/js/lgb/core.js">
+<persistable path="/kuda_master/projects/demo8/js/lgb/core.js"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="ModeController.js" tooltip="kuda_master/projects/demo6/js/lgb/controller/ModeController.js">
-<persistable path="/kuda_master/projects/demo6/js/lgb/controller/ModeController.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="animation.js" tooltip="kuda_master/projects/demo8/js/lgb/animation.js">
+<persistable path="/kuda_master/projects/demo8/js/lgb/animation.js"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="core.js" tooltip="kuda_master/projects/demo6/js/lgb/core.js">
-<persistable path="/kuda_master/projects/demo6/js/lgb/core.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="base.js" tooltip="kuda_master/projects/demo8/js/o3djs/base.js">
+<persistable path="/kuda_master/projects/demo8/js/o3djs/base.js"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="stream.js" tooltip="kuda_master/projects/demo6/js/o3d-webgl/stream.js">
-<persistable path="/kuda_master/projects/demo6/js/o3d-webgl/stream.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="rendergraph.js" tooltip="kuda_master/projects/demo8/js/o3djs/rendergraph.js">
+<persistable path="/kuda_master/projects/demo8/js/o3djs/rendergraph.js"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="pack.js" tooltip="kuda_master/projects/demo6/js/o3d-webgl/pack.js">
-<persistable path="/kuda_master/projects/demo6/js/o3d-webgl/pack.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="base.js" tooltip="kuda_master/projects/demo8/js/o3d-webgl/base.js">
+<persistable path="/kuda_master/projects/demo8/js/o3d-webgl/base.js"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="bounding_box.js" tooltip="kuda_master/projects/demo6/js/o3d-webgl/bounding_box.js">
-<persistable path="/kuda_master/projects/demo6/js/o3d-webgl/bounding_box.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="buffer.js" tooltip="kuda_master/projects/demo8/js/o3d-webgl/buffer.js">
+<persistable path="/kuda_master/projects/demo8/js/o3d-webgl/buffer.js"/>
 </file>
 </mruList>
 </workbench>

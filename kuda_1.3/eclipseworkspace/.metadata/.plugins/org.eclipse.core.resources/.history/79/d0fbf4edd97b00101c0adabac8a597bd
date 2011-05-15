@@ -1,0 +1,56 @@
+
+
+o3djs.require('lgb.model.HvacDamperModel');
+o3djs.require('lgb.model.HvacDamperView');
+
+/**
+ * @namespace A module for managing the 2D GUI
+ */
+var lgb = (function(lgb) {
+
+
+	/**
+	 * @namespace MVC controller 
+	 */
+	lgb.controller = lgb.controller || {};
+	
+	lgb.controller.HvacDamperController = function(){
+		
+		this.model = new lgb.model.HvacDamperModel();
+		this.view = new lgb.model.HvacDamperView();
+		
+	};
+	
+	
+	lgb.controller.ModeController.prototype = {
+		
+		init: function() {
+
+		},
+		
+		getModels: function() {
+			
+			var modelAry = [
+				{file: 'damper.json',mode: 'ENVELOPE', name: 'damper'}
+			];
+			
+		return modelAry;
+		}
+	
+	};
+	
+
+
+	return lgb;
+	
+})(lgb || {});
+
+
+
+
+
+
+
+
+
+

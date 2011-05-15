@@ -1,0 +1,49 @@
+
+
+
+/**
+ * @namespace A module for managing the 2D GUI
+ */
+var lgb = (function(lgb) {
+
+
+	/**
+	 * @namespace MVC controller 
+	 */
+	lgb.model = lgb.model || {};
+	
+	lgb.model.ParticleSystem = function(xml){
+
+		this.xml = xml;
+		this.xpathResult = null;
+		this.currentNode = null;
+	};
+	
+
+	lgb.model.ParticleSystem.prototype = {
+		
+		getConfigs: function(xpath) {
+
+			this.xpathResult = this.xml.evaluate(xpath, this.xml, null, XPathResult.ANY_TYPE, null);
+			this.currentNode = this.xpathResult.iterateNext();
+			
+			return this.currentNode;
+		}
+
+	};
+	
+
+
+	return lgb;
+	
+})(lgb || {});
+
+
+
+
+
+
+
+
+
+

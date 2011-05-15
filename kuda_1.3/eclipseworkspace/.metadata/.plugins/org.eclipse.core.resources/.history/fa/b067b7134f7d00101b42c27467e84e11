@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		
+
+		<script src="js/lgb_misc/html5slider.js"></script>
+		<script >
+			
+			function onChange(event) {
+				
+				alert (event);
+			}
+			
+			
+		</script>
+    </head>
+	
+    
+    <body> 
+    
+			<form>
+			  <input name="r" type="range" min="1" max="11" value="9">
+			  <input type="submit" value="Go">
+			</form>
+
+		
+    </body>
+</html>
+

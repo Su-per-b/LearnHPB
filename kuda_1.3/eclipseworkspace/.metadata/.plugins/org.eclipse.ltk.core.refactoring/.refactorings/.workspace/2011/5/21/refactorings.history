@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;kuda_master/projects/demo8/test2.html&apos;" deleteContents="false" description="Delete resource &apos;kuda_master/projects/demo8/test2.html&apos;" element1="/kuda_master/projects/demo8/test2.html" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1305445202692"/>&#x0A;<refactoring comment="Delete resource &apos;kuda_master/projects/demo8/test.html&apos;" deleteContents="false" description="Delete resource &apos;kuda_master/projects/demo8/test.html&apos;" element1="/kuda_master/projects/demo8/test.html" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1305445204842"/>
+</session>

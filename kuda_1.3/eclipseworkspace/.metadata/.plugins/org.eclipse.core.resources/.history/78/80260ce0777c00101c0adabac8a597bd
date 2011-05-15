@@ -1,0 +1,55 @@
+
+o3djs.require('lgb.model.XmlParser');
+o3djs.require('lgb.model.UserAction');
+
+
+
+/**
+ * @namespace A module for managing the 2D GUI
+ */
+var lgb = (function(lgb) {
+
+
+
+	lgb.model = lgb.model || {};
+	
+	lgb.model.HvacDamperModel = function() {
+		this.title = "HVAC Damper";
+		
+		var openAction = new lgb.model.UserAction('open', lgb.model.UserActionType.BUTTON);
+		var closeAction = new lgb.model.UserAction('close', lgb.model.UserActionType.BUTTON);
+		var stopAction = new lgb.model.UserAction('stop', lgb.model.UserActionType.BUTTON);
+		var fifty = new lgb.model.UserAction('move to 50%', lgb.model.UserActionType.BUTTON);
+		
+		var setPercentOpenAction = new lgb.model.UserAction('setPercentOpen', lgb.model.UserActionType.SLIDER);
+		
+		this.actions = [openAction,closeAction, stopAction, fifty];
+		this.percentOpen = 0;
+			
+	};
+	
+
+	lgb.model.HvacDamperModel.prototype = {
+		
+		parse: function() {
+
+			
+		}
+
+	};
+	
+
+
+	return lgb;
+	
+})(lgb || {});
+
+
+
+
+
+
+
+
+
+

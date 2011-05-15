@@ -2,27 +2,27 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="237" key="DIALOG_WIDTH"/>
-		<item value="189" key="DIALOG_Y_ORIGIN"/>
+		<item value="226" key="DIALOG_Y_ORIGIN"/>
+		<item value="503" key="DIALOG_X_ORIGIN"/>
 		<item value="357" key="DIALOG_HEIGHT"/>
-		<item value="-258" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Tahoma|8.25|0|WINDOWS|1|-11|0|0|0|400|0|0|0|1|0|0|0|0|Tahoma" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="false" key="isRegEx"/>
 		<item value="false" key="casesensitive"/>
+		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="adminPanel" key="selection"/>
+		<item value="render" key="selection"/>
 		<list key="findhistory">
-			<item value="adminPanel"/>
-			<item value="rotate"/>
-			<item value="boundingBox"/>
-			<item value="ui-state-hover"/>
-			<item value="hoverClass"/>
-			<item value="ui-icon-arrowthickstop-1-e"/>
-			<item value="slideRIconClpsd"/>
-			<item value="ui-icon"/>
+			<item value="render"/>
+			<item value="citizen"/>
+			<item value="citizens"/>
+			<item value="send"/>
+			<item value="setAnimationTime"/>
+			<item value="updateTarget"/>
+			<item value="updateT"/>
+			<item value="delegateChange"/>
 		</list>
 		<list key="replacehistory">
 			<item value=""/>

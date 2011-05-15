@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		
+		<script type="text/javascript" src="js/lib/jquery.js"></script>
+		<script src="js/lgb_misc/html5slider.js"></script>
+		<script >
+			
+			$('#r').bind( 'change', onChangeHandler);
+			$('#r').bind( 'onchange', onChangeHandler);
+			
+			$(document).ready($.proxy(this.onDocumentReady, this));	
+			
+			function onReady(event) {
+				
+				alert (event);
+				
+			}
+			
+			function onChangeHandler(event) {
+				
+				alert (event);
+				
+			}
+
+			
+		</script>
+    </head>
+	
+    
+    <body> 
+    
+			<form>
+			  <input id="r" type="range" min="1" max="100" value="9" >
+			  <input type="submit" value="Go">
+			</form>
+
+		
+    </body>
+</html>
+

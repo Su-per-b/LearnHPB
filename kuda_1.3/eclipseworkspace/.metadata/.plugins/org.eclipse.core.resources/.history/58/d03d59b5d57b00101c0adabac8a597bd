@@ -1,0 +1,106 @@
+
+
+
+/**
+ * @namespace A module for managing the 2D GUI
+ */
+var lgb = (function(lgb) {
+
+
+	/**
+	 * @namespace MVC controller 
+	 */
+	lgb.controller = lgb.controller || {};
+	
+	lgb.controller.HvacDamperController = function(){
+
+	};
+	
+	
+	lgb.controller.ModeController.prototype = {
+		
+			init: function() {
+	
+			},
+			
+			getModels: function() {
+				
+			var modelAry = [
+				{file: 'damper.json',mode: 'ENVELOPE', name: 'damper'}
+			];
+				
+			return modelAry;
+		},
+
+		onSwitchMode : function(event) {
+			
+			var msg = 'ModeController.onSwitchMode(): from mode: {0} to mode: {1}'
+				.format(this.currentMode, event.mode);
+				
+		//	msg = msg.format(this.currentMode, event.mode);
+			
+			console.log(msg);
+			
+			if (event.mode == this.currentMode) return;
+			this.previousMode = this.currentMode;
+			this.currentMode = event.mode;
+			
+			this.setModeVisible();
+			return;
+		},
+		
+		onShowConfigPanel : function(event) {
+			
+			var show = event.data.show;
+			
+
+			return;
+		},
+		
+		setModeVisible : function () {
+			
+			var visible;
+			
+			//loop through all models
+			for (var idx in this.modelList)
+			{
+				
+				if (idx == null) continue;
+				
+				var model = this.modelList[idx];
+				
+				if (this.currentMode == 'ALL') {
+					visible = true;
+				}
+				else {
+					visible = (this.currentMode == model.LGBmode);
+				}
+				
+				
+				var config  = {vis:visible, transforms: [model.root]};
+				model.setVisible(config);
+				
+			}
+		}
+		
+		
+		
+		
+		
+	};
+	
+
+
+	return lgb;
+	
+})(lgb || {});
+
+
+
+
+
+
+
+
+
+

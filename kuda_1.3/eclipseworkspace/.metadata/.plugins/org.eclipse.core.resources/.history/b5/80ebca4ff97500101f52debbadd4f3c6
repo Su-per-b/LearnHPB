@@ -1,0 +1,95 @@
+
+<particleSystems>
+	
+	
+	
+	<boundingBoxes>
+		<box id="1">
+			<point>3,7,0</point>
+			<point>4,8,1</point>
+		</box>
+		
+		<box id="2">
+			<point>4,5,0</point>
+			<point>2,4,1</point>
+		</box>
+		
+		<box id="heatingBox">
+			<point>0.5,5,0</point>
+			<point>1,3.5,1</point>
+		</box>
+		
+		<box id="20">
+			<point>5,4,0.25</point>
+			<point>6.25,5,0.75</point>
+		</box>
+		
+		<box id="21">
+			<point>5,4,0.25</point>
+			<point>6.25,5,0.75</point>
+		</box>
+		
+		
+		
+		
+	</boundingBoxes>
+	
+	
+	
+	<colorKeys>
+		<ck id="1">
+			<key>0</key>
+			<value>1,0,0,0.8</value>
+		</ck>
+		<ck id="2">
+			<key>0.01</key>
+			<value>1,0,0,1</value>
+		</ck>
+		<ck id="3">
+			<key>0.29</key>
+			<value>0,0,1,1</value>
+		</ck>
+		<ck id="4">
+			<key>0.29</key>
+			<value>0,0,1,1</value>
+		</ck>
+	</colorKeys>
+	
+	
+	<scaleKeys>
+		<sk id="1">
+			<key>0</key>
+			<value>0.15,0.15,0.15</value>
+		</sk>
+		<sk id="2">
+			<key>1</key>
+			<value>0.15,0.15,0.15</value>
+		</sk>
+		<sk id="3">
+			<key>1</key>
+			<value>0.15,0.15,0.15</value>
+		</sk>
+	</scaleKeys>
+	
+	<system id="1">
+		<rate>10</rate>
+		<life>10</life>
+		<boundingBoxIds>1,2,heatingBox</boundingBoxIds>
+		<shape>SPHERE</shape>
+		<curve>1</curve>
+		<colorKeyIds>1,2,3,4</colorKeyIds>
+		<scaleKeyIds>1,2,3</scaleKeyIds>
+	</system>
+	
+	<system id="2">
+		<rate>2</rate>
+		<life>2</life>
+		<boundingBoxIds>20,21</boundingBoxIds>
+		<shape>SPHERE</shape>
+		<curve>1</curve>
+		<colorKeyIds>1,2,3,4</colorKeyIds>
+		<scaleKeyIds>1,2,3</scaleKeyIds>
+	</system>
+	
+	
+</particleSystems>

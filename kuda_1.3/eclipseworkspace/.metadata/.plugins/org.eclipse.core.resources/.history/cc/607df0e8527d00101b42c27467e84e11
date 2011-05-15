@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		
+		<script type="text/javascript" src="js/lib/jquery.js"></script>
+
+		<script >
+			
+
+			
+			$(document).ready(onReady());	
+			
+			function onReady(event) {
+				
+				//alert (event);
+				$('#r').bind( 'mouseover', function() { alert('mouseover!'); });
+				//$('#r').bind( 'onChange', onChangeHandler);
+				//$('#r').bind( 'mousedown', onChangeHandler);
+			}
+			
+			function onChangeHandler(event) {
+				
+				alert (event);
+				
+			}
+			function onChangeHandler2(event) {
+				
+				alert (event);
+				
+			}
+
+			
+		</script>
+    </head>
+	
+    
+    <body> 
+    
+
+			  <input id="r" type="range" min="1" max="100" value="9" onChange="onChangeHandler2();" />
+
+
+
+		
+    </body>
+</html>
+

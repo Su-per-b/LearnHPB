@@ -1,0 +1,81 @@
+/* andreas09 v1.0 (Dec 10th 2005) - An open source template by Andreas Viklund - http://andreasviklund.com. Free to use for any purpose as long as the proper credits are given to the original author. */
+
+
+
+
+#o3d {
+	width:1024px;
+	height:768px;
+	z-index:0;
+}
+
+
+body {
+
+	color:#202030;
+	font:Verdana,Tahoma,Arial,sans-serif;
+	margin:0;
+	padding:0;
+	text-align:center;
+}
+
+a {
+	color:#505050;
+	font-weight:bold;
+	text-decoration:none;
+}
+
+a:hover {
+	color:#808080;
+	text-decoration:underline;
+}
+
+
+p {
+line-height:1.5em;
+margin:0 0 15px;
+}
+
+/*** Main container ***/
+
+#container {
+	background:#f0f0f0;
+	color:#303030;
+	margin:0;
+	min-width:770px;
+	padding:0;
+	text-align:left;
+	width:100%;
+}
+
+/*** Header section ***/
+
+#sitename {
+	color:#ffffff;
+	height:58px;
+	margin:0 0px 0px;
+	padding:10px 0 0 10px;
+	text-align:left;
+	background-color:#CCC;
+	border-bottom-color:#000;
+	border-bottom-width:thin;
+	border-bottom-style:solid;
+}
+
+
+img {
+	border:none;	
+}
+
+
+/*** Content ***/
+
+	#content, {
+	background-color:#fafcff;
+	color:#2a2a2a;
+	padding:0;
+	min-height:800px;
+
+}
+
+

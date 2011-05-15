@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+		<script type="text/javascript" src="js/lib/jquery.js"></script>
+
+		<script>
+			
+
+				
+			//$(document).ready(onReady());	
+			
+			function onReady(event) {
+
+				
+				var element = document.getElementById("button");
+				element.addEventListener('click',onClickHandler,false);
+				
+				var element2 = document.getElementById("range");
+				element2.addEventListener('change',onClickHandler,false);
+				
+			
+				//alert (event);
+				//	$('#r').bind( 'change', function() { alert('mouseover!'); });
+				//$('#r').bind( 'onChange', onChangeHandler);
+				//$('#r').bind( 'mousedown', onChangeHandler);
+			}
+			
+			function onClickHandler(event) {
+				
+				alert ('onClickHandler');
+				
+			}
+			function onChangeHandler2(event) {
+				
+				//alert (event);
+				
+			}
+
+			
+		</script>
+    </head>
+	
+    
+    <body onload="onReady()"> 
+
+			<button id="button" type="button">test</button>
+			<input id="range" type="range"></input>
+			
+    </body>
+</html>
+
