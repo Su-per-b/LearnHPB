@@ -9732,3 +9732,369 @@ java.net.URISyntaxException: Illegal character in query at index 196: http://vie
 !ENTRY com.aptana.ide.debug.core 4 4 2011-05-16 03:10:46.552
 !MESSAGE Multiple JavaScript Debug Sessions is not supported.
 Please terminate the active session before starting a new session.
+
+!ENTRY org.eclipse.ui 4 0 2011-05-16 03:29:44.931
+!MESSAGE Unhandled event loop exception
+!STACK 0
+org.eclipse.swt.SWTException: Widget is disposed
+	at org.eclipse.swt.SWT.error(SWT.java:4083)
+	at org.eclipse.swt.SWT.error(SWT.java:3998)
+	at org.eclipse.swt.SWT.error(SWT.java:3969)
+	at org.eclipse.swt.widgets.Widget.error(Widget.java:468)
+	at org.eclipse.swt.widgets.Widget.checkWidget(Widget.java:340)
+	at org.eclipse.swt.widgets.Control.isEnabled(Control.java:1661)
+	at org.eclipse.swt.custom.StyledText$14.getState(StyledText.java:6780)
+	at org.eclipse.swt.accessibility.Accessible.get_accState(Accessible.java:2453)
+	at org.eclipse.swt.accessibility.Accessible$1.method14(Accessible.java:158)
+	at org.eclipse.swt.internal.ole.win32.COMObject.callback14(COMObject.java:191)
+	at org.eclipse.swt.internal.win32.OS.DispatchMessageW(Native Method)
+	at org.eclipse.swt.internal.win32.OS.DispatchMessage(OS.java:2459)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3655)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2640)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2604)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:115)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:620)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:575)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1408)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1384)
+
+!ENTRY org.eclipse.ui 4 0 2011-05-16 03:33:22.773
+!MESSAGE Unhandled event loop exception
+!STACK 0
+org.eclipse.swt.SWTException: Widget is disposed
+	at org.eclipse.swt.SWT.error(SWT.java:4083)
+	at org.eclipse.swt.SWT.error(SWT.java:3998)
+	at org.eclipse.swt.SWT.error(SWT.java:3969)
+	at org.eclipse.swt.widgets.Widget.error(Widget.java:468)
+	at org.eclipse.swt.widgets.Widget.checkWidget(Widget.java:340)
+	at org.eclipse.swt.widgets.Control.isEnabled(Control.java:1661)
+	at org.eclipse.swt.custom.StyledText$14.getState(StyledText.java:6780)
+	at org.eclipse.swt.accessibility.Accessible.get_accState(Accessible.java:2453)
+	at org.eclipse.swt.accessibility.Accessible$1.method14(Accessible.java:158)
+	at org.eclipse.swt.internal.ole.win32.COMObject.callback14(COMObject.java:191)
+	at org.eclipse.swt.internal.win32.OS.DispatchMessageW(Native Method)
+	at org.eclipse.swt.internal.win32.OS.DispatchMessage(OS.java:2459)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3655)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2640)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2604)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:115)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:620)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:575)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1408)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1384)
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-05-16 04:12:16.366
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 04:18:36.270
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action2js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 04:18:36.275
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action4js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 04:18:36.279
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action5js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 04:18:36.285
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action6js
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-05-16 04:27:32.670
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 04:34:08.587
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action2js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 04:34:08.591
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action4js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 04:34:08.595
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action5js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 04:34:08.601
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action6js
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-05-16 04:38:37.628
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 04:50:40.536
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action2js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 04:50:40.540
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action4js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 04:50:40.545
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action5js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 04:50:40.551
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action6js
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-05-16 04:52:06.655
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 118
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-05-16 04:52:29.635
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 118
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-05-16 04:52:29.642
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 118
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-05-16 04:52:56.040
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 87
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-05-16 04:53:02.968
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 87
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-05-16 04:53:02.988
+!MESSAGE An internal error occurred during: "Match Job".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 87
+	at java.lang.String.substring(Unknown Source)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.getMatchText(JSConsoleTracker.java:102)
+	at com.aptana.ide.debug.internal.ui.console.JSConsoleTracker.matchFound(JSConsoleTracker.java:76)
+	at org.eclipse.ui.internal.console.PatternMatchListener.matchFound(PatternMatchListener.java:47)
+	at org.eclipse.ui.internal.console.ConsolePatternMatcher$MatchJob.run(ConsolePatternMatcher.java:133)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-05-16 05:14:24.684
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-05-16 05:14:26.544
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-05-16 05:17:08.719
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-05-16 05:56:03.068
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 06:20:58.768
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action2js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 06:20:58.772
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action4js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 06:20:58.777
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action5js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 06:20:58.785
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action6js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 06:21:17.641
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action2js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 06:21:17.646
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action4js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 06:21:17.650
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action5js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 06:21:17.656
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action6js
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-05-16 06:22:09.646
+!MESSAGE Launch URL is not defined
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-05-16 06:22:15.215
+!MESSAGE Launch URL is not defined
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-05-16 06:37:45.908
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 06:41:36.446
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action2js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 06:41:36.451
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action4js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 06:41:36.455
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action5js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 06:41:36.461
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action6js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 07:11:54.951
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action2js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 07:11:54.956
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action4js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 07:11:54.961
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action5js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 07:11:54.967
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action6js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 07:12:19.886
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action2js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 07:12:19.890
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action4js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 07:12:19.895
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action5js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 07:12:19.900
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action6js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 07:12:24.849
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action2js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 07:12:24.855
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action4js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 07:12:24.860
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action5js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 07:12:24.866
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action6js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 08:17:36.446
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action2js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 08:17:36.451
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action4js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 08:17:36.456
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action5js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 08:17:36.462
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action6js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 08:17:57.785
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action2js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 08:17:57.789
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action4js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 08:17:57.794
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action5js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 08:17:57.801
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action6js
+
+!ENTRY com.aptana.ide.editors 4 0 2011-05-16 08:18:13.688
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] Error
+!STACK 0
+java.io.FileNotFoundException: W:\demos\kuda_1.3\eclipseworkspace\kuda_master\projects\unit_tests\jqMock.js (The system cannot find the file specified)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(Unknown Source)
+	at com.aptana.ide.editors.unified.FileSourceProvider.getSource(FileSourceProvider.java:77)
+	at com.aptana.ide.editors.unified.errors.UnifiedErrorManager.onContentChanged(UnifiedErrorManager.java:115)
+	at com.aptana.ide.editors.unified.FileService.fireContentChangedEvent(FileService.java:746)
+	at com.aptana.ide.editors.unified.FileService.fireLongDelayedContentChangedEvent(FileService.java:731)
+	at com.aptana.ide.editors.unified.LongIdleFileChangedNotifier.fireContentChangedEvent(LongIdleFileChangedNotifier.java:76)
+	at com.aptana.ide.editors.unified.IdleFileChangedNotifier.onUpdaterThreadUpdate(IdleFileChangedNotifier.java:104)
+	at com.aptana.ide.editors.unified.utils.UpdaterThread.run(UpdaterThread.java:142)
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 08:20:04.117
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action2js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 08:20:04.121
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action4js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 08:20:04.126
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action5js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 08:20:04.133
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action6js
+
+!ENTRY com.aptana.ide.editors 4 0 2011-05-16 08:20:18.440
+!MESSAGE (Build 2.0.5.1278523018) [ERROR] Error
+!STACK 0
+java.io.FileNotFoundException: W:\demos\kuda_1.3\eclipseworkspace\kuda_master\projects\unit_tests\jqMock.js (The system cannot find the file specified)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(Unknown Source)
+	at com.aptana.ide.editors.unified.FileSourceProvider.getSource(FileSourceProvider.java:77)
+	at com.aptana.ide.editors.unified.errors.UnifiedErrorManager.onContentChanged(UnifiedErrorManager.java:115)
+	at com.aptana.ide.editors.unified.FileService.fireContentChangedEvent(FileService.java:746)
+	at com.aptana.ide.editors.unified.FileService.fireLongDelayedContentChangedEvent(FileService.java:731)
+	at com.aptana.ide.editors.unified.LongIdleFileChangedNotifier.fireContentChangedEvent(LongIdleFileChangedNotifier.java:76)
+	at com.aptana.ide.editors.unified.IdleFileChangedNotifier.onUpdaterThreadUpdate(IdleFileChangedNotifier.java:104)
+	at com.aptana.ide.editors.unified.utils.UpdaterThread.run(UpdaterThread.java:142)
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 08:20:18.908
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action2js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 08:20:18.912
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action4js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 08:20:18.917
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action5js
+
+!ENTRY org.eclipse.ui 4 4 2011-05-16 08:20:18.922
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action6js
