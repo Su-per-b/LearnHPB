@@ -9596,3 +9596,139 @@ Binding(CTRL+SHIFT+U,
 
 !ENTRY org.eclipse.ui.navigator.resources 4 0 2011-05-15 00:44:19.202
 !MESSAGE 
+!SESSION 2011-05-16 01:41:59.581 -----------------------------------------------
+eclipse.buildId=M20110210-1200
+java.version=1.6.0_24
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.javascript.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.javascript.product
+
+!ENTRY org.eclipse.jface 2 0 2011-05-16 01:42:15.518
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2011-05-16 01:42:15.518
+!MESSAGE A conflict occurred for CTRL+SHIFT+U:
+Binding(CTRL+SHIFT+U,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.search.occurrences.in.file.quickMenu,Show Occurrences in File Quick Menu,
+		Shows the Occurrences in File quick menu,
+		Category(org.eclipse.search.ui.category.search,Search,Search command category,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+U,
+	ParameterizedCommand(Command(com.aptana.ide.syncing.ui.commands.upload,Upload...,
+		,
+		Category(com.aptana.ide.syncing.ui.commands.category,File Transfer,File Transfer Commands,true),
+		com.aptana.ide.syncing.ui.handlers.UploadHandler@ca9f25,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.ui.navigator.resources 4 0 2011-05-16 01:42:16.829
+!MESSAGE Required filter org.eclipse.ui.navigator.resources.filters.workingSet is not present. Working set support will not function correctly.
+
+!ENTRY org.eclipse.ui.navigator.resources 4 0 2011-05-16 01:42:16.834
+!MESSAGE 
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-05-16 02:29:51.486
+!MESSAGE Socket connection error. Please try shutting down and restarting your web browser, and then run 'debug' again.
+!STACK 0
+java.net.SocketTimeoutException: Accept timed out
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(Unknown Source)
+	at java.net.ServerSocket.implAccept(Unknown Source)
+	at java.net.ServerSocket.accept(Unknown Source)
+	at com.aptana.ide.debug.core.JSLaunchConfigurationDelegate.launch(JSLaunchConfigurationDelegate.java:416)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:853)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:702)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:924)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1128)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.core.resources 4 376 2011-05-16 02:51:55.038
+!MESSAGE Marker id 2163338 not found.
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-05-16 03:04:43.283
+!MESSAGE (Build 2.0.0.1278523018) [ERROR] 
+!STACK 0
+java.net.URISyntaxException: Illegal character in query at index 196: http://view.atdmt.com/CNT/iview/285817395/direct;wi.160;hi.600/01/6660334826?click=http://r1-ads.ace.advertising.com/click/site=0000790492/mnum=0000982594/cstr=78952763=_4dd0f6b8,6660334826,790492^982594^65^0,1_/xsxdata=$XSXDATA/bnum=78952763/optn=64?trg=
+	at java.net.URI$Parser.fail(Unknown Source)
+	at java.net.URI$Parser.checkChars(Unknown Source)
+	at java.net.URI$Parser.parseHierarchical(Unknown Source)
+	at java.net.URI$Parser.parse(Unknown Source)
+	at java.net.URI.<init>(Unknown Source)
+	at com.aptana.ide.debug.internal.core.model.JSDebugTarget.resolveSourceFile(JSDebugTarget.java:2133)
+	at com.aptana.ide.debug.internal.core.model.JSDebugTarget.handleScripts(JSDebugTarget.java:796)
+	at com.aptana.ide.debug.internal.core.model.JSDebugTarget.handleMessage(JSDebugTarget.java:387)
+	at com.aptana.ide.debug.internal.core.model.DebugConnection.handleMessage(DebugConnection.java:190)
+	at com.aptana.ide.debug.internal.core.model.DebugConnection.access$2(DebugConnection.java:186)
+	at com.aptana.ide.debug.internal.core.model.DebugConnection$1.run(DebugConnection.java:133)
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-05-16 03:04:43.290
+!MESSAGE (Build 2.0.0.1278523018) [ERROR] 
+!STACK 0
+java.net.URISyntaxException: Illegal character in query at index 196: http://view.atdmt.com/CNT/iview/285817395/direct;wi.160;hi.600/01/6660334826?click=http://r1-ads.ace.advertising.com/click/site=0000790492/mnum=0000982594/cstr=78952763=_4dd0f6b8,6660334826,790492^982594^65^0,1_/xsxdata=$XSXDATA/bnum=78952763/optn=64?trg=
+	at java.net.URI$Parser.fail(Unknown Source)
+	at java.net.URI$Parser.checkChars(Unknown Source)
+	at java.net.URI$Parser.parseHierarchical(Unknown Source)
+	at java.net.URI$Parser.parse(Unknown Source)
+	at java.net.URI.<init>(Unknown Source)
+	at com.aptana.ide.debug.internal.core.model.JSDebugTarget.resolveSourceFile(JSDebugTarget.java:2133)
+	at com.aptana.ide.debug.internal.core.model.JSDebugTarget.handleScripts(JSDebugTarget.java:796)
+	at com.aptana.ide.debug.internal.core.model.JSDebugTarget.handleMessage(JSDebugTarget.java:387)
+	at com.aptana.ide.debug.internal.core.model.DebugConnection.handleMessage(DebugConnection.java:190)
+	at com.aptana.ide.debug.internal.core.model.DebugConnection.access$2(DebugConnection.java:186)
+	at com.aptana.ide.debug.internal.core.model.DebugConnection$1.run(DebugConnection.java:133)
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-05-16 03:04:43.295
+!MESSAGE (Build 2.0.0.1278523018) [ERROR] 
+!STACK 0
+java.net.URISyntaxException: Illegal character in query at index 196: http://view.atdmt.com/CNT/iview/285817395/direct;wi.160;hi.600/01/6660334826?click=http://r1-ads.ace.advertising.com/click/site=0000790492/mnum=0000982594/cstr=78952763=_4dd0f6b8,6660334826,790492^982594^65^0,1_/xsxdata=$XSXDATA/bnum=78952763/optn=64?trg=
+	at java.net.URI$Parser.fail(Unknown Source)
+	at java.net.URI$Parser.checkChars(Unknown Source)
+	at java.net.URI$Parser.parseHierarchical(Unknown Source)
+	at java.net.URI$Parser.parse(Unknown Source)
+	at java.net.URI.<init>(Unknown Source)
+	at com.aptana.ide.debug.internal.core.model.JSDebugTarget.resolveSourceFile(JSDebugTarget.java:2133)
+	at com.aptana.ide.debug.internal.core.model.JSDebugTarget.handleScripts(JSDebugTarget.java:796)
+	at com.aptana.ide.debug.internal.core.model.JSDebugTarget.handleMessage(JSDebugTarget.java:387)
+	at com.aptana.ide.debug.internal.core.model.DebugConnection.handleMessage(DebugConnection.java:190)
+	at com.aptana.ide.debug.internal.core.model.DebugConnection.access$2(DebugConnection.java:186)
+	at com.aptana.ide.debug.internal.core.model.DebugConnection$1.run(DebugConnection.java:133)
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-05-16 03:04:43.304
+!MESSAGE (Build 2.0.0.1278523018) [ERROR] 
+!STACK 0
+java.net.URISyntaxException: Illegal character in query at index 196: http://view.atdmt.com/CNT/iview/285817395/direct;wi.160;hi.600/01/6660334826?click=http://r1-ads.ace.advertising.com/click/site=0000790492/mnum=0000982594/cstr=78952763=_4dd0f6b8,6660334826,790492^982594^65^0,1_/xsxdata=$XSXDATA/bnum=78952763/optn=64?trg=
+	at java.net.URI$Parser.fail(Unknown Source)
+	at java.net.URI$Parser.checkChars(Unknown Source)
+	at java.net.URI$Parser.parseHierarchical(Unknown Source)
+	at java.net.URI$Parser.parse(Unknown Source)
+	at java.net.URI.<init>(Unknown Source)
+	at com.aptana.ide.debug.internal.core.model.JSDebugTarget.resolveSourceFile(JSDebugTarget.java:2133)
+	at com.aptana.ide.debug.internal.core.model.JSDebugTarget.handleScripts(JSDebugTarget.java:796)
+	at com.aptana.ide.debug.internal.core.model.JSDebugTarget.handleMessage(JSDebugTarget.java:387)
+	at com.aptana.ide.debug.internal.core.model.DebugConnection.handleMessage(DebugConnection.java:190)
+	at com.aptana.ide.debug.internal.core.model.DebugConnection.access$2(DebugConnection.java:186)
+	at com.aptana.ide.debug.internal.core.model.DebugConnection$1.run(DebugConnection.java:133)
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-05-16 03:04:43.328
+!MESSAGE (Build 2.0.0.1278523018) [ERROR] 
+!STACK 0
+java.net.URISyntaxException: Illegal character in query at index 196: http://view.atdmt.com/CNT/iview/285817395/direct;wi.160;hi.600/01/6660334826?click=http://r1-ads.ace.advertising.com/click/site=0000790492/mnum=0000982594/cstr=78952763=_4dd0f6b8,6660334826,790492^982594^65^0,1_/xsxdata=$XSXDATA/bnum=78952763/optn=64?trg=
+	at java.net.URI$Parser.fail(Unknown Source)
+	at java.net.URI$Parser.checkChars(Unknown Source)
+	at java.net.URI$Parser.parseHierarchical(Unknown Source)
+	at java.net.URI$Parser.parse(Unknown Source)
+	at java.net.URI.<init>(Unknown Source)
+	at com.aptana.ide.debug.internal.core.model.JSDebugTarget.resolveSourceFile(JSDebugTarget.java:2133)
+	at com.aptana.ide.debug.internal.core.model.JSDebugTarget.handleScripts(JSDebugTarget.java:796)
+	at com.aptana.ide.debug.internal.core.model.JSDebugTarget.handleMessage(JSDebugTarget.java:387)
+	at com.aptana.ide.debug.internal.core.model.DebugConnection.handleMessage(DebugConnection.java:190)
+	at com.aptana.ide.debug.internal.core.model.DebugConnection.access$2(DebugConnection.java:186)
+	at com.aptana.ide.debug.internal.core.model.DebugConnection$1.run(DebugConnection.java:133)
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-05-16 03:10:46.552
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.

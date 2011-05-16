@@ -43,7 +43,6 @@ var sceneController = (function(sceneController) {
 		
 		var modelAry = [
 			{file: 'ductwork.json',mode: 'HVAC', name: 'ductwork'},
-			{file: 'avatar.json',mode: 'HVAC', name: 'avatar'},
 			{file: 'rooftop.json',mode: 'HVAC', name: 'rooftop'},
 			{file: 'envelope.json',mode: 'ENVELOPE', name: 'floor1'}
 		];

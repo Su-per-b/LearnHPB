@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="34" version="2.0">
+<workbench progressCount="35" version="2.0">
 <workbenchAdvisor/>
-<window height="1466" maximized="true" width="1155" x="54" y="-4">
+<window height="1466" maximized="true" width="1155" x="11" y="369">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="160"/>
@@ -26,9 +26,9 @@
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="185" y="22"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
-<coolItem id="com.aptana.ide.editors.XMLEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="com.aptana.ide.editors.XMLEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="com.aptana.ide.editor.text" itemType="typePlaceholder" x="-1" y="-1"/>
-<coolItem id="com.aptana.ide.editors.CSSEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="com.aptana.ide.editors.CSSEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
 </coolbarLayout>
@@ -44,49 +44,31 @@
 <part id="3"/>
 <part id="4"/>
 <part id="5"/>
-<part id="6"/>
-<part id="7"/>
-<part id="8"/>
-<part id="9"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor id="com.aptana.ide.editors.JSEditor" name="animation.js" partName="animation.js" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo8/js/lgb/animation.js" title="animation.js" tooltip="kuda_master/projects/demo8/js/lgb/animation.js" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo8/js/lgb/animation.js"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1732" selectionTopPixel="132"/>
+<editor id="com.aptana.ide.editors.HTMLEditor" name="index.html" partName="index.html" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/damper/index.html" title="index.html" tooltip="kuda_master/projects/damper/index.html" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/damper/index.html"/>
 </editor>
-<editor id="com.aptana.ide.editors.JSEditor" name="core.js" partName="core.js" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo8/js/lgb/core.js" title="core.js" tooltip="kuda_master/projects/demo8/js/lgb/core.js" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo8/js/lgb/core.js"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="473" selectionTopPixel="0"/>
+<editor id="com.aptana.ide.editors.HTMLEditor" name="index.html" partName="index.html" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo7/index.html" title="index.html" tooltip="kuda_master/projects/demo7/index.html" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo7/index.html"/>
 </editor>
-<editor id="com.aptana.ide.editors.JSEditor" name="HvacDamperView.js" partName="HvacDamperView.js" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo8/js/lgb/view/HvacDamperView.js" title="HvacDamperView.js" tooltip="kuda_master/projects/demo8/js/lgb/view/HvacDamperView.js" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo8/js/lgb/view/HvacDamperView.js"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2795" selectionTopPixel="969"/>
+<editor id="com.aptana.ide.editors.JSEditor" name="sceneController.js" partName="sceneController.js" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo7/sceneController.js" title="sceneController.js" tooltip="kuda_master/projects/demo7/sceneController.js" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo7/sceneController.js"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="615" selectionTopPixel="0"/>
 </editor>
-<editor activePart="true" focus="true" id="com.aptana.ide.editors.JSEditor" name="UserAction.js" partName="UserAction.js" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo8/js/lgb/model/UserAction.js" title="UserAction.js" tooltip="kuda_master/projects/demo8/js/lgb/model/UserAction.js" workbook="DefaultEditorWorkbook">
+<editor id="com.aptana.ide.editors.JSEditor" name="UserAction.js" partName="UserAction.js" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo8/js/lgb/model/UserAction.js" title="UserAction.js" tooltip="kuda_master/projects/demo8/js/lgb/model/UserAction.js" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo8/js/lgb/model/UserAction.js"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="809" selectionTopPixel="0"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="582" selectionTopPixel="0"/>
 </editor>
-<editor id="com.aptana.ide.editors.HTMLEditor" name="index.html" partName="index.html" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo8/index.html" title="index.html" tooltip="kuda_master/projects/demo8/index.html" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo8/index.html"/>
+<editor id="com.aptana.ide.editors.JSEditor" name="client.js" partName="client.js" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo8/js/o3d-webgl/client.js" title="client.js" tooltip="kuda_master/projects/demo8/js/o3d-webgl/client.js" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo8/js/o3d-webgl/client.js"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="3751" selectionTopPixel="1615"/>
 </editor>
-<editor id="com.aptana.ide.editors.CSSEditor" name="gui.css" partName="gui.css" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo8/css/gui.css" title="gui.css" tooltip="kuda_master/projects/demo8/css/gui.css" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo8/css/gui.css"/>
-</editor>
-<editor id="com.aptana.ide.editors.CSSEditor" name="layout.css" partName="layout.css" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo8/css/layout.css" title="layout.css" tooltip="kuda_master/projects/demo8/css/layout.css" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo8/css/layout.css"/>
-</editor>
-<editor id="com.aptana.ide.editors.CSSEditor" name="stylz.css" partName="stylz.css" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo8/css/stylz.css" title="stylz.css" tooltip="kuda_master/projects/demo8/css/stylz.css" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo8/css/stylz.css"/>
-</editor>
-<editor id="com.aptana.ide.editors.JSEditor" name="sceneController.js" partName="sceneController.js" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo8/sceneController.js" title="sceneController.js" tooltip="kuda_master/projects/demo8/sceneController.js" workbook="DefaultEditorWorkbook">
+<editor activePart="true" focus="true" id="com.aptana.ide.editors.JSEditor" name="sceneController.js" partName="sceneController.js" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo8/sceneController.js" title="sceneController.js" tooltip="kuda_master/projects/demo8/sceneController.js" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo8/sceneController.js"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1026" selectionTopPixel="1781"/>
-</editor>
-<editor id="com.aptana.ide.editors.JSEditor" name="loader.js" partName="loader.js" path="W:/demos/kuda_1.3/eclipseworkspace/kuda_master/projects/demo8/js/lgb/loader.js" title="loader.js" tooltip="kuda_master/projects/demo8/js/lgb/loader.js" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/kuda_master/projects/demo8/js/lgb/loader.js"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1583" selectionTopPixel="765"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="389" selectionTopPixel="103"/>
 </editor>
 </editors>
 <views>
@@ -102,7 +84,6 @@
 <view id="org.eclipse.search.ui.views.SearchView" partName="Search">
 <viewState isPinned="false">
 <view IMemento.internal.id="" org.eclipse.search.lastActivation="0"/>
-<view IMemento.internal.id="org.eclipse.search.text.AptanaFileSearchResultPage" org.eclipse.search.lastActivation="1" org.eclipse.search.resultpage.layout="2"/>
 </viewState>
 </view>
 <view id="org.eclipse.debug.ui.DebugView" partName="Debug">
@@ -273,7 +254,7 @@
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@7276f103" ratio="0.76619005" ratioLeft="911" ratioRight="278" relationship="2" relative="org.eclipse.ui.editorss">
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@7276f103" ratio="0.7619849" ratioLeft="906" ratioRight="283" relationship="2" relative="org.eclipse.ui.editorss">
 <folder activePageID="com.aptana.ide.ui.io.fileExplorerView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
 <page content="com.aptana.ide.js.ui.views.profilesView" label="References"/>
@@ -286,7 +267,7 @@
 </folder>
 </info>
 <info folder="true" part="org.eclipse.ui.internal.ViewStack@77c9ff04" ratio="0.72732425" ratioLeft="1283" ratioRight="481" relationship="4" relative="org.eclipse.ui.editorss">
-<folder activePageID="org.eclipse.search.ui.views.SearchView" appearance="2" expanded="2">
+<folder activePageID="org.eclipse.ui.views.ProgressView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
 <page content="org.eclipse.search.ui.views.SearchView" label="Search"/>
 <page content="org.eclipse.ui.views.ProgressView" label="Progress"/>
@@ -372,7 +353,7 @@
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.debug.internal.ui.ConsoleFolderView" ratio="0.8594104" ratioLeft="1516" ratioRight="248" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<info folder="true" part="org.eclipse.debug.internal.ui.ConsoleFolderView" ratio="0.71428573" ratioLeft="1260" ratioRight="504" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
 <folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
 <page content="org.eclipse.ui.views.TaskList" label="Tasks"/>
@@ -563,159 +544,158 @@
 <navigationHistory>
 <editors>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo8/js/lgb/model/UserAction.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo8/js/o3d-webgl/counter.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo8/js/o3d-webgl/event.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo8/js/o3d-webgl/buffer.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo8/js/o3d-webgl/base.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo8/js/o3djs/rendergraph.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo8/js/o3djs/fps.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo8/js/lgb/animation.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo8/js/lgb/core.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo8/js/lgb/view/HvacDamperView.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo8/js/lgb/model/UserAction.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo8/js/o3djs/fps.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.HTMLEditor" path="/kuda_master/projects/demo8/index.html"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.CSSEditor" path="/kuda_master/projects/demo8/css/gui.css"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.CSSEditor" path="/kuda_master/projects/demo8/css/layout.css"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.CSSEditor" path="/kuda_master/projects/demo8/css/stylz.css"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo8/sceneController.js"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo8/js/lgb/loader.js"/>
+<editor factoryID="com.aptana.ide.server.portal.ui.MyAptanaElementFactory" id="com.aptana.ide.server.portal.ui.MyAptanaEditor"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.HTMLEditor" path="/kuda_master/projects/damper/index.html"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.XMLEditor" path="/kuda_master/projects/damper/hvacDamper.xml"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.CSSEditor" path="/kuda_master/projects/damper/jquery-ui-1.8.custom.css"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/damper/js/lgb/view/AdminSubpanel.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/damper/js/lgb/view/HvacDamperView.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/damper/js/hemi/core.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/damper/js/hemi/animation.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/damper/js/hemi/model.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/damper/js/hemi/motion.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/damper/js/hemi/octane.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/damper/js/hemi/msg.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/damper/js/hemi/world.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/damper/js/hemi/view.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/damper/js/hemi/texture.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/damper/js/hemi/sprite.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/damper/js/hemi/shape.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/damper/js/hemi/core.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/damper/js/hemi/msg.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/damper/js/hemi/dispatch.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.HTMLEditor" path="/kuda_master/projects/damper/index.html"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/damper/sceneController.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/damper/js/lgb/loader.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/damper/js/lgb/animation.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.HTMLEditor" path="/kuda_master/projects/demo7/index.html"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo7/sceneController.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo8/js/lgb/model/UserAction.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo8/js/o3d-webgl/client.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/kuda_master/projects/demo8/sceneController.js"/>
 </editors>
-<item historyLabel="fps.js" index="6">
-<position info="not_deleted" x="2091" y="0"/>
-</item>
-<item historyLabel="UserAction.js" index="0">
-<position info="not_deleted" x="414" y="0"/>
-</item>
-<item historyLabel="counter.js" index="1">
-<position info="not_deleted" x="687" y="0"/>
-</item>
-<item historyLabel="UserAction.js" index="0">
-<position info="not_deleted" x="414" y="0"/>
-</item>
-<item historyLabel="fps.js" index="6">
-<position info="not_deleted" x="2091" y="0"/>
-</item>
-<item historyLabel="rendergraph.js" index="5">
-<position info="not_deleted" x="1645" y="6"/>
-</item>
-<item historyLabel="base.js" index="4">
-<position info="not_deleted" x="1911" y="0"/>
-</item>
-<item historyLabel="buffer.js" index="3">
-<position info="not_deleted" x="1808" y="0"/>
-</item>
-<item historyLabel="event.js" index="2">
-<position info="not_deleted" x="1963" y="0"/>
-</item>
-<item historyLabel="counter.js" index="1">
-<position info="not_deleted" x="281" y="0"/>
-</item>
-<item historyLabel="UserAction.js" index="0">
-<position info="not_deleted" x="414" y="0"/>
-</item>
-<item historyLabel="animation.js" index="7">
-<position info="not_deleted" x="657" y="0"/>
-</item>
-<item historyLabel="core.js" index="8">
-<position info="not_deleted" x="600" y="0"/>
-</item>
-<item historyLabel="HvacDamperView.js" index="9">
-<position info="not_deleted" x="2645" y="0"/>
-</item>
-<item historyLabel="UserAction.js" index="10">
-<position info="not_deleted" x="719" y="0"/>
-</item>
-<item historyLabel="HvacDamperView.js" index="9">
-<position info="not_deleted" x="2645" y="0"/>
-</item>
-<item historyLabel="core.js" index="8">
-<position info="not_deleted" x="600" y="0"/>
-</item>
-<item historyLabel="animation.js" index="7">
-<position info="not_deleted" x="1696" y="0"/>
-</item>
-<item historyLabel="HvacDamperView.js" index="9">
-<position info="not_deleted" x="2795" y="0"/>
-</item>
-<item historyLabel="UserAction.js" index="10">
-<position info="not_deleted" x="191" y="0"/>
-</item>
-<item historyLabel="UserAction.js" index="10">
-<position info="not_deleted" x="94" y="0"/>
-</item>
-<item historyLabel="UserAction.js" index="10">
-<position info="not_deleted" x="401" y="0"/>
-</item>
-<item historyLabel="animation.js" index="7">
-<position info="not_deleted" x="1696" y="0"/>
-</item>
-<item historyLabel="core.js" index="8">
-<position info="not_deleted" x="600" y="0"/>
-</item>
-<item historyLabel="HvacDamperView.js" index="9">
-<position info="not_deleted" x="2795" y="0"/>
-</item>
-<item historyLabel="UserAction.js" index="10">
-<position info="not_deleted" x="401" y="0"/>
-</item>
-<item historyLabel="animation.js" index="7">
-<position info="not_deleted" x="1696" y="0"/>
-</item>
-<item historyLabel="core.js" index="8">
-<position info="not_deleted" x="600" y="0"/>
-</item>
-<item historyLabel="fps.js" index="11">
-<position info="not_deleted" x="2137" y="0"/>
-</item>
-<item historyLabel="core.js" index="8">
-<position info="not_deleted" x="473" y="0"/>
-</item>
-<item historyLabel="UserAction.js" index="10">
-<position info="not_deleted" x="191" y="0"/>
-</item>
-<item historyLabel="UserAction.js" index="10">
-<position info="not_deleted" x="128" y="0"/>
-</item>
-<item historyLabel="UserAction.js" index="10">
-<position info="not_deleted" x="774" y="0"/>
-</item>
-<item historyLabel="HvacDamperView.js" index="9">
-<position info="not_deleted" x="2795" y="0"/>
-</item>
-<item historyLabel="core.js" index="8">
-<position info="not_deleted" x="473" y="0"/>
-</item>
-<item historyLabel="animation.js" index="7">
-<position info="not_deleted" x="1732" y="0"/>
-</item>
-<item historyLabel="UserAction.js" index="10">
-<position info="not_deleted" x="191" y="0"/>
-</item>
-<item historyLabel="index.html" index="12"/>
-<item historyLabel="gui.css" index="13"/>
-<item historyLabel="layout.css" index="14"/>
-<item historyLabel="stylz.css" index="15"/>
-<item historyLabel="UserAction.js" index="10">
-<position info="not_deleted" x="191" y="0"/>
-</item>
-<item historyLabel="stylz.css" index="15"/>
-<item historyLabel="index.html" index="12"/>
-<item historyLabel="sceneController.js" index="16">
-<position info="not_deleted" x="1026" y="0"/>
-</item>
-<item historyLabel="loader.js" index="17">
-<position info="not_deleted" x="1659" y="0"/>
-</item>
-<item historyLabel="UserAction.js" index="10">
-<position info="not_deleted" x="191" y="0"/>
-</item>
-<item historyLabel="layout.css" index="14"/>
-<item historyLabel="loader.js" index="17">
+<item historyLabel="loader.js" index="1">
 <position info="not_deleted" x="1583" y="0"/>
 </item>
-<item active="true" historyLabel="UserAction.js" index="10">
+<item historyLabel="UserAction.js" index="0">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="My Studio" index="2"/>
+<item historyLabel="index.html" index="3"/>
+<item historyLabel="hvacDamper.xml" index="4">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="index.html" index="3"/>
+<item historyLabel="jquery-ui-1.8.custom.css" index="5"/>
+<item historyLabel="index.html" index="3"/>
+<item historyLabel="hvacDamper.xml" index="4">
+<position info="not_deleted" x="85" y="0"/>
+</item>
+<item historyLabel="index.html" index="3"/>
+<item historyLabel="AdminSubpanel.js" index="6">
+<position info="not_deleted" x="2953" y="0"/>
+</item>
+<item historyLabel="HvacDamperView.js" index="7">
+<position info="not_deleted" x="804" y="0"/>
+</item>
+<item historyLabel="core.js" index="8">
+<position info="not_deleted" x="1181" y="0"/>
+</item>
+<item historyLabel="animation.js" index="9">
+<position info="not_deleted" x="977" y="0"/>
+</item>
+<item historyLabel="model.js" index="10">
+<position info="not_deleted" x="1290" y="0"/>
+</item>
+<item historyLabel="motion.js" index="11">
+<position info="not_deleted" x="1189" y="0"/>
+</item>
+<item historyLabel="octane.js" index="12">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="msg.js" index="13">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="world.js" index="14">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="view.js" index="15">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="texture.js" index="16">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="sprite.js" index="17">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="shape.js" index="18">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="core.js" index="19">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="msg.js" index="20">
+<position info="not_deleted" x="1345" y="0"/>
+</item>
+<item historyLabel="dispatch.js" index="21">
+<position info="not_deleted" x="18545" y="0"/>
+</item>
+<item historyLabel="index.html" index="22"/>
+<item historyLabel="sceneController.js" index="23">
+<position info="not_deleted" x="1443" y="0"/>
+</item>
+<item historyLabel="index.html" index="22"/>
+<item historyLabel="sceneController.js" index="23">
+<position info="not_deleted" x="1343" y="0"/>
+</item>
+<item historyLabel="loader.js" index="24">
+<position info="not_deleted" x="2628" y="0"/>
+</item>
+<item historyLabel="sceneController.js" index="23">
+<position info="not_deleted" x="828" y="0"/>
+</item>
+<item historyLabel="animation.js" index="25">
+<position info="not_deleted" x="913" y="0"/>
+</item>
+<item historyLabel="index.html" index="22"/>
+<item historyLabel="sceneController.js" index="23">
+<position info="not_deleted" x="1102" y="1"/>
+</item>
+<item historyLabel="index.html" index="22"/>
+<item historyLabel="loader.js" index="24">
+<position info="not_deleted" x="972" y="0"/>
+</item>
+<item historyLabel="index.html" index="22"/>
+<item historyLabel="animation.js" index="25">
+<position info="not_deleted" x="913" y="0"/>
+</item>
+<item historyLabel="index.html" index="22"/>
+<item historyLabel="sceneController.js" index="23">
+<position info="not_deleted" x="1102" y="1"/>
+</item>
+<item historyLabel="index.html" index="22"/>
+<item historyLabel="index.html" index="26"/>
+<item historyLabel="sceneController.js" index="27">
+<position info="not_deleted" x="615" y="0"/>
+</item>
+<item historyLabel="UserAction.js" index="28">
 <position info="not_deleted" x="191" y="0"/>
+</item>
+<item historyLabel="client.js" index="29">
+<position info="not_deleted" x="3751" y="0"/>
+</item>
+<item historyLabel="UserAction.js" index="28">
+<position info="not_deleted" x="191" y="0"/>
+</item>
+<item historyLabel="sceneController.js" index="30">
+<position info="not_deleted" x="3275" y="0"/>
+</item>
+<item historyLabel="UserAction.js" index="28">
+<position info="not_deleted" x="582" y="0"/>
+</item>
+<item active="true" historyLabel="sceneController.js" index="30">
+<position info="not_deleted" x="3275" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -735,50 +715,50 @@
 </trimLayout>
 </window>
 <mruList>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="loader.js" tooltip="kuda_master/projects/demo8/js/lgb/loader.js">
-<persistable path="/kuda_master/projects/demo8/js/lgb/loader.js"/>
-</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="sceneController.js" tooltip="kuda_master/projects/demo8/sceneController.js">
 <persistable path="/kuda_master/projects/demo8/sceneController.js"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.CSSEditor" name="stylz.css" tooltip="kuda_master/projects/demo8/css/stylz.css">
-<persistable path="/kuda_master/projects/demo8/css/stylz.css"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.CSSEditor" name="layout.css" tooltip="kuda_master/projects/demo8/css/layout.css">
-<persistable path="/kuda_master/projects/demo8/css/layout.css"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.CSSEditor" name="gui.css" tooltip="kuda_master/projects/demo8/css/gui.css">
-<persistable path="/kuda_master/projects/demo8/css/gui.css"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.HTMLEditor" name="index.html" tooltip="kuda_master/projects/demo8/index.html">
-<persistable path="/kuda_master/projects/demo8/index.html"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="fps.js" tooltip="kuda_master/projects/demo8/js/o3djs/fps.js">
-<persistable path="/kuda_master/projects/demo8/js/o3djs/fps.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="client.js" tooltip="kuda_master/projects/demo8/js/o3d-webgl/client.js">
+<persistable path="/kuda_master/projects/demo8/js/o3d-webgl/client.js"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="UserAction.js" tooltip="kuda_master/projects/demo8/js/lgb/model/UserAction.js">
 <persistable path="/kuda_master/projects/demo8/js/lgb/model/UserAction.js"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="HvacDamperView.js" tooltip="kuda_master/projects/demo8/js/lgb/view/HvacDamperView.js">
-<persistable path="/kuda_master/projects/demo8/js/lgb/view/HvacDamperView.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="sceneController.js" tooltip="kuda_master/projects/demo7/sceneController.js">
+<persistable path="/kuda_master/projects/demo7/sceneController.js"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="core.js" tooltip="kuda_master/projects/demo8/js/lgb/core.js">
-<persistable path="/kuda_master/projects/demo8/js/lgb/core.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.HTMLEditor" name="index.html" tooltip="kuda_master/projects/demo7/index.html">
+<persistable path="/kuda_master/projects/demo7/index.html"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="animation.js" tooltip="kuda_master/projects/demo8/js/lgb/animation.js">
-<persistable path="/kuda_master/projects/demo8/js/lgb/animation.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.HTMLEditor" name="index.html" tooltip="kuda_master/projects/damper/index.html">
+<persistable path="/kuda_master/projects/damper/index.html"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="base.js" tooltip="kuda_master/projects/demo8/js/o3djs/base.js">
-<persistable path="/kuda_master/projects/demo8/js/o3djs/base.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="animation.js" tooltip="kuda_master/projects/damper/js/lgb/animation.js">
+<persistable path="/kuda_master/projects/damper/js/lgb/animation.js"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="rendergraph.js" tooltip="kuda_master/projects/demo8/js/o3djs/rendergraph.js">
-<persistable path="/kuda_master/projects/demo8/js/o3djs/rendergraph.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="loader.js" tooltip="kuda_master/projects/damper/js/lgb/loader.js">
+<persistable path="/kuda_master/projects/damper/js/lgb/loader.js"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="base.js" tooltip="kuda_master/projects/demo8/js/o3d-webgl/base.js">
-<persistable path="/kuda_master/projects/demo8/js/o3d-webgl/base.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="sceneController.js" tooltip="kuda_master/projects/damper/sceneController.js">
+<persistable path="/kuda_master/projects/damper/sceneController.js"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="buffer.js" tooltip="kuda_master/projects/demo8/js/o3d-webgl/buffer.js">
-<persistable path="/kuda_master/projects/demo8/js/o3d-webgl/buffer.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="dispatch.js" tooltip="kuda_master/projects/damper/js/hemi/dispatch.js">
+<persistable path="/kuda_master/projects/damper/js/hemi/dispatch.js"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="msg.js" tooltip="kuda_master/projects/damper/js/hemi/msg.js">
+<persistable path="/kuda_master/projects/damper/js/hemi/msg.js"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="core.js" tooltip="kuda_master/projects/damper/js/hemi/core.js">
+<persistable path="/kuda_master/projects/damper/js/hemi/core.js"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="shape.js" tooltip="kuda_master/projects/damper/js/hemi/shape.js">
+<persistable path="/kuda_master/projects/damper/js/hemi/shape.js"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="sprite.js" tooltip="kuda_master/projects/damper/js/hemi/sprite.js">
+<persistable path="/kuda_master/projects/damper/js/hemi/sprite.js"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="texture.js" tooltip="kuda_master/projects/damper/js/hemi/texture.js">
+<persistable path="/kuda_master/projects/damper/js/hemi/texture.js"/>
 </file>
 </mruList>
 </workbench>
