@@ -16,7 +16,7 @@
 <stringAttribute key="pathsMapping" value=""/>
 <intAttribute key="serverType" value="1"/>
 <intAttribute key="startActionType" value="2"/>
-<stringAttribute key="startPagePath" value="/kuda_master/projects/particles/Particles.html"/>
+<stringAttribute key="startPagePath" value="/LearnGreenBuildings/projects/particles/Particles.html"/>
 <stringAttribute key="startPageUrl" value=""/>
 <booleanAttribute key="suspendOnDebuggerKeywords" value="true"/>
 <booleanAttribute key="suspendOnErrors" value="true"/>
