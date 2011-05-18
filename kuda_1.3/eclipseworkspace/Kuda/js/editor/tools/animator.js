@@ -559,7 +559,7 @@ var editor = (function(module) {
 			// add validation
 			new module.ui.Validator(frameInputs, function(elem) {
 				var val = elem.val(),
-					id = elem.attr('id'),
+					id = elem.attr('id');
 					begins = parseInt(wgt.beginInput.val()),
 					ends = parseInt(wgt.endInput.val()),
 					min = wgt.slider.slider('option', 'min'),

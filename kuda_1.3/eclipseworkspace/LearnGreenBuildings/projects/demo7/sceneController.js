@@ -86,12 +86,14 @@ var sceneController = (function(sceneController) {
 		    success: delegate
 		  });
 
-		this.setViewPoint();
+
 		
 	};
 	
 	sceneController.parseXml = function(xml) {
 		lgb.view.gui.particleSystemInit(xml);
+		
+		this.setViewPoint();
 	};
 	
 	
@@ -100,7 +102,7 @@ var sceneController = (function(sceneController) {
 		
 		var floor1Model = lgb.loader.modelList['floor1'];
 	
-		var target = floor1Model.getCenter();
+		var target = floor1Model.getCenterPoint();
 		target[2] -= 3;
 		target[2] = -1 * target[2];
 		

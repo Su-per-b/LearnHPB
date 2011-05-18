@@ -120,8 +120,8 @@ var lgb = (function(lgb) {
 			var particleSystemConfig = {
 				rate : sys.rate,
 				life : sys.life,
-				boundingBoxes :  bbAry,
-				shape : hemi.curve.shapeType.SPHERE,
+				boxes :  bbAry,
+				shape : hemi.curve.ShapeType.SPHERE,
 				colorKeys : ckAry,
 				scaleKeys : skAry
 			};

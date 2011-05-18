@@ -1,7 +1,3 @@
 INDEX VERSION 1.122+W:\LearnGreenBuildings\kuda_1.3\eclipseworkspace\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-3540497966.index
-2549366161.index
-2383732423.index
-1246901477.index
-516579133.index
 4207677177.index
+516579133.index

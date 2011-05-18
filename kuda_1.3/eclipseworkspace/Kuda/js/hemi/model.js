@@ -268,7 +268,7 @@ var hemi = (function(hemi) {
 				this.unload();
 			}
 			
-			//try {
+			try {
 				hemi.loader.loadModel(
 					this.fileName,
 					config.pack,
@@ -278,10 +278,10 @@ var hemi = (function(hemi) {
 						that.loadConfig(config);
 					},
 					{opt_animSource: config.animationTime});
-		//	} 
-			//catch (e) {
-			//	alert('Loading failed: ' + e);
-			//}
+			} 
+			catch (e) {
+				alert('Loading failed: ' + e);
+			}
 		},
 
 		/**

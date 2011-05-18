@@ -2,9 +2,9 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="237" key="DIALOG_WIDTH"/>
-		<item value="141" key="DIALOG_Y_ORIGIN"/>
+		<item value="159" key="DIALOG_Y_ORIGIN"/>
 		<item value="357" key="DIALOG_HEIGHT"/>
-		<item value="593" key="DIALOG_X_ORIGIN"/>
+		<item value="591" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Tahoma|8.25|0|WINDOWS|1|-11|0|0|0|400|0|0|0|1|0|0|0|0|Tahoma" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
@@ -13,26 +13,26 @@
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="Test" key="selection"/>
+		<item value="particle" key="selection"/>
 		<list key="findhistory">
+			<item value="particle"/>
+			<item value="testObj"/>
+			<item value="unit2"/>
+			<item value="this.boxes"/>
+			<item value="getBound"/>
+			<item value="bounding"/>
 			<item value="test"/>
 			<item value="setupScene"/>
-			<item value="expected"/>
-			<item value="expect"/>
-			<item value="subscriberCameraStopped"/>
-			<item value="model"/>
-			<item value="unload"/>
-			<item value="testObj"/>
 		</list>
 		<list key="replacehistory">
+			<item value="unti1test"/>
+			<item value="unit3"/>
 			<item value="unit2Test"/>
 			<item value="unit2"/>
 			<item value="unit1"/>
 			<item value=""/>
 			<item value="../js"/>
 			<item value="lgb.view.gui"/>
-			<item value="callbackComplete"/>
-			<item value="hext.utils.debug"/>
 		</list>
 	</section>
 </section>

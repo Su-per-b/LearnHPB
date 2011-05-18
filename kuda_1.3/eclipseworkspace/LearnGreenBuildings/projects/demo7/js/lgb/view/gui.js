@@ -227,9 +227,14 @@ var lgb = (function(lgb) {
 		this.showBoxes = !this.showBoxes;
 		
 		if (this.showBoxes ) {
-			lgb.view.gui.particleSystem.showBoxes();	
+			
+			//lgb.view.gui.particleSystem.showBoxes();
+			
+			hemi.curve.showBoxes(lgb.view.gui.particleSystem.boxes);
+				
 		} else {
-			lgb.view.gui.particleSystem.hideBoxes();	
+			//lgb.view.gui.particleSystem.hideBoxes();	
+			hemi.curve.hideBoxes(lgb.view.gui.particleSystem.boxes);
 		}
 
 	};

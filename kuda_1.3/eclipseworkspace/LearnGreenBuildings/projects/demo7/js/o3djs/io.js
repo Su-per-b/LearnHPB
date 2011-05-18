@@ -497,6 +497,8 @@ o3djs.io.loadArchiveAdvanced = function(pack,
                                         onFileAvailable,
                                         onFinished) {
   var error = 'loadArchive failed to load url "' + url + '"';
+  
+  
   var request = pack.createArchiveRequest();
   var loadInfo = o3djs.io.createLoadInfo(request, true);
   request.open('GET', url);

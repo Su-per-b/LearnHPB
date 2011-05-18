@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="22" version="2.0">
+<workbench progressCount="18" version="2.0">
 <workbenchAdvisor/>
-<window height="1653" maximized="true" width="1169" x="15" y="104">
+<window height="1653" maximized="true" width="1169" x="44" y="2">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="160"/>
@@ -15,14 +15,14 @@
 <coolItem id="com.aptana.ui.globalActionSet" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="172" y="22"/>
 <coolItem id="org.eclipse.jdt.ui.JavaElementCreationActionSet" itemType="typeToolBarContribution" x="74" y="22"/>
-<coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="50" y="22"/>
+<coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="74" y="22"/>
 <coolItem id="org.eclipse.team.ui.actionSet" itemType="typeToolBarContribution" x="50" y="22"/>
 <coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="85" y="22"/>
 <coolItem id="org.eclipse.wst.jsdt.ui.JavaElementCreationActionSet" itemType="typeToolBarContribution" x="61" y="22"/>
 <coolItem id="org.eclipse.wst.xml.ui.perspective.NewFileToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
-<coolItem id="s.com.aptana.ide.core.ui.actionSet.ShowAptanaView" itemType="typeToolBarContribution" x="124" y="22"/>
+<coolItem id="s.com.aptana.ide.core.ui.actionSet.ShowAptanaView" itemType="typeToolBarContribution" x="87" y="22"/>
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="185" y="22"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
@@ -32,7 +32,7 @@
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
 </coolbarLayout>
-<page aggregateWorkingSetId="Aggregate for window 1302693741910" focus="true" label="Workspace - &lt;Aptana Web&gt;">
+<page aggregateWorkingSetId="Aggregate for window 1302693741910" focus="true" label="Workspace - Debug">
 <editors>
 <editorArea activeWorkbook="DefaultEditorWorkbook">
 <info part="DefaultEditorWorkbook">
@@ -43,28 +43,32 @@
 <part id="2"/>
 <part id="3"/>
 <part id="4"/>
+<part id="5"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor id="com.aptana.ide.editors.JSEditor" name="unit1.js" partName="unit1.js" path="W:/LearnGreenBuildings/kuda_1.3/eclipseworkspace/Kuda/unit_tests/unit1.js" title="unit1.js" tooltip="Kuda/unit_tests/unit1.js" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Kuda/unit_tests/unit1.js"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2409" selectionTopPixel="663"/>
-</editor>
-<editor activePart="true" focus="true" id="com.aptana.ide.editors.JSEditor" name="loader.js" partName="loader.js" path="W:/LearnGreenBuildings/kuda_1.3/eclipseworkspace/Kuda/js/o3djs/loader.js" title="loader.js" tooltip="Kuda/js/o3djs/loader.js" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Kuda/js/o3djs/loader.js"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="7040" selectionTopPixel="2618"/>
+<editor id="com.aptana.ide.editors.JSEditor" name="io.js" partName="io.js" path="W:/LearnGreenBuildings/kuda_1.3/eclipseworkspace/LearnGreenBuildings/projects/demo7/js/o3djs/io.js" title="io.js" tooltip="LearnGreenBuildings/projects/demo7/js/o3djs/io.js" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/LearnGreenBuildings/projects/demo7/js/o3djs/io.js"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="16799" selectionTopPixel="8160"/>
 </editor>
 <editor id="com.aptana.ide.editors.HTMLEditor" name="index.html" partName="index.html" path="W:/LearnGreenBuildings/kuda_1.3/eclipseworkspace/Kuda/unit_tests/index.html" title="index.html" tooltip="Kuda/unit_tests/index.html" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Kuda/unit_tests/index.html"/>
 </editor>
-<editor id="com.aptana.ide.editors.JSEditor" name="unit2.js" partName="unit2.js" path="W:/LearnGreenBuildings/kuda_1.3/eclipseworkspace/Kuda/unit_tests/unit2.js" title="unit2.js" tooltip="Kuda/unit_tests/unit2.js" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Kuda/unit_tests/unit2.js"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1404" selectionTopPixel="139"/>
+<editor id="com.aptana.ide.editors.HTMLEditor" name="unit3.html" partName="unit3.html" path="W:/LearnGreenBuildings/kuda_1.3/eclipseworkspace/Kuda/unit_tests/unit3.html" title="unit3.html" tooltip="Kuda/unit_tests/unit3.html" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Kuda/unit_tests/unit3.html"/>
 </editor>
-<editor id="com.aptana.ide.editors.JSEditor" name="jqUnit.js" partName="jqUnit.js" path="W:/LearnGreenBuildings/kuda_1.3/eclipseworkspace/Kuda/unit_tests/js/jqUnit/jqUnit.js" title="jqUnit.js" tooltip="Kuda/unit_tests/js/jqUnit/jqUnit.js" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Kuda/unit_tests/js/jqUnit/jqUnit.js"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1888" selectionTopPixel="765"/>
+<editor id="com.aptana.ide.editors.JSEditor" name="ParticleSystem.js" partName="ParticleSystem.js" path="W:/LearnGreenBuildings/kuda_1.3/eclipseworkspace/LearnGreenBuildings/projects/demo7/js/lgb/model/ParticleSystem.js" title="ParticleSystem.js" tooltip="LearnGreenBuildings/projects/demo7/js/lgb/model/ParticleSystem.js" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/LearnGreenBuildings/projects/demo7/js/lgb/model/ParticleSystem.js"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2253" selectionTopPixel="244"/>
+</editor>
+<editor activePart="true" focus="true" id="com.aptana.ide.editors.JSEditor" name="ModeController.js" partName="ModeController.js" path="W:/LearnGreenBuildings/kuda_1.3/eclipseworkspace/LearnGreenBuildings/projects/demo7/js/lgb/controller/ModeController.js" title="ModeController.js" tooltip="LearnGreenBuildings/projects/demo7/js/lgb/controller/ModeController.js" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/LearnGreenBuildings/projects/demo7/js/lgb/controller/ModeController.js"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1000" selectionTopPixel="153"/>
+</editor>
+<editor id="com.aptana.ide.editors.JSEditor" name="sceneController.js" partName="sceneController.js" path="W:/LearnGreenBuildings/kuda_1.3/eclipseworkspace/LearnGreenBuildings/projects/demo7/sceneController.js" title="sceneController.js" tooltip="LearnGreenBuildings/projects/demo7/sceneController.js" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/LearnGreenBuildings/projects/demo7/sceneController.js"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2989" selectionTopPixel="1414"/>
 </editor>
 </editors>
 <views>
@@ -161,7 +165,7 @@
 <view id="org.eclipse.jdt.ui.SourceView" partName="Declaration"/>
 <view id="org.eclipse.jdt.ui.JavadocView" partName="Javadoc"/>
 </views>
-<perspectives activePart="com.aptana.ide.editors.JSEditor" activePerspective="&lt;Aptana_Web&gt;">
+<perspectives activePart="com.aptana.ide.editors.JSEditor" activePerspective="org.eclipse.debug.ui.DebugPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor descriptor="com.aptana.ide.js.ui.WebPerspective" id="&lt;Aptana_Web&gt;" label="&lt;Aptana Web&gt;"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
@@ -257,7 +261,7 @@
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@7276f103" ratio="0.79478556" ratioLeft="945" ratioRight="244" relationship="2" relative="org.eclipse.ui.editorss">
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@7276f103" ratio="0.76955426" ratioLeft="915" ratioRight="274" relationship="2" relative="org.eclipse.ui.editorss">
 <folder activePageID="com.aptana.ide.ui.io.fileExplorerView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
 <page content="com.aptana.ide.js.ui.views.profilesView" label="References"/>
@@ -639,150 +643,159 @@
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/Kuda/unit_tests/unit1.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.HTMLEditor" path="/Kuda/unit_tests/index.html"/>
-<editor factoryID="com.aptana.ide.server.portal.ui.MyAptanaElementFactory" id="com.aptana.ide.server.portal.ui.MyAptanaEditor"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/Kuda/js/o3djs/loader.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.HTMLEditor" path="/Kuda/unit_tests/index.html"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.HTMLEditor" path="/Kuda/unit_tests/index.html"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/Kuda/unit_tests/unit2.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/Kuda/unit_tests/js/jqUnit/jqUnit.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/LearnGreenBuildings/projects/demo7/js/lgb/model/ParticleSystem.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/LearnGreenBuildings/projects/demo7/js/lgb/view/gui.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/LearnGreenBuildings/projects/demo7/js/hemi/curve.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.HTMLEditor" path="/Kuda/unit_tests/unit3.html"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/LearnGreenBuildings/projects/demo7/js/o3djs/io.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/LearnGreenBuildings/projects/demo7/sceneController.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/LearnGreenBuildings/projects/demo7/js/lgb/controller/ModeController.js"/>
 </editors>
-<item historyLabel="unit1.js" index="0">
-<position info="not_deleted" x="3415" y="0"/>
+<item historyLabel="ParticleSystem.js" index="0">
+<position info="not_deleted" x="2941" y="0"/>
 </item>
-<item historyLabel="index.html" index="1"/>
-<item historyLabel="unit1.js" index="0">
-<position info="not_deleted" x="2997" y="0"/>
+<item historyLabel="ParticleSystem.js" index="0">
+<position info="not_deleted" x="2965" y="0"/>
 </item>
-<item historyLabel="index.html" index="1"/>
-<item historyLabel="unit1.js" index="0">
-<position info="not_deleted" x="2997" y="0"/>
+<item historyLabel="ParticleSystem.js" index="0">
+<position info="not_deleted" x="3000" y="0"/>
 </item>
-<item historyLabel="unit1.js" index="0">
-<position info="not_deleted" x="3140" y="0"/>
+<item historyLabel="ParticleSystem.js" index="0">
+<position info="not_deleted" x="2316" y="0"/>
 </item>
-<item historyLabel="unit1.js" index="0">
-<position info="not_deleted" x="3142" y="0"/>
+<item historyLabel="ParticleSystem.js" index="0">
+<position info="not_deleted" x="2361" y="0"/>
 </item>
-<item historyLabel="My Studio" index="2"/>
-<item historyLabel="unit1.js" index="0">
-<position info="not_deleted" x="2486" y="0"/>
+<item historyLabel="ParticleSystem.js" index="0">
+<position info="not_deleted" x="2399" y="0"/>
 </item>
-<item historyLabel="unit1.js" index="0">
-<position info="not_deleted" x="3192" y="0"/>
+<item historyLabel="ParticleSystem.js" index="0">
+<position info="not_deleted" x="1784" y="0"/>
 </item>
-<item historyLabel="unit1.js" index="0">
-<position info="not_deleted" x="3244" y="0"/>
+<item historyLabel="ParticleSystem.js" index="0">
+<position info="not_deleted" x="453" y="0"/>
 </item>
-<item historyLabel="unit1.js" index="0">
-<position info="not_deleted" x="3305" y="0"/>
+<item historyLabel="gui.js" index="1">
+<position info="not_deleted" x="4120" y="0"/>
 </item>
-<item historyLabel="unit1.js" index="0">
-<position info="not_deleted" x="3358" y="0"/>
+<item historyLabel="gui.js" index="1">
+<position info="not_deleted" x="4170" y="0"/>
 </item>
-<item historyLabel="unit1.js" index="0">
-<position info="not_deleted" x="3408" y="0"/>
+<item historyLabel="gui.js" index="1">
+<position info="not_deleted" x="4210" y="0"/>
 </item>
-<item historyLabel="unit1.js" index="0">
-<position info="not_deleted" x="3471" y="0"/>
+<item historyLabel="gui.js" index="1">
+<position info="not_deleted" x="4230" y="0"/>
 </item>
-<item historyLabel="unit1.js" index="0">
-<position info="not_deleted" x="3512" y="0"/>
+<item historyLabel="gui.js" index="1">
+<position info="not_deleted" x="4255" y="0"/>
 </item>
-<item historyLabel="unit1.js" index="0">
-<position info="not_deleted" x="3562" y="0"/>
+<item historyLabel="gui.js" index="1">
+<position info="not_deleted" x="4287" y="0"/>
 </item>
-<item historyLabel="unit1.js" index="0">
-<position info="not_deleted" x="3600" y="0"/>
+<item historyLabel="gui.js" index="1">
+<position info="not_deleted" x="4484" y="0"/>
 </item>
-<item historyLabel="loader.js" index="3">
-<position info="not_deleted" x="6635" y="0"/>
+<item historyLabel="gui.js" index="1">
+<position info="not_deleted" x="4549" y="0"/>
 </item>
-<item historyLabel="index.html" index="4"/>
-<item historyLabel="unit1.js" index="0">
-<position info="not_deleted" x="2449" y="0"/>
+<item historyLabel="gui.js" index="1">
+<position info="not_deleted" x="4566" y="0"/>
 </item>
-<item historyLabel="index.html" index="4"/>
-<item historyLabel="unit1.js" index="0">
-<position info="not_deleted" x="3190" y="0"/>
+<item historyLabel="curve.js" index="2">
+<position info="not_deleted" x="20665" y="0"/>
 </item>
-<item historyLabel="loader.js" index="3">
-<position info="not_deleted" x="6635" y="0"/>
+<item historyLabel="curve.js" index="2">
+<position info="not_deleted" x="20695" y="0"/>
 </item>
-<item historyLabel="unit1.js" index="0">
-<position info="not_deleted" x="3356" y="0"/>
+<item historyLabel="curve.js" index="2">
+<position info="not_deleted" x="20728" y="0"/>
 </item>
-<item historyLabel="loader.js" index="3">
-<position info="not_deleted" x="7157" y="0"/>
+<item historyLabel="curve.js" index="2">
+<position info="not_deleted" x="20779" y="0"/>
 </item>
-<item historyLabel="index.html" index="5"/>
-<item historyLabel="loader.js" index="3">
-<position info="not_deleted" x="6918" y="0"/>
+<item historyLabel="curve.js" index="2">
+<position info="not_deleted" x="20812" y="0"/>
 </item>
-<item historyLabel="index.html" index="5"/>
-<item historyLabel="loader.js" index="3">
-<position info="not_deleted" x="6635" y="0"/>
+<item historyLabel="curve.js" index="2">
+<position info="not_deleted" x="20896" y="0"/>
 </item>
-<item historyLabel="loader.js" index="3">
-<position info="not_deleted" x="7014" y="0"/>
+<item historyLabel="ParticleSystem.js" index="0">
+<position info="not_deleted" x="874" y="0"/>
 </item>
-<item historyLabel="loader.js" index="3">
-<position info="not_deleted" x="7018" y="0"/>
+<item historyLabel="unit3.html" index="3"/>
+<item historyLabel="ParticleSystem.js" index="0">
+<position info="not_deleted" x="2354" y="0"/>
 </item>
-<item historyLabel="unit2.js" index="6">
-<position info="not_deleted" x="1437" y="0"/>
+<item historyLabel="io.js" index="4">
+<position info="not_deleted" x="16799" y="0"/>
 </item>
-<item historyLabel="loader.js" index="3">
-<position info="not_deleted" x="6918" y="0"/>
+<item historyLabel="io.js" index="4">
+<position info="not_deleted" x="17156" y="0"/>
 </item>
-<item historyLabel="unit2.js" index="6">
-<position info="not_deleted" x="1339" y="6"/>
+<item historyLabel="io.js" index="4">
+<position info="not_deleted" x="16799" y="0"/>
 </item>
-<item historyLabel="jqUnit.js" index="7">
-<position info="not_deleted" x="4870" y="6"/>
+<item historyLabel="io.js" index="4">
+<position info="not_deleted" x="17128" y="0"/>
 </item>
-<item historyLabel="unit1.js" index="0">
-<position info="not_deleted" x="3454" y="15"/>
+<item historyLabel="io.js" index="4">
+<position info="not_deleted" x="16799" y="0"/>
 </item>
-<item historyLabel="unit2.js" index="6">
-<position info="not_deleted" x="1335" y="0"/>
+<item historyLabel="io.js" index="4">
+<position info="not_deleted" x="16979" y="0"/>
 </item>
-<item historyLabel="loader.js" index="3">
-<position info="not_deleted" x="7582" y="0"/>
+<item historyLabel="io.js" index="4">
+<position info="not_deleted" x="16799" y="0"/>
 </item>
-<item historyLabel="unit1.js" index="0">
-<position info="not_deleted" x="4055" y="0"/>
+<item historyLabel="sceneController.js" index="5">
+<position info="not_deleted" x="3108" y="0"/>
 </item>
-<item historyLabel="unit2.js" index="6">
-<position info="not_deleted" x="1399" y="0"/>
+<item historyLabel="ParticleSystem.js" index="0">
+<position info="not_deleted" x="584" y="0"/>
 </item>
-<item historyLabel="loader.js" index="3">
-<position info="not_deleted" x="6464" y="0"/>
+<item historyLabel="ParticleSystem.js" index="0">
+<position info="not_deleted" x="1784" y="0"/>
 </item>
-<item historyLabel="unit2.js" index="6">
-<position info="not_deleted" x="1318" y="17"/>
+<item historyLabel="curve.js" index="2">
+<position info="not_deleted" x="25611" y="0"/>
 </item>
-<item historyLabel="unit1.js" index="0">
-<position info="not_deleted" x="2308" y="0"/>
+<item historyLabel="unit3.html" index="3"/>
+<item historyLabel="ParticleSystem.js" index="0">
+<position info="not_deleted" x="2253" y="0"/>
 </item>
-<item historyLabel="jqUnit.js" index="7">
-<position info="not_deleted" x="1888" y="0"/>
+<item historyLabel="ModeController.js" index="6">
+<position info="not_deleted" x="340" y="0"/>
 </item>
-<item historyLabel="unit1.js" index="0">
-<position info="not_deleted" x="2409" y="0"/>
+<item historyLabel="sceneController.js" index="5">
+<position info="not_deleted" x="2989" y="0"/>
 </item>
-<item historyLabel="unit2.js" index="6">
-<position info="not_deleted" x="1404" y="0"/>
+<item historyLabel="io.js" index="4">
+<position info="not_deleted" x="16799" y="0"/>
 </item>
-<item historyLabel="loader.js" index="3">
-<position info="not_deleted" x="7232" y="0"/>
+<item historyLabel="ModeController.js" index="6">
+<position info="not_deleted" x="377" y="0"/>
 </item>
-<item historyLabel="unit1.js" index="0">
-<position info="not_deleted" x="2409" y="0"/>
+<item historyLabel="io.js" index="4">
+<position info="not_deleted" x="16799" y="0"/>
 </item>
-<item active="true" historyLabel="loader.js" index="3">
-<position info="not_deleted" x="6635" y="0"/>
+<item historyLabel="ModeController.js" index="6">
+<position info="not_deleted" x="821" y="0"/>
+</item>
+<item historyLabel="ModeController.js" index="6">
+<position info="not_deleted" x="909" y="0"/>
+</item>
+<item historyLabel="ModeController.js" index="6">
+<position info="not_deleted" x="863" y="0"/>
+</item>
+<item historyLabel="ModeController.js" index="6">
+<position info="not_deleted" x="910" y="0"/>
+</item>
+<item historyLabel="ModeController.js" index="6">
+<position info="not_deleted" x="959" y="0"/>
+</item>
+<item active="true" historyLabel="ModeController.js" index="6">
+<position info="not_deleted" x="1008" y="67"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -802,11 +815,17 @@
 </trimLayout>
 </window>
 <mruList>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="jqUnit.js" tooltip="Kuda/unit_tests/js/jqUnit/jqUnit.js">
-<persistable path="/Kuda/unit_tests/js/jqUnit/jqUnit.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="sceneController.js" tooltip="LearnGreenBuildings/projects/demo7/sceneController.js">
+<persistable path="/LearnGreenBuildings/projects/demo7/sceneController.js"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="unit2.js" tooltip="Kuda/unit_tests/unit2.js">
-<persistable path="/Kuda/unit_tests/unit2.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="ModeController.js" tooltip="LearnGreenBuildings/projects/demo7/js/lgb/controller/ModeController.js">
+<persistable path="/LearnGreenBuildings/projects/demo7/js/lgb/controller/ModeController.js"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="ParticleSystem.js" tooltip="LearnGreenBuildings/projects/demo7/js/lgb/model/ParticleSystem.js">
+<persistable path="/LearnGreenBuildings/projects/demo7/js/lgb/model/ParticleSystem.js"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.HTMLEditor" name="unit3.html" tooltip="Kuda/unit_tests/unit3.html">
+<persistable path="/Kuda/unit_tests/unit3.html"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.HTMLEditor" name="index.html" tooltip="Kuda/unit_tests/index.html">
 <persistable path="/Kuda/unit_tests/index.html"/>
@@ -817,32 +836,20 @@
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="unit1.js" tooltip="Kuda/unit_tests/unit1.js">
 <persistable path="/Kuda/unit_tests/unit1.js"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="sceneController.js" tooltip="LearnGreenBuildings/projects/demo8/sceneController.js">
-<persistable path="/LearnGreenBuildings/projects/demo8/sceneController.js"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="model.js" tooltip="Kuda/js/hemi/model.js">
-<persistable path="/Kuda/js/hemi/model.js"/>
-</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="loader.js" tooltip="Kuda/unit_tests/loader.js">
 <persistable path="/Kuda/unit_tests/loader.js"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="scene.js" tooltip="Kuda/js/o3djs/scene.js">
-<persistable path="/Kuda/js/o3djs/scene.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="unit2.js" tooltip="Kuda/unit_tests/unit2.js">
+<persistable path="/Kuda/unit_tests/unit2.js"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="io.js" tooltip="Kuda/js/o3djs/io.js">
-<persistable path="/Kuda/js/o3djs/io.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="unit3.js" tooltip="Kuda/unit_tests/unit3.js">
+<persistable path="/Kuda/unit_tests/unit3.js"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="loader.js" tooltip="Kuda/js/hemi/loader.js">
-<persistable path="/Kuda/js/hemi/loader.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="jqUnit.js" tooltip="Kuda/unit_tests/js/jqUnit/jqUnit.js">
+<persistable path="/Kuda/unit_tests/js/jqUnit/jqUnit.js"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="archive_request.js" tooltip="Kuda/js/o3d-webgl/archive_request.js">
-<persistable path="/Kuda/js/o3d-webgl/archive_request.js"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="animator.js" tooltip="Kuda/js/editor/tools/animator.js">
-<persistable path="/Kuda/js/editor/tools/animator.js"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="world.js" tooltip="Kuda/js/hemi/world.js">
-<persistable path="/Kuda/js/hemi/world.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="model.js" tooltip="Kuda/js/hemi/model.js">
+<persistable path="/Kuda/js/hemi/model.js"/>
 </file>
 </mruList>
 </workbench>

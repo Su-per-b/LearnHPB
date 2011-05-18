@@ -151,7 +151,6 @@ var hemi = (function(hemi) {
 		hemi.effect.init();
 		hemi.hud.init();
 		hemi.shape.init();
-		hemi.sprite.init();
 		hemi.world.init();
 	};
 	

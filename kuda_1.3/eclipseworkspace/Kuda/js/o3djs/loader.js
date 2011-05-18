@@ -171,6 +171,8 @@ o3djs.loader.Loader.prototype.loadScene = function(client,
                                                    url,
                                                    opt_onSceneLoaded,
                                                    opt_options) {
+												   	
+													
   var that = this;  // so the function below can see "this".
   ++this.count_;
   var loadInfo = o3djs.scene.loadScene(

@@ -44,6 +44,11 @@ var lgb = (function(lgb) {
 				var floorModel = this.modelList[floorName];
 				var zoffset = -1 * (floorHeight * i);
 				
+				if (floorModel == null) throw ('floorModel is null');
+				if (floorModel.root == null) {
+					throw ('floorModel.root is null');
+				}
+				
 				var matrix = hemi.utils.copyArray(floorModel.root.localMatrix);
 				
 				matrix[3][2] = zoffset;

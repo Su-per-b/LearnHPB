@@ -19,44 +19,35 @@
 		
 		<script type="text/javascript" src="js/jqUnit/jqUnit.js"></script>
 		<script type="text/javascript" src="js/jqUnit/jqMock.js"></script>
-		
-		<!--
-		<script type="text/javascript" src="loader.js"></script>
-		<script type="text/javascript" src="unit1.js"></script>
-		
-				
-		 -->
-		 
 
-		<script type="text/javascript" src="unit1.js"></script>
 
-		<script type="text/javascript" src="unit2.js"></script>
+		<script type="text/javascript" src="js/test/controller.js"></script>
+		<script type="text/javascript" src="js/test/unit0.js"></script>
+		<script type="text/javascript" src="js/test/unit1.js"></script>
+		<script type="text/javascript" src="js/test/unit2.js"></script>
+		<script type="text/javascript" src="js/test/unit3.js"></script>
+		<script type="text/javascript" src="js/test/unit4.js"></script>
+
+
 
 
 <script type="text/javascript" >
 	
-	jQuery(window).load(function() {
-		
 
-		unit1.start(onUnit1Complete);
-
+	function onDocumentReady() {
 		
-	});
-
-	function onUnit1Complete() {
-		//hemi.core.client.cleanup();
+		var controller = new test.Controller();
 		
-		unit1.cleanup();
-		unit2.start(onUnit2Complete);
+		controller.run([unit0, unit1, unit2, unit3, unit4]);
+		
+		//controller.run([unit0, unit4]);
+		
+		
 	}
 	
-	function onUnit2Complete() {
+
+	jQuery(document).ready(onDocumentReady);
 		
-		hemi.core.client.cleanup();
-	}
-
-
-
 	jQuery(window).unload(function() {
 		if (hemi.core.client) {
 			hemi.core.client.cleanup();

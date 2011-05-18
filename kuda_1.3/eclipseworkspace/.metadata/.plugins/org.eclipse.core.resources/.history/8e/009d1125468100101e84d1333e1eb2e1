@@ -1,0 +1,82 @@
+
+/**
+ * @namespace A module for running unit tests
+ */
+var test = (function(test) {
+
+
+	/**
+	 * @namespace An MVC controller for unit tests
+	 */
+	test.Controller = function(){
+		
+		/**
+		 * The lists of unit test to run
+		 * @type Array of Objects
+		 */
+		this.testList = null;
+	
+	};
+	
+	test.Controller.prototype = {
+	
+		run : function(testList) {
+			
+			this.testList = testList;
+			this.testCount = this.testList.length;
+			
+			if (this.testCount < 1) {
+				throw ('There are no objects in the test list');
+				return;	
+			}
+			
+			this.testIdx = 0;
+			this.onFinshedHandler = $.proxy(this.onTestFinished, this);
+
+			this.runOne();
+			
+		},
+		
+		runOne : function() {
+			this.theCurrentTest = this.testList[this.testIdx];
+			this.theCurrentTest.start(this.onFinshedHandler);
+
+		},
+		
+		onTestFinished : function (event) {
+			
+			this.testIdx++;
+			if (this.testIdx <  this.testCount) {
+				this.theCurrentTest.cleanup();
+				this.runOne();
+			} else {
+				return;
+			}
+		},
+		
+		finished : function () {
+			
+			jqUnit.start();
+			jqUnit.module('Finished'); 
+			jqUnit.test("loadModel", unitTest1.loadModel);
+			
+		}
+		
+		
+	};
+
+	
+	return test;
+	
+})(test || {});
+
+
+
+
+
+
+
+
+
+
+

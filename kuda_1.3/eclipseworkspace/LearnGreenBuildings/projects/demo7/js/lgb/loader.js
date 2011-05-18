@@ -108,13 +108,17 @@ var lgb = (function(lgb) {
 	
 	lgb.loader.onLoadModelFinish = function(){
 		console.log('lgb.loader.onLoadModelFinish');
-		var result = hemi.world.unsubscribe(this.subscriberOnFinish, hemi.msg.stop);
+		var result = hemi.world.unsubscribe(this.subscriberWorldReady, hemi.msg.ready);
 	};
 	
 	
 	lgb.loader.init4 = function(){
 		console.log('lgb.loader.init4');
-		var mgr = hext.sharedModel.getModelManager();
+		
+		var result = hemi.world.unsubscribe(this.subscriberWorldReady, hemi.msg.stop);
+		
+
+		this.floorsloaded = 0;
 		
 		//for (var prop in this.modelList) {
 			var model = this.modelList['floor1'];
@@ -124,15 +128,31 @@ var lgb = (function(lgb) {
 				
 				newModel.LGBmode = model.LGBmode;
 				newModel.name = model.name;
+				
+				
+				newModel.subscribe(
+					hemi.msg.load,
+					this,
+					'init5'
+				);
+			
 				newModel.setFileName(model.fileName);
 				var name = 'floor' + x;
 				this.modelList[name] = newModel;
 			}
 			
-		var result = hemi.world.camera.unsubscribe(this.subscriberWorldReady, hemi.msg.stop);
-		this.callbackComplete.call(this.controller);
+
+
 	};
 	
+	lgb.loader.init5 = function(){
+		
+		this.floorsloaded++;
+		if (this.floorsloaded < 4) return;
+		
+	//	var result = hemi.model.unsubscribe(this.subscriberWorldReady, hemi.msg.load);
+		this.callbackComplete.call(this.controller);
+	};
 	
 	lgb.loader.onProgress = function(event){
 		
