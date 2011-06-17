@@ -66,7 +66,7 @@ var lgb = (function(lgb) {
 
 	lgb.loader.init3 = function() {
 		
-		hemi.view.setBGColor([0.8, 0.8, 1, 1]);
+		hemi.view.setBGColor([0.7, 0.8, 1, 1]);
 		this.modelList = {};
 		
 		this.subscriberWorldReady = hemi.world.subscribe(

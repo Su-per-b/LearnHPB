@@ -167,30 +167,14 @@ o3djs.io.LoadInfo.prototype.getTotalKnownBytesToStreamSoFar = function() {
 
 /**
  * Gets the total bytes downloaded so far.
- * TODO:(raj dye) this doesnt work
  * @return {number} The total number of currently known bytes to be streamed.
  */
 o3djs.io.LoadInfo.prototype.getTotalBytesDownloaded = function() {
-	
-	if (this.request_ != null) {
-		//console.log ('this.request_.bytesReceived: ' + this.request_.bytesReceived);
-	}
-	
   var total = (this.request_ && this.hasStatus_) ?
               this.request_.bytesReceived : this.streamLength_;
-
-//console.log ('total: ' + total);
-
-	if (total == null) {
-		total = 0;
-	}			  
-//console.log ('o3djs.io.LoadInfo.prototype.getTotalBytesDownloaded.total: ' + total);
-//console.log ('hasStatus_: ' + this.hasStatus_);
-  
   for (var cc = 0; cc < this.children_.length; ++cc) {
     total += this.children_[cc].getTotalBytesDownloaded();
   }
-  
   return total;
 };
 
@@ -234,34 +218,22 @@ o3djs.io.LoadInfo.prototype.getTotalRequestsDownloaded = function() {
  *     base: number, suffix: string}} progress info.
  * @see o3djs.io.LoadInfo.getTotalKnownBytesToStreamSoFar
  */
-o3djs.io.LoadInfo.prototype.getKnownProgressInfoSoFar = function(){
-	var percent = 0;
-	var bytesToDownload = this.getTotalKnownBytesToStreamSoFar();
-	var bytesDownloaded = this.getTotalBytesDownloaded();
-	if (bytesToDownload > 0) {
-		percent = Math.floor(bytesDownloaded / bytesToDownload * 100);
-	}
-	
-	var base = 1024;
-	if (bytesToDownload != null) {
-		base = (bytesToDownload < 1024 * 1024) ? 1024 : (1024 * 1024);
-	}
-	
-	if (bytesToDownload == null) {
-		bytesToDownload = 0;
-	}
-	
-	if (bytesDownloaded == null) {
-		bytesDownloaded = 0;
-	}
-	
-	
+o3djs.io.LoadInfo.prototype.getKnownProgressInfoSoFar = function() {
+  var percent = 0;
+  var bytesToDownload = this.getTotalKnownBytesToStreamSoFar();
+  var bytesDownloaded = this.getTotalBytesDownloaded();
+  if (bytesToDownload > 0) {
+    percent = Math.floor(bytesDownloaded / bytesToDownload * 100);
+  }
+
+  var base = (bytesToDownload < 1024 * 1024) ? 1024 : (1024 * 1024);
+
   return {
     percent: percent,
     downloaded: (bytesDownloaded / base).toFixed(2),
     totalBytes: (bytesToDownload / base).toFixed(2),
     base: base,
-    suffix: (base == 1024 ? 'kb' : 'mb')};
+    suffix: (base == 1024 ? 'kb' : 'mb')}
 
 };
 
@@ -298,9 +270,11 @@ o3djs.io.loadTextFileSynchronous = function(url) {
  * @param {string} url The url of the external file.
  * @param {function(string, *): void} callback A callback passed the loaded
  *     string and an exception which will be null on success.
+ * @param {function(object): void} onprogress A callback passed the onprogress
+ *     event.
  * @return {!o3djs.io.LoadInfo} A LoadInfo to track progress.
  */
-o3djs.io.loadTextFile = function(url, callback) {
+o3djs.io.loadTextFile = function(url, callback, onprogress) {
   o3djs.BROWSER_ONLY = true;
 
   var error = 'loadTextFile failed to load url "' + url + '"';
@@ -318,16 +292,6 @@ o3djs.io.loadTextFile = function(url, callback) {
   var loadInfo = o3djs.io.createLoadInfo(request, false);
   request.open('GET', url, true);
   var finish = function() {
-  //	var rdy = request.readyState;
-	//console.log ('request.readyState ' + request.readyState);
-	
-	//request.readyState
-	//0 = open has not yet been called
-	//1 = send has not yet been called but open has been called
-	//2 = send has been called but no response from server
-	//3 = data is in the process of being received from the server
-	//4 = response from server has arrived
-
     if (request.readyState == 4) {
       var text = '';
       // HTTP reports success with a 200 status. The file protocol reports
@@ -340,24 +304,10 @@ o3djs.io.loadTextFile = function(url, callback) {
       }
       loadInfo.finish();
       callback(text, success ? null : 'could not load: ' + url);
-    } else if (request.readyState == 3) {
-		//request.
-		var r = request;
-		
-	}
+    }
   };
-  
-  
- //  TODO:(raj dye)  this is an event handler that I added which actual gets updates
- // but is not yet fully integrated into the framework
-  var progress  = function (event) {
-  	//var r = event;
-	
-	//console.log ('loaded: ' + event.loaded + ' / total:'+ event.total);
-  };
-  
   request.onreadystatechange = finish;
-  request.onprogress  = progress;
+  request.onprogress = onprogress;
   request.send(null);
   return loadInfo;
 };

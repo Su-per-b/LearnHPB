@@ -2,37 +2,37 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="237" key="DIALOG_WIDTH"/>
-		<item value="159" key="DIALOG_Y_ORIGIN"/>
+		<item value="735" key="DIALOG_Y_ORIGIN"/>
+		<item value="-726" key="DIALOG_X_ORIGIN"/>
 		<item value="357" key="DIALOG_HEIGHT"/>
-		<item value="591" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Tahoma|8.25|0|WINDOWS|1|-11|0|0|0|400|0|0|0|1|0|0|0|0|Tahoma" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="true" key="isRegEx"/>
 		<item value="false" key="casesensitive"/>
+		<item value="true" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="particle" key="selection"/>
+		<item value="onAdminPanelClick" key="selection"/>
 		<list key="findhistory">
-			<item value="particle"/>
-			<item value="testObj"/>
-			<item value="unit2"/>
-			<item value="this.boxes"/>
-			<item value="getBound"/>
-			<item value="bounding"/>
-			<item value="test"/>
-			<item value="setupScene"/>
+			<item value="onAdminPanelClick"/>
+			<item value="onLinkClick"/>
+			<item value="onLinkChange"/>
+			<item value="HvacDamper"/>
+			<item value="model"/>
+			<item value="AdminPanel"/>
+			<item value="getCenter"/>
+			<item value="proxy"/>
 		</list>
 		<list key="replacehistory">
-			<item value="unti1test"/>
-			<item value="unit3"/>
-			<item value="unit2Test"/>
-			<item value="unit2"/>
-			<item value="unit1"/>
+			<item value="Envelope"/>
 			<item value=""/>
-			<item value="../js"/>
-			<item value="lgb.view.gui"/>
+			<item value="unitTest8"/>
+			<item value="unit8"/>
+			<item value="unitTest7"/>
+			<item value="unit7"/>
+			<item value="unitTest6"/>
+			<item value="unit6"/>
 		</list>
 	</section>
 </section>

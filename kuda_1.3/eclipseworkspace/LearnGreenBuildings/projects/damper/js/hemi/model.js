@@ -722,6 +722,7 @@ var hemi = (function(hemi) {
 
 hemi.model.Model.prototype.getBoundingBox = function(){
 
+
 	var boundingBox = new o3d.BoundingBox();
 	
 	var shapesLen = this.shapes.length;

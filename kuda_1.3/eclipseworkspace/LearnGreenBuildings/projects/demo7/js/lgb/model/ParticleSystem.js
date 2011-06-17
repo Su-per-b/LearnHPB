@@ -86,13 +86,17 @@ var lgb = (function(lgb) {
 				
 				var theID = parser.getId();
 				
+				
+				var colors = parser.getFloatArray("colorKeyIds");
+				
+				
 				var sys = {	id: theID, 
 							rate: parser.getContentAsFloat("rate"),
 							life: parser.getContentAsFloat("life"),
 							boundingBoxIds: parser.getTextArray("boundingBoxIds"),
 							shape: parser.getContent("shape"),
 							curve: parser.getContentAsFloat("curve"),
-							colorKeyIds: parser.getFloatArray("colorKeyIds"),
+							colorKeyIds: colors,
 							scaleKeyIds: parser.getFloatArray("scaleKeyIds")
 				};
 				
@@ -117,13 +121,56 @@ var lgb = (function(lgb) {
 			var ckAry = this.makeArrayFromIds(sys.colorKeyIds,this.colorKeys);
 			var skAry = this.makeArrayFromIds(sys.scaleKeyIds,this.scaleKeys);
 			
+			
+			
+//			this.aim = cfg.aim == null ? false : cfg.aim;
+//			this.boxes = cfg.boxes ? hemi.utils.clone(cfg.boxes) : [];
+//			this.life = cfg.life || 5;
+//			this.particles = cfg.particleCount || 1;
+//			this.size = cfg.particleSize || 1;
+//			this.tension = cfg.tension || 0;
+//			
+//			if (!cfg.colors) {
+//				this.colors = [];
+//			} else if (cfg.colors.length === 1) {
+//				// We need at least two to interpolate
+//				var clr = cfg.colors[0];
+//				this.colors = [clr, clr];
+//			} else {
+//				this.colors = cfg.colors;
+//			}
+//			
+//			this.setMaterial(cfg.material || hemi.curve.newMaterial());
+//			this.setParticleShape(cfg.particleShape || hemi.curve.ShapeType.CUBE);
+		var blue = [0, 0, 1, 0.7];
+		var green = [0, 1, 0, 0.7];
+		var red = [1, 0, 0, 0.7];
+	   var colors = [blue,green,red,blue];
+	   
+//			var particleSystemConfig = {
+//				fast: true,
+//				aim: false,
+//				trail: false,
+//				particleCount: 100,
+//				life: 5,
+//				boxes: bbAry,
+//				particleShape: hemi.curve.ShapeType.SPHERE,
+//				scaleKeys: skAry,
+//				colors : colors,
+//				particleSize: 0.1
+//			};
+		
+		
 			var particleSystemConfig = {
-				rate : sys.rate,
-				life : sys.life,
+				aim: false,
 				boxes :  bbAry,
-				shape : hemi.curve.ShapeType.SPHERE,
-				colorKeys : ckAry,
-				scaleKeys : skAry
+				fast:false,
+				life : sys.life,	
+				rate : sys.rate,	
+				trail: false,
+				particleShape : hemi.curve.ShapeType.SPHERE,
+				scaleKeys : skAry,
+				colorKeys: ckAry
 			};
 			
 			return particleSystemConfig;

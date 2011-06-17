@@ -55,6 +55,11 @@ var hemi = (function(hemi) {
 		 * @type boolean
 		 */
 		this.pickable = null;
+		/**
+		 * The opacity of the Transform. 
+		 * @type number
+		 */
+		this.opacity = null;
 		
 		this.transform = null;
 		this.toLoad = null;
@@ -74,7 +79,7 @@ var hemi = (function(hemi) {
 						val: this.transform.name
 					}]
 				},
-				valNames = ['localMatrix', 'visible', 'pickable'];
+				valNames = ['localMatrix', 'visible', 'pickable', 'opacity'];
 			
 			for (var i = 0, il = valNames.length; i < il; i++) {
 				var name = valNames[i];
@@ -93,7 +98,8 @@ var hemi = (function(hemi) {
 		 * @return {boolean} true if the Transform has been changed
 		 */
 		isModified: function() {
-			return this.localMatrix != null || this.pickable != null || this.visible != null;
+			return this.localMatrix != null || this.pickable != null 
+				|| this.visible != null || this.opacity != null;
 		},
 
 		/**
@@ -125,6 +131,10 @@ var hemi = (function(hemi) {
 			
 			if (this.visible != null) {
 				this.transform.visible = this.visible;
+			}
+			
+			if (this.opacity != null) {
+				model.setTransformOpacity(this.transform, this.opacity);
 			}
 		}
 	};
@@ -296,6 +306,9 @@ var hemi = (function(hemi) {
 			this.name = getModelName(this.fileName);
 			this.root = config.rootTransform;
 			this.root.name = this.name;
+			// The deserialization process sets bad values for bounding boxes of
+			// transforms, so force them to be recalculated.
+			this.root.recalculateBoundingBox(true);
 			this.animParam = config.animationTime;
 			this.materials = config.getMaterials();
 			this.shapes = config.getShapes();
@@ -477,11 +490,12 @@ var hemi = (function(hemi) {
 		},
 		
 		/**
-		 * Calculates the center point of the model's bounding box
+		 * Calculate the center point of the Model's bounding box.
+		 * 
 		 * @return {Array} [x,y,z] point in 3D space
 		 */
 		getCenterPoint: function() {
-			var boundingBox = this.getBoundingBox();
+			var boundingBox = this.root.boundingBox;
 			
 			var xSpan = boundingBox.maxExtent[0] - boundingBox.minExtent[0];
 			var ySpan = boundingBox.maxExtent[1] - boundingBox.minExtent[1];
@@ -493,28 +507,14 @@ var hemi = (function(hemi) {
 		},
 		
 		/**
-		 * Calculates the bounding box of the model considering all the 
-		 * shapes that it contains. The value is not cached in any
-		 * way.
-		 * @return {o3d.BoundingBox}
+		 * Get the bounding box of the Model's root Transform.
+		 * 
+		 * @return {o3d.BoundingBox} bounding box for the entire Model
 		 */
 		getBoundingBox : function(){
-		
-			var boundingBox = new o3d.BoundingBox();
-			
-			var shapesLen = this.shapes.length;
-			for (var i = 0; i < shapesLen; i++) {
-				var shape = this.shapes[i];
-				
-				var elementsLen = shape.elements.length;
-				for (var j = 0; j < elementsLen; j++) {
-					var element = shape.elements[j];
-					boundingBox = boundingBox.add(element.boundingBox);
-				}
-			};
-			
-			return boundingBox;
+			return this.root.boundingBox;
 		},
+		
 		/**
 		 * Set the pickable flag for the Transforms in the Model.
 		 *
@@ -533,6 +533,35 @@ var hemi = (function(hemi) {
 			for (var i = 0, il = transforms.length; i < il; i++) {
 				this.setTransformPickable(transforms[i], pick);
 			}
+		},
+		
+		/**
+		 * Sets the opacity of the transform to the given value. 
+		 * 
+		 * @param {o3d.Transform} transform the transform to update
+		 * @param {number} opacity the new opacity value
+		 */
+		setTransformOpacity: function(transform, opacity) {
+			var update = this.getTransformUpdate(transform),
+				shapes = transform.shapes,
+				o = transform.getParam('opacity');
+			
+			if (o == null) {
+				for (var i = 0, il = shapes.length; i < il; i++) {
+					var s = shapes[i],
+						elements = s.elements;
+					
+					for (var j = 0, jl = elements.length; j < jl; j++) {
+						hemi.fx.addOpacity(elements[j].material);
+					}
+				}
+				
+				o = transform.createParam('opacity','ParamFloat');
+			}
+			
+			o.value = opacity;
+			
+			update.opacity = opacity ? opacity : null;
 		},
 
 		/**
@@ -743,15 +772,19 @@ var hemi = (function(hemi) {
 	var getModelName = function(fileName) {
 		// Currently, file names are of the form:
 		// [path to directory]/[model name]/scene.json
-		var name = '',
-			end = fileName.lastIndexOf('/');
-			start = fileName.lastIndexOf('/', end - 1);
+		var end = fileName.lastIndexOf('/');
 		
-		if (start >= 0 && end > start) {
-			name = fileName.substring(start + 1, end);
+		if (end < 1) {
+			end = fileName.length;
 		}
 		
-		return name;
+		var start = fileName.lastIndexOf('/', end - 1) + 1;
+		
+		if (start >= end) {
+			start = 0;
+		}
+		
+		return fileName.substring(start, end);
 	};
 
 	return hemi;

@@ -178,7 +178,12 @@ o3d.Effect.prototype.bindAttributesAndLinkIfReady = function() {
     }
     this.gl.linkProgram(this.program_);
     if (!this.gl.getProgramParameter(this.program_, this.gl.LINK_STATUS)) {
-      var log = this.gl.getShaderInfoLog(this.program_);
+		try {
+      		var log = this.gl.getShaderInfoLog(this.program_);
+		} catch(e) {
+			debugger;
+		}
+
       this.gl.client.error_callback(
           'Program link failed with error log:\n' + log);
     }

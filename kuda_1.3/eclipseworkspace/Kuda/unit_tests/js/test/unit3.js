@@ -116,12 +116,13 @@
 		 * plus a rate of 20 particles per second, and a lifetime of
 		 * 5 seconds. Specify the shapes are arrows.
 		 */
+
 		var particleSystemConfig = {
 			aim : true,
-			particles : 100,
+			particleCount : 100,
 			life : 5,
 			boxes : [box1, box2, box3, box4, box5],
-			shape : hemi.curve.ShapeType.ARROW,
+			particleShape : hemi.curve.ShapeType.ARROW,
 			colorKeys : [colorKey1, colorKey2, colorKey3, colorKey4],
 			scaleKeys : [scaleKey1, scaleKey2, scaleKey3]
 		};
@@ -129,9 +130,7 @@
 		/* Create the particle system with the above config, 
 		 * and make the root transform its parent.
 		 */
-		unitTest3.particleSystem = new hemi.curve.ParticleSystem(
-			hemi.core.client.root, 
-			particleSystemConfig);
+		unitTest3.particleSystem = hemi.curve.createSystem(particleSystemConfig);
 		
 
 		unitTest3.particleSystem.start();

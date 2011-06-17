@@ -59,7 +59,7 @@ var hemi = (function(hemi) {
 		// get the source
 		var gl = material.gl,
 			program = material.effect.program_,
-			shad = getShaders(material),
+			shad = hemi.utils.getShaders(material),
 			fragShd = shad.fragShd,
 			fragSrc = shad.fragSrc,
 			vertShd = shad.vertShd,
@@ -67,31 +67,37 @@ var hemi = (function(hemi) {
 		
 		// modify the shaders
 		if (vertSrc.search('fog') < 0) {
-			var vertHdr = "varying float fogAlpha;\
-					uniform float fogStart;\
-					uniform float fogEnd;",
-				vertEnd = "float z = pos[2];\
-					if (z <= fogStart) {\
-						fogAlpha = 0.0;\
-					}\
-					else if (z >= fogEnd) {\
-						fogAlpha = 1.0;\
-					}\
-					else {\
-						fogAlpha = (z - fogStart)/(fogEnd - fogStart);\
-					}\
-					gl_Position = pos;";
+			var vertHdr =
+					'uniform float fogStart;\n' +
+					'uniform float fogEnd;\n' +
+					'varying float fogAlpha;\n',
+				vertSprt =
+					'void setFogAlpha(float z) {\n' +
+					'  fogAlpha = (z - fogStart)/(fogEnd - fogStart);\n' +
+					'  fogAlpha = clamp(fogAlpha,0.0,1.0);\n' +
+					'}\n';
+				vertGlob =
+					'setFogAlpha(gl_Position.z);\n';
 			
-			vertSrc = combineSrc(vertHdr, vertEnd, 'gl_Position', 'vec4 pos', vertSrc);
+			vertSrc = hemi.utils.combineVertSrc(vertSrc, {
+				postHdr: vertHdr,
+				postSprt: vertSprt,
+				postGlob: vertGlob
+			});
 			gl.detachShader(program, vertShd);
 			material.effect.loadVertexShaderFromString(vertSrc);
 		}
 		if (fragSrc.search('fog') < 0) {
-			var fragHdr = "varying float fogAlpha;\
-					uniform vec4 fogColor;",
-				fragEnd = "gl_FragColor = (1.0 - fogAlpha)*clr + fogAlpha*fogColor;";
+			var fragHdr =
+					'uniform vec4 fogColor;\n' +
+					'varying float fogAlpha;\n',
+				fragGlob =
+					'gl_FragColor = mix(gl_FragColor, fogColor, fogAlpha);\n';
 			
-			fragSrc = combineSrc(fragHdr, fragEnd, 'gl_FragColor', 'vec4 clr', fragSrc);
+			fragSrc = hemi.utils.combineFragSrc(fragSrc, {
+				postHdr: fragHdr,
+				postGlob: fragGlob
+			});
 			gl.detachShader(program, fragShd);
 			material.effect.loadPixelShaderFromString(fragSrc);
 		}
@@ -115,84 +121,25 @@ var hemi = (function(hemi) {
 		// get the source
 		var gl = material.gl,
 			program = material.effect.program_,
-			shad = getShaders(material),
+			shad = hemi.utils.getShaders(material),
 			fragShd = shad.fragShd,
 			fragSrc = shad.fragSrc;
 		
 		// modify the pixel shader
 		if (fragSrc.search('opacity') < 0) {
-			var fragHdr = 'uniform float opacity;',
-				fragEnd = 'gl_FragColor = vec4(clr.rgb, clr.a * opacity);';
+			var fragHdr = 'uniform float opacity;\n',
+				fragGlob = 'gl_FragColor.a *= opacity;\n';
 			
-			fragSrc = combineSrc(fragHdr, fragEnd, 'gl_FragColor', 'vec4 clr', fragSrc);
+			fragSrc = hemi.utils.combineFragSrc(fragSrc, {
+				postHdr: fragHdr,
+				postGlob: fragGlob
+			});
 			gl.detachShader(program, fragShd);
 			material.effect.loadPixelShaderFromString(fragSrc);
 		}
 		
 		material.effect.createUniformParameters(material);
 		return material.getParam('opacity');
-	};
-	
-	/*
-	 * Combine the given strings into one cohesive shader source string.
-	 * 
-	 * @param {string} head any source to insert before the main function
-	 * @param {string} tail any source to append to the end of main, typically
-	 *     setting the value of the global variable for the shader
-	 * @param {string} global the global variable previously being set by the
-	 *     main function
-	 * @param {string} local a new local variable to receive the value that was
-	 *     previously being set to the global variable
-	 * @param {string} src the original shader source string
-	 * @return {string} the new shader source string
-	 */
-	var combineSrc = function(head, tail, global, local, src) {
-		var hdrNdx = src.search('void main'),
-			endNdx = src.search(global),
-			end = '';
-		
-		src = src.replace(global, local);
-		end = src.slice(endNdx);
-		endNdx = endNdx + end.search(';') + 1;
-		src = src.slice(0, hdrNdx) + head
-			+ src.slice(hdrNdx, endNdx) + tail
-			+ src.slice(endNdx);
-		
-		return src;
-	};
-	
-	/*
-	 * Get the vertex and pixel shaders (as well as their source) for the given
-	 * Material.
-	 * 
-	 * @param {o3d.Material} material the material to get shaders for
-	 * @return {Object} object containing shaders and source strings
-	 */
-	var getShaders = function(material) {
-		var gl = material.gl,
-			program = material.effect.program_,
-			shaders = gl.getAttachedShaders(program),
-			source1 = gl.getShaderSource(shaders[0]),
-			source2 = gl.getShaderSource(shaders[1]),
-			obj;
-		
-		if (source1.search('gl_FragColor') > 0) {
-			obj = {
-				fragShd: shaders[0],
-				fragSrc: source1,
-				vertShd: shaders[1],
-				vertSrc: source2
-			};
-		} else {
-			obj = {
-				fragShd: shaders[1],
-				fragSrc: source2,
-				vertShd: shaders[0],
-				vertSrc: source1
-			};
-		}
-		
-		return obj;
 	};
 	
 	/*

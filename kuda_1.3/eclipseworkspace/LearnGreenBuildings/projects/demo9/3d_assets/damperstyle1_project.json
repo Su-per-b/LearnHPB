@@ -1,0 +1,166 @@
+{
+	"citizens": [
+		{
+			"id": 50,
+			"type": "hemi.view.Camera",
+			"props": [
+				{
+					"name": "name",
+					"val": "World Cam"
+				}, {
+					"name": "enableControl"
+				}, {
+					"name": "pan",
+					"val": {
+						"current": -2.535000000000001,
+						"min": null,
+						"max": null
+					}
+				}, {
+					"name": "tilt",
+					"val": {
+						"current": -0.3550113211343306,
+						"min": -1.5700113211343294,
+						"max": 1.5700113211343294
+					}
+				}, {
+					"name": "fov",
+					"val": {
+						"current": 0.707107,
+						"min": 0.05,
+						"max": 1.0471975511965976
+					}
+				}, {
+					"name": "camPan",
+					"val": {
+						"current": 0,
+						"min": null,
+						"max": null
+					}
+				}, {
+					"name": "camTilt",
+					"val": {
+						"current": 0,
+						"min": null,
+						"max": null
+					}
+				}, {
+					"name": "distance",
+					"val": 2851.88067401206
+				}, {
+					"name": "up",
+					"val": [
+						0, 1, 0
+					]
+				}, {
+					"name": "mode",
+					"val": {
+						"scroll": true,
+						"scan": true,
+						"fixed": false,
+						"frames": true,
+						"control": true,
+						"projection": 0
+					}
+				}, {
+					"name": "clip",
+					"val": {
+						"near": 1,
+						"far": 10000
+					}
+				}
+			]
+		}, {
+			"id": 63,
+			"type": "hemi.model.Model",
+			"props": [
+				{
+					"name": "name",
+					"val": "damperstyle1"
+				}, {
+					"name": "setFileName",
+					"arg": "damperstyle1.json"
+				}, {
+					"name": "transformUpdates",
+					"oct": {
+						"type": "hemi.model.TransformUpdate",
+						"props": [
+							{
+								"name": "transformName",
+								"val": "damperstyle1"
+							}, {
+								"name": "localMatrix",
+								"val": [
+									[
+										400, 0, 0, 0
+									], 
+									[
+										0, 400, 0, 0
+									], 
+									[
+										0, 0, 400, 0
+									], 
+									[
+										0, 0, 0, 1
+									]
+								]
+							}, {
+								"name": "visible",
+								"val": null
+							}, {
+								"name": "pickable",
+								"val": null
+							}
+						]
+					}
+				}
+			]
+		}, {
+			"id": 64,
+			"type": "hemi.animation.Animation",
+			"props": [
+				{
+					"name": "name",
+					"val": "No Name"
+				}, {
+					"name": "target",
+					"id": 63
+				}, {
+					"name": "beginTime",
+					"val": 0.041666666666666664
+				}, {
+					"name": "endTime",
+					"val": 3.3333333333333335
+				}, {
+					"name": "currentTime",
+					"val": 0.041666666666666664
+				}, {
+					"name": "loops"
+				}
+			]
+		}
+	],
+	"nextId": 66,
+	"camera": 50,
+	"fog": null,
+	"dispatch": {
+		"nextId": 13
+	},
+	"tranReg": {
+		"type": "hemi.world.TransformRegistry",
+		"props": {
+			"name": "toLoad",
+			"oct": {
+				"type": "hemi.world.TransformOwner",
+				"props": [
+					{
+						"name": "citizen",
+						"id": 63
+					}, {
+						"name": "toLoad"
+					}
+				]
+			}
+		}
+	}
+}

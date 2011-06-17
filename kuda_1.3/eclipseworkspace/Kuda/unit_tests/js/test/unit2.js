@@ -43,17 +43,17 @@
 	
 	unit2.step_2 = function() {
 
-		jqUnit.start();
-		unitTest2.alertMock.verify();
-		unitTest2.alertMock.restore();
-		unit2.onCompleteCallback.call();
+		var result = hemi.world.unsubscribe(unitTest2.subscription, hemi.msg.load);
+		
+		jqMock.assertThat(unitTest2.model , is.instanceOf(hemi.model.Model));
+		unit2.cleanup();
 		
 	};
 
 	unit2.cleanup = function() {
 		
 		//unitTest2.model.cleanup();
-		
+		unit2.onCompleteCallback.call();
 		
 	};
 	
@@ -70,16 +70,20 @@
 		
 	    unitTest2.alertMock = new jqMock.Mock(window, "alert");  
 		unitTest2.alertMock.modify().args(expectedMessage).returnValue();  
-		
 		jqUnit.stop();
 	
 		unitTest2.model.setFileName(filePath); // Set the model file
 		
-		setTimeout ( "unit2.step_2()", 2000 );
+		setTimeout ( "unitTest2.checkForAlert()", 2000 );
 			
 
 	};
 	
+	unitTest2.checkForAlert = function(){
+			jqUnit.start();
+			unitTest2.alertMock.verify();
+			unitTest2.alertMock.restore();
+	};
 
 
 	

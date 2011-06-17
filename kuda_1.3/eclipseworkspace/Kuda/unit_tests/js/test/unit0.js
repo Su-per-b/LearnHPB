@@ -15,9 +15,6 @@
  * Boston, MA 02110-1301 USA.
  */
 
-
-
-	
 	o3djs.require('hemi.core');
 	o3djs.require('o3djs.util');
 	
@@ -30,12 +27,14 @@
 	
 	unit0.start = function(onCompleteCallback) {
 		
-		this.onCompleteCallback = onCompleteCallback;
-		jqUnit.module('UNIT 0'); 
 		
+		this.onCompleteCallback = onCompleteCallback;
+		
+		
+		var desc = 'initializes the Kuda world and needs to be run first';
+		jqUnit.module('UNIT 0', desc); 
 
 		jqUnit.test("makeClients", unitTest0.makeClients);
-		
 		jqUnit.stop();
 		
 	};
@@ -69,11 +68,12 @@
 
 	unitTest0.makeClients = function()   {
 		jqUnit.expect(4);
-		jqMock.assertThat(hemi, is.instanceOf(Object));
-		jqMock.assertThat(hemi.version, '1.3.2');
 		
-		jqMock.assertThat(o3djs,is.anything);
-		jqMock.assertThat(o3djs.webgl,is.anything);
+		jqUnit.equals(hemi.version,'1.3.2', "Kuda Version");
+		
+		jqMock.assertThat(hemi, is.instanceOf(Object), "hemi is instantiated");
+		jqMock.assertThat(o3djs,is.anything, "o3djs is instantiated");
+		jqMock.assertThat(o3djs.webgl,is.anything, "o3djs.webgl is instantiated");
 		
 		o3djs.webgl.makeClients(unit0.step_2);
 	};

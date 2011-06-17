@@ -154,73 +154,152 @@ var lgb = (function(lgb) {
 
 			var rootShape = hemi.shape.create (
 				{shape: 'box',
-				color: [1,1,0,0.3],
+				color: [1,1,0,0],
 				h:1,w:1,d:1}
 				);
 				
 			rootShape.translate(ps.translate[0],ps.translate[1],ps.translate[2]);
 			
-			/* Create the particle system with the above config, 
-			 * and make the rootShape transform its parent.
-			 */
-			lgb.view.gui.particleSystem = new hemi.curve.ParticleSystem(
-				rootShape, 
-				ps.configs['1']);
+
+			var config = ps.configs['1'];
+			config.parent = rootShape;
 			
-			lgb.view.gui.exitSystem = new hemi.curve.ParticleSystem(
-				rootShape, 
-				ps.configs['2']);	
-	
+			
+			lgb.view.gui.particleSystem = hemi.curve.createSystem(config);
+			
+			
+			var config2 = ps.configs['2'];
+			config2.parent = rootShape;
+			
+			lgb.view.gui.exitSystem = hemi.curve.createSystem(config2);
 			lgb.view.gui.showBoxes = false;
 
 	};
+//	
+//	lgb.view.gui.getTestParticleconfig = function(){
+//	
+//	
+//		var vp = new hemi.view.Viewpoint(); // Create a new Viewpoint
+//		vp.eye = [-10, 800, 1800]; // Set viewpoint eye
+//		vp.target = [10, 250, 30]; // Set viewpoint target
+//		hemi.world.camera.enableControl(); // Enable camera mouse control
+//		var box1 = [[-510, -110, -10], [-490, -90, 10]];
+//		var box2 = [[-600, 400, -200], [-400, 600, 0]];
+//		var box3 = [[-10, 790, 180], [10, 810, 200]];
+//		var box4 = [[400, 450, -300], [600, 650, -100]];
+//		var box5 = [[490, -110, -10], [510, -90, 10]];
+//		
+//		/* The colors these arrows will be as they move through:
+//	 * Start out yellow and transparent, then turn red and opaque,
+//	 * quickly turn to blue, then fade to black and transparent.
+//	 */
+//		var colorKey1 = {
+//			key: 0,
+//			value: [1, 1, 0, 0.2]
+//		};
+//		var colorKey2 = {
+//			key: 0.45,
+//			value: [1, 0, 0, 1]
+//		};
+//		var colorKey3 = {
+//			key: 0.55,
+//			value: [0, 0, 1, 1]
+//		};
+//		var colorKey4 = {
+//			key: 1,
+//			value: [0, 0, 0, 0.2]
+//		};
+//		
+//		/* The scale of the arrows as they move through:
+//	 * Start out infinitesimal, then grow to a decent size,
+//	 * kind of stretched out, then shrink away again.
+//	 */
+//		var scaleKey1 = {
+//			key: 0,
+//			value: [10, 10, 10]
+//		};
+//		var scaleKey2 = {
+//			key: 0.5,
+//			value: [50, 80, 50]
+//		};
+//		var scaleKey3 = {
+//			key: 1,
+//			value: [10, 10, 10]
+//		};
+//		
+//		/* Create a particle system configuration with the above parameters,
+//	 * plus a rate of 20 particles per second, and a lifetime of
+//	 * 5 seconds. Specify the shapes are arrows.
+//	 */
+//		var particleSystemConfig = {
+//			fast: true,
+//			aim: true,
+//			trail: false,
+//			particleCount: 100,
+//			life: 5,
+//			boxes: [box1, box2, box3, box4, box5],
+//			particleShape: hemi.curve.ShapeType.ARROW,
+//			colorKeys: [colorKey1, colorKey2, colorKey3, colorKey4],
+//			scaleKeys: [scaleKey1, scaleKey2, scaleKey3],
+//			particleSize: 10
+//		};
+//		
+//		return particleSystemConfig;
+//		
+//	}
+//	
+//	lgb.view.gui.makeParticleConfig = function(sys, boxes, colorKeys, scaleKeys){
+//		
+//		var shapeStr = 'hemi.curve.shapeType.' + sys.shape;
+//		var bbAry = this.makeArrayFromIds(sys.boundingBoxIds,boxes);
+//		var ckAry = this.makeArrayFromIds(sys.colorKeyIds,colorKeys);
+//		var skAry = this.makeArrayFromIds(sys.scaleKeyIds,scaleKeys);
+//		
+//		var particleSystemConfig = {
+//			rate : sys.rate,
+//			life : sys.life,
+//			boxes :  bbAry,
+//			shape : hemi.curve.ShapeType.SPHERE,
+//			colorKeys : ckAry,
+//			scaleKeys : skAry
+//		};
+//		
+//		return particleSystemConfig;
+//	}
 	
-	
-	
-	lgb.view.gui.makeParticleConfig = function(sys, boxes, colorKeys, scaleKeys){
-		
-		var shapeStr = 'hemi.curve.shapeType.' + sys.shape;
-		var bbAry = this.makeArrayFromIds(sys.boundingBoxIds,boxes);
-		var ckAry = this.makeArrayFromIds(sys.colorKeyIds,colorKeys);
-		var skAry = this.makeArrayFromIds(sys.scaleKeyIds,scaleKeys);
-		
-		var particleSystemConfig = {
-			rate : sys.rate,
-			life : sys.life,
-			boundingBoxes :  bbAry,
-			shape : hemi.curve.shapeType.SPHERE,
-			colorKeys : ckAry,
-			scaleKeys : skAry
-		};
-		
-		return particleSystemConfig;
-	}
-	
-	
-	lgb.view.gui.makeArrayFromIds = function(idsArray, objs){
-		
-		var ary = new Array();
-		var len = idsArray.length;
-		
-		for (var i=0;i<len;i++) {
-			var id = idsArray[i];
-			var obj = objs[id];
-			
-			ary.push(obj);
-		}
-		
-		return ary;
-	}
+//	
+//	lgb.view.gui.makeArrayFromIds = function(idsArray, objs){
+//		
+//		var ary = new Array();
+//		var len = idsArray.length;
+//		
+//		for (var i=0;i<len;i++) {
+//			var id = idsArray[i];
+//			var obj = objs[id];
+//			
+//			ary.push(obj);
+//		}
+//		
+//		return ary;
+//	}
 
 	
 	lgb.view.gui.onParticleSystemStart = function(event) {
 		lgb.view.gui.particleSystem.start();
-		lgb.view.gui.exitSystem.start();
+		
+		if (lgb.view.gui.exitSystem) {
+			lgb.view.gui.exitSystem.start();
+		}
+
 	};
 	
 	lgb.view.gui.onParticleSystemStop = function(event) {
 		lgb.view.gui.particleSystem.stop();
-		lgb.view.gui.exitSystem.stop();
+		
+		if (lgb.view.gui.exitSystem) {
+			lgb.view.gui.exitSystem.stop();
+		}
+
 	};
 	
 	lgb.view.gui.onToggleBoxes = function(event) {
@@ -230,11 +309,18 @@ var lgb = (function(lgb) {
 			
 			//lgb.view.gui.particleSystem.showBoxes();
 			
-			hemi.curve.showBoxes(lgb.view.gui.particleSystem.boxes);
+			hemi.curve.showBoxes(lgb.view.gui.particleSystem.boxes, lgb.view.gui.particleSystem.transform.parent);
+			if (lgb.view.gui.exitSystem) {
+				hemi.curve.showBoxes(lgb.view.gui.exitSystem.boxes, lgb.view.gui.exitSystem.transform.parent);
+			}
 				
 		} else {
 			//lgb.view.gui.particleSystem.hideBoxes();	
 			hemi.curve.hideBoxes(lgb.view.gui.particleSystem.boxes);
+			if (lgb.view.gui.exitSystem) {
+				hemi.curve.hideBoxes(lgb.view.gui.exitSystem.boxes);
+			}
+			
 		}
 
 	};

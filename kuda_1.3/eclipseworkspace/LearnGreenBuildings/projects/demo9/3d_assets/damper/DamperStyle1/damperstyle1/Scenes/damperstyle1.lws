@@ -1,0 +1,1978 @@
+LWSC
+4
+
+RenderRangeType 0
+FirstFrame 1
+LastFrame 60
+FrameStep 1
+RenderRangeObject 0
+RenderRangeArbitrary 1-60
+PreviewFirstFrame 0
+PreviewLastFrame 60
+PreviewFrameStep 1
+CurrentFrame 0
+FramesPerSecond 30
+ChangeScene 0
+
+AmbientColor 1 1 1
+AmbientIntensity 0.05
+DoubleSidedAreaLights 1
+RadiosityType 1
+RadiosityInterpolated 0
+RadiosityTransparency 0
+RadiosityIntensity 1
+RadiosityRays 48
+RadiosityDirectionalRays 1
+BlurRadiosity 1
+
+LoadObjectLayer 1 10000000 C:/shared/dropbox/My Dropbox/HVAC Stuff/DamperStyle1/damperstyle1/Objects/Mesh_022.lwo
+ChangeObject 0
+ShowObject 7 3
+Group 0
+ObjectMotion
+NumChannels 9
+Channel 0
+{ Envelope
+  1
+  Key -0.0332964 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 1
+{ Envelope
+  1
+  Key -0.0361617 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 2
+{ Envelope
+  1
+  Key -0.0016814 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 3
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 4
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 5
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 6
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 7
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 8
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+
+PathAlignLookAhead 0.033
+PathAlignMaxLookSteps 10
+PathAlignReliableDist 0.001
+Plugin ItemMotionHandler 1 RotationOrderConverter
+5
+0 0 0
+0 0 0
+EndPlugin
+PivotPosition 0 0 0
+ShadowOptions 7
+
+LoadObjectLayer 1 10000001 C:/shared/dropbox/My Dropbox/HVAC Stuff/DamperStyle1/damperstyle1/Objects/Mesh_021.lwo
+ChangeObject 0
+ShowObject 7 3
+Group 0
+ObjectMotion
+NumChannels 9
+Channel 0
+{ Envelope
+  1
+  Key -0.0350686 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 1
+{ Envelope
+  1
+  Key -0.0351911 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 2
+{ Envelope
+  1
+  Key 0.00267 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 3
+{ Envelope
+  1
+  Key 0 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 4
+{ Envelope
+  1
+  Key 0 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 5
+{ Envelope
+  1
+  Key 0 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 6
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 7
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 8
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+
+PathAlignLookAhead 0.033
+PathAlignMaxLookSteps 10
+PathAlignReliableDist 0.001
+Plugin ItemMotionHandler 1 RotationOrderConverter
+5
+0 0 0
+0 0 0
+EndPlugin
+PivotPosition 0 0 0
+ShadowOptions 7
+
+LoadObjectLayer 1 10000002 C:/shared/dropbox/My Dropbox/HVAC Stuff/DamperStyle1/damperstyle1/Objects/Mesh_020.lwo
+ChangeObject 0
+ShowObject 7 3
+Group 0
+ObjectMotion
+NumChannels 9
+Channel 0
+{ Envelope
+  1
+  Key -0.035068 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 1
+{ Envelope
+  1
+  Key -0.030614 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 2
+{ Envelope
+  1
+  Key -0.001524 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 3
+{ Envelope
+  1
+  Key 0 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 4
+{ Envelope
+  1
+  Key 0 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 5
+{ Envelope
+  1
+  Key 0 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 6
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 7
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 8
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+
+PathAlignLookAhead 0.033
+PathAlignMaxLookSteps 10
+PathAlignReliableDist 0.001
+Plugin ItemMotionHandler 1 RotationOrderConverter
+5
+0 0 0
+0 0 0
+EndPlugin
+PivotPosition 0 0 0
+ShadowOptions 7
+
+LoadObjectLayer 1 10000003 C:/shared/dropbox/My Dropbox/HVAC Stuff/DamperStyle1/damperstyle1/Objects/Mesh_019.lwo
+ChangeObject 0
+ShowObject 7 3
+Group 0
+ObjectMotion
+NumChannels 9
+Channel 0
+{ Envelope
+  1
+  Key 0 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 1
+{ Envelope
+  1
+  Key 0 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 2
+{ Envelope
+  1
+  Key 0 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 3
+{ Envelope
+  1
+  Key 0 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 4
+{ Envelope
+  1
+  Key 0 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 5
+{ Envelope
+  1
+  Key 0 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 6
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 7
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 8
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+
+PathAlignLookAhead 0.033
+PathAlignMaxLookSteps 10
+PathAlignReliableDist 0.001
+Plugin ItemMotionHandler 1 RotationOrderConverter
+5
+0 0 0
+0 0 0
+EndPlugin
+PivotPosition 0 0 0
+ShadowOptions 7
+
+LoadObjectLayer 1 10000004 C:/shared/dropbox/My Dropbox/HVAC Stuff/DamperStyle1/damperstyle1/Objects/Mesh_018.lwo
+ChangeObject 0
+ShowObject 7 3
+Group 0
+ObjectMotion
+NumChannels 9
+Channel 0
+{ Envelope
+  1
+  Key -0.035068 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 1
+{ Envelope
+  1
+  Key -0.03048 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 2
+{ Envelope
+  1
+  Key -0.001524 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 3
+{ Envelope
+  1
+  Key 0 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 4
+{ Envelope
+  1
+  Key 0 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 5
+{ Envelope
+  1
+  Key 0 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 6
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 7
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 8
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+
+PathAlignLookAhead 0.033
+PathAlignMaxLookSteps 10
+PathAlignReliableDist 0.001
+Plugin ItemMotionHandler 1 RotationOrderConverter
+5
+0 0 0
+0 0 0
+EndPlugin
+PivotPosition 0 0 0
+ShadowOptions 7
+
+LoadObjectLayer 1 10000005 C:/shared/dropbox/My Dropbox/HVAC Stuff/DamperStyle1/damperstyle1/Objects/Mesh_017.lwo
+ChangeObject 0
+ShowObject 7 3
+Group 0
+ObjectMotion
+NumChannels 9
+Channel 0
+{ Envelope
+  1
+  Key -0.035048 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 1
+{ Envelope
+  1
+  Key -0.0304724 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 2
+{ Envelope
+  1
+  Key 0.002114 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 3
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 1.58127 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 4
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 5
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 6
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 7
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 8
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+
+PathAlignLookAhead 0.033
+PathAlignMaxLookSteps 10
+PathAlignReliableDist 0.001
+Plugin ItemMotionHandler 1 RotationOrderConverter
+5
+0 0 0
+0 0 0
+EndPlugin
+PivotPosition 0 0 0
+ShadowOptions 7
+
+LoadObjectLayer 1 10000006 C:/shared/dropbox/My Dropbox/HVAC Stuff/DamperStyle1/damperstyle1/Objects/Mesh_016.lwo
+ChangeObject 0
+ShowObject 7 3
+Group 0
+ObjectMotion
+NumChannels 9
+Channel 0
+{ Envelope
+  1
+  Key -0.035048 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 1
+{ Envelope
+  1
+  Key -0.0304724 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 2
+{ Envelope
+  1
+  Key 0.002114 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 3
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 1.58127 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 4
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 5
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 6
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 7
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 8
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+
+PathAlignLookAhead 0.033
+PathAlignMaxLookSteps 10
+PathAlignReliableDist 0.001
+Plugin ItemMotionHandler 1 RotationOrderConverter
+5
+0 0 0
+0 0 0
+EndPlugin
+PivotPosition 0 0 0
+ShadowOptions 7
+
+LoadObjectLayer 1 10000007 C:/shared/dropbox/My Dropbox/HVAC Stuff/DamperStyle1/damperstyle1/Objects/Mesh_015.lwo
+ChangeObject 0
+ShowObject 7 3
+Group 0
+ObjectMotion
+NumChannels 9
+Channel 0
+{ Envelope
+  1
+  Key -0.0350633 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 1
+{ Envelope
+  1
+  Key -0.0304368 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 2
+{ Envelope
+  1
+  Key 0.0006552 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 3
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 1.57429 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 4
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 5
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 6
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 7
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 8
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+
+PathAlignLookAhead 0.033
+PathAlignMaxLookSteps 10
+PathAlignReliableDist 0.001
+Plugin ItemMotionHandler 1 RotationOrderConverter
+5
+0 0 0
+0 0 0
+EndPlugin
+PivotPosition 0 0 0
+ShadowOptions 7
+
+LoadObjectLayer 1 10000008 C:/shared/dropbox/My Dropbox/HVAC Stuff/DamperStyle1/damperstyle1/Objects/Mesh_014.lwo
+ChangeObject 0
+ShowObject 7 3
+Group 0
+ObjectMotion
+NumChannels 9
+Channel 0
+{ Envelope
+  1
+  Key -0.0350633 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 1
+{ Envelope
+  1
+  Key -0.0304368 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 2
+{ Envelope
+  1
+  Key 0.0006552 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 3
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 1.57429 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 4
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 5
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 6
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 7
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 8
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+
+PathAlignLookAhead 0.033
+PathAlignMaxLookSteps 10
+PathAlignReliableDist 0.001
+Plugin ItemMotionHandler 1 RotationOrderConverter
+5
+0 0 0
+0 0 0
+EndPlugin
+PivotPosition 0 0 0
+ShadowOptions 7
+
+LoadObjectLayer 1 10000009 C:/shared/dropbox/My Dropbox/HVAC Stuff/DamperStyle1/damperstyle1/Objects/Mesh_013.lwo
+ChangeObject 0
+ShowObject 7 3
+Group 0
+ObjectMotion
+NumChannels 9
+Channel 0
+{ Envelope
+  1
+  Key -0.0350677 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 1
+{ Envelope
+  1
+  Key -0.0304683 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 2
+{ Envelope
+  1
+  Key -0.000801 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 3
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 1.57254 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 4
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 5
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 6
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 7
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 8
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+
+PathAlignLookAhead 0.033
+PathAlignMaxLookSteps 10
+PathAlignReliableDist 0.001
+Plugin ItemMotionHandler 1 RotationOrderConverter
+5
+0 0 0
+0 0 0
+EndPlugin
+PivotPosition 0 0 0
+ShadowOptions 7
+
+LoadObjectLayer 1 1000000a C:/shared/dropbox/My Dropbox/HVAC Stuff/DamperStyle1/damperstyle1/Objects/Mesh_012.lwo
+ChangeObject 0
+ShowObject 7 3
+Group 0
+ObjectMotion
+NumChannels 9
+Channel 0
+{ Envelope
+  1
+  Key -0.0350677 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 1
+{ Envelope
+  1
+  Key -0.0304683 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 2
+{ Envelope
+  1
+  Key -0.000801 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 3
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 1.57254 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 4
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 5
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 6
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 7
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 8
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+
+PathAlignLookAhead 0.033
+PathAlignMaxLookSteps 10
+PathAlignReliableDist 0.001
+Plugin ItemMotionHandler 1 RotationOrderConverter
+5
+0 0 0
+0 0 0
+EndPlugin
+PivotPosition 0 0 0
+ShadowOptions 7
+
+LoadObjectLayer 1 1000000b C:/shared/dropbox/My Dropbox/HVAC Stuff/DamperStyle1/damperstyle1/Objects/Mesh_011.lwo
+ChangeObject 0
+ShowObject 7 3
+Group 0
+ObjectMotion
+NumChannels 9
+Channel 0
+{ Envelope
+  1
+  Key -0.0350814 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 1
+{ Envelope
+  1
+  Key -0.0304813 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 2
+{ Envelope
+  1
+  Key -0.0022324 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 3
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 1.58301 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 4
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 5
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 6
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 7
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 8
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+
+PathAlignLookAhead 0.033
+PathAlignMaxLookSteps 10
+PathAlignReliableDist 0.001
+Plugin ItemMotionHandler 1 RotationOrderConverter
+5
+0 0 0
+0 0 0
+EndPlugin
+PivotPosition 0 0 0
+ShadowOptions 7
+
+LoadObjectLayer 1 1000000c C:/shared/dropbox/My Dropbox/HVAC Stuff/DamperStyle1/damperstyle1/Objects/Mesh_010.lwo
+ChangeObject 0
+ShowObject 7 3
+Group 0
+ObjectMotion
+NumChannels 9
+Channel 0
+{ Envelope
+  1
+  Key -0.0350814 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 1
+{ Envelope
+  1
+  Key -0.0304813 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 2
+{ Envelope
+  1
+  Key -0.0022324 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 3
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 1.58301 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 4
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 5
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 6
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 7
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 8
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+
+PathAlignLookAhead 0.033
+PathAlignMaxLookSteps 10
+PathAlignReliableDist 0.001
+Plugin ItemMotionHandler 1 RotationOrderConverter
+5
+0 0 0
+0 0 0
+EndPlugin
+PivotPosition 0 0 0
+ShadowOptions 7
+
+LoadObjectLayer 1 1000000d C:/shared/dropbox/My Dropbox/HVAC Stuff/DamperStyle1/damperstyle1/Objects/Mesh_009.lwo
+ChangeObject 0
+ShowObject 7 3
+Group 0
+ObjectMotion
+NumChannels 9
+Channel 0
+{ Envelope
+  1
+  Key -0.0350763 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 1
+{ Envelope
+  1
+  Key -0.0304804 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 2
+{ Envelope
+  1
+  Key -0.0037062 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 3
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 1.57254 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 4
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 5
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 6
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 7
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 8
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+
+PathAlignLookAhead 0.033
+PathAlignMaxLookSteps 10
+PathAlignReliableDist 0.001
+Plugin ItemMotionHandler 1 RotationOrderConverter
+5
+0 0 0
+0 0 0
+EndPlugin
+PivotPosition 0 0 0
+ShadowOptions 7
+
+LoadObjectLayer 1 1000000e C:/shared/dropbox/My Dropbox/HVAC Stuff/DamperStyle1/damperstyle1/Objects/Mesh_008.lwo
+ChangeObject 0
+ShowObject 7 3
+Group 0
+ObjectMotion
+NumChannels 9
+Channel 0
+{ Envelope
+  1
+  Key -0.0350763 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 1
+{ Envelope
+  1
+  Key -0.0304804 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 2
+{ Envelope
+  1
+  Key -0.0037062 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 3
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 1.57254 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 4
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 5
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 6
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 7
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 8
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+
+PathAlignLookAhead 0.033
+PathAlignMaxLookSteps 10
+PathAlignReliableDist 0.001
+Plugin ItemMotionHandler 1 RotationOrderConverter
+5
+0 0 0
+0 0 0
+EndPlugin
+PivotPosition 0 0 0
+ShadowOptions 7
+
+LoadObjectLayer 1 1000000f C:/shared/dropbox/My Dropbox/HVAC Stuff/DamperStyle1/damperstyle1/Objects/Mesh_007.lwo
+ChangeObject 0
+ShowObject 7 3
+Group 0
+ObjectMotion
+NumChannels 9
+Channel 0
+{ Envelope
+  1
+  Key -0.0350621 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 1
+{ Envelope
+  1
+  Key -0.0304856 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 2
+{ Envelope
+  1
+  Key -0.0051793 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 3
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 1.56731 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 4
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 5
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 6
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 7
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 8
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+
+PathAlignLookAhead 0.033
+PathAlignMaxLookSteps 10
+PathAlignReliableDist 0.001
+Plugin ItemMotionHandler 1 RotationOrderConverter
+5
+0 0 0
+0 0 0
+EndPlugin
+PivotPosition 0 0 0
+ShadowOptions 7
+
+LoadObjectLayer 1 10000010 C:/shared/dropbox/My Dropbox/HVAC Stuff/DamperStyle1/damperstyle1/Objects/Mesh_006.lwo
+ChangeObject 0
+ShowObject 7 3
+Group 0
+ObjectMotion
+NumChannels 9
+Channel 0
+{ Envelope
+  1
+  Key -0.0350621 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 1
+{ Envelope
+  1
+  Key -0.0304856 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 2
+{ Envelope
+  1
+  Key -0.0051793 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 3
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 1.56731 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 4
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 5
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 6
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 7
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 8
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+
+PathAlignLookAhead 0.033
+PathAlignMaxLookSteps 10
+PathAlignReliableDist 0.001
+Plugin ItemMotionHandler 1 RotationOrderConverter
+5
+0 0 0
+0 0 0
+EndPlugin
+PivotPosition 0 0 0
+ShadowOptions 7
+
+LoadObjectLayer 1 10000011 C:/shared/dropbox/My Dropbox/HVAC Stuff/DamperStyle1/damperstyle1/Objects/Mesh_005.lwo
+ChangeObject 0
+ShowObject 7 3
+Group 0
+ObjectMotion
+NumChannels 9
+Channel 0
+{ Envelope
+  1
+  Key -0.0350605 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 1
+{ Envelope
+  1
+  Key -0.0358395 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 2
+{ Envelope
+  1
+  Key 0.0021286 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 3
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0.506145 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 4
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 5
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 6
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 7
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 8
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+
+PathAlignLookAhead 0.033
+PathAlignMaxLookSteps 10
+PathAlignReliableDist 0.001
+Plugin ItemMotionHandler 1 RotationOrderConverter
+5
+0 0 0
+0 0 0
+EndPlugin
+PivotPosition 0 0 0
+ShadowOptions 7
+
+LoadObjectLayer 1 10000012 C:/shared/dropbox/My Dropbox/HVAC Stuff/DamperStyle1/damperstyle1/Objects/Mesh_004.lwo
+ChangeObject 0
+ShowObject 7 3
+Group 0
+ObjectMotion
+NumChannels 9
+Channel 0
+{ Envelope
+  1
+  Key -0.0350631 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 1
+{ Envelope
+  1
+  Key -0.0358044 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 2
+{ Envelope
+  1
+  Key 0.0006665 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 3
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0.506145 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 4
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 5
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 6
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 7
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 8
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+
+PathAlignLookAhead 0.033
+PathAlignMaxLookSteps 10
+PathAlignReliableDist 0.001
+Plugin ItemMotionHandler 1 RotationOrderConverter
+5
+0 0 0
+0 0 0
+EndPlugin
+PivotPosition 0 0 0
+ShadowOptions 7
+
+LoadObjectLayer 1 10000013 C:/shared/dropbox/My Dropbox/HVAC Stuff/DamperStyle1/damperstyle1/Objects/Mesh_003.lwo
+ChangeObject 0
+ShowObject 7 3
+Group 0
+ObjectMotion
+NumChannels 9
+Channel 0
+{ Envelope
+  1
+  Key -0.0349209 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 1
+{ Envelope
+  1
+  Key -0.0358702 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 2
+{ Envelope
+  1
+  Key -0.000833 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 3
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0.506145 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 4
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 5
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 6
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 7
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 8
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+
+PathAlignLookAhead 0.033
+PathAlignMaxLookSteps 10
+PathAlignReliableDist 0.001
+Plugin ItemMotionHandler 1 RotationOrderConverter
+5
+0 0 0
+0 0 0
+EndPlugin
+PivotPosition 0 0 0
+ShadowOptions 7
+
+LoadObjectLayer 1 10000014 C:/shared/dropbox/My Dropbox/HVAC Stuff/DamperStyle1/damperstyle1/Objects/Mesh_002.lwo
+ChangeObject 0
+ShowObject 7 3
+Group 0
+ObjectMotion
+NumChannels 9
+Channel 0
+{ Envelope
+  1
+  Key -0.0350129 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 1
+{ Envelope
+  1
+  Key -0.0358443 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 2
+{ Envelope
+  1
+  Key -0.0022549 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 3
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0.506145 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 4
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 5
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 6
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 7
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 8
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+
+PathAlignLookAhead 0.033
+PathAlignMaxLookSteps 10
+PathAlignReliableDist 0.001
+Plugin ItemMotionHandler 1 RotationOrderConverter
+5
+0 0 0
+0 0 0
+EndPlugin
+PivotPosition 0 0 0
+ShadowOptions 7
+
+LoadObjectLayer 1 10000015 C:/shared/dropbox/My Dropbox/HVAC Stuff/DamperStyle1/damperstyle1/Objects/Mesh_001.lwo
+ChangeObject 0
+ShowObject 7 3
+Group 0
+ObjectMotion
+NumChannels 9
+Channel 0
+{ Envelope
+  1
+  Key -0.0349814 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 1
+{ Envelope
+  1
+  Key -0.0358731 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 2
+{ Envelope
+  1
+  Key -0.0037465 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 3
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0.506145 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 4
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 5
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 6
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 7
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 8
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+
+PathAlignLookAhead 0.033
+PathAlignMaxLookSteps 10
+PathAlignReliableDist 0.001
+Plugin ItemMotionHandler 1 RotationOrderConverter
+5
+0 0 0
+0 0 0
+EndPlugin
+PivotPosition 0 0 0
+ShadowOptions 7
+
+LoadObjectLayer 1 10000016 C:/shared/dropbox/My Dropbox/HVAC Stuff/DamperStyle1/damperstyle1/Objects/Mesh.lwo
+ChangeObject 0
+ShowObject 7 3
+Group 0
+ObjectMotion
+NumChannels 9
+Channel 0
+{ Envelope
+  1
+  Key -0.0349968 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 1
+{ Envelope
+  1
+  Key -0.0358473 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 2
+{ Envelope
+  1
+  Key -0.005211 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 3
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0.506145 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 4
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 5
+{ Envelope
+  2
+  Key 0 0 0 0 0 0 0 0 0 
+  Key 0 3.33333 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 6
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 7
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 8
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+
+PathAlignLookAhead 0.033
+PathAlignMaxLookSteps 10
+PathAlignReliableDist 0.001
+Plugin ItemMotionHandler 1 RotationOrderConverter
+5
+0 0 0
+0 0 0
+EndPlugin
+PivotPosition 0 0 0
+ShadowOptions 7
+
+AddLight 20000000
+LightName Lamp
+ShowLight 1 5
+LightMotion
+NumChannels 9
+Channel 0
+{ Envelope
+  1
+  Key 0.0407625 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 1
+{ Envelope
+  1
+  Key 0.0100545 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 2
+{ Envelope
+  1
+  Key -0.0590386 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 3
+{ Envelope
+  1
+  Key -0.0552172 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 4
+{ Envelope
+  1
+  Key -0.650328 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 5
+{ Envelope
+  1
+  Key 1.86639 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 6
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 7
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 8
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+
+PathAlignLookAhead 0.033
+PathAlignMaxLookSteps 10
+PathAlignReliableDist 0.001
+Plugin ItemMotionHandler 1 RotationOrderConverter
+5
+0 0 0
+0 0 0
+EndPlugin
+PivotPosition 0 0 0
+LightColor 1 1 1
+LightIntensity 1
+AffectCaustics 1
+LightType 1
+ShadowType 1
+ShadowColor 0 0 0
+
+AddCamera 30000000
+CameraName Camera
+ShowCamera 1 2
+CameraMotion
+NumChannels 9
+Channel 0
+{ Envelope
+  1
+  Key 0.0748113 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 1
+{ Envelope
+  1
+  Key -0.0650764 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 2
+{ Envelope
+  1
+  Key -0.0534367 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 3
+{ Envelope
+  1
+  Key -0.010817 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 4
+{ Envelope
+  1
+  Key -1.10932 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 5
+{ Envelope
+  1
+  Key 0.814928 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 6
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 7
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+Channel 8
+{ Envelope
+  1
+  Key 1 0 0 0 0 0 0 0 0 
+  Behaviors 1 1
+}
+
+PathAlignLookAhead 0.033
+PathAlignMaxLookSteps 10
+PathAlignReliableDist 0.001
+Plugin ItemMotionHandler 1 RotationOrderConverter
+5
+0 0 0
+0 0 0
+EndPlugin
+PivotPosition 0 0 0
+ZoomFactor 2
+ZoomType 1
+ResolutionMultiplier 1.0
+FrameSize 639 480
+PixelAspect 1
+MaskPosition 0 0 639 480
+MotionBlur 0
+MotionBlurPasses 1
+ShutterEfficiency 1
+Oversampling 0
+FieldRendering 0
+ApertureHeight 0.035
+DepthOfField 0
+FocalDistance 1
+LensFStop 4
+DiaphragmSides 0
+DiaphragmRotation 0
+AASamples 1
+Sampler 0
+UseGlobalResolution 0
+UseGlobalMask 0
+UseGlobalBlur 0
+Plugin CameraHandler 1 Perspective
+EndPlugin
+
+GlobalFrameSize 640 480
+GlobalMultiplier 1.0
+GlobalFieldRendering 0
+GlobalMotionBlur 0
+GlobalMaskPosition 0 0 640 480
+GlobalFilmHeight 0.015
+GlobalPixelAspect 1
+
+Antialiasing 0
+AntiAliasingLevel -1
+ReconstructionFilter 0
+AdaptiveSampling 0
+SolidBackdrop 1
+BackdropColor 0 0 0
+ZenithColor 0 0.1569 0.3137
+SkyColor 0.4706 0.7059 0.9412
+GroundColor 0.1961 0.1569 0.1176
+NadirColor 0.3922 0.3137 0.2353
+FogType 0
+FogMinDistance 0
+FogMaxDistance 1
+FogMinAmount 0
+FogMaxAmount 1
+FogColor 0.5098 0.5098 0.549
+BackdropFog 0
+VolumeClipDiscance 0.1
+DitherIntensity 1
+AnimatedDither 0
+
+RenderMode 2
+RayTraceEffects 0
+DepthBufferAA 0
+RenderLines 1
+RayRecursionLimit 16
+DataOverlayLabel 
+SaveRGB 0
+SaveAlpha 0
+
+ViewConfiguration 0
+DefineView 0
+ViewType 7
+ViewLevel 5
+ViewAimpoint 0 0 0
+ViewRotation -45 18 0
+ViewZoomFactor 4
+
+GridNumber 80
+GridSize 1
+NearClipDistance 0.1
+CameraViewBG 0
+ShowMotionPath 0
+ShowFogRadius 0
+ShowFogEffect 0
+ShowFieldChart 0
+OverlayColor_fv 0 0 0
+MeshBackgroundGroup 1
+
+CurrentLight 0
+CurrentCamera 0
+GraphEditorData
+{ GraphEd_Favorites
+}
+{ GE_Expression_Lib
+1
+}
+ImageEditorData
+NumberOfClips 0
+

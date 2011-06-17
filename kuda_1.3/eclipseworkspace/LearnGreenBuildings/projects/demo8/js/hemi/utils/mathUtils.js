@@ -34,6 +34,70 @@ var hemi = (function(hemi) {
 		return [r,theta,phi];	
 	};
 	
+	/** 
+	 * A choose function (also called the binomial coefficient).
+	 *
+	 * @param {number} n top input of choose
+	 * @param {number} m bottom input of choose
+	 * @return {number} choose output, (n!)/(m!*(n-m)!)
+	 */
+	hemi.utils.choose = function(n, m) {
+		return hemi.utils.factorial(n, (n-m)+1) / hemi.utils.factorial(m);
+	};
+	
+	/** 
+	 * Clamp the given value between the given min and max.
+	 *
+	 * @param {number} val value to clamp
+	 * @param {number} min minimum for value
+	 * @param {number} max maximum for value
+	 * @return {number} the clamped value
+	 */
+	hemi.utils.clamp = function(val, min, max) {
+		return Math.min(max, Math.max(min, val));
+	};
+
+	/**
+	 * Calculate the cubic hermite interpolation between two points with
+	 * associated tangents.
+	 *
+	 * @param {float} t time (between 0 and 1)
+	 * @param {float[3]} p0 the first waypoint
+	 * @param {float[3]} m0 the tangent through the first waypoint
+	 * @param {float[3]} p1 the second waypoint
+	 * @param {float[3]} m1 the tangent through the second waypoint
+	 * @return {float[3]} the interpolated point
+	 */
+	hemi.utils.cubicHermite = function(t,p0,m0,p1,m1) {;
+		var t2 = t*t,
+			t3 = t2*t,
+			tp0 = 2*t3 - 3*t2 + 1,
+			tm0 = t3 - 2*t2 + t,
+			tp1 = -2*t3 + 3*t2,
+			tm1 = t3 - t2;
+		
+		return tp0*p0 + tm0*m0 + tp1*p1 + tm1*m1;
+	};
+	
+	/**
+	 * Calculate the factorial of the given number.
+	 *
+	 * @param {number} num number to factorialize
+	 * @param {number} opt_stop optional number to stop the factorial at (if it
+	 *     should be stopped before 1
+	 * @return {number} (num!) or (num! - opt_stop!)
+	 */
+	hemi.utils.factorial = function(num, opt_stop) {
+		var f = 1,
+			x = opt_stop ? opt_stop : 2;
+		
+		while (x <= num) {
+			f *= x++;
+		}
+		
+		return f;
+	};
+	
 	/**
 	 * Calculate the intersection between a ray and a plane.
 	 * 
@@ -112,38 +176,6 @@ var hemi = (function(hemi) {
 	 */
 	hemi.utils.linearToExponentialInverse = function(val, x) {
 		return 1 - hemi.utils.linearToExponential(1 - val, x);
-	};
-	
-	/**
-	 * Interprets a point in world space into local space.
-	 */
-	hemi.utils.pointAsLocal = function(transform,point) {
-		var m4 = hemi.core.math.matrix4;
-		var W = m4.inverse(transform.getUpdatedWorldMatrix());
-		return m4.transformPoint(W,point);
-	};
-	
-	/**
-	 * Interprets a point in local space into world space.
-	 */
-	hemi.utils.pointAsWorld = function(transform, point) {
-		var m4 = hemi.core.math.matrix4;
-		return m4.transformPoint(transform.getUpdatedWorldMatrix(),point);
-	};
-	
-	/**
-	 * Point the positive z-axis of the transform at the point in local space.
-	 */
-	hemi.utils.pointZAt = function(transform, point) {
-		var pos = transform.localMatrix[3].slice(0,3);
-		transform.identity();
-		transform.translate(pos);
-		
-		var xyz = hemi.core.math.subVector(point, pos);
-		transform.rotateY(Math.atan2(xyz[0],xyz[2]));
-		transform.rotateX(-Math.asin(
-			xyz[1]/hemi.core.math.distance([0,0,0],xyz)));
-
 	};
 	
 	/**
@@ -304,51 +336,6 @@ var hemi = (function(hemi) {
 			vf = hMath.mulScalarVector(uv[1], hMath.subVector(plane[2], plane[0]));
 			pos = hMath.addVector(plane[0], hMath.addVector(uf, vf));
 		return pos;
-	};
-	
-	/**
-	 * Rotate the transform by the given angle along the given world space axis.
-	 *
-	 * @param {number[]} axis rotation axis defined as an XYZ vector
-	 * @param {number} angle amount to rotate by in radians
-	 * @param {o3d.Transform} transform the transform to rotate
-	 */
-	hemi.utils.worldRotate = function(axis, angle, transform) {
-		var m4 = hemi.core.math.matrix4,
-			iW = m4.inverse(transform.getUpdatedWorldMatrix()),
-			lA = m4.transformDirection(iW, axis);
-		transform.axisRotate(lA, angle);
-	};
-	
-	/**
-	 * Scale the transform by the given scale amounts in world space.
-	 *
-	 * @param {number[]} scale scale factors defined as an XYZ vector
-	 * @param {o3d.Transform} transform the transform to scale
-	 */
-	hemi.utils.worldScale = function(scale, transform) {
-		var m4 = hemi.core.math.matrix4,
-			newMatrix = m4.mul(
-				m4.mul(
-					m4.mul(
-						transform.getUpdatedWorldMatrix(),
-						m4.scaling(scale)),
-					m4.inverse(transform.getUpdatedWorldMatrix())),
-				transform.localMatrix);
-		transform.localMatrix = newMatrix;
-	};
-	
-	/**
-	 * Translate the transform by the given world space vector.
-	 *
-	 * @param {number[]} v XYZ vector to translate by
-	 * @param {o3d.Transform} transform the transform to translate
-	 */
-	hemi.utils.worldTranslate = function(v, transform) {
-		var m4 = hemi.core.math.matrix4,
-			iW = m4.inverse(transform.getUpdatedWorldMatrix()),
-			lV = m4.transformDirection(iW, v);
-		transform.translate(lV);
 	};
 	
 	/**

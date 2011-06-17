@@ -17,8 +17,14 @@ var lgb = (function(lgb) {
 	lgb.controller.HvacDamperController = function(parentController){
 		
 		this.parentController = parentController;
+		
 		this.model = new lgb.model.HvacDamperModel();
 		this.view = new lgb.view.HvacDamperView();
+		
+		this.model = new lgb.model.HvacDamperModel();
+		this.view = new lgb.view.HvacDamperView();
+		
+		
 	};
 	
 	

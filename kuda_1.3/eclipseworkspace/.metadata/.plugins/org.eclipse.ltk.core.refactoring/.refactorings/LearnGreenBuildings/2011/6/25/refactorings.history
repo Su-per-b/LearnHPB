@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;LearnGreenBuildings/projects/three_js_test/html&apos; to &apos;root&apos;" description="Rename resource &apos;html&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="projects/three_js_test/html" name="root" stamp="1308045338882" updateReferences="true"/>
+</session>

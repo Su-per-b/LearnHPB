@@ -112,20 +112,8 @@
 		var scaleKey2 = {key: 0.5, value: [50,80,50]};
 		var scaleKey3 = {key: 1, value: [10,10,10]};
 		
-		/* Create a particle system configuration with the above parameters,
-		 * plus a rate of 20 particles per second, and a lifetime of
-		 * 5 seconds. Specify the shapes are arrows.
+		/* A root transform to serve as the parent of the particle system.
 		 */
-		var particleSystemConfig = {
-			aim : true,
-			particles : 100,
-			life : 5,
-			boxes : [box1, box2, box3, box4, box5],
-			shape : hemi.curve.ShapeType.ARROW,
-			colorKeys : [colorKey1, colorKey2, colorKey3, colorKey4],
-			scaleKeys : [scaleKey1, scaleKey2, scaleKey3]
-		};
-	
 		var rootShape = hemi.shape.create (
 			{shape: 'box',
 			color: [1,1,0,0.3],
@@ -134,15 +122,28 @@
 			
 		rootShape.translate(500,500,500);
 		
+		/* Create a particle system configuration with the above parameters,
+		 * plus a rate of 20 particles per second, and a lifetime of
+		 * 5 seconds. Specify the shapes are arrows.
+		 */
+		var particleSystemConfig = {
+			aim : true,
+			particleCount : 100,
+			life : 5,
+			boxes : [box1, box2, box3, box4, box5],
+			particleShape : hemi.curve.ShapeType.ARROW,
+			colorKeys : [colorKey1, colorKey2, colorKey3, colorKey4],
+			scaleKeys : [scaleKey1, scaleKey2, scaleKey3],
+			parent : rootShape
+		};
+		
 		
 		/* Create the particle system with the above config, 
 		 * and make the root transform its parent.
 		 */
-		unitTest4.particleSystem = new hemi.curve.ParticleSystem(
-			rootShape, 
-			particleSystemConfig);
+		unitTest4.particleSystem = hemi.curve.createSystem(particleSystemConfig);
 		
-		hemi.curve.showBoxes(unitTest4.particleSystem.boxes);
+		hemi.curve.showBoxes(unitTest4.particleSystem.boxes, rootShape);
 
 	//	var t  = hemi.curve.dbgBoxTransforms;
 		
