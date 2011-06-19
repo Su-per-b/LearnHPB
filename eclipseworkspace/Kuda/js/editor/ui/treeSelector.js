@@ -28,6 +28,7 @@ var editor = (function(module) {
 	module.ui.TreeSelectorDefaults = {
 		containerClass: '',
 		panelHeight: 400,
+		tree: null,
 		types: {},
 		json: {},
 		select: null
@@ -37,7 +38,7 @@ var editor = (function(module) {
 		init: function(options) {
 			var newOpts =  jQuery.extend({}, module.ui.TreeSelectorDefaults, 
 				options);
-			this.eventName = 'click.treeSelctor' + eventNdx;
+			this.eventName = 'click.treeSelector' + eventNdx;
 			this.buttonId = 'treeSelectorBtn' + eventNdx;
 			this.inputId = 'treeSelectorIpt' + eventNdx;
 			this.panelId = 'treeSelectorPnl' + eventNdx++;
@@ -46,8 +47,9 @@ var editor = (function(module) {
 		
 		finishLayout: function() {			
 			var wgt = this,
+				
 				toggleFcn = function(evt) {
-					var input = wgt.input,
+					var ipt = wgt.input,
 						btn = wgt.picker,
 						pnl = wgt.panel;
 					
@@ -56,13 +58,17 @@ var editor = (function(module) {
 						
 						jQuery(document).unbind(wgt.eventName);
 						pnl.data('docBound', false);
-						btn.removeClass('selected');
+						btn.removeClass('open');
+						ipt.removeClass('open');
 					}
 					else {
 						var isDocBound = pnl.data('docBound');
-						btn.addClass('selected');
+						ipt.addClass('open')
+						btn.addClass('open');
+						width = ipt.outerWidth() + btn.outerWidth() -
+							wgt.treeBorder - wgt.treePadding;
 						
-						wgt.showPanel();
+						wgt.showPanel(width);
 											
 						if (!isDocBound) {
 							jQuery(document).bind(wgt.eventName, function(evt){
@@ -74,8 +80,7 @@ var editor = (function(module) {
 										&& id != wgt.panelId
 										&& id != wgt.inputId
 										&& id != wgt.buttonId) {
-									pnl.hide();
-									btn.removeClass('selected');
+									wgt.hidePanel();
 								}
 							});
 							pnl.data('docBound', true);
@@ -85,22 +90,11 @@ var editor = (function(module) {
 			
 			// initialize container
 			this.container = jQuery('<div class="treeSelector"></div>');
-			this.input = jQuery('<input type="text" id="' + this.inputId + ' "class="treeSelectorIpt" readonly="readonly" />');
+			this.input = jQuery('<input type="text" id="' + this.inputId + '" class="treeSelectorIpt" readonly="readonly" />');
 			this.picker = jQuery('<button id="' + this.buttonId + '" class="treeSelectorBtn">Selector</button>');
 			this.panel = jQuery('<div id="' + this.panelId + '" class="treeSelectorPnl"></div>');
-			this.tree = jQuery('<div></div>');
 			
-			this.container.addClass(this.config.containerClass);
-			
-			jQuery('body').append(this.panel);
-			this.container.append(this.input).append(this.picker);
-			this.panel.css({
-				maxHeight: this.config.panelHeight,
-				position: 'absolute'
-			}).append(this.tree).hide();
-			
-			// setup the tree
-			this.tree.bind('select_node.jstree', function(evt, data) {	
+			var selFcn = function(evt, data){
 				if (wgt.config.select) {
 					if (wgt.config.select(data, wgt)) {
 						wgt.picker.removeClass('selected');
@@ -108,34 +102,64 @@ var editor = (function(module) {
 					}
 				}
 				else {
-					var elem = data.rslt.obj,					 
-						val = elem.find('a').text();	
+					var elem = data.rslt.obj, 
+						val = elem.find('a').text();
 					
-					wgt.input.val(val);	
+					wgt.input.val(val);
 					wgt.hidePanel();
 					wgt.picker.removeClass('selected');
 					wgt.setSelection(val);
 				}
-			})
-			.jstree({
-				'json_data': {
-					'data': this.config.json
-				},
-				'types': {
-					'types': this.config.types
-				},
-				'themes': {
-					'dots': false
-				},
-				'ui': {
-					'select_limit': 1,
-					'selected_parent_close': 'false'
-				},
-				'plugins': ['json_data', 'sort', 'themes', 'types', 'ui']
-			});
+			};
 			
-			this.picker.bind('click', toggleFcn);
+			if (this.config.tree) {			
+				this.config.tree.addListener(module.EventTypes.Trees.TreeCreated, 
+					function(treeUI) {
+						wgt.tree = treeUI;
+						wgt.tree.bind('select_node.jstree', selFcn).addClass('treeSelectorTree');
+				
+						var pnl = wgt.panel.append(wgt.tree);
+			
+						wgt.treeBorder = Math.ceil(parseFloat(pnl.css('borderRightWidth'))) 
+							+ Math.ceil(parseFloat(pnl.css('borderLeftWidth')));
+						wgt.treePadding = Math.ceil(parseFloat(pnl.css('paddingLeft'))) 
+							+ Math.ceil(parseFloat(pnl.css('paddingRight')));
+					});
+				}
+			else {
+				this.tree = jQuery('<div></div>');
+				
+				// setup the tree
+				this.tree.bind('select_node.jstree', selFcn).jstree({
+					'json_data': {
+						'data': this.config.json
+					},
+					'types': {
+						'types': this.config.types
+					},
+					'themes': {
+						'dots': false
+					},
+					'ui': {
+						'select_limit': 1,
+						'selected_parent_close': 'false'
+					},
+					'plugins': ['json_data', 'sort', 'themes', 'types', 'ui']
+				});
+				
+				this.panel.append(this.tree);
+			}		
+			this.container.addClass(this.config.containerClass);
+			
+			jQuery('body').append(this.panel);
+			this.container.append(this.input).append(this.picker);
+			this.panel.css({
+				maxHeight: this.config.panelHeight,
+				position: 'absolute'
+			}).hide();
+			
 			this.input.bind('click', toggleFcn);
+			this.picker.bind('click', toggleFcn);
 		},
 		
 		getSelection: function() {
@@ -144,6 +168,8 @@ var editor = (function(module) {
 		
 		hidePanel: function() {
 			this.panel.slideUp(200);
+			this.input.removeClass('open');
+			this.picker.removeClass('open');
 		},
 		
 		reset: function() {
@@ -161,9 +187,9 @@ var editor = (function(module) {
 			this.tree.jstree('select_node', elem);
 		},
 		
-		showPanel: function() {
+		showPanel: function(width) {
 			var position = this.input.offset(),
-				width = this.container.width();
+				width = width || this.container.width();
 			
 			position.top += this.input.outerHeight();
 			this.panel.css({

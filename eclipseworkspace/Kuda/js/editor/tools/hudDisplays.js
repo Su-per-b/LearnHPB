@@ -273,7 +273,7 @@ var editor = (function(module) {
 			this.instructions = jQuery("<p>Type in a name and click 'Create New Display' to add a new HUD display box</p>");
 			this.form = jQuery('<form method="post"></form>');
 			this.nameInput = jQuery('<input type="text" id="hudDpyName" />');
-			this.createBtn = jQuery('<button id="createHudDisplay">Create New Display</button>');
+			this.createBtn = jQuery('<button id="createHudDisplay" class="inlineBtn">Create New Display</button>');
 			var wgt = this;
 			
 			this.createBtn.bind('click', function(evt) {
@@ -960,8 +960,8 @@ var editor = (function(module) {
      * Configuration object for the HudDisplaysView.
      */
     module.tools.HudDisplaysViewDefaults = {
-        toolName: 'HudDisplays',
-		toolTip: 'HudDisplays: Create and edit HudDisplays',
+        toolName: 'Simple Hud',
+		toolTip: 'Simple Hud: Create and edit Hud Displays',
 		widgetId: 'hudBtn',
 		axnBarId: 'hudActionBar'
     };

@@ -21,9 +21,9 @@ html, body {
     padding: 0;
     border: none;
     font-family: Helvetica, Arial, sans-serif;
-    color: #2a6275;
+    color: #444;
 	background: -moz-linear-gradient(100% 100% 90deg, #fafafa, #eee);
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fafafa), to(#eee));
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eee), to(#fafafa));
     overflow: hidden;
 }
 
@@ -122,9 +122,9 @@ input.error {
     width: 100%;
     background: #7f7f7f;
 	background: -moz-linear-gradient(100% 100% 90deg, #dadada, #eaeaea);
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#dadada), to(#eaeaea));
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eaeaea), to(#dadada));
     border-bottom: 1px solid #ccc;
-    padding: 5px 0;
+    padding: 0;
     float: left;
 }
 
@@ -132,7 +132,7 @@ input.error {
     color: #535353;
     font: bold 16pt/22pt "Myriad Pro", Helvetica, Verdana, Arial, sans-serif;
     text-align: left;
-    padding: 0 10px 0 20px;
+    padding: 5px 10px 5px 20px;
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
     text-transform: uppercase;
     float: left;
@@ -175,31 +175,47 @@ input.error {
 
 #menu .uiMenuBar > ul > li {
     float: left;
-    padding: 5px 10px;
 }
 
 #menu .uiMenu {
     position: relative;
 }
 
+#menu .uiMenu > span {	
+    padding: 10px;
+	display: block;
+}
+
+#menu .uiMenu > span.uiMenuShown {
+	background: -moz-linear-gradient(100% 100% 90deg, #333, #666);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#666), to(#333));
+	color: #fff;
+	text-shadow: 0 -1px 0 #000;
+}
+
 #menu .uiMenu ul {
     list-style: none;
     position: absolute;
-    background: #ddd;
-    border: 1px solid #aaa;
+    background: #333;
     padding: 5px;
     margin: 0;
     z-index: 100;
-	color: #535353;
+	color: #fff;
+	text-shadow: 0 -1px 0 #000;
+	border-radius: 0 0 3px 3px;
 }
 
 #menu .uiMenu ul li {
     white-space: nowrap;
 }
 
-#menu .uiMenu > span:hover, #menu .uiMenu ul li:hover,
+#menu .uiMenu > span.uiMenuShown:hover, #menu .uiMenu ul li:hover,
 #menu .uiMenu ul li a:hover {
-    color: #0a6496;
+    color: #c2dfef;
+}
+
+#menu .uiMenu > span:not(.uiMenuShown):hover {
+	color: #0a6496;
 }
 
 #menu .uiMenu ul li a {
@@ -225,6 +241,7 @@ input.error {
 	font: bold 10pt/30px "Myriad Pro", Helvetica, Arial, sans-serif;
 	color: #535353;
 	text-shadow: 0 1px 1px #fff;
+	margin-top: 5px;
 }
 #currentProject span.label {
 	margin-right: 5px;
@@ -241,7 +258,7 @@ input.error {
     width: 100%;
     background: #555;
 	background: -moz-linear-gradient(100% 100% 90deg, #eee, #efefef);
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eee), to(#efefef));
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#efefef), to(#eee));
     border-bottom: 1px solid #ddd;
 	border-top: 1px solid #fafafa;
     overflow: hidden;
@@ -304,12 +321,6 @@ input.error {
 
 #actionBar form input {
     float: right;
-}
-
-#actionBar form input.model {
-    width: 289px;
-    margin-right: 5px;
-    float: left;
 }
 
 #actionBar form button.loader {
@@ -468,18 +479,20 @@ input.error {
 	padding: 2px 10px;
 	text-indent: 0;
 	text-shadow: none;
+	white-space: nowrap;
 }
 
 #complexTools .toolBtn {
     float: right;
 }
-.toolBtn span {
+.toolBtn:after {
+	content: '';
     background: url(../images/toolbarSprite.png) no-repeat 0 0;
 	display: block;
 	width: 48px;
 	height: 48px;
 	float: left;
-	margin: -3px 0 0 -3px;
+	margin-top: -3px;
 }
 
 .toolBtn:hover {
@@ -492,91 +505,91 @@ input.error {
     margin-bottom: 0;
 }
 
-#modelBrowserBtn span {
+#modelBrowserBtn:after {
 	background-position: 0 0;
 }
 
-#modelBrowserBtn:hover span, #modelBrowserBtn.down span {
+#modelBrowserBtn:hover:after, #modelBrowserBtn.down:after {
     background-position: 0 -48px;
 }
 
-#animationsBtn span {
+#animationsBtn:after {
 	background-position: -48px 0;
 }
 
-#animationsBtn:hover span, #animationsBtn.down span {
+#animationsBtn:hover:after, #animationsBtn.down:after {
     background-position: -48px -48px;
 }
 
-#viewpointsBtn span {
+#viewpointsBtn:after {
 	background-position: -96px 0;
 }
 
-#viewpointsBtn:hover span, #viewpointsBtn.down span {
+#viewpointsBtn:hover:after, #viewpointsBtn.down:after {
     background-position: -96px -48px;
 }
 
-#messagingBtn span {
+#messagingBtn:after {
 	background-position: -192px 0;
 }
 
-#messagingBtn:hover span, #messagingBtn.down span {
+#messagingBtn:hover:after, #messagingBtn.down:after {
     background-position: -192px -48px;
 }
 
-#scenesBtn span {
+#scenesBtn:after {
 	background-position: -240px 0;
 }
 
-#scenesBtn:hover span, #scenesBtn.down span {
+#scenesBtn:hover:after, #scenesBtn.down:after {
     background-position: -240px -48px;
 }
 
-#particleEffectsBtn span {
+#particleEffectsBtn:after {
 	background-position: -288px 0;
 }
 
-#particleEffectsBtn:hover span, #particleEffectsBtn.down span {
+#particleEffectsBtn:hover:after, #particleEffectsBtn.down:after {
 	background-position: -288px -48px;
 }
 
-#shapesBtn span {
+#shapesBtn:after {
 	background-position: -336px 0;
 }
 
-#shapesBtn:hover span, #shapesBtn.down span {
+#shapesBtn:hover:after, #shapesBtn.down:after {
 	background-position: -336px -48px;
 }
 
-#hudBtn span {
+#hudBtn:after {
 	background-position: -384px 0;
 }
 
-#hudBtn:hover span, #hudBtn.down span {
+#hudBtn:hover:after, #hudBtn.down:after {
 	background-position: -384px -48px;
 }
 
-#fogBtn span {
+#fogBtn:after {
 	background-position: -432px 0;
 }
 
-#fogBtn:hover span, #fogBtn.down span {
+#fogBtn:hover:after, #fogBtn.down:after {
 	background-position: -432px -48px;
 }
 
-#motionsBtn span {
+#motionsBtn:after {
 	background-position: -144px 0;
 }
 
-#motionsBtn:hover span, #motionsBtn.down span {
+#motionsBtn:hover:after, #motionsBtn.down:after  {
 	background-position: -144px -48px;
 }
 
-#manipsBtn span {
+#manipsBtn:after {
 	background-position: -480px 0;
 }
 
-#manipsBtn:hover span, #manipsBtn.down span {
+#manipsBtn:hover:after, #manipsBtn.down:after {
 	background-position: -480px -48px;
 }
 
@@ -600,22 +613,22 @@ input.error {
 }
 
 #sidebar.minimized {
-	width: 19px;
+	width: 24px;
 }
 
 #minMaxBtn {
 	background: url(../images/minMax.png) no-repeat 0 0;
-	width: 19px;
-	height: 16px;
+	width: 24px;
+	height: 20px;
 	text-indent: -5000px;
 	outline: none;
 	border: none;
 	box-shadow: none;
 	-moz-box-shadow: none;
-	margin: 0 10px 0;
+	margin: 0 10px 5px;
 }
 #minMaxBtn.minimized {
-	background-position: -19px 0;
+	background-position: -24px 0;
 	margin-left: 0;
 }
 
@@ -641,6 +654,7 @@ input.error {
 .sidebarWidget h2 {
     text-align: left;
     font: bold 12px / 14px Helvetica, Arial, sans-serif;
+	padding: 5px 0;
 }
 
 .sidebarWidget>p {
@@ -700,6 +714,10 @@ ol.listWidget li>div {
 	float: right;
 	width: 270px;
 }
+ul.listWidget li>div {
+	float: left;
+	width: 300px;
+}
 .listWidget>li:nth-child(odd) {
 	background: #eaeaea;
 } 
@@ -743,6 +761,10 @@ ol.listWidget li span {
 	padding: 3px;
 	background: none;
 }
+.listWidget button.uiMenuShown {	
+	background: -moz-linear-gradient(100% 100% 90deg, #333, #666);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#666), to(#333));
+}
 .listWidget button:before {
 	background: url(../images/listOptionsSprite.png) no-repeat;
 	height: 16px;
@@ -752,9 +774,9 @@ ol.listWidget li span {
 	content: "";
 	float: left;
 }
-.listWidget button:hover {
+.listWidget button:not(.uiMenuShown):hover {
 	background: -moz-linear-gradient(19% 75% 90deg, #ededed, #fff); 
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ededed), to(#fff));
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ededed));
 	border-color: #dcdcdc;
 }
 .listWidget button.editBtn:before {
@@ -762,6 +784,12 @@ ol.listWidget li span {
 }
 .listWidget button.editBtn:hover:before {
 	background-position: -16px 0;
+}
+.listWidget button.behaviorBtn:before {
+	background-position: 0 -16px;
+}
+.listWidget button.behaviorBtn:hover:before {
+	background-position: -16px -16px;
 }
 .listWidget button.removeBtn:before {
 	background-position: 0 -32px;
@@ -786,7 +814,7 @@ ol.listWidget li span {
 }
 .listWidget button.addBtn {
 	background: -moz-linear-gradient(19% 75% 90deg, #eee, #fff); 
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eee), to(#fff));
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#eee));
 	border-color: #eee;
 	padding: 3px 6px;
 	width: 30px;
@@ -798,47 +826,9 @@ ol.listWidget li span {
 	background-position: -16px -96px;
 }
 
-/**
- * Tree selector widget
- */
-.treeSelector {
-	width: 100%;
-}
-.treeSelectorPnl {
-	background: #fff;
-	border: 1px solid #ccc;
-	overflow: auto;
-}
-.treeSelector input.treeSelectorIpt {
-	width: 213px;
-	float: left;
-}
-.treeSelectorBtn {
-	padding: 8px 11px;
-	overflow: hidden;
-	text-indent: 30px;
-	width: 30px;
-	height: 27px;
-}
-.treeSelectorBtn:hover {
-	background: -moz-linear-gradient(19% 75% 90deg, #eee, #fff); 
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ededed), to(#fff));
-}
-.treeSelectorBtn:before {
-	background: url(../images/listOptionsSprite.png) -32px 0 no-repeat;
-	height: 7px;
-	width: 8px;
-	float: left;
-	margin-left: 6px;
-	transform: rotate(180deg);
-	-moz-transform: rotate(180deg);
-	-webkit-transform: rotate(180deg);
-	content: "";
-}
-.treeSelectorBtn.selected:before {
-	transform: none;
-	-moz-transform: none;
-	-webkit-transform: none;
+form input.prmWgtCitTreeIpt, form input.treeSelectorIpt {
+	border-bottom-right-radius: 0;
+	border-top-right-radius: 0;
 }
 
 /**
@@ -903,7 +893,7 @@ form ol > li {
 .sidebarForm ol > li {
 	width: 255px;
 }
-.sidebarForm ol > li > div {
+.sidebarForm ol > li > div:not(.buttons) {
 	float: left;
 }
 .sidebarForm li > div.ui-slider {
@@ -947,9 +937,13 @@ form div.buttons {
     padding: 0;
 	width: auto;
 }
+form div.buttons.standalone {
+	float: left;
+}
 
 form div.buttons button {
     margin-right: 2px;
+	margin-top: 5px;
 }
 form div.buttons button:nth-child(n+1) {
 	margin-left: 2px;
@@ -1015,6 +1009,7 @@ form input:not([type=radio]), form textarea {
     padding: 5px;
     width: 188px;
     color: #555;
+	margin: 0;
 }
 form.scrolling input:not([type=radio]), form.scrolling textarea {
 	width: 170px;
@@ -1172,7 +1167,7 @@ form .onOff:after {
 button {
     background: #eee;
 	background: -moz-linear-gradient(100% 100% 90deg, #eee, #fafafa);
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eee), to(#fafafa));
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fafafa), to(#eee));
     border: 1px solid #ddd;
 	-moz-box-shadow: 0 1px 0 #fff;
 	box-shadow: 0 1px 0 #fff;
@@ -1193,7 +1188,7 @@ form button:first-child {
     margin-left: 0;
 }
 
-form button {	
+form button:not(.inlineBtn, .treeSelectorBtn) {	
 	margin-top: 5px;
 }
 
@@ -1222,6 +1217,95 @@ form button.removeBtn {
 }
 form button.removeBtn:hover {
 	background-position: -16px -32px;
+}
+form button {
+	height: 25px;
+}
+
+/**
+ * Tree selector widget
+ */
+.treeSelector {
+	width: 100%;
+}
+.treeSelectorPnl {
+	background: #fff;
+	border: 1px solid #ddd;
+	overflow: auto;
+	border-top-width: 0;
+	padding: 5px 10px;
+	border-radius: 0 0 3px 3px;
+}
+.treeSelector input.treeSelectorIpt {
+	width: 213px;
+	float: left;
+	border-radius: 3px 0 0 3px;
+}
+.treeSelectorBtn:hover {
+	background: -moz-linear-gradient(19% 75% 90deg, #eee, #fff); 
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#eee));
+}
+.treeSelectorBtn.selected:before {
+	transform: none;
+	-moz-transform: none;
+	-webkit-transform: none;
+}
+
+/**
+ * Trees
+ */
+
+.sharedTree {
+	background: none !important;
+}
+
+/**
+ * Parameters widget
+ */
+
+.prmWgtCitTreeBtn, .treeSelectorBtn {
+	padding: 0;
+	overflow: hidden;
+	text-indent: -500px;
+	width: 25px;
+	height: 25px;
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
+	border-left-width: 0;
+}
+.prmWgtCitTreeBtn::-moz-focus-inner, .treeSelectorBtn::-moz-focus-inner { 
+	border: 0; 
+	padding: 0; 
+	margin:0; 
+}
+.prmWgtCitTreeBtn:after, .treeSelectorBtn:after {
+	background: url(../images/listOptionsSprite.png) -32px -7px no-repeat;
+	height: 7px;
+	width: 8px;
+	float: left;
+	margin: 5px 0 0 8px;
+	padding: 0;
+	content: "";
+}
+.prmWgtCitTreeBtn.open:after, .treeSelectorBtn.open:after {
+	background-position: -32px 0px;
+}
+.prmWgtCitTreeBtn.open, form input.open, .treeSelectorBtn.open, 
+.treeSelector input.treeSelectorIpt.open {
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+#prmWgtCitTreePnl {
+	float: left;
+	position: absolute;
+	border: 1px solid #ddd;
+	border-top-width: 0;
+	background: #fff;
+	padding: 5px 10px;
+	border-radius: 0 0 3px 3px;
+}
+#prmWgtCitTree {
 }
 
 /**
@@ -1533,16 +1617,33 @@ form #anmLoops label {
 	width: 165px;
 	float: left;
 	margin-right: 5px;
-	margin-top: 5px;
 }
+.simpleDialog form input[type=text] {
+	background: -moz-linear-gradient(100% 100% 90deg, #dadada, #eee);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eee), to(#dadada));
+    border: 1px solid #333;
+	box-shadow: 0 1px 0 #666;
+}
+.simpleDialog form input[type=text]:focus {
+	background: -moz-linear-gradient(100% 100% 90deg, #c2dfef, #dbeff9);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#dbeff9), to(#c2dfef));
+}
+.simpleDialog form span,
 .simpleDialog form label {
 	width: auto;
 	padding-right: 10px;
 	font: bold 10pt/26px Helvetica, Arial, sans-serif;
 	float: left;
+	color: #fff;
 }
 .simpleDialog button {
 	float: left;
+	background: -moz-linear-gradient(100% 100% 90deg, #777, #aaa);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#aaa), to(#777));
+	color: #fff;
+    text-shadow: 0 -1px 0 #555;
+    border: 1px solid #333;
+	box-shadow: 0 1px 0 #666;
 }
 
 /**
@@ -1611,7 +1712,6 @@ form #msgEdtName {
 }
 .msgColumn h1 {
 	font: bold 16pt/24px "Myriad Pro", helvetica, verdana, arial;
-	color: #0a6496;
 	padding: 10px 0 5px;
 }
 #msgAddEventBtn {
@@ -1635,9 +1735,6 @@ form #msgEdtName {
 #msgEditor {
 	display: none;
 	padding: 10px;
-}
-#causeTree, #effectTree {
-	background: none;
 }
 #msgEvtList {
 	list-style: none;
@@ -1677,18 +1774,6 @@ li.even>ul>li:nth-child(even)>div {
 }
 #msgEdtHandlerParams li {
 	float: left;
-}
-#msgEdtCitizensPnl {
-	display: none;
-	position: absolute;
-}
-#msgEdtCitizensTree {
-	float: left;
-	position: relative;
-	border: 1px solid #aaa;
-	background: #ddd;
-	min-width: 150px;
-	padding: 5px 10px;
 }
 .msgEdtItemTitle {
 	cursor: pointer;
@@ -1755,7 +1840,7 @@ li.even>ul>li:nth-child(even)>div {
 	float: left;
 	width: 259px;
 	margin: 0 0 0 -30px;
-	padding: 5px 10px 15px 30px;
+	padding: 20px 10px 15px 30px;
 	background: #fffdf2;
 	box-shadow: 0 0 3px #ddd;
 	-moz-box-shadow: 0 0 3px #ddd;  
@@ -1889,6 +1974,226 @@ ul.scnEvtList li.button {
 	width: 195px;
 }
 
+#crvPositionDiv, #crvDimensionsDiv {
+	float: right;
+}
+
+/**
+ * Behavior widget
+ */
+#behaviorWgt {
+	
+}
+#behaviorAxnParams li {
+	list-style: none;
+	float: left;
+}
+#behaviorAxnParams label {
+	width: 80px;
+}
+#behaviorAxnParams input[type=text] {
+	width: 128px;
+	float: left;
+}
+#behaviorMenu {
+	position: absolute;
+	border-radius: 3px;
+	padding: 4px 8px;
+	color: #fff;
+	background: #333;
+	font: bold 12px/18px Helvetica, Verdana, Arial, sans-serif;
+	text-shadow: 0 -1px 0 #000;
+	box-shadow: 2px 3px 4px #999;
+	margin-top: 4px;
+}
+#behaviorMenu ul li {
+	padding: 2px 0;
+}
+#behaviorMenu ul li a {
+	cursor: pointer;
+}
+#behaviorMenu ul li a:hover {
+	text-shadow: 0 0 5px #444;
+	color: #c2dfef;
+}
+.bhvListWrapper {
+	float: left;
+	width: 259px;
+	margin: 0 0 0 -30px;
+	padding: 20px 10px 15px 30px;
+	background: #fffdf2;
+	box-shadow: 0 0 3px #ddd;
+	-moz-box-shadow: 0 0 3px #ddd;  
+}
+ul li .bhvListWrapper {
+	margin: 0;
+}
+.bhvListArrow {
+	display: block; 
+	position: absolute;
+	top: 35px; 
+	left: 35px; 
+	width: 13px;
+	height: 13px;
+	background: #fffdf2;
+	box-shadow: -1px -1px 2px #ddd;
+	-moz-box-shadow: -1px -1px 2px #ddd;  
+	transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+}
+.bhvListWrapper h2 {
+	float: left;
+	width: 100%;
+}
+.bhvList {
+	float: left;
+	padding: 0 0 0 20px;
+}
+ul.bhvList li {
+	padding: 0;
+	list-style: circle inside;
+	width: 240px;
+}
+ul.bhvList li:hover {
+	background: none;
+}
+ul.bhvList li > div {	
+	width: 220px;
+}
+ul.bhvList li > div.add {
+	width: 240px;
+}
+ul.bhvList li .buttonContainer {
+	padding-right: 0;
+}
+ul.bhvList li.button {
+	list-style: none;
+}
+
+/**
+ * Color picker overrides
+ */
+table.jPicker {
+	background: -moz-linear-gradient(100% 100% 90deg, #333, #666);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#666), to(#333));
+	color: #fff;
+	border-radius: 6px;
+	border: none !important;
+}
+table.jPicker .Move {
+	background: #333;
+	border: 1px solid #111;
+	border-width: 0 0 1px 0;
+    color: #fff;    
+	border-radius: 6px 6px 0 0;
+	font: bold 14px/26px Helvetica, Arial, sans-serif;
+	text-align: center;
+	text-shadow: 0 -1px 0 #000;
+}
+table.jPicker tr td {
+	vertical-align: top;
+	padding: 5px 3px;
+}
+table.jPicker .Title {
+	display: none;
+}
+table.jPicker div.Map, table.jPicker div.Bar {
+	border: 1px solid #000;
+	margin-top: 9px;
+}
+table.jPicker div.Bar {
+}
+table.jPicker .Preview div {
+	border: none;
+}
+table.jPicker .Button {
+	width: 111px;
+}
+table.jPicker .Button input {    
+	background: -moz-linear-gradient(100% 100% 90deg, #777, #aaa);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#aaa), to(#777));
+    border: 1px solid #000;
+    border-radius: 2px;
+    color: #fff;
+    font-weight: bold;
+    height: 20px;
+    text-shadow: 0 -1px 0 #555;
+}
+table.jPicker .Button input:hover {    
+	background: -moz-linear-gradient(100% 100% 90deg, #999, #bbb);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#bbb), to(#999));
+}
+table.jPicker .Button .Ok {
+	margin-top: 9px;
+}
+table.jPicker hr {
+	height: 1px;
+	border: none;
+	background: #ccc;
+	margin: 10px 0;
+}
+table.jPicker .Grid {
+	width: 109px;
+}
+table.jPicker .Grid span.QuickColor {
+	border: 1px solid #000;
+	border-width: 1px 0 1px 1px;
+}
+table.jPicker .Grid span.QuickColor:nth-child(n+7) {
+	border-top-width: 0;
+}
+table.jPicker .Grid span.QuickColor:nth-child(6n) {
+	border-right-width: 1px;
+}
+table.jPicker .Text input {
+	border: 1px solid #444;
+	border-radius: 3px;
+}
+table.jPicker tr.Hex td.Text {
+	padding-bottom: 10px;
+}
+span.jPicker {
+    display: block;
+    float: left;
+    margin: 4px 6px 0;
+    width: 25px;
+	height: 25px;
+}
+
+/**
+ * Progress indicator styling
+ */
+#progressIndicator {
+	background: -moz-linear-gradient(100% 100% 90deg, #eee, #dcdcdc);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#dcdcdc), to(#eee));
+	height: 30px;
+	padding: 5px 5px;
+	position: absolute;
+	border-radius: 3px 3px 0 0;
+}
+#progressIndicator .prgBarText {
+	color: #666;
+	font: 10px/17px Helvetica, Arial, sans-serif;
+	float: left;
+	padding: 2px 5px 2px 0;
+}
+#progressIndicator .prgBarContainer {
+	float: left;
+	width: 300px;
+	height: 18px;
+	border: 1px solid #aaa;
+	border-radius: 3px;
+}
+#progressIndicator .prgBarIndicator {
+	height: 100%;
+	width: 0;
+	padding: 0;
+	margin: 0;
+	background: -moz-linear-gradient(100% 100% 90deg, #88b2cb, #a0d2ef);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#a0d2ef), to(#88b2cb));
+}
+
 /*
 * jQuery UI CSS Framework
 * Copyright (c) 2010 AUTHORS.txt (http://jqueryui.com/about)
@@ -1942,17 +2247,18 @@ ul.scnEvtList li.button {
 .ui-widget .ui-widget { font-size: 1em; }
 .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {  }
 .ui-widget-content { 
-    background: #eee;
-    border: 1px solid #aaa;
-	color: #444444; 
+	background: -moz-linear-gradient(100% 100% 90deg, #333, #666);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#666), to(#333));
+	border-radius: 6px;
+	color: #fff; 
 }
 .ui-widget-content a { color: #444444; }
 .ui-widget-header { 
-	background: #ddd; 
-	color: #535353;
-	text-shadow: 0 1px 0 #eaeaea; 
-	font-weight: bold; 
-	border-bottom: 1px solid #aaa;
+	background: #333; 
+	color: #fff;
+	text-shadow: 0 -1px 0 #000; 
+	font: bold 14px/26px Helvetica, Arial, sans-serif; 
+	border-bottom: 1px solid #111;
 }
 .ui-widget-header a { color: #444444; }
 
@@ -2259,8 +2565,8 @@ ul.scnEvtList li.button {
 .ui-widget-shadow { margin: -4px 0 0 -4px; padding: 4px; background: #aaaaaa url(../images/ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat-x; opacity: .60;filter:Alpha(Opacity=60); -moz-border-radius: 0px; -webkit-border-radius: 0px; border-radius: 0px; }/* Dialog
 ----------------------------------*/
 .ui-dialog { position: absolute; width: 300px; overflow: hidden; }
-.ui-dialog .ui-dialog-titlebar { padding: 5px; position: relative;  }
-.ui-dialog .ui-dialog-title { float: left; margin: .1em 16px .2em 0; } 
+.ui-dialog .ui-dialog-titlebar { padding: 0 5px; position: relative; border-radius: 6px 6px 0 0; }
+.ui-dialog .ui-dialog-title { float: left; margin: 0; } 
 .ui-dialog .ui-dialog-titlebar-close { position: absolute; right: .3em; top: 50%; width: 19px; margin: -10px 0 0 0; padding: 1px; height: 18px; }
 .ui-dialog .ui-dialog-titlebar-close span { display: block; margin: 1px; }
 .ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus { padding: 0; }

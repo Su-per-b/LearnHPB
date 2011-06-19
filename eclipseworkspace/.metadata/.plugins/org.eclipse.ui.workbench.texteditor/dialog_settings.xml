@@ -13,26 +13,26 @@
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="eventHandler" key="selection"/>
+		<item value="stop" key="selection"/>
 		<list key="findhistory">
-			<item value="eventHandler"/>
-			<item value="onAdminPanelClick"/>
-			<item value="onLinkClick"/>
-			<item value="onLinkChange"/>
-			<item value="HvacDamper"/>
-			<item value="model"/>
-			<item value="AdminPanel"/>
-			<item value="getCenter"/>
+			<item value="stop"/>
+			<item value="onUnitCompleteCallback"/>
+			<item value="process"/>
+			<item value="show"/>
+			<item value="showR"/>
+			<item value="show&apos;"/>
+			<item value="insertH3Tag"/>
+			<item value="subscription"/>
 		</list>
 		<list key="replacehistory">
+			<item value="onUnitCompleteCallback"/>
+			<item value="unitTest10"/>
+			<item value="unit10"/>
 			<item value="Envelope"/>
 			<item value=""/>
 			<item value="unitTest8"/>
 			<item value="unit8"/>
 			<item value="unitTest7"/>
-			<item value="unit7"/>
-			<item value="unitTest6"/>
-			<item value="unit6"/>
 		</list>
 	</section>
 </section>

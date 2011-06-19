@@ -25,7 +25,6 @@
  * type ("Swing").
  */
 (function() {
-	o3djs.require('o3djs.util');
 	o3djs.require('hext.hud.paging');
 	
 	// Require the html extensions
@@ -654,7 +653,7 @@
 		var smokePufferToolbarView = new hext.tools.SmokePufferToolbarView();
 		var smokePuffer = new hext.tools.SmokePuffer();
 		// Create a new default puff.
-		smokePuffer.defaultPuff = hemi.effect.createSmokePuff(40, [0, 0, 0], [0, 0, 0], [0, 0, 0]);
+		smokePuffer.defaultPuff = hext.tools.createSmokePuff(40, [0, 0, 0], [0, 0, 0], [0, 0, 0]);
 		// Create custom smoke puffs for when the user clicks on the leaky area.
 		var config1 = new hext.tools.SmokePuffConfig();
 		config1.size = 40;

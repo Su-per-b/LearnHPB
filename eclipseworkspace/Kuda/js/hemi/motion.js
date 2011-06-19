@@ -19,8 +19,6 @@
  * @fileoverview Motion describes classes for automatically translating
  * 		and rotating objects in the scene.
  */
-o3djs.require('hemi.core');
-o3djs.require('hemi.msg');
 
 var hemi = (function(hemi) {
 	/**
@@ -94,7 +92,7 @@ var hemi = (function(hemi) {
 				tran1.parent = transform.parent;
 				tran2.parent = tran1;
 				transform.parent = tran2;
-				tran1.localMatrix = hemi.utils.copyArray(transform.localMatrix);
+				tran1.localMatrix = hemi.utils.clone(transform.localMatrix);
 				transform.identity();
 				
 				obj.rotTran = tran2;
@@ -422,7 +420,7 @@ var hemi = (function(hemi) {
 				var tran = hemi.core.mainPack.createObject('Transform');
 				tran.parent = transform.parent;
 				transform.parent = tran;
-				tran.localMatrix = hemi.utils.copyArray(transform.localMatrix);
+				tran.localMatrix = hemi.utils.clone(transform.localMatrix);
 				transform.identity();
 				
 				obj.tran = transform;

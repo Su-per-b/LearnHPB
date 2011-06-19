@@ -32,6 +32,7 @@ var hemi = (function(hemi) {
 	hemi.shape.OCTA = 'octa';
 	hemi.shape.PYRAMID = 'pyramid';
 	hemi.shape.CUSTOM = 'custom';
+	hemi.shape.SHAPE_ROOT = "ShapeRoot";
 	
 	/**
 	 * @class A TransformUpdate allows changes to the Transform in a Shape to be
@@ -321,7 +322,7 @@ var hemi = (function(hemi) {
 					break;
 			}
 			
-			this.tranUp.localMatrix = hemi.utils.copyArray(this.transform.localMatrix);
+			this.tranUp.localMatrix = hemi.utils.clone(this.transform.localMatrix);
 		},
 		
 		/**
@@ -331,7 +332,7 @@ var hemi = (function(hemi) {
 		 */
 		scale: function(config) {
 			this.transform.scale(config.x, config.y, config.z);
-			this.tranUp.localMatrix = hemi.utils.copyArray(this.transform.localMatrix);
+			this.tranUp.localMatrix = hemi.utils.clone(this.transform.localMatrix);
 		},
 
 		/**
@@ -351,7 +352,7 @@ var hemi = (function(hemi) {
 		 */
 		setMatrix: function(matrix) {			
 			this.transform.localMatrix = matrix;
-			this.tranUp.localMatrix = hemi.utils.copyArray(matrix);
+			this.tranUp.localMatrix = hemi.utils.clone(matrix);
 		},
 		
 		/**
@@ -374,7 +375,7 @@ var hemi = (function(hemi) {
 		translate: function(x, y, z) {
 			if (this.transform !== null) {
 				this.transform.translate(x, y, z);
-				this.tranUp.localMatrix = hemi.utils.copyArray(this.transform.localMatrix);
+				this.tranUp.localMatrix = hemi.utils.clone(this.transform.localMatrix);
 			}
 		}
 	};
@@ -385,7 +386,9 @@ var hemi = (function(hemi) {
 	 * Initialize a local root transform and pack.
 	 */
 	hemi.shape.init = function() {
-		hemi.shape.root = hemi.picking.pickRoot;
+		hemi.shape.root = hemi.core.mainPack.createObject('Transform');
+		hemi.shape.root.name = hemi.shape.SHAPE_ROOT;
+		hemi.shape.root.parent = hemi.picking.pickRoot;
 		hemi.shape.pack = hemi.core.mainPack;
 		hemi.shape.material = hemi.core.material.createBasicMaterial(
 			hemi.shape.pack,

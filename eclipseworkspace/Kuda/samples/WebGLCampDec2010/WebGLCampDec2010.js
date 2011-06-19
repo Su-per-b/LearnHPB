@@ -1,5 +1,3 @@
-o3djs.require('o3djs.util');
-o3djs.require('hemi.texture');
 o3djs.require('hext.progressUI.progressBar');
 
 (function() {
@@ -207,25 +205,22 @@ o3djs.require('hext.progressUI.progressBar');
 
 	function moveOnRails() {
 		var eyes = [
-				SLIDE1_EYE,
 				SLIDE1_EYE, [800, 0, SLIDE1_EYE[2]],
 				[2800, 0, 4900], [1500, 2000, -9000],
 				[-1200, 100, -9000], [-2000, 800, 0],
-				[-1000, 300, SLIDE1_EYE[2]], SLIDE1_EYE,
-				SLIDE1_EYE
+				[-1000, 300, SLIDE1_EYE[2]], SLIDE1_EYE
 			],
 			targets = [
-				SLIDE1_TARGET,
-				SLIDE1_TARGET, eyes[3],
-				eyes[4], eyes[5],
-				eyes[6], eyes[7],
-				eyes[8], SLIDE1_TARGET,
-				SLIDE1_TARGET
+				SLIDE1_TARGET, eyes[2],
+				eyes[3], eyes[4],
+				eyes[5], eyes[6],
+				eyes[7], SLIDE1_TARGET
 			],
 			curveEye = new hemi.curve.Curve(eyes, hemi.curve.curveType.Cardinal),
-			curveTarget = new hemi.curve.Curve(targets, hemi.curve.curveType.Cardinal);
+			curveTarget = new hemi.curve.Curve(targets, hemi.curve.curveType.Cardinal),
+			camCurve = new hemi.view.CameraCurve(curveEye, curveTarget);
 			// curveEye.draw(50, { jointSize: 4 });
-			camera.moveOnCurve(curveEye, curveTarget, 600);
+			camera.moveOnCurve(camCurve, 600);
 	}
 
 	function moveCameraToSlide(slide) {
@@ -248,9 +243,10 @@ o3djs.require('hext.progressUI.progressBar');
 				targets = [
 				[0, 0, Zt], [0, 0, Zt]],
 			curveEye = new hemi.curve.Curve(eyes, hemi.curve.curveType.CubicHermite, { tangents: tangents }),
-			curveTarget = new hemi.curve.Curve(targets, hemi.curve.curveType.Linear);
+			curveTarget = new hemi.curve.Curve(targets, hemi.curve.curveType.Linear),
+			camCurve = new hemi.view.CameraCurve(curveEye, curveTarget);
 			// curveEye.draw(50, { jointSize: 4 });
-			camera.moveOnCurve(curveEye, curveTarget, 28);
+			camera.moveOnCurve(camCurve, 28);
 		}
 	}
 

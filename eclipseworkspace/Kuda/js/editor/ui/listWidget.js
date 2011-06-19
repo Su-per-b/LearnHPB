@@ -127,8 +127,8 @@ var editor = (function(module, jQuery) {
 	});
 		
 	module.ui.ListItemWidget = module.ui.Component.extend({
-		init: function() {
-			this._super();
+		init: function(options) {
+			this._super(options);
 		},
 		
 		attachObject: function(object) {
@@ -181,19 +181,33 @@ var editor = (function(module, jQuery) {
 		}
 	});
 	
+	module.ui.EdtLiWgtDefaultOptions = {
+		removable: true,
+		editable: true
+	};
+	
 	module.ui.EditableListItemWidget = module.ui.ListItemWidget.extend({
-		init: function() {
-			this._super();
+		init: function(options) {
+			var newOpts = jQuery.extend({}, module.ui.EdtLiWgtDefaultOptions, options);
+			this._super(newOpts);
 		},
 						
 		finishLayout: function() {
+			var btnDiv = jQuery('<div class="buttonContainer"></div>'),
+				wgt = this;
+			
 			this.container = jQuery('<div></div>');
 			this.title = jQuery('<span></span>');
-			this.editBtn = jQuery('<button class="editBtn">Edit</button>');
-			this.removeBtn = jQuery('<button class="removeBtn">Remove</button>');
-			var btnDiv = jQuery('<div class="buttonContainer"></div>');
 			
-			btnDiv.append(this.editBtn).append(this.removeBtn);
+			if (this.config.editable) {
+				this.editBtn = jQuery('<button class="editBtn">Edit</button>');
+				btnDiv.append(this.editBtn);
+			}
+			if (this.config.removable) {
+				this.removeBtn = jQuery('<button class="removeBtn">Remove</button>');
+				btnDiv.append(this.removeBtn);				
+			}
+			
 			this.container.append(this.title).append(btnDiv);
 		},
 		

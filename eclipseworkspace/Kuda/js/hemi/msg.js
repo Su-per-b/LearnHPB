@@ -15,8 +15,6 @@
  * Boston, MA 02110-1301 USA.
  */
 
-o3djs.require('hemi.dispatch');
-
 var hemi = (function(hemi) {
 	/**
 	 * @namespace A module for managing the string literals for Message types.
@@ -163,6 +161,11 @@ var hemi = (function(hemi) {
 		 * Sent by hemi.motion.Translator, data =
 		 * { }
 		 * @example
+		 * Sent by hemi.time.Timer, data =
+		 * {
+		 *     time: (the countdown the Timer is starting)
+		 * }
+		 * @example
 		 * Sent by hemi.view.Camera, data =
 		 * {
 		 *     viewpoint: (Viewpoint the Camera is moving to)
@@ -188,6 +191,11 @@ var hemi = (function(hemi) {
 		 * @example
 		 * Sent by hemi.motion.Translator, data =
 		 * { }
+		 * @example
+		 * Sent by hemi.time.Timer, data =
+		 * {
+		 *     time: (the amount of time counted by the Timer)
+		 * }
 		 * @example
 		 * Sent by hemi.view.Camera, data =
 		 * {

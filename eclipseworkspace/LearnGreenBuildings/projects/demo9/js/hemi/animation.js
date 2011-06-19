@@ -61,6 +61,8 @@ var hemi = (function(hemi) {
 		this.iterations = -1;
 		
 		this.current = 0;
+		
+		this.isBackwardsAnimation = false;
 	};
 	
 	hemi.animation.Loop.prototype = {
@@ -222,14 +224,27 @@ var hemi = (function(hemi) {
 		 * Loop's iteration counter.
 		 */
 		checkLoops: function() {
+			
+			
 			for (var ndx = 0; ndx < this.loops.length; ndx++) {
 				var loop = this.loops[ndx];
 				
 				if (loop.current != loop.iterations) {
-					if (this.currentTime >= loop.stopTime) {
+					
+					var isLoopComplete = false;
+					if (this.isBackwardsAnimation) {
+						isLoopComplete = (this.currentTime <= loop.stopTime)
+					} else {
+						isLoopComplete = (this.currentTime >= loop.stopTime)
+					}
+					
+					
+					if (isLoopComplete) {
 						this.currentTime = loop.startTime;
 						loop.current++;
 					}
+					
+					
 				}
 			}
 		},
@@ -252,6 +267,11 @@ var hemi = (function(hemi) {
 		start: function(){
 			if (!this.target.isAnimating) {
 				this.target.isAnimating = true;
+				
+				
+				this.isBackwardsAnimation = (this.beginTime > this.endTime)
+				
+				
 				this.updateTarget(this.currentTime);
 				hemi.view.addRenderListener(this);
 				
@@ -279,14 +299,32 @@ var hemi = (function(hemi) {
 		 *		  information about the render
 		 */
 		onRender: function(renderEvent){
-			this.currentTime += renderEvent.elapsedTime;
-			this.checkLoops();
-			if (this.currentTime < this.endTime) {
-				this.updateTarget(this.currentTime);
+			
+			
+
+			var isAnimationComplete = false;
+			
+			if (this.isBackwardsAnimation) {
+				this.currentTime -= renderEvent.elapsedTime;
 			} else {
-				this.updateTarget(this.endTime);
+				this.currentTime += renderEvent.elapsedTime;
+			}
+			
+			this.checkLoops();
+			
+			if (this.isBackwardsAnimation) {
+				isAnimationComplete = (this.currentTime <= this.endTime);
+			} else {
+				isAnimationComplete = (this.currentTime >= this.endTime);
+			}
+			
+			
+			if (isAnimationComplete) {
 				this.stop();
-				this.reset();
+				//this.reset();
+				this.updateTarget(this.endTime);
+			} else {
+				this.updateTarget(this.currentTime);
 			}
 		},
 		

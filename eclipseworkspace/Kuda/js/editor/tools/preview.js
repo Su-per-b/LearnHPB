@@ -92,7 +92,7 @@ var editor = (function(module) {
 			
 			// set the world to its initial state
 			hemi.view.renderListeners = [hemi.view.clientSize];
-			hi.mouseDownListeners = [];
+			hi.mouseDownListeners = [hw];
 			hi.mouseUpListeners = [];
 			hi.mouseMoveListeners = [];
 			hi.mouseWheelListeners = [];
@@ -110,6 +110,8 @@ var editor = (function(module) {
 			hemi.picking.init();
 			hemi.model.init();
 			hemi.shape.root = hemi.picking.pickRoot;
+			
+			hemi.world.subscribe(hemi.msg.progress, module.ui.progressUI, 'msgUpdate');
 			
 			// now load the preview data
 			hemi.octane.createWorld(data);

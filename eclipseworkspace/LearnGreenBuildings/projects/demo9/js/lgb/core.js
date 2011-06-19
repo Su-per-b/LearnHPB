@@ -26,7 +26,7 @@ var lgb = (function(lgb) {
 	lgb.core = lgb.core || {};
 	
 	
-	lgb.core.init = function(){
+	lgb.core.init = function() {
 	
 		console.log("kuda version: " + hemi.version);
 		console.log("lgb version: " + lgb.version);

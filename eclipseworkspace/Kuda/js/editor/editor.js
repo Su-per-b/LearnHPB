@@ -18,21 +18,18 @@
 (function(window) {
 	o3djs.require('editor.requires');
 	
-	
 ////////////////////////////////////////////////////////////////////////////////
 //                                 Main App                                   //
 ////////////////////////////////////////////////////////////////////////////////
 
-	Application = function() {
+	var Application = function() {
 	};
 	
 	Application.prototype = {
 		initViewerStep1: function() {
 			var app = this,
 				options = [];
-			
-			this.bindJavascript();
-			
+						
 			// set editor defaults
 			editor.Defaults = {
 				farPlane: 10000,
@@ -74,7 +71,7 @@
 			cam.clip.near = defaults.nearPlane;
 			cam.updateProjection();
 			
-			this.extent = 50;		// Grid will reach 2000 meters in each direction
+			this.extent = 50;		// Grid will reach 50 meters in each direction
 			this.fidelity = 1;		// Grid squares = 1 square meter
 			
             this.layoutDialogs();
@@ -89,18 +86,14 @@
 			hemi.msg.subscribe(hemi.msg.load,
 				function(msg) {
 					if (msg.src instanceof hemi.model.Model) {
-						that.msgMdl.addCitizen(msg.src);
-						that.scnMdl.addCitizen(msg.src);
-						that.editorStateChanged();
+						editor.ui.treeModel.addCitizen(msg.src);
 					}
 				});
 			hemi.msg.subscribe(hemi.msg.cleanup,
 				function(msg) {
 					if (msg.src.name != null &&
 						msg.src.name.match(editor.tools.ToolConstants.EDITOR_PREFIX) === null) {
-						that.msgMdl.removeCitizen(msg.src);
-						that.scnMdl.removeCitizen(msg.src);
-						that.editorStateChanged();
+						editor.ui.treeModel.removeCitizen(msg.src);
 					}
 				});
 			
@@ -108,14 +101,10 @@
 			hemi.world.subscribe(hemi.msg.ready, this, 'worldLoaded');
 			
 			var addFunc = function(citizen) {
-				that.msgMdl.addCitizen(citizen);
-				that.scnMdl.addCitizen(citizen);
-				that.editorStateChanged();
+				editor.ui.treeModel.addCitizen(citizen);
 			};
 			var updateFunc = function(citizen) {
-				that.msgMdl.updateCitizen(citizen);
-				that.scnMdl.updateCitizen(citizen);
-				that.editorStateChanged();
+				editor.ui.treeModel.updateCitizen(citizen);
 			};
 			
 			this.anmMdl.addListener(editor.EventTypes.AnimationCreated, addFunc);
@@ -124,9 +113,10 @@
 			this.mnpMdl.addListener(editor.EventTypes.ManipUpdated, updateFunc);
 			this.mtnMdl.addListener(editor.EventTypes.MotionCreated, addFunc);
 			this.mtnMdl.addListener(editor.EventTypes.MotionUpdated, updateFunc);
+			this.vptMdl.addListener(editor.EventTypes.CamCurveCreated, addFunc);
 			this.vptMdl.addListener(editor.EventTypes.ViewpointAdded, addFunc);
-			this.scnMdl.addListener(editor.EventTypes.SceneAdded, addFunc);
-			this.scnMdl.addListener(editor.EventTypes.SceneUpdated, updateFunc);
+			this.scnMdl.addListener(editor.EventTypes.Scenes.SceneAdded, addFunc);
+			this.scnMdl.addListener(editor.EventTypes.Scenes.SceneUpdated, updateFunc);
 			this.pteMdl.addListener(editor.EventTypes.ParticleFxAdded, addFunc);
 			this.pteMdl.addListener(editor.EventTypes.ParticleFxUpdated, updateFunc);
 			this.shpMdl.addListener(editor.EventTypes.ShapeCreated, addFunc);
@@ -153,8 +143,10 @@
 				first = views[0];
 			
 			// wait for the ui to load first
-			this.sidebar.addListener(editor.EventTypes.SidebarFinishedLoading, function() {				
+			this.sidebar.addListener(editor.EventTypes.Sidebar.FinishedLoading, function() {				
 				hemi.world.ready();
+				
+				editor.ui.getBehaviorWidget().setVisible(false);
 				
 				// select the first tool
 				first.setMode(editor.tools.ToolConstants.MODE_DOWN);
@@ -179,7 +171,13 @@
 			this.hudMdl.worldCleaned();
 			this.fogMdl.worldCleaned();
 			this.selMdl.worldCleaned();
-			this.crvMdl.worldCleaned();
+			this.crvMdl.worldCleaned();			
+			
+			var citizens = hemi.world.getCitizens();
+	
+			for (var ndx = 0, len = citizens.length; ndx < len; ndx++) {
+				editor.ui.treeModel.removeCitizen(citizens[ndx]);
+			}
 		},
 		
 		worldLoaded: function() {
@@ -222,92 +220,37 @@
 		
 		layoutDialogs: function() {
 			var that = this;
-			
-            this.wfrMdl = new editor.tools.WireframeModel();
-            this.ortMdl = new editor.tools.OrthographicModel();
-			this.mdlLdrMdl = new editor.tools.ModelLoaderModel();
-			this.mdlLdrView = new editor.tools.ModelLoaderView();
-			var mdlLdrCtr = new editor.tools.ModelLoaderController();
-			
-			mdlLdrCtr.setModel(this.mdlLdrMdl);
-			mdlLdrCtr.setView(this.mdlLdrView);
-			
-            this.savePrjDlg = jQuery('<div title="Save Project" id="savePrjDlg" class="simpleDialog"><p id="savePrjMsg"></p><form method="post" action="" class="dialogForm"><label for="savePrjName">Project Name:</label><input type="text" name="savePrjName" id="savePrjName" /><button id="savePrjBtn">Save</button></form></div>');			
-			this.savePrjDlg.find('form').submit(function() { 
-				return false; 
-			});
-			this.savePrjDlg.find('#savePrjBtn').click(function() {
-				that.saveProject(that.savePrjDlg.find('#savePrjName').val());
-			});
-            this.savePrjDlg.dialog({
-                width: 300,
-                resizable: false,
-				autoOpen: false,
-				modal: true
-            })
-			.bind('dialogopen', function() {
-				that.savePrjDlg.find('form').show();
-				that.savePrjDlg.find('#savePrjMsg').hide();
-			});
-			
-			this.openPrjDlg = jQuery('<div title="Open Project" id="loadPrjDlg" class="simpleDialog"><p id="loadPrjMsg"></p><form method="post" action=""><label for="loadPrjSel">Select a Project:</label><select id="loadPrjSel"></select><button id="loadPrjBtn">Load</button></form></div>');
-			var form = this.openPrjDlg.find('form').submit(function() {
-				return false;
-			});
-			var btn = this.openPrjDlg.find('#loadPrjBtn').bind('click', function() {
-				that.openProject(that.openPrjDlg.find('#loadPrjSel').val());
-			});		
-			this.openPrjDlg.dialog({
-				width: 300,
-				resizable: false,
-				autoOpen: false,
-                modal: true
-			})
-			.bind('dialogopen', function() {
-				var msg = that.openPrjDlg.find('#loadPrjMsg');
-				
-				msg.text('Retrieving projects...').show();
-				form.hide();
-				
-				jQuery.ajax({
-					url: '/listProjects',
-					dataType: 'json',
-					success: function(data, status, xhr) {
-						var sel = that.openPrjDlg.find('#loadPrjSel'),
-							options = data.options;
-						
-						sel.empty();
-						for (var ndx = 0, len = options.length; ndx < len; ndx++) {
-							var option = jQuery('<option>' + options[ndx] + '</option>');
-							sel.append(option);
-						}
-						
-						form.show();
-						msg.hide();
-					},
-					error: function(xhr, status, err) {
-						if (xhr.status !== 400) {
-							msg.text('Cannot get projects. Server is not running')
-								.addClass('errMsg').show();
-								
-							setTimeout(function() {
-								that.openPrjDlg.dialog('close');
-							}, 2000);
-						}
-						else {
-							msg.text(xhr.responseText);
-						}
-					}
+
+			this.loadMdlDlg = editor.ui.createLoadModelDialog(function(val, fcn) {
+				that.loadModel(val, fcn);
+			});			
+			this.importMdlDlg = editor.ui.createImportModelDialog(function(val, fcn) {
+				that.loadModel(val, fcn);
+			});			
+            this.savePrjDlg = editor.ui.createSaveProjectDialog(function(name) {
+				that.saveProject(name);
+			});			
+			this.openPrjDlg = editor.ui.createOpenProjectDialog(function(name) {
+				that.openProject(name);
+			});			
+			this.publishPrjDlg = editor.ui.createPublishProjectDialog(
+				this.savePrjDlg, 
+				function(name, octane) {
+					that.saveProject(name, octane);
+					that.publishPrjDlg.find('#pubPrjMsg').text('Publishing...').show();
+					that.publishProject(name);
 				});
-			})
-			.find('p#loadPrjMsg').hide();
 		},
 		
 		layoutMenu: function() {
 			var that = this;
 			
+            this.wfrMdl = new editor.tools.WireframeModel();
+            this.ortMdl = new editor.tools.OrthographicModel();
+			
 	        this.fileMenu = new editor.ui.Menu('File');
 	        this.viewMenu = new editor.ui.Menu('View');
+			this.modelMenu = new editor.ui.Menu('Models');
 			this.menu = new editor.ui.MenuBar();
 			
 			var newProject = new editor.ui.MenuItem({
@@ -328,7 +271,7 @@
 				title: 'Open Project',
 				action: function(evt){				
 					// close other dialogs
-					that.mdlLdrView.hideDialog();
+					that.loadMdlDlg.dialog('close');
 				
 					that.openPrjDlg.dialog('open');
 				}
@@ -337,7 +280,7 @@
 				title: 'Save Project',
 				action: function(evt){				
 					// close other dialogs
-					that.mdlLdrView.hideDialog();
+					that.loadMdlDlg.dialog('close');
 				
 					that.savePrjDlg.dialog('open');
 				}
@@ -348,11 +291,12 @@
 					that.pvwMdl.startPreview();
 				}
 			});
-			var separator = new editor.ui.Separator();
-			var loadModel = new editor.ui.MenuItem({
-				title: 'Load Model',
-				action: function(evt){										
-					that.mdlLdrView.showDialog();				
+			var publish = new editor.ui.MenuItem({
+				title: 'Publish',
+				action: function(evt){
+					// close other dialogs
+					that.loadMdlDlg.dialog('close');
+					that.publishPrjDlg.dialog('open');
 				}
 			});
 			
@@ -360,8 +304,7 @@
 			this.fileMenu.addMenuItem(openProject);
             this.fileMenu.addMenuItem(saveProject);
             this.fileMenu.addMenuItem(preview);
-            this.fileMenu.addMenuItem(separator);
-            this.fileMenu.addMenuItem(loadModel);
+            this.fileMenu.addMenuItem(publish);
 			
             var wireframe = new editor.ui.MenuItem({
 				title: 'Wireframe',
@@ -434,8 +377,25 @@
             this.viewMenu.addMenuItem(xz);
             this.viewMenu.addMenuItem(yz);
 			
+			var loadModel = new editor.ui.MenuItem({
+				title: 'Load Model',
+				action: function(evt){				
+					that.loadMdlDlg.dialog('open');			
+				}
+			});
+			var importModel = new editor.ui.MenuItem({
+				title: 'Import Model',
+				action: function(evt) {
+					that.importMdlDlg.dialog('open');
+				}
+			});
+			
+			this.modelMenu.addMenuItem(loadModel);
+			this.modelMenu.addMenuItem(importModel);
+			
 			this.menu.addMenuItem(this.fileMenu);
 			this.menu.addMenuItem(this.viewMenu);
+			this.menu.addMenuItem(this.modelMenu);
             
             // add the menus to the container
 			var container = jQuery('#menu');
@@ -666,12 +626,6 @@
 			return (w1 - w2);
 		},
 		
-		bindJavascript: function() {
-		},
-		
-		editorStateChanged: function() {		
-		},
-		
 		saveProject: function(name, oldOctane) {
 			var data = null;
 			
@@ -693,7 +647,7 @@
 			var that = this;
 			
 			jQuery.ajax({
-				url: '/saveProject',
+				url: '/project',
 				data: data,
 				dataType: 'json',
 				type: 'post',
@@ -747,10 +701,11 @@
 			
 			var data = {
 				name: name
-			}, that = this;
+			}, 
+			that = this;
 			
 			jQuery.ajax({
-				url: '/openProject',
+				url: '/project',
 				data: data,
 				dataType: 'json',
 				success: function(data, status, xhr){
@@ -779,9 +734,65 @@
 			});
 		},
 		
-		loadModel: function() {
-			var url = $('#model').val();
-			var model = new hemi.model.Model();
+		publishProject: function(name) {
+			var data = {
+					name: name
+				},
+				models = hemi.world.getModels(),
+				msg = this.publishPrjDlg.find('#pubPrjMsg'),
+				that = this;
+			
+			if (models.length > 0) {
+				var names = [];
+				
+				for (var i = 0, il = models.length; i < il; i++) {
+					names.push(models[i].name);
+				}
+				
+				data.models = names.join(', ');
+			} else {
+				data.models = 'No models needed!';
+			}
+			
+			jQuery.ajax({
+				url: '/publish',
+				data: data,
+				dataType: 'json',
+				type: 'post',
+				success: function(data, status, xhr) {
+					that.publishPrjDlg.find('form').hide();
+					that.publishPrjDlg.find('#pubPrjMsg')
+						.text('Published project as ' + data.name).show();
+					
+					setTimeout(function() {
+						that.publishPrjDlg.dialog('close');
+					}, 1500);
+				},
+				error: function(xhr, status, err) {
+					if (xhr.status !== 400) {
+						msg.text('Can not publish project. Server is not running.')
+							.addClass('errMsg').show();
+							
+						setTimeout(function() {
+							that.publishPrjDlg.dialog('close');
+						}, 2000);
+					} else {
+						msg.text(xhr.responseText);
+					}
+				}
+			});
+		},
+		
+		loadModel: function(url, fcn) {
+			var model = new hemi.model.Model(),
+				that = this;
+			
+			var msgHandler = model.subscribe(hemi.msg.load,
+				function(msg) {
+					fcn();
+					model.unsubscribe(msgHandler, hemi.msg.load);
+				});
+				
 			model.setFileName(url);
 		}
 	};

@@ -33,7 +33,7 @@
 		<item value="1000" key="org.eclipse.search.resultpage.limit"/>
 	</section>
 	<section name="TextSearchPage">
-		<item value="false" key="CASE_SENSITIVE"/>
+		<item value="true" key="CASE_SENSITIVE"/>
 		<item value="" key="SEARCH_DIRECTORY"/>
 		<item value="false" key="REG_EX_SEARCH"/>
 		<item value="false" key="SEARCH_DERIVED"/>
@@ -41,7 +41,7 @@
 		<item value="12" key="HISTORY_SIZE"/>
 		<section name="HISTORY11">
 			<item value="false" key="isRegExSearch"/>
-			<item value="boundingBox" key="textPattern"/>
+			<item value="kuda version" key="textPattern"/>
 			<item value="1" key="scope"/>
 			<item value="true" key="ignoreCase"/>
 			<list key="fileNamePatterns">
@@ -55,7 +55,7 @@
 		</section>
 		<section name="HISTORY10">
 			<item value="false" key="isRegExSearch"/>
-			<item value="load" key="textPattern"/>
+			<item value="AdminPanel" key="textPattern"/>
 			<item value="1" key="scope"/>
 			<item value="true" key="ignoreCase"/>
 			<list key="fileNamePatterns">
@@ -66,7 +66,7 @@
 		</section>
 		<section name="HISTORY9">
 			<item value="false" key="isRegExSearch"/>
-			<item value="unsubscribe" key="textPattern"/>
+			<item value="bind" key="textPattern"/>
 			<item value="1" key="scope"/>
 			<item value="true" key="ignoreCase"/>
 			<list key="fileNamePatterns">
@@ -77,7 +77,7 @@
 		</section>
 		<section name="HISTORY8">
 			<item value="false" key="isRegExSearch"/>
-			<item value="&apos;Loading failed: could not load" key="textPattern"/>
+			<item value="UserActionType" key="textPattern"/>
 			<item value="1" key="scope"/>
 			<item value="true" key="ignoreCase"/>
 			<list key="fileNamePatterns">
@@ -88,7 +88,7 @@
 		</section>
 		<section name="HISTORY5">
 			<item value="false" key="isRegExSearch"/>
-			<item value="admin" key="textPattern"/>
+			<item value="rotate" key="textPattern"/>
 			<item value="1" key="scope"/>
 			<item value="true" key="ignoreCase"/>
 			<list key="fileNamePatterns">
@@ -99,7 +99,7 @@
 		</section>
 		<section name="HISTORY4">
 			<item value="false" key="isRegExSearch"/>
-			<item value="proxy" key="textPattern"/>
+			<item value="getTransforms" key="textPattern"/>
 			<item value="1" key="scope"/>
 			<item value="true" key="ignoreCase"/>
 			<list key="fileNamePatterns">
@@ -110,7 +110,7 @@
 		</section>
 		<section name="HISTORY7">
 			<item value="false" key="isRegExSearch"/>
-			<item value="onRender" key="textPattern"/>
+			<item value="json" key="textPattern"/>
 			<item value="1" key="scope"/>
 			<item value="true" key="ignoreCase"/>
 			<list key="fileNamePatterns">
@@ -121,7 +121,7 @@
 		</section>
 		<section name="HISTORY6">
 			<item value="false" key="isRegExSearch"/>
-			<item value="Viewpoints" key="textPattern"/>
+			<item value="axis" key="textPattern"/>
 			<item value="1" key="scope"/>
 			<item value="true" key="ignoreCase"/>
 			<list key="fileNamePatterns">
@@ -132,9 +132,9 @@
 		</section>
 		<section name="HISTORY2">
 			<item value="false" key="isRegExSearch"/>
-			<item value="AdminPanel" key="textPattern"/>
+			<item value="radian" key="textPattern"/>
 			<item value="1" key="scope"/>
-			<item value="true" key="ignoreCase"/>
+			<item value="false" key="ignoreCase"/>
 			<list key="fileNamePatterns">
 				<item value="*.js"/>
 			</list>
@@ -143,9 +143,9 @@
 		</section>
 		<section name="HISTORY3">
 			<item value="false" key="isRegExSearch"/>
-			<item value="kuda version" key="textPattern"/>
+			<item value="PI" key="textPattern"/>
 			<item value="1" key="scope"/>
-			<item value="true" key="ignoreCase"/>
+			<item value="false" key="ignoreCase"/>
 			<list key="fileNamePatterns">
 				<item value="*.js"/>
 			</list>
@@ -154,9 +154,9 @@
 		</section>
 		<section name="HISTORY0">
 			<item value="false" key="isRegExSearch"/>
-			<item value="UserActionType" key="textPattern"/>
+			<item value="test" key="textPattern"/>
 			<item value="1" key="scope"/>
-			<item value="true" key="ignoreCase"/>
+			<item value="false" key="ignoreCase"/>
 			<list key="fileNamePatterns">
 				<item value="*.js"/>
 			</list>
@@ -165,9 +165,9 @@
 		</section>
 		<section name="HISTORY1">
 			<item value="false" key="isRegExSearch"/>
-			<item value="bind" key="textPattern"/>
+			<item value="Tests completed" key="textPattern"/>
 			<item value="1" key="scope"/>
-			<item value="true" key="ignoreCase"/>
+			<item value="false" key="ignoreCase"/>
 			<list key="fileNamePatterns">
 				<item value="*.js"/>
 			</list>

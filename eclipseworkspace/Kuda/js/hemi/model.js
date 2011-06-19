@@ -15,12 +15,6 @@
  * Boston, MA 02110-1301 USA.
  */
 
-o3djs.require('hemi.core');
-o3djs.require('hemi.loader');
-o3djs.require('hemi.msg');
-o3djs.require('hemi.picking');
-o3djs.require('hemi.world');
-
 var hemi = (function(hemi) {
 	/**
 	 * @namespace A module for managing 3D models and their assets.
@@ -134,7 +128,7 @@ var hemi = (function(hemi) {
 			}
 			
 			if (this.opacity != null) {
-				model.setTransformOpacity(this.transform, this.opacity);
+				model.setTransformOpacity(this.transform, this.opacity, false);
 			}
 		}
 	};
@@ -540,11 +534,14 @@ var hemi = (function(hemi) {
 		 * 
 		 * @param {o3d.Transform} transform the transform to update
 		 * @param {number} opacity the new opacity value
+		 * @param {boolean} opt_trickle optional flag indicating if opacity
+		 *     should also be set for the transform's children (default is true)
 		 */
-		setTransformOpacity: function(transform, opacity) {
+		setTransformOpacity: function(transform, opacity, opt_trickle) {
 			var update = this.getTransformUpdate(transform),
 				shapes = transform.shapes,
-				o = transform.getParam('opacity');
+				o = transform.getParam('opacity'),
+				trickle = opt_trickle == null ? true : opt_trickle;
 			
 			if (o == null) {
 				for (var i = 0, il = shapes.length; i < il; i++) {
@@ -560,8 +557,15 @@ var hemi = (function(hemi) {
 			}
 			
 			o.value = opacity;
+			update.opacity = opacity === 1 ? null : opacity;
 			
-			update.opacity = opacity ? opacity : null;
+			if (trickle) {
+				var children = transform.children;
+				
+				for (var i = 0, il = children.length; i < il; i++) {
+					this.setTransformOpacity(children[i], opacity, true);
+				}
+			}
 		},
 
 		/**
@@ -648,7 +652,7 @@ var hemi = (function(hemi) {
 		rotateTransformX: function(transform, amount) {
 			var update = this.getTransformUpdate(transform);
 			transform.rotateX(amount);
-			update.localMatrix = hemi.utils.copyArray(transform.localMatrix);
+			update.localMatrix = hemi.utils.clone(transform.localMatrix);
 		},
 
 		/**
@@ -660,7 +664,7 @@ var hemi = (function(hemi) {
 		rotateTransformY: function(transform, amount) {
 			var update = this.getTransformUpdate(transform);
 			transform.rotateY(amount);
-			update.localMatrix = hemi.utils.copyArray(transform.localMatrix);
+			update.localMatrix = hemi.utils.clone(transform.localMatrix);
 		},
 
 		/**
@@ -672,7 +676,7 @@ var hemi = (function(hemi) {
 		rotateTransformZ: function(transform, amount) {
 			var update = this.getTransformUpdate(transform);
 			transform.rotateZ(amount);
-			update.localMatrix = hemi.utils.copyArray(transform.localMatrix);
+			update.localMatrix = hemi.utils.clone(transform.localMatrix);
 		},
 		
 		/**
@@ -712,7 +716,7 @@ var hemi = (function(hemi) {
 			} else {
 				var update = this.getTransformUpdate(transform);
 				transform.scale(xFactor, yFactor, zFactor);
-				update.localMatrix = hemi.utils.copyArray(transform.localMatrix);
+				update.localMatrix = hemi.utils.clone(transform.localMatrix);
 			}			
 		},
 
@@ -725,7 +729,7 @@ var hemi = (function(hemi) {
 		setTransformMatrix: function(transform, matrix) {
 			var update = this.getTransformUpdate(transform);			
 			transform.localMatrix = matrix;
-			update.localMatrix = hemi.utils.copyArray(transform.localMatrix);
+			update.localMatrix = hemi.utils.clone(transform.localMatrix);
 		},
 		
 		/**

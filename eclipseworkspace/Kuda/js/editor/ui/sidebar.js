@@ -22,15 +22,16 @@ var editor = (function(module) {
 		MIN_TXT = 'Minimize';
 		
 	module.EventTypes = module.EventTypes || {};
-	
-	// sidebar widget specific
-	module.EventTypes.SBWidgetVisible = "sidebar.SBWidgetVisible";
-	module.EventTypes.SBWidgetInvalidate = "sidebar.SBWidgetInvalidate";
-	module.EventTypes.SBWidgetLoaded = "sidebar.SBWidgetLoaded";
-	
-	// sidebar specific
-	module.EventTypes.SidebarMinimized = "sidebar.SidebarMinimized";
-	module.EventTypes.SidebarFinishedLoading = "sidebar.SidebarFinishedLoading";
+	module.EventTypes.Sidebar = {
+		// sidebar widget specific
+		WidgetVisible: "sidebar.WidgetVisible",
+		WidgetInvalidate: "sidebar.WidgetInvalidate",
+		WidgetLoaded: "sidebar.WidgetLoaded",
+		
+		// sidebar specific
+		Minimized: "sidebar.Minimized",
+		FinishedLoading: "sidebar.FinishedLoading"
+	};
    
 ////////////////////////////////////////////////////////////////////////////////
 //                     				Sidebar				                   	  //
@@ -107,11 +108,11 @@ var editor = (function(module) {
 						
 						waiting = [];
 						sidebar.notifyListeners(
-							module.EventTypes.SidebarFinishedLoading, null);
+							module.EventTypes.Sidebar.FinishedLoading, null);
 					};
 					
 					if (!widgetUI) {
-						widget.addListener(module.EventTypes.SBWidgetLoaded, 
+						widget.addListener(module.EventTypes.Sidebar.WidgetLoaded, 
 							function(wgt){
 								var ndx = jQuery.inArray(wgt, waiting);
 								
@@ -126,8 +127,8 @@ var editor = (function(module) {
 					
 					list.push(widget);
 					
-					widget.addListener(module.EventTypes.SBWidgetVisible, this);
-					widget.addListener(module.EventTypes.SBWidgetInvalidate, 
+					widget.addListener(module.EventTypes.Sidebar.WidgetVisible, this);
+					widget.addListener(module.EventTypes.Sidebar.WidgetInvalidate, 
 						this);
 					
 					if (waiting.length === 0) {
@@ -150,8 +151,8 @@ var editor = (function(module) {
 	            }
 	        }
 	        
-			found.removeListener(module.EventTypes.SBWidgetVisible, this);
-			found.removeListener(module.EventTypes.SBWidgetInvalidate, this);
+			found.removeListener(module.EventTypes.Sidebar.WidgetVisible, this);
+			found.removeListener(module.EventTypes.Sidebar.WidgetInvalidate, this);
 	        return found;
 		},
 		
@@ -170,7 +171,7 @@ var editor = (function(module) {
 				this.minimizedWidgets[ndx].setVisible(false);
 			}
 			
-			this.notifyListeners(module.EventTypes.SidebarMinimized, true);
+			this.notifyListeners(module.EventTypes.Sidebar.Minimized, true);
 		},
 		
 		maximize: function() {
@@ -182,11 +183,11 @@ var editor = (function(module) {
 				this.minimizedWidgets[ndx].setVisible(true);
 			}
 			
-			this.notifyListeners(module.EventTypes.SidebarMinimized, false);
+			this.notifyListeners(module.EventTypes.Sidebar.Minimized, false);
 		},
 		
 		notify: function(eventType, value) {
-			if (eventType === module.EventTypes.SBWidgetVisible) {
+			if (eventType === module.EventTypes.Sidebar.WidgetVisible) {
 				var visible = value.visible,
 					widget = value.widget;
 					
@@ -204,7 +205,7 @@ var editor = (function(module) {
 				}
 				this.layoutWidgets();
 			}
-			else if (eventType === module.EventTypes.SBWidgetInvalidate) {
+			else if (eventType === module.EventTypes.Sidebar.WidgetInvalidate) {
 				this.layoutWidgets();
 			}
 		},
@@ -283,8 +284,20 @@ var editor = (function(module) {
 			var widgets = [];
 			this.preferredHeight = 0;
 			this.currentView = null;
+			this.viewMeta = new Hashtable();
 			
 			this._super(newOpts);
+		},
+		
+		addViewMeta: function(view) {
+			var meta = {
+				viewIsVisible: false,
+				widgetShouldBeVisible: false
+			};
+			
+			this.viewMeta.put(view, meta);
+			
+			return meta;
 		},
 		
 		finishLayout: function() {
@@ -295,8 +308,24 @@ var editor = (function(module) {
 			}
 			
 			this.container.addClass('sidebarWidget');			
-			this.setVisible(false);
+			this.setVisible(false, false);
 			this.find('form').addClass('sidebarForm');
+		},
+		
+		getName: function() {
+			return this.config.name;
+		},
+		
+		getPreferredHeight: function() {
+			return this.preferredHeight;
+		},
+		
+		getViewMeta: function(view) {
+			return this.viewMeta.get(view);
+		},
+		
+		invalidate: function() {
+			this.notifyListeners(module.EventTypes.Sidebar.WidgetInvalidate, null);
 		},
 		
 		load: function() {
@@ -309,19 +338,9 @@ var editor = (function(module) {
 					cmp.container = jQuery(cleaned);
 					cmp.finishLayout();
 					
-					cmp.notifyListeners(module.EventTypes.SBWidgetLoaded, cmp);
+					cmp.notifyListeners(module.EventTypes.Sidebar.WidgetLoaded, cmp);
 				});
 			}
-		},
-		
-		setVisible: function(visible) {
-			this._super(visible);
-			var wgt = this;
-			
-			this.notifyListeners(module.EventTypes.SBWidgetVisible, {
-				widget: wgt,
-				visible: visible
-			});
 		},
 		
 		resize: function(maxHeight) {
@@ -339,16 +358,24 @@ var editor = (function(module) {
 			this.container.height(newHeight);
 		},
 		
-		getPreferredHeight: function() {
-			return this.preferredHeight;
+		setCurrentView: function(view) {
+			this.currentView = view;
 		},
 		
-		invalidate: function() {
-			this.notifyListeners(module.EventTypes.SBWidgetInvalidate, null);
+		setViewMeta: function(view, meta) {
+			this.viewMeta.put(view, meta);
 		},
 		
-		getName: function() {
-			return this.config.name;
+		setVisible: function(visible, opt_updateMeta) {
+			this._super(visible);
+			var wgt = this;
+			opt_updateMeta = opt_updateMeta == null ? true : opt_updateMeta;
+			
+			this.notifyListeners(module.EventTypes.Sidebar.WidgetVisible, {
+				widget: wgt,
+				visible: visible,
+				updateMeta: opt_updateMeta
+			});
 		}
 	});
    
@@ -494,7 +521,7 @@ var editor = (function(module) {
 		
 	module.ui.FormSBWidget = module.ui.SidebarWidget.extend({
 		init: function(options) {
-			var newOpts = jQuery.extend({}, module.tools.SidebarWidgetDefaults, options);			
+			var newOpts = jQuery.extend({}, module.ui.SidebarWidgetDefaults, options);			
 			this.checkers = [];
 			
 		    this._super(newOpts);	
@@ -509,7 +536,7 @@ var editor = (function(module) {
 					saveable: function() {
 						return this.input.getColor() != null;
 					}
-				}
+				};
 				this.checkers.push(checker);
 			}
 			else if (inputs instanceof editor.ui.Vector) {
@@ -518,7 +545,7 @@ var editor = (function(module) {
 					saveable: function() {
 						return this.input.getValue() != null;
 					}
-				}
+				};
 				this.checkers.push(checker);
 			}
 			else if (inputs instanceof editor.ui.InputChecker) {

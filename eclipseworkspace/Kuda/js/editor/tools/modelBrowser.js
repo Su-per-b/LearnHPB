@@ -243,6 +243,7 @@ var editor = (function(module) {
 	        this.highlightedShapes = new Hashtable();
 			this.rotationAmount = 0.785398163; // 45 degrees
 			this.currentShape = null;
+			this.currentHighlightShape = null;
 			this.currentTransform = null;
 			this.msgHandler = null;
 			this.shapHighlightMat = null;
@@ -275,14 +276,14 @@ var editor = (function(module) {
 		},
 		
 		deselectShape: function() {
-			if (this.currentShape !== null) {
-				var elements = this.currentShape.elements;
+			if (this.currentHighlightShape !== null) {
+				var elements = this.currentHighlightShape.elements;
 				
 				for (var ee = 0; ee < elements.length; ee++) {
 					elements[ee].material = this.tranHighlightMat;
 				}
 				
-				this.currentShape = null;
+				this.currentShape = this.currentHighlightShape = null;
 				this.notifyListeners(module.EventTypes.ShapeSelected, null);
 			}
 		},
@@ -333,6 +334,11 @@ var editor = (function(module) {
 						hemi.dispatch.MSG_ARG + "data.pickInfo", 
 						hemi.dispatch.MSG_ARG + "data.mouseEvent"
 					]);
+					
+				this.highlightSelected();
+			}
+			else {
+				this.unhighlightAll();
 			}
 		},
 		
@@ -377,6 +383,18 @@ var editor = (function(module) {
 				owner: opt_owner
 			});
 	    },
+		
+		highlightSelected: function() {
+			var owners = this.selected.values();
+			
+			for (var i = 0, il = owners.length; i < il; i++) {
+				var transforms = owners[i];
+				
+				for (var j = 0, jl = transforms.length; j < jl; j++) {
+					this.highlightTransform(transforms[j]);
+				}
+			}
+		},
 	    
 	    highlightShape: function(shape, transform) {
 	        var highlightShape = hemi.core.shape.duplicateShape(hemi.core.mainPack, shape);
@@ -486,8 +504,8 @@ var editor = (function(module) {
 			}
 			
 			if (highlightShape !== null) {
-				if (this.currentShape !== null) {
-					var elements = this.currentShape.elements;
+				if (this.currentHighlightShape !== null) {
+					var elements = this.currentHighlightShape.elements;
 					
 					for (var ee = 0; ee < elements.length; ee++) {
 						elements[ee].material = this.tranHighlightMat;
@@ -500,7 +518,8 @@ var editor = (function(module) {
 					elements[ee].material = this.shapHighlightMat;
 				}
 				
-				this.currentShape = highlightShape;
+				this.currentHighlightShape = highlightShape;
+				this.currentShape = shape;
 				this.notifyListeners(module.EventTypes.ShapeSelected, {
 					shape: shape,
 					owner: hemi.world.getTranOwner(transform)
@@ -548,7 +567,7 @@ var editor = (function(module) {
 			if (this.currentTransform) {				
 				var owner = hemi.world.getTranOwner(this.currentTransform);
 				if (owner instanceof hemi.model.Model) {
-					owner.setTransformOpacity(this.currentTransform, opacity);
+					owner.setTransformOpacity(this.currentTransform, opacity, true);
 				}
 			}
 		},
@@ -580,6 +599,18 @@ var editor = (function(module) {
 			});
             this.notifyListeners(module.EventTypes.TransformShown, transform);
 	    },
+		
+		unhighlightAll: function() {
+			var owners = this.selected.values();
+			
+			for (var i = 0, il = owners.length; i < il; i++) {
+				var transforms = owners[i];
+				
+				for (var j = 0, jl = transforms.length; j < jl; j++) {
+					this.unhighlightTransform(transforms[j]);
+				}
+			}
+		},
 	    
 	    unhighlightShape: function(shape, transform) {
 			var highlightShape = this.highlightedShapes.remove(shape.clientId);
@@ -925,7 +956,7 @@ var editor = (function(module) {
 			}
 			
 			this.tree.jstree('select_node', elem, false);
-			this.notifyListeners(module.EventTypes.SBWidgetInvalidate);
+			this.notifyListeners(module.EventTypes.Sidebar.WidgetInvalidate);
 		},
 		
 		deselectNode: function(nodeName) {
