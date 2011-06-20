@@ -65,7 +65,7 @@ var hemi = (function(hemi) {
 		 *
 		 * @return {Object} the Octane structure representing the TransformUpdate
 		 */
-		toOctane: function() {
+		toOctane : function() {
 			var octane = {
 					type: 'hemi.model.TransformUpdate',
 					props: [{
@@ -287,7 +287,162 @@ var hemi = (function(hemi) {
 				alert('Loading failed: ' + e);
 			}
 		},
+		
+		clone1: function(onCloneComplete) {
+			
+			var newModel = new hemi.model.Model;
+			newModel.fileName = this.fileName;
 
+			var subscription = newModel.subscribe (
+				hemi.msg.load,
+				function() {
+					newModel.unsubscribe(subscription, hemi.msg.load);
+					onCloneComplete.call();
+				}
+			);	
+			
+			newModel.load();
+			
+			//var octaine = this.toOctane();
+			//var obj = hemi.octane.createObject(octaine);
+			return newModel;
+		},
+		
+
+		
+		
+		
+
+
+		/**
+		 * Clone the Model. 
+		 * * @return {hemi.model.Model} the new Model a clone fo this
+		 */
+		/*
+clone2: function(newModel) {
+
+			newModel.fileName = this.fileName;
+			
+			var config = new hemi.model.ModelConfig();
+			
+			config.rootTransform = this.root;
+			config.animParam = this.animationTime;
+			config.materials = this.getMaterials();
+			config.shapes = this.getShapes();
+			//config.transforms = this.transforms;
+			config.pack = this.pack;
+
+						
+
+			
+			
+			var id = newModel.getId();
+			
+			newModel.name = getModelName(this.fileName);
+			newModel.root = config.rootTransform;
+			newModel.root.name = this.name;
+			// The deserialization process sets bad values for bounding boxes of
+			// transforms, so force them to be recalculated.
+			newModel.root.recalculateBoundingBox(true);
+			newModel.animParam = config.animationTime;
+			newModel.materials = config.getMaterials();
+			newModel.shapes = config.getShapes();
+			newModel.transforms = config.getTransforms();
+			newModel.pack = config.pack;
+			
+
+			for (var t = 0, len = newModel.transforms.length; t < len; ++t) {
+				var transform = newModel.transforms[t],
+					oid = transform.createParam('ownerId', 'o3d.ParamInteger');
+					
+					if (oid == null) {
+						oid = transform.getParam('ownerId');
+						console.log ('oid exists, value: ' + oid.value + '   new is ' + id);
+					} else {
+						oid.value = id;
+
+					}
+
+			}
+			
+			for (var t = 0, len = newModel.transformUpdates.length; t < len; t++) {
+				var update = newModel.transformUpdates[t];
+				update.apply(newModel);
+			}
+
+
+			hemi.world.tranReg.distribute(newModel);
+			
+			newModel.send(hemi.msg.load, {});
+
+			
+			return;
+		},
+*/
+		clone3: function() {
+			
+			
+			//var octaine = this.toOctane();
+			
+			//var obj = hemi.octane.createObject(octaine);
+				
+
+			return obj;
+		},
+		
+		clone4: function() {
+			
+			var config = new hemi.model.ModelConfig();
+			var newModel = new hemi.model.Model();
+		
+
+			//config.animationTime = this.animParam;
+			
+			var materials = this.getMaterials();
+			var shapes = this.getShapes();
+			var transforms = this.getTransforms();
+			
+			
+			//config.materials = materials;
+			//config.shapes = shapes;
+			
+			var p = config.pack;
+			
+			
+			
+			var newTransform = config.pack.createObject('Transform');
+			
+
+			var len2 = shapes.length;
+			
+			for (var y = 0; y < len2; y++) {
+				var theShape = shapes[y];
+				config.pack.objects_.push(theShape);
+				newTransform.addShape(theShape);
+			}
+				
+
+			
+			config.pack.objects_.concat(
+						config.pack.objects_ , 
+						materials,
+						shapes,
+						newTransform
+						);
+			
+			//config.pack.objects_.push(newTransform);
+			
+
+			hemi.core.loaderCallback(config.pack);
+			
+			newModel.loadConfig(config);
+			
+			return newModel;
+		  			
+
+		},
+		
+		
 		/**
 		 * Load the given configuration into the Model, populating it with
 		 * transforms, shapes, and materials.
@@ -312,7 +467,15 @@ var hemi = (function(hemi) {
 			for (var t = 0, len = this.transforms.length; t < len; ++t) {
 				var transform = this.transforms[t],
 					oid = transform.createParam('ownerId', 'o3d.ParamInteger');
-				oid.value = id;
+					
+					if (oid === null) {
+						oid = transform.getParam('ownerId');
+						console.log ('oid exists, value: ' + oid.value + '   new is ' + id);
+					} else {
+						oid.value = id;
+
+					}
+
 			}
 			
 			for (var t = 0, len = this.transformUpdates.length; t < len; t++) {
@@ -404,6 +567,7 @@ var hemi = (function(hemi) {
 		 * Get any Materials in the Model with the given name.
 		 *
 		 * @param {string} materialName the name of the desired Material
+		 *			if null, then all materials are returned
 		 * @return {o3d.Material[]} array of Materials with the given name
 		 */
 		getMaterials: function(materialName) {
@@ -411,7 +575,7 @@ var hemi = (function(hemi) {
 			
 			for (var m = 0, len = this.materials.length; m < len; m++) {
 				var material = this.materials[m];
-				if (material.name === materialName) 
+				if (material.name === materialName || null == materialName) 
 					mats.push(material);
 			}
 			
@@ -422,14 +586,17 @@ var hemi = (function(hemi) {
 		 * Get any Shapes in the Model with the given name.
 		 *
 		 * @param {string} shapeName the name of the desired Shape
+		 *			if null, then all shapes are returned
 		 * @return {o3d.Shape[]} array of Shapes with the given name
 		 */
 		getShapes: function(shapeName) {
+	
 			var shps = [];
 			
 			for (var s = 0, len = this.shapes.length; s < len; s++) {
 				var shape = this.shapes[s];
-				if (shape.name === shapeName) 
+
+				if (shape.name === shapeName || null == shapeName) 
 					shps.push(shape);
 			}
 			
@@ -440,14 +607,16 @@ var hemi = (function(hemi) {
 		 * Get any Transforms in the Model with the given name.
 		 *
 		 * @param {string} transformName the name of the desired Transform
+		 *			if null, then all transforms are returned
 		 * @return {o3d.Transform[]} array of Transforms with the given name
 		 */
 		getTransforms: function(transformName) {
+		
 			var tfms = [];
 			
 			for (var t = 0, len = this.transforms.length; t < len; t++) {
 				var transform = this.transforms[t];
-				if (transform.name === transformName) 
+				if (transform.name === transformName  || null == transformName ) 
 					tfms.push(transform);
 			}
 			

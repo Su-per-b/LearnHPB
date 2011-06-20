@@ -248,10 +248,10 @@
 		var endMs = new Date().getTime();
 		
 		unitTest9.elapsedMs = endMs - unitTest9.startMs;
-		jqUnit.ok((unitTest9.particleSystem1.frames  > 0), 'Number of frames in the particle system: ' + unitTest9.particleSystem1.frames);
+		jqUnit.ok((unitTest9.totalFramesRendered  > 0), 'Number of frames rendered: ' + unitTest9.particleSystem1.frames);
 		
 		
-		unitTest9.fps = unitTest9.particleSystem1.frames / (unitTest9.elapsedMs  / 1000);
+		unitTest9.fps = unitTest9.totalFramesRendered / (unitTest9.elapsedMs  / 1000);
 		
 		jqUnit.ok(unitTest9.elapsedMs > 0, 'Elapsed Time in Ms: ' + unitTest9.elapsedMs);
 		jqUnit.ok(unitTest9.fps > 0, 'AVG Frames per Second: ' + unitTest9.fps);

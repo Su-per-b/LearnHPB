@@ -2,9 +2,9 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="237" key="DIALOG_WIDTH"/>
-		<item value="735" key="DIALOG_Y_ORIGIN"/>
-		<item value="357" key="DIALOG_HEIGHT"/>
-		<item value="-726" key="DIALOG_X_ORIGIN"/>
+		<item value="1391" key="DIALOG_Y_ORIGIN"/>
+		<item value="251" key="DIALOG_HEIGHT"/>
+		<item value="-270" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Tahoma|8.25|0|WINDOWS|1|-11|0|0|0|400|0|0|0|1|0|0|0|0|Tahoma" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
@@ -13,26 +13,26 @@
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="stop" key="selection"/>
+		<item value="objects" key="selection"/>
 		<list key="findhistory">
-			<item value="stop"/>
-			<item value="onUnitCompleteCallback"/>
-			<item value="process"/>
-			<item value="show"/>
-			<item value="showR"/>
-			<item value="show&apos;"/>
-			<item value="insertH3Tag"/>
-			<item value="subscription"/>
+			<item value="objects"/>
+			<item value="this.objects"/>
+			<item value="getShapes"/>
+			<item value="getMaterials"/>
+			<item value="getSha"/>
+			<item value="get"/>
+			<item value="this.root"/>
+			<item value="loadConfig"/>
 		</list>
 		<list key="replacehistory">
+			<item value=""/>
+			<item value="unit11"/>
+			<item value="unitTest11"/>
 			<item value="onUnitCompleteCallback"/>
 			<item value="unitTest10"/>
 			<item value="unit10"/>
 			<item value="Envelope"/>
-			<item value=""/>
 			<item value="unitTest8"/>
-			<item value="unit8"/>
-			<item value="unitTest7"/>
 		</list>
 	</section>
 </section>

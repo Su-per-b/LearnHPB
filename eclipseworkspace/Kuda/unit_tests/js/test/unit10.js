@@ -64,7 +64,7 @@
 		unitTest10.model = new hemi.model.Model();				// Create a new Model
 		jqMock.assertThat(unitTest10.model , is.instanceOf(hemi.model.Model));
 		
-		unitTest10.model.setFileName('9FootEnvelope/9FootEnvelope.json'); // Set the model file
+		unitTest10.model.setFileName('9FootEnvelope/scene.json'); // Set the model file
 		
 		var subscription = unitTest10.model.subscribe (
 			hemi.msg.load,
@@ -79,10 +79,10 @@
 	
 	unitTest10.start = function() {
 		
+
 		jqUnit.expect(5);
 				
 		jqMock.assertThat(unitTest10.model , is.instanceOf(hemi.model.Model));
-		hemi.world.camera.enableControl();	// Enable camera mouse control
 
 		var radians = hemi.core.math.degToRad(90);
 		
@@ -99,6 +99,13 @@
 		jqMock.assertThat (bb2.minExtent , [-6.140950821446975,-0.7842599259948744,-17.44590049564801]);
 				
 				
+		var vp = new hemi.view.Viewpoint();		// Create a new Viewpoint
+		vp.eye = [0,0,30];					// Set viewpoint eye
+		vp.target = [0,0,0];					// Set viewpoint target
+
+		hemi.world.camera.enableControl();	// Enable camera mouse control
+		hemi.world.camera.moveToView(vp,30);
+		
 		unitTest10.callBack.call();
 	};
 	

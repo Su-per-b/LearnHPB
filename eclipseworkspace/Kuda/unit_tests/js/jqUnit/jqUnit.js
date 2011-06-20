@@ -70,24 +70,7 @@ var jqUnit = jqUnit || {};
   }
 
   
-/*
-  function runTest() {
-    _config.blocking = false;
-    var time = new Date();
-    _config.fixture = document.getElementById('main').innerHTML;
 
-    synchronize(function() {
-      time = new Date() - time;
-      $("<div>").html(['<p class="result">Tests completed in ',
-        time, ' milliseconds.<br/>',
-        _config.stats.bad, ' tests of ', _config.stats.all, ' failed.</p>']
-        .join(''))
-        .appendTo("body");
-      $("#banner").addClass(_config.stats.bad ? "fail" : "pass");
-    });
-
-  }
-*/
   
 	function showResults(){
 		_config.blocking = false;
@@ -210,19 +193,9 @@ var jqUnit = jqUnit || {};
 		
 		//writes any queued test results, then queues the new module heading.
 		process();
-		
-
 		_config.newModuleFlag = true;
 		_config.currentModule = moduleName;
 		_config.currentModuleDescription = description;
-
-
-		
-		//var h3 = document.createElement("h3");
-		//h3.innerHTML = ['<strong>', _config.currentModule, '</strong>: ', _config.currentModuleDescription].join('');
-	//	document.getElementById("tests").appendChild(h3);
-		
-
 
 	}
 

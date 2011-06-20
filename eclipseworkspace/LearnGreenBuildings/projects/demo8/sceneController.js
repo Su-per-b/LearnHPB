@@ -102,12 +102,14 @@ var sceneController = (function(sceneController) {
 		
 	};
 	
+/*
 	
 	sceneController.setModelRootToOrigin = function() {
 		var model = lgb.loader.modelList['damper'];
 		var min = model.getBoundingBox().minExtent;
 		hemi.model.modelRoot.translate(-min[0],-min[1],-min[2]);
 	};
+*/
 	
 	sceneController.centerModelToOrigin = function(model) {
 		var bb = model.getBoundingBox();
