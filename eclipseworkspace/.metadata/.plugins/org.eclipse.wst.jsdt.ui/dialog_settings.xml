@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
-	<item value="true" key="ProjectSelectionDialog.show_all"/>
 	<item value="filter_imports;" key="filters_last_used"/>
+	<item value="true" key="ProjectSelectionDialog.show_all"/>
 	<item value="C:\projects\superb\WebGL_sandbox\aptana\k13d" key="org.eclipse.wst.jsdt.ui.lastextjar"/>
 	<item value="C:\projects\superb\WebGL_sandbox\eclipse_workspace\kuda" key="org.eclipse.wst.jsdt.ui.last.external.project"/>
 	<section name="JavaElementSearchActions">
@@ -102,9 +102,6 @@
 			</list>
 		</section>
 	</section>
-	<section name="JsGlobalScopeContainerSelectionPage">
-		<item value="3" key="index"/>
-	</section>
 	<section name="ProblemSeveritiesConfigurationBlock">
 		<item value="false" key="expanded4"/>
 		<item value="false" key="expanded3"/>
@@ -112,5 +109,8 @@
 		<item value="false" key="expanded1"/>
 		<item value="false" key="expanded5"/>
 		<item value="true" key="expanded0"/>
+	</section>
+	<section name="JsGlobalScopeContainerSelectionPage">
+		<item value="3" key="index"/>
 	</section>
 </section>

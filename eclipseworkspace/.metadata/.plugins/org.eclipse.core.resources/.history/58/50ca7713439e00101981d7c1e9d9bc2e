@@ -1,0 +1,26 @@
+	/**
+ * @namespace 
+ */
+var lgb = (function(lgb) {
+
+
+
+	lgb.event = lgb.event || {};
+	
+	lgb.event.EnvelopeEvent = function() {
+
+	};
+	
+	lgb.event.EnvelopeEvent.BUTTON = 'BUTTON';
+	
+	
+	
+	return lgb;
+	
+	
+})(lgb || {});
+	
+	
+	
+	
+	

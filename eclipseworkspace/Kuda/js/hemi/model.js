@@ -302,9 +302,7 @@ var hemi = (function(hemi) {
 			);	
 			
 			newModel.load();
-			
-			//var octaine = this.toOctane();
-			//var obj = hemi.octane.createObject(octaine);
+
 			return newModel;
 		},
 		

@@ -1,6 +1,6 @@
-o3djs.require('lgb.view.controls.Button');
-o3djs.require('lgb.view.controls.Link');
-o3djs.require('lgb.view.controls.Slider');
+o3djs.require('lgb.view.control.Button');
+o3djs.require('lgb.view.control.Link');
+o3djs.require('lgb.view.control.Slider');
 
 
 /**
@@ -33,16 +33,16 @@ var lgb = (function(lgb) {
 			var len = this.userActions.length;
 			for(var x = 0; x < len; x++) {
 				var action =  this.userActions[x];
-				//var button = new lgb.view.controls.Link(action);
+				//var button = new lgb.view.control.Link(action);
 				
 				var guiControl;
 				switch(action.type) {
 					
 					case lgb.model.UserActionType.SPECIFY_INTEGER:
-						guiControl = new lgb.view.controls.Slider(action);	
+						guiControl = new lgb.view.control.Slider(action);	
 						break;
 					case lgb.model.UserActionType.BUTTON:
-						guiControl = new lgb.view.controls.Button(action);
+						guiControl = new lgb.view.control.Button(action);
 						break;
 					default:
 						throw "Unknown action type: " + action.type;

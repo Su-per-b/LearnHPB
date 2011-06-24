@@ -1,0 +1,49 @@
+
+
+/**
+ */
+var lgb = (function(lgb) {
+
+	lgb.model = lgb.model || {};
+	lgb.model.control = lgb.model.control || {};
+	
+	/**
+	 * @class MVC model for select controls like RadioButtonGroup
+	 * @extends lgb.model.control.ControlBase
+	 */
+	lgb.model.control.SelectionItem = function(id, label, value) {
+		
+		lgb.model.control.ControlBase.call(this);
+		
+		this.id = id;
+		this.label = label;
+		this.value = value;
+
+	};
+
+
+	lgb.model.control.SelectionItem.prototype = {
+		
+
+		
+	};
+	
+
+	lgb.model.control.SelectionItem.inheritsFrom(lgb.model.control.ControlBase);
+	
+	
+	return lgb;
+	
+})(lgb || {});
+
+
+
+
+
+
+
+
+
+
+
+

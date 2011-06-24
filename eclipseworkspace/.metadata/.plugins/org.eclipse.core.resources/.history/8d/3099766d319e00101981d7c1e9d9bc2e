@@ -1,0 +1,33 @@
+
+
+var lgb = (function(lgb) {
+
+
+	lgb.controller = lgb.controller || {};
+	
+	lgb.controller.ControllerBase = function() {
+		this.baseClass = 'lgb.controller.ControllerBase';
+		lgb.Base.call(this);
+	};
+
+	lgb.controller.ControllerBase.prototype = {
+		
+		dispatch: function(eventName) {
+			var newEvent = jQuery.Event(eventName);
+			$('body').trigger(newEvent);
+		},
+		
+		listen: function(eventName, func) {
+			var delegate = jQuery.proxy( func, this );
+			$('body').bind(eventName, delegate);
+		}
+		
+	};
+	
+	lgb.Base.inheritsFrom(lgb.controller.ControllerBase);
+	
+	return lgb;
+	
+})(lgb || {});
+
+

@@ -1,0 +1,54 @@
+
+
+var lgb = (function(lgb) {
+
+
+
+	lgb.Base = function() {
+
+	};
+
+	lgb.Base.prototype = {
+		
+		dispatch: function(eventName) {
+			var newEvent = jQuery.Event(eventName);
+			$('body').trigger(newEvent);
+		},
+		
+		listen: function(eventName, func) {
+			var delegate = jQuery.proxy( func, this );
+			$('body').bind(eventName, delegate);
+		},
+		
+		assertIsType: function(dataType) {
+
+			var ary = this;
+			var msg = 'Error in lgb.utils.validateTypeInArray';
+			
+			if(null === ary || undefined === ary) {
+				jQuery.error(msg + " array is null or undefined");
+			} else if (!ary.constructor == Array ) {
+				jQuery.error(msg + " ary not actually instanceof array");
+			} else if (ary.length < 1) {
+				jQuery.error(msg + " array length is less than one");
+			} else if (null === expectedType || undefined === expectedType) {
+				jQuery.error(msg + " expectedType is null or undefined");
+			} else {
+				var len = ary.length;
+				for (var i=0; i<len; i++) {
+					var value = ary[i];
+					if (!value instanceof expectedType) {
+						jQuery.error(msg + " expectedType is not the expected type");
+					}
+				}
+			}
+		}
+		
+		
+	};
+
+	return lgb;
+	
+})(lgb || {});
+
+

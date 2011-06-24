@@ -1,0 +1,34 @@
+
+/**
+ * @namespace 
+ */
+var lgb = (function(lgb) {
+
+
+	lgb.view = lgb.view || {};
+	
+	lgb.view.ViewBase = function() {
+
+	};
+
+	lgb.view.ViewBase.prototype = {
+		
+		dispatch: function(eventName) {
+			var newEvent = jQuery.Event(eventName);
+			$('body').trigger(newEvent);
+		},
+		
+		listen: function(eventName, func) {
+			var delegate = jQuery.proxy( func, this );
+			$('body').bind(eventName, delegate);
+		}
+		
+	};
+	
+	lgb.view.ViewBase.inheritsFrom(lgb.Base);
+	
+	return lgb;
+	
+})(lgb || {});
+
+

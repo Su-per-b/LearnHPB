@@ -1,0 +1,60 @@
+
+
+o3djs.require('lgb.controller.ControllerBase');
+
+
+var lgb = (function(lgb) {
+
+	lgb.controller = lgb.controller || {};
+	
+	
+	/**
+	 * @class MVC controller for the building envelope
+	 * @extends lgb.controller.ControllerBase
+	 */
+	lgb.controller.AdminController = function() {
+		
+		lgb.controller.AdminController.call(this);
+
+		this.dataModel = new lgb.model.AdminModel();
+		this.view = new lgb.view.AdminView();
+
+	};
+	
+	
+	lgb.controller.AdminController.prototype = {
+		
+		init: function(dataModelArray) {
+			
+			this.listen(this.dataModel.name, this.onGuiEvent);
+			this.view.init(this.dataModel);
+			
+		},
+
+		
+		onGuiEvent : function(event) {
+
+
+			
+		},
+
+
+
+	
+	};
+	
+	lgb.controller.AdminController.inheritsFrom(lgb.controller.ControllerBase);
+
+	return lgb;
+	
+})(lgb || {});
+
+
+
+
+
+
+
+
+
+

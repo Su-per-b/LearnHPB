@@ -13,26 +13,26 @@
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="objects" key="selection"/>
+		<item value="dispatchEvent" key="selection"/>
 		<list key="findhistory">
-			<item value="objects"/>
-			<item value="this.objects"/>
-			<item value="getShapes"/>
-			<item value="getMaterials"/>
-			<item value="getSha"/>
-			<item value="get"/>
-			<item value="this.root"/>
-			<item value="loadConfig"/>
+			<item value="dispatchEvent"/>
+			<item value="meshList"/>
+			<item value="componentControllersAry"/>
+			<item value="lgb.view.RadioButtonGroup"/>
+			<item value="delegateClick"/>
+			<item value="componentViews"/>
+			<item value="assertContainsType"/>
+			<item value="EnvelopeView"/>
 		</list>
 		<list key="replacehistory">
 			<item value=""/>
+			<item value="componentDataModels"/>
+			<item value="controlDataModels"/>
+			<item value="ViewBase"/>
+			<item value="onMeshesLoaded"/>
 			<item value="unit11"/>
 			<item value="unitTest11"/>
 			<item value="onUnitCompleteCallback"/>
-			<item value="unitTest10"/>
-			<item value="unit10"/>
-			<item value="Envelope"/>
-			<item value="unitTest8"/>
 		</list>
 	</section>
 </section>

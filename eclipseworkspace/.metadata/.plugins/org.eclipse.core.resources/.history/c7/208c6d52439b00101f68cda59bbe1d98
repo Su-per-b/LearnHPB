@@ -1,0 +1,72 @@
+
+o3djs.require('lgb.model.EnvelopeModel');
+o3djs.require('lgb.view.EnvelopeView');
+
+
+var lgb = (function(lgb) {
+
+	lgb.controller = lgb.controller || {};
+	
+	
+	/**
+	 * @namespace MVC controller for the building envelope
+	 * @extends lgb.controller.ControllerBase
+	 */
+	lgb.controller.EnvelopeController = function(parentController){
+		
+		lgb.controller.ControllerBase.call(this);
+				
+		//this.parentController = parentController;
+		this.dataModel = new lgb.model.EnvelopeModel();
+		this.view = new lgb.view.EnvelopeView();
+
+
+			
+	};
+	
+	
+	lgb.controller.EnvelopeController.prototype = {
+		
+		init: function() {
+			var delegate = jQuery.proxy( this.onGuiEvent, this );
+			$('body').bind(this.dataModel.name, delegate);
+
+			
+			this.view.init(this.dataModel);
+			
+		},
+
+		
+		onGuiEvent : function(event) {
+			
+			console.log ('floor to ceiling height: ' + event.action);
+			
+			var height = parseInt(event.action, 10);
+			this.dataModel.setFloorHeight(height);
+			
+		},
+
+		resetAnimation: function() {
+			this.view.resetAnimation();
+		},
+		get3dModels: function() {
+			return this.view.get3dModels();
+		}
+	
+	};
+	
+
+
+	return lgb;
+	
+})(lgb || {});
+
+
+
+
+
+
+
+
+
+

@@ -10,17 +10,17 @@ var lgb = (function(lgb) {
 	 * @namespace A module for managing the 2D GUI
 	 */
 	lgb.view = lgb.view || {};
-	lgb.view.controls = lgb.view.controls || {};
+	lgb.view.control = lgb.view.control || {};
 
 
-	lgb.view.controls.Slider = function(userAction){
+	lgb.view.control.Slider = function(userAction){
 		this.userAction = userAction;
 		this.min = 0;
 		this.max = 99;
 		this.value = 50;
 	};
 	
-	lgb.view.controls.Slider.prototype = {
+	lgb.view.control.Slider.prototype = {
 		getHTML : function() {
 			
 

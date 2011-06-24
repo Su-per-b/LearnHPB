@@ -1,0 +1,65 @@
+
+o3djs.require('lgb.model.EnvelopeModel');
+o3djs.require('lgb.view.EnvelopeView');
+
+
+var lgb = (function(lgb) {
+
+	lgb.controller = lgb.controller || {};
+	
+	
+	/**
+	 * @clasee MVC controller for the building envelope
+	 * @extends lgb.controller.ControllerBase
+	 */
+	lgb.controller.EnvelopeController = function() {
+		
+		lgb.controller.ControllerBase.call(this);
+
+		this.dataModel = new lgb.model.EnvelopeModel();
+		this.view = new lgb.view.EnvelopeView();
+
+	};
+	
+	
+	lgb.controller.EnvelopeController.prototype = {
+		
+		init: function() {
+			this.listen(this.dataModel.name, this.onGuiEvent);
+			this.view.init(this.dataModel);
+		},
+
+		
+		onGuiEvent : function(event) {
+			
+			//console.log ('floor to ceiling height: ' + event.action);
+			
+			var height = parseInt(event.action, 10);
+			this.dataModel.setFloorHeight(height);
+			
+		},
+
+		resetAnimation: function() {
+			this.view.resetAnimation();
+		},
+		getMeshes: function() {
+			return this.view.getMeshes();
+		}
+	
+	};
+	
+	lgb.controller.EnvelopeController.inheritsFrom(lgb.controller.ControllerBase);
+
+	return lgb;
+	
+})(lgb || {});
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,27 @@
+	/**
+ * @namespace 
+ */
+var lgb = (function(lgb) {
+
+
+
+	lgb.event = lgb.event || {};
+	
+	lgb.event.EnvelopeEvent = function() {
+
+	};
+	
+	lgb.event.EnvelopeEvent.CHANGE_FLOOR_HEIGHT = 'ENVELOPE__CHANGE_FLOOR_HEIGHT';
+	lgb.event.EnvelopeEvent.CHANGE_STORIES = 'ENVELOPE__SELECT_STORIES';
+	
+	
+	
+	return lgb;
+	
+	
+})(lgb || {});
+	
+	
+	
+	
+	

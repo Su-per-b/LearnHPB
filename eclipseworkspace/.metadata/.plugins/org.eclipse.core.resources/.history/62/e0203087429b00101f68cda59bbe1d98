@@ -1,0 +1,33 @@
+
+/**
+ * @namespace 
+ */
+var lgb = (function(lgb) {
+
+
+	lgb.controller = lgb.controller || {};
+	
+	lgb.controller.Controller = function() {
+		this.baseClass = 'lgb.controller.Controller';
+	};
+
+	lgb.controller.Controller.prototype = {
+		
+		dispatch: function(eventName) {
+			var newEvent = jQuery.Event(eventName);
+			$('body').trigger(newEvent);
+		},
+		
+		listen: function(eventName, func) {
+			
+			var delegate = jQuery.proxy( func, this );
+			$('body').bind(eventName, delegate);
+		}
+		
+	};
+
+	return lgb;
+	
+})(lgb || {});
+
+

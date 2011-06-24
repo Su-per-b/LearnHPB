@@ -10,9 +10,9 @@
 	</section>
 	<section name="DialogBounds_SearchDialog">
 		<item value="494" key="DIALOG_WIDTH"/>
-		<item value="439" key="DIALOG_Y_ORIGIN"/>
+		<item value="463" key="DIALOG_Y_ORIGIN"/>
 		<item value="567" key="DIALOG_HEIGHT"/>
-		<item value="-970" key="DIALOG_X_ORIGIN"/>
+		<item value="-942" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Tahoma|8.25|0|WINDOWS|1|-11|0|0|0|400|0|0|0|1|0|0|0|0|Tahoma" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="Search">
@@ -41,9 +41,9 @@
 		<item value="12" key="HISTORY_SIZE"/>
 		<section name="HISTORY11">
 			<item value="false" key="isRegExSearch"/>
-			<item value="rotate" key="textPattern"/>
+			<item value="pack.createObject" key="textPattern"/>
 			<item value="1" key="scope"/>
-			<item value="true" key="ignoreCase"/>
+			<item value="false" key="ignoreCase"/>
 			<list key="fileNamePatterns">
 				<item value="*.js"/>
 			</list>
@@ -55,9 +55,9 @@
 		</section>
 		<section name="HISTORY10">
 			<item value="false" key="isRegExSearch"/>
-			<item value="getTransforms" key="textPattern"/>
+			<item value="addShape" key="textPattern"/>
 			<item value="1" key="scope"/>
-			<item value="true" key="ignoreCase"/>
+			<item value="false" key="ignoreCase"/>
 			<list key="fileNamePatterns">
 				<item value="*.js"/>
 			</list>
@@ -66,7 +66,7 @@
 		</section>
 		<section name="HISTORY9">
 			<item value="false" key="isRegExSearch"/>
-			<item value="PI" key="textPattern"/>
+			<item value="ParamObject" key="textPattern"/>
 			<item value="1" key="scope"/>
 			<item value="false" key="ignoreCase"/>
 			<list key="fileNamePatterns">
@@ -77,8 +77,8 @@
 		</section>
 		<section name="HISTORY8">
 			<item value="false" key="isRegExSearch"/>
-			<item value="radian" key="textPattern"/>
-			<item value="1" key="scope"/>
+			<item value="lgb.view.controls" key="textPattern"/>
+			<item value="0" key="scope"/>
 			<item value="false" key="ignoreCase"/>
 			<list key="fileNamePatterns">
 				<item value="*.js"/>
@@ -88,8 +88,8 @@
 		</section>
 		<section name="HISTORY5">
 			<item value="false" key="isRegExSearch"/>
-			<item value="loadInfo" key="textPattern"/>
-			<item value="1" key="scope"/>
+			<item value="validArgs" key="textPattern"/>
+			<item value="0" key="scope"/>
 			<item value="false" key="ignoreCase"/>
 			<list key="fileNamePatterns">
 				<item value="*.js"/>
@@ -99,8 +99,8 @@
 		</section>
 		<section name="HISTORY4">
 			<item value="false" key="isRegExSearch"/>
-			<item value="o3d.Pack" key="textPattern"/>
-			<item value="1" key="scope"/>
+			<item value="o3dpatches" key="textPattern"/>
+			<item value="0" key="scope"/>
 			<item value="false" key="ignoreCase"/>
 			<list key="fileNamePatterns">
 				<item value="*.js"/>
@@ -110,8 +110,8 @@
 		</section>
 		<section name="HISTORY7">
 			<item value="false" key="isRegExSearch"/>
-			<item value="Tests completed" key="textPattern"/>
-			<item value="1" key="scope"/>
+			<item value="inheritsFrom" key="textPattern"/>
+			<item value="0" key="scope"/>
 			<item value="false" key="ignoreCase"/>
 			<list key="fileNamePatterns">
 				<item value="*.js"/>
@@ -121,8 +121,8 @@
 		</section>
 		<section name="HISTORY6">
 			<item value="false" key="isRegExSearch"/>
-			<item value="test" key="textPattern"/>
-			<item value="1" key="scope"/>
+			<item value="UserAction" key="textPattern"/>
+			<item value="0" key="scope"/>
 			<item value="false" key="ignoreCase"/>
 			<list key="fileNamePatterns">
 				<item value="*.js"/>
@@ -132,7 +132,7 @@
 		</section>
 		<section name="HISTORY2">
 			<item value="false" key="isRegExSearch"/>
-			<item value="save" key="textPattern"/>
+			<item value="lgb.model.control" key="textPattern"/>
 			<item value="1" key="scope"/>
 			<item value="false" key="ignoreCase"/>
 			<list key="fileNamePatterns">
@@ -143,7 +143,7 @@
 		</section>
 		<section name="HISTORY3">
 			<item value="false" key="isRegExSearch"/>
-			<item value="createParam" key="textPattern"/>
+			<item value="sceneController" key="textPattern"/>
 			<item value="1" key="scope"/>
 			<item value="false" key="ignoreCase"/>
 			<list key="fileNamePatterns">
@@ -154,8 +154,8 @@
 		</section>
 		<section name="HISTORY0">
 			<item value="false" key="isRegExSearch"/>
-			<item value="archive" key="textPattern"/>
-			<item value="1" key="scope"/>
+			<item value="lgb.controller.control" key="textPattern"/>
+			<item value="3" key="scope"/>
 			<item value="false" key="ignoreCase"/>
 			<list key="fileNamePatterns">
 				<item value="*.js"/>
@@ -165,7 +165,7 @@
 		</section>
 		<section name="HISTORY1">
 			<item value="false" key="isRegExSearch"/>
-			<item value="Octane" key="textPattern"/>
+			<item value="lgb.view.control" key="textPattern"/>
 			<item value="1" key="scope"/>
 			<item value="false" key="ignoreCase"/>
 			<list key="fileNamePatterns">
@@ -174,6 +174,15 @@
 			<list key="workingSets">
 			</list>
 		</section>
+	</section>
+	<section name="ReplaceDialog2">
+		<list key="replace_with">
+			<item value="lgb.controller.component"/>
+			<item value="lgb.view.component"/>
+			<item value="lgb.model.component"/>
+			<item value="mainController"/>
+			<item value="lgb.view.control"/>
+		</list>
 	</section>
 	<section name="SearchDialog.ScopePart">
 		<item value="1" key="scope"/>

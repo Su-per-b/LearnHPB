@@ -1,0 +1,103 @@
+
+o3djs.require('lgb.model.XmlParser');
+o3djs.require('lgb.model.UserAction');
+o3djs.require('lgb.model.control.SelectionGroup');
+o3djs.require('lgb.model.control.SelectionItem');
+
+
+
+
+/**
+ * @namespace A module for managing the 2D GUI
+ */
+var lgb = (function(lgb) {
+
+
+
+	lgb.model = lgb.model || {};
+	
+	/**
+	 * @class MVC model for the building envelope
+	 * @extends lgb.model.ModelBase
+	 */
+	lgb.model.EnvelopeModel = function() {
+		
+		lgb.model.ModelBase.call(this);
+		
+		this.title = "Building Envelope";
+		this.name = "ENVELOPE";
+		
+		
+		var selectionGroup1 = new lgb.model.control.SelectionGroup(
+				'Select Floor-To-Ceiling Height'
+			);
+		
+		selectionGroup1.addItem('9 ft', 9, true);
+		selectionGroup1.addItem('11 ft', 11);
+		selectionGroup1.addItem('13 ft', 13);
+
+		
+		var selectFloorToCeilingHeight = new lgb.model.UserAction
+		(
+			'floor-to-ceiling',
+			lgb.model.UserActionType.MAKE_CHOICE, 
+			'Select Floor-To-Ceiling Height',
+			[	{label: '9 ft', value: 9},
+				{label: '11 ft', value: 11},
+				{label: '13 ft', value: 13}
+			]
+
+		);
+		
+		var selectNumberOfFloors = new lgb.model.UserAction
+		(
+			'number-of-floors',
+			lgb.model.UserActionType.MAKE_CHOICE, 
+			'Select the Number of Floors',
+			[	{label: '3', value: 3},
+				{label: '5', value: 5},
+				{label: '7', value: 7}
+			]
+		);
+		
+		
+		this.actions = [selectFloorToCeilingHeight, selectNumberOfFloors];
+		
+		this.floorHeight = 9; //floor to ceiling height in ft
+		this.totalFloors = 7;
+		
+	};
+
+
+	lgb.model.EnvelopeModel.prototype = {
+		
+		setFloorHeight: function(floorHeight) {
+			this.floorHeight = floorHeight;
+			this.dispatch('ENVELOPE_DATA_MODEL_CHANGED');
+		},
+		setTotalFloors: function(totalFloors) {
+			this.totalFloors = totalFloors;
+			this.dispatch('ENVELOPE_DATA_MODEL_CHANGED');
+		}
+		
+	};
+	
+
+	lgb.model.EnvelopeModel.inheritsFrom(lgb.model.ModelBase);
+	
+	
+	return lgb;
+	
+})(lgb || {});
+
+
+
+
+
+
+
+
+
+
+
+

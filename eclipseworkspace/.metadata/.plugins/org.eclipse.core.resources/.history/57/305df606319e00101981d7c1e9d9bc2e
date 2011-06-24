@@ -1,0 +1,34 @@
+
+
+var lgb = (function(lgb) {
+
+
+
+	lgb.Base = function() {
+
+	};
+
+	lgb.Base.prototype = {
+		
+		dispatch: function(eventName) {
+			var newEvent = jQuery.Event(eventName);
+			$('body').trigger(newEvent);
+		},
+		
+		listen: function(eventName, func) {
+			var delegate = jQuery.proxy( func, this );
+			$('body').bind(eventName, delegate);
+		},
+		
+		assertIsType: function(dataType) {
+			var delegate = jQuery.proxy( func, this );
+			$('body').bind(eventName, delegate);
+		}
+		
+	};
+
+	return lgb;
+	
+})(lgb || {});
+
+

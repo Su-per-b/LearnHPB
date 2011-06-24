@@ -33,7 +33,7 @@
 		unit11.onUnitCompleteCallback = onUnitCompleteCallback;
 		unitTest11.callBack = unit11.step_2;
 		
-		var desc = 'Loads a model and then clones it 4 time.  It then translates the location of 4 of the boxes' +
+		var desc = 'Loads a model and then clones it 4 times.  It then translates the location of 4 of the boxes' +
 		' we end up with 5 boxes lined up next to each other.  The cloning that I implemented here ' +
 		'has a lot of problems with it.  It receives the JSON file from the browser cache ' +
 		're-parses it creating all the materials, shapes and transforms all over again. ' +

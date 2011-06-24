@@ -1,0 +1,56 @@
+	hemi.world.Citizen = function() {
+		/**
+		 * The name of the Citizen.
+		 * @type string
+		 * @default ''
+		 */
+		this.name = '';
+		/* The unique identifier for any Citizen of the World */
+		this.worldId = null;
+		hemi.world.addCitizen(this);
+	};
+	
+	hemi.world.Citizen.prototype = {
+        /**
+         * Essentially a class name for Citizens.
+         * @type string
+         */
+        citizenType: 'hemi.world.Citizen',
+		
+		
+		
+		/**
+ * @namespace A module for managing the 2D GUI
+ */
+var lgb = (function(lgb) {
+
+
+
+	lgb.model = lgb.model || {};
+	
+	lgb.model.Model = function() {
+
+		
+	};
+
+
+
+	lgb.model.Model.prototype = {
+		
+		setFloorHeight: function(floorHeight) {
+			this.floorHeight = floorHeight;
+			sceneController.dispatchEvent('ENVELOPE_DATA_MODEL_CHANGED');
+		},
+		setTotalFloors: function(totalFloors) {
+			this.totalFloors = totalFloors;
+			sceneController.dispatchEvent('ENVELOPE_DATA_MODEL_CHANGED');
+		}
+		
+	};
+
+
+	
+	
+	return lgb;
+	
+})(lgb || {});

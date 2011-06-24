@@ -1,0 +1,66 @@
+
+o3djs.require('lgb.model.control.SelectionItem');
+
+/**
+ */
+var lgb = (function(lgb) {
+
+	lgb.model = lgb.model || {};
+	lgb.model.control = lgb.model.control || {};
+	
+	/**
+	 * @class MVC model for select controls like RadioButtonGroup
+	 * @extends lgb.model.control.ControlBase
+	 */
+	lgb.model.control.SelectionGroup = function() {
+		
+		lgb.model.control.ControlBase.call(this);
+		
+		this.title = "{ControlSelect}";
+		this.name = "{ControlSelect name not set}";
+		this.id = "{ControlSelect ID not set}";
+		this.selectionItems =[];
+
+	};
+
+
+	lgb.model.control.SelectionGroup.prototype = {
+		
+		addItem: function(selectionItem) {
+			this.selectionItems.push(selectionItem);
+		}
+		
+		
+		
+/*
+		setFloorHeight: function(floorHeight) {
+			this.floorHeight = floorHeight;
+			this.dispatch('ENVELOPE_DATA_MODEL_CHANGED');
+		},
+		setTotalFloors: function(totalFloors) {
+			this.totalFloors = totalFloors;
+			this.dispatch('ENVELOPE_DATA_MODEL_CHANGED');
+		}
+*/
+		
+	};
+	
+
+	lgb.model.control.SelectionGroup.inheritsFrom(lgb.model.control.ControlBase);
+	
+	
+	return lgb;
+	
+})(lgb || {});
+
+
+
+
+
+
+
+
+
+
+
+
