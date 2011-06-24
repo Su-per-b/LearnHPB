@@ -58,13 +58,13 @@ var lgb = (function(lgb) {
 
 	//	floatingMenu.add('leftNav', {targetLeft: -63, targetBottom: 90, snap: true });
 	
-		var id = 'topTitle';
-		var element = document.getElementById(id);
-		var msg = 'lgb.view.gui.showHud() id: {0} not found in HTML document';
+		//var menuIds = mainController.getFloatingMenuViews();
+
+
+/*
 		
 		if (null === element) {
 			throw new Error(msg.format(id));
-			
 		} else {
 			floatingMenu.add(id, {
 				centerX: true,
@@ -72,42 +72,63 @@ var lgb = (function(lgb) {
 				snap: true
 			});
 		}
+*/
+
+
+		var floatingMenuConfig = {
+				targetBottom: 90,
+				targetLeft: -63
+			};
 		
-		id = 'adminPanel';
-		element = document.getElementById(id);
+		lgb.view.gui.initMenu('leftNav', floatingMenuConfig)
 		
-		if (null === element) {
-			throw new Error.log(msg.format(id));
-			
-		} else {
-            floatingMenu.add(id, {
-                targetRight: -40,
-                targetBottom: 180,
-                snap: true
-            });
-		}
 		
 
+		floatingMenuConfig = {
+				centerX: true,
+				targetTop: -41
+			};
+		
+		lgb.view.gui.initMenu( 'topTitle', floatingMenuConfig);
+		
+		
+		floatingMenuConfig = {
+                targetRight: -40,
+                targetBottom: 180,
+			};
+		
+		lgb.view.gui.initMenu( 'adminPanel', floatingMenuConfig);
+		
+		
+		
+		
 
 		
 		floatingMenu.init();
 		
-	//	floatingArray[0].targetLeft=0;
-		floatingArray[0].targetTop=0;
-		floatingArray[1].targetRight=8;
+		floatingArray[0].targetLeft=0;
+		floatingArray[1].targetTop=0;
+		floatingArray[2].targetRight=8;
 	};
+	
+	
 	
 	
 
 	
-	lgb.view.gui.onConfigClick = function(event) {
+	lgb.view.gui.initMenu = function(id, floatingMenuConfig) {
 		
-		var newEvent = jQuery.Event('CONFIG_PANEL');
-		this.showConfigPanel = !this.showConfigPanel;
-		newEvent.show = this.showConfigPanel;
-		$(lgb.view.gui).trigger(newEvent);
+		element = document.getElementById(id);
+		floatingMenuConfig.snap = true;
+		
+		if (null === element) {
+			throw new Error('lgb.view.gui.initMenu() id: {0} not found in HTML document'.format(id));
+		} else {
+			floatingMenu.add(id, floatingMenuConfig);
+		}
 
 	};
+	
 	
 
 	
@@ -150,11 +171,12 @@ var lgb = (function(lgb) {
 	
 	
 	
+
+
 	lgb.view.gui.bindJavaScript = function() {
 		
 
-
-		$('#check_camera').click(this.onCheckCamera);
+		//$('#check_camera').click(this.onCheckCamera);
 		
 		var delegate = $.proxy(this.onParticleSystemStart, this);
 		$('#particleSystemStart').click(delegate);

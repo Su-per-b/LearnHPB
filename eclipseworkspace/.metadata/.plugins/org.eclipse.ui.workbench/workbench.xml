@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="32" version="2.0">
+<workbench progressCount="26" version="2.0">
 <workbenchAdvisor/>
 <window height="1524" maximized="true" width="1090" x="-4" y="4">
 <fastViewData fastViewLocation="1024">
@@ -43,13 +43,14 @@
 <folder appearance="1" expanded="2">
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
+<part id="1"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
 <editor activePart="true" focus="true" id="com.aptana.ide.editors.JSEditor" name="mainController.js" partName="mainController.js" path="W:/LearnGreenBuildings/eclipseworkspace/demo9/js/mainController.js" title="mainController.js" tooltip="demo9/js/mainController.js" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/demo9/js/mainController.js"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="489" selectionTopPixel="0"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1107" selectionTopPixel="106"/>
 </editor>
 </editors>
 <views>
@@ -65,7 +66,6 @@
 </view>
 <view id="org.eclipse.search.ui.views.SearchView" partName="Search">
 <viewState isPinned="false">
-<view IMemento.internal.id="org.eclipse.search.text.AptanaFileSearchResultPage" org.eclipse.search.lastActivation="1" org.eclipse.search.resultpage.layout="2"/>
 <view IMemento.internal.id="" org.eclipse.search.lastActivation="0"/>
 </viewState>
 </view>
@@ -156,13 +156,14 @@
 <show_view_action id="com.aptana.ide.logging.LogView"/>
 <show_view_action id="com.aptana.ide.server.ui.serversView"/>
 <new_wizard_action id="com.aptana.ide.wizards.WebProjectWizard"/>
-<new_wizard_action id="com.aptana.ide.editors.wizards.file.CssUntitledWizard"/>
-<new_wizard_action id="com.aptana.ide.editors.wizards.file.HtmlUntitledWizard"/>
-<new_wizard_action id="com.aptana.ide.editors.wizards.file.JsUntitledWizard"/>
-<new_wizard_action id="com.aptana.ide.editors.wizards.file.ScriptDocUntitledWizard"/>
-<new_wizard_action id="com.aptana.ide.editors.wizards.file.UntitledTextFileWizard"/>
-<new_wizard_action id="com.aptana.ide.editors.wizards.file.XmlUntitledWizard"/>
-<new_wizard_action id="om.aptana.ide.editors.wizards.file.JsonUntitledFileWizard"/>
+<new_wizard_action id="com.aptana.ide.editors.wizards.CssNewWizard"/>
+<new_wizard_action id="com.aptana.ide.editors.wizards.HtmlNewWizard"/>
+<new_wizard_action id="com.aptana.ide.editors.wizards.JsNewWizard"/>
+<new_wizard_action id="com.aptana.ide.editors.wizards.JsonNewFileWizard"/>
+<new_wizard_action id="com.aptana.ide.editors.wizards.ScriptDocNewWizard"/>
+<new_wizard_action id="com.aptana.ide.editors.wizards.XmlNewWizard"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.file"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.folder"/>
 <hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
 <view id="org.eclipse.ui.views.ContentOutline"/>
 <view id="com.aptana.ide.js.ui.views.profilesView"/>
@@ -208,7 +209,7 @@
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@7276f103" ratio="0.76534903" ratioLeft="910" ratioRight="279" relationship="2" relative="org.eclipse.ui.editorss">
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@7276f103" ratio="0.7863751" ratioLeft="935" ratioRight="254" relationship="2" relative="org.eclipse.ui.editorss">
 <folder activePageID="com.aptana.ide.ui.io.fileExplorerView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
 <page content="com.aptana.ide.js.ui.views.profilesView" label="References"/>
@@ -461,30 +462,21 @@
 <view id="org.eclipse.wst.jsdt.ui.SourceView"/>
 <view id="org.eclipse.ui.views.ContentOutline"/>
 <fastViewBars/>
-<layout>
-<mainWindow>
-<info folder="true" part="left">
-<folder activePageID="org.eclipse.ui.navigator.ProjectExplorer" appearance="2" expanded="2">
-<page content="org.eclipse.ui.navigator.ProjectExplorer" label="Project Explorer"/>
+<layout>&#x0A;<mainWindow>&#x0A;<info folder="true" part="left">&#x0A;<folder activePageID="org.eclipse.ui.navigator.ProjectExplorer" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.navigator.ProjectExplorer" label="Project Explorer"/>
 <page content="org.eclipse.wst.jsdt.ui.TypeHierarchy" label="LabelNotFound"/>
 <page content="org.eclipse.ui.views.ResourceNavigator" label="LabelNotFound"/>
 <page content="org.eclipse.wst.jsdt.ui.PackageExplorer" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
 </presentation>
 </folder>
 </info>
-<info folder="true" part="stickyFolderRight" ratio="0.75" ratioLeft="894" ratioRight="298" relationship="2" relative="left">
-<folder appearance="2" expanded="2">
-<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<info folder="true" part="stickyFolderRight" ratio="0.75" ratioLeft="894" ratioRight="298" relationship="2" relative="left">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
 <page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
 </folder>
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.25" ratioLeft="298" ratioRight="894" relationship="2" relative="left"/>
-<info folder="true" part="bottom" ratio="0.7498566" ratioLeft="1307" ratioRight="436" relationship="4" relative="org.eclipse.ui.editorss">
-<folder activePageID="org.eclipse.ui.views.ProblemView" appearance="2" expanded="2">
-<page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
+<info folder="true" part="bottom" ratio="0.7498566" ratioLeft="1307" ratioRight="436" relationship="4" relative="org.eclipse.ui.editorss">&#x0A;<folder activePageID="org.eclipse.ui.views.ProblemView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
 <page content="org.eclipse.wst.jsdt.ui.JavadocView" label="Documentation"/>
 <page content="org.eclipse.wst.jsdt.ui.SourceView" label="Declaration"/>
 <page content="org.eclipse.ui.texteditor.TemplatesView" label="LabelNotFound"/>
@@ -494,19 +486,15 @@
 <page content="org.eclipse.ui.views.ProgressView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.views.TaskList" label="LabelNotFound"/>
 <page content="org.eclipse.ui.views.PropertySheet" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
 <part id="1"/>
 <part id="2"/>
 </presentation>
 </folder>
 </info>
 <info part="org.eclipse.egit.ui.RepositoriesView" ratio="0.5" ratioLeft="447" ratioRight="447" relationship="2" relative="bottom"/>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@c8bf3cc" ratio="0.7494407" ratioLeft="670" ratioRight="224" relationship="2" relative="org.eclipse.ui.editorss">
-<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">
-<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@c8bf3cc" ratio="0.7494407" ratioLeft="670" ratioRight="224" relationship="2" relative="org.eclipse.ui.editorss">&#x0A;<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
 </presentation>
 </folder>
 </info>
@@ -535,16 +523,9 @@
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/lgb/view/component/RadioButtonGroup.js"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/lgb/view/component/Button.js"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/mainController.js"/>
+<editor factoryID="com.aptana.ide.server.portal.ui.MyAptanaElementFactory" id="com.aptana.ide.server.portal.ui.MyAptanaEditor"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/mainController.js"/>
 </editors>
-<item historyLabel="AdminPanel.js" index="2">
-<position info="not_deleted" x="1455" y="0"/>
-</item>
-<item historyLabel="AdminController.js" index="1">
-<position info="not_deleted" x="555" y="0"/>
-</item>
-<item historyLabel="mainController.js" index="0">
-<position info="not_deleted" x="950" y="0"/>
-</item>
 <item historyLabel="AdminController.js" index="1">
 <position info="not_deleted" x="702" y="0"/>
 </item>
@@ -683,23 +664,20 @@
 <item historyLabel="SelectionGroup.js" index="12">
 <position info="not_deleted" x="257" y="0"/>
 </item>
-<item active="true" historyLabel="mainController.js" index="17">
+<item historyLabel="mainController.js" index="17">
 <position info="not_deleted" x="0" y="0"/>
 </item>
+<item historyLabel="My Studio" index="18"/>
+<item historyLabel="mainController.js" index="19">
+<position info="not_deleted" x="705" y="0"/>
+</item>
+<item active="true" historyLabel="My Studio" index="18"/>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
 <workbenchWindowAdvisor/>
 <actionBarAdvisor/>
 <trimLayout>
-<trimArea IMemento.internal.id="16384">
-<trimItem IMemento.internal.id="org.eclipse.ui.internal.ViewStack@178e69af"/>
-</trimArea>
-<trimArea IMemento.internal.id="131072">
-<trimItem IMemento.internal.id="org.eclipse.ui.internal.ViewStack@7276f103"/>
-<trimItem IMemento.internal.id="org.eclipse.ui.editorss"/>
-<trimItem IMemento.internal.id="org.eclipse.ui.internal.ViewStack@4897f4e7"/>
-</trimArea>
 <trimArea IMemento.internal.id="128">
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
 </trimArea>

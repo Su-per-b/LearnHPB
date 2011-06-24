@@ -18,18 +18,21 @@ var lgb = (function(lgb) {
 		},
 		
 		dispatch: function(eventName, value) {
+			
+
+			console.log ('Base.dispatch(): {0}:{1}'.format(eventName,value));
 			var newEvent = jQuery.Event(eventName);
 			
 			if (null !== value && undefined !== value) {
 				newEvent.value = value;
 			}
 			
-			$('body').trigger(newEvent);
+			mainController.eventBus.trigger(newEvent);
 		},
 		
 		listen: function(eventName, func) {
 			var delegate = jQuery.proxy( func, this );
-			$('body').bind(eventName, delegate);
+			mainController.eventBus.bind(eventName, delegate);
 		},
 		
 		assertType: function(expectedType) {

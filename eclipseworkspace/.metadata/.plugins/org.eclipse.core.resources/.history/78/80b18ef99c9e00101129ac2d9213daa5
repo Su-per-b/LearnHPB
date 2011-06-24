@@ -1,0 +1,285 @@
+//o3djs.require('lgb.animation');
+
+o3djs.require('lgb.progressBar');
+o3djs.require('lgb.controller.HvacDamperController');
+o3djs.require('lgb.controller.EnvelopeController');
+
+/**
+ * @namespace MVC controller for the project
+ */
+var mainController = (function(mainController) {
+
+
+	/**
+	 * @namespace MVC controller for the project
+	 */
+	mainController = mainController || {};
+	mainController._NAME = 'mainController';
+	
+	mainController.init = function(controller) {
+
+		
+		var result = jQuery(document).ready($.proxy(this.onDocumentReady, this));	
+		jQuery(window).resize($.proxy(this.onWindowResize, this));
+			
+		mainController.progressbar = null; // the progress bar that we display
+	};
+	
+	mainController.onDocumentReady = function(event) {
+		
+		this.eventBus = $(new lgb.event.EventBus());
+	
+		this.envelopeController = new lgb.controller.EnvelopeController();
+		this.envelopeController.init();
+		
+		this.leftNavController = new lgb.controller.LeftNavController();
+		this.leftNavController.init();
+		
+		this.adminController = new lgb.controller.AdminController();
+		this.adminController.init([this.envelopeController.dataModel]);
+		
+		var envelopeMeshList = this.envelopeController.getMeshList();
+		
+		var allMeshes = [];
+		allMeshes = allMeshes.concat(envelopeMeshList);
+		
+		this.progressbar = new lgb.progressBar.Progressbar();	
+		this.progressbar.init("Loading Geometry");
+		this.progressbar.show(); 
+			
+		lgb.core.init();
+		lgb.loader.init(this);
+		lgb.view.gui.setCanvasSize();
+		
+		var delegateProgress = jQuery.proxy(this.onProgress, this);
+		var delegateComplete = jQuery.proxy(this.onMeshesLoaded, this);
+		
+		lgb.loader.loadModels(  delegateComplete, 
+								delegateProgress,
+								allMeshes );
+
+	};
+	
+	 mainController.onWindowResize = function(event) {
+		lgb.view.gui.resizeNow();
+	};
+		
+		//todo:(raj) complete this
+	 mainController.getFloatingMenuViews = function() {
+	 	
+		 //return [adminController.view, 'topTitle'];
+		 
+		//lgb.view.gui.resizeNow();
+		
+	};
+		
+			
+		
+	mainController.onMeshesLoaded = function(event) {
+		hemi.world.camera.unsubscribe(this.subscriberCameraStopped, hemi.msg.stop);
+
+		mainController.dispatchEvent(gb.event.Event.ALL_MESHES_LOADED);
+			
+		console.log('onMeshesLoaded');
+
+		window.setTimeout('mainController.progressbar.hide();',100);
+		hemi.world.camera.enableControl();	// Enable camera mouse control
+
+		lgb.utils.preload('icon_exterior_envelope_over.png,icon_lighting_over.png,icon_general_over.png,icon_exterior_envelope_over.png');
+		mainController.setViewPoint();
+		
+	};
+	
+	mainController.parseXml = function(xml) {
+		lgb.view.gui.particleSystemInit(xml);
+	};
+	
+	mainController.dispatchEvent = function(eventName) {
+		var newEvent = jQuery.Event(eventName);
+		mainController.eventBus.trigger(newEvent);
+	};
+	
+/*
+
+	mainController.handleEvent = function(func, context, eventName) {
+		var newEvent = jQuery.Event(eventName);
+		$('body').trigger(newEvent);
+	};
+	
+*/
+	
+	mainController.setViewPoint = function() {
+		
+		mainController.makeBoxAtOrigin();
+		
+		//var floor1Model = lgb.loader.modelList['envelope'];
+		//mainController.centerModelToOrigin(floor1Model);
+		//var target = floor1Model.getCenterPoint();
+		//target[2] -= 3;
+		//target[2] = -1 * target[2];
+		
+		
+		var vp = new hemi.view.Viewpoint();		// Create a new Viewpoint
+		vp.eye = [0,0,80];					// Set viewpoint eye
+		vp.target = [0,0,0];					// Set viewpoint target
+		
+		this.subscriberCameraStopped = hemi.world.camera.subscribe(
+				hemi.msg.stop,
+				this,
+				'onCameraMoved');
+				
+		hemi.world.camera.moveToView(vp,40);
+		
+	};
+	
+	mainController.makeBoxAtOrigin = function() {
+		var shapeGreenTarget = hemi.shape.create({
+			shape: 'box',
+			color: [0, 1, 0, 0.9],
+			h: 1,
+			w: 1,
+			d: 1
+		});
+		
+		//shapeGreenTarget.translate(vp.target[0], vp.target[1], vp.target[2]);
+	};
+
+/*
+	mainController.setModelRootToOrigin = function() {
+		
+		var model = lgb.loader.modelList['damper'];
+		var min = model.getBoundingBox().minExtent;
+		hemi.model.modelRoot.translate(-min[0],-min[1],-min[2]);
+		
+	};
+*/
+	mainController.centerModelToOrigin = function(model) {
+
+		mainController.showBB(model);
+		mainController.rotate(model);
+		
+		mainController.showBB(model);
+		mainController.translate2(model);
+						
+
+		
+		return;
+		
+
+					
+	
+					
+		mainController.showBB(model);
+
+		
+		
+		
+		//mainController.showBB(model);
+		
+		
+		bb = model.getBoundingBox();	
+		
+		xDelta = -1 * bb.minExtent[0];
+		yDelta = -1 * bb.minExtent[1];
+		zDelta = -1 * bb.minExtent[2];
+		model.root.translate(xDelta,yDelta,zDelta);
+		
+		mainController.showBB(model);
+		
+		console.log ('centerModelToOrigin ');
+		
+	};
+	
+	
+	
+	mainController.rotate = function(model){
+		//rotate 90 degrees on the x axis
+		var radians = hemi.core.math.degToRad(270);
+		model.rotateTransformX(model.root, radians);
+	};
+	mainController.translate = function(model){
+		var bb = model.root.boundingBox;	
+		
+/*
+		var pointMin = hemi.utils.pointAsWorld (model.root, bb.minExtent);
+		var pointMax = hemi.utils.pointAsWorld (model.root, bb.maxExtent);
+*/
+		var pointMin = bb.minExtent;
+		var pointMax = bb.minExtent;
+		
+		
+		var xDelta = -1 * pointMin[0];
+		var yDelta = -1 * pointMin[1];
+		var zDelta = -1 * pointMin[2];
+		model.root.translate(xDelta,yDelta,zDelta);
+	};
+	
+	mainController.translate2 = function(model){
+		var bb = model.root.boundingBox;	
+		
+/*
+		var pointMin = hemi.utils.pointAsWorld (model.root, bb.minExtent);
+		var pointMax = hemi.utils.pointAsWorld (model.root, bb.maxExtent);
+*/
+		var pointMin = bb.minExtent;
+		var pointMax = bb.minExtent;
+		
+		
+		var xDelta = -1 * pointMin[0];
+		var yDelta = -1 * pointMin[1];
+		var zDelta = -1 * pointMin[2];
+		
+		model.root.translate(xDelta,-zDelta,yDelta);
+	};
+	
+	
+	mainController.showBB = function(model){
+		var bb = model.root.boundingBox;
+		
+		box = [bb.minExtent, bb.maxExtent];
+		hemi.curve.showBoxes([box]);
+	};
+	
+	
+	mainController.onCameraMoved = function(event) {
+		
+		console.log('onCameraMoved');
+		var result = hemi.world.camera.unsubscribe(this.subscriberCameraStopped, hemi.msg.stop);
+		lgb.view.gui.showHud();
+	
+		lgb.utils.preload('icon_exterior_envelope_over.png,icon_lighting_over.png,icon_general_over.png,icon_exterior_envelope_over.png');
+	};
+	
+	mainController.onProgress = function(percent) {
+		this.progressbar.onProgress(percent);
+	};
+		
+		
+		
+	
+	return mainController;
+	
+})(mainController || {});
+
+
+hemi.model.Model.prototype.clone = function(onCloneComplete) {
+			
+			var newModel = new hemi.model.Model();
+			newModel.fileName = this.fileName;
+
+			var subscription = newModel.subscribe (
+				hemi.msg.load,
+				function() {
+					newModel.unsubscribe(subscription, hemi.msg.load);
+					onCloneComplete.call();
+				}
+			);	
+			
+			newModel.load();
+			
+
+			return newModel;
+		};
+		
+		
+mainController.init();

@@ -5,3 +5,6 @@
 1308901215460	Delete resource 'LearnGreenBuildings/projects/demo9/js/lgb/view/TemplateView.js'
 1308901319557	Delete resource 'LearnGreenBuildings/projects/demo9/js/lgb/o3dpatches.js.bak'
 1308902485258	Delete resource 'demo9/js/lgb/model/control/ControlBase.js'
+1308948464360	Delete resource 'demo9/js/lgb/controller/HvacDamperController.js'
+1308948504248	Delete resource 'demo9/js/lgb/view/HvacDamperView.js'
+1308948509522	Delete resource 'demo9/js/lgb/model/HvacDamperModel.js'

@@ -1,0 +1,86 @@
+
+
+
+
+var lgb = (function(lgb) {
+
+	lgb.controller = lgb.controller || {};
+	
+	
+	/**
+	 * @class MVC controller for the building LeftNav
+	 * @extends lgb.controller.ControllerBase
+	 */
+	lgb.controller.LeftNavController = function() {
+		
+		lgb.controller.ControllerBase.call(this);
+
+		this.dataModel = new lgb.model.LeftNavModel();
+		this.view = new lgb.view.LeftNavView();
+
+	};
+	
+	
+	lgb.controller.LeftNavController.prototype = {
+		
+		init: function() {
+			
+			//this.listen(lgb.event.LeftNavEvent.CHANGE_FLOOR_HEIGHT, this.onChangeFloorHeight);
+			//this.listen(lgb.event.LeftNavEvent.CHANGE_NUMBER_OF_FLOORS, this.onChangeNumberOfFloors);
+
+			this.view.init(this.dataModel);
+		},
+		
+		onChangeNumberOfFloors: function(event) {
+			var totalFloors = parseInt(event.value, 10);
+			this.dataModel.setTotalFloors(totalFloors);
+		},
+		onChangeFloorHeight: function(event) {
+			var height = parseInt(event.value, 10);
+			this.dataModel.setFloorHeight(height);
+		},
+
+		onGuiEvent : function(event) {
+
+			switch (event.action) {
+				case "number-of-floors" : {
+					var totalFloors = parseInt(event.value, 10);
+					this.dataModel.setTotalFloors(totalFloors);
+					break;
+				}
+				case "floor-to-ceiling" : {
+					var height = parseInt(event.value, 10);
+					this.dataModel.setFloorHeight(height);
+					break;
+				}
+				default : {
+					throw new Error('lgb.controller.LeftNavController.onGuiEvent() unexpected action ' + event.action )
+				}
+			}
+			
+		},
+
+		resetAnimation: function() {
+			this.view.resetAnimation();
+		},
+		getMeshList: function() {
+			return null;
+		}
+	
+	};
+	
+	lgb.controller.LeftNavController.inheritsFrom(lgb.controller.ControllerBase);
+
+	return lgb;
+	
+})(lgb || {});
+
+
+
+
+
+
+
+
+
+

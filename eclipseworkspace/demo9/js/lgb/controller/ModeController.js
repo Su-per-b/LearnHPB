@@ -25,8 +25,12 @@ var lgb = (function(lgb) {
 			this.modelList = modelList;
 			this.view = lgb.view.gui;
 			
+/*
 			var delegate = jQuery.proxy( this.onSwitchMode, this );
 			$(lgb.view.gui).bind("SWITCH_MODE",delegate);
+*/
+			
+			this.listen(lgb.event.Event.SWITCH_MODE, this.onSwitchMode);
 			
 			var delegate2 = jQuery.proxy( this.onShowConfigPanel, this );
 			$(lgb.view.gui).bind("CONFIG_PANEL",delegate);
@@ -63,14 +67,16 @@ var lgb = (function(lgb) {
 
 		onSwitchMode : function(event) {
 			
+			var mode = event.value;
 			var msg = 'ModeController.onSwitchMode(): from mode: {0} to mode: {1}'
-				.format(this.currentMode, event.mode);
+				.format(this.currentMode, mode);
 				
 		//	msg = msg.format(this.currentMode, event.mode);
 			
-			console.log(msg);
+			//console.log(msg);
 			
-			if (event.mode == this.currentMode) return;
+			if (mode == this.currentMode) return;
+			
 			this.previousMode = this.currentMode;
 			this.currentMode = event.mode;
 			

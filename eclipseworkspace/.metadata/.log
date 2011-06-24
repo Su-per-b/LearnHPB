@@ -11030,3 +11030,246 @@ org.eclipse.swt.SWTException: Widget is disposed
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:575)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1408)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1384)
+!SESSION 2011-06-24 11:49:55.466 -----------------------------------------------
+eclipse.buildId=M20110210-1200
+java.version=1.6.0_24
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.javascript.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.javascript.product
+
+!ENTRY org.eclipse.jface 2 0 2011-06-24 11:50:07.487
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2011-06-24 11:50:07.487
+!MESSAGE A conflict occurred for CTRL+SHIFT+U:
+Binding(CTRL+SHIFT+U,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.search.occurrences.in.file.quickMenu,Show Occurrences in File Quick Menu,
+		Shows the Occurrences in File quick menu,
+		Category(org.eclipse.search.ui.category.search,Search,Search command category,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+U,
+	ParameterizedCommand(Command(com.aptana.ide.syncing.ui.commands.upload,Upload...,
+		,
+		Category(com.aptana.ide.syncing.ui.commands.category,File Transfer,File Transfer Commands,true),
+		com.aptana.ide.syncing.ui.handlers.UploadHandler@7992eec1,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.ui.navigator.resources 4 0 2011-06-24 11:50:08.616
+!MESSAGE Required filter org.eclipse.ui.navigator.resources.filters.workingSet is not present. Working set support will not function correctly.
+
+!ENTRY org.eclipse.ui.navigator.resources 4 0 2011-06-24 11:50:08.619
+!MESSAGE 
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-06-24 11:50:27.002
+!MESSAGE Launch URL is not defined
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-06-24 11:50:40.424
+!MESSAGE Launch URL is not defined
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-06-24 11:51:36.721
+!MESSAGE Socket connection error. Please try shutting down and restarting your web browser, and then run 'debug' again.
+!STACK 0
+java.net.SocketTimeoutException: Accept timed out
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(Unknown Source)
+	at java.net.ServerSocket.implAccept(Unknown Source)
+	at java.net.ServerSocket.accept(Unknown Source)
+	at com.aptana.ide.debug.core.JSLaunchConfigurationDelegate.launch(JSLaunchConfigurationDelegate.java:416)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:853)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:702)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:924)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1128)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-06-24 11:52:39.861
+!MESSAGE Socket connection error. Please try shutting down and restarting your web browser, and then run 'debug' again.
+!STACK 0
+java.net.SocketTimeoutException: Accept timed out
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(Unknown Source)
+	at java.net.ServerSocket.implAccept(Unknown Source)
+	at java.net.ServerSocket.accept(Unknown Source)
+	at com.aptana.ide.debug.core.JSLaunchConfigurationDelegate.launch(JSLaunchConfigurationDelegate.java:416)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:853)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:702)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:924)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1128)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-06-24 11:52:46.444
+!MESSAGE An internal error occurred during: "Launching index.html".
+!STACK 0
+java.lang.NullPointerException
+	at com.aptana.ide.debug.core.JSDebugPlugin.log(JSDebugPlugin.java:115)
+	at com.aptana.ide.debug.core.JSDebugPlugin.log(JSDebugPlugin.java:126)
+	at com.aptana.ide.debug.core.JSLaunchConfigurationDelegate.launch(JSLaunchConfigurationDelegate.java:440)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:853)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:702)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:924)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1128)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SESSION 2011-06-24 11:52:57.993 -----------------------------------------------
+eclipse.buildId=M20110210-1200
+java.version=1.6.0_24
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.javascript.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.javascript.product
+
+!ENTRY org.eclipse.jface 2 0 2011-06-24 11:53:03.591
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2011-06-24 11:53:03.591
+!MESSAGE A conflict occurred for CTRL+SHIFT+U:
+Binding(CTRL+SHIFT+U,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.search.occurrences.in.file.quickMenu,Show Occurrences in File Quick Menu,
+		Shows the Occurrences in File quick menu,
+		Category(org.eclipse.search.ui.category.search,Search,Search command category,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+U,
+	ParameterizedCommand(Command(com.aptana.ide.syncing.ui.commands.upload,Upload...,
+		,
+		Category(com.aptana.ide.syncing.ui.commands.category,File Transfer,File Transfer Commands,true),
+		com.aptana.ide.syncing.ui.handlers.UploadHandler,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-06-24 11:53:15.186
+!MESSAGE Launch URL is not defined
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-06-24 11:53:22.424
+!MESSAGE Launch URL is not defined
+
+!ENTRY org.eclipse.ui.navigator.resources 4 0 2011-06-24 11:53:27.395
+!MESSAGE Required filter org.eclipse.ui.navigator.resources.filters.workingSet is not present. Working set support will not function correctly.
+
+!ENTRY org.eclipse.ui.navigator.resources 4 0 2011-06-24 11:53:27.399
+!MESSAGE 
+!SESSION 2011-06-24 11:53:45.100 -----------------------------------------------
+eclipse.buildId=M20110210-1200
+java.version=1.6.0_24
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.javascript.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.javascript.product
+
+!ENTRY org.eclipse.jface 2 0 2011-06-24 11:53:50.808
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2011-06-24 11:53:50.808
+!MESSAGE A conflict occurred for CTRL+SHIFT+U:
+Binding(CTRL+SHIFT+U,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.search.occurrences.in.file.quickMenu,Show Occurrences in File Quick Menu,
+		Shows the Occurrences in File quick menu,
+		Category(org.eclipse.search.ui.category.search,Search,Search command category,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+U,
+	ParameterizedCommand(Command(com.aptana.ide.syncing.ui.commands.upload,Upload...,
+		,
+		Category(com.aptana.ide.syncing.ui.commands.category,File Transfer,File Transfer Commands,true),
+		com.aptana.ide.syncing.ui.handlers.UploadHandler@2a29052b,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.ui.navigator.resources 4 0 2011-06-24 11:53:52.019
+!MESSAGE Required filter org.eclipse.ui.navigator.resources.filters.workingSet is not present. Working set support will not function correctly.
+
+!ENTRY org.eclipse.ui.navigator.resources 4 0 2011-06-24 11:53:52.024
+!MESSAGE 
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-06-24 11:54:02.421
+!MESSAGE Launch URL is not defined
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-06-24 12:11:13.848
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-06-24 12:13:15.541
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-06-24 12:34:10.431
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-06-24 12:34:33.846
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-06-24 12:36:47.939
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY com.aptana.ide.debug.core 4 0 2011-06-24 12:51:45.192
+!MESSAGE Socket connection error. Please try shutting down and restarting your web browser, and then run 'debug' again.
+!STACK 0
+java.net.SocketTimeoutException: Accept timed out
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(Unknown Source)
+	at java.net.ServerSocket.implAccept(Unknown Source)
+	at java.net.ServerSocket.accept(Unknown Source)
+	at com.aptana.ide.debug.core.JSLaunchConfigurationDelegate.launch(JSLaunchConfigurationDelegate.java:416)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:853)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:702)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:924)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1128)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-06-24 12:52:22.661
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-06-24 13:02:49.231
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY com.aptana.ide.debug.core 4 4 2011-06-24 13:10:50.127
+!MESSAGE Multiple JavaScript Debug Sessions is not supported.
+Please terminate the active session before starting a new session.
+
+!ENTRY org.eclipse.ui 4 4 2011-06-24 13:47:41.784
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action2js
+
+!ENTRY org.eclipse.ui 4 4 2011-06-24 13:47:41.788
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action4js
+
+!ENTRY org.eclipse.ui 4 4 2011-06-24 13:47:41.791
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action5js
+
+!ENTRY org.eclipse.ui 4 4 2011-06-24 13:47:41.795
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action6js
+
+!ENTRY org.eclipse.ui 4 4 2011-06-24 13:48:22.295
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action2js
+
+!ENTRY org.eclipse.ui 4 4 2011-06-24 13:48:22.298
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action4js
+
+!ENTRY org.eclipse.ui 4 4 2011-06-24 13:48:22.302
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action5js
+
+!ENTRY org.eclipse.ui 4 4 2011-06-24 13:48:22.305
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action6js
+
+!ENTRY org.eclipse.ui 4 4 2011-06-24 13:48:26.462
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action2js
+
+!ENTRY org.eclipse.ui 4 4 2011-06-24 13:48:26.466
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action4js
+
+!ENTRY org.eclipse.ui 4 4 2011-06-24 13:48:26.469
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action5js
+
+!ENTRY org.eclipse.ui 4 4 2011-06-24 13:48:26.472
+!MESSAGE Plug-in 'org.eclipse.eclipsemonkey' contributed an invalid Menu Extension (Path: 'org.eclipse.eclipsemonkey.navigatorContextMenu' is invalid): org.eclipse.eclipsemonkey.action6js

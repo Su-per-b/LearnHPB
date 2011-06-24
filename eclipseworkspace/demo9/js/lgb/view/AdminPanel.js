@@ -18,6 +18,8 @@ var lgb = (function(lgb) {
 	lgb.view.AdminPanel = function(){
 		lgb.view.ViewBase.call(this);
 		this.subPanels = [];
+		this.htmlID = "adminPanel";
+		
 	
 	};
 	
@@ -47,7 +49,7 @@ var lgb = (function(lgb) {
 		injectHtml : function() {
 			
 			var el = $('body');
-			var htmlBoilerplate = '<div id="adminPanel" class="panel">\n' +
+			var htmlBoilerplate = '<div id="{0}" class="panel">\n'.format(this.htmlID) +
 								'\t<h3>Admin</h3>\n' +
 								'\t<div class="box">\n' +
 									'\t\t</div>\n' +
@@ -55,7 +57,7 @@ var lgb = (function(lgb) {
 			
 			el.append(htmlBoilerplate);
 			
-			$('#adminPanel').panel({
+			$('#{0}'.format(this.htmlID)).panel({
 				'collapseType':'slide-right',
                 'stackable':false,
                 'collapsed':true

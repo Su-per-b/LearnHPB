@@ -1,0 +1,25 @@
+	/**
+ * @namespace 
+ */
+var lgb = (function(lgb) {
+
+
+
+	lgb.event = lgb.event || {};
+	
+	lgb.event.EventBus = function() {
+
+	};
+
+
+
+	
+	return lgb;
+	
+	
+})(lgb || {});
+	
+	
+	
+	
+	
