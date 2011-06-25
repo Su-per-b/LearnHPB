@@ -1,0 +1,108 @@
+
+/**
+ * @namespace 
+ */
+var lgb = (function(lgb) {
+
+
+
+	lgb.util = lgb.util || {};
+	
+	/**
+	 * @class 
+	 */
+	lgb.util.Loader = function() {
+		lgb.Base.call(this);
+		
+	};
+
+
+	lgb.util.Loader.prototype = {
+		
+		init: function() {
+			this.subscriberWorldReady = null;
+			this.subscriberCameraStopped = null;
+			this.fileList = [];  
+			this.callbackComplete = null;
+			this.callbackProgress = null;
+			this.assetsPath = '3d_assets/';
+		},
+		loadModels: function(callbackComplete, callbackProgress, fileList) {
+			this.fileList = fileList;
+			
+			this.callbackComplete = callbackComplete;
+			this.callbackProgress = callbackProgress;
+			
+			var delegate = jQuery.proxy( this.onMakeClientsComplete, this );
+			o3djs.webgl.makeClients(delegate);
+
+		},
+		onMakeClientsComplete: function(clientElements) {
+			hemi.core.init(clientElements[0]);
+			this.init3();
+		},
+		init3: function() {
+			hemi.view.setBGColor([0.7, 0.8, 1, 1]);
+			this.modelList = {};
+			
+			this.subscriberWorldReady = hemi.world.subscribe(
+					hemi.msg.ready,
+					this,
+					'init4'
+				);
+		
+			this.subscriberOnLoad = hemi.world.subscribe (
+			  hemi.msg.progress,
+			  this,
+			  'onProgress'
+			);
+	
+			//loop through all the filenames and set them up to load asynchronously
+			var len = this.fileList.length;
+			
+			for (var i = 0; i < len; i++) {
+				
+				var fileObj = this.fileList[i];
+				var newModel = new hemi.model.Model();
+				var fullPath = this.assetsPath + fileObj.file;
+	
+				newModel.LGBmode = fileObj.mode;
+				newModel.setFileName(fullPath);
+				newModel.name = fileObj.name;
+				
+				this.modelList[fileObj.name] = newModel;
+			}
+	
+			hemi.world.ready();   // Indicate that we are ready to start our script
+		},
+		onLoadModelFinish: function() {
+
+		},
+		init4: function() {
+
+		},
+		onProgress: function(event) {
+
+		}
+		
+	};
+	
+
+	lgb.util.EnvelopeModel.inheritsFrom(lgb.Base);
+	
+	
+	return lgb;
+	
+})(lgb || {});
+
+
+
+
+
+
+
+
+
+
+
+

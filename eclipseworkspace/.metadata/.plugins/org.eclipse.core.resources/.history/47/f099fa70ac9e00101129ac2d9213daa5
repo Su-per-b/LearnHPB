@@ -1,0 +1,44 @@
+
+/**
+ * @namespace 
+ */
+var lgb = (function(lgb) {
+
+
+
+	lgb.util = lgb.util || {};
+	
+	/**
+	 * @class 
+	 */
+	lgb.util.Loader = function() {
+		lgb.Base.call(this);
+		
+	};
+
+
+	lgb.util.Loader.prototype = {
+		
+
+		
+	};
+	
+
+	lgb.util.EnvelopeModel.inheritsFrom(lgb.Base);
+	
+	
+	return lgb;
+	
+})(lgb || {});
+
+
+
+
+
+
+
+
+
+
+
+

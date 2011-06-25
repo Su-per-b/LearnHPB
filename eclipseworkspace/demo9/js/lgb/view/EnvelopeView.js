@@ -1,6 +1,4 @@
 
-o3djs.require('lgb.view.AdminPanel');
-
 
 var lgb = (function(lgb) {
 
@@ -131,9 +129,9 @@ var lgb = (function(lgb) {
 			this.buildingParent =  hemi.core.mainPack.createObject('Transform');
 			this.buildingParent.parent = hemi.core.client.root;
 			
-			this.meshList['9']= lgb.loader.modelList['9FootEnvelope'];
-			this.meshList['11']= lgb.loader.modelList['11FootEnvelope'];
-			this.meshList['13']= lgb.loader.modelList['13FootEnvelope'];
+			this.meshList['9']= mainController.loader.modelList['9FootEnvelope'];
+			this.meshList['11']= mainController.loader.modelList['11FootEnvelope'];
+			this.meshList['13']= mainController.loader.modelList['13FootEnvelope'];
 
 			this.meshList['9'].setTransformVisible(this.meshList['9'].root, false);
 			this.meshList['11'].setTransformVisible(this.meshList['11'].root, false);

@@ -1,9 +1,3 @@
-o3djs.require('lgb.view.component.Button');
-o3djs.require('lgb.view.component.Link');
-o3djs.require('lgb.view.component.Slider');
-o3djs.require('lgb.view.component.RadioButtonGroup');
-o3djs.require('lgb.model.component.SelectionItem');
-o3djs.require('lgb.model.component.SelectionGroup');
 
 /**
  * @namespace A module for managing the 2D GUI

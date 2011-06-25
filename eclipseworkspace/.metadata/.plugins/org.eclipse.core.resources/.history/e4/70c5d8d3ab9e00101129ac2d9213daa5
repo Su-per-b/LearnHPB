@@ -1,0 +1,123 @@
+
+
+var lgb = (function(lgb){
+
+    lgb.controller = lgb.controller || {};
+    
+    
+    /**
+     * @class MVC controller for the Admin interface
+     * @extends lgb.controller.ControllerBase
+     */
+    lgb.controller.GuiController = function(){
+    
+        lgb.controller.ControllerBase.call(this);
+        
+    };
+    
+    
+    lgb.controller.GuiController.prototype = {
+    
+        init: function(dataModelArray){
+        
+            this.latestResizeWidth = window.innerWidth;
+            this.latestResizeHeight = window.innerHeight;
+            
+            var oTop = document.documentElement.scrollTop;
+            document.documentElement.scroll = "no";
+            document.documentElement.style.overflow = "hidden";
+            document.documentElement.scrollTop = oTop;
+            
+        },
+        
+        
+        setCanvasSize: function(event){
+        
+            var theO3d = document.getElementById("o3d");
+            theO3d.style.width = (window.innerWidth) + 'px';
+            theO3d.style.height = (window.innerHeight) + 'px';
+            
+        },
+        resizeNow: function(){
+        
+            if ((this.latestResizeWidth == window.innerWidth) && (this.latestResizeHeight == window.innerHeight)) {
+                return;
+            }
+            
+            this.latestResizeWidth = window.innerWidth;
+            this.latestResizeHeight = window.innerHeight;
+            this.setCanvasSize();
+            
+        },
+        showHud: function(){
+        
+            var floatingMenuConfig = {
+                targetBottom: 90,
+                targetLeft: -63
+            };
+            
+            lgb.view.gui.initMenu('leftNav', floatingMenuConfig);
+            
+            
+            
+            floatingMenuConfig = {
+                centerX: true,
+                targetTop: -41
+            };
+            
+            lgb.view.gui.initMenu('topTitle', floatingMenuConfig);
+            
+            
+            floatingMenuConfig = {
+                targetRight: -40,
+                targetBottom: 180,
+            };
+            
+            lgb.view.gui.initMenu('adminPanel', floatingMenuConfig);
+            
+            
+            
+            
+            
+            
+            floatingMenu.init();
+            
+            floatingArray[0].targetLeft = 0;
+            floatingArray[1].targetTop = 0;
+            floatingArray[2].targetRight = 8;
+            
+        },
+        initMenu: function(){
+        
+        
+            element = document.getElementById(id);
+            floatingMenuConfig.snap = true;
+            
+            if (null === element) {
+                throw new Error('lgb.view.gui.initMenu() id: {0} not found in HTML document'.format(id));
+            }
+            else {
+                floatingMenu.add(id, floatingMenuConfig);
+            }
+        }
+        
+        
+        
+        
+    };
+    
+    lgb.controller.GuiController.inheritsFrom(lgb.controller.ControllerBase);
+    
+    return lgb;
+    
+})(lgb || {});
+
+
+
+
+
+
+
+
+
+

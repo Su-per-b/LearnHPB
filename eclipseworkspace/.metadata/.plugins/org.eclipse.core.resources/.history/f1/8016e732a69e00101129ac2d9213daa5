@@ -1,0 +1,55 @@
+
+
+var lgb = (function(lgb) {
+
+	lgb.controller = lgb.controller || {};
+	
+	
+	/**
+	 * @class MVC controller for the building envelope
+	 * @extends lgb.controller.ControllerBase
+	 */
+	lgb.controller.MainControllerNew = function() {
+		
+		lgb.controller.ControllerBase.call(this);
+
+		//this.dataModel = new lgb.model.EnvelopeModel();
+	//	this.view = new lgb.view.EnvelopeView();
+
+	};
+	
+	
+	lgb.controller.MainControllerNew.prototype = {
+		
+		init: function() {
+			
+			jQuery(document).ready(this.d(this.onDocumentReady));
+			jQuery(window).resize(this.d(this.onWindowResize));
+			jQuery(window).unload(this.d(this.onWindowUnload));
+				
+
+
+			
+		mainController.progressbar = null; // the progress bar that we display
+
+		},
+		
+
+	
+	};
+	
+	lgb.controller.MainControllerNew.inheritsFrom(lgb.controller.ControllerBase);
+
+	return lgb;
+	
+})(lgb || {});
+
+
+
+
+
+
+
+
+
+

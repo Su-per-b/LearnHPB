@@ -1,6 +1,4 @@
 
-o3djs.require('lgb.view.AdminSubpanel');
-
 /**
  * @namespace A module for managing the 2D GUI
  */

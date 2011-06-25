@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		    
+		<link rel="stylesheet" href="css/stylz.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="css/gui.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="css/progress.css" type="text/css" media="screen" />
+		<link type="text/css" href="css/ui.panel.css" rel="stylesheet" />
+		<link type="text/css" href="css/jquery-ui-1.8.custom.css" rel="stylesheet" />
+		
+		<title>Demo 9</title>
+		
+		<script type="text/javascript" src="js/lib/jquery.js"></script>
+		<script type="text/javascript" src="js/lib/jshashtable.js"></script>
+		<script type="text/javascript" src="js/o3d-webgl/base.js"></script>
+		<script type="text/javascript" src="js/o3djs/base.js"></script>
+		<script type="text/javascript" src="js/hemi/core.js"></script>
+		<script type="text/javascript" src="js/lgb_misc/ba-debug.js"></script>
+		<script type="text/javascript" src="js/lgb_misc/floating-1.6.js"></script>
+		<script type="text/javascript" src="js/hext/utils/debug.js"></script>
+			
+		<script type="text/javascript" src="js/lgb_misc/jquery-ui-1.8.custom.min.js"></script>
+		<script type="text/javascript" src="js/lgb_misc/ui.panel.min.js"></script>
+		<script type="text/javascript" src="js/lgb_misc/html5slider.js"></script>
+		
+		<script type="text/javascript" src="js/lgb/event/EventBus.js"></script>
+		<script type="text/javascript" src="js/lgb/Base.js"></script>
+		<script type="text/javascript" src="js/lgb/Global.js"></script>
+		<script type="text/javascript" src="js/lgb/controller/ControllerBase.js"></script>
+		<script type="text/javascript" src="js/lgb/controller/MainController.js"></script>
+
+
+		
+		<script type="text/javascript">
+			var mainController = new lgb.controller.MainController();
+			mainController.init();
+		</script>
+		
+
+
+    </head>
+	
+    
+    <body> 
+    
+		<div id="o3d"></div>
+		<div id="topTitle"></div>
+
+		
+	    <div id="progressbarBackground">  
+	        <div id="progressbar">
+	            <div id="progressbarTitle">Loading Geometry</div>
+	            <div id="indicator"><div id="progressnum">0</div></div>
+	        </div>
+	    </div>
+
+    </body>
+</html>

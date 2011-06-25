@@ -1,0 +1,65 @@
+
+/**
+ * @namespace 
+ */
+var lgb = (function(lgb) {
+
+
+
+	lgb.util = lgb.util || {};
+	
+	/**
+	 * @class 
+	 */
+	lgb.util.Loader = function() {
+		lgb.Base.call(this);
+		
+	};
+
+
+	lgb.util.Loader.prototype = {
+		
+		init: function() {
+
+		},
+		init: function() {
+
+		},
+		init: function() {
+
+		},
+		init: function() {
+
+		},
+		init: function() {
+
+		},
+		init: function() {
+
+		},
+		setTotalFloors: function(totalFloors) {
+			this.totalFloors = totalFloors;
+			this.dispatch(lgb.event.EnvelopeEvent.DATA_MODEL_CHANGED);
+		}
+		
+	};
+	
+
+	lgb.util.EnvelopeModel.inheritsFrom(lgb.Base);
+	
+	
+	return lgb;
+	
+})(lgb || {});
+
+
+
+
+
+
+
+
+
+
+
+

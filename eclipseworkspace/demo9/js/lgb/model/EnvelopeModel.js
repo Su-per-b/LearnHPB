@@ -1,7 +1,4 @@
 
-o3djs.require('lgb.model.XmlParser');
-
-o3djs.require('lgb.model.component.SelectionItem');
 
 
 

@@ -1,7 +1,4 @@
 
-o3djs.require('lgb.model.EnvelopeModel');
-o3djs.require('lgb.view.EnvelopeView');
-o3djs.require('lgb.controller.ControllerBase');
 
 
 var lgb = (function(lgb) {

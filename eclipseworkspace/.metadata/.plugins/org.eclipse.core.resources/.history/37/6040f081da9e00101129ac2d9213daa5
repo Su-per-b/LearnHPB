@@ -1,0 +1,59 @@
+
+/**
+ * @namespace
+ */
+var lgb = (function(lgb){
+
+
+
+    lgb.util = lgb.util || {};
+    
+    /**
+     * @class
+     */
+    lgb.util.F = function(){
+        lgb.Base.call(this);
+        
+    };
+    
+    
+    lgb.util.F.prototype = {
+    
+
+    };
+	
+		
+	lgb.util.F.preload = function(images) {
+        var i = 0;
+        var imageArray = new Array();
+        imageArray = images.split(',');
+        
+        var imageObj = new Image();
+        for(i=0; i<=imageArray.length-1; i++) {
+        	var src = 'images/' + imageArray[i];
+        	
+           // document.write('<img src="' + src + '" />');// Write to page (uncomment to check images)
+            imageObj.src=src;
+        }
+	};
+	
+	
+    
+    lgb.util.F.inheritsFrom(lgb.Base);
+    
+    
+    return lgb;
+    
+})(lgb || {});
+
+
+
+
+
+
+
+
+
+
+
+

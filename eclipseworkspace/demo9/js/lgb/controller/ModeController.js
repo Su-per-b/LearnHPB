@@ -20,24 +20,10 @@ var lgb = (function(lgb) {
 	lgb.controller.ModeController.prototype = {
 		
 		init: function(modelList) {
-
-			
 			this.modelList = modelList;
 			this.view = lgb.view.gui;
-			
-/*
-			var delegate = jQuery.proxy( this.onSwitchMode, this );
-			$(lgb.view.gui).bind("SWITCH_MODE",delegate);
-*/
-			
+
 			this.listen(lgb.event.Event.SWITCH_MODE, this.onSwitchMode);
-			
-			var delegate2 = jQuery.proxy( this.onShowConfigPanel, this );
-			$(lgb.view.gui).bind("CONFIG_PANEL",delegate);
-			
-			
-			this.floors = new Array();
-			//this.makeFloors(5,3);
 			
 		},
 		

@@ -1,0 +1,58 @@
+
+
+var lgb = (function(lgb) {
+
+	/**
+	 * @namespace A module for utilities
+	 */
+	lgb.utils = lgb.utils || {};
+
+
+
+	
+	/** 
+	 * used to preload images like for image roll-overs
+	 *
+	 * @param {images} array of image names
+	 * @return {void}
+	 */
+/*
+	lgb.utils.preload = function(images){
+	        var i = 0;
+	        var imageArray = new Array();
+	        imageArray = images.split(',');
+	        
+	        var imageObj = new Image();
+	        for(i=0; i<=imageArray.length-1; i++) {
+	        	var src = 'images/' + imageArray[i];
+	        	
+	           // document.write('<img src="' + src + '" />');// Write to page (uncomment to check images)
+	            imageObj.src=src;
+	        }
+	};
+*/
+	
+
+	
+
+	
+
+
+
+
+
+/*
+	delegate = function(theFunction) {
+		
+		var context = arguments.callee.caller;
+		var c2 = delegate.caller;
+		
+		var delegate = $.proxy(theFunction, context);
+		
+		return delegate;
+	}
+*/
+
+	return lgb;
+	
+})(lgb || {});
