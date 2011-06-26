@@ -35,11 +35,12 @@ var lgb = (function(lgb) {
 	lgb.view.ProgressBar.prototype = {
 	
 		init : function(theTitle) {
-	
+			
 			if (null !== theTitle ) {
 				this.title = theTitle;
 			}
-		
+			this.injectHtml();
+						
 			this.progressnum = document.getElementById("progressnum");
 		    this.indicator = document.getElementById("indicator");
 		 	this.progressbarBackground = document.getElementById("progressbarBackground");
@@ -49,9 +50,24 @@ var lgb = (function(lgb) {
 			
 			this.listen(lgb.event.Loader.PROGRESS_UPDATE, this.onProgress);
 			this.listen(lgb.event.Event.ALL_MESHES_LOADED, this.onAllMeshesLoaded);
+
 		
 		},
+		
+		injectHtml : function() {
 
+			var html = '\
+			    <div id="progressbarBackground">\
+			        <div id="progressbar">\
+			            <div id="progressbarTitle">Loading Geometry</div>\
+			            <div id="indicator"><div id="progressnum">0</div></div>\
+			        </div>\
+			    </div>';
+			
+			$('body').append(html);
+
+		},
+		
 		center : function() {
 		
 			var centerX = window.innerWidth / 2;

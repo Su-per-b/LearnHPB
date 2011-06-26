@@ -136,11 +136,20 @@ var lgb = (function(lgb) {
 			this.meshList['9'].setTransformVisible(this.meshList['9'].root, false);
 			this.meshList['11'].setTransformVisible(this.meshList['11'].root, false);
 			this.meshList['13'].setTransformVisible(this.meshList['13'].root, false);
-		
-			var radians = hemi.core.math.degToRad(270);
-			this.buildingParent.rotateX( radians);
-
+			
+			this.position();
 			this.show();
+			this.showBoundingBox();
+		},
+		
+		showBoundingBox : function() {
+			//var radians = hemi.core.math.degToRad(270);
+			//this.buildingParent.rotateX( radians);
+		},
+		
+		position : function() {
+			//var radians = hemi.core.math.degToRad(270);
+			//this.buildingParent.rotateX( radians);
 		},
 		
 		onDataModelChanged : function(event) {

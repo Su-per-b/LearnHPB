@@ -52,7 +52,12 @@ var lgb = (function(lgb){
             for (var i = 0; i < len; i++) {
             
                 var fileObj = this.fileList[i];
-                var newModel = new hemi.model.Model();
+				
+				
+               // var newModel = new hemi.model.Model();
+                var newModel = new lgb.view.Mesh();
+				
+				
                 var fullPath = this.assetsPath + fileObj.file;
                 
                 newModel.LGBmode = fileObj.mode;

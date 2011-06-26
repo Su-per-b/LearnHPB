@@ -1,5 +1,2 @@
 INDEX VERSION 1.122+W:\LearnGreenBuildings\eclipseworkspace\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-2150051361.index
-3241252494.index
-2669497475.index
 1470830720.index

@@ -8,7 +8,7 @@
 		<item value="1|Tahoma|8.25|0|WINDOWS|1|-11|0|0|0|400|0|0|0|1|0|0|0|0|Tahoma" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.debug.ui.LAUNCH_CONFIGURATIONS_DIALOG_SECTION">
-		<item value="905" key="DIALOG_WIDTH"/>
+		<item value="1043" key="DIALOG_WIDTH"/>
 		<item value="327" key="DIALOG_Y_ORIGIN"/>
 		<item value=", com.aptana.ide.debug.core.jsLaunchConfigurationType, " key="org.eclipse.debug.ui.EXPANDED_NODES"/>
 		<item value="1248" key="DIALOG_HEIGHT"/>

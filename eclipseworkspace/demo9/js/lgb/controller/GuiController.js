@@ -29,10 +29,11 @@ var lgb = (function(lgb){
             document.documentElement.scrollTop = oTop;
             
 			this.listen(lgb.event.Event.WINDOW_RESIZE, this.onWindowResize);
+			this.setCanvasSize();
         },
         
         
-        setCanvasSize: function(event){
+        setCanvasSize: function(){
         
             var theO3d = document.getElementById("o3d");
             theO3d.style.width = (window.innerWidth) + 'px';

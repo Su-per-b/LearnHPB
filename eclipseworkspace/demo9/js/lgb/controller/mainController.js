@@ -3,9 +3,7 @@ o3djs.base.o3d = o3d;
 o3djs.require('lgb.Base');
 o3djs.require('lgb.controller.ControllerBase');
 
-o3djs.require('lgb.utils');
 o3djs.require('lgb.animation');
-o3djs.require('lgb.progressBar');
 
 o3djs.require('lgb.controller.AdminController');
 o3djs.require('lgb.controller.component.RadioButtonGroupController');
@@ -14,6 +12,8 @@ o3djs.require('lgb.controller.ModeController');
 o3djs.require('lgb.controller.ZoneController');
 o3djs.require('lgb.controller.LeftNavController');
 o3djs.require('lgb.controller.GuiController');
+o3djs.require('lgb.controller.HVACcontroller');
+o3djs.require('lgb.controller.BuildingController');
 
 o3djs.require('lgb.model.ModelBase');
 o3djs.require('lgb.model.component.ControlTrigger');
@@ -24,6 +24,7 @@ o3djs.require('lgb.model.ModeModel');
 o3djs.require('lgb.model.ZoneModel');
 o3djs.require('lgb.model.XmlParser');
 o3djs.require('lgb.model.LeftNavModel');
+o3djs.require('lgb.model.HVACmodel');
 
 o3djs.require('lgb.view.ViewBase');
 o3djs.require('lgb.view.component.Button');
@@ -37,11 +38,14 @@ o3djs.require('lgb.view.AdminSubpanel');
 o3djs.require('lgb.view.EnvelopeView');
 o3djs.require('lgb.view.LeftNavView');
 o3djs.require('lgb.view.ProgressBar');
+o3djs.require('lgb.view.HVACview');
+o3djs.require('lgb.view.Mesh');
 
 o3djs.require('lgb.event.EnvelopeEvent');
 o3djs.require('lgb.event.Event');
 o3djs.require('lgb.event.EventBus');
 o3djs.require('lgb.event.Loader');
+o3djs.require('lgb.event.HVACevent');
 
 o3djs.require('lgb.util.Loader');
 o3djs.require('lgb.util.F');
@@ -77,23 +81,22 @@ var lgb = (function(lgb) {
 		onDocumentReady : function(event) {
 		
 			console.log("kuda version: " + hemi.version);
-			console.log("lgb version: " + lgb.version);
+		//	console.log("lgb version: " + lgb.version);
 			console.log("jQuery version: " + $().jquery);
 			
-			//lgb.view.gui.init();
 			this.guiController = new lgb.controller.GuiController();
 			this.guiController.init();
 			
 			lgb.animation.init();
 			
-			this.envelopeController = new lgb.controller.EnvelopeController();
-			this.envelopeController.init();
+			this.buildingController = new lgb.controller.BuildingController();
+			this.buildingController.init();
 			
 			this.leftNavController = new lgb.controller.LeftNavController();
 			this.leftNavController.init();
 			
 			this.adminController = new lgb.controller.AdminController();
-			this.adminController.init([this.envelopeController.dataModel]);
+			this.adminController.init([this.buildingController.envelopeController.dataModel]);
 			
 			this.progressBar = new lgb.view.ProgressBar();	
 			this.progressBar.init("Loading Geometry");
@@ -102,17 +105,15 @@ var lgb = (function(lgb) {
 			this.loader = new lgb.util.Loader();
 			this.loader.init();
 			
-			this.guiController.setCanvasSize();
-			
 			this.loader.loadModels(  this.d(this.onMeshesLoaded), 
 									this.getFullMeshList() );
 		},
 		
-		getFullMeshList : function(event) {
+		getFullMeshList : function() {
 			
 			var list = [];
 			list = list.concat(
-				this.envelopeController.getMeshList()
+				this.buildingController.getMeshList()
 				);
 			
 			return list;

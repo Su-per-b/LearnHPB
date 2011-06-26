@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="26" version="2.0">
+<workbench progressCount="35" version="2.0">
 <workbenchAdvisor/>
-<window height="1524" maximized="true" width="1090" x="-4" y="4">
+<window height="1524" maximized="true" width="1090" x="28" y="270">
 <fastViewData fastViewLocation="1024">
 <orientation position="512" view="com.aptana.ide.js.ui.views.problemsView"/>
 <orientation position="512" view="org.eclipse.ui.console.ConsoleView"/>
@@ -16,7 +16,7 @@
 <coolItem id="additions" itemType="typeGroupMarker"/>
 <coolItem id="com.aptana.ide.editor.text" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="com.aptana.ide.editors.CSSEditor" itemType="typePlaceholder" x="-1" y="-1"/>
-<coolItem id="com.aptana.ide.editors.HTMLEditor" itemType="typePlaceholder" x="-1" y="-1"/>
+<coolItem id="com.aptana.ide.editors.HTMLEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="com.aptana.ide.editors.JSEditor" itemType="typeToolBarContribution" x="37" y="22"/>
 <coolItem id="com.aptana.ide.editors.XMLEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="com.aptana.ui.globalActionSet" itemType="typeToolBarContribution" x="-1" y="-1"/>
@@ -44,13 +44,27 @@
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
 <part id="1"/>
+<part id="2"/>
+<part id="3"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor activePart="true" focus="true" id="com.aptana.ide.editors.JSEditor" name="mainController.js" partName="mainController.js" path="W:/LearnGreenBuildings/eclipseworkspace/demo9/js/mainController.js" title="mainController.js" tooltip="demo9/js/mainController.js" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/demo9/js/mainController.js"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1107" selectionTopPixel="106"/>
+<editor activePart="true" focus="true" id="com.aptana.ide.editors.JSEditor" name="Mesh.js" partName="Mesh.js" path="W:/LearnGreenBuildings/eclipseworkspace/demo9/js/lgb/view/Mesh.js" title="Mesh.js" tooltip="demo9/js/lgb/view/Mesh.js" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/demo9/js/lgb/view/Mesh.js"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1850" selectionTopPixel="561"/>
+</editor>
+<editor id="com.aptana.ide.editors.JSEditor" name="EnvelopeView.js" partName="EnvelopeView.js" path="W:/LearnGreenBuildings/eclipseworkspace/demo9/js/lgb/view/EnvelopeView.js" title="EnvelopeView.js" tooltip="demo9/js/lgb/view/EnvelopeView.js" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/demo9/js/lgb/view/EnvelopeView.js"/>
+<editorState selectionHorizontalPixel="0" selectionLength="33" selectionOffset="1321" selectionTopPixel="0"/>
+</editor>
+<editor id="com.aptana.ide.editors.JSEditor" name="model.js" partName="model.js" path="W:/LearnGreenBuildings/eclipseworkspace/demo9/js/hemi/model.js" title="model.js" tooltip="demo9/js/hemi/model.js" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/demo9/js/hemi/model.js"/>
+<editorState selectionHorizontalPixel="0" selectionLength="52" selectionOffset="4956" selectionTopPixel="2278"/>
+</editor>
+<editor id="com.aptana.ide.editors.JSEditor" name="pack.js" partName="pack.js" path="W:/LearnGreenBuildings/eclipseworkspace/demo9/js/o3d-webgl/pack.js" title="pack.js" tooltip="demo9/js/o3d-webgl/pack.js" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/demo9/js/o3d-webgl/pack.js"/>
+<editorState selectionHorizontalPixel="0" selectionLength="12" selectionOffset="5730" selectionTopPixel="2309"/>
 </editor>
 </editors>
 <views>
@@ -156,14 +170,13 @@
 <show_view_action id="com.aptana.ide.logging.LogView"/>
 <show_view_action id="com.aptana.ide.server.ui.serversView"/>
 <new_wizard_action id="com.aptana.ide.wizards.WebProjectWizard"/>
-<new_wizard_action id="com.aptana.ide.editors.wizards.CssNewWizard"/>
-<new_wizard_action id="com.aptana.ide.editors.wizards.HtmlNewWizard"/>
-<new_wizard_action id="com.aptana.ide.editors.wizards.JsNewWizard"/>
-<new_wizard_action id="com.aptana.ide.editors.wizards.JsonNewFileWizard"/>
-<new_wizard_action id="com.aptana.ide.editors.wizards.ScriptDocNewWizard"/>
-<new_wizard_action id="com.aptana.ide.editors.wizards.XmlNewWizard"/>
-<new_wizard_action id="org.eclipse.ui.wizards.new.file"/>
-<new_wizard_action id="org.eclipse.ui.wizards.new.folder"/>
+<new_wizard_action id="com.aptana.ide.editors.wizards.file.CssUntitledWizard"/>
+<new_wizard_action id="com.aptana.ide.editors.wizards.file.HtmlUntitledWizard"/>
+<new_wizard_action id="com.aptana.ide.editors.wizards.file.JsUntitledWizard"/>
+<new_wizard_action id="com.aptana.ide.editors.wizards.file.ScriptDocUntitledWizard"/>
+<new_wizard_action id="com.aptana.ide.editors.wizards.file.UntitledTextFileWizard"/>
+<new_wizard_action id="com.aptana.ide.editors.wizards.file.XmlUntitledWizard"/>
+<new_wizard_action id="om.aptana.ide.editors.wizards.file.JsonUntitledFileWizard"/>
 <hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
 <view id="org.eclipse.ui.views.ContentOutline"/>
 <view id="com.aptana.ide.js.ui.views.profilesView"/>
@@ -209,7 +222,7 @@
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@7276f103" ratio="0.7863751" ratioLeft="935" ratioRight="254" relationship="2" relative="org.eclipse.ui.editorss">
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@7276f103" ratio="0.7510513" ratioLeft="893" ratioRight="296" relationship="2" relative="org.eclipse.ui.editorss">
 <folder activePageID="com.aptana.ide.ui.io.fileExplorerView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
 <page content="com.aptana.ide.js.ui.views.profilesView" label="References"/>
@@ -228,7 +241,7 @@
 </folder>
 </info>
 </mainWindow>
-<detachedWindow height="620" width="864" x="-1439" y="998">
+<detachedWindow height="620" width="864" x="-2448" y="1036">
 <folder activePageID="org.eclipse.search.ui.views.SearchView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ProgressView" label="Progress"/>
 <page content="org.eclipse.search.ui.views.SearchView" label="Search"/>
@@ -273,10 +286,10 @@
 <show_view_action id="org.eclipse.ui.console.ConsoleView"/>
 <show_view_action id="org.eclipse.ui.views.ContentOutline"/>
 <show_view_action id="org.eclipse.ui.views.TaskList"/>
-<hide_toolbar_item_id id="org.eclipse.ui.workbench.navigate"/>
 <hide_toolbar_item_id id="org.eclipse.ui.navigate.backwardHistory"/>
-<hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
+<hide_toolbar_item_id id="org.eclipse.ui.workbench.navigate"/>
 <hide_toolbar_item_id id="org.eclipse.ui.navigate.forwardHistory"/>
+<hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
 <hide_toolbar_item_id id="com.aptana.ide.core.ui.actionSet.myAptana"/>
 <hide_toolbar_item_id id="org.eclipse.ui.edit.text.gotoLastEditPosition"/>
 <view id="org.eclipse.ui.console.ConsoleView"/>
@@ -303,7 +316,7 @@
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.debug.internal.ui.ConsoleFolderView" ratio="0.7971264" ratioLeft="1387" ratioRight="353" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<info folder="true" part="org.eclipse.debug.internal.ui.ConsoleFolderView" ratio="0.79367816" ratioLeft="1381" ratioRight="359" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
 <folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
 <page content="org.eclipse.ui.views.ProgressView" label="Progress"/>
@@ -334,9 +347,9 @@
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info part="org.eclipse.ui.editorss" ratio="0.20086706" ratioLeft="278" ratioRight="1106" relationship="4" relative="org.eclipse.ui.internal.ViewStack@178e69af"/>
+<info part="org.eclipse.ui.editorss" ratio="0.2619739" ratioLeft="361" ratioRight="1017" relationship="4" relative="org.eclipse.ui.internal.ViewStack@178e69af"/>
 <info folder="true" part="org.eclipse.ui.internal.ViewStack@4897f4e7" ratio="0.3448276" ratioLeft="410" ratioRight="779" relationship="2" relative="org.eclipse.ui.internal.ViewStack@178e69af">
-<folder activePageID="org.eclipse.debug.ui.BreakpointView" appearance="2" expanded="2">
+<folder activePageID="org.eclipse.debug.ui.VariableView" appearance="2" expanded="2">
 <page content="org.eclipse.debug.ui.BreakpointView" label="Breakpoints"/>
 <page content="org.eclipse.debug.ui.VariableView" label="Variables"/>
 <page content="org.eclipse.debug.ui.ExpressionView" label="LabelNotFound"/>
@@ -505,173 +518,172 @@
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/mainController.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/lgb/controller/AdminController.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/lgb/view/AdminPanel.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/lgb/utils.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/lgb_misc/floating-1.6.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/lgb/view/control/RadioButtonGroup.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/lgb/controller/control/RadioButtonGroupController.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/lgb/view/AdminSubpanel.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/lgb/model/EnvelopeModel.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/lgb/controller/EnvelopeController.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/lgb/event/EnvelopeEvent.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/lgb/controller/component/RadioButtonGroupController.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/lgb/model/component/SelectionGroup.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/lgb/model/component/SelectionItem.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/lgb/model/component/ControlTrigger.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/lgb/view/component/RadioButtonGroup.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/lgb/view/component/Button.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/mainController.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/lgb/view/Mesh.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/lgb/controller/MainController.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/o3d-webgl/transform.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/o3djs/manipulators.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/o3djs/picking.js"/>
 <editor factoryID="com.aptana.ide.server.portal.ui.MyAptanaElementFactory" id="com.aptana.ide.server.portal.ui.MyAptanaEditor"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/mainController.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/lgb/view/EnvelopeView.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/o3d-webgl/primitive.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/lgb/controller/MainController.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" path="/demo9/js/lgb/controller/mainController.js.bak"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/hemi/curve.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/hemi/model.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/lgb/view/HVACview.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/lgb/util/Loader.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/o3d-webgl/client.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/hemi/model.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" path="/demo9/js/o3d-webgl/pack.js"/>
 </editors>
-<item historyLabel="AdminController.js" index="1">
-<position info="not_deleted" x="702" y="0"/>
+<item historyLabel="transform.js" index="2">
+<position info="not_deleted" x="10548" y="0"/>
 </item>
-<item historyLabel="utils.js" index="3">
+<item historyLabel="Mesh.js" index="0">
+<position info="not_deleted" x="4040" y="0"/>
+</item>
+<item historyLabel="transform.js" index="2">
+<position info="not_deleted" x="21058" y="31"/>
+</item>
+<item historyLabel="Mesh.js" index="0">
+<position info="not_deleted" x="4040" y="0"/>
+</item>
+<item historyLabel="MainController.js" index="1">
+<position info="not_deleted" x="2112" y="0"/>
+</item>
+<item historyLabel="Mesh.js" index="0">
+<position info="not_deleted" x="4040" y="0"/>
+</item>
+<item historyLabel="Mesh.js" index="0">
+<position info="not_deleted" x="3115" y="0"/>
+</item>
+<item historyLabel="Mesh.js" index="0">
+<position info="not_deleted" x="4000" y="0"/>
+</item>
+<item historyLabel="Mesh.js" index="0">
+<position info="not_deleted" x="1901" y="0"/>
+</item>
+<item historyLabel="Mesh.js" index="0">
+<position info="not_deleted" x="2629" y="0"/>
+</item>
+<item historyLabel="Mesh.js" index="0">
+<position info="not_deleted" x="1901" y="31"/>
+</item>
+<item historyLabel="Mesh.js" index="0">
+<position info="not_deleted" x="1947" y="0"/>
+</item>
+<item historyLabel="Mesh.js" index="0">
+<position info="not_deleted" x="4000" y="0"/>
+</item>
+<item historyLabel="Mesh.js" index="0">
+<position info="not_deleted" x="1833" y="0"/>
+</item>
+<item historyLabel="Mesh.js" index="0">
+<position info="not_deleted" x="4000" y="0"/>
+</item>
+<item historyLabel="Mesh.js" index="0">
+<position info="not_deleted" x="2111" y="0"/>
+</item>
+<item historyLabel="Mesh.js" index="0">
+<position info="not_deleted" x="2153" y="0"/>
+</item>
+<item historyLabel="transform.js" index="2">
+<position info="not_deleted" x="1847" y="11"/>
+</item>
+<item historyLabel="manipulators.js" index="3">
+<position info="not_deleted" x="40553" y="11"/>
+</item>
+<item historyLabel="picking.js" index="4">
+<position info="not_deleted" x="11856" y="0"/>
+</item>
+<item historyLabel="Mesh.js" index="0">
 <position/>
 </item>
-<item historyLabel="mainController.js" index="0">
-<position info="not_deleted" x="569" y="0"/>
+<item historyLabel="My Studio" index="5"/>
+<item historyLabel="EnvelopeView.js" index="6">
+<position info="not_deleted" x="3086" y="127"/>
 </item>
-<item historyLabel="mainController.js" index="0">
-<position info="not_deleted" x="1622" y="0"/>
+<item historyLabel="Mesh.js" index="0">
+<position info="not_deleted" x="1879" y="0"/>
 </item>
-<item historyLabel="utils.js" index="3">
-<position/>
+<item historyLabel="Mesh.js" index="0">
+<position info="not_deleted" x="1310" y="0"/>
 </item>
-<item historyLabel="mainController.js" index="0">
-<position info="not_deleted" x="569" y="0"/>
+<item historyLabel="primitive.js" index="7">
+<position info="not_deleted" x="7457" y="0"/>
 </item>
-<item historyLabel="mainController.js" index="0">
-<position info="not_deleted" x="777" y="0"/>
+<item historyLabel="Mesh.js" index="0">
+<position info="not_deleted" x="1205" y="70"/>
 </item>
-<item historyLabel="floating-1.6.js" index="4">
-<position info="not_deleted" x="9231" y="0"/>
+<item historyLabel="Mesh.js" index="0">
+<position info="not_deleted" x="1429" y="0"/>
 </item>
-<item historyLabel="mainController.js" index="0">
-<position info="not_deleted" x="777" y="0"/>
+<item historyLabel="Mesh.js" index="0">
+<position info="not_deleted" x="1205" y="70"/>
 </item>
-<item historyLabel="utils.js" index="3">
-<position/>
+<item historyLabel="Mesh.js" index="0">
+<position info="not_deleted" x="1425" y="0"/>
 </item>
-<item historyLabel="AdminController.js" index="1">
-<position info="not_deleted" x="714" y="0"/>
+<item historyLabel="Mesh.js" index="0">
+<position info="not_deleted" x="1788" y="67"/>
 </item>
-<item historyLabel="utils.js" index="3">
-<position/>
+<item historyLabel="MainController.js" index="8">
+<position info="not_deleted" x="2112" y="0"/>
 </item>
-<item historyLabel="AdminController.js" index="1">
-<position info="not_deleted" x="714" y="0"/>
+<item historyLabel="mainController.js.bak" index="9">
+<position info="not_deleted" x="643" y="0"/>
 </item>
-<item historyLabel="utils.js" index="3">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="curve.js" index="10">
+<position info="not_deleted" x="18400" y="6"/>
 </item>
-<item historyLabel="mainController.js" index="0">
-<position info="not_deleted" x="569" y="0"/>
+<item historyLabel="model.js" index="11">
+<position info="not_deleted" x="5710" y="16"/>
 </item>
-<item historyLabel="mainController.js" index="0">
-<position info="not_deleted" x="777" y="0"/>
+<item historyLabel="HVACview.js" index="12">
+<position info="not_deleted" x="919" y="0"/>
 </item>
-<item historyLabel="utils.js" index="3">
-<position info="not_deleted" x="4107" y="0"/>
+<item historyLabel="Loader.js" index="13">
+<position info="not_deleted" x="2911" y="0"/>
 </item>
-<item historyLabel="RadioButtonGroup.js" index="5">
-<position info="not_deleted" x="598" y="0"/>
+<item historyLabel="client.js" index="14">
+<position info="not_deleted" x="4009" y="0"/>
 </item>
-<item historyLabel="RadioButtonGroupController.js" index="6">
-<position info="not_deleted" x="864" y="0"/>
+<item historyLabel="Mesh.js" index="0">
+<position info="not_deleted" x="4166" y="0"/>
 </item>
-<item historyLabel="AdminSubpanel.js" index="7">
-<position info="not_deleted" x="1537" y="0"/>
+<item historyLabel="Mesh.js" index="0">
+<position info="not_deleted" x="1785" y="0"/>
 </item>
-<item historyLabel="AdminSubpanel.js" index="7">
-<position info="not_deleted" x="1689" y="0"/>
+<item historyLabel="Mesh.js" index="0">
+<position info="not_deleted" x="1788" y="0"/>
 </item>
-<item historyLabel="AdminPanel.js" index="2">
-<position info="not_deleted" x="1455" y="0"/>
+<item historyLabel="Mesh.js" index="0">
+<position info="not_deleted" x="1857" y="39"/>
 </item>
-<item historyLabel="AdminController.js" index="1">
-<position info="not_deleted" x="555" y="0"/>
+<item historyLabel="Mesh.js" index="0">
+<position info="not_deleted" x="1597" y="0"/>
 </item>
-<item historyLabel="AdminPanel.js" index="2">
-<position info="not_deleted" x="1455" y="0"/>
+<item historyLabel="model.js" index="11">
+<position info="not_deleted" x="4031" y="42"/>
 </item>
-<item historyLabel="EnvelopeModel.js" index="8">
-<position info="not_deleted" x="1090" y="0"/>
+<item historyLabel="Mesh.js" index="0">
+<position info="not_deleted" x="2393" y="0"/>
 </item>
-<item historyLabel="mainController.js" index="0">
-<position info="not_deleted" x="569" y="0"/>
+<item historyLabel="EnvelopeView.js" index="6">
+<position info="not_deleted" x="1321" y="33"/>
 </item>
-<item historyLabel="mainController.js" index="0">
-<position info="not_deleted" x="777" y="0"/>
+<item historyLabel="Mesh.js" index="0">
+<position info="not_deleted" x="1636" y="0"/>
 </item>
-<item historyLabel="EnvelopeModel.js" index="8">
-<position info="not_deleted" x="1090" y="0"/>
+<item historyLabel="model.js" index="15">
+<position info="not_deleted" x="4956" y="52"/>
 </item>
-<item historyLabel="EnvelopeController.js" index="9">
-<position info="not_deleted" x="800" y="23"/>
+<item historyLabel="pack.js" index="16">
+<position info="not_deleted" x="5730" y="12"/>
 </item>
-<item historyLabel="EnvelopeEvent.js" index="10">
-<position info="not_deleted" x="390" y="0"/>
+<item active="true" historyLabel="Mesh.js" index="0">
+<position info="not_deleted" x="1636" y="0"/>
 </item>
-<item historyLabel="EnvelopeModel.js" index="8">
-<position info="not_deleted" x="436" y="1"/>
-</item>
-<item historyLabel="mainController.js" index="0">
-<position info="not_deleted" x="569" y="0"/>
-</item>
-<item historyLabel="mainController.js" index="0">
-<position info="not_deleted" x="777" y="0"/>
-</item>
-<item historyLabel="RadioButtonGroupController.js" index="11">
-<position info="not_deleted" x="864" y="0"/>
-</item>
-<item historyLabel="SelectionGroup.js" index="12">
-<position info="not_deleted" x="424" y="0"/>
-</item>
-<item historyLabel="SelectionItem.js" index="13">
-<position info="not_deleted" x="534" y="0"/>
-</item>
-<item historyLabel="ControlTrigger.js" index="14">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="RadioButtonGroup.js" index="15">
-<position info="not_deleted" x="598" y="0"/>
-</item>
-<item historyLabel="EnvelopeModel.js" index="8">
-<position info="not_deleted" x="436" y="1"/>
-</item>
-<item historyLabel="ControlTrigger.js" index="14">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="SelectionGroup.js" index="12">
-<position info="not_deleted" x="663" y="0"/>
-</item>
-<item historyLabel="Button.js" index="16">
-<position info="not_deleted" x="565" y="0"/>
-</item>
-<item historyLabel="ControlTrigger.js" index="14">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="SelectionGroup.js" index="12">
-<position info="not_deleted" x="257" y="0"/>
-</item>
-<item historyLabel="RadioButtonGroupController.js" index="11">
-<position info="not_deleted" x="668" y="0"/>
-</item>
-<item historyLabel="SelectionGroup.js" index="12">
-<position info="not_deleted" x="257" y="0"/>
-</item>
-<item historyLabel="mainController.js" index="17">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="My Studio" index="18"/>
-<item historyLabel="mainController.js" index="19">
-<position info="not_deleted" x="705" y="0"/>
-</item>
-<item active="true" historyLabel="My Studio" index="18"/>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
@@ -690,47 +702,50 @@
 </trimLayout>
 </window>
 <mruList>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="mainController.js" tooltip="demo9/js/mainController.js">
-<persistable path="/demo9/js/mainController.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="pack.js" tooltip="demo9/js/o3d-webgl/pack.js">
+<persistable path="/demo9/js/o3d-webgl/pack.js"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="Button.js" tooltip="demo9/js/lgb/view/component/Button.js">
-<persistable path="/demo9/js/lgb/view/component/Button.js"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="utils.js" tooltip="demo9/js/lgb/utils.js">
-<persistable path="/demo9/js/lgb/utils.js"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="floating-1.6.js" tooltip="demo9/js/lgb_misc/floating-1.6.js">
-<persistable path="/demo9/js/lgb_misc/floating-1.6.js"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.HTMLEditor" name="index.html" tooltip="demo9/index.html">
-<persistable path="/demo9/index.html"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="Event.js" tooltip="demo9/js/lgb/event/Event.js">
-<persistable path="/demo9/js/lgb/event/Event.js"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="gui.js" tooltip="demo9/js/lgb/view/gui.js">
-<persistable path="/demo9/js/lgb/view/gui.js"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="jquery.js" tooltip="demo9/js/lib/jquery.js">
-<persistable path="/demo9/js/lib/jquery.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="model.js" tooltip="demo9/js/hemi/model.js">
+<persistable path="/demo9/js/hemi/model.js"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="EnvelopeView.js" tooltip="demo9/js/lgb/view/EnvelopeView.js">
 <persistable path="/demo9/js/lgb/view/EnvelopeView.js"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="core.js" tooltip="demo9/js/lgb/core.js">
-<persistable path="/demo9/js/lgb/core.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="Mesh.js" tooltip="demo9/js/lgb/view/Mesh.js">
+<persistable path="/demo9/js/lgb/view/Mesh.js"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="EnvelopeEvent.js" tooltip="demo9/js/lgb/event/EnvelopeEvent.js">
-<persistable path="/demo9/js/lgb/event/EnvelopeEvent.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="primitive.js" tooltip="demo9/js/o3d-webgl/primitive.js">
+<persistable path="/demo9/js/o3d-webgl/primitive.js"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="AdminPanel.js" tooltip="demo9/js/lgb/view/AdminPanel.js">
-<persistable path="/demo9/js/lgb/view/AdminPanel.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="manipulators.js" tooltip="demo9/js/o3djs/manipulators.js">
+<persistable path="/demo9/js/o3djs/manipulators.js"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="UserAction.js" tooltip="demo9/js/lgb/model/UserAction.js">
-<persistable path="/demo9/js/lgb/model/UserAction.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="transform.js" tooltip="demo9/js/o3d-webgl/transform.js">
+<persistable path="/demo9/js/o3d-webgl/transform.js"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="EnvelopeModel.js" tooltip="demo9/js/lgb/model/EnvelopeModel.js">
-<persistable path="/demo9/js/lgb/model/EnvelopeModel.js"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="ProgressBar.js" tooltip="demo9/js/lgb/view/ProgressBar.js">
+<persistable path="/demo9/js/lgb/view/ProgressBar.js"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="client.js" tooltip="demo9/js/o3d-webgl/client.js">
+<persistable path="/demo9/js/o3d-webgl/client.js"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="Loader.js" tooltip="demo9/js/lgb/util/Loader.js">
+<persistable path="/demo9/js/lgb/util/Loader.js"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="curve.js" tooltip="demo9/js/hemi/curve.js">
+<persistable path="/demo9/js/hemi/curve.js"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="mainController.js.bak" tooltip="demo9/js/lgb/controller/mainController.js.bak">
+<persistable path="/demo9/js/lgb/controller/mainController.js.bak"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="HVACview.js" tooltip="demo9/js/lgb/view/HVACview.js">
+<persistable path="/demo9/js/lgb/view/HVACview.js"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="MainController.js" tooltip="demo9/js/lgb/controller/MainController.js">
+<persistable path="/demo9/js/lgb/controller/MainController.js"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.aptana.ide.editors.JSEditor" name="jquery.js" tooltip="demo9/js/lib/jquery.js">
+<persistable path="/demo9/js/lib/jquery.js"/>
 </file>
 </mruList>
 </workbench>
