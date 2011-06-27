@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;Kuda/assets/Box_from_rhino/scene.json&apos; to &apos;scene1.json&apos;" description="Rename resource &apos;scene.json&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="assets/Box_from_rhino/scene.json" name="scene1.json" stamp="1308524787364" updateReferences="true"/>
-</session>

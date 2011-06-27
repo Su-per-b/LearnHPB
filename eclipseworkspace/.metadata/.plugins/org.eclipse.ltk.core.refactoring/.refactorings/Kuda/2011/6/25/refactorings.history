@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;Kuda/index.html&apos; to &apos;index.html.bak&apos;" description="Rename resource &apos;index.html&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="index.html" name="index.html.bak" stamp="1308258906796" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;Kuda/unit_tests/index.html&apos; to &apos;index.html.bak&apos;" description="Rename resource &apos;index.html&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="unit_tests/index.html" name="index.html.bak" stamp="1308259088363" updateReferences="true"/>
-</session>

@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;kuda_master/projects/demo7/js/lgb/model/xmlParser.js&apos; to &apos;XmlParser.js&apos;" description="Rename resource &apos;xmlParser.js&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="projects/demo7/js/lgb/model/xmlParser.js" name="XmlParser.js" stamp="1304566324492" updateReferences="true"/>
-</session>

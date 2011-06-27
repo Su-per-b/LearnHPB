@@ -1,4 +1,0 @@
-#Sat Jun 25 01:28:16 PDT 2011
-browsers=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<web-browsers current\="1">\r\n<system/>\r\n<external location\="F\:\\Program Files\\Mozilla Firefox\\firefox.exe" name\="Firefox" parameters\="-p RajDebug"/>\r\n<external location\="C\:\\Program Files\\Internet Explorer\\iexplore.exe" name\="Internet Explorer"/>\r\n<external location\="F\:\\Program Files\\Internet Explorer\\iexplore.exe" name\="Internet Explorer"/>\r\n<external location\="C\:\\Program Files (x86)\\MozillaFirefox5.0\\firefox.exe" name\="FireFox5" parameters\="-p debug"/>\r\n</web-browsers>
-browser-choice=1
-eclipse.preferences.version=1
