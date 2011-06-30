@@ -1,6 +1,6 @@
 
 /**
- * @namespace A module for managing the 2D GUI
+ * @namespace
  */
 var lgb = (function(lgb) {
 
@@ -9,21 +9,42 @@ var lgb = (function(lgb) {
 	lgb.view = lgb.view || {};
 
 	/**
-	 * @class this is the MVC view class for the Left Nav
+	 * @class this is a subclass of the hemi.model.Model
 	 */
-	lgb.view.Mesh = function(){
+	lgb.view.Mesh = function(fileName){
 		hemi.model.Model.call(this);
-		this.boundingBox = null;
-		this.newParentTransform = null;
+		
+		//.basePath = '';
+		
+		if (null !== fileName && undefined !== fileName) {
+			this.setFileName(fileName);
+		} else {
+			debugger;
+		}
 	};
 	
 	lgb.view.Mesh.prototype = {
 	
-		showBoundingBox: function(){
-		
+	
+		/**
+		 * Set the file name and model name for the Model
+		 * Overrides the Base class function
+		 * @param {string} fileName name of the file
+		 */
+		setFileName: function(fileName) {
 			
+			this.fileName = lgb.Config.ASSETS_PATH + fileName;
+			this.name = this.getModelName(fileName);
+		},
+		
+		showBoundingBox: function(){
 			this.createBox();
 		},
+		
+		setVisible: function(visibleFlag){
+			this.setTransformVisible(this.root, visibleFlag);
+		},
+		
 		createBox : function() {
 			
 			var pack = hemi.curve.pack;
@@ -49,20 +70,14 @@ var lgb = (function(lgb) {
 			
 		},
 		
-		/*
-		* Move the mesh to the default location and orientation
-		*/
-		position : function() {
 
-		//	var trans = this.cloneToTransform();
-			var newMesh = this.clone();
-			newMesh.rotateX(90);
-			
-			//this.rotateX(270);
-			//this.center();
-			//var del = $.proxy(this.center, this);
-			//window.setTimeout(del,4000);
-			
+		translate : function(x,y,z) {
+			hemi.utils.worldTranslate([x,y,z], this.root);
+		},
+		
+		
+		resetPostion : function() {
+			this.root.identity();
 		},
 		
 		/**
@@ -72,11 +87,13 @@ var lgb = (function(lgb) {
 			var core = hemi.core,
 				pack = core.mainPack;
 			
-			var newMesh = new lgb.view.Mesh();
+			var newMesh = new lgb.view.Mesh(this.fileName);
 			newMesh.pack = hemi.core.client.createPack();
 			
 			var transform = newMesh.pack.createObject('Transform');  //o3d.Transform
 			transform.parent = core.client.root;
+
+			
 			transform.shapes = transform.shapes.concat(this.getShapes());
 			transform.recalculateBoundingBox();
 			
@@ -84,10 +101,167 @@ var lgb = (function(lgb) {
 
 			var paramObject = this.pack.createObject('ParamObject');
 			newMesh.animationTime = paramObject.createParam('animTime', 'ParamFloat');
+			newMesh.animParam = this.animParam;
+/*
+			newMesh.fileName = this.fileName;
+			newMesh.name = this.name;
+*/
 		
 			return newMesh;
 			
 		},
+		
+		getModelName : function(fileName) {
+
+			// Currently, file names are of the form:
+			// [path to directory]/[model name]/scene.json
+			var end = fileName.lastIndexOf('/');
+			
+			if (end < 1) {
+				end = fileName.length;
+			}
+			
+			var start = fileName.lastIndexOf('/', end - 1) + 1;
+			
+			if (start >= end) {
+				start = 0;
+			}
+			
+			return fileName.substring(start, end);
+
+		},
+			
+
+		
+/*
+		clone2: function() {
+			var core = hemi.core,
+				pack = core.mainPack;
+			
+
+			//var newPack = hemi.core.client.createPack();
+			//newPack.objects_.concat(this.pack.objects_);
+			
+			var config = new hemi.model.ModelConfig();
+			//config.pack.objects_ = hemi.utils.clone(this.pack.objects_);
+			
+			
+			var materials = this.getMaterials();
+			var shapes = this.getShapes();
+			var transforms = this.getTransforms();
+			
+			
+			var len = transforms.length;
+			
+			//loop through all transforms
+			for (var i=0; i<len; i++) {
+
+				var p = transforms[i].getParam('ownerId');
+				
+				if (null != p) {
+					transforms[i].removeParam(p);
+				}
+			}
+			
+			config.pack.objects_ = config.pack.objects_.concat( shapes);
+			
+
+			
+			var newMesh = new lgb.view.Mesh();
+			newMesh.fileName = this.fileName;
+			newMesh.name = this.name;
+			newMesh.loadConfig2(config);
+			
+			return newMesh;
+			
+		},
+
+		
+
+		loadConfig2: function(config) {
+			var id = this.getId();
+			
+
+			this.root = config.rootTransform;
+			this.root.name = this.name;
+			// The deserialization process sets bad values for bounding boxes of
+			// transforms, so force them to be recalculated.
+			this.root.recalculateBoundingBox(true);
+			this.animParam = config.animationTime;
+			this.materials = config.getMaterials();
+			this.shapes = config.getShapes();
+			this.transforms = config.getTransforms();
+			this.pack = config.pack;
+			
+			for (var t = 0, len = this.transforms.length; t < len; ++t) {
+				var transform = this.transforms[t],
+					oid = transform.createParam('ownerId', 'o3d.ParamInteger');
+
+						oid.value = id;
+					
+
+			}
+
+			
+
+			for (var t = 0, len = this.transformUpdates.length; t < len; t++) {
+				var update = this.transformUpdates[t];
+				update.apply(this);
+			}
+
+			hemi.world.tranReg.distribute(this);
+			
+			this.send(hemi.msg.load, {});
+
+		},
+		
+		
+
+		merge: function(mesh) {
+			
+			//var len = meshAry.length;
+			
+		//for (var i=0; i<len; i++) {
+				//var theMesh = meshAry[i];
+				
+				//
+				//var transform = newMesh.pack.createObject('Transform');
+				//this.pack.objects_.push(mesh.root);		
+			//}
+			
+		//var t = mesh.cloneToTransform();
+		
+/*
+			var core = hemi.core,
+				pack = core.mainPack;
+					
+			var transform = pack.createObject('Transform');  //o3d.Transform
+			
+			//var transform = this.pack.createObject('Transform');
+			transform.shapes = transform.shapes.concat(mesh.getShapes());
+			transform.recalculateBoundingBox();
+			
+			//transform.localMatrix = hemi.utils.clone(mesh.root.localMatrix);
+
+			transform.parent = this.root;
+			transform.translate(20,0,0);
+
+			
+			// this.root.addChild(transform);
+			 
+			//transform.recalculateBoundingBox();
+			//this.root.recalculateBoundingBox();
+			
+			//return newMesh;
+			
+			var t = this.cloneToTransform();
+			t.translate(20,0,0);
+			
+			
+			mesh.cleanup();
+		},
+		
+		*/
 		
 		/**
 		* creates a new transform, reference the shapes
@@ -130,20 +304,22 @@ var lgb = (function(lgb) {
 			
 		},
 		
-		/**
-		* translates the root transform so that the lower left corner of the mesh
-		* is at the origin 0,0,0
-		* 
-		*/
+
 		moveToOrigin: function() {
 			
 			var bb = this.root.boundingBox;	
 			
-			var xDelta = -1 * bb.minExtent[0];
-			var yDelta = -1 * bb.minExtent[1];
-			var zDelta = -1 * bb.minExtent[2];
+			//var minPoint = this.root.boundingBox.minExtent;
+			var worldPoint = hemi.utils.pointAsWorld(this.root, bb.minExtent);
+				
+
+			var xDelta = -1 * worldPoint[0];
+			var yDelta = -1 * worldPoint[1];
+			var zDelta = -1 * worldPoint[2];
 			
-			this.root.translate(xDelta,yDelta,zDelta);
+			hemi.utils.worldTranslate([xDelta,yDelta,zDelta], this.root);
+			
+			//this.root.translate(xDelta,yDelta,zDelta);
 			
 		},
 				
@@ -154,8 +330,6 @@ var lgb = (function(lgb) {
 		*/
 		rotateX: function(degrees) {
 			this.rotateHelper('x', degrees);
-			
-
 		},
 		
 		/**
@@ -185,6 +359,7 @@ var lgb = (function(lgb) {
 		//	axis =  axis.toLowerCase();
 			var radians = hemi.core.math.degToRad(degrees);
 			
+/*
 			var allTransforms = this.getTransforms();
 			
 			var config = {
@@ -195,43 +370,87 @@ var lgb = (function(lgb) {
 			this.rotate(config);
 			
 			return;
-			
-			
-			
-			
-			
-			
-			
+*/
+
 			var update = this.getTransformUpdate(this.root);
 			
-
+			axisAry = [];
 			
 			switch (axis) {
 				case 'x' : {
-					this.root.rotateX(radians);
+					axisAry = [1,0,0];
 					break;
 				}
 				case 'y' : {
-					this.root.rotateY(radians);
+					axisAry = [0,1,0];
 					break;
 				}
 				case 'z' : {
-					this.root.rotateZ(radians);
+					axisAry = [0,0,1];
 					break;
 				}
 				default: {
 					throw new Error('lgb.view.Mesh.rotate(): axis unrecognized')
 				}
 			}
-				
+			
+			hemi.utils.worldRotate(axisAry,radians ,this.root);
+			
 			update.localMatrix = hemi.utils.clone(this.root.localMatrix);
 		}
-		
-		
-		
+
 	};
 
 	lgb.view.Mesh.inheritsFrom(hemi.model.Model);
+
+
+	lgb.view.Mesh.prototype.__defineGetter__('spanX',
+	    function(p) {
+			
+			if (this.root == null) {
+				return 0;
+			} else {
+				var boundingBox = this.root.boundingBox;
+				var span = boundingBox.maxExtent[0] - boundingBox.minExtent[0];
+				
+				return span;
+			}
+
+	    }
+	);
+	lgb.view.Mesh.prototype.__defineGetter__('spanY',
+	    function(p) {
+			
+			if (this.root == null) {
+				return 0;
+			}
+			else {
+				var boundingBox = this.root.boundingBox;
+				var span = boundingBox.maxExtent[1] - boundingBox.minExtent[1];
+				
+				return span;
+			}
+			
+
+	    }
+	);
+	lgb.view.Mesh.prototype.__defineGetter__('spanZ',
+	    function(p) {
+			
+			if (this.root == null) {
+				return 0;
+			}
+			else {
+				var boundingBox = this.root.boundingBox;
+				var span = boundingBox.maxExtent[2] - boundingBox.minExtent[2];
+				
+				return span;
+			}
+			
+			
+
+	    }
+	);
 
 	return lgb;
 	

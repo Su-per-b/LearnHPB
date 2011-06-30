@@ -1,6 +1,6 @@
 
 /**
- * @namespace A module for managing the 2D GUI
+ * @namespace
  */
 var lgb = (function(lgb) {
 
@@ -15,7 +15,6 @@ var lgb = (function(lgb) {
 		lgb.view.ViewBase.call(this);
 		this.htmlID = "leftNav";
 		
-	
 	};
 	
 	lgb.view.LeftNavView.prototype = {
@@ -24,11 +23,17 @@ var lgb = (function(lgb) {
 		init : function() {
 			this.injectHtml();
 			this.bindEvents();
+			this.initMenu({targetBottom: 90,targetLeft: -63});
+		},
+			
+		show : function() {
+			this.floatingObj.targetLeft = 0;
+
 		},
 			
 		injectHtml : function() {
 			
-			var htmlBoilerplate = 
+			var html = 
 			'<div id="leftNav">\n' + 
 				'\t<a id="leftNavButton_1" class="leftNavButton" title="General" href="#"></a>\n' +
 				'\t<a id="leftNavButton_2" class="leftNavButton" title="HVAC" href="#"></a>\n' +
@@ -37,9 +42,8 @@ var lgb = (function(lgb) {
 				'\t<a id="leftNavButton_5" class="leftNavButton" title="Day Lighting" href="#"></a>\n' +
 			'</div>';
 	
-			 $('body').append(htmlBoilerplate);
+			 this.append(html);
 			
-
 		},
 		
 		bindEvents : function() {
@@ -55,14 +59,7 @@ var lgb = (function(lgb) {
 		},
 		
 		onClick : function(event) {
-			
-			//var newEvent = jQuery.Event('SWITCH_MODE');
-			//newEvent.mode = event.data.mode;
-	
-			//$(lgb.view.gui).trigger(newEvent);
-			
 			this.dispatch(lgb.event.Event.SWITCH_MODE, event.data.mode);
-			
 		}
 		
 	};

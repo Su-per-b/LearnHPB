@@ -4938,6 +4938,10 @@ if ( document.querySelectorAll ) {
 			if ( !Sizzle.isXML( node ) ) {
 				try { 
 					if ( pseudoWorks || !Expr.match.PSEUDO.test( expr ) && !/!=/.test( expr ) ) {
+						
+						
+						
+						
 						var ret = matches.call( node, expr );
 
 						// IE 9's matchesSelector returns false on disconnected nodes

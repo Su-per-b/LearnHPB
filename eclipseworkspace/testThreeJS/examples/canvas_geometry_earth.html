@@ -102,7 +102,7 @@
 				requestAnimationFrame( animate );
 
 				render();
-				stats.update();
+				//stats.update();
 
 			}
 
@@ -112,7 +112,8 @@
 				//camera.position.y += ( - mouseY - camera.position.y ) * 0.05;
 
 				mesh.rotation.y -= 0.005;
-
+				mesh.position.x += 0.5;
+				
 				renderer.render( scene, camera );
 
 			}

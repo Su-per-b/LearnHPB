@@ -26,7 +26,6 @@ var lgb = (function(lgb) {
 		
 		bindEvents : function() {
 
-			//this.view.bindEvents($.proxy(this.onChange, this));
 			this.view.bindEvents();
 			
 		},

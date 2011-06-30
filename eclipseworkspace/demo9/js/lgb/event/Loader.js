@@ -12,7 +12,7 @@ var lgb = (function(lgb) {
 	};
 	
 	lgb.event.Loader.PROGRESS_UPDATE = 'LOADER__PROGRESS_UPDATE';
-
+	lgb.event.Loader.ALL_MESHES_LOADED = 'LOADER__ALL_MESHES_LOADED';
 
 	
 	return lgb;

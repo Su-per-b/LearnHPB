@@ -1,13 +1,13 @@
 
 
 /**
- * @namespace A module for managing the 2D GUI
+ * @namespace
  */
 var lgb = (function(lgb) {
 
 
 	/**
-	 * @namespace A module for managing the 2D GUI
+	 * @namespace
 	 */
 	lgb.view = lgb.view || {};
 	lgb.view.component = lgb.view.component || {};

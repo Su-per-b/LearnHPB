@@ -20,7 +20,6 @@ var lgb = (function(lgb) {
 		dispatch: function(eventName, value) {
 			
 
-			var msg =  ('EventBus - dispatch: {0}'.format(eventName));
 			var newEvent = jQuery.Event(eventName);
 			
 			if (null !== value && undefined !== value) {
@@ -28,13 +27,29 @@ var lgb = (function(lgb) {
 				msg += " : " + value.toString();
 			}
 			
-			console.log(msg);
+			if (lgb.Config.DEBUG_EVENTS) {
+				var msg =  ('EventBus - dispatch: {0}'.format(eventName));
+				
+				if (null !== value && undefined !== value) {
+					msg += " : " + value.toString();
+				}
+			
+				console.log(msg);
+			}
+			
+			
+			
 			lgb.Base.eventBus.trigger(newEvent);
 		},
 		
-		listen: function(eventName, func) {
-			var delegate = jQuery.proxy( func, this );
+		listen: function(eventName, handler) {
+			var delegate = jQuery.proxy( handler, this );
 			lgb.Base.eventBus.bind(eventName, delegate);
+		},
+		
+		unlisten: function(eventName, handler) {
+			var delegate = jQuery.proxy( handler, this );
+			lgb.Base.eventBus.unbind(eventName, delegate);
 		},
 		
 		assertType: function(expectedType) {

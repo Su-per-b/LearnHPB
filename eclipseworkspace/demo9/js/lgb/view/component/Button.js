@@ -1,13 +1,13 @@
 
 
 /**
- * @namespace A module for managing the 2D GUI
+ * @namespace
  */
 var lgb = (function(lgb) {
 
 
 	/**
-	 * @namespace A module for managing the 2D GUI
+	 * @namespace
 	 */
 	lgb.view = lgb.view || {};
 	lgb.view.component = lgb.view.component || {};
@@ -23,6 +23,16 @@ var lgb = (function(lgb) {
 			
 			var html =  '\t\t<button id="{0}" type="button">{0}</button><br />\n'.format(this.userAction.id);
 			return html;
+		},
+		
+		bindEvents: function() {
+			
+			var selectionItems = this.dataModel.selectionItems;
+			var delegateClick = this.d(this.onClick);
+			
+
+				$(selector).click( delegateClick );
+			
 		}
 	};
 

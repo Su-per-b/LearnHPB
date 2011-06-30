@@ -8,95 +8,42 @@ var lgb = (function(lgb) {
 	 * @class MVC view for displaying the building envelope
 	 * @extends lgb.view.ViewBase
 	 */
-	lgb.view.HVACview = function(){
-		
+	lgb.view.HVACview = function(dataModel){
+	
 		lgb.view.ViewBase.call(this);
-				
-		this.buildingFloors = [];
-		this.dataModel = null;
-		//this.floorsCreated = 0;
-		this.parentTransform = null;
 		
-		this.meshList = [];
-		this.currentFloorMesh = null;
+		this.dataModel = dataModel; //building
+		this.positionOffset =[];
 		
-	};
+		this.mesh = new lgb.view.Mesh('ductwork.json');
+		
+		this.dispatch(lgb.event.Event.MESH_REQUEST, [this.mesh]);
+	}
 	
 	lgb.view.HVACview.prototype = {
 	
-	
-		init : function(dataModel) {
-			
-			this.dataModel = dataModel;
-			
-			this.listen(lgb.event.HVACevent.DATA_MODEL_CHANGED, this.onDataModelChanged);
-			this.listen(lgb.event.Event.ALL_MESHES_LOADED, this.onMeshesLoaded);
-			
+
+		meshesLoaded : function() {
+		//	this.mesh = mainController.loader.modelList['ductwork'];
+			//this.mesh.showBoundingBox();
 		},
 		
+		/*
+		 * this view doesnt know about the envelope view,
+		 * but we have to place it at the top of the envelope, so
+		 * this paramter tell the view where to position the 
+		 * HVAC mesh
+		*	@param height in meters
+		*/
 		show : function() {
-			
-		},
-		
-		cleanup : function() {
+			this.mesh.resetPostion();
+			this.mesh.rotateX( 270);
+			this.mesh.moveToOrigin();
 
-			
-		},		
-
-		/**
-		 * Calculate the center point of the Model's bounding box.
-		 * 
-		 * @return {Array} [x,y,z] point in 3D space
-		 */
-		getCenterPoint: function() {
-			this.buildingParent.recalculateBoundingBox();
-			var boundingBox = this.buildingParent.boundingBox;
-			
-			var xExt = boundingBox.maxExtent[0] - boundingBox.minExtent[0],
-				yExt = boundingBox.maxExtent[1] - boundingBox.minExtent[1],
-				zExt = boundingBox.maxExtent[2] - boundingBox.minExtent[2];
- 
-			var center = [xSpan / 2, ySpan / 2, zSpan / 2];
-			
-			return center;
+			this.mesh.translate(this.positionOffset[0], this.positionOffset[1], this.positionOffset[2]);
 		},
 		
 
-		onMeshesLoaded : function(event) {
-			
-			this.mesh = mainController.loader.modelList['ductwork'];
-			this.mesh.showBoundingBox();
-			
-			this.mesh.position();
-			
-/*
-			this.buildingParent =  hemi.core.mainPack.createObject('Transform');
-			this.buildingParent.parent = hemi.core.client.root;
-			
-			
-			this.meshList['11']= mainController.loader.modelList['11FootEnvelope'];
-			this.meshList['13']= mainController.loader.modelList['13FootEnvelope'];
-
-			this.meshList['9'].setTransformVisible(this.meshList['9'].root, false);
-			this.meshList['11'].setTransformVisible(this.meshList['11'].root, false);
-			this.meshList['13'].setTransformVisible(this.meshList['13'].root, false);
-		
-			var radians = hemi.core.math.degToRad(270);
-			this.buildingParent.rotateX( radians);
-
-			this.show();
-*/
-			//this.position();
-		},
-		
-		position : function() {
-			var radians = hemi.core.math.degToRad(270);
-			this.mesh.root.rotateX( radians);
-		},
-		
-		onDataModelChanged : function(event) {
-			this.show();
-		},
 
 		getMeshList: function() {
 			

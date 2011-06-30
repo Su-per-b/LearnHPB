@@ -12,35 +12,30 @@ var lgb = (function(lgb) {
 	lgb.controller.AdminController = function() {
 		
 		lgb.controller.ControllerBase.call(this);
-
+		this.adminPanel =  new lgb.view.AdminPanel();
+		
+		this.listen(lgb.event.Event.USER_ACTIONS_CREATED, this.onUserActionsCreated);
+		this.listen(lgb.event.Loader.ALL_MESHES_LOADED, this.onMeshesLoaded);
 
 	};
 	
 	
 	lgb.controller.AdminController.prototype = {
 		
-		init: function(dataModelArray) {
-			
-			dataModelArray.assertContainsType(lgb.model.ModelBase);
-			
-			this.adminPanel =  new lgb.view.AdminPanel();
-			this.adminPanel.processAll(dataModelArray);
-			this.adminPanel.injectHtml();
-			
-			//this.listen(this.dataModel.name, this.onGuiEvent);
-			
-		},
 
+		onUserActionsCreated : function(event) {
+			
+			var dataModel = event.value;
+			dataModel.assertType(lgb.model.ModelBase);
+			
+			this.adminPanel.processOne(dataModel);
+		},
+		onMeshesLoaded : function(event) {
 		
-		onGuiEvent : function(event) {
+			this.adminPanel.injectHtml();
+		}
 
 
-			
-		},
-
-
-
-	
 	};
 	
 	lgb.controller.AdminController.inheritsFrom(lgb.controller.ControllerBase);

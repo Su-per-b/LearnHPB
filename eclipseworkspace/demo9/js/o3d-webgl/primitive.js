@@ -239,6 +239,7 @@ o3d.Primitive.prototype.render = function() {
     this.gl.drawArrays(glMode, 0, glNumElements);
   } else {
     this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, indexBuffer.gl_buffer_);
+	
     this.gl.drawElements(glMode,glNumElements,this.gl.UNSIGNED_SHORT,0);
   }
 

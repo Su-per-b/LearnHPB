@@ -19,11 +19,11 @@
     padding: 60px 0 0 10px;
 }
 
-#topTitle {
+#titleBar {
     position:absolute;
+	top:-41px;
 	width:245px;
 	height:41px;
-	left:-2000px;
     z-index:101;
     background-color:transparent;  
     background-image:url('../images/top_title.png');
@@ -57,6 +57,11 @@
 #adminPanel1contents {
 	padding:0px 8px 8px 8px;;
 	width:270px;
+}
+
+div.panel {
+	width :400px;
+	backgroud:red;
 }
 
 .viewPointLink {

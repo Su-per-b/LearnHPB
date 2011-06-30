@@ -1,18 +1,20 @@
 
 /**
- * @namespace A module for managing the 2D GUI
+ * @namespace
  */
 var lgb = (function(lgb) {
 
 
 	/**
-	 * @namespace A module for managing the 2D GUI
+	 * @namespace
 	 */
 	lgb.view = lgb.view || {};
 
 
-	lgb.view.AdminSubpanel = function( dataModel ) {
+	lgb.view.AdminSubpanel = function( dataModel, parentHTMLid ) {
+		
 		lgb.view.ViewBase.call(this);
+		this.parentHTMLid = parentHTMLid;
 		this.name = dataModel.name;
 		this.title = dataModel.title;
 		this.userActions = dataModel.userActions;
@@ -35,6 +37,8 @@ var lgb = (function(lgb) {
 			
 				if (uAct instanceof lgb.model.component.SelectionGroup) {
 					componentController = new lgb.controller.component.RadioButtonGroupController(uAct);
+				} else if (uAct instanceof lgb.model.component.Tigger) {
+					componentController = new lgb.controller.component.ButtonController(uAct);
 				}
 				 
 				this.componentControllers.push(componentController);
@@ -67,14 +71,16 @@ var lgb = (function(lgb) {
 			var selector = '#{0}'.format(this.name);
 			var group = 'group_{0}'.format(this.name);
 			
-			el = $('div.box');
+			
+			
 			var html = '<div id="{0}" class="panel {1}">\n'.format(this.name, group) +
 							'\t<h3>{0}</h3>\n'.format(this.title) +
 							'\t<div>\n' + 
 								actionsHtml +
 							'\t</div>\n' +
 						'</div>';
-			
+						
+			el = $('#{0}'.format(this.parentHTMLid));
 			el.append(html);
 			
 	        $(selector).panel({

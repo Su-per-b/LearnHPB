@@ -28,7 +28,7 @@ var lgb = (function(lgb) {
 		lgb.view.ViewBase.call(this);
 
 		this.maxprogress = 200; // total to reach
-		this.title = "title";
+		this.init("Loading Geometry");
 	
 	};
 	
@@ -49,7 +49,7 @@ var lgb = (function(lgb) {
 			this.center();
 			
 			this.listen(lgb.event.Loader.PROGRESS_UPDATE, this.onProgress);
-			this.listen(lgb.event.Event.ALL_MESHES_LOADED, this.onAllMeshesLoaded);
+			this.listen(lgb.event.Loader.ALL_MESHES_LOADED, this.onAllMeshesLoaded);
 
 		
 		},

@@ -42,6 +42,14 @@ var lgb = (function(lgb){
             imageObj.src=src;
         }
 	};
+	/*
+	* converts feet to meters
+	*/
+	lgb.util.F.ftToM = function(ft) {
+		
+		return ft * 0.3048;
+	};
+	
 	
 	/**
 	 * This method returns a delegate function closure that will call

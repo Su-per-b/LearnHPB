@@ -1,5 +1,4 @@
 
-
 /**
  */
 var lgb = (function(lgb) {
@@ -9,7 +8,7 @@ var lgb = (function(lgb) {
 	
 	/**
 	 * @class MVC model for select controls like RadioButton
-	 * @extends lgb.model.component.ControlBase
+	 * @extends lgb.model.ModelBase
 	 */
 	lgb.model.component.SelectionItem = function(label, value, isSelected) {
 		lgb.model.ModelBase.call(this);

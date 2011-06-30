@@ -25,10 +25,11 @@ floatingMenu.add = function(obj, options)
     else
         menu = obj;
         
-
+	var floatingObj;
+	
     if (options == undefined)
     {
-        floatingArray.push( 
+        floatingObj =
             {
                 id: name,
                 menu: menu,
@@ -37,11 +38,11 @@ floatingMenu.add = function(obj, options)
                 targetTop: 0,
 
                 snap: true
-            });
+            };
     }
     else
     {
-        floatingArray.push( 
+        floatingObj =
             {
                 id: name,
                 menu: menu,
@@ -62,8 +63,13 @@ floatingMenu.add = function(obj, options)
 
                 scrollContainer: options.scrollContainer,
                 scrollContainerId: options.scrollContainerId
-            });
+            };
     }
+	
+	
+	floatingArray.push(floatingObj);
+	
+	return floatingObj;
 };
 
 floatingMenu.findSingle = function(item)

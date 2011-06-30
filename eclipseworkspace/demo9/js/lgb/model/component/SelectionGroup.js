@@ -1,11 +1,4 @@
 
-
-
-
-/**
- */
-
-
 var lgb = (function(lgb) {
 
 	lgb.model = lgb.model || {};
@@ -13,7 +6,7 @@ var lgb = (function(lgb) {
 	
 	/**
 	 * @class MVC model for select controls like RadioButtonGroup
-	 * @extends lgb.model.component.ControlBase
+	 * @extends lgb.model.ModelBase
 	 */
 	lgb.model.component.SelectionGroup = function(title, eventName, id) {
 		

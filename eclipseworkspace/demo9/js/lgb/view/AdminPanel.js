@@ -1,6 +1,6 @@
 
 /**
- * @namespace A module for managing the 2D GUI
+ * @namespace
  */
 var lgb = (function(lgb) {
 
@@ -24,22 +24,11 @@ var lgb = (function(lgb) {
 	lgb.view.AdminPanel.prototype = {
 	
 	
-		processAll : function(dataModelArray) {
-			
-			dataModelArray.assertContainsType(lgb.model.ModelBase);
-			
-			var len  = dataModelArray.length;
-			
-			for(var x = 0; x < len; x++) {
-				var dataModel = dataModelArray[x];
-				this.processOne(dataModel);
-			}
-			
-		},
-	
+
 		processOne : function(dataModel) {
+			dataModel.assertType(lgb.model.ModelBase);
 			
-			var subpanel = new lgb.view.AdminSubpanel(dataModel);
+			var subpanel = new lgb.view.AdminSubpanel(dataModel, this.htmlID);
 			this.subPanels.push(subpanel);
 		},
 		
