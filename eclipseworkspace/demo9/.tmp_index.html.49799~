@@ -40,10 +40,10 @@
 	
     <body id="theBody"> 
 		<div id="o3d"></div>
-	<!--	
+		
 <div class="typeface-js" style="font-family: Helvetiker">
 	Text here in Helvetiker <strong>font...</strong>
-</div>-->
+</div>
 
     </body>
 	

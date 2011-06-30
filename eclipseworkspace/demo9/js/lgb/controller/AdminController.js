@@ -15,7 +15,7 @@ var lgb = (function(lgb) {
 		this.adminPanel =  new lgb.view.AdminPanel();
 		
 		this.listen(lgb.event.Event.USER_ACTIONS_CREATED, this.onUserActionsCreated);
-		this.listen(lgb.event.Loader.ALL_MESHES_LOADED, this.onMeshesLoaded);
+		this.listen(lgb.event.Loader.ALL_MESHES_LOAD_COMPLETE, this.onMeshesLoaded);
 
 	};
 	

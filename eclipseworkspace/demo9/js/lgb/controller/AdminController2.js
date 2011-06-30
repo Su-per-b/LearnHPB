@@ -12,11 +12,12 @@ var lgb = (function(lgb) {
 	lgb.controller.AdminController2 = function() {
 		
 		lgb.controller.ControllerBase.call(this);
-		this.adminView =  new lgb.view.AdminView();
+		this.view =  new lgb.view.AdminView();
 		
 		this.listen(lgb.event.Event.USER_ACTIONS_CREATED, this.onUserActionsCreated);
-		this.listen(lgb.event.Loader.ALL_MESHES_LOADED, this.onMeshesLoaded);
-
+		this.listen(lgb.event.Loader.ALL_MESHES_LOAD_START, this.onMeshesLoadStart);
+		this.listen(lgb.event.Cam.MOVE_COMPLETE, this.onCameraMoveComplete);
+		
 	};
 	
 	
@@ -27,12 +28,15 @@ var lgb = (function(lgb) {
 			var dataModel = event.value;
 			dataModel.assertType(lgb.model.ModelBase);
 			
-			this.adminView.processOne(dataModel);
+			this.view.processOne(dataModel);
 		},
-		onMeshesLoaded : function(event) {
-		
-			this.adminView.injectHtml();
-		}
+		onMeshesLoadStart : function(event) {
+			this.view.init();
+		},
+		onCameraMoveComplete : function(event) {
+			this.unlisten(lgb.event.Cam.MOVE_COMPLETE, this.onCameraMoveComplete);
+			this.view.show();
+		},
 		
 	};
 	

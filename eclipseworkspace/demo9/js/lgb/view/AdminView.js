@@ -18,7 +18,7 @@ var lgb = (function(lgb) {
 		
 		this.subPanels = [];
 		this.htmlID = "adminView";
-		this.title = "Admin.";
+		this.title = "Admin";
 		
 	};
 	
@@ -33,26 +33,54 @@ var lgb = (function(lgb) {
 			this.subPanels.push(subpanel);
 		},
 		
-		
+		init : function() {
+			this.injectHtml();
+			//this.bindEvents();
+
+						
+			//var parent = this.getSelector().parent();
+			//var parent2 = parent.parent();
+			
+			
+		//	this.floatingObj = floatingMenu.add('ffff', {targetRight: 0});
+			 
+		},
+		show : function() {
+			//this.floatingObj.targetRight = 100;
+
+			var selector = this.getSelector();
+			selector.dialog( "open" );
+			selector.dialog("widget").show("slide", { direction: "right", easing : "swing" }, 1000);
+			
+			
+		},
 		injectHtml : function() {
 			
-			//var el = $('body');
 			
 			var html = 	'<div id="{0}" title="{1}">\
 			</div>'.format(this.htmlID, this.title);
-		
-			//el.append(htmlBoilerplate);
 			
 			this.append(html);
 			
+			var selector = this.getSelector();
 			
-			// Dialog	
-			var selector = $('#{0}'.format(this.htmlID));
+			selector.direction = 'left';
 			
 			selector.dialog({
-				autoOpen: true,
-				width: 400
+				hide: 'fade',
+				width: 300,
+				position: 'right',
+				autoOpen: false
 			});
+			
+			
+			//getter
+			//var show = selector.dialog( "option", "show" );
+			//setter
+			//selector.dialog( "option", "show", 'slide' );
+
+
+			//selector.parent().show("slide", { direction: "left" }, 1000);
 			
 			var len = this.subPanels.length;
 			for(var x = 0; x < len; x++) {

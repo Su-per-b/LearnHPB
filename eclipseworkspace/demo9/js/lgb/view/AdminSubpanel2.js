@@ -69,29 +69,18 @@ var lgb = (function(lgb) {
 			
 			var actionsHtml = this.getActionsHTML_();
 			
-			var selector = '#{0}'.format(this.name);
-			var group = 'group_{0}'.format(this.name);
 			
-			el = $('#{0}'.format(this.parentHTMLid));
+			var html = '<div id="{0}" class="adminSubPanel">\n\
+							\t<h3>{1}</h3>\n\
+							\t<div class="actions">\n\{2}\t</div>\n\
+						</div>'.format(this.htmlID, this.title, actionsHtml);
 			
-			var html = '<div id="{0}">\n'.format(this.htmlID) +
-							'\t<h3>{0}</h3>\n'.format(this.title) +
-							'\t<div>\n' + 
-								actionsHtml +
-							'\t</div>\n' +
-						'</div>';
 			
-			el.append(html);
-			
-
-	        $(selector).panel({
-	            accordion:group
-	        });
-
-			
+			this.append(html);
 			this.bindEvents();
 			
 		},
+		
 		bindEvents : function() {
 
 			var len = this.componentControllers.length;

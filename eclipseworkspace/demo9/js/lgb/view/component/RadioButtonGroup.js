@@ -46,9 +46,12 @@ var lgb = (function(lgb) {
 				var id = '{0}_{1}'.format (this.dataModel.id, i.toString()); //  + '_' + ;
 				oneItem.id = id;
 				
-				var str = '<input type="radio" id="{0}" name="{1}" value="{2}"{3}>{4}';
+				var str = '<input type="radio" id="{0}" name="{1}" value="{2}"{3}>\
+				<span class="typeface-js radioButtonText">{4}</span>'.format
+				(id, this.dataModel.id, oneItem.value.toString(), chk, oneItem.label );
 				
-				str = str.format(id, this.dataModel.id, oneItem.value.toString(), chk, oneItem.label );
+				
+				//str = str.format(id, this.dataModel.id, oneItem.value.toString(), chk, oneItem.label );
 				htmlAry.push(str);
 				
 			}

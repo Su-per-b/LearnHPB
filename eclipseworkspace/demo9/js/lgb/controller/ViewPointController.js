@@ -26,7 +26,7 @@ var lgb = (function(lgb){
 			this.view = new lgb.view.ViewPointView(this.dataModel);
 			
 			this.listen(lgb.event.BuildingEvent.GEOMETRY_CHANGED, this.onBuildingGeometryChanged);
-			this.listen(lgb.event.Loader.ALL_MESHES_LOADED, this.onMeshesLoaded);
+			this.listen(lgb.event.Loader.ALL_MESHES_LOAD_COMPLETE, this.onMeshesLoaded);
         },
         
         onMeshesLoaded: function(event){

@@ -49,7 +49,7 @@ var lgb = (function(lgb) {
 			this.center();
 			
 			this.listen(lgb.event.Loader.PROGRESS_UPDATE, this.onProgress);
-			this.listen(lgb.event.Loader.ALL_MESHES_LOADED, this.onAllMeshesLoaded);
+			this.listen(lgb.event.Loader.ALL_MESHES_LOAD_COMPLETE, this.onAllMeshesLoaded);
 
 		
 		},

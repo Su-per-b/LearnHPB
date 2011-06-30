@@ -10,7 +10,7 @@ var lgb = (function(lgb){
     
     /**
      * @class initilizes the Kuda/O3d world and handles the loading of meshes
-     * fires off a PROGRESS_UPDATE events and an ALL_MESHES_LOADED event
+     * fires off a PROGRESS_UPDATE events and an ALL_MESHES_LOAD_COMPLETE event
      */
     lgb.util.Loader = function(){
         lgb.Base.call(this);
@@ -47,6 +47,8 @@ var lgb = (function(lgb){
             //loop through all the filenames and set them up to load asynchronously
             var len = this.meshList.length;
             
+			this.dispatch(lgb.event.Loader.ALL_MESHES_LOAD_START);
+			
             for (var i = 0; i < len; i++) {
                 var mesh = this.meshList[i];
                 mesh.load();
@@ -57,7 +59,7 @@ var lgb = (function(lgb){
 		
         onWorldReady: function() {
             hemi.world.camera.unsubscribe(this.subscriberWorldReady, hemi.msg.stop);
-			this.dispatch(lgb.event.Loader.ALL_MESHES_LOADED);			
+			this.dispatch(lgb.event.Loader.ALL_MESHES_LOAD_COMPLETE);			
         },
 		
         onProgress: function(event){

@@ -29,11 +29,14 @@ var lgb = (function(lgb) {
 			var selector = $('#{0}'.format(this.parentHTMLid));
 			return selector;
 		},
-        initMenu: function(floatingMenuConfig){
+        initMenu: function(floatingMenuConfig, element){
         
             floatingMenuConfig.snap = true;
 			
-            element = document.getElementById(this.htmlID);
+			if (undefined === element || null === element) {
+				element = document.getElementById(this.htmlID);
+			}
+			
             if (null === element) {
                 throw new Error('GuiController.initMenu() id: {0} not found in HTML document'.format(id));
             }

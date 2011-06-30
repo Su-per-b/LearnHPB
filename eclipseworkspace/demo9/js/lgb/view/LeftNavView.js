@@ -28,7 +28,6 @@ var lgb = (function(lgb) {
 			
 		show : function() {
 			this.floatingObj.targetLeft = 0;
-
 		},
 			
 		injectHtml : function() {

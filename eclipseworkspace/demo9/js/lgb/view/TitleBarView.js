@@ -47,8 +47,6 @@ var lgb = (function(lgb) {
 			
 		}
 
-
-		
 	};
 
 	lgb.view.TitleBarView.inheritsFrom(lgb.view.ViewBase);

@@ -15,7 +15,7 @@ var lgb = (function(lgb) {
 		this.state = lgb.view.ViewPointViewState.PRE_INIT;
 		this.frames = 60;  //the number of frames in the animation
 		
-		this.listen(lgb.event.Loader.ALL_MESHES_LOADED, this.onMeshesLoaded);
+		this.listen(lgb.event.Loader.ALL_MESHES_LOAD_COMPLETE, this.onMeshesLoaded);
 
 		
 		

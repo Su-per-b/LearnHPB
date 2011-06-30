@@ -26,8 +26,9 @@ var lgb = (function(lgb) {
 			this.meshList = []; //an array of all the lgb.view.Mesh objects
 			
 			this.listen(lgb.event.Event.MESH_REQUEST, this.onMeshRequest);
-			this.listen(lgb.event.Loader.ALL_MESHES_LOADED, this.onMeshesLoaded);
-					
+			this.listen(lgb.event.Loader.ALL_MESHES_LOAD_COMPLETE, this.onMeshesLoaded);
+			this.listen(lgb.event.Loader.ALL_MESHES_LOAD_START, this.onMeshesLoadStart);
+			
 			jQuery(document).ready(this.d(this.onDocumentReady));
 			jQuery(window).resize(this.d(this.onWindowResize));
 			jQuery(window).unload(this.d(this.onWindowUnload));
@@ -83,6 +84,12 @@ var lgb = (function(lgb) {
 
 		onMeshesLoaded : function(event) {
 			hemi.world.camera.enableControl();	// Enable camera mouse control
+			_typeface_js.renderDocument(); 
+		},
+
+		onMeshesLoadStart : function(event) {
+			//hemi.world.camera.enableControl();	// Enable camera mouse control
+			
 		},
 
 

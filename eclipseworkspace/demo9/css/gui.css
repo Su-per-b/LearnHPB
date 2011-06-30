@@ -1,11 +1,4 @@
 
-#o3d {
-	position:absolute;  
-	z-index:-1;
-	padding:0;
-	margin:0;
-}
-
 #leftNav {
     position:absolute;  
 	width:63px;
@@ -15,7 +8,7 @@
     background-color:transparent;  
     background-image:url('../images/leftnav.png');
     background-repeat:no-repeat;
-    opacity:0.85;
+    opacity:0.92;
     padding: 60px 0 0 10px;
 }
 
@@ -46,23 +39,26 @@
 	 background-image:url('../images/icon_wrench_over_21px.png');
 }
 
-#adminPanel {
-	position:absolute;
-	left:-2000px;
-    background-color:#fff;  
-    opacity:0.85;
-	width:300px;
+
+div.adminSubPanel {
+	text-align:left;
+	border-width:1px;
+	border-color:#fff;
+	border-style:solid;
+	padding:8px;
+	border-radius:5px;
+
 }
 
-#adminPanel1contents {
-	padding:0px 8px 8px 8px;;
-	width:270px;
+
+#adminView {
+	opacity:0.92;
 }
 
-div.panel {
-	width :400px;
-	backgroud:red;
+.radioButtonText {
+	font-size:13px;
 }
+
 
 .viewPointLink {
 	font-size:11px;
