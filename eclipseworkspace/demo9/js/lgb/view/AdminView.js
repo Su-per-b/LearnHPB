@@ -29,7 +29,7 @@ var lgb = (function(lgb) {
 		processOne : function(dataModel) {
 			dataModel.assertType(lgb.model.ModelBase);
 			
-			var subpanel = new lgb.view.AdminSubpanel2(dataModel, this.htmlID);
+			var subpanel = new lgb.view.AdminSubpanel(dataModel, this.htmlID);
 			this.subPanels.push(subpanel);
 		},
 		

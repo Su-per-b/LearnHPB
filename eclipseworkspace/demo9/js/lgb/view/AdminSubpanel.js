@@ -14,8 +14,9 @@ var lgb = (function(lgb) {
 	lgb.view.AdminSubpanel = function( dataModel, parentHTMLid ) {
 		
 		lgb.view.ViewBase.call(this);
+		
 		this.parentHTMLid = parentHTMLid;
-		this.name = dataModel.name;
+		this.htmlID = dataModel.name;
 		this.title = dataModel.title;
 		this.userActions = dataModel.userActions;
 		this.componentControllers = [];
@@ -55,7 +56,7 @@ var lgb = (function(lgb) {
 			var len = this.componentControllers.length;
 			for(var x = 0; x < len; x++) {
 				var componentController =  this.componentControllers[x];
-				actionsHTML += componentController.getHTML() + '<br />';
+				actionsHTML += componentController.getHTML();
 			}
 			
 			return actionsHTML;
@@ -68,28 +69,18 @@ var lgb = (function(lgb) {
 			
 			var actionsHtml = this.getActionsHTML_();
 			
-			var selector = '#{0}'.format(this.name);
-			var group = 'group_{0}'.format(this.name);
+			
+			var html = '<div id="{0}" class="adminSubPanel">\n\
+							\t<h3>{1}</h3>\n\
+							\t<div class="actions">\n\{2}\t</div>\n\
+						</div>'.format(this.htmlID, this.title, actionsHtml);
 			
 			
-			
-			var html = '<div id="{0}" class="panel {1}">\n'.format(this.name, group) +
-							'\t<h3>{0}</h3>\n'.format(this.title) +
-							'\t<div>\n' + 
-								actionsHtml +
-							'\t</div>\n' +
-						'</div>';
-						
-			el = $('#{0}'.format(this.parentHTMLid));
-			el.append(html);
-			
-	        $(selector).panel({
-	            accordion:group
-	        });
-			
+			this.append(html);
 			this.bindEvents();
 			
 		},
+		
 		bindEvents : function() {
 
 			var len = this.componentControllers.length;

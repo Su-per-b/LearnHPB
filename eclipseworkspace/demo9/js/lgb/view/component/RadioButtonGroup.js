@@ -43,7 +43,7 @@ var lgb = (function(lgb) {
 					chk=' checked="checked"';
 				}
 
-				var id = '{0}_{1}'.format (this.dataModel.id, i.toString()); //  + '_' + ;
+				var id = '{0}_{1}'.format (this.dataModel.id, i.toString());
 				oneItem.id = id;
 				
 				var str = '<input type="radio" id="{0}" name="{1}" value="{2}"{3}>\
@@ -51,14 +51,15 @@ var lgb = (function(lgb) {
 				(id, this.dataModel.id, oneItem.value.toString(), chk, oneItem.label );
 				
 				
-				//str = str.format(id, this.dataModel.id, oneItem.value.toString(), chk, oneItem.label );
 				htmlAry.push(str);
 				
 			}
 			
+
 			var title = '<h5>{0}</h5>'.format(this.dataModel.title);
-			var htmlStr = title + htmlAry.join('<br />');
-			
+			var radioButtons = htmlAry.join('<br />');
+			var htmlStr ='<div class="radioButtonGroup">' + title + radioButtons + '</div>';
+
 			return htmlStr;
 		},
 		

@@ -23,16 +23,9 @@ var lgb = (function(lgb) {
 	lgb.view.component.Slider.prototype = {
 		getHTML : function() {
 			
-
 			var html = '<input id="{0}" type="range" min="{1}" max="{2}" value="{3}">';
-
-			//var html = '<div id="slider"></div>';
-
-			
 			html = html.format(this.userAction.id, this.min, this.max, this.value);		
 				
-
-
 			return html;
 		}
 	};

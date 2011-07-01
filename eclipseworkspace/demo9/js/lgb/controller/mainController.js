@@ -45,7 +45,7 @@ var lgb = (function(lgb) {
 			console.log("jQuery version: " + $().jquery);
 			
 			//this.adminController = new lgb.controller.AdminController();
-			this.adminController2 = new lgb.controller.AdminController2();
+			this.adminController = new lgb.controller.AdminController();
 			
 			
 			this.guiController = new lgb.controller.GuiController();

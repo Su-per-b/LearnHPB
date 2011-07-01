@@ -102,7 +102,7 @@
 /* Component containers
  ----------------------------------*/
 .ui-widget {
-    font-family: Lucida Grande, Lucida Sans, Arial, sans-serif;
+
     font-size: 1.1em;
 }
 
@@ -111,13 +111,13 @@
 }
 
 .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
-    font-family: Lucida Grande, Lucida Sans, Arial, sans-serif;
+    font-family: sans-serif;
     font-size: 1em;
 }
 
 .ui-widget-content {
     border: 2.5px solid #5b7b32;
-    background-image: url("images/ui-bg_inset_light2.png");
+    background-image: url(images/ui-bg_inset-soft_10_285c00_1x100c.png);
     background-color: #7dba36;
     background-position: bottom;
     background-repeat: repeat-x;
@@ -133,7 +133,6 @@
     border: 1px solid #5b7b32;
     background: #3a8104 url(images/lgb-1.png) 50% 50% repeat-x;
     color: #ffffff;
-    font-weight: bold;
 }
 
 .ui-widget-header a {
@@ -1360,13 +1359,17 @@ button.ui-button::-moz-focus-inner {
 }
 
 .ui-dialog .ui-dialog-titlebar {
-    padding: .4em 1em;
+	font-size:18px;
+    padding: 0px 0px 0px 18px;
+	margin: 0;
     position: relative;
 }
 
 .ui-dialog .ui-dialog-title {
     float: left;
-    margin: .1em 16px .1em 0;
+    margin: .3em 16px -0.1em 0;
+	font-weight:normal;
+	font-family: Futura Std;
 }
 
 .ui-dialog .ui-dialog-titlebar-close {

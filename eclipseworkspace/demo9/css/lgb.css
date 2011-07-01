@@ -1,3 +1,12 @@
+body {
+
+	color:#303030;
+	font-family: Futura Std;
+	margin:0;
+	padding:0;
+	text-align:center;
+
+}
 
 #o3d {
 	width:1024px;
@@ -8,35 +17,47 @@
 	margin:0;
 }
 
-
-body {
-
-	color:#303030;
-	font-family: Helvetiker;
-	margin:0;
-	padding:0;
-	text-align:center;
-}
-
 a {
 	color:#505050;
 	font-weight:bold;
 	text-decoration:none;
 }
 
-a:hover {
-	color:#808080;
-	text-decoration:underline;
-}
-
-
 p {
 	line-height:1.5em;
 	margin:0 0 15px;
 }
 
-/*** Main container ***/
+h3 {
+	font-size:14pt;
+	height:26px;
+	margin:1px 0 12px 0;
+	padding:7px 0 0 0;
+	text-align:center;
+	font-weight:normal;
+	border-width:1px 1px 1px 1px;
+	border-color:#b9da92;
+	border-style:solid;
+}
 
+h5 {
+	font-size:12pt;
+	margin:0px;
+	padding:0px;
+	font-weight:normal;
+}
+
+.radioButtonGroup {
+	margin-bottom:10px;
+}
+.radioButtonText {
+	font-size:12pt;
+}
+
+a:hover {
+	color:#808080;
+	text-decoration:underline;
+}
 
 img {
 	border:none;	
@@ -45,18 +66,6 @@ img {
 
 
 
-#leftNav {
-    position:absolute;  
-	width:63px;
-	height:352px; 
-	left:-2000px; 
-    z-index:100;
-    background-color:transparent;  
-    background-image:url('../images/leftnav.png');
-    background-repeat:no-repeat;
-    opacity:0.92;
-    padding: 60px 0 0 10px;
-}
 
 #titleBar {
     position:absolute;
@@ -67,7 +76,6 @@ img {
     background-color:transparent;  
     background-image:url('../images/top_title.png');
     background-repeat:no-repeat;
-    opacity:0.85;
 }
 
 #configButton {
@@ -86,32 +94,41 @@ img {
 }
 
 
-div.adminSubPanel {
-	text-align:left;
-	border-width:1px;
-	border-color:#fff;
-	border-style:solid;
-	padding:8px;
-	border-radius:5px;
-
-}
 
 
 #adminView {
 	opacity:0.92;
 }
 
-.radioButtonText {
-	font-size:13px;
+.adminSubPanel {
+	text-align:left;
+	/*border-width:1px 0px 1px 0px;
+	border-color:#b9da92;
+	border-style:solid; */
+	padding:8px 3px 8px 3px;
 }
+
+
+
 
 
 .viewPointLink {
 	font-size:11px;
 }
 
-
-	
+/** leftNav **/
+#leftNav {
+    position:absolute;  
+	width:63px;
+	height:352px; 
+	left:-2000px; 
+    z-index:100;
+    background-color:transparent;  
+    background-image:url('../images/leftnav.png');
+    background-repeat:no-repeat;
+    opacity:0.92;
+    padding: 60px 0 0 10px;
+}
 
 .leftNavButton {
 	width:42px;
@@ -159,7 +176,7 @@ div.adminSubPanel {
 }
 
 
-/**progressbar **/
+/** progressbar **/
 #progressbarBackground
 {
 	position: absolute;

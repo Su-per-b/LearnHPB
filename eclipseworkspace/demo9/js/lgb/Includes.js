@@ -9,7 +9,6 @@ o3djs.require('lgb.animation');
 o3djs.require('lgb.Cam');
 
 o3djs.require('lgb.controller.AdminController');
-o3djs.require('lgb.controller.AdminController2');
 o3djs.require('lgb.controller.component.RadioButtonGroupController');
 o3djs.require('lgb.controller.ModeController');
 o3djs.require('lgb.controller.ZoneController');
@@ -42,8 +41,6 @@ o3djs.require('lgb.view.component.Link');
 o3djs.require('lgb.view.component.RadioButtonGroup');
 o3djs.require('lgb.view.component.Slider');
 o3djs.require('lgb.view.Mesh');
-o3djs.require('lgb.view.AdminPanel');
-o3djs.require('lgb.view.AdminSubpanel');
 o3djs.require('lgb.view.EnvelopeView');
 o3djs.require('lgb.view.LeftNavView');
 o3djs.require('lgb.view.ProgressBar');
@@ -53,7 +50,7 @@ o3djs.require('lgb.view.BuildingView');
 o3djs.require('lgb.view.ViewPointView');
 o3djs.require('lgb.view.CameraView');
 o3djs.require('lgb.view.AdminView');
-o3djs.require('lgb.view.AdminSubpanel2');
+o3djs.require('lgb.view.AdminSubpanel');
 o3djs.require('lgb.view.TitleBarView');
 
 o3djs.require('lgb.event.EnvelopeEvent');
