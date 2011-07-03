@@ -62,11 +62,11 @@ var lgb = (function(lgb) {
 		
 		setFloorHeight: function(floorHeight) {
 			this.floorHeight = floorHeight;
-			this.dispatch(lgb.event.BuildingEvent.DATA_MODEL_CHANGED);
+			this.dispatchLocal(lgb.event.Event.DATA_MODEL_CHANGED);
 		},
 		setTotalFloors: function(totalFloors) {
 			this.totalFloors = totalFloors;
-			this.dispatch(lgb.event.BuildingEvent.DATA_MODEL_CHANGED);
+			this.dispatchLocal(lgb.event.Event.DATA_MODEL_CHANGED);
 		}
 		
 	};

@@ -61,10 +61,10 @@ o3djs.require('lgb.view.AdminView');
 o3djs.require('lgb.view.AdminSubpanel');
 o3djs.require('lgb.view.TitleBarView');
 o3djs.require('lgb.view.AdminButtonView');
-o3djs.require('lgb.view.VisibilityView');
 o3djs.require('lgb.view.BuildingComponentView');
 o3djs.require('lgb.view.FadeEffect');
 o3djs.require('lgb.view.ZoneView');
+o3djs.require('lgb.view.ZoneShape');
 
 o3djs.require('lgb.event.EnvelopeEvent');
 o3djs.require('lgb.event.Event');

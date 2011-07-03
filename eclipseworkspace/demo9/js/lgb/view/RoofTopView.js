@@ -44,7 +44,12 @@ var lgb = (function(lgb) {
 			this.mesh.resetPosition();
 			this.mesh.rotateX( 270);
 			this.mesh.moveToOrigin();
-			this.mesh.translate(this.positionOffset[0], this.positionOffset[1], this.positionOffset[2]);
+			
+			this.mesh.translate(
+				this.positionOffset[0], 
+				this.positionOffset[1], 
+				this.positionOffset[2]
+			);
 		
 		}
 		

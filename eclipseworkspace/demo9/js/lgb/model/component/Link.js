@@ -16,6 +16,7 @@ var lgb = (function(lgb) {
 		this.parentName = parentName;
 		this.title = title;
 		this.id = this.generateId();
+		this.value = value;
 	};
 	
 
@@ -29,6 +30,7 @@ var lgb = (function(lgb) {
 			
 			var id = '{0}--{1}'.format(this.parentName, this.title);
 			id = id.split('_').join('-');
+			id = id.split(' ').join('-');
 			
 			return id;
 

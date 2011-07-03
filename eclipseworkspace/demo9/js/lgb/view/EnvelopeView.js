@@ -18,7 +18,6 @@ var lgb = (function(lgb) {
 		this.meshList = [];
 		this.namedMeshList = [];
 		
-
 		this.dataModel = dataModel;
 		this.meshFloorHeight = 0;
 		

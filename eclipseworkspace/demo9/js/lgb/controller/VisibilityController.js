@@ -15,23 +15,19 @@ var lgb = (function(lgb) {
 		
 		lgb.controller.ControllerBase.call(this);
 		
-		this.listen(lgb.event.Cam.MOVE_COMPLETE, this.onCameraMoveComplete);
+
 		this.listen(lgb.event.Visibility.VISIBILITY__GUI_SELECTION, this.onGUIselection);
 		this.listen(lgb.event.Event.REGISTER_COMPONENT, this.onRegisterComponent);
-		//this.listen(lgb.event.Event.UNREGISTER_COMPONENT, this.onUnRegisterComponent);
-			
+	
 		this.dataModel = new lgb.model.VisibilityModel();
-		//this.view = new lgb.view.VisibilityView(this.dataModel);
-		
 		this.buildingComponentModelList = [];
-
+		this.buildingComponentViewList = [];
 		
 	};
 	
 	
 	lgb.controller.VisibilityController.prototype = {
 		
-
 		onGUIselection : function(event) {
 			var state = event.value;
 			var len = this.buildingComponentModelList.length;
@@ -40,22 +36,15 @@ var lgb = (function(lgb) {
 			}
 		},
 
-
 		onRegisterComponent : function(event) {
 			var buildingComponentModel = event.value;
 			buildingComponentModel.assertType(lgb.model.BuildingComponentModel);
 			
 			this.buildingComponentModelList.push(buildingComponentModel);
-			
 			var view = new lgb.view.BuildingComponentView(buildingComponentModel);
-			
-			//this.buildingComponentViewList.push(view);
-			//this.dataModel.addComponent(event.value);
-		},
-		onCameraMoveComplete : function(event) {
-			this.unlisten(lgb.event.Cam.MOVE_COMPLETE, this.onCameraMoveComplete);
-			//this.view.show();
+			this.buildingComponentViewList.push(view);
 		}
+
 	
 	};
 	

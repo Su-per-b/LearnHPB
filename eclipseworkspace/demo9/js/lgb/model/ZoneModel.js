@@ -15,10 +15,15 @@ var lgb = (function(lgb) {
 	lgb.model.ZoneModel = function(){
 		lgb.model.ModelBase.call(this);
 		
-		this.longSide = 125;
-		this.shortSide = 80;
-		this.cornerWidth = 15;
-		this.cornerHeight =15;
+		this.dimFt = {
+			longSide : 125,
+			shortSide : 80,
+			cornerWidth : 15,
+			cornerHeight : 15,
+			coreLongSide : 95,
+			coreShortSide : 50,
+		}
+
 		
 		this.title = "Zones";
 		this.name = "ZONES";
@@ -26,6 +31,21 @@ var lgb = (function(lgb) {
 		this.userActions = [];
 		
 		//create a trigger for each zone
+	
+		var trigger = new lgb.model.component.Link(
+				this.name,
+				'All Zones',
+				0
+			);
+
+		trigger.addEvents( 
+			lgb.event.ZoneEvent.GO_TO, 
+			lgb.event.ZoneEvent.SHOW, 
+			lgb.event.ZoneEvent.HIDE
+		);
+		
+		this.userActions.push(trigger);
+		
 		for (var i=0; i<9; i++) {
 				
 			var zoneNumber = i + 1;
@@ -61,7 +81,33 @@ var lgb = (function(lgb) {
 			this.modelList = modelList;
 			this.view = lgb.view.gui;
 			
+		},
+		processBoundingBox : function (floorBoundingBox) {
+
+
+			this.extX = floorBoundingBox.maxExtent[0] - floorBoundingBox.minExtent[0]; //long side
+			this.extY = floorBoundingBox.maxExtent[1] - floorBoundingBox.minExtent[1]; //narrow side
+			this.extZ = floorBoundingBox.maxExtent[2] - floorBoundingBox.minExtent[2]; //floor height
+			
+			this.pxPerFoot = this.extX / this.dimFt.longSide;
+			
+			
+			this.longSide = this.dimFt.longSide * this.pxPerFoot;
+			this.shortSide = this.dimFt.shortSide * this.pxPerFoot;
+			this.cornerExtX = this.dimFt.cornerWidth * this.pxPerFoot;
+			this.cornerExtY = this.dimFt.cornerHeight * this.pxPerFoot;
+			this.coreLongSide = this.dimFt.coreLongSide * this.pxPerFoot;
+			this.coreShortSide = this.dimFt.coreShortSide * this.pxPerFoot;
+			
+			this.dim = {};
+			
+			this.dim.corner = [this.cornerExtX, this.cornerExtY];
+			this.dim.middleLongSide = [this.cornerExtX, this.coreLongSide];
+			this.dim.middleShortSide = [ this.coreShortSide, this.cornerExtY  ];
+			this.dim.core = [  this.coreShortSide, this.coreLongSide  ];
+			
 		}
+		
 
 	};
 	

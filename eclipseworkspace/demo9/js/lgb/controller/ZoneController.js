@@ -18,28 +18,41 @@ var lgb = (function(lgb) {
 		this.dataModel = new lgb.model.ZoneModel();
 		this.view = new lgb.view.ZoneView(this.dataModel);
 
-		this.listen(lgb.event.BuildingEvent.GEOMETRY_CHANGED, this);
+/*
+		this.listen(lgb.event.Loader.ALL_MESHES_LOAD_COMPLETE, this.onMeshesLoadComplete);
+*/
+
+		this.listen(lgb.event.BuildingEvent.GEOMETRY_CHANGED, this.onBuildingGeometryChanged);
+		this.listen(lgb.event.ZoneEvent.SHOW, this.onZoneShow);
+		this.listen(lgb.event.ZoneEvent.HIDE, this.onZoneHide);
+		this.listen(lgb.event.ZoneEvent.GO_TO, this.onZoneGoTo);
 
 	};
 	
 	lgb.controller.ZoneController.prototype = {
-		
-		
+
+
 		onBuildingGeometryChanged : function (event) {
 			
 			var buildingView = event.value;
 			buildingView.assertType(lgb.view.BuildingView);
 			
-			//var height = buildingView
+			this.view.positionAllZones(buildingView);
 			
-			this.view.show(buildingView);
-			
-			//this.yPosition = buildingView.envelopeView.getMeshHeight();
-			
-			//this.init(buildingView.envelopeView.getOriginalMesh());
 		},
-		
-		
+
+		onZoneShow: function(event){
+			var zoneNumber = event.value;
+			this.view.showZone(zoneNumber);
+			
+		},
+		onZoneHide: function(event){
+			var zoneNumber = event.value;
+			this.view.hideZone(zoneNumber);
+		},
+		onZoneGoTo: function(event){
+			var zoneNumber = event.value;
+		}
 		
 
 		

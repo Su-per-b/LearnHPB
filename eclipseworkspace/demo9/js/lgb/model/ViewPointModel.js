@@ -111,6 +111,7 @@ var lgb = (function(lgb) {
 		
 		changeTarget: function( ) {
 
+/*
 			var target = this.buildingView.getCenterPoint();
 			
 			var vp = new hemi.view.Viewpoint();		// Create a new Viewpoint
@@ -123,6 +124,7 @@ var lgb = (function(lgb) {
 			this.viewPoints ['newTarget'] = vp;
 			this.currentViewIdx = 'newTarget';
 			
+*/
 		},
 		
 		

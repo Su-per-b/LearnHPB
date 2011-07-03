@@ -14,6 +14,9 @@ var lgb = (function(lgb) {
 
 
 	lgb.view.component.Link = function(dataModel){
+		
+		lgb.view.ViewBase.call(this);
+		
 		dataModel.assertType(lgb.model.component.Link);
 		
 		this.dataModel = dataModel;
@@ -28,15 +31,16 @@ var lgb = (function(lgb) {
 		
 		bindEvents: function() {
 			
-			var selector = $(this.dataModel.id);
+			var selector = this.getSelector(this.dataModel.id); //$(this.dataModel.id);
 			
-			if (lgb.notNull(this.eventClick)) {
-				selector.bind('click',  this.d(this.onClick));
+			if (lgb.notNull(this.dataModel.eventClick)) {
+				var func = this.d(this.onClick);
+				selector.bind('click',  func);
 			}
-			if (lgb.notNull(this.eventMouseOver)) {
+			if (lgb.notNull(this.dataModel.eventMouseOver)) {
 				selector.bind('mouseover',  this.d(this.onMouseOver));
 			}
-			if (lgb.notNull(this.eventMouseOut)) {
+			if (lgb.notNull(this.dataModel.eventMouseOut)) {
 				selector.bind('mouseout',  this.d(this.onMouseOut));
 			}
 			
@@ -48,14 +52,14 @@ var lgb = (function(lgb) {
 			this.dispatch(this.dataModel.eventMouseOver, this.dataModel.value);
 		},
 		onMouseOut: function(event){
+			
 			this.dispatch(this.dataModel.eventMouseOut, this.dataModel.value);
 		},
 		
-		
-		
-		
 	};
+	
 
+	lgb.view.component.Link.inheritsFrom(lgb.view.ViewBase);
 	
 	return lgb;
 	

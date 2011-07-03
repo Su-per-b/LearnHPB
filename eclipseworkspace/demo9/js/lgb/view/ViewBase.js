@@ -25,16 +25,22 @@ var lgb = (function(lgb) {
 		append : function(html) {
 			this.getParentSelector().append(html);
 		},
-		getSelector : function() {
+		getSelector : function(id) {
 			
-			var selector = $('#{0}'.format(this.htmlID));
+			if (lgb.isNull(id)) {
+				id = this.htmlID;
+			}
+			
+			var selector = $('#{0}'.format(id));
 			return selector;
 		},
+
 		getParentSelector : function() {
 			
 			var selector = $('#{0}'.format(this.parentHTMLid));
 			return selector;
 		},
+		
 		listenForChange : function() {
 			
 			var delegate = jQuery.proxy( this.onChange, this );

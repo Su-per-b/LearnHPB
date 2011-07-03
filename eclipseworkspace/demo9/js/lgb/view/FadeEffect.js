@@ -61,6 +61,14 @@ var lgb = (function(lgb) {
 				(this.opacityFloat <= this.opacityMin && this.fadeDirection === -1)
 				)	
 			{
+
+				
+				if (this.fadeDirection === 1) {
+					this.dispatchLocal(lgb.event.Event.FADE_IN_COMPLETE);
+				} else if (this.fadeDirection === -1){
+					this.dispatchLocal(lgb.event.Event.FADE_OUT_COMPLETE);
+				}
+				
 				this.fadeDirection = 0;
 				hemi.view.removeRenderListener(this);
 			}

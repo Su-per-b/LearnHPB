@@ -63,6 +63,9 @@ var lgb = (function(lgb) {
 			var rooftopDeltaX =  1 * (envelopeMesh.spanX - this.roofTopView.mesh.spanX) / 2;
 			var rooftopDeltaY =  -1 * (envelopeMesh.spanY - this.roofTopView.mesh.spanY) / 2;
 			
+			rooftopDeltaX +=3.05;
+			rooftopDeltaY +=.8;
+			
 			this.roofTopView.positionOffset[0] = rooftopDeltaX;
 			this.roofTopView.positionOffset[2] = rooftopDeltaY;
 			//this.roofTopzOffset = this.roofTopView.mesh.spanZ;
@@ -73,7 +76,7 @@ var lgb = (function(lgb) {
 		show : function() {
 
 			this.showHelper();
-			this.dispatch(lgb.event.BuildingEvent.GEOMETRY_CHANGED, this);
+			
 
 		},
 		showHelper : function() {
@@ -88,6 +91,7 @@ var lgb = (function(lgb) {
 			this.roofTopView.show( );
 			
 			this.spanZ = offset2 + this.roofTopView.mesh.spanZ;
+			this.dispatch(lgb.event.BuildingEvent.GEOMETRY_CHANGED, this);
 		}
 
 		

@@ -21,6 +21,8 @@ var lgb = (function(lgb) {
 	lgb.event.Event.UNREGISTER_COMPONENT = 'UNREGISTER_COMPONENT';
 	
 	lgb.event.Event.DATA_MODEL_CHANGED = 'EVENT__DATA_MODEL_CHANGED';
+	lgb.event.Event.FADE_OUT_COMPLETE = 'EVENT__FADE_OUT_COMPLETE';
+	lgb.event.Event.FADE_IN_COMPLETE = 'EVENT__FADE_IN_COMPLETE';
 
 
 	
