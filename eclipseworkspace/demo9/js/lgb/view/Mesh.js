@@ -13,8 +13,8 @@ var lgb = (function(lgb) {
 	 */
 	lgb.view.Mesh = function(fileName){
 		hemi.model.Model.call(this);
-		
-		//.basePath = '';
+			
+		this.fadeEffect = new lgb.view.FadeEffect();
 		
 		if (null !== fileName && undefined !== fileName) {
 			this.setFileName(fileName);
@@ -44,7 +44,25 @@ var lgb = (function(lgb) {
 		setVisible: function(visibleFlag){
 			this.setTransformVisible(this.root, visibleFlag);
 		},
+		fadeIn: function(){
+			
 		
+			if (null === this.fadeEffect.transform || undefined === this.fadeEffect.transform) {
+				this.fadeEffect.transform = this.root;
+			}
+			this.fadeEffect.fadeIn();
+			
+		},
+		fadeOut: function(){
+			if (null === this.fadeEffect.transform || undefined === this.fadeEffect.transform) {
+				this.fadeEffect.transform = this.root;
+			}
+			this.fadeEffect.fadeOut();
+
+				
+		},
+		
+	
 		createBox : function() {
 			
 			var pack = hemi.curve.pack;
@@ -68,6 +86,8 @@ var lgb = (function(lgb) {
 			transform.translate(x, y, z);
 			transform.parent = this.root;
 			
+			return box;
+			
 		},
 		
 
@@ -76,7 +96,7 @@ var lgb = (function(lgb) {
 		},
 		
 		
-		resetPostion : function() {
+		resetPosition : function() {
 			this.root.identity();
 		},
 		
@@ -102,11 +122,7 @@ var lgb = (function(lgb) {
 			var paramObject = this.pack.createObject('ParamObject');
 			newMesh.animationTime = paramObject.createParam('animTime', 'ParamFloat');
 			newMesh.animParam = this.animParam;
-/*
-			newMesh.fileName = this.fileName;
-			newMesh.name = this.name;
-*/
-		
+
 			return newMesh;
 			
 		},

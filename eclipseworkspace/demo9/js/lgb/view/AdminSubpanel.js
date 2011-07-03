@@ -38,8 +38,8 @@ var lgb = (function(lgb) {
 			
 				if (uAct instanceof lgb.model.component.SelectionGroup) {
 					componentController = new lgb.controller.component.RadioButtonGroupController(uAct);
-				} else if (uAct instanceof lgb.model.component.Tigger) {
-					componentController = new lgb.controller.component.ButtonController(uAct);
+				} else if (uAct instanceof lgb.model.component.Link) {
+					componentController = new lgb.controller.component.LinkController(uAct);
 				}
 				 
 				this.componentControllers.push(componentController);

@@ -47,23 +47,13 @@ h5 {
 	font-weight:normal;
 }
 
-.radioButtonGroup {
-	margin-bottom:10px;
-}
-.radioButtonText {
-	font-size:12pt;
-}
 
-a:hover {
-	color:#808080;
-	text-decoration:underline;
-}
+
+
 
 img {
 	border:none;	
 }
-
-
 
 
 
@@ -78,26 +68,38 @@ img {
     background-repeat:no-repeat;
 }
 
-#configButton {
+/** admin panel **/
+
+#adminButton {
 	position:absolute;
 	width:21px;
 	height:21px;
 	left:-2000px;
+	top:0px;
     z-index:101;
     background-color:transparent;  
-    background-image:url('../images/icon_wrench_21px.png');
     background-repeat:no-repeat;
     opacity:0.85;
 }
-#configButton:hover {
-	 background-image:url('../images/icon_wrench_over_21px.png');
+#adminButtonLink {
+	
+	width:21px;
+	height:21px;
+	display:block;
+	background-color:transparent;  
+	margin:0 0 0 0;
+	
+ 	background-image:url('../images/icon_wrench_21px.png');
 }
 
-
+#adminButtonLink:hover {
+	background-image:url('../images/icon_wrench_over_21px.png');
+}
 
 
 #adminView {
 	opacity:0.92;
+
 }
 
 .adminSubPanel {
@@ -111,10 +113,30 @@ img {
 
 
 
+a.admin-link {
+	font-weight:normal;
+	font-size:12pt;
+	color:#ffffff;
+	padding:5px 3px 0px 4px;
+	line-height: 12pt;
+}
+
+a.admin-link:hover {
+	background-color: #5b7b32;
+}
+
 
 .viewPointLink {
 	font-size:11px;
 }
+
+.radioButtonGroup {
+	margin-bottom:10px;
+}
+.radioButtonText {
+	font-size:12pt;
+}
+
 
 /** leftNav **/
 #leftNav {

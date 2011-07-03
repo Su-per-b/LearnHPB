@@ -29,6 +29,20 @@ var lgb = (function(lgb) {
 			this.listen(lgb.event.Loader.ALL_MESHES_LOAD_COMPLETE, this.onMeshesLoaded);
 			this.listen(lgb.event.Loader.ALL_MESHES_LOAD_START, this.onMeshesLoadStart);
 			
+			var nameSpaces = [
+				'lgb',
+				'lgb.controller',	
+				'lgb.controller.component',	
+				'lgb.model',	
+				'lgb.model.component',	
+				'lgb.view',	
+				'lgb.view.component',	
+				'lgb.util',	
+				'lgb.event'	
+			];
+			
+			hext.utils.debug.init(nameSpaces);
+			
 			jQuery(document).ready(this.d(this.onDocumentReady));
 			jQuery(window).resize(this.d(this.onWindowResize));
 			jQuery(window).unload(this.d(this.onWindowUnload));
@@ -41,7 +55,7 @@ var lgb = (function(lgb) {
 			$('head').append ('<title>{0}</title>'.format(lgb.Config.getTitle()));
 			
 			console.log("kuda version: " + hemi.version);
-			console.log("lgb version: " + lgb.Config.VERSION);
+			console.log("lgb : " + lgb.Config.getTitle());
 			console.log("jQuery version: " + $().jquery);
 			
 			//this.adminController = new lgb.controller.AdminController();
@@ -60,14 +74,17 @@ var lgb = (function(lgb) {
 			this.listen(lgb.view.ViewPointViewState.STOPPED, this.onCameraMoved);
 			
 			this.cameraController = new lgb.controller.CameraController();
+			this.visibilityController = new lgb.controller.VisibilityController();
 			
-			this.progressBar = new lgb.view.ProgressBar();	
-			this.progressBar.show(); 
+			this.zoneController = new lgb.controller.ZoneController();
+			
+			this.progressBar = new lgb.view.ProgressBar();
+			this.progressBar.show();
 				
 			this.loader = new lgb.util.Loader();
 			this.loader.loadMeshes( this.meshList );
 			
-			lgb.util.F.preload('icon_exterior_envelope_over.png,icon_lighting_over.png,icon_general_over.png,icon_exterior_envelope_over.png');
+			lgb.util.F.preload('icon_wrench_over_21px.png,icon_exterior_envelope_over.png,icon_lighting_over.png,icon_general_over.png,icon_exterior_envelope_over.png');
 										
 		},
 		

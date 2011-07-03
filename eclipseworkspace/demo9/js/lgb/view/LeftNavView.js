@@ -11,16 +11,16 @@ var lgb = (function(lgb) {
 	/**
 	 * @class this is the MVC view class for the Left Nav
 	 */
-	lgb.view.LeftNavView = function(){
+	lgb.view.LeftNavView = function(dataModel){
 		lgb.view.ViewBase.call(this);
 		this.htmlID = "leftNav";
-		
+		this.init_();
 	};
 	
 	lgb.view.LeftNavView.prototype = {
 	
 			
-		init : function() {
+		init_ : function() {
 			this.injectHtml();
 			this.bindEvents();
 			this.initMenu({targetBottom: 90,targetLeft: -63});

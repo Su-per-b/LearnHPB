@@ -29,7 +29,7 @@ var lgb = (function(lgb) {
 		//	this.hvacController = new lgb.controller.HVACcontroller();
 			
 			
-			this.listen(lgb.event.Loader.ALL_MESHES_LOAD_COMPLETE, this.onMeshesLoaded);
+
 			this.listen(lgb.event.BuildingEvent.CHANGE_FLOOR_HEIGHT, this.onChangeFloorHeight);
 			this.listen(lgb.event.BuildingEvent.CHANGE_NUMBER_OF_FLOORS, this.onChangeNumberOfFloors);
 		},
@@ -37,6 +37,7 @@ var lgb = (function(lgb) {
 		onMeshesLoaded : function(event) {
 			
 			this.view.meshesLoaded();
+			
 			
 			//this.viewEnvelope.init2();
 			//this.viewHVAC.init2();

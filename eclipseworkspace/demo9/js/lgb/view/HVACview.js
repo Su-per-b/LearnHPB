@@ -24,8 +24,11 @@ var lgb = (function(lgb) {
 	
 
 		meshesLoaded : function() {
-		//	this.mesh = mainController.loader.modelList['ductwork'];
-			//this.mesh.showBoundingBox();
+			
+			var comp = new lgb.model.BuildingComponentModel(this.mesh.root);
+			comp.addVisibilityTags(lgb.model.VisibilityTag.HVAC, lgb.model.VisibilityTag.DUCTWORK);
+
+			this.dispatch(lgb.event.Event.REGISTER_COMPONENT, comp);
 		},
 		
 		/*
@@ -36,23 +39,16 @@ var lgb = (function(lgb) {
 		*	@param height in meters
 		*/
 		show : function() {
-			this.mesh.resetPostion();
+			this.mesh.resetPosition();
 			this.mesh.rotateX( 270);
 			this.mesh.moveToOrigin();
 
 			this.mesh.translate(this.positionOffset[0], this.positionOffset[1], this.positionOffset[2]);
-		},
+		}
 		
 
 
-		getMeshList: function() {
-			
-			var modelAry = [
-				{file: 'ductwork.json', mode: 'HVAC', name: 'ductwork'}
-			];
-			
-			return modelAry;
-		}
+
 		
 	};
 

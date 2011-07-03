@@ -69,8 +69,6 @@ var lgb = (function(lgb) {
 			this.dispatch(lgb.event.BuildingEvent.DATA_MODEL_CHANGED);
 		}
 		
-
-		
 	};
 	
 

@@ -7,21 +7,21 @@ var lgb = (function(lgb) {
 	
 	
 	/**
-	 * @class MVC controller for the RadioButtonGroupController
+	 * @class MVC controller for the LinkController
 	 * @extends lgb.controller.ControllerBase
 	 */
-	lgb.controller.component.RadioButtonGroupController = function(dataModel) {
+	lgb.controller.component.LinkController = function(dataModel) {
 		
 		lgb.controller.ControllerBase.call(this);
-		dataModel.assertType(lgb.model.component.SelectionGroup);
+		dataModel.assertType(lgb.model.component.Link);
 		
 		this.dataModel = dataModel;
-		this.view = new lgb.view.component.RadioButtonGroup(dataModel);
+		this.view = new lgb.view.component.Link(dataModel);
 		
 	};
 	
 	
-	lgb.controller.component.RadioButtonGroupController.prototype = {
+	lgb.controller.component.LinkController.prototype = {
 		
 		
 		bindEvents : function() {
@@ -38,7 +38,7 @@ var lgb = (function(lgb) {
 
 	};
 	
-	lgb.controller.component.RadioButtonGroupController.inheritsFrom(lgb.controller.ControllerBase);
+	lgb.controller.component.LinkController.inheritsFrom(lgb.controller.ControllerBase);
 
 	return lgb;
 	

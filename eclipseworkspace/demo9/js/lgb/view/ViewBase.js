@@ -7,8 +7,14 @@ var lgb = (function(lgb) {
 
 	lgb.view = lgb.view || {};
 	
-	lgb.view.ViewBase = function() {
+	lgb.view.ViewBase = function(dataModel) {
 		lgb.Base.call(this);
+		
+		if (null !== dataModel && undefined !== dataModel) {
+			this.dataModel = dataModel;
+			this.listenForChange();
+		}
+		
 		this.parentHTMLid = "theBody";
 		this.htmlID = null;
 		this.floatingObj = null;
@@ -28,6 +34,12 @@ var lgb = (function(lgb) {
 			
 			var selector = $('#{0}'.format(this.parentHTMLid));
 			return selector;
+		},
+		listenForChange : function() {
+			
+			var delegate = jQuery.proxy( this.onChange, this );
+			$(this.dataModel).bind(lgb.event.Event.DATA_MODEL_CHANGED, delegate);
+			
 		},
         initMenu: function(floatingMenuConfig, element){
         

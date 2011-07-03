@@ -26,11 +26,8 @@ var lgb = (function(lgb) {
 		onCameraMoveComplete : function(event) {
 			this.unlisten(lgb.event.Cam.MOVE_COMPLETE, this.onCameraMoveComplete);
 			this.view.show();
-		},
-		
-		getMeshList: function() {
-			return null;
 		}
+
 	
 	};
 	

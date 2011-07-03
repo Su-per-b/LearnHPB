@@ -18,7 +18,7 @@ var lgb = (function(lgb) {
 		this.meshList = [];
 		this.namedMeshList = [];
 		
-		this.currentFloorMesh = null;
+
 		this.dataModel = dataModel;
 		this.meshFloorHeight = 0;
 		
@@ -26,27 +26,30 @@ var lgb = (function(lgb) {
 		this.namedMeshList['11'] = new lgb.view.Mesh('11FootEnvelope.json');
 		this.namedMeshList['13'] = new lgb.view.Mesh('13FootEnvelope.json');
 		
+		this.floorInstances = null;
+		this.allFloorInstances = {};
+		
 		this.meshList = [
 			this.namedMeshList['9'],
 			this.namedMeshList['11'],
 			this.namedMeshList['13']
 		];
 		
+		this.meshFloorHeight = {};
 
 		this.dispatch(lgb.event.Event.MESH_REQUEST, this.meshList);
 	};
 	
 	lgb.view.EnvelopeView.prototype = {
 	
-
-					
-					
+		
 		getMeshHeight : function() {
-			return this.meshFloorHeight * this.dataModel.totalFloors;
+			var idx = this.dataModel.floorHeight.toString();
+			return this.meshFloorHeight[idx] * this.dataModel.totalFloors;
 		},
 		show : function() {
 			this.cleanup();
-			this.createFloors();
+			this.position();
 		},
 		
 		cleanup : function() {
@@ -54,58 +57,81 @@ var lgb = (function(lgb) {
 			
 			for (var i=0; i<len; i++) {
 				
-				this.buildingFloors[i].cleanup();
+				var floorMesh = this.buildingFloors[i];
+				floorMesh.setVisible(false);
 			}
-			
 			this.buildingFloors = [];
+		},
+		position : function() {
 			
-		},		
 			
-		createFloors : function() {
-			
-			var idx = this.dataModel.floorHeight.toString();
-			this.currentFloorMesh = this.namedMeshList [idx];
-			
+			var height = this.dataModel.floorHeight.toString();
 
 			
-			var core = hemi.core,
-				pack = core.mainPack,
-				shapes = this.currentFloorMesh.getShapes(),
-				boundingBox = this.currentFloorMesh.root.boundingBox;
-				
-			this.meshFloorHeight = boundingBox.maxExtent[2] - boundingBox.minExtent[2];
-			
-
 			for (var i=0; i < this.dataModel.totalFloors; i++) {
+				var floorMesh = this.allFloorInstances[height][i];
 				
-				var floorMesh = this.currentFloorMesh.clone();
+				floorMesh.resetPosition();
+				floorMesh.setVisible(true);
 				floorMesh.rotateX(270);
 					
 				if (i > 0) {
-					var delta = this.meshFloorHeight * (i);
+					var delta = this.meshFloorHeight[height] * (i);
 					floorMesh.translate(0, delta, 0);
 				}
 				
-				
 				this.buildingFloors.push(floorMesh);
 			}
+		},
+		
+		getOriginalMesh: function(){
+			var height = this.dataModel.floorHeight.toString();
+			return this.namedMeshList [height];
+		},
 
+		createFloorsHelper : function(height) {
+			
+
+			var originalMesh = this.namedMeshList [height];
+			
+
+			var core = hemi.core,
+				pack = core.mainPack,
+				boundingBox = originalMesh.root.boundingBox;
+				
+			this.meshFloorHeight[height] = boundingBox.maxExtent[2] - boundingBox.minExtent[2];
+
+			
+			floorsAry = [];
+
+			for (var i=0; i < 7; i++) {
+				
+				var floorMesh = originalMesh.clone();
+				floorMesh.setVisible(false);
+				
+				var comp = new lgb.model.BuildingComponentModel(floorMesh.root);
+				comp.addVisibilityTags(lgb.model.VisibilityTag.ENVELOPE);
+				this.dispatch(lgb.event.Event.REGISTER_COMPONENT, comp);
+				
+				floorsAry.push(floorMesh);
+			}
+			
+			return floorsAry;
 		},
 		
 
-
 		meshesLoaded : function() {
 		
-			this.buildingParent =  hemi.core.mainPack.createObject('Transform');
-			this.buildingParent.parent = hemi.core.client.root;
-
 			this.namedMeshList['9'].setVisible(false);
 			this.namedMeshList['11'].setVisible(false);
 			this.namedMeshList['13'].setVisible(false);
 			
-		}
-		
 
+			this.allFloorInstances['9'] = this.createFloorsHelper('9');
+			this.allFloorInstances['11'] = this.createFloorsHelper('11');
+			this.allFloorInstances['13'] = this.createFloorsHelper('13');
+
+		}
 		
 	};
 	

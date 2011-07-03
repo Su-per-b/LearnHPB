@@ -18,8 +18,7 @@ var lgb = (function(lgb) {
 		this.listen(lgb.event.Cam.MOVE_COMPLETE, this.onCameraMoveComplete);
 			
 		this.dataModel = new lgb.model.LeftNavModel();
-		this.view = new lgb.view.LeftNavView();
-		this.view.init();
+		this.view = new lgb.view.LeftNavView(this.dataModel );
 	};
 	
 	
@@ -29,12 +28,8 @@ var lgb = (function(lgb) {
 		onCameraMoveComplete : function(event) {
 			this.unlisten(lgb.event.Cam.MOVE_COMPLETE, this.onCameraMoveComplete);
 			this.view.show();
-		},
-		
-		getMeshList: function() {
-			return null;
 		}
-	
+
 	};
 	
 	lgb.controller.LeftNavController.inheritsFrom(lgb.controller.ControllerBase);

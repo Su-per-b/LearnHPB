@@ -33,27 +33,43 @@ var lgb = (function(lgb) {
 			this.subPanels.push(subpanel);
 		},
 		
+		isOpen : function() {
+			var selector = this.getSelector();
+			//var widget = selector.dialog("isOpen");
+			
+			return selector.dialog("isOpen");
+		},
 		init : function() {
 			this.injectHtml();
-			//this.bindEvents();
-
-						
-			//var parent = this.getSelector().parent();
-			//var parent2 = parent.parent();
-			
-			
-		//	this.floatingObj = floatingMenu.add('ffff', {targetRight: 0});
 			 
 		},
-		show : function() {
-			//this.floatingObj.targetRight = 100;
+		toggleVisible : function() {
 
-			var selector = this.getSelector();
-			selector.dialog( "open" );
-			selector.dialog("widget").show("slide", { direction: "right", easing : "swing" }, 1000);
-			
-			
+			if (this.isOpen()) {
+				this.hide();
+			}
+			else {
+				this.show();
+			}
 		},
+		show : function(slideFlag) {
+			var selector = this.getSelector();
+			
+			if (!this.isOpen()) {
+				selector.dialog("open");
+			
+				if (slideFlag) {
+					selector.dialog("widget").show("slide", {
+						direction: "right",
+						easing: "swing"
+					}, 1000);
+				}
+			}
+		},
+		hide : function() {
+			this.getSelector().dialog("close");
+		},
+		
 		injectHtml : function() {
 			
 			
@@ -69,18 +85,11 @@ var lgb = (function(lgb) {
 			selector.dialog({
 				hide: 'fade',
 				width: 300,
+				height: 580,
 				position: 'right',
 				autoOpen: false
 			});
-			
-			
-			//getter
-			//var show = selector.dialog( "option", "show" );
-			//setter
-			//selector.dialog( "option", "show", 'slide' );
-
-
-			//selector.parent().show("slide", { direction: "left" }, 1000);
+;
 			
 			var len = this.subPanels.length;
 			for(var x = 0; x < len; x++) {

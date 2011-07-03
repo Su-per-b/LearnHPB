@@ -12,22 +12,23 @@ var lgb = (function(lgb) {
 	 * @class this is the MVC view class for the Left Nav
 	 */
 	lgb.view.BuildingView = function(dataModel){
-		lgb.view.ViewBase.call(this);
+		lgb.view.ViewBase.call(this, dataModel);
 		
-		this.dataModel = dataModel;
+	//	this.dataModel = dataModel;
 		
 		//the buildingView is composed of other views
 		this.envelopeView = new lgb.view.EnvelopeView(this.dataModel);
 		this.hvacView = new lgb.view.HVACview(this.dataModel);
 		this.roofTopView = new lgb.view.RoofTopView(this.dataModel);
 		
-		this.listen(lgb.event.BuildingEvent.DATA_MODEL_CHANGED, this.onDataModelChanged);
+		//this.listen(lgb.event.BuildingEvent.DATA_MODEL_CHANGED, this.onDataModelChanged);
+		this.listen(lgb.event.Loader.ALL_MESHES_LOAD_COMPLETE, this.onMeshesLoaded);
 		this.spanY = 0;
-	};
+	};			
 	
 	lgb.view.BuildingView.prototype = {
 			
-		onDataModelChanged : function(event) {
+		onChange : function(event) {
 			this.show();
 		},
 		getCenterPoint : function(event) {
@@ -37,7 +38,7 @@ var lgb = (function(lgb) {
 			
 			return localPoint;
 		},
-		meshesLoaded : function() {
+		onMeshesLoaded : function(event) {
 			this.envelopeView.meshesLoaded();
 			this.hvacView.meshesLoaded();
 			this.roofTopView.meshesLoaded();

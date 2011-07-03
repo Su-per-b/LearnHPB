@@ -37,10 +37,6 @@ var lgb = (function(lgb) {
 			
 		show : function() {
 			
-			
-			
-			
-			
 			 this.getSelector().animate(
 			  	{top: 0}, 
 				2000,
@@ -49,8 +45,6 @@ var lgb = (function(lgb) {
 
 		},
 		onShowComplete : function(event) {
-			
-		
 			console.log('onShowComplete');
 		},
 		onClick : function(event) {
