@@ -27,6 +27,8 @@ var lgb = (function(lgb) {
 
 		onCameraMoveComplete : function(event) {
 			this.unlisten(lgb.event.Cam.MOVE_COMPLETE, this.onCameraMoveComplete);
+			
+			this.view.bindEvents();
 			this.view.show();
 		}
 

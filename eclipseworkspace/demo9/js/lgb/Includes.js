@@ -29,9 +29,12 @@ o3djs.require('lgb.controller.ParticleSystemController');
 o3djs.require('lgb.controller.GuiComponentController');
 
 o3djs.require('lgb.model.ModelBase');
+o3djs.require('lgb.model.component.ComponentBase');
 o3djs.require('lgb.model.component.Link');
 o3djs.require('lgb.model.component.SelectionGroup');
 o3djs.require('lgb.model.component.SelectionItem');
+o3djs.require('lgb.model.component.TextInput');
+
 o3djs.require('lgb.model.EnvelopeModel');
 o3djs.require('lgb.model.ModeModel');
 o3djs.require('lgb.model.ZoneModel');
@@ -51,6 +54,8 @@ o3djs.require('lgb.view.component.Link');
 o3djs.require('lgb.view.component.RadioButtonGroup');
 o3djs.require('lgb.view.component.Slider');
 o3djs.require('lgb.view.component.Link');
+o3djs.require('lgb.view.component.TextInput');
+
 o3djs.require('lgb.view.EnvelopeView');
 o3djs.require('lgb.view.LeftNavView');
 o3djs.require('lgb.view.ProgressBar');
@@ -67,6 +72,7 @@ o3djs.require('lgb.view.BuildingComponentView');
 o3djs.require('lgb.view.ZoneView');
 o3djs.require('lgb.view.ZoneShape');
 o3djs.require('lgb.view.ParticleSystemView');
+o3djs.require('lgb.view.CrossSectionView');
 
 o3djs.require('lgb.event.EnvelopeEvent');
 o3djs.require('lgb.event.Event');

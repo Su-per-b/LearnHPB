@@ -18,6 +18,7 @@ var lgb = (function(lgb) {
 		this.envelopeView = new lgb.view.EnvelopeView(this.dataModel);
 		this.hvacView = new lgb.view.HVACview(this.dataModel);
 		this.roofTopView = new lgb.view.RoofTopView(this.dataModel);
+		this.crossSectionView = new lgb.view.CrossSectionView(this.dataModel);
 		
 		this.listen(lgb.event.Loader.ALL_MESHES_LOAD_COMPLETE, this.onMeshesLoaded);
 		this.spanY = 0;
@@ -38,6 +39,7 @@ var lgb = (function(lgb) {
 			this.envelopeView.meshesLoaded();
 			this.hvacView.meshesLoaded();
 			this.roofTopView.meshesLoaded();
+			this.crossSectionView.meshesLoaded();
 			
 			this.hvacView.positionOffset = [0,0,0];
 			var envelopeMesh = this.envelopeView.namedMeshList['9'];
@@ -55,6 +57,7 @@ var lgb = (function(lgb) {
 			this.hvacView.positionOffset[0] = deltaX;
 			this.hvacView.positionOffset[2] = deltaY;
 			this.hvaczOffset = this.hvacView.mesh.spanZ;
+			this.crossSectionZoffset = this.crossSectionView.mesh.spanZ;
 			
 			var rooftopDeltaX =  1 * (envelopeMesh.spanX - this.roofTopView.mesh.spanX) / 2;
 			var rooftopDeltaY =  -1 * (envelopeMesh.spanY - this.roofTopView.mesh.spanY) / 2;
@@ -64,6 +67,9 @@ var lgb = (function(lgb) {
 			
 			this.roofTopView.positionOffset[0] = rooftopDeltaX;
 			this.roofTopView.positionOffset[2] = rooftopDeltaY;
+			
+			this.crossSectionView.positionOffset[0] = envelopeMesh.spanX - this.crossSectionView.mesh.spanX;
+			this.crossSectionView.positionOffset[2] = -envelopeMesh.spanY + this.crossSectionView.mesh.spanY;
 			
 			this.showHelper();
 		},
@@ -76,15 +82,21 @@ var lgb = (function(lgb) {
 		showHelper : function() {
 			this.envelopeView.show();
 			
-			var yOffset = this.envelopeView.getMeshHeight() - this.hvaczOffset ;
-			this.hvacView.positionOffset[1] = yOffset;
+			var envelopeHeight =  this.envelopeView.getMeshHeight();
+			
+
+			this.hvacView.positionOffset[1] = envelopeHeight - this.hvaczOffset;
 			this.hvacView.show( );
 			
-			var offset2 = this.envelopeView.getMeshHeight();
-			this.roofTopView.positionOffset[1] = offset2;
-			this.roofTopView.show( );
+			this.roofTopView.positionOffset[1] = envelopeHeight;
+			this.roofTopView.show();
 			
-			this.spanZ = offset2 + this.roofTopView.mesh.spanZ;
+			this.spanZ = envelopeHeight + this.roofTopView.mesh.spanZ;
+			
+			
+			this.crossSectionView.positionOffset[1] = envelopeHeight;// - this.crossSectionZoffset;
+			this.crossSectionView.show();
+			
 			this.dispatch(lgb.event.BuildingEvent.GEOMETRY_CHANGED, this);
 		}
 

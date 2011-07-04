@@ -30,7 +30,14 @@ var lgb = (function(lgb) {
 		show: function() {
 			
 			if (this.state == lgb.view.ViewPointViewState.PRE_INIT) {
+				
 				var vp = this.dataModel.getCurrentViewPoint();
+				
+				this.subscriberCameraStopped = hemi.world.camera.subscribe(
+						hemi.msg.stop,
+						this.d(this.onCameraMoveComplete));
+				
+				
 				
 				hemi.world.camera.moveToView(vp, this.frames);
 				this.dispatch(lgb.view.ViewPointViewState.MOVING);
@@ -39,7 +46,7 @@ var lgb = (function(lgb) {
 		},
 		
         onCameraMoveComplete: function(event) {
-
+			this.dispatch(lgb.event.Cam.MOVE_COMPLETE);
         },
         changeTarget: function(event){
 

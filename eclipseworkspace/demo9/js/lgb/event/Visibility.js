@@ -11,7 +11,7 @@ var lgb = (function(lgb) {
 
 	};
 	
-	lgb.event.Visibility.VISIBILITY__GUI_SELECTION = 'VISIBILITY__GUI_SELECTION';
+	lgb.event.Visibility.GUI_SELECTION = 'VISIBILITY__GUI_SELECTION';
 	
 
 	

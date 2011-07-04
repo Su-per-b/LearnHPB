@@ -433,7 +433,9 @@ var _typeface_js = {
 		}
 
 		var cssLineHeightAdjustment = style.lineHeight - this.pixelsFromPoints(face, style, face.lineHeight);
-
+		
+		cssLineHeightAdjustment -= 10;
+		
 		e.style.marginTop = Math.round( cssLineHeightAdjustment / 2 ) + 'px';
 		e.style.marginBottom = Math.round( cssLineHeightAdjustment / 2) + 'px';
 	

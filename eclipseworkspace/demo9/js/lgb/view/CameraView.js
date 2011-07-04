@@ -9,15 +9,18 @@ var lgb = (function(lgb) {
 	 * @extends lgb.view.ViewBase
 	 */
 	lgb.view.CameraView = function(dataModel){
+		lgb.view.ViewBase.call(this, dataModel);
 	
-		lgb.view.ViewBase.call(this);
-		this.dataModel = dataModel; //building
 
 	};
 	
 	lgb.view.CameraView.prototype = {
 	
 
+		onChange : function(event) {
+
+		},
+		
 		meshesLoaded : function() {
 
 		},

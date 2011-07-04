@@ -22,7 +22,7 @@ var lgb = (function(lgb) {
 			
 		init_ : function() {
 			this.injectHtml();
-			this.bindEvents();
+		//	this.bindEvents();
 			this.initMenu({targetBottom: 90,targetLeft: -63});
 		},
 			
@@ -49,16 +49,17 @@ var lgb = (function(lgb) {
 
 			var delegate = this.d(this.onClick);
 			
-			$('#leftNavButton_1').click({mode:'ALL'},delegate);
-			$('#leftNavButton_2').click({mode:'HVAC'},delegate);
-			$('#leftNavButton_3').click({mode:'ENVELOPE'},delegate);
-			$('#leftNavButton_4').click({mode:'LIGHTING'},delegate);
-			$('#leftNavButton_5').click({mode:'DAYLIGHTING'},delegate);
+			$('#leftNavButton_1').click({mode:lgb.model.VisibilityTag.ALL},delegate);
+			$('#leftNavButton_2').click({mode:lgb.model.VisibilityTag.HVAC},delegate);
+			$('#leftNavButton_3').click({mode:lgb.model.VisibilityTag.ENVELOPE},delegate);
+			//$('#leftNavButton_4').click({mode:'LIGHTING'},delegate);
+		//	$('#leftNavButton_5').click({mode:'DAYLIGHTING'},delegate);
 			
 		},
 		
 		onClick : function(event) {
-			this.dispatch(lgb.event.Event.SWITCH_MODE, event.data.mode);
+
+			this.dispatch(lgb.event.Visibility.GUI_SELECTION, event.data.mode);
 		}
 		
 	};

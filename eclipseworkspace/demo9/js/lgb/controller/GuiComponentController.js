@@ -21,6 +21,8 @@ var lgb = (function(lgb) {
 			this.view = new lgb.view.component.RadioButtonGroup(uAct);
 		} else if (uAct instanceof lgb.model.component.Link) {
 			this.view = new lgb.view.component.Link(uAct);
+		} else if (uAct instanceof lgb.model.component.TextInput) {
+			this.view = new lgb.view.component.TextInput(uAct);
 		}
 				
 		

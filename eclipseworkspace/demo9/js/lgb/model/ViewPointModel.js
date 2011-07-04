@@ -88,7 +88,7 @@ var lgb = (function(lgb) {
 			var target = buildingView.getCenterPoint();
 			
 			var vp = new hemi.view.Viewpoint();		// Create a new Viewpoint
-			vp.eye = [0,0,80];					// Set viewpoint eye
+			vp.eye = [22.13,28.43,-82.31];					// Set viewpoint eye
 			vp.target = target;					// Set viewpoint target
 			this.viewPoints['default'] = vp;
 		

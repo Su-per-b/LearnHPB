@@ -13,24 +13,26 @@ var lgb = (function(lgb) {
 	lgb.view.component = lgb.view.component || {};
 
 
-	lgb.view.component.Link = function(dataModel){
+	lgb.view.component.TextInput = function(dataModel){
 		
 		lgb.view.ViewBase.call(this);
 		
-		dataModel.assertType(lgb.model.component.Link);
+		dataModel.assertType(lgb.model.component.TextInput);
 		
 		this.dataModel = dataModel;
 	};
 	
-	lgb.view.component.Link.prototype = {
+	lgb.view.component.TextInput.prototype = {
 		
 		getHTML : function() {
-			var html =  '<a id="{0}" class="admin-link typeface-js" href="#">{1}</a> <br />'.format(this.dataModel.id, this.dataModel.title);
 			
+			var html = 
+			'<span class="typeface-js">{0}</span>\
+			<input type="text" id="{1}" \
+			class="component-TextInput" name="{1}" value="0"  /><br />\
+			'.format(this.dataModel.title, this.dataModel.id);
 			
-			//var html = '<a href="#" id="{0}" \
-			//class="fg-button ui-state-default \
-			//ui-corner-all typeface-js">{1}</a>'.format(this.dataModel.id, this.dataModel.title);
+
 			
 			return html;
 		},
@@ -65,7 +67,7 @@ var lgb = (function(lgb) {
 	};
 	
 
-	lgb.view.component.Link.inheritsFrom(lgb.view.ViewBase);
+	lgb.view.component.TextInput.inheritsFrom(lgb.view.ViewBase);
 	
 	return lgb;
 	

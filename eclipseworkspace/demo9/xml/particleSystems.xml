@@ -1,10 +1,10 @@
-<particleSystems translate="20.3,-2.6,-11.8">
+<particleSystems translate="20.3,-2.8,-11.8">
 	
 	<boundingBoxes>
 		<box id="1">3,7,0,4,8,1</box>
 		<box id="2">4,5,0,2,4,1</box>
-		<box id="heatingBox">0.5,5,0,1,3.5,1</box>
-		<box id="coolingBox">-0.4,5,0,-0.7,3.5,1</box>
+		<box id="heatingBox">0.5,5,0,1,3.8,1</box>
+		<box id="coolingBox">-0.4,5,0,-0.7,3.8,1</box>
 		<box id="4">-2.0,4.25,-0.25,-2.5,4.5,-0.50</box>
 		<box id="5">-3,4.50,0.25,-3.5,4.75,0.75</box>
 		<box id="6">-4.5,3.75,0.25,-4.75,4.0,0.75</box>
@@ -65,7 +65,7 @@
 		<boundingBoxIds>1,2,heatingBox,coolingBox,4,5,6,7,8,9,10,diffuser1,12,13,20,2</boundingBoxIds>
 		<shape>SPHERE</shape>
 		<curve>1</curve>
-		<particleSize>1</particleSize>
+		<particleSize>0.7</particleSize>
 		<colorKeyIds>1,2,3,4</colorKeyIds>
 		<scaleKeyIds>1,2,3</scaleKeyIds>
 	</system>
@@ -76,7 +76,7 @@
 		<boundingBoxIds>20,21</boundingBoxIds>
 		<shape>SPHERE</shape>
 		<curve>1</curve>
-		<particleSize>1</particleSize>
+		<particleSize>0.7</particleSize>
 		<colorKeyIds>1,2,3,4</colorKeyIds>
 		<scaleKeyIds>1,2,3</scaleKeyIds>
 	</system>

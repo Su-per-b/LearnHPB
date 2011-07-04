@@ -16,7 +16,7 @@ var lgb = (function(lgb) {
 		lgb.controller.ControllerBase.call(this);
 		
 
-		this.listen(lgb.event.Visibility.VISIBILITY__GUI_SELECTION, this.onGUIselection);
+		this.listen(lgb.event.Visibility.GUI_SELECTION, this.onGUIselection);
 		this.listen(lgb.event.Event.REGISTER_COMPONENT, this.onRegisterComponent);
 	
 		this.dataModel = new lgb.model.VisibilityModel();

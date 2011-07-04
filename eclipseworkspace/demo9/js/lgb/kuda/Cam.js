@@ -13,6 +13,7 @@ var lgb = (function(lgb) {
 	 */
 	lgb.kuda.Cam = function(){
 		hemi.view.Camera.call(this);
+		
 	};
 	
 
@@ -29,11 +30,28 @@ var lgb = (function(lgb) {
 			
 
 			hemi.view.Camera.prototype.update.apply(this, [delta]);
+
 			
+			if (lgb.notNull(this.dispatcher)) {
+				
+				var e = this.getEye();
+				var t = this.getTarget();
+				
+				var obj = {
+					eye: e,
+					target: t
+				};
+			
+				this.dispatcher.dispatch(lgb.event.Cam.UPDATE, obj);		
+			}
+
+			
+/*
 			var time = this.state.time;
 			if (time.current >= time.end && this.dispatcher != null) {
-				this.dispatcher.dispatch(lgb.event.Cam.MOVE_COMPLETE, this.vd.current);
+				
 			}
+*/
 			
 		},
 
@@ -48,9 +66,11 @@ var lgb = (function(lgb) {
 	
 			hemi.view.Camera.prototype.setEyeTarget.apply(this, [eye,target]);
 			
+/*
 			this.currentEye = eye;
 			this.currentTarget = target;
-			this.dispatcher.dispatch(lgb.event.Cam.MOVE_PROGRESS, this.vd.current);			
+			this.dispatcher.dispatch(lgb.event.Cam.MOVE_PROGRESS, this.vd.current);		
+*/	
 		}
 		
 

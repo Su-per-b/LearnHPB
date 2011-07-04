@@ -13,6 +13,7 @@ var lgb = (function(lgb) {
 	
 	lgb.event.Cam.MOVE_COMPLETE = 'CAM__MOVE_COMPLETE';
 	lgb.event.Cam.MOVE_PROGRESS = 'CAM__MOVE_PROGRESS';
+	lgb.event.Cam.UPDATE = 'CAM__UPDATE';
 
 
 	return lgb;

@@ -27,15 +27,16 @@ var lgb = (function(lgb) {
 		this.buildingComponents = [];
 		
 		var selectionGroup1 = new lgb.model.component.SelectionGroup(
-				'Select Visibility State',
-				lgb.event.Visibility.VISIBILITY__GUI_SELECTION
+				'Show:',
+				lgb.event.Visibility.GUI_SELECTION
 			);
 			
 		selectionGroup1.createItem('All', lgb.model.VisibilityTag.ALL, true);
-		selectionGroup1.createItem('HVAC', lgb.model.VisibilityTag.HVAC);
-		selectionGroup1.createItem('Envelope', lgb.model.VisibilityTag.ENVELOPE);
-		selectionGroup1.createItem('Rooftop only', lgb.model.VisibilityTag.ROOFTOP);
-		selectionGroup1.createItem('Ductwork only', lgb.model.VisibilityTag.DUCTWORK);
+		selectionGroup1.createItem('HVAC Group', lgb.model.VisibilityTag.HVAC);
+		selectionGroup1.createItem('Envelope Group', lgb.model.VisibilityTag.ENVELOPE);
+		selectionGroup1.createItem('Rooftop', lgb.model.VisibilityTag.ROOFTOP);
+		selectionGroup1.createItem('Ductwork', lgb.model.VisibilityTag.DUCTWORK);
+		selectionGroup1.createItem('Cross Section', lgb.model.VisibilityTag.CROSS_SECTION);
 		
 /*
 		selectionGroup1.createItem('Filter', lgb.model.VisibilityTag.FILTER);
@@ -83,6 +84,7 @@ var lgb = (function(lgb) {
 	lgb.model.VisibilityTag.FAN = 'FAN';
 	lgb.model.VisibilityTag.DAMPERS = 'DAMPERS';
 	lgb.model.VisibilityTag.DUCTWORK = 'DUCTWORK';
+	lgb.model.VisibilityTag.CROSS_SECTION = 'CROSS_SECTION';
 	
 	lgb.model.VisibilityModel.inheritsFrom(lgb.model.ModelBase);
 	

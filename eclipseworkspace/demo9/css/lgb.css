@@ -1,7 +1,7 @@
 body {
 
 	color:#303030;
-	font-family: Futura Std;
+	font-family: Futura Std, Lucida Console, Verdana, Geneva, Arial, Helvetica, sans-serif;
 	margin:0;
 	padding:0;
 	text-align:center;
@@ -42,19 +42,15 @@ h3 {
 
 h5 {
 	font-size:12pt;
-	margin:0px;
+	margin:3px 0 6px 0;
 	padding:0px;
 	font-weight:normal;
 }
 
 
-
-
-
 img {
 	border:none;	
 }
-
 
 
 #titleBar {
@@ -110,20 +106,41 @@ img {
 	padding:8px 3px 8px 3px;
 }
 
+.ui-widget-header {
 
-
+}
+.ui-dialog-titlebar {
+	background-image:url('../images/icon_wrench_21px.png');
+	background-repeat:no-repeat;
+	background-position:4px center;\
+	background-color: #557a29;
+}
 
 a.admin-link {
 	font-weight:normal;
 	font-size:12pt;
 	color:#ffffff;
-	padding:5px 3px 0px 4px;
+	padding:4px 3px 5px 4px;
 	line-height: 12pt;
 }
 
+
+
 a.admin-link:hover {
-	background-color: #5b7b32;
+	background-color: #6d9d35;
 }
+
+input.component-TextInput {
+	font-family: Lucida Console;
+	color:#fff;
+	width:180px;
+	margin:-4px 0 4px 3px;
+	height:13pt;
+	font-size:11pt;
+	background-color:#6d9d35;
+}
+
+
 
 
 .viewPointLink {

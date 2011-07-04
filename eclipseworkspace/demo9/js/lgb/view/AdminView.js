@@ -76,7 +76,7 @@ var lgb = (function(lgb) {
 			
 			
 			var html = 	'<div id="{0}" title="{1}">\
-			</div>'.format(this.htmlID, this.title);
+			</div>'.format(this.htmlID, '');
 			
 			this.append(html);
 			
