@@ -23,7 +23,7 @@ var lgb = (function(lgb) {
 		init : function() {
 			this.injectHtml();
 			this.bindEvents();
-			this.initMenu({targetTop: 4,targetRight: -21});
+			this.initMenu({targetTop: 4,targetRight: -34});
 		},
 			
 		show : function() {

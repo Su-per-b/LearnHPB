@@ -18,9 +18,6 @@ var lgb = (function(lgb) {
 		this.dataModel = new lgb.model.ZoneModel();
 		this.view = new lgb.view.ZoneView(this.dataModel);
 
-/*
-		this.listen(lgb.event.Loader.ALL_MESHES_LOAD_COMPLETE, this.onMeshesLoadComplete);
-*/
 
 		this.listen(lgb.event.BuildingEvent.GEOMETRY_CHANGED, this.onBuildingGeometryChanged);
 		this.listen(lgb.event.ZoneEvent.SHOW, this.onZoneShow);

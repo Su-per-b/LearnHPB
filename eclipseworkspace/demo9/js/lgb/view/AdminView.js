@@ -53,6 +53,8 @@ var lgb = (function(lgb) {
 			}
 		},
 		show : function(slideFlag) {
+			
+
 			var selector = this.getSelector();
 			
 			if (!this.isOpen()) {
@@ -89,7 +91,7 @@ var lgb = (function(lgb) {
 				position: 'right',
 				autoOpen: false
 			});
-;
+
 			
 			var len = this.subPanels.length;
 			for(var x = 0; x < len; x++) {

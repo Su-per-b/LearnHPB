@@ -22,6 +22,8 @@ var lgb = (function(lgb) {
 	lgb.controller.MainController.prototype = {
 		
 		init: function() {
+
+			$.error = this.onError;
 			
 			this.meshList = []; //an array of all the lgb.view.Mesh objects
 			
@@ -48,15 +50,20 @@ var lgb = (function(lgb) {
 			jQuery(window).unload(this.d(this.onWindowUnload));
 
 		},
-		
+		onError : function(msg) {
+
+			alert(msg);
+		},
 		onDocumentReady : function(event) {
 		
 		
 			$('head').append ('<title>{0}</title>'.format(lgb.Config.getTitle()));
 			
 			console.log("kuda version: " + hemi.version);
-			console.log("lgb : " + lgb.Config.getTitle());
+			console.log(lgb.Config.getTitle());
 			console.log("jQuery version: " + $().jquery);
+			
+			
 			
 			//this.adminController = new lgb.controller.AdminController();
 			this.adminController = new lgb.controller.AdminController();
@@ -77,6 +84,7 @@ var lgb = (function(lgb) {
 			this.visibilityController = new lgb.controller.VisibilityController();
 			
 			this.zoneController = new lgb.controller.ZoneController();
+			this.particleSystemController = new lgb.controller.ParticleSystemController();
 			
 			this.progressBar = new lgb.view.ProgressBar();
 			this.progressBar.show();
@@ -84,7 +92,9 @@ var lgb = (function(lgb) {
 			this.loader = new lgb.util.Loader();
 			this.loader.loadMeshes( this.meshList );
 			
-			lgb.util.F.preload('icon_wrench_over_21px.png,icon_exterior_envelope_over.png,icon_lighting_over.png,icon_general_over.png,icon_exterior_envelope_over.png');
+			
+			
+			lgb.util.F.preload('icon_wrench_over_34px.png,icon_exterior_envelope_over.png,icon_lighting_over.png,icon_general_over.png,icon_exterior_envelope_over.png');
 										
 		},
 		
@@ -100,6 +110,8 @@ var lgb = (function(lgb) {
 
 
 		onMeshesLoaded : function(event) {
+			hemi.model.modelRoot.rotateX(4.715);
+			
 			hemi.world.camera.enableControl();	// Enable camera mouse control
 			_typeface_js.renderDocument(); 
 		},

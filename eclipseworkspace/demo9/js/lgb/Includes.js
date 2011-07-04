@@ -23,7 +23,7 @@ o3djs.require('lgb.controller.VisibilityController');
 o3djs.require('lgb.controller.ZoneController');
 o3djs.require('lgb.controller.component.RadioButtonGroupController');
 o3djs.require('lgb.controller.component.LinkController');
-
+o3djs.require('lgb.controller.ParticleSystemController');
 
 o3djs.require('lgb.model.ModelBase');
 o3djs.require('lgb.model.component.Link');
@@ -34,13 +34,13 @@ o3djs.require('lgb.model.ModeModel');
 o3djs.require('lgb.model.ZoneModel');
 o3djs.require('lgb.model.XmlParser');
 o3djs.require('lgb.model.LeftNavModel');
-o3djs.require('lgb.model.HVACmodel');
 o3djs.require('lgb.model.BuildingModel');
 o3djs.require('lgb.model.RoofTopModel');
 o3djs.require('lgb.model.ViewPointModel');
 o3djs.require('lgb.model.CameraModel');
 o3djs.require('lgb.model.VisibilityModel');
 o3djs.require('lgb.model.BuildingComponentModel');
+o3djs.require('lgb.model.ParticleSystemModel');
 
 o3djs.require('lgb.view.ViewBase');
 o3djs.require('lgb.view.component.Button');
@@ -65,6 +65,7 @@ o3djs.require('lgb.view.BuildingComponentView');
 o3djs.require('lgb.view.FadeEffect');
 o3djs.require('lgb.view.ZoneView');
 o3djs.require('lgb.view.ZoneShape');
+o3djs.require('lgb.view.ParticleSystemView');
 
 o3djs.require('lgb.event.EnvelopeEvent');
 o3djs.require('lgb.event.Event');
@@ -74,6 +75,7 @@ o3djs.require('lgb.event.BuildingEvent');
 o3djs.require('lgb.event.Cam');
 o3djs.require('lgb.event.Visibility');
 o3djs.require('lgb.event.ZoneEvent');
+o3djs.require('lgb.event.ParticleSystemEvent');
 
 o3djs.require('lgb.util.Loader');
 o3djs.require('lgb.util.F');

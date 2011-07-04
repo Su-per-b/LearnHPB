@@ -14,7 +14,7 @@ var lgb = (function(lgb) {
 	
 	lgb.model.XmlParser = function(xml){
 		
-		lgb.model.XmlParser.call(this);
+		lgb.model.ModelBase.call(this);
 		
 		this.xml = xml;
 		this.xpathResult = null;
@@ -27,11 +27,38 @@ var lgb = (function(lgb) {
 		
 		makeRootNode: function(xpath) {
 
-			this.xpathResult = this.xml.evaluate(xpath, this.xml, null, XPathResult.ANY_TYPE, null);
+			
+			//var result = this.xml.find(xpath);
+			//var t = result.text();
+			//var result = this.xml.find( xpath);
+			
+			this.xpathResult = this.evaluate_(xpath, this.xml);
 			this.currentNode = this.xpathResult.iterateNext();
 			
 			return this.currentNode;
 		},
+		evaluate_ : function(xpath, searchNode) {
+			
+			
+			
+			try {
+			//	var result = this.xml.find(xpath);
+				var result = this.xml.evaluate(xpath, searchNode, null, XPathResult.ANY_TYPE, null);
+			} 
+			catch (e) {
+				$.error('lgb.model.XmlParser.evaluate_(){0}'.format(e));
+			}
+			
+			//throw new Error('lgb.model.XmlParser.evaluate_() result is null for {0}'.format(xpath));
+			//$.error( 'lgb.model.XmlParser.evaluate_()' );
+			
+			//if (result.resultType == 4) {
+			//	$.error('lgb.model.XmlParser.evaluate_() result is null for {0}'.format(xpath));
+			//
+			
+			return result;
+		},
+		
 		getId: function() {
 
 			return this.getNodeValue("@id",  this.currentNode);
@@ -50,16 +77,21 @@ var lgb = (function(lgb) {
 				searchNode = this.currentNode;
 			}
 			
-			var xpathRes = this.xml.evaluate(xpath, searchNode, null, XPathResult.ANY_TYPE, null);
-			var resultNode = xpathRes.iterateNext();
+			var xpathResult = this.evaluate_(xpath, searchNode);
+			
+			
+		//	var xpathRes = this.xml.evaluate(xpath, searchNode, null, XPathResult.ANY_TYPE, null);
+			var resultNode = xpathResult.iterateNext();
 			
 			
 			return resultNode.nodeValue;
 		},
 		getContent : function(xpath) {
 
-			var xpathRes = this.xml.evaluate(xpath, this.currentNode, null, XPathResult.ANY_TYPE, null);
-			var resultNode = xpathRes.iterateNext();
+			//var xpathRes = this.xml.evaluate(xpath, this.currentNode, null, XPathResult.ANY_TYPE, null);
+			var xpathResult = this.evaluate_(xpath, this.currentNode);
+			
+			var resultNode = xpathResult.iterateNext();
 			
 			
 			return resultNode.textContent;
@@ -89,8 +121,10 @@ var lgb = (function(lgb) {
 			if (xpath == null) {
 				searchNode = this.currentNode;
 			} else {
-				var xpathRes = this.xml.evaluate(xpath, this.currentNode, null, XPathResult.ANY_TYPE, null);
-				searchNode = xpathRes.iterateNext();
+				var xpathResult = this.evaluate_(xpath, this.currentNode);
+				
+			//	var xpathRes = this.xml.evaluate(xpath, this.currentNode, null, XPathResult.ANY_TYPE, null);
+				searchNode = xpathResult.iterateNext();
 			}
 			
 			var ary = searchNode.textContent.split(',');

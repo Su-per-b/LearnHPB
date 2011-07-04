@@ -9,7 +9,7 @@
 		<link rel="stylesheet" href="css/lgb.css" type="text/css" media="screen" />
 		
 		<script type="text/javascript" src="js/lib/jquery.js"></script>
-
+		<script type="text/javascript" src="js/lgb_misc/jquery.xpath.js"></script>
 		
 		<script type="text/javascript" src="js/lib/jshashtable.js"></script>
 		

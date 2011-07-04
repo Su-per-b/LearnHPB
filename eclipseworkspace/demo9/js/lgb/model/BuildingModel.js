@@ -27,7 +27,6 @@ var lgb = (function(lgb) {
 		this.totalFloors = 5;
 		
 		this.envelopeModel = new lgb.model.EnvelopeModel();
-		this.HVACmodel = new lgb.model.HVACmodel();
 		this.roofTopModel = new lgb.model.RoofTopModel();
 		
 		

@@ -42,7 +42,7 @@ var lgb = (function(lgb) {
 		show : function() {
 
 			this.mesh.resetPosition();
-			this.mesh.rotateX( 270);
+			//this.mesh.rotateX( 270);
 			this.mesh.moveToOrigin();
 			
 			this.mesh.translate(

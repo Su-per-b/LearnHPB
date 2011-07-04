@@ -72,8 +72,8 @@ img {
 
 #adminButton {
 	position:absolute;
-	width:21px;
-	height:21px;
+	width:34px;
+	height:34px;
 	left:-2000px;
 	top:0px;
     z-index:101;
@@ -83,17 +83,17 @@ img {
 }
 #adminButtonLink {
 	
-	width:21px;
-	height:21px;
+	width:34px;
+	height:34px;
 	display:block;
 	background-color:transparent;  
 	margin:0 0 0 0;
 	
- 	background-image:url('../images/icon_wrench_21px.png');
+ 	background-image:url('../images/icon_wrench_34px.png');
 }
 
 #adminButtonLink:hover {
-	background-image:url('../images/icon_wrench_over_21px.png');
+	background-image:url('../images/icon_wrench_over_34px.png');
 }
 
 

@@ -14,14 +14,11 @@ var lgb = (function(lgb) {
 	lgb.view.BuildingView = function(dataModel){
 		lgb.view.ViewBase.call(this, dataModel);
 		
-	//	this.dataModel = dataModel;
-		
 		//the buildingView is composed of other views
 		this.envelopeView = new lgb.view.EnvelopeView(this.dataModel);
 		this.hvacView = new lgb.view.HVACview(this.dataModel);
 		this.roofTopView = new lgb.view.RoofTopView(this.dataModel);
 		
-		//this.listen(lgb.event.BuildingEvent.DATA_MODEL_CHANGED, this.onDataModelChanged);
 		this.listen(lgb.event.Loader.ALL_MESHES_LOAD_COMPLETE, this.onMeshesLoaded);
 		this.spanY = 0;
 	};			
@@ -34,8 +31,7 @@ var lgb = (function(lgb) {
 		getCenterPoint : function(event) {
 			
 			var localPoint = [this.spanX /2, this.spanY /2,-this.spanZ /2];
-			//var worldPoint = hemi.utils.pointAsWorld(this.hvacView.mesh.root, localPoint);
-			
+
 			return localPoint;
 		},
 		onMeshesLoaded : function(event) {
@@ -68,8 +64,6 @@ var lgb = (function(lgb) {
 			
 			this.roofTopView.positionOffset[0] = rooftopDeltaX;
 			this.roofTopView.positionOffset[2] = rooftopDeltaY;
-			//this.roofTopzOffset = this.roofTopView.mesh.spanZ;
-			//
 			
 			this.showHelper();
 		},

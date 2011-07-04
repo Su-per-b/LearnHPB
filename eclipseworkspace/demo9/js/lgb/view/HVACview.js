@@ -40,7 +40,6 @@ var lgb = (function(lgb) {
 		*/
 		show : function() {
 			this.mesh.resetPosition();
-			this.mesh.rotateX( 270);
 			this.mesh.moveToOrigin();
 
 			this.mesh.translate(this.positionOffset[0], this.positionOffset[1], this.positionOffset[2]);
