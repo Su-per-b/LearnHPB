@@ -19,9 +19,74 @@ var lgb = (function(lgb) {
 		this.name = "VIEWPOINTS";
 		this.currentViewIdx = 'default';
 		
-	};/*
+		this.viewPoints = {};	
+		
+		
+		this.userActions = [];
+		
+		//create a trigger for each zone
+	
+		var trigger = new lgb.model.component.Link(
+				this.name,
+				'Starting Viewpoint',
+				'default'
+			);
 
+		trigger.addEvents( 
+			lgb.event.ViewPointEvent.GO_TO, 
+			lgb.event.ViewPointEvent.SHOW, 
+			lgb.event.ViewPointEvent.HIDE
+		);
+		
+		this.userActions.push(trigger);
+		
+		
+		
+/*
+		var trigger = new lgb.model.component.Link(
+				this.name,
+				'All Zones',
+				'Zone 0'
+			);
+
+		trigger.addEvents( 
+			lgb.event.ZoneEvent.GO_TO, 
+			lgb.event.ZoneEvent.SHOW, 
+			lgb.event.ZoneEvent.HIDE
+		);
+		
+		this.userActions.push(trigger);
+		
 */
+		for (var i=1; i<10; i++) {
+				
+			var zoneNumber = i;
+			var title = 'Zone {0} Viewpoint'.format(zoneNumber.toString());
+			
+			var trigger = new lgb.model.component.Link(
+					this.name,
+					title,
+					'Zone {0}'.format(zoneNumber)
+				);
+
+			trigger.addEvents( 
+				lgb.event.ViewPointEvent.GO_TO, 
+				lgb.event.ViewPointEvent.SHOW, 
+				lgb.event.ViewPointEvent.HIDE
+			);
+		
+				
+			this.userActions.push(trigger);
+			
+		}
+		
+		
+		
+		this.dispatch(lgb.event.Event.USER_ACTIONS_CREATED, this);
+			
+	};
+
+
 
 
 	lgb.model.ViewPointModel.prototype = {
@@ -31,60 +96,6 @@ var lgb = (function(lgb) {
 		init: function(buildingView) {
 			
 			this.buildingView = buildingView;
-			
-			this.buildingFt = {
-				longSide: 125,
-				shortSide: 80,
-				cornerWidth: 15,
-				cornerHeight: 15
-			};
-			
-			this.buildingFt.coreLongSide = this.buildingFt.longSide - (this.buildingFt.cornerWidth *2);
-			this.buildingFt.coreShortSide = this.buildingFt.shortSide - (this.buildingFt.cornerHeight *2);
-
-			var pxPerFoot = buildingView.spanX /this.buildingFt.longSide;
-			
-			this.buildingMeters = {};
-			this.buildingMeters.longSide = buildingView.spanX;
-			this.buildingMeters.shortSide = buildingView.spanY;
-			this.buildingMeters.cornerWidth = this.buildingFt.cornerWidth * pxPerFoot;
-			this.buildingMeters.cornerHeight = this.buildingFt.cornerHeight * pxPerFoot;
-			this.buildingMeters.coreLongSide = this.buildingFt.coreLongSide * pxPerFoot;
-			this.buildingMeters.coreShortSide = this.buildingFt.coreShortSide * pxPerFoot;
-
-			this.viewPoints = [];
-			
-			var x = this.spanX - (this.buildingMeters.cornerWidth/2);
-			var y = this.buildingMeters.cornerHeight/2;
-			
-			this.makeViewPoint(x,y,'zone1');
-							
-			x = (this.buildingMeters.cornerWidth/2);
-			this.makeViewPoint(x,y,2);
-			
-			y = this.spanY - this.buildingMeters.cornerHeight/2;
-			this.makeViewPoint(x,y,8);
-
-			x = this.spanX - (this.buildingMeters.cornerWidth/2);
-			this.makeViewPoint(x,y,6);
-			
-			x =  this.buildingMeters.cornerWidth + (this.buildingMeters.coreLongSide /2);
-			y = this.buildingMeters.cornerHeight/2;
-			this.makeViewPoint(x,y,1);
-							
-			y = this.spanY - this.buildingMeters.cornerHeight/2;
-			this.makeViewPoint(x,y,7);
-			
-			x = this.spanX - (this.buildingMeters.cornerWidth/2);
-			y = this.buildingMeters.coreShortSide/2 + this.buildingMeters.cornerHeight;
-			this.makeViewPoint(x,y,3);
-										
-			x = (this.buildingMeters.coreLongSide/2) + this.buildingMeters.cornerWidth;				
-			this.makeViewPoint(x,y,4);
-								
-			x = (this.buildingMeters.cornerWidth/2);				
-			this.makeViewPoint(x,y,5);
-							
 			var target = buildingView.getCenterPoint();
 			
 			var vp = new hemi.view.Viewpoint();		// Create a new Viewpoint
@@ -95,22 +106,65 @@ var lgb = (function(lgb) {
 			return;			
 		},
 		
-		makeViewPoint: function( x, y, idx) {
+		processZones : function (zoneShapeAry) {
+			
+
+			for (var i=0, il = zoneShapeAry.length; i<il; i++) {
+				
+
+				var zoneShape = zoneShapeAry[i];
+				
+				var vp = new hemi.view.Viewpoint();
+				
+				var x = zoneShape.x;
+				var y = zoneShape.y;
+				var z = zoneShape.z; 
+
+
+				vp.target = lgb.convertPoint([x,y,z]);	
+				
+
+				vp.eye = lgb.convertPoint([x,y-6,z]);	
+				
+				var viewPointName = 'Zone {0}'.format(zoneShape.zoneNumber);
+				this.viewPoints[viewPointName] = vp;	
+			}
+						
+
+		},
+		goToZone : function (zoneNumber) {
+			var viewpointName = 'Zone {0}'.format(zoneNumber);
+			this.goTo(viewpointName);
+
+		},
+		goTo : function (viewPointName) {
+			
+			//if (this.currentViewIdx !== viewPointName) {
+				this.currentViewIdx = viewPointName;
+				this.dispatchLocal(lgb.event.Event.DATA_MODEL_CHANGED);
+			//}
+			
+		},
+
+/*
+		makeViewPointxx: function( x, y, idx) {
 
 			
 			var vp = new hemi.view.Viewpoint();		// Create a new Viewpoint
 			vp.eye = [x,this.spanZ/2, -y-6];					// Set viewpoint eye
 			vp.target = [x,this.spanZ/1.5, -y];					// Set viewpoint target
 			
+			
 			this.viewPoints[idx] = vp;
 
 		},
+*/
 		
 
-		
+	/*	
 		changeTarget: function( ) {
 
-/*
+
 			var target = this.buildingView.getCenterPoint();
 			
 			var vp = new hemi.view.Viewpoint();		// Create a new Viewpoint
@@ -123,8 +177,8 @@ var lgb = (function(lgb) {
 			this.viewPoints ['newTarget'] = vp;
 			this.currentViewIdx = 'newTarget';
 			
-*/
-		},
+
+		},*/
 		
 		
 		getCurrentViewPoint : function() {

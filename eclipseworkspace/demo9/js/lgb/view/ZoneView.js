@@ -85,6 +85,9 @@ var lgb = (function(lgb) {
 			
 			this.verticalHeight = buildingView.envelopeView.getMeshHeight();	
 			this.each(this.zones, this.positionOneZone);
+			
+			this.dispatch(lgb.event.Event.ZONES_REPOSITIONED, this.zones);
+			
 		},
 		positionOneZone: function(zoneShape) {
 			zoneShape.position(this.verticalHeight);
@@ -117,7 +120,8 @@ var lgb = (function(lgb) {
 				dim[1], 
 				this.dataModel.extZ,
 				xPos,
-				yPos
+				yPos,
+				zoneNumber
 				);
 			
 
@@ -152,9 +156,6 @@ var lgb = (function(lgb) {
 				
 			shapeGreenTarget.translate(vp.target[0], vp.target[1], vp.target[2]);
 */
-			
-			
-
 			
 		}	
 

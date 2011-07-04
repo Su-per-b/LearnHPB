@@ -11,7 +11,7 @@ var lgb = (function(lgb) {
 	/**
 	 * @class this is the MVC view class for the Visibility
 	 */
-	lgb.view.ZoneShape = function(height,width,depth, xPos, yPos){
+	lgb.view.ZoneShape = function(height,width,depth, xPos, yPos, zoneNumber){
 		lgb.view.ViewBase.call(this);
 		
 		
@@ -20,6 +20,7 @@ var lgb = (function(lgb) {
 		this.depth = depth;
 		this.xPos = xPos;
 		this.yPos = yPos;
+		this.zoneNumber = zoneNumber;
 		
 		this.maxOpacity = 0.7;
 			
@@ -60,11 +61,11 @@ var lgb = (function(lgb) {
 			this.shape.identity();
 			this.shape.rotateX(4.715);
 			
-			var x = this.centerWidth + this.xPos ;
-			var y = this.centerHeight + this.yPos;
-			var z = this.centerDepth + verticalHeight - this.depth;
+			this.x = this.centerWidth + this.xPos ;
+			this.y = this.centerHeight + this.yPos;
+			this.z = this.centerDepth + verticalHeight - this.depth;
 			
-			this.shape.translate(x, y, z);
+			this.shape.translate(this.x, this.y, this.z);
 		},
 		onFadeOutComplete : function(event) {
 			this.shape.visible = false;

@@ -83,6 +83,7 @@ o3djs.require('lgb.event.Cam');
 o3djs.require('lgb.event.Visibility');
 o3djs.require('lgb.event.ZoneEvent');
 o3djs.require('lgb.event.ParticleSystemEvent');
+o3djs.require('lgb.event.ViewPointEvent');
 
 
 

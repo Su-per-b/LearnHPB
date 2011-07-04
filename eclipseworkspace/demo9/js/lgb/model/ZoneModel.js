@@ -32,6 +32,7 @@ var lgb = (function(lgb) {
 		
 		//create a trigger for each zone
 	
+/*
 		var trigger = new lgb.model.component.Link(
 				this.name,
 				'All Zones',
@@ -45,10 +46,11 @@ var lgb = (function(lgb) {
 		);
 		
 		this.userActions.push(trigger);
+*/
 		
-		for (var i=0; i<9; i++) {
+		for (var i=1; i<10; i++) {
 				
-			var zoneNumber = i + 1;
+			var zoneNumber = i;
 			var title = 'Zone {0}'.format(zoneNumber.toString());
 			
 			var trigger = new lgb.model.component.Link(

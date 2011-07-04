@@ -35,6 +35,11 @@ var lgb = (function(lgb) {
 		
 		return ft * 0.3048;
 	};
+	lgb.convertPoint = function(point) {
+		
+		var convertedPoint = [point[0], point[2], (-1 * point[1])];
+		return convertedPoint;
+	};
 	
 	
 	
