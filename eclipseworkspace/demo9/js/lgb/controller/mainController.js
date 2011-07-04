@@ -24,6 +24,7 @@ var lgb = (function(lgb) {
 		init: function() {
 
 			$.error = this.onError;
+			lgb.util.F.preload('icon_wrench_over_34px.png,icon_exterior_envelope_over.png,icon_lighting_over.png,icon_general_over.png,icon_exterior_envelope_over.png');
 			
 			this.meshList = []; //an array of all the lgb.view.Mesh objects
 			
@@ -94,8 +95,7 @@ var lgb = (function(lgb) {
 			
 			
 			
-			lgb.util.F.preload('icon_wrench_over_34px.png,icon_exterior_envelope_over.png,icon_lighting_over.png,icon_general_over.png,icon_exterior_envelope_over.png');
-										
+							
 		},
 		
 		//handles the MESH_REQUEST event and adds meshes to the load queue

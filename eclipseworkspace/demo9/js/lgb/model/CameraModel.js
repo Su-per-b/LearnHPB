@@ -21,10 +21,10 @@ var lgb = (function(lgb) {
 		lgb.model.ModelBase.call(this);
 
 
-		this.title = "Camera";
+		this.title = "Camera Info";
+		this.name = "CAMERA";
 		
-		this.eye = [0,0,0];
-		this.target = [0,0,0];
+
 		
 
 		var selectionGroup1 = new lgb.model.component.SelectionGroup(
@@ -33,22 +33,13 @@ var lgb = (function(lgb) {
 			);
 		
 		
-		selectionGroup1.createItem('9 ft', 9, true);
+		selectionGroup1.createItem('up', 9, true);
 		selectionGroup1.createItem('11 ft', 11);
 		selectionGroup1.createItem('13 ft', 13);
 		
-		var selectionGroup2 = new lgb.model.component.SelectionGroup(
-				'Select Number of Stories',
-				lgb.event.BuildingEvent.CHANGE_NUMBER_OF_FLOORS
-			);
 		
-		selectionGroup2.createItem('3 floors', 3);
-		selectionGroup2.createItem('5 floors', 5, true);
-		selectionGroup2.createItem('7 floors', 7);
-		
-		
-		this.userActions = [selectionGroup1, selectionGroup2];
-
+		this.userActions = [selectionGroup1];
+		this.dispatch(lgb.event.Event.USER_ACTIONS_CREATED, this);
 
 	};
 

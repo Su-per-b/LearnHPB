@@ -13,7 +13,10 @@ var lgb = (function(lgb) {
 	lgb.controller.CameraController = function() {
 		
 		lgb.controller.ControllerBase.call(this);
-
+		
+		this.dataModel = new lgb.model.CameraModel();
+		this.view = new lgb.view.CameraView(this.dataModel);
+		
 	};
 	
 	

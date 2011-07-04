@@ -21,9 +21,8 @@ o3djs.require('lgb.controller.TitleBarController');
 o3djs.require('lgb.controller.AdminController');
 o3djs.require('lgb.controller.VisibilityController');
 o3djs.require('lgb.controller.ZoneController');
-o3djs.require('lgb.controller.component.RadioButtonGroupController');
-o3djs.require('lgb.controller.component.LinkController');
 o3djs.require('lgb.controller.ParticleSystemController');
+o3djs.require('lgb.controller.GuiComponentController');
 
 o3djs.require('lgb.model.ModelBase');
 o3djs.require('lgb.model.component.Link');

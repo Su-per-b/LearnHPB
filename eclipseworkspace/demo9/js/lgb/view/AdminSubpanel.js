@@ -34,13 +34,18 @@ var lgb = (function(lgb) {
 			var len = this.userActions.length;
 			for(var x = 0; x < len; x++) {
 				var uAct =  this.userActions[x];
-				var componentController = null;
+				//var componentController = null;
 			
+/*
 				if (uAct instanceof lgb.model.component.SelectionGroup) {
 					componentController = new lgb.controller.component.RadioButtonGroupController(uAct);
 				} else if (uAct instanceof lgb.model.component.Link) {
 					componentController = new lgb.controller.component.LinkController(uAct);
 				}
+*/
+				
+				var componentController = new lgb.controller.GuiComponentController(uAct);
+				 
 				 
 				this.componentControllers.push(componentController);
 			}
