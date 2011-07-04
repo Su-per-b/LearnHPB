@@ -9,14 +9,18 @@ var lgb = (function(lgb) {
 	 */
 	lgb.controller = lgb.controller || {};
 	
-	lgb.controller.ParticleSystemController = function(){
+	lgb.controller.ParticleSystemController = function(isFast){
 		lgb.controller.ControllerBase.call(this);
 		
-		this.dataModel = new lgb.model.ParticleSystemModel();
-		this.view = new lgb.view.ParticleSystemView(this.dataModel);
+		
+		if (isFast) {
+			this.dataModel = new lgb.model.FastParticleSystemModel();
+			this.view = new lgb.view.FastParticleSystemView(this.dataModel);
+		} else {
+			this.dataModel = new lgb.model.ParticleSystemModel();
+			this.view = new lgb.view.ParticleSystemView(this.dataModel);
+		}
 
-		
-		
 		this.listen(lgb.event.Loader.ALL_MESHES_LOAD_START, this.onMeshesLoadStart);
 		this.listen(lgb.event.ParticleSystemEvent.START, this.onStart);
 		this.listen(lgb.event.ParticleSystemEvent.STOP, this.onStop);
@@ -47,8 +51,7 @@ var lgb = (function(lgb) {
 			var buildingView = event.value;
 			buildingView.assertType(lgb.view.BuildingView);
 
-			var verticalHeight = buildingView.envelopeView.getMeshHeight();
-						
+			var verticalHeight = buildingView.envelopeView.getMeshHeight();		
 			this.view.positionAll(verticalHeight);
 			
 		},

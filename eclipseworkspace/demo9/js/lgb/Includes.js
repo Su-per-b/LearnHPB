@@ -47,6 +47,7 @@ o3djs.require('lgb.model.CameraModel');
 o3djs.require('lgb.model.VisibilityModel');
 o3djs.require('lgb.model.BuildingComponentModel');
 o3djs.require('lgb.model.ParticleSystemModel');
+o3djs.require('lgb.model.FastParticleSystemModel');
 
 o3djs.require('lgb.view.ViewBase');
 o3djs.require('lgb.view.component.Button');
@@ -72,6 +73,7 @@ o3djs.require('lgb.view.BuildingComponentView');
 o3djs.require('lgb.view.ZoneView');
 o3djs.require('lgb.view.ZoneShape');
 o3djs.require('lgb.view.ParticleSystemView');
+o3djs.require('lgb.view.FastParticleSystemView');
 o3djs.require('lgb.view.CrossSectionView');
 
 o3djs.require('lgb.event.EnvelopeEvent');
