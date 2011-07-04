@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- 	
+				Learn Green Buildings (http://su-per-b.org/projects_lgb.html)
+				by Institute For Superior Performance of Buildings (http://su-per-b.org)
+				for California Energy Commission (http://www.energy.ca.gov/)
+		 -->
+		 
+		<meta name="author" content="Joseph Deringer"><!-- Project Leader -->
+		<meta name="author" content="Raj Dye"><!-- Software Development (and some 2D Graphic design) (http://rajdye.com) -->
+		<meta name="author" content="Andrew Scully"><!-- 3D Modeling and Animation -->
+		<meta name="author" content="Elliot Nahman"><!-- Information Architecture -->
+		<meta name="author" content="Laura Strong"><!-- User Experience Consulting  -->
+		
+		<meta name = "description" content = "Learn Green Buildings: Commercial building energy use simulation" />
+		<meta name = "revised" content = "July 5, 2011" />
+		<meta name="Copyright" content="Copyright 2011, Institute For Superior Performance of Buildings">
+			
+		<meta charset="UTF-8" />
+		
+		
+		<!-- Style Sheets -->
+		<link type="text/css" href="css/jquery-ui.css" rel="stylesheet" />
+		<link type="text/css" href="css/lgb.css"  rel="stylesheet" />
+		
+		<!-- Libraries -->
+		<script type="text/javascript" src="js/lib/jquery.js"></script>
+		<script type="text/javascript" src="js/lib/floating-1.6.js"></script>
+		<script type="text/javascript" src="js/lib/jshashtable_src.js"></script>
+		<script type="text/javascript" src="js/jquery-ui/jquery-ui.js"></script>
+		
+		<!-- Fonts -->
+		<script type="text/javascript" src="js/lib/typeface-0.15.js"></script>
+		<script type="text/javascript" src="js/lib/futura_std_medium.typeface.js"></script>
+		<script type="text/javascript" src="js/lib/futura_std_bold.typeface.js"></script>
+
+		<!-- Kuda -->
+		<script type="text/javascript" src="js/o3d-webgl/base.js"></script>
+		<script type="text/javascript" src="js/o3djs/base.js"></script>
+		<script type="text/javascript" src="js/hemi/core.js"></script>
+		<script type="text/javascript" src="js/hext/utils/debug.js"></script>
+		
+		<!-- Learn Green Buildings App-->
+		<script type="text/javascript" src="js/lgb/Includes.js"></script>
+
+		<!-- Starts App -->
+		<script type="text/javascript">
+			var mainController = new lgb.controller.MainController();
+			mainController.init();
+		</script>
+		
+    </head>
+	
+    <body id="theBody"> 
+		<div id="o3d"></div>
+    </body>
+	
+</html>

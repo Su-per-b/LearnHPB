@@ -60,7 +60,7 @@
 	</scaleKeys>
 	
 	<system id="1">
-		<particleCount>200</particleCount>
+		<particleCount>100</particleCount>
 		<life>10</life>
 		<boundingBoxIds>1,2,heatingBox,coolingBox,4,5,6,7,8,9,10,diffuser1,12,13,20,2</boundingBoxIds>
 		<shape>SPHERE</shape>

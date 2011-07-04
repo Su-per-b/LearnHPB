@@ -13,7 +13,6 @@ o3djs.require('lgb.Base');
 
 o3djs.require('lgb.controller.ControllerBase');
 o3djs.require('lgb.controller.AdminController');
-o3djs.require('lgb.controller.ModeController');
 o3djs.require('lgb.controller.ZoneController');
 o3djs.require('lgb.controller.LeftNavController');
 o3djs.require('lgb.controller.GuiController');
@@ -36,7 +35,6 @@ o3djs.require('lgb.model.component.SelectionItem');
 o3djs.require('lgb.model.component.TextInput');
 
 o3djs.require('lgb.model.EnvelopeModel');
-o3djs.require('lgb.model.ModeModel');
 o3djs.require('lgb.model.ZoneModel');
 o3djs.require('lgb.model.XmlParser');
 o3djs.require('lgb.model.LeftNavModel');
