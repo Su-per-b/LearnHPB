@@ -24,9 +24,9 @@ var lgb = (function(lgb) {
 		init: function() {
 
 			$.error = this.onError;
-			lgb.util.F.preload('icon_wrench_over_34px.png,icon_exterior_envelope_over.png,icon_lighting_over.png,icon_general_over.png,icon_exterior_envelope_over.png');
+			lgb.preload('icon_wrench_over_34px.png,icon_exterior_envelope_over.png,icon_lighting_over.png,icon_general_over.png,icon_exterior_envelope_over.png');
 			
-			this.meshList = []; //an array of all the lgb.view.Mesh objects
+			this.meshList = []; //an array of all the lgb.kuda.Mesh objects
 			
 			this.listen(lgb.event.Event.MESH_REQUEST, this.onMeshRequest);
 			this.listen(lgb.event.Loader.ALL_MESHES_LOAD_COMPLETE, this.onMeshesLoaded);
@@ -90,7 +90,7 @@ var lgb = (function(lgb) {
 			this.progressBar = new lgb.view.ProgressBar();
 			this.progressBar.show();
 				
-			this.loader = new lgb.util.Loader();
+			this.loader = new lgb.kuda.Loader();
 			this.loader.loadMeshes( this.meshList );
 			
 			
@@ -103,7 +103,7 @@ var lgb = (function(lgb) {
 		onMeshRequest : function(event) {
 			
 			var meshListRequest = event.value;
-			meshListRequest.assertContainsType(lgb.view.Mesh);
+			meshListRequest.assertContainsType(lgb.kuda.Mesh);
 			this.meshList = this.meshList.concat(meshListRequest);
 		
 		},

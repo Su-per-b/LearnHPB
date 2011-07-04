@@ -6,14 +6,14 @@ var lgb = (function(lgb) {
 
 
 
-	lgb.view = lgb.view || {};
+	lgb.kuda = lgb.kuda || {};
 
 	/**
 	 * @class this is the MVC view class for the Left Nav
 	 */
-	lgb.view.FadeEffect = function(transform){
-		lgb.view.ViewBase.call(this);
-		
+	lgb.kuda.FadeEffect = function(transform){
+		lgb.Base.call(this);
+
 		this.transform = transform;
 		if (lgb.notNull(this.transform)) {
 			this.setOpacity(1);
@@ -29,7 +29,7 @@ var lgb = (function(lgb) {
 		
 	};
 	
-	lgb.view.FadeEffect.prototype = {
+	lgb.kuda.FadeEffect.prototype = {
 	
 			
 		fadeIn: function(){
@@ -109,39 +109,14 @@ var lgb = (function(lgb) {
 					this.setOpacityHelper_(children[i], true);
 				}
 			}
-		}/*
-,
-		addParamHelper_: function(transform) {
-			var shapes = transform.shapes;
-			
-			for (var i = 0, il = shapes.length; i < il; i++) {
-				var s = shapes[i],
-					elements = s.elements;
-				
-				for (var j = 0, jl = elements.length; j < jl; j++) {
-					hemi.fx.addOpacity(elements[j].material);
-				}
-			}
-			
-			var o = transform.createParam('opacity','ParamFloat');
-			o.value = this.opacityFloat;
-			
-			if (this.trickleFlag) {
-				var children = transform.children;
-				
-				for (var i = 0, il = children.length; i < il; i++) {
-					this.addParamHelper_(children[i]);
-				}
-			}
-			
 		}
-*/
 		
 		
 	};
 
-	lgb.view.FadeEffect.inheritsFrom(lgb.view.ViewBase);
 
+	lgb.kuda.FadeEffect.inheritsFrom(lgb.Base);
+	
 	return lgb;
 	
 })(lgb || {});

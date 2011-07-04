@@ -25,7 +25,7 @@
 		
 		<script type="text/javascript" src="js/lgb/Includes.js"></script>
 		<script type="text/javascript" src="js/lgb_misc/typeface-0.15.js"></script>
-		<script type="text/javascript" src="js/lgb_misc/futura_std_light.typeface.js"></script>
+
 		<script type="text/javascript" src="js/lgb_misc/futura_std_medium.typeface.js"></script>
 		<script type="text/javascript" src="js/lgb_misc/futura_std_bold.typeface.js"></script>
 

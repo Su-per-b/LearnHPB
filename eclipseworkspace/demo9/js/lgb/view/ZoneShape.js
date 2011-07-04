@@ -40,17 +40,15 @@ var lgb = (function(lgb) {
 		this.centerWidth = this.width /2;
 		this.shape.visible = false;
 
-		this.fadeEffect = new lgb.view.FadeEffect(this.shape);
+		this.fadeEffect = new lgb.kuda.FadeEffect(this.shape);
 		this.fadeEffect.setOpacity(0);
 		this.fadeEffect.opacityMax = 0.8;
 		this.fadeEffect.opacityMin = 0;
 		this.fadeEffect.fadeDelta = 0.2;
 		this.fadeEffect.trickleFlag = false;
 
-		//$(this.dataModel).bind(lgb.event.Event.FADE_IN_COMPLETE, this.d(this.onFadeInComplete));
 		$(this.fadeEffect).bind(lgb.event.Event.FADE_OUT_COMPLETE, this.d(this.onFadeOutComplete));
 			
-		//this.position(0);
 
 	};
 	

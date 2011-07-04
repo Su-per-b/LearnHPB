@@ -6,13 +6,13 @@ var lgb = (function(lgb){
 
 
 
-    lgb.util = lgb.util || {};
+    lgb.kuda = lgb.kuda || {};
     
     /**
      * @class initilizes the Kuda/O3d world and handles the loading of meshes
      * fires off a PROGRESS_UPDATE events and an ALL_MESHES_LOAD_COMPLETE event
      */
-    lgb.util.Loader = function(){
+    lgb.kuda.Loader = function(){
         lgb.Base.call(this);
 		
         this.subscriberWorldReady = null;
@@ -21,7 +21,7 @@ var lgb = (function(lgb){
     };
     
     
-    lgb.util.Loader.prototype = {
+    lgb.kuda.Loader.prototype = {
     
 
         loadMeshes: function(meshList){
@@ -34,8 +34,8 @@ var lgb = (function(lgb){
 			
 			//at this point we init theworld camera again so 
 			// that we can use a sublcass
-			lgb.Cam.staticInit();
-			var cam = new lgb.Cam();
+			lgb.kuda.Cam.staticInit();
+			var cam = new lgb.kuda.Cam();
 			cam.init();
 			
 			hemi.world.setCamera(cam);
@@ -72,7 +72,7 @@ var lgb = (function(lgb){
     };
     
     
-    lgb.util.Loader.inheritsFrom(lgb.Base);
+    lgb.kuda.Loader.inheritsFrom(lgb.Base);
     
     
     return lgb;

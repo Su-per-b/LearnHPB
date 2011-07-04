@@ -1,13 +1,17 @@
 o3djs.require('lgb.event.EventBus');
+o3djs.require('lgb.Lgb');
 o3djs.require('lgb.Base');
 o3djs.require('lgb.Global');
 o3djs.require('lgb.Config');
 
-o3djs.require('lgb.Base');
-o3djs.require('lgb.controller.ControllerBase');
-o3djs.require('lgb.animation');
-o3djs.require('lgb.Cam');
+o3djs.require('lgb.kuda.Mesh');
+o3djs.require('lgb.kuda.Cam');
+o3djs.require('lgb.kuda.Loader');
+o3djs.require('lgb.kuda.FadeEffect');
 
+o3djs.require('lgb.Base');
+
+o3djs.require('lgb.controller.ControllerBase');
 o3djs.require('lgb.controller.AdminController');
 o3djs.require('lgb.controller.ModeController');
 o3djs.require('lgb.controller.ZoneController');
@@ -47,7 +51,6 @@ o3djs.require('lgb.view.component.Link');
 o3djs.require('lgb.view.component.RadioButtonGroup');
 o3djs.require('lgb.view.component.Slider');
 o3djs.require('lgb.view.component.Link');
-o3djs.require('lgb.view.Mesh');
 o3djs.require('lgb.view.EnvelopeView');
 o3djs.require('lgb.view.LeftNavView');
 o3djs.require('lgb.view.ProgressBar');
@@ -61,7 +64,6 @@ o3djs.require('lgb.view.AdminSubpanel');
 o3djs.require('lgb.view.TitleBarView');
 o3djs.require('lgb.view.AdminButtonView');
 o3djs.require('lgb.view.BuildingComponentView');
-o3djs.require('lgb.view.FadeEffect');
 o3djs.require('lgb.view.ZoneView');
 o3djs.require('lgb.view.ZoneShape');
 o3djs.require('lgb.view.ParticleSystemView');
@@ -76,5 +78,6 @@ o3djs.require('lgb.event.Visibility');
 o3djs.require('lgb.event.ZoneEvent');
 o3djs.require('lgb.event.ParticleSystemEvent');
 
-o3djs.require('lgb.util.Loader');
-o3djs.require('lgb.util.F');
+
+
+

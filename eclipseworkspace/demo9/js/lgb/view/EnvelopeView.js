@@ -21,9 +21,9 @@ var lgb = (function(lgb) {
 		this.dataModel = dataModel;
 		this.meshFloorHeight = 0;
 		
-		this.namedMeshList['9'] = new lgb.view.Mesh('9FootEnvelope.json');
-		this.namedMeshList['11'] = new lgb.view.Mesh('11FootEnvelope.json');
-		this.namedMeshList['13'] = new lgb.view.Mesh('13FootEnvelope.json');
+		this.namedMeshList['9'] = new lgb.kuda.Mesh('9FootEnvelope.json');
+		this.namedMeshList['11'] = new lgb.kuda.Mesh('11FootEnvelope.json');
+		this.namedMeshList['13'] = new lgb.kuda.Mesh('13FootEnvelope.json');
 		
 		this.floorInstances = null;
 		this.allFloorInstances = {};

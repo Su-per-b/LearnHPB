@@ -6,15 +6,15 @@ var lgb = (function(lgb) {
 
 
 
-	lgb.view = lgb.view || {};
+	lgb.kuda = lgb.kuda || {};
 
 	/**
 	 * @class this is a subclass of the hemi.model.Model
 	 */
-	lgb.view.Mesh = function(fileName){
+	lgb.kuda.Mesh = function(fileName){
 		hemi.model.Model.call(this);
 			
-		this.fadeEffect = new lgb.view.FadeEffect();
+		this.fadeEffect = new lgb.kuda.FadeEffect();
 		
 		if (null !== fileName && undefined !== fileName) {
 			this.setFileName(fileName);
@@ -23,7 +23,7 @@ var lgb = (function(lgb) {
 		}
 	};
 	
-	lgb.view.Mesh.prototype = {
+	lgb.kuda.Mesh.prototype = {
 	
 	
 		/**
@@ -107,7 +107,7 @@ var lgb = (function(lgb) {
 			var core = hemi.core,
 				pack = core.mainPack;
 			
-			var newMesh = new lgb.view.Mesh(this.fileName);
+			var newMesh = new lgb.kuda.Mesh(this.fileName);
 			newMesh.pack = hemi.core.client.createPack();
 			
 			var transform = newMesh.pack.createObject('Transform');  //o3d.Transform
@@ -183,7 +183,7 @@ var lgb = (function(lgb) {
 			
 
 			
-			var newMesh = new lgb.view.Mesh();
+			var newMesh = new lgb.kuda.Mesh();
 			newMesh.fileName = this.fileName;
 			newMesh.name = this.name;
 			newMesh.loadConfig2(config);
@@ -406,7 +406,7 @@ var lgb = (function(lgb) {
 					break;
 				}
 				default: {
-					throw new Error('lgb.view.Mesh.rotate(): axis unrecognized')
+					throw new Error('lgb.kuda.Mesh.rotate(): axis unrecognized')
 				}
 			}
 			
@@ -417,10 +417,10 @@ var lgb = (function(lgb) {
 
 	};
 
-	lgb.view.Mesh.inheritsFrom(hemi.model.Model);
+	lgb.kuda.Mesh.inheritsFrom(hemi.model.Model);
 
 
-	lgb.view.Mesh.prototype.__defineGetter__('spanX',
+	lgb.kuda.Mesh.prototype.__defineGetter__('spanX',
 	    function(p) {
 			
 			if (this.root == null) {
@@ -434,7 +434,7 @@ var lgb = (function(lgb) {
 
 	    }
 	);
-	lgb.view.Mesh.prototype.__defineGetter__('spanY',
+	lgb.kuda.Mesh.prototype.__defineGetter__('spanY',
 	    function(p) {
 			
 			if (this.root == null) {
@@ -450,7 +450,7 @@ var lgb = (function(lgb) {
 
 	    }
 	);
-	lgb.view.Mesh.prototype.__defineGetter__('spanZ',
+	lgb.kuda.Mesh.prototype.__defineGetter__('spanZ',
 	    function(p) {
 			
 			if (this.root == null) {

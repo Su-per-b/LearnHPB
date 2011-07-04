@@ -17,10 +17,8 @@ var lgb = (function(lgb) {
 		
 		dataModel.assertType(lgb.model.component.SelectionGroup);
 
-		
 		this.dataModel = dataModel;
 
-	//	this.idList =[];
 	};
 	
 	lgb.view.component.RadioButtonGroup.prototype = {

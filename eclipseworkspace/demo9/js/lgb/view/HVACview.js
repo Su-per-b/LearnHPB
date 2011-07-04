@@ -15,7 +15,7 @@ var lgb = (function(lgb) {
 		this.dataModel = dataModel; //building
 		this.positionOffset =[];
 		
-		this.mesh = new lgb.view.Mesh('ductwork.json');
+		this.mesh = new lgb.kuda.Mesh('ductwork.json');
 		
 		this.dispatch(lgb.event.Event.MESH_REQUEST, [this.mesh]);
 	}

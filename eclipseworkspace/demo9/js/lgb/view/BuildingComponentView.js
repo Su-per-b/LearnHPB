@@ -13,7 +13,7 @@ var lgb = (function(lgb) {
 	 */
 	lgb.view.BuildingComponentView = function(dataModel){
 		lgb.view.ViewBase.call(this, dataModel);
-		this.fadeEffect = new lgb.view.FadeEffect(this.dataModel.transform);
+		this.fadeEffect = new lgb.kuda.FadeEffect(this.dataModel.transform);
 	};
 	
 	lgb.view.BuildingComponentView.prototype = {

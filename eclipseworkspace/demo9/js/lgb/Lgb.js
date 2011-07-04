@@ -1,34 +1,12 @@
-
-/**
- * @namespace
- */
-var lgb = (function(lgb){
-
+var lgb = (function(lgb) {
 
 	lgb.notNull = function(value) {
 		return !lgb.isNull(value);
 	};
+	
 	lgb.isNull = function(value) {
 		return (null === value || undefined === value)
 	};
-	
-    lgb.util = lgb.util || {};
-    
-	
-    /**
-     * @class
-     */
-    lgb.util.F = function(){
-        lgb.Base.call(this);
-        
-    };
-    
-    
-    lgb.util.F.prototype = {
-    
-
-    };
-	
 	
 	/** 
 	 * used to preload images like for image roll-overs
@@ -36,7 +14,7 @@ var lgb = (function(lgb){
 	 * @param {images} array of image names
 	 * @return {void}
 	 */
-	lgb.util.F.preload = function(images) {
+	lgb.preload = function(images) {
         var i = 0;
 		
         var imageArray = images.split(',');
@@ -49,16 +27,16 @@ var lgb = (function(lgb){
             imageObj.src=src;
         }
 	};
+	
 	/*
 	* converts feet to meters
 	*/
-	lgb.util.F.ftToM = function(ft) {
+	lgb.ftToM = function(ft) {
 		
 		return ft * 0.3048;
 	};
 	
 	
-
 	
 	/**
 	* Used to verify the number and type of arguments passed to a function
@@ -67,7 +45,7 @@ var lgb = (function(lgb){
 	* @param {expectedArgCount} The number of arguments expected
 	*
 	*/
-	lgb.util.F.validateArgs = function ( arrayOfTypes, expectedArgCount){
+	lgb.validateArgs = function ( arrayOfTypes, expectedArgCount){
 		//get the parameters of the function that is executing validArgs
 		var args = lgb.utils.validArgs.caller.arguments,
 			len = args.length;
@@ -92,25 +70,8 @@ var lgb = (function(lgb){
 			}
 	     }
 	};
+
 	
+	return lgb;
 	
-	
-    
-    lgb.util.F.inheritsFrom(lgb.Base);
-    
-    
-    return lgb;
-    
 })(lgb || {});
-
-
-
-
-
-
-
-
-
-
-
-

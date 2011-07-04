@@ -17,37 +17,13 @@ var lgb = (function(lgb) {
 		
 		this.listen(lgb.event.Loader.ALL_MESHES_LOAD_COMPLETE, this.onMeshesLoaded);
 
-		
-		
-		
-		//this.cam = new lgb.CameraWrapper();
 
-			
-		
 	};
 	
 	lgb.view.ViewPointView.prototype = {
 	
 		onMeshesLoaded : function(event) {
-			
-/*
-			this.targetBox = hemi.shape.create({
-					shape: 'box',
-					color: [0, 1, 0, 0.9],
-					h: 1,
-					w: 1,
-					d: 1
-				});
-*/
-			//this.cam.init();
-			
-/*
-			this.subscriberCameraStopped = hemi.world.camera.subscribe(
-					hemi.msg.stop,
-					this.d(this.onCameraMoved)
-			);
-*/
-			
+		
 		},
 		
 
@@ -63,10 +39,10 @@ var lgb = (function(lgb) {
 		},
 		
         onCameraMoveComplete: function(event) {
-			//this.dispatch(lgb.view.ViewPointViewState.STOPPED);
+
         },
         changeTarget: function(event){
-			//this.cam.changeTarget(vp.target);
+
         }
 
 	};

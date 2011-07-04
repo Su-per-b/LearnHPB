@@ -6,21 +6,17 @@ var lgb = (function(lgb) {
 
 
 
-	lgb.view = lgb.view || {};
+	lgb.kuda = lgb.kuda || {};
 
 	/**
 	 * @class
 	 */
-	lgb.Cam = function(){
+	lgb.kuda.Cam = function(){
 		hemi.view.Camera.call(this);
-
-
 	};
 	
-//	var parentMyFunc = this.update;
-	//this.parent_setEyeTarget = this.setEyeTarget;
-		
-	lgb.Cam.prototype = {
+
+	lgb.kuda.Cam.prototype = {
 	
 		
 		init : function() {
@@ -61,8 +57,8 @@ var lgb = (function(lgb) {
 
 	};
 
-	lgb.Cam.staticInit = function() {
-		lgb.Cam.inheritsFrom(hemi.view.Camera);
+	lgb.kuda.Cam.staticInit = function() {
+		lgb.kuda.Cam.inheritsFrom(hemi.view.Camera);
 	};
 	
 

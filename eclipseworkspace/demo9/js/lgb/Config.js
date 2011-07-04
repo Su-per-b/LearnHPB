@@ -12,7 +12,7 @@ var lgb = (function(lgb) {
 	lgb.Config.DEBUG_EVENTS = true;
 	lgb.Config.ASSETS_PATH = '3d_assets/';
 	lgb.Config.APP_TITLE = "Learn Grean Buildings - Demo 9";
-	lgb.Config.APP_VERSION = '0.09.02';
+	lgb.Config.APP_VERSION = '0.09.03';
 	lgb.Config.BACKGROUND_COLOR = [0.7, 0.8, 1, 1];
 	
 	
