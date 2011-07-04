@@ -36,9 +36,6 @@ var lgb = (function(lgb) {
 						<a id="adminButtonLink" title="Admin" href="#"></a>\
 						</div>';
 
-/*
-			var html = '<a id="adminButtonLink" title="Admin" href="#"></a>';
-*/
 
 			 this.append(html);
 			

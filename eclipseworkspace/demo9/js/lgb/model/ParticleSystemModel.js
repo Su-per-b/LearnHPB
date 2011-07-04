@@ -72,10 +72,11 @@ var lgb = (function(lgb) {
 		
 		load: function(){
 
-
+			 var url = lgb.Config.XML_BASE_PATH + "particleSystems.xml";
+			 
 			  $.ajax({
 			    type: "GET",
-			    url: "particleSystems.xml",
+			    url: url,
 			    dataType: "xml",
 			    success: this.d(this.parse)
 			  });

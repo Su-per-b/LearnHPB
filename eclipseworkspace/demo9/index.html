@@ -1,32 +1,50 @@
-
 <!DOCTYPE html>
 <html>
 	<head>
-
-		<link type="text/css" href="css/lgb-ui/ui.css" rel="stylesheet" />
+		<!-- 	
+				Learn Green Buildings (http://su-per-b.org/projects_lgb.html)
+				by Institute For Superior Performance of Buildings (http://su-per-b.org)
+				for California Energy Commission (http://www.energy.ca.gov/)
+		 -->
+		 
+		<meta name="author" content="Joseph Deringer"><!-- Project Leader -->
+		<meta name="author" content="Raj Dye"><!-- Software Development (and some 2D Graphic design) (http://rajdye.com) -->
+		<meta name="author" content="Andrew Scully"><!-- 3D Modeling and Animation -->
+		<meta name="author" content="Elliot Nahman"><!-- Information Architecture -->
+		<meta name="author" content="Laura Strong"><!-- User Experience Consulting  -->
+		
+		<meta name = "description" content = "Learn Green Buildings: Commercial building energy use simulation" />
+		<meta name = "revised" content = "July 5, 2011" />
+		<meta name="Copyright" content="Copyright 2011, Institute For Superior Performance of Buildings">
+			
+		<meta charset="UTF-8" />
+		
+		
+		<!-- Style Sheets -->
+		<link type="text/css" href="css/jquery-ui.css" rel="stylesheet" />
 		<link type="text/css" href="css/lgb.css"  rel="stylesheet" />
 		
+		<!-- Libraries -->
 		<script type="text/javascript" src="js/lib/jquery.js"></script>
-		<script type="text/javascript" src="js/lib/jshashtable.js"></script>
+		<script type="text/javascript" src="js/lib/floating-1.6.js"></script>
+		<script type="text/javascript" src="js/lib/jshashtable_src.js"></script>
 		<script type="text/javascript" src="js/jquery-ui/jquery-ui.js"></script>
 		
-		<script type="text/javascript" src="js/lgb-util/typeface-0.15.js"></script>
-		<script type="text/javascript" src="js/lgb-util/futura_std_medium.typeface.js"></script>
-		<script type="text/javascript" src="js/lgb-util/futura_std_bold.typeface.js"></script>
-		
-		<script type="text/javascript" src="js/lgb-util/floating-1.6.js"></script>
-		<script type="text/javascript" src="js/lgb-util/html5slider.js"></script>
-		
+		<!-- Fonts -->
+		<script type="text/javascript" src="js/lib/typeface-0.15.js"></script>
+		<script type="text/javascript" src="js/lib/futura_std_medium.typeface.js"></script>
+		<script type="text/javascript" src="js/lib/futura_std_bold.typeface.js"></script>
+
+		<!-- Kuda -->
 		<script type="text/javascript" src="js/o3d-webgl/base.js"></script>
 		<script type="text/javascript" src="js/o3djs/base.js"></script>
 		<script type="text/javascript" src="js/hemi/core.js"></script>
 		<script type="text/javascript" src="js/hext/utils/debug.js"></script>
 		
+		<!-- Learn Green Buildings App-->
 		<script type="text/javascript" src="js/lgb/Includes.js"></script>
 
-
-
-
+		<!-- Starts App -->
 		<script type="text/javascript">
 			var mainController = new lgb.controller.MainController();
 			mainController.init();
@@ -36,15 +54,6 @@
 	
     <body id="theBody"> 
 		<div id="o3d"></div>
-	<!--
-
-		
-<div class="typeface-js" style="font-family: Helvetiker">
-	Text here in Helvetiker <strong>font...</strong>
-			
-		<script type="text/javascript" src="js/lgb_misc/jquery-ui-1.8.14.custom.min.js"></script>
-</div>-->
-
     </body>
 	
 </html>

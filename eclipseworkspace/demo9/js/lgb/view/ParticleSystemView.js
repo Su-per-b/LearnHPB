@@ -50,16 +50,13 @@ var lgb = (function(lgb) {
 		},
 		
 		positionAll: function(verticalHeight) {
-			
-		//	var verticalHeight = buildingView.envelopeView.getMeshHeight();
-				
+					
 			var x = this.rootPosition[0];
 			var y = this.rootPosition[1] + verticalHeight;
 			var z = this.rootPosition[2];
 			
 			this.rootTransform.identity();
 			this.rootTransform.translate(x,y,z);
-			
 			
 		},
 		start : function() {

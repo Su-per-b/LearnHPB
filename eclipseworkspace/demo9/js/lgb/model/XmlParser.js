@@ -26,11 +26,6 @@ var lgb = (function(lgb) {
 	lgb.model.XmlParser.prototype = {
 		
 		makeRootNode: function(xpath) {
-
-			
-			//var result = this.xml.find(xpath);
-			//var t = result.text();
-			//var result = this.xml.find( xpath);
 			
 			this.xpathResult = this.evaluate_(xpath, this.xml);
 			this.currentNode = this.xpathResult.iterateNext();
@@ -42,19 +37,13 @@ var lgb = (function(lgb) {
 			
 			
 			try {
-			//	var result = this.xml.find(xpath);
 				var result = this.xml.evaluate(xpath, searchNode, null, XPathResult.ANY_TYPE, null);
 			} 
 			catch (e) {
 				$.error('lgb.model.XmlParser.evaluate_(){0}'.format(e));
 			}
 			
-			//throw new Error('lgb.model.XmlParser.evaluate_() result is null for {0}'.format(xpath));
-			//$.error( 'lgb.model.XmlParser.evaluate_()' );
-			
-			//if (result.resultType == 4) {
-			//	$.error('lgb.model.XmlParser.evaluate_() result is null for {0}'.format(xpath));
-			//
+
 			
 			return result;
 		},

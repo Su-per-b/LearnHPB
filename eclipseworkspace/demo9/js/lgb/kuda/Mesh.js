@@ -33,7 +33,7 @@ var lgb = (function(lgb) {
 		 */
 		setFileName: function(fileName) {
 			
-			this.fileName = lgb.Config.ASSETS_PATH + fileName;
+			this.fileName = lgb.Config.ASSETS_BASE_PATH + fileName;
 			this.name = this.getModelName(fileName);
 		},
 		
