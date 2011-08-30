@@ -24,7 +24,7 @@ var lgb = (function(lgb) {
 		init: function() {
 
 			$.error = this.onError;
-			lgb.preload('icon_wrench_over_34px.png,icon_exterior_envelope_over.png,icon_lighting_over.png,icon_general_over.png,icon_exterior_envelope_over.png');
+			lgb.preload('icon_wrench_over_34px.png,icon_hvac_over.png,icon_exterior_envelope_over.png,icon_general_over.png');
 			
 			this.meshList = []; //an array of all the lgb.kuda.Mesh objects
 			

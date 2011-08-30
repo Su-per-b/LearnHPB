@@ -19,10 +19,11 @@ var lgb = (function(lgb) {
 		
         var imageArray = images.split(',');
         
-        var imageObj = new Image();
+        
         for(i=0; i<=imageArray.length-1; i++) {
         	var src = 'images/' + imageArray[i];
         	
+			var imageObj = new Image(42,42);
            // document.write('<img src="' + src + '" />');// Write to page (uncomment to check images)
             imageObj.src=src;
         }

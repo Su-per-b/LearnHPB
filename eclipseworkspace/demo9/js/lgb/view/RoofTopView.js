@@ -14,7 +14,7 @@ var lgb = (function(lgb) {
 		this.dataModel = dataModel; //building
 		this.positionOffset =[];
 		
-		this.mesh = new lgb.kuda.Mesh('rooftop.json');
+		this.mesh = new lgb.kuda.Mesh('flipped_normals3.json');
 		
 		
 		this.dispatch(lgb.event.Event.MESH_REQUEST, [this.mesh]);
