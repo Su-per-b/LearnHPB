@@ -1,8 +1,4 @@
 
-
-
-
-
 var lgb = (function(lgb) {
 
 	lgb.controller = lgb.controller || {};
@@ -15,10 +11,10 @@ var lgb = (function(lgb) {
 	lgb.controller.MainController = function() {
 		
 		//lgb.controller.ControllerBase.call(this);
-		this.camera = null;
-		this.scene = null;
-		this.projector = null;
-		this.renderer = null;
+		this.camera = null;  //THREE.Camera
+		this.scene = null;	 //THREE.Scene
+		this.projector = null;	//THREE.Projector
+		this.renderer = null;  //THREE.WebGLRenderer
 		this.info = null;
 		this.mouse = { x: 0, y: 0 };
 		
@@ -34,7 +30,6 @@ var lgb = (function(lgb) {
 		this.totalFaces = 0;
 		this.totalColliders = 0;
 
-
 	};
 	
 	
@@ -49,10 +44,10 @@ var lgb = (function(lgb) {
 		},
 		onDocumentReady : function(event) {
 			
-			this.init2();
+			this.load();
 							
 		},
-		init2: function() {
+		load : function() {
 
 			var container = document.createElement( 'div' );
 			document.body.appendChild( container );
@@ -64,11 +59,11 @@ var lgb = (function(lgb) {
 			
 			this.loader = new THREE.JSONLoader(  );
 			this.scene = new THREE.Scene();
-		
 			this.projector = new THREE.Projector();
 		
 			this.renderer = new THREE.WebGLRenderer();
 			this.renderer.setSize( window.innerWidth, window.innerHeight );
+			
 			container.appendChild( this.renderer.domElement );
 			
 			var ambientLight = new THREE.AmbientLight( 0x606060 );
@@ -102,12 +97,30 @@ var lgb = (function(lgb) {
 		},
 		
 		loadMesh : function (p) {
+			var delegate = $.proxy(this.onGeometryLoaded, this);
+			this.loader.load( { model: "3d-assets/roofTop2.js", callback: delegate } );
+			
+			//this.loader.load( { model: "3d-assets/damper/horizontal_bar.js", callback: delegate } );
+			//this.loader.load( { model: "3d-assets/damper2/horizontal_bar.js", callback: delegate } );
+		},
 
-			var onGeometry = function( geometry ) {	
-				addOneMesh( new THREE.Vector3(	0,	0,	0), geometry );
-			}
-
-			this.loader.load( { model: "3d-assets/roofTop2.js", callback: onGeometry } );
+		onGeometryLoaded : function( geometry ) {
+			this.addOneMesh( new THREE.Vector3(	0,	0,	0), geometry );
+		},
+		
+		addOneMesh : function( p, g) {
+		
+			this.totalFaces += g.faces.length;
+			this.totalColliders++;
+		
+			var mesh = new THREE.Mesh( g, new THREE.MeshPhongMaterial( { color: 0x003300 } ) );
+			
+			mesh.position = p;
+			this.scene.addObject( mesh );
+			
+			var mc = THREE.CollisionUtils.MeshColliderWBox(mesh);
+			THREE.Collisions.colliders.push( mc );
+			this.meshes.push( mesh );
 		},
 		
 		onError : function(msg) {
@@ -126,7 +139,9 @@ var lgb = (function(lgb) {
 		
 			var ray = new THREE.Ray( this.camera.position, vector.subSelf( this.camera.position ).normalize() );
 			
-			if ( this.meshes.length == 0 ) return;
+			if (this.meshes.length === 0) {
+				return;
+			}
 			
 			var i, l = this.meshes.length;
 			
@@ -171,33 +186,7 @@ var lgb = (function(lgb) {
 			this.stats.update();
 			
 		},
-		
-		
-		loadMesh : function (p) {
 
-			var delegate = $.proxy(this.onGeometry, this);
-			this.loader.load( { model: "3d-assets/roofTop2.js", callback: delegate } );
-			
-		},
-		onGeometry : function( geometry ) {
-			this.addOneMesh( new THREE.Vector3(	0,	0,	0), geometry );
-		},
-
-		addOneMesh : function( p, g) {
-		
-			this.totalFaces += g.faces.length;
-			this.totalColliders++;
-		
-			var mesh = new THREE.Mesh( g, new THREE.MeshPhongMaterial( { color: 0x003300 } ) );
-			
-			mesh.position = p;
-			this.scene.addObject( mesh );
-			
-			var mc = THREE.CollisionUtils.MeshColliderWBox(mesh);
-			THREE.Collisions.colliders.push( mc );
-			this.meshes.push( mesh );
-		},
-		
 		onDocumentMouseMove : function( event ) {
 		
 			event.preventDefault();	
@@ -209,9 +198,12 @@ var lgb = (function(lgb) {
 
 		vts : function(v) {
 		
-			if(!v) return "undefined<br>";
-			else return v.x.toFixed(2) + " , " + v.y.toFixed(2) + " , " + v.z.toFixed(2) + "<br>";
-		
+			if (!v) {
+				return "undefined<br>";
+			}
+			else {
+				return v.x.toFixed(2) + " , " + v.y.toFixed(2) + " , " + v.z.toFixed(2) + "<br>";
+			}
 		}
 
 		
