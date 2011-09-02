@@ -1,8 +1,4 @@
 
-
-
-
-
 var lgb = (function(lgb) {
 
 	lgb.controller = lgb.controller || {};

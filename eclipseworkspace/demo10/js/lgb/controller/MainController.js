@@ -1,3 +1,4 @@
+console.log("loaded MainController");
 
 var lgb = (function(lgb) {
 
@@ -10,7 +11,7 @@ var lgb = (function(lgb) {
 	 */
 	lgb.controller.MainController = function() {
 		
-		//lgb.controller.ControllerBase.call(this);
+		lgb.controller.ControllerBase.call(this);
 		this.camera = null;  //THREE.Camera
 		this.scene = null;	 //THREE.Scene
 		this.projector = null;	//THREE.Projector
@@ -36,18 +37,26 @@ var lgb = (function(lgb) {
 	lgb.controller.MainController.prototype = {
 		
 		
-		init: function() {
+		initxx: function() {
 
-			var delegate = $.proxy(this.onDocumentReady, this);
-			jQuery(document).ready(delegate);
+			//this.dragDropController = new lgb.controller.DragDropController();
+			//this.dragDropController.init();
+			
+
+			
+			//var delegate = $.proxy(this.onDocumentReady, this);
+			//jQuery(document).ready(delegate);
 			
 		},
-		onDocumentReady : function(event) {
+		init : function(event) {
+			
+			this.loaderController = new lgb.controller.LoaderController();
+			//this.loaderController.load();
 			
 			this.load();
-							
+			//this.events();		
 		},
-		load : function() {
+		loadxx : function() {
 
 			var container = document.createElement( 'div' );
 			document.body.appendChild( container );
@@ -89,6 +98,8 @@ var lgb = (function(lgb) {
 			this.stats.domElement.style.top = '0px';
 			container.appendChild( this.stats.domElement );
 		
+		
+		
 			var delegate2 = $.proxy(this.onDocumentMouseMove, this);
 		
 			container.onmousemove = delegate2;
@@ -97,9 +108,18 @@ var lgb = (function(lgb) {
 		},
 		
 		loadMesh : function (p) {
-			var delegate = $.proxy(this.onGeometryLoaded, this);
-			this.loader.load( { model: "3d-assets/roofTop2.js", callback: delegate } );
 			
+			//var delegate = $.proxy(this.onGeometryLoaded, this);
+			//this.loader.load( { model: "3d-assets/roofTop2.js", callback: delegate } );
+			
+			this.loader.load( 
+				{ 
+					model: "3d-assets/damper-solo.obj_ascii.js", 
+					callback: this.d(this.onGeometryLoaded) 
+				} 
+			);
+
+			//this.loader.load( { model: "3d-assets/damper-solo.obj.js.js", callback: delegate } );
 			//this.loader.load( { model: "3d-assets/damper/horizontal_bar.js", callback: delegate } );
 			//this.loader.load( { model: "3d-assets/damper2/horizontal_bar.js", callback: delegate } );
 		},
@@ -107,7 +127,7 @@ var lgb = (function(lgb) {
 		onGeometryLoaded : function( geometry ) {
 			this.addOneMesh( new THREE.Vector3(	0,	0,	0), geometry );
 		},
-		
+
 		addOneMesh : function( p, g) {
 		
 			this.totalFaces += g.faces.length;
@@ -209,7 +229,8 @@ var lgb = (function(lgb) {
 		
 	};
 	
-
+		lgb.controller.MainController.inheritsFrom(lgb.controller.ControllerBase);
+		
 	return lgb;
 	
 })(lgb || {});
@@ -217,7 +238,7 @@ var lgb = (function(lgb) {
 
 
 
-
+console.log("parsed MainController");
 
 
 
