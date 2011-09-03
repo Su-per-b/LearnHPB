@@ -1,3 +1,4 @@
+goog.provide('lgb.controller.DragDropController');
 
 var lgb = (function(lgb) {
 

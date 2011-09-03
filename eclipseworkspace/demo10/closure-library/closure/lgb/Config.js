@@ -1,4 +1,6 @@
-	/**
+goog.provide('lgb.Config');
+
+/**
  * @namespace 
  */
 console.log("loaded Config");

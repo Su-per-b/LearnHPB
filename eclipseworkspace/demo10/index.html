@@ -25,21 +25,14 @@
 		<!-- Libraries -->
 		<script type="text/javascript" src="js/lib/jquery.js"></script>
 		<script type="text/javascript" src="js/lib/jquery_include.js"></script>
-		<script type="text/javascript" src="js/lib/jquery_include.js"></script>
 		
-		<script type="text/javascript" src="js/goog/base.js"></script>
-		
-		<!-- Learn Green Buildings App 	-->
-		<script type="text/javascript" src="js/lgb/Includes.js"></script>
-
+		<script src="closure-library/closure/goog/base.js"></script>
+		<script src="main.js"></script>
 
 		<script type="text/javascript" src="js/three.js/Three.js"></script>
 		<script type="text/javascript" src="js/three.js/RequestAnimationFrame.js"></script>
 		<script type="text/javascript" src="js/three.js/Stats.js"></script>
 		
-
-		<script src="http://www.google.com/jsapi" type="text/javascript"></script>
-
 
 		<!-- Starts App-->
 		<script type="text/javascript">
@@ -47,13 +40,14 @@
 			//goog.require('goog.userAgent.product');
 			//goog.require('goog.userAgent.product');
 			//goog.re
+			main();
 		</script>
 		
 
 
     </head>
 	
-	<body> 
+	<body onLoad="main()"> 
 		<div id="info"></div>
 		<div id="options"></div>
 	</body>

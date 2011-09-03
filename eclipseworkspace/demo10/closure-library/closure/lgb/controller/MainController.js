@@ -1,3 +1,10 @@
+goog.provide('lgb.controller.MainController');
+
+
+
+goog.require ("lgb.controller.ControllerBase");
+
+
 console.log("loaded MainController");
 
 var lgb = (function(lgb) {
@@ -33,6 +40,7 @@ var lgb = (function(lgb) {
 
 	};
 	
+	goog.inherits(lgb.controller.MainController, lgb.controller.ControllerBase);
 	
 	lgb.controller.MainController.prototype = {
 		
@@ -229,7 +237,9 @@ var lgb = (function(lgb) {
 		
 	};
 	
-		lgb.controller.MainController.inheritsFrom(lgb.controller.ControllerBase);
+	
+
+	
 		
 	return lgb;
 	
@@ -239,6 +249,7 @@ var lgb = (function(lgb) {
 
 
 console.log("parsed MainController");
+
 
 
 

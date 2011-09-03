@@ -1,3 +1,6 @@
+goog.provide('lgb.Base');
+
+
 console.log("loaded Base");
 
 var lgb = (function(lgb) {

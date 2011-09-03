@@ -1,3 +1,7 @@
+goog.provide('lgb.controller.ControllerBase');
+
+goog.require ("lgb.Base");
+
 console.log("loaded ControllerBase");
 
 var lgb = (function(lgb) {
@@ -8,6 +12,8 @@ var lgb = (function(lgb) {
 	lgb.controller.ControllerBase = function() {
 		lgb.Base.call(this);
 	};
+	
+	goog.inherits(lgb.controller.ControllerBase, lgb.Base);
 
 	lgb.controller.ControllerBase.prototype = {
 		
@@ -62,11 +68,15 @@ var lgb = (function(lgb) {
 		
 	};
 	
-	lgb.controller.ControllerBase.inheritsFrom(lgb.Base);
+	//goog.inherits(lgb.controller.MainController, lgb.controller.ControllerBase)
+	
+	//lgb.controller.ControllerBase.inheritsFrom(lgb.Base);
 	
 	return lgb;
 	
 })(lgb || {});
+
+
 
 console.log("parsed ControllerBase");
 

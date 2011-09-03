@@ -1,3 +1,4 @@
+goog.provide('lgb.controller.LoaderController');
 
 var lgb = (function(lgb) {
 
@@ -31,6 +32,7 @@ var lgb = (function(lgb) {
 			this.loadMesh();
 						
 		},
+		
 		loadMesh : function (p) {
 			var delegate = $.proxy(this.onGeometryLoaded, this);
 			//this.loader.load( { model: "3d-assets/roofTop2.js", callback: delegate } );
@@ -41,6 +43,7 @@ var lgb = (function(lgb) {
 			//this.loader.load( { model: "3d-assets/damper/horizontal_bar.js", callback: delegate } );
 			//this.loader.load( { model: "3d-assets/damper2/horizontal_bar.js", callback: delegate } );
 		},
+		
 		onGeometryLoaded : function( geometry ) {
 			this.addOneMesh( new THREE.Vector3(	0,	0,	0), geometry );
 		},
@@ -61,6 +64,8 @@ var lgb = (function(lgb) {
 		}
 	};
 	
+	console.log("parsed LoaderController");
+
 
 	return lgb;
 	
@@ -73,4 +78,3 @@ var lgb = (function(lgb) {
 
 
 
-console.log("parsed LoaderController");
