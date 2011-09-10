@@ -6,9 +6,9 @@ goog.require('lgb.controller.LoaderController');
 
 function main() {
   
-  var base = new lgb.Base();
+  //var base = new lgb.Base();
   
-  var x = 0;
+  //var x = 0;
   //base.load();
   
   //var controllerBase = new lgb.controller.ControllerBase();

@@ -43,10 +43,6 @@ var lgb = (function(lgb) {
 	
 	
 	lgb.controller.MainController.prototype.init = function() {
-			//var del = this.d(this.load);
-			
-			
-			
 			//this.loaderController = new lgb.controller.LoaderController();
 			//this.loaderController.load();
 			
@@ -80,7 +76,7 @@ var lgb = (function(lgb) {
 			this.sun.position = this.camera.position.clone();
 			this.scene.addLight( this.sun );
 			
-			this.loadMesh();
+			this.loadMesh("damper-solo.obj_ascii.js");
 			
 			var lineMat = new THREE.LineBasicMaterial( { color: 0xff0000, opacity: 1, linewidth: 3 } );
 			
@@ -96,27 +92,21 @@ var lgb = (function(lgb) {
 			this.stats.domElement.style.top = '0px';
 			container.appendChild( this.stats.domElement );
 		
-		
-		
-			var delegate2 = $.proxy(this.onDocumentMouseMove, this);
-		
-			container.onmousemove = delegate2;
+			container.onmousemove = this.d(this.onDocumentMouseMove);
 			this.animate();
 	};
 	
 	
 	
-	lgb.controller.MainController.prototype.loadMesh = function() {
-			//var delegate = $.proxy(this.onGeometryLoaded, this);
-			//this.loader.load( { model: "3d-assets/roofTop2.js", callback: delegate } );
-			
-			
-			var del = this.d(this.onGeometryLoaded);
+	lgb.controller.MainController.prototype.loadMesh = function(fileName) {
+
+
+			fileName = "3d-assets/" + fileName;
 			
 			this.loader.load ( 
 				{ 
-					model: "3d-assets/damper-solo.obj_ascii.js", 
-					callback: del
+					model: fileName, 
+					callback: this.d(this.onGeometryLoaded)
 				} 
 			);
 			

@@ -751,10 +751,10 @@ goog.addDependency("window/window.js", ['goog.window'], ['goog.string', 'goog.us
 goog.addDependency("../lgb/Base.js", ['lgb.Base'], []);
 goog.addDependency("../lgb/Config.js", ['lgb.Config'], []);
 goog.addDependency("../lgb/Includes.js", [], []);
-goog.addDependency("../lgb/controller/ControllerBase.js", ['lgb.controller.ControllerBase'], []);
+goog.addDependency("../lgb/controller/ControllerBase.js", ['lgb.controller.ControllerBase'], ['lgb.Base']);
 goog.addDependency("../lgb/controller/DragDropController.js", ['lgb.controller.DragDropController'], []);
 goog.addDependency("../lgb/controller/LoaderController.js", ['lgb.controller.LoaderController'], []);
-goog.addDependency("../lgb/controller/MainController.js", ['lgb.controller.MainController'], []);
+goog.addDependency("../lgb/controller/MainController.js", ['lgb.controller.MainController'], ['lgb.controller.ControllerBase']);
 goog.addDependency("../../third_party/closure/goog/base.js", [], []);
 goog.addDependency("../../third_party/closure/goog/deps.js", [], []);
 goog.addDependency("../../third_party/closure/goog/caja/string/html/htmlparser.js", ['goog.string.html.HtmlParser', 'goog.string.html.HtmlParser.EFlags', 'goog.string.html.HtmlParser.Elements', 'goog.string.html.HtmlParser.Entities', 'goog.string.html.HtmlSaxHandler'], []);
