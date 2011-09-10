@@ -1,7 +1,5 @@
 goog.provide('lgb.controller.MainController');
 
-
-
 goog.require ("lgb.controller.ControllerBase");
 
 
@@ -19,6 +17,7 @@ var lgb = (function(lgb) {
 	lgb.controller.MainController = function() {
 		
 		lgb.controller.ControllerBase.call(this);
+		
 		this.camera = null;  //THREE.Camera
 		this.scene = null;	 //THREE.Scene
 		this.projector = null;	//THREE.Projector
@@ -42,30 +41,21 @@ var lgb = (function(lgb) {
 	
 	goog.inherits(lgb.controller.MainController, lgb.controller.ControllerBase);
 	
-	lgb.controller.MainController.prototype = {
-		
-		
-		initxx: function() {
-
-			//this.dragDropController = new lgb.controller.DragDropController();
-			//this.dragDropController.init();
+	
+	lgb.controller.MainController.prototype.init = function() {
+			//var del = this.d(this.load);
 			
-
 			
-			//var delegate = $.proxy(this.onDocumentReady, this);
-			//jQuery(document).ready(delegate);
 			
-		},
-		init : function(event) {
-			
-			this.loaderController = new lgb.controller.LoaderController();
+			//this.loaderController = new lgb.controller.LoaderController();
 			//this.loaderController.load();
 			
 			this.load();
-			//this.events();		
-		},
-		loadxx : function() {
-
+			//this.events();	
+	};
+	
+	
+	lgb.controller.MainController.prototype.load = function() {
 			var container = document.createElement( 'div' );
 			document.body.appendChild( container );
 			
@@ -112,52 +102,55 @@ var lgb = (function(lgb) {
 		
 			container.onmousemove = delegate2;
 			this.animate();
+	};
 	
-		},
-		
-		loadMesh : function (p) {
-			
+	
+	
+	lgb.controller.MainController.prototype.loadMesh = function() {
 			//var delegate = $.proxy(this.onGeometryLoaded, this);
 			//this.loader.load( { model: "3d-assets/roofTop2.js", callback: delegate } );
 			
-			this.loader.load( 
+			
+			var del = this.d(this.onGeometryLoaded);
+			
+			this.loader.load ( 
 				{ 
 					model: "3d-assets/damper-solo.obj_ascii.js", 
-					callback: this.d(this.onGeometryLoaded) 
+					callback: del
 				} 
 			);
-
+			
+			
+			
 			//this.loader.load( { model: "3d-assets/damper-solo.obj.js.js", callback: delegate } );
 			//this.loader.load( { model: "3d-assets/damper/horizontal_bar.js", callback: delegate } );
 			//this.loader.load( { model: "3d-assets/damper2/horizontal_bar.js", callback: delegate } );
-		},
-
-		onGeometryLoaded : function( geometry ) {
-			this.addOneMesh( new THREE.Vector3(	0,	0,	0), geometry );
-		},
-
-		addOneMesh : function( p, g) {
-		
-			this.totalFaces += g.faces.length;
-			this.totalColliders++;
-		
-			var mesh = new THREE.Mesh( g, new THREE.MeshPhongMaterial( { color: 0x003300 } ) );
-			
-			mesh.position = p;
-			this.scene.addObject( mesh );
-			
-			var mc = THREE.CollisionUtils.MeshColliderWBox(mesh);
-			THREE.Collisions.colliders.push( mc );
-			this.meshes.push( mesh );
-		},
-		
-		onError : function(msg) {
-
-			alert(msg);
-		},
-		
-		animate : function () {
+	};
 	
+	lgb.controller.MainController.prototype.onGeometryLoaded = function(geometry) {
+		this.addOneMesh( new THREE.Vector3(	0,	0,	0), geometry );
+	};
+	
+	lgb.controller.MainController.prototype.addOneMesh = function(p, g) {
+		this.totalFaces += g.faces.length;
+		this.totalColliders++;
+	
+		var mesh = new THREE.Mesh( g, new THREE.MeshPhongMaterial( { color: 0x003300 } ) );
+		
+		mesh.position = p;
+		this.scene.addObject( mesh );
+		
+		var mc = THREE.CollisionUtils.MeshColliderWBox(mesh);
+		THREE.Collisions.colliders.push( mc );
+		this.meshes.push( mesh );
+	};
+	
+	lgb.controller.MainController.prototype.onError = function(msg) {
+			alert(msg);
+	};
+	
+	lgb.controller.MainController.prototype.animate = function() {
+
 			var delegate = $.proxy(this.animate, this);
 			
 			requestAnimationFrame( delegate );
@@ -212,34 +205,25 @@ var lgb = (function(lgb) {
 			this.renderer.render( this.scene, this.camera );
 			
 			this.stats.update();
-			
-		},
-
-		onDocumentMouseMove : function( event ) {
-		
-			event.preventDefault();	
-			this.mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-			this.mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-
-		},
-
-
-		vts : function(v) {
-		
+	};
+	
+	lgb.controller.MainController.prototype.onDocumentMouseMove = function(event) {
+				event.preventDefault();	
+				this.mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+				this.mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+	};
+	
+	lgb.controller.MainController.prototype.vts = function(v) {
 			if (!v) {
 				return "undefined<br>";
 			}
 			else {
 				return v.x.toFixed(2) + " , " + v.y.toFixed(2) + " , " + v.z.toFixed(2) + "<br>";
 			}
-		}
-
-		
 	};
 	
 	
 
-	
 		
 	return lgb;
 	
@@ -249,9 +233,6 @@ var lgb = (function(lgb) {
 
 
 console.log("parsed MainController");
-
-
-
 
 
 

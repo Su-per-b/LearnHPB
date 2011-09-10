@@ -117,7 +117,6 @@ var lgb = (function(lgb) {
 		
 	};
 
-	//lgb.Base.eventBus = $(new lgb.event.EventBus());
 	
 	return lgb;
 	

@@ -40,7 +40,7 @@
 			//goog.require('goog.userAgent.product');
 			//goog.require('goog.userAgent.product');
 			//goog.re
-			//main();
+			main();
 		</script>
 		
 

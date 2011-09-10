@@ -10,14 +10,22 @@ var lgb = (function(lgb) {
 	lgb.controller = lgb.controller || {};
 	
 	lgb.controller.ControllerBase = function() {
-		lgb.Base.call(this);
+		//lgb.Base.call(this);
 	};
 	
-	goog.inherits(lgb.controller.ControllerBase, lgb.Base);
+	//goog.inherits(lgb.controller.ControllerBase, lgb.Base);
 
+
+	lgb.controller.ControllerBase.prototype.d = function(theFunction) {
+				var delegate = $.proxy(theFunction, this);
+				return delegate;
+	}
+
+		/*
 	lgb.controller.ControllerBase.prototype = {
 		
-		load : function() {
+	
+		loadxx : function() {
 
 			var container = document.createElement( 'div' );
 			document.body.appendChild( container );
@@ -68,10 +76,10 @@ var lgb = (function(lgb) {
 		
 	};
 	
-	//goog.inherits(lgb.controller.MainController, lgb.controller.ControllerBase)
-	
-	//lgb.controller.ControllerBase.inheritsFrom(lgb.Base);
-	
+
+
+		*/
+		
 	return lgb;
 	
 })(lgb || {});
