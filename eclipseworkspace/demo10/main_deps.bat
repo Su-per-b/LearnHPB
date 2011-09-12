@@ -1,5 +1,5 @@
 cls
 
-closure-library\closure\bin\calcdeps.py -i main.js -p closure-library\ -o deps > closure-library\closure\goog\deps.js
+closure-library\closure\bin\calcdeps.py -p js/closure -o deps > js/closure/core/goog/deps.js
   
-pause
+::pause
