@@ -46,22 +46,8 @@ goog.inherits(lgb.controller.MainController, lgb.controller.ControllerBase);
 
 lgb.controller.MainController.prototype.init = function() {
 
-
-      
-		//this.loaderController = new lgb.controller.LoaderController();
-		
-		
-		
-		//var del = this.d(this.handler);
-		//
-		//goog.events.listen(this.loaderController , goog.events.EventType.CHANGE, del);
-		
-		
-		//this.loaderController.load();
-		
-		
 		this.load();
-		//this.events();	
+	
 };
 
 lgb.controller.MainController.prototype.handler = function(event) {
