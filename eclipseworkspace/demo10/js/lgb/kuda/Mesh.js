@@ -65,18 +65,15 @@ var lgb = (function(lgb) {
 				
 		},
 		
-		makeSelectable: function(transformName) {
+		makeSelectable: function(transformName, label) {
 
 			var transform = this.getTransforms(transformName)[0];
 			
 			var bbName = transformName + "-BoundingBox";
 			var transformBox = this.createBoxHelper(transform, bbName);
 			
-			
-			var s = new lgb.view.Selectable(transform, transformBox, bbName);
-		//	s.init();
-			
-			//this.setTransformVisible(transformBox , true);
+			var s = new lgb.view.Selectable(transform, transformBox, bbName, label);
+
 			
 		},
 		
@@ -113,29 +110,7 @@ var lgb = (function(lgb) {
 		
 		createBox : function() {
 			
-			/*
-			var pack = hemi.curve.pack;
-		
 
-			var bb = this.root.boundingBox;
-			var b = [bb.minExtent, bb.maxExtent];
-		
-			var transform = pack.createObject('Transform'), 
-				w = b[1][0] - b[0][0], 
-				h = b[1][1] - b[0][1], 
-				d = b[1][2] - b[0][2], 
-				x = b[0][0] + w / 2, 
-				y = b[0][1] + h / 2, 
-				z = b[0][2] + d / 2, 
-				box = o3djs.primitives.createBox(pack, hemi.curve.dbgBoxMat, w, h, d);
-			
-			
-			transform.addShape(box);
-			transform.name = 'BoundingBox';
-			transform.translate(x, y, z);
-			transform.parent = this.root;
-			*/
-			
 			var transform = this.createBoxHelper(this.root);
 			
 			return transform;

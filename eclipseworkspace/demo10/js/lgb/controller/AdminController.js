@@ -19,6 +19,7 @@ var lgb = (function(lgb) {
 		this.listen(lgb.event.Loader.ALL_MESHES_LOAD_START, this.onMeshesLoadStart);
 		this.listen(lgb.event.Cam.MOVE_COMPLETE, this.onCameraMoveComplete);
 		this.listen(lgb.event.Event.TOGGLE_ADMIN_PANEL, this.onToggleAdminPanel);
+		this.listen(lgb.event.Event.CLOSED_ADMIN_PANEL, this.onClosedAdminPanel);
 		
 	};
 	
@@ -41,10 +42,14 @@ var lgb = (function(lgb) {
 			this.buttonView.show();
 			this.view.show(true);
 		},
+		onClosedAdminPanel : function(event) {
+			this.buttonView.setSelected(false);
+		},
 		onToggleAdminPanel : function(event) {
 			
 			this.view.toggleVisible();
-
+			
+			this.buttonView.toggleVisible();
 		}
 		
 	};

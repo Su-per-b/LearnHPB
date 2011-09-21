@@ -40,8 +40,7 @@ var lgb = (function(lgb) {
 			return selector.dialog("isOpen");
 		},
 		init : function() {
-			this.injectHtml();
-			 
+			this.injectHtml();	 
 		},
 		toggleVisible : function() {
 
@@ -69,9 +68,21 @@ var lgb = (function(lgb) {
 			}
 		},
 		hide : function() {
+			
+
+			
 			this.getSelector().dialog("close");
+			
 		},
-		
+		onCloseButtonClicked : function(event) {
+			
+
+			console.log("onCloseButtonClicked");
+			
+			this.dispatch(lgb.event.Event.CLOSED_ADMIN_PANEL);
+
+			
+		},
 		injectHtml : function() {
 			
 			
@@ -84,7 +95,7 @@ var lgb = (function(lgb) {
 			
 			selector.direction = 'left';
 			
-			selector.dialog({
+			selector.dialog ({
 				hide: 'fade',
 				width: 300,
 				height: 580,
@@ -92,6 +103,7 @@ var lgb = (function(lgb) {
 				autoOpen: false
 			});
 
+			selector.bind("dialogclose", this.d(this.onCloseButtonClicked));
 			
 			var len = this.subPanels.length;
 			for(var x = 0; x < len; x++) {

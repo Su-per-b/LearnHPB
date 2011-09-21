@@ -37,13 +37,13 @@ var lgb = (function(lgb) {
 			var comp = new lgb.model.BuildingComponentModel(this.mesh.root);
 			comp.addVisibilityTags(lgb.model.VisibilityTag.ROOFTOP, lgb.model.VisibilityTag.HVAC);
 
-			this.mesh.makeSelectable("LeftDamper");
-			this.mesh.makeSelectable("CenterDamper");
-			this.mesh.makeSelectable("CoolingCoil");
-			this.mesh.makeSelectable("Fan");
-			this.mesh.makeSelectable("Filter");
-			this.mesh.makeSelectable("HeatingCoil");
-			this.mesh.makeSelectable("TopDamper");
+			this.mesh.makeSelectable("LeftDamper","Left Damper");
+			this.mesh.makeSelectable("CenterDamper", "Center Damper")
+			this.mesh.makeSelectable("CoolingCoil", "Cooling Coil");
+			this.mesh.makeSelectable("Fan", "Fan");
+			this.mesh.makeSelectable("Filter", "Filter");
+			this.mesh.makeSelectable("HeatingCoil", "Heating Coil");
+			this.mesh.makeSelectable("TopDamper", "Top Damper");
 			
 			
 			

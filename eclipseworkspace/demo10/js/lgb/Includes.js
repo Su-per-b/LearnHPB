@@ -26,6 +26,7 @@ o3djs.require('lgb.controller.VisibilityController');
 o3djs.require('lgb.controller.ZoneController');
 o3djs.require('lgb.controller.ParticleSystemController');
 o3djs.require('lgb.controller.GuiComponentController');
+o3djs.require('lgb.controller.SelectableController');
 
 o3djs.require('lgb.model.ModelBase');
 o3djs.require('lgb.model.component.ComponentBase');
@@ -46,6 +47,7 @@ o3djs.require('lgb.model.VisibilityModel');
 o3djs.require('lgb.model.BuildingComponentModel');
 o3djs.require('lgb.model.ParticleSystemModel');
 o3djs.require('lgb.model.FastParticleSystemModel');
+o3djs.require('lgb.model.SelectableModel');
 
 o3djs.require('lgb.view.ViewBase');
 o3djs.require('lgb.view.component.Button');
@@ -73,8 +75,8 @@ o3djs.require('lgb.view.ZoneShape');
 o3djs.require('lgb.view.ParticleSystemView');
 o3djs.require('lgb.view.FastParticleSystemView');
 o3djs.require('lgb.view.CrossSectionView');
-o3djs.require('lgb.view.SelectedShape');
 o3djs.require('lgb.view.Selectable');
+o3djs.require('lgb.view.SelectableView');
 
 o3djs.require('lgb.event.EnvelopeEvent');
 o3djs.require('lgb.event.Event');
@@ -86,6 +88,7 @@ o3djs.require('lgb.event.Visibility');
 o3djs.require('lgb.event.ZoneEvent');
 o3djs.require('lgb.event.ParticleSystemEvent');
 o3djs.require('lgb.event.ViewPointEvent');
+o3djs.require('lgb.event.SelectableEvent');
 
 
 

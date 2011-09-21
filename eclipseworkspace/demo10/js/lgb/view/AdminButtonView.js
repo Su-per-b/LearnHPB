@@ -14,7 +14,7 @@ var lgb = (function(lgb) {
 	lgb.view.AdminButtonView = function(){
 		lgb.view.ViewBase.call(this);
 		this.htmlID = "adminButton";
-		
+
 	};
 	
 	lgb.view.AdminButtonView.prototype = {
@@ -24,10 +24,13 @@ var lgb = (function(lgb) {
 			this.injectHtml();
 			this.bindEvents();
 			this.initMenu({targetTop: 4,targetRight: -34});
+			this.isSelected = true;
+			$('#adminButtonLink').addClass("selected");
 		},
 			
 		show : function() {
 			this.floatingObj.targetRight = 4;
+			
 		},
 			
 		injectHtml : function() {
@@ -40,7 +43,20 @@ var lgb = (function(lgb) {
 			 this.append(html);
 			
 		},
-		
+		toggleVisible : function() {
+			this.setSelected(!this.isSelected);
+		},
+		setSelected : function(isSelected) {
+			
+			this.isSelected = isSelected;
+			
+			if (this.isSelected) {
+				$('#adminButtonLink').addClass("selected");
+			} else {
+				$('#adminButtonLink').removeClass("selected");
+			}
+
+		},
 		bindEvents : function() {
 
 			$('#adminButtonLink').click({mode:'ALL'},this.d(this.onClick));

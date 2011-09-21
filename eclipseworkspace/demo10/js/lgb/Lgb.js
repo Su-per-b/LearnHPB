@@ -24,7 +24,7 @@ var lgb = (function(lgb) {
         	var src = 'images/' + imageArray[i];
         	
 			var imageObj = new Image(42,42);
-           // document.write('<img src="' + src + '" />');// Write to page (uncomment to check images)
+            //document.write('<img src="' + src + '" />');// Write to page (uncomment to check images)
             imageObj.src=src;
         }
 	};

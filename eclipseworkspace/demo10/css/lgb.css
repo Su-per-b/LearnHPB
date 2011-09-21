@@ -91,6 +91,12 @@ img {
 #adminButtonLink:hover {
 	background-image:url('../images/icon_wrench_over_34px.png');
 }
+#adminButtonLink.selected {
+	background-image:url('../images/icon_wrench_selected_34px.png');
+}
+#adminButtonLink.selected:hover {
+	background-image:url('../images/icon_wrench_selected_over_34px.png');
+}
 
 
 #adminView {
@@ -112,7 +118,7 @@ img {
 .ui-dialog-titlebar {
 	background-image:url('../images/icon_wrench_21px.png');
 	background-repeat:no-repeat;
-	background-position:4px center;\
+	background-position:4px center;
 	background-color: #557a29;
 }
 

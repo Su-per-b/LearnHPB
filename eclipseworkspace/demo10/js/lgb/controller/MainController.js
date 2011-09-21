@@ -20,7 +20,7 @@ var lgb = (function(lgb) {
 		init: function() {
 
 			$.error = this.onError;
-			lgb.preload('icon_wrench_over_34px.png,icon_hvac_over.png,icon_exterior_envelope_over.png,icon_general_over.png');
+			lgb.preload('icon_wrench_selected_over_34px.png,icon_wrench_selected_34px.png,icon_wrench_over_34px.png,icon_hvac_over.png,icon_exterior_envelope_over.png,icon_general_over.png');
 			
 			this.meshList = []; //an array of all the lgb.kuda.Mesh objects
 			
@@ -64,6 +64,7 @@ var lgb = (function(lgb) {
 			
 			//this.adminController = new lgb.controller.AdminController();
 			this.adminController = new lgb.controller.AdminController();
+			this.selectableController = new lgb.controller.SelectableController();
 			
 			
 			this.guiController = new lgb.controller.GuiController();

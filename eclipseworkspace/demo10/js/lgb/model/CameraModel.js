@@ -41,40 +41,7 @@ var lgb = (function(lgb) {
 			
 
 			
-/*
-		this.eyeZ = new lgb.model.component.TextInput(
-				this.name,
-				'Eye Z:',
-				'0'
-			);
-		
-		this.targetX = new lgb.model.component.TextInput(
-				this.name,
-				'Target X:',
-				'0'
-			);
-			
-		this.targetY = new lgb.model.component.TextInput(
-				this.name,
-				'Target Y:',
-				'0'
-			);
-			
-		this.targetZ = new lgb.model.component.TextInput(
-				this.name,
-				'Target Z:',
-				'0'
-			);
-*/
 
-		
-/*
-		
-		this.userActions = [this.eyeX,this.eyeY ,this.eyeY,
-							this.targetX ,this.targetY ,this.targetZ ];
-*/
-		
-		
 		this.userActions = [this.eye,this.target ];
 		
 							
@@ -105,29 +72,11 @@ var lgb = (function(lgb) {
 			var eyeStr  = "{0},{1},{2}".format(eye[0].toString(), eye[1].toString(), eye[2].toString());
 			var targetStr  = "{0},{1},{2}".format(target[0].toString(), target[1].toString(), target[2].toString());
 			
-			
-			//var jq = $('#' + this.eye.id);
-			
 			this.jqEye.attr('value', eyeStr); 
 			this.jqTarget.attr('value', targetStr); 
-			
-			//$('#' + this.eye.id).attr('value', eyeStr); 
-			
-			//$('#' + this.eyeX.id).innerHTML = eye[0].toString();
-			
-			//$('#' + this.eyeX.id).attr('value', eye[0].toString()); 
-			
-/*
-			$('#' + this.eye.id).focus(function() {
-			
-			this.type = 'password';
-			
-			});
-*/
-			
+
 		}
-		
-		
+
 	};
 	
 
