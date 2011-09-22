@@ -187,75 +187,76 @@ lgb.controller.MainController.prototype.addOneMesh = function(p, g) {
 lgb.controller.MainController.prototype.animate = function() {
 
 		
-		requestAnimationFrame( this.d(this.animate) );
+	var delegate = this.d(this.animate);
+	requestAnimationFrame( delegate  );
+
+	var vector = new THREE.Vector3( this.mouse.x, this.mouse.y, 0.5 );
+	this.projector_.unprojectVector( vector, this.camera_ );
+
+	var ray = new THREE.Ray( this.camera_.position, vector.subSelf( this.camera_.position ).normalize() );
 	
-		var vector = new THREE.Vector3( this.mouse.x, this.mouse.y, 0.5 );
-		this.projector_.unprojectVector( vector, this.camera_ );
+	if (this.meshes.length === 0) {
+		return;
+	}
 	
-		var ray = new THREE.Ray( this.camera_.position, vector.subSelf( this.camera_.position ).normalize() );
+	var i, l = this.meshes.length;
+	
+	for ( i = 0; i < l; i++ ) {
+		this.meshes[ i ].materials[ 0 ].color.setHex( 0x003300 );
+	}
+	
+	this.infoDiv_.innerHTML = "";
+
+
+	var c = THREE.Collisions.rayCastNearest( ray );
+	
+	if( c ) {
+	
+		this.infoDiv_.innerHTML += "<br />Found @ normal " + this.vts(c.normal);
 		
-		if (this.meshes.length === 0) {
-			return;
-		}
+		var poi = ray.origin.clone().addSelf( ray.direction.clone().multiplyScalar(c.distance) );
+		line.geometry.vertices[0].position = poi;
+		line.geometry.vertices[1].position = poi.clone().addSelf(c.normal.multiplyScalar(100));
+		line.geometry.__dirtyVertices = true; 
+		line.geometry.__dirtyElements = true;
 		
-		var i, l = this.meshes.length;
-		
-		for ( i = 0; i < l; i++ ) {
-			this.meshes[ i ].materials[ 0 ].color.setHex( 0x003300 );
-		}
-		
-		this.infoDiv_.innerHTML = "";
+		c.mesh.materials[ 0 ].color.setHex( 0xbb0000 );
+
+	} else {
 	
+		this.infoDiv_.innerHTML += "<br />No intersection";
+
+	}
+
+	this.camera_.position.x = this.camdist * Math.cos( this.theta );
+	this.camera_.position.z = this.camdist * Math.sin( this.theta );
+	this.camera_.position.y = this.camdist/2 * Math.sin( this.theta * 2) ;
+
+	this.sun_.position.copy( this.camera_.position );
+	this.sun_.position.normalize();
+
+	this.theta += 0.005;		
+
+	this.renderer_.render( this.scene_, this.camera_ );
 	
-		var c = THREE.Collisions.rayCastNearest( ray );
-		
-		if( c ) {
-		
-			this.infoDiv_.innerHTML += "<br />Found @ normal " + this.vts(c.normal);
-			
-			var poi = ray.origin.clone().addSelf( ray.direction.clone().multiplyScalar(c.distance) );
-			line.geometry.vertices[0].position = poi;
-			line.geometry.vertices[1].position = poi.clone().addSelf(c.normal.multiplyScalar(100));
-			line.geometry.__dirtyVertices = true; 
-			line.geometry.__dirtyElements = true;
-			
-			c.mesh.materials[ 0 ].color.setHex( 0xbb0000 );
-	
-		} else {
-		
-			this.infoDiv_.innerHTML += "<br />No intersection";
-	
-		}
-	
-		this.camera_.position.x = this.camdist * Math.cos( this.theta );
-		this.camera_.position.z = this.camdist * Math.sin( this.theta );
-		this.camera_.position.y = this.camdist/2 * Math.sin( this.theta * 2) ;
-	
-		this.sun_.position.copy( this.camera_.position );
-		this.sun_.position.normalize();
-	
-		this.theta += 0.005;		
-	
-		this.renderer_.render( this.scene_, this.camera_ );
-		
-		this.stats_.update();
+	this.stats_.update();
 };
 
 
 lgb.controller.MainController.prototype.onDocumentMouseMove = function(event) {
-			event.preventDefault();	
-			this.mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-			this.mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+	event.preventDefault();	
+	this.mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+	this.mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 };
 
 
 lgb.controller.MainController.prototype.vts = function(v) {
-		if (!v) {
-			return "undefined<br>";
-		}
-		else {
-			return v.x.toFixed(2) + " , " + v.y.toFixed(2) + " , " + v.z.toFixed(2) + "<br>";
-		}
+	if (!v) {
+		return "undefined<br>";
+	}
+	else {
+		return v.x.toFixed(2) + " , " + v.y.toFixed(2) + " , " + v.z.toFixed(2) + "<br>";
+	}
 };
 	
 	

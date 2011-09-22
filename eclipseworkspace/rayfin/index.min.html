@@ -14,7 +14,7 @@
 		<meta name="author" content="Laura Strong"><!-- User Experience Consulting  -->
 		
 		<meta name = "description" content = "Learn Green Buildings: Commercial building energy use simulation" />
-		<meta name = "revised" content = "August 30, 2011" />
+		<meta name = "revised" content = "September 22, 2011" />
 		<meta name="Copyright" content="Copyright 2011, Institute For Superior Performance of Buildings" />
 			
 		<meta charset="UTF-8" />
@@ -23,29 +23,22 @@
 		<link type="text/css" href="css/lgb3.css"  rel="stylesheet" />
 		
 		<!-- JavasScript -->
-		<script type="text/javascript" src="js/lib/jquery.dev.js"></script>
-		<script type="text/javascript" src="js/closure/core/goog/base.js"></script>
-		<script type="text/javascript" src="main.dev.js"></script>
-
+		<script type="text/javascript" src="js/lib/jquery.min.js"></script>
+		<script type="text/javascript" src="js/three.js/Three.min.js"></script>
+		<script type="text/javascript" src="main.min.js"></script>
 		
+		<!-- Starts App -->
+		<script type="text/javascript">
 
-        <script type="text/javascript" >
-				
-			function main() {
-				 var mainController = new lgb.controller.MainController();
-				 mainController.init();
-			}
-        	
-        </script>
-        
-        
+				var mainController = new lgb.controller.MainController();
 
-
-
-
+		</script>
+		
     </head>
 	
-	<body onLoad="main()"> 
+
+	
+	<body> 
 		<div id="info"></div>
 		<div id="options"></div>
 	</body>

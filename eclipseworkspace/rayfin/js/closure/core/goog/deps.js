@@ -762,8 +762,9 @@ goog.addDependency("../../third_party/goog/silverlight/silverlight.js", ['goog.s
 goog.addDependency("../../third_party/goog/silverlight/supporteduseragent.js", ['goog.silverlight.supportedUserAgent'], []);
 goog.addDependency("../../../lgb/BaseClass.js", ['lgb.BaseClass'], ['goog.events', 'goog.events.EventTarget']);
 goog.addDependency("../../../lgb/Config.js", ['lgb.Config'], []);
+goog.addDependency("../../../lgb/Global.js", ['lgb.Global'], []);
 goog.addDependency("../../../lgb/controller/ControllerBase.js", ['lgb.controller.ControllerBase'], ['lgb.BaseClass']);
 goog.addDependency("../../../lgb/controller/DragDropController.js", ['lgb.controller.DragDropController'], []);
-goog.addDependency("../../../lgb/controller/LoaderController.js", ['lgb.controller.LoaderController'], ['goog.events', 'goog.events.EventHandler', 'goog.events.EventType', 'goog.events.EventTarget']);
+goog.addDependency("../../../lgb/controller/LoaderController.js", ['lgb.controller.LoaderController', 'lgb.controller.LoaderController.GeometryLoadedEvent'], ['goog.events', 'goog.events.EventHandler', 'goog.events.EventType', 'goog.events.EventTarget', 'lgb.Config']);
 goog.addDependency("../../../lgb/controller/MainController.js", ['lgb.controller.MainController'], ['lgb.controller.ControllerBase', 'goog.events', 'goog.events.BrowserEvent', 'goog.events.EventHandler', 'goog.events.EventType', 'goog.events.KeyCodes']);
 goog.addDependency("../../../lgb/event/Ebus.js", ['lgb.event.Ebus'], ['goog.events.EventTarget']);
