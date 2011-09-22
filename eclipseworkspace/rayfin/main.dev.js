@@ -1,15 +1,14 @@
 
+
 goog.require ("lgb.BaseClass");
 goog.require ("lgb.controller.ControllerBase");
 goog.require ("lgb.controller.MainController");
 goog.require ("lgb.controller.LoaderController");		
 
+goog.require ("lgb.event.Ebus");
 
-/*
-function mainxxxx() {
-  
-	 var mainController = new lgb.controller.MainController();
-	 mainController.init();
-    
-}
-*/
+//var lgb = lgb || {};
+
+var lgbEventBus = {};
+
+
