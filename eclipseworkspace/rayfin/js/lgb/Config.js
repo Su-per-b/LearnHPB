@@ -3,7 +3,7 @@ goog.provide('lgb.Config');
 /**
  * @namespace 
  */
-console.log("loaded Config");
+//console.log("loaded Config");
 
 var lgb = (function(lgb) {
 
@@ -35,6 +35,6 @@ var lgb = (function(lgb) {
 })(lgb || {});
 	
 	
-console.log("parsed Config");
+//console.log("parsed Config");
 	
 	

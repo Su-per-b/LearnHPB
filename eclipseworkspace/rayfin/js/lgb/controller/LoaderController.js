@@ -1,5 +1,6 @@
 goog.provide('lgb.controller.LoaderController');
 goog.provide('lgb.controller.LoaderController.GeometryLoadedEvent');
+goog.provide('lgb.controller.LoaderController.SceneLoadedEvent');
 
 
 goog.require('goog.events');
@@ -18,18 +19,28 @@ lgb.controller.LoaderController = function() {
 	lgb.controller.ControllerBase.call(this);
 	
 	/**
-   * Used to download 3D mesh files
+   * Used to download 3D mesh files in binary format
    * @type {THREE.BinaryLoader}
    * @private
    */		
 	this.binaryLoader_ = new THREE.BinaryLoader(  );
 	
 	/**
-   * Used to download 3D mesh files
-   * @type {THREE.BinaryLoader}
+   * Used to download 3D mesh files in the JSON format
+   * @type {THREE.JSONLoader}
    * @private
    */		
 	this.jsonLoader_ = new THREE.JSONLoader(  );
+	
+	/**
+   * Used to download 3D mesh files in the Collada format
+   * @type {ColladaLoader}
+   * @private
+   */		
+	this.colladaLoader_ = new ColladaLoader(  );
+	
+	
+
 	
 };
 
@@ -41,34 +52,91 @@ goog.inherits(lgb.controller.LoaderController, lgb.controller.ControllerBase);
 lgb.controller.LoaderController.prototype.loadAll = function() {
 	
 		//this.loadMesh("damper-solo.obj.min.js", true);
-		//this.loadMesh("box.js", false);
-		this.loadMesh("rooftopLowpoly7_29_11_raj2.js", false);
+		//this.loadMesh("box.dae");
+		this.loadMesh("rooftopLowpoly7_29_11_raj2.dae");
+		
+		//this.loadMesh("rooftopLowpoly7_29_11_raj2.json.js");
+		//this.loadMesh("monster.dae");
 };
 
 
 
-lgb.controller.LoaderController.prototype.loadMesh = function(fileName, isBinary) {
+lgb.controller.LoaderController.prototype.loadMesh = function(fileName) {
 
-
+		
+		var fileType = this.getFileTye(fileName);
+		
 		var path = lgb.Config.ASSETS_BASE_PATH  + fileName;
+		
+		var callbackDelegate = this.d(this.onGeometryLoaded);
 		
 		var loadObj = { 
 					model: path, 
-					callback: this.d(this.onGeometryLoaded)
+					callback: callbackDelegate
 			};
 		
 		
-		if(isBinary) {
-			this.binaryLoader_.load ( loadObj );
+		
+		switch (fileType) {
+			case lgb.controller.LoaderController.MESH_TYPE.BIN : 
+				this.binaryLoader_.load ( loadObj );
+				break;
+			case lgb.controller.LoaderController.MESH_TYPE.JSON :
+				this.jsonLoader_.load ( loadObj );
+				break;
+			case lgb.controller.LoaderController.MESH_TYPE.COLLADA :
+				this.colladaLoader_ .load ( path , this.d(this.onColladaLoaded));
+				break;
+				
 		}
-		else {
-			this.jsonLoader_.load ( loadObj );
-		}
+		
+
 };
 
-lgb.controller.LoaderController.prototype.onGeometryLoaded = function(geometry) {
+lgb.controller.LoaderController.prototype.getFileTye = function(fileName) {
+	
+	var ary = fileName.split(".");
+	var len = ary.length;
+	
+	if (len <2) {
+		return lgb.controller.LoaderController.MESH_TYPE.UNKNOWN;
+	} else {
+			
+		var fileExt = ary[len-1].toLowerCase();
+		
+		if (fileExt == 'dae') {
+			return lgb.controller.LoaderController.MESH_TYPE.COLLADA;
+		} else if (fileExt == 'js') {
+			var typeCode = ary[len-2].toLowerCase();
+			if (typeCode == 'bin') {
+				return lgb.controller.LoaderController.MESH_TYPE.BIN;
+			} else if (typeCode == 'json'){
+				return lgb.controller.LoaderController.MESH_TYPE.JSON;
+			} else if (typeCode == 'utf8'){
+				return lgb.controller.LoaderController.MESH_TYPE.UTF8;
+			}
+		} else {
+			return lgb.controller.LoaderController.MESH_TYPE.UNKNOWN;
+		}
+		
+	}
 	
 
+	
+	
+};
+
+lgb.controller.LoaderController.prototype.onColladaLoaded = function(collada ) {
+	
+	var event = new lgb.controller.LoaderController.ColladaLoadedEvent(collada);
+	this.dispatch(event);
+	
+};
+
+
+
+
+lgb.controller.LoaderController.prototype.onGeometryLoaded = function(geometry) {
 	
 	var event = new lgb.controller.LoaderController.GeometryLoadedEvent(geometry);
 	this.dispatch(event);
@@ -109,6 +177,16 @@ lgb.controller.LoaderController.prototype.addOneMesh = function(p, g) {
 
 
 
+
+lgb.controller.LoaderController.MESH_TYPE = {
+  COLLADA: 'collada',
+  UTF8: 'utf8',
+  JSON: 'json',
+  BIN: 'bin',
+  UNKNOWN: 'unknown'
+};
+
+
 /**
  * Test Event
  * @param {geometry} 
@@ -136,6 +214,36 @@ goog.inherits(lgb.controller.LoaderController.GeometryLoadedEvent , goog.events.
  */
 lgb.controller.LoaderController.GeometryLoadedEvent.TYPE =
     goog.events.getUniqueId('GeometryLoadedEvent');
+    
+    
+    
+/**
+ *  Event fired when a collada file is loaded
+ * @param {collada} 
+ * @constructor
+ * @extends {goog.events.Event}
+ */
+lgb.controller.LoaderController.ColladaLoadedEvent = function(collada) {
+  goog.events.Event.call(this, lgb.controller.LoaderController.ColladaLoadedEvent.TYPE);
+
+	this.payload = {};
+	
+  /**
+   * The event payload
+   * @type {Object}
+   */
+  this.payload.collada = collada;
+
+};
+
+goog.inherits(lgb.controller.LoaderController.ColladaLoadedEvent , goog.events.Event);
+
+/**
+ * Event type 
+ * @type {string}
+ */
+lgb.controller.LoaderController.ColladaLoadedEvent.TYPE =
+    goog.events.getUniqueId('ColladaLoadedEvent');
 
 
 

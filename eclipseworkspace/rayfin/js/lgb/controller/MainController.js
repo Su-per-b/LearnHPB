@@ -123,32 +123,32 @@ lgb.controller.MainController.prototype.init = function() {
 	//this.camera_ = new THREE.Camera( 2, window.innerWidth / window.innerHeight, 1, 10000 );
 
 
-var radius = 10;
-		this.camera_  = new THREE.TrackballCamera({
 
-			fov: 30,
-			aspect: window.innerWidth  / window.innerHeight,
-			near: 1,
-			far: 250,
+	this.camera_  = new THREE.TrackballCamera({
 
-			rotateSpeed: 1.0,
-			zoomSpeed: 1.2,
-			panSpeed: 0.1,
+		fov: 30,
+		aspect: window.innerWidth  / window.innerHeight,
+		near: 1,
+		far: 250,
 
-			noZoom: false,
-			noPan: false,
+		rotateSpeed: 0.25,
+		zoomSpeed: 0.25,
+		panSpeed: 0.1,
 
-			staticMoving: false,
-			dynamicDampingFactor: 0.3,
+		noZoom: false,
+		noPan: false,
 
-			minDistance:1,
-			maxDistance:100,
+		staticMoving: false,
+		dynamicDampingFactor: 0.3,
 
-			keys: [ 65, 83, 68 ], // [ rotateKey, zoomKey, panKey ],
+		minDistance:1,
+		maxDistance:100,
 
-			domElement: this.renderer_.domElement,
+		keys: [ 65, 83, 68 ], // [ rotateKey, zoomKey, panKey ],
 
-		});
+		domElement: this.renderer_.domElement,
+
+	});
 		
 	this.camera_.position.x = 0;
 	this.camera_.position.y = 0;
@@ -163,11 +163,18 @@ var radius = 10;
 	this.containerDiv_.appendChild( this.renderer_.domElement );
 	document.body.appendChild( this.containerDiv_ );
 		
-
+	this.addFloor();
 	
 	this.listen(
 		lgb.controller.LoaderController.GeometryLoadedEvent.TYPE, 
 		this.onGeometryLoaded);
+		
+	this.listen(
+		lgb.controller.LoaderController.ColladaLoadedEvent.TYPE, 
+		this.onColladaLoaded);
+		
+		
+		
 		
 	this.containerDiv_.onmousemove = this.d(this.onDocumentMouseMove);
 	this.animate();
@@ -200,6 +207,52 @@ lgb.controller.MainController.prototype.onGeometryLoaded = function(event) {
 	var geometry = event.payload.geometry;
 	
 	this.addOneMesh( new THREE.Vector3(	0,	0,	0), geometry );
+	
+	//console.log("!handler fired");
+};
+
+
+lgb.controller.MainController.prototype.addFloor = function(event) {
+	
+		var line_material = new THREE.LineBasicMaterial( { color: 0xcccccc, opacity: 0.2 } ),
+			geometry = new THREE.Geometry(),
+			floor = -0.04, step = 1, size = 14;
+
+		for ( var i = 0; i <= size / step * 2; i ++ ) {
+
+			geometry.vertices.push( new THREE.Vertex( new THREE.Vector3( - size, floor, i * step - size ) ) );
+			geometry.vertices.push( new THREE.Vertex( new THREE.Vector3(   size, floor, i * step - size ) ) );
+
+			geometry.vertices.push( new THREE.Vertex( new THREE.Vector3( i * step - size, floor, -size ) ) );
+			geometry.vertices.push( new THREE.Vertex( new THREE.Vector3( i * step - size, floor,  size ) ) );
+
+		}
+
+		var line = new THREE.Line( geometry, line_material, THREE.LinePieces );
+		this.scene_.addObject( line );
+};
+
+
+
+				
+				
+lgb.controller.MainController.prototype.onColladaLoaded = function(event) {
+	
+	var collada = event.payload.collada;
+	
+	this.dae = collada.scene;
+
+
+	this.dae.scale.x = this.dae.scale.y = this.dae.scale.z = .4;
+	this.dae.rotation.x = -Math.PI/2;
+	this.dae.updateMatrix();
+	
+	
+	this.scene_.addObject(  collada.scene );
+	
+	//var geometry = event.payload.geometry;
+	
+//	this.addOneMesh( new THREE.Vector3(	0,	0,	0), geometry );
 	
 	//console.log("!handler fired");
 };
@@ -271,9 +324,9 @@ lgb.controller.MainController.prototype.animate = function() {
 	var delegate = this.d(this.animate);
 	requestAnimationFrame( delegate  );
 
-	if (this.meshes_.length === 0) {
-		return;
-	}
+	//if (this.meshes_.length === 0) {
+		//return;
+	//}
 	
 //	this.checkForMouseOver();
 
@@ -294,12 +347,27 @@ lgb.controller.MainController.prototype.animate = function() {
 
 	this.theta += 0.01;		
 
-	this.renderer_.render( this.scene_, this.camera_ );
-	
+
+	this.render()
 	this.stats_.update();
 };
 
+lgb.controller.MainController.prototype.render = function() {
 
+	var timer = new Date().getTime() * 0.0005;
+
+	this.camera_ .position.x = Math.cos( timer ) * 10;
+	//this.camera_ .position.y = 2;
+	this.camera_ .position.z = Math.sin( timer ) * 10;
+
+
+
+
+	//renderer.render( scene, camera );
+	this.renderer_.render( this.scene_, this.camera_ );
+};
+
+			
 lgb.controller.MainController.prototype.onDocumentMouseMove = function(event) {
 	event.preventDefault();	
 	this.mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;

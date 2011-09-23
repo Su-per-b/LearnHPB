@@ -1,6 +1,6 @@
 goog.provide('lgb.Global');
 
-console.log("loaded Global");
+
 
 	/**
 	* Inspects the contents of the array to verify that all the elements are 
@@ -380,4 +380,4 @@ var Stats = function () {
 };
 
 
-console.log("parsed Global");
+

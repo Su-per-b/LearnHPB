@@ -24,27 +24,6 @@ lgb.BaseClass.prototype.dispatch = function(event) {
 	
 	lgb.globalEventBus.dispatch(event);
 	
-	
-	/*
-	var newEvent = jQuery.Event(eventName);
-	
-	if (null !== value && undefined !== value) {
-		newEvent.value = value;
-		msg += " : " + value.toString();
-	}
-	
-	if (lgb.Config.DEBUG_EVENTS) {
-		var msg =  ('EventBus - dispatch: {0}'.format(eventName));
-		
-		if (null !== value && undefined !== value) {
-			msg += " : " + value.toString();
-		}
-	
-		console.log(msg);
-	}
-	*/
-	
-	
 	//lgb.BaseClass.eventBus.trigger(newEvent);
 };
 
