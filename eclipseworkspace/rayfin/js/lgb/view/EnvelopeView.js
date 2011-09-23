@@ -1,4 +1,4 @@
-goog.provide('lgb.view.RoofTopView');
+goog.provide('lgb.view.EnvelopeView');
 
 goog.require ("lgb.view.ViewBase");
 goog.require('lgb.event.MeshLoadedEvent');
@@ -11,7 +11,7 @@ goog.require('lgb.Loader');
  * @constructor
  * @extends lgb.view.ViewBase
  */
-lgb.view.RoofTopView = function(model) {
+lgb.view.EnvelopeView = function(model) {
 	lgb.view.ViewBase.call(this);
 	
 	this.model_ = model;
@@ -21,23 +21,23 @@ lgb.view.RoofTopView = function(model) {
 
 
 
-goog.inherits(lgb.view.RoofTopView, lgb.view.ViewBase);
+goog.inherits(lgb.view.EnvelopeView, lgb.view.ViewBase);
 
 
 
 /** 
  * Initializes the View
  */
-lgb.view.RoofTopView.prototype.init = function() {
+lgb.view.EnvelopeView.prototype.init = function() {
 
 	this.loader_ = new lgb.Loader();
-	this.loader_.loadMesh("rooftopLowpoly7_29_11_raj2.dae", this.d(this.onMeshLoaded));
+	this.loader_.loadMesh("box.dae", this.d(this.onMeshLoaded));
 	
 };
 
 
 		
-lgb.view.RoofTopView.prototype.onMeshLoaded = function(collada) {
+lgb.view.EnvelopeView.prototype.onMeshLoaded = function(collada) {
 
 	this.dae = collada.scene;
 
