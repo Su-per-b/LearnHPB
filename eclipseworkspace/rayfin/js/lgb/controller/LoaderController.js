@@ -24,6 +24,13 @@ lgb.controller.LoaderController = function() {
    */		
 	this.binaryLoader_ = new THREE.BinaryLoader(  );
 	
+	/**
+   * Used to download 3D mesh files
+   * @type {THREE.BinaryLoader}
+   * @private
+   */		
+	this.jsonLoader_ = new THREE.JSONLoader(  );
+	
 };
 
 
@@ -33,25 +40,35 @@ goog.inherits(lgb.controller.LoaderController, lgb.controller.ControllerBase);
 
 lgb.controller.LoaderController.prototype.loadAll = function() {
 	
-		this.loadMesh("damper-solo.obj.min.js");
+		//this.loadMesh("damper-solo.obj.min.js", true);
+		//this.loadMesh("box.js", false);
+		this.loadMesh("rooftopLowpoly7_29_11_raj2.js", false);
 };
 
 
 
-lgb.controller.LoaderController.prototype.loadMesh = function(fileName) {
+lgb.controller.LoaderController.prototype.loadMesh = function(fileName, isBinary) {
 
 
 		var path = lgb.Config.ASSETS_BASE_PATH  + fileName;
 		
-		this.binaryLoader_.load ( 
-			{ 
-				model: path, 
-				callback: this.d(this.onGeometryLoaded)
-			} 
-		);
+		var loadObj = { 
+					model: path, 
+					callback: this.d(this.onGeometryLoaded)
+			};
+		
+		
+		if(isBinary) {
+			this.binaryLoader_.load ( loadObj );
+		}
+		else {
+			this.jsonLoader_.load ( loadObj );
+		}
 };
 
 lgb.controller.LoaderController.prototype.onGeometryLoaded = function(geometry) {
+	
+
 	
 	var event = new lgb.controller.LoaderController.GeometryLoadedEvent(geometry);
 	this.dispatch(event);

@@ -17,8 +17,8 @@ goog.require('goog.events.KeyCodes');
 lgb.controller.MainController = function() {
 	
 	lgb.controller.ControllerBase.call(this);
-	lgb.globalEventBus = new lgb.event.EventBus();
-
+	lgb.EventBusObj = new lgb.event.Ebus();
+	
 	var delegate = $.proxy(this.init, this);
 	jQuery(document).ready(delegate);
 	
@@ -42,14 +42,9 @@ lgb.controller.MainController.prototype.init = function() {
 	this.mouse = { x: 0, y: 0 };
 	
 
-	/**
-   * @type {Array|THREE.Mesh}
-   * @private
-   */	
-	this.meshes_ = [];
-	
+	this.meshes = [];
 	this.theta = 0;
-//	this.camdist = 300;
+	this.camdist = 500;
 	
 	this.totalFaces = 0;
 	this.totalColliders = 0;
@@ -90,6 +85,12 @@ lgb.controller.MainController.prototype.init = function() {
 		
 
 	
+	/**
+   * The one and only Camera that views the 3d scene
+   * @type {THREE.Camera}
+   * @private
+   */	
+	this.camera_ = new THREE.Camera( 2, window.innerWidth / window.innerHeight, 1, 10000 );
 
 	/**
    * light source 1
@@ -113,58 +114,19 @@ lgb.controller.MainController.prototype.init = function() {
 		
 		
 	this.renderer_.setSize( window.innerWidth, window.innerHeight );
-
+	this.camera_.position.z = this.camdist;
 	
-	/**
-   * The one and only Camera that views the 3d scene
-   * @type {THREE.Camera}
-   * @private
-   */	
-	//this.camera_ = new THREE.Camera( 2, window.innerWidth / window.innerHeight, 1, 10000 );
 
-
-var radius = 10;
-		this.camera_  = new THREE.TrackballCamera({
-
-			fov: 30,
-			aspect: window.innerWidth  / window.innerHeight,
-			near: 1,
-			far: 250,
-
-			rotateSpeed: 1.0,
-			zoomSpeed: 1.2,
-			panSpeed: 0.1,
-
-			noZoom: false,
-			noPan: false,
-
-			staticMoving: false,
-			dynamicDampingFactor: 0.3,
-
-			minDistance:1,
-			maxDistance:100,
-
-			keys: [ 65, 83, 68 ], // [ rotateKey, zoomKey, panKey ],
-
-			domElement: this.renderer_.domElement,
-
-		});
-		
-	this.camera_.position.x = 0;
-	this.camera_.position.y = 0;
-	this.camera_.position.z = 15;
-	
 	this.sun_.position = this.camera_.position.clone();
 	this.scene_.addLight( this.sun_ );
 	this.scene_.addLight( this.ambientLight_ );
 	
-	//this.addLine();
+	this.addLine();
 	
 	this.containerDiv_.appendChild( this.renderer_.domElement );
 	document.body.appendChild( this.containerDiv_ );
 		
 
-	
 	this.listen(
 		lgb.controller.LoaderController.GeometryLoadedEvent.TYPE, 
 		this.onGeometryLoaded);
@@ -216,37 +178,37 @@ lgb.controller.MainController.prototype.addOneMesh = function(p, g) {
 	
 	var mc = THREE.CollisionUtils.MeshColliderWBox(mesh);
 	THREE.Collisions.colliders.push( mc );
-	this.meshes_.push( mesh );
-	
-	//re-target camera
-	this.camera_.target = mesh;
-	
-		//mesh.translateX(-3);
-		
-		var x = 0;
-	//this.camera_ = new THREE.Camera( 2, window.innerWidth / window.innerHeight, 1, 10000, mesh );
-	//( fov, aspect, near, far, target ) 
+	this.meshes.push( mesh );
 };
 
 
-lgb.controller.MainController.prototype.checkForMouseOver = function() {
-	
-	this.infoDiv_.innerHTML = "";
+
+
+lgb.controller.MainController.prototype.animate = function() {
+
 		
+	var delegate = this.d(this.animate);
+	requestAnimationFrame( delegate  );
+
 	var vector = new THREE.Vector3( this.mouse.x, this.mouse.y, 0.5 );
 	this.projector_.unprojectVector( vector, this.camera_ );
+
+	var ray = new THREE.Ray( this.camera_.position, vector.subSelf( this.camera_.position ).normalize() );
 	
-	var ray = new THREE.Ray( 
-		this.camera_.position, 
-		vector.subSelf( this.camera_.position ).normalize() );
+	if (this.meshes.length === 0) {
+		return;
+	}
 	
-	var c = THREE.Collisions.rayCastNearest( ray );
-	
-	var i, l = this.meshes_.length;
+	var i, l = this.meshes.length;
 	
 	for ( i = 0; i < l; i++ ) {
-		this.meshes_[ i ].materials[ 0 ].color.setHex( 0x003300 );
+		this.meshes[ i ].materials[ 0 ].color.setHex( 0x003300 );
 	}
+	
+	this.infoDiv_.innerHTML = "";
+
+
+	var c = THREE.Collisions.rayCastNearest( ray );
 	
 	if( c ) {
 	
@@ -261,38 +223,19 @@ lgb.controller.MainController.prototype.checkForMouseOver = function() {
 		c.mesh.materials[ 0 ].color.setHex( 0xbb0000 );
 
 	} else {
+	
 		this.infoDiv_.innerHTML += "<br />No intersection";
+
 	}
-}
 
-lgb.controller.MainController.prototype.animate = function() {
+	this.camera_.position.x = this.camdist * Math.cos( this.theta );
+	this.camera_.position.z = this.camdist * Math.sin( this.theta );
+	this.camera_.position.y = this.camdist/2 * Math.sin( this.theta * 2) ;
 
-		
-	var delegate = this.d(this.animate);
-	requestAnimationFrame( delegate  );
-
-	if (this.meshes_.length === 0) {
-		return;
-	}
-	
-//	this.checkForMouseOver();
-
-	//increment camera orbit
-	//this.camera_.position.x = this.camdist * Math.cos( this.theta );
-	//this.camera_.position.z = this.camdist * Math.sin( this.theta );
-	//this.camera_.position.y = this.camdist/2 * Math.sin( this.theta * 2) ;
-	var mesh = this.meshes_[0];
-	
-//camera.position.y = mesh.position.y ;
-//camera.position.x = mesh.position.x + Math.cos(mesh.rotation.y/360(2*Math.PI))*50 ;
-//camera.position.z = mesh.position.z + Math.sin(mesh.rotation.y/360(2*Math.PI))*10; 
-
-
-	//move light
 	this.sun_.position.copy( this.camera_.position );
 	this.sun_.position.normalize();
 
-	this.theta += 0.01;		
+	this.theta += 0.005;		
 
 	this.renderer_.render( this.scene_, this.camera_ );
 	

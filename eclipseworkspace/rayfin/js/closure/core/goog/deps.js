@@ -766,5 +766,6 @@ goog.addDependency("../../../lgb/Global.js", ['lgb.Global'], []);
 goog.addDependency("../../../lgb/controller/ControllerBase.js", ['lgb.controller.ControllerBase'], ['lgb.BaseClass']);
 goog.addDependency("../../../lgb/controller/DragDropController.js", ['lgb.controller.DragDropController'], []);
 goog.addDependency("../../../lgb/controller/LoaderController.js", ['lgb.controller.LoaderController', 'lgb.controller.LoaderController.GeometryLoadedEvent'], ['goog.events', 'goog.events.EventHandler', 'goog.events.EventType', 'goog.events.EventTarget', 'lgb.Config']);
+goog.addDependency("../../../lgb/controller/MainController.bak.js", ['lgb.controller.MainController'], ['lgb.controller.ControllerBase', 'goog.events', 'goog.events.BrowserEvent', 'goog.events.EventHandler', 'goog.events.EventType', 'goog.events.KeyCodes']);
 goog.addDependency("../../../lgb/controller/MainController.js", ['lgb.controller.MainController'], ['lgb.controller.ControllerBase', 'goog.events', 'goog.events.BrowserEvent', 'goog.events.EventHandler', 'goog.events.EventType', 'goog.events.KeyCodes']);
-goog.addDependency("../../../lgb/event/Ebus.js", ['lgb.event.Ebus'], ['goog.events.EventTarget']);
+goog.addDependency("../../../lgb/event/EventBus.js", ['lgb.event.EventBus'], ['goog.events.EventTarget']);

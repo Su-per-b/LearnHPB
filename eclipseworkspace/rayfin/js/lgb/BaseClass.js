@@ -22,7 +22,7 @@ lgb.BaseClass.prototype.d = function(theFunction) {
 
 lgb.BaseClass.prototype.dispatch = function(event) {
 	
-	lgb.EventBusObj.dispatch(event);
+	lgb.globalEventBus.dispatch(event);
 	
 	
 	/*
@@ -64,7 +64,7 @@ lgb.BaseClass.prototype.listen = function(eventName, handler) {
 	var delegate = jQuery.proxy( handler, this );
 	
 	goog.events.listen (
-		lgb.EventBusObj, 
+		lgb.globalEventBus, 
 		eventName, 
 		delegate);	
 		
