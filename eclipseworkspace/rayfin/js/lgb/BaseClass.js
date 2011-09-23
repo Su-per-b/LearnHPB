@@ -13,18 +13,11 @@ lgb.BaseClass.prototype.d = function(theFunction) {
 	return delegate;
 };
 
-//goog.inherits(lgb.BaseClass, goog.events.EventTarget);
-
-lgb.BaseClass.prototype.d = function(theFunction) {
-	var delegate = $.proxy(theFunction, this);
-	return delegate;
-};
 
 lgb.BaseClass.prototype.dispatch = function(event) {
 	
 	lgb.globalEventBus.dispatch(event);
-	
-	//lgb.BaseClass.eventBus.trigger(newEvent);
+
 };
 
 
@@ -35,19 +28,16 @@ lgb.BaseClass.prototype.dispatchLocal = function(eventName, value) {
 };
 
 
-lgb.BaseClass.prototype.listen = function(eventName, handler) {
-		//var delegate = jQuery.proxy( handler, this );
-		//lgb.Base.eventBus.bind(eventName, delegate);
-		//lgb.EventBusObj.listen
-	
+lgb.BaseClass.prototype.listen = function(event, handler) {
+
+	var eventType = event.TYPE;
 	var delegate = jQuery.proxy( handler, this );
 	
 	goog.events.listen (
 		lgb.globalEventBus, 
-		eventName, 
+		eventType, 
 		delegate);	
 		
-	var x = 0;
 };
 
 lgb.BaseClass.prototype.each = function(ary, handler) {
