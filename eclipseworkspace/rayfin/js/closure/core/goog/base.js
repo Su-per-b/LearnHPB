@@ -90,7 +90,7 @@ goog.LOCALE = 'en';  // default to en
 goog.provide = function(name) {
 	
   if (!COMPILED) {
-    console.log ("goog.provide: " + name);
+    //console.log ("goog.provide: " + name);
     
     // Ensure that the same namespace isn't provided twice. This is intended
     // to teach new developers that 'goog.provide' is effectively a variable

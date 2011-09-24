@@ -9,7 +9,8 @@ goog.require('lgb.Config');
 
 /**
  * @class MVC controller for loading 3d-assets
- * @extends lgb.controller.ControllerBase
+ * @constructor
+ * @extends lgb.BaseClass
  */
 lgb.Loader = function() {
 	
@@ -35,8 +36,18 @@ lgb.Loader = function() {
    * @private
    */		
 	this.colladaLoader_ = new ColladaLoader(  );
-	//this.meshList = {};
-	//this.listen(lgb.event.MeshRequestEvent, this.onMeshRequest);
+
+	
+	/**
+   * Used to download 3D mesh files in the Collada format
+   * @type {ColladaLoader}
+   * @private
+   */		
+	this.utf8Loader_ = new THREE.UTF8Loader();
+
+
+
+
 
 };
 
@@ -56,13 +67,13 @@ lgb.Loader.prototype.onMeshRequest = function(event) {
 
 
 
-lgb.Loader.prototype.loadMesh = function(fileName, callback) {
+lgb.Loader.prototype.loadFile = function(fileName, callback) {
 
 		
 		var fileType = this.getFileType(fileName);
 		var path = lgb.Config.ASSETS_BASE_PATH  + fileName;
 		
-		var callbackDelegate = this.d(this.onColladaLoaded);
+		//var callbackDelegate = this.d(this.onColladaLoaded);
 		
 		var loadObj = { 
 					model: path, 
@@ -80,6 +91,9 @@ lgb.Loader.prototype.loadMesh = function(fileName, callback) {
 				break;
 			case lgb.Loader.MESH_TYPE.COLLADA :
 				this.colladaLoader_ .load ( path , callback );
+				break;
+			case lgb.Loader.MESH_TYPE.UTF8 :
+				this.utf8Loader_ .load ( loadObj );
 				break;
 				
 		}
@@ -101,14 +115,18 @@ lgb.Loader.prototype.getFileType = function(fileName) {
 		
 		if (fileExt == 'dae') {
 			return lgb.Loader.MESH_TYPE.COLLADA;
-		} else if (fileExt == 'js') {
+		} else if(fileExt == 'utf8') {
+			return lgb.Loader.MESH_TYPE.UTF8;
+		}
+		
+		if (fileExt == 'js') {
 			var typeCode = ary[len-2].toLowerCase();
-			if (typeCode == 'bin') {
+			if (typeCode == 'b') {
 				return lgb.Loader.MESH_TYPE.BIN;
 			} else if (typeCode == 'json'){
 				return lgb.Loader.MESH_TYPE.JSON;
-			} else if (typeCode == 'utf8'){
-				return lgb.Loader.MESH_TYPE.UTF8;
+			} else {
+				return lgb.Loader.MESH_TYPE.JSON;
 			}
 		} else {
 			return lgb.Loader.MESH_TYPE.UNKNOWN;
@@ -129,38 +147,6 @@ lgb.Loader.prototype.onColladaLoaded = function(collada ) {
 
 
 
-
-
-lgb.Loader.prototype.load = function() {
-	var container = document.createElement( 'div' );
-	document.body.appendChild( container );
-	
-	this.jasonLoader = new THREE.JSONLoader(  );
-	
-	this.renderer = new THREE.WebGLRenderer();
-	this.renderer.setSize( window.innerWidth, window.innerHeight );
-	
-	container.appendChild( this.renderer.domElement );
-	this.loadMesh();
-};
-
-
-
-
-lgb.Loader.prototype.addOneMesh = function(p, g) {
-	this.totalFaces += g.faces.length;
-	this.totalColliders++;
-
-	var mesh = new THREE.Mesh( g, new THREE.MeshPhongMaterial( { color: 0x003300 } ) );
-	
-	mesh.position = p;
-	
-	this.scene.addObject( mesh );
-	
-	var mc = THREE.CollisionUtils.MeshColliderWBox(mesh);
-	THREE.Collisions.colliders.push( mc );
-	this.meshes.push( mesh );
-};
 
 
 

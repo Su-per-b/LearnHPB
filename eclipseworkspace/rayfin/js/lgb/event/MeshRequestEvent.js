@@ -3,9 +3,11 @@ goog.provide('lgb.event.MeshRequestEvent');
 goog.require('goog.events.Event');
 
 /**
+ * @constructor
+ *
  *  Event fired when a collada file is loaded
  * @param {mesh} 
- * @constructor
+ * 
  * @extends {goog.events.Event}
  */
 lgb.event.MeshRequestEvent = function(mesh, callback) {
@@ -15,11 +17,11 @@ lgb.event.MeshRequestEvent = function(mesh, callback) {
 	this.payload = {};
 	this.callback = callback;
 	
-  /**
-   * The event payload
-   * @type {Object}
-   */
-  this.payload.mesh = mesh;
+	  /**
+	   * The event payload
+	   * @type {Object}
+	   */
+	  this.payload.mesh = mesh;
 
 };
 

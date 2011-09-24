@@ -14,9 +14,10 @@ lgb.controller.MainController = function() {
 	
 	lgb.controller.ControllerBase.call(this);
 	lgb.globalEventBus = new lgb.event.EventBus();
-
-	var delegate = $.proxy(this.init, this);
+	
+	var delegate = jQuery.proxy(this.init, this);
 	jQuery(document).ready(delegate);
+
 	
 };
 

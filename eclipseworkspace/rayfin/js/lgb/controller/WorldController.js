@@ -118,7 +118,7 @@ lgb.controller.WorldController.prototype.init = function(containerDiv) {
 
 		keys: [ 65, 83, 68 ], // [ rotateKey, zoomKey, panKey ],
 
-		domElement: this.renderer_.domElement,
+		domElement: this.renderer_.domElement
 
 	});
 		
@@ -137,17 +137,31 @@ lgb.controller.WorldController.prototype.init = function(containerDiv) {
 	
 	this.animate();
 	
+	//this.listen(lgb.event.ColladaSceneLoadedEvent, this.onColladaSceneLoaded);
+	//this.listen(lgb.event.GeometryLoadedEvent, this.onGeometryLoaded);
 	this.listen(lgb.event.MeshLoadedEvent, this.onMeshLoaded);
-		
+	
 	//this.loaderController_ = new lgb.controller.Loader();
-	this.roofTopController_ = new lgb.controller.RoofTopController();
+	//this.roofTopController_ = new lgb.controller.RoofTopController();
 	this.envelopeController_ = new lgb.controller.EnvelopeController();
 };
 
+
 lgb.controller.WorldController.prototype.onMeshLoaded = function(event) {
 	
-	this.scene_.addObject(  event.payload );
+	var mesh = event.payload;
 	
+	this.scene_.addObject(  mesh );
+	//this.camera_.target =  colladaScene;
+};
+
+
+lgb.controller.WorldController.prototype.onColladaSceneLoaded = function(event) {
+	
+	var colladaScene = event.payload;
+	
+	this.scene_.addObject(  colladaScene );
+	//this.camera_.target =  colladaScene;
 };
 
 lgb.controller.WorldController.prototype.addFloor = function(event) {

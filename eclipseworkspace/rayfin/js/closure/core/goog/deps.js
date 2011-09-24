@@ -770,6 +770,7 @@ goog.addDependency("../../../lgb/controller/EnvelopeController.js", ['lgb.contro
 goog.addDependency("../../../lgb/controller/MainController.js", ['lgb.controller.MainController'], ['lgb.controller.ControllerBase', 'lgb.controller.WorldController']);
 goog.addDependency("../../../lgb/controller/RoofTopController.js", ['lgb.controller.RoofTopController'], ['lgb.controller.ControllerBase', 'lgb.model.RoofTopModel', 'lgb.view.RoofTopView']);
 goog.addDependency("../../../lgb/controller/WorldController.js", ['lgb.controller.WorldController'], ['lgb.controller.ControllerBase', 'lgb.controller.RoofTopController', 'lgb.controller.EnvelopeController']);
+goog.addDependency("../../../lgb/event/ColladaSceneLoadedEvent.js", ['lgb.event.ColladaSceneLoadedEvent'], ['goog.events.Event']);
 goog.addDependency("../../../lgb/event/EventBus.js", ['lgb.event.EventBus'], ['goog.events.EventTarget']);
 goog.addDependency("../../../lgb/event/MeshLoadedEvent.js", ['lgb.event.MeshLoadedEvent'], ['goog.events.Event']);
 goog.addDependency("../../../lgb/event/MeshRequestEvent.js", ['lgb.event.MeshRequestEvent'], ['goog.events.Event']);

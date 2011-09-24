@@ -19,6 +19,11 @@
 var document = window.document,
 	navigator = window.navigator,
 	location = window.location;
+	
+/**
+ * @constructor
+ * @export
+ */
 var jQuery = (function() {
 
 // Define a local copy of jQuery
@@ -795,6 +800,10 @@ jQuery.extend({
 
 	// Bind a function to a context, optionally partially applying any
 	// arguments.
+	/**
+	 * @constructor
+	 * @export
+	 */
 	proxy: function( fn, context ) {
 		if ( typeof context === "string" ) {
 			var tmp = fn[ context ];

@@ -9,7 +9,7 @@ lgb.BaseClass = function() {
 
 
 lgb.BaseClass.prototype.d = function(theFunction) {
-	var delegate = $.proxy(theFunction, this);
+	var delegate = jQuery.proxy(theFunction, this);
 	return delegate;
 };
 
