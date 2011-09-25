@@ -31,12 +31,23 @@ goog.inherits(lgb.view.RoofTopView, lgb.view.ViewBase);
 lgb.view.RoofTopView.prototype.init = function() {
 
 	this.loader_ = new lgb.Loader();
-	this.loader_.loadMesh("rooftopLowpoly7_29_11_raj2.dae", this.d(this.onMeshLoaded));
+	this.loader_.loadFile("rooftop-joined.b.js", this.d(this.onGeometryLoaded));
 	
 };
 
 
-		
+lgb.view.RoofTopView.prototype.onGeometryLoaded = function(geometry) {
+
+
+	var mesh = new THREE.Mesh( geometry, new THREE.MeshFaceMaterial() );
+	mesh.doubleSided = true;
+	mesh.scale.x = mesh.scale.y = mesh.scale.z = 1;
+	//mesh.rotation.y = Math.PI/2;
+	
+	var event = new lgb.event.MeshLoadedEvent(mesh);
+	this.dispatch(event);
+};
+/*		
 lgb.view.RoofTopView.prototype.onMeshLoaded = function(collada) {
 
 	this.dae = collada.scene;
@@ -49,6 +60,6 @@ lgb.view.RoofTopView.prototype.onMeshLoaded = function(collada) {
 	this.dispatch(event);
 };
 
-
+*/
 
 

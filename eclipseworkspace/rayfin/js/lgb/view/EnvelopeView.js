@@ -31,8 +31,9 @@ goog.inherits(lgb.view.EnvelopeView, lgb.view.ViewBase);
 lgb.view.EnvelopeView.prototype.init = function() {
 
 	this.loader_ = new lgb.Loader();
-	//this.loader_.loadFile("9footEnvelopeStrip-joined.b.js", this.d(this.onGeometryLoaded));
-	this.loader_.loadFile("rooftopLowpoly7_29_11_raj2.b.js", this.d(this.onGeometryLoaded));
+	this.loader_.loadFile("9footEnvelopeStrip-joined.b.js", this.d(this.onGeometryLoaded));
+	//this.loader_.loadFile("roofTop.b.js", this.d(this.onGeometryLoaded));
+	//this.loader_.loadFile("ductwork.b.js", this.d(this.onGeometryLoaded));
 	
 };
 
@@ -42,11 +43,12 @@ lgb.view.EnvelopeView.prototype.onGeometryLoaded = function(geometry) {
 	//this.addMesh( geometry, 0.1, 0, 0, 0,  0,0,0, 
 	//geometry.scale.x = geometry.scale.y = geometry.scale.z = 0.1;
 	
-	var material = new THREE.MeshPhongMaterial( { ambient: 0x030303, color: 0x030303, specular: 0x990000, shininess: 30 } );
+	//var material = new THREE.MeshPhongMaterial( { ambient: 0x030303, color: 0x030303, specular: 0x990000, shininess: 30 } );
 	
 	var mesh = new THREE.Mesh( geometry, new THREE.MeshFaceMaterial() );
+	mesh.doubleSided = true;
 	//var mesh = new THREE.Mesh( geometry, material);
-	mesh.scale.x = mesh.scale.y = mesh.scale.z = .2;
+	mesh.scale.x = mesh.scale.y = mesh.scale.z = 1;
 	var event = new lgb.event.MeshLoadedEvent(mesh);
 	this.dispatch(event);
 };
