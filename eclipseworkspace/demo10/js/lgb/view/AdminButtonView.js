@@ -36,7 +36,7 @@ var lgb = (function(lgb) {
 		injectHtml : function() {
 
 			var html = '<div id="adminButton">\
-						<a id="adminButtonLink" title="Admin" href="#"></a>\
+						<a id="adminButtonLink" title="Show / hide Admin panel" href="#"></a>\
 						</div>';
 
 
@@ -60,6 +60,18 @@ var lgb = (function(lgb) {
 		bindEvents : function() {
 
 			$('#adminButtonLink').click({mode:'ALL'},this.d(this.onClick));
+
+			var toolTipConfig = {
+			  skin: 'light',
+				hook: {
+				  target: 'leftmiddle',
+				  tooltip: 'rightmiddle'
+				},
+				background: { color: '#fff', opacity: .85 },
+			  closeButton: false
+			};
+			
+			Tipped.create('#adminButtonLink', toolTipConfig);
 
 		},
 		

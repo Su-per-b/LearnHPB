@@ -966,7 +966,9 @@ var hemi = (function(hemi) {
 		this.viewInfo = hemi.core.renderGraph.createBasicView(hemi.core.mainPack,
 				hemi.core.client.root, hemi.core.client.renderGraphRoot);
 		this.setBGColor(this.defaultBG);
+		
 
+		
 		hemi.view.addRenderListener(this.clientSize);
 		hemi.core.client.setRenderCallback(hemi.view.onRender);
 	};

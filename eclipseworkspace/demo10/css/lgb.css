@@ -68,8 +68,8 @@ img {
 
 #adminButton {
 	position:absolute;
-	width:34px;
-	height:34px;
+	width:33px;
+	height:33px;
 	left:-2000px;
 	top:0px;
     z-index:101;
@@ -79,29 +79,30 @@ img {
 }
 #adminButtonLink {
 	
-	width:34px;
-	height:34px;
+	width:33px;
+	height:33px;
 	display:block;
 	background-color:transparent;  
 	margin:0 0 0 0;
-	
- 	background-image:url('../images/icon_wrench_34px.png');
+	background-position: 0px 0px; 
+ 	background-image:url('../images/icon_grid_33.png');
 }
 
 #adminButtonLink:hover {
-	background-image:url('../images/icon_wrench_over_34px.png');
+	background-position: 0px -33px;
 }
 #adminButtonLink.selected {
-	background-image:url('../images/icon_wrench_selected_34px.png');
+	background-position: 0px -66px;
 }
 #adminButtonLink.selected:hover {
-	background-image:url('../images/icon_wrench_selected_over_34px.png');
+	background-position: 0px -99px;
 }
-
+#adminButtonLink:active, #adminButtonLink.selected:active {
+	background-position: 0px -132px; 
+}
 
 #adminView {
 	opacity:0.92;
-
 }
 
 .adminSubPanel {
@@ -167,7 +168,7 @@ input.component-TextInput {
 	width:63px;
 	height:352px; 
 	left:-2000px; 
-    z-index:100;
+    z-index:10;
     background-color:transparent;  
     background-image:url('../images/leftnav.png');
     background-repeat:no-repeat;
@@ -181,15 +182,82 @@ input.component-TextInput {
 	display:block;
 	background-color:transparent;  
 	margin:0 0 10px 0;
+	background-image:url('../images/icon_grid_42.png');
 }
 
 #leftNavButton_1 {
-	background-image:url('../images/icon_general.png');
-}
-#leftNavButton_1:hover {
-	background-image:url('../images/icon_general_over.png');
+	background-position: -42px 0px; 
 }
 
+
+
+
+#leftNavButton_1:hover {
+	background-position:-42px -42px; 
+}
+#leftNavButton_1.selected {
+	background-position: -42px -84px; 
+}
+#leftNavButton_1.selected:hover {
+	background-position: -42px -126px; 
+}
+#leftNavButton_1:active, #leftNavButton_1.selected:active {
+	background-position: -42px -168px; 
+}
+
+#leftNavButton_2 {
+	background-position: -84px 0px; 
+}
+#leftNavButton_2:hover {
+	background-position:-84px -42px; 
+}
+#leftNavButton_2.selected {
+	background-position: -84px -84px; 
+}
+#leftNavButton_2.selected:hover {
+	background-position: -84px -126px; 
+}
+#leftNavButton_2:active, #leftNavButton_2.selected:active {
+	background-position: -84px -168px; 
+}
+
+#leftNavButton_3 {
+	background-position: -168px 0px; 
+}
+#leftNavButton_3:hover {
+	background-position:-168px -42px; 
+}
+#leftNavButton_3.selected {
+	background-position: -168px -84px; 
+}
+#leftNavButton_3.selected:hover {
+	background-position: -168px -126px; 
+}
+#leftNavButton_3:active, #leftNavButton_3.selected:active {
+	background-position: -168px -168px; 
+}
+
+
+#leftNavButton_4 {
+	background-position: -126px 0px; 
+}
+#leftNavButton_4:hover {
+	background-position:-126px -42px; 
+}
+#leftNavButton_4.selected {
+	background-position: -126px -84px; 
+}
+#leftNavButton_4.selected:hover {
+	background-position: -126px -126px; 
+}
+#leftNavButton_4:active, #leftNavButton_4.selected:active {
+	background-position: -126px -168px; 
+}
+
+
+
+
+/*
 #leftNavButton_2 {
 	background-image:url('../images/icon_hvac.png');
 }
@@ -219,6 +287,7 @@ input.component-TextInput {
 #leftNavButton_5:hover {
 	background-image:url('../images/icon_lighting_over.png');
 }
+*/
 
 
 /** progressbar **/
@@ -275,3 +344,55 @@ input.component-TextInput {
 
   font-size:0.8em;
 }
+
+.t_Content_light{
+  font-size: 14px;
+}
+
+/* tooltip styling. by default the element to be styled is .tooltip  
+.tooltip {
+	display:none;
+	background:#fff;
+	font-size:14px;
+	height:70px;
+	width:70px;
+	padding:25px;
+	color:#333;
+	z-index:20;
+	border:1px solid #cccccc; 
+	color:#6c6c6c;
+}
+
+.fg-tooltip {
+	display:none;
+	padding: .8em;
+	width: 12em;
+	border-width: 2px !important;
+	position: absolute;
+	background:#fff;
+}
+.fg-tooltip .fg-tooltip-pointer-down, .fg-tooltip .fg-tooltip-pointer-down-inner {
+	position: absolute; 
+	width:0; 
+	height:0; 
+	border-bottom-width: 0;
+	background: none;
+}
+.fg-tooltip .fg-tooltip-pointer-down {	
+	border-left: 7px solid transparent; 
+	border-right: 7px solid transparent;
+	border-top-width: 14px;
+	bottom:	-14px;
+	right: auto;
+	left: 50%;
+	margin-left: -7px;
+}
+.fg-tooltip .fg-tooltip-pointer-down-inner {
+	border-left: 5px solid transparent; 
+	border-right: 5px solid transparent;
+	border-top: 10px solid #fff;
+	bottom:	auto;
+	top: -14px;
+	left: -5px;
+}
+*/

@@ -31,6 +31,10 @@ var lgb = (function(lgb){
 		
         onMakeClientsComplete: function(clientElements){
             hemi.core.init(clientElements[0]);
+            
+            //todo:(raj) fix this the models, so that I can turn backfaceculling on again
+			hemi.view.viewInfo.performanceState.getStateParam('CullMode').value =o3d.State.CULL_NONE;
+			hemi.view.viewInfo.zOrderedState.getStateParam('CullMode').value = o3d.State.CULL_NONE;
 			
 			//at this point we init theworld camera again so 
 			// that we can use a sublcass
