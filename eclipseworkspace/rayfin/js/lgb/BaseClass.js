@@ -18,8 +18,8 @@ lgb.BaseClass.prototype.d = function(theFunction) {
 
 lgb.BaseClass.prototype.dispatch = function(event) {
 	
-	lgb.globalEventBus.dispatch(event);
-
+	//lgb.globalEventBus.dispatch(event);
+	goog.events.dispatchEvent(lgb.globalEventBus, event);
 };
 
 

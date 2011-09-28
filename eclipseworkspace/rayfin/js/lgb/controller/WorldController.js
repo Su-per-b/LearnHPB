@@ -3,14 +3,12 @@ goog.provide('lgb.controller.WorldController');
 goog.require ("lgb.controller.ControllerBase");
 goog.require ("lgb.controller.RoofTopController");
 goog.require ("lgb.controller.EnvelopeController");
-//goog.require ("lgb.controller.ParticleSystemController");
 goog.require ("lgb.controller.ParticleSystemController");
 
 goog.require ("lgb.event.RenderEvent");
 goog.require ("lgb.view.CameraView");
 goog.require('lgb.view.FloorView');
 goog.require('lgb.view.StatsView');
-//goog.require('lgb.view.ParticleView2');
 goog.require('lgb.event.WindowResizeEvent');
 
 
@@ -115,15 +113,37 @@ lgb.controller.WorldController.prototype.init = function() {
 	this.containerDiv_.appendChild( this.renderer_.domElement );
 	
 	this.particleSystemController = new lgb.controller.ParticleSystemController();
-	//this.particleSystemController.init();
+
+	this.renderEvent = new lgb.event.RenderEvent()
+	
+	
+
+	if (window.webkitRequestAnimationFrame ) {
+		this.renderDelegate	= this.d(this.onRenderWebkit);
+		webkitRequestAnimationFrame ( this.renderDelegate);
+	} else if (window.mozRequestAnimationFrame){
+		this.renderDelegate	= this.d(this.onRenderMoz);
+		mozRequestAnimationFrame ( this.renderDelegate	 );
+	} else if (window.oRequestAnimationFrame){
+		this.renderDelegate	= this.d(this.onRenderOReq);
+		oRequestAnimationFrame ( this.renderDelegate );
+	} else {
+		this.renderDelegate	= this.d(this.onRenderMisc);
+		requestAnimationFrame ( this.renderDelegate );
+	}
+	
+	
 	
 
 		
-	this.renderDelegate	= this.d(this.onRender);
+};
+
+
+
+lgb.controller.WorldController.prototype.requestAnimationFrame = function(event) {
 	
-	
-	
-	mozRequestAnimationFrame( this.renderDelegate  );
+	var mesh = event.payload;
+	this.scene_.addObject(  mesh );
 };
 
 
@@ -141,22 +161,48 @@ lgb.controller.WorldController.prototype.onWindowResize = function(event) {
 lgb.controller.WorldController.prototype.onColladaSceneLoaded = function(event) {
 	
 	var colladaScene = event.payload;
-	
 	this.scene_.addObject(  colladaScene );
 
 };
 
 
-lgb.controller.WorldController.prototype.onRender = function() {
+lgb.controller.WorldController.prototype.onRenderMoz = function(event) {
 
-	mozRequestAnimationFrame( this.renderDelegate  );
-	this.dispatch(new lgb.event.RenderEvent());
-	
-	
-	this.renderer_.render( this.scene_, this.cameraVew_.camera );
+	mozRequestAnimationFrame ( mainController.worldController_.onRenderMoz  );
+	mainController.worldController_.renderHelper();
+};
+
+lgb.controller.WorldController.prototype.onRenderWebkit = function(event) {
+
+	webkitRequestAnimationFrame ( mainController.worldController_.onRenderWebkit  );
+	mainController.worldController_.renderHelper();
+};
+
+lgb.controller.WorldController.prototype.onRenderOReq = function(event) {
+
+
+	oRequestAnimationFrame ( mainController.worldController_.onRenderOReq  );
+	mainController.worldController_.renderHelper();
 	
 
 };
+lgb.controller.WorldController.prototype.onRenderMisc = function(event) {
+
+	requestAnimationFrame ( mainController.worldController_.onRenderMisc );
+	mainController.worldController_.renderHelper();
+};
+
+
+lgb.controller.WorldController.prototype.renderHelper = function() {
+
+
+	//todo: further optimze the render loop
+	goog.events.dispatchEvent(lgb.globalEventBus, this.renderEvent);
+	
+	this.renderer_.render( this.scene_, this.cameraVew_.camera );
+
+};
+
 
 
 

@@ -83,9 +83,9 @@ goog.provide('lgb.Global');
 	 * http://paulirish.com/2011/requestanimationframe-for-smart-animating/
 	 */
 	
-	if ( !window.requestAnimationFrameNew ) {
+	if ( !window.requestAnimationFrame ) {
 	
-		window.requestAnimationFrameNew = ( function() {
+		window.requestAnimationFrame = ( function() {
 	
 			return window.webkitRequestAnimationFrame ||
 			window.mozRequestAnimationFrame ||
@@ -100,6 +100,12 @@ goog.provide('lgb.Global');
 		} )();
 	
 	}
+	
+
+
+	
+	
+	
 
 
 /*
