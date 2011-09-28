@@ -3,7 +3,7 @@ goog.provide('lgb.model.ParticleSystemModel');
 goog.require ("lgb.model.ModelBase");
 goog.require('lgb.utils.XmlParser');
 goog.require('lgb.event.DataModelChanged');
-goog.require('hemi.curve');
+
 
 
 
@@ -119,7 +119,7 @@ lgb.model.ParticleSystemModel.prototype.parse = function(xml){
 
 lgb.model.ParticleSystemModel.prototype.makeParticleConfig = function(sys){
 			
-			var shapeStr = 'hemi.curve.shapeType.' + sys.shape;
+		//	var shapeStr = 'hemi.curve.shapeType.' + sys.shape;
 			
 			var bbAry = this.makeArrayFromIds(sys.boundingBoxIds,this.boxes);
 			var ckAry = this.makeArrayFromIds(sys.colorKeyIds,this.colorKeys);
@@ -130,7 +130,7 @@ lgb.model.ParticleSystemModel.prototype.makeParticleConfig = function(sys){
 				life : sys.life,
 				particleCount : sys.particleCount,
 				boxes :  bbAry,
-				particleShape : hemi.curve.ShapeType.SPHERE,
+			//	particleShape : hemi.curve.ShapeType.SPHERE,
 				particleSize : sys.particleSize,
 				colorKeys : ckAry,
 				scaleKeys : skAry

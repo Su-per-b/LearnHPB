@@ -1,4 +1,5 @@
-cls
+@echo off
+echo build all
 
 call 1-clean.bat
 call 2-make-single.bat

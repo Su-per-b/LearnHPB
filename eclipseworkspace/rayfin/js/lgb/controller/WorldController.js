@@ -4,7 +4,7 @@ goog.require ("lgb.controller.ControllerBase");
 goog.require ("lgb.controller.RoofTopController");
 goog.require ("lgb.controller.EnvelopeController");
 //goog.require ("lgb.controller.ParticleSystemController");
-goog.require ("lgb.controller.ParticleSystemController2");
+goog.require ("lgb.controller.ParticleSystemController");
 
 goog.require ("lgb.event.RenderEvent");
 goog.require ("lgb.view.CameraView");
@@ -114,7 +114,7 @@ lgb.controller.WorldController.prototype.init = function() {
 	
 	this.containerDiv_.appendChild( this.renderer_.domElement );
 	
-	this.particleSystemController = new lgb.controller.ParticleSystemController2();
+	this.particleSystemController = new lgb.controller.ParticleSystemController();
 	//this.particleSystemController.init();
 	
 

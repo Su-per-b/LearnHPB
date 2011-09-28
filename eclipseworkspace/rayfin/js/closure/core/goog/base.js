@@ -89,9 +89,7 @@ goog.LOCALE = 'en';  // default to en
  */
 goog.provide = function(name) {
 	
-	if (name == 'hemi.curve.Curve' ) {
-		console.log('curve');
-	}
+
   if (!COMPILED) {
     //console.log ("goog.provide: " + name);
     

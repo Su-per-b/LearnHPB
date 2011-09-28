@@ -1,7 +1,10 @@
+@echo off
+echo 4-compile-3d-assets.bat
+
 set "SRC=..\..\3d-assets"
 set "DEST=..\..\bin\bin-normal\3d-assets"
 
-call:compileCopy rooftopLowpoly7_29_11_raj2.b
+call:compileCopy rooftop-joined.b
 
 goto:eof
 
@@ -10,6 +13,7 @@ goto:eof
 ::--------------------------------------------------------
 
 :compileCopy
+echo compile %~1
 java -jar ..\compiler.jar ^
 --js %SRC%\%~1.js ^
 --js_output_file %DEST%\%~1.js
