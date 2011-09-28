@@ -3,11 +3,14 @@ goog.provide('lgb.controller.WorldController');
 goog.require ("lgb.controller.ControllerBase");
 goog.require ("lgb.controller.RoofTopController");
 goog.require ("lgb.controller.EnvelopeController");
+//goog.require ("lgb.controller.ParticleSystemController");
+goog.require ("lgb.controller.ParticleSystemController2");
+
 goog.require ("lgb.event.RenderEvent");
 goog.require ("lgb.view.CameraView");
 goog.require('lgb.view.FloorView');
 goog.require('lgb.view.StatsView');
-goog.require('lgb.view.ParticleView');
+//goog.require('lgb.view.ParticleView2');
 goog.require('lgb.event.WindowResizeEvent');
 
 
@@ -16,10 +19,13 @@ goog.require('lgb.event.WindowResizeEvent');
  * @constructor
  * @extends lgb.controller.ControllerBase
  */
-lgb.controller.WorldController = function(containerDiv, width, height) {
+lgb.controller.WorldController = function(containerDiv) {
 	
 	lgb.controller.ControllerBase.call(this);
-	this.init(containerDiv, width, height);
+	
+	this.containerDiv_ = containerDiv;
+	
+
 	
 };
 
@@ -29,9 +35,9 @@ goog.inherits(lgb.controller.WorldController, lgb.controller.ControllerBase);
 /** 
  * Initializes the WorldController Controller after the document is ready
  */
-lgb.controller.WorldController.prototype.init = function(containerDiv, width, height) {
+lgb.controller.WorldController.prototype.init = function() {
 	
-	this.containerDiv_ = containerDiv;
+	
 	
 
 	/**
@@ -39,7 +45,7 @@ lgb.controller.WorldController.prototype.init = function(containerDiv, width, he
    * @private
    */	
 	this.renderer_ = new THREE.WebGLRenderer();
-	this.renderer_.setSize( width, height );
+	this.renderer_.setSize( window.innerWidth, window.innerHeight );
 
 	
 	/**
@@ -89,8 +95,8 @@ lgb.controller.WorldController.prototype.init = function(containerDiv, width, he
 	/**
    * @type {gb.view.ParticleView}
    * @private
-	*/
-	this.particleView_ = new lgb.view.ParticleView();
+	//*/
+	//this.particleView_ = new lgb.view.ParticleView2();
 	
 
 	/**
@@ -107,8 +113,17 @@ lgb.controller.WorldController.prototype.init = function(containerDiv, width, he
 	}
 	
 	this.containerDiv_.appendChild( this.renderer_.domElement );
+	
+	this.particleSystemController = new lgb.controller.ParticleSystemController2();
+	//this.particleSystemController.init();
+	
+
+		
 	this.renderDelegate	= this.d(this.onRender);
-	requestAnimationFrame( this.renderDelegate  );
+	
+	
+	
+	mozRequestAnimationFrame( this.renderDelegate  );
 };
 
 
@@ -134,7 +149,7 @@ lgb.controller.WorldController.prototype.onColladaSceneLoaded = function(event) 
 
 lgb.controller.WorldController.prototype.onRender = function() {
 
-	requestAnimationFrame( this.renderDelegate  );
+	mozRequestAnimationFrame( this.renderDelegate  );
 	this.dispatch(new lgb.event.RenderEvent());
 	
 	

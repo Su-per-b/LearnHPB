@@ -80,7 +80,7 @@ var lgb = (function(lgb) {
 			this.visibilityController = new lgb.controller.VisibilityController();
 			
 			this.zoneController = new lgb.controller.ZoneController();
-			this.particleSystemController = new lgb.controller.ParticleSystemController(true);
+			this.particleSystemController = new lgb.controller.ParticleSystemController(false);
 			
 			this.progressBar = new lgb.view.ProgressBar();
 			this.progressBar.show();

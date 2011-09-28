@@ -89,6 +89,9 @@ goog.LOCALE = 'en';  // default to en
  */
 goog.provide = function(name) {
 	
+	if (name == 'hemi.curve.Curve' ) {
+		console.log('curve');
+	}
   if (!COMPILED) {
     //console.log ("goog.provide: " + name);
     
@@ -97,9 +100,13 @@ goog.provide = function(name) {
     // declaration. And when JSCompiler transforms goog.provide into a real
     // variable declaration, the compiled JS should work the same as the raw
     // JS--even when the raw JS uses goog.provide incorrectly.
-    if (goog.isProvided_(name)) {
-      throw Error('Namespace "' + name + '" already declared.');
+    var isProvided_ = goog.isProvided_(name);
+    
+    if (isProvided_) {
+      throw Error('Namespace "' + name + '" already declared at ' 
+      + goog.dependencies_.nameToPath[name]);
     }
+    
     delete goog.implicitNamespaces_[name];
 
     var namespace = name;
@@ -140,7 +147,12 @@ if (!COMPILED) {
    * @private
    */
   goog.isProvided_ = function(name) {
-    return !goog.implicitNamespaces_[name] && !!goog.getObjectByName(name);
+  	
+  	var isImplcit = goog.implicitNamespaces_[name];
+  	var objByName = goog.getObjectByName(name);
+  	
+  	
+    return !isImplcit && !!objByName;
   };
 
   /**

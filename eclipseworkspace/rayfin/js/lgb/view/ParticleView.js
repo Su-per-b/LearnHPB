@@ -37,16 +37,16 @@ lgb.view.ParticleView.prototype.init = function() {
 	this.particleCount = 200;
 	this.particles = new THREE.Geometry();
 	    
-		// create the particle variables
-		var pMaterial = new THREE.ParticleBasicMaterial({
-		        color: 0x6666ff,
-		        size: 1,
-		        map: THREE.ImageUtils.loadTexture(
-		            "3d-assets/textures/circle.png"
-		        ),
-		        blending: THREE.AdditiveBlending,
-		        transparent: true
-		    });
+	// create the particle variables
+	var pMaterial = new THREE.ParticleBasicMaterial({
+	        color: 0x6666ff,
+	        size: 1,
+	        map: THREE.ImageUtils.loadTexture(
+	            "3d-assets/textures/circle.png"
+	        ),
+	        blending: THREE.AdditiveBlending,
+	        transparent: true
+	    });
 		
 
 	

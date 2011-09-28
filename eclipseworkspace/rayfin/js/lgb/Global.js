@@ -83,9 +83,9 @@ goog.provide('lgb.Global');
 	 * http://paulirish.com/2011/requestanimationframe-for-smart-animating/
 	 */
 	
-	if ( !window.requestAnimationFrame ) {
+	if ( !window.requestAnimationFrameNew ) {
 	
-		window.requestAnimationFrame = ( function() {
+		window.requestAnimationFrameNew = ( function() {
 	
 			return window.webkitRequestAnimationFrame ||
 			window.mozRequestAnimationFrame ||

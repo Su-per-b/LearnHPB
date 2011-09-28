@@ -24,15 +24,6 @@ goog.inherits(lgb.view.ViewBase, lgb.BaseClass);
 
 
 
-/** 
- * Initializes the View
- */
-lgb.view.ViewBase.prototype.init = function() {
-
-	
-};
-
-
 		
 
 

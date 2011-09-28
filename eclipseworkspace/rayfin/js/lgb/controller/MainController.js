@@ -3,7 +3,7 @@ goog.provide('lgb.controller.MainController');
 goog.require ("lgb.controller.ControllerBase");
 goog.require ("lgb.controller.WorldController");
 goog.require('lgb.event.WindowResizeEvent');
-
+goog.require('lgb.event.WorldCreated');
 
 /**
  * MVC controller for the App
@@ -39,8 +39,11 @@ lgb.controller.MainController.prototype.init = function() {
 	document.body.appendChild( this.containerDiv_ );
 		
 	this.worldController_ = 
-	new lgb.controller.WorldController
-		(this.containerDiv_, window.innerWidth, window.innerHeight);
+	new lgb.controller.WorldController(this.containerDiv_);
+	this.worldController_.init();
+	
+	var e = new lgb.event.WorldCreated();
+	this.dispatch(e);
 	
 	jQuery(window).resize(this.d(this.onWindowResize));
 	jQuery(window).unload(this.d(this.onWindowUnload));
@@ -56,6 +59,15 @@ lgb.controller.MainController.prototype.onWindowResize = function(event) {
 lgb.controller.MainController.prototype.onWindowUnload = function(event) {
 
 	
+};
+
+lgb.controller.MainController.prototype.getCanvas = function() {
+
+	return this.containerDiv_.children[1];
+};
+lgb.controller.MainController.prototype.getGL = function() {
+
+	return this.worldController_.renderer_.context;
 };
 
 

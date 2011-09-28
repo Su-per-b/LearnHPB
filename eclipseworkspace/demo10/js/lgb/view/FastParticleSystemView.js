@@ -26,7 +26,7 @@ var lgb = (function(lgb) {
 		},
 		
 		init : function() {
-			var dataModel = this.dataModel;
+			//var dataModel = this.dataModel;
 /*
 			
 			this.rootPosition = dataModel.translate;
@@ -42,30 +42,25 @@ var lgb = (function(lgb) {
 			this.rootTransform.translate(this.rootPosition[0],this.rootPosition[1],this.rootPosition[2]);
 			
 */
-			var config = dataModel.configs['1'];
+			var config = this.dataModel.configs['1'];
 			config.parent = this.rootTransform;
 			this.particleSystem = hemi.curve.createSystem(config);
 			
-
 			this.particleSystem.translate(
-				dataModel.translate[0], 
-				dataModel.translate[1], 
-				dataModel.translate[2]);
+				this.dataModel.translate[0], 
+				this.dataModel.translate[1], 
+				this.dataModel.translate[2]);
 
-				
-
-			
-			var config2 = dataModel.configs['2'];
+			var config2 = this.dataModel.configs['2'];
 			config2.parent = this.rootTransform;
 			this.exitSystem = hemi.curve.createSystem(config2);
 			
-
 			this.exitSystem.translate(
-				dataModel.translate[0], 
-				dataModel.translate[1], 
-				dataModel.translate[2]);
+				this.dataModel.translate[0], 
+				this.dataModel.translate[1], 
+				this.dataModel.translate[2]);
 
-			this.originalVertialHeight = dataModel.translate[1];
+			this.originalVertialHeight = this.dataModel.translate[1];
 			this.vertalDelta1 = null;
 			
 			this.showBoxes = false;

@@ -4,9 +4,10 @@ goog.require('goog.events');
 goog.require('goog.events.EventTarget');
 
 lgb.BaseClass = function() {
-
+	goog.events.EventTarget.call(this);
 };
 
+goog.inherits(lgb.BaseClass, goog.events.EventTarget);
 
 lgb.BaseClass.prototype.d = function(theFunction) {
 	var delegate = jQuery.proxy(theFunction, this);
@@ -23,14 +24,31 @@ lgb.BaseClass.prototype.dispatch = function(event) {
 
 
 
-lgb.BaseClass.prototype.dispatchLocal = function(eventName, value) {
-		
+lgb.BaseClass.prototype.dispatchLocal = function(event) {
+	
+	goog.events.dispatchEvent(this, event);
 
+};
+
+lgb.BaseClass.prototype.listenTo= function(eventTarget, event, handler ) {
+	/*
+	var eventType = event.TYPE;
+	var delegate = jQuery.proxy( handler, this );
+
+	
+	goog.events.listen (
+		this, 
+		eventType, 
+		delegate);	
+		*/
+		
+	this.listenHelper_(eventTarget, event, this, handler );
+	
 };
 
 
 lgb.BaseClass.prototype.listen = function(event, handler) {
-
+/*
 	var eventType = event.TYPE;
 	var delegate = jQuery.proxy( handler, this );
 	
@@ -38,8 +56,24 @@ lgb.BaseClass.prototype.listen = function(event, handler) {
 		lgb.globalEventBus, 
 		eventType, 
 		delegate);	
+	*/	
+		this.listenHelper_(lgb.globalEventBus, event, this, handler );
 		
 };
+
+lgb.BaseClass.prototype.listenHelper_ = function(eventTarget, event, handlerContext, handler ) {
+	
+	var eventType = event.TYPE;
+	var delegate = jQuery.proxy( handler, handlerContext );
+
+	
+	goog.events.listen (
+		eventTarget, 
+		eventType, 
+		delegate);	
+
+};
+
 
 lgb.BaseClass.prototype.each = function(ary, handler) {
 	//loop though the array and 
