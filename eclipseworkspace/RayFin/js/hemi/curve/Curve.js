@@ -174,6 +174,8 @@ hemi.curve.Curve.prototype = {
 			return [x,y,z];
 		},
 		
+		
+		
 		/**
 		 * The normalized linear interpolation moves on a straight line between waypoints,
 		 *		at a constant velocity.

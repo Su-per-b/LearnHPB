@@ -797,6 +797,3 @@ goog.addDependency("../../../lgb/view/ViewBase.js", ['lgb.view.ViewBase'], ['lgb
 goog.addDependency("../../../hemi/utils.js", ['hemi.utils'], []);
 goog.addDependency("../../../hemi/curve/base.js", ['hemi.curve'], []);
 goog.addDependency("../../../hemi/curve/Curve.js", ['hemi.curve.Curve'], ['hemi.curve', 'hemi.utils']);
-goog.addDependency("../../../hemi/curve/Particle.js", ['hemi.curve.Particle'], ['hemi.curve', 'o3djs.math']);
-goog.addDependency("../../../hemi/curve/ParticleSystem.js", ['hemi.curve.ParticleSystem'], ['hemi.curve.Curve', 'hemi.curve', 'hemi.curve.Particle']);
-goog.addDependency("../../../o3djs/math.js", ['o3djs.math'], []);

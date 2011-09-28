@@ -9,7 +9,6 @@ set "BASE_PATH=..\.."
 -i %BASE_PATH%\inc.js ^
 -i %BASE_PATH%\main.dev.js ^
 -p %BASE_PATH%\js\closure ^
--p %BASE_PATH%\js\o3djs ^
 -p %BASE_PATH%\js\hemi ^
 -p %BASE_PATH%\js\lgb ^
 -o script > .\temp\main.single.js
