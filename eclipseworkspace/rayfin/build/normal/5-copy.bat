@@ -6,7 +6,8 @@ set "SRC=..\.."
 
 
 
-copy %SRC%\index.min.html  %DEST%\index.html
+copy .\index.html  %DEST%\index.html
+copy .\htaccess.txt  %DEST%\.htaccess
 copy %SRC%\css\lgb.css  %DEST%\css\lgb.css
 copy %SRC%\3d-assets\textures\circle.png  %DEST%\3d-assets\textures\circle.png
 copy %SRC%\xml\particleSystems.xml  %DEST%\xml\particleSystems.xml
