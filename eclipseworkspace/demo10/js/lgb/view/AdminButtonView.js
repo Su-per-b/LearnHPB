@@ -12,8 +12,9 @@ var lgb = (function(lgb) {
 	 * @class this is the MVC view class for the Left Nav
 	 */
 	lgb.view.AdminButtonView = function(){
-		lgb.view.ViewBase.call(this);
+		lgb.view.component.ToggleButton.call(this, "adminButtonLink", 0, 33);
 		this.htmlID = "adminButton";
+					
 
 	};
 	
@@ -21,11 +22,19 @@ var lgb = (function(lgb) {
 	
 			
 		init : function() {
+			
+			this.attachCSS();
+			
 			this.injectHtml();
 			this.bindEvents();
 			this.initMenu({targetTop: 4,targetRight: -34});
-			this.isSelected = true;
-			$('#adminButtonLink').addClass("selected");
+			this.isSelected = false;
+			
+
+			
+			//$('#adminButtonLink').addClass("selected");
+
+			
 		},
 			
 		show : function() {
@@ -36,7 +45,7 @@ var lgb = (function(lgb) {
 		injectHtml : function() {
 
 			var html = '<div id="adminButton">\
-						<a id="adminButtonLink" title="Show / hide Admin panel" href="#"></a>\
+						<a id="adminButtonLink" title="Show / Hide Admin panel" href="#"></a>\
 						</div>';
 
 
@@ -59,13 +68,14 @@ var lgb = (function(lgb) {
 		},
 		bindEvents : function() {
 
-			$('#adminButtonLink').click({mode:'ALL'},this.d(this.onClick));
+			$('#adminButtonLink').click(this.d(this.onClick));
 
+			
 			var toolTipConfig = {
 			  skin: 'light',
 				hook: {
-				  target: 'leftmiddle',
-				  tooltip: 'rightmiddle'
+				  target: 'leftbottom',
+				  tooltip: 'righttop'
 				},
 				background: { color: '#fff', opacity: .85 },
 			  closeButton: false
@@ -81,7 +91,7 @@ var lgb = (function(lgb) {
 		
 	};
 
-	lgb.view.AdminButtonView.inheritsFrom(lgb.view.ViewBase);
+	lgb.view.AdminButtonView.inheritsFrom(lgb.view.component.ToggleButton);
 
 	return lgb;
 	

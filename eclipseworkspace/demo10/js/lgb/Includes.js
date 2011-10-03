@@ -27,6 +27,7 @@ o3djs.require('lgb.controller.ZoneController');
 o3djs.require('lgb.controller.ParticleSystemController');
 o3djs.require('lgb.controller.GuiComponentController');
 o3djs.require('lgb.controller.SelectableController');
+o3djs.require('lgb.controller.PropertiesController');
 
 o3djs.require('lgb.model.ModelBase');
 o3djs.require('lgb.model.component.ComponentBase');
@@ -48,6 +49,7 @@ o3djs.require('lgb.model.BuildingComponentModel');
 o3djs.require('lgb.model.ParticleSystemModel');
 o3djs.require('lgb.model.FastParticleSystemModel');
 o3djs.require('lgb.model.SelectableModel');
+o3djs.require('lgb.model.PropertiesModel');
 
 o3djs.require('lgb.view.ViewBase');
 o3djs.require('lgb.view.component.Button');
@@ -56,7 +58,9 @@ o3djs.require('lgb.view.component.RadioButtonGroup');
 o3djs.require('lgb.view.component.Slider');
 o3djs.require('lgb.view.component.Link');
 o3djs.require('lgb.view.component.TextInput');
+o3djs.require('lgb.view.component.ToggleButton');
 
+o3djs.require('lgb.view.DialogView');
 o3djs.require('lgb.view.EnvelopeView');
 o3djs.require('lgb.view.LeftNavView');
 o3djs.require('lgb.view.ProgressBar');
@@ -66,9 +70,11 @@ o3djs.require('lgb.view.BuildingView');
 o3djs.require('lgb.view.ViewPointView');
 o3djs.require('lgb.view.CameraView');
 o3djs.require('lgb.view.AdminView');
+o3djs.require('lgb.view.PropertiesView');
 o3djs.require('lgb.view.AdminSubpanel');
 o3djs.require('lgb.view.TitleBarView');
 o3djs.require('lgb.view.AdminButtonView');
+o3djs.require('lgb.view.PropertiesButtonView');
 o3djs.require('lgb.view.BuildingComponentView');
 o3djs.require('lgb.view.ZoneView');
 o3djs.require('lgb.view.ZoneShape');
@@ -77,6 +83,8 @@ o3djs.require('lgb.view.FastParticleSystemView');
 o3djs.require('lgb.view.CrossSectionView');
 o3djs.require('lgb.view.Selectable');
 o3djs.require('lgb.view.SelectableView');
+o3djs.require('lgb.view.PropertiesSubpanel');
+
 
 o3djs.require('lgb.event.EnvelopeEvent');
 o3djs.require('lgb.event.Event');

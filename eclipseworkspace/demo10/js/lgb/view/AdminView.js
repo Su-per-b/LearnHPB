@@ -14,18 +14,18 @@ var lgb = (function(lgb) {
 	 * and the various AJAX components
 	 */
 	lgb.view.AdminView = function(){
-		lgb.view.ViewBase.call(this);
+		lgb.view.DialogView.call(this);
 		
 		this.subPanels = [];
 		this.htmlID = "adminView";
 		this.title = "Admin";
+		this.closedEventStr  = lgb.event.Event.CLOSED_ADMIN_PANEL;
 		
 	};
 	
 	lgb.view.AdminView.prototype = {
 	
 	
-
 		processOne : function(dataModel) {
 			dataModel.assertType(lgb.model.ModelBase);
 			
@@ -33,61 +33,13 @@ var lgb = (function(lgb) {
 			this.subPanels.push(subpanel);
 		},
 		
-		isOpen : function() {
-			var selector = this.getSelector();
-			//var widget = selector.dialog("isOpen");
-			
-			return selector.dialog("isOpen");
-		},
-		init : function() {
-			this.injectHtml();	 
-		},
-		toggleVisible : function() {
 
-			if (this.isOpen()) {
-				this.hide();
-			}
-			else {
-				this.show();
-			}
-		},
-		show : function(slideFlag) {
-			
-
-			var selector = this.getSelector();
-			
-			if (!this.isOpen()) {
-				selector.dialog("open");
-			
-				if (slideFlag) {
-					selector.dialog("widget").show("slide", {
-						direction: "right",
-						easing: "swing"
-					}, 1000);
-				}
-			}
-		},
-		hide : function() {
-			
-
-			
-			this.getSelector().dialog("close");
-			
-		},
-		onCloseButtonClicked : function(event) {
-			
-
-			console.log("onCloseButtonClicked");
-			
-			this.dispatch(lgb.event.Event.CLOSED_ADMIN_PANEL);
-
-			
-		},
 		injectHtml : function() {
 			
 			
-			var html = 	'<div id="{0}" title="{1}">\
-			</div>'.format(this.htmlID, '');
+			
+			var html = 	'<div id="{0}">\
+			</div>'.format(this.htmlID);
 			
 			this.append(html);
 			
@@ -96,12 +48,17 @@ var lgb = (function(lgb) {
 			selector.direction = 'left';
 			
 			selector.dialog ({
+				title: this.title,
+				dialogClass: this.htmlID + '-dialog',
 				hide: 'fade',
 				width: 300,
 				height: 580,
 				position: 'right',
 				autoOpen: false
 			});
+			
+			
+
 
 			selector.bind("dialogclose", this.d(this.onCloseButtonClicked));
 			
@@ -114,7 +71,7 @@ var lgb = (function(lgb) {
 		}
 	};
 
-	lgb.view.AdminView.inheritsFrom(lgb.view.ViewBase);
+	lgb.view.AdminView.inheritsFrom(lgb.view.DialogView);
 
 	return lgb;
 	

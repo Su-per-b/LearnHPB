@@ -43,7 +43,7 @@ var lgb = (function(lgb) {
 		},
 		onPick : function(msg) {
 			var pickedName = msg.data.pickInfo.shapeInfo.parent.transform.name;
-
+			if (pickedName == "") return;
 			
 			
 			if (this.currentSelected != null && this.currentSelected != selectable) {

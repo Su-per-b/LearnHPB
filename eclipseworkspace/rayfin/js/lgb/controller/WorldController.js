@@ -72,8 +72,8 @@ lgb.controller.WorldController.prototype.init = function() {
 	this.listen(lgb.event.MeshLoadedEvent, this.onMeshLoaded);
 	this.listen(lgb.event.WindowResizeEvent, this.onWindowResize);
 	
-	this.roofTopController_ = new lgb.controller.RoofTopController();
-	//this.envelopeController_ = new lgb.controller.EnvelopeController();
+	//this.roofTopController_ = new lgb.controller.RoofTopController();
+	this.envelopeController_ = new lgb.controller.EnvelopeController();
 	
 	
 	/**
@@ -112,7 +112,7 @@ lgb.controller.WorldController.prototype.init = function() {
 	
 	this.containerDiv_.appendChild( this.renderer_.domElement );
 	
-	this.particleSystemController = new lgb.controller.ParticleSystemController();
+	//this.particleSystemController = new lgb.controller.ParticleSystemController();
 
 	this.renderEvent = new lgb.event.RenderEvent()
 	

@@ -40,7 +40,7 @@ var lgb = (function(lgb) {
 		onCameraMoveComplete : function(event) {
 			this.unlisten(lgb.event.Cam.MOVE_COMPLETE, this.onCameraMoveComplete);
 			this.buttonView.show();
-			this.view.show(true);
+			//this.view.show(true);
 		},
 		onClosedAdminPanel : function(event) {
 			this.buttonView.setSelected(false);

@@ -27,7 +27,7 @@ var lgb = (function(lgb) {
 		getHTML : function() {
 			
 			var html = 
-			'<span class="typeface-js">{0}</span>\
+			'<span>{0}</span>\
 			<input type="text" id="{1}" \
 			class="component-TextInput" name="{1}" value="0"  /><br />\
 			'.format(this.dataModel.title, this.dataModel.id);

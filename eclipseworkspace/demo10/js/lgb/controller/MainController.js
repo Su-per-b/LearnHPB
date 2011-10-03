@@ -65,6 +65,8 @@ var lgb = (function(lgb) {
 			
 
 			this.adminController = new lgb.controller.AdminController();
+			this.propertiesController = new lgb.controller.PropertiesController();
+			
 			this.selectableController = new lgb.controller.SelectableController();
 			
 			this.guiController = new lgb.controller.GuiController();
@@ -80,7 +82,7 @@ var lgb = (function(lgb) {
 			this.visibilityController = new lgb.controller.VisibilityController();
 			
 			this.zoneController = new lgb.controller.ZoneController();
-			this.particleSystemController = new lgb.controller.ParticleSystemController(false);
+			this.particleSystemController = new lgb.controller.ParticleSystemController(true);
 			
 			this.progressBar = new lgb.view.ProgressBar();
 			this.progressBar.show();
@@ -100,7 +102,7 @@ var lgb = (function(lgb) {
 			var meshListRequest = event.value;
 			meshListRequest.assertContainsType(lgb.kuda.Mesh);
 			this.meshList = this.meshList.concat(meshListRequest);
-		
+			
 		},
 
 
