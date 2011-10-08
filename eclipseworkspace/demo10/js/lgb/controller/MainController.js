@@ -53,17 +53,15 @@ var lgb = (function(lgb) {
 		},
 		onDocumentReady : function(event) {
 		
-
-			
 			$('head').append ('<title>{0}</title>'.format(lgb.Config.getTitle()));
 			
 			console.log("kuda version: " + hemi.version);
 			console.log(lgb.Config.getTitle());
 			console.log("jQuery version: " + $().jquery);
 			
-			
-			
-
+			this.scenarioController = new lgb.controller.ScenarioController();
+			this.listen(lgb.event.Cam.MOVE_COMPLETE, this.onCameraMoveComplete);
+					
 			this.adminController = new lgb.controller.AdminController();
 			this.propertiesController = new lgb.controller.PropertiesController();
 			
@@ -89,10 +87,7 @@ var lgb = (function(lgb) {
 				
 			this.loader = new lgb.kuda.Loader();
 			this.loader.loadMeshes( this.meshList );
-			
-			
-			
-							
+
 		},
 		
 		//handles the MESH_REQUEST event and adds meshes to the load queue
@@ -104,6 +99,14 @@ var lgb = (function(lgb) {
 			this.meshList = this.meshList.concat(meshListRequest);
 			
 		},
+		
+		onCameraMoveComplete : function(event) {
+			this.unlisten(lgb.event.Cam.MOVE_COMPLETE, this.onCameraMoveComplete);
+
+			
+
+			this.dispatch(lgb.event.Event.SHOW_GUI);
+		},
 
 
 		onMeshesLoaded : function(event) {
@@ -111,6 +114,8 @@ var lgb = (function(lgb) {
 			
 			hemi.world.camera.enableControl();	// Enable camera mouse control
 			_typeface_js.renderDocument(); 
+			
+
 		},
 
 		onMeshesLoadStart : function(event) {

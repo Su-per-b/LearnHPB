@@ -65,15 +65,15 @@ var lgb = (function(lgb) {
 				
 		},
 		
-		makeSelectable: function(transformName, label) {
+		makeSelectable: function(transformName, label, id) {
 
 			var transform = this.getTransforms(transformName)[0];
 			
 			var bbName = transformName + "-BoundingBox";
 			var transformBox = this.createBoxHelper(transform, bbName);
 			
-			var s = new lgb.view.Selectable(transform, transformBox, bbName, label);
-
+			var s = new lgb.view.Selectable(transform, transformBox, bbName, label,id);
+			s.register();
 			
 		},
 		

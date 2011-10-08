@@ -39,10 +39,10 @@ var lgb = (function(lgb) {
 
 			this.mesh.makeSelectable("LeftDamper","Left Damper");
 			this.mesh.makeSelectable("CenterDamper", "Center Damper")
-			this.mesh.makeSelectable("CoolingCoil", "Cooling Coil");
-			this.mesh.makeSelectable("Fan", "Fan");
-			this.mesh.makeSelectable("Filter", "Filter");
-			this.mesh.makeSelectable("HeatingCoil", "Heating Coil");
+			this.mesh.makeSelectable("CoolingCoil", "Cooling Coil", "CC");
+			this.mesh.makeSelectable("Fan", "Fan", "FAN");
+			this.mesh.makeSelectable("Filter", "Filter", "FLT");
+			this.mesh.makeSelectable("HeatingCoil", "Heating Coil", "HC");
 			this.mesh.makeSelectable("TopDamper", "Top Damper");
 			
 			

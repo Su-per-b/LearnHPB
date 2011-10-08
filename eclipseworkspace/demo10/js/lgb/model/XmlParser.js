@@ -53,6 +53,11 @@ var lgb = (function(lgb) {
 			return this.getNodeValue("@id",  this.currentNode);
 			
 		},
+		getName: function() {
+
+			return this.getNodeValue("@name",  this.currentNode);
+			
+		},
 		next: function() {
 
 			this.currentNode = this.xpathResult.iterateNext();

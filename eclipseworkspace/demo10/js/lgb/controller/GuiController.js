@@ -21,7 +21,6 @@ var lgb = (function(lgb){
         init_: function(){
         	
 			this.listen(lgb.event.Event.WINDOW_RESIZE, this.onWindowResize);
-			this.listen(lgb.event.Cam.MOVE_COMPLETE, this.onCameraMoveComplete);
 			
             this.latestResizeWidth = window.innerWidth;
             this.latestResizeHeight = window.innerHeight;
@@ -33,11 +32,7 @@ var lgb = (function(lgb){
             
 			this.setCanvasSize();
         },
-        
-		onCameraMoveComplete : function(event) {
-			this.unlisten(lgb.event.Cam.MOVE_COMPLETE, this.onCameraMoveComplete);
-		},
-		
+
         setCanvasSize: function(){
             var theO3d = document.getElementById("o3d");
             theO3d.style.width = (window.innerWidth) + 'px';

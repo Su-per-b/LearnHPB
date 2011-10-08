@@ -15,7 +15,7 @@ var lgb = (function(lgb) {
 		
 		lgb.controller.ControllerBase.call(this);
 		
-		this.listen(lgb.event.Cam.MOVE_COMPLETE, this.onCameraMoveComplete);
+		this.listen(lgb.event.Event.SHOW_GUI, this.onShowGUI);
 			
 		this.dataModel = new lgb.model.LeftNavModel();
 		this.view = new lgb.view.LeftNavView(this.dataModel );
@@ -25,8 +25,8 @@ var lgb = (function(lgb) {
 	lgb.controller.LeftNavController.prototype = {
 		
 
-		onCameraMoveComplete : function(event) {
-			this.unlisten(lgb.event.Cam.MOVE_COMPLETE, this.onCameraMoveComplete);
+		onShowGUI : function(event) {
+			this.unlisten(lgb.event.Event.SHOW_GUI, this.onShowGUI);
 			
 			this.view.bindEvents();
 			this.view.show();

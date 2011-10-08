@@ -25,7 +25,7 @@ var lgb = (function(lgb) {
 	lgb.view.component.Link.prototype = {
 		
 		getHTML : function() {
-			var html =  '<a id="{0}" class="admin-link typeface-js" href="#">{1}</a> <br />'.format(this.dataModel.id, this.dataModel.title);
+			var html =  '<a id="{0}" class="admin-link" href="#">{1}</a> <br />'.format(this.dataModel.id, this.dataModel.title);
 			
 			
 			//var html = '<a href="#" id="{0}" \

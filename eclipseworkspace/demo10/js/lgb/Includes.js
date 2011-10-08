@@ -28,6 +28,7 @@ o3djs.require('lgb.controller.ParticleSystemController');
 o3djs.require('lgb.controller.GuiComponentController');
 o3djs.require('lgb.controller.SelectableController');
 o3djs.require('lgb.controller.PropertiesController');
+o3djs.require('lgb.controller.ScenarioController');
 
 o3djs.require('lgb.model.ModelBase');
 o3djs.require('lgb.model.component.ComponentBase');
@@ -51,6 +52,10 @@ o3djs.require('lgb.model.FastParticleSystemModel');
 o3djs.require('lgb.model.SelectableModel');
 o3djs.require('lgb.model.PropertiesModel');
 
+o3djs.require('lgb.model.scenario.SysVar');
+o3djs.require('lgb.model.scenario.SystemNode');
+o3djs.require('lgb.model.scenario.Base');
+
 o3djs.require('lgb.view.ViewBase');
 o3djs.require('lgb.view.component.Button');
 o3djs.require('lgb.view.component.Link');
@@ -59,6 +64,7 @@ o3djs.require('lgb.view.component.Slider');
 o3djs.require('lgb.view.component.Link');
 o3djs.require('lgb.view.component.TextInput');
 o3djs.require('lgb.view.component.ToggleButton');
+o3djs.require('lgb.view.component.ComboBox');
 
 o3djs.require('lgb.view.DialogView');
 o3djs.require('lgb.view.EnvelopeView');
@@ -84,7 +90,7 @@ o3djs.require('lgb.view.CrossSectionView');
 o3djs.require('lgb.view.Selectable');
 o3djs.require('lgb.view.SelectableView');
 o3djs.require('lgb.view.PropertiesSubpanel');
-
+o3djs.require('lgb.view.ScenarioView');
 
 o3djs.require('lgb.event.EnvelopeEvent');
 o3djs.require('lgb.event.Event');
@@ -97,7 +103,3 @@ o3djs.require('lgb.event.ZoneEvent');
 o3djs.require('lgb.event.ParticleSystemEvent');
 o3djs.require('lgb.event.ViewPointEvent');
 o3djs.require('lgb.event.SelectableEvent');
-
-
-
-

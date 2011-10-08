@@ -15,7 +15,7 @@ var lgb = (function(lgb) {
 		
 		lgb.controller.ControllerBase.call(this);
 		
-		this.listen(lgb.event.Cam.MOVE_COMPLETE, this.onCameraMoveComplete);
+		this.listen(lgb.event.Event.SHOW_GUI, this.onShowGUI);
 		this.view = new lgb.view.TitleBarView();
 		this.view.init();
 	};
@@ -23,8 +23,8 @@ var lgb = (function(lgb) {
 	
 	lgb.controller.TitleBarController.prototype = {
 
-		onCameraMoveComplete : function(event) {
-			this.unlisten(lgb.event.Cam.MOVE_COMPLETE, this.onCameraMoveComplete);
+		onShowGUI : function(event) {
+			this.unlisten(lgb.event.Event.SHOW_GUI, this.onShowGUI);
 			this.view.show();
 		}
 

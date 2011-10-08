@@ -45,7 +45,7 @@ var lgb = (function(lgb) {
 				oneItem.id = id;
 				
 				var str = '<input type="radio" id="{0}" name="{1}" value="{2}"{3}>\
-				<span class="typeface-js radioButtonText">{4}</span>'.format
+				<span class="radioButtonText">{4}</span>'.format
 				(id, this.dataModel.id, oneItem.value.toString(), chk, oneItem.label );
 				
 				
