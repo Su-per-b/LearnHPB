@@ -40,7 +40,44 @@ var lgb = (function(lgb) {
 			} catch (err) {
 				alert(err);
 			}
-		}
+		}, 
+		
+		getFaultDataSource: function() {
+			
+
+			var x = this.sysVarArray.length;
+			
+
+			var dsArray = [];
+			while(x--) {
+				var sysVar = this.sysVarArray[x];
+			
+				if(sysVar.isFault) {
+					
+					dsArray.push(
+						{
+							name: sysVar.name,
+							Description : sysVar.displayName,
+							unit: sysVar.unitSI
+							
+						}
+						
+					);
+				}
+			}
+
+			var ds = new kendo.data.DataSource({
+			     data: dsArray,
+			     pageSize: 100
+			});
+			
+			return ds;
+
+		}, 
+		
+		
+		
+		
 	};
 	
 	lgb.model.scenario.SystemNode.inheritsFrom(lgb.model.ModelBase);

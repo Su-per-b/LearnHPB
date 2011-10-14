@@ -64,7 +64,6 @@ var lgb = (function(lgb) {
 					
 			this.adminController = new lgb.controller.AdminController();
 			this.propertiesController = new lgb.controller.PropertiesController();
-			
 			this.selectableController = new lgb.controller.SelectableController();
 			
 			this.guiController = new lgb.controller.GuiController();
@@ -102,9 +101,6 @@ var lgb = (function(lgb) {
 		
 		onCameraMoveComplete : function(event) {
 			this.unlisten(lgb.event.Cam.MOVE_COMPLETE, this.onCameraMoveComplete);
-
-			
-
 			this.dispatch(lgb.event.Event.SHOW_GUI);
 		},
 

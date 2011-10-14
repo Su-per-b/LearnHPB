@@ -19,6 +19,7 @@ var lgb = (function(lgb) {
 		this.name = "none";
 		
 		this.listen(lgb.event.SelectableEvent.SELECT, this.onSelected);
+		//this.listen(lgb.event.SelectableEvent.SELECT_ID, this.onSelectedID);
 	};
 
 

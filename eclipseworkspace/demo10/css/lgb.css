@@ -327,3 +327,9 @@ ul.ui-tabs-nav li a {
   font-size: 14px;
 }
 
+#tabstrip-1 {
+	height :100%;
+}
+#tabstrip-2 {
+	height: auto;
+}

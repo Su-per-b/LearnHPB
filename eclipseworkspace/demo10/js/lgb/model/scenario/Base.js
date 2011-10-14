@@ -19,8 +19,8 @@ var lgb = (function(lgb) {
 		lgb.model.ModelBase.call(this);
 		
 		this.xml = null;
-		this.systemNodeArray = []
-		
+		this.systemNodeArray = [];
+		this.idxToNodeMap = {};
 	};
 	
 	
@@ -50,6 +50,7 @@ var lgb = (function(lgb) {
 				var systemNode = new lgb.model.scenario.SystemNode (parser);
 				parser.next();
 				
+				this.idxToNodeMap[systemNode.id] = systemNode;
 				this.systemNodeArray.push(systemNode);
             };
 			

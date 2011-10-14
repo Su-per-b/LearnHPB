@@ -76,22 +76,17 @@ var lgb = (function(lgb) {
 			}
 				
 			if(this.selectableObjects[pickedName]) {
-				
-				
 				var selectable = this.selectableObjects[pickedName];
 				var isVis = selectable.isVisible();
 			
 				selectable.setVisible(true);
 				
-
-				
 				this.currentSelected = selectable;
-				
-				this.dispatch(lgb.event.SelectableEvent.SELECT, this.currentSelected);
+				this.dispatch(lgb.event.SelectableEvent.SELECTED_IN_WORLD, this.currentSelected);
 			} else {
 				//select none
 				this.currentSelected = null;
-				this.dispatch(lgb.event.SelectableEvent.SELECT, null);
+				this.dispatch(lgb.event.SelectableEvent.SELECTED_IN_WORLD, null);
 			}
 			
 

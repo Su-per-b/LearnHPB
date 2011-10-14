@@ -787,8 +787,9 @@ goog.addDependency("../../../lgb/utils/XmlParser.js", ['lgb.utils.XmlParser'], [
 goog.addDependency("../../../lgb/view/CameraView.js", ['lgb.view.CameraView'], ['lgb.view.ViewBase', 'lgb.event.WindowResizeEvent']);
 goog.addDependency("../../../lgb/view/EnvelopeView.js", ['lgb.view.EnvelopeView'], ['lgb.view.ViewBase', 'lgb.event.MeshLoadedEvent', 'lgb.Loader']);
 goog.addDependency("../../../lgb/view/FloorView.js", ['lgb.view.FloorView'], ['lgb.view.ViewBase', 'lgb.event.MeshLoadedEvent']);
-goog.addDependency("../../../lgb/view/ParticlePath.js", ['lgb.view.ParticlePath'], ['lgb.view.ViewBase']);
-goog.addDependency("../../../lgb/view/ParticleSystemView.js", ['lgb.view.ParticleSystemView'], ['lgb.view.ViewBase', 'lgb.event.MeshLoadedEvent', 'hemi.curve', 'hemi.curve.Curve', 'lgb.view.ParticleWrapper', 'lgb.view.ParticlePath']);
+goog.addDependency("../../../lgb/view/ParticleElement.js", ['lgb.view.ParticleElement'], ['lgb.view.ViewBase']);
+goog.addDependency("../../../lgb/view/ParticlePath.js", ['lgb.view.ParticlePath'], ['lgb.view.ViewBase', 'lgb.view.ParticleElement']);
+goog.addDependency("../../../lgb/view/ParticleSystemView.js", ['lgb.view.ParticleSystemView'], ['lgb.view.ViewBase', 'lgb.event.MeshLoadedEvent', 'hemi.curve', 'hemi.curve.Curve', 'lgb.view.ParticleWrapper', 'lgb.view.ParticlePath', 'lgb.view.ParticleElement']);
 goog.addDependency("../../../lgb/view/ParticleView.js", ['lgb.view.ParticleView'], ['lgb.view.ViewBase', 'lgb.event.MeshLoadedEvent']);
 goog.addDependency("../../../lgb/view/ParticleWrapper.js", ['lgb.view.ParticleWrapper'], ['lgb.view.ViewBase']);
 goog.addDependency("../../../lgb/view/RoofTopView.js", ['lgb.view.RoofTopView'], ['lgb.view.ViewBase', 'lgb.event.MeshLoadedEvent', 'lgb.Loader']);

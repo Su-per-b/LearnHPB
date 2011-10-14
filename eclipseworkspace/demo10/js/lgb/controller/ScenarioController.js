@@ -16,18 +16,21 @@ var lgb = (function(lgb) {
 		this.dataModel.load();
 		
 		//this.view =  new lgb.view.ScenarioView(this.dataModel);
-		
+		this.listen(lgb.event.SelectableEvent.SELECT_ID, this.onSelectId);
 
 	};
 	
 	lgb.controller.ScenarioController.prototype = {
 
-
-
-
-		
-
-
+/*
+		onSelectId: function(event) {
+			var id = event.value;
+			
+			var obj = this.dataModel.idxToNodeMap[id];
+			
+			this.dispatch(lgb.event.SelectableEvent.SELECT_OBJ, obj);
+		}
+*/
 		
 	};
 	

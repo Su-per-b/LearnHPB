@@ -1,7 +1,7 @@
 goog.provide('lgb.view.ParticlePath');
 
 goog.require ("lgb.view.ViewBase");
-
+goog.require('lgb.view.ParticleElement');
 
 
 
@@ -32,12 +32,13 @@ lgb.view.ParticlePath.prototype.addPoint = function(point) {
 	this.frameToPositionMap.push(point);
 	
 };
-
+/*
 lgb.view.ParticlePath.prototype.assignVertex = function(vertex) {
 
 	this.vertices.push(vertex);
 	
 };
+*/
 lgb.view.ParticlePath.prototype.show = function(vertex) {
 
 
@@ -79,12 +80,13 @@ lgb.view.ParticlePath.prototype.goToFrame = function(frameNumber) {
 	
 	
 };
-*/
+*//*
 lgb.view.ParticlePath.prototype.init = function() {
 	
 	this.framesBetweenLaunches = this.frameToPositionMap.length / this.vertices.length;
 	
 }
+
 
 lgb.view.ParticlePath.prototype.nextFrame = function() {
 	
@@ -103,7 +105,7 @@ lgb.view.ParticlePath.prototype.nextFrame = function() {
 };
 
 	
-	
+	*/
 
 
 

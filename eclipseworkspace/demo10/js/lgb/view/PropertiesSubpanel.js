@@ -32,11 +32,7 @@ var lgb = (function(lgb) {
 
 
 		},
-				
-		
-		
 
-		
 		injectHtml : function() {
 			
 			var actionsHtml = this.getActionsHTML_();

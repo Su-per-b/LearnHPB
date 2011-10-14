@@ -7,7 +7,7 @@ goog.require ("hemi.curve.Curve");
 
 goog.require ("lgb.view.ParticleWrapper");
 goog.require('lgb.view.ParticlePath');
-
+goog.require('lgb.view.ParticleElement');
 
 
 /**
@@ -43,103 +43,33 @@ lgb.view.ParticleSystemView.prototype.init = function() {
 
 	
 	this.parseConfig();
-	//this.calculateTotalVolume();
 	//this.showBoxes();
 	this.generateParticlePaths();
 	this.showParticlePaths();
 	this.createParticleSystem();
 	
-	return;
-	
-/*
-	
-	this.particleCount = 200;
-	this.particlesGeometry = new THREE.Geometry();
-	    
-	// create the particle variables
-	var pMaterial = new THREE.ParticleBasicMaterial({
-	        color: 0xff6666,
-	        size: 1,
-	        map: THREE.ImageUtils.loadTexture(
-	            "3d-assets/textures/circle.png"
-	        ),
-	        blending: THREE.AdditiveBlending,
-	        transparent: true
-	    });
-		
-
-	
-	// now create the individual particles
-	for(var p = 0; p < this.particleCount; p++) {
-	
-	    // create a particle with random
-	    // position values, -250 -> 250
-	    var pX = (Math.random() * this.volX) - this.volX / 2,
-	        pY = (Math.random() * this.volY) - this.volY / 2,
-	        pZ = (Math.random() * this.volZ) - this.volZ / 2,
-	        
-	        particleVertex = new THREE.Vertex(
-	            new THREE.Vector3(pX, pY, pZ)
-	        );
-	        
-	        var particleWrapper = new lgb.view.ParticleWrapper(particleVertex);
-
-	    
-	    // add it to the geometry
-	    this.particlesGeometry.vertices.push(particleVertex);
-	}
-	
-	// create the particle system
-	this.particleSystem = new THREE.ParticleSystem(
-	    this.particlesGeometry,
-	    pMaterial);
-	
-	// also update the particle system to
-	// sort the particles which enables
-	// the behaviour we want
-	//this.particleSystem.sortParticles = true;
-	
-	
-	var event = new lgb.event.MeshLoadedEvent(this.particleSystem);
-	this.dispatch(event);
-	
-	this.listen(lgb.event.RenderEvent, this.onRender);
-	*/
+	//this.totalFrames
 };
 
-
-lgb.view.ParticleSystemView.prototype.calculateTotalVolume = function() {
-    
-    var volume=[[0,0,0], [0,0,0]]
-    
-    var i = this.boxes.length;
-    while(i--) {
-    	var box = this.boxes[i];
-		//this.showBox(box)
-
-    }
-    
-    	
-}
 
 lgb.view.ParticleSystemView.prototype.parseConfig = function() {
 	this.config = this.dataModel.configs['1'];
 	this.boxes = this.config.boxes;
 	this.particlePaths = [];
-	this.particleCount = 6;
+	this.particleCount = 400;
+	this.launchDelayBetweenParticles = 1;
 	this.particlePathCount = 6;
 	this.fps = 30;
 	this.frameCount = this.config.life * this.fps;
 	this.tension = 0;
 	this.currentFrameNumber = 0;
 	this.visibleParticleCount = 0;
+	this.totalFrames = 0;
 	
 };
 
 lgb.view.ParticleSystemView.prototype.createParticleSystem = function() {
 
-
-	
 	var pMaterial = new THREE.ParticleBasicMaterial({
 	        color: 0x6666ff,
 	        size: 1,
@@ -150,18 +80,10 @@ lgb.view.ParticleSystemView.prototype.createParticleSystem = function() {
 	        transparent: true
 	    });
 	    
-
-
-	//var pMaterial = new THREE.ParticleBasicMaterial( { size: 1 } );
-	
 	this.particlesGeometry = new THREE.Geometry();
-
-	//this.particleVertexToPathMap = [];
-	//while(this.particleVertexToPathMap.push([]) < this.particlePathCount);
-	
 	this.particleWrapperAry = [];
+	this.particleElements = [];
 	
-	//var selectedPathIdx = 0;
 	var i = this.particleCount;
 	while(i--) {
 	        
@@ -169,12 +91,19 @@ lgb.view.ParticleSystemView.prototype.createParticleSystem = function() {
             new THREE.Vector3(0, 0, 0)
         );
         
-	    // add it to the geometry
-	    this.particlesGeometry.vertices[i] = particleVertex;
+        var particleElement = new lgb.view.ParticleElement();
+	    this.particleElements[i] = particleElement;
 	    
-	    //assign vertex to Particle Path
+	    // add it to the geometry
+	    this.particlesGeometry.vertices[i] = particleElement.vertex;
+
+
 	    var idx = i % this.particlePathCount;
-	    this.particlePaths[idx].assignVertex(particleVertex);
+	    
+	    particleElement.assignPath(this.particlePaths[idx]);
+	    particleElement.launchDelayBetweenParticles = this.launchDelayBetweenParticles;
+	    particleElement.assignId(i);
+
 	    
 	}
 	
@@ -195,22 +124,12 @@ lgb.view.ParticleSystemView.prototype.createParticleSystem = function() {
 
 lgb.view.ParticleSystemView.prototype.showParticlePaths = function() {
 		
-
-	//this.visibleParticleLines = [];
-	
     var j = this.particlePaths.length;
     while(j--) {
-    	
     	var onePath = this.particlePaths[j];
     	onePath.show();
-    	
-
-			
-		
     }
     
-    
-    	
 }
 
 lgb.view.ParticleSystemView.prototype.generateParticlePaths = function() {
@@ -223,8 +142,6 @@ lgb.view.ParticleSystemView.prototype.generateParticlePaths = function() {
 		var pp = new lgb.view.ParticlePath(curve);
 		
 		
-		
-		
 		//var theParticlePath = [];
 		var i = this.frameCount;
 		
@@ -234,13 +151,15 @@ lgb.view.ParticleSystemView.prototype.generateParticlePaths = function() {
 			var percentageComplete = (i)/this.frameCount;
 			var pointAlongCurve = curve.cubicHermite(percentageComplete);
 			
-			//pp.addPoint(pointAlongCurve);
 			pp.frameToPositionMap[i] = pointAlongCurve;
-			//theParticlePath.push(pointAlongCurve);
 		}
+		
+		this.totalFrames += pp.frameToPositionMap.length;
 		
 		this.particlePaths.push(pp);
 	}
+	
+
 
 };
 
@@ -289,13 +208,13 @@ lgb.view.ParticleSystemView.prototype.showBoxes = function() {
     var i = this.boxes.length;
     while(i--) {
     	var box = this.boxes[i];
-		this.showBox(box)
+		this.showOneBox(box)
     }
 }
 
 
 
-lgb.view.ParticleSystemView.prototype.showBox = function(box) {
+lgb.view.ParticleSystemView.prototype.showOneBox = function(box) {
 	
 	var width = box[1][0] - box[0][0];
 	var height = box[1][1] - box[0][1];
@@ -331,16 +250,13 @@ lgb.view.ParticleSystemView.prototype.showBox = function(box) {
 
 
 lgb.view.ParticleSystemView.prototype.onRender = function(event) {
-	
 
 
-	var i = this.particlePathCount;
+	var i = this.particleElements.length;
 	while(i--) {
-		this.particlePaths[i].nextFrame();
+		this.particleElements[i].render();
 	};
-
-
+	
     this.particleSystem.geometry.__dirtyVertices = true;
-    
 
 };

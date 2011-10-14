@@ -18,7 +18,7 @@ var lgb = (function(lgb) {
 		this.buttonView.init();
 			
 		this.listen(lgb.event.Event.SCENARIO_PARSED, this.onScenarioParsed);
-
+		this.listen(lgb.event.SelectableEvent.SELECTED_IN_WORLD, this.onSelectedInWorld);
 	};
 	
 	lgb.controller.PropertiesController.prototype = {
@@ -41,6 +41,19 @@ var lgb = (function(lgb) {
 			//this.unlisten(lgb.event.Event.SHOW_GUI, this.onShowGUI);
 
 	//	},
+		onSelectID : function(event) {
+			//this.buttonView.setSelected(false);
+			var id = event.value;
+			this.view.showID(id);
+			
+			
+		},
+		onSelectedInWorld : function(event) {
+			//this.buttonView.setSelected(false);
+			var obj = event.value;
+			this.view.showObj(obj);
+
+		},
 		onClosedPanel : function(event) {
 			this.buttonView.setSelected(false);
 		},
