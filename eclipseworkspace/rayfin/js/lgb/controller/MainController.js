@@ -2,8 +2,12 @@ goog.provide('lgb.controller.MainController');
 
 goog.require ("lgb.controller.ControllerBase");
 goog.require ("lgb.controller.WorldController");
+goog.require ("lgb.controller.GuiController");
+goog.require ("lgb.controller.PropertiesController");
+goog.require ("lgb.controller.ScenarioController");
 goog.require('lgb.event.WindowResizeEvent');
 goog.require('lgb.event.WorldCreated');
+goog.require('lgb.Config');
 
 /**
  * MVC controller for the App
@@ -38,12 +42,30 @@ lgb.controller.MainController.prototype.init = function() {
 	this.containerDiv_ = document.createElement( 'div' );
 	document.body.appendChild( this.containerDiv_ );
 		
-	this.worldController_ = 
-	new lgb.controller.WorldController(this.containerDiv_);
+	this.worldController_ = new lgb.controller.WorldController(this.containerDiv_);
 	this.worldController_.init();
-	
+		
 	var e = new lgb.event.WorldCreated();
 	this.dispatch(e);
+	
+	$('head').append ('<title>{0}</title>'.format(lgb.Config.getTitle()));
+	
+	console.log(lgb.Config.getTitle());
+	
+	var j = jQuery();
+
+	
+	console.log("jQuery version: " + $().jquery);
+	console.log("jQuery.ui version: " + $.ui.version);
+	
+	this.guiController = new lgb.controller.GuiController();
+	this.propertiesController = new lgb.controller.PropertiesController();
+	this.scenarioController = new lgb.controller.ScenarioController();
+	
+	//lgb.controller.GuiController 
+	//var e = new lgb.event.ShowGUI();
+	//this.dispatch(e);
+	
 	
 	jQuery(window).resize(this.d(this.onWindowResize));
 	jQuery(window).unload(this.d(this.onWindowUnload));

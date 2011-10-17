@@ -40,6 +40,36 @@ goog.provide('hemi.utils');
 		return eq;
 	};
 
+	/** 
+	 * A choose function (also called the binomial coefficient).
+	 *
+	 * @param {number} n top input of choose
+	 * @param {number} m bottom input of choose
+	 * @return {number} choose output, (n!)/(m!*(n-m)!)
+	 */
+	hemi.utils.choose = function(n, m) {
+		return hemi.utils.factorial(n, (n-m)+1) / hemi.utils.factorial(m);
+	};
+	
+	/**
+	 * Calculate the factorial of the given number.
+	 *
+	 * @param {number} num number to factorialize
+	 * @param {number} opt_stop optional number to stop the factorial at (if it
+	 *     should be stopped before 1
+	 * @return {number} (num!) or (num! - opt_stop!)
+	 */
+	hemi.utils.factorial = function(num, opt_stop) {
+		var f = 1,
+			x = opt_stop ? opt_stop : 2;
+		
+		while (x <= num) {
+			f *= x++;
+		}
+		
+		return f;
+	};
+	
 	
 	/** 
 	 * The "best" way to test if a value is an array or not.

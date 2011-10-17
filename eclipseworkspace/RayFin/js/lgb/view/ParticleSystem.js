@@ -1,4 +1,4 @@
-goog.provide('lgb.view.ParticleSystemView');
+goog.provide('lgb.view.ParticleSystem');
 
 goog.require ("lgb.view.ViewBase");
 goog.require ("lgb.event.MeshLoadedEvent");
@@ -15,7 +15,7 @@ goog.require('lgb.view.ParticleElement');
  * @constructor
  * @extends lgb.view.ViewBase
  */
-lgb.view.ParticleSystemView = function(dataModel) {
+lgb.view.ParticleSystem = function(dataModel) {
 	lgb.view.ViewBase.call(this);
 	
 	this.dataModel = dataModel;
@@ -28,9 +28,9 @@ lgb.view.ParticleSystemView = function(dataModel) {
 
 
 
-goog.inherits(lgb.view.ParticleSystemView, lgb.view.ViewBase);
+goog.inherits(lgb.view.ParticleSystem, lgb.view.ViewBase);
 
-lgb.view.ParticleSystemView.prototype.onDataModelChanged = function(event) {
+lgb.view.ParticleSystem.prototype.onDataModelChanged = function(event) {
 	this.init();
 }
 
@@ -38,12 +38,44 @@ lgb.view.ParticleSystemView.prototype.onDataModelChanged = function(event) {
 /** 
  * Initializes the View
  */
-lgb.view.ParticleSystemView.prototype.init = function() {
+lgb.view.ParticleSystem.prototype.init = function() {
 	
-
+	
+	this.boxGroup = new THREE.Object3D();
+	this.curveGroup = new THREE.Object3D();
+	this.systemGroup = new THREE.Object3D();
+	this.masterGroup = new THREE.Object3D();
+	
+	this.masterGroup.addChild(this.boxGroup);
+	this.masterGroup.addChild(this.curveGroup);
+	this.masterGroup.addChild(this.systemGroup);
 	
 	this.parseConfig();
-	//this.showBoxes();
+	
+	this.positionVector = new THREE.Vector3(
+	    this.translate[0], 
+		this.translate[1], 
+		this.translate[2]
+	);
+	
+	var degreesX = this.rotate[0] * Math.PI / 180;
+	var degreesY = this.rotate[1] * Math.PI / 180;
+	var degreesZ = this.rotate[2] * Math.PI / 180;
+	
+	this.rotationVector = new THREE.Vector3(
+	    degreesX, 
+		degreesY, 
+		degreesZ
+	);
+	
+	this.masterGroup.position = this.positionVector;
+	this.masterGroup.rotation = this.rotationVector;
+	
+	var event = new lgb.event.MeshLoadedEvent(this.masterGroup);
+	this.dispatch(event);
+	
+	
+	//this.makeBoxes();
 	this.generateParticlePaths();
 	this.showParticlePaths();
 	this.createParticleSystem();
@@ -52,12 +84,14 @@ lgb.view.ParticleSystemView.prototype.init = function() {
 };
 
 
-lgb.view.ParticleSystemView.prototype.parseConfig = function() {
+lgb.view.ParticleSystem.prototype.parseConfig = function() {
+	this.translate = this.dataModel.translate;
+	this.rotate = this.dataModel.rotate;
 	this.config = this.dataModel.configs['1'];
 	this.boxes = this.config.boxes;
 	this.particlePaths = [];
-	this.particleCount = 400;
-	this.launchDelayBetweenParticles = 1;
+	this.particleCount = 200;
+	this.launchDelayBetweenParticles = 4;
 	this.particlePathCount = 6;
 	this.fps = 30;
 	this.frameCount = this.config.life * this.fps;
@@ -68,7 +102,7 @@ lgb.view.ParticleSystemView.prototype.parseConfig = function() {
 	
 };
 
-lgb.view.ParticleSystemView.prototype.createParticleSystem = function() {
+lgb.view.ParticleSystem.prototype.createParticleSystem = function() {
 
 	var pMaterial = new THREE.ParticleBasicMaterial({
 	        color: 0x6666ff,
@@ -85,6 +119,7 @@ lgb.view.ParticleSystemView.prototype.createParticleSystem = function() {
 	this.particleElements = [];
 	
 	var i = this.particleCount;
+	
 	while(i--) {
 	        
         var particleVertex = new THREE.Vertex(
@@ -103,7 +138,6 @@ lgb.view.ParticleSystemView.prototype.createParticleSystem = function() {
 	    particleElement.assignPath(this.particlePaths[idx]);
 	    particleElement.launchDelayBetweenParticles = this.launchDelayBetweenParticles;
 	    particleElement.assignId(i);
-
 	    
 	}
 	
@@ -114,52 +148,46 @@ lgb.view.ParticleSystemView.prototype.createParticleSystem = function() {
 	
 	this.particleSystem.sortParticles = true;
 
-	var event = new lgb.event.MeshLoadedEvent(this.particleSystem);
-	this.dispatch(event);
+	this.systemGroup.addChild(this.particleSystem);
 	
+
 	this.listen(lgb.event.RenderEvent, this.onRender); 
 };
 
 
 
-lgb.view.ParticleSystemView.prototype.showParticlePaths = function() {
+lgb.view.ParticleSystem.prototype.showParticlePaths = function() {
 		
     var j = this.particlePaths.length;
     while(j--) {
     	var onePath = this.particlePaths[j];
-    	onePath.show();
+    	var line = onePath.makeVisibleLine();
+    	this.curveGroup.addChild(line); 
     }
     
+
+	
+	
+	//var event = new lgb.event.MeshLoadedEvent(this.curveGroup);
+	//this.dispatch(event);
+	
+	
 }
 
-lgb.view.ParticleSystemView.prototype.generateParticlePaths = function() {
+lgb.view.ParticleSystem.prototype.generateParticlePaths = function() {
 	
-
 	var j = this.particlePathCount;
 	while(j--) {
 		
 		var curve = this.newCurve(this.tension);
-		var pp = new lgb.view.ParticlePath(curve);
-		
-		
-		//var theParticlePath = [];
-		var i = this.frameCount;
-		
-		//quantize the curve based on the number of frames
-		//in the entire animation
-		while(i--) {
-			var percentageComplete = (i)/this.frameCount;
-			var pointAlongCurve = curve.cubicHermite(percentageComplete);
-			
-			pp.frameToPositionMap[i] = pointAlongCurve;
-		}
+		var pp = new lgb.view.ParticlePath(curve, this.frameCount);
 		
 		this.totalFrames += pp.frameToPositionMap.length;
-		
 		this.particlePaths.push(pp);
 	}
 	
 
+		
 
 };
 
@@ -170,7 +198,7 @@ lgb.view.ParticleSystemView.prototype.generateParticlePaths = function() {
  * @param {number} tension tension parameter for the curve
  * @return {hemi.curve.Curve} The randomly generated Curve object.
  */
-lgb.view.ParticleSystemView.prototype.newCurve = function(tension) {
+lgb.view.ParticleSystem.prototype.newCurve = function(tension) {
 	
 
 	var pointsAlongCurve = [];
@@ -203,18 +231,38 @@ lgb.view.ParticleSystemView.prototype.newCurve = function(tension) {
 
 
 
-lgb.view.ParticleSystemView.prototype.showBoxes = function() {
+lgb.view.ParticleSystem.prototype.makeBoxes = function() {
+	
+	this.boxMaterial = new THREE.MeshPhongMaterial( 
+		{ 	ambient: 0x0303ff, 
+			color: 0x0303ff, 
+			specular: 0x990000, 
+			shininess: 60,
+			opacity: 0.05
+		}
+	);
+	
+
 	
     var i = this.boxes.length;
     while(i--) {
     	var box = this.boxes[i];
-		this.showOneBox(box)
+		var boxMesh = this.makeOneBox(box);
+		
+		this.boxGroup.addChild( boxMesh );
     }
+
+
+
+    
+   
+	//var event = new lgb.event.MeshLoadedEvent(this.boxGroup);
+	//this.dispatch(event);
 }
 
 
 
-lgb.view.ParticleSystemView.prototype.showOneBox = function(box) {
+lgb.view.ParticleSystem.prototype.makeOneBox = function(box) {
 	
 	var width = box[1][0] - box[0][0];
 	var height = box[1][1] - box[0][1];
@@ -226,30 +274,18 @@ lgb.view.ParticleSystemView.prototype.showOneBox = function(box) {
 				
 				
 	var geometry = new THREE.CubeGeometry (width, height, depth, 3, 3, 3);
-
-
-	var material = new THREE.MeshPhongMaterial( 
-		{ 	ambient: 0x0303ff, 
-			color: 0x0303ff, 
-			specular: 0x990000, 
-			shininess: 60,
-			opacity: 0.05
-		}
-	);
-	
-	var mesh = new THREE.Mesh( geometry, material);
+	var mesh = new THREE.Mesh( geometry, this.boxMaterial);
 	
 	mesh.position.x = x;
 	mesh.position.y = y;
 	mesh.position.z = z;
 	
-	var event = new lgb.event.MeshLoadedEvent(mesh);
-	this.dispatch(event);
+	return mesh;
 	
 }
 
 
-lgb.view.ParticleSystemView.prototype.onRender = function(event) {
+lgb.view.ParticleSystem.prototype.onRender = function(event) {
 
 
 	var i = this.particleElements.length;

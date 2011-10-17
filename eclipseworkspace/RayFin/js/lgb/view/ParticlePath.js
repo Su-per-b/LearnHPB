@@ -3,14 +3,15 @@ goog.provide('lgb.view.ParticlePath');
 goog.require ("lgb.view.ViewBase");
 goog.require('lgb.view.ParticleElement');
 
-
+goog.require ("hemi.curve");
+goog.require ("hemi.curve.Curve");
 
 /**
  * MVC View 
  * @constructor
  * @extends lgb.view.ViewBase
  */
-lgb.view.ParticlePath = function(curve) {
+lgb.view.ParticlePath = function(curve, frameCount) {
 	lgb.view.ViewBase.call(this);
 	
 	this.curve = curve;
@@ -18,6 +19,8 @@ lgb.view.ParticlePath = function(curve) {
 	this.vertices = [];
 	this.currentFrameNumber = 0;
 	this.visibleLine = null;
+	this.frameCount = frameCount;
+	this.calculateAnimationFrames();
 };
 
 
@@ -32,14 +35,27 @@ lgb.view.ParticlePath.prototype.addPoint = function(point) {
 	this.frameToPositionMap.push(point);
 	
 };
-/*
-lgb.view.ParticlePath.prototype.assignVertex = function(vertex) {
+lgb.view.ParticlePath.prototype.calculateAnimationFrames = function() {
 
-	this.vertices.push(vertex);
+
+	var i = this.frameCount;
+	
+	//quantize the curve based on the number of frames
+	//in the entire animation
+	while(i--) {
+		var percentageComplete = (i)/this.frameCount;
+		//var pointAlongCurve = this.curve.bezier(percentageComplete);
+		//var pointAlongCurve = this.curve.linearNorm(percentageComplete);
+		var pointAlongCurve = this.curve.cubicHermite(percentageComplete);
+		
+		this.frameToPositionMap[i] = pointAlongCurve;
+	}
 	
 };
-*/
-lgb.view.ParticlePath.prototype.show = function(vertex) {
+
+
+
+lgb.view.ParticlePath.prototype.makeVisibleLine = function() {
 
 
 		var lineBasicMaterial = new THREE.LineBasicMaterial( 
@@ -64,8 +80,10 @@ lgb.view.ParticlePath.prototype.show = function(vertex) {
     	 
     	 this.visibleLine = new THREE.Line(geometry, lineBasicMaterial);
     	 
-		var event = new lgb.event.MeshLoadedEvent(this.visibleLine);
-		this.dispatch(event);
+    	 
+    	 return this.visibleLine;
+    	 
+
 	
 };
 

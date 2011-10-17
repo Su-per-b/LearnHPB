@@ -41,9 +41,12 @@ lgb.model.ParticleSystemModel.prototype.load = function() {
 lgb.model.ParticleSystemModel.prototype.parse = function(xml){
 
 	var parser = new lgb.utils.XmlParser(xml);
-	parser.makeRootNode('/particleSystems/@translate');
 	
+	parser.makeRootNode('/particleSystems/@translate');
 	this.translate = parser.getFloatArray();
+	
+	parser.makeRootNode('/particleSystems/@rotate');
+	this.rotate = parser.getFloatArray();
 	
 	parser.makeRootNode('/particleSystems/boundingBoxes/box');
 	

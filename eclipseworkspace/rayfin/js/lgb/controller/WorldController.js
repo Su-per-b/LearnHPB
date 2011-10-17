@@ -44,7 +44,7 @@ lgb.controller.WorldController.prototype.init = function() {
    */	
 	this.renderer_ = new THREE.WebGLRenderer();
 	this.renderer_.setSize( window.innerWidth, window.innerHeight );
-
+		//	this.renderer_.setSize( window.document.width, window.document.height  );
 	
 	/**
    * @type {THREE.Projector}
@@ -154,7 +154,9 @@ lgb.controller.WorldController.prototype.onMeshLoaded = function(event) {
 };
 
 lgb.controller.WorldController.prototype.onWindowResize = function(event) {
-	this.renderer_.setSize( event.payload.width, event.payload.height  );
+//	this.renderer_.setSize( window.document.width, window.document.height  );
+
+	this.renderer_.setSize( window.innerWidth, window.innerHeight );
 };
 
 

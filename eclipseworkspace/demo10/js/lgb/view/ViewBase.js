@@ -19,6 +19,8 @@ var lgb = (function(lgb) {
 		this.htmlID = null;
 		this.floatingObj = null;
 	};
+	
+	
 
 	lgb.view.ViewBase.prototype = {
 		

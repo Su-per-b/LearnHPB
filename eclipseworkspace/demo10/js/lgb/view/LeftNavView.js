@@ -26,6 +26,7 @@ var lgb = (function(lgb) {
 
 			this.currentlySelectedID = 'none';
 			this.injectHtml();
+			this.bindEvents();
 			this.showSelected("leftNavButton_1");
 			this.initMenu({targetBottom: 90,targetLeft: -63});
 

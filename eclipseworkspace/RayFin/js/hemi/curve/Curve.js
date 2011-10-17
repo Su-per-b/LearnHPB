@@ -1,6 +1,7 @@
 goog.provide('hemi.curve.Curve');
 goog.require('hemi.curve');
 goog.require('hemi.utils');
+goog.require('o3djs.math');
 
 
 /**
@@ -189,7 +190,7 @@ hemi.curve.Curve.prototype = {
 		var dpts = [];
 		dpts[0] = 0;
 		for(var i = 1; i < this.count; i++) {
-			d += hemi.core.math.distance([this.xpts[i-1],this.ypts[i-1],this.zpts[i-1]],
+			d += o3djs.math.distance([this.xpts[i-1],this.ypts[i-1],this.zpts[i-1]],
 										 [this.xpts[i],this.ypts[i],this.zpts[i]]);
 			dpts[i] = d;
 		}

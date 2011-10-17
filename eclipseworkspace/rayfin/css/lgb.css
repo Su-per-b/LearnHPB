@@ -1,10 +1,65 @@
 body {
-	font-family: Monospace;
-	background-color: #f0f0f0;
-	margin: 0px;
-	overflow: hidden;
+
+	color:#303030;
+	font-family:  Verdana, Lucida Console,  Geneva, Arial, Helvetica, sans-serif;
+	margin:0;
+	padding:0;
+	text-align:center;
+
 }
- 
+
+
+h1, h2, h3, h4 {
+	font-family: Futura Std,Lucida Console, Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-weight:bold;
+}
+
+a {
+	color:#505050;
+	text-decoration:none;
+}
+
+p {
+	line-height:1.5em;
+	margin:0 0 15px;
+}
+
+h3 {
+	font-size:14pt;
+	height:26px;
+	margin:1px 0 12px 0;
+	padding:7px 0 0 0;
+	text-align:center;
+	font-weight:normal;
+	border-width:1px 1px 1px 1px;
+	border-color:#b9da92;
+	border-style:solid;
+}
+
+h5 {
+	font-size:12pt;
+	margin:3px 0 6px 0;
+	padding:0px;
+	font-weight:normal;
+}
+
+
+img {
+	border:none;	
+}
+
+
+#titleBar {
+    position:absolute;
+	top:-41px;
+	width:245px;
+	height:41px;
+    z-index:101;
+    background-color:transparent;  
+    background-image:url('../images/top_title.png');
+    background-repeat:no-repeat;
+}
+
 #oldie { background-color: #ddd !important }
 
 #info {
@@ -28,3 +83,47 @@ body {
 	text-align: left;
 	z-index:100;
 }
+
+/** leftNav **/
+
+.t_Content_light{
+  font-size: 14px;
+}
+
+#adminButton, #propertiesButton{
+	position:absolute;
+	width:33px;
+	height:33px;
+	left:-2000px;
+	top:4px;
+    z-index:20;
+    background-color:transparent;  
+    background-repeat:no-repeat;
+    opacity:0.85;
+}
+
+#adminButtonLink, #propertiesButtonLink {
+	width:33px;
+	height:33px;
+	display:block;
+	background-color:transparent;  
+	margin:0 0 0 0;
+ 	background-image:url('../images/icon_grid_33.png');
+}
+
+.propertiesView-dialog div.ui-dialog-titlebar {
+		padding: 0 0 0 28px;
+		background-image:url("../images/properties_21px.png");
+}
+
+.propertiesSubPanel {
+	text-align:left;
+	padding:8px 3px 8px 3px;
+}
+
+.ui-dialog-titlebar {
+	background-repeat:no-repeat;
+	background-position:4px center;
+	background-color: #557a29;
+}
+

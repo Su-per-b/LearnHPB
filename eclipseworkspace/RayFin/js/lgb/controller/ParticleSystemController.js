@@ -3,7 +3,7 @@ goog.provide('lgb.controller.ParticleSystemController');
 goog.require ("lgb.controller.ControllerBase");
 
 goog.require('lgb.model.ParticleSystemModel');
-goog.require('lgb.view.ParticleSystemView');
+goog.require('lgb.view.ParticleSystem');
 
 goog.require('lgb.event.WorldCreated');
 
@@ -29,11 +29,10 @@ lgb.controller.ParticleSystemController.prototype.init = function() {
 	
 	//this.dataModel = new lgb.model.FastParticleSystemModel();
 	//this.view = new lgb.view.FastParticleSystemView(this.dataModel);
-
 	//this.hemiInit();
 	
 	this.dataModel = new lgb.model.ParticleSystemModel();
-	this.view = new lgb.view.ParticleSystemView(this.dataModel);
+	this.view = new lgb.view.ParticleSystem(this.dataModel);
 	//this.view.start();
 	
 };

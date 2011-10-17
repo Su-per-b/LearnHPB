@@ -41,25 +41,11 @@ lgb.view.RoofTopView.prototype.onGeometryLoaded = function(geometry) {
 
 	var mesh = new THREE.Mesh( geometry, new THREE.MeshFaceMaterial() );
 	mesh.doubleSided = true;
-	mesh.scale.x = mesh.scale.y = mesh.scale.z = 1;
+	//mesh.scale.x = mesh.scale.y = mesh.scale.z = 1;
 	//mesh.rotation.y = Math.PI/2;
 	
 	var event = new lgb.event.MeshLoadedEvent(mesh);
 	this.dispatch(event);
 };
-/*		
-lgb.view.RoofTopView.prototype.onMeshLoaded = function(collada) {
-
-	this.dae = collada.scene;
-
-	this.dae.scale.x = this.dae.scale.y = this.dae.scale.z = .4;
-	this.dae.rotation.x = -Math.PI/2;
-	this.dae.updateMatrix();
-	
-	var event = new lgb.event.MeshLoadedEvent(this.dae);
-	this.dispatch(event);
-};
-
-*/
 
 
