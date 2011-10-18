@@ -3,7 +3,7 @@ goog.provide('lgb.controller.MainController');
 goog.require ("lgb.controller.ControllerBase");
 goog.require ("lgb.controller.WorldController");
 goog.require ("lgb.controller.GuiController");
-goog.require ("lgb.controller.PropertiesController");
+
 goog.require ("lgb.controller.ScenarioController");
 goog.require('lgb.event.WindowResizeEvent');
 goog.require('lgb.event.WorldCreated');
@@ -16,6 +16,7 @@ goog.require('lgb.Config');
  */
 lgb.controller.MainController = function() {
 	
+
 	lgb.controller.ControllerBase.call(this);
 	lgb.globalEventBus = new lgb.event.EventBus();
 	
@@ -33,8 +34,10 @@ goog.inherits(lgb.controller.MainController, lgb.controller.ControllerBase);
  * Initializes the Main Controller after the document is ready
  */
 lgb.controller.MainController.prototype.init = function() {
-
-
+	
+	var that = this;
+	handleErrors_();
+	
 	/**
    * @type {Element}
    * @private
@@ -48,28 +51,69 @@ lgb.controller.MainController.prototype.init = function() {
 	var e = new lgb.event.WorldCreated();
 	this.dispatch(e);
 	
-	$('head').append ('<title>{0}</title>'.format(lgb.Config.getTitle()));
 	
-	console.log(lgb.Config.getTitle());
-	
-	var j = jQuery();
+	$('<title>')
+		.append(lgb.Config.getTitle())
+		.appendTo('head');
 
-	
+
+	console.log(lgb.Config.getTitle());
 	console.log("jQuery version: " + $().jquery);
 	console.log("jQuery.ui version: " + $.ui.version);
 	
 	this.guiController = new lgb.controller.GuiController();
-	this.propertiesController = new lgb.controller.PropertiesController();
 	this.scenarioController = new lgb.controller.ScenarioController();
 	
-	//lgb.controller.GuiController 
+	
+
+	
+	listen_();
+	
 	//var e = new lgb.event.ShowGUI();
 	//this.dispatch(e);
 	
 	
-	jQuery(window).resize(this.d(this.onWindowResize));
-	jQuery(window).unload(this.d(this.onWindowUnload));
+	
+	function listen_() {
+		$(window).resize(onWindowResize_);
+	//	$(window).unload(that.d(that.onWindowUnload));
+	}
+	
+	function onWindowResize_() {
+		that.dispatch(
+			new lgb.event.WindowResizeEvent(
+				window.innerWidth, 
+				window.innerHeight
+			)
+		);
+	}
+	
+
+	function handleErrors_() {
 			
+		$('<p>')
+			.attr('id', 'errorWindow')
+			.append('body');
+			
+		window.onerror = function (errorMsg, url, lineNumber) {
+			 
+			 var w = $("#errorWindow").kendoWindow({
+			     draggable: false,
+			     resizable: false,
+			     width: "500px",
+			     height: "300px",
+			     title: "Exception Ocurred",
+			     modal: true,
+			     actions: ["Refresh", "Maximize", "Close"]
+			 }).data("kendoWindow");
+			 
+			 w.content(errorMsg + "<br />url:" + url+ "<br />line:" + lineNumber);
+		     w.center();
+		     w.open();
+		};
+	}
+
+		
 };
 
 
@@ -78,10 +122,7 @@ lgb.controller.MainController.prototype.onWindowResize = function(event) {
 	this.dispatch(e);
 };
 
-lgb.controller.MainController.prototype.onWindowUnload = function(event) {
 
-	
-};
 
 lgb.controller.MainController.prototype.getCanvas = function() {
 

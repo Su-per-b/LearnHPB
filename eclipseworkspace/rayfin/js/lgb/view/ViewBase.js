@@ -30,6 +30,12 @@ lgb.view.ViewBase.prototype.append = function(html) {
 	this.getParentJq().append(html);
 };
 
+//lgb.BaseClass.prototype.dispatch = function(event) {
+	
+	//alert('You should not do a ')
+	
+	//throw Error('You should not do a global event dispatch from a View object');
+//};
 
 
 

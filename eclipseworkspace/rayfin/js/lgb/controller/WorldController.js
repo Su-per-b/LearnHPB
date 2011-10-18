@@ -10,7 +10,7 @@ goog.require ("lgb.view.CameraView");
 goog.require('lgb.view.FloorView');
 goog.require('lgb.view.StatsView');
 goog.require('lgb.event.WindowResizeEvent');
-
+goog.require('lgb.event.Object3DLoadedEvent');
 
 /**
  * MVC controller for the App
@@ -36,14 +36,21 @@ goog.inherits(lgb.controller.WorldController, lgb.controller.ControllerBase);
 lgb.controller.WorldController.prototype.init = function() {
 	
 	
+	this.mouse = { x: 0, y: 0 };
 	
-
+	//var w = $(window).width(),
+	//	h = window.outerHeight;
 	/**
    * @type {THREE.WebGLRenderer}
    * @private
    */	
 	this.renderer_ = new THREE.WebGLRenderer();
-	this.renderer_.setSize( window.innerWidth, window.innerHeight );
+	
+
+	
+	this.setSize();
+	
+//	this.renderer_.setSize( w, y );
 		//	this.renderer_.setSize( window.document.width, window.document.height  );
 	
 	/**
@@ -69,7 +76,10 @@ lgb.controller.WorldController.prototype.init = function() {
 	this.scene_.addLight( this.ambientLight_ );
 	
 
+	
+	
 	this.listen(lgb.event.MeshLoadedEvent, this.onMeshLoaded);
+	this.listen(lgb.event.Object3DLoadedEvent, this.onObject3DLoadedEvent);
 	this.listen(lgb.event.WindowResizeEvent, this.onWindowResize);
 	
 	this.roofTopController_ = new lgb.controller.RoofTopController();
@@ -81,7 +91,12 @@ lgb.controller.WorldController.prototype.init = function() {
    * @type {gb.view.CameraView}
    * @private
 	*/
-	this.cameraVew_ = new lgb.view.CameraView(this.renderer_.domElement);
+	this.cameraView_ = new lgb.view.CameraView(this.renderer_.domElement);
+	
+	this.sun_ = new THREE.DirectionalLight( 0xffffff );
+	this.sun_.position = this.cameraView_.camera.position.clone();
+	this.scene_.addLight( this.sun_ );
+	
 	
 	/**
    * The grid on the floor
@@ -133,12 +148,17 @@ lgb.controller.WorldController.prototype.init = function() {
 	}
 	
 	
-	
-
+	this.mouseMoveDirty = false;
+	this.containerDiv_.onmousemove = this.d(this.onMouseMove);
 		
 };
 
-
+lgb.controller.WorldController.prototype.onMouseMove = function(event) {
+	event.preventDefault();	
+	this.mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+	this.mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+	this.mouseMoveDirty = true;
+};
 
 lgb.controller.WorldController.prototype.requestAnimationFrame = function(event) {
 	
@@ -151,19 +171,48 @@ lgb.controller.WorldController.prototype.onMeshLoaded = function(event) {
 	
 	var mesh = event.payload;
 	this.scene_.addObject(  mesh );
+	
+	//mesh.materials[ 0 ].color.setHex( 0x003300 );
+	
+	var mc = THREE.CollisionUtils.MeshColliderWBox(mesh);
+	THREE.Collisions.colliders.push( mc );
 };
+
+lgb.controller.WorldController.prototype.onObject3DLoadedEvent = function(event) {
+	
+	var mesh = event.payload;
+	this.scene_.addObject(  mesh );
+	
+
+};
+
+
+
 
 lgb.controller.WorldController.prototype.onWindowResize = function(event) {
 //	this.renderer_.setSize( window.document.width, window.document.height  );
 
+	
 	this.renderer_.setSize( window.innerWidth, window.innerHeight );
 };
+
+
+lgb.controller.WorldController.prototype.setSize = function() {
+
+	var w = $(window).width(),
+		h = $(window).height();
+		
+	this.renderer_.setSize( w, h);
+};
+
+
 
 
 lgb.controller.WorldController.prototype.onColladaSceneLoaded = function(event) {
 	
 	var colladaScene = event.payload;
 	this.scene_.addObject(  colladaScene );
+
 
 };
 
@@ -197,11 +246,35 @@ lgb.controller.WorldController.prototype.onRenderMisc = function(event) {
 
 lgb.controller.WorldController.prototype.renderHelper = function() {
 
+	if(this.mouseMoveDirty ) {
+		var vector = new THREE.Vector3( this.mouse.x,  this.mouse.y, 0.5 );
+		this.projector_.unprojectVector( vector, this.cameraView_.camera );
+		
+		var ray = new THREE.Ray( 
+			this.cameraView_.camera.position, 
+			vector.subSelf( this.cameraView_.camera.position ).normalize() );
+	
+		var c = THREE.Collisions.rayCastNearest( ray );
+		
+		if( c ) {
+		
+			//info.innerHTML += "Found @ distance " + c.distance;
+			//c.mesh.materials[ 0 ].color.setHex( 0xbb0000 );
+				console.log('mouse over ' + c.mesh.name)
+		} else {
+		
+			//info.innerHTML += "No intersection";
+	
+		}
+		
+		this.mouseMoveDirty = false;
+	}
 
+	
 	//todo: further optimze the render loop
 	goog.events.dispatchEvent(lgb.globalEventBus, this.renderEvent);
 	
-	this.renderer_.render( this.scene_, this.cameraVew_.camera );
+	this.renderer_.render( this.scene_, this.cameraView_.camera );
 
 };
 

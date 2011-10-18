@@ -1,0 +1,328 @@
+body {
+
+	color:#303030;
+	font-family:  Verdana, Lucida Console,  Geneva, Arial, Helvetica, sans-serif;
+	margin:0;
+	padding:0;
+	text-align:center;
+
+}
+
+
+h1, h2, h3, h4 {
+	font-family: Futura Std,Lucida Console, Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-weight:bold;
+}
+
+a {
+	color:#505050;
+	text-decoration:none;
+}
+
+p {
+	line-height:1.5em;
+	margin:0 0 15px;
+}
+
+h3 {
+	font-size:14pt;
+	height:26px;
+	margin:1px 0 12px 0;
+	padding:7px 0 0 0;
+	text-align:center;
+	font-weight:normal;
+	border-width:1px 1px 1px 1px;
+	border-color:#b9da92;
+	border-style:solid;
+}
+
+h5 {
+	font-size:12pt;
+	margin:3px 0 6px 0;
+	padding:0px;
+	font-weight:normal;
+}
+
+
+img {
+	border:none;	
+}
+
+
+#titleBar {
+    position:absolute;
+	top:-41px;
+	width:245px;
+	height:41px;
+    z-index:101;
+    background-color:transparent;  
+    background-image:url('../images/top_title.png');
+    background-repeat:no-repeat;
+}
+
+/** admin panel **/
+
+#adminButton, #propertiesButton{
+	position:absolute;
+	width:33px;
+	height:33px;
+	left:-2000px;
+	top:0px;
+    z-index:20;
+    background-color:transparent;  
+    background-repeat:no-repeat;
+    opacity:0.85;
+}
+
+
+
+#adminButtonLink, #propertiesButtonLink {
+	width:33px;
+	height:33px;
+	display:block;
+	background-color:transparent;  
+	margin:0 0 0 0;
+ 	background-image:url('../images/icon_grid_33.png');
+}
+
+
+
+#adminView {
+	opacity:0.92;
+}
+
+.adminSubPanel {
+	text-align:left;
+	/*border-width:1px 0px 1px 0px;
+	border-color:#b9da92;
+	border-style:solid; */
+	padding:8px 3px 8px 3px;
+}
+
+.propertiesSubPanel {
+	text-align:left;
+	padding:8px 3px 8px 3px;
+}
+
+.ui-dialog-titlebar {
+
+	background-repeat:no-repeat;
+	background-position:4px center;
+	background-color: #557a29;
+}
+
+
+.propertiesView-dialog div.ui-dialog-titlebar {
+		padding: 0 0 0 28px;
+		background-image:url("../images/properties_21px.png");
+}
+.adminView-dialog div.ui-dialog-titlebar {
+			padding: 0 0 0 28px;
+		background-image:url("../images/icon_wrench_21px.png");
+}
+
+
+
+a.admin-link {
+	font-weight:normal;
+	font-size:12pt;
+	color:#ffffff;
+	padding:4px 3px 5px 4px;
+	line-height: 12pt;
+}
+
+
+
+a.admin-link:hover {
+	background-color: #6d9d35;
+}
+
+
+input.component-TextInput {
+	font-family: Lucida Console;
+	color:#fff;
+	width:180px;
+	margin:-4px 0 4px 3px;
+	height:13pt;
+	font-size:11pt;
+	background-color:#6d9d35;
+}
+
+
+.viewPointLink {
+	font-size:11px;
+}
+
+.radioButtonGroup {
+	margin-bottom:10px;
+}
+.radioButtonText {
+	font-size:12pt;
+}
+
+
+/** leftNav **/
+#leftNav {
+    position:absolute;  
+	width:63px;
+	height:352px; 
+	left:-2000px; 
+    z-index:10;
+    background-color:transparent;  
+    background-image:url('../images/leftnav.png');
+    background-repeat:no-repeat;
+    opacity:0.92;
+    padding: 60px 0 0 10px;
+}
+
+.leftNavButton {
+	width:42px;
+	height:42px;
+	display:block;
+	background-color:transparent;  
+	margin:0 0 10px 0;
+	background-image:url('../images/icon_grid_42.png');
+}
+
+#leftNavButton_1 {
+	background-position: -42px 0px; 
+}
+
+
+
+
+#leftNavButton_1:hover {
+	background-position:-42px -42px; 
+}
+#leftNavButton_1.selected {
+	background-position: -42px -84px; 
+}
+#leftNavButton_1.selected:hover {
+	background-position: -42px -126px; 
+}
+#leftNavButton_1:active, #leftNavButton_1.selected:active {
+	background-position: -42px -168px; 
+}
+
+#leftNavButton_2 {
+	background-position: -84px 0px; 
+}
+#leftNavButton_2:hover {
+	background-position:-84px -42px; 
+}
+#leftNavButton_2.selected {
+	background-position: -84px -84px; 
+}
+#leftNavButton_2.selected:hover {
+	background-position: -84px -126px; 
+}
+#leftNavButton_2:active, #leftNavButton_2.selected:active {
+	background-position: -84px -168px; 
+}
+
+#leftNavButton_3 {
+	background-position: -168px 0px; 
+}
+#leftNavButton_3:hover {
+	background-position:-168px -42px; 
+}
+#leftNavButton_3.selected {
+	background-position: -168px -84px; 
+}
+#leftNavButton_3.selected:hover {
+	background-position: -168px -126px; 
+}
+#leftNavButton_3:active, #leftNavButton_3.selected:active {
+	background-position: -168px -168px; 
+}
+
+
+#leftNavButton_4 {
+	background-position: -126px 0px; 
+}
+#leftNavButton_4:hover {
+	background-position:-126px -42px; 
+}
+#leftNavButton_4.selected {
+	background-position: -126px -84px; 
+}
+#leftNavButton_4.selected:hover {
+	background-position: -126px -126px; 
+}
+#leftNavButton_4:active, #leftNavButton_4.selected:active {
+	background-position: -126px -168px; 
+}
+
+
+
+ul.ui-tabs-nav li a {
+		font-size:12pt;
+}
+
+
+
+/** progressbar **/
+#progressbarBackground
+{
+	position: absolute;
+	width:202px;
+	height:58px;
+	background-color:#999;
+	padding:2px 2px 2px 2px;
+	margin:0 0 0 0;
+	border-radius:3px;
+	text-align:left;
+	border:1px solid gray;	
+	z-index:100;
+	font-family:Verdana,Tahoma,Arial,sans-serif;
+	font-weight: bold;
+}
+
+#progressbar
+{
+	width:200px;
+	padding:0px;
+	background-color:#fff;
+	border:1px solid black;
+	height:56px;
+}
+
+#progressbarTitle {
+	width:204px;
+	height:20px;
+	padding:2px 2px 2px 2px;
+	text-align:center;
+	font-size:0.7em;
+	color:#999;
+	
+}
+
+
+#indicator
+{
+  width:0px;
+  background-color:#00aa00;
+  height:28px;
+  margin:0;
+}
+
+#progressnum
+{
+  color:#eee;
+  padding-top:6px;
+  text-align:center;
+  width:200px;
+
+  font-size:0.8em;
+}
+
+.t_Content_light{
+  font-size: 14px;
+}
+
+#tabstrip-1 {
+	height :100%;
+}
+#tabstrip-2 {
+	height: auto;
+}

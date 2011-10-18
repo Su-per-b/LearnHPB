@@ -41,6 +41,8 @@ lgb.view.RoofTopView.prototype.onGeometryLoaded = function(geometry) {
 
 	var mesh = new THREE.Mesh( geometry, new THREE.MeshFaceMaterial() );
 	mesh.doubleSided = true;
+	mesh.name = 'RoofTop';
+	
 	//mesh.scale.x = mesh.scale.y = mesh.scale.z = 1;
 	//mesh.rotation.y = Math.PI/2;
 	

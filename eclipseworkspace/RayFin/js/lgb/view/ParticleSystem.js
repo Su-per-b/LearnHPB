@@ -1,14 +1,13 @@
 goog.provide('lgb.view.ParticleSystem');
 
 goog.require ("lgb.view.ViewBase");
-goog.require ("lgb.event.MeshLoadedEvent");
 goog.require ("hemi.curve");
 goog.require ("hemi.curve.Curve");
 
 goog.require ("lgb.view.ParticleWrapper");
 goog.require('lgb.view.ParticlePath');
 goog.require('lgb.view.ParticleElement');
-
+goog.require('lgb.event.Object3DLoadedEvent');
 
 /**
  * MVC View for the RoofTop Unit
@@ -71,7 +70,7 @@ lgb.view.ParticleSystem.prototype.init = function() {
 	this.masterGroup.position = this.positionVector;
 	this.masterGroup.rotation = this.rotationVector;
 	
-	var event = new lgb.event.MeshLoadedEvent(this.masterGroup);
+	var event = new lgb.event.Object3DLoadedEvent(this.masterGroup);
 	this.dispatch(event);
 	
 	

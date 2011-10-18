@@ -3,6 +3,9 @@ goog.provide('lgb.BaseClass');
 goog.require('goog.events');
 goog.require('goog.events.EventTarget');
 
+
+
+
 lgb.BaseClass = function() {
 	goog.events.EventTarget.call(this);
 };
@@ -25,9 +28,7 @@ lgb.BaseClass.prototype.dispatch = function(event) {
 
 
 lgb.BaseClass.prototype.dispatchLocal = function(event) {
-	
 	goog.events.dispatchEvent(this, event);
-
 };
 
 lgb.BaseClass.prototype.listenTo= function(eventTarget, event, handler ) {
