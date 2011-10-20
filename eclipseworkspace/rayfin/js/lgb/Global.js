@@ -1,38 +1,24 @@
 goog.provide('lgb.Global');
 
 
-
-	/**
-	* Inspects the contents of the array to verify that all the elements are 
-	* of the specified data type. Throws and exception if not
-	*
-	* @param {type} The type that each element should be
-	*/
-	Array.prototype.assertContainsType = function(expectedType){
-		
-		var ary = this;
-		var msg = 'Error in lgb.utils.validateTypeInArray';
-		
-		if(null === ary || undefined === ary) {
-			jQuery.error(msg + " array is null or undefined");
-		} else if (!ary.constructor == Array ) {
-			jQuery.error(msg + " ary not actually instanceof array");
-		} else if (ary.length < 1) {
-			jQuery.error(msg + " array length is less than one");
-		} else if (null === expectedType || undefined === expectedType) {
-			jQuery.error(msg + " expectedType is null or undefined");
-		} else {
-			var len = ary.length;
-			for (var i=0; i<len; i++) {
-				var value = ary[i];
-				if (!value instanceof expectedType) {
-					jQuery.error(msg + " expectedType is not the expected type");
-				}
-			}
-		}
-	};
+//needed to prevent compilation error
+lgb.Global = function() {
+}
 	
-	String.prototype.format = function () {
+
+	
+	/**
+	* replaces markers like {0} with a string
+	*
+	* @param {string} arg1
+	* @param {string=} arg2
+	* @param {string=} arg3
+	* @param {string=} arg4
+	* @param {string=} arg5
+	* @param {string=} arg6
+	* @return {string}
+	*/
+	String.prototype.format = function (arg1, arg2, arg3, arg4, arg5, arg6) {
 	  var args = arguments;
 	  return this.replace(/\{\{|\}\}|\{(\d+)\}/g, function (m, n) {
 	    if (m == "{{") { return "{"; }
@@ -92,6 +78,7 @@ goog.provide('lgb.Global');
  *  }, 1000/60);
  *
  */
+
 
 var Stats = function () {
 
@@ -184,15 +171,17 @@ var Stats = function () {
 	// mb
 	var performance = false;
 	
+	/*
 	try { 
 
-		if ( performance && performance.memory && performance.memory.totalJSHeapSize ) {
+		if ( performance && (performance.memory != null) && performance.memory.totalJSHeapSize ) {
 
 			_modesCount = 3;
 
 		}
 
 	} catch ( error ) { };
+*/
 
 	_mbDiv = document.createElement( 'div' );
 	_mbDiv.style.backgroundColor = 'rgb(' + Math.floor( _colors.mb.bg.r / 2 ) + ',' + Math.floor( _colors.mb.bg.g / 2 ) + ',' + Math.floor( _colors.mb.bg.b / 2 ) + ')';
@@ -326,6 +315,7 @@ var Stats = function () {
 				_fpsText.innerHTML = '<span style="font-weight:bold">' + _fps + ' FPS</span> (' + _fpsMin + '-' + _fpsMax + ')';
 				_fpsContext.putImageData( _fpsImageData, 0, 0 );
 
+/*
 				if ( _modesCount == 3 ) {
 
 					_mb = performance.memory.usedJSHeapSize * 0.000000954;
@@ -338,7 +328,7 @@ var Stats = function () {
 					_mbContext.putImageData( _mbImageData, 0, 0 );
 
 				}
-
+*/
 				_timeLastSecond = _time;
 				_frames = 0;
 
@@ -350,67 +340,7 @@ var Stats = function () {
 
 };
 
-/* Simple JavaScript Inheritance
- * By John Resig http://ejohn.org/
- * MIT Licensed.
- */
 
-(function(){
-  var initializing = false, fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
-  // The base Class implementation (does nothing)
-  this.Class = function(){};
-  
-  // Create a new Class that inherits from this class
-  Class.extend = function(prop) {
-    var _super = this.prototype;
-    
-    // Instantiate a base class (but only create the instance,
-    // don't run the init constructor)
-    initializing = true;
-    var prototype = new this();
-    initializing = false;
-    
-    // Copy the properties over onto the new prototype
-    for (var name in prop) {
-      // Check if we're overwriting an existing function
-      prototype[name] = typeof prop[name] == "function" && 
-        typeof _super[name] == "function" && fnTest.test(prop[name]) ?
-        (function(name, fn){
-          return function() {
-            var tmp = this._super;
-            
-            // Add a new ._super() method that is the same method
-            // but on the super-class
-            this._super = _super[name];
-            
-            // The method only need to be bound temporarily, so we
-            // remove it when we're done executing
-            var ret = fn.apply(this, arguments);        
-            this._super = tmp;
-            
-            return ret;
-          };
-        })(name, prop[name]) :
-        prop[name];
-    }
-    
-    // The dummy class constructor
-    function Class() {
-      // All construction is actually done in the init method
-      if ( !initializing && this.init )
-        this.init.apply(this, arguments);
-    }
-    
-    // Populate our constructed prototype object
-    Class.prototype = prototype;
-    
-    // Enforce the constructor to be what we expect
-    Class.prototype.constructor = Class;
-
-    // And make this class extendable
-    Class.extend = arguments.callee;
-    
-    return Class;
-  };
-})();
+Stats.prototype.getDomElement = function() {
+}
 

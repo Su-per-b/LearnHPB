@@ -88,23 +88,15 @@ goog.LOCALE = 'en';  // default to en
  *     "goog.package.part".
  */
 goog.provide = function(name) {
-	
-
   if (!COMPILED) {
-    //console.log ("goog.provide: " + name);
-    
     // Ensure that the same namespace isn't provided twice. This is intended
     // to teach new developers that 'goog.provide' is effectively a variable
     // declaration. And when JSCompiler transforms goog.provide into a real
     // variable declaration, the compiled JS should work the same as the raw
     // JS--even when the raw JS uses goog.provide incorrectly.
-    var isProvided_ = goog.isProvided_(name);
-    
-    if (isProvided_) {
-      throw Error('Namespace "' + name + '" already declared at ' 
-      + goog.dependencies_.nameToPath[name]);
+    if (goog.isProvided_(name)) {
+      throw Error('Namespace "' + name + '" already declared.');
     }
-    
     delete goog.implicitNamespaces_[name];
 
     var namespace = name;
@@ -145,12 +137,7 @@ if (!COMPILED) {
    * @private
    */
   goog.isProvided_ = function(name) {
-  	
-  	var isImplcit = goog.implicitNamespaces_[name];
-  	var objByName = goog.getObjectByName(name);
-  	
-  	
-    return !isImplcit && !!objByName;
+    return !goog.implicitNamespaces_[name] && !!goog.getObjectByName(name);
   };
 
   /**
@@ -215,7 +202,7 @@ goog.exportPath_ = function(name, opt_object, opt_objectToExportTo) {
  * @param {string} name The fully qualified name.
  * @param {Object=} opt_obj The object within which to look; default is
  *     |goog.global|.
- * @return {Object} The object or, if not found, null.
+ * @return {?} The value (object or primitive) or, if not found, null.
  */
 goog.getObjectByName = function(name, opt_obj) {
   var parts = name.split('.');
@@ -1332,13 +1319,13 @@ goog.getCssName = function(className, opt_modifier) {
  * @param {!Object} mapping A map of strings to strings where keys are possible
  *     arguments to goog.getCssName() and values are the corresponding values
  *     that should be returned.
- * @param {string=} style The style of css name mapping. There are two valid
+ * @param {string=} opt_style The style of css name mapping. There are two valid
  *     options: 'BY_PART', and 'BY_WHOLE'.
  * @see goog.getCssName for a description.
  */
-goog.setCssNameMapping = function(mapping, style) {
+goog.setCssNameMapping = function(mapping, opt_style) {
   goog.cssNameMapping_ = mapping;
-  goog.cssNameMappingStyle_ = style;
+  goog.cssNameMappingStyle_ = opt_style;
 };
 
 
@@ -1409,9 +1396,8 @@ goog.exportProperty = function(object, publicName, symbol) {
  * ParentClass.prototype.foo = function(a) { }
  *
  * function ChildClass(a, b, c) {
- *   ParentClass.call(this, a, b);
+ *   goog.base(this, a, b);
  * }
- *
  * goog.inherits(ChildClass, ParentClass);
  *
  * var child = new ChildClass('a', 'b', 'see');

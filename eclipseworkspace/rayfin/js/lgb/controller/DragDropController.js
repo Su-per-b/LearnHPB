@@ -3,8 +3,7 @@ goog.provide('lgb.controller.DragDropController');
 
 	
 /**
- * @class MVC controller for the building envelope
- * @extends lgb.controller.ControllerBase
+ * @constructor
  */
 lgb.controller.DragDropController = function() {
 	

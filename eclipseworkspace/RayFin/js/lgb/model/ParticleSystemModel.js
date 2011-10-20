@@ -8,7 +8,8 @@ goog.require('lgb.event.DataModelChanged');
 
 
 /**
- * @namespace MVC model 
+ * @constructor
+ * @extends lgb.model.ModelBase
  */
 lgb.model.ParticleSystemModel = function(){
 

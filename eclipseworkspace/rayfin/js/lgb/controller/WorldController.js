@@ -47,7 +47,7 @@ lgb.controller.WorldController.prototype.init = function() {
 	this.renderer_ = new THREE.WebGLRenderer();
 	
 
-	
+	 
 	this.setSize();
 	
 //	this.renderer_.setSize( w, y );
@@ -73,7 +73,7 @@ lgb.controller.WorldController.prototype.init = function() {
    * @private
    */
 	this.ambientLight_ = new THREE.AmbientLight( 0x606060 );
-	this.scene_.addLight( this.ambientLight_ );
+	this.scene_.add( this.ambientLight_ );
 	
 
 	
@@ -88,36 +88,25 @@ lgb.controller.WorldController.prototype.init = function() {
 	
 	/**
    * The one and only Camera that views the 3d scene
-   * @type {gb.view.CameraView}
+   * @type {lgb.view.CameraView}
    * @private
-	*/
+	**/
 	this.cameraView_ = new lgb.view.CameraView(this.renderer_.domElement);
 	
 	this.sun_ = new THREE.DirectionalLight( 0xffffff );
 	this.sun_.position = this.cameraView_.camera.position.clone();
-	this.scene_.addLight( this.sun_ );
+	this.scene_.add( this.sun_ );
 	
 	
 	/**
    * The grid on the floor
-   * @type {gb.view.FloorView}
+   * @type {lgb.view.FloorView}
    * @private
 	*/
 	this.floorView_ = new lgb.view.FloorView();
 	
-	/**
-   * @type {gb.view.ParticleView}
-   * @private
-	//*/
-	//this.particleView_ = new lgb.view.ParticleView2();
-	
 
-	/**
-	* for displaying stats like the fram-rate
-	*
-	* @type {Stats
-	* @private
-	*/
+
 
 	if (lgb.Config.SHOW_STATS) {
 		this.statsView_ = new lgb.view.StatsView(this.containerDiv_);
@@ -135,16 +124,16 @@ lgb.controller.WorldController.prototype.init = function() {
 
 	if (window.webkitRequestAnimationFrame ) {
 		this.renderDelegate	= this.d(this.onRenderWebkit);
-		webkitRequestAnimationFrame ( this.renderDelegate);
+		window.webkitRequestAnimationFrame ( this.renderDelegate);
 	} else if (window.mozRequestAnimationFrame){
 		this.renderDelegate	= this.d(this.onRenderMoz);
-		mozRequestAnimationFrame ( this.renderDelegate	 );
+		window.mozRequestAnimationFrame ( this.renderDelegate	 );
 	} else if (window.oRequestAnimationFrame){
 		this.renderDelegate	= this.d(this.onRenderOReq);
-		oRequestAnimationFrame ( this.renderDelegate );
+		window.oRequestAnimationFrame ( this.renderDelegate );
 	} else {
 		this.renderDelegate	= this.d(this.onRenderMisc);
-		requestAnimationFrame ( this.renderDelegate );
+		window.requestAnimationFrame ( this.renderDelegate );
 	}
 	
 	
@@ -162,15 +151,15 @@ lgb.controller.WorldController.prototype.onMouseMove = function(event) {
 
 lgb.controller.WorldController.prototype.requestAnimationFrame = function(event) {
 	
-	var mesh = event.payload;
-	this.scene_.addObject(  mesh );
+	//var mesh = event.payload;
+//	this.scene_.addObject(  mesh );
 };
 
 
 lgb.controller.WorldController.prototype.onMeshLoaded = function(event) {
 	
 	var mesh = event.payload;
-	this.scene_.addObject(  mesh );
+	this.scene_.add(  mesh );
 	
 	//mesh.materials[ 0 ].color.setHex( 0x003300 );
 	
@@ -181,7 +170,7 @@ lgb.controller.WorldController.prototype.onMeshLoaded = function(event) {
 lgb.controller.WorldController.prototype.onObject3DLoadedEvent = function(event) {
 	
 	var mesh = event.payload;
-	this.scene_.addObject(  mesh );
+	this.scene_.add(  mesh );
 	
 
 };
@@ -199,10 +188,10 @@ lgb.controller.WorldController.prototype.onWindowResize = function(event) {
 
 lgb.controller.WorldController.prototype.setSize = function() {
 
-	var w = $(window).width(),
-		h = $(window).height();
+//	var w = $(window).width(),
+	//	h = $(window).height();
 		
-	this.renderer_.setSize( w, h);
+	this.renderer_.setSize( window.innerWidth, window.innerHeight);
 };
 
 
@@ -211,7 +200,7 @@ lgb.controller.WorldController.prototype.setSize = function() {
 lgb.controller.WorldController.prototype.onColladaSceneLoaded = function(event) {
 	
 	var colladaScene = event.payload;
-	this.scene_.addObject(  colladaScene );
+	this.scene_.add(  colladaScene );
 
 
 };
@@ -219,27 +208,27 @@ lgb.controller.WorldController.prototype.onColladaSceneLoaded = function(event) 
 
 lgb.controller.WorldController.prototype.onRenderMoz = function(event) {
 
-	mozRequestAnimationFrame ( mainController.worldController_.onRenderMoz  );
+	window.mozRequestAnimationFrame ( mainController.worldController_.onRenderMoz  );
 	mainController.worldController_.renderHelper();
 };
 
 lgb.controller.WorldController.prototype.onRenderWebkit = function(event) {
 
-	webkitRequestAnimationFrame ( mainController.worldController_.onRenderWebkit  );
+	window.webkitRequestAnimationFrame ( mainController.worldController_.onRenderWebkit  );
 	mainController.worldController_.renderHelper();
 };
 
 lgb.controller.WorldController.prototype.onRenderOReq = function(event) {
 
 
-	oRequestAnimationFrame ( mainController.worldController_.onRenderOReq  );
+	window.oRequestAnimationFrame ( mainController.worldController_.onRenderOReq  );
 	mainController.worldController_.renderHelper();
 	
 
 };
 lgb.controller.WorldController.prototype.onRenderMisc = function(event) {
 
-	requestAnimationFrame ( mainController.worldController_.onRenderMisc );
+	window.requestAnimationFrame ( mainController.worldController_.onRenderMisc );
 	mainController.worldController_.renderHelper();
 };
 
@@ -260,7 +249,7 @@ lgb.controller.WorldController.prototype.renderHelper = function() {
 		
 			//info.innerHTML += "Found @ distance " + c.distance;
 			//c.mesh.materials[ 0 ].color.setHex( 0xbb0000 );
-				console.log('mouse over ' + c.mesh.name)
+			lgb.logInfo('mouse over ' + c.mesh.name, 'lgb.controller.WorldController.renderHelper');
 		} else {
 		
 			//info.innerHTML += "No intersection";
@@ -273,7 +262,7 @@ lgb.controller.WorldController.prototype.renderHelper = function() {
 	
 	//todo: further optimze the render loop
 	goog.events.dispatchEvent(lgb.globalEventBus, this.renderEvent);
-	
+
 	this.renderer_.render( this.scene_, this.cameraView_.camera );
 
 };

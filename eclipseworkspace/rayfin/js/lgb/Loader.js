@@ -30,20 +30,9 @@ lgb.Loader = function() {
    */		
 	this.jsonLoader_ = new THREE.JSONLoader(  );
 	
-	/**
-   * Used to download 3D mesh files in the Collada format
-   * @type {ColladaLoader}
-   * @private
-   */		
-	this.colladaLoader_ = new ColladaLoader(  );
+
 
 	
-	/**
-   * Used to download 3D mesh files in the Collada format
-   * @type {ColladaLoader}
-   * @private
-   */		
-	this.utf8Loader_ = new THREE.UTF8Loader();
 
 
 
@@ -57,10 +46,10 @@ goog.inherits(lgb.Loader, lgb.BaseClass);
 
 lgb.Loader.prototype.onMeshRequest = function(event) {
 	
-		var fileName = event.payload.mesh.fileName;
-		this.meshList[fileName] =  event.payload.mesh;
+	//	var fileName = event.payload.mesh.fileName;
+		//this.meshList[fileName] =  event.payload.mesh;
 		
-		this.loadMesh(fileName);
+		//this.loadMesh(fileName);
 		
 };
 
@@ -89,11 +78,8 @@ lgb.Loader.prototype.loadFile = function(fileName, callback) {
 			case lgb.Loader.MESH_TYPE.JSON :
 				this.jsonLoader_.load ( loadObj );
 				break;
-			case lgb.Loader.MESH_TYPE.COLLADA :
-				this.colladaLoader_ .load ( path , callback );
-				break;
-			case lgb.Loader.MESH_TYPE.UTF8 :
-				this.utf8Loader_ .load ( loadObj );
+			default :
+				throw Error("unsupported file type")
 				break;
 				
 		}

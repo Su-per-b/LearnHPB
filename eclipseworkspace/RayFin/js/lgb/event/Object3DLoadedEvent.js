@@ -5,17 +5,15 @@ goog.require('goog.events.Event');
 /**
  * @constructor
  *  Event fired when a collada file is loaded
- * @param {Object3D} 
+ * @param {THREE.Object3D} obj
  * @extends {goog.events.Event}
  */
 lgb.event.Object3DLoadedEvent = function(obj) {
 	
 	goog.events.Event.call(this, lgb.event.Object3DLoadedEvent.TYPE);
-
-	//this.payload = {};
 	
-
-  this.payload = obj;
+	/**@type {THREE.Object3D} **/
+	this.payload = obj;
 
 };
 

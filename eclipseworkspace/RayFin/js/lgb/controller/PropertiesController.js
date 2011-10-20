@@ -8,8 +8,11 @@ goog.require('lgb.event.ComponentIDSelected');
 goog.require('lgb.event.MakeViewActive');
 
 
-
-lgb.controller.PropertiesController = function(isFast){
+/**
+ * @constructor
+ * @extends lgb.controller.ControllerBase
+ */
+lgb.controller.PropertiesController = function(){
 	lgb.controller.ControllerBase.call(this);
 	
 	this.listen(lgb.event.ScenarioParsed, this.onScenarioParsed);
@@ -61,11 +64,13 @@ lgb.controller.PropertiesController.prototype.onMakeViewActive = function(event)
 
 };
 
+/*
 lgb.controller.PropertiesController.prototype.onSelectID = function(event) {	
 	//this.buttonView.setSelected(false);
 	var id = event.value;
 	this.view.showID(id);
 };
+*/
 
 lgb.controller.PropertiesController.prototype.onSelectedInWorld = function(event) {	
 	//this.buttonView.setSelected(false);

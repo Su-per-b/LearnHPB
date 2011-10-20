@@ -5,7 +5,7 @@ goog.require('goog.events.Event');
 /**
  * @constructor
  *  Event fired when a collada file is loaded
- * @param {mesh} 
+ * @param {lgb.model.scenario.Base} scenarioBase
  * @extends {goog.events.Event}
  */
 lgb.event.ScenarioParsed = function(scenarioBase) {
@@ -14,7 +14,7 @@ lgb.event.ScenarioParsed = function(scenarioBase) {
  
   /**
    * The event payload
-   * @type {Object}
+   * @type {lgb.model.scenario.Base}
    */
   this.payload = scenarioBase;
   

@@ -6,6 +6,7 @@ goog.require('goog.events.EventTarget');
 /**
  * Global Event Bus
  * @constructor
+ * @extends {goog.events.EventTarget}
  */
 lgb.event.EventBus = function() {
 	goog.events.EventTarget.call(this);

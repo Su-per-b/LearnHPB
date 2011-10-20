@@ -3,13 +3,13 @@ goog.provide('lgb.view.EnvelopeView');
 goog.require ("lgb.view.ViewBase");
 goog.require('lgb.event.MeshLoadedEvent');
 goog.require('lgb.Loader');
+goog.require('lgb.event.ColladaSceneLoadedEvent');
 
 
 
 /**
- * MVC View for the RoofTop Unit
  * @constructor
- * @extends lgb.view.ViewBase
+ * @extends {lgb.view.ViewBase}
  */
 lgb.view.EnvelopeView = function(model) {
 	lgb.view.ViewBase.call(this);
@@ -78,20 +78,20 @@ lgb.view.EnvelopeView.prototype.addMesh = function(geometry, scale, x, y, z, rx,
 		
 lgb.view.EnvelopeView.prototype.onColladaLoaded = function(collada) {
 
-	var colladaScene = collada.scene;
+	//var colladaScene = collada.scene;
 
-	colladaScene.scale.x = colladaScene.scale.y = colladaScene.scale.z = .1;
-	colladaScene.rotation.x = -Math.PI/2;
+//	colladaScene.scale.x = colladaScene.scale.y = colladaScene.scale.z = .1;
+//	colladaScene.rotation.x = -Math.PI/2;
 	
 	//colladaScene.up.x = 1;
 //colladaScene.up.y = 0;
 //	colladaScene.up.z = 0;
 	
-	colladaScene.updateMatrix();
-	colladaScene.computeBoundingBox();
+	//colladaScene.updateMatrix();
+	//colladaScene.computeBoundingBox();
 	
-	var event = new lgb.event.ColladaSceneLoadedEvent(colladaScene);
-	this.dispatch(event);
+	//var event = new lgb.event.ColladaSceneLoadedEvent(colladaScene);
+	//this.dispatch(event);
 };
 
 

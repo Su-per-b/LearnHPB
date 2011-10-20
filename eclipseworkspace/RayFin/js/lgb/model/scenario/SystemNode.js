@@ -3,7 +3,11 @@ goog.provide('lgb.model.scenario.SystemNode');
 goog.require ("lgb.model.scenario.SysVar");
 goog.require ("lgb.model.ModelBase");
 
-
+/**
+ * @constructor
+ * @extends lgb.model.ModelBase
+ * @param {Object} xmlParser
+ */
 lgb.model.scenario.SystemNode = function(xmlParser) {
 	lgb.model.ModelBase.call(this);
 	this.sysVarArray = [];

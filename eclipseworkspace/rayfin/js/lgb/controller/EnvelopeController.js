@@ -9,7 +9,6 @@ goog.require ("lgb.view.EnvelopeView");
 
 
 /**
- * MVC controller for the RoofTopController
  * @constructor
  * @extends lgb.controller.ControllerBase
  */

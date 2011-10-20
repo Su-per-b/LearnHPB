@@ -8,7 +8,8 @@ goog.require('lgb.event.DataModelChanged');
 goog.require('lgb.event.ComponentSelected');
 
 /**
- * @namespace MVC model 
+ * @constructor
+ * @extends lgb.model.ModelBase
  */
 lgb.model.scenario.Base = function() {
 	

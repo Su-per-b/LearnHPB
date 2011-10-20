@@ -6,9 +6,8 @@ goog.require ("lgb.view.ViewBase");
 
 
 /**
- * MVC View 
  * @constructor
- * @extends lgb.view.ViewBase
+ * @extends {lgb.view.ViewBase}
  */
 lgb.view.ParticleWrapper = function(vertex) {
 	

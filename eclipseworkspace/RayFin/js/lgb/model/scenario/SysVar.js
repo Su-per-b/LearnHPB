@@ -2,10 +2,16 @@ goog.provide('lgb.model.scenario.SysVar');
 
 goog.require ("lgb.model.ModelBase");
 
-
+/**
+ * @constructor
+ * @extends lgb.model.ModelBase
+ * @param {Object} node
+ */
 lgb.model.scenario.SysVar = function(node) {
 	lgb.model.ModelBase.call(this);
 	this.parse(node);
+	this.unitSI = '';
+	this.displayName = '';
 };
 	
 	
@@ -34,7 +40,7 @@ lgb.model.scenario.SysVar.prototype.setValue = function(name, type, content) {
 		
 		switch (type) {
 			case "Integer" : {
-				theValue = parseInt(content);
+				theValue = parseInt(content, 10);
 				break;
 			}
 			case "Boolean" : {

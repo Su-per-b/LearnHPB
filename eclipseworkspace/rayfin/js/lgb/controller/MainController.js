@@ -8,6 +8,7 @@ goog.require ("lgb.controller.ScenarioController");
 goog.require('lgb.event.WindowResizeEvent');
 goog.require('lgb.event.WorldCreated');
 goog.require('lgb.Config');
+goog.require('goog.debug.Logger');
 
 /**
  * MVC controller for the App
@@ -25,9 +26,7 @@ lgb.controller.MainController = function() {
 
 };
 
-
 goog.inherits(lgb.controller.MainController, lgb.controller.ControllerBase);
-
 
 
 /** 
@@ -55,17 +54,27 @@ lgb.controller.MainController.prototype.init = function() {
 	$('<title>')
 		.append(lgb.Config.getTitle())
 		.appendTo('head');
+	
+	/**
+	* The logger used by this object.
+	* @type {goog.debug.Logger}
+	* @private
+	*/
+	this.logger_ = goog.debug.Logger.getLogger('lgb.controller.MainController');
+  
+	lgb.logInfo(lgb.Config.getTitle());
+	lgb.logInfo("jQuery version: " + $('').jquery);
+	lgb.logInfo("jQuery.ui version: " + $.ui.version);
+	
+  	//this.logger_.info(lgb.Config.getTitle());
+  //	this.logger_.info();
+  //	this.logger_.info();
+  	
 
-
-	console.log(lgb.Config.getTitle());
-	console.log("jQuery version: " + $().jquery);
-	console.log("jQuery.ui version: " + $.ui.version);
 	
 	this.guiController = new lgb.controller.GuiController();
 	this.scenarioController = new lgb.controller.ScenarioController();
 	
-	
-
 	
 	listen_();
 	

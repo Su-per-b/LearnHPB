@@ -6,7 +6,8 @@ goog.require('goog.events.Event');
  * @constructor
  *
  *  Event fired when a collada file is loaded
- * @param {mesh} 
+ * @param {THREE.Mesh} mesh
+ * @param {Function} callback
  * 
  * @extends {goog.events.Event}
  */

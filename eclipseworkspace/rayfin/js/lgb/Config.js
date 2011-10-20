@@ -5,10 +5,6 @@ goog.provide('lgb.Config');
  */
 //console.log("loaded Config");
 
-var lgb = (function(lgb) {
-
-
-	
 	lgb.Config = function() {
 
 	};
@@ -19,7 +15,7 @@ var lgb = (function(lgb) {
 	lgb.Config.APP_TITLE = "Learn Grean Buildings - RayFin";
 	lgb.Config.APP_VERSION = '0.00.11';
 	lgb.Config.BACKGROUND_COLOR = [0.7, 0.8, 1, 1];
-	lgb.Config.SHOW_STATS = false;
+	lgb.Config.SHOW_STATS = true;
 	
 	
 	lgb.Config.getTitle = function() {
@@ -30,12 +26,8 @@ var lgb = (function(lgb) {
 	};
 	
 	
-	return lgb;
+
 	
 	
-})(lgb || {});
-	
-	
-//console.log("parsed Config");
-	
+
 	

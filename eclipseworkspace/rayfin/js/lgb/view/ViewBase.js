@@ -6,9 +6,10 @@ goog.require ("lgb.utils");
 
 
 /**
- * MVC View for the RoofTop Unit
+ * MVC View base class
  * @constructor
- * @extends lgb.view.ViewBase
+ * @extends {lgb.BaseClass}
+ * @param {...Object} dataModel that the view with display
  */
 lgb.view.ViewBase = function(dataModel) {
 	lgb.BaseClass.call(this);
@@ -18,17 +19,17 @@ lgb.view.ViewBase = function(dataModel) {
 		this.listenForChange();
 	}
 	
-	this.parentHTMLid = "theBody";
-	this.htmlID = null;
+	this.parentHTMLid = "body";
+	this.htmlID = '';
 
 };
 
 goog.inherits(lgb.view.ViewBase, lgb.BaseClass);
 
 
-lgb.view.ViewBase.prototype.append = function(html) {
-	this.getParentJq().append(html);
-};
+//lgb.view.ViewBase.prototype.append = function(html) {
+//	this.getParentJq().append(html);
+//};
 
 //lgb.BaseClass.prototype.dispatch = function(event) {
 	
@@ -39,20 +40,27 @@ lgb.view.ViewBase.prototype.append = function(html) {
 
 
 
-lgb.view.ViewBase.prototype.getJq = function(id) {
-	if (lgb.utils.isNull(id)) {
-		id = this.htmlID;
-	}
+lgb.view.ViewBase.prototype.getJq = function() {
+	var str = this.htmlID;
+	var selector = '#{0}'.format(str);
 	
-	var selector = jQuery('#{0}'.format(id));
-	return selector;
+	var jq = $(selector);
+	return jq;
 };
 
-
+/*
 lgb.view.ViewBase.prototype.getParentJq = function() {
 	var selector = jQuery('#{0}'.format(this.parentHTMLid));
 	return selector;
 };
+*/
+
+
+lgb.view.ViewBase.prototype.onChange = function(event) {
+	
+	throw Error ('this should be overriden');
+};
+
 
 lgb.view.ViewBase.prototype.listenForChange = function() {
 	//var delegate = jQuery.proxy( this.onChange, this );

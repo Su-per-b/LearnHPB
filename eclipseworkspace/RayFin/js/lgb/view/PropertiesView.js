@@ -5,9 +5,8 @@ goog.require('lgb.view.DialogView');
 goog.require('lgb.event.ComponentIDSelected');
 
 /**
- * @class this is the MVC view class for the Admin View
- * it handles the life-cycle of the subpanels, 
- * and the various AJAX components
+ * @constructor
+ * @extends {lgb.view.DialogView}
  */
 lgb.view.PropertiesView = function(dataModel){
 
@@ -46,6 +45,11 @@ lgb.view.PropertiesView.prototype.onChange = function(event) {
 	 
 };
 
+lgb.view.PropertiesView.prototype.onCloseButtonClicked = function(event) {
+	this.dispatchLocal(new lgb.event.ViewClosed());
+};
+	
+	
 lgb.view.PropertiesView.prototype.injectHtml = function() {
 		
 		
@@ -56,7 +60,8 @@ lgb.view.PropertiesView.prototype.injectHtml = function() {
 		var html = 	'<div id="{0}">\
 		</div>'.format(this.htmlID);
 		
-		this.append(html);
+
+		$('body').append(html);
 		
 		var jq = this.getJq();
 		jq.direction = 'left';
@@ -84,7 +89,7 @@ lgb.view.PropertiesView.prototype.injectHtml = function() {
 					</div>'.format(this.comboBoxId);
 		
 		
-		this.getJq().append(html2);
+		$('body').append(html2);
 		
 		
 
@@ -118,8 +123,8 @@ var htmlTabs =
 		)
 	}
 	
-	var jq = $('#' + this.comboBoxId);
-	jq.kendoDropDownList(
+	var jq2 = $('#' + this.comboBoxId);
+	jq2.kendoDropDownList(
 			{ dataSource: selectArray,
 			  change: this.d(this.onDropDownChange)
 			}

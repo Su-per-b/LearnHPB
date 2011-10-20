@@ -5,14 +5,12 @@ goog.require ("lgb.controller.ControllerBase");
 
 goog.require('lgb.event.WindowResizeEvent');
 goog.require('lgb.event.WorldCreated');
-goog.require('lgb.controller.TitleBarController');
 goog.require('lgb.Config');
 goog.require ("lgb.view.TitleBarView");
 goog.require ("lgb.view.LeftNavView");
 goog.require ("lgb.controller.PropertiesController");
 
 /**
- * MVC controller for the App
  * @constructor
  * @extends lgb.controller.ControllerBase
  */

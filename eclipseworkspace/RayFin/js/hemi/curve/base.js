@@ -4,9 +4,9 @@ goog.provide('hemi.curve');
 /**
  * Generate a random point within a bounding box
  *
- * @param {number[]} min Minimum point of the bounding box
- * @param {number[]} max Maximum point of the bounding box
- * @return {number[]} Randomly generated point
+ * @param {Array.<number>} min Minimum point of the bounding box
+ * @param {Array.<number>} max Maximum point of the bounding box
+ * @return {Array.<number>} Randomly generated point
  */
 hemi.curve.randomPoint = function(min,max) {
 	var xi = Math.random();

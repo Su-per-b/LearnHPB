@@ -5,72 +5,73 @@ goog.require ("lgb.view.ViewBase");
 
 
 
-	/**
-	 * @class this is the MVC view class for the TitleBar
-	 */
-	lgb.view.TitleBarView = function(){
+/**
+ * @constructor
+ * @extends {lgb.view.ViewBase}
+ */
+lgb.view.TitleBarView = function(){
 
-		lgb.view.ViewBase.call(this);
-		this.htmlID = "titleBar";
-		var that = this;
+	lgb.view.ViewBase.call(this);
+	this.htmlID = "titleBar";
+	var that = this;
 
-		function injectHtml_() {
+	function injectHtml_() {
 
-			$('<div>')
-			.attr('id', that.htmlID)
-			.css({
-					top:'-41px',
-					width:'245px',
-					height:'41px',
-					'z-index':'101',
-					'background-image':'url(images/top_title.png)'
-				})
-			.center({
-				vertical : false
+		$('<div>')
+		.attr('id', that.htmlID)
+		.css({
+				top:'-41px',
+				width:'245px',
+				height:'41px',
+				'z-index':'101',
+				'background-image':'url(images/top_title.png)'
 			})
-			.appendTo(that.getParentJq());
-
-		};
-		
-		function listen_() {
-			that.listen(lgb.event.WindowResizeEvent, that.onResize);
-		};
-		
-
-		injectHtml_();
-		listen_();
-		
-	};
-
-
-	goog.inherits(lgb.view.TitleBarView, lgb.view.ViewBase);
-
-
-
-	lgb.view.TitleBarView.prototype.show = function() {
-
-	  	this.getJq().animate({
-	  		top: '0',
-	  		easing:"easeInOutSine"
-	  	}, 500);
+		.center({
+			vertical : false
+		})
+		.appendTo('body');
 
 	};
 	
-	
-	lgb.view.TitleBarView.prototype.onResize = function() {
-		
-		var jq = this.getJq();
-		
-        jq.center({
-        	vertical : false,
-        	duration:500,
-        	easing:"easeInOutSine"
-        });
-	}
+	function listen_() {
+		that.listen(lgb.event.WindowResizeEvent, that.onResize);
+	};
 	
 
+	injectHtml_();
+	listen_();
 	
-	/*
+};
+
+
+goog.inherits(lgb.view.TitleBarView, lgb.view.ViewBase);
+
+
+
+lgb.view.TitleBarView.prototype.show = function() {
+
+  	this.getJq().animate({
+  		top: '0',
+  		easing:"easeInOutSine"
+  	}, 500);
+
+};
+
+
+lgb.view.TitleBarView.prototype.onResize = function() {
+	
+	var jq = this.getJq();
+	
+    jq.center({
+    	vertical : false,
+    	duration:500,
+    	easing:"easeInOutSine"
+    });
+}
+
+
+
+/*
 	lgb.view.TitleBarView.prototype.injectCss = function() {
 
 

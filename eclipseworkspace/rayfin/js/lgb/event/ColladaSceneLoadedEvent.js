@@ -4,7 +4,7 @@ goog.require('goog.events.Event');
 
 /**
  *  Event fired when a collada file is loaded
- * @param {scene} 
+ * @param {*} scene 
  * @constructor
  * @extends {goog.events.Event}
  */
@@ -16,7 +16,7 @@ lgb.event.ColladaSceneLoadedEvent = function(scene) {
 	
   /**
    * The event payload
-   * @type {Object}
+   * @type {*}
    */
   this.payload = scene;
 

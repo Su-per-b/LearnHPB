@@ -5,14 +5,15 @@ goog.provide('hemi.utils');
 /**
 	 * Create a copy of the given Object (or array).
 	 * 
-	 * @param {Object} src an Object (or array) to clone
-	 * @param {boolean} opt_deep optional flag to indicate if deep copying
+	 * @param {!Object} src an Object (or array) to clone
+	 * @param {boolean=} opt_deep optional flag to indicate if deep copying
 	 *     should be performed (default is deep copying)
-	 * @return {Object} the created Object (or array)
+	 * @return {*} the created Object (or array)
 	 */
 	hemi.utils.clone = function(src, opt_deep) {
-		var dest = hemi.utils.isArray(src) ? [] : {},
-			opt_deep = opt_deep == null ? true : opt_deep;
+		var dest = hemi.utils.isArray(src) ? [] : {};
+		
+		opt_deep = (opt_deep === undefined ? true : opt_deep);
 		
 		hemi.utils.join(dest, src, opt_deep);
 		return dest;
@@ -22,8 +23,8 @@ goog.provide('hemi.utils');
 	 * Compare the two given arrays of numbers. The arrays should be the same
 	 * length.
 	 * 
-	 * @param {number[]} a the first array
-	 * @param {number[]} b the second array
+	 * @param {Array.<number>|*} a the first array
+	 * @param {Array.<number>|*} b the second array
 	 * @return {boolean} true if the arrays are equal
 	 */
 	hemi.utils.compareArrays = function(a, b) {
@@ -55,7 +56,7 @@ goog.provide('hemi.utils');
 	 * Calculate the factorial of the given number.
 	 *
 	 * @param {number} num number to factorialize
-	 * @param {number} opt_stop optional number to stop the factorial at (if it
+	 * @param {number=} opt_stop optional number to stop the factorial at (if it
 	 *     should be stopped before 1
 	 * @return {number} (num!) or (num! - opt_stop!)
 	 */
@@ -88,13 +89,13 @@ goog.provide('hemi.utils');
 	 * properties are objects or arrays and the merge is doing a deep copy. In
 	 * that case, the properties will be merged recursively.
 	 * 
-	 * @param {Object} obj1 the first object which will receive all properties
-	 * @param {Object} objN any number of objects to copy properties from
-	 * @param {boolean} opt_deep optional flag to indicate if deep copying
+	 * @param {!Object} obj1 the first object which will receive all properties
+	 * @param {!Object} objN any number of objects to copy properties from
+	 * @param {boolean=} opt_deep optional flag to indicate if deep copying
 	 *     should be performed (default is deep copying)
 	 * @return {Object} the first object now merged with all other objects
 	 */
-	hemi.utils.join = function() {
+	hemi.utils.join = function(obj1, objN, opt_deep) {
 		var target = arguments[0],
 			il = arguments.length,
 			lastArg = arguments[il - 1],
@@ -139,12 +140,12 @@ goog.provide('hemi.utils');
 	 * Calculate the cubic hermite interpolation between two points with
 	 * associated tangents.
 	 *
-	 * @param {float} t time (between 0 and 1)
-	 * @param {float[3]} p0 the first waypoint
-	 * @param {float[3]} m0 the tangent through the first waypoint
-	 * @param {float[3]} p1 the second waypoint
-	 * @param {float[3]} m1 the tangent through the second waypoint
-	 * @return {float[3]} the interpolated point
+	 * @param {number} t time (between 0 and 1)
+	 * @param {Array.<number>} p0 the first waypoint
+	 * @param {Array.<number>} m0 the tangent through the first waypoint
+	 * @param {Array.<number>} p1 the second waypoint
+	 * @param {Array.<number>} m1 the tangent through the second waypoint
+	 * @return {number} the interpolated point
 	 */
 	hemi.utils.cubicHermite = function(t,p0,m0,p1,m1) {;
 		var t2 = t*t,

@@ -6,11 +6,10 @@ goog.require ("lgb.view.ViewBase");
 
 
 /**
- * MVC View 
  * @constructor
- * @extends lgb.view.ViewBase
+ * @extends {lgb.view.ViewBase}
  */
-lgb.view.ParticleElement = function(curve) {
+lgb.view.ParticleElement = function() {
 	lgb.view.ViewBase.call(this);
 	
 	this.vertex = new THREE.Vertex(

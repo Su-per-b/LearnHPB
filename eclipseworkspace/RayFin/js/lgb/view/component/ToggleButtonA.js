@@ -2,7 +2,12 @@ goog.provide('lgb.view.component.ToggleButtonA');
 goog.require ("lgb.view.ViewBase");
 
 
-
+/**
+ * Html button type object made with a <div> that will be instered into the DOM
+ * @param {Object} options
+ * @constructor
+ * @extends {lgb.view.ViewBase}
+ */
 lgb.view.component.ToggleButtonA = function(options){
 	
 	lgb.view.ViewBase.call(this);
@@ -58,7 +63,7 @@ lgb.view.component.ToggleButtonA.prototype.makeBackgroundPosition = function(app
 	
 	var cssStr = 
 	"#{0}{1}{background-position: {2}px {3}px;}"
-	.format( this.options.htmlId , 
+	.format(this.options.htmlId, 
 		appendToSelector, 
 		this.options.xPosition.toString(), 
 		pixelShift.toString());

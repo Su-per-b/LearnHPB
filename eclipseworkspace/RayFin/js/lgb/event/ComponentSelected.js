@@ -4,14 +4,14 @@ goog.require('goog.events.Event');
 
 /**
  * @constructor
- *  Event fired when a collada file is loaded
- * @param {mesh} 
+ * @param {lgb.model.scenario.SystemNode} systemNode
  * @extends {goog.events.Event}
  */
 lgb.event.ComponentSelected = function(systemNode) {
 	
 	goog.events.Event.call(this, lgb.event.ComponentSelected.TYPE);
 	
+	/**@type {lgb.model.scenario.SystemNode} **/
 	this.payload = systemNode;
 };
 

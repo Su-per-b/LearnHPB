@@ -5,9 +5,8 @@ goog.require ("lgb.model.ModelBase");
 
 
 /**
- * MVC controller for the Envelope
  * @constructor
- * @extends lgb.controller.ControllerBase
+ * @extends lgb.model.ModelBase
  */
 lgb.model.EnvelopeModel = function() {
 	

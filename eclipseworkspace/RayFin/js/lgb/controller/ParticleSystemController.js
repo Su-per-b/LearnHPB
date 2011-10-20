@@ -8,7 +8,6 @@ goog.require('lgb.view.ParticleSystem');
 goog.require('lgb.event.WorldCreated');
 
 /**
- * MVC controller for the RoofTopController
  * @constructor
  * @extends lgb.controller.ControllerBase
  */

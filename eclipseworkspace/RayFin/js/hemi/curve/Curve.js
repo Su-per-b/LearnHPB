@@ -5,12 +5,12 @@ goog.require('o3djs.math');
 
 
 /**
- * @class A Curve is used to represent and calculate different curves
+ * @constructor A Curve is used to represent and calculate different curves
  * including: linear, bezier, cardinal, and cubic hermite.
  * 
- * @param {number[][]} points List of xyz waypoints 
- * @param {number} opt_type Curve type
- * @param {hemi.config} opt_config Configuration object specific to this curve
+ * @param {Array.<Array.<number>>} points List of xyz waypoints 
+ * @param {number=} opt_type Curve type
+ * @param {Object=} opt_config Configuration object specific to this curve
  */
 hemi.curve.Curve = function(points,opt_type,opt_config) {
 	this.count = 0;
@@ -33,31 +33,7 @@ hemi.curve.Curve = function(points,opt_type,opt_config) {
 
 hemi.curve.Curve.prototype = {
 		
-	toOctane : function() {
-		var names = ['count', 'tension', 'weights', 'xpts', 'xtans', 'ypts',
-				'ytans', 'zpts', 'ztans'],
-			octane = {
-				type: 'hemi.curve.Curve',
-				props: []
-			};
-		
-		for (var ndx = 0, len = names.length; ndx < len; ndx++) {
-			var name = names[ndx];
-			
-			octane.props.push({
-				name: name,
-				val: this[name]
-			});
-		}
-		
-		octane.props.push({
-			name: 'setType',
-			arg: [this.type]
-		});
-		
-		return octane;
-	},
-	
+
 	loadConfig : function(cfg) {
 		var points = cfg.points,
 			type = cfg.type || this.type || hemi.curve.curveType.Linear;
@@ -105,7 +81,7 @@ hemi.curve.Curve.prototype = {
 	 * Base interpolation function for this curve. Usually overwritten.
 	 *
 	 * @param {number} t Time, usually between 0 and 1
-	 * @return {number[]} The position interpolated from the time input
+	 * @return {Array.<number>} The position interpolated from the time input
 	 */
 	interpolate : function(t) {
 		return [t,t,t];
@@ -115,7 +91,7 @@ hemi.curve.Curve.prototype = {
 	 * The linear interpolation moves on a straight line between waypoints.
 	 *
 	 * @param {number} t Time, usually between 0 and 1
-	 * @return {number[]} The position linearly interpolated from the time input
+	 * @return {Array.<number>} The position linearly interpolated from the time input
 	 */
 	linear : function(t) {
 		var n = this.count - 1;
@@ -134,7 +110,7 @@ hemi.curve.Curve.prototype = {
 	 *		points can be weighted for more bending.
 	 *
 	 * @param {number} t Time, usually between 0 and 1
-	 * @return {number[]} The position interpolated from the time input by a
+	 * @return {Array.<number>} The position interpolated from the time input by a
 	 *		a bezier function.
 	 */
 	bezier : function(t) {
@@ -161,7 +137,7 @@ hemi.curve.Curve.prototype = {
 	 *		object's waypoints, at a predefined tangent slope through each one.
 	 *
 	 * @param {number} t Time, usually between 0 and 1
-	 * @return {number[]} The position interpolated from the time input by the cubic 
+	 * @return {Array.<number>} The position interpolated from the time input by the cubic 
 	 *		hermite function.
 	 */		
 	cubicHermite : function(t) {
@@ -182,7 +158,7 @@ hemi.curve.Curve.prototype = {
 	 *		at a constant velocity.
 	 *
 	 * @param {number} t Time, usually between 0 and 1
-	 * @return {number[]} The position linearly interpolated from the time input, normalized
+	 * @return {Array.<number>} The position linearly interpolated from the time input, normalized
 	 * 		to keep the velocity constant
 	 */
 	linearNorm : function(t) {
@@ -262,14 +238,6 @@ hemi.curve.Curve.prototype = {
 	getEnd : function() {
 		var end = this.count - 1;
 		return [this.xpts[end],this.ypts[end],this.zpts[end]];
-	},
-	
-	draw : function(samples, config) {
-		var points = [];
-		for (var i = 0; i < samples+2; i++) {
-			points[i] = this.interpolate(i/(samples+1));
-		}
-		hemi.curve.drawCurve(points,config);
-		}
+	}
 		
 };

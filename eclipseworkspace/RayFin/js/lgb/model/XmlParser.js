@@ -4,7 +4,11 @@ goog.require ("lgb.model.ModelBase");
 
 
 
-	
+/**
+ * @constructor
+ * @extends lgb.model.ModelBase
+ * @param {Object} xml
+ */
 lgb.model.XmlParser = function(xml){
 	
 	lgb.model.ModelBase.call(this);

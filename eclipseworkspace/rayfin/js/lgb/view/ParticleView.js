@@ -7,9 +7,8 @@ goog.require ("lgb.event.MeshLoadedEvent");
 
 
 /**
- * MVC View for the RoofTop Unit
  * @constructor
- * @extends lgb.view.ViewBase
+ * @extends {lgb.view.ViewBase}
  */
 lgb.view.ParticleView = function() {
 	lgb.view.ViewBase.call(this);

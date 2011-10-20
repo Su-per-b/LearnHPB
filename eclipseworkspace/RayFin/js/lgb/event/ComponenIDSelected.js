@@ -4,14 +4,14 @@ goog.require('goog.events.Event');
 
 /**
  * @constructor
- *  Event fired when a collada file is loaded
- * @param {id} 
+ * @param {string} id 
  * @extends {goog.events.Event}
  */
 lgb.event.ComponentIDSelected = function(id) {
 	
 	goog.events.Event.call(this, lgb.event.ComponentIDSelected.TYPE);
 	
+	/**@type {string} **/
 	this.payload = id;
 };
 

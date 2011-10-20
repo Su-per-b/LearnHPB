@@ -28,9 +28,9 @@ goog.inherits(lgb.view.StatsView, lgb.view.ViewBase);
  */
 lgb.view.StatsView.prototype.init = function(containerDiv) {
 
-	this.stats_ = new Stats();
-	this.stats_.domElement.style.position = 'absolute';
-	this.stats_.domElement.style.top = '0px';
+	this.stats_ = Stats();
+	//this.stats_.domElement.style.position = 'absolute';
+	//this.stats_.domElement.style.top = '0px';
 	containerDiv.appendChild( this.stats_.domElement );
 	
 	this.listen(lgb.event.RenderEvent, this.d(this.onRender));

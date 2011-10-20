@@ -4,9 +4,8 @@ goog.require ("lgb.view.ViewBase");
 goog.require('lgb.event.ViewClosed');
 
 /**
- * @class this is the MVC view class for the Admin View
- * it handles the life-cycle of the subpanels, 
- * and the various AJAX components
+ * @constructor
+ * @extends {lgb.view.ViewBase}
  */
 lgb.view.DialogView = function(dataModel){
 
@@ -27,7 +26,7 @@ lgb.view.DialogView.prototype.toggleVisible = function() {
 		this.hide();
 	}
 	else {
-		this.show();
+		this.show(false);
 	}
 };
 

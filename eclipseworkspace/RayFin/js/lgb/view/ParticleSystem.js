@@ -10,9 +10,8 @@ goog.require('lgb.view.ParticleElement');
 goog.require('lgb.event.Object3DLoadedEvent');
 
 /**
- * MVC View for the RoofTop Unit
  * @constructor
- * @extends lgb.view.ViewBase
+ * @extends {lgb.view.ViewBase}
  */
 lgb.view.ParticleSystem = function(dataModel) {
 	lgb.view.ViewBase.call(this);
@@ -45,9 +44,9 @@ lgb.view.ParticleSystem.prototype.init = function() {
 	this.systemGroup = new THREE.Object3D();
 	this.masterGroup = new THREE.Object3D();
 	
-	this.masterGroup.addChild(this.boxGroup);
-	this.masterGroup.addChild(this.curveGroup);
-	this.masterGroup.addChild(this.systemGroup);
+	this.masterGroup.add(this.boxGroup);
+	this.masterGroup.add(this.curveGroup);
+	this.masterGroup.add(this.systemGroup);
 	
 	this.parseConfig();
 	
@@ -141,13 +140,13 @@ lgb.view.ParticleSystem.prototype.createParticleSystem = function() {
 	}
 	
 
-	this.particleSystem = new THREE.ParticleSystem(
+	this.threeParticleSystem = new THREE.ParticleSystem(
 	    this.particlesGeometry,
 	    pMaterial);
 	
-	this.particleSystem.sortParticles = true;
+	this.threeParticleSystem.sortParticles = true;
 
-	this.systemGroup.addChild(this.particleSystem);
+	this.systemGroup.add(this.threeParticleSystem);
 	
 
 	this.listen(lgb.event.RenderEvent, this.onRender); 
@@ -161,7 +160,7 @@ lgb.view.ParticleSystem.prototype.showParticlePaths = function() {
     while(j--) {
     	var onePath = this.particlePaths[j];
     	var line = onePath.makeVisibleLine();
-    	this.curveGroup.addChild(line); 
+    	this.curveGroup.add(line); 
     }
     
 
@@ -205,7 +204,7 @@ lgb.view.ParticleSystem.prototype.newCurve = function(tension) {
 	
 	//while(i--)
 	
-	for (i = 0; i < num; i++) {
+	for (var i = 0; i < num; i++) {
 		var min = this.boxes[i][0];
 		var max = this.boxes[i][1];
 		pointsAlongCurve[i+1] = hemi.curve.randomPoint(min,max);
@@ -248,7 +247,7 @@ lgb.view.ParticleSystem.prototype.makeBoxes = function() {
     	var box = this.boxes[i];
 		var boxMesh = this.makeOneBox(box);
 		
-		this.boxGroup.addChild( boxMesh );
+		this.boxGroup.add( boxMesh );
     }
 
 
@@ -292,6 +291,6 @@ lgb.view.ParticleSystem.prototype.onRender = function(event) {
 		this.particleElements[i].render();
 	};
 	
-    this.particleSystem.geometry.__dirtyVertices = true;
+    this.threeParticleSystem.geometry.__dirtyVertices = true;
 
 };

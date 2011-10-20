@@ -6,9 +6,8 @@ goog.require ("lgb.BaseClass");
 
 
 /**
- * MVC View for the RoofTop Unit
  * @constructor
- * @extends lgb.view.ViewBase
+ * @extends lgb.BaseClass
  */
 lgb.model.ModelBase = function() {
 	

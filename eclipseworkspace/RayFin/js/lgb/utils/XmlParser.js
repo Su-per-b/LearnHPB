@@ -1,6 +1,10 @@
 goog.provide('lgb.utils.XmlParser');
 
-
+/**
+ * @constructor
+ * @param {*=} xml
+ * @extends {lgb.BaseClass}
+ */
 lgb.utils.XmlParser = function(xml){
 	
 	lgb.BaseClass.call(this);
@@ -73,7 +77,9 @@ lgb.utils.XmlParser.prototype.getContentAsFloat = function(xpath) {
 };
 
 
-
+/**
+ * @param {string=} xpath optional argument
+ **/
 lgb.utils.XmlParser.prototype.getFloatArray = function(xpath) {
 	var ary = this.getTextArray(xpath);
 	var len = ary.length;
@@ -86,7 +92,9 @@ lgb.utils.XmlParser.prototype.getFloatArray = function(xpath) {
 	return ary;
 };
 
-
+/**
+ * @param {string=} xpath optional argument
+ **/
 lgb.utils.XmlParser.prototype.getTextArray = function(xpath) {
 	var searchNode;
 	if (xpath == null) {

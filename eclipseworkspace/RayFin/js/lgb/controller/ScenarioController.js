@@ -5,7 +5,10 @@ goog.require ("lgb.model.scenario.Base");
 
 
 
-	
+/**
+ * @constructor
+ * @extends lgb.controller.ControllerBase
+ */
 lgb.controller.ScenarioController = function(){
 	lgb.controller.ControllerBase.call(this);
 	

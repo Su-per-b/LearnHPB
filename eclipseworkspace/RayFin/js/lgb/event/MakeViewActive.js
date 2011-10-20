@@ -4,8 +4,7 @@ goog.require('goog.events.Event');
 
 /**
  * @constructor
- *  Event fired when a collada file is loaded
- * @param {Boolean} 
+ * @param {boolean} makeActiveFlag
  * @extends {goog.events.Event}
  */
 lgb.event.MakeViewActive = function(makeActiveFlag) {
@@ -14,7 +13,7 @@ lgb.event.MakeViewActive = function(makeActiveFlag) {
  
   /**
    * The event payload
-   * @type {Boolean}
+   * @type {boolean}
    */
   this.payload = makeActiveFlag;
   

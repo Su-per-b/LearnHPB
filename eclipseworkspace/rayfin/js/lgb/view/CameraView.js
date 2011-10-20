@@ -4,11 +4,9 @@ goog.require ("lgb.view.ViewBase");
 goog.require('lgb.event.WindowResizeEvent');
 
 
-
 /**
- * MVC View 
  * @constructor
- * @extends lgb.view.ViewBase
+ * @extends {lgb.view.ViewBase}
  */
 lgb.view.CameraView = function(domElement) {
 	lgb.view.ViewBase.call(this);
@@ -29,8 +27,27 @@ goog.inherits(lgb.view.CameraView, lgb.view.ViewBase);
 lgb.view.CameraView.prototype.init = function(domElement) {
 
 	this.domElement_ = domElement;
+	this.camera = new THREE.PerspectiveCamera
+		( 30, this.domElement_.width  / this.domElement_.height, 1, 250 );
 	
-	this.camera  = new THREE.TrackballCamera({
+	
+	this.camera.position.z = 500;
+	this.trackballControls  = new THREE.TrackballControls (this.camera);
+	
+	this.trackballControls.rotateSpeed = 1.0;
+	this.trackballControls.zoomSpeed = 1.2;
+	this.trackballControls.panSpeed = 0.8;
+
+	this.trackballControls.noZoom = false;
+	this.trackballControls.noPan = false;
+
+	this.trackballControls.staticMoving = true;
+	this.trackballControls.dynamicDampingFactor = 0.3;
+
+	this.trackballControls.keys = [ 65, 83, 68 ];
+				
+/*
+	this.camera  = new THREE.TrackballControls ({
 
 		fov: 30,
 		near: 1,
@@ -49,10 +66,12 @@ lgb.view.CameraView.prototype.init = function(domElement) {
 		minDistance:1,
 		maxDistance:100,
 
-		keys: [ 65, 83, 68 ], // [ rotateKey, zoomKey, panKey ],
+		keys: [ 65, 83, 68 ] // [ rotateKey, zoomKey, panKey ],
+	}, domElement);
+	*/
+	
+	
 
-		domElement: domElement
-	});
 	
 	this.orbitRadius = 30;
 	this.camera.position.x = 0;
@@ -62,7 +81,7 @@ lgb.view.CameraView.prototype.init = function(domElement) {
 	
 
 	
-//	this.listen(lgb.event.RenderEvent, this.onRender);
+	this.listen(lgb.event.RenderEvent, this.onRender);
 	this.listen(lgb.event.WindowResizeEvent, this.onWindowResize);
 };
 
@@ -79,11 +98,12 @@ lgb.view.CameraView.prototype.onWindowResize = function(event) {
 	
 lgb.view.CameraView.prototype.onRender = function(event) {
 
+	this.trackballControls.update();
+	//var timer = new Date().getTime() * 0.0004;
+	
 
-	var timer = new Date().getTime() * 0.0004;
-
-	this.camera.position.x = Math.cos( timer ) * this.orbitRadius;
-	this.camera.position.z = Math.sin( timer ) * this.orbitRadius;
+	//this.camera.position.x = Math.cos( timer ) * this.orbitRadius;
+	//this.camera.position.z = Math.sin( timer ) * this.orbitRadius;
 };
 
 

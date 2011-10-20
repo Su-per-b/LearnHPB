@@ -5,7 +5,11 @@ goog.require('goog.events.EventTarget');
 
 
 
-
+/**
+ * MVC base class
+ * @constructor
+ * @extends {goog.events.EventTarget}
+ */
 lgb.BaseClass = function() {
 	goog.events.EventTarget.call(this);
 };
@@ -103,19 +107,6 @@ lgb.BaseClass.prototype.unlisten = function(eventName, handler) {
 		//var delegate = jQuery.proxy( handler, this );
 	//	lgb.Base.eventBus.unbind(eventName, delegate);
 };
-
-lgb.BaseClass.prototype.assertType = function(expectedType) {
-	var msg = 'Error when calling assertType';
-	
-	if(null === expectedType || undefined === expectedType) {
-		jQuery.error(msg + " expectedType is null or undefined");
-	} else {
-		if (!this instanceof expectedType) {
-			jQuery.error(msg + " object is not of the expected type");
-		}
-	}
-};
-
 
 
 

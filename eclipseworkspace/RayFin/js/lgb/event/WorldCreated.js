@@ -4,8 +4,6 @@ goog.require('goog.events.Event');
 
 /**
  * @constructor
- *  Event fired when a collada file is loaded
- * @param {mesh} 
  * @extends {goog.events.Event}
  */
 lgb.event.WorldCreated = function() {
