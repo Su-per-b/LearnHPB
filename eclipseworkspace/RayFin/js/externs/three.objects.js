@@ -31,7 +31,7 @@ THREE.LOD = function() {};
  * @param {*=} materials
  */
 THREE.Mesh = function(geometry, materials) {};
-/** @type {Object} */
+/** @type {THREE.Vector3} */
 THREE.Mesh.prototype.position;
 
 /**
@@ -39,7 +39,8 @@ THREE.Mesh.prototype.position;
  * @param {*=} materials
  */
 THREE.Particle = function(materials) {};
-
+/** @type {THREE.Vector3} */
+THREE.Particle.prototype.position;
 
 /**
  * @constructor
@@ -50,6 +51,7 @@ THREE.ParticleSystem = function(geometry, materials) {};
 
 /** @type {THREE.Geometry} */
 THREE.ParticleSystem.prototype.geometry;
+
 
 
 /**

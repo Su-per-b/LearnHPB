@@ -355,7 +355,7 @@ lgb.view.ParticleSystem.prototype.makeParticleElement = function() {
 
 	
 	this.particlesGeometry.vertices.push(particleElement.threeParticle);
-	this.particlesGeometry.mergeVertices();
+	//this.particlesGeometry.mergeVertices();
 
 
 	return particleElement;
@@ -374,9 +374,9 @@ lgb.view.ParticleSystem.prototype.onRender = function(event) {
 			var p = this.inActiveParticles.pop();
 			p.reset();
 			this.activeParticles.push(p);
-		} else if (this.dataModel.isEmitting) {
+		} //else if (this.dataModel.isEmitting) {
 			//var p = this.makeParticleElement();
-		}
+		//}
 	};
 	
 

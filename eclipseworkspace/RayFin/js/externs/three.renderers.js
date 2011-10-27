@@ -10,8 +10,6 @@ THREE.Projector = function() {};
  */
 THREE.Projector.prototype.unprojectVector = function ( vector, camera ) {};
 	
-/** @type {Object} */
-THREE.Mesh.prototype.position;
 
 /**
  * @constructor

@@ -3,10 +3,10 @@ goog.require('lgb.view.ViewBase');
 
 
 /**
- * Html component that contains a slider
- * @param {string} parentID
- * @param {string} subID
- * @param {string} title
+ * Html component that contains a cusmtom checkbox
+ * @param {string} parentHTMLid The CSS id of the parent.
+ * @param {string} subID The second  part fo the CSS id.
+ * @param {string} title Ysed fro the label of the component.
  * @constructor
  * @extends {lgb.view.ViewBase}
  */
@@ -58,9 +58,9 @@ lgb.view.component.CheckBox.prototype.setChecked = function(checkedFlag) {
 	
 	if(this.hasBeenInjected) {
 		if (checkedFlag) {
-			this.jq(this.chkPlayPauseID).attr('checked', 'checked');
+			this.jq(this.htmlID).attr('checked', 'checked');
 		} else {
-			this.jq(this.chkPlayPauseID).removeAttr('checked');
+			this.jq(this.htmlID).removeAttr('checked');
 		}
 	}
 
@@ -72,7 +72,7 @@ lgb.view.component.CheckBox.prototype.setChecked = function(checkedFlag) {
  */
 lgb.view.component.CheckBox.prototype.isCheckedInDom = function() {
 	
-	var checkedTxt = this.jq(this.chkPlayPauseID).attr("checked");
+	var checkedTxt = this.jq(this.htmlID).attr("checked");
 	
 	if (checkedTxt == 'checked') {
 		return true;

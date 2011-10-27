@@ -163,6 +163,15 @@ THREE.Vector2 = function(x, y) {};
  */
 THREE.Vector3 = function( x, y, z) {};
 
+
+/**
+ * @param {number} x
+ * @param {number} y
+ * @param {number} z 
+ * @return {THREE.Vector3}
+ */
+THREE.Vector3.prototype.set = function ( x, y, z ) {};
+
 /**
  * @param {THREE.Vector3} v
  * @return {THREE.Vector3}
