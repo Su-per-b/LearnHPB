@@ -4,12 +4,12 @@ goog.require('goog.events.Event');
 
 /**
  * @constructor
- * @param {number} width 
- * @param {number} height 
+ * @param {number} width
+ * @param {number} height
  * @extends {goog.events.Event}
  */
 lgb.event.WindowResizeEvent = function(width, height) {
-	
+
 	goog.events.Event.call(this, lgb.event.WindowResizeEvent.TYPE);
 
 	this.payload = {};
@@ -17,14 +17,13 @@ lgb.event.WindowResizeEvent = function(width, height) {
 	this.payload.height = height;
 
 };
-
-goog.inherits(lgb.event.WindowResizeEvent , goog.events.Event);
+goog.inherits(lgb.event.WindowResizeEvent, goog.events.Event);
 
 /**
- * Event type 
+ * Event type
  * @type {string}
  */
 lgb.event.WindowResizeEvent.TYPE =
     goog.events.getUniqueId('WindowResizeEvent');
-    
+
 

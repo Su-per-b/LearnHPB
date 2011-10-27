@@ -1,1 +1,1 @@
-python build.py --common --minified --includes
+python build.py --common --includes

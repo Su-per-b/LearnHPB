@@ -9,14 +9,13 @@ goog.require('goog.events.Event');
 lgb.event.RenderEvent = function() {
 	goog.events.Event.call(this, lgb.event.RenderEvent.TYPE);
 };
-
-goog.inherits(lgb.event.RenderEvent , goog.events.Event);
+goog.inherits(lgb.event.RenderEvent, goog.events.Event);
 
 /**
- * Event type 
+ * Event type
  * @type {string}
  */
 lgb.event.RenderEvent.TYPE =
     goog.events.getUniqueId('RenderEvent');
-    
+
 

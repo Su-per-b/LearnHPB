@@ -6,6 +6,10 @@
 
 THREE.Object3D = function() {
 
+	this.name = '';
+
+	this.id = THREE.Object3DCount ++;
+
 	this.parent = undefined;
 	this.children = [];
 
@@ -17,7 +21,7 @@ THREE.Object3D = function() {
 	this.scale = new THREE.Vector3( 1, 1, 1 );
 
 	this.dynamic = false; // when true it retains arrays so they can be updated with __dirty*
-	
+
 	this.doubleSided = false;
 	this.flipSided = false;
 
@@ -40,41 +44,46 @@ THREE.Object3D = function() {
 
 	this.visible = true;
 
-	this._vector = new THREE.Vector3();
+	this.castShadow = false;
+	this.receiveShadow = false;
 
-	this.name = "";
+	this.frustumCulled = true;
+
+	this._vector = new THREE.Vector3();
 
 };
 
 
 THREE.Object3D.prototype = {
 
-	translate : function ( distance, axis ) {
+	constructor: THREE.Object3D,
+
+	translate: function ( distance, axis ) {
 
 		this.matrix.rotateAxis( axis );
 		this.position.addSelf( axis.multiplyScalar( distance ) );
 
 	},
 
-	translateX : function ( distance ) {
+	translateX: function ( distance ) {
 
 		this.translate( distance, this._vector.set( 1, 0, 0 ) );
 
 	},
 
-	translateY : function ( distance ) {
+	translateY: function ( distance ) {
 
 		this.translate( distance, this._vector.set( 0, 1, 0 ) );
 
 	},
 
-	translateZ : function ( distance ) {
+	translateZ: function ( distance ) {
 
 		this.translate( distance, this._vector.set( 0, 0, 1 ) );
 
 	},
 
-	lookAt : function ( vector ) {
+	lookAt: function ( vector ) {
 
 		// TODO: Add hierarchy support.
 
@@ -88,18 +97,18 @@ THREE.Object3D.prototype = {
 
 	},
 
-	addChild: function ( child ) {
+	add: function ( object ) {
 
-		if ( this.children.indexOf( child ) === - 1 ) {
+		if ( this.children.indexOf( object ) === - 1 ) {
 
-			if( child.parent !== undefined ) {
+			if( object.parent !== undefined ) {
 
-				child.parent.removeChild( child );
+				object.parent.removeChild( object );
 
 			}
 
-			child.parent = this;
-			this.children.push( child );
+			object.parent = this;
+			this.children.push( object );
 
 			// add to scene
 
@@ -113,7 +122,7 @@ THREE.Object3D.prototype = {
 
 			if ( scene !== undefined && scene instanceof THREE.Scene )  {
 
-				scene.addChildRecurse( child );
+				scene.addChildRecurse( object );
 
 			}
 
@@ -121,14 +130,30 @@ THREE.Object3D.prototype = {
 
 	},
 
-	removeChild: function ( child ) {
+	remove: function ( object ) {
 
-		var childIndex = this.children.indexOf( child );
+		var scene = this;
+
+		var childIndex = this.children.indexOf( object );
 
 		if ( childIndex !== - 1 ) {
 
-			child.parent = undefined;
+			object.parent = undefined;
 			this.children.splice( childIndex, 1 );
+
+			// remove from scene
+
+			while ( scene.parent !== undefined ) {
+
+				scene = scene.parent;
+
+			}
+
+			if ( scene !== undefined && scene instanceof THREE.Scene ) {
+
+				scene.removeChildRecurse( object );
+
+			}
 
 		}
 
@@ -138,7 +163,7 @@ THREE.Object3D.prototype = {
 
 		var c, cl, child, recurseResult;
 
-		for ( c = 0, cl = this.children.length; c < cl; c++ ) {
+		for ( c = 0, cl = this.children.length; c < cl; c ++ ) {
 
 			child = this.children[ c ];
 
@@ -225,6 +250,24 @@ THREE.Object3D.prototype = {
 
 		}
 
+	},
+
+	// DEPRECATED
+
+	addChild: function ( child ) {
+
+		console.warn( 'DEPRECATED: Object3D.addChild() is now Object3D.add().' );
+		this.add( child );
+
+	},
+
+	removeChild: function ( child ) {
+
+		console.warn( 'DEPRECATED: Object3D.removeChild() is now Object3D.remove().' );
+		this.remove( child );
+
 	}
 
 };
+
+THREE.Object3DCount = 0;

@@ -9,23 +9,22 @@ goog.require('goog.events.Event');
  * @extends {goog.events.Event}
  */
 lgb.event.MeshLoadedEvent = function(mesh) {
-	
+
 	goog.events.Event.call(this, lgb.event.MeshLoadedEvent.TYPE);
 
 	//this.payload = {};
-	
+
  /**@type {THREE.Mesh} **/
   this.payload = mesh;
 
 };
-
-goog.inherits(lgb.event.MeshLoadedEvent , goog.events.Event);
+goog.inherits(lgb.event.MeshLoadedEvent, goog.events.Event);
 
 /**
- * Event type 
+ * Event type
  * @type {string}
  */
 lgb.event.MeshLoadedEvent.TYPE =
     goog.events.getUniqueId('MeshLoadedEvent');
-    
+
 

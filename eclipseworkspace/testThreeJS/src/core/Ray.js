@@ -11,6 +11,8 @@ THREE.Ray = function ( origin, direction ) {
 
 THREE.Ray.prototype = {
 
+	constructor: THREE.Ray,
+
 	intersectScene: function ( scene ) {
 
 		return this.intersectObjects( scene.objects );
@@ -24,7 +26,7 @@ THREE.Ray.prototype = {
 
 		for ( i = 0, l = objects.length; i < l; i ++ ) {
 
-			intersects = intersects.concat( this.intersectObject( objects[ i ] ) );
+			Array.prototype.push.apply( intersects, this.intersectObject( objects[ i ] ) );
 
 		}
 
@@ -38,9 +40,9 @@ THREE.Ray.prototype = {
 
 		if ( object instanceof THREE.Particle ) {
 
-			var distance = distanceFromIntersection( this.origin, this.direction, object );
+			var distance = distanceFromIntersection( this.origin, this.direction, object.matrixWorld.getPosition() );
 
-			if ( ! distance || distance > object.scale.x ) {
+			if ( distance == null || distance > object.scale.x ) {
 
 				return [];
 
@@ -59,9 +61,9 @@ THREE.Ray.prototype = {
 
 			// Checking boundingSphere
 
-			var distance = distanceFromIntersection( this.origin, this.direction, object );
+			var distance = distanceFromIntersection( this.origin, this.direction, object.matrixWorld.getPosition() );
 
-			if ( ! distance || distance > object.geometry.boundingSphere.radius * Math.max( object.scale.x, Math.max( object.scale.y, object.scale.z ) ) ) {
+			if ( distance == null || distance > object.geometry.boundingSphere.radius * Math.max( object.scale.x, Math.max( object.scale.y, object.scale.z ) ) ) {
 
 				return [];
 
@@ -69,8 +71,9 @@ THREE.Ray.prototype = {
 
 			// Checking faces
 
-			var f, fl, face, a, b, c, d, normal,
-			dot, scalar,
+			var f, fl, face,
+			a, b, c, d, normal,
+			vector, dot, scalar,
 			origin, direction,
 			geometry = object.geometry,
 			vertices = geometry.vertices,
@@ -86,6 +89,15 @@ THREE.Ray.prototype = {
 				direction = this.direction.clone();
 
 				objMatrix = object.matrixWorld;
+
+				// check if face.centroid is behind the origin
+
+				vector = objMatrix.multiplyVector3( face.centroid.clone() ).subSelf( origin );
+				dot = vector.dot( direction );
+
+				if ( dot <= 0 ) continue;
+
+				//
 
 				a = objMatrix.multiplyVector3( vertices[ face.a ].position.clone() );
 				b = objMatrix.multiplyVector3( vertices[ face.b ].position.clone() );
@@ -140,6 +152,8 @@ THREE.Ray.prototype = {
 
 			}
 
+			intersects.sort( function ( a, b ) { return a.distance - b.distance; } );
+
 			return intersects;
 
 		} else {
@@ -148,19 +162,18 @@ THREE.Ray.prototype = {
 
 		}
 
-		function distanceFromIntersection( origin, direction, object ) {
+		function distanceFromIntersection( origin, direction, position ) {
 
-			var vector, dot, intersect, distance,
-			position = object.matrixWorld.getPosition();
+			var vector, dot, intersect, distance;
 
 			vector = position.clone().subSelf( origin );
 			dot = vector.dot( direction );
 
+			if ( dot <= 0 ) return null; // check if position behind origin.
+
 			intersect = origin.clone().addSelf( direction.clone().multiplyScalar( dot ) );
 			distance = position.distanceTo( intersect );
 
-			// TODO: Check if distance is negative (object behind camera).			
-			
 			return distance;
 
 		}

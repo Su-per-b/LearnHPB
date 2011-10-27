@@ -3,10 +3,10 @@ goog.provide('lgb.Global');
 
 //needed to prevent compilation error
 lgb.Global = function() {
-}
-	
+};
 
-	
+
+
 	/**
 	* replaces markers like {0} with a string
 	*
@@ -18,45 +18,45 @@ lgb.Global = function() {
 	* @param {string=} arg6
 	* @return {string}
 	*/
-	String.prototype.format = function (arg1, arg2, arg3, arg4, arg5, arg6) {
+	String.prototype.format = function(arg1, arg2, arg3, arg4, arg5, arg6) {
 	  var args = arguments;
-	  return this.replace(/\{\{|\}\}|\{(\d+)\}/g, function (m, n) {
-	    if (m == "{{") { return "{"; }
-	    if (m == "}}") { return "}"; }
+	  return this.replace(/\{\{|\}\}|\{(\d+)\}/g, function(m, n) {
+	    if (m == '{{') { return '{'; }
+	    if (m == '}}') { return '}'; }
 	    return args[n];
 	  });
 	};
-	
-	
+
+
 
 	/**
 	 * Provides requestAnimationFrame in a cross browser way.
 	 * http://paulirish.com/2011/requestanimationframe-for-smart-animating/
 	 */
-	
-	if ( !window.requestAnimationFrame ) {
-	
-		window.requestAnimationFrame = ( function() {
-	
+
+	if (!window.requestAnimationFrame) {
+
+		window.requestAnimationFrame = (function() {
+
 			return window.webkitRequestAnimationFrame ||
 			window.mozRequestAnimationFrame ||
 			window.oRequestAnimationFrame ||
 			window.msRequestAnimationFrame ||
-			function( /* function FrameRequestCallback */ callback, /* DOMElement Element */ element ) {
-	
-				window.setTimeout( callback, 1000 / 60 );
-	
+			function(/* function FrameRequestCallback */ callback, /* DOMElement Element */ element ) {
+
+				window.setTimeout(callback, 1000 / 60);
+
 			};
-	
-		} )();
-	
+
+		})();
+
 	}
-	
 
 
-	
-	
-	
+
+
+
+
 
 
 /*
@@ -80,7 +80,7 @@ lgb.Global = function() {
  */
 
 
-var Stats = function () {
+var Stats = function() {
 
 	var _mode = 0, _modesCount = 2, _container,
 	_frames = 0, _time = new Date().getTime(), _timeLastFrame = _time, _timeLastSecond = _time,
@@ -102,77 +102,77 @@ var Stats = function () {
 		}
 	};
 
-	_container = document.createElement( 'div' );
+	_container = document.createElement('div');
 	_container.style.cursor = 'pointer';
 	_container.style.width = '80px';
 	_container.style.opacity = '0.9';
 	_container.style.zIndex = '10001';
-	_container.addEventListener( 'click', swapMode, false );
+	_container.addEventListener('click', swapMode, false);
 
 	// fps
 
-	_fpsDiv = document.createElement( 'div' );
-	_fpsDiv.style.backgroundColor = 'rgb(' + Math.floor( _colors.fps.bg.r / 2 ) + ',' + Math.floor( _colors.fps.bg.g / 2 ) + ',' + Math.floor( _colors.fps.bg.b / 2 ) + ')';
+	_fpsDiv = document.createElement('div');
+	_fpsDiv.style.backgroundColor = 'rgb(' + Math.floor(_colors.fps.bg.r / 2) + ',' + Math.floor(_colors.fps.bg.g / 2) + ',' + Math.floor(_colors.fps.bg.b / 2) + ')';
 	_fpsDiv.style.padding = '2px 0px 3px 0px';
-	_container.appendChild( _fpsDiv );
+	_container.appendChild(_fpsDiv);
 
-	_fpsText = document.createElement( 'div' );
+	_fpsText = document.createElement('div');
 	_fpsText.style.fontFamily = 'Helvetica, Arial, sans-serif';
 	_fpsText.style.textAlign = 'left';
 	_fpsText.style.fontSize = '9px';
 	_fpsText.style.color = 'rgb(' + _colors.fps.fg.r + ',' + _colors.fps.fg.g + ',' + _colors.fps.fg.b + ')';
 	_fpsText.style.margin = '0px 0px 1px 3px';
 	_fpsText.innerHTML = '<span style="font-weight:bold">FPS</span>';
-	_fpsDiv.appendChild( _fpsText );
+	_fpsDiv.appendChild(_fpsText);
 
-	_fpsCanvas = document.createElement( 'canvas' );
+	_fpsCanvas = document.createElement('canvas');
 	_fpsCanvas.width = 74;
 	_fpsCanvas.height = 30;
 	_fpsCanvas.style.display = 'block';
 	_fpsCanvas.style.marginLeft = '3px';
-	_fpsDiv.appendChild( _fpsCanvas );
+	_fpsDiv.appendChild(_fpsCanvas);
 
-	_fpsContext = _fpsCanvas.getContext( '2d' );
+	_fpsContext = _fpsCanvas.getContext('2d');
 	_fpsContext.fillStyle = 'rgb(' + _colors.fps.bg.r + ',' + _colors.fps.bg.g + ',' + _colors.fps.bg.b + ')';
-	_fpsContext.fillRect( 0, 0, _fpsCanvas.width, _fpsCanvas.height );
+	_fpsContext.fillRect(0, 0, _fpsCanvas.width, _fpsCanvas.height);
 
-	_fpsImageData = _fpsContext.getImageData( 0, 0, _fpsCanvas.width, _fpsCanvas.height );
+	_fpsImageData = _fpsContext.getImageData(0, 0, _fpsCanvas.width, _fpsCanvas.height);
 
 	// ms
 
-	_msDiv = document.createElement( 'div' );
-	_msDiv.style.backgroundColor = 'rgb(' + Math.floor( _colors.ms.bg.r / 2 ) + ',' + Math.floor( _colors.ms.bg.g / 2 ) + ',' + Math.floor( _colors.ms.bg.b / 2 ) + ')';
+	_msDiv = document.createElement('div');
+	_msDiv.style.backgroundColor = 'rgb(' + Math.floor(_colors.ms.bg.r / 2) + ',' + Math.floor(_colors.ms.bg.g / 2) + ',' + Math.floor(_colors.ms.bg.b / 2) + ')';
 	_msDiv.style.padding = '2px 0px 3px 0px';
 	_msDiv.style.display = 'none';
-	_container.appendChild( _msDiv );
+	_container.appendChild(_msDiv);
 
-	_msText = document.createElement( 'div' );
+	_msText = document.createElement('div');
 	_msText.style.fontFamily = 'Helvetica, Arial, sans-serif';
 	_msText.style.textAlign = 'left';
 	_msText.style.fontSize = '9px';
 	_msText.style.color = 'rgb(' + _colors.ms.fg.r + ',' + _colors.ms.fg.g + ',' + _colors.ms.fg.b + ')';
 	_msText.style.margin = '0px 0px 1px 3px';
 	_msText.innerHTML = '<span style="font-weight:bold">MS</span>';
-	_msDiv.appendChild( _msText );
+	_msDiv.appendChild(_msText);
 
-	_msCanvas = document.createElement( 'canvas' );
+	_msCanvas = document.createElement('canvas');
 	_msCanvas.width = 74;
 	_msCanvas.height = 30;
 	_msCanvas.style.display = 'block';
 	_msCanvas.style.marginLeft = '3px';
-	_msDiv.appendChild( _msCanvas );
+	_msDiv.appendChild(_msCanvas);
 
-	_msContext = _msCanvas.getContext( '2d' );
+	_msContext = _msCanvas.getContext('2d');
 	_msContext.fillStyle = 'rgb(' + _colors.ms.bg.r + ',' + _colors.ms.bg.g + ',' + _colors.ms.bg.b + ')';
-	_msContext.fillRect( 0, 0, _msCanvas.width, _msCanvas.height );
+	_msContext.fillRect(0, 0, _msCanvas.width, _msCanvas.height);
 
-	_msImageData = _msContext.getImageData( 0, 0, _msCanvas.width, _msCanvas.height );
+	_msImageData = _msContext.getImageData(0, 0, _msCanvas.width, _msCanvas.height);
 
 	// mb
 	var performance = false;
-	
+
 	/*
-	try { 
+	try {
 
 		if ( performance && (performance.memory != null) && performance.memory.totalJSHeapSize ) {
 
@@ -183,67 +183,67 @@ var Stats = function () {
 	} catch ( error ) { };
 */
 
-	_mbDiv = document.createElement( 'div' );
-	_mbDiv.style.backgroundColor = 'rgb(' + Math.floor( _colors.mb.bg.r / 2 ) + ',' + Math.floor( _colors.mb.bg.g / 2 ) + ',' + Math.floor( _colors.mb.bg.b / 2 ) + ')';
+	_mbDiv = document.createElement('div');
+	_mbDiv.style.backgroundColor = 'rgb(' + Math.floor(_colors.mb.bg.r / 2) + ',' + Math.floor(_colors.mb.bg.g / 2) + ',' + Math.floor(_colors.mb.bg.b / 2) + ')';
 	_mbDiv.style.padding = '2px 0px 3px 0px';
 	_mbDiv.style.display = 'none';
-	_container.appendChild( _mbDiv );
+	_container.appendChild(_mbDiv);
 
-	_mbText = document.createElement( 'div' );
+	_mbText = document.createElement('div');
 	_mbText.style.fontFamily = 'Helvetica, Arial, sans-serif';
 	_mbText.style.textAlign = 'left';
 	_mbText.style.fontSize = '9px';
 	_mbText.style.color = 'rgb(' + _colors.mb.fg.r + ',' + _colors.mb.fg.g + ',' + _colors.mb.fg.b + ')';
 	_mbText.style.margin = '0px 0px 1px 3px';
 	_mbText.innerHTML = '<span style="font-weight:bold">MB</span>';
-	_mbDiv.appendChild( _mbText );
+	_mbDiv.appendChild(_mbText);
 
-	_mbCanvas = document.createElement( 'canvas' );
+	_mbCanvas = document.createElement('canvas');
 	_mbCanvas.width = 74;
 	_mbCanvas.height = 30;
 	_mbCanvas.style.display = 'block';
 	_mbCanvas.style.marginLeft = '3px';
-	_mbDiv.appendChild( _mbCanvas );
+	_mbDiv.appendChild(_mbCanvas);
 
-	_mbContext = _mbCanvas.getContext( '2d' );
+	_mbContext = _mbCanvas.getContext('2d');
 	_mbContext.fillStyle = '#301010';
-	_mbContext.fillRect( 0, 0, _mbCanvas.width, _mbCanvas.height );
+	_mbContext.fillRect(0, 0, _mbCanvas.width, _mbCanvas.height);
 
-	_mbImageData = _mbContext.getImageData( 0, 0, _mbCanvas.width, _mbCanvas.height );
+	_mbImageData = _mbContext.getImageData(0, 0, _mbCanvas.width, _mbCanvas.height);
 
-	function updateGraph( data, value, color ) {
+	function updateGraph(data, value, color ) {
 
 		var x, y, index;
 
-		for ( y = 0; y < 30; y++ ) {
+		for (y = 0; y < 30; y++) {
 
-			for ( x = 0; x < 73; x++ ) {
+			for (x = 0; x < 73; x++) {
 
 				index = (x + y * 74) * 4;
 
-				data[ index ] = data[ index + 4 ];
-				data[ index + 1 ] = data[ index + 5 ];
-				data[ index + 2 ] = data[ index + 6 ];
+				data[index] = data[index + 4];
+				data[index + 1] = data[index + 5];
+				data[index + 2] = data[index + 6];
 
 			}
 
 		}
 
-		for ( y = 0; y < 30; y++ ) {
+		for (y = 0; y < 30; y++) {
 
 			index = (73 + y * 74) * 4;
 
-			if ( y < value ) {
+			if (y < value) {
 
-				data[ index ] = _colors[ color ].bg.r;
-				data[ index + 1 ] = _colors[ color ].bg.g;
-				data[ index + 2 ] = _colors[ color ].bg.b;
+				data[index] = _colors[color].bg.r;
+				data[index + 1] = _colors[color].bg.g;
+				data[index + 2] = _colors[color].bg.b;
 
 			} else {
 
-				data[ index ] = _colors[ color ].fg.r;
-				data[ index + 1 ] = _colors[ color ].fg.g;
-				data[ index + 2 ] = _colors[ color ].fg.b;
+				data[index] = _colors[color].fg.r;
+				data[index + 1] = _colors[color].fg.g;
+				data[index + 2] = _colors[color].fg.b;
 
 			}
 
@@ -253,14 +253,14 @@ var Stats = function () {
 
 	function swapMode() {
 
-		_mode ++;
+		_mode++;
 		_mode == _modesCount ? _mode = 0 : _mode;
 
 		_fpsDiv.style.display = 'none';
 		_msDiv.style.display = 'none';
 		_mbDiv.style.display = 'none';
 
-		switch( _mode ) {
+		switch (_mode) {
 
 			case 0:
 
@@ -287,33 +287,33 @@ var Stats = function () {
 
 		domElement: _container,
 
-		update: function () {
+		update: function() {
 
-			_frames ++;
+			_frames++;
 
 			_time = new Date().getTime();
 
 			_ms = _time - _timeLastFrame;
-			_msMin = Math.min( _msMin, _ms );
-			_msMax = Math.max( _msMax, _ms );
+			_msMin = Math.min(_msMin, _ms);
+			_msMax = Math.max(_msMax, _ms);
 
-			updateGraph( _msImageData.data, Math.min( 30, 30 - ( _ms / 200 ) * 30 ), 'ms' );
+			updateGraph(_msImageData.data, Math.min(30, 30 - (_ms / 200) * 30), 'ms');
 
 			_msText.innerHTML = '<span style="font-weight:bold">' + _ms + ' MS</span> (' + _msMin + '-' + _msMax + ')';
-			_msContext.putImageData( _msImageData, 0, 0 );
+			_msContext.putImageData(_msImageData, 0, 0);
 
 			_timeLastFrame = _time;
 
-			if ( _time > _timeLastSecond + 1000 ) {
+			if (_time > _timeLastSecond + 1000) {
 
-				_fps = Math.round( ( _frames * 1000) / ( _time - _timeLastSecond ) );
-				_fpsMin = Math.min( _fpsMin, _fps );
-				_fpsMax = Math.max( _fpsMax, _fps );
+				_fps = Math.round((_frames * 1000) / (_time - _timeLastSecond));
+				_fpsMin = Math.min(_fpsMin, _fps);
+				_fpsMax = Math.max(_fpsMax, _fps);
 
-				updateGraph( _fpsImageData.data, Math.min( 30, 30 - ( _fps / 100 ) * 30 ), 'fps' );
+				updateGraph(_fpsImageData.data, Math.min(30, 30 - (_fps / 100) * 30), 'fps');
 
 				_fpsText.innerHTML = '<span style="font-weight:bold">' + _fps + ' FPS</span> (' + _fpsMin + '-' + _fpsMax + ')';
-				_fpsContext.putImageData( _fpsImageData, 0, 0 );
+				_fpsContext.putImageData(_fpsImageData, 0, 0);
 
 /*
 				if ( _modesCount == 3 ) {
@@ -342,5 +342,5 @@ var Stats = function () {
 
 
 Stats.prototype.getDomElement = function() {
-}
+};
 

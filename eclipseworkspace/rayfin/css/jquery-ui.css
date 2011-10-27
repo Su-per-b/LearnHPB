@@ -211,8 +211,8 @@
 }
 
 .ui-priority-secondary, .ui-widget-content .ui-priority-secondary, .ui-widget-header .ui-priority-secondary {
-    opacity: .7;
-    filter: Alpha(Opacity = 70);
+    opacity: .9;
+    filter: Alpha(Opacity = 90);
     font-weight: normal;
 }
 

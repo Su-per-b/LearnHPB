@@ -8,20 +8,18 @@
 
 THREE.Vector3 = function ( x, y, z ) {
 
-	this.set(
-
-		x || 0,
-		y || 0,
-		z || 0
-
-	);
+	this.x = x || 0;
+	this.y = y || 0;
+	this.z = z || 0;
 
 };
 
 
 THREE.Vector3.prototype = {
 
-	set : function ( x, y, z ) {
+	constructor: THREE.Vector3,
+
+	set: function ( x, y, z ) {
 
 		this.x = x;
 		this.y = y;
@@ -31,7 +29,31 @@ THREE.Vector3.prototype = {
 
 	},
 
-	copy : function ( v ) {
+	setX: function ( x ) {
+
+		this.x = x;
+
+		return this;
+
+	},
+
+	setY: function ( y ) {
+
+		this.y = y;
+
+		return this;
+
+	},
+
+	setZ: function ( z ) {
+
+		this.z = z;
+
+		return this;
+
+	},
+
+	copy: function ( v ) {
 
 		this.x = v.x;
 		this.y = v.y;
@@ -41,14 +63,14 @@ THREE.Vector3.prototype = {
 
 	},
 
-	clone : function () {
+	clone: function () {
 
 		return new THREE.Vector3( this.x, this.y, this.z );
 
 	},
 
 
-	add : function ( v1, v2 ) {
+	add: function ( v1, v2 ) {
 
 		this.x = v1.x + v2.x;
 		this.y = v1.y + v2.y;
@@ -58,7 +80,7 @@ THREE.Vector3.prototype = {
 
 	},
 
-	addSelf : function ( v ) {
+	addSelf: function ( v ) {
 
 		this.x += v.x;
 		this.y += v.y;
@@ -68,7 +90,7 @@ THREE.Vector3.prototype = {
 
 	},
 
-	addScalar : function ( s ) {
+	addScalar: function ( s ) {
 
 		this.x += s;
 		this.y += s;
@@ -78,7 +100,7 @@ THREE.Vector3.prototype = {
 
 	},
 
-	sub : function ( v1, v2 ) {
+	sub: function ( v1, v2 ) {
 
 		this.x = v1.x - v2.x;
 		this.y = v1.y - v2.y;
@@ -88,7 +110,7 @@ THREE.Vector3.prototype = {
 
 	},
 
-	subSelf : function ( v ) {
+	subSelf: function ( v ) {
 
 		this.x -= v.x;
 		this.y -= v.y;
@@ -98,7 +120,7 @@ THREE.Vector3.prototype = {
 
 	},
 
-	multiply : function ( a, b ) {
+	multiply: function ( a, b ) {
 
 		this.x = a.x * b.x;
 		this.y = a.y * b.y;
@@ -108,17 +130,17 @@ THREE.Vector3.prototype = {
 
 	},
 
-	multiplySelf : function ( v ) {
+	multiplySelf: function ( v ) {
 
 		this.x *= v.x;
 		this.y *= v.y;
-		this.z *= v.y;
+		this.z *= v.z;
 
 		return this;
 
 	},
 
-	multiplyScalar : function ( s ) {
+	multiplyScalar: function ( s ) {
 
 		this.x *= s;
 		this.y *= s;
@@ -128,13 +150,17 @@ THREE.Vector3.prototype = {
 
 	},
 
-	divideSelf : function ( v ) {
+	divideSelf: function ( v ) {
 
-		return this.divide( this, v );
+		this.x /= v.x;
+		this.y /= v.y;
+		this.z /= v.z;
+
+		return this;
 
 	},
 
-	divideScalar : function ( s ) {
+	divideScalar: function ( s ) {
 
 		if ( s ) {
 
@@ -153,31 +179,31 @@ THREE.Vector3.prototype = {
 	},
 
 
-	negate : function() {
+	negate: function() {
 
 		return this.multiplyScalar( -1 );
 
 	},
 
-	dot : function ( v ) {
+	dot: function ( v ) {
 
 		return this.x * v.x + this.y * v.y + this.z * v.z;
 
 	},
 
-	lengthSq : function () {
+	lengthSq: function () {
 
 		return this.x * this.x + this.y * this.y + this.z * this.z;
 
 	},
 
-	length : function () {
+	length: function () {
 
 		return Math.sqrt( this.lengthSq() );
 
 	},
 
-	lengthManhattan : function () {
+	lengthManhattan: function () {
 
 		// correct version
 		// return Math.abs( this.x ) + Math.abs( this.y ) + Math.abs( this.z );
@@ -186,20 +212,20 @@ THREE.Vector3.prototype = {
 
 	},
 
-	normalize : function () {
+	normalize: function () {
 
 		return this.divideScalar( this.length() );
 
 	},
 
-	setLength : function ( l ) {
+	setLength: function ( l ) {
 
 		return this.normalize().multiplyScalar( l );
 
 	},
 
 
-	cross : function ( a, b ) {
+	cross: function ( a, b ) {
 
 		this.x = a.y * b.z - a.z * b.y;
 		this.y = a.z * b.x - a.x * b.z;
@@ -209,7 +235,7 @@ THREE.Vector3.prototype = {
 
 	},
 
-	crossSelf : function ( v ) {
+	crossSelf: function ( v ) {
 
 		return this.set(
 
@@ -222,20 +248,20 @@ THREE.Vector3.prototype = {
 	},
 
 
-	distanceTo : function ( v ) {
+	distanceTo: function ( v ) {
 
 		return Math.sqrt( this.distanceToSquared( v ) );
 
 	},
 
-	distanceToSquared : function ( v ) {
+	distanceToSquared: function ( v ) {
 
 		return new THREE.Vector3().sub( this, v ).lengthSq();
 
 	},
 
 
-	setPositionFromMatrix : function ( m ) {
+	setPositionFromMatrix: function ( m ) {
 
 		this.x = m.n14;
 		this.y = m.n24;
@@ -243,7 +269,7 @@ THREE.Vector3.prototype = {
 
 	},
 
-	setRotationFromMatrix : function ( m ) {
+	setRotationFromMatrix: function ( m ) {
 
 		var cosY = Math.cos( this.y );
 
@@ -263,7 +289,7 @@ THREE.Vector3.prototype = {
 
 	},
 
-	isZero : function () {
+	isZero: function () {
 
 		return ( this.lengthSq() < 0.0001 /* almostZero */ );
 
