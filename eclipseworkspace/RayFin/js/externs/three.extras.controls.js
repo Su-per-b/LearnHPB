@@ -12,3 +12,4 @@ THREE.TrackballControls.prototype.zoomSpeed;
 /** @type number */
 THREE.TrackballControls.prototype.panSpeed;
 
+THREE.TrackballControls.prototype.update = function (  ) {};

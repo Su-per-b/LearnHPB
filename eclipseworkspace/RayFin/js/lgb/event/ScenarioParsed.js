@@ -9,24 +9,23 @@ goog.require('goog.events.Event');
  * @extends {goog.events.Event}
  */
 lgb.event.ScenarioParsed = function(scenarioBase) {
-	
+
 	goog.events.Event.call(this, lgb.event.ScenarioParsed.TYPE);
- 
+
   /**
    * The event payload
    * @type {lgb.model.scenario.Base}
    */
   this.payload = scenarioBase;
-  
-};
 
-goog.inherits(lgb.event.ScenarioParsed , goog.events.Event);
+};
+goog.inherits(lgb.event.ScenarioParsed, goog.events.Event);
 
 /**
- * Event type 
+ * Event type
  * @type {string}
  */
 lgb.event.ScenarioParsed.TYPE =
     goog.events.getUniqueId('ScenarioParsed');
-    
+
 

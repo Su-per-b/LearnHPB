@@ -1,5 +1,5 @@
-goog.provide ("lgb.view.TitleBarView");
-goog.require ("lgb.view.ViewBase");
+goog.provide('lgb.view.TitleBarView');
+goog.require('lgb.view.ViewBase');
 
 
 
@@ -9,96 +9,66 @@ goog.require ("lgb.view.ViewBase");
  * @constructor
  * @extends {lgb.view.ViewBase}
  */
-lgb.view.TitleBarView = function(){
+lgb.view.TitleBarView = function() {
 
 	lgb.view.ViewBase.call(this);
-	this.htmlID = "titleBar";
-	var that = this;
+	this.htmlID = 'titleBar';
 
-	function injectHtml_() {
+	this.injectHtml_();
+	this.listen_();
 
+};
+goog.inherits(lgb.view.TitleBarView, lgb.view.ViewBase);
+
+/**
+ * @private
+ */
+lgb.view.TitleBarView.prototype.injectHtml_ = function() {
 		$('<div>')
-		.attr('id', that.htmlID)
+		.attr('id', this.htmlID)
 		.css({
-				top:'-41px',
-				width:'245px',
-				height:'41px',
-				'z-index':'101',
-				'background-image':'url(images/top_title.png)'
+				top: '-41px',
+				width: '245px',
+				height: '41px',
+				'z-index': '101',
+				'background-image': 'url(images/top_title.png)'
 			})
 		.center({
-			vertical : false
+			vertical: false
 		})
 		.appendTo('body');
 
-	};
-	
-	function listen_() {
-		that.listen(lgb.event.WindowResizeEvent, that.onResize);
-	};
-	
-
-	injectHtml_();
-	listen_();
-	
 };
 
 
-goog.inherits(lgb.view.TitleBarView, lgb.view.ViewBase);
 
-
+/**
+ * @private
+ */
+lgb.view.TitleBarView.prototype.listen_ = function() {
+		this.listen(lgb.event.WindowResizeEvent.TYPE, this.onResize);
+}
 
 lgb.view.TitleBarView.prototype.show = function() {
 
-  	this.getJq().animate({
+  	this.jq().animate({
   		top: '0',
-  		easing:"easeInOutSine"
+  		easing: 'easeInOutSine'
   	}, 500);
 
 };
 
 
 lgb.view.TitleBarView.prototype.onResize = function() {
-	
-	var jq = this.getJq();
-	
+
+	var jq = this.jq();
+
     jq.center({
-    	vertical : false,
-    	duration:500,
-    	easing:"easeInOutSine"
+    	vertical: false,
+    	duration: 500,
+    	easing: 'easeInOutSine'
     });
-}
-
-
-
-/*
-	lgb.view.TitleBarView.prototype.injectCss = function() {
-
-
-	var cssInner = '\
-#titleBar {\
-position:absolute;\
-top:-41px;\
-width:245px;\
-height:41px;\
-z-index:101;\
-background-color:transparent;\
-background-image:url("images/top_title.png");\
-background-repeat:no-repeat;\
-}';
-			
-			var cssStr = "\t<style type='text/css'>{0}</style>\n".format(cssInner);
-		
-			
-			//$(cssStr).appendTo("head");
-			$('head').append(cssStr);	
-			
-
-			
-			
-	};
-*/
-
+};
 
 
 

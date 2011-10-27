@@ -34,11 +34,7 @@ lgb.view.component.FaultWidget.prototype.getHtml = function() {
    .attr('id', this.htmlID + '-slider');
     	
     this.kendoSlider = sl.data("kendoSlider");	
-    //lgb.logInfo(hh.html2string());
-    
-  //  hh.appendTo('#tabstrip-4');
-    
-    
+
 	sl.kendoSlider({
 	     min:10,
 	     max:50,
@@ -46,7 +42,6 @@ lgb.view.component.FaultWidget.prototype.getHtml = function() {
 	     largeStep: 10
 	});
   
-	
 	return sl;
 };
 
@@ -58,15 +53,7 @@ lgb.view.component.FaultWidget.prototype.injectHtml = function(parentSelector, i
 	
    var id = this.htmlID + '-slider';
    
- //  var input = $('<input>')
-     // 	.attr('id', id);
-      	
- //  var sl = $('<div>')
-  // 	  .addClass('faultWidget')
-  // 	  .append('<div>name</div>')
-  //    .append(input)
-	//  .appendTo(parentId);
-		//var isGrey = (idx % 2 == 0);
+
 		
 	  var cl = idx % 2 ? '' : ' greyBackground';
 	  
@@ -90,24 +77,6 @@ lgb.view.component.FaultWidget.prototype.injectHtml = function(parentSelector, i
 	     showButtons:false
 	     	}).data("kendoSlider");	
 	     	
-
-
-	  /*
-     this.kendoSlider = sl.kendoSlider({
-	     min:1,
-	     max:10,
-	     smallStep: 1,
-	     largeStep: 10
-	     	}).data("kendoSlider");	
-   
-   */
-    //	$("#slider").kendoSlider();
- //   this.kendoSlider = sl.data("kendoSlider");	
-    //lgb.logInfo(hh.html2string());
-    
-
-    
-    
 
   
 	

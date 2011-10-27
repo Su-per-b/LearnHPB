@@ -8,17 +8,16 @@ goog.require('goog.events.Event');
  * @extends {goog.events.Event}
  */
 lgb.event.ShowGUI = function() {
-	
+
 	goog.events.Event.call(this, lgb.event.ShowGUI.TYPE);
 
 };
-
-goog.inherits(lgb.event.ShowGUI , goog.events.Event);
+goog.inherits(lgb.event.ShowGUI, goog.events.Event);
 
 /**
- * Event type 
+ * Event type
  * @type {string}
  */
 lgb.event.ShowGUI.TYPE =
     goog.events.getUniqueId('ShowGUI');
-    
+

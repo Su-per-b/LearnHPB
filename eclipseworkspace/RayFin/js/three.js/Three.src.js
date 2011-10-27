@@ -7810,7 +7810,7 @@ THREE.ShaderChunk = {
 
 			"}",
 
-		"#endif",
+		"#endif"
 
 	].join("\n"),
 
@@ -20648,7 +20648,7 @@ THREE.TrackballControls = function ( object, domElement ) {
 	function mousedown( event ) {
 
 		event.preventDefault();
-		event.stopPropagation();
+	//	event.stopPropagation();
 
 		if ( _state === this.STATE.NONE ) {
 
@@ -20707,7 +20707,7 @@ THREE.TrackballControls = function ( object, domElement ) {
 	function mouseup( event ) {
 
 		event.preventDefault();
-		event.stopPropagation();
+		//event.stopPropagation();
 
 		_state = this.STATE.NONE;
 
@@ -21693,7 +21693,7 @@ THREE.ExtrudeGeometry.prototype.addShape = function( shape, options ) {
 
 				new THREE.UV( ax / ux, ay / uy ),
 				new THREE.UV( bx / ux, by / uy ),
-				new THREE.UV( cx / ux, cy / uy ),
+				new THREE.UV( cx / ux, cy / uy )
 
 			] );
 		}

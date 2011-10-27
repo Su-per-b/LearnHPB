@@ -123,7 +123,7 @@ div.k-picker-wrap.k-state-active,
 .k-state-selected,
 .k-state-focused,
 .k-tabstrip-items .k-item {
-  background-image: url('Kendo/gradient.png');
+  background-image: url('../images/kendo/gradient.png');
 }
 .k-header,
 .k-grid-header,
@@ -146,22 +146,22 @@ div.k-picker-wrap.k-state-active,
 .k-ghost-splitbar-vertical,
 .k-progress,
 .k-progress-status {
-  background-image: url('Kendo/sprite.png');
+  background-image: url('../images/kendo/sprite.png');
 }
 .k-slider-vertical .k-slider-track,
 .k-slider-vertical .k-slider-selection,
 .k-splitbar-horizontal,
 .k-ghost-splitbar-horizontal {
-  background-image: url('Kendo/sprite-vertical.png');
+  background-image: url('../images/kendo/sprite-vertical.png');
 }
 .k-editor .k-tool-icon {
-  background-image: url('Kendo/editor.png');
+  background-image: url('../images/kendo/editor.png');
 }
 .k-loading {
-  background-image: url('Kendo/loading.gif');
+  background-image: url('../images/kendo/loading.gif');
 }
 .k-loading-image {
-  background-image: url('Kendo/loading-image.gif');
+  background-image: url('../images/kendo/loading-image.gif');
 }
 .k-loading-color {
   background-color: #ffffff;
@@ -232,10 +232,10 @@ div.k-picker-wrap.k-state-active,
 }
 /* Slider */
 .k-slider-horizontal .k-tick {
-  background-image: url('Kendo/slider-h.gif');
+  background-image: url('../images/kendo/slider-h.gif');
 }
 .k-slider-vertical .k-tick {
-  background-image: url('Kendo/slider-v.gif');
+  background-image: url('../images/kendo/slider-v.gif');
 }
 /* Tooltip */
 .k-tooltip {
@@ -254,7 +254,7 @@ div.k-picker-wrap.k-state-active,
 /* ImageBrowser */
 .k-tile {
   border-color: #ffffff;
-  background-image: url('Kendo/gradient.png');
+  background-image: url('../images/kendo/gradient.png');
 }
 .k-tiles li.k-state-hover {
   border-color: #52A346;  /* dark green */
@@ -263,7 +263,7 @@ div.k-picker-wrap.k-state-active,
   border-color: #A7CE38;  /* lime green */
 }
 .k-tile .k-folder {
-  background-image: url('Kendo/imagebrowser.png');
+  background-image: url('../images/kendo/imagebrowser.png');
 }
 /* Shadows */
 .k-popup,
@@ -291,4 +291,9 @@ div.k-picker-wrap.k-state-active,
 .k-autocomplete .k-input, .k-combobox .k-input, .k-picker-wrap .k-input {
   box-shadow: inset 0 0 1px 1px #dddddd;
   -webkit-box-shadow: inset 0 0 1px 1px #dddddd;
+}
+
+.k-content{
+	padding:0;
+	margin:0;
 }

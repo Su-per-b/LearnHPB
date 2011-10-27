@@ -6,8 +6,6 @@ set "SRC=..\..\css"
 
 call:cssStart jquery-ui.css
 call:css tipped.css
-call:css kendo.common.css
-call:css kendo.lgb.css
 call:css lgb.css
 
 goto:eof

@@ -1,4 +1,4 @@
-goog.provide('lgb.view.PropertiesButtonView');
+goog.provide('lgb.view.AdminButtonView');
 goog.require('lgb.event.MakeViewActive');
 goog.require('lgb.view.ViewBase');
 goog.require('lgb.view.component.ToggleButtonA');
@@ -7,35 +7,35 @@ goog.require('lgb.view.component.ToggleButtonA');
  * @constructor
  * @extends {lgb.view.ViewBase}
  */
-lgb.view.PropertiesButtonView = function() {
+lgb.view.AdminButtonView = function() {
 	lgb.view.ViewBase.call(this);
-	this.htmlID = 'propertiesButton';
+	this.htmlID = 'adminButton';
 };
-goog.inherits(lgb.view.PropertiesButtonView, lgb.view.ViewBase);
+goog.inherits(lgb.view.AdminButtonView, lgb.view.ViewBase);
 
-lgb.view.PropertiesButtonView.prototype.init = function() {
+lgb.view.AdminButtonView.prototype.init = function() {
 
 	this.button =
 		new lgb.view.component.ToggleButtonA({
-			htmlId: 'propertiesButtonLink',
+			htmlId: 'adminButtonLink',
 			buttonHeight: 33,
-			xPosition: 33,
-			title: 'Show / Hide Properties panel',
+			xPosition: 66,
+			title: 'Show / Hide Admin panel',
 			cssClass: 'leftNavButton'
 		});
 
 		this.injectCss();
 		this.injectHtml();
 		this.bindEvents();
-	//	this.setSelected(true);
+		//this.setSelected(true);
 		this.listen(lgb.event.WindowResizeEvent.TYPE, this.onResize);
 };
 
-lgb.view.PropertiesButtonView.prototype.show = function() {
+lgb.view.AdminButtonView.prototype.show = function() {
 	this.position();
-
 };
-lgb.view.PropertiesButtonView.prototype.position = function() {
+
+lgb.view.AdminButtonView.prototype.position = function() {
 
 	var x = this.getXpos();
 
@@ -44,7 +44,7 @@ lgb.view.PropertiesButtonView.prototype.position = function() {
 
 	};
 
-	lgb.view.PropertiesButtonView.prototype.onResize = function() {
+	lgb.view.AdminButtonView.prototype.onResize = function() {
 
 		var x = this.getXpos();
 
@@ -64,20 +64,20 @@ lgb.view.PropertiesButtonView.prototype.position = function() {
 };
 
 
-lgb.view.PropertiesButtonView.prototype.getXpos = function() {
-	return window.innerWidth - 33 - 33 - 8;
-};
+lgb.view.AdminButtonView.prototype.getXpos = function() {
+	return window.innerWidth - 33 - 4;
+}
 
 
-lgb.view.PropertiesButtonView.prototype.injectHtml = function() {
-	var html = '<div id="propertiesButton">' + this.button.getHtml() +
+lgb.view.AdminButtonView.prototype.injectHtml = function() {
+	var html = '<div id="adminButton">' + this.button.getHtml() +
 				'</div>';
 
 
 	 $('body').append(html);
 };
 
-lgb.view.PropertiesButtonView.prototype.injectCss = function() {
+lgb.view.AdminButtonView.prototype.injectCss = function() {
 
 		var cssInner = this.button.getCss();
 		var cssStr = "<style type='text/css'>{0}</style>".format(cssInner);
@@ -87,20 +87,20 @@ lgb.view.PropertiesButtonView.prototype.injectCss = function() {
 
 
 
-lgb.view.PropertiesButtonView.prototype.setSelected = function(isSelected) {
+lgb.view.AdminButtonView.prototype.setSelected = function(isSelected) {
 	this.isSelected = isSelected;
 
 	if (this.isSelected) {
-		$('#propertiesButtonLink').addClass('selected');
+		$('#adminButtonLink').addClass('selected');
 	} else {
-		$('#propertiesButtonLink').removeClass('selected');
+		$('#adminButtonLink').removeClass('selected');
 	}
 
 };
 
-lgb.view.PropertiesButtonView.prototype.bindEvents = function() {
+lgb.view.AdminButtonView.prototype.bindEvents = function() {
 
-	$('#propertiesButtonLink').click(this.d(this.onClick));
+	$('#adminButtonLink').click(this.d(this.onClick));
 
 	var toolTipConfig = {
 	  skin: 'light',
@@ -112,10 +112,10 @@ lgb.view.PropertiesButtonView.prototype.bindEvents = function() {
 	  closeButton: false
 	};
 
-	Tipped.create('#propertiesButtonLink', toolTipConfig);
+	Tipped.create('#adminButtonLink', toolTipConfig);
 };
 
-lgb.view.PropertiesButtonView.prototype.onClick = function() {
+lgb.view.AdminButtonView.prototype.onClick = function() {
 	this.dispatchLocal(new lgb.event.MakeViewActive(!this.isSelected));
 };
 

@@ -117,3 +117,9 @@
      });
 })(jQuery);
 
+jQuery.fn.extend({
+	html2string: function() {
+		return $('<div>').append(this.clone()).remove().html();
+	}
+});
+

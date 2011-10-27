@@ -8,19 +8,18 @@ goog.require('goog.events.Event');
  * @extends {goog.events.Event}
  */
 lgb.event.ComponentSelected = function(systemNode) {
-	
+
 	goog.events.Event.call(this, lgb.event.ComponentSelected.TYPE);
-	
+
 	/**@type {lgb.model.scenario.SystemNode} **/
 	this.payload = systemNode;
 };
-
-goog.inherits(lgb.event.ComponentSelected , goog.events.Event);
+goog.inherits(lgb.event.ComponentSelected, goog.events.Event);
 
 /**
- * Event type 
+ * Event type
  * @type {string}
  */
 lgb.event.ComponentSelected.TYPE =
     goog.events.getUniqueId('ComponentSelected');
-    
+

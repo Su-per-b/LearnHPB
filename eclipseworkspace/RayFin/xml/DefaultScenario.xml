@@ -50,12 +50,12 @@
     <systemNode name="VAV Box" id="VAV">
       <sysVar>
         <name type="String">VAVBadZoneMeas</name>
-        <displayName type="String">Room temp sensor error</displayName>
+        <displayName type="String">Room temperature sensor error</displayName>
 
         <description type="String">Room temp sensor error</description>
         <index type="Integer">32</index>
-        <lowValue type="Float">-200.0</lowValue>
-        <highValue type="Float">200.0</highValue>
+        <lowValue type="Float">-20.0</lowValue>
+        <highValue type="Float">20.0</highValue>
         <initialValue type="Float">0.0</initialValue>
         <ioType type="String">INPUT</ioType>
 
@@ -240,7 +240,6 @@
         <faultIsActive type="Boolean">false</faultIsActive>
         <subsection type="String"></subsection>
         <leftLabel type="String">1% Fouled</leftLabel>
-
         <rightLabel type="String">100% Fouled</rightLabel>
         <zonePosition type="String">LEFT</zonePosition>
         <isPercentage type="Boolean">true</isPercentage>

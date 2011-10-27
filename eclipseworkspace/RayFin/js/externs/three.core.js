@@ -99,7 +99,7 @@ THREE.Matrix4 = function(n11, n12, n13, n14, n21, n22, n23, n24, n31, n32, n33, 
  */
 THREE.Object3D = function() {};
 /**
- * @param {!Object} object
+ * @param {THREE.Object3D|THREE.Mesh|THREE.Line} object
  */
 THREE.Object3D.prototype.add= function (object) {};
 

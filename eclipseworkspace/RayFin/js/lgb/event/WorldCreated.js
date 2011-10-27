@@ -7,18 +7,15 @@ goog.require('goog.events.Event');
  * @extends {goog.events.Event}
  */
 lgb.event.WorldCreated = function() {
-	
 	goog.events.Event.call(this, lgb.event.WorldCreated.TYPE);
-
 };
+goog.inherits(lgb.event.WorldCreated, goog.events.Event);
 
-goog.inherits(lgb.event.WorldCreated , goog.events.Event);
 
 /**
- * Event type 
- * @type {string}
+ * Event type
+ * @define {string}
  */
-lgb.event.WorldCreated.TYPE =
-    goog.events.getUniqueId('WorldCreated');
-    
+lgb.event.WorldCreated.TYPE = 'lgb.event.WorldCreated';
+
 

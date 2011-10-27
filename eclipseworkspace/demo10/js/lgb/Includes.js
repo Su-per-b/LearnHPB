@@ -64,7 +64,6 @@ o3djs.require('lgb.view.component.Slider');
 o3djs.require('lgb.view.component.Link');
 o3djs.require('lgb.view.component.TextInput');
 o3djs.require('lgb.view.component.ToggleButton');
-o3djs.require('lgb.view.component.ComboBox');
 
 o3djs.require('lgb.view.DialogView');
 o3djs.require('lgb.view.EnvelopeView');
