@@ -2,7 +2,7 @@ goog.provide('lgb.view.ViewBase');
 
 goog.require('lgb.BaseClass');
 goog.require('lgb.utils');
-goog.require('lgb.event.DataModelChanged');
+goog.require('lgb.events.DataModelChanged');
 
 
 
@@ -106,7 +106,7 @@ lgb.view.ViewBase.prototype.onChange = function(event) {
 
 
 lgb.view.ViewBase.prototype.listenForChange = function() {
-	this.listenHelper_(this.dataModel, lgb.event.DataModelChanged.TYPE, this, this.onChange);
+	this.listenHelper_(this.dataModel, lgb.events.DataModelChanged.TYPE, this, this.onChange);
 };
 
 

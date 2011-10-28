@@ -1,6 +1,6 @@
 goog.provide('lgb.model.ParticleSystemModel');
 
-goog.require('lgb.event.DataModelChanged');
+goog.require('lgb.events.DataModelChanged');
 goog.require('lgb.model.ModelBase');
 goog.require('lgb.utils.XmlParser');
 
@@ -91,7 +91,7 @@ lgb.model.ParticleSystemModel.prototype.change = function(stateObject) {
 	
 	
 	if (isAnythingDirty) {
-		this.dispatchLocal(new lgb.event.DataModelChanged(whatIsDirty));
+		this.dispatchLocal(new lgb.events.DataModelChanged(whatIsDirty));
 	}
 
 }
@@ -174,7 +174,7 @@ lgb.model.ParticleSystemModel.prototype.parse = function(xml) {
 		parser.next();
     }
 
-	this.dispatchLocal(new lgb.event.DataModelInitialized());
+	this.dispatchLocal(new lgb.events.DataModelInitialized());
 
 
 };

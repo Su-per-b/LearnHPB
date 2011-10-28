@@ -1,6 +1,6 @@
 goog.provide('lgb.view.PropertiesView');
-goog.require('lgb.event.ComponentIDSelected');
-goog.require('lgb.event.TrackBallControlPause');
+goog.require('lgb.events.ComponentIDSelected');
+goog.require('lgb.events.TrackBallControlPause');
 goog.require('lgb.view.DialogView');
 goog.require('lgb.view.component.FaultWidget');
 goog.require('lgb.view.component.InputWidget');
@@ -43,7 +43,7 @@ lgb.view.PropertiesView.prototype.onChange = function(event) {
  * @param {goog.events.Event} event The event received.
  */
 lgb.view.PropertiesView.prototype.onCloseButtonClicked = function(event) {
-  this.dispatchLocal(new lgb.event.ViewClosed());
+  this.dispatchLocal(new lgb.events.ViewClosed());
 };
 
 /**
@@ -144,7 +144,7 @@ lgb.view.PropertiesView.prototype.onDropDownChange = function(event) {
   var jq = $('#' + this.comboBoxId);
   var id = jq[0].value;
 
-  var e = new lgb.event.ComponentIDSelected(id);
+  var e = new lgb.events.ComponentIDSelected(id);
   this.dispatchLocal(e);
 };
 

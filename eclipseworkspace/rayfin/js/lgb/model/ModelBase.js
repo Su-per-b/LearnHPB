@@ -1,8 +1,8 @@
 goog.provide('lgb.model.ModelBase');
 
 goog.require('lgb.BaseClass');
-goog.require('lgb.event.DataModelInitialized');
-goog.require('lgb.event.DataModelChanged');
+goog.require('lgb.events.DataModelInitialized');
+goog.require('lgb.events.DataModelChanged');
 
 
 

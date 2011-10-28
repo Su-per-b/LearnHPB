@@ -32,7 +32,7 @@ lgb.view.AdminView.prototype.bind_ = function() {
  * @param {goog.events.Event} event The event received.
  */
 lgb.view.AdminView.prototype.onCloseButtonClicked = function(event) {
-  this.dispatchLocal(new lgb.event.ViewClosed());
+  this.dispatchLocal(new lgb.events.ViewClosed());
 };
 
 

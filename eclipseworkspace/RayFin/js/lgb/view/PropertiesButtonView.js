@@ -1,5 +1,5 @@
 goog.provide('lgb.view.PropertiesButtonView');
-goog.require('lgb.event.MakeViewActive');
+goog.require('lgb.events.MakeViewActive');
 goog.require('lgb.view.ViewBase');
 goog.require('lgb.view.component.ToggleButtonA');
 
@@ -28,7 +28,7 @@ lgb.view.PropertiesButtonView.prototype.init = function() {
 		this.injectHtml();
 		this.bindEvents();
 	//	this.setSelected(true);
-		this.listen(lgb.event.WindowResizeEvent.TYPE, this.onResize);
+		this.listen(lgb.events.WindowResizeEvent.TYPE, this.onResize);
 };
 
 lgb.view.PropertiesButtonView.prototype.show = function() {
@@ -116,7 +116,7 @@ lgb.view.PropertiesButtonView.prototype.bindEvents = function() {
 };
 
 lgb.view.PropertiesButtonView.prototype.onClick = function() {
-	this.dispatchLocal(new lgb.event.MakeViewActive(!this.isSelected));
+	this.dispatchLocal(new lgb.events.MakeViewActive(!this.isSelected));
 };
 
 

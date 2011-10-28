@@ -1,7 +1,7 @@
 goog.provide('lgb.view.ParticleSystemAdminView');
 
 goog.require('lgb.view.ViewBase');
-goog.require('lgb.event.RequestDataModelChange');
+goog.require('lgb.events.RequestDataModelChange');
 goog.require('lgb.view.component.CheckBox');
 
 
@@ -49,7 +49,7 @@ lgb.view.ParticleSystemAdminView.prototype.listen_ = function() {
  */
 lgb.view.ParticleSystemAdminView.prototype.onEmittingChanged_ = function(event) {
 
-	var e = new lgb.event.RequestDataModelChange ({
+	var e = new lgb.events.RequestDataModelChange ({
 		isEmitting : event.currentTarget.checked
 	});
 	
@@ -63,7 +63,7 @@ lgb.view.ParticleSystemAdminView.prototype.onEmittingChanged_ = function(event) 
  */
 lgb.view.ParticleSystemAdminView.prototype.onCurvesChanged_ = function(event) {
 
-	var e = new lgb.event.RequestDataModelChange ({
+	var e = new lgb.events.RequestDataModelChange ({
 		showCurves : event.currentTarget.checked
 	});
 	
@@ -77,7 +77,7 @@ lgb.view.ParticleSystemAdminView.prototype.onCurvesChanged_ = function(event) {
  */
 lgb.view.ParticleSystemAdminView.prototype.onBoxesChanged_ = function(event) {
 
-	var e = new lgb.event.RequestDataModelChange ({
+	var e = new lgb.events.RequestDataModelChange ({
 		showBoxes : event.currentTarget.checked
 	});
 	
@@ -91,7 +91,7 @@ lgb.view.ParticleSystemAdminView.prototype.onBoxesChanged_ = function(event) {
  */
 lgb.view.ParticleSystemAdminView.prototype.onPlayPauseChanged_ = function(event) {
 
-	var e = new lgb.event.RequestDataModelChange ({
+	var e = new lgb.events.RequestDataModelChange ({
 		isRunning: event.currentTarget.checked
 	});
 	

@@ -135,7 +135,7 @@ lgb.view.LeftNavView.prototype.injectHtml_ = function() {
  * @private
  */
 lgb.view.LeftNavView.prototype.listen_ = function() {
-	this.listen(lgb.event.WindowResizeEvent.TYPE, this.onResize);
+	this.listen(lgb.events.WindowResizeEvent.TYPE, this.onResize);
 };
 
 
@@ -191,7 +191,7 @@ lgb.view.LeftNavView.prototype.showSelected = function(newSelectedId) {
 
 lgb.view.LeftNavView.prototype.onClick = function(event) {
 		//this.showSelected(event.target.id);
-		//this.dispatch(lgb.event.Visibility.GUI_SELECTION, event.data.mode);
+		//this.dispatch(lgb.events.Visibility.GUI_SELECTION, event.data.mode);
 };
 
 

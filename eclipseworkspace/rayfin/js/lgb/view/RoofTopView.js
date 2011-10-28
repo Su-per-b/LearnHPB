@@ -1,7 +1,7 @@
 goog.provide('lgb.view.RoofTopView');
 
 goog.require('lgb.Loader');
-goog.require('lgb.event.MeshLoadedEvent');
+goog.require('lgb.events.MeshLoadedEvent');
 goog.require('lgb.view.ViewBase');
 
 
@@ -61,7 +61,7 @@ lgb.view.RoofTopView.prototype.onGeometryLoaded = function(geometry) {
 	//mesh.scale.x = mesh.scale.y = mesh.scale.z = 1;
 	//mesh.rotation.y = Math.PI/2;
 
-	var event = new lgb.event.MeshLoadedEvent(mesh);
+	var event = new lgb.events.MeshLoadedEvent(mesh);
 	this.dispatch(event);
 };
 

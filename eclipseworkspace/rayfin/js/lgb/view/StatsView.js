@@ -30,7 +30,7 @@ lgb.view.StatsView.prototype.init = function(containerDiv) {
 	//this.stats_.domElement.style.top = '0px';
 	containerDiv.appendChild(this.stats_.domElement);
 
-	this.listen(lgb.event.RenderEvent.TYPE, this.d(this.onRender));
+	this.listen(lgb.events.RenderEvent.TYPE, this.d(this.onRender));
 };
 
 lgb.view.StatsView.prototype.onRender = function(event) {

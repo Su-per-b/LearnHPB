@@ -1,6 +1,6 @@
 goog.provide('lgb.view.DialogView');
 
-goog.require('lgb.event.ViewClosed');
+goog.require('lgb.events.ViewClosed');
 goog.require('lgb.view.ViewBase');
 
 /**
@@ -55,7 +55,7 @@ lgb.view.DialogView.prototype.hide = function() {
 lgb.view.DialogView.prototype.onCloseButtonClicked = function(event) {
 	//this.dispatch(this.closedEventStr );
 
-	this.dispatchLocal(new lgb.event.ViewClosed());
+	this.dispatchLocal(new lgb.events.ViewClosed());
 
 //	alert('lgb.view.DialogView.prototype.onCloseButtonClicked : you must override this');
 };

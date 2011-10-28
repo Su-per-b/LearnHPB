@@ -46,7 +46,7 @@ lgb.view.TitleBarView.prototype.injectHtml_ = function() {
  * @private
  */
 lgb.view.TitleBarView.prototype.listen_ = function() {
-		this.listen(lgb.event.WindowResizeEvent.TYPE, this.onResize);
+		this.listen(lgb.events.WindowResizeEvent.TYPE, this.onResize);
 }
 
 lgb.view.TitleBarView.prototype.show = function() {

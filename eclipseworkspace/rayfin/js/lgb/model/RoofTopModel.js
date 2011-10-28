@@ -19,6 +19,4 @@ goog.inherits(lgb.model.RoofTopModel, lgb.model.ModelBase);
 lgb.model.RoofTopModel.prototype.init = function() {
 
 
-
-
 };

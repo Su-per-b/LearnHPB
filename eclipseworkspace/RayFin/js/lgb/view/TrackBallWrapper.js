@@ -1,7 +1,7 @@
 goog.provide('lgb.view.TrackBallWrapper');
 
 goog.require('lgb.view.ViewBase');
-goog.require('lgb.event.RenderEvent');
+goog.require('lgb.events.RenderEvent');
 
 
 
@@ -41,7 +41,7 @@ lgb.view.TrackBallWrapper.prototype.init = function() {
 	this.trackballControls.keys = [65, 83, 68];
 
 	this.orbitRadius = 30;
-	this.listen(lgb.event.RenderEvent.TYPE, this.d(this.onRender));
+	this.listen(lgb.events.RenderEvent.TYPE, this.d(this.onRender));
 };
 
 

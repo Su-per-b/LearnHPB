@@ -1,8 +1,8 @@
 goog.provide('lgb.view.EnvelopeView');
 
 goog.require('lgb.Loader');
-goog.require('lgb.event.ColladaSceneLoadedEvent');
-goog.require('lgb.event.MeshLoadedEvent');
+goog.require('lgb.events.ColladaSceneLoadedEvent');
+goog.require('lgb.events.MeshLoadedEvent');
 goog.require('lgb.view.ViewBase');
 
 
@@ -64,7 +64,7 @@ lgb.view.EnvelopeView.prototype.onGeometryLoaded = function(geometry) {
 	this.masterGroup.add(this.floor3);
 	//this.floor2
 		
-	var event = new lgb.event.Object3DLoadedEvent(this.masterGroup);
+	var event = new lgb.events.Object3DLoadedEvent(this.masterGroup);
 	this.dispatch(event);
 };
 
@@ -101,7 +101,7 @@ lgb.view.EnvelopeView.prototype.addMesh = function(geometry, scale, x, y, z, rx,
 	mesh.updateMatrix();
 
 
-	var event = new lgb.event.MeshLoadedEvent(mesh);
+	var event = new lgb.events.MeshLoadedEvent(mesh);
 	this.dispatch(event);
 };
 
@@ -124,7 +124,7 @@ lgb.view.EnvelopeView.prototype.onColladaLoaded = function(collada) {
 	//colladaScene.updateMatrix();
 	//colladaScene.computeBoundingBox();
 
-	//var event = new lgb.event.ColladaSceneLoadedEvent(colladaScene);
+	//var event = new lgb.events.ColladaSceneLoadedEvent(colladaScene);
 	//this.dispatch(event);
 };
 

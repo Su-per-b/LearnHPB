@@ -1,9 +1,9 @@
 goog.provide('lgb.controller.ParticleSystemController');
 
 goog.require('lgb.controller.ControllerBase');
-goog.require('lgb.event.WorldCreated');
-goog.require('lgb.event.DataModelChanged');
-goog.require('lgb.event.RequestDataModelChange');
+goog.require('lgb.events.WorldCreated');
+goog.require('lgb.events.DataModelChanged');
+goog.require('lgb.events.RequestDataModelChange');
 goog.require('lgb.model.ParticleSystemModel');
 goog.require('lgb.view.ParticleSystem');
 goog.require('lgb.view.ParticleSystemAdminView');
@@ -38,10 +38,10 @@ lgb.controller.ParticleSystemController.prototype.init = function() {
 lgb.controller.ParticleSystemController.prototype.listen_ = function() {
 	
 	this.listenTo(this.dataModel, 
-		lgb.event.DataModelInitialized.TYPE, 
+		lgb.events.DataModelInitialized.TYPE, 
 		this.onDataModelInitialized);
 		
-	this.listen(lgb.event.WorldCreated.TYPE, this.onWorldCreated);
+	this.listen(lgb.events.WorldCreated.TYPE, this.onWorldCreated);
 	
 		
 };
@@ -57,7 +57,7 @@ lgb.controller.ParticleSystemController.prototype.onDataModelInitialized = funct
 	this.adminView.init();
 	
 	this.listenTo(this.adminView, 
-		lgb.event.RequestDataModelChange.TYPE, 
+		lgb.events.RequestDataModelChange.TYPE, 
 		this.onRequestDataModelChange);
 		
 };

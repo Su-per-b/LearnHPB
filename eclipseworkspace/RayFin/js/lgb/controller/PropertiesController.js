@@ -1,9 +1,9 @@
 goog.provide('lgb.controller.PropertiesController');
 
 goog.require('lgb.controller.ControllerBase');
-goog.require('lgb.event.ComponentIDSelected');
-goog.require('lgb.event.MakeViewActive');
-goog.require('lgb.event.ScenarioParsed');
+goog.require('lgb.events.ComponentIDSelected');
+goog.require('lgb.events.MakeViewActive');
+goog.require('lgb.events.ScenarioParsed');
 goog.require('lgb.view.PropertiesButtonView');
 goog.require('lgb.view.PropertiesView');
 
@@ -15,7 +15,7 @@ goog.require('lgb.view.PropertiesView');
 lgb.controller.PropertiesController = function() {
 	lgb.controller.ControllerBase.call(this);
 
-	this.listen(lgb.event.ScenarioParsed.TYPE, this.onScenarioParsed);
+	this.listen(lgb.events.ScenarioParsed.TYPE, this.onScenarioParsed);
 };
 
 goog.inherits(lgb.controller.PropertiesController, lgb.controller.ControllerBase);
@@ -39,9 +39,9 @@ lgb.controller.PropertiesController.prototype.onScenarioParsed = function(event)
 	this.buttonView.show();
 	//this.view.show(true);
 
-	this.listenTo(this.view, lgb.event.ComponentIDSelected.TYPE, this.onComponentIDSelected);
-	this.listenTo(this.view, lgb.event.ViewClosed.TYPE, this.onClosedPanel);
-	this.listenTo(this.buttonView, lgb.event.MakeViewActive.TYPE, this.onMakeViewActive);
+	this.listenTo(this.view, lgb.events.ComponentIDSelected.TYPE, this.onComponentIDSelected);
+	this.listenTo(this.view, lgb.events.ViewClosed.TYPE, this.onClosedPanel);
+	this.listenTo(this.buttonView, lgb.events.MakeViewActive.TYPE, this.onMakeViewActive);
 
 };
 

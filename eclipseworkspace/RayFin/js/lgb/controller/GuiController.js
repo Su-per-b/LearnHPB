@@ -4,8 +4,8 @@ goog.require('lgb.Config');
 goog.require('lgb.controller.ControllerBase');
 goog.require('lgb.controller.PropertiesController');
 goog.require('lgb.controller.AdminController');
-goog.require('lgb.event.WindowResizeEvent');
-goog.require('lgb.event.WorldCreated');
+goog.require('lgb.events.WindowResizeEvent');
+goog.require('lgb.events.WorldCreated');
 goog.require('lgb.view.LeftNavView');
 goog.require('lgb.view.TitleBarView');
 

@@ -16,8 +16,8 @@ lgb.controller.ScenarioController = function() {
 	this.dataModel.load();
 
 	//this.view =  new lgb.view.ScenarioView(this.dataModel);
-//	this.listen(lgb.event.SelectableEvent.SELECT_ID, this.onSelectId);
-	this.listen(lgb.event.ScenarioParsed.TYPE, this.onScenarioParsed);
+//	this.listen(lgb.events.SelectableEvent.SELECT_ID, this.onSelectId);
+	this.listen(lgb.events.ScenarioParsed.TYPE, this.onScenarioParsed);
 };
 goog.inherits(lgb.controller.ScenarioController, lgb.controller.ControllerBase);
 

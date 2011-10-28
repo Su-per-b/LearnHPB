@@ -2,7 +2,7 @@ goog.provide('lgb.view.ParticleSystem');
 
 goog.require('hemi.curve');
 goog.require('hemi.curve.Curve');
-goog.require('lgb.event.Object3DLoadedEvent');
+goog.require('lgb.events.Object3DLoadedEvent');
 goog.require('lgb.view.ParticleElement');
 goog.require('lgb.view.ParticlePath');
 goog.require('lgb.view.ParticleWrapper');
@@ -17,7 +17,7 @@ lgb.view.ParticleSystem = function(dataModel) {
 	lgb.view.ViewBase.call(this);
 
 	this.dataModel = dataModel;
-	this.listenTo(this.dataModel, lgb.event.DataModelChanged.TYPE, this.onDataModelChanged);
+	this.listenTo(this.dataModel, lgb.events.DataModelChanged.TYPE, this.onDataModelChanged);
 	//this.init();
 };
 goog.inherits(lgb.view.ParticleSystem, lgb.view.ViewBase);
@@ -28,9 +28,9 @@ lgb.view.ParticleSystem.prototype.onDataModelChanged = function(event) {
 	
 	if (whatIsDirty.isRunning) {
 		if (this.dataModel.isRunning) {
-			this.listen(lgb.event.RenderEvent.TYPE, this.onRender);
+			this.listen(lgb.events.RenderEvent.TYPE, this.onRender);
 		} else {
-			this.unlisten(lgb.event.RenderEvent.TYPE, this.onRender);
+			this.unlisten(lgb.events.RenderEvent.TYPE, this.onRender);
 		}
 	}
 	
@@ -84,13 +84,13 @@ lgb.view.ParticleSystem.prototype.init = function() {
 	this.showCurves(this.dataModel.showCurves);	
 	
 	if (this.dataModel.isRunning) {
-		this.listen(lgb.event.RenderEvent.TYPE, this.onRender);
+		this.listen(lgb.events.RenderEvent.TYPE, this.onRender);
 	} else {
-		this.unlisten(lgb.event.RenderEvent.TYPE, this.onRender);
+		this.unlisten(lgb.events.RenderEvent.TYPE, this.onRender);
 	}
 	this.currentFrameNumber = this.launchDelayBetweenParticles + 1;
 	
-	var event = new lgb.event.Object3DLoadedEvent(this.masterGroup);
+	var event = new lgb.events.Object3DLoadedEvent(this.masterGroup);
 	this.dispatch(event);
 
 };
@@ -190,7 +190,7 @@ lgb.view.ParticleSystem.prototype.createParticleSystem = function() {
 	this.systemGroup.add(this.threeParticleSystem);
 
 
-	//this.listen(lgb.event.RenderEvent.TYPE, this.onRender);
+	//this.listen(lgb.events.RenderEvent.TYPE, this.onRender);
 };
 
 

@@ -6,8 +6,8 @@ goog.require('lgb.controller.ControllerBase');
 goog.require('lgb.controller.GuiController');
 goog.require('lgb.controller.ScenarioController');
 goog.require('lgb.controller.WorldController');
-goog.require('lgb.event.WindowResizeEvent');
-goog.require('lgb.event.WorldCreated');
+goog.require('lgb.events.WindowResizeEvent');
+goog.require('lgb.events.WorldCreated');
 goog.require('lgb.controller.AdminController');
 
 /**
@@ -17,7 +17,7 @@ goog.require('lgb.controller.AdminController');
  */
 lgb.controller.MainController = function() {
 	lgb.controller.ControllerBase.call(this);
-	lgb.globalEventBus = new lgb.event.EventBus();
+	lgb.globalEventBus = new lgb.events.EventBus();
 
 	var delegate = jQuery.proxy(this.init, this);
 	jQuery(document).ready(delegate);
@@ -54,7 +54,7 @@ lgb.controller.MainController.prototype.init = function() {
 	this.worldController_ = new lgb.controller.WorldController(this.containerDiv_);
 	this.worldController_.init();
 
-	var e = new lgb.event.WorldCreated();
+	var e = new lgb.events.WorldCreated();
 	this.dispatch(e);
 
 
@@ -81,7 +81,7 @@ lgb.controller.MainController.prototype.init = function() {
 
 	$(window).resize(this.d(this.onWindowResize_));
 
-	//var e = new lgb.event.ShowGUI();
+	//var e = new lgb.events.ShowGUI();
 	//this.dispatch(e);
 
 /*
@@ -138,7 +138,7 @@ lgb.controller.MainController.prototype.injectErrorWindow_ = function() {
  */
 lgb.controller.MainController.prototype.onWindowResize_ = function(event) {
 	this.dispatch(
-		new lgb.event.WindowResizeEvent(
+		new lgb.events.WindowResizeEvent(
 			window.innerWidth,
 			window.innerHeight
 		)

@@ -1,0 +1,23 @@
+goog.provide('lgb.events.ViewClosed');
+
+goog.require('goog.events.Event');
+
+/**
+ * @constructor
+ * @extends {goog.events.Event}
+ */
+lgb.events.ViewClosed = function() {
+
+	goog.events.Event.call(this, lgb.events.ViewClosed.TYPE);
+
+};
+goog.inherits(lgb.events.ViewClosed, goog.events.Event);
+
+/**
+ * Event type
+ * @type {string}
+ */
+lgb.events.ViewClosed.TYPE =
+    goog.events.getUniqueId('ViewClosed');
+
+

@@ -1,16 +1,14 @@
 goog.provide('lgb.controller.WorldController');
 goog.require('lgb.controller.ControllerBase');
-goog.require('lgb.controller.EnvelopeController');
 goog.require('lgb.controller.ParticleSystemController');
-goog.require('lgb.controller.RoofTopController');
-goog.require('lgb.event.Object3DLoadedEvent');
-goog.require('lgb.event.RenderEvent');
-goog.require('lgb.event.WindowResizeEvent');
+goog.require('lgb.events.Object3DLoadedEvent');
+goog.require('lgb.events.RenderEvent');
+goog.require('lgb.events.WindowResizeEvent');
 goog.require('lgb.view.CameraView');
 goog.require('lgb.view.FloorView');
 goog.require('lgb.view.StatsView');
 goog.require('lgb.view.TrackBallWrapper');
-
+goog.require('lgb.controller.BuildingController');
 
 /**
  * MVC controller for the App
@@ -46,8 +44,6 @@ lgb.controller.WorldController.prototype.init = function() {
 	this.scene_ = new THREE.Scene();
 
 
-
-
 	this.initRenderer_();
 	this.setSize_();
 	
@@ -75,9 +71,13 @@ lgb.controller.WorldController.prototype.init = function() {
 		this.statsView_ = null;
 	}
 
+	/**
+    * @type {lgb.controller.BuildingController}
+    * @private
+	*/
+	this.buildingController_ = new lgb.controller.BuildingController();
+	//this.envelopeController_ = new lgb.controller.EnvelopeController();
 
-	this.roofTopController_ = new lgb.controller.RoofTopController();
-	this.envelopeController_ = new lgb.controller.EnvelopeController();
 	
 	this.particleSystemController = new lgb.controller.ParticleSystemController();
 
@@ -124,7 +124,7 @@ lgb.controller.WorldController.prototype.initRenderer_ = function() {
    */
 	this.renderer_ = new THREE.WebGLRenderer();
 	
-	this.renderEvent = new lgb.event.RenderEvent();
+	this.renderEvent = new lgb.events.RenderEvent();
 
 	if (window.webkitRequestAnimationFrame) {
 		this.renderDelegate	= this.d(this.onRenderWebkit_);
@@ -147,9 +147,9 @@ lgb.controller.WorldController.prototype.initRenderer_ = function() {
  * @private
  */
 lgb.controller.WorldController.prototype.listen_ = function() {
-	this.listen(lgb.event.MeshLoadedEvent.TYPE, this.onMeshLoaded);
-	this.listen(lgb.event.Object3DLoadedEvent.TYPE, this.onObject3DLoadedEvent);
-	this.listen(lgb.event.WindowResizeEvent.TYPE, this.onWindowResize);
+	this.listen(lgb.events.MeshLoadedEvent.TYPE, this.onMeshLoaded);
+	this.listen(lgb.events.Object3DLoadedEvent.TYPE, this.onObject3DLoadedEvent);
+	this.listen(lgb.events.WindowResizeEvent.TYPE, this.onWindowResize);
 }
 
 lgb.controller.WorldController.prototype.onMouseMove = function(event) {
