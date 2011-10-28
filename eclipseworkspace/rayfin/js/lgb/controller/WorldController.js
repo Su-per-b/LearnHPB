@@ -1,7 +1,7 @@
 goog.provide('lgb.controller.WorldController');
 goog.require('lgb.controller.ControllerBase');
 goog.require('lgb.controller.ParticleSystemController');
-goog.require('lgb.events.Object3DLoadedEvent');
+goog.require('lgb.events.Object3DLoaded');
 goog.require('lgb.events.RenderEvent');
 goog.require('lgb.events.WindowResizeEvent');
 goog.require('lgb.view.CameraView');
@@ -147,8 +147,8 @@ lgb.controller.WorldController.prototype.initRenderer_ = function() {
  * @private
  */
 lgb.controller.WorldController.prototype.listen_ = function() {
-	this.listen(lgb.events.MeshLoadedEvent.TYPE, this.onMeshLoaded);
-	this.listen(lgb.events.Object3DLoadedEvent.TYPE, this.onObject3DLoadedEvent);
+	this.listen(lgb.events.MeshLoaded.TYPE, this.onMeshLoaded);
+	this.listen(lgb.events.Object3DLoaded.TYPE, this.onObject3DLoaded);
 	this.listen(lgb.events.WindowResizeEvent.TYPE, this.onWindowResize);
 }
 
@@ -169,7 +169,7 @@ lgb.controller.WorldController.prototype.onMeshLoaded = function(event) {
 	THREE.Collisions.colliders.push(mc);
 };
 
-lgb.controller.WorldController.prototype.onObject3DLoadedEvent = function(event) {
+lgb.controller.WorldController.prototype.onObject3DLoaded = function(event) {
 	var mesh = event.payload;
 	this.scene_.add(mesh);
 };

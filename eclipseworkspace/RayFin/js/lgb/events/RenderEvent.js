@@ -11,11 +11,9 @@ lgb.events.RenderEvent = function() {
 };
 goog.inherits(lgb.events.RenderEvent, goog.events.Event);
 
+
 /**
  * Event type
- * @type {string}
+ * @define {string}
  */
-lgb.events.RenderEvent.TYPE =
-    goog.events.getUniqueId('RenderEvent');
-
-
+lgb.events.RenderEvent.TYPE = 'lgb.events.RenderEvent';

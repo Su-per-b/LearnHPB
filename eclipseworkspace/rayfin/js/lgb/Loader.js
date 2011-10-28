@@ -3,8 +3,8 @@ goog.provide('lgb.Loader');
 
 goog.require('lgb.BaseClass');
 goog.require('lgb.Config');
-goog.require('lgb.events.MeshLoadedEvent');
-goog.require('lgb.events.MeshRequestEvent');
+goog.require('lgb.events.MeshLoaded');
+
 
 
 /**
@@ -41,14 +41,6 @@ lgb.Loader = function() {
 };
 goog.inherits(lgb.Loader, lgb.BaseClass);
 
-lgb.Loader.prototype.onMeshRequest = function(event) {
-
-	//	var fileName = event.payload.mesh.fileName;
-		//this.meshList[fileName] =  event.payload.mesh;
-
-		//this.loadMesh(fileName);
-
-};
 
 
 
@@ -122,7 +114,7 @@ lgb.Loader.prototype.getFileType = function(fileName) {
 lgb.Loader.prototype.onColladaLoaded = function(collada ) {
 
 
-	var event = new lgb.events.MeshLoadedEvent(collada);
+	var event = new lgb.events.MeshLoaded(collada);
 	this.dispatch(event);
 
 };

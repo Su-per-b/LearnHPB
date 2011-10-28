@@ -17,10 +17,9 @@ lgb.events.TrackBallControlPause = function(pauseFlag) {
 };
 goog.inherits(lgb.events.TrackBallControlPause, goog.events.Event);
 
+
 /**
  * Event type
- * @const {string}
+ * @define {string}
  */
 lgb.events.TrackBallControlPause.TYPE = 'lgb.events.TrackBallControlPause';
-
-

@@ -15,9 +15,6 @@ goog.inherits(lgb.events.ViewClosed, goog.events.Event);
 
 /**
  * Event type
- * @type {string}
+ * @define {string}
  */
-lgb.events.ViewClosed.TYPE =
-    goog.events.getUniqueId('ViewClosed');
-
-
+lgb.events.ViewClosed.TYPE = 'lgb.events.ViewClosed';

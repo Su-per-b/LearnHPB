@@ -1,5 +1,4 @@
 goog.provide('lgb.events.EventBus');
-
 goog.require('goog.events.EventTarget');
 
 

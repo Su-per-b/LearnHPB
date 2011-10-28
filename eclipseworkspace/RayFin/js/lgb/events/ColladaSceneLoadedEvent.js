@@ -23,11 +23,9 @@ lgb.events.ColladaSceneLoadedEvent = function(scene) {
 };
 goog.inherits(lgb.events.ColladaSceneLoadedEvent, goog.events.Event);
 
+
 /**
  * Event type
- * @type {string}
+ * @define {string}
  */
-lgb.events.ColladaSceneLoadedEvent.TYPE =
-    goog.events.getUniqueId('ColladaSceneLoadedEvent');
-
-
+lgb.events.ColladaSceneLoadedEvent.TYPE = 'lgb.events.ColladaSceneLoadedEvent';

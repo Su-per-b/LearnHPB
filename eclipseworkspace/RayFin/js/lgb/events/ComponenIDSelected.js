@@ -16,10 +16,9 @@ lgb.events.ComponentIDSelected = function(id) {
 };
 goog.inherits(lgb.events.ComponentIDSelected, goog.events.Event);
 
+
 /**
  * Event type
- * @type {string}
+ * @define {string}
  */
-lgb.events.ComponentIDSelected.TYPE =
-    goog.events.getUniqueId('ComponentIDSelected');
-
+lgb.events.ComponentIDSelected.TYPE = 'lgb.events.ComponentIDSelected';

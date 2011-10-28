@@ -29,9 +29,6 @@ goog.inherits(lgb.events.DataModelChanged, goog.events.Event);
 
 /**
  * Event type
- * @type {string}
+ * @define {string}
  */
-lgb.events.DataModelChanged.TYPE =
-    goog.events.getUniqueId('DataModelChanged');
-
-
+lgb.events.DataModelChanged.TYPE = 'lgb.events.DataModelChanged';

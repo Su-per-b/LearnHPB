@@ -19,11 +19,9 @@ lgb.events.WindowResizeEvent = function(width, height) {
 };
 goog.inherits(lgb.events.WindowResizeEvent, goog.events.Event);
 
+
 /**
  * Event type
- * @type {string}
+ * @define {string}
  */
-lgb.events.WindowResizeEvent.TYPE =
-    goog.events.getUniqueId('WindowResizeEvent');
-
-
+lgb.events.WindowResizeEvent.TYPE = 'lgb.events.WindowResizeEvent';

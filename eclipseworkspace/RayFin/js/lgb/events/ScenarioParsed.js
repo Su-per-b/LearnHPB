@@ -21,11 +21,9 @@ lgb.events.ScenarioParsed = function(scenarioBase) {
 };
 goog.inherits(lgb.events.ScenarioParsed, goog.events.Event);
 
+
 /**
  * Event type
- * @type {string}
+ * @define {string}
  */
-lgb.events.ScenarioParsed.TYPE =
-    goog.events.getUniqueId('ScenarioParsed');
-
-
+lgb.events.ScenarioParsed.TYPE = 'lgb.events.ScenarioParsed';

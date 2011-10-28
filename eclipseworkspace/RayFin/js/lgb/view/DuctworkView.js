@@ -2,7 +2,7 @@ goog.provide('lgb.view.DuctworkView');
 
 goog.require('lgb.Loader');
 goog.require('lgb.events.ColladaSceneLoadedEvent');
-goog.require('lgb.events.MeshLoadedEvent');
+goog.require('lgb.events.MeshLoaded');
 goog.require('lgb.view.ViewBase');
 
 
@@ -49,7 +49,7 @@ lgb.view.DuctworkView.prototype.onGeometryLoaded = function(geometry) {
 	
 	//mesh.scale.x = mesh.scale.y = mesh.scale.z = 1;
 
-	var event = new lgb.events.MeshLoadedEvent(mesh);
+	var event = new lgb.events.MeshLoaded(mesh);
 	this.dispatch(event);
 	
 };

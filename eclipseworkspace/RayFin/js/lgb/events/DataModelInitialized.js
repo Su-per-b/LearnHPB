@@ -11,11 +11,9 @@ lgb.events.DataModelInitialized = function() {
 };
 goog.inherits(lgb.events.DataModelInitialized, goog.events.Event);
 
+
 /**
  * Event type
- * @type {string}
+ * @define {string}
  */
-lgb.events.DataModelInitialized.TYPE =
-    goog.events.getUniqueId('DataModelInitialized');
-
-
+lgb.events.DataModelInitialized.TYPE = 'lgb.events.DataModelInitialized';

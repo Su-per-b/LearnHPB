@@ -1,6 +1,6 @@
 goog.provide('lgb.view.ParticleView');
 
-goog.require('lgb.events.MeshLoadedEvent');
+goog.require('lgb.events.MeshLoaded');
 goog.require('lgb.view.ViewBase');
 
 
@@ -77,7 +77,7 @@ lgb.view.ParticleView.prototype.init = function() {
 	//this.particleSystem.sortParticles = true;
 
 
-	var event = new lgb.events.MeshLoadedEvent(this.particleSystem);
+	var event = new lgb.events.MeshLoaded(this.particleSystem);
 	this.dispatch(event);
 
 	this.listen(lgb.events.RenderEvent.TYPE, this.onRender);

@@ -2,7 +2,7 @@ goog.provide('lgb.view.EnvelopeView');
 
 goog.require('lgb.Loader');
 goog.require('lgb.events.ColladaSceneLoadedEvent');
-goog.require('lgb.events.MeshLoadedEvent');
+goog.require('lgb.events.MeshLoaded');
 goog.require('lgb.view.ViewBase');
 
 
@@ -64,7 +64,7 @@ lgb.view.EnvelopeView.prototype.onGeometryLoaded = function(geometry) {
 	this.masterGroup.add(this.floor3);
 	//this.floor2
 		
-	var event = new lgb.events.Object3DLoadedEvent(this.masterGroup);
+	var event = new lgb.events.Object3DLoaded(this.masterGroup);
 	this.dispatch(event);
 };
 
@@ -101,7 +101,7 @@ lgb.view.EnvelopeView.prototype.addMesh = function(geometry, scale, x, y, z, rx,
 	mesh.updateMatrix();
 
 
-	var event = new lgb.events.MeshLoadedEvent(mesh);
+	var event = new lgb.events.MeshLoaded(mesh);
 	this.dispatch(event);
 };
 

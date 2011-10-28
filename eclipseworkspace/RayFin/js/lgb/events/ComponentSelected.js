@@ -16,10 +16,9 @@ lgb.events.ComponentSelected = function(systemNode) {
 };
 goog.inherits(lgb.events.ComponentSelected, goog.events.Event);
 
+
 /**
  * Event type
- * @type {string}
+ * @define {string}
  */
-lgb.events.ComponentSelected.TYPE =
-    goog.events.getUniqueId('ComponentSelected');
-
+lgb.events.ComponentSelected.TYPE = 'lgb.events.ComponentSelected';

@@ -2,7 +2,7 @@ goog.provide('lgb.view.ParticleSystem');
 
 goog.require('hemi.curve');
 goog.require('hemi.curve.Curve');
-goog.require('lgb.events.Object3DLoadedEvent');
+goog.require('lgb.events.Object3DLoaded');
 goog.require('lgb.view.ParticleElement');
 goog.require('lgb.view.ParticlePath');
 goog.require('lgb.view.ParticleWrapper');
@@ -90,7 +90,7 @@ lgb.view.ParticleSystem.prototype.init = function() {
 	}
 	this.currentFrameNumber = this.launchDelayBetweenParticles + 1;
 	
-	var event = new lgb.events.Object3DLoadedEvent(this.masterGroup);
+	var event = new lgb.events.Object3DLoaded(this.masterGroup);
 	this.dispatch(event);
 
 };

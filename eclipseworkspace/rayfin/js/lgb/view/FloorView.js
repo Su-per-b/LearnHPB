@@ -1,6 +1,6 @@
 goog.provide('lgb.view.FloorView');
 
-goog.require('lgb.events.MeshLoadedEvent');
+goog.require('lgb.events.MeshLoaded');
 goog.require('lgb.view.ViewBase');
 
 
@@ -40,7 +40,7 @@ lgb.view.FloorView.prototype.init = function() {
 
 	var plane = new THREE.Line(geometry, line_material, THREE.LinePieces);
 
-	var event = new lgb.events.Object3DLoadedEvent(plane);
+	var event = new lgb.events.Object3DLoaded(plane);
 	this.dispatch(event);
 };
 

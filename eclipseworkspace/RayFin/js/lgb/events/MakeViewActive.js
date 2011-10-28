@@ -20,11 +20,9 @@ lgb.events.MakeViewActive = function(makeActiveFlag) {
 };
 goog.inherits(lgb.events.MakeViewActive, goog.events.Event);
 
+
 /**
  * Event type
- * @type {string}
+ * @define {string}
  */
-lgb.events.MakeViewActive.TYPE =
-    goog.events.getUniqueId('MakeViewActive');
-
-
+lgb.events.MakeViewActive.TYPE = 'lgb.events.MakeViewActive';

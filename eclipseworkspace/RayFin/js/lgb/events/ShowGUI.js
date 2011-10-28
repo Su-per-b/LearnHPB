@@ -16,8 +16,6 @@ goog.inherits(lgb.events.ShowGUI, goog.events.Event);
 
 /**
  * Event type
- * @type {string}
+ * @define {string}
  */
-lgb.events.ShowGUI.TYPE =
-    goog.events.getUniqueId('ShowGUI');
-
+lgb.events.ShowGUI.TYPE = 'lgb.events.ShowGUI';
