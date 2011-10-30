@@ -19,7 +19,10 @@ lgb.model.scenario.Base = function() {
 	this.systemNodeArray = [];
 	this.idxToNodeMap = {};
 	this.selectedSystemNode = null;
-
+	
+	/**@const */
+	this._NAME ='lgb.model.scenario.Base';
+  
 };
 goog.inherits(lgb.model.scenario.Base, lgb.model.ModelBase);
 

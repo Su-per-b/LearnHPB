@@ -15,20 +15,19 @@ lgb.view.LeftNavView = function() {
 	
 	/**@const */
 	this.htmlID = 'leftNav';
-
+	this.dataModels = [];
+	
 	this.init_();
 	this.injectCss_();
 	this.injectHtml_();
 	this.makeToolTip_();
 	this.bind_();
 	
-		
-	this.showSelected('leftNavButton_1');
+	this.buttonGeneral.setSelected(true);
+	//this.setSelected('leftNavButton_1');
 };
-
-
-
 goog.inherits(lgb.view.LeftNavView, lgb.view.ViewBase);
+
 
 /**
  * @private
@@ -130,20 +129,11 @@ lgb.view.LeftNavView.prototype.injectHtml_ = function() {
  */
 lgb.view.LeftNavView.prototype.bind_ = function() {
 	this.listen(lgb.events.WindowResizeEvent.TYPE, this.onResize);
-	
+
 	var delegate = this.d(this.onClick_);
-	//$('#leftNavButton_1').click({mode:lgb.model.VisibilityTag.ALL},delegate);
-	
-	
-	
 	this.buttonGeneral.jq().click(lgb.model.BuildingModel.Group.ALL,delegate);
 	this.buttonHvac.jq().click(lgb.model.BuildingModel.Group.HVAC,delegate);
 	this.buttonEnvelope.jq().click(lgb.model.BuildingModel.Group.ENVELOPE,delegate);
-	
-	//$('#leftNavButton_3').click({mode:lgb.model.VisibilityTag.ENVELOPE},delegate);
-	
-	
-	
 };
 
 /**
@@ -161,7 +151,40 @@ lgb.view.LeftNavView.prototype.getYpos = function() {
 	return window.innerHeight - 140 - 352;
 };
 
-lgb.view.LeftNavView.prototype.onResize = function() {
+/**
+ * @param {lgb.model.BuildingModel.Group} visibilityGroup The group selected.
+ */
+lgb.view.LeftNavView.prototype.updateSelected = function(visibilityGroup) {
+	switch (visibilityGroup) {
+		case lgb.model.BuildingModel.Group.ALL:
+			this.buttonGeneral.setSelected(true);
+			this.buttonHvac.setSelected(false);
+			this.buttonEnvelope.setSelected(false);
+			break;
+		case lgb.model.BuildingModel.Group.HVAC:
+			this.buttonGeneral.setSelected(false);
+			this.buttonHvac.setSelected(true);
+			this.buttonEnvelope.setSelected(false);
+			break;
+		case lgb.model.BuildingModel.Group.ENVELOPE:
+			this.buttonGeneral.setSelected(false);
+			this.buttonHvac.setSelected(false);
+			this.buttonEnvelope.setSelected(true);
+			break;
+		default :
+			this.buttonGeneral.setSelected(false);
+			this.buttonHvac.setSelected(false);
+			this.buttonEnvelope.setSelected(false);
+			break;
+	}
+};
+
+
+/**
+ * Event handler for browser resize
+ * @param {goog.events.Event} event The Event.
+ */
+lgb.view.LeftNavView.prototype.onResize = function(event) {
 
 	var y = this.getYpos();
 
@@ -190,24 +213,6 @@ lgb.view.LeftNavView.prototype.show = function() {
   	}, 500);
 
 };
-
-
-lgb.view.LeftNavView.prototype.showSelected = function(newSelectedId) {
-	if (this.currentlySelectedID != newSelectedId) {
-
-		if ('#' + this.currentlySelectedID != 'none') {
-			$('#' + this.currentlySelectedID).removeClass('selected');
-		}
-
-		$('#' + newSelectedId).addClass('selected');
-		this.currentlySelectedID = newSelectedId;
-
-	}
-};
-
-
-
-
 
 
 

@@ -14,7 +14,7 @@ lgb.view.ParticleSystemAdminView = function(dataModel, parentHTMLid) {
 	lgb.view.ViewBase.call(this, dataModel);
 	
 	this.parentHTMLid = parentHTMLid;
-	this.htmlID = 'adminSubpanel-' + dataModel._NAME;
+	this.htmlID = 'adminSubpanel-' + dataModel.getCssID();
 };
 goog.inherits(lgb.view.ParticleSystemAdminView, lgb.view.ViewBase);
 

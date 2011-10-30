@@ -3,6 +3,7 @@ goog.provide('lgb.controller.DuctworkController');
 goog.require('lgb.controller.ControllerBase');
 goog.require('lgb.model.DuctworkModel');
 goog.require('lgb.view.DuctworkView');
+goog.require('lgb.events.RequestVisibilityChange');
 
 
 /**
@@ -22,8 +23,8 @@ goog.inherits(lgb.controller.DuctworkController, lgb.controller.ControllerBase);
  * @private
  */
 lgb.controller.DuctworkController.prototype.init_ = function() {
-	this.model = new lgb.model.DuctworkModel();
-	this.view = new lgb.view.DuctworkView(this.model);
+	this.dataModel = new lgb.model.DuctworkModel();
+	this.view = new lgb.view.DuctworkView(this.dataModel);
 	
 	this.bind_();
 
@@ -31,24 +32,23 @@ lgb.controller.DuctworkController.prototype.init_ = function() {
 
 
 
+
 /**
  * @private
  */
 lgb.controller.DuctworkController.prototype.bind_ = function() {
-	
 	lgb.controller.DuctworkController.superClass_.bind.call(this);
-	
-	this.listen(lgb.events.RequestVisibilityChange.TYPE, 
-		this.onRequestVisibilityChange_);
 };
+
 
 
 /**
- * @private
+ * @public
+ * @param {lgb.model.Building.Group}
  */
-lgb.controller.DuctworkController.prototype.onRequestVisibilityChange_ = function(event) {
-	
-	
-	
-	
+lgb.controller.DuctworkController.prototype.setVisiblityGroup = function(group) {
+	this.dataModel.setVisiblityGroup(group)
 };
+
+
+

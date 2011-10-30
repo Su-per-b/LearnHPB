@@ -17,6 +17,10 @@ lgb.model.scenario.SystemNode = function(xmlParser) {
   this.parse(xmlParser);
    /** @type {number} */
   this.idx =0;
+  
+  /**@const */
+  this._NAME ='lgb.model.scenario.SystemNode';
+	
 };
 goog.inherits(lgb.model.scenario.SystemNode, lgb.model.ModelBase);
 

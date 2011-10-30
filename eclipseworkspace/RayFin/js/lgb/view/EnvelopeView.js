@@ -11,36 +11,53 @@ goog.require('lgb.view.ViewBase');
  * @constructor
  * @extends {lgb.view.ViewBase}
  */
-lgb.view.EnvelopeView = function(model) {
-	lgb.view.ViewBase.call(this);
-
-	this.model_ = model;
-	this.init();
-
+lgb.view.EnvelopeView = function(dataModel) {
+	lgb.view.ViewBase.call(this, dataModel);
+	this.init_();
 };
 goog.inherits(lgb.view.EnvelopeView, lgb.view.ViewBase);
 
 
-
 /**
- * Initializes the View
+ * Initializes the View 
+ * and loads the meshes from remote files
+ * @private
  */
-lgb.view.EnvelopeView.prototype.init = function() {
-
+lgb.view.EnvelopeView.prototype.init_ = function() {
 	this.loader_ = new lgb.Loader();
 	this.loader_.loadFile('9footEnvelopeStrip-joined.b.js', this.d(this.onGeometryLoaded));
-	//this.loader_.loadFile("roofTop.b.js", this.d(this.onGeometryLoaded));
-	//this.loader_.loadFile("ductwork.b.js", this.d(this.onGeometryLoaded));
 
 };
 
+
 /**
- * 
+ * @override
+ * @param {goo.events.Event} event The event.
+ * @protected
  */
-lgb.view.EnvelopeView.prototype.setVisible = function(makeVisible) {
-	//this.floor1.materials[0].opacity = 0.1;
-	
-	this.floor1.visible = !this.floor1.visible;
+lgb.view.EnvelopeView.prototype.onChange = function(event) {
+	this.updateAllFromModel_();
+};
+
+
+
+/**
+ * Updates the view here to reflect any changes in the MVC data model.
+ * @private
+ */
+lgb.view.EnvelopeView.prototype.updateAllFromModel_ = function() {
+	this.updateVisible_();
+};
+
+
+/**
+ * Updates this view to reflect the changes in the visibility state of the MVC model.
+ * @private
+ */
+lgb.view.EnvelopeView.prototype.updateVisible_ = function() {
+	this.floor1.visible = this.dataModel.isVisible;
+	this.floor2.visible = this.dataModel.isVisible;
+	this.floor3.visible = this.dataModel.isVisible;
 };
 
 

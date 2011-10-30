@@ -34,6 +34,9 @@ lgb.model.scenario.SysVar = function(node) {
   
   /** @type {number} */
   this.idx =0;
+  
+  /**@const */
+  this._NAME ='lgb.model.scenario.SysVar';
 };
 goog.inherits(lgb.model.scenario.SysVar, lgb.model.ModelBase);
 

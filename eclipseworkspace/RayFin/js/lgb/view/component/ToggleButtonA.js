@@ -20,6 +20,7 @@ lgb.view.component.ToggleButtonA = function(options) {
 	}, options);
 
 	this.htmlID = options.htmlId;
+	this.isSelected = false;
 };
 goog.inherits(lgb.view.component.ToggleButtonA, lgb.view.ViewBase);
 
@@ -34,6 +35,21 @@ lgb.view.component.ToggleButtonA.prototype.getCss = function() {
 
 	return cssInner;
 };
+
+
+lgb.view.component.ToggleButtonA.prototype.setSelected = function(makeSelected) {
+	
+	if (this.isSelected != makeSelected) {
+		
+		this.isSelected = makeSelected;
+			
+		if (this.isSelected) {
+			this.jq().addClass('selected');
+		} else {
+			this.jq().removeClass('selected');
+		}
+	}
+}
 
 
 

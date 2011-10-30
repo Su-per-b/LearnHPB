@@ -5,7 +5,6 @@ goog.require('lgb.utils');
 goog.require('lgb.events.DataModelChanged');
 
 
-// TODO (Raj) The classes that inherit from this should not have acess to the global EventBus
 
 /**
  * MVC View base class
@@ -18,7 +17,7 @@ lgb.view.ViewBase = function(dataModel) {
 
 	if (null !== dataModel && undefined !== dataModel) {
 		this.dataModel = dataModel;
-		this.listenForChange();
+		this.listenForChange_();
 	}
 
 	this.parentHTMLid = 'theBody';
@@ -27,22 +26,17 @@ lgb.view.ViewBase = function(dataModel) {
 };
 goog.inherits(lgb.view.ViewBase, lgb.BaseClass);
 
-
+/**
+ * injects html into the DOM
+ * @param {string} html the HTML string to append.
+ * @protected
+ */
 lgb.view.ViewBase.prototype.append = function(html) {
 	this.jqParent().append(html);
 };
 
-//lgb.BaseClass.prototype.dispatch = function(event) {
-
-	//alert('You should not do a ')
-
-	//throw Error('You should not do a global event dispatch from a View object');
-//};
-
 /**
- * if user clicks on this element, then with prevent that click event
- * from reaching the WebGL canvas
- * @public
+ * @depricated
  */
 lgb.view.ViewBase.prototype.stopClickPropigation = function() {
 		
@@ -55,6 +49,7 @@ lgb.view.ViewBase.prototype.stopClickPropigation = function() {
  * blocks the event
  * @param {Event} event The mousedown or mouseup event to block.
  * @protected
+ * @depricated
  */
 lgb.view.ViewBase.prototype.stopClickPropigationHandler_ = function(event) {
 		event.preventDefault();
@@ -93,20 +88,32 @@ lgb.view.ViewBase.prototype.jq = function(id) {
 	return jq;
 };
 
-
+/**
+ * converts an id into a Jquery object
+ * refers to the parent in the DOM
+ * @return {jQuery}
+ */
 lgb.view.ViewBase.prototype.jqParent = function() {
 	var selector = $('#{0}'.format(this.parentHTMLid));
 	return selector;
 };
 
 
-
+/**
+ * Event Handler that fires when the data model changes
+ * @param {goo.events.Event} event The event.
+ * @protected
+ */
 lgb.view.ViewBase.prototype.onChange = function(event) {
-	//throw Error('this should be overriden');
+	throw('this should be overriden');
 };
 
-
-lgb.view.ViewBase.prototype.listenForChange = function() {
+/**
+ * Binds an event listener to handle when the MVC data model changes.
+ * @param {goo.events.Event} event The event.
+ * @private
+ */
+lgb.view.ViewBase.prototype.listenForChange_ = function() {
 	this.listenHelper_(this.dataModel, lgb.events.DataModelChanged.TYPE, this, this.onChange);
 };
 
