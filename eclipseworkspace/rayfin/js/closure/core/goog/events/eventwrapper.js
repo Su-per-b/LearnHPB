@@ -20,6 +20,7 @@
 goog.provide('goog.events.EventWrapper');
 
 
+
 /**
  * Interface for event wrappers.
  * @interface
@@ -40,7 +41,7 @@ goog.events.EventWrapper = function() {
  * @param {boolean=} opt_capt Whether to fire in capture phase (defaults to
  *     false).
  * @param {Object=} opt_scope Element in whose scope to call the listener.
- * @param {*=} opt_eventHandler Event handler to add
+ * @param {goog.events.EventHandler=} opt_eventHandler Event handler to add
  *     listener to.
  */
 goog.events.EventWrapper.prototype.listen = function(src, listener, opt_capt,
@@ -58,7 +59,7 @@ goog.events.EventWrapper.prototype.listen = function(src, listener, opt_capt,
  * @param {boolean=} opt_capt Whether to fire in capture phase (defaults to
  *     false).
  * @param {Object=} opt_scope Element in whose scope to call the listener.
- * @param {*=} opt_eventHandler Event handler to remove
+ * @param {goog.events.EventHandler=} opt_eventHandler Event handler to remove
  *     listener from.
  */
 goog.events.EventWrapper.prototype.unlisten = function(src, listener, opt_capt,

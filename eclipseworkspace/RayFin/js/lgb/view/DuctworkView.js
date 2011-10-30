@@ -41,15 +41,9 @@ lgb.view.DuctworkView.prototype.onGeometryLoaded = function(geometry) {
 
 	mesh.rotation.y = 90 * Math.PI / 180;
 	mesh.position.x += 1;
-	//colladaScene.up.x = 1;
-//colladaScene.up.y = 0;
-//	colladaScene.up.z = 0;
-
 	mesh.updateMatrix();
 	
-	//mesh.scale.x = mesh.scale.y = mesh.scale.z = 1;
-
 	var event = new lgb.events.MeshLoaded(mesh);
-	this.dispatch(event);
+	this.dispatchLocal(event);
 	
 };

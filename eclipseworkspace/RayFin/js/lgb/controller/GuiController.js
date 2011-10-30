@@ -38,11 +38,29 @@ lgb.controller.GuiController.prototype.init_ = function() {
 	this.leftNavView.show();
 
 	this.propertiesController = new lgb.controller.PropertiesController();
+	
+	this.bind_();
 
 };
 
 
 
+/**
+ * @private
+ */
+lgb.controller.GuiController.prototype.bind_ = function() {
+	
+	this.listenTo(this.leftNavView, 
+		lgb.events.RequestVisibilityChange.TYPE, 
+		this.onRequestVisibilityChange_);
+}
+
+/**
+ * @private
+ */
+lgb.controller.GuiController.prototype.onRequestVisibilityChange_ = function(event) {
+	this.dispatch(event);
+}
 
 
 

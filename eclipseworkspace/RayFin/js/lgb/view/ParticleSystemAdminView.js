@@ -25,7 +25,7 @@ goog.inherits(lgb.view.ParticleSystemAdminView, lgb.view.ViewBase);
  */
 lgb.view.ParticleSystemAdminView.prototype.init = function() {
 	this.injectHtml();
-	this.listen_();
+	this.bind_();
 };
 
 
@@ -33,7 +33,7 @@ lgb.view.ParticleSystemAdminView.prototype.init = function() {
  * binds event listeners.
  * @private
  */
-lgb.view.ParticleSystemAdminView.prototype.listen_ = function() {
+lgb.view.ParticleSystemAdminView.prototype.bind_ = function() {
 	this.cbPlayPause.jq().change(this.d(this.onPlayPauseChanged_));
 	this.cbBoxes.jq().change(this.d(this.onBoxesChanged_));
 	this.cbCurves.jq().change(this.d(this.onCurvesChanged_));

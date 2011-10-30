@@ -44,7 +44,6 @@ lgb.view.component.ToggleButtonA.prototype.getHtml = function() {
 			cssClass = ' class="{0}"'.format(this.options.cssClass);
 		}
 
-
 		var html =
 		'<a id="{0}" title="{1}"{2} href="#"></a>'
 		.format(this.options.htmlId, this.options.title, cssClass);

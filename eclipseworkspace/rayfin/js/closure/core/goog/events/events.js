@@ -65,7 +65,6 @@ goog.require('goog.events.EventWrapper');
 goog.require('goog.events.pools');
 goog.require('goog.object');
 goog.require('goog.userAgent');
-goog.require('goog.debug.ErrorHandler');
 
 
 /**

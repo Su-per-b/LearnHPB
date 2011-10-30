@@ -2,7 +2,8 @@ goog.provide('lgb.view.LeftNavView');
 
 goog.require('lgb.view.ViewBase');
 goog.require('lgb.view.component.ToggleButtonA');
-
+goog.require('lgb.model.BuildingModel.Group');
+goog.require('lgb.events.RequestVisibilityChange');
 
 
 /**
@@ -19,7 +20,7 @@ lgb.view.LeftNavView = function() {
 	this.injectCss_();
 	this.injectHtml_();
 	this.makeToolTip_();
-	this.listen_();
+	this.bind_();
 	
 		
 	this.showSelected('leftNavButton_1');
@@ -43,7 +44,7 @@ lgb.view.LeftNavView.prototype.makeToolTip_ = function() {
 	  closeButton: false
 	};
 
-	Tipped.create('.leftNavButton', toolTipConfig);
+	Tipped.create('#leftNav a', toolTipConfig);
 }
 
 /**
@@ -51,7 +52,7 @@ lgb.view.LeftNavView.prototype.makeToolTip_ = function() {
  */
 lgb.view.LeftNavView.prototype.injectCss_ = function() {
 	var cssInner = 
-	'.leftNavButton  {' +
+	'#leftNav a {' +
 		'width:42px;' +
 		'height:42px;' +
 		'display:block;' +
@@ -77,24 +78,21 @@ lgb.view.LeftNavView.prototype.init_ = function() {
 		new lgb.view.component.ToggleButtonA({
 			htmlId: 'leftNavButton_1',
 			xPosition: -42,
-			title: 'General',
-			cssClass: 'leftNavButton '
+			title: 'General'
 		});
 
 	this.buttonHvac =
 		new lgb.view.component.ToggleButtonA({
 			htmlId: 'leftNavButton_2',
 			xPosition: -84,
-			title: 'HVAC',
-			cssClass: 'leftNavButton '
+			title: 'HVAC'
 		});
 
 	this.buttonEnvelope =
 		new lgb.view.component.ToggleButtonA({
 			htmlId: 'leftNavButton_3',
 			xPosition: -168,
-			title: 'External Envelope',
-			cssClass: 'leftNavButton '
+			title: 'External Envelope'
 		});
 
 	this.currentlySelectedID = 'none';
@@ -124,20 +122,39 @@ lgb.view.LeftNavView.prototype.injectHtml_ = function() {
 			    padding: '60px 0 0 10px'
 				})
 		.appendTo('body');
-
-		
-
-
 };
 
 
 /**
  * @private
  */
-lgb.view.LeftNavView.prototype.listen_ = function() {
+lgb.view.LeftNavView.prototype.bind_ = function() {
 	this.listen(lgb.events.WindowResizeEvent.TYPE, this.onResize);
+	
+	var delegate = this.d(this.onClick_);
+	//$('#leftNavButton_1').click({mode:lgb.model.VisibilityTag.ALL},delegate);
+	
+	
+	
+	this.buttonGeneral.jq().click(lgb.model.BuildingModel.Group.ALL,delegate);
+	this.buttonHvac.jq().click(lgb.model.BuildingModel.Group.HVAC,delegate);
+	this.buttonEnvelope.jq().click(lgb.model.BuildingModel.Group.ENVELOPE,delegate);
+	
+	//$('#leftNavButton_3').click({mode:lgb.model.VisibilityTag.ENVELOPE},delegate);
+	
+	
+	
 };
 
+/**
+ * Event handler -> fires when any of the left nav buttons are clicked
+ * @param {goog.event.Event} event The Event.
+ * @private
+ */
+lgb.view.LeftNavView.prototype.onClick_ = function(event) {
+	var e = new lgb.events.RequestVisibilityChange(event.data);
+	this.dispatchLocal(e);
+};
 
 
 lgb.view.LeftNavView.prototype.getYpos = function() {
@@ -189,10 +206,6 @@ lgb.view.LeftNavView.prototype.showSelected = function(newSelectedId) {
 };
 
 
-lgb.view.LeftNavView.prototype.onClick = function(event) {
-		//this.showSelected(event.target.id);
-		//this.dispatch(lgb.events.Visibility.GUI_SELECTION, event.data.mode);
-};
 
 
 

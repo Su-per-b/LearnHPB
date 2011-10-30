@@ -15,7 +15,7 @@ lgb.view.TitleBarView = function() {
 	this.htmlID = 'titleBar';
 
 	this.injectHtml_();
-	this.listen_();
+	this.bind_();
 
 };
 goog.inherits(lgb.view.TitleBarView, lgb.view.ViewBase);
@@ -45,7 +45,7 @@ lgb.view.TitleBarView.prototype.injectHtml_ = function() {
 /**
  * @private
  */
-lgb.view.TitleBarView.prototype.listen_ = function() {
+lgb.view.TitleBarView.prototype.bind_ = function() {
 		this.listen(lgb.events.WindowResizeEvent.TYPE, this.onResize);
 }
 

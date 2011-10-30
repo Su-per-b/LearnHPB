@@ -91,7 +91,7 @@ lgb.view.ParticleSystem.prototype.init = function() {
 	this.currentFrameNumber = this.launchDelayBetweenParticles + 1;
 	
 	var event = new lgb.events.Object3DLoaded(this.masterGroup);
-	this.dispatch(event);
+	this.dispatchLocal(event);
 
 };
 

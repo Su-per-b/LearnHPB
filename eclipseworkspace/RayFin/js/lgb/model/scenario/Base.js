@@ -2,7 +2,7 @@ goog.provide('lgb.model.scenario.Base');
 
 goog.require('lgb.events.ComponentSelected');
 goog.require('lgb.events.DataModelChanged');
-goog.require('lgb.events.ScenarioParsed');
+goog.require('lgb.events.DataModelInitialized');
 goog.require('lgb.model.ModelBase');
 goog.require('lgb.model.XmlParser');
 goog.require('lgb.model.scenario.SystemNode');
@@ -44,32 +44,28 @@ lgb.model.scenario.Base.prototype.selectId = function(id) {
 	var e = new lgb.events.DataModelChanged();
 	this.dispatchLocal(e);
 };
-
-
 lgb.model.scenario.Base.prototype.parse = function(xml) {
 
-		this.xml = xml;
+	this.xml = xml;
 
-		var parser = new lgb.model.XmlParser(xml);
-		parser.makeRootNode('/scenario/sysVars/systemNode');
+	var parser = new lgb.model.XmlParser(xml);
+	parser.makeRootNode('/scenario/sysVars/systemNode');
+	
+	var idx = 0;
+	while (parser.currentNode) {
+		var systemNode = new lgb.model.scenario.SystemNode(parser);
+		systemNode.idx = idx;
+
+		this.idxToNodeMap[systemNode.id] = systemNode;
+		this.systemNodeArray.push(systemNode);
 		
-		var idx = 0;
-		while (parser.currentNode) {
-			var systemNode = new lgb.model.scenario.SystemNode(parser);
-			systemNode.idx = idx;
-
-			this.idxToNodeMap[systemNode.id] = systemNode;
-			this.systemNodeArray.push(systemNode);
-			
-			idx++;
-			parser.next();
-        }
-        
-        this.selectedSystemNode = this.systemNodeArray[0];
-
-		var event = new lgb.events.ScenarioParsed(this);
-		this.dispatch(event);
-
+		idx++;
+		parser.next();
+   };
+    
+    this.selectedSystemNode = this.systemNodeArray[0];
+    
+	this.dispatchLocal(new lgb.events.DataModelInitialized());
 };
 
 

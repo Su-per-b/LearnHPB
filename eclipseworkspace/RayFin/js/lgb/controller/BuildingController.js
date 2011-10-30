@@ -2,14 +2,13 @@ goog.provide('lgb.controller.BuildingController');
 
 goog.require('lgb.controller.ControllerBase');
 
-goog.require('lgb.model.RoofTopModel');
-goog.require('lgb.view.RoofTopView');
+goog.require('lgb.controller.EnvelopeController');
+goog.require('lgb.controller.RoofTopController');
+goog.require('lgb.controller.DuctworkController');
 
-goog.require('lgb.model.EnvelopeModel');
-goog.require('lgb.view.EnvelopeView');
+goog.require('lgb.model.BuildingModel');
 
-goog.require('lgb.model.DuctworkModel');
-goog.require('lgb.view.DuctworkView');
+
 
 
 /**
@@ -30,15 +29,33 @@ goog.inherits(lgb.controller.BuildingController, lgb.controller.ControllerBase);
  */
 lgb.controller.BuildingController.prototype.init_ = function() {
 
-	this.model = new lgb.model.EnvelopeModel();
-	this.view = new lgb.view.EnvelopeView(this.model);
+	this.envelopeController = new lgb.controller.EnvelopeController();
+	this.roofTopController = new lgb.controller.RoofTopController();
+	this.ductworkController = new lgb.controller.DuctworkController();
 	
-	this.model = new lgb.model.RoofTopModel();
-	this.view = new lgb.view.RoofTopView(this.model);
-	
-	this.model = new lgb.model.DuctworkModel();
-	this.view = new lgb.view.DuctworkView(this.model);
-	
-	
-	
+	this.bind();
 };
+
+
+/**
+ * @private
+ */
+lgb.controller.BuildingController.prototype.bind = function() {
+	
+	this.listen(lgb.events.RequestVisibilityChange.TYPE, 
+		this.onRequestVisibilityChange_);
+}
+
+
+/**
+ * @private
+ */
+lgb.controller.BuildingController.prototype.onRequestVisibilityChange_ = function(event) {
+	//this.dispatch(event);
+	
+	//switch (event.payload) {
+		//case lgb.model.BuildingModel.Group.HVAC : 
+		//this.envelopeView.setVisible(false);
+		//break;
+	//}
+}

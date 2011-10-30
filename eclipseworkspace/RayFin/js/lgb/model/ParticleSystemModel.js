@@ -182,41 +182,38 @@ lgb.model.ParticleSystemModel.prototype.parse = function(xml) {
 
 lgb.model.ParticleSystemModel.prototype.makeParticleConfig = function(sys) {
 
-		//	var shapeStr = 'hemi.curve.shapeType.' + sys.shape;
+	var bbAry = this.makeArrayFromIds(sys.boundingBoxIds, this.boxes);
+	var ckAry = this.makeArrayFromIds(sys.colorKeyIds, this.colorKeys);
+	var skAry = this.makeArrayFromIds(sys.scaleKeyIds, this.scaleKeys);
 
-			var bbAry = this.makeArrayFromIds(sys.boundingBoxIds, this.boxes);
-			var ckAry = this.makeArrayFromIds(sys.colorKeyIds, this.colorKeys);
-			var skAry = this.makeArrayFromIds(sys.scaleKeyIds, this.scaleKeys);
+	var particleSystemConfig = {
+		fast: false,
+		life: sys.life,
+		particleCount: sys.particleCount,
+		boxes: bbAry,
+		particleSize: sys.particleSize,
+		colorKeys: ckAry,
+		scaleKeys: skAry
+	};
 
-			var particleSystemConfig = {
-				fast: false,
-				life: sys.life,
-				particleCount: sys.particleCount,
-				boxes: bbAry,
-			//	particleShape : hemi.curve.ShapeType.SPHERE,
-				particleSize: sys.particleSize,
-				colorKeys: ckAry,
-				scaleKeys: skAry
-			};
-
-			return particleSystemConfig;
+	return particleSystemConfig;
 };
 
 
 
 
 lgb.model.ParticleSystemModel.prototype.makeArrayFromIds = function(idsArray, objs) {
-		var ary = new Array();
-		var len = idsArray.length;
+	var ary = new Array();
+	var len = idsArray.length;
 
-		for (var i = 0; i < len; i++) {
-			var id = idsArray[i];
-			var obj = objs[id];
+	for (var i = 0; i < len; i++) {
+		var id = idsArray[i];
+		var obj = objs[id];
 
-			ary.push(obj);
-		}
+		ary.push(obj);
+	}
 
-		return ary;
+	return ary;
 };
 
 
