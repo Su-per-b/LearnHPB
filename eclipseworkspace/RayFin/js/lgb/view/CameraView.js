@@ -12,7 +12,7 @@ lgb.view.CameraView = function(domElement) {
 	lgb.view.ViewBase.call(this);
 
 	this.init(domElement);
-
+	this._NAME ='lgb.view.CameraView';
 };
 goog.inherits(lgb.view.CameraView, lgb.view.ViewBase);
 

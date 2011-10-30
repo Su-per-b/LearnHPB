@@ -16,7 +16,7 @@ lgb.view.TitleBarView = function() {
 
 	this.injectHtml_();
 	this.bind_();
-
+	this._NAME ='lgb.view.TitleBarView';
 };
 goog.inherits(lgb.view.TitleBarView, lgb.view.ViewBase);
 

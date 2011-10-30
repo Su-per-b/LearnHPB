@@ -15,6 +15,8 @@ lgb.view.ParticleSystemAdminView = function(dataModel, parentHTMLid) {
 	
 	this.parentHTMLid = parentHTMLid;
 	this.htmlID = 'adminSubpanel-' + dataModel.getCssID();
+	
+	this._NAME ='lgb.view.ParticleSystemAdminView';
 };
 goog.inherits(lgb.view.ParticleSystemAdminView, lgb.view.ViewBase);
 
@@ -44,8 +46,21 @@ lgb.view.ParticleSystemAdminView.prototype.bind_ = function() {
 };
 
 /**
+ * event handler
+ * @protected
+ * @override
+ * @parameter {good.events.Event} event The Event.
+ */
+lgb.view.ParticleSystemAdminView.prototype.onChange = function(event) {
+
+
+};
+
+
+/**
  * event handler for checkbox this.cbEmitting
  * @private
+ * @parameter {jQuery.event} event The Event.
  */
 lgb.view.ParticleSystemAdminView.prototype.onEmittingChanged_ = function(event) {
 
@@ -60,6 +75,7 @@ lgb.view.ParticleSystemAdminView.prototype.onEmittingChanged_ = function(event) 
 /**
  * event handler for checkbox this.cbCurves
  * @private
+ * @parameter {jQuery.event} event The Event.
  */
 lgb.view.ParticleSystemAdminView.prototype.onCurvesChanged_ = function(event) {
 
@@ -74,6 +90,7 @@ lgb.view.ParticleSystemAdminView.prototype.onCurvesChanged_ = function(event) {
 /**
  * event handler for checkbox this.cbBoxes
  * @private
+ * @parameter {jQuery.event} event The Event.
  */
 lgb.view.ParticleSystemAdminView.prototype.onBoxesChanged_ = function(event) {
 
@@ -88,6 +105,7 @@ lgb.view.ParticleSystemAdminView.prototype.onBoxesChanged_ = function(event) {
 /**
  * event handler for checkbox this.cbPlayPause
  * @private
+ * @parameter {jQuery.event} event The Event.
  */
 lgb.view.ParticleSystemAdminView.prototype.onPlayPauseChanged_ = function(event) {
 
@@ -105,14 +123,6 @@ lgb.view.ParticleSystemAdminView.prototype.onPlayPauseChanged_ = function(event)
 lgb.view.ParticleSystemAdminView.prototype.getHTML = function(){
 	
 	
-
-	
-	
-	//this.chkPlayPauseID = this.makeID ('start');
-	//this.chkBoxesID = this.makeID ('boxes');
-	//this.chkCurvesID = this.makeID ('curves');
-	
-	
 	var html = '<div id="{0}" class="adminSubPanel">' +
 					'<h3>{1}</h3>' +
 				'</div>';
@@ -124,6 +134,7 @@ lgb.view.ParticleSystemAdminView.prototype.getHTML = function(){
 	return html;
 	
 };
+
 
 /**
  * injects the particle system control panel into the DOM
@@ -148,7 +159,6 @@ lgb.view.ParticleSystemAdminView.prototype.injectHtml = function(){
 	this.cbEmitting.injectHtml();
 	
 };
-
 
 
 lgb.view.ParticleSystemAdminView.prototype.updateFromDataModel = function(){

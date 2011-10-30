@@ -101,16 +101,16 @@ lgb.view.ViewBase.prototype.jqParent = function() {
 
 /**
  * Event Handler that fires when the data model changes
- * @param {goo.events.Event} event The event.
+ * @param {goog.events.Event} event The event.
  * @protected
  */
 lgb.view.ViewBase.prototype.onChange = function(event) {
-	throw('this should be overriden');
+	throw('this should be overriden Class name: ' + this._NAME);
 };
 
 /**
  * Binds an event listener to handle when the MVC data model changes.
- * @param {goo.events.Event} event The event.
+ * @param {goog.events.Event} event The event.
  * @private
  */
 lgb.view.ViewBase.prototype.listenForChange_ = function() {

@@ -13,6 +13,7 @@ goog.require('lgb.view.ViewBase');
  */
 lgb.view.EnvelopeView = function(dataModel) {
 	lgb.view.ViewBase.call(this, dataModel);
+	this._NAME ='lgb.view.EnvelopeView';
 	this.init_();
 };
 goog.inherits(lgb.view.EnvelopeView, lgb.view.ViewBase);

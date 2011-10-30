@@ -21,6 +21,8 @@ lgb.view.component.ToggleButtonA = function(options) {
 
 	this.htmlID = options.htmlId;
 	this.isSelected = false;
+	
+	this._NAME = 'lgb.view.component.ToggleButtonA';
 };
 goog.inherits(lgb.view.component.ToggleButtonA, lgb.view.ViewBase);
 

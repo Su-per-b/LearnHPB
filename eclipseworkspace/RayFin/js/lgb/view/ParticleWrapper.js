@@ -16,7 +16,7 @@ lgb.view.ParticleWrapper = function(vertex) {
 	 */
 	this.vertex = vertex;
 
-
+	this._NAME ='lgb.view.ParticleWrapper';
 };
 goog.inherits(lgb.view.ParticleWrapper, lgb.view.ViewBase);
 

@@ -14,6 +14,7 @@ lgb.view.AdminView = function() {
   this.injectHtml_();
   this.bind_();
   this.useSlideEffect = false;
+  this._NAME ='lgb.view.AdminView';
 };
 goog.inherits(lgb.view.AdminView, lgb.view.DialogView);
 

@@ -19,7 +19,7 @@ lgb.view.component.CheckBox = function(parentHTMLid, subID, title) {
 	this.title = title;
 	this.isChecked = false;
 	this.hasBeenInjected = false;
-	
+	this._NAME = 'lgb.view.component.CheckBox';
 };
 goog.inherits(lgb.view.component.CheckBox, lgb.view.ViewBase);
 

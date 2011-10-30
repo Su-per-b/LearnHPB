@@ -15,7 +15,7 @@ lgb.view.ParticleView = function() {
 
 
 	this.init();
-
+	this._NAME ='lgb.view.ParticleView';
 };
 goog.inherits(lgb.view.ParticleView, lgb.view.ViewBase);
 

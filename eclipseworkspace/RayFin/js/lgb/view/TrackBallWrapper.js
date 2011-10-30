@@ -16,6 +16,8 @@ lgb.view.TrackBallWrapper = function( object, domElement) {
 	lgb.view.ViewBase.call(this);
 	this.trackballControls = new THREE.TrackballControls(object, domElement);
 	this.init();
+	
+	this._NAME ='lgb.view.TrackBallWrapper';
 
 };
 goog.inherits(lgb.view.TrackBallWrapper, lgb.view.ViewBase);

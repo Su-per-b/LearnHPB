@@ -13,6 +13,8 @@ lgb.view.component.InputWidget = function(dataModel) {
 	
 	/** @const */
 	this.htmlID = 'component-InputWidget-' + dataModel.name;
+	
+	this._NAME = 'lgb.view.component.InputWidget';
 };
 goog.inherits(lgb.view.component.InputWidget, lgb.view.ViewBase);
 

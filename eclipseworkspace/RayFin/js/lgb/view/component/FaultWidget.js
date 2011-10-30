@@ -13,6 +13,7 @@ lgb.view.component.FaultWidget = function(dataModel) {
 	
 	/** @const */
 	this.htmlID = 'component-FaultWidget-' + dataModel.name;
+	this._NAME = 'lgb.view.component.FaultWidget';
 };
 goog.inherits(lgb.view.component.FaultWidget, lgb.view.ViewBase);
 

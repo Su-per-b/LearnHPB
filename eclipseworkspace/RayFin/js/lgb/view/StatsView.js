@@ -14,7 +14,7 @@ lgb.view.StatsView = function(containerDiv) {
 	lgb.view.ViewBase.call(this);
 
 	this.init(containerDiv);
-
+	this._NAME ='lgb.view.StatsView';
 };
 goog.inherits(lgb.view.StatsView, lgb.view.ViewBase);
 

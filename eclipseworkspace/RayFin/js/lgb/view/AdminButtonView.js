@@ -10,6 +10,7 @@ goog.require('lgb.view.component.ToggleButtonA');
 lgb.view.AdminButtonView = function() {
 	lgb.view.ViewBase.call(this);
 	this.htmlID = 'adminButton';
+	this._NAME ='lgb.view.AdminButtonView';
 };
 goog.inherits(lgb.view.AdminButtonView, lgb.view.ViewBase);
 

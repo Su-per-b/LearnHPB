@@ -16,6 +16,7 @@ lgb.view.RoofTopView = function(dataModel) {
 
 	this.dataModel = dataModel;
 	this.init();
+	this._NAME ='lgb.view.RoofTopView';
 };
 goog.inherits(lgb.view.RoofTopView, lgb.view.ViewBase);
 

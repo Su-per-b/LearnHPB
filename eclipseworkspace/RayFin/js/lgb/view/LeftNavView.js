@@ -25,6 +25,8 @@ lgb.view.LeftNavView = function() {
 	
 	this.buttonGeneral.setSelected(true);
 	//this.setSelected('leftNavButton_1');
+	
+	this._NAME ='lgb.view.LeftNavView';
 };
 goog.inherits(lgb.view.LeftNavView, lgb.view.ViewBase);
 

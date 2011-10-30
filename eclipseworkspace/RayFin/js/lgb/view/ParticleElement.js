@@ -23,6 +23,7 @@ lgb.view.ParticleElement = function(pMaterial, pMaterialHide) {
 	
 	this.currentFrameNumber = 0;
     this.isFinished = false;
+	this._NAME ='lgb.view.ParticleElement';
 };
 goog.inherits(lgb.view.ParticleElement, lgb.view.ViewBase);
 

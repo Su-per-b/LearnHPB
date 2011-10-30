@@ -19,6 +19,8 @@ lgb.view.ParticleSystem = function(dataModel) {
 	this.dataModel = dataModel;
 	this.listenTo(this.dataModel, lgb.events.DataModelChanged.TYPE, this.onDataModelChanged);
 	//this.init();
+	
+	this._NAME ='lgb.view.ParticleSystem';
 };
 goog.inherits(lgb.view.ParticleSystem, lgb.view.ViewBase);
 

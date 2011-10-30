@@ -13,7 +13,7 @@ lgb.view.FloorView = function() {
 	lgb.view.ViewBase.call(this);
 
 	this.init();
-
+	this._NAME ='lgb.view.FloorView';
 };
 goog.inherits(lgb.view.FloorView, lgb.view.ViewBase);
 

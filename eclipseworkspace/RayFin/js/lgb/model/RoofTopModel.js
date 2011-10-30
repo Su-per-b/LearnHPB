@@ -18,6 +18,7 @@ lgb.model.RoofTopModel = function() {
 	this.groupMembership[lgb.model.BuildingModel.Group.HVAC] = true;
 	
 	this.isVisible = true;
+	this._NAME ='lgb.model.RoofTopModel';
 };
 goog.inherits(lgb.model.RoofTopModel, lgb.model.ModelBase);
 

@@ -26,6 +26,8 @@ lgb.view.PropertiesView = function(dataModel) {
   this.injectHtml_();
   this.showNode(this.dataModel.selectedSystemNode);
   this.setDropDownSelection(this.dataModel.selectedSystemNode);
+  
+	this._NAME ='lgb.view.PropertiesView';
 };
 goog.inherits(lgb.view.PropertiesView, lgb.view.DialogView);
 

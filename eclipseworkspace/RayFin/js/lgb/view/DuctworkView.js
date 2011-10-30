@@ -15,6 +15,7 @@ lgb.view.DuctworkView = function(dataModel) {
 	lgb.view.ViewBase.call(this, dataModel);
 
 	this.dataModel = dataModel;
+	this._NAME ='lgb.view.DuctworkView';
 	this.init_();
 
 };

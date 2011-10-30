@@ -10,11 +10,12 @@ goog.require('lgb.view.component.ToggleButtonA');
 lgb.view.PropertiesButtonView = function() {
 	lgb.view.ViewBase.call(this);
 	this.htmlID = 'propertiesButton';
+
 };
 goog.inherits(lgb.view.PropertiesButtonView, lgb.view.ViewBase);
 
 lgb.view.PropertiesButtonView.prototype.init = function() {
-
+	this._NAME ='lgb.view.PropertiesView';
 	this.button =
 		new lgb.view.component.ToggleButtonA({
 			htmlId: 'propertiesButtonLink',
@@ -24,17 +25,19 @@ lgb.view.PropertiesButtonView.prototype.init = function() {
 			cssClass: 'leftNavButton'
 		});
 
-		this.injectCss();
-		this.injectHtml();
-		this.bindEvents();
-	//	this.setSelected(true);
-		this.listen(lgb.events.WindowResizeEvent.TYPE, this.onResize);
+	this.injectCss();
+	this.injectHtml();
+	this.bindEvents();
+	this.listen(lgb.events.WindowResizeEvent.TYPE, this.onResize);
+		
 };
+
 
 lgb.view.PropertiesButtonView.prototype.show = function() {
 	this.position();
-
 };
+
+
 lgb.view.PropertiesButtonView.prototype.position = function() {
 
 	var x = this.getXpos();
@@ -58,9 +61,6 @@ lgb.view.PropertiesButtonView.prototype.position = function() {
     	props,
     	options
 	);
-
-
-
 };
 
 
@@ -78,10 +78,8 @@ lgb.view.PropertiesButtonView.prototype.injectHtml = function() {
 };
 
 lgb.view.PropertiesButtonView.prototype.injectCss = function() {
-
 		var cssInner = this.button.getCss();
 		var cssStr = "<style type='text/css'>{0}</style>".format(cssInner);
-
 		$(cssStr).appendTo('head');
 };
 
