@@ -19,6 +19,9 @@ lgb.model.RoofTopModel = function() {
 	
 	this.isVisible = true;
 	this._NAME ='lgb.model.RoofTopModel';
+	
+	/**@const */
+	this._TITLE = 'Roof-top Unit';
 };
 goog.inherits(lgb.model.RoofTopModel, lgb.model.ModelBase);
 

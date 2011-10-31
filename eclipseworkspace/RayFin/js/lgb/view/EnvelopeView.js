@@ -3,8 +3,8 @@ goog.provide('lgb.view.EnvelopeView');
 goog.require('lgb.Loader');
 goog.require('lgb.events.ColladaSceneLoadedEvent');
 goog.require('lgb.events.MeshLoaded');
+goog.require('lgb.events.ViewInitialized');
 goog.require('lgb.view.ViewBase');
-
 
 
 /**
@@ -15,6 +15,10 @@ lgb.view.EnvelopeView = function(dataModel) {
 	lgb.view.ViewBase.call(this, dataModel);
 	this._NAME ='lgb.view.EnvelopeView';
 	this.init_();
+	this.floorMeshList = [];
+	
+	this.floorGeometry = [];
+//	this.currentFloorIdx = 9;
 };
 goog.inherits(lgb.view.EnvelopeView, lgb.view.ViewBase);
 
@@ -25,9 +29,19 @@ goog.inherits(lgb.view.EnvelopeView, lgb.view.ViewBase);
  * @private
  */
 lgb.view.EnvelopeView.prototype.init_ = function() {
-	this.loader_ = new lgb.Loader();
-	this.loader_.loadFile('9footEnvelopeStrip-joined.b.js', this.d(this.onGeometryLoaded));
-
+	this.loader1_ = new lgb.Loader();
+	
+	//var delegate = jQuery.proxy(this.onGeometryLoaded, this, 9);
+	//var delegate = this.d(this.onGeometryLoaded, 9)
+	
+	this.loader1_.loadFile('9footEnvelopeStrip-joined.b.js', this.d(this.onGeometryLoaded, 9));
+	
+	this.loader2_ = new lgb.Loader();
+	this.loader2_.loadFile('11footEnvelopeStrip.b.js', this.d(this.onGeometryLoaded, 11));
+	
+	this.loader3_ = new lgb.Loader();
+	this.loader3_.loadFile('13footEnvelopeStrip.b.js', this.d(this.onGeometryLoaded, 13));
+	
 };
 
 
@@ -41,53 +55,44 @@ lgb.view.EnvelopeView.prototype.onChange = function(event) {
 };
 
 
-
 /**
  * Updates the view here to reflect any changes in the MVC data model.
  * @private
  */
 lgb.view.EnvelopeView.prototype.updateAllFromModel_ = function() {
+	this.makeFloors_();
 	this.updateVisible_();
+
+	
 };
 
 
 /**
- * Updates this view to reflect the changes in the visibility state of the MVC model.
  * @private
  */
-lgb.view.EnvelopeView.prototype.updateVisible_ = function() {
-	this.floor1.visible = this.dataModel.isVisible;
-	this.floor2.visible = this.dataModel.isVisible;
-	this.floor3.visible = this.dataModel.isVisible;
-};
-
-
-lgb.view.EnvelopeView.prototype.onGeometryLoaded = function(geometry) {
+lgb.view.EnvelopeView.prototype.makeFloors_ = function() {
 	
-	this.floorGeometry = geometry;
-	this.floorGeometry.computeBoundingBox();
-	
-	var bb = this.floorGeometry.boundingBox;
+	var geometry = this.floorGeometry[this.dataModel.floorHeight];
+	var bb = geometry.boundingBox;
 	
 	this.xExt = bb.x[1] - bb.x[0];
 	this.yExt = bb.y[1] - bb.y[0];
 	this.zExt = bb.z[1] - bb.z[0];
 	
-	this.floor1 = this.makeFloor_();
-	this.floor2 = this.makeFloor_();
-	this.floor3 = this.makeFloor_();
+	var m = this.masterGroup.children.length;
 	
-	this.floor2.position.y -= 1 * this.yExt;
-	this.floor3.position.y -= 2 * this.yExt;
+	for (var i = this.masterGroup.children.length - 1; i >= 0; i--){
+		this.masterGroup.remove(this.masterGroup.children[i]);
+	};
+
+	var l = this.dataModel.floorCount;
 	
-	this.masterGroup = new THREE.Object3D();
-	this.masterGroup.add(this.floor1);
-	this.masterGroup.add(this.floor2);
-	this.masterGroup.add(this.floor3);
-	//this.floor2
-		
-	var event = new lgb.events.Object3DLoaded(this.masterGroup);
-	this.dispatchLocal(event);
+	for (var j=0; j < l; j++) {
+		var floor = this.makeFloor_(geometry);
+		floor.position.y -= j * this.yExt;
+		this.masterGroup.add(floor);
+	};
+
 };
 
 
@@ -95,9 +100,9 @@ lgb.view.EnvelopeView.prototype.onGeometryLoaded = function(geometry) {
  * @private
  * @return {THREE.Mesh}
  */
-lgb.view.EnvelopeView.prototype.makeFloor_ = function() {
-	
-	var floor  = new THREE.Mesh(this.floorGeometry, new THREE.MeshFaceMaterial());
+lgb.view.EnvelopeView.prototype.makeFloor_ = function(geometry) {
+
+	var floor  = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial());
 	
 	floor.position.x = -1 * this.xExt / 2;
 	floor.position.y = -1 * this.yExt;
@@ -108,6 +113,49 @@ lgb.view.EnvelopeView.prototype.makeFloor_ = function() {
 	return floor;
 	
 }
+
+/**
+ * Updates this view to reflect the changes in the visibility state of the MVC model.
+ * @private
+ */
+lgb.view.EnvelopeView.prototype.updateVisible_ = function() {
+	var m = this.masterGroup.children.length;
+	
+	for (var i=0; i < m; i++) {
+		this.masterGroup.children[i].visible = this.dataModel.isVisible;
+	};
+};
+
+
+lgb.view.EnvelopeView.prototype.makeMasterGroup = function(geometry) {
+	this.masterGroup = new THREE.Object3D();
+	this.updateAllFromModel_();
+	
+	var event = new lgb.events.Object3DLoaded(this.masterGroup);
+	this.dispatchLocal(event);
+	
+	this.dispatchLocal(new lgb.events.ViewInitialized());
+}
+
+
+lgb.view.EnvelopeView.prototype.onGeometryLoaded = function(floorNumber, geometry) {
+	this.floorGeometry[floorNumber] = geometry;
+	this.floorGeometry[floorNumber].computeBoundingBox();
+	
+	if(this.floorGeometry[9] &&
+	this.floorGeometry[11] &&
+	this.floorGeometry[13]) {
+		this.makeMasterGroup();
+	}
+	
+	this.loader1_ = null;
+	this.loader2_ = null;
+	this.loader3_ = null;
+	
+};
+
+
+
 
 
 

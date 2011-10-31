@@ -161,4 +161,12 @@ img {
 	text-align:left;
 	padding:8px 3px 8px 3px;
 }
+
 label { cursor: hand; cursor: pointer;}
+
+.radioButtonGroup {
+	margin-bottom:10px;
+}
+.radioButtonText {
+	font-size:12pt;
+}

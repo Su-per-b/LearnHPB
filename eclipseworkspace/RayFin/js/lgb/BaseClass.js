@@ -18,16 +18,22 @@ goog.inherits(lgb.BaseClass, goog.events.EventTarget);
 
 
 /**
- * creates a proxy function ( also known as a delaget ) using jQuery which
+ * creates a proxy function ( also known as a delegate ) using jQuery which
  * maintains the context of "this"
  * @param {!Function} theFunction The function used to create the delegate.
+ * @param {*=} arg The optional argument baked into the call.
  * @return {!Function} The delagate.
  */
-lgb.BaseClass.prototype.d = function(theFunction) {
-  var delegate = jQuery.proxy(theFunction, this);
+lgb.BaseClass.prototype.d = function(theFunction, arg) {
+	var delegate;
+	if (arg === undefined) {
+  		delegate = jQuery.proxy(theFunction, this);
+	} else {
+		delegate = jQuery.proxy(theFunction, this, arg);
+	}
+
   return delegate;
 };
-
 
 
 /**
@@ -75,31 +81,34 @@ lgb.BaseClass.prototype.listenTo = function(eventTarget, eventType, handler) {
 lgb.BaseClass.prototype.listenHelper_ = function(
   eventTarget, eventType, handlerContext, handler) {
 
-	if (this.delegateIdx[handlerContext] == null) {
-		this.delegateIdx[handlerContext] = {};
+	if (this.delegateIdx[eventTarget] == null) {
+		this.delegateIdx[eventTarget] = {};
 	};
 	
 	
-	
-	//var handlerName = arguments.callee.name.toString();
-	//var callee = arguments.callee.name;
-	//var ar = arguments;
-	
-	//var prop = this.delegateIdx[handlerContext];
-	
-	if (this.delegateIdx[handlerContext][eventType]) {
-		throw ('You are setting the same Event listener twice');
+	if (this.delegateIdx[eventTarget][eventType] == null) {
+		this.delegateIdx[eventTarget][eventType] = {};
 	}
 	
-
+	if (this.delegateIdx[eventTarget][eventType][handlerContext] == null) {
+		this.delegateIdx[eventTarget][eventType][handlerContext] = {};
+	}
+	
+	
   /**@type {Function} */
   var delegate = jQuery.proxy(handler, handlerContext);
-  this.delegateIdx[handlerContext][eventType] = delegate;
+  
+if (this.delegateIdx[handlerContext][eventType][eventTarget][handler] == null) {
+	this.delegateIdx[handlerContext][eventType][eventTarget][handler] = delegate;
+} else {
+	throw ('You are setting the same Event listener twice');	
+};
 
   goog.events.listen(
     eventTarget,
     eventType,
     delegate);
+    
 };
 
 
@@ -206,8 +215,9 @@ lgb.BaseClass.prototype.unlistenHelper_ = function(
   eventTarget, eventType, handlerContext, handler) {
 
   /**@type {Function} */
-var delegate = this.delegateIdx[handlerContext][eventType];
-	
+//var delegate = this.delegateIdx[handlerContext][eventType];
+var delegate = this.delegateIdx[handlerContext][eventType][eventTarget][handler];
+ 
  var key = goog.events.unlisten(
     eventTarget,
     eventType,

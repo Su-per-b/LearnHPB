@@ -37,10 +37,8 @@ var lgb = (function(lgb) {
 		},
 		
 		createItem: function(label, value, isSelected) {
-			
 			var selectionItem = new lgb.model.component.SelectionItem(label, value, isSelected);
 			this.selectionItems.push(selectionItem);
-			
 		}
 
 	};

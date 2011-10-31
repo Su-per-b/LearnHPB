@@ -13,7 +13,8 @@ lgb.model.DuctworkModel = function() {
 	lgb.model.ModelBase.call(this);
 	/**@const */
 	this._NAME ='lgb.model.DuctworkModel';
-	
+	/**@const */
+	this._TITLE = 'Ductwork';
 	this.groupMembership = {};
 	this.groupMembership[lgb.model.BuildingModel.Group.ALL] = true;
 	this.groupMembership[lgb.model.BuildingModel.Group.HVAC] = true;

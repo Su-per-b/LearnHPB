@@ -14,6 +14,8 @@ lgb.model.BuildingModel = function() {
 	lgb.model.ModelBase.call(this);
 	/**@const */
 	this._NAME ='lgb.model.BuildingModel';
+	/**@const */
+	this._TITLE = 'Building';
 };
 
 goog.inherits(lgb.model.BuildingModel, lgb.model.ModelBase);

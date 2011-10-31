@@ -40,8 +40,8 @@ lgb.view.ViewBase.prototype.append = function(html) {
  */
 lgb.view.ViewBase.prototype.stopClickPropigation = function() {
 		
-		this.jq().bind('mouseup', this.d(this.stopClickPropigationHandler_));
-		this.jq().bind('mousedown', this.d(this.stopClickPropigationHandler_));
+	this.jq().bind('mouseup', this.d(this.stopClickPropigationHandler_));
+	this.jq().bind('mousedown', this.d(this.stopClickPropigationHandler_));
 		
 };
 
@@ -52,8 +52,8 @@ lgb.view.ViewBase.prototype.stopClickPropigation = function() {
  * @depricated
  */
 lgb.view.ViewBase.prototype.stopClickPropigationHandler_ = function(event) {
-		event.preventDefault();
-		event.stopPropagation();
+	event.preventDefault();
+	event.stopPropagation();
 };
 
 
@@ -110,7 +110,6 @@ lgb.view.ViewBase.prototype.onChange = function(event) {
 
 /**
  * Binds an event listener to handle when the MVC data model changes.
- * @param {goog.events.Event} event The event.
  * @private
  */
 lgb.view.ViewBase.prototype.listenForChange_ = function() {

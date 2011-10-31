@@ -87,9 +87,9 @@ lgb.view.ParticleSystem.prototype.init = function() {
 	
 	if (this.dataModel.isRunning) {
 		this.listen(lgb.events.RenderEvent.TYPE, this.onRender);
-	} else {
-		this.unlisten(lgb.events.RenderEvent.TYPE, this.onRender);
-	}
+	} //else {
+		//this.unlisten(lgb.events.RenderEvent.TYPE, this.onRender);
+	//}
 	this.currentFrameNumber = this.launchDelayBetweenParticles + 1;
 	
 	var event = new lgb.events.Object3DLoaded(this.masterGroup);
