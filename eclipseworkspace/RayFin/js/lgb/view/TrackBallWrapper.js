@@ -9,14 +9,15 @@ goog.require('lgb.events.RenderEvent');
 /**
  * @constructor
  * @extends lgb.view.ViewBase
- * @param {Object} object The object to use usually the camera.
+ * @param {Object} camera The object to use usually the camera.
  * @param {Element} domElement The div to use as a touch pad.
  */
-lgb.view.TrackBallWrapper = function( object, domElement) {
+lgb.view.TrackBallWrapper = function( camera, domElement) {
 	lgb.view.ViewBase.call(this);
-	this.trackballControls = new THREE.TrackballControls(object, domElement);
+	this.trackballControls = new THREE.TrackballControlsEx(camera, domElement);
 	this.init();
 	
+	this.camera = camera;
 	this._NAME ='lgb.view.TrackBallWrapper';
 
 };
@@ -44,17 +45,53 @@ lgb.view.TrackBallWrapper.prototype.init = function() {
 
 	this.orbitRadius = 30;
 	this.listen(lgb.events.RenderEvent.TYPE, this.d(this.onRender));
+	
+	var delegate = this.d(this.onMouseWheel);
+	
+	//this.trackballControls.setZoom = function(zoomStart, zoomEnd) {
+	//	_zoomEnd = zoomEnd;
+//		_zoomStart = zoomStart;
+//	};
+	
+	if (window.addEventListener) {
+		window.addEventListener('DOMMouseScroll', delegate, false);
+	}
+
+	window.onmousewheel = document.onmousewheel = delegate;
 };
 
 
+/**
+ * @param {MouseScrollEvent} event
+ */
+lgb.view.TrackBallWrapper.prototype.onMouseWheel = function(event) {
+	var delta = 0;
+
+	if (event.wheelDelta) {
+		delta = event.wheelDelta/120; 
+	} else if (event.detail) {
+		delta = -event.detail/3;
+	}
+	
+	if (delta)
+		this.mouseWheelChange(delta);
+        if (event.preventDefault) {
+               event.preventDefault();
+        }
+
+    event.returnValue = false;
+};
+
+
+/**
+ * @param {number} delta
+ */
+lgb.view.TrackBallWrapper.prototype.mouseWheelChange = function(delta) {
+	 this.trackballControls.zoomNow(delta);
+}
 
 lgb.view.TrackBallWrapper.prototype.onRender = function(event) {
-
 	this.trackballControls.update();
-	
-	//var timer = new Date().getTime() * 0.0004;
-	//this.camera.position.x = Math.cos( timer ) * this.orbitRadius;
-	//this.camera.position.z = Math.sin( timer ) * this.orbitRadius;
 };
 
 

@@ -1,18 +1,9 @@
-goog.provide('lgb.controller.TrackBallMouseController');
-
-goog.require('lgb.controller.ControllerBase');
-//goog.require('lgb.model.RoofTopModel');
-//goog.require('lgb.view.RoofTopView');
-
 /**
- * MVC controller for the TrackBallMouseController
- * @constructor
- * @extends lgb.controller.ControllerBase
+ * @author Eberhard Graether / http://egraether.com/
  */
-lgb.controller.TrackBallMouseController = function(object, domElement) {
 
-	lgb.controller.ControllerBase.call(this);
-	//this.init();
+THREE.TrackballControlsEx = function ( object, domElement ) {
+
 	this.object = object;
 
 	this.domElement = ( domElement !== undefined ) ? domElement : document;
@@ -54,10 +45,16 @@ lgb.controller.TrackBallMouseController = function(object, domElement) {
 
 	_panStart = new THREE.Vector2(),
 	_panEnd = new THREE.Vector2();
-	
-	
+
 
 	// methods
+	
+	this.zoomNow = function(delta) {
+		delta = -1.0 * delta / 40.0
+		 _zoomStart = new THREE.Vector2(0,0); 
+		 _zoomEnd = new THREE.Vector2(0,delta);
+
+	};
 
 	this.handleEvent = function ( event ) {
 
@@ -143,10 +140,15 @@ lgb.controller.TrackBallMouseController = function(object, domElement) {
 
 	this.zoomCamera = function() {
 
-		var factor = 1.0 + ( _zoomEnd.y - _zoomStart.y ) * this.zoomSpeed;
+		var delta = _zoomEnd.y - _zoomStart.y;
+
+		
+		var factor = 1.0 + delta * this.zoomSpeed;
 
 		if ( factor !== 1.0 && factor > 0.0 ) {
-
+			//lgb.logInfo(delta, 'delta');
+			//lgb.logInfo(factor, 'factor');
+			
 			_eye.multiplyScalar( factor );
 
 			if ( this.staticMoving ) {
@@ -281,7 +283,7 @@ lgb.controller.TrackBallMouseController = function(object, domElement) {
 	function mousedown( event ) {
 
 		event.preventDefault();
-		event.stopPropagation();
+		//event.stopPropagation();
 
 		if ( _state === this.STATE.NONE ) {
 
@@ -361,27 +363,10 @@ lgb.controller.TrackBallMouseController = function(object, domElement) {
 	this.domElement.addEventListener( 'mousemove', bind( this, mousemove ), false );
 	this.domElement.addEventListener( 'mousedown', bind( this, mousedown ), false );
 	this.domElement.addEventListener( 'mouseup',   bind( this, mouseup ), false );
-	
+
 	window.addEventListener( 'keydown', bind( this, keydown ), false );
 	window.addEventListener( 'keyup',   bind( this, keyup ), false );
 
 };
-goog.inherits(lgb.controller.TrackBallMouseController, lgb.controller.ControllerBase);
 
-
-	//window.addEventListener( 'keydown', bind( this, keydown ), false );
-//	window.addEventListener( 'keyup',   bind( this, keyup ), false );
-
-
-lgb.controller.TrackBallMouseController.prototype.STATE = { NONE : -1, ROTATE : 0, ZOOM : 1, PAN : 2 };
-
-	
-/**
- * @private
- */
-lgb.controller.TrackBallMouseController.prototype.init = function() {
-
-	//this.model = new lgb.model.RoofTopModel();
-//	this.view = new lgb.view.RoofTopView(this.model);
-
-};
+THREE.TrackballControlsEx.prototype.STATE = { NONE : -1, ROTATE : 0, ZOOM : 1, PAN : 2 };

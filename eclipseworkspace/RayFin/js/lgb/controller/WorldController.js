@@ -80,9 +80,7 @@ lgb.controller.WorldController.prototype.init = function() {
     * @private
 	*/
 	this.buildingController_ = new lgb.controller.BuildingController();
-	//this.envelopeController_ = new lgb.controller.EnvelopeController();
 
-	
 	this.particleSystemController = new lgb.controller.ParticleSystemController();
 
 
