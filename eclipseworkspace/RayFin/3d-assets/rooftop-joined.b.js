@@ -20,7 +20,7 @@ var model = {
 	"colorSpecular" : [0.0, 0.0, 0.0],
 	"illumination" : 1,
 	"opticalDensity" : 1.0,
-	"specularCoef" : 131.372549,
+	"specularCoef" : 170,
 	"transparency" : 1.0
 	},
 

@@ -13,7 +13,7 @@ lgb.model.EnvelopeModel = function() {
 	lgb.model.ModelBase.call(this);
 	
 	this.floorCount = 5;
-	this.floorHeight = 9;
+	this.floorHeight = 11;
 	//this.floorHeightContraints = [9, 11, 13];
 	
 	this.isVisible = true;

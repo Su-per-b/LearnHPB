@@ -27,8 +27,10 @@ goog.inherits(lgb.BaseClass, goog.events.EventTarget);
 lgb.BaseClass.prototype.d = function(theFunction, arg) {
 	var delegate;
 	if (arg === undefined) {
+			//delegate = this.d_(theFunction, this, arg);
   		delegate = jQuery.proxy(theFunction, this);
 	} else {
+		//delegate = this.d_(theFunction, this, arg);
 		delegate = jQuery.proxy(theFunction, this, arg);
 	}
 
@@ -36,6 +38,7 @@ lgb.BaseClass.prototype.d = function(theFunction, arg) {
 };
 
 
+	
 /**
  * fires an event
  * "this" is the event target

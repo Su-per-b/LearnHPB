@@ -25,8 +25,21 @@ lgb.controller.RoofTopController.prototype.init = function() {
 
 	this.dataModel = new lgb.model.RoofTopModel();
 	this.view = new lgb.view.RoofTopView(this.dataModel);
+	this.listenTo(this.view, lgb.events.SelectableLoaded.TYPE, this.onSelectableLoaded)
+	this.view.init();
 	
 	lgb.controller.RoofTopController.superClass_.bind.call(this);
+	
+
+};
+
+
+/**
+ * @public
+ * @param {lgb.events.SelectableLoaded}
+ */
+lgb.controller.RoofTopController.prototype.onSelectableLoaded = function(event) {
+	this.dispatch(event);
 };
 
 

@@ -12,7 +12,7 @@ goog.require('lgb.events.WindowResizeEvent');
 goog.require('lgb.view.CameraView');
 goog.require('lgb.view.StatsView');
 goog.require('lgb.view.TrackBallWrapper');
-
+goog.require('lgb.controller.SelectionController');
 
 /**
  * MVC controller for the App
@@ -31,13 +31,8 @@ goog.inherits(lgb.controller.WorldController, lgb.controller.ControllerBase);
  */
 lgb.controller.WorldController.prototype.init = function() {
 
-	this.mouse = { x: 0, y: 0 };
 
-	/**
-   * @type {THREE.Projector}
-   * @private
-   */
-	this.projector_ = new THREE.Projector();
+
 
 	/**
    * The top-level this.containerDiv_ object in the THREE.js world
@@ -81,7 +76,13 @@ lgb.controller.WorldController.prototype.init = function() {
 	*/
 	this.buildingController_ = new lgb.controller.BuildingController();
 
-	this.particleSystemController = new lgb.controller.ParticleSystemController();
+	this.particleSystemController_ = new lgb.controller.ParticleSystemController();
+	
+	this.selectionController_ = 
+		new lgb.controller.SelectionController(
+			this.containerDiv_, 
+			this.cameraView_.camera
+	);
 
 
 	this.trackBallWrapper_ = new lgb.view.TrackBallWrapper(
@@ -89,9 +90,6 @@ lgb.controller.WorldController.prototype.init = function() {
 		this.containerDiv_
 	);
 		
-	this.mouseMoveDirty = false;
-	//this.containerDiv_.onmousemove = this.d(this.onMouseMove);
-
 	this.containerDiv_.appendChild(this.renderer_.domElement);
 
 };
@@ -154,12 +152,6 @@ lgb.controller.WorldController.prototype.bind_ = function() {
 	this.listen(lgb.events.WindowResizeEvent.TYPE, this.onWindowResize);
 }
 
-lgb.controller.WorldController.prototype.onMouseMove = function(event) {
-	event.preventDefault();
-	this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-	this.mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
-	this.mouseMoveDirty = true;
-};
 
 
 
@@ -238,29 +230,7 @@ lgb.controller.WorldController.prototype.onRenderMisc_ = function(event) {
  */
 lgb.controller.WorldController.prototype.renderHelper = function() {
 
-	if (this.mouseMoveDirty) {
-		var vector = new THREE.Vector3(this.mouse.x, this.mouse.y, 0.5);
-		this.projector_.unprojectVector(vector, this.cameraView_.camera);
 
-		var ray = new THREE.Ray(
-			this.cameraView_.camera.position,
-			vector.subSelf(this.cameraView_.camera.position).normalize());
-
-		var c = THREE.Collisions.rayCastNearest(ray);
-
-		if (c) {
-
-			//info.innerHTML += "Found @ distance " + c.distance;
-			//c.mesh.materials[ 0 ].color.setHex( 0xbb0000 );
-			lgb.logInfo('mouse over ' + c.mesh.name, 'lgb.controller.WorldController.renderHelper');
-		} else {
-
-			//info.innerHTML += "No intersection";
-
-		}
-
-		this.mouseMoveDirty = false;
-	}
 
 
 	//todo: further optimze the render loop

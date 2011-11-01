@@ -71,6 +71,7 @@ lgb.view.DuctworkView.prototype.onGeometryLoaded = function(geometry) {
 
 	this.mesh.rotation.y = 90 * Math.PI / 180;
 	this.mesh.position.x += 1;
+	this.mesh.position.y -= 0.7;
 	this.mesh.updateMatrix();
 	
 	var event = new lgb.events.MeshLoaded(this.mesh);
