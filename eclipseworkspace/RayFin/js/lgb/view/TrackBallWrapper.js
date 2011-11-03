@@ -2,6 +2,8 @@ goog.provide('lgb.view.TrackBallWrapper');
 
 goog.require('lgb.view.ViewBase');
 goog.require('lgb.events.RenderEvent');
+goog.require('goog.events.MouseWheelHandler');
+goog.require('goog.events.MouseWheelEvent');
 
 
 
@@ -13,12 +15,22 @@ goog.require('lgb.events.RenderEvent');
  * @param {Element} domElement The div to use as a touch pad.
  */
 lgb.view.TrackBallWrapper = function( camera, domElement) {
+	/**@constant **/
+	this._NAME ='lgb.view.TrackBallWrapper';
+	/**@constant **/
+	this._SENSITIVITY = 0.4;
+	
 	lgb.view.ViewBase.call(this);
+	this.domElement_ = domElement;
+	this.camera_ = camera;
+	
+	/**@type {THREE.TrackballControlsEx} */
+	this.trackballControls;
+	
 	this.trackballControls = new THREE.TrackballControlsEx(camera, domElement);
 	this.init();
 	
-	this.camera = camera;
-	this._NAME ='lgb.view.TrackBallWrapper';
+
 
 };
 goog.inherits(lgb.view.TrackBallWrapper, lgb.view.ViewBase);
@@ -44,52 +56,54 @@ lgb.view.TrackBallWrapper.prototype.init = function() {
 	this.trackballControls.keys = [65, 83, 68];
 
 	this.orbitRadius = 30;
+
+	this.bind_();
+};
+
+/**
+ * @private
+ */
+lgb.view.TrackBallWrapper.prototype.bind_ = function() {
+	
 	this.listen(lgb.events.RenderEvent.TYPE, this.d(this.onRender));
 	
-	var delegate = this.d(this.onMouseWheel);
+	this.mouseWheelHander = new goog.events.MouseWheelHandler(this.domElement_);
 	
-	//this.trackballControls.setZoom = function(zoomStart, zoomEnd) {
-	//	_zoomEnd = zoomEnd;
-//		_zoomStart = zoomStart;
-//	};
-	
-	if (window.addEventListener) {
-		window.addEventListener('DOMMouseScroll', delegate, false);
-	}
-
-	window.onmousewheel = document.onmousewheel = delegate;
-};
-
-
-/**
- * @param {MouseScrollEvent} event
- */
-lgb.view.TrackBallWrapper.prototype.onMouseWheel = function(event) {
-	var delta = 0;
-
-	if (event.wheelDelta) {
-		delta = event.wheelDelta/120; 
-	} else if (event.detail) {
-		delta = -event.detail/3;
-	}
-	
-	if (delta)
-		this.mouseWheelChange(delta);
-        if (event.preventDefault) {
-               event.preventDefault();
-        }
-
-    event.returnValue = false;
-};
-
-
-/**
- * @param {number} delta
- */
-lgb.view.TrackBallWrapper.prototype.mouseWheelChange = function(delta) {
-	 this.trackballControls.zoomNow(delta);
+	this.listenKey_ =  this.listenTo(this.mouseWheelHander,
+		goog.events.MouseWheelHandler.EventType.MOUSEWHEEL,
+		this.d(this.onMouseWheel_)
+	)
 }
 
+/**
+ * //TODO (Raj) Get this dispose to work and test memory footprint.
+ * experimental
+ */
+lgb.view.TrackBallWrapper.prototype.disposeInternal = function() {
+  this.unlisten(this.listenKey_);
+  delete this.listenKey_;
+};
+
+
+/**
+ * @private
+ * @param {goog.events.MouseWheelEvent} event The event telling how
+ * far the wheel has moved.
+ */
+lgb.view.TrackBallWrapper.prototype.onMouseWheel_ = function(event) {
+
+	var delta = event.deltaY * this._SENSITIVITY;
+
+	if (delta) {
+		this.trackballControls.zoomNow(delta);
+	}
+}
+
+/**
+ * Event handler for when the scene is rendered.
+ * @param {lgb.events.RenderEvent} event The event fired by the
+ * worldController.
+ */
 lgb.view.TrackBallWrapper.prototype.onRender = function(event) {
 	this.trackballControls.update();
 };

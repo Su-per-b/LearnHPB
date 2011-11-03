@@ -47,6 +47,11 @@ THREE.MeshPhongMaterial = function ( parameters ) {}
  */
 THREE.MeshFaceMaterial = function () {}
 
+/**
+ * @constructor
+ * @param {Object=} parameters
+ */
+THREE.MeshLambertMaterial = function ( parameters ) {}
 
 /**
  * @constructor

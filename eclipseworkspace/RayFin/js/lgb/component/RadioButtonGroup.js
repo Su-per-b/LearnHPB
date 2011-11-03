@@ -5,9 +5,12 @@ goog.require('lgb.component.RadioButtonDataSource');
 /**
  * Html radio button group that will be inserted into the DOM
  * @constructor
- * @param {lgb.component.RadioButtonDataSource}
+ * @extends {lgb.view.ViewBase}
+ * @param {lgb.component.RadioButtonDataSource} ds the datasource
+ * for this component.
  */
 lgb.component.RadioButtonGroup = function(ds){
+	lgb.view.ViewBase.call(this);
 	this.ds = ds;
 };
 goog.inherits(lgb.component.RadioButtonGroup, lgb.view.ViewBase);
@@ -58,19 +61,12 @@ lgb.component.RadioButtonGroup.prototype.bind = function() {
 	for (var i=0; i<len; i++) {
 		var item = this.ds.selectionItems[i];
 		var selector = '#{0}'.format(item.htmlID);
-		$(selector).click(i, delegate );
+		$(selector).click({idx:i}, delegate );
 	};
 
 };
 
 
-
-
-lgb.component.RadioButtonGroup.prototype.selectByIdx = function(idx) {
-	var x = $('#' + this.htmlID + ' input');
-	
-	var y =0;
-};
 
 /**'
  * Event handler for when any of the radio buttons are clicked.
@@ -78,7 +74,7 @@ lgb.component.RadioButtonGroup.prototype.selectByIdx = function(idx) {
  */
 lgb.component.RadioButtonGroup.prototype.onClick_ = function(event) {
 	
-	var idx = event.data;
+	var idx = (/**@type {number} */ event.data.idx);
 	//var item = this.ds.selectionItems[idx];
 	
 	this.ds.selectIdx(idx);

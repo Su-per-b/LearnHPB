@@ -9,6 +9,10 @@ goog.require('lgb.model.ModelBase');
  * @param {Document} xml The xml document to parse.
  */
 lgb.model.XmlParser = function(xml) {
+  
+  /**@const */
+  this._NAME ='lgb.model.XmlParser';
+  
   lgb.model.ModelBase.call(this);
 
  /** @type {Document}  */
@@ -20,8 +24,7 @@ lgb.model.XmlParser = function(xml) {
   /** @type {Node} A Node Object */
   this.currentNode = null;
   
-  /**@const */
-  this._NAME ='lgb.model.XmlParser';
+
 };
 goog.inherits(lgb.model.XmlParser, lgb.model.ModelBase);
 

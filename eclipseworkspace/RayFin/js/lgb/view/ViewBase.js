@@ -99,9 +99,12 @@ lgb.view.ViewBase.prototype.jqParent = function() {
 };
 
 
+
+
+
 /**
  * Event Handler that fires when the data model changes
- * @param {goog.events.Event} event The event.
+ * @param {lgb.events.DataModelChanged} event The event.
  * @protected
  */
 lgb.view.ViewBase.prototype.onChange = function(event) {

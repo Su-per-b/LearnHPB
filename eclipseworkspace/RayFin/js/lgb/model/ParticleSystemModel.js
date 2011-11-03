@@ -14,9 +14,13 @@ goog.require('lgb.utils.XmlParser');
 lgb.model.ParticleSystemModel = function() {
 	
 
+	/**@const */
+	this._NAME ='lgb.model.ParticleSystemModel';
 	
 	/**@const */
 	this._TITLE = 'Particle System';
+	
+	lgb.model.ModelBase.call(this);
 	
 	this.xml = null;
 	this.xpathResult = null;
@@ -32,8 +36,7 @@ lgb.model.ParticleSystemModel = function() {
 	this.showCurves = false;
 	this.isEmitting = true;
 	
-	/**@const */
-	this._NAME ='lgb.model.ParticleSystemModel';
+
 };
 goog.inherits(lgb.model.ParticleSystemModel, lgb.model.ModelBase);
 

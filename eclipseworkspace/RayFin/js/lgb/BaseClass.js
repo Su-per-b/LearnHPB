@@ -13,6 +13,8 @@ lgb.BaseClass = function() {
   goog.events.EventTarget.call(this);
   
   this.delegateIdx = {};
+  this.listenKeys = {};
+  
 };
 goog.inherits(lgb.BaseClass, goog.events.EventTarget);
 
@@ -54,9 +56,10 @@ lgb.BaseClass.prototype.dispatchLocal = function(event) {
  * listens to the lgb global event bus
  * @param {!string} eventType Unique identifier for the event.
  * @param {!Function} handler Function that will be called when the event fires.
+ * @return {number} the event handler key.
  */
 lgb.BaseClass.prototype.listen = function(eventType, handler) {
-  this.listenHelper_(lgb.globalEventBus, eventType, this, handler);
+  return this.listenHelper_(lgb.globalEventBus, eventType, this, handler);
 };
 
 /**
@@ -65,52 +68,66 @@ lgb.BaseClass.prototype.listen = function(eventType, handler) {
  * @param {!goog.events.EventTarget} eventTarget The object to listen to.
  * @param {!string} eventType Unique identifier for the event.
  * @param {!Function} handler Function that will be called when the event fires.
+ * @return {number} the event handler key.
  */
 lgb.BaseClass.prototype.listenTo = function(eventTarget, eventType, handler) {
-  this.listenHelper_(eventTarget, eventType, this, handler);
+  return this.listenHelper_(eventTarget, eventType, this, handler);
 };
 
 
 /**
  * binds a listener to an event
+ * @private
  * @param {!goog.events.EventTarget} eventTarget Object to listen to.
  * @param {!string} eventType Unique identifier for the event.
  * @param {!Object} handlerContext The JS context to use when
  * calling the function usually "this".
  * @param {!Function} handler The function that will be called
  * when the event fires.
- * @private
+ * @return {number} the event handler key.
  */
 lgb.BaseClass.prototype.listenHelper_ = function(
   eventTarget, eventType, handlerContext, handler) {
 
-	if (this.delegateIdx[eventTarget] == null) {
-		this.delegateIdx[eventTarget] = {};
+/*
+	if (eventTarget._NAME == null) {
+		throw ('You must set the _NAME of the object');
+	};
+		
+	if (this.listenKeys[eventTarget._NAME] == null) {
+		this.listenKeys[eventTarget._NAME] = {};
 	};
 	
 	
-	if (this.delegateIdx[eventTarget][eventType] == null) {
-		this.delegateIdx[eventTarget][eventType] = {};
-	}
+	if (this.listenKeys[eventTarget][eventType] == null) {
+		this.listenKeys[eventTarget][eventType] = {};
+	};
 	
-	if (this.delegateIdx[eventTarget][eventType][handlerContext] == null) {
-		this.delegateIdx[eventTarget][eventType][handlerContext] = {};
-	}
+	if (this.listenKeys[eventTarget][eventType][handlerContext] != null) {
+		throw ('You are setting the same Event listener twice');
+	};
+*/
 	
 	
   /**@type {Function} */
   var delegate = jQuery.proxy(handler, handlerContext);
   
-if (this.delegateIdx[handlerContext][eventType][eventTarget][handler] == null) {
-	this.delegateIdx[handlerContext][eventType][eventTarget][handler] = delegate;
-} else {
-	throw ('You are setting the same Event listener twice');	
-};
+	//if (this.listenKeys[eventTarget][eventType][handlerContext] != null) {
+	//	this.listenKeys[handlerContext][eventType][eventTarget][handler] = delegate;
+	//};
+	
+ //else {
+	//throw ('You are setting the same Event listener twice');	
+//};
 
-  goog.events.listen(
+ var key =  goog.events.listen(
     eventTarget,
     eventType,
     delegate);
+    
+//  this.listenKeys[eventTarget][eventType][handlerContext] = key;
+
+	return key;
     
 };
 
@@ -185,24 +202,14 @@ lgb.BaseClass.prototype.each = function(ary, handler) {
 
 /**
  * removed an event binding
- * from the lgb global event bus
- * @param {!string} eventType The name of the event.
- * @param {!Function} handler The function to remove.
+ * @param {!number} key The key for the event handler.
  */
-lgb.BaseClass.prototype.unlisten = function(eventType, handler) {
-  this.unlistenHelper_(lgb.globalEventBus, eventType, this, handler);  
+lgb.BaseClass.prototype.unlisten = function(key) {
+  goog.events.unlistenByKey(key); 
 };
 
-/**
- * removed an event binding
- * removes only to the specified event target
- * @param {!goog.events.EventTarget} eventTarget The object to listen to.
- * @param {!string} eventType The name of the event.
- * @param {!Function} handler The function to remove.
- */
-lgb.BaseClass.prototype.unlistenTo = function(eventTarget, eventType, handler) {
-  this.unlistenHelper_(eventTarget, eventType, this, handler); 
-};
+
+
 
 /**
  * removes a listener from an event
@@ -219,14 +226,18 @@ lgb.BaseClass.prototype.unlistenHelper_ = function(
 
   /**@type {Function} */
 //var delegate = this.delegateIdx[handlerContext][eventType];
-var delegate = this.delegateIdx[handlerContext][eventType][eventTarget][handler];
+//var delegate = this.delegateIdx[handlerContext][eventType][eventTarget][handler];
  
+//var key =this.listenKeys[eventTarget][eventType][handlerContext]
+ 
+ /*
  var key = goog.events.unlisten(
     eventTarget,
     eventType,
     delegate);
-    
- this.delegateIdx[handlerContext][eventType] = null;
+   */
+   
+ //this.delegateIdx[handlerContext][eventType] = null;
  
 };
 

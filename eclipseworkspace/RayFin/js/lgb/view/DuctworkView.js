@@ -16,8 +16,6 @@ lgb.view.DuctworkView = function(dataModel) {
 
 	this.dataModel = dataModel;
 	this._NAME ='lgb.view.DuctworkView';
-	this.init_();
-
 };
 goog.inherits(lgb.view.DuctworkView, lgb.view.ViewBase);
 
@@ -26,17 +24,61 @@ goog.inherits(lgb.view.DuctworkView, lgb.view.ViewBase);
 /**
  * Initializes the View
  * loads the geometry
+ * @public
+ */
+lgb.view.DuctworkView.prototype.init = function() {
+	//this.loader_ = new lgb.Loader();
+	//this.loader_.loadFile('ductwork102611.b.js', this.d(this.onGeometryLoaded));
+	this.loadScene_()
+};
+
+lgb.view.DuctworkView.prototype.loadScene_= function() {
+
+	var path = lgb.Config.ASSETS_BASE_PATH + 'ductwork/scene-bin.js';
+	this.loader_ = new THREE.SceneLoaderEx();
+
+	this.loader_.load( path, this.d(this.onSceneLoaded_) );
+};
+
+
+/**
  * @private
  */
-lgb.view.DuctworkView.prototype.init_ = function() {
-	this.loader_ = new lgb.Loader();
-	this.loader_.loadFile('ductwork102611.b.js', this.d(this.onGeometryLoaded));
+lgb.view.DuctworkView.prototype.onSceneLoaded_ = function(result) {
+	/**@type THREE.Scene */
+	var scene = result['scene'];
+	
+	lgb.logInfo('DuctworkView.onSceneLoaded_');
+	this.masterGroup = new THREE.Object3D();
+	
+	for (var i = scene.objects.length - 1; i >= 0; i--){
+	  	var mesh = scene.objects[i];
+	  	
+	  	if (mesh.name == 'DuctWork') {
+	  		mesh.doubleSided = true;
+	  	} else {
+			var event = new lgb.events.SelectableLoaded(mesh);
+			this.dispatchLocal(event);
+	  	}
+	  	this.masterGroup.add(mesh);
+	};
+	
+	this.masterGroup.position = scene.position;
+	this.masterGroup.rotation = scene.rotation;
+	this.masterGroup.scale = scene.scale;
+	
+	var event = new lgb.events.Object3DLoaded(this.masterGroup);
+	this.dispatchLocal(event);
+
+		
+	delete this.loader_;
+
 };
 
 
 /**
  * @override
- * @param {goo.events.Event} event The event.
+ * @param {lgb.events.DataModelChanged } event The event.
  * @protected
  */
 lgb.view.DuctworkView.prototype.onChange = function(event) {
@@ -59,22 +101,12 @@ lgb.view.DuctworkView.prototype.updateAllFromModel_ = function() {
  * @private
  */
 lgb.view.DuctworkView.prototype.updateVisible_ = function() {
-	this.mesh.visible = this.dataModel.isVisible;
+	var m = this.masterGroup.children.length;
+	
+	for (var i=0; i < m; i++) {
+		this.masterGroup.children[i].visible = this.dataModel.isVisible;
+	};
 };
 
 
-lgb.view.DuctworkView.prototype.onGeometryLoaded = function(geometry) {
-	
-	this.mesh = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial());
-	this.mesh.doubleSided = true;
-	this.mesh.name = 'Ductwork';
 
-	this.mesh.rotation.y = 90 * Math.PI / 180;
-	this.mesh.position.x += 1;
-	this.mesh.position.y -= 0.7;
-	this.mesh.updateMatrix();
-	
-	var event = new lgb.events.MeshLoaded(this.mesh);
-	this.dispatchLocal(event);
-	
-};

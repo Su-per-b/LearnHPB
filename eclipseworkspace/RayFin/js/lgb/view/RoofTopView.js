@@ -34,42 +34,51 @@ lgb.view.RoofTopView.prototype.init = function() {
 
 lgb.view.RoofTopView.prototype.loadScene_= function() {
 
-	var path = lgb.Config.ASSETS_BASE_PATH + 'rooftop_cleaned_condensed.scene.js';
-	var loader = new THREE.SceneLoaderEx();
 
-	loader.callbackSync = this.d(this.onSceneLoaded_);
-	//loader.callbackProgress = callbackProgress;
+	var path = lgb.Config.ASSETS_BASE_PATH + 'rooftop/scene-bin.js';
+	
+	/**@type {THREE.SceneLoaderEx} */
+	this.loader_ = new THREE.SceneLoaderEx();
 
-	loader.load( path );
-	
-	
+	this.loader_.load( path, this.d(this.onSceneLoaded_) );
 };
 
 
-lgb.view.RoofTopView.prototype.loadBinary_ = function() {
-	this.binaryLoader_ = new THREE.BinaryLoader();
-	
-	var path = lgb.Config.ASSETS_BASE_PATH + 'rooftop-joined.b.js';
-	var callbackDelegate = this.d(this.onGeometryLoaded);
-	
-	var loadObj = {
-				model: path,
-				callback: callbackDelegate,
-				bin_path: '3d-assets'
-		};
-	this.binaryLoader_.load(loadObj);
-};
+
 
 /**
  * @private
+ * @param {*} result The result of the scene load.
+ * 			result = {
+
+				scene: new THREE.Scene(),
+				geometries: {},
+				materials: {},
+				textures: {},
+				objects: {},
+				cameras: {},
+				lights: {},
+				fogs: {},
+				triggers: {},
+				empties: {}
+
+			};
  */
 lgb.view.RoofTopView.prototype.onSceneLoaded_ = function(result) {
 
+	/**@type THREE.Scene */
+	var scene = result['scene'];
+		
 	lgb.logInfo('onSceneLoaded_');
 	this.masterGroup = new THREE.Object3D();
 	
-	for (var i = result.scene.objects.length - 1; i >= 0; i--){
-	  	var mesh = result.scene.objects[i];
+	for (var i = scene.objects.length - 1; i >= 0; i--){
+	  	var mesh = scene.objects[i];
+
+	  	if (mesh.name == 'Ducting') {
+	  		mesh.doubleSided = true;
+	  	}
+	  	
 	  	this.masterGroup.add(mesh);
 
 		var event = new lgb.events.SelectableLoaded(mesh);
@@ -77,31 +86,26 @@ lgb.view.RoofTopView.prototype.onSceneLoaded_ = function(result) {
 		
 	};
 	
-	this.masterGroup.rotation.x = 90 * Math.PI / 180;
-	this.masterGroup.rotation.y = 180 * Math.PI / 180;
-	this.masterGroup.rotation.z = 270 * Math.PI / 180;
-		
+
+	
+	this.masterGroup.position = scene.position;
+	this.masterGroup.rotation = scene.rotation;
+	this.masterGroup.scale = scene.scale;
+	
+
 	var event = new lgb.events.Object3DLoaded(this.masterGroup);
 	this.dispatchLocal(event);
-
+	
+	delete this.loader_;
 };
 
-lgb.view.RoofTopView.prototype.onGeometryLoaded = function(geometry) {
-	this.mesh = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial());
-	this.mesh.doubleSided = true;
-	this.mesh.name = 'RoofTop';
-	this.mesh.position.x -=1;
-	//mesh.scale.x = mesh.scale.y = mesh.scale.z = 1;
-	//
 
-	var event = new lgb.events.MeshLoaded(this.mesh);
-	this.dispatchLocal(event);
-};
 
 
 /**
  * @override
- * @param {goo.events.Event} event The event.
+ * @param {lgb.events.DataModelChanged} event The event
+ * notifying us of a change.
  * @protected
  */
 lgb.view.RoofTopView.prototype.onChange = function(event) {
@@ -123,6 +127,11 @@ lgb.view.RoofTopView.prototype.updateAllFromModel_ = function() {
  * @private
  */
 lgb.view.RoofTopView.prototype.updateVisible_ = function() {
-	this.masterGroup.visible = this.dataModel.isVisible;
+	var m = this.masterGroup.children.length;
+	
+	for (var i=0; i < m; i++) {
+		this.masterGroup.children[i].visible = this.dataModel.isVisible;
+	};
 };
+
 

@@ -10,6 +10,10 @@ goog.require('lgb.model.scenario.SysVar');
  * to populate the object, contains an xml document.
  */
 lgb.model.scenario.SystemNode = function(xmlParser) {
+  
+  /**@const */
+  this._NAME ='lgb.model.scenario.SystemNode';
+  
   lgb.model.ModelBase.call(this);
 
   /** @type {Array.<lgb.model.scenario.SysVar>} **/
@@ -18,8 +22,7 @@ lgb.model.scenario.SystemNode = function(xmlParser) {
    /** @type {number} */
   this.idx =0;
   
-  /**@const */
-  this._NAME ='lgb.model.scenario.SystemNode';
+
 	
 };
 goog.inherits(lgb.model.scenario.SystemNode, lgb.model.ModelBase);

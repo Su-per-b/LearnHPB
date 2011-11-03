@@ -164,8 +164,8 @@ lgb.controller.WorldController.prototype.onMeshLoaded = function(event) {
 };
 
 lgb.controller.WorldController.prototype.onObject3DLoaded = function(event) {
-	var mesh = event.payload;
-	this.scene_.add(mesh);
+	var obj = event.payload;
+	this.scene_.add(obj);
 };
 
 lgb.controller.WorldController.prototype.onWindowResize = function(event) {

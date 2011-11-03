@@ -1,6 +1,7 @@
 goog.provide('lgb.model.RoofTopModel');
 
 goog.require('lgb.model.ModelBase');
+goog.require('lgb.model.BuildingModel.Group');
 
 
 
@@ -9,7 +10,12 @@ goog.require('lgb.model.ModelBase');
  * @extends lgb.model.ModelBase
  */
 lgb.model.RoofTopModel = function() {
-
+	/**@const */
+	this._NAME ='lgb.model.RoofTopModel';
+	
+	/**@const */
+	this._TITLE = 'Roof-top Unit';
+	
 	lgb.model.ModelBase.call(this);
 	
 	this.groupMembership = {};
@@ -18,10 +24,7 @@ lgb.model.RoofTopModel = function() {
 	this.groupMembership[lgb.model.BuildingModel.Group.HVAC] = true;
 	
 	this.isVisible = true;
-	this._NAME ='lgb.model.RoofTopModel';
-	
-	/**@const */
-	this._TITLE = 'Roof-top Unit';
+
 };
 goog.inherits(lgb.model.RoofTopModel, lgb.model.ModelBase);
 
@@ -47,7 +50,8 @@ lgb.model.RoofTopModel.prototype.setVisible = function(makeVisible) {
 
 /**
  * @public
- * @param {lgb.model.Building.Group}
+ * @param {lgb.model.BuildingModel.Group} group The group name to
+ * set as visible.
  */
 lgb.model.RoofTopModel.prototype.setVisiblityGroup = function(group) {
 	

@@ -17,6 +17,7 @@ lgb.component.RadioButtonDataSource = function(title, parentHtmlID, subID){
 	this.htmlID = parentHtmlID + '-' + subID;
 	this.selectionItems = [];
 	this.theSelectedOne = null;
+	this._NAME = 'lgb.component.RadioButtonDataSource';
 };
 goog.inherits(lgb.component.RadioButtonDataSource, lgb.component.DataSourceBase);
 
@@ -26,7 +27,10 @@ goog.inherits(lgb.component.RadioButtonDataSource, lgb.component.DataSourceBase)
  * @param {number} idx The index of the item to set as selected.
  */
 lgb.component.RadioButtonDataSource.prototype.selectIdx = function(idx) {
-	if (null != this.theSelectedOne &&
+	
+	var isNull = (null === this.theSelectedOne);
+	
+	if (!isNull &&
 		idx != this.theSelectedOne.idx) 
 	{
 		this.theSelectedOne = this.selectionItems[idx];
@@ -36,9 +40,9 @@ lgb.component.RadioButtonDataSource.prototype.selectIdx = function(idx) {
 
 /**
  * @public
- * @param {string} label
- * @param {string} value
- * @param {string} isSelected
+ * @param {!string} label
+ * @param {!string|number} value
+ * @param {boolean=} isSelected
  */
 lgb.component.RadioButtonDataSource.prototype.addItem = function(label, value, isSelected) {
 	if (isSelected === undefined) {

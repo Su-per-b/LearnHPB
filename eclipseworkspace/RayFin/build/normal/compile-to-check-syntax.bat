@@ -31,10 +31,11 @@ set "DEST=..\..\bin\bin-normal"
 --compiler_flag=--externs=%SRC%\js\externs\three.objects.js ^
 --compiler_flag=--externs=%SRC%\js\externs\three.renderers.js ^
 --compiler_flag=--externs=%SRC%\js\externs\three.scenes.js ^
+--compiler_flag=--externs=%SRC%\js\externs\three.custom.js ^
 --compiler_flag=--externs=%SRC%\js\externs\jquery-ui-raj.js ^
 --output_mode compiled ^
 --compiler_jar ..\compiler.jar ^
---output_file %DEST%\lgb.js
+--output_file temp\lgb.js
 
 
 

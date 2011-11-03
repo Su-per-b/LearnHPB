@@ -12,7 +12,9 @@ goog.require('lgb.model.scenario.SystemNode');
  * @extends lgb.model.ModelBase
  */
 lgb.model.scenario.Base = function() {
-
+	/**@const */
+	this._NAME ='lgb.model.scenario.Base';
+	
 	lgb.model.ModelBase.call(this);
 
 	this.xml = null;
@@ -20,8 +22,7 @@ lgb.model.scenario.Base = function() {
 	this.idxToNodeMap = {};
 	this.selectedSystemNode = null;
 	
-	/**@const */
-	this._NAME ='lgb.model.scenario.Base';
+
   
 };
 goog.inherits(lgb.model.scenario.Base, lgb.model.ModelBase);

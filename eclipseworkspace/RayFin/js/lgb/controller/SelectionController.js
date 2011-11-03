@@ -25,16 +25,20 @@ lgb.controller.SelectionController.prototype.init_ = function() {
 
 	this.dataModel = new lgb.model.SelectableModel();
 	this.view = new lgb.view.SelectionView(this.dataModel, this.containerDiv_, this.camera_);
-	this.listen(lgb.events.SelectableLoaded.TYPE, this.onSelectableLoaded_);
 	
-
 	lgb.controller.SelectionController.superClass_.bind.call(this);
+	this.listen(lgb.events.SelectableLoaded.TYPE, this.onSelectableLoaded_);
+	this.view.init();
+
+
 
 	
 };
 
 /**
- * @private
+ * @public
+ * @param {lgb.events.SelectableLoaded} event the event telling
+ * about a new 3d Object which has loaded.
  */
 lgb.controller.SelectionController.prototype.onSelectableLoaded_ = function(event) {
 	//this.selectableObjects.push(event.payload);

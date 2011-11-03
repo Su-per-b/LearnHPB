@@ -4,3 +4,5 @@
  */
 THREE.Scene = function () {};
 
+/** @type {Array.<THREE.Object3D>} */
+THREE.Scene.prototype.objects;

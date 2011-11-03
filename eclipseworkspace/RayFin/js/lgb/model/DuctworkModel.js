@@ -10,11 +10,13 @@ goog.require('lgb.model.BuildingModel.Group');
  */
 lgb.model.DuctworkModel = function() {
 
-	lgb.model.ModelBase.call(this);
+
 	/**@const */
 	this._NAME ='lgb.model.DuctworkModel';
 	/**@const */
 	this._TITLE = 'Ductwork';
+	lgb.model.ModelBase.call(this);
+	
 	this.groupMembership = {};
 	this.groupMembership[lgb.model.BuildingModel.Group.ALL] = true;
 	this.groupMembership[lgb.model.BuildingModel.Group.HVAC] = true;
@@ -48,7 +50,8 @@ lgb.model.DuctworkModel.prototype.setVisible = function(makeVisible) {
 
 /**
  * @public
- * @param {lgb.model.Building.Group}
+ * @param {lgb.model.BuildingModel.Group} group The group name
+ * to set as visible.
  */
 lgb.model.DuctworkModel.prototype.setVisiblityGroup = function(group) {
 	

@@ -1,7 +1,7 @@
 goog.provide('lgb.model.EnvelopeModel');
 
 goog.require('lgb.model.ModelBase');
-
+goog.require('lgb.model.BuildingModel.Group');
 
 
 /**
@@ -9,7 +9,11 @@ goog.require('lgb.model.ModelBase');
  * @extends lgb.model.ModelBase
  */
 lgb.model.EnvelopeModel = function() {
-
+	/**@const */
+	this._NAME ='lgb.model.EnvelopeModel';
+	/**@const */
+	this._TITLE = 'Envelope';
+	
 	lgb.model.ModelBase.call(this);
 	
 	this.floorCount = 5;
@@ -17,10 +21,7 @@ lgb.model.EnvelopeModel = function() {
 	//this.floorHeightContraints = [9, 11, 13];
 	
 	this.isVisible = true;
-	/**@const */
-	this._NAME ='lgb.model.EnvelopeModel';
-	/**@const */
-	this._TITLE = 'Envelope';
+
 	this.groupMembership = {};
 	this.groupMembership[lgb.model.BuildingModel.Group.ALL] = true;
 	this.groupMembership[lgb.model.BuildingModel.Group.ENVELOPE] = true;
@@ -85,7 +86,8 @@ lgb.model.EnvelopeModel.prototype.setVisible = function(makeVisible) {
 
 /**
  * @public
- * @param {lgb.model.Building.Group}
+ * @param {lgb.model.BuildingModel.Group} group The group name
+ * to set as visible.
  */
 lgb.model.EnvelopeModel.prototype.setVisiblityGroup = function(group) {
 	

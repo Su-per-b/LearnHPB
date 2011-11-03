@@ -72,6 +72,12 @@ THREE.Vertex.prototype.position;
  */
 THREE.Geometry = function() {};
 
+THREE.Geometry.prototype.computeBoundingBox = function () {};
+
+/**@type {Object} */
+THREE.Geometry.prototype.boundingBox;
+
+
 /**
  * @constructor
  * @param {number} n11

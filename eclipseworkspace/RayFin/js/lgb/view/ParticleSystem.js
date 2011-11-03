@@ -30,9 +30,9 @@ lgb.view.ParticleSystem.prototype.onDataModelChanged = function(event) {
 	
 	if (whatIsDirty.isRunning) {
 		if (this.dataModel.isRunning) {
-			this.listen(lgb.events.RenderEvent.TYPE, this.onRender);
+			this.renderListenerKey = this.listen(lgb.events.RenderEvent.TYPE, this.onRender);
 		} else {
-			this.unlisten(lgb.events.RenderEvent.TYPE, this.onRender);
+			this.unlisten(this.renderListenerKey);
 		}
 	}
 	

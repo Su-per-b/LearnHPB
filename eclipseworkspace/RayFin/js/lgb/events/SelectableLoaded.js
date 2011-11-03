@@ -5,17 +5,15 @@ goog.require('goog.events.Event');
 /**
  * @constructor
  *  Event fired when a collada file is loaded
- * @param {THREE.Mesh}  mesh
+ * @param {THREE.Object3D}  obj The 3D object to make selectable.
  * @extends {goog.events.Event}
  */
-lgb.events.SelectableLoaded = function(mesh) {
+lgb.events.SelectableLoaded = function(obj) {
 
 	goog.events.Event.call(this, lgb.events.SelectableLoaded.TYPE);
-
-	//this.payload = {};
-
- /**@type {THREE.Mesh} **/
-  this.payload = mesh;
+	
+ /**@type {THREE.Object3D} **/
+  this.payload = obj;
 
 };
 goog.inherits(lgb.events.SelectableLoaded, goog.events.Event);

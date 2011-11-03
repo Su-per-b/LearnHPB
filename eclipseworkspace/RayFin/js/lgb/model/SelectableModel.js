@@ -1,6 +1,7 @@
 goog.provide('lgb.model.SelectableModel');
 
 goog.require('lgb.model.ModelBase');
+goog.require('hemi.utils');
 
 
 
@@ -9,7 +10,9 @@ goog.require('lgb.model.ModelBase');
  * @extends lgb.model.ModelBase
  */
 lgb.model.SelectableModel = function() {
-
+	/**@const */
+	this._NAME ='lgb.model.SelectableModel';
+	
 	lgb.model.ModelBase.call(this);
 	this.init_();
 
@@ -25,11 +28,20 @@ lgb.model.SelectableModel.prototype.init_ = function() {
 		Fan : true,
 		LeftDamper : true,
 		CenterDamper : true,
-		TopDamper : true
+		TopDamper : true,
+		Diffuser01 : true,
+		Diffuser02 : true,
+		Diffuser03 : true,
+		Diffuser04 : true,
+		Diffuser05 : true,
+		Diffuser06 : true,
+		Diffuser07 : true,
+		Diffuser08 : true,
+		Diffuser09 : true
 	}
 	this.selectableMeshes = {};
 	this.selected = [];
-	//this.selectableMeshes = [];
+	this.deselected = [];
 };
 
 
@@ -38,13 +50,26 @@ lgb.model.SelectableModel.prototype.init_ = function() {
  * param {THREE.Mesh} mesh
  */
 lgb.model.SelectableModel.prototype.select = function(intersect) {
+
+	//select none
+	this.deselected = hemi.utils.clone(this.selected, false);
 	this.selected = [];
-	if (this.selectableMeshes[intersect.mesh.name]) {
-		this.selected.push(this.selectableMeshes[intersect.mesh.name]);
+	
+
+	if (intersect != null) {
+		
+		if (intersect.mesh == null) {
+			throw ('intersect.mesh == null');
+		}
+		if (intersect.mesh.name == null || intersect.mesh.name == '') {
+			throw ('intersect.mesh.name  == null or ""');
+		}
+		if (this.selectableMeshes[intersect.mesh.name]) {
+			this.selected.push(this.selectableMeshes[intersect.mesh.name]);
+		}
 	}
 	
 	this.dispatchChange();
-//	var x;
 };
 
 /**

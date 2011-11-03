@@ -10,12 +10,13 @@ goog.require('lgb.model.ModelBase');
  * @extends lgb.model.ModelBase
  */
 lgb.model.BuildingModel = function() {
-
-	lgb.model.ModelBase.call(this);
 	/**@const */
 	this._NAME ='lgb.model.BuildingModel';
 	/**@const */
 	this._TITLE = 'Building';
+	
+	lgb.model.ModelBase.call(this);
+
 };
 
 goog.inherits(lgb.model.BuildingModel, lgb.model.ModelBase);

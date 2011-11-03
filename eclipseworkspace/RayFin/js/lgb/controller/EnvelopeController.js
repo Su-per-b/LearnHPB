@@ -83,7 +83,7 @@ lgb.controller.EnvelopeController.prototype.onRequestDataModelChange_ = function
 
 /**
  * @public
- * @param {lgb.model.Building.Group} group The group.
+ * @param {lgb.model.BuildingModel.Group} group The group.
  */
 lgb.controller.EnvelopeController.prototype.setVisiblityGroup = function(group) {
 	this.dataModel.setVisiblityGroup(group)

@@ -10,6 +10,9 @@ goog.require('lgb.events.DataSourceChanged');
  */
 lgb.component.DataSourceBase = function() {
 	lgb.BaseClass.call(this);
+	if (this._NAME === undefined) {
+		this._NAME = 'lgb.component.DataSourceBase';
+	}
 };
 goog.inherits(lgb.component.DataSourceBase, lgb.BaseClass);
 
@@ -21,7 +24,7 @@ goog.inherits(lgb.component.DataSourceBase, lgb.BaseClass);
  * @protected
  */
 lgb.component.DataSourceBase.prototype.dispatchChange = function() {
-	this.dispatchLocal(new lgb.events.DataSourceChanged());
+	this.dispatchLocal(new lgb.events.DataSourceChanged(this));
 };
 
 

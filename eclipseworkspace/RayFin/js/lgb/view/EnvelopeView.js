@@ -13,12 +13,14 @@ goog.require('lgb.view.ViewBase');
  */
 lgb.view.EnvelopeView = function(dataModel) {
 	lgb.view.ViewBase.call(this, dataModel);
-	this._NAME ='lgb.view.EnvelopeView';
-	this.init_();
-	this.floorMeshList = [];
 	
+	/**@const */
+	this._NAME ='lgb.view.EnvelopeView';
+	
+	/**@type {Array.<THREE.Geometry>} */
 	this.floorGeometry = [];
-//	this.currentFloorIdx = 9;
+	
+	this.init_();
 };
 goog.inherits(lgb.view.EnvelopeView, lgb.view.ViewBase);
 
@@ -31,23 +33,21 @@ goog.inherits(lgb.view.EnvelopeView, lgb.view.ViewBase);
 lgb.view.EnvelopeView.prototype.init_ = function() {
 	this.loader1_ = new lgb.Loader();
 	
-	//var delegate = jQuery.proxy(this.onGeometryLoaded, this, 9);
-	//var delegate = this.d(this.onGeometryLoaded, 9)
 	
-	this.loader1_.loadFile('9footEnvelopeStrip-joined.b.js', this.d(this.onGeometryLoaded, 9));
+	this.loader1_.loadFile('envelope/9footEnvelopeStrip-joined.b.js', this.d(this.onGeometryLoaded, 9));
 	
 	this.loader2_ = new lgb.Loader();
-	this.loader2_.loadFile('11footEnvelopeStrip.b.js', this.d(this.onGeometryLoaded, 11));
+	this.loader2_.loadFile('envelope/11footEnvelopeStrip.b.js', this.d(this.onGeometryLoaded, 11));
 	
 	this.loader3_ = new lgb.Loader();
-	this.loader3_.loadFile('13footEnvelopeStrip.b.js', this.d(this.onGeometryLoaded, 13));
+	this.loader3_.loadFile('envelope/13footEnvelopeStrip.b.js', this.d(this.onGeometryLoaded, 13));
 	
 };
 
 
 /**
  * @override
- * @param {goo.events.Event} event The event.
+ * @param {lgb.events.DataModelChanged} event The event.
  * @protected
  */
 lgb.view.EnvelopeView.prototype.onChange = function(event) {
@@ -127,7 +127,7 @@ lgb.view.EnvelopeView.prototype.updateVisible_ = function() {
 };
 
 
-lgb.view.EnvelopeView.prototype.makeMasterGroup = function(geometry) {
+lgb.view.EnvelopeView.prototype.makeMasterGroup = function() {
 	this.masterGroup = new THREE.Object3D();
 	this.updateAllFromModel_();
 	
@@ -148,9 +148,9 @@ lgb.view.EnvelopeView.prototype.onGeometryLoaded = function(floorNumber, geometr
 		this.makeMasterGroup();
 	}
 	
-	this.loader1_ = null;
-	this.loader2_ = null;
-	this.loader3_ = null;
+	delete this.loader1_;
+	delete this.loader2_;
+	delete this.loader3_;
 	
 };
 

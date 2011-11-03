@@ -140,10 +140,13 @@ lgb.view.LeftNavView.prototype.bind_ = function() {
 
 /**
  * Event handler -> fires when any of the left nav buttons are clicked
- * @param {goog.event.Event} event The Event.
+ * @param {jQuery.event} event The Event.
  * @private
  */
 lgb.view.LeftNavView.prototype.onClick_ = function(event) {
+	
+	(/** @type {lgb.model.BuildingModel.Group.<number>} */ event.data)
+	
 	var e = new lgb.events.RequestVisibilityChange(event.data);
 	this.dispatchLocal(e);
 };

@@ -16,12 +16,14 @@ goog.require('lgb.view.RoofTopView');
 lgb.controller.RoofTopController = function() {
 
 	lgb.controller.ControllerBase.call(this);
-	this.init();
+	this.init_();
 };
 goog.inherits(lgb.controller.RoofTopController, lgb.controller.ControllerBase);
 
-
-lgb.controller.RoofTopController.prototype.init = function() {
+/**
+ * @private
+ */
+lgb.controller.RoofTopController.prototype.init_ = function() {
 
 	this.dataModel = new lgb.model.RoofTopModel();
 	this.view = new lgb.view.RoofTopView(this.dataModel);
@@ -36,7 +38,8 @@ lgb.controller.RoofTopController.prototype.init = function() {
 
 /**
  * @public
- * @param {lgb.events.SelectableLoaded}
+ * @param {lgb.events.SelectableLoaded} event the event telling
+ * about a new seletable 3D Object.
  */
 lgb.controller.RoofTopController.prototype.onSelectableLoaded = function(event) {
 	this.dispatch(event);
@@ -45,7 +48,8 @@ lgb.controller.RoofTopController.prototype.onSelectableLoaded = function(event) 
 
 /**
  * @public
- * @param {lgb.model.Building.Group}
+ * @param {lgb.model.BuildingModel.Group} group The group to make
+ * visible.
  */
 lgb.controller.RoofTopController.prototype.setVisiblityGroup = function(group) {
 	this.dataModel.setVisiblityGroup(group)
