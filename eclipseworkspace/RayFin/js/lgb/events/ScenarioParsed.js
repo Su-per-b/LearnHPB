@@ -4,7 +4,6 @@ goog.require('goog.events.Event');
 
 /**
  * @constructor
- *  Event fired when a collada file is loaded
  * @param {lgb.model.scenario.Base} scenarioBase
  * @extends {goog.events.Event}
  */

@@ -5,7 +5,7 @@ goog.require('lgb.controller.ControllerBase');
 goog.require('lgb.controller.EnvelopeController');
 goog.require('lgb.controller.RoofTopController');
 goog.require('lgb.controller.DuctworkController');
-goog.require('lgb.events.NotifyVisibilityChanged');
+goog.require('lgb.events.VisibilityChanged');
 
 
 
@@ -63,5 +63,5 @@ lgb.controller.BuildingController.prototype.onRequestVisibilityChange_ = functio
 	this.roofTopController.setVisiblityGroup(group);
 	this.ductworkController.setVisiblityGroup(group);
 	
-	this.dispatch(new lgb.events.NotifyVisibilityChanged(group));
+	this.dispatch(new lgb.events.VisibilityChanged(group));
 }

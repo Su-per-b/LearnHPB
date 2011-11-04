@@ -17,4 +17,4 @@ copy %SRC%\css\kendo.common.css %DEST%\css\kendo.common.css
 copy %SRC%\css\kendo.lgb.css %DEST%\css\kendo.lgb.css
 
 xcopy %SRC%\css\Kendo %DEST%\css\Kendo /y /i /s
-copy %SRC%\js\three.js\Three.min.js %DEST%\Three.min.js
+copy %SRC%\js\three\Three.min.js %DEST%\Three.min.js

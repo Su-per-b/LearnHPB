@@ -4,7 +4,6 @@ goog.require('goog.events.Event');
 
 /**
  * @constructor
- *  Event fired when a collada file is loaded
  * @param {THREE.Object3D}  obj The 3D object to make selectable.
  * @extends {goog.events.Event}
  */

@@ -6,7 +6,6 @@ goog.require('lgb.model.BuildingModel.Group');
 goog.require('lgb.view.EnvelopeView');
 goog.require('lgb.view.EnvelopeAdminView');
 
-goog.require('lgb.events.DataModelCreated');
 goog.require('lgb.events.RequestVisibilityChange');
 goog.require('lgb.events.ViewInitialized');
 

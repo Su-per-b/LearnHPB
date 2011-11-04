@@ -32,7 +32,7 @@ jQuery.prototype.kendoDropDownList = function(obj) {};
  */
 jQuery.prototype.kendoDropDownList.prototype.select = function(obj) {};
 
-jQuery.prototype.kendoDropDownList.prototype.refresh = function() {};    	
+    	
         	
 
         	
@@ -41,6 +41,13 @@ jQuery.prototype.kendoDropDownList.prototype.refresh = function() {};
  * @return {jQuery}
  */
 jQuery.prototype.kendoTabStrip = function(obj) {};
+
+/**@type {Array} */
+jQuery.prototype.kendoTabStrip.prototype.tabGroup;
+
+/**@type {Array} */
+jQuery.prototype.kendoTabStrip.prototype.tabGroup.children;
+
 
 /**
  * @param {Object} obj

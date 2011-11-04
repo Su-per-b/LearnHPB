@@ -1,6 +1,4 @@
 goog.provide('lgb.view.PropertiesView');
-goog.require('lgb.events.ComponentIDSelected');
-goog.require('lgb.events.TrackBallControlPause');
 goog.require('lgb.view.DialogView');
 goog.require('lgb.view.component.FaultWidget');
 goog.require('lgb.view.component.InputWidget');
@@ -13,7 +11,7 @@ goog.require('lgb.view.component.InputWidget');
 lgb.view.PropertiesView = function(dataModel) {
 
   lgb.view.DialogView.call(this, dataModel);
-
+	this.currentSelectionIdx = -1;
   this.htmlID = 'propertiesView';
   this.title = 'Properties';
 
@@ -36,7 +34,8 @@ goog.inherits(lgb.view.PropertiesView, lgb.view.DialogView);
  * @param {goog.events.Event} event The event received.
  */
 lgb.view.PropertiesView.prototype.onChange = function(event) {
-  this.showNode(this.dataModel.selectedSystemNode);
+   this.setDropDownSelection(this.dataModel.selectedSystemNode);
+   this.showNode(this.dataModel.selectedSystemNode);
 };
 
 /**
@@ -139,15 +138,15 @@ lgb.view.PropertiesView.prototype.makeListBox_ = function() {
 
 /**
  * Event handler for when a user makes a selection
- * @param {goog.events.Event} event The Event that notifys us the
+ * @param {goog.events.Event} event The Event that notifies us the
  * user has made a selection.
  */
 lgb.view.PropertiesView.prototype.onDropDownChange = function(event) {
   var jq = $('#' + this.comboBoxId);
   var id = jq[0].value;
-
-  var e = new lgb.events.ComponentIDSelected(id);
-  this.dispatchLocal(e);
+  
+  this.dataModel.selectId(id);
+	
 };
 
 
@@ -157,7 +156,11 @@ lgb.view.PropertiesView.prototype.onDropDownChange = function(event) {
  * identify the value to select.
  */
 lgb.view.PropertiesView.prototype.setDropDownSelection = function(systemNode) {
-  this.kendoDropDownList.select(systemNode.idx);
+	
+	if (systemNode.idx != this.currentSelectionIdx )	{
+		  this.currentSelectionIdx = systemNode.idx;
+		  this.kendoDropDownList.select(this.currentSelectionIdx);
+	}
 };
 
 /**

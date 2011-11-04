@@ -24,8 +24,6 @@ lgb.view.LeftNavView = function() {
 	this.bind_();
 	
 	this.buttonGeneral.setSelected(true);
-	//this.setSelected('leftNavButton_1');
-	
 	this._NAME ='lgb.view.LeftNavView';
 };
 goog.inherits(lgb.view.LeftNavView, lgb.view.ViewBase);
@@ -130,7 +128,7 @@ lgb.view.LeftNavView.prototype.injectHtml_ = function() {
  * @private
  */
 lgb.view.LeftNavView.prototype.bind_ = function() {
-	this.listen(lgb.events.WindowResizeEvent.TYPE, this.onResize);
+	this.listen(lgb.events.WindowResize.TYPE, this.onResize);
 
 	var delegate = this.d(this.onClick_);
 	this.buttonGeneral.jq().click(lgb.model.BuildingModel.Group.ALL,delegate);

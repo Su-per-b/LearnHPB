@@ -9,4 +9,3 @@ mkdir %DEST%
 mkdir  %DEST%\css
 mkdir  %DEST%\xml
 mkdir  %DEST%\3d-assets\
-mkdir  %DEST%\3d-assets\textures

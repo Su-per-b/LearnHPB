@@ -1,7 +1,6 @@
 goog.provide('lgb.view.EnvelopeView');
 
 goog.require('lgb.Loader');
-goog.require('lgb.events.ColladaSceneLoadedEvent');
 goog.require('lgb.events.MeshLoaded');
 goog.require('lgb.events.ViewInitialized');
 goog.require('lgb.view.ViewBase');

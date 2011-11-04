@@ -1,11 +1,12 @@
 goog.provide('lgb.controller.PropertiesController');
 
 goog.require('lgb.controller.ControllerBase');
-goog.require('lgb.events.ComponentIDSelected');
-goog.require('lgb.events.MakeViewActive');
+goog.require('lgb.events.RequestActivateView');
 goog.require('lgb.events.ScenarioParsed');
 goog.require('lgb.view.PropertiesButtonView');
 goog.require('lgb.view.PropertiesView');
+goog.require('lgb.events.WorldSelectionChanged');
+goog.require('lgb.events.RequestWorldSelectionChange');
 
 
 /**
@@ -21,10 +22,6 @@ lgb.controller.PropertiesController = function() {
 goog.inherits(lgb.controller.PropertiesController, lgb.controller.ControllerBase);
 
 
-lgb.controller.PropertiesController.prototype.onComponentIDSelected = function(event) {
-	var id = event.payload;
-	this.dataModel.selectId(id);
-};
 
 
 lgb.controller.PropertiesController.prototype.onScenarioParsed = function(event) {
@@ -37,17 +34,19 @@ lgb.controller.PropertiesController.prototype.onScenarioParsed = function(event)
 	this.view = new lgb.view.PropertiesView(this.dataModel);
 
 	this.buttonView.show();
-	//this.view.show(true);
 
-	this.listenTo(this.view, lgb.events.ComponentIDSelected.TYPE, this.onComponentIDSelected);
 	this.listenTo(this.view, lgb.events.ViewClosed.TYPE, this.onClosedPanel);
-	this.listenTo(this.buttonView, lgb.events.MakeViewActive.TYPE, this.onMakeViewActive);
-
+	this.listenTo(this.dataModel, lgb.events.DataModelChanged.TYPE, this.onDataModelChanged_);
+	this.listenTo(this.buttonView, lgb.events.RequestActivateView.TYPE, this.onRequestActivateView);
+	this.listen(lgb.events.WorldSelectionChanged.TYPE, this.onWorldSelectionChanged);
 };
 
 
 
-lgb.controller.PropertiesController.prototype.onMakeViewActive = function(event) {
+/**
+ * @param {lgb.events.RequestActivateView} event The event.
+ */
+lgb.controller.PropertiesController.prototype.onRequestActivateView = function(event) {
 	var makeActiveFlag = event.payload;
 
 	this.buttonView.setSelected(makeActiveFlag);
@@ -61,27 +60,41 @@ lgb.controller.PropertiesController.prototype.onMakeViewActive = function(event)
 };
 
 
-/*
-lgb.controller.PropertiesController.prototype.onSelectID = function(event) {
-	//this.buttonView.setSelected(false);
-	var id = event.value;
-	this.view.showID(id);
-};
-*/
+/**
+ * @param {lgb.events.WorldSelectionChanged} event The event.
+ */
+lgb.controller.PropertiesController.prototype.onWorldSelectionChanged = function(event) {
+	var id = event.payload;
+	if (id == 'NONE') {
+		//TODO (Raj) deslect all
+	} else {
+		this.dataModel.selectId(id);
+	}
 
-lgb.controller.PropertiesController.prototype.onSelectedInWorld = function(event) {
-	var obj = event.value;
-	this.view.showNode(obj);
 };
 
+
+/**
+ * @private
+ * @param {lgb.events.DataModelChanged} event The event.
+ */
+lgb.controller.PropertiesController.prototype.onDataModelChanged_ = function(event) {
+	
+	var e = new lgb.events.RequestWorldSelectionChange (
+		this.dataModel.selectedSystemNode.id);
+		
+	this.dispatch(e);
+};
+
+
+/**
+ * @param {lgb.events.ViewClosed} event The event.
+ */
 lgb.controller.PropertiesController.prototype.onClosedPanel = function(event) {
 	this.buttonView.setSelected(false);
 };
 
-lgb.controller.PropertiesController.prototype.onTogglePanel = function(event) {
-	this.view.toggleVisible();
-	this.buttonView.toggleVisible();
-};
+
 
 
 

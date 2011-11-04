@@ -51,7 +51,6 @@ lgb.Loader.prototype.loadFile = function(fileName, callback) {
 		var fileType = this.getFileType(fileName);
 		var path = lgb.Config.ASSETS_BASE_PATH + fileName;
 
-		//var callbackDelegate = this.d(this.onColladaLoaded);
 
 		var loadObj = {
 					model: path,
@@ -89,7 +88,7 @@ lgb.Loader.prototype.getFileType = function(fileName) {
 		var fileExt = ary[len - 1].toLowerCase();
 
 		if (fileExt == 'dae') {
-			return lgb.Loader.MESH_TYPE.COLLADA;
+			throw ('DAE not implemented');
 		} else if (fileExt == 'utf8') {
 			return lgb.Loader.MESH_TYPE.UTF8;
 		}
@@ -111,13 +110,6 @@ lgb.Loader.prototype.getFileType = function(fileName) {
 
 };
 
-lgb.Loader.prototype.onColladaLoaded = function(collada ) {
-
-
-	var event = new lgb.events.MeshLoaded(collada);
-	this.dispatch(event);
-
-};
 
 
 

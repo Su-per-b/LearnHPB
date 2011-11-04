@@ -6,7 +6,7 @@ goog.require('lgb.controller.ControllerBase');
 goog.require('lgb.controller.GuiController');
 goog.require('lgb.controller.ScenarioController');
 goog.require('lgb.controller.WorldController');
-goog.require('lgb.events.WindowResizeEvent');
+goog.require('lgb.events.WindowResize');
 goog.require('lgb.events.WorldCreated');
 goog.require('lgb.controller.AdminController');
 
@@ -81,8 +81,7 @@ lgb.controller.MainController.prototype.init = function() {
 
 	$(window).resize(this.d(this.onWindowResize_));
 
-	//var e = new lgb.events.ShowGUI();
-	//this.dispatch(e);
+
 
 /*
 	  jQuery.ajax({
@@ -138,7 +137,7 @@ lgb.controller.MainController.prototype.injectErrorWindow_ = function() {
  */
 lgb.controller.MainController.prototype.onWindowResize_ = function(event) {
 	this.dispatch(
-		new lgb.events.WindowResizeEvent(
+		new lgb.events.WindowResize(
 			window.innerWidth,
 			window.innerHeight
 		)

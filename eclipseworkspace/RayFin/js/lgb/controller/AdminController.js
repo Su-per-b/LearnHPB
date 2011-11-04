@@ -22,13 +22,13 @@ goog.inherits(lgb.controller.AdminController, lgb.controller.ControllerBase);
 lgb.controller.AdminController.prototype.onScenarioParsed = function(event) {
 	this.buttonView.show();
 
-	this.listenTo(this.buttonView, lgb.events.MakeViewActive.TYPE, this.onMakeViewActive);
+	this.listenTo(this.buttonView, lgb.events.RequestActivateView.TYPE, this.onRequestActivateView);
 	this.listenTo(this.view, lgb.events.ViewClosed.TYPE, this.onClosedPanel);
 };
 
 
 
-lgb.controller.AdminController.prototype.onMakeViewActive = function(event) {
+lgb.controller.AdminController.prototype.onRequestActivateView = function(event) {
 	var makeActiveFlag = event.payload;
 
 	this.buttonView.setSelected(makeActiveFlag);

@@ -3,6 +3,7 @@ goog.provide('lgb.view.SelectionView');
 goog.require('lgb.events.RenderEvent');
 goog.require('lgb.view.ViewBase');
 goog.require('lgb.model.SelectableModel');
+goog.require('lgb.events.Object3DSelected');
 
 
 /**
@@ -41,7 +42,6 @@ lgb.view.SelectionView.prototype.init = function() {
 	
 	this.selectedMaterial = new THREE.MeshLambertMaterial( { color: 0xbb0000 } );
 	this.savedMaterials = {};
-	//this.insertedMeshes = [];
 	
 	this.masterGroup = new THREE.Object3D();
 	this.masterGroup.name = this._NAME;
@@ -85,12 +85,6 @@ lgb.view.SelectionView.prototype.updateSelected_ = function() {
 };
 
 
-lgb.view.SelectionView.prototype.onMouseMove = function(event) {
-	this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-	this.mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
-};
-
-
 
 lgb.view.SelectionView.prototype.checkCollision = function() {
 	var vector = new THREE.Vector3(this.mouse.x, this.mouse.y, 0.5);
@@ -100,14 +94,17 @@ lgb.view.SelectionView.prototype.checkCollision = function() {
 		this.camera_.position,
 		vector.subSelf(this.camera_.position).normalize());
 
+	/**@type {THREE.MeshCollider} */
 	var intersect = THREE.Collisions.rayCastNearest(ray);
 
-	//if (intersect) {
-		this.dataModel.select(intersect);
-		//lgb.logInfo('mouse over ' + c.mesh.name, 'lgb.controller.WorldController.renderHelper');
-		
-//	}
-
+	
+	if (this.dataModel.selected.length ==0 &&
+		intersect == null) {
+			//do nothing
+		} else {
+			var e = new lgb.events.Object3DSelected(intersect);
+			this.dispatchLocal(e);
+		}
 };
 
 

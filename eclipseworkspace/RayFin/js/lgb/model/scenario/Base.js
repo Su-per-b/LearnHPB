@@ -1,6 +1,5 @@
 goog.provide('lgb.model.scenario.Base');
 
-goog.require('lgb.events.ComponentSelected');
 goog.require('lgb.events.DataModelChanged');
 goog.require('lgb.events.DataModelInitialized');
 goog.require('lgb.model.ModelBase');
@@ -39,15 +38,18 @@ lgb.model.scenario.Base.prototype.load = function() {
 	  });
 };
 
-
+/**
+ * @param {string} id The ID of the mesh.
+ */
 lgb.model.scenario.Base.prototype.selectId = function(id) {
 
 	this.selectedSystemNode = this.idxToNodeMap[id];
-	//this.selectedSystemID = id;
-
 	var e = new lgb.events.DataModelChanged();
 	this.dispatchLocal(e);
 };
+
+
+
 lgb.model.scenario.Base.prototype.parse = function(xml) {
 
 	this.xml = xml;

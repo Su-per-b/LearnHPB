@@ -45,9 +45,48 @@ lgb.model.SelectableModel.prototype.init_ = function() {
 };
 
 
+/**
+ * returns the name of the slected mesh.
+ * @return {string}
+ */
+lgb.model.SelectableModel.prototype.getOneSelected = function() {
+	if (this.selected.length < 1) {
+		return '';
+	} else {
+		return this.selected[0].name;
+	}
+}
+
 
 /**
- * param {THREE.Mesh} mesh
+ * @param {Array.<string>} meshList Contains mesh names.
+ */
+lgb.model.SelectableModel.prototype.selectMeshList = function(meshList) {
+	//select none
+	this.deselected = hemi.utils.clone(this.selected, false);
+	this.selected = [];
+	
+	
+	var i = meshList.length;
+	while(i--) {
+		this.selectMesh_(meshList[i]);
+	}
+
+	this.dispatchChange();
+};
+
+
+/**
+ * @private
+ * @param {string} meshName The name in the scene graph.
+ */
+lgb.model.SelectableModel.prototype.selectMesh_ = function(meshName) {
+	var theMesh = this.selectableMeshes[meshName]
+	this.selected.push(theMesh);
+}
+
+/**
+ * @param {THREE.MeshCollider} intersect
  */
 lgb.model.SelectableModel.prototype.select = function(intersect) {
 
@@ -73,7 +112,7 @@ lgb.model.SelectableModel.prototype.select = function(intersect) {
 };
 
 /**
- * param {THREE.Mesh} mesh
+ * @param {THREE.Mesh} mesh
  */
 lgb.model.SelectableModel.prototype.addMesh = function(mesh) {
 

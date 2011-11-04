@@ -1,8 +1,7 @@
 goog.provide('lgb.view.CameraView');
 
-goog.require('lgb.events.WindowResizeEvent');
+goog.require('lgb.events.WindowResize');
 goog.require('lgb.view.ViewBase');
-goog.require('lgb.events.TrackBallControlPause');
 
 /**
  * @constructor
@@ -33,7 +32,7 @@ lgb.view.CameraView.prototype.init = function(domElement) {
 	this.camera.position.y = 2;
 	this.camera.position.z = this.orbitRadius;
 	
-	this.listen(lgb.events.WindowResizeEvent.TYPE, this.onWindowResize);
+	this.listen(lgb.events.WindowResize.TYPE, this.onWindowResize);
 };
 
 

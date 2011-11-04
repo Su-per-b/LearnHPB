@@ -18,7 +18,7 @@ lgb.view.TrackBallWrapper = function( camera, domElement) {
 	/**@constant **/
 	this._NAME ='lgb.view.TrackBallWrapper';
 	/**@constant **/
-	this._SENSITIVITY = 0.4;
+	this._SENSITIVITY = -0.4;
 	
 	lgb.view.ViewBase.call(this);
 	this.domElement_ = domElement;

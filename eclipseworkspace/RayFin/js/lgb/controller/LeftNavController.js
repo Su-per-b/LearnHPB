@@ -1,8 +1,7 @@
 goog.provide('lgb.controller.LeftNavController');
 goog.require('lgb.view.LeftNavView');
-goog.require('lgb.events.DataModelCreated');
 goog.require('lgb.events.RequestVisibilityChange');
-goog.require('lgb.events.NotifyVisibilityChanged');
+goog.require('lgb.events.VisibilityChanged');
 
 
 /**
@@ -35,13 +34,15 @@ lgb.controller.LeftNavController.prototype.init_ = function() {
  */
 lgb.controller.LeftNavController.prototype.bind_ = function() {
 	
-	this.listenTo(this.view, 
+	
+	//TODO (Raj) why do I need this cast?
+	this.listenTo((/**@type {goog.events.EventTarget} */ this.view), 
 		lgb.events.RequestVisibilityChange.TYPE, 
 		this.onRequestVisibilityChange_);
 		
 	this.listen(
-		lgb.events.NotifyVisibilityChanged.TYPE, 
-		this.onNotifyVisibilityChanged_);	
+		lgb.events.VisibilityChanged.TYPE, 
+		this.onVisibilityChanged_);	
 };
 
 
@@ -60,6 +61,6 @@ lgb.controller.LeftNavController.prototype.onRequestVisibilityChange_ = function
  * @private
  * @param {goog.events.Event} event The Event.
  */
-lgb.controller.LeftNavController.prototype.onNotifyVisibilityChanged_ = function(event) {
+lgb.controller.LeftNavController.prototype.onVisibilityChanged_ = function(event) {
 	this.view.updateSelected(event.payload);
 }

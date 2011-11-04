@@ -7,12 +7,12 @@ goog.require('lgb.controller.BuildingController');
 
 goog.require('lgb.events.Object3DLoaded');
 goog.require('lgb.events.RenderEvent');
-goog.require('lgb.events.WindowResizeEvent');
+goog.require('lgb.events.WindowResize');
 
 goog.require('lgb.view.CameraView');
 goog.require('lgb.view.StatsView');
 goog.require('lgb.view.TrackBallWrapper');
-goog.require('lgb.controller.SelectionController');
+goog.require('lgb.controller.WorldSelectionController');
 
 /**
  * MVC controller for the App
@@ -76,15 +76,17 @@ lgb.controller.WorldController.prototype.init = function() {
 	*/
 	this.buildingController_ = new lgb.controller.BuildingController();
 
+	/**@type {lgb.controller.ParticleSystemController} */
 	this.particleSystemController_ = new lgb.controller.ParticleSystemController();
 	
+	/**@type {lgb.controller.WorldSelectionController} */
 	this.selectionController_ = 
-		new lgb.controller.SelectionController(
+		new lgb.controller.WorldSelectionController(
 			this.containerDiv_, 
 			this.cameraView_.camera
 	);
 
-
+	/**@type {lgb.view.TrackBallWrapper} */
 	this.trackBallWrapper_ = new lgb.view.TrackBallWrapper(
 		this.cameraView_.camera,
 		this.containerDiv_
@@ -149,7 +151,7 @@ lgb.controller.WorldController.prototype.initRenderer_ = function() {
 lgb.controller.WorldController.prototype.bind_ = function() {
 	this.listen(lgb.events.MeshLoaded.TYPE, this.onMeshLoaded);
 	this.listen(lgb.events.Object3DLoaded.TYPE, this.onObject3DLoaded);
-	this.listen(lgb.events.WindowResizeEvent.TYPE, this.onWindowResize);
+	this.listen(lgb.events.WindowResize.TYPE, this.onWindowResize);
 }
 
 
