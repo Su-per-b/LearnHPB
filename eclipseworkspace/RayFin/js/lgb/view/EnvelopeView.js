@@ -78,6 +78,7 @@ lgb.view.EnvelopeView.prototype.makeFloors_ = function() {
 	this.yExt = bb.y[1] - bb.y[0];
 	this.zExt = bb.z[1] - bb.z[0];
 	
+	
 	var m = this.masterGroup.children.length;
 	
 	for (var i = this.masterGroup.children.length - 1; i >= 0; i--){

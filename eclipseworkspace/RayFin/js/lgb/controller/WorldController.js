@@ -1,9 +1,10 @@
 goog.provide('lgb.controller.WorldController');
 
 goog.require('lgb.controller.ControllerBase');
-goog.require('lgb.controller.ParticleSystemController');
+goog.require('lgb.controller.PsControllerMaster');
 goog.require('lgb.controller.FloorController');
 goog.require('lgb.controller.BuildingController');
+goog.require('lgb.controller.WorldSelectionController');
 
 goog.require('lgb.events.Object3DLoaded');
 goog.require('lgb.events.RenderEvent');
@@ -12,7 +13,7 @@ goog.require('lgb.events.WindowResize');
 goog.require('lgb.view.CameraView');
 goog.require('lgb.view.StatsView');
 goog.require('lgb.view.TrackBallWrapper');
-goog.require('lgb.controller.WorldSelectionController');
+
 
 /**
  * MVC controller for the App
@@ -76,8 +77,8 @@ lgb.controller.WorldController.prototype.init = function() {
 	*/
 	this.buildingController_ = new lgb.controller.BuildingController();
 
-	/**@type {lgb.controller.ParticleSystemController} */
-	this.particleSystemController_ = new lgb.controller.ParticleSystemController();
+	/**@type {lgb.controller.PsControllerMaster} */
+	this.PsControllerMaster_ = new lgb.controller.PsControllerMaster();
 	
 	/**@type {lgb.controller.WorldSelectionController} */
 	this.selectionController_ = 

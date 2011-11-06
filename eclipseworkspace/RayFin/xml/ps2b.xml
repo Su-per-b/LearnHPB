@@ -1,0 +1,50 @@
+<particleSystems translate="0,0,0" rotate="0,0,0">
+	
+	<colorKeys>
+		<ck id="1">
+			<key>0</key>
+			<value>1,0,0,0.8</value>
+		</ck>
+		<ck id="2">
+			<key>0.01</key>
+			<value>1,0,0,1</value>
+		</ck>
+		<ck id="3">
+			<key>0.29</key>
+			<value>0,0,1,1</value>
+		</ck>
+		<ck id="4">
+			<key>1</key>
+			<value>0,0,1,1</value>
+		</ck>
+	</colorKeys>
+	
+	<scaleKeys>
+		<sk id="1">
+			<key>0</key>
+			<value>0.15,0.15,0.15</value>
+		</sk>
+		<sk id="2">
+			<key>1</key>
+			<value>0.15,0.15,0.15</value>
+		</sk>
+		<sk id="3">
+			<key>1</key>
+			<value>0.15,0.15,0.15</value>
+		</sk>
+	</scaleKeys>
+	
+	<system id="1">
+		<particleCount>25</particleCount>
+		<life>10</life>
+		<boundingBoxIds>all</boundingBoxIds>
+		<shape>SPHERE</shape>
+		<curve>1</curve>
+		<particleSize>0.7</particleSize>
+		<colorKeyIds>1,2,3,4</colorKeyIds>
+		<scaleKeyIds>1,2,3</scaleKeyIds>
+	</system>
+	
+
+	
+</particleSystems>

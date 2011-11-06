@@ -29,7 +29,7 @@ THREE.Object3D = function() {
 
 	this.rotationAutoUpdate = true;
 
-	this.matrix = new THREE.Matrix4();
+	this.matrix = new THREE.Matrix4()
 	this.matrixWorld = new THREE.Matrix4();
 	this.matrixRotationWorld = new THREE.Matrix4();
 

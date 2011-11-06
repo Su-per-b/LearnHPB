@@ -15,7 +15,7 @@ lgb.view.ParticleSystemAdminView = function(dataModel, parentHTMLid) {
 	
 	this.parentHTMLid = parentHTMLid;
 	this._NAME ='lgb.view.ParticleSystemAdminView';
-	this.htmlID = 'adminSubpanel-' + dataModel.getCssID();
+	this.htmlID = 'adminSubpanel-' + dataModel.getCssID() + '-' + dataModel.id;
 	
 
 };
