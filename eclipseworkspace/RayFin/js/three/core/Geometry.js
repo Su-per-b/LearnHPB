@@ -419,28 +419,7 @@ THREE.Geometry.prototype = {
 		}
 
 	},
-	getDimensions: function () {
-		this.computeBoundingBox();
-		var bb = this.boundingBox;
-	
-		var xExt = bb.x[1] - bb.x[0];
-		var yExt = bb.y[1] - bb.y[0];
-		var zExt = bb.z[1] - bb.z[0];
-		
-		var dimensions = new THREE.Vector3(xExt, yExt, zExt);
-		return dimensions;
-	},
-	getBoundingBoxMinMax: function () {
-		this.computeBoundingBox();
-		var bb = this.boundingBox;
-		var min = [bb.x[0], bb.y[0],bb.z[0]];
-		var max = [bb.x[1], bb.y[1],bb.z[1]];
-		
-		return {
-			min : min,
-			max : max
-		};
-	},
+
 	computeBoundingSphere: function () {
 
 		// var radius = this.boundingSphere === null ? 0 : this.boundingSphere.radius;
@@ -512,7 +491,36 @@ THREE.Geometry.prototype = {
 		// Use unique set of vertices
 		this.vertices = unique;
 		
-	}
+	},
+	
+	/*
+	 * @author Raj Dye
+	 */
+	getDimensions: function () {
+		this.computeBoundingBox();
+		var bb = this.boundingBox;
+	
+		var xExt = bb.x[1] - bb.x[0];
+		var yExt = bb.y[1] - bb.y[0];
+		var zExt = bb.z[1] - bb.z[0];
+		
+		var dimensions = new THREE.Vector3(xExt, yExt, zExt);
+		return dimensions;
+	},
+	/*
+	 * @author Raj Dye
+	 */
+	getBoundingBoxMinMax: function () {
+		this.computeBoundingBox();
+		var bb = this.boundingBox;
+		var min = [bb.x[0], bb.y[0],bb.z[0]];
+		var max = [bb.x[1], bb.y[1],bb.z[1]];
+		
+		return {
+			min : min,
+			max : max
+		};
+	},
 
 };
 

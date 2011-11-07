@@ -266,24 +266,8 @@ THREE.Object3D.prototype = {
 		console.warn( 'DEPRECATED: Object3D.removeChild() is now Object3D.remove().' );
 		this.remove( child );
 
-	},
-	
-	//Raj Dye
-	bakeTransformsIntoGeometry: function ( ) {
-
-		this.updateMatrix();
-	  	
-	  	var newGeom = THREE.GeometryUtils.clone(this.geometry);
-		newGeom.applyMatrix(this.matrix);
-		
-		this.geometry = newGeom;
-		this.geometry.computeBoundingSphere();
-		
-		this.position = new THREE.Vector3();
-		this.rotation = new THREE.Vector3();
-		this.scale = new THREE.Vector3( 1, 1, 1 );
-		this.quaternion = new THREE.Quaternion();
 	}
+	
 
 };
 

@@ -97,6 +97,8 @@ lgb.Loader.prototype.getFileType = function(fileName) {
 			var typeCode = ary[len - 2].toLowerCase();
 			if (typeCode == 'b') {
 				return lgb.Loader.MESH_TYPE.BIN;
+			} else if (typeCode == 'obj') {
+				return lgb.Loader.MESH_TYPE.BIN;
 			} else if (typeCode == 'json') {
 				return lgb.Loader.MESH_TYPE.JSON;
 			} else {

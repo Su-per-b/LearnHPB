@@ -27,12 +27,17 @@ THREE.BinaryLoader.prototype.load = function( parameters ) {
 
 	//  This isn't really necessary, JS part is tiny,
 	//  could be done by more ordinary means.
-
+	parameters.model = parameters.model.split('//').join('/');
 	var url = parameters.model,
 		callback = parameters.callback,
 		texture_path = parameters.texture_path ? parameters.texture_path : THREE.Loader.prototype.extractUrlbase( url ),
 		bin_path = parameters.bin_path ? parameters.bin_path : THREE.Loader.prototype.extractUrlbase( url ),
-
+	
+	
+		//texture_path = texture_path.split('//').join('/');
+		//url = url.split('//').join('/');
+		//model = model.split('//').join('/');
+		
 		s = (new Date).getTime(),
 		worker = new Worker( url ),
 		callback_progress = this.showProgress ? THREE.Loader.prototype.updateProgress : null;
