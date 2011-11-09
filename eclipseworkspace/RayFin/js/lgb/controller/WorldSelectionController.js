@@ -52,10 +52,10 @@ lgb.controller.WorldSelectionController.prototype.init_ = function() {
 	this.view.init();
 };
 
-/*
+/**
  * @private
  */
-lgb.controller.WorldSelectionController.prototype.bind_ = function(event) {
+lgb.controller.WorldSelectionController.prototype.bind_ = function() {
 	lgb.controller.WorldSelectionController.superClass_.bind.call(this);
 	
 	this.listen(lgb.events.SelectableLoaded.TYPE, this.onSelectableLoaded_);
@@ -70,7 +70,7 @@ lgb.controller.WorldSelectionController.prototype.bind_ = function(event) {
 };
 
 
-/*
+/**
  * @private
  * @param {lgb.events.RequestWorldSelectionChange} event Requesting that the selction
  * in the 3D world be changed.  Comes from the Properties Controller.
@@ -89,13 +89,13 @@ lgb.controller.WorldSelectionController.prototype.onRequestWorldSelectionChange_
 
 
 
-/*
+/**
  * @private
  * @param {lgb.events.Object3DSelected} event The event telling that 
  * a selection change has been made in the view.
  */
 lgb.controller.WorldSelectionController.prototype.Object3DSelected_ = function(event) {
-	/**@type {THREE.MeshCollider} **/
+	/**@type {THREE.CollisionSystem} **/
 	var mc = event.payload;
 	this.dataModel.select(mc);
 	

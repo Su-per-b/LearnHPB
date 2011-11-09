@@ -94,7 +94,7 @@ lgb.view.SelectionView.prototype.checkCollision = function() {
 		this.camera_.position,
 		vector.subSelf(this.camera_.position).normalize());
 
-	/**@type {THREE.MeshCollider} */
+	/**@type {THREE.CollisionSystem} */
 	var intersect = THREE.Collisions.rayCastNearest(ray);
 
 	

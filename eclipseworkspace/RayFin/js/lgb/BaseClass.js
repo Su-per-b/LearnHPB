@@ -1,3 +1,9 @@
+/**
+ * @author Raj Dye - raj.dye@gmail.com
+ * Almost all classes in the 'lgb' namespace inherit
+ * from this class. It is primarily concerned with Event listening
+ * and dispatching.
+ */
 goog.provide('lgb.BaseClass');
 
 goog.require('goog.events');
@@ -11,10 +17,10 @@ goog.require('goog.events.EventTarget');
  */
 lgb.BaseClass = function() {
   goog.events.EventTarget.call(this);
-  
+
   this.delegateIdx = {};
   this.listenKeys = {};
-  
+
 };
 goog.inherits(lgb.BaseClass, goog.events.EventTarget);
 
@@ -27,18 +33,19 @@ goog.inherits(lgb.BaseClass, goog.events.EventTarget);
  * @return {!Function} The delagate.
  */
 lgb.BaseClass.prototype.d = function(theFunction, arg) {
-	var delegate;
-	if (arg === undefined) {
-  		delegate = jQuery.proxy(theFunction, this);
-	} else {
-		delegate = jQuery.proxy(theFunction, this, arg);
-	}
+  var delegate;
+
+  if (arg === undefined) {
+    delegate = jQuery.proxy(theFunction, this);
+  } else {
+    delegate = jQuery.proxy(theFunction, this, arg);
+  }
 
   return delegate;
 };
 
 
-	
+
 /**
  * fires an event
  * "this" is the event target
@@ -54,7 +61,7 @@ lgb.BaseClass.prototype.dispatchLocal = function(event) {
  * listens to the lgb global event bus
  * @param {!string} eventType Unique identifier for the event.
  * @param {!Function} handler Function that will be called when the event fires.
- * @return {null|number} the event handler key.
+ * @return {?number} the event handler key.
  */
 lgb.BaseClass.prototype.listen = function(eventType, handler) {
   return this.listenHelper_(lgb.globalEventBus, eventType, this, handler);
@@ -66,7 +73,7 @@ lgb.BaseClass.prototype.listen = function(eventType, handler) {
  * @param {goog.events.EventTarget} eventTarget The object to listen to.
  * @param {!string} eventType Unique identifier for the event.
  * @param {!Function} handler Function that will be called when the event fires.
- * @return {null|number} the event handler key.
+ * @return {?number} the event handler key.
  */
 lgb.BaseClass.prototype.listenTo = function(eventTarget, eventType, handler) {
   return this.listenHelper_(eventTarget, eventType, this, handler);
@@ -82,28 +89,28 @@ lgb.BaseClass.prototype.listenTo = function(eventTarget, eventType, handler) {
  * calling the function usually "this".
  * @param {!Function} handler The function that will be called
  * when the event fires.
- * @return {null|number} the event handler key.
+ * @return {?number} the event handler key.
  */
 lgb.BaseClass.prototype.listenHelper_ = function(
   eventTarget, eventType, handlerContext, handler) {
 
   /**@type {Function} */
   var delegate = jQuery.proxy(handler, handlerContext);
-  
- var key =  goog.events.listen(
+
+ var key = goog.events.listen(
     eventTarget,
     eventType,
     delegate);
-    
-	return key;
-    
+
+  return key;
+
 };
 
 
 /**
  * binds a listener to an event
  * listens to the lgb global event bus
- * After the event has fired, the event listener is removed 
+ * After the event has fired, the event listener is removed
  * from the target
  * @param {!string} eventType Unique identifier for the event.
  * @param {!Function} handler Function that will be called when the event fires.
@@ -115,20 +122,22 @@ lgb.BaseClass.prototype.listenOnce = function(eventType, handler) {
 /**
  * binds a listener to an event
  * listens only to the specified event target
- * After the event has fired, the event listener is removed 
+ * After the event has fired, the event listener is removed
  * from the target
  * @param {!goog.events.EventTarget} eventTarget The object to listen to.
  * @param {!string} eventType Unique identifier for the event.
  * @param {!Function} handler Function that will be called when the event fires.
  */
-lgb.BaseClass.prototype.listenToOnce = function(eventTarget, eventType, handler) {
+lgb.BaseClass.prototype.listenToOnce = function(
+    eventTarget, eventType, handler) {
+
   this.listenOnceHelper_(eventTarget, eventType, this, handler);
 };
 
 
 /**
  * binds a listener to an event
- * After the event has fired, the event listener is removed 
+ * After the event has fired, the event listener is removed
  * from the target
  * @param {!goog.events.EventTarget} eventTarget Object to listen to.
  * @param {!string} eventType Unique identifier for the event.
@@ -139,7 +148,7 @@ lgb.BaseClass.prototype.listenToOnce = function(eventTarget, eventType, handler)
  * @private
  */
 lgb.BaseClass.prototype.listenOnceHelper_ = function(
-  eventTarget, eventType, handlerContext, handler) {
+	eventTarget, eventType, handlerContext, handler) {
 
   /**@type {Function} */
   var delegate = jQuery.proxy(handler, handlerContext);
@@ -173,7 +182,7 @@ lgb.BaseClass.prototype.each = function(ary, handler) {
  * @param {!number} key The key for the event handler.
  */
 lgb.BaseClass.prototype.unlisten = function(key) {
-  goog.events.unlistenByKey(key); 
+  goog.events.unlistenByKey(key);
 };
 
 

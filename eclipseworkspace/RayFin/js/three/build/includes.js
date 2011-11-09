@@ -75,41 +75,16 @@
 		<script type="text/javascript" src="../src/extras/core/Path.js"></script>
 		<script type="text/javascript" src="../src/extras/core/Shape.js"></script>
 		<script type="text/javascript" src="../src/extras/core/TextPath.js"></script>
-		<script type="text/javascript" src="../src/extras/animation/AnimationHandler.js"></script>
-		<script type="text/javascript" src="../src/extras/animation/Animation.js"></script>
-		<script type="text/javascript" src="../src/extras/cameras/CubeCamera.js"></script>
-		<script type="text/javascript" src="../src/extras/cameras/FirstPersonCamera.js"></script>
-		<script type="text/javascript" src="../src/extras/cameras/PathCamera.js"></script>
-		<script type="text/javascript" src="../src/extras/cameras/FlyCamera.js"></script>
-		<script type="text/javascript" src="../src/extras/cameras/RollCamera.js"></script>
-		<script type="text/javascript" src="../src/extras/cameras/TrackballCamera.js"></script>
-		<script type="text/javascript" src="../src/extras/cameras/CombinedCamera.js"></script>
-		<script type="text/javascript" src="../src/extras/controls/FirstPersonControls.js"></script>
-		<script type="text/javascript" src="../src/extras/controls/PathControls.js"></script>
-		<script type="text/javascript" src="../src/extras/controls/FlyControls.js"></script>
-		<script type="text/javascript" src="../src/extras/controls/RollControls.js"></script>
 		<script type="text/javascript" src="../src/extras/controls/TrackballControlsEx.js"></script>
 		<script type="text/javascript" src="../src/extras/geometries/CubeGeometry.js"></script>
 		<script type="text/javascript" src="../src/extras/geometries/CylinderGeometry.js"></script>
-		<script type="text/javascript" src="../src/extras/geometries/ExtrudeGeometry.js"></script>
-		<script type="text/javascript" src="../src/extras/geometries/IcosahedronGeometry.js"></script>
-		<script type="text/javascript" src="../src/extras/geometries/LatheGeometry.js"></script>
-		<script type="text/javascript" src="../src/extras/geometries/OctahedronGeometry.js"></script>
 		<script type="text/javascript" src="../src/extras/geometries/PlaneGeometry.js"></script>
 		<script type="text/javascript" src="../src/extras/geometries/SphereGeometry.js"></script>
-		<script type="text/javascript" src="../src/extras/geometries/TextGeometry.js"></script>
-		<script type="text/javascript" src="../src/extras/geometries/TorusGeometry.js"></script>
-		<script type="text/javascript" src="../src/extras/geometries/TorusKnotGeometry.js"></script>
-		<script type="text/javascript" src="../src/extras/modifiers/SubdivisionModifier.js"></script>
 		<script type="text/javascript" src="../src/extras/loaders/Loader.js"></script>
 		<script type="text/javascript" src="../src/extras/loaders/BinaryLoader.js"></script>
 		<script type="text/javascript" src="../src/extras/loaders/ColladaLoader.js"></script>
 		<script type="text/javascript" src="../src/extras/loaders/JSONLoader.js"></script>
 		<script type="text/javascript" src="../src/extras/loaders/SceneLoaderEx.js"></script>
-		<script type="text/javascript" src="../src/extras/loaders/UTF8Loader.js"></script>
-		<script type="text/javascript" src="../src/extras/objects/Axes.js"></script>
 		<script type="text/javascript" src="../src/extras/objects/MarchingCubes.js"></script>
 		<script type="text/javascript" src="../src/extras/physics/Collisions.js"></script>
 		<script type="text/javascript" src="../src/extras/physics/CollisionUtils.js"></script>
-		<script type="text/javascript" src="../src/extras/renderers/AnaglyphWebGLRenderer.js"></script>
-		<script type="text/javascript" src="../src/extras/renderers/CrosseyedWebGLRenderer.js"></script>

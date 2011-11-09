@@ -750,8 +750,7 @@ goog.addDependency("../../../lgb/base.js", ['lgb'], ['goog.debug.Console', 'goog
 goog.addDependency("../../../lgb/BaseClass.js", ['lgb.BaseClass'], ['goog.events', 'goog.events.EventTarget']);
 goog.addDependency("../../../lgb/Config.js", ['lgb.Config'], []);
 goog.addDependency("../../../lgb/Global.js", ['lgb.Global'], []);
-goog.addDependency("../../../lgb/Loader.js", ['lgb.Loader'], ['lgb.BaseClass', 'lgb.Config', 'lgb.events.MeshLoaded']);
-goog.addDependency("../../../lgb/ThreeUtils.js", ['lgb.ThreeUtils'], []);
+goog.addDependency("../../../lgb/ThreeUtils.js", ['lgb.ThreeUtils'], ['goog.structs.Map']);
 goog.addDependency("../../../lgb/component/DataSourceBase.js", ['lgb.component.DataSourceBase'], ['lgb.BaseClass', 'lgb.events.DataSourceChanged']);
 goog.addDependency("../../../lgb/component/RadioButtonDataSource.js", ['lgb.component.RadioButtonDataSource'], ['lgb.component.DataSourceBase']);
 goog.addDependency("../../../lgb/component/RadioButtonGroup.js", ['lgb.component.RadioButtonGroup'], ['lgb.component.RadioButtonDataSource']);
@@ -810,9 +809,9 @@ goog.addDependency("../../../lgb/view/AdminButtonView.js", ['lgb.view.AdminButto
 goog.addDependency("../../../lgb/view/AdminView.js", ['lgb.view.AdminView'], ['lgb.view.DialogView']);
 goog.addDependency("../../../lgb/view/CameraView.js", ['lgb.view.CameraView'], ['lgb.events.WindowResize', 'lgb.view.ViewBase']);
 goog.addDependency("../../../lgb/view/DialogView.js", ['lgb.view.DialogView'], ['lgb.events.ViewClosed', 'lgb.view.ViewBase']);
-goog.addDependency("../../../lgb/view/DuctworkView.js", ['lgb.view.DuctworkView'], ['lgb.Loader', 'lgb.events.MeshLoaded', 'lgb.view.ViewBase']);
+goog.addDependency("../../../lgb/view/DuctworkView.js", ['lgb.view.DuctworkView'], ['lgb.events.MeshLoaded', 'lgb.view.ViewBase']);
 goog.addDependency("../../../lgb/view/EnvelopeAdminView.js", ['lgb.view.EnvelopeAdminView'], ['lgb.view.ViewBase', 'lgb.events.RequestDataModelChange', 'lgb.events.DataModelChanged', 'lgb.events.DataSourceChanged', 'lgb.component.RadioButtonGroup', 'lgb.component.RadioButtonDataSource']);
-goog.addDependency("../../../lgb/view/EnvelopeView.js", ['lgb.view.EnvelopeView'], ['lgb.Loader', 'lgb.events.MeshLoaded', 'lgb.events.ViewInitialized', 'lgb.view.ViewBase', 'lgb.ThreeUtils']);
+goog.addDependency("../../../lgb/view/EnvelopeView.js", ['lgb.view.EnvelopeView'], ['lgb.events.MeshLoaded', 'lgb.events.ViewInitialized', 'lgb.view.ViewBase', 'lgb.ThreeUtils', 'goog.userAgent']);
 goog.addDependency("../../../lgb/view/FloorView.js", ['lgb.view.FloorView'], ['lgb.events.MeshLoaded', 'lgb.view.ViewBase']);
 goog.addDependency("../../../lgb/view/LeftNavView.js", ['lgb.view.LeftNavView'], ['lgb.view.ViewBase', 'lgb.view.component.ToggleButtonA', 'lgb.model.BuildingModel.Group', 'lgb.events.RequestVisibilityChange']);
 goog.addDependency("../../../lgb/view/ParticleElement.js", ['lgb.view.ParticleElement'], ['lgb.view.ViewBase']);
@@ -822,7 +821,7 @@ goog.addDependency("../../../lgb/view/ParticleView.js", ['lgb.view.ParticleView'
 goog.addDependency("../../../lgb/view/PropertiesButtonView.js", ['lgb.view.PropertiesButtonView'], ['lgb.events.RequestActivateView', 'lgb.view.ViewBase', 'lgb.view.component.ToggleButtonA']);
 goog.addDependency("../../../lgb/view/PropertiesView.js", ['lgb.view.PropertiesView'], ['lgb.view.DialogView', 'lgb.view.component.FaultWidget', 'lgb.view.component.InputWidget']);
 goog.addDependency("../../../lgb/view/PsView.js", ['lgb.view.PsView'], ['hemi.curve', 'hemi.curve.Curve', 'lgb.events.Object3DLoaded', 'lgb.view.ParticleElement', 'lgb.view.ParticlePath', 'lgb.view.ViewBase']);
-goog.addDependency("../../../lgb/view/RoofTopView.js", ['lgb.view.RoofTopView'], ['lgb.Loader', 'lgb.events.MeshLoaded', 'lgb.events.Object3DLoaded', 'lgb.events.Object3DLoaded', 'lgb.view.ViewBase']);
+goog.addDependency("../../../lgb/view/RoofTopView.js", ['lgb.view.RoofTopView'], ['lgb.events.MeshLoaded', 'lgb.events.Object3DLoaded', 'lgb.events.Object3DLoaded', 'lgb.view.ViewBase']);
 goog.addDependency("../../../lgb/view/SelectionView.js", ['lgb.view.SelectionView'], ['lgb.events.RenderEvent', 'lgb.view.ViewBase', 'lgb.model.SelectableModel', 'lgb.events.Object3DSelected']);
 goog.addDependency("../../../lgb/view/StatsView.js", ['lgb.view.StatsView'], ['lgb.view.ViewBase']);
 goog.addDependency("../../../lgb/view/TitleBarView.js", ['lgb.view.TitleBarView'], ['lgb.view.ViewBase']);

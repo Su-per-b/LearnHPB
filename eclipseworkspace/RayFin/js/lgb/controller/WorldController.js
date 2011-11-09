@@ -87,7 +87,7 @@ lgb.controller.WorldController.prototype.init = function() {
 			this.cameraView_.camera
 	);
 
-	/**@type {lgb.view.TrackBallWrapper} */
+	/** @type {lgb.view.TrackBallWrapper} */
 	this.trackBallWrapper_ = new lgb.view.TrackBallWrapper(
 		this.cameraView_.camera,
 		this.containerDiv_

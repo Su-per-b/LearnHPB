@@ -1,6 +1,5 @@
 goog.provide('lgb.view.DuctworkView');
 
-goog.require('lgb.Loader');
 goog.require('lgb.events.MeshLoaded');
 goog.require('lgb.view.ViewBase');
 

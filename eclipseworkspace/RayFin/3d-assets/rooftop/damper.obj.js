@@ -81,12 +81,12 @@ var model = {
 	"DbgIndex" : 5,
 	"DbgName" : "outer-trans",
 	"colorAmbient" : [0.0, 0.0, 0.0],
-	"colorDiffuse" : [0.235294, 0.235294, 0.235294],
+	"colorDiffuse" : [0.7, 0.7, 0.7],
 	"colorSpecular" : [0.0, 0.0, 0.0],
 	"illumination" : 1,
 	"opticalDensity" : 1.0,
 	"specularCoef" : 131.372549,
-	"transparency" : 0.1
+	"transparency" : 1
 	}],
 
     "buffers": "damper.obj.bin"

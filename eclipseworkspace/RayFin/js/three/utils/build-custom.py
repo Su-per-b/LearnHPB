@@ -80,8 +80,33 @@ COMMON_FILES = [
 'renderers/renderables/RenderableParticle.js',
 'renderers/renderables/RenderableLine.js'
 ]
-
 EXTRAS_FILES = [
+'extras/ColorUtils.js',
+'extras/GeometryUtils.js',
+'extras/ImageUtils.js',
+'extras/SceneUtils.js',
+'extras/ShaderUtils.js',
+'extras/core/Curve.js',
+'extras/core/CurvePath.js',
+'extras/core/Path.js',
+'extras/core/Shape.js',
+'extras/core/TextPath.js',
+'extras/controls/TrackballControlsEx.js',
+'extras/geometries/CubeGeometry.js',
+'extras/geometries/CylinderGeometry.js',
+'extras/geometries/PlaneGeometry.js',
+'extras/geometries/SphereGeometry.js',
+'extras/loaders/Loader.js',
+'extras/loaders/BinaryLoader.js',
+'extras/loaders/ColladaLoader.js',
+'extras/loaders/JSONLoader.js',
+'extras/loaders/SceneLoaderEx.js',
+'extras/objects/MarchingCubes.js',
+'extras/physics/Collisions.js',
+'extras/physics/CollisionUtils.js',
+]
+
+EXTRAS_FILES_BAK = [
 'extras/ColorUtils.js',
 'extras/GeometryUtils.js',
 'extras/ImageUtils.js',

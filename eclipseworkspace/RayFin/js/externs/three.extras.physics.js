@@ -50,7 +50,17 @@ THREE.BoxCollider = function( min, max ) {};
  */
 THREE.MeshCollider = function( mesh, box ) {};
 
+/** @type {THREE.Mesh} **/
+THREE.MeshCollider.prototype.mesh;
 
+/** @type {Object} **/
+THREE.MeshCollider.prototype.box;
+
+/** @type {number} **/
+THREE.MeshCollider.prototype.numFaces;
+
+/** @type {THREE.Vector3} **/
+THREE.MeshCollider.prototype.normal;
 
 
 /**

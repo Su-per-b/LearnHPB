@@ -22,9 +22,9 @@ lgb.model.PsModel = function(systemConfig) {
 	
 	lgb.model.ModelBase.call(this);
 	
-	this.isRunning = true;
-	this.showBoxes = true;
-	this.showCurves = true;
+	this.isRunning = false;
+	this.showBoxes = false;
+	this.showCurves = false;
 	this.isEmitting = true;
 	this.particleCount = systemConfig.particleCount;
 	this.particleSize = systemConfig.particleSize;

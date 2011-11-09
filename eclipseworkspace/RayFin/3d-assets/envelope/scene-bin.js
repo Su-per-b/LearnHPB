@@ -250,7 +250,7 @@ var scene = {
     "tintglass" : {
         "type": "MeshLambertMaterial",
         "parameters": { "color": 0, "opacity": 0.52 }
-    },
+    }
 },
 
 

@@ -80,7 +80,7 @@ lgb.model.PsModelMaster.prototype.onSceneLoadedSync_ = function(result) {
 	/**@type Object */
 	this.meshGroups	 = result['groups'];
 	
-	for( groupName in this.meshGroups ) {
+	for( var groupName in this.meshGroups ) {
 		goog.array.sortObjectsByKey(this.meshGroups[groupName], 'name');
 	}
 	
@@ -100,7 +100,7 @@ lgb.model.PsModelMaster.prototype.checkForInitComplete_ = function() {
 
 lgb.model.PsModelMaster.prototype.startFactory_ = function() {
 	
-	for (key in this.systems) {
+	for (var key in this.systems) {
 		
 		var sys = this.systems[key];
 		var l = sys.meshGroupNames.length;
@@ -121,33 +121,6 @@ lgb.model.PsModelMaster.prototype.startFactory_ = function() {
 
 
 };
-
-/**
- * setup event listeners
- * @private
- */
-lgb.model.PsModelMaster.prototype.bind_ = function() {
-	
-	this.listenTo (
-		this.view, 
-		lgb.events.Object3DLoaded.TYPE,
-		this.onObject3DLoaded_);
-		
-	this.listenTo (
-		this.view2, 
-		lgb.events.Object3DLoaded.TYPE,
-		this.onObject3DLoaded_);
-		
-};
-
-
-/**
- * @private
- */
-lgb.model.PsModelMaster.prototype.onObject3DLoaded_ = function(event) {
-	this.dispatch(event);
-};
-
 
 
 lgb.model.PsModelMaster.prototype.loadXML_ = function() {
@@ -179,9 +152,6 @@ lgb.model.PsModelMaster.prototype.parse = function(xml) {
 
 		var theID = parser.getId();
 
-
-			
-		
 		var sys = {	id: theID,
 					particleCount: parser.getContentAsFloat('particleCount'),
 					particleSize: parser.getContentAsFloat('particleSize'),
@@ -201,45 +171,6 @@ lgb.model.PsModelMaster.prototype.parse = function(xml) {
 
 
 };
-
-
-lgb.model.PsModelMaster.prototype.makeParticleConfig = function(sys) {
-
-	var bbAry = this.makeArrayFromIds(sys.boundingBoxIds, this.boxes);
-	var ckAry = this.makeArrayFromIds(sys.colorKeyIds, this.colorKeys);
-	var skAry = this.makeArrayFromIds(sys.scaleKeyIds, this.scaleKeys);
-
-	var particleSystemConfig = {
-		fast: false,
-		life: sys.life,
-		particleCount: sys.particleCount,
-		boxGroup: sys.boxGroup,
-		particleSize: sys.particleSize,
-		colorKeys: ckAry,
-		scaleKeys: skAry
-	};
-
-	return particleSystemConfig;
-};
-
-
-
-
-lgb.model.PsModelMaster.prototype.makeArrayFromIds = function(idsArray, objs) {
-	var ary = new Array();
-	var len = idsArray.length;
-
-	for (var i = 0; i < len; i++) {
-		var id = idsArray[i];
-		var obj = objs[id];
-
-		ary.push(obj);
-	}
-
-	return ary;
-};
-
-
 
 
 

@@ -1,10 +1,10 @@
 goog.provide('lgb.view.EnvelopeView');
 
-goog.require('lgb.Loader');
 goog.require('lgb.events.MeshLoaded');
 goog.require('lgb.events.ViewInitialized');
 goog.require('lgb.view.ViewBase');
 goog.require('lgb.ThreeUtils');
+goog.require('goog.userAgent');
 
 /**
  * @constructor
@@ -52,6 +52,10 @@ lgb.view.EnvelopeView.prototype.onSceneLoaded_ = function(result) {
 	/**@type THREE.Scene */
 	var scene = result['scene'];
 	var groups = result['groups'];
+	//var objects = result['objects'];
+	
+	this.each(scene.objects, lgb.ThreeUtils.chromeBlinkingFix);
+	
 	
 	lgb.logInfo('EnvelopeView.onSceneLoaded_');
 
@@ -122,11 +126,15 @@ lgb.view.EnvelopeView.prototype.makeFloors_ = function() {
 
 	for (var j=0; j < l; j++) {		
 		var floor  = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial());
+		
+
+		
 		floor.position.z -= j * this.dimensions.z;
 		this.masterGroup.add(floor);
 	};
 
 };
+
 
 
 

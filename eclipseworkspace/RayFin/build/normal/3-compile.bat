@@ -8,6 +8,7 @@ set "DEST=..\..\bin\bin-normal"
 -i %SRC%\inc.js ^
 -i %SRC%\main.src.js ^
 -i %SRC%\js\lib\jquery-plugins.js ^
+-i %SRC%\js\lib\jquery.checkbox.src.js ^
 -i %SRC%\js\kendo\kendo.core.js ^
 -i %SRC%\js\kendo\kendo.popup.js ^
 -i %SRC%\js\kendo\kendo.data.js ^

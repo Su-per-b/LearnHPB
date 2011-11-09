@@ -29,12 +29,8 @@ goog.inherits(lgb.controller.PsControllerMaster, lgb.controller.ControllerBase);
 lgb.controller.PsControllerMaster.prototype.init = function() {
 	this.psDataModelMaster = new lgb.model.PsModelMaster();
 	this.psControllers = [];
-	//this.dataModel = new lgb.model.PsModel();
-	//this.view = new lgb.view.PsView(this.dataModel);
 	this.bind_();
-	
 	this.psDataModelMaster.load();
-	//this.dataModel.load();
 };
 
 
@@ -47,22 +43,6 @@ lgb.controller.PsControllerMaster.prototype.bind_ = function() {
 	this.listenTo(this.psDataModelMaster, 
 		lgb.events.DataModelInitialized.TYPE, 
 		this.onPsDataModelInitialized);
-		
-		/*
-	this.listenTo(this.dataModel, 
-		lgb.events.DataModelInitialized.TYPE, 
-		this.onDataModelInitialized);
-		
-	this.listenTo (
-		this.dataModel, 
-		lgb.events.Object3DLoaded.TYPE,
-		this.onObject3DLoaded_);
-		
-	this.listenTo (
-		this.view, 
-		lgb.events.Object3DLoaded.TYPE,
-		this.onObject3DLoaded_);
-		*/
 		
 };
 
@@ -92,32 +72,10 @@ lgb.controller.PsControllerMaster.prototype.onPsDataModelInitialized = function(
 		
 		var dataModel = this.psDataModelMaster.psModelList[i];
 		var controller = new lgb.controller.PsController(dataModel);
-		//controller.init();
-		//this.view = new lgb.view.PsView(ps);
 		this.psControllers.push(controller);
-		//this.view.init();
 	};
 	
 };
 
 
-lgb.controller.PsControllerMaster.prototype.onDataModelInitialized = function(event) {
-	//this.view.init();
 
-	var delegate = jQuery.proxy(this.view.init, this.view);
-	
-	var t=setTimeout(delegate,2000);
-
-	this.adminView = new lgb.view.ParticleSystemAdminView(this.dataModel, 'adminView');
-	this.adminView.init();
-
-	this.listenTo(this.adminView, 
-		lgb.events.RequestDataModelChange.TYPE, 
-		this.onRequestDataModelChange);
-};
-
-
-lgb.controller.PsControllerMaster.prototype.onRequestDataModelChange = function(event) {
-	var stateObject = event.payload;
-	this.dataModel.change(stateObject);
-};

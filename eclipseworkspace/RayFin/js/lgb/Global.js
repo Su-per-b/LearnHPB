@@ -1,11 +1,10 @@
 goog.provide('lgb.Global');
 
 
-//needed to prevent compilation error
-lgb.Global = function() {
-};
 
 
+/**@typedef {Object} */
+lgb.Global = {};
 
 	/**
 	* replaces markers like {0} with a string

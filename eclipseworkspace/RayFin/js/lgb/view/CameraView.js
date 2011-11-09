@@ -27,7 +27,7 @@ lgb.view.CameraView.prototype.init = function(domElement) {
 		(30, this.domElement_.width / this.domElement_.height, 1, 250);
 
 	this.camera.position.z = 500;
-	this.orbitRadius = 30;
+	this.orbitRadius = 65;
 	this.camera.position.x = 0;
 	this.camera.position.y = 2;
 	this.camera.position.z = this.orbitRadius;

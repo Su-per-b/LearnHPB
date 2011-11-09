@@ -50,11 +50,7 @@ var lgb = (function(lgb) {
 		onZoneGoTo: function(event){
 			var zoneNumber = event.value;
 		}
-		
 
-		
-		
-		
 	};
 	
 	lgb.controller.ZoneController.inheritsFrom(lgb.controller.ControllerBase);

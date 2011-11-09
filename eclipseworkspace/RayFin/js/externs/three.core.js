@@ -74,8 +74,14 @@ THREE.Geometry = function() {};
 
 THREE.Geometry.prototype.computeBoundingBox = function () {};
 
-/**@type {Object} */
-THREE.Geometry.prototype.boundingBox;
+/**
+ * @return {Array.<THREE.Vector3>}
+ */
+THREE.Geometry.prototype.getBoundingBoxPoints = function () {};
+/**
+ * @return {THREE.Vector3}
+ */
+THREE.Geometry.prototype.getDimensions = function () {};
 
 
 /**
@@ -105,11 +111,19 @@ THREE.Matrix4 = function(n11, n12, n13, n14, n21, n22, n23, n24, n31, n32, n33, 
  */
 THREE.Object3D = function() {};
 /**
- * @param {THREE.Object3D|THREE.Mesh|THREE.Line} object
+ * @param {THREE.Object3D|THREE.Mesh|THREE.Line|THREE.ParticleSystem} object
  */
 THREE.Object3D.prototype.add= function (object) {};
 
 THREE.Object3D.prototype.updateMatrix= function () {};
+
+THREE.Object3D.prototype.updateMatrix= function () {};
+/**
+ * @param {THREE.Object3D|THREE.Mesh|THREE.Line} object
+ */
+THREE.Object3D.prototype.remove= function (object) {};
+
+
 
 /** @type {THREE.Vector3}*/
 THREE.Object3D.prototype.up;

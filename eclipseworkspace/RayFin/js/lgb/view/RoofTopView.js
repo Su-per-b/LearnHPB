@@ -1,6 +1,5 @@
 goog.provide('lgb.view.RoofTopView');
 
-goog.require('lgb.Loader');
 goog.require('lgb.events.MeshLoaded');
 goog.require('lgb.events.Object3DLoaded');
 goog.require('lgb.events.Object3DLoaded');
@@ -17,8 +16,8 @@ lgb.view.RoofTopView = function(dataModel) {
 	lgb.view.ViewBase.call(this, dataModel);
 
 	this.dataModel = dataModel;
-	this._NAME ='lgb.view.RoofTopView';
-	
+	this._NAME = 'lgb.view.RoofTopView';
+
 
 };
 goog.inherits(lgb.view.RoofTopView, lgb.view.ViewBase);
@@ -32,15 +31,15 @@ lgb.view.RoofTopView.prototype.init = function() {
 	this.loadScene_();
 };
 
-lgb.view.RoofTopView.prototype.loadScene_= function() {
+lgb.view.RoofTopView.prototype.loadScene_ = function() {
 
 
 	var path = lgb.Config.ASSETS_BASE_PATH + 'rooftop/scene-bin.js';
-	
+
 	/**@type {THREE.SceneLoaderEx} */
 	this.loader_ = new THREE.SceneLoaderEx();
 
-	this.loader_.load( path, this.d(this.onSceneLoaded_) );
+	this.loader_.load(path, this.d(this.onSceneLoaded_));
 };
 
 
@@ -49,7 +48,7 @@ lgb.view.RoofTopView.prototype.loadScene_= function() {
 /**
  * @private
  * @param {*} result The result of the scene load.
- * 			result = {
+ * 			result = {.
 
 				scene: new THREE.Scene(),
 				geometries: {},
@@ -68,34 +67,34 @@ lgb.view.RoofTopView.prototype.onSceneLoaded_ = function(result) {
 
 	/**@type THREE.Scene */
 	var scene = result['scene'];
-		
+
 	lgb.logInfo('onSceneLoaded_');
 	this.masterGroup = new THREE.Object3D();
-	
-	for (var i = scene.objects.length - 1; i >= 0; i--){
+
+	for (var i = scene.objects.length - 1; i >= 0; i--) {
 	  	var mesh = scene.objects[i];
 
 	  	if (mesh.name == 'Ducting') {
 	  		mesh.doubleSided = true;
 	  	}
-	  	
+
 	  	this.masterGroup.add(mesh);
 
 		var event = new lgb.events.SelectableLoaded(mesh);
 		this.dispatchLocal(event);
-		
-	};
-	
 
-	
+	}
+
+
+
 	this.masterGroup.position = scene.position;
 	this.masterGroup.rotation = scene.rotation;
 	this.masterGroup.scale = scene.scale;
-	
+
 
 	var event = new lgb.events.Object3DLoaded(this.masterGroup);
 	this.dispatchLocal(event);
-	
+
 	delete this.loader_;
 };
 
@@ -128,10 +127,10 @@ lgb.view.RoofTopView.prototype.updateAllFromModel_ = function() {
  */
 lgb.view.RoofTopView.prototype.updateVisible_ = function() {
 	var m = this.masterGroup.children.length;
-	
-	for (var i=0; i < m; i++) {
+
+	for (var i = 0; i < m; i++) {
 		this.masterGroup.children[i].visible = this.dataModel.isVisible;
-	};
+	}
 };
 
 

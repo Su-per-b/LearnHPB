@@ -495,6 +495,7 @@ THREE.Geometry.prototype = {
 	
 	/*
 	 * @author Raj Dye
+	 * @return {THREE.Vector3}
 	 */
 	getDimensions: function () {
 		this.computeBoundingBox();
@@ -509,17 +510,18 @@ THREE.Geometry.prototype = {
 	},
 	/*
 	 * @author Raj Dye
+	 * @return {Array.<THREE.Vector3>}
 	 */
-	getBoundingBoxMinMax: function () {
+	getBoundingBoxPoints: function () {
 		this.computeBoundingBox();
 		var bb = this.boundingBox;
 		var min = [bb.x[0], bb.y[0],bb.z[0]];
 		var max = [bb.x[1], bb.y[1],bb.z[1]];
 		
-		return {
-			min : min,
-			max : max
-		};
+		var min = new THREE.Vector3(bb.x[0], bb.y[0], bb.z[0]);
+		var max = new THREE.Vector3(bb.x[1], bb.y[1], bb.z[1]);
+		
+		return [min,max]
 	},
 
 };

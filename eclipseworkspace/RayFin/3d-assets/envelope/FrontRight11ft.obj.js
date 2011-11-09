@@ -34,7 +34,7 @@ var model = {
 	"illumination" : 2,
 	"opticalDensity" : 1.0,
 	"specularCoef" : 325.490196,
-	"transparency" : 1.0
+	"transparency" : .05
 	},
 
 	{

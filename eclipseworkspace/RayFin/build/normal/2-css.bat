@@ -7,6 +7,7 @@ set "SRC=..\..\css"
 call:cssStart jquery-ui.css
 call:css tipped.css
 call:css lgb.css
+call:css jquery.checkbox.css
 
 goto:eof
 

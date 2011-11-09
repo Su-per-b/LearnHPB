@@ -34,6 +34,8 @@ THREE.Mesh = function(geometry, materials) {};
 /** @type {THREE.Vector3} */
 THREE.Mesh.prototype.position;
 
+THREE.Mesh.prototype.bakeTransformsIntoGeometry = function() {};
+
 /**
  * @constructor
  * @param {*=} materials

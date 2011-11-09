@@ -141,56 +141,40 @@ lgb.view.PsView.prototype.createSystem = function() {
 	        transparent: true,
 	        opacity :1
 	    });   
-	    
-	    
-
+	   
 	this.particlesGeometry = new THREE.Geometry();
 	this.particlesGeometry.dynamic = true;
-	
 	this.particleElements = [];
 
 	var i = this.particleCount;
 	var particlesNeeded = 0;
 	
-	
 	this.inActiveParticles = [];
 	
 	while (i--) {
-
-		
         var particleElement = new lgb.view.ParticleElement(this.pMaterial, this.pMaterialHide);
         particleElement.setVisible(false);
         
 	    this.particleElements[i] = particleElement;
 		this.inActiveParticles[i] = particleElement;
+	    
 	    // add it to the geometry
 	    this.particlesGeometry.vertices[i] = particleElement.threeParticle;
-
 	    var idx = i % this.particlePathCount;
-
 	    particleElement.assignPath(this.particlePaths[idx]);
-	   // particleElement.launchDelayBetweenParticles = this.launchDelayBetweenParticles;
 	    particleElement.assignId(i);
 	}
 	
-	//this.particlesGeometry.vertices = [];
 	this.activeParticles = [];
-
-	//var p = this.makeParticleElement();
-//this.activeParticles.push(p);
 	
 	this.threePS = new THREE.ParticleSystem(
-	    this.particlesGeometry,
-	    this.pMaterial);
-	    
-	//this.threePS.dynamic = true;
+    this.particlesGeometry,
+    this.pMaterial);
 
 	this.threePS.sortParticles = false;
 	this.threePS.dynamic = true;
 	this.systemGroup.add(this.threePS);
 
-
-	//this.listen(lgb.events.RenderEvent.TYPE, this.onRender);
 };
 
 
@@ -235,16 +219,11 @@ lgb.view.PsView.prototype.newCurve = function(tension) {
 
 	for (var i = 0; i < num; i++) {
 		var boxMesh = this.dataModel.meshes[i];
-		//boxMesh.geometry.computeBoundingBox();
+		var bb = boxMesh.geometry.getBoundingBoxPoints();
+		var min = [bb[0].x, bb[0].y, bb[0].z];
+		var max = [bb[1].x, bb[1].y, bb[1].z];
 		
-		//var bb = boxMesh.boundingBox;
-		//var d = boxMesh.geometry.getDimensions();
-		
-		var bb = boxMesh.geometry.getBoundingBoxMinMax();
-		
-		//var min = this.boxes[i][0];
-		//var max = this.boxes[i][1];
-		pointsAlongCurve[i + 1] = hemi.curve.randomPoint(bb.min, bb.max);
+		pointsAlongCurve[i + 1] = hemi.curve.randomPoint(min, max);
 	};
 
 	//make point 0 and point 1 the same hmm ?
@@ -302,86 +281,6 @@ lgb.view.PsView.prototype.showBoxes = function(isVisible) {
 };
 
 
-/**
- * creates the box mesh objects and
- * adds them to the boxGroup
- * @private
-
-lgb.view.PsView.prototype.makeBoxes_ = function() {
-	
-	this.boxGroup = new THREE.Object3D();
-	this.boxMaterial = new THREE.MeshPhongMaterial(
-		{ ambient: 0x0303ff,
-			color: 0x0303ff,
-			specular: 0x990000,
-			shininess: 60,
-			opacity: 0.8
-		}
-	);
-
-    var i = this.boxes.length;
-    while (i--) {
-    	var box = this.boxes[i];
-		var boxMesh = this.makeOneBox_(box);
-
-		this.boxGroup.add(boxMesh);
-    }
-
-};
-
- */
-
-/**
- * creates one box mesh objects
- * @private
- * @return {THREE.Mesh} The Box mesh.
-
-lgb.view.PsView.prototype.makeOneBox_ = function(box) {
-
-	var width = box[1][0] - box[0][0];
-	var height = box[1][1] - box[0][1];
-	var depth = box[1][2] - box[0][2];
-
-	var x = box[0][0] + width / 2,
-		y = box[0][1] + height / 2,
-		z = box[0][2] + depth / 2;
-
-
-	var geometry = new THREE.CubeGeometry(width, height, depth, 3, 3, 3);
-	var mesh = new THREE.Mesh(geometry, this.boxMaterial);
-
-	mesh.position.x = x;
-	mesh.position.y = y;
-	mesh.position.z = z;
-
-	return mesh;
-
-};
- */
-
-lgb.view.PsView.prototype.makeParticleElement = function() {
-
-    var particleElement = new lgb.view.ParticleElement(this.pMaterial, this.pMaterialHide);
-    
- ///   this.particleElements.pus = particleElement;
-		
-    
-	particleElement.assignId(this.particlesGeometry.vertices.length);
-	
-	var idx = this.activeParticles.length % this.particlePathCount;
-	particleElement.assignPath(this.particlePaths[idx]);
-	
-	this.activeParticles.push(particleElement);
-
-	
-	this.particlesGeometry.vertices.push(particleElement.threeParticle);
-	//this.particlesGeometry.mergeVertices();
-
-
-	return particleElement;
-}
-
-
 lgb.view.PsView.prototype.onRender = function(event) {
 	//first remove any particles at the end
 	
@@ -423,17 +322,9 @@ lgb.view.PsView.prototype.onRender = function(event) {
 	
 	if (popIdxList.length >0 ) {
 		var finishedParticle = this.activeParticles.splice(popIdxList[0],1)[0];
-		//var finishedParticle = this.activeParticles.pop();
-		//var removedVertex = this.particlesGeometry.vertices.pop();
-		
-		//var removedVertex = this.particlesGeometry.vertices.splice(finishedParticle.id,1)[0];
-		//this.threePS.updateMatrix();
-		//this.particlesGeometry.remove(finishedParticle.threeParticle);
-
 		this.inActiveParticles.push(finishedParticle);
 	};
-	
-	//this.threePS.__dirtyVertices = true;
+
     this.threePS.geometry.__dirtyVertices = true;
 
 };
