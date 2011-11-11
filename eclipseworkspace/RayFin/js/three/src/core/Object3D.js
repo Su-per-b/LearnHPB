@@ -252,6 +252,18 @@ THREE.Object3D.prototype = {
 
 	},
 
+  /**
+   * removes all the children.
+   * @author Raj Dye
+   */
+  removeAll: function (  ) {
+    var len = this.children.length;
+    for (var i=0; i<len; i++){
+      var child = this.children[i];
+      this.remove(child);
+    };
+  },
+
 	// DEPRECATED
 
 	addChild: function ( child ) {

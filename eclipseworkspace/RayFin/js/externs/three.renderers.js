@@ -32,7 +32,7 @@ THREE.WebGLRenderer.prototype.render = function( scene, camera, renderTarget, fo
  */
 THREE.WebGLRenderer.prototype.setSize = function ( width, height ) {};
 
-/** @type {Object} */
+/** @type {Node} */
 THREE.WebGLRenderer.prototype.domElement;
 
 

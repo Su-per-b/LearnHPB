@@ -10,7 +10,7 @@ goog.require('goog.events.Event');
 lgb.events.SelectableLoaded = function(obj) {
 
 	goog.events.Event.call(this, lgb.events.SelectableLoaded.TYPE);
-	
+
  /**@type {THREE.Object3D} **/
   this.payload = obj;
 
@@ -19,6 +19,7 @@ goog.inherits(lgb.events.SelectableLoaded, goog.events.Event);
 
 /**
  * Event type
- * @define {string}
+ * @const
+ * @type {string}
  */
 lgb.events.SelectableLoaded.TYPE = 'lgb.events.SelectableLoaded';

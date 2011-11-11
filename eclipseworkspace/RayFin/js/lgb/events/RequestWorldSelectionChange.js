@@ -22,6 +22,7 @@ goog.inherits(lgb.events.RequestWorldSelectionChange, goog.events.Event);
 
 /**
  * Event type
- * @define {string}
+ * @const
+ * @type {string}
  */
 lgb.events.RequestWorldSelectionChange.TYPE = 'lgb.events.RequestWorldSelectionChange';

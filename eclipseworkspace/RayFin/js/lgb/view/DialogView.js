@@ -12,7 +12,7 @@ lgb.view.DialogView = function(dataModel) {
 	lgb.view.ViewBase.call(this, dataModel);
 	this.subPanels = [];
   	this.useSlideEffect = false;
-	this._NAME ='lgb.view.DialogView';
+	this._NAME = 'lgb.view.DialogView';
 };
 goog.inherits(lgb.view.DialogView, lgb.view.ViewBase);
 
@@ -38,7 +38,7 @@ lgb.view.DialogView.prototype.show = function() {
 
 		if (this.useSlideEffect) {
 			var widget = selector.dialog('widget');
-			
+
 			var result = widget.show('slide', {
 				direction: 'right',
 				easing: 'swing'

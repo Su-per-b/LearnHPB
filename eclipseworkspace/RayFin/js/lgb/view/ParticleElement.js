@@ -11,19 +11,19 @@ goog.require('lgb.view.ViewBase');
  */
 lgb.view.ParticleElement = function(pMaterial, pMaterialHide) {
 	lgb.view.ViewBase.call(this);
-	
+
 	this.pMaterial = pMaterial;
 	this.pMaterialHide = pMaterialHide;
 
 	this.threeParticle = new THREE.Particle();
-	
+
 	//this.vertex = new THREE.Vertex(
 	//    new THREE.Vector3(0, 0, 0)
 	//);
-	
+
 	this.currentFrameNumber = 0;
     this.isFinished = false;
-	this._NAME ='lgb.view.ParticleElement';
+	this._NAME = 'lgb.view.ParticleElement';
 };
 goog.inherits(lgb.view.ParticleElement, lgb.view.ViewBase);
 
@@ -65,19 +65,19 @@ lgb.view.ParticleElement.prototype.render = function() {
 	if (this.isFinished) {
 		throw ('should not render particle that is finished');
 	}
-	
+
 	//get the postion
 	var pos = this.path.frameToPositionMap[this.currentFrameNumber];
-	
+
 	//set the position
 	this.threeParticle.position.set(pos[0], pos[1], pos[2]);
-	
+
 	this.currentFrameNumber++;
 
 	if (this.currentFrameNumber > this.path.frameToPositionMap.length - 1) {
 		this.isFinished = true;
 		this.setVisible(false);
-	};
+	}
 
 };
 

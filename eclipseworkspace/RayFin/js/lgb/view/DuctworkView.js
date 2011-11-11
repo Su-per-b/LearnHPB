@@ -1,6 +1,5 @@
 goog.provide('lgb.view.DuctworkView');
 
-goog.require('lgb.events.MeshLoaded');
 goog.require('lgb.view.ViewBase');
 
 
@@ -13,7 +12,7 @@ lgb.view.DuctworkView = function(dataModel) {
 	lgb.view.ViewBase.call(this, dataModel);
 
 	this.dataModel = dataModel;
-	this._NAME ='lgb.view.DuctworkView';
+	this._NAME = 'lgb.view.DuctworkView';
 };
 goog.inherits(lgb.view.DuctworkView, lgb.view.ViewBase);
 
@@ -27,15 +26,15 @@ goog.inherits(lgb.view.DuctworkView, lgb.view.ViewBase);
 lgb.view.DuctworkView.prototype.init = function() {
 	//this.loader_ = new lgb.Loader();
 	//this.loader_.loadFile('ductwork102611.b.js', this.d(this.onGeometryLoaded));
-	this.loadScene_()
+	this.loadScene_();
 };
 
-lgb.view.DuctworkView.prototype.loadScene_= function() {
+lgb.view.DuctworkView.prototype.loadScene_ = function() {
 
 	var path = lgb.Config.ASSETS_BASE_PATH + 'ductwork/scene-bin.js';
 	this.loader_ = new THREE.SceneLoaderEx();
 
-	this.loader_.load( path, this.d(this.onSceneLoaded_) );
+	this.loader_.load(path, this.d(this.onSceneLoaded_));
 };
 
 
@@ -45,13 +44,13 @@ lgb.view.DuctworkView.prototype.loadScene_= function() {
 lgb.view.DuctworkView.prototype.onSceneLoaded_ = function(result) {
 	/**@type THREE.Scene */
 	var scene = result['scene'];
-	
+
 	lgb.logInfo('DuctworkView.onSceneLoaded_');
 	this.masterGroup = new THREE.Object3D();
-	
-	for (var i = scene.objects.length - 1; i >= 0; i--){
+
+	for (var i = scene.objects.length - 1; i >= 0; i--) {
 	  	var mesh = scene.objects[i];
-	  	
+
 	  	if (mesh.name == 'DuctWork') {
 	  		mesh.doubleSided = true;
 	  	} else {
@@ -59,16 +58,14 @@ lgb.view.DuctworkView.prototype.onSceneLoaded_ = function(result) {
 			this.dispatchLocal(event);
 	  	}
 	  	this.masterGroup.add(mesh);
-	};
-	
+	}
+
 	this.masterGroup.position = scene.position;
 	this.masterGroup.rotation = scene.rotation;
 	this.masterGroup.scale = scene.scale;
-	
-	var event = new lgb.events.Object3DLoaded(this.masterGroup);
-	this.dispatchLocal(event);
 
-		
+  this.requestAddToWorld(this.masterGroup);
+
 	delete this.loader_;
 
 };
@@ -100,10 +97,10 @@ lgb.view.DuctworkView.prototype.updateAllFromModel_ = function() {
  */
 lgb.view.DuctworkView.prototype.updateVisible_ = function() {
 	var m = this.masterGroup.children.length;
-	
-	for (var i=0; i < m; i++) {
+
+	for (var i = 0; i < m; i++) {
 		this.masterGroup.children[i].visible = this.dataModel.isVisible;
-	};
+	}
 };
 
 

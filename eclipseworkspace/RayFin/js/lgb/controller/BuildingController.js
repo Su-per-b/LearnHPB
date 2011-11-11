@@ -1,13 +1,11 @@
 goog.provide('lgb.controller.BuildingController');
 
 goog.require('lgb.controller.ControllerBase');
-
+goog.require('lgb.controller.DuctworkController');
 goog.require('lgb.controller.EnvelopeController');
 goog.require('lgb.controller.RoofTopController');
-goog.require('lgb.controller.DuctworkController');
+goog.require('lgb.controller.ZoneController');
 goog.require('lgb.events.VisibilityChanged');
-
-
 
 
 /**
@@ -17,10 +15,11 @@ goog.require('lgb.events.VisibilityChanged');
  */
 lgb.controller.BuildingController = function() {
 
-	lgb.controller.ControllerBase.call(this);
-	this.init_();
+  lgb.controller.ControllerBase.call(this);
+  this.init_();
 };
 goog.inherits(lgb.controller.BuildingController, lgb.controller.ControllerBase);
+
 
 /**
  * initializes the controller
@@ -28,40 +27,41 @@ goog.inherits(lgb.controller.BuildingController, lgb.controller.ControllerBase);
  */
 lgb.controller.BuildingController.prototype.init_ = function() {
 
-	//this.dataModel = new lgb.model.BuildingModel();
-	//this.view = new lgb.view.BuildingView(this.dataModel);
-	
-	this.envelopeController = new lgb.controller.EnvelopeController();
-	this.roofTopController = new lgb.controller.RoofTopController();
-	this.ductworkController = new lgb.controller.DuctworkController();
-	
-	this.bind_();
+  this.zoneController_ = new lgb.controller.ZoneController();
+  this.envelopeController_ = new lgb.controller.EnvelopeController();
+  this.roofTopController_ = new lgb.controller.RoofTopController();
+  this.ductworkController_ = new lgb.controller.DuctworkController();
+
+  this.bind_();
 };
 
 
 /**
+ * Binds specific event types to functions which handle the events.
+ * If no event target is specified then the listener is set  on the global
+ * event bus.
  * @private
  */
 lgb.controller.BuildingController.prototype.bind_ = function() {
-	
-	//lgb.controller.BuildingController.superClass_.bind.call(this);
-	
-	this.listen(lgb.events.RequestVisibilityChange.TYPE, 
-		this.onRequestVisibilityChange_);
+
+  this.listen(lgb.events.RequestVisibilityChange.TYPE,
+    this.onRequestVisibilityChange_);
 };
 
 
 /**
  * Global event handler
  * @private
+ * @param {lgb.events.RequestVisibilityChange} event The event.
  */
-lgb.controller.BuildingController.prototype.onRequestVisibilityChange_ = function(event) {
+lgb.controller.BuildingController.prototype.onRequestVisibilityChange_ =
+  function(event) {
 
-	var group = event.payload;
-	
-	this.envelopeController.setVisiblityGroup(group);
-	this.roofTopController.setVisiblityGroup(group);
-	this.ductworkController.setVisiblityGroup(group);
-	
-	this.dispatch(new lgb.events.VisibilityChanged(group));
-}
+  var group = event.payload;
+
+  this.envelopeController_.setVisiblityGroup(group);
+  this.roofTopController_.setVisiblityGroup(group);
+  this.ductworkController_.setVisiblityGroup(group);
+
+  this.dispatch(new lgb.events.VisibilityChanged(group));
+};

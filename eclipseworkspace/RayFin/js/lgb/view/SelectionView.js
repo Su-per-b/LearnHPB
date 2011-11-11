@@ -1,9 +1,9 @@
 goog.provide('lgb.view.SelectionView');
 
-goog.require('lgb.events.RenderEvent');
-goog.require('lgb.view.ViewBase');
-goog.require('lgb.model.SelectableModel');
 goog.require('lgb.events.Object3DSelected');
+goog.require('lgb.events.Render');
+goog.require('lgb.model.SelectableModel');
+goog.require('lgb.view.ViewBase');
 
 
 /**
@@ -17,8 +17,8 @@ lgb.view.SelectionView = function(dataModel, containerDiv, camera) {
 	lgb.view.ViewBase.call(this, dataModel);
 	this.containerDiv_ = containerDiv;
 	this.camera_ = camera;
-	
-	this._NAME ='lgb.view.SelectionView';
+
+	this._NAME = 'lgb.view.SelectionView';
 };
 goog.inherits(lgb.view.SelectionView, lgb.view.ViewBase);
 
@@ -29,7 +29,7 @@ goog.inherits(lgb.view.SelectionView, lgb.view.ViewBase);
  * @public
  */
 lgb.view.SelectionView.prototype.init = function() {
-	
+
 	/**
    * @type {THREE.Projector}
    * @private
@@ -37,15 +37,15 @@ lgb.view.SelectionView.prototype.init = function() {
 	this.projector_ = new THREE.Projector();
 	this.mouse = { x: 0, y: 0 };
 	this.mouseMoveDirty = false;
-	this.containerDiv_.addEventListener( 'mouseup',   this.d(this.onClick), false );
-	
-	
-	this.selectedMaterial = new THREE.MeshLambertMaterial( { color: 0xbb0000 } );
+	this.containerDiv_.addEventListener('mouseup', this.d(this.onClick), false);
+
+
+	this.selectedMaterial = new THREE.MeshLambertMaterial({ color: 0xbb0000 });
 	this.savedMaterials = {};
-	
+
 	this.masterGroup = new THREE.Object3D();
 	this.masterGroup.name = this._NAME;
-	
+
 	var event = new lgb.events.Object3DLoaded(this.masterGroup);
 	this.dispatchLocal(event);
 };
@@ -55,32 +55,32 @@ lgb.view.SelectionView.prototype.onClick = function(event) {
 	this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
 	this.mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
 	this.mouseMoveDirty = true;
-	
-	this.renderListenerKey = this.listen(lgb.events.RenderEvent.TYPE, this.onRender);
+
+	this.renderListenerKey = this.listen(lgb.events.Render.TYPE, this.onRender);
 };
 
 
 
 lgb.view.SelectionView.prototype.onChange = function(event) {
-	
+
 	this.updateSelected_();
-	
+
 };
 
 lgb.view.SelectionView.prototype.updateSelected_ = function() {
 
 	//deselect
 	var l = this.dataModel.deselected.length;
-	for (var i=0; i < l; i++) {
+	for (var i = 0; i < l; i++) {
 		var mesh = this.dataModel.deselected[i];
-		mesh.materials  = [new THREE.MeshFaceMaterial()];
-	};
-	
+		mesh.materials = [new THREE.MeshFaceMaterial()];
+	}
+
 	//select
 	var m = this.dataModel.selected.length;
-	for (var j=0; j < m; j++) {
+	for (var j = 0; j < m; j++) {
 		this.dataModel.selected[j].materials = [this.selectedMaterial];
-	};
+	}
 
 };
 
@@ -97,8 +97,8 @@ lgb.view.SelectionView.prototype.checkCollision = function() {
 	/**@type {THREE.CollisionSystem} */
 	var intersect = THREE.Collisions.rayCastNearest(ray);
 
-	
-	if (this.dataModel.selected.length ==0 &&
+
+	if (this.dataModel.selected.length == 0 &&
 		intersect == null) {
 			//do nothing
 		} else {

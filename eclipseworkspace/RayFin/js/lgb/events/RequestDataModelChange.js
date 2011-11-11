@@ -20,9 +20,11 @@ lgb.events.RequestDataModelChange = function(stateObject) {
 };
 goog.inherits(lgb.events.RequestDataModelChange, goog.events.Event);
 
+
 /**
  * Event type
- * @define {string}
+ * @const
+ * @type {string}
  */
 lgb.events.RequestDataModelChange.TYPE = 'lgb.events.RequestDataModelChange';
 

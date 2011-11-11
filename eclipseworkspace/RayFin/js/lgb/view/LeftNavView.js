@@ -1,9 +1,9 @@
 goog.provide('lgb.view.LeftNavView');
 
+goog.require('lgb.events.RequestVisibilityChange');
+goog.require('lgb.model.BuildingModel.Group');
 goog.require('lgb.view.ViewBase');
 goog.require('lgb.view.component.ToggleButtonA');
-goog.require('lgb.model.BuildingModel.Group');
-goog.require('lgb.events.RequestVisibilityChange');
 
 
 /**
@@ -12,19 +12,19 @@ goog.require('lgb.events.RequestVisibilityChange');
  */
 lgb.view.LeftNavView = function() {
 	lgb.view.ViewBase.call(this);
-	
+
 	/**@const */
 	this.htmlID = 'leftNav';
 	this.dataModels = [];
-	
+
 	this.init_();
 	this.injectCss_();
 	this.injectHtml_();
 	this.makeToolTip_();
 	this.bind_();
-	
+
 	this.buttonGeneral.setSelected(true);
-	this._NAME ='lgb.view.LeftNavView';
+	this._NAME = 'lgb.view.LeftNavView';
 };
 goog.inherits(lgb.view.LeftNavView, lgb.view.ViewBase);
 
@@ -44,13 +44,13 @@ lgb.view.LeftNavView.prototype.makeToolTip_ = function() {
 	};
 
 	Tipped.create('#leftNav a', toolTipConfig);
-}
+};
 
 /**
  * @private
  */
 lgb.view.LeftNavView.prototype.injectCss_ = function() {
-	var cssInner = 
+	var cssInner =
 	'#leftNav a {' +
 		'width:42px;' +
 		'height:42px;' +
@@ -66,7 +66,7 @@ lgb.view.LeftNavView.prototype.injectCss_ = function() {
 	var cssStr = "\n<style type='text/css'>{0}</style>".format(cssInner);
 
 	$('head').append(cssStr);
-}
+};
 
 
 /**
@@ -125,15 +125,18 @@ lgb.view.LeftNavView.prototype.injectHtml_ = function() {
 
 
 /**
+ * Binds specific event types to functions which handle the events.
+ * If no event target is specified then the listener is set  on the global
+ * event bus.
  * @private
  */
 lgb.view.LeftNavView.prototype.bind_ = function() {
 	this.listen(lgb.events.WindowResize.TYPE, this.onResize);
 
 	var delegate = this.d(this.onClick_);
-	this.buttonGeneral.jq().click(lgb.model.BuildingModel.Group.ALL,delegate);
-	this.buttonHvac.jq().click(lgb.model.BuildingModel.Group.HVAC,delegate);
-	this.buttonEnvelope.jq().click(lgb.model.BuildingModel.Group.ENVELOPE,delegate);
+	this.buttonGeneral.jq().click(lgb.model.BuildingModel.Group.ALL, delegate);
+	this.buttonHvac.jq().click(lgb.model.BuildingModel.Group.HVAC, delegate);
+	this.buttonEnvelope.jq().click(lgb.model.BuildingModel.Group.ENVELOPE, delegate);
 };
 
 /**
@@ -142,9 +145,9 @@ lgb.view.LeftNavView.prototype.bind_ = function() {
  * @private
  */
 lgb.view.LeftNavView.prototype.onClick_ = function(event) {
-	
-	(/** @type {lgb.model.BuildingModel.Group.<number>} */ event.data)
-	
+
+	(/** @type {lgb.model.BuildingModel.Group.<number>} */ event.data);
+
 	var e = new lgb.events.RequestVisibilityChange(event.data);
 	this.dispatchLocal(e);
 };

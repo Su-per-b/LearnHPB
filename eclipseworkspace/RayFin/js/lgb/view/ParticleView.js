@@ -15,7 +15,7 @@ lgb.view.ParticleView = function() {
 
 
 	this.init();
-	this._NAME ='lgb.view.ParticleView';
+	this._NAME = 'lgb.view.ParticleView';
 };
 goog.inherits(lgb.view.ParticleView, lgb.view.ViewBase);
 
@@ -77,10 +77,10 @@ lgb.view.ParticleView.prototype.init = function() {
 	//this.particleSystem.sortParticles = true;
 
 
-	var event = new lgb.events.MeshLoaded(this.particleSystem);
-	this.dispatchLocal(event);
-	
-	this.listen(lgb.events.RenderEvent.TYPE, this.onRender);
+	//var event = new lgb.events.MeshLoaded(this.particleSystem);
+	//this.dispatchLocal(event);
+
+	this.listen(lgb.events.Render.TYPE, this.onRender);
 
 };
 

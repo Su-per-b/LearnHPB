@@ -25,6 +25,7 @@ goog.inherits(lgb.events.RequestVisibilityChange, goog.events.Event);
 
 /**
  * Event type
- * @define {string}
+ * @const
+ * @type {string}
  */
 lgb.events.RequestVisibilityChange.TYPE = 'lgb.events.RequestVisibilityChange';

@@ -1,10 +1,10 @@
 goog.provide('lgb.controller.DuctworkController');
 
 goog.require('lgb.controller.ControllerBase');
-goog.require('lgb.model.DuctworkModel');
-goog.require('lgb.view.DuctworkView');
 goog.require('lgb.events.RequestVisibilityChange');
 goog.require('lgb.events.SelectableLoaded');
+goog.require('lgb.model.DuctworkModel');
+goog.require('lgb.view.DuctworkView');
 
 
 /**
@@ -14,8 +14,8 @@ goog.require('lgb.events.SelectableLoaded');
  */
 lgb.controller.DuctworkController = function() {
 
-	lgb.controller.ControllerBase.call(this);
-	this.init_();
+  lgb.controller.ControllerBase.call(this);
+  this.init_();
 };
 goog.inherits(lgb.controller.DuctworkController, lgb.controller.ControllerBase);
 
@@ -24,42 +24,44 @@ goog.inherits(lgb.controller.DuctworkController, lgb.controller.ControllerBase);
  * @private
  */
 lgb.controller.DuctworkController.prototype.init_ = function() {
-	this.dataModel = new lgb.model.DuctworkModel();
-	this.view = new lgb.view.DuctworkView(this.dataModel);
-	this.bind_();
-	this.view.init();
+  this.dataModel = new lgb.model.DuctworkModel();
+  this.view = new lgb.view.DuctworkView(this.dataModel);
+  this.bind_();
+  this.view.init();
 };
 
 
 
 
 /**
+ * Binds specific event types to functions which handle the events.
+ * If no event target is specified then the listener is set  on the global
+ * event bus.
  * @private
  */
 lgb.controller.DuctworkController.prototype.bind_ = function() {
-	lgb.controller.DuctworkController.superClass_.bind.call(this);
-	
-	this.listenTo(this.view, lgb.events.SelectableLoaded.TYPE, this.onSelectableLoaded)
+  this.makeAddToWorldRequestGlobal();
+
+  this.listenTo(this.view,
+    lgb.events.SelectableLoaded.TYPE,
+    this.onSelectableLoaded);
 };
 
 
 /**
- * @public
  * @param {lgb.events.SelectableLoaded} event the event telling
  * about a new 3d Object which has loaded.
  */
-lgb.controller.DuctworkController.prototype.onSelectableLoaded = function(event) {
-	this.dispatch(event);
+lgb.controller.DuctworkController.prototype.onSelectableLoaded =
+  function(event) {
+  this.dispatch(event);
 };
 
 /**
- * @public
  * @param {lgb.model.BuildingModel.Group} group The group
  * to make visible.
  */
-lgb.controller.DuctworkController.prototype.setVisiblityGroup = function(group) {
-	this.dataModel.setVisiblityGroup(group)
+lgb.controller.DuctworkController.prototype.setVisiblityGroup =
+  function(group) {
+  this.dataModel.setVisiblityGroup(group);
 };
-
-
-

@@ -9,10 +9,10 @@ goog.require('lgb.events.DataSourceChanged');
  * @extends lgb.BaseClass
  */
 lgb.component.DataSourceBase = function() {
-	lgb.BaseClass.call(this);
-	if (this._NAME === undefined) {
-		this._NAME = 'lgb.component.DataSourceBase';
-	}
+  lgb.BaseClass.call(this);
+  if (this._NAME === undefined) {
+    this._NAME = 'lgb.component.DataSourceBase';
+  }
 };
 goog.inherits(lgb.component.DataSourceBase, lgb.BaseClass);
 
@@ -24,20 +24,20 @@ goog.inherits(lgb.component.DataSourceBase, lgb.BaseClass);
  * @protected
  */
 lgb.component.DataSourceBase.prototype.dispatchChange = function() {
-	this.dispatchLocal(new lgb.events.DataSourceChanged(this));
+  this.dispatchLocal(new lgb.events.DataSourceChanged(this));
 };
 
 
 /**
  * returns a CSS id based on the fullname of the class
  * @protected
- * @return {string} The CSS ID
+ * @return {string} The CSS ID.
  */
 lgb.component.DataSourceBase.prototype.getCssID = function() {
-	if (this._NAME === undefined) {
-		throw ('this._NAME === undefined');
-	} else {
-		var id = this._NAME.split('.').join('-');
-		return  id;
-	}
+  if (this._NAME === undefined) {
+    throw ('this._NAME === undefined');
+  } else {
+    var id = this._NAME.split('.').join('-');
+    return id;
+  }
 };

@@ -106,3 +106,12 @@ lgb.testDebug = function() {
   debugConsole.addLogRecord(logRecord3);
   //assertEquals(1, mockConsole.log.getCallCount());
 };
+
+
+/**
+ * @param {number} feet
+ */
+lgb.convertFeetToMeters = function(feet) {
+  return feet / 3.2808399;
+};
+

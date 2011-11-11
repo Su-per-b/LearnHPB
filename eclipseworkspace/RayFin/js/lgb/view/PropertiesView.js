@@ -24,8 +24,8 @@ lgb.view.PropertiesView = function(dataModel) {
   this.injectHtml_();
   this.showNode(this.dataModel.selectedSystemNode);
   this.setDropDownSelection(this.dataModel.selectedSystemNode);
-  
-	this._NAME ='lgb.view.PropertiesView';
+
+	this._NAME = 'lgb.view.PropertiesView';
 };
 goog.inherits(lgb.view.PropertiesView, lgb.view.DialogView);
 
@@ -70,7 +70,7 @@ lgb.view.PropertiesView.prototype.makeTabs_ = function() {
 
   this.jq().append(htmlTabs);
   this.kendoTabStrip = $('#tabstrip').kendoTabStrip(
-  	{animation : false}
+  	{animation: false}
   ).data('kendoTabStrip');
 
   this.kendoTabStrip.append(
@@ -144,9 +144,9 @@ lgb.view.PropertiesView.prototype.makeListBox_ = function() {
 lgb.view.PropertiesView.prototype.onDropDownChange = function(event) {
   var jq = $('#' + this.comboBoxId);
   var id = jq[0].value;
-  
+
   this.dataModel.selectId(id);
-	
+
 };
 
 
@@ -156,8 +156,8 @@ lgb.view.PropertiesView.prototype.onDropDownChange = function(event) {
  * identify the value to select.
  */
 lgb.view.PropertiesView.prototype.setDropDownSelection = function(systemNode) {
-	
-	if (systemNode.idx != this.currentSelectionIdx )	{
+
+	if (systemNode.idx != this.currentSelectionIdx)	{
 		  this.currentSelectionIdx = systemNode.idx;
 		  this.kendoDropDownList.select(this.currentSelectionIdx);
 	}
@@ -187,35 +187,35 @@ lgb.view.PropertiesView.prototype.showNode = function(systemNode) {
      scrollable: false,
      sortable: false
    });
-   
+
   //$('#tabstrip-3').text(systemNode.idx.toString());
   var inputs = systemNode.getInputs();
   var j = inputs.length;
-  
+
 	while (j--) {
 	    var sysVar = inputs[j];
 		var widget = new lgb.view.component.InputWidget(sysVar);
 	    widget.injectHtml('#tabstrip-1', j);
-	};
-  
+	}
 
-  
+
+
   var faults = systemNode.getFaults();
   var i = faults.length;
-    
+
   while (i--) {
     var sysVar = faults[i];
-    
+
     if (sysVar.faultWidgetType == 'CHECKBOX') {
-    	
-    	
+
+
     } else {
 		var f = new lgb.view.component.FaultWidget(sysVar);
 	    f.injectHtml('#tabstrip-2', i);
     }
 
-  };
-  
+  }
 
-   
+
+
 };

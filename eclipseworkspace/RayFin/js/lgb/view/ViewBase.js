@@ -1,8 +1,8 @@
 goog.provide('lgb.view.ViewBase');
 
 goog.require('lgb.BaseClass');
-goog.require('lgb.utils');
 goog.require('lgb.events.DataModelChanged');
+goog.require('lgb.utils');
 
 
 
@@ -22,9 +22,12 @@ lgb.view.ViewBase = function(dataModel) {
 
 	this.parentHTMLid = 'theBody';
 	this.htmlID = '';
+	this._NAME = 'lgb.view.ViewBase';
 
 };
 goog.inherits(lgb.view.ViewBase, lgb.BaseClass);
+
+lgb.view.ViewBase._THE_NAME = 'lgb.view.ViewBase';
 
 /**
  * injects html into the DOM
@@ -39,10 +42,10 @@ lgb.view.ViewBase.prototype.append = function(html) {
  * @depricated
  */
 lgb.view.ViewBase.prototype.stopClickPropigation = function() {
-		
+
 	this.jq().bind('mouseup', this.d(this.stopClickPropigationHandler_));
 	this.jq().bind('mousedown', this.d(this.stopClickPropigationHandler_));
-		
+
 };
 
 /**
@@ -60,7 +63,7 @@ lgb.view.ViewBase.prototype.stopClickPropigationHandler_ = function(event) {
 
 /**
  * makes a unique css ID for a child element
- * @param {!string} id The last part of the CSS ID
+ * @param {!string} id The last part of the CSS ID.
  * @return {string}
  */
 lgb.view.ViewBase.prototype.makeID = function(id) {
@@ -70,11 +73,11 @@ lgb.view.ViewBase.prototype.makeID = function(id) {
 
 /**
  * converts and id into a Jquery object
- * @param {string=} id The css id
+ * @param {string=} id The css id.
  * @return {jQuery}
  */
 lgb.view.ViewBase.prototype.jq = function(id) {
-	
+
 	var str = '';
 	if (undefined === id) {
 		str = this.htmlID;
@@ -108,7 +111,7 @@ lgb.view.ViewBase.prototype.jqParent = function() {
  * @protected
  */
 lgb.view.ViewBase.prototype.onChange = function(event) {
-	throw('this should be overriden Class name: ' + this._NAME);
+	throw ('this should be overriden Class name: ' + this._NAME);
 };
 
 /**
@@ -119,6 +122,18 @@ lgb.view.ViewBase.prototype.listenForChange_ = function() {
 	this.listenHelper_(this.dataModel, lgb.events.DataModelChanged.TYPE, this, this.onChange);
 };
 
+
+/**
+ * @param {THREE.Object3D|THREE.Mesh} object3D the object we would like
+ * added to the world.
+ * @protected
+ */
+lgb.view.ViewBase.prototype.requestAddToWorld = function(object3D) {
+
+  object3D.name = this._NAME;
+  var event = new lgb.events.Object3DLoaded(object3D);
+  this.dispatchLocal(event);
+};
 
 
 

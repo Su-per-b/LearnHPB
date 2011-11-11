@@ -23,6 +23,7 @@ goog.inherits(lgb.events.RequestActivateView, goog.events.Event);
 
 /**
  * Event type
- * @define {string}
+ * @const
+ * @type {string}
  */
 lgb.events.RequestActivateView.TYPE = 'lgb.events.RequestActivateView';

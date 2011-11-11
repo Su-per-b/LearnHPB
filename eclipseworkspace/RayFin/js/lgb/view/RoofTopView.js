@@ -1,6 +1,6 @@
 goog.provide('lgb.view.RoofTopView');
 
-goog.require('lgb.events.MeshLoaded');
+
 goog.require('lgb.events.Object3DLoaded');
 goog.require('lgb.events.Object3DLoaded');
 goog.require('lgb.view.ViewBase');
@@ -91,9 +91,9 @@ lgb.view.RoofTopView.prototype.onSceneLoaded_ = function(result) {
 	this.masterGroup.rotation = scene.rotation;
 	this.masterGroup.scale = scene.scale;
 
-
-	var event = new lgb.events.Object3DLoaded(this.masterGroup);
-	this.dispatchLocal(event);
+  this.requestAddToWorld(this.masterGroup);
+	//var event = new lgb.events.Object3DLoaded(this.masterGroup);
+//	this.dispatchLocal(event);
 
 	delete this.loader_;
 };

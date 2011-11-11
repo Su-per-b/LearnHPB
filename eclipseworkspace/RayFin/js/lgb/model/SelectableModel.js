@@ -1,7 +1,7 @@
 goog.provide('lgb.model.SelectableModel');
 
-goog.require('lgb.model.ModelBase');
 goog.require('hemi.utils');
+goog.require('lgb.model.ModelBase');
 
 
 
@@ -11,8 +11,8 @@ goog.require('hemi.utils');
  */
 lgb.model.SelectableModel = function() {
 	/**@const */
-	this._NAME ='lgb.model.SelectableModel';
-	
+	this._NAME = 'lgb.model.SelectableModel';
+
 	lgb.model.ModelBase.call(this);
 	this.init_();
 
@@ -22,23 +22,23 @@ goog.inherits(lgb.model.SelectableModel, lgb.model.ModelBase);
 
 lgb.model.SelectableModel.prototype.init_ = function() {
 	this.selectable = {
-		Filter : true,
-		HeatingCoil : true,
-		CoolingCoil : true,
-		Fan : true,
-		LeftDamper : true,
-		CenterDamper : true,
-		TopDamper : true,
-		Diffuser01 : true,
-		Diffuser02 : true,
-		Diffuser03 : true,
-		Diffuser04 : true,
-		Diffuser05 : true,
-		Diffuser06 : true,
-		Diffuser07 : true,
-		Diffuser08 : true,
-		Diffuser09 : true
-	}
+		Filter: true,
+		HeatingCoil: true,
+		CoolingCoil: true,
+		Fan: true,
+		LeftDamper: true,
+		CenterDamper: true,
+		TopDamper: true,
+		Diffuser01: true,
+		Diffuser02: true,
+		Diffuser03: true,
+		Diffuser04: true,
+		Diffuser05: true,
+		Diffuser06: true,
+		Diffuser07: true,
+		Diffuser08: true,
+		Diffuser09: true
+	};
 	this.selectableMeshes = {};
 	this.selected = [];
 	this.deselected = [];
@@ -55,7 +55,7 @@ lgb.model.SelectableModel.prototype.getOneSelected = function() {
 	} else {
 		return this.selected[0].name;
 	}
-}
+};
 
 
 /**
@@ -65,10 +65,10 @@ lgb.model.SelectableModel.prototype.selectMeshList = function(meshList) {
 	//select none
 	this.deselected = hemi.utils.clone(this.selected, false);
 	this.selected = [];
-	
-	
+
+
 	var i = meshList.length;
-	while(i--) {
+	while (i--) {
 		this.selectMesh_(meshList[i]);
 	}
 
@@ -81,9 +81,9 @@ lgb.model.SelectableModel.prototype.selectMeshList = function(meshList) {
  * @param {string} meshName The name in the scene graph.
  */
 lgb.model.SelectableModel.prototype.selectMesh_ = function(meshName) {
-	var theMesh = this.selectableMeshes[meshName]
+	var theMesh = this.selectableMeshes[meshName];
 	this.selected.push(theMesh);
-}
+};
 
 /**
  * @param {THREE.MeshCollider} intersect
@@ -93,10 +93,10 @@ lgb.model.SelectableModel.prototype.select = function(intersect) {
 	//select none
 	this.deselected = hemi.utils.clone(this.selected, false);
 	this.selected = [];
-	
+
 
 	if (intersect != null) {
-		
+
 		if (intersect.mesh == null) {
 			throw ('intersect.mesh == null');
 		}
@@ -107,7 +107,7 @@ lgb.model.SelectableModel.prototype.select = function(intersect) {
 			this.selected.push(this.selectableMeshes[intersect.mesh.name]);
 		}
 	}
-	
+
 	this.dispatchChange();
 };
 
@@ -118,8 +118,8 @@ lgb.model.SelectableModel.prototype.addMesh = function(mesh) {
 
 	if (this.selectable[mesh.name] == true) {
 		var mc = THREE.CollisionUtils.MeshColliderWBox(mesh);
-		THREE.Collisions.colliders.push( mc );
-		
+		THREE.Collisions.colliders.push(mc);
+
 		this.selectableMeshes[mesh.name] = mesh;
 		//this.selectableMeshes.push(mesh);
 	}

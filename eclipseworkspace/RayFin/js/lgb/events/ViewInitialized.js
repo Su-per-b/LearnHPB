@@ -15,6 +15,7 @@ goog.inherits(lgb.events.ViewInitialized, goog.events.Event);
 
 /**
  * Event type
- * @define {string}
+ * @const
+ * @type {string}
  */
 lgb.events.ViewInitialized.TYPE = 'lgb.events.ViewInitialized';

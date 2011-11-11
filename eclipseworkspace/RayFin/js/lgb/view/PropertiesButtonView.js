@@ -15,7 +15,7 @@ lgb.view.PropertiesButtonView = function() {
 goog.inherits(lgb.view.PropertiesButtonView, lgb.view.ViewBase);
 
 lgb.view.PropertiesButtonView.prototype.init = function() {
-	this._NAME ='lgb.view.PropertiesView';
+	this._NAME = 'lgb.view.PropertiesView';
 	this.button =
 		new lgb.view.component.ToggleButtonA({
 			htmlId: 'propertiesButtonLink',
@@ -27,9 +27,9 @@ lgb.view.PropertiesButtonView.prototype.init = function() {
 
 	this.injectCss();
 	this.injectHtml();
-	this.bindEvents();
+	this.bind_();
 	this.listen(lgb.events.WindowResize.TYPE, this.onResize);
-		
+
 };
 
 
@@ -96,7 +96,14 @@ lgb.view.PropertiesButtonView.prototype.setSelected = function(isSelected) {
 
 };
 
-lgb.view.PropertiesButtonView.prototype.bindEvents = function() {
+
+/**
+ * Binds specific event types to functions which handle the events.
+ * If no event target is specified then the listener is set  on the global
+ * event bus.
+ * @private
+ */
+lgb.view.PropertiesButtonView.prototype.bind_ = function() {
 
 	$('#propertiesButtonLink').click(this.d(this.onClick));
 

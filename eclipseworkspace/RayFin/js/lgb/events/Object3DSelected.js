@@ -22,6 +22,7 @@ goog.inherits(lgb.events.Object3DSelected, goog.events.Event);
 
 /**
  * Event type
- * @define {string}
+ * @const
+ * @type {string}
  */
 lgb.events.Object3DSelected.TYPE = 'lgb.events.Object3DSelected';

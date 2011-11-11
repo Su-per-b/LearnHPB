@@ -16,7 +16,7 @@ lgb.view.TitleBarView = function() {
 
 	this.injectHtml_();
 	this.bind_();
-	this._NAME ='lgb.view.TitleBarView';
+	this._NAME = 'lgb.view.TitleBarView';
 };
 goog.inherits(lgb.view.TitleBarView, lgb.view.ViewBase);
 
@@ -43,11 +43,14 @@ lgb.view.TitleBarView.prototype.injectHtml_ = function() {
 
 
 /**
+ * Binds specific event types to functions which handle the events.
+ * If no event target is specified then the listener is set  on the global
+ * event bus.
  * @private
  */
 lgb.view.TitleBarView.prototype.bind_ = function() {
 		this.listen(lgb.events.WindowResize.TYPE, this.onResize);
-}
+};
 
 lgb.view.TitleBarView.prototype.show = function() {
 

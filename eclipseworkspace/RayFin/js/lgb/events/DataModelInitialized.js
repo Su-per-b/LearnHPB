@@ -14,6 +14,7 @@ goog.inherits(lgb.events.DataModelInitialized, goog.events.Event);
 
 /**
  * Event type
- * @define {string}
+ * @const
+ * @type {string}
  */
 lgb.events.DataModelInitialized.TYPE = 'lgb.events.DataModelInitialized';

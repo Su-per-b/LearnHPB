@@ -12,7 +12,7 @@ THREE.Bone = function(belongsToSkin) {};
  * @param {*=} materials
  * @param {*=} type
  */
-THREE.Line = function( geometry, materials, type) {};
+THREE.Line = function(geometry, materials, type) {};
 
 /** @type {number} */
 THREE.LineStrip;
@@ -34,7 +34,13 @@ THREE.Mesh = function(geometry, materials) {};
 /** @type {THREE.Vector3} */
 THREE.Mesh.prototype.position;
 
+/** @type {THREE.Geometry} */
+THREE.Mesh.prototype.geometry;
+
 THREE.Mesh.prototype.bakeTransformsIntoGeometry = function() {};
+
+
+
 
 /**
  * @constructor

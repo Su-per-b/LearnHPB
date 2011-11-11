@@ -20,6 +20,7 @@ goog.inherits(lgb.events.Object3DLoaded, goog.events.Event);
 
 /**
  * Event type
- * @define {string}
+ * @const
+ * @type {string}
  */
 lgb.events.Object3DLoaded.TYPE = 'lgb.events.Object3DLoaded';

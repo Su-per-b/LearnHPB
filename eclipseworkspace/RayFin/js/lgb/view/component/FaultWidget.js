@@ -10,7 +10,7 @@ goog.require('lgb.view.ViewBase');
  */
 lgb.view.component.FaultWidget = function(dataModel) {
 	lgb.view.ViewBase.call(this, dataModel);
-	
+
 	/** @const */
 	this.htmlID = 'component-FaultWidget-' + dataModel.name;
 	this._NAME = 'lgb.view.component.FaultWidget';
@@ -28,59 +28,59 @@ lgb.view.component.FaultWidget.prototype.getCss = function() {
 lgb.view.component.FaultWidget.prototype.getHtml = function() {
 
 	if (this.dataModel.faultWidgetType != 'SLIDER') {
-		throw Error ('unknown faultWidgetType');
+		throw Error('unknown faultWidgetType');
 	}
-	
+
    var sl = $('<input>')
    .attr('id', this.htmlID + '-slider');
-    	
-    this.kendoSlider = sl.data("kendoSlider");	
+
+    this.kendoSlider = sl.data('kendoSlider');
 
 	sl.kendoSlider({
-	     min:10,
-	     max:50,
+	     min: 10,
+	     max: 50,
 	     smallStep: 1,
 	     largeStep: 10
 	});
-  
+
 	return sl;
 };
 
 lgb.view.component.FaultWidget.prototype.injectHtml = function(parentSelector, idx) {
 
 	if (this.dataModel.faultWidgetType != 'SLIDER') {
-		throw Error ('unknown faultWidgetType');
+		throw Error('unknown faultWidgetType');
 	}
-	
-   var id = this.htmlID + '-slider';
-   
 
-		
+   var id = this.htmlID + '-slider';
+
+
+
 	  var cl = idx % 2 ? '' : ' greyBackground';
-	  
-	  
+
+
 	  var html = '<div class="faultWidget{0}">'.format(cl) +
 		  '<div>' +
 			'<div>' +
-		 		this.dataModel.displayName + 
-		  	'</div>' +  
-		  		'<input id="{0}" />'.format(id) +	
-		  '</div>' + 
-	  '</div>'; 
-	  
+		 		this.dataModel.displayName +
+		  	'</div>' +
+		  		'<input id="{0}" />'.format(id) +
+		  '</div>' +
+	  '</div>';
+
 	  $(parentSelector).append(html);
-	  
+
 	  this.kendoSlider = $('#' + id).kendoSlider({
-	     min:this.dataModel.lowValue,
-	     max:this.dataModel.highValue,
+	     min: this.dataModel.lowValue,
+	     max: this.dataModel.highValue,
 	     smallStep: 1,
 	     largeStep: 20,
-	     showButtons:false
-	     	}).data("kendoSlider");	
-	     	
+	     showButtons: false
+	     	}).data('kendoSlider');
 
-  
-	
+
+
+
 };
 
 

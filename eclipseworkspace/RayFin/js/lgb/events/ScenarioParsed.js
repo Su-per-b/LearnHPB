@@ -23,6 +23,7 @@ goog.inherits(lgb.events.ScenarioParsed, goog.events.Event);
 
 /**
  * Event type
- * @define {string}
+ * @const
+ * @type {string}
  */
 lgb.events.ScenarioParsed.TYPE = 'lgb.events.ScenarioParsed';

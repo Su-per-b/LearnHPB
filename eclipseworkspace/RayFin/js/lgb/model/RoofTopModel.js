@@ -1,7 +1,7 @@
 goog.provide('lgb.model.RoofTopModel');
 
-goog.require('lgb.model.ModelBase');
 goog.require('lgb.model.BuildingModel.Group');
+goog.require('lgb.model.ModelBase');
 
 
 
@@ -11,18 +11,18 @@ goog.require('lgb.model.BuildingModel.Group');
  */
 lgb.model.RoofTopModel = function() {
 	/**@const */
-	this._NAME ='lgb.model.RoofTopModel';
-	
+	this._NAME = 'lgb.model.RoofTopModel';
+
 	/**@const */
 	this._TITLE = 'Roof-top Unit';
-	
+
 	lgb.model.ModelBase.call(this);
-	
+
 	this.groupMembership = {};
 	this.groupMembership[lgb.model.BuildingModel.Group.ALL] = true;
 	this.groupMembership[lgb.model.BuildingModel.Group.ROOFTOP] = true;
 	this.groupMembership[lgb.model.BuildingModel.Group.HVAC] = true;
-	
+
 	this.isVisible = true;
 
 };
@@ -41,11 +41,11 @@ lgb.model.RoofTopModel.prototype.init = function() {
  */
 lgb.model.RoofTopModel.prototype.setVisible = function(makeVisible) {
 
-	if(this.isVisible != makeVisible) {
+	if (this.isVisible != makeVisible) {
 		this.isVisible = makeVisible;
-		
+
 		this.dispatchChange();
-	};
+	}
 };
 
 /**
@@ -54,7 +54,7 @@ lgb.model.RoofTopModel.prototype.setVisible = function(makeVisible) {
  * set as visible.
  */
 lgb.model.RoofTopModel.prototype.setVisiblityGroup = function(group) {
-	
+
 	if (this.groupMembership[group]) {
 		this.setVisible(true);
 	} else {

@@ -21,7 +21,7 @@ lgb.view.component.ToggleButtonA = function(options) {
 
 	this.htmlID = options.htmlId;
 	this.isSelected = false;
-	
+
 	this._NAME = 'lgb.view.component.ToggleButtonA';
 };
 goog.inherits(lgb.view.component.ToggleButtonA, lgb.view.ViewBase);
@@ -40,18 +40,18 @@ lgb.view.component.ToggleButtonA.prototype.getCss = function() {
 
 
 lgb.view.component.ToggleButtonA.prototype.setSelected = function(makeSelected) {
-	
+
 	if (this.isSelected != makeSelected) {
-		
+
 		this.isSelected = makeSelected;
-			
+
 		if (this.isSelected) {
 			this.jq().addClass('selected');
 		} else {
 			this.jq().removeClass('selected');
 		}
 	}
-}
+};
 
 
 

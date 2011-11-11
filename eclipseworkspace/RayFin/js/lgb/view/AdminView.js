@@ -14,16 +14,18 @@ lgb.view.AdminView = function() {
   this.injectHtml_();
   this.bind_();
   this.useSlideEffect = false;
-  this._NAME ='lgb.view.AdminView';
+  this._NAME = 'lgb.view.AdminView';
 };
 goog.inherits(lgb.view.AdminView, lgb.view.DialogView);
 
 /**
- * adds event handlers
+ * Binds specific event types to functions which handle the events.
+ * If no event target is specified then the listener is set  on the global
+ * event bus.
  * @private
  */
 lgb.view.AdminView.prototype.bind_ = function() {
-	
+
 };
 
 

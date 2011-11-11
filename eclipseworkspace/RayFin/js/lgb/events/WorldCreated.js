@@ -14,7 +14,8 @@ goog.inherits(lgb.events.WorldCreated, goog.events.Event);
 
 /**
  * Event type
- * @define {string}
+ * @const
+ * @type {string}
  */
 lgb.events.WorldCreated.TYPE = 'lgb.events.WorldCreated';
 

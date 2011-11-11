@@ -22,6 +22,7 @@ goog.inherits(lgb.events.WindowResize, goog.events.Event);
 
 /**
  * Event type
- * @define {string}
+ * @const
+ * @type {string}
  */
 lgb.events.WindowResize.TYPE = 'lgb.events.WindowResize';

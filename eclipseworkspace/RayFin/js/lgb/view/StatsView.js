@@ -14,7 +14,7 @@ lgb.view.StatsView = function(containerDiv) {
 	lgb.view.ViewBase.call(this);
 
 	this.init(containerDiv);
-	this._NAME ='lgb.view.StatsView';
+	this._NAME = 'lgb.view.StatsView';
 };
 goog.inherits(lgb.view.StatsView, lgb.view.ViewBase);
 
@@ -30,7 +30,7 @@ lgb.view.StatsView.prototype.init = function(containerDiv) {
 	//this.stats_.domElement.style.top = '0px';
 	containerDiv.appendChild(this.stats_.domElement);
 
-	this.listen(lgb.events.RenderEvent.TYPE, this.d(this.onRender));
+	this.listen(lgb.events.Render.TYPE, this.d(this.onRender));
 };
 
 lgb.view.StatsView.prototype.onRender = function(event) {

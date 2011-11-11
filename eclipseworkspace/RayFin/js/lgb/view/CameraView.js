@@ -11,7 +11,7 @@ lgb.view.CameraView = function(domElement) {
 	lgb.view.ViewBase.call(this);
 
 	this.init(domElement);
-	this._NAME ='lgb.view.CameraView';
+	this._NAME = 'lgb.view.CameraView';
 };
 goog.inherits(lgb.view.CameraView, lgb.view.ViewBase);
 
@@ -23,7 +23,7 @@ goog.inherits(lgb.view.CameraView, lgb.view.ViewBase);
  */
 lgb.view.CameraView.prototype.init = function(domElement) {
 	this.domElement_ = domElement;
-	this.camera = new THREE.PerspectiveCamera
+	this.camera = new THREE.PerspectiveCamera;
 		(30, this.domElement_.width / this.domElement_.height, 1, 250);
 
 	this.camera.position.z = 500;
@@ -31,7 +31,7 @@ lgb.view.CameraView.prototype.init = function(domElement) {
 	this.camera.position.x = 0;
 	this.camera.position.y = 2;
 	this.camera.position.z = this.orbitRadius;
-	
+
 	this.listen(lgb.events.WindowResize.TYPE, this.onWindowResize);
 };
 

@@ -11,14 +11,13 @@ goog.require('lgb.model.ModelBase');
  */
 lgb.model.BuildingModel = function() {
 	/**@const */
-	this._NAME ='lgb.model.BuildingModel';
+	this._NAME = 'lgb.model.BuildingModel';
 	/**@const */
 	this._TITLE = 'Building';
-	
+
 	lgb.model.ModelBase.call(this);
 
 };
-
 goog.inherits(lgb.model.BuildingModel, lgb.model.ModelBase);
 
 
@@ -34,11 +33,11 @@ lgb.model.BuildingModel.prototype.init = function() {
  * @enum {number}
  */
 lgb.model.BuildingModel.Group = {
-  ALL:0,
+  ALL: 0,
   HVAC: 1,
   ENVELOPE: 2,
-  ROOFTOP : 3,
-  DUCTWORK : 4
+  ROOFTOP: 3,
+  DUCTWORK: 4
 };
 
 /*
@@ -53,5 +52,5 @@ lgb.model.BuildingModel.Group = {
 	lgb.model.VisibilityTag.DAMPERS = 'DAMPERS';
 	lgb.model.VisibilityTag.DUCTWORK = 'DUCTWORK';
 	lgb.model.VisibilityTag.CROSS_SECTION = 'CROSS_SECTION';
-	
+
 */

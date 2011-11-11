@@ -170,3 +170,16 @@ label { cursor: hand; cursor: pointer;}
 .radioButtonText {
 	font-size:12pt;
 }
+a.admin-link {
+	font-weight:normal;
+	font-size:12pt;
+	color:#ffffff;
+	padding:4px 3px 5px 4px;
+	line-height: 12pt;
+}
+
+
+
+a.admin-link:hover {
+	background-color: #6d9d35;
+}
