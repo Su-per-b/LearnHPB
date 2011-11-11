@@ -1,6 +1,7 @@
 goog.provide('lgb.controller.AdminController');
 goog.require('lgb.view.AdminButtonView');
 goog.require('lgb.view.AdminView');
+goog.require('lgb.controller.ControllerBase');
 
 /**
  * @constructor
@@ -9,14 +10,21 @@ goog.require('lgb.view.AdminView');
 lgb.controller.AdminController = function() {
 
   lgb.controller.ControllerBase.call(this);
+  this.init_();
+};
+goog.inherits(lgb.controller.AdminController, lgb.controller.ControllerBase);
+
+
+/**
+ * @private
+ */
+lgb.controller.AdminController.prototype.init_  = function() {
   this.view = new lgb.view.AdminView();
   this.buttonView = new lgb.view.AdminButtonView();
   this.buttonView.init();
 
-
   this.listen(lgb.events.ScenarioParsed.TYPE, this.onScenarioParsed_);
 };
-goog.inherits(lgb.controller.AdminController, lgb.controller.ControllerBase);
 
 
 /**
@@ -27,9 +35,11 @@ goog.inherits(lgb.controller.AdminController, lgb.controller.ControllerBase);
 lgb.controller.AdminController.prototype.onScenarioParsed_ = function(event) {
   this.buttonView.show();
 
-  this.listenTo(this.buttonView,
+  this.listenTo(
+    this.buttonView,
     lgb.events.RequestActivateView.TYPE,
-    this.onRequestActivateView_);
+    this.onRequestActivateView_
+    );
 
   this.listenTo(this.view, lgb.events.ViewClosed.TYPE, this.onClosedPanel_);
 };

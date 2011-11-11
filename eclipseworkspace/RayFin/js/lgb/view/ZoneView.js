@@ -78,7 +78,9 @@ lgb.view.ZoneView.prototype.addCube_ = function(zoneNumber, geom, position) {
       x,
       -1 * floorHeight / 2 + 1,
       z);
-
+    
+    this.masterGroup.position.x = 0.5;
+    this.masterGroup.position.y = -0.9;
     this.masterGroup.add(this.cubeMesh);
 };
 
@@ -106,10 +108,6 @@ lgb.view.ZoneView.prototype.onChange = function(event) {
 
   }
 
-
-
-
-  //this.setVisible(5);
 };
 
 
