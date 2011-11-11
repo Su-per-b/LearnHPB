@@ -4,12 +4,13 @@ goog.require('goog.events.Event');
 
 /**
  * @constructor
- * @param {boolean} makeActiveFlag
+ * @param {boolean} makeActiveFlag If set to true, then the View should be
+ * shown to the user.
  * @extends {goog.events.Event}
  */
 lgb.events.RequestActivateView = function(makeActiveFlag) {
 
-	goog.events.Event.call(this, lgb.events.RequestActivateView.TYPE);
+  goog.events.Event.call(this, lgb.events.RequestActivateView.TYPE);
 
   /**
    * The event payload

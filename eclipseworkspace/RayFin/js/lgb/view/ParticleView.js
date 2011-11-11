@@ -11,11 +11,11 @@ goog.require('lgb.view.ViewBase');
  * @extends {lgb.view.ViewBase}
  */
 lgb.view.ParticleView = function() {
-	lgb.view.ViewBase.call(this);
+  lgb.view.ViewBase.call(this);
 
 
-	this.init();
-	this._NAME = 'lgb.view.ParticleView';
+  this.init();
+  this._NAME = 'lgb.view.ParticleView';
 };
 goog.inherits(lgb.view.ParticleView, lgb.view.ViewBase);
 
@@ -26,61 +26,61 @@ goog.inherits(lgb.view.ParticleView, lgb.view.ViewBase);
  */
 lgb.view.ParticleView.prototype.init = function() {
 
-	this.volX = 5;
-	this.volY = 5;
-	this.volZ = 5;
+  this.volX = 5;
+  this.volY = 5;
+  this.volZ = 5;
 
-	this.particleCount = 200;
-	this.particles = new THREE.Geometry();
+  this.particleCount = 200;
+  this.particles = new THREE.Geometry();
 
-	// create the particle variables
-	var pMaterial = new THREE.ParticleBasicMaterial({
-	        color: 0x6666ff,
-	        size: 1,
-	        map: THREE.ImageUtils.loadTexture(
-	            '3d-assets/textures/circle.png'
-	        ),
-	        blending: THREE.AdditiveBlending,
-	        transparent: true
-	    });
-
-
-
-	// now create the individual particles
-	for (var p = 0; p < this.particleCount; p++) {
-
-	    // create a particle with random
-	    // position values, -250 -> 250
-	    var pX = (Math.random() * this.volX) - this.volX / 2,
-	        pY = (Math.random() * this.volY) - this.volY / 2,
-	        pZ = (Math.random() * this.volZ) - this.volZ / 2,
-
-	        particle = new THREE.Vertex(
-	            new THREE.Vector3(pX, pY, pZ)
-	        );
+  // create the particle variables
+  var pMaterial = new THREE.ParticleBasicMaterial({
+          color: 0x6666ff,
+          size: 1,
+          map: THREE.ImageUtils.loadTexture(
+              '3d-assets/textures/circle.png'
+          ),
+          blending: THREE.AdditiveBlending,
+          transparent: true
+      });
 
 
 
+  // now create the individual particles
+  for (var p = 0; p < this.particleCount; p++) {
 
-	    // add it to the geometry
-	    this.particles.vertices.push(particle);
-	}
+      // create a particle with random
+      // position values, -250 -> 250
+      var pX = (Math.random() * this.volX) - this.volX / 2,
+          pY = (Math.random() * this.volY) - this.volY / 2,
+          pZ = (Math.random() * this.volZ) - this.volZ / 2,
 
-	// create the particle system
-	this.particleSystem = new THREE.ParticleSystem(
-	    this.particles,
-	    pMaterial);
-
-	// also update the particle system to
-	// sort the particles which enables
-	// the behaviour we want
-	//this.particleSystem.sortParticles = true;
+          particle = new THREE.Vertex(
+              new THREE.Vector3(pX, pY, pZ)
+          );
 
 
-	//var event = new lgb.events.MeshLoaded(this.particleSystem);
-	//this.dispatchLocal(event);
 
-	this.listen(lgb.events.Render.TYPE, this.onRender);
+
+      // add it to the geometry
+      this.particles.vertices.push(particle);
+  }
+
+  // create the particle system
+  this.particleSystem = new THREE.ParticleSystem(
+      this.particles,
+      pMaterial);
+
+  // also update the particle system to
+  // sort the particles which enables
+  // the behaviour we want
+  //this.particleSystem.sortParticles = true;
+
+
+  //var event = new lgb.events.MeshLoaded(this.particleSystem);
+  //this.dispatchLocal(event);
+
+  this.listen(lgb.events.Render.TYPE, this.onRender);
 
 };
 

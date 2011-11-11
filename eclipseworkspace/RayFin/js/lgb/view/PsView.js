@@ -13,39 +13,39 @@ goog.require('lgb.view.ViewBase');
  * @extends {lgb.view.ViewBase}
  */
 lgb.view.PsView = function(dataModel) {
-	lgb.view.ViewBase.call(this);
+  lgb.view.ViewBase.call(this);
 
-	this.dataModel = dataModel;
-	this.listenTo(this.dataModel, lgb.events.DataModelChanged.TYPE, this.onDataModelChanged);
+  this.dataModel = dataModel;
+  this.listenTo(this.dataModel, lgb.events.DataModelChanged.TYPE, this.onDataModelChanged);
 
-	this._NAME = 'lgb.view.PsView';
+  this._NAME = 'lgb.view.PsView';
 };
 goog.inherits(lgb.view.PsView, lgb.view.ViewBase);
 
 lgb.view.PsView.prototype.onDataModelChanged = function(event) {
 
-	var whatIsDirty = event.payload;
+  var whatIsDirty = event.payload;
 
-	if (whatIsDirty.isRunning) {
-		this.updateIsRunning_();
-	}
+  if (whatIsDirty.isRunning) {
+    this.updateIsRunning_();
+  }
 
-	if (whatIsDirty.showBoxes) {
-		this.showBoxes(this.dataModel.showBoxes);
-	}
-	if (whatIsDirty.showCurves) {
-		this.showCurves(this.dataModel.showCurves);
-	}
+  if (whatIsDirty.showBoxes) {
+    this.showBoxes(this.dataModel.showBoxes);
+  }
+  if (whatIsDirty.showCurves) {
+    this.showCurves(this.dataModel.showCurves);
+  }
 
 };
 
 lgb.view.PsView.prototype.updateIsRunning_ = function() {
 
-	if (this.dataModel.isRunning) {
-		this.renderListenerKey = this.listen(lgb.events.Render.TYPE, this.onRender);
-	} else {
-		this.unlisten(this.renderListenerKey);
-	}
+  if (this.dataModel.isRunning) {
+    this.renderListenerKey = this.listen(lgb.events.Render.TYPE, this.onRender);
+  } else {
+    this.unlisten(this.renderListenerKey);
+  }
 };
 
 /**
@@ -53,140 +53,140 @@ lgb.view.PsView.prototype.updateIsRunning_ = function() {
  */
 lgb.view.PsView.prototype.init = function() {
 
-	/**@type THREE.Object3D */
-	//this.boxGroup = null;
+  /**@type THREE.Object3D */
+  //this.boxGroup = null;
 
-	/**@type THREE.Object3D */
-	this.visibleLineGroup = null;
+  /**@type THREE.Object3D */
+  this.visibleLineGroup = null;
 
-	/**@type THREE.Object3D */
-	this.systemGroup = new THREE.Object3D();
-	this.systemGroup.name = 'PsView-systemGroup';
+  /**@type THREE.Object3D */
+  this.systemGroup = new THREE.Object3D();
+  this.systemGroup.name = 'PsView-systemGroup';
 
-	/**@type THREE.Object3D */
-	this.masterGroup = new THREE.Object3D();
-	this.masterGroup.name = 'PsView-masterGroup';
+  /**@type THREE.Object3D */
+  this.masterGroup = new THREE.Object3D();
+  this.masterGroup.name = 'PsView-masterGroup';
 
-	this.masterGroup.add(this.systemGroup);
-	this.parseConfig();
+  this.masterGroup.add(this.systemGroup);
+  this.parseConfig();
 
-	this.positionVector = new THREE.Vector3(
-	    this.dataModel.translate[0],
-		this.dataModel.translate[1],
-		this.dataModel.translate[2]
-	);
+  this.positionVector = new THREE.Vector3(
+      this.dataModel.translate[0],
+    this.dataModel.translate[1],
+    this.dataModel.translate[2]
+  );
 
-	var degreesX = this.dataModel.rotate[0] * Math.PI / 180;
-	var degreesY = this.dataModel.rotate[1] * Math.PI / 180;
-	var degreesZ = this.dataModel.rotate[2] * Math.PI / 180;
+  var degreesX = this.dataModel.rotate[0] * Math.PI / 180;
+  var degreesY = this.dataModel.rotate[1] * Math.PI / 180;
+  var degreesZ = this.dataModel.rotate[2] * Math.PI / 180;
 
-	this.rotationVector = new THREE.Vector3(
-	    degreesX,
-		degreesY,
-		degreesZ
-	);
+  this.rotationVector = new THREE.Vector3(
+      degreesX,
+    degreesY,
+    degreesZ
+  );
 
-	this.masterGroup.position = this.positionVector;
-	this.masterGroup.rotation = this.rotationVector;
+  this.masterGroup.position = this.positionVector;
+  this.masterGroup.rotation = this.rotationVector;
 
-	this.generateParticlePaths();
-	this.createSystem();
+  this.generateParticlePaths();
+  this.createSystem();
 
-	this.showBoxes(this.dataModel.showBoxes);
-	this.showCurves(this.dataModel.showCurves);
+  this.showBoxes(this.dataModel.showBoxes);
+  this.showCurves(this.dataModel.showCurves);
 
 
-	this.updateIsRunning_();
-	this.currentFrameNumber = this.launchDelayBetweenParticles + 1;
+  this.updateIsRunning_();
+  this.currentFrameNumber = this.launchDelayBetweenParticles + 1;
 
-	var event = new lgb.events.Object3DLoaded(this.masterGroup);
-	this.dispatchLocal(event);
+  var event = new lgb.events.Object3DLoaded(this.masterGroup);
+  this.dispatchLocal(event);
 
 };
 
 
 lgb.view.PsView.prototype.parseConfig = function() {
-	this.translate = this.dataModel.translate;
-	this.rotate = this.dataModel.rotate;
-	this.particlePaths = [];
-	this.particleCount = 200;
-	this.particlePathCount = 6;
-	this.fps = 30;
-	this.frameCount = this.dataModel.lifeSpanInSeconds * this.fps;
-	this.tension = 0;
-	this.currentFrameNumber = 0;
-	this.visibleParticleCount = 0;
-	this.totalFrames = 0;
-	this.launchDelayBetweenParticles = this.dataModel.launchDelayBetweenParticles;
+  this.translate = this.dataModel.translate;
+  this.rotate = this.dataModel.rotate;
+  this.particlePaths = [];
+  this.particleCount = 200;
+  this.particlePathCount = 6;
+  this.fps = 30;
+  this.frameCount = this.dataModel.lifeSpanInSeconds * this.fps;
+  this.tension = 0;
+  this.currentFrameNumber = 0;
+  this.visibleParticleCount = 0;
+  this.totalFrames = 0;
+  this.launchDelayBetweenParticles = this.dataModel.launchDelayBetweenParticles;
 
 };
 
 lgb.view.PsView.prototype.createSystem = function() {
 
-	var cicle = THREE.ImageUtils.loadTexture('3d-assets/textures/circle.png');
+  var cicle = THREE.ImageUtils.loadTexture('3d-assets/textures/circle.png');
 
-	this.pMaterial = new THREE.ParticleBasicMaterial({
-	        color: 0x0000ff,
-	        size: 1,
-	        map: cicle,
-	        blending: THREE.AdditiveBlending,
-	        transparent: true
-	    });
+  this.pMaterial = new THREE.ParticleBasicMaterial({
+          color: 0x0000ff,
+          size: 1,
+          map: cicle,
+          blending: THREE.AdditiveBlending,
+          transparent: true
+      });
 
-	this.pMaterialHide = new THREE.ParticleBasicMaterial({
-	        color: 0xff0000,
-	        size: 1,
-	        map: cicle,
-	        blending: THREE.AdditiveBlending,
-	        transparent: true,
-	        opacity: 1
-	    });
+  this.pMaterialHide = new THREE.ParticleBasicMaterial({
+          color: 0xff0000,
+          size: 1,
+          map: cicle,
+          blending: THREE.AdditiveBlending,
+          transparent: true,
+          opacity: 1
+      });
 
-	this.particlesGeometry = new THREE.Geometry();
-	this.particlesGeometry.dynamic = true;
-	this.particleElements = [];
+  this.particlesGeometry = new THREE.Geometry();
+  this.particlesGeometry.dynamic = true;
+  this.particleElements = [];
 
-	var i = this.particleCount;
-	var particlesNeeded = 0;
+  var i = this.particleCount;
+  var particlesNeeded = 0;
 
-	this.inActiveParticles = [];
+  this.inActiveParticles = [];
 
-	while (i--) {
+  while (i--) {
         var particleElement = new lgb.view.ParticleElement(this.pMaterial, this.pMaterialHide);
         particleElement.setVisible(false);
 
-	    this.particleElements[i] = particleElement;
-		this.inActiveParticles[i] = particleElement;
+      this.particleElements[i] = particleElement;
+    this.inActiveParticles[i] = particleElement;
 
-	    // add it to the geometry
-	    this.particlesGeometry.vertices[i] = particleElement.threeParticle;
-	    var idx = i % this.particlePathCount;
-	    particleElement.assignPath(this.particlePaths[idx]);
-	    particleElement.assignId(i);
-	}
+      // add it to the geometry
+      this.particlesGeometry.vertices[i] = particleElement.threeParticle;
+      var idx = i % this.particlePathCount;
+      particleElement.assignPath(this.particlePaths[idx]);
+      particleElement.assignId(i);
+  }
 
-	this.activeParticles = [];
+  this.activeParticles = [];
 
-	this.threePS = new THREE.ParticleSystem(
+  this.threePS = new THREE.ParticleSystem(
     this.particlesGeometry,
     this.pMaterial);
 
-	this.threePS.sortParticles = false;
-	this.threePS.dynamic = true;
-	this.systemGroup.add(this.threePS);
+  this.threePS.sortParticles = false;
+  this.threePS.dynamic = true;
+  this.systemGroup.add(this.threePS);
 
 };
 
 
 
 lgb.view.PsView.prototype.makeVisibleLines_ = function() {
-	this.visibleLineGroup = new THREE.Object3D();
+  this.visibleLineGroup = new THREE.Object3D();
 
     var j = this.particlePaths.length;
     while (j--) {
-    	var onePath = this.particlePaths[j];
-    	var line = onePath.makeVisibleLine();
-    	this.visibleLineGroup.add(line);
+      var onePath = this.particlePaths[j];
+      var line = onePath.makeVisibleLine();
+      this.visibleLineGroup.add(line);
     }
 };
 
@@ -194,14 +194,14 @@ lgb.view.PsView.prototype.generateParticlePaths = function() {
 
 
 
-	var j = this.particlePathCount;
-	while (j--) {
-		var curve = this.newCurve(this.tension);
-		var pp = new lgb.view.ParticlePath(curve, this.frameCount);
+  var j = this.particlePathCount;
+  while (j--) {
+    var curve = this.newCurve(this.tension);
+    var pp = new lgb.view.ParticlePath(curve, this.frameCount);
 
-		this.totalFrames += pp.frameToPositionMap.length;
-		this.particlePaths.push(pp);
-	}
+    this.totalFrames += pp.frameToPositionMap.length;
+    this.particlePaths.push(pp);
+  }
 };
 
 
@@ -212,33 +212,33 @@ lgb.view.PsView.prototype.generateParticlePaths = function() {
  * @return {hemi.curve.Curve} The randomly generated Curve object.
  */
 lgb.view.PsView.prototype.newCurve = function(tension) {
-	var pointsAlongCurve = [];
+  var pointsAlongCurve = [];
 
 
-	var num = this.dataModel.meshes.length;
+  var num = this.dataModel.meshes.length;
 
-	for (var i = 0; i < num; i++) {
-		var boxMesh = this.dataModel.meshes[i];
-		var bb = boxMesh.geometry.getBoundingBoxPoints();
-		var min = [bb[0].x, bb[0].y, bb[0].z];
-		var max = [bb[1].x, bb[1].y, bb[1].z];
+  for (var i = 0; i < num; i++) {
+    var boxMesh = this.dataModel.meshes[i];
+    var bb = boxMesh.geometry.getBoundingBoxPoints();
+    var min = [bb[0].x, bb[0].y, bb[0].z];
+    var max = [bb[1].x, bb[1].y, bb[1].z];
 
-		pointsAlongCurve[i + 1] = hemi.curve.randomPoint(min, max);
-	}
+    pointsAlongCurve[i + 1] = hemi.curve.randomPoint(min, max);
+  }
 
-	//make point 0 and point 1 the same hmm ?
-	pointsAlongCurve[0] = pointsAlongCurve[1].slice(0, 3);
+  //make point 0 and point 1 the same hmm ?
+  pointsAlongCurve[0] = pointsAlongCurve[1].slice(0, 3);
 
-	//take the final point and copy it to the end sort-of doubling it
-	pointsAlongCurve[num + 1] = pointsAlongCurve[num].slice(0, 3);
+  //take the final point and copy it to the end sort-of doubling it
+  pointsAlongCurve[num + 1] = pointsAlongCurve[num].slice(0, 3);
 
-	var curve = new hemi.curve.Curve(
-		pointsAlongCurve,
-		hemi.curve.curveType.Cardinal,
-		{tension: tension}
-	);
+  var curve = new hemi.curve.Curve(
+    pointsAlongCurve,
+    hemi.curve.curveType.Cardinal,
+    {tension: tension}
+  );
 
-	return curve;
+  return curve;
 };
 
 /**
@@ -246,15 +246,15 @@ lgb.view.PsView.prototype.newCurve = function(tension) {
  */
 lgb.view.PsView.prototype.showCurves = function(isVisible) {
 
-	if (isVisible) {
-		if (this.visibleLineGroup == null) {
-			this.makeVisibleLines_();
-		}
-		this.masterGroup.add(this.visibleLineGroup);
+  if (isVisible) {
+    if (this.visibleLineGroup == null) {
+      this.makeVisibleLines_();
+    }
+    this.masterGroup.add(this.visibleLineGroup);
 
-	} else {
-		this.masterGroup.remove(this.visibleLineGroup);
-	}
+  } else {
+    this.masterGroup.remove(this.visibleLineGroup);
+  }
 };
 
 
@@ -263,67 +263,67 @@ lgb.view.PsView.prototype.showCurves = function(isVisible) {
  */
 lgb.view.PsView.prototype.showBoxes = function(isVisible) {
 
-	if (isVisible) {
+  if (isVisible) {
 
-		this.boxGroup = new THREE.Object3D();
-		var num = this.dataModel.meshes.length;
+    this.boxGroup = new THREE.Object3D();
+    var num = this.dataModel.meshes.length;
 
-		for (var i = 0; i < num; i++) {
-			var boxMesh = this.dataModel.meshes[i];
-			this.boxGroup.add(boxMesh);
-		}
+    for (var i = 0; i < num; i++) {
+      var boxMesh = this.dataModel.meshes[i];
+      this.boxGroup.add(boxMesh);
+    }
 
-		this.masterGroup.add(this.boxGroup);
+    this.masterGroup.add(this.boxGroup);
 
-	} else {
-		this.masterGroup.remove(this.boxGroup);
-	}
+  } else {
+    this.masterGroup.remove(this.boxGroup);
+  }
 };
 
 
 lgb.view.PsView.prototype.onRender = function(event) {
-	//first remove any particles at the end
+  //first remove any particles at the end
 
-	//if none are at the end, create a new particle
-	this.currentFrameNumber++;
-	if (this.currentFrameNumber > this.launchDelayBetweenParticles) {
-		this.currentFrameNumber = 0;
+  //if none are at the end, create a new particle
+  this.currentFrameNumber++;
+  if (this.currentFrameNumber > this.launchDelayBetweenParticles) {
+    this.currentFrameNumber = 0;
 
-		if (this.inActiveParticles.length > 0 && this.dataModel.isEmitting) {
-			var p = this.inActiveParticles.pop();
-			p.reset();
-			this.activeParticles.push(p);
-		} //else if (this.dataModel.isEmitting) {
-			//var p = this.makeParticleElement();
-		//}
-	}
-
-
+    if (this.inActiveParticles.length > 0 && this.dataModel.isEmitting) {
+      var p = this.inActiveParticles.pop();
+      p.reset();
+      this.activeParticles.push(p);
+    } //else if (this.dataModel.isEmitting) {
+      //var p = this.makeParticleElement();
+    //}
+  }
 
 
 
-	var i = this.activeParticles.length;
-	var popIdxList = [];
-	while (i--) {
-		var p = this.activeParticles[i];
 
-		if (p == null) {
-			throw ('error rendering particle element');
-		}
-		if (p.render == null) {
-			throw ('error rendering particle element');
-		}
 
-		p.render();
-		if (p.isFinished) {
-			popIdxList.push(i);
-		}
-	}
+  var i = this.activeParticles.length;
+  var popIdxList = [];
+  while (i--) {
+    var p = this.activeParticles[i];
 
-	if (popIdxList.length > 0) {
-		var finishedParticle = this.activeParticles.splice(popIdxList[0], 1)[0];
-		this.inActiveParticles.push(finishedParticle);
-	}
+    if (p == null) {
+      throw ('error rendering particle element');
+    }
+    if (p.render == null) {
+      throw ('error rendering particle element');
+    }
+
+    p.render();
+    if (p.isFinished) {
+      popIdxList.push(i);
+    }
+  }
+
+  if (popIdxList.length > 0) {
+    var finishedParticle = this.activeParticles.splice(popIdxList[0], 1)[0];
+    this.inActiveParticles.push(finishedParticle);
+  }
 
     this.threePS.geometry.__dirtyVertices = true;
 

@@ -10,12 +10,12 @@ goog.require('lgb.model.ZoneShapeModel');
  * @extends lgb.model.ModelBase
  */
 lgb.model.ZoneModel = function() {
-	/**
-	 * @const
-	 * @type {string}
-	 */
-	this._NAME = 'lgb.model.ZoneModel';
-	this._TITLE = 'Zones';
+  /**
+   * @const
+   * @type {string}
+   */
+  this._NAME = 'lgb.model.ZoneModel';
+  this._TITLE = 'Zones';
   this.init_();
   this.zoneIdxVisible = -1;
 
@@ -46,7 +46,7 @@ lgb.model.ZoneModel.prototype.init_ = function() {
  */
 lgb.model.ZoneModel.prototype.update = function(envelopeModel) {
 
-	this.floorHeight = envelopeModel.floorHeight;
+  this.floorHeight = envelopeModel.floorHeight;
   this.envelopeModel = envelopeModel;
 
 

@@ -9,7 +9,7 @@ goog.require('goog.events.Event');
  */
 lgb.events.WorldSelectionChanged = function(selectionID) {
 
-	goog.events.Event.call(this, lgb.events.WorldSelectionChanged.TYPE);
+  goog.events.Event.call(this, lgb.events.WorldSelectionChanged.TYPE);
 
   /**
    * The event payload

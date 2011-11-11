@@ -10,18 +10,18 @@ goog.require('goog.events.Event');
  */
 lgb.events.DataModelChanged = function(whatIsDirty) {
 
-	goog.events.Event.call(this, lgb.events.DataModelChanged.TYPE);
+  goog.events.Event.call(this, lgb.events.DataModelChanged.TYPE);
 
 
-	if (whatIsDirty != null) {
+  if (whatIsDirty != null) {
 
-	  /**
-	   * The event payload
-	   * @type {Object}
-	   */
-	       this.payload = whatIsDirty;
+    /**
+     * The event payload
+     * @type {Object}
+     */
+         this.payload = whatIsDirty;
 
-	}
+  }
 
 
 };

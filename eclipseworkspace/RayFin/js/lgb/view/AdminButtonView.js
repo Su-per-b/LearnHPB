@@ -10,57 +10,57 @@ goog.require('lgb.view.component.ToggleButtonA');
  * @extends {lgb.view.ViewBase}
  */
 lgb.view.AdminButtonView = function() {
-	lgb.view.ViewBase.call(this);
-	this.htmlID = 'adminButton';
-	this._NAME = 'lgb.view.AdminButtonView';
+  lgb.view.ViewBase.call(this);
+  this.htmlID = 'adminButton';
+  this._NAME = 'lgb.view.AdminButtonView';
 };
 goog.inherits(lgb.view.AdminButtonView, lgb.view.ViewBase);
 
 lgb.view.AdminButtonView.prototype.init = function() {
 
-	this.button =
-		new lgb.view.component.ToggleButtonA({
-			htmlId: 'adminButtonLink',
-			buttonHeight: 33,
-			xPosition: 66,
-			title: 'Show / Hide Admin panel',
-			cssClass: 'leftNavButton'
-		});
+  this.button =
+    new lgb.view.component.ToggleButtonA({
+      htmlId: 'adminButtonLink',
+      buttonHeight: 33,
+      xPosition: 66,
+      title: 'Show / Hide Admin panel',
+      cssClass: 'leftNavButton'
+    });
 
-		this.injectCss();
-		this.injectHtml();
-		this.bind_();
-		//this.setSelected(true);
-		this.listen(lgb.events.WindowResize.TYPE, this.onResize);
+    this.injectCss();
+    this.injectHtml();
+    this.bind_();
+    //this.setSelected(true);
+    this.listen(lgb.events.WindowResize.TYPE, this.onResize);
 };
 
 lgb.view.AdminButtonView.prototype.show = function() {
-	this.position();
+  this.position();
 };
 
 lgb.view.AdminButtonView.prototype.position = function() {
 
-	var x = this.getXpos();
+  var x = this.getXpos();
 
-	var props = {left: x + 'px'};
-		this.jq().css(props);
+  var props = {left: x + 'px'};
+    this.jq().css(props);
 
-	};
+  };
 
-	lgb.view.AdminButtonView.prototype.onResize = function() {
+  lgb.view.AdminButtonView.prototype.onResize = function() {
 
-		var x = this.getXpos();
+    var x = this.getXpos();
 
-		var options = {
-			duration: 500,
-			easing: 'easeInOutSine'
-	};
-	var props = {left: x + 'px'};
+    var options = {
+      duration: 500,
+      easing: 'easeInOutSine'
+  };
+  var props = {left: x + 'px'};
 
-	this.jq().animate(
-    	props,
-    	options
-	);
+  this.jq().animate(
+      props,
+      options
+  );
 
 
 
@@ -68,36 +68,36 @@ lgb.view.AdminButtonView.prototype.position = function() {
 
 
 lgb.view.AdminButtonView.prototype.getXpos = function() {
-	return window.innerWidth - 33 - 4;
+  return window.innerWidth - 33 - 4;
 };
 
 
 lgb.view.AdminButtonView.prototype.injectHtml = function() {
-	var html = '<div id="adminButton">' + this.button.getHtml() +
-				'</div>';
+  var html = '<div id="adminButton">' + this.button.getHtml() +
+        '</div>';
 
 
-	 $('body').append(html);
+   $('body').append(html);
 };
 
 lgb.view.AdminButtonView.prototype.injectCss = function() {
 
-		var cssInner = this.button.getCss();
-		var cssStr = "<style type='text/css'>{0}</style>".format(cssInner);
+    var cssInner = this.button.getCss();
+    var cssStr = "<style type='text/css'>{0}</style>".format(cssInner);
 
-		$(cssStr).appendTo('head');
+    $(cssStr).appendTo('head');
 };
 
 
 
 lgb.view.AdminButtonView.prototype.setSelected = function(isSelected) {
-	this.isSelected = isSelected;
+  this.isSelected = isSelected;
 
-	if (this.isSelected) {
-		$('#adminButtonLink').addClass('selected');
-	} else {
-		$('#adminButtonLink').removeClass('selected');
-	}
+  if (this.isSelected) {
+    $('#adminButtonLink').addClass('selected');
+  } else {
+    $('#adminButtonLink').removeClass('selected');
+  }
 
 };
 
@@ -109,23 +109,23 @@ lgb.view.AdminButtonView.prototype.setSelected = function(isSelected) {
  */
 lgb.view.AdminButtonView.prototype.bind_ = function() {
 
-	$('#adminButtonLink').click(this.d(this.onClick));
+  $('#adminButtonLink').click(this.d(this.onClick));
 
-	var toolTipConfig = {
-	  skin: 'light',
-		hook: {
-		  target: 'leftmiddle',
-		  tooltip: 'rightmiddle'
-		},
-		background: { color: '#fff', opacity: .85 },
-	  closeButton: false
-	};
+  var toolTipConfig = {
+    skin: 'light',
+    hook: {
+      target: 'leftmiddle',
+      tooltip: 'rightmiddle'
+    },
+    background: { color: '#fff', opacity: .85 },
+    closeButton: false
+  };
 
-	Tipped.create('#adminButtonLink', toolTipConfig);
+  Tipped.create('#adminButtonLink', toolTipConfig);
 };
 
 lgb.view.AdminButtonView.prototype.onClick = function() {
-	this.dispatchLocal(new lgb.events.RequestActivateView(!this.isSelected));
+  this.dispatchLocal(new lgb.events.RequestActivateView(!this.isSelected));
 };
 
 

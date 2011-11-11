@@ -148,7 +148,7 @@ lgb.BaseClass.prototype.listenToOnce = function(
  * @private
  */
 lgb.BaseClass.prototype.listenOnceHelper_ = function(
-	eventTarget, eventType, handlerContext, handler) {
+  eventTarget, eventType, handlerContext, handler) {
 
   /**@type {Function} */
   var delegate = jQuery.proxy(handler, handlerContext);

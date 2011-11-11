@@ -4,15 +4,15 @@ goog.require('goog.events.Event');
 
 /**
  * @constructor
- *  Event fired when an object is selcted in the world
- * @param {THREE.CollisionSystem}  collisionSystem
+ *  Event fired when an object is selected in the world.
+ * @param {THREE.CollisionSystem} collisionSystem Used to see what was selected.
  * @extends {goog.events.Event}
  */
 lgb.events.Object3DSelected = function(collisionSystem) {
 
-	goog.events.Event.call(this, lgb.events.Object3DSelected.TYPE);
+  goog.events.Event.call(this, lgb.events.Object3DSelected.TYPE);
 
-	//this.payload = {};
+  //this.payload = {};
 
  /**@type {THREE.CollisionSystem} **/
   this.payload = collisionSystem;

@@ -13,16 +13,16 @@ goog.require('lgb.utils');
  * @param {lgb.model.ModelBase=} dataModel that the view with display.
  */
 lgb.view.ViewBase = function(dataModel) {
-	lgb.BaseClass.call(this);
+  lgb.BaseClass.call(this);
 
-	if (null !== dataModel && undefined !== dataModel) {
-		this.dataModel = dataModel;
-		this.listenForChange_();
-	}
+  if (null !== dataModel && undefined !== dataModel) {
+    this.dataModel = dataModel;
+    this.listenForChange_();
+  }
 
-	this.parentHTMLid = 'theBody';
-	this.htmlID = '';
-	this._NAME = 'lgb.view.ViewBase';
+  this.parentHTMLid = 'theBody';
+  this.htmlID = '';
+  this._NAME = 'lgb.view.ViewBase';
 
 };
 goog.inherits(lgb.view.ViewBase, lgb.BaseClass);
@@ -35,7 +35,7 @@ lgb.view.ViewBase._THE_NAME = 'lgb.view.ViewBase';
  * @protected
  */
 lgb.view.ViewBase.prototype.append = function(html) {
-	this.jqParent().append(html);
+  this.jqParent().append(html);
 };
 
 /**
@@ -43,8 +43,8 @@ lgb.view.ViewBase.prototype.append = function(html) {
  */
 lgb.view.ViewBase.prototype.stopClickPropigation = function() {
 
-	this.jq().bind('mouseup', this.d(this.stopClickPropigationHandler_));
-	this.jq().bind('mousedown', this.d(this.stopClickPropigationHandler_));
+  this.jq().bind('mouseup', this.d(this.stopClickPropigationHandler_));
+  this.jq().bind('mousedown', this.d(this.stopClickPropigationHandler_));
 
 };
 
@@ -55,8 +55,8 @@ lgb.view.ViewBase.prototype.stopClickPropigation = function() {
  * @depricated
  */
 lgb.view.ViewBase.prototype.stopClickPropigationHandler_ = function(event) {
-	event.preventDefault();
-	event.stopPropagation();
+  event.preventDefault();
+  event.stopPropagation();
 };
 
 
@@ -67,8 +67,8 @@ lgb.view.ViewBase.prototype.stopClickPropigationHandler_ = function(event) {
  * @return {string}
  */
 lgb.view.ViewBase.prototype.makeID = function(id) {
-	var newID = '{0}-{1}'.format(this.htmlID, id);
-	return newID;
+  var newID = '{0}-{1}'.format(this.htmlID, id);
+  return newID;
 };
 
 /**
@@ -78,17 +78,17 @@ lgb.view.ViewBase.prototype.makeID = function(id) {
  */
 lgb.view.ViewBase.prototype.jq = function(id) {
 
-	var str = '';
-	if (undefined === id) {
-		str = this.htmlID;
-	} else {
-		str = id;
-	}
+  var str = '';
+  if (undefined === id) {
+    str = this.htmlID;
+  } else {
+    str = id;
+  }
 
-	var selector = '#{0}'.format(str);
+  var selector = '#{0}'.format(str);
 
-	var jq = $(selector);
-	return jq;
+  var jq = $(selector);
+  return jq;
 };
 
 /**
@@ -97,8 +97,8 @@ lgb.view.ViewBase.prototype.jq = function(id) {
  * @return {jQuery}
  */
 lgb.view.ViewBase.prototype.jqParent = function() {
-	var selector = $('#{0}'.format(this.parentHTMLid));
-	return selector;
+  var selector = $('#{0}'.format(this.parentHTMLid));
+  return selector;
 };
 
 
@@ -111,7 +111,7 @@ lgb.view.ViewBase.prototype.jqParent = function() {
  * @protected
  */
 lgb.view.ViewBase.prototype.onChange = function(event) {
-	throw ('this should be overriden Class name: ' + this._NAME);
+  throw ('this should be overriden Class name: ' + this._NAME);
 };
 
 /**
@@ -119,7 +119,7 @@ lgb.view.ViewBase.prototype.onChange = function(event) {
  * @private
  */
 lgb.view.ViewBase.prototype.listenForChange_ = function() {
-	this.listenHelper_(this.dataModel, lgb.events.DataModelChanged.TYPE, this, this.onChange);
+  this.listenHelper_(this.dataModel, lgb.events.DataModelChanged.TYPE, this, this.onChange);
 };
 
 

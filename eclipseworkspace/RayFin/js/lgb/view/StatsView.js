@@ -11,10 +11,10 @@ goog.require('lgb.view.ViewBase');
  * @extends lgb.view.ViewBase
  */
 lgb.view.StatsView = function(containerDiv) {
-	lgb.view.ViewBase.call(this);
+  lgb.view.ViewBase.call(this);
 
-	this.init(containerDiv);
-	this._NAME = 'lgb.view.StatsView';
+  this.init(containerDiv);
+  this._NAME = 'lgb.view.StatsView';
 };
 goog.inherits(lgb.view.StatsView, lgb.view.ViewBase);
 
@@ -25,16 +25,16 @@ goog.inherits(lgb.view.StatsView, lgb.view.ViewBase);
  */
 lgb.view.StatsView.prototype.init = function(containerDiv) {
 
-	this.stats_ = Stats();
-	//this.stats_.domElement.style.position = 'absolute';
-	//this.stats_.domElement.style.top = '0px';
-	containerDiv.appendChild(this.stats_.domElement);
+  this.stats_ = Stats();
+  //this.stats_.domElement.style.position = 'absolute';
+  //this.stats_.domElement.style.top = '0px';
+  containerDiv.appendChild(this.stats_.domElement);
 
-	this.listen(lgb.events.Render.TYPE, this.d(this.onRender));
+  this.listen(lgb.events.Render.TYPE, this.d(this.onRender));
 };
 
 lgb.view.StatsView.prototype.onRender = function(event) {
-	this.stats_.update();
+  this.stats_.update();
 };
 
 

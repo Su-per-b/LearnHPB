@@ -11,20 +11,20 @@ goog.require('lgb.view.component.ToggleButtonA');
  * @extends {lgb.view.ViewBase}
  */
 lgb.view.LeftNavView = function() {
-	lgb.view.ViewBase.call(this);
+  lgb.view.ViewBase.call(this);
 
-	/**@const */
-	this.htmlID = 'leftNav';
-	this.dataModels = [];
+  /**@const */
+  this.htmlID = 'leftNav';
+  this.dataModels = [];
 
-	this.init_();
-	this.injectCss_();
-	this.injectHtml_();
-	this.makeToolTip_();
-	this.bind_();
+  this.init_();
+  this.injectCss_();
+  this.injectHtml_();
+  this.makeToolTip_();
+  this.bind_();
 
-	this.buttonGeneral.setSelected(true);
-	this._NAME = 'lgb.view.LeftNavView';
+  this.buttonGeneral.setSelected(true);
+  this._NAME = 'lgb.view.LeftNavView';
 };
 goog.inherits(lgb.view.LeftNavView, lgb.view.ViewBase);
 
@@ -33,39 +33,39 @@ goog.inherits(lgb.view.LeftNavView, lgb.view.ViewBase);
  * @private
  */
 lgb.view.LeftNavView.prototype.makeToolTip_ = function() {
-	var toolTipConfig = {
-	  skin: 'light',
-		hook: {
-		  target: 'rightmiddle',
-		  tooltip: 'leftmiddle'
-		},
-		background: { color: '#fff', opacity: .85 },
-	  closeButton: false
-	};
+  var toolTipConfig = {
+    skin: 'light',
+    hook: {
+      target: 'rightmiddle',
+      tooltip: 'leftmiddle'
+    },
+    background: { color: '#fff', opacity: .85 },
+    closeButton: false
+  };
 
-	Tipped.create('#leftNav a', toolTipConfig);
+  Tipped.create('#leftNav a', toolTipConfig);
 };
 
 /**
  * @private
  */
 lgb.view.LeftNavView.prototype.injectCss_ = function() {
-	var cssInner =
-	'#leftNav a {' +
-		'width:42px;' +
-		'height:42px;' +
-		'display:block;' +
-		'margin:0 0 10px 0;' +
-		'background-image:url("images/icon_grid_42.png");' +
-	'}';
+  var cssInner =
+  '#leftNav a {' +
+    'width:42px;' +
+    'height:42px;' +
+    'display:block;' +
+    'margin:0 0 10px 0;' +
+    'background-image:url("images/icon_grid_42.png");' +
+  '}';
 
-	cssInner += this.buttonGeneral.getCss();
-	cssInner += this.buttonHvac.getCss();
-	cssInner += this.buttonEnvelope.getCss();
+  cssInner += this.buttonGeneral.getCss();
+  cssInner += this.buttonHvac.getCss();
+  cssInner += this.buttonEnvelope.getCss();
 
-	var cssStr = "\n<style type='text/css'>{0}</style>".format(cssInner);
+  var cssStr = "\n<style type='text/css'>{0}</style>".format(cssInner);
 
-	$('head').append(cssStr);
+  $('head').append(cssStr);
 };
 
 
@@ -73,28 +73,28 @@ lgb.view.LeftNavView.prototype.injectCss_ = function() {
  * @private
  */
 lgb.view.LeftNavView.prototype.init_ = function() {
-	this.buttonGeneral =
-		new lgb.view.component.ToggleButtonA({
-			htmlId: 'leftNavButton_1',
-			xPosition: -42,
-			title: 'General'
-		});
+  this.buttonGeneral =
+    new lgb.view.component.ToggleButtonA({
+      htmlId: 'leftNavButton_1',
+      xPosition: -42,
+      title: 'General'
+    });
 
-	this.buttonHvac =
-		new lgb.view.component.ToggleButtonA({
-			htmlId: 'leftNavButton_2',
-			xPosition: -84,
-			title: 'HVAC'
-		});
+  this.buttonHvac =
+    new lgb.view.component.ToggleButtonA({
+      htmlId: 'leftNavButton_2',
+      xPosition: -84,
+      title: 'HVAC'
+    });
 
-	this.buttonEnvelope =
-		new lgb.view.component.ToggleButtonA({
-			htmlId: 'leftNavButton_3',
-			xPosition: -168,
-			title: 'External Envelope'
-		});
+  this.buttonEnvelope =
+    new lgb.view.component.ToggleButtonA({
+      htmlId: 'leftNavButton_3',
+      xPosition: -168,
+      title: 'External Envelope'
+    });
 
-	this.currentlySelectedID = 'none';
+  this.currentlySelectedID = 'none';
 };
 
 /**
@@ -102,25 +102,25 @@ lgb.view.LeftNavView.prototype.init_ = function() {
  */
 lgb.view.LeftNavView.prototype.injectHtml_ = function() {
 
-		var top = this.getYpos();
+    var top = this.getYpos();
 
-			$('<div>')
-			.attr('id', this.htmlID)
-			.append(this.buttonGeneral.getHtml())
-			.append(this.buttonHvac.getHtml())
-			.append(this.buttonEnvelope.getHtml())
-			.css({
-			    position: 'absolute',
-				width: '53px',
-				height: '292px',
-				left: '-63px',
-				top: top + 'px',
-			    'z-index': '101',
-			    'background-image': 'url(images/leftnav.png)',
-			    opacity: '0.92',
-			    padding: '60px 0 0 10px'
-				})
-		.appendTo('body');
+      $('<div>')
+      .attr('id', this.htmlID)
+      .append(this.buttonGeneral.getHtml())
+      .append(this.buttonHvac.getHtml())
+      .append(this.buttonEnvelope.getHtml())
+      .css({
+          position: 'absolute',
+        width: '53px',
+        height: '292px',
+        left: '-63px',
+        top: top + 'px',
+          'z-index': '101',
+          'background-image': 'url(images/leftnav.png)',
+          opacity: '0.92',
+          padding: '60px 0 0 10px'
+        })
+    .appendTo('body');
 };
 
 
@@ -131,12 +131,12 @@ lgb.view.LeftNavView.prototype.injectHtml_ = function() {
  * @private
  */
 lgb.view.LeftNavView.prototype.bind_ = function() {
-	this.listen(lgb.events.WindowResize.TYPE, this.onResize);
+  this.listen(lgb.events.WindowResize.TYPE, this.onResize);
 
-	var delegate = this.d(this.onClick_);
-	this.buttonGeneral.jq().click(lgb.model.BuildingModel.Group.ALL, delegate);
-	this.buttonHvac.jq().click(lgb.model.BuildingModel.Group.HVAC, delegate);
-	this.buttonEnvelope.jq().click(lgb.model.BuildingModel.Group.ENVELOPE, delegate);
+  var delegate = this.d(this.onClick_);
+  this.buttonGeneral.jq().click(lgb.model.BuildingModel.Group.ALL, delegate);
+  this.buttonHvac.jq().click(lgb.model.BuildingModel.Group.HVAC, delegate);
+  this.buttonEnvelope.jq().click(lgb.model.BuildingModel.Group.ENVELOPE, delegate);
 };
 
 /**
@@ -146,43 +146,43 @@ lgb.view.LeftNavView.prototype.bind_ = function() {
  */
 lgb.view.LeftNavView.prototype.onClick_ = function(event) {
 
-	(/** @type {lgb.model.BuildingModel.Group.<number>} */ event.data);
+  (/** @type {lgb.model.BuildingModel.Group.<number>} */ event.data);
 
-	var e = new lgb.events.RequestVisibilityChange(event.data);
-	this.dispatchLocal(e);
+  var e = new lgb.events.RequestVisibilityChange(event.data);
+  this.dispatchLocal(e);
 };
 
 
 lgb.view.LeftNavView.prototype.getYpos = function() {
-	return window.innerHeight - 140 - 352;
+  return window.innerHeight - 140 - 352;
 };
 
 /**
  * @param {lgb.model.BuildingModel.Group} visibilityGroup The group selected.
  */
 lgb.view.LeftNavView.prototype.updateSelected = function(visibilityGroup) {
-	switch (visibilityGroup) {
-		case lgb.model.BuildingModel.Group.ALL:
-			this.buttonGeneral.setSelected(true);
-			this.buttonHvac.setSelected(false);
-			this.buttonEnvelope.setSelected(false);
-			break;
-		case lgb.model.BuildingModel.Group.HVAC:
-			this.buttonGeneral.setSelected(false);
-			this.buttonHvac.setSelected(true);
-			this.buttonEnvelope.setSelected(false);
-			break;
-		case lgb.model.BuildingModel.Group.ENVELOPE:
-			this.buttonGeneral.setSelected(false);
-			this.buttonHvac.setSelected(false);
-			this.buttonEnvelope.setSelected(true);
-			break;
-		default :
-			this.buttonGeneral.setSelected(false);
-			this.buttonHvac.setSelected(false);
-			this.buttonEnvelope.setSelected(false);
-			break;
-	}
+  switch (visibilityGroup) {
+    case lgb.model.BuildingModel.Group.ALL:
+      this.buttonGeneral.setSelected(true);
+      this.buttonHvac.setSelected(false);
+      this.buttonEnvelope.setSelected(false);
+      break;
+    case lgb.model.BuildingModel.Group.HVAC:
+      this.buttonGeneral.setSelected(false);
+      this.buttonHvac.setSelected(true);
+      this.buttonEnvelope.setSelected(false);
+      break;
+    case lgb.model.BuildingModel.Group.ENVELOPE:
+      this.buttonGeneral.setSelected(false);
+      this.buttonHvac.setSelected(false);
+      this.buttonEnvelope.setSelected(true);
+      break;
+    default :
+      this.buttonGeneral.setSelected(false);
+      this.buttonHvac.setSelected(false);
+      this.buttonEnvelope.setSelected(false);
+      break;
+  }
 };
 
 
@@ -192,18 +192,18 @@ lgb.view.LeftNavView.prototype.updateSelected = function(visibilityGroup) {
  */
 lgb.view.LeftNavView.prototype.onResize = function(event) {
 
-	var y = this.getYpos();
+  var y = this.getYpos();
 
-	var props = {top: y + 'px'};
-	var options = {
-		duration: 500,
-		easing: 'easeInOutSine'
-	};
+  var props = {top: y + 'px'};
+  var options = {
+    duration: 500,
+    easing: 'easeInOutSine'
+  };
 
-	this.jq().animate(
-    	props,
-    	options
-	);
+  this.jq().animate(
+      props,
+      options
+  );
 
 };
 
@@ -213,10 +213,10 @@ lgb.view.LeftNavView.prototype.onResize = function(event) {
  */
 lgb.view.LeftNavView.prototype.show = function() {
 
-  	this.jq().animate({
-  		left: '0',
-  		easing: 'easeInOutSine'
-  	}, 500);
+    this.jq().animate({
+      left: '0',
+      easing: 'easeInOutSine'
+    }, 500);
 
 };
 

@@ -11,7 +11,7 @@ goog.require('lgb.BaseClass');
  * @extends lgb.BaseClass
  */
 lgb.model.ModelBase = function() {
-	lgb.BaseClass.call(this);
+  lgb.BaseClass.call(this);
 };
 goog.inherits(lgb.model.ModelBase, lgb.BaseClass);
 
@@ -23,7 +23,7 @@ goog.inherits(lgb.model.ModelBase, lgb.BaseClass);
  * @protected
 
 lgb.model.ModelBase.prototype.dispatchChange = function() {
-	this.dispatchLocal(new lgb.events.DataModelChanged());
+  this.dispatchLocal(new lgb.events.DataModelChanged());
 };
 
  */
@@ -44,10 +44,10 @@ lgb.model.ModelBase.prototype.dispatchChange = function(whatIsDirty) {
  * @return {string} The CSS ID.
  */
 lgb.model.ModelBase.prototype.getCssID = function() {
-	if (this._NAME === undefined) {
-		throw ('this._NAME === undefined');
-	} else {
-		var id = this._NAME.split('.').join('-');
-		return id;
-	}
+  if (this._NAME === undefined) {
+    throw ('this._NAME === undefined');
+  } else {
+    var id = this._NAME.split('.').join('-');
+    return id;
+  }
 };

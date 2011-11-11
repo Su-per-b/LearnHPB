@@ -8,7 +8,7 @@ goog.require('goog.events.Event');
  */
 lgb.events.ViewClosed = function() {
 
-	goog.events.Event.call(this, lgb.events.ViewClosed.TYPE);
+  goog.events.Event.call(this, lgb.events.ViewClosed.TYPE);
 
 };
 goog.inherits(lgb.events.ViewClosed, goog.events.Event);

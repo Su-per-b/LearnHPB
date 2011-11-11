@@ -43,28 +43,28 @@ lgb.model.EnvelopeModel.prototype.init_ = function() {
  */
 lgb.model.EnvelopeModel.prototype.change = function(stateObject) {
 
-	var isAnythingDirty = false;
-	var whatIsDirty = {};
+  var isAnythingDirty = false;
+  var whatIsDirty = {};
 
-	if (stateObject.floorHeight != null &&
-		stateObject.floorHeight != this.floorHeight) {
+  if (stateObject.floorHeight != null &&
+    stateObject.floorHeight != this.floorHeight) {
 
-		this.floorHeight = stateObject.floorHeight;
-		whatIsDirty.floorHeight = true;
-		isAnythingDirty = true;
-	}
+    this.floorHeight = stateObject.floorHeight;
+    whatIsDirty.floorHeight = true;
+    isAnythingDirty = true;
+  }
 
-	if (stateObject.floorCount != null &&
-		stateObject.floorCount != this.floorCount) {
+  if (stateObject.floorCount != null &&
+    stateObject.floorCount != this.floorCount) {
 
-		this.floorCount = stateObject.floorCount;
-		whatIsDirty.floorCount = true;
-		isAnythingDirty = true;
-	}
+    this.floorCount = stateObject.floorCount;
+    whatIsDirty.floorCount = true;
+    isAnythingDirty = true;
+  }
 
-	if (isAnythingDirty) {
-		this.dispatchLocal(new lgb.events.DataModelChanged(whatIsDirty));
-	}
+  if (isAnythingDirty) {
+    this.dispatchLocal(new lgb.events.DataModelChanged(whatIsDirty));
+  }
 };
 
 
@@ -73,11 +73,11 @@ lgb.model.EnvelopeModel.prototype.change = function(stateObject) {
  */
 lgb.model.EnvelopeModel.prototype.setVisible = function(makeVisible) {
 
-	if (this.isVisible != makeVisible) {
-		this.isVisible = makeVisible;
+  if (this.isVisible != makeVisible) {
+    this.isVisible = makeVisible;
 
-		this.dispatchChange();
-	}
+    this.dispatchChange();
+  }
 };
 
 /**
@@ -87,9 +87,9 @@ lgb.model.EnvelopeModel.prototype.setVisible = function(makeVisible) {
  */
 lgb.model.EnvelopeModel.prototype.setVisiblityGroup = function(group) {
 
-	if (this.groupMembership[group]) {
-		this.setVisible(true);
-	} else {
-		this.setVisible(false);
-	}
+  if (this.groupMembership[group]) {
+    this.setVisible(true);
+  } else {
+    this.setVisible(false);
+  }
 };

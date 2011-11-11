@@ -14,12 +14,12 @@ goog.require('lgb.view.ViewBase');
  * @extends {lgb.view.ViewBase}
  */
 lgb.view.EnvelopeAdminView = function(dataModel, parentHTMLid) {
-	lgb.view.ViewBase.call(this, dataModel);
+  lgb.view.ViewBase.call(this, dataModel);
 
-	this.parentHTMLid = parentHTMLid;
-	this._NAME = 'lgb.view.EnvelopeAdminView';
-	this.htmlID = 'envelopeAdminView';
-	this.init_();
+  this.parentHTMLid = parentHTMLid;
+  this._NAME = 'lgb.view.EnvelopeAdminView';
+  this.htmlID = 'envelopeAdminView';
+  this.init_();
 
 };
 goog.inherits(lgb.view.EnvelopeAdminView, lgb.view.ViewBase);
@@ -30,8 +30,8 @@ goog.inherits(lgb.view.EnvelopeAdminView, lgb.view.ViewBase);
  * @private
  */
 lgb.view.EnvelopeAdminView.prototype.init_ = function() {
-	this.injectHtml();
-	this.bind_();
+  this.injectHtml();
+  this.bind_();
 };
 
 
@@ -43,18 +43,18 @@ lgb.view.EnvelopeAdminView.prototype.init_ = function() {
  */
 lgb.view.EnvelopeAdminView.prototype.bind_ = function() {
 
-	this.rbGroupFloorHeight.bind();
-	this.rbGroupStories.bind();
+  this.rbGroupFloorHeight.bind();
+  this.rbGroupStories.bind();
 
-	this.listenTo(this.dataSourceFloorHeight,
-		lgb.events.DataSourceChanged.TYPE,
-		this.onFloorHeightChanged_
-		);
+  this.listenTo(this.dataSourceFloorHeight,
+    lgb.events.DataSourceChanged.TYPE,
+    this.onFloorHeightChanged_
+    );
 
-	this.listenTo(this.dataSourceFloorCount,
-		lgb.events.DataSourceChanged.TYPE,
-		this.onFloorCountChanged_
-		);
+  this.listenTo(this.dataSourceFloorCount,
+    lgb.events.DataSourceChanged.TYPE,
+    this.onFloorCountChanged_
+    );
 
 };
 
@@ -66,11 +66,11 @@ lgb.view.EnvelopeAdminView.prototype.bind_ = function() {
  */
 lgb.view.EnvelopeAdminView.prototype.onFloorCountChanged_ = function(event) {
 
-	var e = new lgb.events.RequestDataModelChange(
-		{floorCount: this.dataSourceFloorCount.theSelectedOne.value}
-	);
+  var e = new lgb.events.RequestDataModelChange(
+    {floorCount: this.dataSourceFloorCount.theSelectedOne.value}
+  );
 
-	this.dispatchLocal(e);
+  this.dispatchLocal(e);
 };
 
 
@@ -81,11 +81,11 @@ lgb.view.EnvelopeAdminView.prototype.onFloorCountChanged_ = function(event) {
  */
 lgb.view.EnvelopeAdminView.prototype.onFloorHeightChanged_ = function(event) {
 
-	var e = new lgb.events.RequestDataModelChange(
-		{floorHeight: this.dataSourceFloorHeight.theSelectedOne.value}
-	);
+  var e = new lgb.events.RequestDataModelChange(
+    {floorHeight: this.dataSourceFloorHeight.theSelectedOne.value}
+  );
 
-	this.dispatchLocal(e);
+  this.dispatchLocal(e);
 };
 
 
@@ -109,41 +109,41 @@ lgb.view.EnvelopeAdminView.prototype.onChange = function(event) {
 lgb.view.EnvelopeAdminView.prototype.injectHtml = function() {
 
 
-	this.dataSourceFloorHeight = new lgb.component.RadioButtonDataSource(
-			'Select Floor-To-ceiling height',
-			this.htmlID + '-0',
-			'floor-height');
+  this.dataSourceFloorHeight = new lgb.component.RadioButtonDataSource(
+      'Select Floor-To-ceiling height',
+      this.htmlID + '-0',
+      'floor-height');
 
-	this.dataSourceFloorHeight.addItem('13 ft', 13);
-	this.dataSourceFloorHeight.addItem('11 ft', 11, true);
-	this.dataSourceFloorHeight.addItem('9 ft', 9);
+  this.dataSourceFloorHeight.addItem('13 ft', 13);
+  this.dataSourceFloorHeight.addItem('11 ft', 11, true);
+  this.dataSourceFloorHeight.addItem('9 ft', 9);
 
-	this.rbGroupFloorHeight = new lgb.component.RadioButtonGroup(this.dataSourceFloorHeight);
+  this.rbGroupFloorHeight = new lgb.component.RadioButtonGroup(this.dataSourceFloorHeight);
 
-	this.dataSourceFloorCount = new lgb.component.RadioButtonDataSource(
-			'Select Number of Stories',
-			this.htmlID + '-1',
-			'stories');
+  this.dataSourceFloorCount = new lgb.component.RadioButtonDataSource(
+      'Select Number of Stories',
+      this.htmlID + '-1',
+      'stories');
 
-	this.dataSourceFloorCount.addItem('7', 7);
-	this.dataSourceFloorCount.addItem('5', 5, true);
-	this.dataSourceFloorCount.addItem('3', 3);
+  this.dataSourceFloorCount.addItem('7', 7);
+  this.dataSourceFloorCount.addItem('5', 5, true);
+  this.dataSourceFloorCount.addItem('3', 3);
 
-	this.rbGroupStories = new lgb.component.RadioButtonGroup(this.dataSourceFloorCount);
-
-
-	var divHtml = '<div id="{0}" class="adminSubPanel">' +
-					'<h3>{1}</h3>' +
-			this.rbGroupFloorHeight.getHTML() +
-			this.rbGroupStories.getHTML() +
-				'</div>';
-
-	divHtml = divHtml.format(
-		this.htmlID,
-		this.dataModel._TITLE
-		);
+  this.rbGroupStories = new lgb.component.RadioButtonGroup(this.dataSourceFloorCount);
 
 
-	this.append(divHtml);
+  var divHtml = '<div id="{0}" class="adminSubPanel">' +
+          '<h3>{1}</h3>' +
+      this.rbGroupFloorHeight.getHTML() +
+      this.rbGroupStories.getHTML() +
+        '</div>';
+
+  divHtml = divHtml.format(
+    this.htmlID,
+    this.dataModel._TITLE
+    );
+
+
+  this.append(divHtml);
 
 };

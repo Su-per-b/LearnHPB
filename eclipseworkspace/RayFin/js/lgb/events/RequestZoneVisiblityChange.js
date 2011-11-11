@@ -5,7 +5,7 @@ goog.require('goog.events.Event');
 /**
  * @constructor
  * @param {number} zoneNumber 0-9.
- * @param {boolean} makeVisible
+ * @param {boolean} makeVisible Tells weather to show the red zone cube.
  * @extends {goog.events.Event}
  */
 lgb.events.RequestZoneVisiblityChange = function(zoneNumber, makeVisible) {
@@ -29,4 +29,5 @@ goog.inherits(lgb.events.RequestZoneVisiblityChange, goog.events.Event);
  * @const
  * @type {string}
  */
-lgb.events.RequestZoneVisiblityChange.TYPE = 'lgb.events.RequestZoneVisiblityChange';
+lgb.events.RequestZoneVisiblityChange.TYPE =
+  'lgb.events.RequestZoneVisiblityChange';

@@ -10,12 +10,12 @@ goog.require('lgb.model.ModelBase');
  * @extends lgb.model.ModelBase
  */
 lgb.model.BuildingModel = function() {
-	/**@const */
-	this._NAME = 'lgb.model.BuildingModel';
-	/**@const */
-	this._TITLE = 'Building';
+  /**@const */
+  this._NAME = 'lgb.model.BuildingModel';
+  /**@const */
+  this._TITLE = 'Building';
 
-	lgb.model.ModelBase.call(this);
+  lgb.model.ModelBase.call(this);
 
 };
 goog.inherits(lgb.model.BuildingModel, lgb.model.ModelBase);
@@ -41,16 +41,16 @@ lgb.model.BuildingModel.Group = {
 };
 
 /*
-	lgb.model.VisibilityTag.ALL = 'ALL';
-	lgb.model.VisibilityTag.HVAC = 'HVAC';
-	lgb.model.VisibilityTag.ENVELOPE = 'ENVELOPE';
-	lgb.model.VisibilityTag.ROOFTOP = 'ROOFTOP';
-	lgb.model.VisibilityTag.FILTER = 'FILTER';
-	lgb.model.VisibilityTag.HEATING_COIL = 'HEATING_COIL';
-	lgb.model.VisibilityTag.COOLING_COIL = 'COOLING_COIL';
-	lgb.model.VisibilityTag.FAN = 'FAN';
-	lgb.model.VisibilityTag.DAMPERS = 'DAMPERS';
-	lgb.model.VisibilityTag.DUCTWORK = 'DUCTWORK';
-	lgb.model.VisibilityTag.CROSS_SECTION = 'CROSS_SECTION';
+  lgb.model.VisibilityTag.ALL = 'ALL';
+  lgb.model.VisibilityTag.HVAC = 'HVAC';
+  lgb.model.VisibilityTag.ENVELOPE = 'ENVELOPE';
+  lgb.model.VisibilityTag.ROOFTOP = 'ROOFTOP';
+  lgb.model.VisibilityTag.FILTER = 'FILTER';
+  lgb.model.VisibilityTag.HEATING_COIL = 'HEATING_COIL';
+  lgb.model.VisibilityTag.COOLING_COIL = 'COOLING_COIL';
+  lgb.model.VisibilityTag.FAN = 'FAN';
+  lgb.model.VisibilityTag.DAMPERS = 'DAMPERS';
+  lgb.model.VisibilityTag.DUCTWORK = 'DUCTWORK';
+  lgb.model.VisibilityTag.CROSS_SECTION = 'CROSS_SECTION';
 
 */

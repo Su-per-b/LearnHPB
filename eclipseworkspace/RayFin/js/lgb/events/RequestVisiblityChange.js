@@ -6,13 +6,14 @@ goog.require('lgb.model.BuildingModel.Group');
 
 /**
  * Event fired when a view wishes to change the state of the data model
- * @param {!lgb.model.BuildingModel.Group} visiblityGroup
+ * @param {!lgb.model.BuildingModel.Group} visiblityGroup Each in-world
+ * component is a member of one or more groups.
  * @constructor
  * @extends {goog.events.Event}
  */
 lgb.events.RequestVisibilityChange = function(visiblityGroup) {
 
-	goog.events.Event.call(this, lgb.events.RequestVisibilityChange.TYPE);
+  goog.events.Event.call(this, lgb.events.RequestVisibilityChange.TYPE);
 
   /**
    * The event payload

@@ -9,7 +9,7 @@ goog.require('goog.events.Event');
  */
 lgb.events.SelectableLoaded = function(obj) {
 
-	goog.events.Event.call(this, lgb.events.SelectableLoaded.TYPE);
+  goog.events.Event.call(this, lgb.events.SelectableLoaded.TYPE);
 
  /**@type {THREE.Object3D} **/
   this.payload = obj;

@@ -9,7 +9,7 @@ goog.require('goog.events.Event');
  */
 lgb.events.RequestWorldSelectionChange = function(selectionID) {
 
-	goog.events.Event.call(this, lgb.events.RequestWorldSelectionChange.TYPE);
+  goog.events.Event.call(this, lgb.events.RequestWorldSelectionChange.TYPE);
 
   /**
    * The event payload
@@ -25,4 +25,5 @@ goog.inherits(lgb.events.RequestWorldSelectionChange, goog.events.Event);
  * @const
  * @type {string}
  */
-lgb.events.RequestWorldSelectionChange.TYPE = 'lgb.events.RequestWorldSelectionChange';
+lgb.events.RequestWorldSelectionChange.TYPE =
+  'lgb.events.RequestWorldSelectionChange';

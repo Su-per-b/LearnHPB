@@ -7,7 +7,7 @@ goog.require('goog.events.Event');
  * @extends {goog.events.Event}
  */
 lgb.events.WorldCreated = function() {
-	goog.events.Event.call(this, lgb.events.WorldCreated.TYPE);
+  goog.events.Event.call(this, lgb.events.WorldCreated.TYPE);
 };
 goog.inherits(lgb.events.WorldCreated, goog.events.Event);
 

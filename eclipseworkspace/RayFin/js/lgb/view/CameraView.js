@@ -8,10 +8,10 @@ goog.require('lgb.view.ViewBase');
  * @extends {lgb.view.ViewBase}
  */
 lgb.view.CameraView = function(domElement) {
-	lgb.view.ViewBase.call(this);
+  lgb.view.ViewBase.call(this);
 
-	this.init(domElement);
-	this._NAME = 'lgb.view.CameraView';
+  this.init(domElement);
+  this._NAME = 'lgb.view.CameraView';
 };
 goog.inherits(lgb.view.CameraView, lgb.view.ViewBase);
 
@@ -22,17 +22,23 @@ goog.inherits(lgb.view.CameraView, lgb.view.ViewBase);
  * @param {Element} domElement The element to use as the trackball 'touchpad'.
  */
 lgb.view.CameraView.prototype.init = function(domElement) {
-	this.domElement_ = domElement;
-	this.camera = new THREE.PerspectiveCamera;
-		(30, this.domElement_.width / this.domElement_.height, 1, 250);
+  this.domElement_ = domElement;
+  
+  this.camera = new THREE.PerspectiveCamera(
+    30,
+    this.domElement_.width / this.domElement_.height,
+    1,
+    250
+  );
+  
 
-	this.camera.position.z = 500;
-	this.orbitRadius = 65;
-	this.camera.position.x = 0;
-	this.camera.position.y = 2;
-	this.camera.position.z = this.orbitRadius;
+  this.camera.position.z = 500;
+  this.orbitRadius = 65;
+  this.camera.position.x = 0;
+  this.camera.position.y = 2;
+  this.camera.position.z = this.orbitRadius;
 
-	this.listen(lgb.events.WindowResize.TYPE, this.onWindowResize);
+  this.listen(lgb.events.WindowResize.TYPE, this.onWindowResize);
 };
 
 
@@ -41,6 +47,6 @@ lgb.view.CameraView.prototype.init = function(domElement) {
  * @param {goog.events.Event} event The event.
  */
 lgb.view.CameraView.prototype.onWindowResize = function(event) {
-	this.camera.aspect	= window.innerWidth / window.innerHeight;
-	this.camera.updateProjectionMatrix();
+  this.camera.aspect  = window.innerWidth / window.innerHeight;
+  this.camera.updateProjectionMatrix();
 };

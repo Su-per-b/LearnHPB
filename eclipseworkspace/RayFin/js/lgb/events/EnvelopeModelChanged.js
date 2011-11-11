@@ -10,7 +10,7 @@ goog.require('goog.events.Event');
  */
 lgb.events.EnvelopeModelChanged = function(envelopeModel) {
 
-	goog.events.Event.call(this, lgb.events.EnvelopeModelChanged.TYPE);
+  goog.events.Event.call(this, lgb.events.EnvelopeModelChanged.TYPE);
 
   /**
    * The event payload

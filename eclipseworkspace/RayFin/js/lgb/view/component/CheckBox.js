@@ -11,15 +11,15 @@ goog.require('lgb.view.ViewBase');
  * @extends {lgb.view.ViewBase}
  */
 lgb.view.component.CheckBox = function(parentHTMLid, subID, title) {
-	lgb.view.ViewBase.call(this);
+  lgb.view.ViewBase.call(this);
 
-	/** @const */
-	this.htmlID = parentHTMLid + '-' + subID;
-	this.parentHTMLid = parentHTMLid;
-	this.title = title;
-	this.isChecked = false;
-	this.hasBeenInjected = false;
-	this._NAME = 'lgb.view.component.CheckBox';
+  /** @const */
+  this.htmlID = parentHTMLid + '-' + subID;
+  this.parentHTMLid = parentHTMLid;
+  this.title = title;
+  this.isChecked = false;
+  this.hasBeenInjected = false;
+  this._NAME = 'lgb.view.component.CheckBox';
 };
 goog.inherits(lgb.view.component.CheckBox, lgb.view.ViewBase);
 
@@ -30,21 +30,21 @@ goog.inherits(lgb.view.component.CheckBox, lgb.view.ViewBase);
  */
 lgb.view.component.CheckBox.prototype.getHTML = function() {
 
-	var html = '<p><label><input id={0} type="checkbox" {1}>' +
-					' {2}</label></p>';
+  var html = '<p><label><input id={0} type="checkbox" {1}>' +
+          ' {2}</label></p>';
 
-	var checked = '';
-	if (this.isChecked) {
-		checked = ' checked="checked"';
-	}
+  var checked = '';
+  if (this.isChecked) {
+    checked = ' checked="checked"';
+  }
 
-	html = html.format(
-		this.htmlID,
-		checked,
-		this.title
-		);
+  html = html.format(
+    this.htmlID,
+    checked,
+    this.title
+    );
 
-	return html;
+  return html;
 };
 
 /**
@@ -53,16 +53,16 @@ lgb.view.component.CheckBox.prototype.getHTML = function() {
  */
 lgb.view.component.CheckBox.prototype.setChecked = function(checkedFlag) {
 
-	if (this.isChecked == checkedFlag) return;
-	this.isChecked = checkedFlag;
+  if (this.isChecked == checkedFlag) return;
+  this.isChecked = checkedFlag;
 
-	if (this.hasBeenInjected) {
-		if (checkedFlag) {
-			this.jq(this.htmlID).attr('checked', 'checked');
-		} else {
-			this.jq(this.htmlID).removeAttr('checked');
-		}
-	}
+  if (this.hasBeenInjected) {
+    if (checkedFlag) {
+      this.jq(this.htmlID).attr('checked', 'checked');
+    } else {
+      this.jq(this.htmlID).removeAttr('checked');
+    }
+  }
 
 };
 
@@ -72,15 +72,15 @@ lgb.view.component.CheckBox.prototype.setChecked = function(checkedFlag) {
  */
 lgb.view.component.CheckBox.prototype.isCheckedInDom = function() {
 
-	var checkedTxt = this.jq(this.htmlID).attr('checked');
+  var checkedTxt = this.jq(this.htmlID).attr('checked');
 
-	if (checkedTxt == 'checked') {
-		return true;
-	} else if (checkedTxt == '') {
-		return false;
-	} else {
-		throw ('invalid value for checkbox');
-	}
+  if (checkedTxt == 'checked') {
+    return true;
+  } else if (checkedTxt == '') {
+    return false;
+  } else {
+    throw ('invalid value for checkbox');
+  }
 };
 
 
@@ -89,16 +89,16 @@ lgb.view.component.CheckBox.prototype.isCheckedInDom = function() {
  * injects the particle system control panel into the DOM
  */
 lgb.view.component.CheckBox.prototype.injectHtml = function() {
-	var html = this.getHTML();
+  var html = this.getHTML();
 
-	this.append(html);
+  this.append(html);
 
-	var options = {
-		empty: 'images/checkbox/empty.png'
-	};
+  var options = {
+    empty: 'images/checkbox/empty.png'
+  };
 
-	this.jq().checkbox(options);
-	this.hasBeenInjected = true;
+  this.jq().checkbox(options);
+  this.hasBeenInjected = true;
 };
 
 

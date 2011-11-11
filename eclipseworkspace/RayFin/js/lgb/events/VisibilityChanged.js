@@ -3,13 +3,14 @@ goog.provide('lgb.events.VisibilityChanged');
 goog.require('goog.events.Event');
 
 /**
- * @param {!lgb.model.BuildingModel.Group} visiblityGroup
+ * @param {!lgb.model.BuildingModel.Group} visiblityGroup Each in-world
+ * component is a member of one or more groups.
  * @constructor
  * @extends {goog.events.Event}
  */
 lgb.events.VisibilityChanged = function(visiblityGroup) {
 
-	goog.events.Event.call(this, lgb.events.VisibilityChanged.TYPE);
+  goog.events.Event.call(this, lgb.events.VisibilityChanged.TYPE);
 
   /**
    * The event payload

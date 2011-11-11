@@ -10,7 +10,7 @@ goog.require('goog.events.Event');
  */
 lgb.events.DataSourceChanged = function(ds) {
 
-	goog.events.Event.call(this, lgb.events.DataSourceChanged.TYPE);
+  goog.events.Event.call(this, lgb.events.DataSourceChanged.TYPE);
 
   /**
    * The event payload

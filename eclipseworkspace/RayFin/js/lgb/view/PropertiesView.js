@@ -11,7 +11,7 @@ goog.require('lgb.view.component.InputWidget');
 lgb.view.PropertiesView = function(dataModel) {
 
   lgb.view.DialogView.call(this, dataModel);
-	this.currentSelectionIdx = -1;
+  this.currentSelectionIdx = -1;
   this.htmlID = 'propertiesView';
   this.title = 'Properties';
 
@@ -25,7 +25,7 @@ lgb.view.PropertiesView = function(dataModel) {
   this.showNode(this.dataModel.selectedSystemNode);
   this.setDropDownSelection(this.dataModel.selectedSystemNode);
 
-	this._NAME = 'lgb.view.PropertiesView';
+  this._NAME = 'lgb.view.PropertiesView';
 };
 goog.inherits(lgb.view.PropertiesView, lgb.view.DialogView);
 
@@ -70,7 +70,7 @@ lgb.view.PropertiesView.prototype.makeTabs_ = function() {
 
   this.jq().append(htmlTabs);
   this.kendoTabStrip = $('#tabstrip').kendoTabStrip(
-  	{animation: false}
+    {animation: false}
   ).data('kendoTabStrip');
 
   this.kendoTabStrip.append(
@@ -157,10 +157,10 @@ lgb.view.PropertiesView.prototype.onDropDownChange = function(event) {
  */
 lgb.view.PropertiesView.prototype.setDropDownSelection = function(systemNode) {
 
-	if (systemNode.idx != this.currentSelectionIdx)	{
-		  this.currentSelectionIdx = systemNode.idx;
-		  this.kendoDropDownList.select(this.currentSelectionIdx);
-	}
+  if (systemNode.idx != this.currentSelectionIdx)  {
+      this.currentSelectionIdx = systemNode.idx;
+      this.kendoDropDownList.select(this.currentSelectionIdx);
+  }
 };
 
 /**
@@ -192,11 +192,11 @@ lgb.view.PropertiesView.prototype.showNode = function(systemNode) {
   var inputs = systemNode.getInputs();
   var j = inputs.length;
 
-	while (j--) {
-	    var sysVar = inputs[j];
-		var widget = new lgb.view.component.InputWidget(sysVar);
-	    widget.injectHtml('#tabstrip-1', j);
-	}
+  while (j--) {
+      var sysVar = inputs[j];
+    var widget = new lgb.view.component.InputWidget(sysVar);
+      widget.injectHtml('#tabstrip-1', j);
+  }
 
 
 
@@ -210,8 +210,8 @@ lgb.view.PropertiesView.prototype.showNode = function(systemNode) {
 
 
     } else {
-		var f = new lgb.view.component.FaultWidget(sysVar);
-	    f.injectHtml('#tabstrip-2', i);
+    var f = new lgb.view.component.FaultWidget(sysVar);
+      f.injectHtml('#tabstrip-2', i);
     }
 
   }

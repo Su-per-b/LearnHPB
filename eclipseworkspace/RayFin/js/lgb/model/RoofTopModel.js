@@ -10,20 +10,20 @@ goog.require('lgb.model.ModelBase');
  * @extends lgb.model.ModelBase
  */
 lgb.model.RoofTopModel = function() {
-	/**@const */
-	this._NAME = 'lgb.model.RoofTopModel';
+  /**@const */
+  this._NAME = 'lgb.model.RoofTopModel';
 
-	/**@const */
-	this._TITLE = 'Roof-top Unit';
+  /**@const */
+  this._TITLE = 'Roof-top Unit';
 
-	lgb.model.ModelBase.call(this);
+  lgb.model.ModelBase.call(this);
 
-	this.groupMembership = {};
-	this.groupMembership[lgb.model.BuildingModel.Group.ALL] = true;
-	this.groupMembership[lgb.model.BuildingModel.Group.ROOFTOP] = true;
-	this.groupMembership[lgb.model.BuildingModel.Group.HVAC] = true;
+  this.groupMembership = {};
+  this.groupMembership[lgb.model.BuildingModel.Group.ALL] = true;
+  this.groupMembership[lgb.model.BuildingModel.Group.ROOFTOP] = true;
+  this.groupMembership[lgb.model.BuildingModel.Group.HVAC] = true;
 
-	this.isVisible = true;
+  this.isVisible = true;
 
 };
 goog.inherits(lgb.model.RoofTopModel, lgb.model.ModelBase);
@@ -41,11 +41,11 @@ lgb.model.RoofTopModel.prototype.init = function() {
  */
 lgb.model.RoofTopModel.prototype.setVisible = function(makeVisible) {
 
-	if (this.isVisible != makeVisible) {
-		this.isVisible = makeVisible;
+  if (this.isVisible != makeVisible) {
+    this.isVisible = makeVisible;
 
-		this.dispatchChange();
-	}
+    this.dispatchChange();
+  }
 };
 
 /**
@@ -55,9 +55,9 @@ lgb.model.RoofTopModel.prototype.setVisible = function(makeVisible) {
  */
 lgb.model.RoofTopModel.prototype.setVisiblityGroup = function(group) {
 
-	if (this.groupMembership[group]) {
-		this.setVisible(true);
-	} else {
-		this.setVisible(false);
-	}
+  if (this.groupMembership[group]) {
+    this.setVisible(true);
+  } else {
+    this.setVisible(false);
+  }
 };

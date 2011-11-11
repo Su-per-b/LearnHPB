@@ -9,7 +9,7 @@ goog.require('goog.events.Event');
  */
 lgb.events.ScenarioParsed = function(scenarioBase) {
 
-	goog.events.Event.call(this, lgb.events.ScenarioParsed.TYPE);
+  goog.events.Event.call(this, lgb.events.ScenarioParsed.TYPE);
 
   /**
    * The event payload

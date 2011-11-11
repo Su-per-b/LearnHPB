@@ -55,13 +55,13 @@ lgb.model.scenario.SysVar.prototype.parse = function(node) {
     var y = node.childNodes.length;
 
     while (y--) {
-		var child = node.childNodes[y];
+    var child = node.childNodes[y];
 
-		if (child.nodeType != 1) continue;
+    if (child.nodeType != 1) continue;
 
-		var type = child.getAttribute('type'),
-		name = child.nodeName,
-		content = child.textContent;
+    var type = child.getAttribute('type'),
+    name = child.nodeName,
+    content = child.textContent;
 
 
 

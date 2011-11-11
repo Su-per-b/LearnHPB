@@ -13,10 +13,10 @@ goog.require('lgb.view.ViewBase');
  * @extends lgb.view.ViewBase
  */
 lgb.view.RoofTopView = function(dataModel) {
-	lgb.view.ViewBase.call(this, dataModel);
+  lgb.view.ViewBase.call(this, dataModel);
 
-	this.dataModel = dataModel;
-	this._NAME = 'lgb.view.RoofTopView';
+  this.dataModel = dataModel;
+  this._NAME = 'lgb.view.RoofTopView';
 
 
 };
@@ -28,18 +28,18 @@ goog.inherits(lgb.view.RoofTopView, lgb.view.ViewBase);
  * Initializes the View
  */
 lgb.view.RoofTopView.prototype.init = function() {
-	this.loadScene_();
+  this.loadScene_();
 };
 
 lgb.view.RoofTopView.prototype.loadScene_ = function() {
 
 
-	var path = lgb.Config.ASSETS_BASE_PATH + 'rooftop/scene-bin.js';
+  var path = lgb.Config.ASSETS_BASE_PATH + 'rooftop/scene-bin.js';
 
-	/**@type {THREE.SceneLoaderEx} */
-	this.loader_ = new THREE.SceneLoaderEx();
+  /**@type {THREE.SceneLoaderEx} */
+  this.loader_ = new THREE.SceneLoaderEx();
 
-	this.loader_.load(path, this.d(this.onSceneLoaded_));
+  this.loader_.load(path, this.d(this.onSceneLoaded_));
 };
 
 
@@ -48,54 +48,54 @@ lgb.view.RoofTopView.prototype.loadScene_ = function() {
 /**
  * @private
  * @param {*} result The result of the scene load.
- * 			result = {.
+ *       result = {.
 
-				scene: new THREE.Scene(),
-				geometries: {},
-				materials: {},
-				textures: {},
-				objects: {},
-				cameras: {},
-				lights: {},
-				fogs: {},
-				triggers: {},
-				empties: {}
+        scene: new THREE.Scene(),
+        geometries: {},
+        materials: {},
+        textures: {},
+        objects: {},
+        cameras: {},
+        lights: {},
+        fogs: {},
+        triggers: {},
+        empties: {}
 
-			};
+      };
  */
 lgb.view.RoofTopView.prototype.onSceneLoaded_ = function(result) {
 
-	/**@type THREE.Scene */
-	var scene = result['scene'];
+  /**@type THREE.Scene */
+  var scene = result['scene'];
 
-	lgb.logInfo('onSceneLoaded_');
-	this.masterGroup = new THREE.Object3D();
+  lgb.logInfo('onSceneLoaded_');
+  this.masterGroup = new THREE.Object3D();
 
-	for (var i = scene.objects.length - 1; i >= 0; i--) {
-	  	var mesh = scene.objects[i];
+  for (var i = scene.objects.length - 1; i >= 0; i--) {
+      var mesh = scene.objects[i];
 
-	  	if (mesh.name == 'Ducting') {
-	  		mesh.doubleSided = true;
-	  	}
+      if (mesh.name == 'Ducting') {
+        mesh.doubleSided = true;
+      }
 
-	  	this.masterGroup.add(mesh);
+      this.masterGroup.add(mesh);
 
-		var event = new lgb.events.SelectableLoaded(mesh);
-		this.dispatchLocal(event);
+    var event = new lgb.events.SelectableLoaded(mesh);
+    this.dispatchLocal(event);
 
-	}
+  }
 
 
 
-	this.masterGroup.position = scene.position;
-	this.masterGroup.rotation = scene.rotation;
-	this.masterGroup.scale = scene.scale;
+  this.masterGroup.position = scene.position;
+  this.masterGroup.rotation = scene.rotation;
+  this.masterGroup.scale = scene.scale;
 
   this.requestAddToWorld(this.masterGroup);
-	//var event = new lgb.events.Object3DLoaded(this.masterGroup);
-//	this.dispatchLocal(event);
+  //var event = new lgb.events.Object3DLoaded(this.masterGroup);
+//  this.dispatchLocal(event);
 
-	delete this.loader_;
+  delete this.loader_;
 };
 
 
@@ -108,7 +108,7 @@ lgb.view.RoofTopView.prototype.onSceneLoaded_ = function(result) {
  * @protected
  */
 lgb.view.RoofTopView.prototype.onChange = function(event) {
-	this.updateAllFromModel_();
+  this.updateAllFromModel_();
 };
 
 
@@ -117,7 +117,7 @@ lgb.view.RoofTopView.prototype.onChange = function(event) {
  * @private
  */
 lgb.view.RoofTopView.prototype.updateAllFromModel_ = function() {
-	this.updateVisible_();
+  this.updateVisible_();
 };
 
 
@@ -126,11 +126,11 @@ lgb.view.RoofTopView.prototype.updateAllFromModel_ = function() {
  * @private
  */
 lgb.view.RoofTopView.prototype.updateVisible_ = function() {
-	var m = this.masterGroup.children.length;
+  var m = this.masterGroup.children.length;
 
-	for (var i = 0; i < m; i++) {
-		this.masterGroup.children[i].visible = this.dataModel.isVisible;
-	}
+  for (var i = 0; i < m; i++) {
+    this.masterGroup.children[i].visible = this.dataModel.isVisible;
+  }
 };
 
 
