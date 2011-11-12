@@ -8,18 +8,14 @@ goog.require('lgb.view.ViewBase');
 /**
  * @constructor
  * @extends {lgb.view.ViewBase}
+ * @param {THREE.Material} pMaterial the material to use.
  */
-lgb.view.ParticleElement = function(pMaterial, pMaterialHide) {
+lgb.view.ParticleElement = function(pMaterial) {
   lgb.view.ViewBase.call(this);
 
   this.pMaterial = pMaterial;
-  this.pMaterialHide = pMaterialHide;
 
   this.threeParticle = new THREE.Particle();
-
-  //this.vertex = new THREE.Vertex(
-  //    new THREE.Vector3(0, 0, 0)
-  //);
 
   this.currentFrameNumber = 0;
     this.isFinished = false;
@@ -27,38 +23,53 @@ lgb.view.ParticleElement = function(pMaterial, pMaterialHide) {
 };
 goog.inherits(lgb.view.ParticleElement, lgb.view.ViewBase);
 
+
+/**
+ * I made an accessor.
+ * @param {lgb.view.ParticlePath} path This particle should follwo this path.
+ */
 lgb.view.ParticleElement.prototype.assignPath = function(path) {
   this.path = path;
 };
 
+
+/**
+ * I made an accessor for this property.  There
+ * is probably a better way to do this.
+ * @param {string} id The ID or idx of htis particle.
+ */
 lgb.view.ParticleElement.prototype.assignId = function(id) {
-
   this.id = id;
-  //this.launchDelayFrames = this.launchDelayBetweenParticles * id;
-  //this.currentFrameNumber = 0;
-
 };
 
 
-lgb.view.ParticleElement.prototype.reset = function(id) {
-//  this.threeParticle.scale.set(1, 1, 1);
+/**
+ * The Particle Element has finished its trip along the path,
+ * now it is rest.
+ */
+lgb.view.ParticleElement.prototype.reset = function() {
   this.currentFrameNumber = 0;
   this.isFinished = false;
   this.setVisible(true);
 };
 
 
+/**
+ * acessor.
+ * @param {boolean} makeVisible If true then show.
+ */
 lgb.view.ParticleElement.prototype.setVisible = function(makeVisible) {
   if (makeVisible) {
     //this.threeParticle.materials.opacity = 1;
   } else {
-    //this.threeParticle.materials[0].opacity = 0.1;
     this.threeParticle.position.set(1000, 1000, 0);
-    //this.threeParticle.scale.set(0, 0, 0);
-    //this.threeParticle.parent.remove(this.threeParticle);
   }
 };
 
+
+/**
+ * called by the controller I think.
+ */
 lgb.view.ParticleElement.prototype.render = function() {
 
 

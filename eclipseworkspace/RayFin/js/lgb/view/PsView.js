@@ -133,15 +133,6 @@ lgb.view.PsView.prototype.createSystem = function() {
           transparent: true
       });
 
-  this.pMaterialHide = new THREE.ParticleBasicMaterial({
-          color: 0xff0000,
-          size: 1,
-          map: cicle,
-          blending: THREE.AdditiveBlending,
-          transparent: true,
-          opacity: 1
-      });
-
   this.particlesGeometry = new THREE.Geometry();
   this.particlesGeometry.dynamic = true;
   this.particleElements = [];
@@ -152,7 +143,7 @@ lgb.view.PsView.prototype.createSystem = function() {
   this.inActiveParticles = [];
 
   while (i--) {
-        var particleElement = new lgb.view.ParticleElement(this.pMaterial, this.pMaterialHide);
+        var particleElement = new lgb.view.ParticleElement(this.pMaterial);
         particleElement.setVisible(false);
 
       this.particleElements[i] = particleElement;

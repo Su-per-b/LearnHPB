@@ -3,10 +3,10 @@ goog.provide('lgb.view.DuctworkView');
 goog.require('lgb.view.ViewBase');
 
 
-
 /**
  * @constructor
  * @extends {lgb.view.ViewBase}
+ * @param {lgb.model.DuctworkModel} dataModel The model to display.
  */
 lgb.view.DuctworkView = function(dataModel) {
   lgb.view.ViewBase.call(this, dataModel);
@@ -17,11 +17,9 @@ lgb.view.DuctworkView = function(dataModel) {
 goog.inherits(lgb.view.DuctworkView, lgb.view.ViewBase);
 
 
-
 /**
  * Initializes the View
  * loads the geometry
- * @public
  */
 lgb.view.DuctworkView.prototype.init = function() {
   //this.loader_ = new lgb.Loader();
@@ -29,6 +27,10 @@ lgb.view.DuctworkView.prototype.init = function() {
   this.loadScene_();
 };
 
+/**
+ * Initiates the scene load process.
+ * @private
+ */
 lgb.view.DuctworkView.prototype.loadScene_ = function() {
 
   var path = lgb.Config.ASSETS_BASE_PATH + 'ductwork/scene-bin.js';
@@ -39,6 +41,9 @@ lgb.view.DuctworkView.prototype.loadScene_ = function() {
 
 
 /**
+ * Event handler called when the scene file is loaded
+ * and all needed assets are loaded too.
+ * @param {Object} result The result from the THREE.js lib.
  * @private
  */
 lgb.view.DuctworkView.prototype.onSceneLoaded_ = function(result) {
@@ -81,7 +86,6 @@ lgb.view.DuctworkView.prototype.onChange = function(event) {
 };
 
 
-
 /**
  * Updates the view here to reflect any changes in the MVC data model.
  * @private
@@ -92,7 +96,8 @@ lgb.view.DuctworkView.prototype.updateAllFromModel_ = function() {
 
 
 /**
- * Updates this view to reflect the changes in the visibility state of the MVC model.
+ * Updates this view to reflect the changes in the visibility
+ * state of the MVC model.
  * @private
  */
 lgb.view.DuctworkView.prototype.updateVisible_ = function() {
@@ -102,6 +107,3 @@ lgb.view.DuctworkView.prototype.updateVisible_ = function() {
     this.masterGroup.children[i].visible = this.dataModel.isVisible;
   }
 };
-
-
-

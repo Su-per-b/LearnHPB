@@ -6,6 +6,7 @@ goog.require('lgb.view.ViewBase');
 /**
  * @constructor
  * @extends {lgb.view.ViewBase}
+ * @param {Node} domElement Needed to create the camera.
  */
 lgb.view.CameraView = function(domElement) {
   lgb.view.ViewBase.call(this);
@@ -19,18 +20,18 @@ goog.inherits(lgb.view.CameraView, lgb.view.ViewBase);
 
 /**
  * Initializes the View
- * @param {Element} domElement The element to use as the trackball 'touchpad'.
+ * @param {Node} domElement The element to use as the
+ * trackball 'touchpad'.
  */
 lgb.view.CameraView.prototype.init = function(domElement) {
   this.domElement_ = domElement;
-  
+
   this.camera = new THREE.PerspectiveCamera(
     30,
     this.domElement_.width / this.domElement_.height,
     1,
     250
   );
-  
 
   this.camera.position.z = 500;
   this.orbitRadius = 65;
@@ -47,6 +48,6 @@ lgb.view.CameraView.prototype.init = function(domElement) {
  * @param {goog.events.Event} event The event.
  */
 lgb.view.CameraView.prototype.onWindowResize = function(event) {
-  this.camera.aspect  = window.innerWidth / window.innerHeight;
+  this.camera.aspect = window.innerWidth / window.innerHeight;
   this.camera.updateProjectionMatrix();
 };

@@ -51,7 +51,6 @@ lgb.controller.WorldController.prototype.init = function() {
   **/
   this.cameraView_ = new lgb.view.CameraView(this.renderer_.domElement);
 
-
   this.initLights_();
   this.bind_();
 

@@ -17,19 +17,18 @@ lgb.view.DialogView = function(dataModel) {
 goog.inherits(lgb.view.DialogView, lgb.view.ViewBase);
 
 
-lgb.view.DialogView.prototype.toggleVisible = function() {
-  if (this.isOpen()) {
-    this.hide();
-  }
-  else {
-    this.show();
-  }
-};
-
+/**
+ * Called by the controller I believe.
+ * @return {jQuery|jQuery.widget|null} The dialog.
+ */
 lgb.view.DialogView.prototype.isOpen = function() {
   return this.jq().dialog('isOpen');
 };
 
+
+/**
+ * shows the Dialog.
+ */
 lgb.view.DialogView.prototype.show = function() {
   var selector = this.jq();
 
@@ -48,25 +47,9 @@ lgb.view.DialogView.prototype.show = function() {
 };
 
 
+/**
+ * hide the dialog.
+ */
 lgb.view.DialogView.prototype.hide = function() {
   this.jq().dialog('close');
 };
-
-
-lgb.view.DialogView.prototype.onCloseButtonClicked = function(event) {
-  this.dispatchLocal(new lgb.events.ViewClosed());
-
-//  alert('lgb.view.DialogView.prototype.onCloseButtonClicked : you must override this');
-};
-
-
-
-
-
-
-
-
-
-
-
-

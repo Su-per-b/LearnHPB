@@ -8,10 +8,11 @@ goog.require('lgb.events.RequestDataModelChange');
 goog.require('lgb.view.ViewBase');
 
 
-
 /**
  * @constructor
  * @extends {lgb.view.ViewBase}
+ * @param {lgb.model.EnvelopeModel} dataModel the model to display.
+ * @param {string} parentHTMLid The CSS id of the DOM parent.
  */
 lgb.view.EnvelopeAdminView = function(dataModel, parentHTMLid) {
   lgb.view.ViewBase.call(this, dataModel);
@@ -62,7 +63,7 @@ lgb.view.EnvelopeAdminView.prototype.bind_ = function() {
 /**
  * event handler
  * @private
- * @parameter {lgb.events.DataSourceChanged} event The Event.
+ * @param {lgb.events.DataSourceChanged} event The Event.
  */
 lgb.view.EnvelopeAdminView.prototype.onFloorCountChanged_ = function(event) {
 
@@ -77,7 +78,7 @@ lgb.view.EnvelopeAdminView.prototype.onFloorCountChanged_ = function(event) {
 /**
  * event handler
  * @private
- * @parameter {lgb.events.DataSourceChanged} event The Event.
+ * @param {lgb.events.DataSourceChanged} event The Event.
  */
 lgb.view.EnvelopeAdminView.prototype.onFloorHeightChanged_ = function(event) {
 
@@ -87,20 +88,6 @@ lgb.view.EnvelopeAdminView.prototype.onFloorHeightChanged_ = function(event) {
 
   this.dispatchLocal(e);
 };
-
-
-
-/**
- * event handler
- * @protected
- * @override
- * @parameter {good.events.Event} event The Event.
- */
-lgb.view.EnvelopeAdminView.prototype.onChange = function(event) {
-
-
-};
-
 
 
 /**
@@ -118,7 +105,9 @@ lgb.view.EnvelopeAdminView.prototype.injectHtml = function() {
   this.dataSourceFloorHeight.addItem('11 ft', 11, true);
   this.dataSourceFloorHeight.addItem('9 ft', 9);
 
-  this.rbGroupFloorHeight = new lgb.component.RadioButtonGroup(this.dataSourceFloorHeight);
+  this.rbGroupFloorHeight = new lgb.component.RadioButtonGroup(
+    this.dataSourceFloorHeight
+  );
 
   this.dataSourceFloorCount = new lgb.component.RadioButtonDataSource(
       'Select Number of Stories',
@@ -129,7 +118,9 @@ lgb.view.EnvelopeAdminView.prototype.injectHtml = function() {
   this.dataSourceFloorCount.addItem('5', 5, true);
   this.dataSourceFloorCount.addItem('3', 3);
 
-  this.rbGroupStories = new lgb.component.RadioButtonGroup(this.dataSourceFloorCount);
+  this.rbGroupStories = new lgb.component.RadioButtonGroup(
+    this.dataSourceFloorCount
+  );
 
 
   var divHtml = '<div id="{0}" class="adminSubPanel">' +

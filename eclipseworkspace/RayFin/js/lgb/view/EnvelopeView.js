@@ -8,6 +8,7 @@ goog.require('lgb.view.ViewBase');
 /**
  * @constructor
  * @extends {lgb.view.ViewBase}
+ * @param {lgb.model.EnvelopeModel} dataModel The model to display.
  */
 lgb.view.EnvelopeView = function(dataModel) {
   lgb.view.ViewBase.call(this, dataModel);
@@ -33,7 +34,10 @@ lgb.view.EnvelopeView.prototype.init_ = function() {
   this.loadScene_();
 };
 
-
+/**
+ * Initiates the loading of the scene file.
+ * @private
+ */
 lgb.view.EnvelopeView.prototype.loadScene_ = function() {
 
   var path = lgb.Config.ASSETS_BASE_PATH + 'envelope/scene-bin.js';
@@ -44,7 +48,9 @@ lgb.view.EnvelopeView.prototype.loadScene_ = function() {
 
 
 /**
+ * Event handler called when the the scene is loaded.
  * @private
+ * @param {Object} result From the THREE.js lib.
  */
 lgb.view.EnvelopeView.prototype.onSceneLoaded_ = function(result) {
   /**@type THREE.Scene */
@@ -53,26 +59,17 @@ lgb.view.EnvelopeView.prototype.onSceneLoaded_ = function(result) {
   //var objects = result['objects'];
 
   this.each(scene.objects, lgb.ThreeUtils.chromeBlinkingFix);
-
-
-  //lgb.logInfo('EnvelopeView.onSceneLoaded_');
-
   this.floorObjs = lgb.ThreeUtils.convertGroupHashToMeshHash(groups);
-
   this.masterGroup = new THREE.Object3D();
   this.masterGroup.position = scene.position;
   this.masterGroup.rotation = scene.rotation;
   this.masterGroup.scale = scene.scale;
-
   this.requestAddToWorld(this.masterGroup);
 
   this.updateAllFromModel_();
   delete this.loader_;
   this.dispatchLocal(new lgb.events.ViewInitialized());
-
-
 };
-
 
 
 /**
@@ -136,7 +133,8 @@ lgb.view.EnvelopeView.prototype.makeFloors_ = function() {
 
 
 /**
- * Updates this view to reflect the changes in the visibility state of the MVC model.
+ * Updates this view to reflect the changes in the visibility
+ * state of the MVC model.
  * @private
  */
 lgb.view.EnvelopeView.prototype.updateVisible_ = function() {

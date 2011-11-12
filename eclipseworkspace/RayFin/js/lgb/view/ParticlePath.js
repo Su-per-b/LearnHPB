@@ -2,7 +2,6 @@ goog.provide('lgb.view.ParticlePath');
 
 goog.require('hemi.curve');
 goog.require('hemi.curve.Curve');
-goog.require('lgb.view.ParticleElement');
 goog.require('lgb.view.ViewBase');
 
 
@@ -10,6 +9,8 @@ goog.require('lgb.view.ViewBase');
  * MVC View
  * @constructor
  * @extends lgb.view.ViewBase
+ * @param {} curve
+ * @param {number} frameCount The number of animation frames.
  */
 lgb.view.ParticlePath = function(curve, frameCount) {
   lgb.view.ViewBase.call(this);
@@ -30,15 +31,12 @@ goog.inherits(lgb.view.ParticlePath, lgb.view.ViewBase);
 
 
 lgb.view.ParticlePath.prototype.addPoint = function(point) {
-
   this.frameToPositionMap.push(point);
-
 };
+
+
 lgb.view.ParticlePath.prototype.calculateAnimationFrames = function() {
-
-
   var i = this.frameCount;
-
   //quantize the curve based on the number of frames
   //in the entire animation
   while (i--) {
@@ -49,40 +47,30 @@ lgb.view.ParticlePath.prototype.calculateAnimationFrames = function() {
 
     this.frameToPositionMap[i] = pointAlongCurve;
   }
-
 };
 
 
-
 lgb.view.ParticlePath.prototype.makeVisibleLine = function() {
+  var lineBasicMaterial = new THREE.LineBasicMaterial(
+    { color: 0xff0000, opacity: 1, linewidth: 3 }
+  );
+  
+  var vertices = [];
+  var i = this.frameToPositionMap.length;
+  
+  while (i--) {
+     var position = this.frameToPositionMap[i];
+     var vector3 = new THREE.Vector3(position[0], position[1], position[2]);
+     var vertex = new THREE.Vertex(vector3);
+     vertices.push(vertex);
+  }
 
-
-    var lineBasicMaterial = new THREE.LineBasicMaterial(
-      { color: 0xff0000, opacity: 1, linewidth: 3 }
-    );
-
-
-      var vertices = [];
-
-      var i = this.frameToPositionMap.length;
-    while (i--) {
-       var position = this.frameToPositionMap[i];
-
-       var vector3 = new THREE.Vector3(position[0], position[1], position[2]);
-       var vertex = new THREE.Vertex(vector3);
-
-       vertices.push(vertex);
-    }
-
-     var geometry = new THREE.Geometry();
-       geometry.vertices = vertices;
-
-       this.visibleLine = new THREE.Line(geometry, lineBasicMaterial);
-
-
-       return this.visibleLine;
-
-
+  var geometry = new THREE.Geometry();
+  geometry.vertices = vertices;
+  
+  this.visibleLine = new THREE.Line(geometry, lineBasicMaterial);
+  
+  return this.visibleLine;
 
 };
 

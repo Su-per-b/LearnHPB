@@ -16,6 +16,9 @@ lgb.view.AdminButtonView = function() {
 };
 goog.inherits(lgb.view.AdminButtonView, lgb.view.ViewBase);
 
+/**
+ * Initializes the view.
+ */
 lgb.view.AdminButtonView.prototype.init = function() {
 
   this.button =
@@ -30,24 +33,34 @@ lgb.view.AdminButtonView.prototype.init = function() {
     this.injectCss();
     this.injectHtml();
     this.bind_();
-    //this.setSelected(true);
     this.listen(lgb.events.WindowResize.TYPE, this.onResize);
 };
 
+/**
+ * show the panel.
+ */
 lgb.view.AdminButtonView.prototype.show = function() {
   this.position();
 };
 
+/**
+ * Compute the location of the window.
+ */
 lgb.view.AdminButtonView.prototype.position = function() {
 
   var x = this.getXpos();
 
   var props = {left: x + 'px'};
     this.jq().css(props);
+};
 
-  };
 
-  lgb.view.AdminButtonView.prototype.onResize = function() {
+/**
+ * Event handler
+ * @param {lgb.events.WindowResize} event Notiftys us the the browser
+ * window has been resized.
+ */
+lgb.view.AdminButtonView.prototype.onResize = function(event) {
 
     var x = this.getXpos();
 
@@ -62,16 +75,19 @@ lgb.view.AdminButtonView.prototype.position = function() {
       options
   );
 
-
-
 };
 
-
+/**
+ * used to calculation the position of the button.
+ * @return {number} the position x.
+ */
 lgb.view.AdminButtonView.prototype.getXpos = function() {
   return window.innerWidth - 33 - 4;
 };
 
-
+/**
+ * Injects the HTML into the DOM.
+ */
 lgb.view.AdminButtonView.prototype.injectHtml = function() {
   var html = '<div id="adminButton">' + this.button.getHtml() +
         '</div>';
@@ -80,6 +96,10 @@ lgb.view.AdminButtonView.prototype.injectHtml = function() {
    $('body').append(html);
 };
 
+
+/**
+ * Injects the CSS into the DOM.
+ */
 lgb.view.AdminButtonView.prototype.injectCss = function() {
 
     var cssInner = this.button.getCss();
@@ -89,7 +109,9 @@ lgb.view.AdminButtonView.prototype.injectCss = function() {
 };
 
 
-
+/**
+ * @param {boolean} isSelected Set to true to add the 'selected' class.
+ */
 lgb.view.AdminButtonView.prototype.setSelected = function(isSelected) {
   this.isSelected = isSelected;
 
@@ -109,7 +131,7 @@ lgb.view.AdminButtonView.prototype.setSelected = function(isSelected) {
  */
 lgb.view.AdminButtonView.prototype.bind_ = function() {
 
-  $('#adminButtonLink').click(this.d(this.onClick));
+  $('#adminButtonLink').click(this.d(this.onClick_));
 
   var toolTipConfig = {
     skin: 'light',
@@ -124,7 +146,12 @@ lgb.view.AdminButtonView.prototype.bind_ = function() {
   Tipped.create('#adminButtonLink', toolTipConfig);
 };
 
-lgb.view.AdminButtonView.prototype.onClick = function() {
+
+/**
+ * @private
+ * When the user clicks the buttont then dispatch the event.
+ */
+lgb.view.AdminButtonView.prototype.onClick_ = function() {
   this.dispatchLocal(new lgb.events.RequestActivateView(!this.isSelected));
 };
 

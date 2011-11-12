@@ -134,9 +134,19 @@ lgb.view.LeftNavView.prototype.bind_ = function() {
   this.listen(lgb.events.WindowResize.TYPE, this.onResize);
 
   var delegate = this.d(this.onClick_);
-  this.buttonGeneral.jq().click(lgb.model.BuildingModel.Group.ALL, delegate);
-  this.buttonHvac.jq().click(lgb.model.BuildingModel.Group.HVAC, delegate);
-  this.buttonEnvelope.jq().click(lgb.model.BuildingModel.Group.ENVELOPE, delegate);
+
+  this.buttonGeneral.jq().click(
+    lgb.model.BuildingModel.Group.ALL, delegate
+  );
+
+  this.buttonHvac.jq().click(
+    lgb.model.BuildingModel.Group.HVAC, delegate
+  );
+
+  this.buttonEnvelope.jq().click(
+    lgb.model.BuildingModel.Group.ENVELOPE, delegate
+  );
+
 };
 
 /**
@@ -152,7 +162,10 @@ lgb.view.LeftNavView.prototype.onClick_ = function(event) {
   this.dispatchLocal(e);
 };
 
-
+/**
+ * used to position the nav bar.
+ * @return {number} The y position.
+ */
 lgb.view.LeftNavView.prototype.getYpos = function() {
   return window.innerHeight - 140 - 352;
 };
@@ -209,15 +222,12 @@ lgb.view.LeftNavView.prototype.onResize = function(event) {
 
 /**
  * Moves the GUI element onto the screen
- * @private
  */
 lgb.view.LeftNavView.prototype.show = function() {
-
     this.jq().animate({
       left: '0',
       easing: 'easeInOutSine'
     }, 500);
-
 };
 
 
