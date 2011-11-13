@@ -109,7 +109,8 @@ lgb.testDebug = function() {
 
 
 /**
- * @param {number} feet
+ * @param {number} feet The number of feet.
+ * @return {number} the number of meters.
  */
 lgb.convertFeetToMeters = function(feet) {
   return feet / 3.2808399;

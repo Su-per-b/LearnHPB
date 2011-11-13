@@ -23,6 +23,10 @@ lgb.model.ZoneModel = function() {
 goog.inherits(lgb.model.ZoneModel, lgb.model.ModelBase);
 
 
+/**
+ * Sets default properties.
+ * @private
+ */
 lgb.model.ZoneModel.prototype.init_ = function() {
   this.z = [];
 
@@ -60,8 +64,8 @@ lgb.model.ZoneModel.prototype.update = function(envelopeModel) {
 
 
 /**
- * param {number} zoneNumber
- * param {boolean} makeVisible Used to change the visibility.
+ * @param {number} zoneIdx Used to locate the zone in an array.
+ * @param {boolean} makeVisible Used to change the visibility.
  */
 lgb.model.ZoneModel.prototype.setVisible = function(zoneIdx, makeVisible) {
 

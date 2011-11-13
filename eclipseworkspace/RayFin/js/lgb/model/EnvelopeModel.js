@@ -16,6 +16,10 @@ lgb.model.EnvelopeModel = function() {
 goog.inherits(lgb.model.EnvelopeModel, lgb.model.ModelBase);
 
 
+/**
+ * Initializes the MVC Model setting default properties.
+ * @private
+ */
 lgb.model.EnvelopeModel.prototype.init_ = function() {
 
   /**@const */
@@ -69,7 +73,7 @@ lgb.model.EnvelopeModel.prototype.change = function(stateObject) {
 
 
 /**
- * param {boolean} makeVisible Used to change the visibility.
+ * @param {boolean} makeVisible Used to change the visibility.
  */
 lgb.model.EnvelopeModel.prototype.setVisible = function(makeVisible) {
 
@@ -81,7 +85,6 @@ lgb.model.EnvelopeModel.prototype.setVisible = function(makeVisible) {
 };
 
 /**
- * @public
  * @param {lgb.model.BuildingModel.Group} group The group name
  * to set as visible.
  */

@@ -11,17 +11,27 @@ goog.require('lgb.view.ViewBase');
 /**
  * @constructor
  * @extends {lgb.view.ViewBase}
+ * @param {lgb.model.PsModel} dataModel The data model to display.
  */
 lgb.view.PsView = function(dataModel) {
   lgb.view.ViewBase.call(this);
 
   this.dataModel = dataModel;
-  this.listenTo(this.dataModel, lgb.events.DataModelChanged.TYPE, this.onDataModelChanged);
+  this.listenTo(
+    this.dataModel,
+    lgb.events.DataModelChanged.TYPE,
+    this.onDataModelChanged
+  );
 
   this._NAME = 'lgb.view.PsView';
 };
 goog.inherits(lgb.view.PsView, lgb.view.ViewBase);
 
+
+/**
+ * Event Handler.
+ * @param {lgb.events.DataModelChanged} event The event.
+ */
 lgb.view.PsView.prototype.onDataModelChanged = function(event) {
 
   var whatIsDirty = event.payload;
@@ -36,9 +46,13 @@ lgb.view.PsView.prototype.onDataModelChanged = function(event) {
   if (whatIsDirty.showCurves) {
     this.showCurves(this.dataModel.showCurves);
   }
-
 };
 
+
+/**
+ * Updates the running state from the dataModel.
+ * @private
+ */
 lgb.view.PsView.prototype.updateIsRunning_ = function() {
 
   if (this.dataModel.isRunning) {
@@ -48,8 +62,9 @@ lgb.view.PsView.prototype.updateIsRunning_ = function() {
   }
 };
 
+
 /**
- * Initializes the View
+ * Initializes the View.
  */
 lgb.view.PsView.prototype.init = function() {
 
@@ -105,6 +120,9 @@ lgb.view.PsView.prototype.init = function() {
 };
 
 
+/**
+ * parse the particle system config.
+ */
 lgb.view.PsView.prototype.parseConfig = function() {
   this.translate = this.dataModel.translate;
   this.rotate = this.dataModel.rotate;
@@ -121,8 +139,11 @@ lgb.view.PsView.prototype.parseConfig = function() {
 
 };
 
-lgb.view.PsView.prototype.createSystem = function() {
 
+/**
+ * create the particle system.
+ */
+lgb.view.PsView.prototype.createSystem = function() {
   var cicle = THREE.ImageUtils.loadTexture('3d-assets/textures/circle.png');
 
   this.pMaterial = new THREE.ParticleBasicMaterial({
@@ -169,7 +190,10 @@ lgb.view.PsView.prototype.createSystem = function() {
 };
 
 
-
+/**
+ * creates the THREE.js lines.
+ * @private
+ */
 lgb.view.PsView.prototype.makeVisibleLines_ = function() {
   this.visibleLineGroup = new THREE.Object3D();
 
@@ -181,9 +205,11 @@ lgb.view.PsView.prototype.makeVisibleLines_ = function() {
     }
 };
 
+
+/**
+ * converts the curves to paths.
+ */
 lgb.view.PsView.prototype.generateParticlePaths = function() {
-
-
 
   var j = this.particlePathCount;
   while (j--) {
@@ -232,6 +258,7 @@ lgb.view.PsView.prototype.newCurve = function(tension) {
   return curve;
 };
 
+
 /**
  * @param {boolean} isVisible whether to show the curves or hide them.
  */
@@ -272,6 +299,10 @@ lgb.view.PsView.prototype.showBoxes = function(isVisible) {
 };
 
 
+/**
+ * event Handler
+ * @param {lgb.events.Render} event The event.
+ */
 lgb.view.PsView.prototype.onRender = function(event) {
   //first remove any particles at the end
 
@@ -288,10 +319,6 @@ lgb.view.PsView.prototype.onRender = function(event) {
       //var p = this.makeParticleElement();
     //}
   }
-
-
-
-
 
   var i = this.activeParticles.length;
   var popIdxList = [];

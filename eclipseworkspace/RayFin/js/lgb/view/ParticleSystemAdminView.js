@@ -5,10 +5,11 @@ goog.require('lgb.view.ViewBase');
 goog.require('lgb.view.component.CheckBox');
 
 
-
 /**
  * @constructor
  * @extends {lgb.view.ViewBase}
+ * @param {lgb.model.PsModel} dataModel The model to display a GUI for.
+ * @param {string} parentHTMLid The CSS ID of the parent in the DOM.
  */
 lgb.view.ParticleSystemAdminView = function(dataModel, parentHTMLid) {
   lgb.view.ViewBase.call(this, dataModel);
@@ -16,15 +17,11 @@ lgb.view.ParticleSystemAdminView = function(dataModel, parentHTMLid) {
   this.parentHTMLid = parentHTMLid;
   this._NAME = 'lgb.view.ParticleSystemAdminView';
   this.htmlID = 'adminSubpanel-' + dataModel.getCssID() + '-' + dataModel.id;
-
-
 };
 goog.inherits(lgb.view.ParticleSystemAdminView, lgb.view.ViewBase);
 
 
-
 /**
- * @public
  * Initializes the View
  */
 lgb.view.ParticleSystemAdminView.prototype.init = function() {
@@ -44,29 +41,27 @@ lgb.view.ParticleSystemAdminView.prototype.bind_ = function() {
   this.cbBoxes.jq().change(this.d(this.onBoxesChanged_));
   this.cbCurves.jq().change(this.d(this.onCurvesChanged_));
   this.cbEmitting.jq().change(this.d(this.onEmittingChanged_));
-
-  //this.jq(this.chkBoxesID).change(this.d(this.onBoxesChanged));
-  //this.jq(this.chkCurvesID).change(this.d(this.onCurvesChanged_));
 };
+
 
 /**
  * event handler
  * @protected
  * @override
- * @parameter {good.events.Event} event The Event.
+ * @param {lgb.events.DataModelChanged} event The Event.
  */
 lgb.view.ParticleSystemAdminView.prototype.onChange = function(event) {
-
-
+  //needed to prevent exception.
 };
 
 
 /**
  * event handler for checkbox this.cbEmitting
  * @private
- * @parameter {jQuery.event} event The Event.
+ * @param {jQuery.event} event The Event.
  */
-lgb.view.ParticleSystemAdminView.prototype.onEmittingChanged_ = function(event) {
+lgb.view.ParticleSystemAdminView.prototype.onEmittingChanged_ =
+  function(event) {
 
   var e = new lgb.events.RequestDataModelChange({
     isEmitting: event.currentTarget.checked
@@ -79,9 +74,10 @@ lgb.view.ParticleSystemAdminView.prototype.onEmittingChanged_ = function(event) 
 /**
  * event handler for checkbox this.cbCurves
  * @private
- * @parameter {jQuery.event} event The Event.
+ * @param {jQuery.event} event The Event.
  */
-lgb.view.ParticleSystemAdminView.prototype.onCurvesChanged_ = function(event) {
+lgb.view.ParticleSystemAdminView.prototype.onCurvesChanged_ =
+  function(event) {
 
   var e = new lgb.events.RequestDataModelChange({
     showCurves: event.currentTarget.checked
@@ -94,9 +90,10 @@ lgb.view.ParticleSystemAdminView.prototype.onCurvesChanged_ = function(event) {
 /**
  * event handler for checkbox this.cbBoxes
  * @private
- * @parameter {jQuery.event} event The Event.
+ * @param {jQuery.event} event The Event.
  */
-lgb.view.ParticleSystemAdminView.prototype.onBoxesChanged_ = function(event) {
+lgb.view.ParticleSystemAdminView.prototype.onBoxesChanged_ =
+  function(event) {
 
   var e = new lgb.events.RequestDataModelChange({
     showBoxes: event.currentTarget.checked
@@ -109,9 +106,10 @@ lgb.view.ParticleSystemAdminView.prototype.onBoxesChanged_ = function(event) {
 /**
  * event handler for checkbox this.cbPlayPause
  * @private
- * @parameter {jQuery.event} event The Event.
+ * @param {jQuery.event} event The Event.
  */
-lgb.view.ParticleSystemAdminView.prototype.onPlayPauseChanged_ = function(event) {
+lgb.view.ParticleSystemAdminView.prototype.onPlayPauseChanged_ =
+  function(event) {
 
   var e = new lgb.events.RequestDataModelChange({
     isRunning: event.currentTarget.checked
@@ -151,10 +149,18 @@ lgb.view.ParticleSystemAdminView.prototype.injectHtml = function() {
     empty: 'images/checkbox/empty.png'
   };
 
-  this.cbPlayPause = new lgb.view.component.CheckBox(this.htmlID, 'playPause', 'Play / Pause');
-  this.cbBoxes = new lgb.view.component.CheckBox(this.htmlID, 'boxes', 'Show boxes');
-  this.cbCurves = new lgb.view.component.CheckBox(this.htmlID, 'curves', 'Show particle paths');
-  this.cbEmitting = new lgb.view.component.CheckBox(this.htmlID, 'emitting', 'Emitter Active');
+  this.cbPlayPause = new lgb.view.component.CheckBox(
+    this.htmlID, 'playPause', 'Play / Pause'
+  );
+  this.cbBoxes = new lgb.view.component.CheckBox(
+    this.htmlID, 'boxes', 'Show boxes'
+  );
+  this.cbCurves = new lgb.view.component.CheckBox(
+    this.htmlID, 'curves', 'Show particle paths'
+  );
+  this.cbEmitting = new lgb.view.component.CheckBox(
+    this.htmlID, 'emitting', 'Emitter Active'
+  );
   this.updateFromDataModel();
 
   this.cbPlayPause.injectHtml();
@@ -164,8 +170,11 @@ lgb.view.ParticleSystemAdminView.prototype.injectHtml = function() {
 
 };
 
-
-lgb.view.ParticleSystemAdminView.prototype.updateFromDataModel = function() {
+/**
+ * The runs when the dataModel changes, so it updates the GUI.
+ */
+lgb.view.ParticleSystemAdminView.prototype.updateFromDataModel =
+  function() {
   this.cbPlayPause.setChecked(this.dataModel.isRunning);
   this.cbBoxes.setChecked(this.dataModel.showBoxes);
   this.cbCurves.setChecked(this.dataModel.showCurves);

@@ -9,9 +9,11 @@ goog.require('lgb.events.RequestZoneVisiblityChange');
 goog.require('lgb.model.ZoneModel');
 goog.require('lgb.view.ViewBase');
 
+
 /**
  * @constructor
- * @param {lgb.model.ZoneModel} dataModel
+ * @param {lgb.model.ZoneModel} dataModel The data model to display.
+ * @param {string} parentHTMLid the CSS id of the parent to inject into the DOM.
  * @extends {lgb.view.ViewBase}
  */
 lgb.view.ZoneAdminView = function(dataModel, parentHTMLid) {
@@ -26,7 +28,6 @@ goog.inherits(lgb.view.ZoneAdminView, lgb.view.ViewBase);
 
 /**
  * Initializes the View
- * @private
  */
 lgb.view.ZoneAdminView.prototype.init = function() {
   this.injectHtml();
@@ -72,7 +73,7 @@ lgb.view.ZoneAdminView.prototype.bind_ = function() {
 /**
  * event handler
  * @private
- * @parameter {lgb.events.MouseClick} event The Event.
+ * @param {lgb.events.MouseClick} event The Event.
  */
 lgb.view.ZoneAdminView.prototype.onMouseClick_ = function(event) {
 
@@ -85,7 +86,7 @@ lgb.view.ZoneAdminView.prototype.onMouseClick_ = function(event) {
 /**
  * event handler
  * @private
- * @parameter {lgb.events.MouseOver} event The Event.
+ * @param {lgb.events.MouseOver} event The Event.
  */
 lgb.view.ZoneAdminView.prototype.onMouseOver_ = function(event) {
   var zoneIdx = event.target.ds.data;
@@ -98,7 +99,7 @@ lgb.view.ZoneAdminView.prototype.onMouseOver_ = function(event) {
 /**
  * event handler
  * @private
- * @parameter {lgb.events.MouseOut} event The Event.
+ * @param {lgb.events.MouseOut} event The Event.
  */
 lgb.view.ZoneAdminView.prototype.onMouseOut_ = function(event) {
   var zoneIdx = event.target.ds.data;
@@ -112,13 +113,12 @@ lgb.view.ZoneAdminView.prototype.onMouseOut_ = function(event) {
  * event handler
  * @protected
  * @override
- * @parameter {good.events.Event} event The Event.
+ * @param {lgb.events.DataModelChanged} event The Event.
  */
 lgb.view.ZoneAdminView.prototype.onChange = function(event) {
 
 
 };
-
 
 
 /**

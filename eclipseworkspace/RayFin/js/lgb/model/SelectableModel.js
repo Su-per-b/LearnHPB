@@ -4,7 +4,6 @@ goog.require('hemi.utils');
 goog.require('lgb.model.ModelBase');
 
 
-
 /**
  * @constructor
  * @extends lgb.model.ModelBase
@@ -19,7 +18,10 @@ lgb.model.SelectableModel = function() {
 };
 goog.inherits(lgb.model.SelectableModel, lgb.model.ModelBase);
 
-
+/**
+ * sets default properties.
+ * @private
+ */
 lgb.model.SelectableModel.prototype.init_ = function() {
   this.selectable = {
     Filter: true,
@@ -46,8 +48,8 @@ lgb.model.SelectableModel.prototype.init_ = function() {
 
 
 /**
- * returns the name of the slected mesh.
- * @return {string}
+ * If there is anything selected return the name of it.
+ * @return {string} the name of the slected mesh.
  */
 lgb.model.SelectableModel.prototype.getOneSelected = function() {
   if (this.selected.length < 1) {
@@ -86,7 +88,7 @@ lgb.model.SelectableModel.prototype.selectMesh_ = function(meshName) {
 };
 
 /**
- * @param {THREE.MeshCollider} intersect
+ * @param {THREE.MeshCollider} intersect Used for collision detection.
  */
 lgb.model.SelectableModel.prototype.select = function(intersect) {
 
@@ -111,8 +113,9 @@ lgb.model.SelectableModel.prototype.select = function(intersect) {
   this.dispatchChange();
 };
 
+
 /**
- * @param {THREE.Mesh} mesh
+ * @param {THREE.Mesh} mesh The mesh to add.
  */
 lgb.model.SelectableModel.prototype.addMesh = function(mesh) {
 

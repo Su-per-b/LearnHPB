@@ -21,14 +21,6 @@ lgb.model.BuildingModel = function() {
 goog.inherits(lgb.model.BuildingModel, lgb.model.ModelBase);
 
 
-lgb.model.BuildingModel.prototype.init = function() {
-
-
-
-};
-
-
-
 /**
  * @enum {number}
  */

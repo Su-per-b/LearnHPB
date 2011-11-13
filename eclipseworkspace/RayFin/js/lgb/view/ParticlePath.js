@@ -9,7 +9,7 @@ goog.require('lgb.view.ViewBase');
  * MVC View
  * @constructor
  * @extends lgb.view.ViewBase
- * @param {} curve
+ * @param {hemi.curve.Curve} curve The path for a particle to travel.
  * @param {number} frameCount The number of animation frames.
  */
 lgb.view.ParticlePath = function(curve, frameCount) {
@@ -27,14 +27,9 @@ lgb.view.ParticlePath = function(curve, frameCount) {
 };
 goog.inherits(lgb.view.ParticlePath, lgb.view.ViewBase);
 
-
-
-
-lgb.view.ParticlePath.prototype.addPoint = function(point) {
-  this.frameToPositionMap.push(point);
-};
-
-
+/**
+ * chop the path up into a series of pionts.
+ */
 lgb.view.ParticlePath.prototype.calculateAnimationFrames = function() {
   var i = this.frameCount;
   //quantize the curve based on the number of frames
@@ -50,14 +45,18 @@ lgb.view.ParticlePath.prototype.calculateAnimationFrames = function() {
 };
 
 
+/**
+ * turn the path into a 3D line.
+ * @return {THREE.Line} The 3D line.
+ */
 lgb.view.ParticlePath.prototype.makeVisibleLine = function() {
   var lineBasicMaterial = new THREE.LineBasicMaterial(
     { color: 0xff0000, opacity: 1, linewidth: 3 }
   );
-  
+
   var vertices = [];
   var i = this.frameToPositionMap.length;
-  
+
   while (i--) {
      var position = this.frameToPositionMap[i];
      var vector3 = new THREE.Vector3(position[0], position[1], position[2]);
@@ -67,53 +66,9 @@ lgb.view.ParticlePath.prototype.makeVisibleLine = function() {
 
   var geometry = new THREE.Geometry();
   geometry.vertices = vertices;
-  
+
   this.visibleLine = new THREE.Line(geometry, lineBasicMaterial);
-  
+
   return this.visibleLine;
 
 };
-
-/*
-
-lgb.view.ParticlePath.prototype.goToFrame = function(frameNumber) {
-
-  var pos = this.frameToPositionMap[frameNumber];
-  this.vertices[0].position.x = pos[0];
-  this.vertices[0].position.y = pos[1];
-  this.vertices[0].position.z = pos[2];
-
-
-};
-*//*
-lgb.view.ParticlePath.prototype.init = function() {
-
-  this.framesBetweenLaunches = this.frameToPositionMap.length / this.vertices.length;
-
-}
-
-
-lgb.view.ParticlePath.prototype.nextFrame = function() {
-
-  var pos = this.frameToPositionMap[this.currentFrameNumber];
-
-
-  this.vertices[0].position.x = pos[0];
-  this.vertices[0].position.y = pos[1];
-  this.vertices[0].position.z = pos[2];
-
-  this.currentFrameNumber++;
-  if (this.currentFrameNumber > this.frameToPositionMap.length-1) {
-    this.currentFrameNumber = 0;
-  }
-
-};
-
-
-  */
-
-
-
-
-
-

@@ -157,7 +157,7 @@ lgb.view.PropertiesView.prototype.onDropDownChange = function(event) {
  */
 lgb.view.PropertiesView.prototype.setDropDownSelection = function(systemNode) {
 
-  if (systemNode.idx != this.currentSelectionIdx)  {
+  if (systemNode.idx != this.currentSelectionIdx) {
       this.currentSelectionIdx = systemNode.idx;
       this.kendoDropDownList.select(this.currentSelectionIdx);
   }

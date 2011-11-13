@@ -11,6 +11,7 @@ goog.require('lgb.view.ViewBase');
  * MVC View for the RoofTop Unit
  * @constructor
  * @extends lgb.view.ViewBase
+ * @param {lgb.model.RoofTopModel} dataModel The data model to display.
  */
 lgb.view.RoofTopView = function(dataModel) {
   lgb.view.ViewBase.call(this, dataModel);
@@ -31,6 +32,10 @@ lgb.view.RoofTopView.prototype.init = function() {
   this.loadScene_();
 };
 
+/**
+ * begins the file load process.
+ * @private
+ */
 lgb.view.RoofTopView.prototype.loadScene_ = function() {
 
 
@@ -122,7 +127,8 @@ lgb.view.RoofTopView.prototype.updateAllFromModel_ = function() {
 
 
 /**
- * Updates this view to reflect the changes in the visibility state of the MVC model.
+ * Updates this view to reflect the changes in the visibility
+ * state of the MVC model.
  * @private
  */
 lgb.view.RoofTopView.prototype.updateVisible_ = function() {

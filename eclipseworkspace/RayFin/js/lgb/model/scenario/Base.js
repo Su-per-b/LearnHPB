@@ -3,8 +3,8 @@ goog.provide('lgb.model.scenario.Base');
 goog.require('lgb.events.DataModelChanged');
 goog.require('lgb.events.DataModelInitialized');
 goog.require('lgb.model.ModelBase');
-goog.require('lgb.utils.XmlParser');
 goog.require('lgb.model.scenario.SystemNode');
+goog.require('lgb.utils.XmlParser');
 
 /**
  * @constructor

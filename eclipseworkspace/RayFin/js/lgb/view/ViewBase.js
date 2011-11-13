@@ -27,7 +27,6 @@ lgb.view.ViewBase = function(dataModel) {
 };
 goog.inherits(lgb.view.ViewBase, lgb.BaseClass);
 
-lgb.view.ViewBase._THE_NAME = 'lgb.view.ViewBase';
 
 /**
  * injects html into the DOM
@@ -38,33 +37,11 @@ lgb.view.ViewBase.prototype.append = function(html) {
   this.jqParent().append(html);
 };
 
-/**
- * @depricated
- */
-lgb.view.ViewBase.prototype.stopClickPropigation = function() {
-
-  this.jq().bind('mouseup', this.d(this.stopClickPropigationHandler_));
-  this.jq().bind('mousedown', this.d(this.stopClickPropigationHandler_));
-
-};
-
-/**
- * blocks the event
- * @param {Event} event The mousedown or mouseup event to block.
- * @protected
- * @depricated
- */
-lgb.view.ViewBase.prototype.stopClickPropigationHandler_ = function(event) {
-  event.preventDefault();
-  event.stopPropagation();
-};
-
-
 
 /**
  * makes a unique css ID for a child element
  * @param {!string} id The last part of the CSS ID.
- * @return {string}
+ * @return {string} The generated ID.
  */
 lgb.view.ViewBase.prototype.makeID = function(id) {
   var newID = '{0}-{1}'.format(this.htmlID, id);
@@ -74,7 +51,7 @@ lgb.view.ViewBase.prototype.makeID = function(id) {
 /**
  * converts and id into a Jquery object
  * @param {string=} id The css id.
- * @return {jQuery}
+ * @return {jQuery} Object.
  */
 lgb.view.ViewBase.prototype.jq = function(id) {
 
@@ -91,10 +68,11 @@ lgb.view.ViewBase.prototype.jq = function(id) {
   return jq;
 };
 
+
 /**
  * converts an id into a Jquery object
  * refers to the parent in the DOM
- * @return {jQuery}
+ * @return {jQuery} Jquery object.
  */
 lgb.view.ViewBase.prototype.jqParent = function() {
   var selector = $('#{0}'.format(this.parentHTMLid));
@@ -119,7 +97,14 @@ lgb.view.ViewBase.prototype.onChange = function(event) {
  * @private
  */
 lgb.view.ViewBase.prototype.listenForChange_ = function() {
-  this.listenHelper_(this.dataModel, lgb.events.DataModelChanged.TYPE, this, this.onChange);
+
+  this.listenHelper_(
+    this.dataModel,
+    lgb.events.DataModelChanged.TYPE,
+    this,
+    this.onChange
+  );
+
 };
 
 

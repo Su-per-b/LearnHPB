@@ -36,23 +36,27 @@ lgb.model.PsModelMaster = function() {
 };
 goog.inherits(lgb.model.PsModelMaster, lgb.model.ModelBase);
 
+
+/**
+ * The Particle system data is located in remotes files.
+ * this triggers the process of downloading and parsing those files.
+ */
 lgb.model.PsModelMaster.prototype.load = function() {
-  this.loadScene_();
-
-};
-
-
-lgb.model.PsModelMaster.prototype.loadScene_ = function() {
-  //var path = lgb.Config.ASSETS_BASE_PATH + 'particle-systems/ps6.js';
 
   /**@type {THREE.SceneLoaderEx} */
   this.loader_ = new THREE.SceneLoaderEx();
   this.loader_.callbackSync = this.d(this.onSceneLoadedSync_);
   this.loader_.load(lgb.Config.PARTICLE_SYSTEM_SCENE);
+
   this.loadXML_();
 };
 
 
+/**
+ * Event hander called then the LS file is loaded.
+ * @param {Object} result Contains the scene.
+ * @private
+ */
 lgb.model.PsModelMaster.prototype.onSceneLoadedSync_ = function(result) {
 
   var scene = result['scene'];
@@ -73,12 +77,10 @@ lgb.model.PsModelMaster.prototype.onSceneLoadedSync_ = function(result) {
         this.masterGroup.add(mesh);
       }
 
-
   }
 
-
   /**@type Object */
-  this.meshGroups  = result['groups'];
+  this.meshGroups = result['groups'];
 
   for (var groupName in this.meshGroups) {
     goog.array.sortObjectsByKey(this.meshGroups[groupName], 'name');
@@ -89,15 +91,25 @@ lgb.model.PsModelMaster.prototype.onSceneLoadedSync_ = function(result) {
 
 };
 
+
+/**
+ * used to determine if both the XML file and the JS file are
+ * loaded.
+ * @private
+ */
 lgb.model.PsModelMaster.prototype.checkForInitComplete_ = function() {
   if (this.isXMLloaded && this.isSceneLoaded)
   {
-
     this.startFactory_();
     this.dispatchLocal(new lgb.events.DataModelInitialized());
   }
 };
 
+
+/**
+ * affter all needed data files are loaded, creates the data models.
+ * @private
+ */
 lgb.model.PsModelMaster.prototype.startFactory_ = function() {
 
   for (var key in this.systems) {
@@ -116,28 +128,32 @@ lgb.model.PsModelMaster.prototype.startFactory_ = function() {
 
     var onePS = new lgb.model.PsModel(sys);
     this.psModelList.push(onePS);
-
   }
-
-
 };
 
-
+/**
+ * uses AJAX to download the remote XML files.
+ * @private
+ */
 lgb.model.PsModelMaster.prototype.loadXML_ = function() {
 
     jQuery.ajax({
       type: 'GET',
       url: lgb.Config.PARTICLE_SYSTEM_XML,
       dataType: 'xml',
-      success: this.d(this.parse)
+      success: this.d(this.parse_)
     });
 
 };
 
 
 
-
-lgb.model.PsModelMaster.prototype.parse = function(xml) {
+/**
+ * after the XML files is loaded it must be parsed.
+ * @param {Document} xml The downloaded XML doc.
+ * @private
+ */
+lgb.model.PsModelMaster.prototype.parse_ = function(xml) {
 
   var parser = new lgb.utils.XmlParser(xml);
 
@@ -152,12 +168,14 @@ lgb.model.PsModelMaster.prototype.parse = function(xml) {
 
     var theID = parser.getId();
 
-    var sys = {  id: theID,
+    var sys = { id: theID,
           particleCount: parser.getContentAsFloat('particleCount'),
           particleSize: parser.getContentAsFloat('particleSize'),
           meshGroupNames: parser.getTextArray('meshGroupNames'),
           title: parser.getContent('title'),
-          launchDelayBetweenParticles: parser.getContent('launchDelayBetweenParticles'),
+          launchDelayBetweenParticles: parser.getContent(
+            'launchDelayBetweenParticles'
+          ),
           lifeSpanInSeconds: parser.getContentAsFloat('lifeSpanInSeconds')
     };
 

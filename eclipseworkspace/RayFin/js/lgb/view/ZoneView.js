@@ -7,6 +7,7 @@ goog.require('lgb.view.ViewBase');
  * MVC View
  * @constructor
  * @extends lgb.view.ViewBase
+ * @param {lgb.model.ZoneModel} dataModel The Data Model.
  */
 lgb.view.ZoneView = function(dataModel) {
   lgb.view.ViewBase.call(this, dataModel);
@@ -20,7 +21,6 @@ goog.inherits(lgb.view.ZoneView, lgb.view.ViewBase);
 
 /**
  * Initializes the View
- * @public
  */
 lgb.view.ZoneView.prototype.init = function() {
 
@@ -43,12 +43,21 @@ lgb.view.ZoneView.prototype.init = function() {
 
 /**
  * @private
+ * @param {number} zoneNumber The idx used to locate the zone in the array.
+ * @param {THREE.Vector3} geom The dimensions of the cube.
+ * @param {THREE.Vector3} position The position of the cube.
  */
 lgb.view.ZoneView.prototype.addCube_ = function(zoneNumber, geom, position) {
 
-    var floorWidth = lgb.convertFeetToMeters(this.dataModel.envelopeModel.floorWidth);
-    var floorHeight = lgb.convertFeetToMeters(this.dataModel.envelopeModel.floorHeight);
-    var floorDepth = lgb.convertFeetToMeters(this.dataModel.envelopeModel.floorDepth);
+    var floorWidth = lgb.convertFeetToMeters(
+      this.dataModel.envelopeModel.floorWidth
+    );
+    var floorHeight = lgb.convertFeetToMeters(
+      this.dataModel.envelopeModel.floorHeight
+    );
+    var floorDepth = lgb.convertFeetToMeters(
+      this.dataModel.envelopeModel.floorDepth
+    );
 
     var width = lgb.convertFeetToMeters(geom.x);
     var height = lgb.convertFeetToMeters(this.dataModel.floorHeight);
@@ -78,15 +87,18 @@ lgb.view.ZoneView.prototype.addCube_ = function(zoneNumber, geom, position) {
       x,
       -1 * floorHeight / 2 + 1,
       z);
-    
+
     this.masterGroup.position.x = 0.5;
     this.masterGroup.position.y = -0.9;
     this.masterGroup.add(this.cubeMesh);
 };
 
 
+/**
+ * event handler.
+ * @param {lgb.events.DataModelChanged} event The event.
+ */
 lgb.view.ZoneView.prototype.onChange = function(event) {
-
 
  if (event.payload.config) {
   this.masterGroup.removeAll();
@@ -100,18 +112,18 @@ lgb.view.ZoneView.prototype.onChange = function(event) {
  }
 
   if (event.payload.isVisible) {
-
     var idx = event.payload.zoneIdx;
     var isVisible = this.dataModel.z[idx].isVisible;
-
     this.setVisible(event.payload.zoneIdx, isVisible);
-
   }
 
 };
 
 
-
+/**
+ * @param {number} zoneIdx The idx used to locate the zone in the array.
+ * @param {boolean} makeVisible If true show the zone.
+ */
 lgb.view.ZoneView.prototype.setVisible = function(zoneIdx, makeVisible) {
 
   if (null == makeVisible) {

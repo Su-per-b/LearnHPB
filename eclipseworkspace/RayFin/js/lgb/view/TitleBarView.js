@@ -52,6 +52,9 @@ lgb.view.TitleBarView.prototype.bind_ = function() {
     this.listen(lgb.events.WindowResize.TYPE, this.onResize);
 };
 
+/**
+ * showe the title bar.
+ */
 lgb.view.TitleBarView.prototype.show = function() {
 
     this.jq().animate({
@@ -61,8 +64,11 @@ lgb.view.TitleBarView.prototype.show = function() {
 
 };
 
-
-lgb.view.TitleBarView.prototype.onResize = function() {
+/**
+ * event handler.
+ * @param {lgb.events.WindowResize} event The event.
+ */
+lgb.view.TitleBarView.prototype.onResize = function(event) {
 
   var jq = this.jq();
 

@@ -50,7 +50,7 @@ lgb.Config.APP_VERSION = '0.10.02';
  * @const
  * @type {boolean}
  */
-lgb.Config.SHOW_STATS = false;
+lgb.Config.SHOW_STATS = true;
 
 /**
  * The file that holds the Three.js scene for all the particle systems.

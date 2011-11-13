@@ -14,6 +14,9 @@ lgb.view.PropertiesButtonView = function() {
 };
 goog.inherits(lgb.view.PropertiesButtonView, lgb.view.ViewBase);
 
+/**
+ * Initializes the view.
+ */
 lgb.view.PropertiesButtonView.prototype.init = function() {
   this._NAME = 'lgb.view.PropertiesView';
   this.button =
@@ -32,12 +35,16 @@ lgb.view.PropertiesButtonView.prototype.init = function() {
 
 };
 
-
+/**
+ * show the button.
+ */
 lgb.view.PropertiesButtonView.prototype.show = function() {
   this.position();
 };
 
-
+/**
+ * Set the position.
+ */
 lgb.view.PropertiesButtonView.prototype.position = function() {
 
   var x = this.getXpos();
@@ -47,7 +54,12 @@ lgb.view.PropertiesButtonView.prototype.position = function() {
 
   };
 
-  lgb.view.PropertiesButtonView.prototype.onResize = function() {
+
+/**
+ * Event handler for when the window is resized.
+ * @param {lgb.events.WindowResize} event The resize event.
+ */
+lgb.view.PropertiesButtonView.prototype.onResize = function(event) {
 
     var x = this.getXpos();
 
@@ -63,12 +75,18 @@ lgb.view.PropertiesButtonView.prototype.position = function() {
   );
 };
 
-
+/**
+ * Get the Xposition for the button.
+ * @return {number} The X.
+ */
 lgb.view.PropertiesButtonView.prototype.getXpos = function() {
   return window.innerWidth - 33 - 33 - 8;
 };
 
 
+/**
+ * Injects the HTML into the DOM.
+ */
 lgb.view.PropertiesButtonView.prototype.injectHtml = function() {
   var html = '<div id="propertiesButton">' + this.button.getHtml() +
         '</div>';
@@ -77,6 +95,10 @@ lgb.view.PropertiesButtonView.prototype.injectHtml = function() {
    $('body').append(html);
 };
 
+
+/**
+ * Injects the CSS into the DOM.
+ */
 lgb.view.PropertiesButtonView.prototype.injectCss = function() {
     var cssInner = this.button.getCss();
     var cssStr = "<style type='text/css'>{0}</style>".format(cssInner);
@@ -84,7 +106,10 @@ lgb.view.PropertiesButtonView.prototype.injectCss = function() {
 };
 
 
-
+/**
+ * Adds or removes the 'selected' CSS class.
+ * @param {boolean} isSelected If true adds the class.
+ */
 lgb.view.PropertiesButtonView.prototype.setSelected = function(isSelected) {
   this.isSelected = isSelected;
 
@@ -105,7 +130,7 @@ lgb.view.PropertiesButtonView.prototype.setSelected = function(isSelected) {
  */
 lgb.view.PropertiesButtonView.prototype.bind_ = function() {
 
-  $('#propertiesButtonLink').click(this.d(this.onClick));
+  $('#propertiesButtonLink').click(this.d(this.onClick_));
 
   var toolTipConfig = {
     skin: 'light',
@@ -120,7 +145,12 @@ lgb.view.PropertiesButtonView.prototype.bind_ = function() {
   Tipped.create('#propertiesButtonLink', toolTipConfig);
 };
 
-lgb.view.PropertiesButtonView.prototype.onClick = function() {
+/**
+ * Event handler
+ * @private
+ * @param {jQuery.event} event The click event.
+ */
+lgb.view.PropertiesButtonView.prototype.onClick_ = function(event) {
   this.dispatchLocal(new lgb.events.RequestActivateView(!this.isSelected));
 };
 

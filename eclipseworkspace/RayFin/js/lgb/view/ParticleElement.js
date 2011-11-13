@@ -8,7 +8,7 @@ goog.require('lgb.view.ViewBase');
 /**
  * @constructor
  * @extends {lgb.view.ViewBase}
- * @param {THREE.Material} pMaterial the material to use.
+ * @param {THREE.ParticleBasicMaterial} pMaterial the material to use.
  */
 lgb.view.ParticleElement = function(pMaterial) {
   lgb.view.ViewBase.call(this);

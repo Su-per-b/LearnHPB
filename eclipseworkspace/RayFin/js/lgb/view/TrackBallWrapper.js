@@ -6,8 +6,6 @@ goog.require('lgb.events.Render');
 goog.require('lgb.view.ViewBase');
 
 
-
-
 /**
  * @constructor
  * @extends lgb.view.ViewBase
@@ -29,12 +27,8 @@ lgb.view.TrackBallWrapper = function(camera, domElement) {
 
   this.trackballControls = new THREE.TrackballControlsEx(camera, domElement);
   this.init_();
-
-
-
 };
 goog.inherits(lgb.view.TrackBallWrapper, lgb.view.ViewBase);
-
 
 
 /**
@@ -79,6 +73,7 @@ lgb.view.TrackBallWrapper.prototype.bind_ = function() {
   );
 };
 
+
 /**
  * //TODO (Raj) Get this dispose to work and test memory footprint.
  * experimental
@@ -102,6 +97,7 @@ lgb.view.TrackBallWrapper.prototype.onMouseWheel_ = function(event) {
     this.trackballControls.zoomNow(delta);
   }
 };
+
 
 /**
  * Event handler for when the scene is rendered.

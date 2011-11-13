@@ -3,9 +3,6 @@ goog.provide('lgb.model.ModelBase');
 goog.require('lgb.BaseClass');
 
 
-
-
-
 /**
  * @constructor
  * @extends lgb.BaseClass
@@ -15,18 +12,6 @@ lgb.model.ModelBase = function() {
 };
 goog.inherits(lgb.model.ModelBase, lgb.BaseClass);
 
-
-
-/**
- * dispatches a local DataModelChanged Event
- * used to notify the view
- * @protected
-
-lgb.model.ModelBase.prototype.dispatchChange = function() {
-  this.dispatchLocal(new lgb.events.DataModelChanged());
-};
-
- */
 
 /**
  * @param {Object=} whatIsDirty And object with properties of telling

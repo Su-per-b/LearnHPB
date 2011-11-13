@@ -56,7 +56,16 @@ lgb.view.EnvelopeAdminView.prototype.bind_ = function() {
     lgb.events.DataSourceChanged.TYPE,
     this.onFloorCountChanged_
     );
+};
 
+
+/**
+ * Event Handler that fires when the data model changes
+ * @param {lgb.events.DataModelChanged} event The event.
+ * @protected
+ */
+lgb.view.EnvelopeAdminView.prototype.onChange = function(event) {
+  //needed to prevent exception.
 };
 
 

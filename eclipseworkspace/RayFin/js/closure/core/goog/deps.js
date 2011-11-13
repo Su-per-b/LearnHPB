@@ -758,7 +758,7 @@ goog.addDependency("../../../lgb/component/Link.js", ['lgb.component.Link'], ['l
 goog.addDependency("../../../lgb/component/LinkDataSource.js", ['lgb.component.LinkDataSource'], ['lgb.component.DataSourceBase']);
 goog.addDependency("../../../lgb/component/RadioButtonDataSource.js", ['lgb.component.RadioButtonDataSource'], ['lgb.component.DataSourceBase']);
 goog.addDependency("../../../lgb/component/RadioButtonGroup.js", ['lgb.component.RadioButtonGroup'], ['lgb.component.RadioButtonDataSource']);
-goog.addDependency("../../../lgb/controller/AdminController.js", ['lgb.controller.AdminController'], ['lgb.view.AdminButtonView', 'lgb.view.AdminView', 'lgb.controller.ControllerBase']);
+goog.addDependency("../../../lgb/controller/AdminController.js", ['lgb.controller.AdminController'], ['lgb.controller.ControllerBase', 'lgb.view.AdminButtonView', 'lgb.view.AdminView']);
 goog.addDependency("../../../lgb/controller/BuildingController.js", ['lgb.controller.BuildingController'], ['lgb.controller.ControllerBase', 'lgb.controller.DuctworkController', 'lgb.controller.EnvelopeController', 'lgb.controller.RoofTopController', 'lgb.controller.ZoneController', 'lgb.events.VisibilityChanged']);
 goog.addDependency("../../../lgb/controller/ControllerBase.js", ['lgb.controller.ControllerBase'], ['goog.events.Event', 'lgb.BaseClass']);
 goog.addDependency("../../../lgb/controller/DuctworkController.js", ['lgb.controller.DuctworkController'], ['lgb.controller.ControllerBase', 'lgb.events.RequestVisibilityChange', 'lgb.events.SelectableLoaded', 'lgb.model.DuctworkModel', 'lgb.view.DuctworkView']);
@@ -809,7 +809,7 @@ goog.addDependency("../../../lgb/model/RoofTopModel.js", ['lgb.model.RoofTopMode
 goog.addDependency("../../../lgb/model/SelectableModel.js", ['lgb.model.SelectableModel'], ['hemi.utils', 'lgb.model.ModelBase']);
 goog.addDependency("../../../lgb/model/ZoneModel.js", ['lgb.model.ZoneModel'], ['lgb.model.BuildingModel.Group', 'lgb.model.ModelBase', 'lgb.model.ZoneShapeModel']);
 goog.addDependency("../../../lgb/model/ZoneShapeModel.js", ['lgb.model.ZoneShapeModel'], []);
-goog.addDependency("../../../lgb/model/scenario/Base.js", ['lgb.model.scenario.Base'], ['lgb.events.DataModelChanged', 'lgb.events.DataModelInitialized', 'lgb.model.ModelBase', 'lgb.utils.XmlParser', 'lgb.model.scenario.SystemNode']);
+goog.addDependency("../../../lgb/model/scenario/Base.js", ['lgb.model.scenario.Base'], ['lgb.events.DataModelChanged', 'lgb.events.DataModelInitialized', 'lgb.model.ModelBase', 'lgb.model.scenario.SystemNode', 'lgb.utils.XmlParser']);
 goog.addDependency("../../../lgb/model/scenario/SystemNode.js", ['lgb.model.scenario.SystemNode'], ['lgb.model.ModelBase', 'lgb.model.scenario.SysVar', 'lgb.utils.XmlParser']);
 goog.addDependency("../../../lgb/model/scenario/SysVar.js", ['lgb.model.scenario.SysVar'], ['lgb.model.ModelBase']);
 goog.addDependency("../../../lgb/utils/base.js", ['lgb.utils'], []);
@@ -824,7 +824,7 @@ goog.addDependency("../../../lgb/view/EnvelopeView.js", ['lgb.view.EnvelopeView'
 goog.addDependency("../../../lgb/view/FloorView.js", ['lgb.view.FloorView'], ['lgb.view.ViewBase']);
 goog.addDependency("../../../lgb/view/LeftNavView.js", ['lgb.view.LeftNavView'], ['lgb.events.RequestVisibilityChange', 'lgb.model.BuildingModel.Group', 'lgb.view.ViewBase', 'lgb.view.component.ToggleButtonA']);
 goog.addDependency("../../../lgb/view/ParticleElement.js", ['lgb.view.ParticleElement'], ['lgb.view.ViewBase']);
-goog.addDependency("../../../lgb/view/ParticlePath.js", ['lgb.view.ParticlePath'], ['hemi.curve', 'hemi.curve.Curve', 'lgb.view.ParticleElement', 'lgb.view.ViewBase']);
+goog.addDependency("../../../lgb/view/ParticlePath.js", ['lgb.view.ParticlePath'], ['hemi.curve', 'hemi.curve.Curve', 'lgb.view.ViewBase']);
 goog.addDependency("../../../lgb/view/ParticleSystemAdminView.js", ['lgb.view.ParticleSystemAdminView'], ['lgb.events.RequestDataModelChange', 'lgb.view.ViewBase', 'lgb.view.component.CheckBox']);
 goog.addDependency("../../../lgb/view/ParticleView.js", ['lgb.view.ParticleView'], ['lgb.events.MeshLoaded', 'lgb.view.ViewBase']);
 goog.addDependency("../../../lgb/view/PropertiesButtonView.js", ['lgb.view.PropertiesButtonView'], ['lgb.events.RequestActivateView', 'lgb.view.ViewBase', 'lgb.view.component.ToggleButtonA']);
@@ -832,7 +832,8 @@ goog.addDependency("../../../lgb/view/PropertiesView.js", ['lgb.view.PropertiesV
 goog.addDependency("../../../lgb/view/PsView.js", ['lgb.view.PsView'], ['hemi.curve', 'hemi.curve.Curve', 'lgb.events.Object3DLoaded', 'lgb.view.ParticleElement', 'lgb.view.ParticlePath', 'lgb.view.ViewBase']);
 goog.addDependency("../../../lgb/view/RoofTopView.js", ['lgb.view.RoofTopView'], ['lgb.events.Object3DLoaded', 'lgb.events.Object3DLoaded', 'lgb.view.ViewBase']);
 goog.addDependency("../../../lgb/view/SelectionView.js", ['lgb.view.SelectionView'], ['lgb.events.Object3DSelected', 'lgb.events.Render', 'lgb.model.SelectableModel', 'lgb.view.ViewBase']);
-goog.addDependency("../../../lgb/view/StatsView.js", ['lgb.view.StatsView'], ['lgb.view.ViewBase']);
+goog.addDependency("../../../lgb/view/StatsHelper.js", ['lgb.view.StatsHelper'], ['lgb.view.ViewBase']);
+goog.addDependency("../../../lgb/view/StatsView.js", ['lgb.view.StatsView'], ['lgb.view.StatsHelper', 'lgb.view.ViewBase']);
 goog.addDependency("../../../lgb/view/TitleBarView.js", ['lgb.view.TitleBarView'], ['lgb.view.ViewBase']);
 goog.addDependency("../../../lgb/view/TrackBallWrapper.js", ['lgb.view.TrackBallWrapper'], ['goog.events.MouseWheelEvent', 'goog.events.MouseWheelHandler', 'lgb.events.Render', 'lgb.view.ViewBase']);
 goog.addDependency("../../../lgb/view/ViewBase.js", ['lgb.view.ViewBase'], ['lgb.BaseClass', 'lgb.events.DataModelChanged', 'lgb.utils']);

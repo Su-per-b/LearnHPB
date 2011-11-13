@@ -85,7 +85,9 @@ lgb.view.ParticleView.prototype.init = function() {
 };
 
 
-
+/**
+ * @param {lgb.events.Render} event Fired by the world controller.
+ */
 lgb.view.ParticleView.prototype.onRender = function(event) {
 
    // add some rotation to the system
