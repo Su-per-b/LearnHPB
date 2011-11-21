@@ -330,7 +330,7 @@ THREE.Animation.prototype.update = function( deltaTimeMS ) {
 							
 							angle = Math.atan2( this.target.x, this.target.z );
 							object.rotation.set( 0, angle, 0 );
-							
+							console.log('object.position: x: ' + object.position.x);
 						}
 
 					}

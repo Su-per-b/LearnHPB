@@ -10,7 +10,7 @@
  */
 
 var scene = {
-
+"name" : "ductwork",
 "type" : "scene",
 "urlBaseType" : "relativeToScene",
 

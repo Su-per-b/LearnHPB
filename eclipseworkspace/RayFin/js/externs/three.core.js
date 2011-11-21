@@ -105,6 +105,10 @@ THREE.Geometry.prototype.getDimensions = function () {};
  */
 THREE.Matrix4 = function(n11, n12, n13, n14, n21, n22, n23, n24, n31, n32, n33, n34, n41, n42, n43, n44) {};
 
+/**
+ * @return {THREE.Vector3}
+ */
+THREE.Matrix4.prototype.getPosition= function () {};
 
 /**
  * @constructor
@@ -137,7 +141,8 @@ THREE.Object3D.prototype.rotation;
 /** @type {THREE.Vector3}*/
 THREE.Object3D.prototype.scale;
 
-
+/** @type {THREE.Matrix4}*/
+THREE.Object3D.prototype.matrixWorld;
 
 
 
@@ -183,7 +188,12 @@ THREE.Vector2 = function(x, y) {};
  */
 THREE.Vector3 = function( x, y, z) {};
 
-
+/**
+ * @param {THREE.Vector3} v
+ * @return {number}
+ */
+THREE.Vector3.prototype.distanceTo = function (v) {};
+  
 /**
  * @param {number} x
  * @param {number} y
@@ -213,6 +223,10 @@ THREE.Vector3.prototype.normalize  = function () {};
 THREE.Vector4 = function (x, y, z, w) {};
 
 
+
+/**
+ * @author raj
+ */
 
 
 

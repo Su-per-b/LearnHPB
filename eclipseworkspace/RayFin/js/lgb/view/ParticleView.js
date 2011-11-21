@@ -107,8 +107,6 @@ lgb.view.ParticleView.prototype.onRender = function(event) {
     }
 
     // flag to the particle system that we've
-    // changed its vertices. This is the
-    // dirty little secret.
     this.particleSystem.geometry.__dirtyVertices = true;
 
 

@@ -8,8 +8,7 @@ THREE.TrackballControlsEx = function ( object, domElement ) {
 
 	this.domElement = ( domElement !== undefined ) ? domElement : document;
 
-	// API
-
+	// API (public properties)
 	this.screen = { width: window.innerWidth, height: window.innerHeight, offsetLeft: 0, offsetTop: 0 };
 	this.radius = ( this.screen.width + this.screen.height ) / 4;
 
@@ -26,12 +25,10 @@ THREE.TrackballControlsEx = function ( object, domElement ) {
 	this.minDistance = 0;
 	this.maxDistance = Infinity;
 
-	this.keys = [ 65 /*A*/, 83 /*S*/, 68 /*D*/ ];
+	this.keys = [ 65 /*A*/, 83 /*S*/, 68 /*D*/ , 84 /*t*/ ];
+  this.target = new THREE.Vector3( 0, 0, 0 );
 
 	// internals
-
-	this.target = new THREE.Vector3( 0, 0, 0 );
-
 	var _keyPressed = false,
 	_state = this.STATE.NONE,
 
@@ -46,16 +43,23 @@ THREE.TrackballControlsEx = function ( object, domElement ) {
 	_panStart = new THREE.Vector2(),
 	_panEnd = new THREE.Vector2();
 
-
+  this.isDirty = true;
 	// methods
 	
 	this.zoomNow = function(delta) {
 		delta = -1.0 * delta / 40.0
 		 _zoomStart = new THREE.Vector2(0,0); 
 		 _zoomEnd = new THREE.Vector2(0,delta);
+		 this.isDirty = true;
 
 	};
+  this.resetZoom = function() {
+    //delta = -1.0 * delta / 40.0
+     _zoomStart = new THREE.Vector2(); 
+     _zoomEnd = new THREE.Vector2();
+     this.isDirty = true;
 
+  };
 	this.handleEvent = function ( event ) {
 
 		if ( typeof this[ event.type ] == 'function' ) {
@@ -119,7 +123,7 @@ THREE.TrackballControlsEx = function ( object, domElement ) {
 			quaternion.setFromAxisAngle( axis, -angle );
 
 			quaternion.multiplyVector3( _eye );
-			quaternion.multiplyVector3( this.object.up );
+		quaternion.multiplyVector3( this.object.up );
 
 			quaternion.multiplyVector3( _rotateEnd );
 
@@ -214,7 +218,13 @@ THREE.TrackballControlsEx = function ( object, domElement ) {
 	};
 
 	this.update = function() {
-
+    
+    if (!this.isDirty) {
+      return;
+    }
+    
+    this.isDirty= false;
+    
 		_eye.copy( this.object.position ).subSelf( this.target );
 
 		this.rotateCamera();
@@ -243,7 +253,7 @@ THREE.TrackballControlsEx = function ( object, domElement ) {
 	// listeners
 
 	function keydown( event ) {
-
+    this.isDirty = true;
 		if ( _state !== this.STATE.NONE ) {
 
 			return;
@@ -256,7 +266,12 @@ THREE.TrackballControlsEx = function ( object, domElement ) {
 
 			_state = this.STATE.ZOOM;
 
-		} else if ( event.keyCode === this.keys[ this.STATE.PAN ] && !this.noPan ) {
+		} else if ( event.keyCode === this.keys[ this.STATE.DEBUG ] ) {
+
+      console.log('position: ' + this.object.matrixWorld.getPosition().toString());
+      console.log('rotation: ' + this.object.rotation.toString());
+
+    } else if ( event.keyCode === this.keys[ this.STATE.PAN ] && !this.noPan ) {
 
 			_state = this.STATE.PAN;
 
@@ -271,7 +286,7 @@ THREE.TrackballControlsEx = function ( object, domElement ) {
 	};
 
 	function keyup( event ) {
-
+    this.isDirty = true;
 		if ( _state !== this.STATE.NONE ) {
 
 			_state = this.STATE.NONE;
@@ -281,7 +296,7 @@ THREE.TrackballControlsEx = function ( object, domElement ) {
 	};
 
 	function mousedown( event ) {
-
+    this.isDirty = true;
 		event.preventDefault();
 		//event.stopPropagation();
 
@@ -336,11 +351,12 @@ THREE.TrackballControlsEx = function ( object, domElement ) {
 			_panEnd = this.getMouseOnScreen( event.clientX, event.clientY );
 
 		}
+		  this.isDirty = true;
 
 	};
 
 	function mouseup( event ) {
-
+    this.isDirty = true;
 		event.preventDefault();
 		event.stopPropagation();
 
@@ -369,4 +385,4 @@ THREE.TrackballControlsEx = function ( object, domElement ) {
 
 };
 
-THREE.TrackballControlsEx.prototype.STATE = { NONE : -1, ROTATE : 0, ZOOM : 1, PAN : 2 };
+THREE.TrackballControlsEx.prototype.STATE = { NONE : -1, ROTATE : 0, ZOOM : 1, PAN : 2, DEBUG : 3 };

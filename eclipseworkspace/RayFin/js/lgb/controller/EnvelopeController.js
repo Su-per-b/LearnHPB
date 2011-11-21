@@ -1,14 +1,13 @@
 goog.provide('lgb.controller.EnvelopeController');
 
 goog.require('lgb.controller.ControllerBase');
+goog.require('lgb.events.CamerasLoaded');
 goog.require('lgb.events.RequestVisibilityChange');
 goog.require('lgb.events.ViewInitialized');
 goog.require('lgb.model.BuildingModel.Group');
 goog.require('lgb.model.EnvelopeModel');
 goog.require('lgb.view.EnvelopeAdminView');
 goog.require('lgb.view.EnvelopeView');
-
-
 
 
 /**
@@ -49,6 +48,10 @@ lgb.controller.EnvelopeController.prototype.bind_ = function() {
     lgb.events.ViewInitialized.TYPE,
     this.onViewInitialized_);
 
+  this.listenTo(this.view,
+    lgb.events.CamerasLoaded.TYPE,
+    this.onCamerasLoaded_);
+
   this.listenTo(this.dataModel,
     lgb.events.DataModelChanged.TYPE,
     this.onDataModelChanged_);
@@ -56,6 +59,16 @@ lgb.controller.EnvelopeController.prototype.bind_ = function() {
 
 };
 
+
+
+/**
+ * @private
+ * @param {lgb.events.CamerasLoaded} event Fired by the view.
+ */
+lgb.controller.EnvelopeController.prototype.onCamerasLoaded_ =
+  function(event) {
+  this.dispatch(event);
+};
 
 
 /**

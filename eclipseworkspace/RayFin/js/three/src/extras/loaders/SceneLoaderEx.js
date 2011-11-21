@@ -366,7 +366,6 @@ THREE.SceneLoaderEx.prototype = {
 			// first go synchronous elements
 
 			// cameras
-
 			for( dc in data.cameras ) {
 
 				c = data.cameras[ dc ];
@@ -382,10 +381,21 @@ THREE.SceneLoaderEx.prototype = {
 				}
 
 				p = c.position;
-				t = c.target;
-				camera.position.set( p[0], p[1], p[2] );
-				camera.target = new THREE.Vector3( t[0], t[1], t[2] );
+        camera.position.set( p[0], p[1], p[2] );
+        
+				if (undefined !== c.target) {
+          t = c.target;
+          camera.target = new THREE.Vector3( t[0], t[1], t[2] );
+				}
 
+        if (undefined !== c.rotation) {
+          camera.rotation = new THREE.Vector3( 
+            c.rotation[0],
+            c.rotation[1],
+            c.rotation[2]
+          );
+        }
+      
 				result.cameras[ dc ] = camera;
 
 			}

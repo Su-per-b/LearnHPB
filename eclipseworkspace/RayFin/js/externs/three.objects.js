@@ -39,6 +39,8 @@ THREE.Mesh.prototype.geometry;
 
 THREE.Mesh.prototype.bakeTransformsIntoGeometry = function() {};
 
+THREE.Mesh.prototype.extractPositionFromGeometry = function() {};
+
 
 
 

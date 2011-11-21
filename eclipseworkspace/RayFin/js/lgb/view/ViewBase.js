@@ -22,7 +22,7 @@ lgb.view.ViewBase = function(dataModel) {
 
   this.parentHTMLid = 'theBody';
   this.htmlID = '';
-  this._NAME = 'lgb.view.ViewBase';
+  //this._NAME = 'lgb.view.ViewBase';
 
 };
 goog.inherits(lgb.view.ViewBase, lgb.BaseClass);

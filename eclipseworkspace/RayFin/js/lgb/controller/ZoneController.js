@@ -2,6 +2,7 @@ goog.provide('lgb.controller.ZoneController');
 
 goog.require('lgb.controller.ControllerBase');
 goog.require('lgb.events.EnvelopeModelChanged');
+goog.require('lgb.events.RequestGoToViewPointName');
 goog.require('lgb.events.RequestZoneVisiblityChange');
 goog.require('lgb.model.EnvelopeModel');
 goog.require('lgb.model.ZoneModel');
@@ -55,6 +56,16 @@ lgb.controller.ZoneController.prototype.bind_ = function() {
     lgb.events.RequestZoneVisiblityChange.TYPE,
     this.onRequestZoneVisiblityChange_
     );
+
+  this.listenTo(
+    this.adminview,
+    lgb.events.RequestGoToViewPointName.TYPE,
+    this.onRequestGoToViewPointName_
+    );
+
+
+
+
 };
 
 
@@ -70,6 +81,19 @@ lgb.controller.ZoneController.prototype.onRequestZoneVisiblityChange_ =
     event.payload.zoneNumber,
     event.payload.makeVisible
   );
+
+};
+
+
+/**
+ * @private
+ * @param {lgb.events.RequestGoToViewPointName} event Fired by one of
+ * the views.
+ */
+lgb.controller.ZoneController.prototype.onRequestGoToViewPointName_ =
+  function(event) {
+
+  this.dispatch(event);
 
 };
 

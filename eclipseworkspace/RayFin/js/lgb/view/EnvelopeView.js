@@ -2,6 +2,7 @@ goog.provide('lgb.view.EnvelopeView');
 
 goog.require('goog.userAgent');
 goog.require('lgb.ThreeUtils');
+goog.require('lgb.events.CamerasLoaded');
 goog.require('lgb.events.ViewInitialized');
 goog.require('lgb.view.ViewBase');
 
@@ -34,6 +35,7 @@ lgb.view.EnvelopeView.prototype.init_ = function() {
   this.loadScene_();
 };
 
+
 /**
  * Initiates the loading of the scene file.
  * @private
@@ -56,6 +58,11 @@ lgb.view.EnvelopeView.prototype.onSceneLoaded_ = function(result) {
   /**@type THREE.Scene */
   var scene = result['scene'];
   var groups = result['groups'];
+  var cameras = result['cameras'];
+
+
+
+
   //var objects = result['objects'];
 
   this.each(scene.objects, lgb.ThreeUtils.chromeBlinkingFix);
@@ -69,6 +76,13 @@ lgb.view.EnvelopeView.prototype.onSceneLoaded_ = function(result) {
   this.updateAllFromModel_();
   delete this.loader_;
   this.dispatchLocal(new lgb.events.ViewInitialized());
+
+  if (cameras !== undefined) {
+    var e = new lgb.events.CamerasLoaded(cameras);
+    this.dispatchLocal(e);
+  }
+
+
 };
 
 

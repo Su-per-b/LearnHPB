@@ -21,6 +21,7 @@ set "DEST=..\..\bin\bin-normal"
 --compiler_flag=--externs=%SRC%\js\externs\kendo.data.js ^
 --compiler_flag=--externs=%SRC%\js\externs\three.cameras.js ^
 --compiler_flag=--externs=%SRC%\js\externs\three.core.js ^
+--compiler_flag=--externs=%SRC%\js\externs\three.extras.animation.js ^
 --compiler_flag=--externs=%SRC%\js\externs\three.extras.controls.js ^
 --compiler_flag=--externs=%SRC%\js\externs\three.extras.geometries.js ^
 --compiler_flag=--externs=%SRC%\js\externs\three.extras.io.loaders.js ^
@@ -33,6 +34,7 @@ set "DEST=..\..\bin\bin-normal"
 --compiler_flag=--externs=%SRC%\js\externs\three.scenes.js ^
 --compiler_flag=--externs=%SRC%\js\externs\three.custom.js ^
 --compiler_flag=--externs=%SRC%\js\externs\jquery-ui-raj.js ^
+--compiler_flag=--externs=%SRC%\js\externs\tween.js ^
 --output_mode compiled ^
 --compiler_jar ..\compiler.jar ^
 --output_file temp\lgb.js

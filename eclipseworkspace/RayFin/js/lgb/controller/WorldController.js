@@ -1,16 +1,18 @@
 goog.provide('lgb.controller.WorldController');
 
 goog.require('lgb.controller.BuildingController');
+goog.require('lgb.controller.CameraController');
 goog.require('lgb.controller.ControllerBase');
 goog.require('lgb.controller.FloorController');
 goog.require('lgb.controller.PsControllerMaster');
+goog.require('lgb.controller.TrackBallController');
+goog.require('lgb.controller.ViewPointController');
 goog.require('lgb.controller.WorldSelectionController');
 goog.require('lgb.events.Object3DLoaded');
 goog.require('lgb.events.Render');
 goog.require('lgb.events.WindowResize');
-goog.require('lgb.view.CameraView');
 goog.require('lgb.view.StatsView');
-goog.require('lgb.view.TrackBallWrapper');
+
 
 
 /**
@@ -31,7 +33,7 @@ goog.inherits(lgb.controller.WorldController, lgb.controller.ControllerBase);
  * Initializes the WorldController Controller after the document is ready
  */
 lgb.controller.WorldController.prototype.init = function() {
-
+  this.timestamp = 0;
   /**
    * The top-level this.containerDiv_ object in the THREE.js world
    * contains lights, camera and objects
@@ -44,15 +46,21 @@ lgb.controller.WorldController.prototype.init = function() {
   this.initRenderer_();
   this.setSize_();
 
+  this.bind_();
+
   /**
    * The one and only Camera that views the 3d scene
-   * @type {lgb.view.CameraView}
+   * @type {lgb.controller.CameraController}
    * @private
   **/
-  this.cameraView_ = new lgb.view.CameraView(this.renderer_.domElement);
+  this.cameraController_ = new lgb.controller.CameraController(
+    this.renderer_.domElement
+  );
+
+  this.camera_ = this.cameraController_.getCamera();
 
   this.initLights_();
-  this.bind_();
+
 
   /**
    * The grid on the floor
@@ -67,6 +75,8 @@ lgb.controller.WorldController.prototype.init = function() {
     this.statsView_ = null;
   }
 
+  this.viewpointController_ = new lgb.controller.ViewPointController();
+
   /**
     * @type {lgb.controller.BuildingController}
     * @private
@@ -80,14 +90,17 @@ lgb.controller.WorldController.prototype.init = function() {
   this.selectionController_ =
     new lgb.controller.WorldSelectionController(
       this.containerDiv_,
-      this.cameraView_.camera
+      this.camera_
   );
 
-  /** @type {lgb.view.TrackBallWrapper} */
-  this.trackBallWrapper_ = new lgb.view.TrackBallWrapper(
-    this.cameraView_.camera,
+  /** @type {lgb.controller.TrackBallController} */
+  this.trackController_ = new lgb.controller.TrackBallController(
+    this.camera_,
     this.containerDiv_
   );
+
+
+
 
   this.containerDiv_.appendChild(this.renderer_.domElement);
 
@@ -107,7 +120,7 @@ lgb.controller.WorldController.prototype.initLights_ = function() {
   this.scene_.add(this.ambientLight_);
 
   this.sun_ = new THREE.DirectionalLight(0xffffff);
-  this.sun_.position = this.cameraView_.camera.position.clone();
+  this.sun_.position = this.camera_.position.clone();
   this.scene_.add(this.sun_);
 };
 
@@ -178,6 +191,9 @@ lgb.controller.WorldController.prototype.onObject3DLoaded_ = function(event) {
   if ('' == obj.name) {
     throw ('Please name the THREE.Object3D before ' +
     'you request to add it to the scene.');
+  } else {
+    lgb.logInfo('adding to scene: ' + obj.name);
+
   }
 
 
@@ -209,38 +225,38 @@ lgb.controller.WorldController.prototype.setSize_ = function() {
 /**
  * platform specific render function for unknown browser
  * @private
- * @param {number} event A timestamp.
+ * @param {number} timestamp A timestamp.
  */
-lgb.controller.WorldController.prototype.onRenderOReq_ = function(event) {
+lgb.controller.WorldController.prototype.onRenderOReq_ = function(timestamp) {
   window.oRequestAnimationFrame(mainController.worldController_.onRenderOReq_);
-  mainController.worldController_.renderHelper();
+  mainController.worldController_.renderHelper(timestamp);
 };
 
 
 /**
  * platform specific render function for mozilla browser
  * @private
- * @param {number} event A timestamp.
+ * @param {number} timestamp A timestamp.
  */
-lgb.controller.WorldController.prototype.onRenderMoz_ = function(event) {
+lgb.controller.WorldController.prototype.onRenderMoz_ = function(timestamp) {
 
   window.mozRequestAnimationFrame(mainController.worldController_.onRenderMoz_);
-  mainController.worldController_.renderHelper();
+  mainController.worldController_.renderHelper(timestamp);
 };
 
 
 /**
  * platform specific render function for chrome browser
  * @private
- * @param {number} event A timestamp.
+ * @param {number} timestamp A timestamp.
  */
-lgb.controller.WorldController.prototype.onRenderWebkit_ = function(event) {
+lgb.controller.WorldController.prototype.onRenderWebkit_ = function(timestamp) {
 
   window.webkitRequestAnimationFrame(
       mainController.worldController_.onRenderWebkit_
     );
 
-  mainController.worldController_.renderHelper();
+  mainController.worldController_.renderHelper(timestamp);
 };
 
 
@@ -248,21 +264,37 @@ lgb.controller.WorldController.prototype.onRenderWebkit_ = function(event) {
  * platform specific render function for misc browser
  * untested.
  * @private
- * @param {number} event A timestamp.
+ * @param {number} timestamp A timestamp.
  */
-lgb.controller.WorldController.prototype.onRenderMisc_ = function(event) {
+lgb.controller.WorldController.prototype.onRenderMisc_ = function(timestamp) {
 
   window.requestAnimationFrame(mainController.worldController_.onRenderMisc_);
-  mainController.worldController_.renderHelper();
+  mainController.worldController_.renderHelper(timestamp);
 };
 
 
 /**
  * platform independant render function
  * I made this 'public' in an effort to optimize the render loop.
+ * @param {number} timestamp A timestamp.
  */
-lgb.controller.WorldController.prototype.renderHelper = function() {
-  //TODO (Raj): further optimze the render loop
+lgb.controller.WorldController.prototype.renderHelper = function(timestamp) {
+  //TODO (Raj): further optimze the render loop removing the Tween stuff.
+
+  var currentTimeStamp = timestamp;
+  var delta = 0;
+
+  if (this.timestamp != 0) {
+    delta = currentTimeStamp - this.timestamp;
+  }
+
+  this.timestamp = currentTimeStamp;
+  Tween.tick(delta, false);
+
+  //THREE.AnimationHandler.update( 1/60 );
+  this.renderEvent.payload = timestamp;
+
   goog.events.dispatchEvent(lgb.globalEventBus, this.renderEvent);
-  this.renderer_.render(this.scene_, this.cameraView_.camera);
+  this.renderer_.render(this.scene_, this.camera_);
+
 };

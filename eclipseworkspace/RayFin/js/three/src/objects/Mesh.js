@@ -130,3 +130,49 @@ THREE.Mesh.prototype.clone = function ( ) {
 
 };
 
+
+//@author Raj Dye raj@pcdigi.com
+THREE.Mesh.prototype.extractPositionFromGeometry = function ( ) {
+
+  //this.updateMatrix();
+    
+  var newGeom = THREE.GeometryUtils.clone(this.geometry);
+  var dim = newGeom.getDimensions();
+  
+  //var len1 = newGeom.vertices.length;
+  newGeom.mergeVertices();
+ // var len2 = newGeom.vertices.length;
+  
+  var correctX = -1 * dim.x / 2;
+  var correctY = -1 * dim.y / 2;
+  var correctZ = -1 * dim.z / 2;
+  
+  var xDelta = correctX - newGeom.boundingBox.x[0];
+  var yDelta = correctY - newGeom.boundingBox.y[0];
+  var zDelta = correctZ - newGeom.boundingBox.z[0];
+  
+  var len = newGeom.vertices.length;
+  
+  for (var i=0; i < len; i++) {
+    newGeom.vertices[i].position.x += xDelta;
+    newGeom.vertices[i].position.y += yDelta;
+    newGeom.vertices[i].position.z += zDelta;
+  }
+  
+  
+  newGeom.computeBoundingBox();
+  newGeom.computeBoundingSphere();
+ // newGeom.__dirtyVertices = true;
+  
+  this.geometry = newGeom;
+  
+ // this.updateMatrix();
+  //this.update();
+  this.position.x -= xDelta;
+  this.position.y -= yDelta;
+  this.position.z -= zDelta;
+  
+  //newGeom.applyMatrix(this.matrix);
+  var x;
+
+};

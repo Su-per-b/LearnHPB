@@ -21,6 +21,8 @@ set "DEST=..\..\bin\bin-normal"
 -i %SRC%\js\kendo\kendo.draganddrop.js ^
 -i %SRC%\js\kendo\kendo.slider.js ^
 -i %SRC%\js\lib\tipped.js ^
+-i %SRC%\js\lib\Tween.js ^
+-i %SRC%\js\lib\Ease.js ^
 -p %SRC%\js\closure ^
 -p %SRC%\js\hemi ^
 -p %SRC%\js\lgb ^
@@ -34,6 +36,7 @@ set "DEST=..\..\bin\bin-normal"
 --compiler_flag=--externs=%SRC%\js\externs\kendo.data.js ^
 --compiler_flag=--externs=%SRC%\js\externs\three.cameras.js ^
 --compiler_flag=--externs=%SRC%\js\externs\three.core.js ^
+--compiler_flag=--externs=%SRC%\js\externs\three.extras.animation.js ^
 --compiler_flag=--externs=%SRC%\js\externs\three.extras.controls.js ^
 --compiler_flag=--externs=%SRC%\js\externs\three.extras.geometries.js ^
 --compiler_flag=--externs=%SRC%\js\externs\three.extras.io.loaders.js ^
@@ -45,6 +48,7 @@ set "DEST=..\..\bin\bin-normal"
 --compiler_flag=--externs=%SRC%\js\externs\three.renderers.js ^
 --compiler_flag=--externs=%SRC%\js\externs\three.scenes.js ^
 --compiler_flag=--externs=%SRC%\js\externs\jquery-ui-raj.js ^
+--compiler_flag=--externs=%SRC%\js\externs\tween.js ^
 --output_mode compiled ^
 --compiler_jar ..\compiler.jar ^
 --output_file %DEST%\lgb.js

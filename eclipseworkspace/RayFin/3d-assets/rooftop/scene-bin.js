@@ -10,7 +10,7 @@
  */
 
 var scene = {
-
+"name" : "rooftop",
 "type" : "scene",
 "urlBaseType" : "relativeToScene",
 
@@ -177,7 +177,21 @@ var scene = {
     "bgcolor" : [ 0.000000, 0.000000, 0.000000 ],
     "bgalpha" : 1.000000,
     "camera"  : ""
+},
+
+"cameras" :
+{
+    "Camera" : {
+        "type"  : "perspective",
+        "fov"   : 49.159264,
+        "aspect": 1.333000,
+        "near"  : 0.100000,
+        "far"   : 100.000000,
+        "position": [ -3.294478, 27.905968, -1.312176 ],
+        "target"  : [ 0.000000, 0.000000, 0.000000 ]
+    }
 }
+
 
 }
 

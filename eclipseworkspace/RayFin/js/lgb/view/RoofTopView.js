@@ -83,7 +83,10 @@ lgb.view.RoofTopView.prototype.onSceneLoaded_ = function(result) {
         mesh.doubleSided = true;
       }
 
-      this.masterGroup.add(mesh);
+    mesh.dynamic = true;
+    mesh.bakeTransformsIntoGeometry();
+    mesh.extractPositionFromGeometry();
+    this.masterGroup.add(mesh);
 
     var event = new lgb.events.SelectableLoaded(mesh);
     this.dispatchLocal(event);

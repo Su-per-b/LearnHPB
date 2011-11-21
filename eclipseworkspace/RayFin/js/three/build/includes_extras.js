@@ -7,10 +7,10 @@
 		<script type="text/javascript" src="../src/extras/core/CurvePath.js"></script>
 		<script type="text/javascript" src="../src/extras/core/Path.js"></script>
 		<script type="text/javascript" src="../src/extras/core/Shape.js"></script>
-		<script type="text/javascript" src="../src/extras/core/TextPath.js"></script>
+		<script type="text/javascript" src="../src/extras/animation/AnimationHandler.js"></script>
+		<script type="text/javascript" src="../src/extras/animation/Animation.js"></script>
 		<script type="text/javascript" src="../src/extras/controls/TrackballControlsEx.js"></script>
 		<script type="text/javascript" src="../src/extras/geometries/CubeGeometry.js"></script>
-		<script type="text/javascript" src="../src/extras/geometries/CylinderGeometry.js"></script>
 		<script type="text/javascript" src="../src/extras/geometries/PlaneGeometry.js"></script>
 		<script type="text/javascript" src="../src/extras/geometries/SphereGeometry.js"></script>
 		<script type="text/javascript" src="../src/extras/loaders/Loader.js"></script>

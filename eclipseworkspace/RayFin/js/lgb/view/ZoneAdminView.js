@@ -5,10 +5,10 @@ goog.require('lgb.component.LinkDataSource');
 goog.require('lgb.events.MouseClick');
 goog.require('lgb.events.MouseOut');
 goog.require('lgb.events.MouseOver');
+goog.require('lgb.events.RequestGoToViewPointName');
 goog.require('lgb.events.RequestZoneVisiblityChange');
 goog.require('lgb.model.ZoneModel');
 goog.require('lgb.view.ViewBase');
-
 
 /**
  * @constructor
@@ -77,8 +77,11 @@ lgb.view.ZoneAdminView.prototype.bind_ = function() {
  */
 lgb.view.ZoneAdminView.prototype.onMouseClick_ = function(event) {
 
- // event.target.ds.
-  //var x;
+  var zoneIdx = event.target.ds.data;
+  var name = 'zone.00' + (zoneIdx + 1).toString();
+
+  this.dispatchLocal(new lgb.events.RequestGoToViewPointName(name));
+
 
 };
 

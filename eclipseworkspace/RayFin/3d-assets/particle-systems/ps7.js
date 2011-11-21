@@ -10,7 +10,7 @@
  */
 
 var scene = {
-
+"name" : "particleSystem",
 "type" : "scene",
 "urlBaseType" : "relativeToScene",
 

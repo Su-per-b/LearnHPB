@@ -114,7 +114,7 @@ lgb.view.ZoneView.prototype.onChange = function(event) {
   if (event.payload.isVisible) {
     var idx = event.payload.zoneIdx;
     var isVisible = this.dataModel.z[idx].isVisible;
-    this.setVisible(event.payload.zoneIdx, isVisible);
+    this.setVisible(idx, isVisible);
   }
 
 };

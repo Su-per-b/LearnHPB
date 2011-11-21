@@ -258,10 +258,20 @@ THREE.Object3D.prototype = {
    */
   removeAll: function (  ) {
     var len = this.children.length;
+    var cc =[]
+    
     for (var i=0; i<len; i++){
       var child = this.children[i];
+      cc.push(child);
+    };
+    
+    for (var j=0; j<len; j++){
+      var child = cc.pop();
+      //cc.push(child);
       this.remove(child);
     };
+    
+    
   },
 
 	// DEPRECATED

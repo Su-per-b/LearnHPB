@@ -43,14 +43,14 @@ lgb.Config.APP_TITLE = 'Learn Grean Buildings - Demo';
  * @const
  * @type {string}
  */
-lgb.Config.APP_VERSION = '0.10.02';
+lgb.Config.APP_VERSION = '0.10.10';
 
 /**
  * Will show status in the upper left if set to true.
  * @const
  * @type {boolean}
  */
-lgb.Config.SHOW_STATS = true;
+lgb.Config.SHOW_STATS = false;
 
 /**
  * The file that holds the Three.js scene for all the particle systems.

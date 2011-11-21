@@ -272,7 +272,6 @@ THREE.PathControls = function ( object, domElement ) {
 	this.init = function ( ) {
 
 		// constructor
-
 		this.spline = new THREE.Spline();
 		this.spline.initFromArray( this.waypoints );
 
@@ -290,10 +289,12 @@ THREE.PathControls = function ( object, domElement ) {
 			dummyChildGeo  = new THREE.CubeGeometry( 2, 2, 10 );
 
 			this.animationParent = new THREE.Mesh( dummyParentGeo, dummyParentMaterial );
-
+      this.animationParent.name = 'animationParent';
+      
 			var dummyChild = new THREE.Mesh( dummyChildGeo, dummyChildMaterial );
 			dummyChild.position.set( 0, 10, 0 );
-
+      dummyChild.name = 'dummyChild';
+      
 			this.animation = initAnimationPath( this.animationParent, this.spline, this.id, this.duration );
 
 			this.animationParent.add( this.object );
@@ -311,7 +312,6 @@ THREE.PathControls = function ( object, domElement ) {
 		if ( this.createDebugPath ) {
 
 			createPath( this.debugPath, this.spline );
-
 		}
 
 		this.domElement.addEventListener( 'mousemove', bind( this, this.onMouseMove ), false );

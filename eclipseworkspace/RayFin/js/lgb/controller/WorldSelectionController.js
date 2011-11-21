@@ -115,6 +115,8 @@ lgb.controller.WorldSelectionController.prototype.Object3DSelected_ =
   this.dataModel.select(mc);
 
   var meshName = this.dataModel.getOneSelected();
+
+
   var id = this.meshToSystemNodeMap[meshName];
 
   if (id == null) {

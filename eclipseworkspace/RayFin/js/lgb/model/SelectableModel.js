@@ -83,7 +83,14 @@ lgb.model.SelectableModel.prototype.selectMeshList = function(meshList) {
  * @param {string} meshName The name in the scene graph.
  */
 lgb.model.SelectableModel.prototype.selectMesh_ = function(meshName) {
+
   var theMesh = this.selectableMeshes[meshName];
+  var pos = theMesh.matrixWorld.getPosition();
+
+  //lgb.logInfo(theMesh.name, 'theMesh.name');
+  lgb.logInfo(pos, 'position of selected: ' + theMesh.name);
+
+
   this.selected.push(theMesh);
 };
 
