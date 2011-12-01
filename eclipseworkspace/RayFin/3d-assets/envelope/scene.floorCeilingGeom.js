@@ -25,7 +25,6 @@ var model = {
 	"colorAmbient" : [0.0, 0.0, 0.0],
 	"colorDiffuse" : [0.7843137383460999, 0.7843137383460999, 0.7843137383460999],
 	"colorSpecular" : [0.0, 0.0, 0.0],
-	"shading" : "Lambert",
 	"specularCoef" : 68,
 	"transparency" : 1.0,
 	"vertexColors" : false

@@ -173,7 +173,9 @@ THREE.SceneLoaderEx.prototype = {
 									materials = [ new THREE.MeshFaceMaterial() ];
 
 								}
-
+								
+               // geometry.computeTangents();
+                
 								object = new THREE.Mesh( geometry, materials );
 								object.name = dd;
 								object.position.set( p[0], p[1], p[2] );

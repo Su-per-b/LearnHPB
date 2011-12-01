@@ -42,7 +42,7 @@ lgb.controller.WorldController.prototype.init = function() {
    */
   this.scene_ = new THREE.Scene();
 
-
+ this.initLights_();
   this.initRenderer_();
   this.setSize_();
 
@@ -59,7 +59,7 @@ lgb.controller.WorldController.prototype.init = function() {
 
   this.camera_ = this.cameraController_.getCamera();
 
-  this.initLights_();
+ 
 
 
   /**
@@ -118,10 +118,28 @@ lgb.controller.WorldController.prototype.initLights_ = function() {
    */
   this.ambientLight_ = new THREE.AmbientLight(0x606060);
   this.scene_.add(this.ambientLight_);
+  
+  
+//  this.directionalLight_ = new THREE.DirectionalLight(0x606060, 10, 1000);
+      //    this.directionalLight_.castShadow = true;
+//  this.scene_.add(this.directionalLight_);
+  
+  
+       this.spotLight_ = new THREE.SpotLight( 0x606060 );
+        this.spotLight_.position.set( 0, 50, 50 );
+       this.spotLight_.target.position.set( 0, 0, 0 );
+       this.spotLight_.intensity = 4;
+        this.spotLight_.castShadow = true;
+        this.scene_.add(this.spotLight_);
+        
+ // ( hex, intensity, distance )
+  
+  
 
-  this.sun_ = new THREE.DirectionalLight(0xffffff);
-  this.sun_.position = this.camera_.position.clone();
-  this.scene_.add(this.sun_);
+  //this.sun_ = new THREE.DirectionalLight(0xffffff);
+  //this.sun_.castShadow = true;
+ // this.sun_.position = new THREE.Vector3(0,100,30);
+  //this.scene_.add(this.sun_);
 };
 
 
@@ -134,7 +152,17 @@ lgb.controller.WorldController.prototype.initRenderer_ = function() {
    * @type {THREE.WebGLRenderer}
    * @private
    */
-  this.renderer_ = new THREE.WebGLRenderer();
+  this.renderer_ = new THREE.WebGLRenderer({ clearColor: 0x000000, clearAlpha: 1, antialias: false });
+
+  this.renderer_.shadowCameraNear = 3;
+  this.renderer_.shadowCameraFar = 300;
+  this.renderer_.shadowCameraFov = 30;
+  this.renderer_.shadowMapBias = 0.0039;
+  this.renderer_.shadowMapDarkness = 1;
+  this.renderer_.shadowMapWidth = 1024;
+  this.renderer_.shadowMapHeight = 1024;
+  this.renderer_.shadowMapEnabled = true;
+  this.renderer_.shadowMapSoft = false;
 
   this.renderEvent = new lgb.events.Render();
 
@@ -152,6 +180,9 @@ lgb.controller.WorldController.prototype.initRenderer_ = function() {
     window.requestAnimationFrame(this.renderDelegate);
   }
 };
+
+
+
 
 
 /**

@@ -135,7 +135,9 @@ lgb.view.EnvelopeView.prototype.makeFloors_ = function() {
 
   for (var j = 0; j < l; j++) {
     var floor = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial());
-
+    floor.castShadow = true;
+    floor.receiveShadow = true;
+    
     floor.position.z -= j * this.dimensions.z;
     this.masterGroup.add(floor);
   }

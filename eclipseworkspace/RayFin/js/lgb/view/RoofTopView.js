@@ -82,7 +82,10 @@ lgb.view.RoofTopView.prototype.onSceneLoaded_ = function(result) {
       if (mesh.name == 'Ducting') {
         mesh.doubleSided = true;
       }
-
+      
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+      
     mesh.dynamic = true;
     mesh.bakeTransformsIntoGeometry();
     mesh.extractPositionFromGeometry();
@@ -98,6 +101,8 @@ lgb.view.RoofTopView.prototype.onSceneLoaded_ = function(result) {
   this.masterGroup.position = scene.position;
   this.masterGroup.rotation = scene.rotation;
   this.masterGroup.scale = scene.scale;
+  this.masterGroup.castShadow = true;
+  this.masterGroup.receiveShadow = true;
 
   this.requestAddToWorld(this.masterGroup);
   //var event = new lgb.events.Object3DLoaded(this.masterGroup);
