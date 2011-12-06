@@ -35,3 +35,5 @@ lgb.controller.ScenarioController.prototype.onDataModelInitialized_ =
   var e = new lgb.events.ScenarioParsed(this.dataModel);
   this.dispatch(e);
 };
+
+

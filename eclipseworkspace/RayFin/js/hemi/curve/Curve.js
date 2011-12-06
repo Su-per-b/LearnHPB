@@ -19,7 +19,7 @@
 goog.provide('hemi.curve.Curve');
 goog.require('hemi.curve');
 goog.require('hemi.utils');
-goog.require('o3djs.math');
+
 
 
 /**
@@ -171,35 +171,7 @@ hemi.curve.Curve.prototype = {
 	
 	
 	
-	/**
-	 * The normalized linear interpolation moves on a straight line between waypoints,
-	 *		at a constant velocity.
-	 *
-	 * @param {number} t Time, usually between 0 and 1
-	 * @return {Array.<number>} The position linearly interpolated from the time input, normalized
-	 * 		to keep the velocity constant
-	 */
-	linearNorm : function(t) {
-		var d = 0;
-		var dpts = [];
-		dpts[0] = 0;
-		for(var i = 1; i < this.count; i++) {
-			d += o3djs.math.distance([this.xpts[i-1],this.ypts[i-1],this.zpts[i-1]],
-										 [this.xpts[i],this.ypts[i],this.zpts[i]]);
-			dpts[i] = d;
-		}
-		var tt = t*d;
-		var ndx = 0;
-		for(var i = 0; i < this.count; i++) {
-			if(dpts[i] < tt) ndx = i; 
-		}
-		var lt = (tt - dpts[ndx])/(dpts[ndx+1] - dpts[ndx]);
-		var x = (1-lt)*this.xpts[ndx] + lt*this.xpts[ndx+1];
-		var y = (1-lt)*this.ypts[ndx] + lt*this.ypts[ndx+1];
-		var z = (1-lt)*this.zpts[ndx] + lt*this.zpts[ndx+1];			
-		return [x,y,z];
-	},
-	
+
 	/**
 	 * Calculate the tangents for a cardinal curve, which is a cubic hermite curve
 	 * 		where the tangents are defined by a single 'tension' factor.
@@ -239,9 +211,6 @@ hemi.curve.Curve.prototype = {
 			case hemi.curve.curveType.CubicHermite:
 			case hemi.curve.curveType.Cardinal:
 				this.interpolate = this.cubicHermite;
-				break;
-			case hemi.curve.curveType.LinearNorm:
-				this.interpolate = this.linearNorm;
 				break;
 			case hemi.curve.curveType.Custom:
 			default:

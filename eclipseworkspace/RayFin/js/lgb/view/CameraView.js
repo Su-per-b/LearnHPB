@@ -18,10 +18,7 @@ lgb.view.CameraView = function(domElement) {
 goog.inherits(lgb.view.CameraView, lgb.view.ViewBase);
 
 
-/**
- * Initializes the View
- * trackball 'touchpad'.
- */
+
 lgb.view.CameraView.prototype.init = function() {
 
 
