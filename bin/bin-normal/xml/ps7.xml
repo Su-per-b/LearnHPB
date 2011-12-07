@@ -1,0 +1,31 @@
+<particleSystems translate="0,0,0" rotate="0,0,0">
+	
+	<system id="1">
+		<title>Particles - Zone 5</title>
+		<particleCount>25</particleCount>
+		<lifeSpanInSeconds>12</lifeSpanInSeconds>
+		<particleSize>0.7</particleSize>
+		<meshGroupNames>ps-05</meshGroupNames>
+		<launchDelayBetweenParticles>3</launchDelayBetweenParticles>
+	</system>
+	
+	<system id="2">
+		<title>Particles - Zone 6</title>
+		<particleCount>25</particleCount>
+		<lifeSpanInSeconds>3</lifeSpanInSeconds>
+		<particleSize>0.7</particleSize>
+		<meshGroupNames>ps-06</meshGroupNames>
+		<launchDelayBetweenParticles>3</launchDelayBetweenParticles>
+	</system>
+	
+	<system id="3">
+		<title>Particles - Zone 9</title>
+		<particleCount>25</particleCount>
+		<lifeSpanInSeconds>3</lifeSpanInSeconds>
+		<particleSize>0.7</particleSize>
+		<meshGroupNames>Diffuser.009</meshGroupNames>
+		<launchDelayBetweenParticles>3</launchDelayBetweenParticles>
+	</system>
+	
+
+</particleSystems>
