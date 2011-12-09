@@ -31,14 +31,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 https:raw.github.com/jquery/jquery/master/MIT-LICENSE.txt
 
---------------------------------------------------------------------------------
-jQuery UI JavaScript library
---------------------------------------------------------------------------------
- * Copyright 2011, http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/AUTHORS.txt (http://jqueryui.com/about)
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://jquery.org/license
- *
- * http://docs.jquery.com/UI
 
 --------------------------------------------------------------------------------
 Google Closure JavaScript Library

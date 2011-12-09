@@ -4,6 +4,8 @@ echo 3-compile.bat
 set "SRC=..\.."
 set "DEST=..\..\bin\bin-normal"
 
+copy /Y lgb_license.txt temp\lgb.js  
+
 ..\closure_builder\calcdeps.py ^
 -i %SRC%\inc.js ^
 -i %SRC%\main.src.js ^
@@ -49,8 +51,8 @@ set "DEST=..\..\bin\bin-normal"
 --compiler_flag=--externs=%SRC%\js\externs\tween.js ^
 --output_mode compiled ^
 --compiler_jar ..\compiler.jar ^
---output_file %DEST%\lgb.js
+--output_file temp\lgb_raw.js
 
+type temp\lgb_raw.js >> temp\lgb.js
 
-
-
+%DEST%\lgb.js

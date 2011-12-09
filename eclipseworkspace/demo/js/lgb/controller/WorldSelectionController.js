@@ -6,6 +6,7 @@ goog.require('lgb.events.SelectableLoaded');
 goog.require('lgb.events.WorldSelectionChanged');
 goog.require('lgb.model.SelectableModel');
 goog.require('lgb.view.SelectionView');
+goog.require('goog.array');
 
 
 /**

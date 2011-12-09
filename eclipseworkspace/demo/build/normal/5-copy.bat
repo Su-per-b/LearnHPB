@@ -16,6 +16,8 @@ copy %SRC%\css\lgb.min.css %DEST%\css\lgb.min.css
 copy %SRC%\css\kendo.common.css %DEST%\css\kendo.common.css
 copy %SRC%\css\kendo.lgb.css %DEST%\css\kendo.lgb.css
 
-copy %SRC%\js\three\build\Three.js %DEST%\Three.js
-copy %SRC%\js\three\build\custom\ThreeExtras.js %DEST%\ThreeExtras.js
+copy temp\Three.js %DEST%\Three.js
+copy temp\ThreeExtras.js %DEST%\ThreeExtras.js
 copy %SRC%\3d-assets\textures\circle.png %DEST%\3d-assets\textures\circle.png
+
+copy temp\lgb.js %DEST%\lgb.js
