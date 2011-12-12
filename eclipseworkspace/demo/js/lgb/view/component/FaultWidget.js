@@ -1,3 +1,7 @@
+/**
+ * @author Raj Dye - raj@rajdye.com
+*/
+
 goog.provide('lgb.view.component.FaultWidget');
 goog.require('lgb.view.ViewBase');
 

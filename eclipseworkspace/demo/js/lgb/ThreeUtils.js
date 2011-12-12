@@ -1,5 +1,5 @@
 /**
- * @author Raj Dye - raj.dye@gmail.com
+ * @author Raj Dye - raj@rajdye.com
  * These are utilities that are specific to the Three.Js
  * library.
  */

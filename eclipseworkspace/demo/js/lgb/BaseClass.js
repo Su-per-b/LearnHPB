@@ -1,5 +1,5 @@
 /**
- * @author Raj Dye - raj.dye@gmail.com
+ * @author Raj Dye - raj@rajdye.com
  * Almost all classes in the 'lgb' namespace inherit
  * from this class. It is primarily concerned with Event listening
  * and dispatching.

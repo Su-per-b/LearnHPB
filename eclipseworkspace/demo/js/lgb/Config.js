@@ -1,5 +1,5 @@
 /**
- * @author Raj Dye - raj.dye@gmail.com
+ * @author Raj Dye - raj@rajdye.com
  * Stores configuration information for the
  * app.
  * information about the datatypes used is here:

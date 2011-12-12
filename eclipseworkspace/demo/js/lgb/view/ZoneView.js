@@ -1,3 +1,6 @@
+/**
+ * @author Raj Dye - raj@rajdye.com
+*/
 goog.provide('lgb.view.ZoneView');
 
 goog.require('lgb.view.ViewBase');

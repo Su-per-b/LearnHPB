@@ -1,5 +1,5 @@
 /**
- * @author Raj Dye - raj.dye@gmail.com
+ * @author Raj Dye - raj@rajdye.com
  * Rather than create global functions, I put functions in here.
  * Then you can call them like this - lgb.init();
  * simple. no global namespace conflict then.
