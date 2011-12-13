@@ -1,5 +1,6 @@
 /**
  * @author Raj Dye - raj@rajdye.com
+ * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  * Stores configuration information for the
  * app.
  * information about the datatypes used is here:
@@ -43,7 +44,7 @@ lgb.Config.APP_TITLE = 'Learn Grean Buildings - Demo';
  * @const
  * @type {string}
  */
-lgb.Config.APP_VERSION = '0.10.20';
+lgb.Config.APP_VERSION = '0.10.24';
 
 /**
  * Will show status in the upper left if set to true.

@@ -1,5 +1,6 @@
 /**
  * @author Raj Dye - raj@rajdye.com
+ * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  * These are utilities that are specific to the Three.Js
  * library.
  */

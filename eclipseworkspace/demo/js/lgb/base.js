@@ -1,5 +1,6 @@
 /**
  * @author Raj Dye - raj@rajdye.com
+ * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  * Rather than create global functions, I put functions in here.
  * Then you can call them like this - lgb.init();
  * simple. no global namespace conflict then.
