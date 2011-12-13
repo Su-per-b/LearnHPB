@@ -59,7 +59,7 @@ lgb.Config.SHOW_STATS = false;
  * @type {string}
  */
 lgb.Config.PARTICLE_SYSTEM_SCENE = lgb.Config.ASSETS_BASE_PATH +
-'particle-systems/ps7.js';
+'particle-systems/ps8.js';
 
 /**
  * the XML file for all the particle systems.
@@ -67,7 +67,7 @@ lgb.Config.PARTICLE_SYSTEM_SCENE = lgb.Config.ASSETS_BASE_PATH +
  * @type {string}
  */
 lgb.Config.PARTICLE_SYSTEM_XML = lgb.Config.XML_BASE_PATH +
-'ps7.xml';
+'ps8.xml';
 
 /**
  * @return {string} The string used to inject into the <title>

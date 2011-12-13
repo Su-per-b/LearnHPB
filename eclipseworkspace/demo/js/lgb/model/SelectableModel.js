@@ -6,7 +6,7 @@
 goog.provide('lgb.model.SelectableModel');
 
 goog.require('lgb.model.ModelBase');
-
+goog.require('goog.array');
 
 /**
  * @constructor
@@ -109,12 +109,7 @@ lgb.model.SelectableModel.prototype.selectMesh_ = function(meshName) {
 lgb.model.SelectableModel.prototype.select = function(intersect) {
 
   //select none
-  this.deselected = [];
-  var len = this.selected.length;
-  
-  for (var i = 0; i > len; i++){
-    this.deselected.push(this.selected[i]);
-  };
+  this.deselected = goog.array.clone(this.selected);
   
   this.selected = [];
 
