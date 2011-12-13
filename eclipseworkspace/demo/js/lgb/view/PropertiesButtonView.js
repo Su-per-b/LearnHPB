@@ -1,3 +1,8 @@
+/**
+ * @author Raj Dye - raj@rajdye.com
+ * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
+ */
+ 
 goog.provide('lgb.view.PropertiesButtonView');
 goog.require('lgb.events.RequestActivateView');
 goog.require('lgb.view.ViewBase');

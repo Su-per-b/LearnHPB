@@ -1,3 +1,8 @@
+/**
+ * @author Raj Dye - raj@rajdye.com
+ * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
+ */
+ 
 goog.provide('lgb.model.scenario.SystemNode');
 goog.require('lgb.model.ModelBase');
 goog.require('lgb.model.scenario.SysVar');

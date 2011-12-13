@@ -1,5 +1,10 @@
 /**
  * @author Raj Dye - raj@rajdye.com
+ * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
+ */
+ 	 
+ 	 /**
+ * @author Raj Dye - raj@rajdye.com
 */
 
 goog.provide('lgb.view.component.CheckBox');
