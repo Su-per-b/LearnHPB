@@ -15,7 +15,7 @@ call:compileCopy envelope\FrontRight9ft.obj
 call:compile envelope\scene.floorCeilingGeom.js
 call:compile envelope\scene-bin.js
 
-call:compile particle-systems\ps7.js
+call:compile particle-systems\ps8.js
 
 call:compileCopy rooftop\cooling-coil.obj
 call:compileCopy rooftop\damper.obj

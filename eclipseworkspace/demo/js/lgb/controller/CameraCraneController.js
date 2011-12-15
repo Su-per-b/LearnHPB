@@ -147,7 +147,7 @@ lgb.controller.CameraCraneController.prototype.moveToPosition =
   Tween.get(this.cameraOnCrane_.position, props)
     .to(
       positionTween,
-      this.moveDuration,
+      this.moveDuration +10,
       this.easing 
       )
     .call(this.d(this.onTweenComplete));

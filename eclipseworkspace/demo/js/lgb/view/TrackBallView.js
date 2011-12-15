@@ -80,7 +80,7 @@ lgb.view.TrackBallView.prototype.bind_ = function() {
 lgb.view.TrackBallView.prototype.setCameraTarget = function(target) {
 
 
- mainController.worldController_.scene_.update(undefined, true, this.camera_);
+ //mainController.worldController_.scene_.update(undefined, true, this.camera_);
 
   if (undefined === target) {
      this.trackballControls.target = new THREE.Vector3(0, 0, 0);

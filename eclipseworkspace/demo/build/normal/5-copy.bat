@@ -9,7 +9,7 @@ set "SRC=..\.."
 copy .\index.html  %DEST%\index.html
 copy .\htaccess.txt  %DEST%\.htaccess
 copy %SRC%\3d-assets\textures\circle.png  %DEST%\3d-assets\textures\circle.png
-copy %SRC%\xml\ps7.xml  %DEST%\xml\ps7.xml
+copy %SRC%\xml\ps8.xml  %DEST%\xml\ps8.xml
 copy %SRC%\xml\DefaultScenario.xml  %DEST%\xml\DefaultScenario.xml
 xcopy %SRC%\images %DEST%\images /y /i /s
 copy %SRC%\css\lgb.min.css %DEST%\css\lgb.min.css
@@ -21,3 +21,4 @@ copy temp\ThreeExtras.js %DEST%\ThreeExtras.js
 copy %SRC%\3d-assets\textures\circle.png %DEST%\3d-assets\textures\circle.png
 
 copy temp\lgb.js %DEST%\lgb.js
+copy temp\kendo.min.js %DEST%\kendo.min.js

@@ -15,6 +15,7 @@ goog.require('lgb.view.TrackBallView');
 lgb.controller.TrackBallController = function(domElement, camera ) {
   lgb.controller.ControllerBase.call(this);
   
+  this.bind_();
   this.domElement_= domElement;
   this.camera_= camera;
   
@@ -24,4 +25,28 @@ lgb.controller.TrackBallController = function(domElement, camera ) {
 
 goog.inherits(lgb.controller.TrackBallController, lgb.controller.ControllerBase);
 
+/**
+ * Binds specific event types to functions which handle the events.
+ * If no event target is specified then the listener is set  on the global
+ * event bus.
+ * @private
+ */
+lgb.controller.TrackBallController.prototype.bind_ = function() {
 
+  this.listen(
+    lgb.events.RequestGoToViewPoint.TYPE,
+    this.onRequestGoToViewPoint_
+  );
+  
+};
+
+/**
+ * @private
+ * @param {lgb.events.RequestGoToViewPoint} event Fired.
+ */
+lgb.controller.TrackBallController.prototype.onRequestGoToViewPoint_ =
+  function(event) {
+  
+  this.view.setCameraTarget(event.payload.target);
+
+};

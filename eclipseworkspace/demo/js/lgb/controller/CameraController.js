@@ -55,7 +55,7 @@ lgb.controller.CameraController.prototype.bind_ = function() {
 
 /**
  * @private
- * @param {lgb.events.CamerasLoaded} event Fired by the view.
+ * @param {lgb.events.RequestGoToViewPoint} event Fired.
  */
 lgb.controller.CameraController.prototype.onRequestGoToViewPoint_ =
   function(event) {

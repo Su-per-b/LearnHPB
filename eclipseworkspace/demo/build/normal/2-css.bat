@@ -1,5 +1,5 @@
 @echo off
-echo css.bat
+echo 2-css.bat
 
 set "SRC=..\..\css"
 

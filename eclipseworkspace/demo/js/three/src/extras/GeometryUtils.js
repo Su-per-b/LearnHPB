@@ -303,7 +303,7 @@ THREE.GeometryUtils = {
 	//  - pick random number from 0 to total area
 	//  - find corresponding place in area array by binary search
 	//	- get random point in face
- //TODO (Raj) AHHHHWWW YEAH this is what i was looking for the particle system.
+
 	randomPointsInGeometry: function( geometry, n ) {
 
 		var face, i,

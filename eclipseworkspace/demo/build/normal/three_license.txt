@@ -1,4 +1,19 @@
 /*
+Three.js is used by permission.  The following classes were modified 
+by Raj Dye before being compiled into this project:
+
+THREE.Mesh - added 3 functions 
+THREE.BinaryLoader - modified 1 function
+THREE.PathControls.js - modified 1 function
+THREE.Geometry - added 2 functions 
+THREE.Object3D - added 1 function
+
+The following classes were created based on THREE.js classes:
+
+THREE.SceneLoaderEx - based on THREE.SceneLoader
+THREE.TrackballControlsEx - based on THREE.TrackballControls
+
+
 The MIT License
 
 Copyright (c) 2010-2011 three.js Authors. All rights reserved.

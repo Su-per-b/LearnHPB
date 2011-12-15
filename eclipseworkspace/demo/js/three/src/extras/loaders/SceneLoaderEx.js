@@ -1,5 +1,8 @@
 /**
+ * 
+ * based on THREE.SceneLoader
  * @author alteredq / http://alteredqualia.com/
+ * @author modified by Raj Dye
  */
 
 THREE.SceneLoaderEx = function () {

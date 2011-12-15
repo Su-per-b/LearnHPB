@@ -1,5 +1,7 @@
 /**
+ * based on THREE.TrackballControls
  * @author Eberhard Graether / http://egraether.com/
+ * @author modified by Raj Dye
  */
 
 THREE.TrackballControlsEx = function ( object, domElement ) {
