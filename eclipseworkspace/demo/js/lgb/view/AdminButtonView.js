@@ -157,7 +157,8 @@ lgb.view.AdminButtonView.prototype.bind_ = function() {
  * When the user clicks the buttont then dispatch the event.
  */
 lgb.view.AdminButtonView.prototype.onClick_ = function() {
-  this.dispatchLocal(new lgb.events.RequestActivateView(!this.isSelected));
+  var event = new lgb.events.RequestActivateView(!this.isSelected);
+  this.dispatchLocal(event);
 };
 
 
