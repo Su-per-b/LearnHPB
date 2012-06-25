@@ -29,6 +29,7 @@ goog.inherits(lgb.view.TitleBarView, lgb.view.ViewBase);
  * @private
  */
 lgb.view.TitleBarView.prototype.injectHtml_ = function() {
+    
     $('<div>')
     .attr('id', this.htmlID)
     .css({

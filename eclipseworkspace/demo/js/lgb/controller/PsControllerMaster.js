@@ -9,7 +9,6 @@ goog.require('lgb.controller.ControllerBase');
 goog.require('lgb.controller.PsController');
 goog.require('lgb.events.DataModelChanged');
 goog.require('lgb.events.DataModelInitialized');
-goog.require('lgb.events.RequestDataModelChange');
 goog.require('lgb.events.WorldCreated');
 goog.require('lgb.model.PsModel');
 goog.require('lgb.model.PsModelMaster');

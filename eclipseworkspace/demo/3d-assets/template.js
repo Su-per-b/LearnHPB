@@ -12,7 +12,7 @@
 },
 
 "type" : "scene",
-"urlBaseType" : "relativeToScene",
+"urlBaseType" : "relativeToHTML",
 
 
 "objects" :

@@ -12,6 +12,8 @@ goog.require('lgb.controller.ControllerBase');
 goog.require('lgb.controller.GuiController');
 goog.require('lgb.controller.ScenarioController');
 goog.require('lgb.controller.WorldController');
+goog.require('lgb.controller.SimulationController');
+
 goog.require('lgb.events.WindowResize');
 goog.require('lgb.events.WorldCreated');
 
@@ -37,12 +39,14 @@ lgb.controller.MainController.prototype.init = function() {
 
 
   this.injectErrorWindow_();
+  this.injectSimulationWindow_();
+
 
   window.onerror = function(errorMsg, url, lineNumber) {
 
-    var w = $('#errorWindow').data('kendoWindow');
-     w.content(errorMsg + '<br />url:' + url + '<br />line:' + lineNumber);
-       w.open();
+   // var w = $('#errorWindow').data('kendoWindow');
+   // w.content(errorMsg + '<br />url:' + url + '<br />line:' + lineNumber);
+  //     w.open();
   };
 
 
@@ -64,6 +68,7 @@ lgb.controller.MainController.prototype.init = function() {
   var e = new lgb.events.WorldCreated();
   this.dispatch(e);
 
+  this.simulationController_ = new lgb.controller.SimulationController();
 
   $('title').html(lgb.Config.getTitle());
 
@@ -82,6 +87,33 @@ lgb.controller.MainController.prototype.init = function() {
   $(window).resize(this.d(this.onWindowResize_));
 
 };
+
+
+
+/**
+ * Injects the HTML needed for the modal
+ * dialog that apears if an exception occurs
+ * @private
+ */
+lgb.controller.MainController.prototype.injectSimulationWindow_ = function() {
+  $('<p>')
+    .attr('id', 'simulationWindow')
+    .appendTo('body');
+
+   var w = $('#simulationWindow').kendoWindow({
+       draggable: false,
+       resizable: false,
+       width: '500px',
+       height: '300px',
+       title: 'Simulation Output',
+       modal: true,
+       visible: false,
+       actions: ['Refresh', 'Maximize', 'Close']
+   }).data('kendoWindow');
+
+   w.center();
+};
+
 
 
 /**

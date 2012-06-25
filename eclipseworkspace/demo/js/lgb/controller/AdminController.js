@@ -25,6 +25,7 @@ goog.inherits(lgb.controller.AdminController, lgb.controller.ControllerBase);
  */
 lgb.controller.AdminController.prototype.init_ = function() {
   this.view = new lgb.view.AdminView();
+
   this.buttonView = new lgb.view.AdminButtonView();
   this.buttonView.init();
 
