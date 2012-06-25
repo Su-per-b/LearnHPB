@@ -1,0 +1,162 @@
+newmtl black
+Ka 0 0 0
+Kd 0 0 0
+Ks 0 0 0
+Ni 1
+Ns 400
+Tf 1 1 1
+d 1
+
+newmtl clearglass
+Ka 0 0 0
+Kd 0.784314 0.784314 0.784314
+Ks 0.75 0.75 0.75
+Ni 1
+Ns 400
+Tf 1 1 1
+d 0.05
+
+newmtl Default
+Ka 0 0 0
+Kd 0.784314 0.784314 0.784314
+Ks 0 0 0
+Ni 1
+Ns 400
+Tf 1 1 1
+d 1
+
+newmtl Interior
+Ka 0.025 0.025 0.025
+Kd 0.854982 0.853595 0.877828
+Ks 0.165 0.165 0.165
+Ni 1
+Ns 400
+Tf 1 1 1
+d 1
+
+newmtl Interior_Body
+Ka 0.03 0.03 0.03
+Kd 0.835386 0.98067 0.98067
+Ks 0.475 0.475 0.475
+Ni 1
+Ns 400
+Tf 1 1 1
+d 1
+
+newmtl Mullion
+Ka 0 0 0
+Kd 0.426635 0.426703 0.426605
+Ks 0.5 0.5 0.5
+Ni 1
+Ns 639
+Tf 1 1 1
+d 1
+
+newmtl tintglass
+Ka 0.16 0.16 0.16
+Kd 0.0152778 0 0.373424
+Ks 0.8 0.8 0.8
+Ni 1.6
+Ns 400
+Tf 1 1 1
+d 0.525
+
+newmtl black
+Ka 0 0 0
+Kd 0 0 0
+Ks 0 0 0
+Ni 1
+Ns 400
+Tf 1 1 1
+d 1
+
+newmtl Default
+Ka 0 0 0
+Kd 0.784314 0.784314 0.784314
+Ks 0 0 0
+Ni 1
+Ns 400
+Tf 1 1 1
+d 1
+
+newmtl Interior
+Ka 0.025 0.025 0.025
+Kd 0.854982 0.853595 0.877828
+Ks 0.165 0.165 0.165
+Ni 1
+Ns 400
+Tf 1 1 1
+d 1
+
+newmtl Interior_Body
+Ka 0.03 0.03 0.03
+Kd 0.835386 0.98067 0.98067
+Ks 0.475 0.475 0.475
+Ni 1
+Ns 400
+Tf 1 1 1
+d 1
+
+newmtl black
+Ka 0 0 0
+Kd 0 0 0
+Ks 0 0 0
+Ni 1
+Ns 400
+Tf 1 1 1
+d 1
+
+newmtl center
+Ka 0 0 0
+Kd 1 1 1
+Ks 0 0 0
+Ni 1
+Ns 400
+Tf 1 1 1
+d 1
+
+newmtl Default
+Ka 0 0 0
+Kd 0.784314 0.784314 0.784314
+Ks 0 0 0
+Ni 1
+Ns 400
+Tf 1 1 1
+d 1
+
+newmtl grey
+Ka 0 0 0
+Kd 0.705882 0.693558 0.702801
+Ks 0 0 0
+Ni 1
+Ns 400
+Tf 1 1 1
+d 1
+
+newmtl Interior
+Ka 0.025 0.025 0.025
+Kd 0.854982 0.853595 0.877828
+Ks 0.165 0.165 0.165
+Ni 1
+Ns 400
+Tf 1 1 1
+d 1
+
+newmtl Interior_Body
+Ka 0.03 0.03 0.03
+Kd 0.835386 0.98067 0.98067
+Ks 0.475 0.475 0.475
+Ni 1
+Ns 400
+Tf 1 1 1
+d 1
+
+newmtl white
+Ka 0 0 0
+Kd 1 0.982541 0.995635
+Ks 0 0 0
+Ni 1
+Ns 400
+Tf 1 1 1
+d 1
+
