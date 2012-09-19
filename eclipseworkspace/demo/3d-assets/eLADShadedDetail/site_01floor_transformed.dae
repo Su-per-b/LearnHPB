@@ -1,0 +1,674 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset>
+    <contributor>
+      <author>eobara</author>
+      <authoring_tool>OpenCOLLADA for 3ds Max;  Version: 1.3.1;  Revision: 847M;  Platform: x64;  Configuration: Release_Max2012_static</authoring_tool>
+      <source_data>file:///C:/Users/eobara/Desktop/ELAD/site_01floor_transformed_EO.max</source_data>
+    </contributor>
+    <created>2012-05-08T15:30:35</created>
+    <modified>2012-05-08T15:30:35</modified>
+    <unit name="feet" meter="0.3048"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_effects>
+    <effect id="Buildings">
+      <profile_COMMON>
+        <newparam sid="Building_jpg-surface">
+          <surface type="2D">
+            <init_from>Building_jpg</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="Building_jpg-sampler">
+          <sampler2D>
+            <source>Building_jpg-surface</source>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <blinn>
+            <emission>
+              <color>0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color>0.5882353 0.5882353 0.5882353 1</color>
+            </ambient>
+            <diffuse>
+              <texture texture="Building_jpg-sampler" texcoord="CHANNEL1"/>
+            </diffuse>
+            <specular>
+              <color>0.04705883 0.04705883 0.04705883 1</color>
+            </specular>
+            <shininess>
+              <float>9.999999</float>
+            </shininess>
+            <reflective>
+              <color>0 0 0 1</color>
+            </reflective>
+            <transparent opaque="A_ONE">
+              <color>1 1 1 1</color>
+            </transparent>
+            <transparency>
+              <float>1</float>
+            </transparency>
+          </blinn>
+        </technique>
+      </profile_COMMON>
+      <extra>
+        <technique profile="OpenCOLLADA3dsMax">
+          <extended_shader>
+            <apply_reflection_dimming>0</apply_reflection_dimming>
+            <dim_level>0</dim_level>
+            <falloff_type>0</falloff_type>
+            <index_of_refraction>1.5</index_of_refraction>
+            <opacity_type>0</opacity_type>
+            <reflection_level>3</reflection_level>
+            <wire_size>1</wire_size>
+            <wire_units>0</wire_units>
+          </extended_shader>
+          <shader>
+            <ambient_diffuse_lock>1</ambient_diffuse_lock>
+            <ambient_diffuse_texture_lock>1</ambient_diffuse_texture_lock>
+            <diffuse_specular_lock>0</diffuse_specular_lock>
+            <soften>0.1</soften>
+            <use_self_illum_color>0</use_self_illum_color>
+          </shader>
+        </technique>
+      </extra>
+    </effect>
+    <effect id="GroundA">
+      <profile_COMMON>
+        <newparam sid="GroundA_jpg-surface">
+          <surface type="2D">
+            <init_from>GroundA_jpg</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="GroundA_jpg-sampler">
+          <sampler2D>
+            <source>GroundA_jpg-surface</source>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <blinn>
+            <emission>
+              <color>0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color>0.5882353 0.5882353 0.5882353 1</color>
+            </ambient>
+            <diffuse>
+              <texture texture="GroundA_jpg-sampler" texcoord="CHANNEL1"/>
+            </diffuse>
+            <specular>
+              <color>0.01176471 0.01176471 0.01176471 1</color>
+            </specular>
+            <shininess>
+              <float>9.999999</float>
+            </shininess>
+            <reflective>
+              <color>0 0 0 1</color>
+            </reflective>
+            <transparent opaque="A_ONE">
+              <color>1 1 1 1</color>
+            </transparent>
+            <transparency>
+              <float>1</float>
+            </transparency>
+          </blinn>
+        </technique>
+      </profile_COMMON>
+      <extra>
+        <technique profile="OpenCOLLADA3dsMax">
+          <extended_shader>
+            <apply_reflection_dimming>0</apply_reflection_dimming>
+            <dim_level>0</dim_level>
+            <falloff_type>0</falloff_type>
+            <index_of_refraction>1.5</index_of_refraction>
+            <opacity_type>0</opacity_type>
+            <reflection_level>3</reflection_level>
+            <wire_size>1</wire_size>
+            <wire_units>0</wire_units>
+          </extended_shader>
+          <shader>
+            <ambient_diffuse_lock>1</ambient_diffuse_lock>
+            <ambient_diffuse_texture_lock>1</ambient_diffuse_texture_lock>
+            <diffuse_specular_lock>0</diffuse_specular_lock>
+            <soften>0.1</soften>
+            <use_self_illum_color>0</use_self_illum_color>
+          </shader>
+        </technique>
+      </extra>
+    </effect>
+  </library_effects>
+  <library_materials>
+    <material id="Buildings-material" name="Buildings">
+      <instance_effect url="#Buildings"/>
+    </material>
+    <material id="GroundA-material" name="GroundA">
+      <instance_effect url="#GroundA"/>
+    </material>
+  </library_materials>
+  <library_geometries>
+    <geometry id="geom-Obj_000009" name="Obj_000009">
+      <mesh>
+        <source id="geom-Obj_000009-positions">
+          <float_array id="geom-Obj_000009-positions-array" count="24">442.9369 -39.82701 0 357.9369 -39.82701 40 357.9369 -39.82701 0 442.9369 -39.82701 40 357.9369 63.78103 0 442.9369 63.78103 40 442.9369 63.78103 0 357.9369 63.78103 40</float_array>
+          <technique_common>
+            <accessor source="#geom-Obj_000009-positions-array" count="8" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Obj_000009-normals">
+          <float_array id="geom-Obj_000009-normals-array" count="24">0 -0.7071068 -0.7071067 -0.5773503 -0.5773503 0.5773503 -0.5773503 -0.5773503 -0.5773503 0 -0.7071068 0.7071067 -0.5773503 0.5773503 -0.5773502 0 0.7071068 0.7071067 0 0.7071068 -0.7071068 -0.5773503 0.5773503 0.5773502</float_array>
+          <technique_common>
+            <accessor source="#geom-Obj_000009-normals-array" count="8" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Obj_000009-map1">
+          <float_array id="geom-Obj_000009-map1-array" count="60">0.2555479 0.9964287 0 0.4752868 0.9964287 0 0.2555479 0.8148615 0 0.2539712 0.8148615 0 0.4768635 0.8148615 0 0.4752868 0.8148615 0 0.4768635 0.9964287 0 0.2539712 0.9964287 0 0.2416448 0.8142598 0 0.02032921 0.8997032 0 0.02032921 0.8142598 0 0.2416448 0.8997032 0 0.2412795 0.904378 0 0.0597123 0.9898214 0 0.0597123 0.904378 0 0.2412795 0.9898214 0 0.2416315 0.904378 0 0.06006424 0.9898214 0 0.06006424 0.904378 0 0.2416315 0.9898214 0</float_array>
+          <technique_common>
+            <accessor source="#geom-Obj_000009-map1-array" count="20" stride="3">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+              <param name="P" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="geom-Obj_000009-vertices">
+          <input semantic="POSITION" source="#geom-Obj_000009-positions"/>
+        </vertices>
+        <triangles material="Buildings" count="10">
+          <input semantic="VERTEX" source="#geom-Obj_000009-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#geom-Obj_000009-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#geom-Obj_000009-map1" offset="2" set="0"/>
+          <p>0 0 16 1 1 17 2 2 18 1 1 17 0 0 16 3 3 19 4 4 12 5 5 13 6 6 14 5 5 13 4 4 12 7 7 15 2 2 8 7 7 9 4 4 10 7 7 9 2 2 8 1 1 11 0 0 0 2 2 2 4 4 4 4 4 4 6 6 6 0 0 0 3 3 1 7 7 3 1 1 5 7 7 3 3 3 1 5 5 7</p>
+        </triangles>
+      </mesh>
+    </geometry>
+    <geometry id="geom-Obj_000008" name="Obj_000008">
+      <mesh>
+        <source id="geom-Obj_000008-positions">
+          <float_array id="geom-Obj_000008-positions-array" count="24">-152.0631 63.78103 0 -152.0631 -39.82701 25 -152.0631 -39.82701 0 -152.0631 63.78103 25 -317.0631 63.78103 0 -317.0631 63.78103 25 -317.0631 -39.82701 0 -317.0631 -39.82701 25</float_array>
+          <technique_common>
+            <accessor source="#geom-Obj_000008-positions-array" count="8" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Obj_000008-normals">
+          <float_array id="geom-Obj_000008-normals-array" count="24">0.5773502 0.5773503 -0.5773503 0.5773502 -0.5773503 0.5773503 0.5773503 -0.5773503 -0.5773503 0.5773503 0.5773503 0.5773503 -0.5773503 0.5773503 -0.5773503 -0.5773502 0.5773503 0.5773503 -0.5773502 -0.5773503 -0.5773503 -0.5773503 -0.5773503 0.5773503</float_array>
+          <technique_common>
+            <accessor source="#geom-Obj_000008-normals-array" count="8" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Obj_000008-map1">
+          <float_array id="geom-Obj_000008-map1-array" count="72">0.9655017 0.3122827 0 0.9655158 0.129054 0 0.6737028 0.3122827 0 0.6737168 0.3122827 0 0.6737028 0.129054 0 0.6737168 0.129054 0 0.9655017 0.129054 0 0.9655158 0.3122827 0 0.8590017 0.06732363 0 0.6757731 0.1115356 0 0.6757731 0.06732363 0 0.8590017 0.1115356 0 0.8590017 0.06761031 0 0.6757731 0.1118223 0 0.6757731 0.06761031 0 0.8590017 0.1118223 0 0.9678424 0.0156799 0 0.6760435 0.05989188 0 0.6760435 0.0156799 0 0.9678424 0.05989188 0 0.967572 0.0156799 0 0.6757731 0.05989188 0 0.6757731 0.0156799 0 0.967572 0.05989188 0</float_array>
+          <technique_common>
+            <accessor source="#geom-Obj_000008-map1-array" count="24" stride="3">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+              <param name="P" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="geom-Obj_000008-vertices">
+          <input semantic="POSITION" source="#geom-Obj_000008-positions"/>
+        </vertices>
+        <triangles material="Buildings" count="12">
+          <input semantic="VERTEX" source="#geom-Obj_000008-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#geom-Obj_000008-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#geom-Obj_000008-map1" offset="2" set="0"/>
+          <p>0 0 8 1 1 9 2 2 10 1 1 9 0 0 8 3 3 11 4 4 16 3 3 17 0 0 18 3 3 17 4 4 16 5 5 19 6 6 12 5 5 13 4 4 14 5 5 13 6 6 12 7 7 15 2 2 20 7 7 21 6 6 22 7 7 21 2 2 20 1 1 23 2 2 0 6 6 2 4 4 4 4 4 4 0 0 6 2 2 0 1 1 1 5 5 3 7 7 5 5 5 3 1 1 1 3 3 7</p>
+        </triangles>
+      </mesh>
+    </geometry>
+    <geometry id="geom-Obj_000007" name="Obj_000007">
+      <mesh>
+        <source id="geom-Obj_000007-positions">
+          <float_array id="geom-Obj_000007-positions-array" count="24">59.93685 180.173 0 -62.06315 180.173 20 -62.06315 180.173 0 59.93685 180.173 20 59.93685 273.781 0 59.93685 273.781 20 -62.06315 273.781 0 -62.06315 273.781 20</float_array>
+          <technique_common>
+            <accessor source="#geom-Obj_000007-positions-array" count="8" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Obj_000007-normals">
+          <float_array id="geom-Obj_000007-normals-array" count="24">0.5773503 -0.5773503 -0.5773503 -0.5773503 -0.5773503 0.5773503 -0.5773503 -0.5773503 -0.5773503 0.5773503 -0.5773503 0.5773503 0.5773503 0.5773503 -0.5773503 0.5773503 0.5773503 0.5773503 -0.5773503 0.5773503 -0.5773503 -0.5773503 0.5773503 0.5773503</float_array>
+          <technique_common>
+            <accessor source="#geom-Obj_000007-normals-array" count="8" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Obj_000007-map1">
+          <float_array id="geom-Obj_000007-map1-array" count="72">0.9686753 0.6238079 0 0.966772 0.3878602 0 0.6611629 0.6238079 0 0.6592596 0.6238079 0 0.6611629 0.3878602 0 0.6592596 0.3878602 0 0.9686753 0.3878602 0 0.966772 0.6238079 0 0.8964912 0.6914112 0 0.6605435 0.741823 0 0.6605435 0.6914112 0 0.8964912 0.741823 0 0.8964912 0.6921042 0 0.6605435 0.742516 0 0.6605435 0.6921042 0 0.8964912 0.742516 0 0.9699591 0.6327501 0 0.6624468 0.683162 0 0.6624468 0.6327501 0 0.9699591 0.683162 0 0.9680558 0.6327501 0 0.6605435 0.683162 0 0.6605435 0.6327501 0 0.9680558 0.683162 0</float_array>
+          <technique_common>
+            <accessor source="#geom-Obj_000007-map1-array" count="24" stride="3">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+              <param name="P" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="geom-Obj_000007-vertices">
+          <input semantic="POSITION" source="#geom-Obj_000007-positions"/>
+        </vertices>
+        <triangles material="Buildings" count="12">
+          <input semantic="VERTEX" source="#geom-Obj_000007-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#geom-Obj_000007-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#geom-Obj_000007-map1" offset="2" set="0"/>
+          <p>0 0 20 1 1 21 2 2 22 1 1 21 0 0 20 3 3 23 4 4 8 3 3 9 0 0 10 3 3 9 4 4 8 5 5 11 6 6 16 5 5 17 4 4 18 5 5 17 6 6 16 7 7 19 2 2 12 7 7 13 6 6 14 7 7 13 2 2 12 1 1 15 0 0 0 2 2 2 6 6 4 6 6 4 4 4 6 0 0 0 3 3 1 7 7 3 1 1 5 7 7 3 3 3 1 5 5 7</p>
+        </triangles>
+      </mesh>
+    </geometry>
+    <geometry id="geom-Obj_000006" name="Obj_000006">
+      <mesh>
+        <source id="geom-Obj_000006-positions">
+          <float_array id="geom-Obj_000006-positions-array" count="24">442.9369 -304.827 0 357.9369 -304.827 20 357.9369 -304.827 0 442.9369 -304.827 20 357.9369 -222.6247 0 442.9369 -222.6247 20 442.9369 -222.6247 0 357.9369 -222.6247 20</float_array>
+          <technique_common>
+            <accessor source="#geom-Obj_000006-positions-array" count="8" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Obj_000006-normals">
+          <float_array id="geom-Obj_000006-normals-array" count="24">0 -0.7071068 -0.7071068 -0.5773503 -0.5773502 0.5773503 -0.5773503 -0.5773503 -0.5773503 0 -0.7071068 0.7071067 -0.5773503 0.5773503 -0.5773503 0 0.7071067 0.7071068 0 0.7071068 -0.7071068 -0.5773503 0.5773503 0.5773503</float_array>
+          <technique_common>
+            <accessor source="#geom-Obj_000006-normals-array" count="8" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Obj_000006-map1">
+          <float_array id="geom-Obj_000006-map1-array" count="60">0.2473722 0.2367521 0 0.2474877 0.01489293 0 0.0179622 0.2367521 0 0.01807769 0.2367521 0 0.0179622 0.01489293 0 0.01807769 0.01489293 0 0.2473722 0.01489293 0 0.2474877 0.2367521 0 0.4764078 0.07195242 0 0.2545484 0.1259313 0 0.2545484 0.07195242 0 0.4764078 0.1259313 0 0.4840924 0.01558289 0 0.2546824 0.06956168 0 0.2546824 0.01558289 0 0.4840924 0.06956168 0 0.4839585 0.01558289 0 0.2545484 0.06956168 0 0.2545484 0.01558289 0 0.4839585 0.06956168 0</float_array>
+          <technique_common>
+            <accessor source="#geom-Obj_000006-map1-array" count="20" stride="3">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+              <param name="P" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="geom-Obj_000006-vertices">
+          <input semantic="POSITION" source="#geom-Obj_000006-positions"/>
+        </vertices>
+        <triangles material="Buildings" count="10">
+          <input semantic="VERTEX" source="#geom-Obj_000006-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#geom-Obj_000006-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#geom-Obj_000006-map1" offset="2" set="0"/>
+          <p>0 0 16 1 1 17 2 2 18 1 1 17 0 0 16 3 3 19 4 4 12 5 5 13 6 6 14 5 5 13 4 4 12 7 7 15 2 2 8 7 7 9 4 4 10 7 7 9 2 2 8 1 1 11 0 0 0 2 2 2 4 4 4 4 4 4 6 6 6 0 0 0 3 3 1 7 7 3 1 1 5 7 7 3 3 3 1 5 5 7</p>
+        </triangles>
+      </mesh>
+    </geometry>
+    <geometry id="geom-Obj_000005" name="Obj_000005">
+      <mesh>
+        <source id="geom-Obj_000005-positions">
+          <float_array id="geom-Obj_000005-positions-array" count="24">-62.06315 -304.827 0 -62.06315 -228.023 25 -62.06315 -228.023 0 -62.06315 -304.827 25 55.84021 -304.827 0 55.84021 -304.827 25 55.84021 -228.023 0 55.84021 -228.023 25</float_array>
+          <technique_common>
+            <accessor source="#geom-Obj_000005-positions-array" count="8" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Obj_000005-normals">
+          <float_array id="geom-Obj_000005-normals-array" count="24">-0.5773503 -0.5773503 -0.5773503 -0.5773503 0.5773503 0.5773503 -0.5773503 0.5773503 -0.5773503 -0.5773503 -0.5773503 0.5773503 0.5773503 -0.5773503 -0.5773503 0.5773503 -0.5773503 0.5773503 0.5773503 0.5773503 -0.5773503 0.5773503 0.5773503 0.5773503</float_array>
+          <technique_common>
+            <accessor source="#geom-Obj_000005-normals-array" count="8" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Obj_000005-map1">
+          <float_array id="geom-Obj_000005-map1-array" count="72">0.5055332 0.8325411 0 0.5041603 0.9865373 0 0.7419355 0.8325411 0 0.7405629 0.8325411 0 0.7419355 0.9865373 0 0.7405629 0.9865373 0 0.5055332 0.9865373 0 0.5041603 0.8325411 0 0.9060969 0.8895792 0 0.7521008 0.9397055 0 0.7521008 0.8895792 0 0.9060969 0.9397055 0 0.9060969 0.8904783 0 0.7521008 0.9406046 0 0.7521008 0.8904783 0 0.9060969 0.9406046 0 0.989159 0.8336602 0 0.7527564 0.8837866 0 0.7527564 0.8336602 0 0.989159 0.8837866 0 0.9885033 0.8336602 0 0.7521008 0.8837866 0 0.7521008 0.8336602 0 0.9885033 0.8837866 0</float_array>
+          <technique_common>
+            <accessor source="#geom-Obj_000005-map1-array" count="24" stride="3">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+              <param name="P" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="geom-Obj_000005-vertices">
+          <input semantic="POSITION" source="#geom-Obj_000005-positions"/>
+        </vertices>
+        <triangles material="Buildings" count="12">
+          <input semantic="VERTEX" source="#geom-Obj_000005-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#geom-Obj_000005-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#geom-Obj_000005-map1" offset="2" set="0"/>
+          <p>0 0 12 1 1 13 2 2 14 1 1 13 0 0 12 3 3 15 4 4 20 3 3 21 0 0 22 3 3 21 4 4 20 5 5 23 6 6 8 5 5 9 4 4 10 5 5 9 6 6 8 7 7 11 2 2 16 7 7 17 6 6 18 7 7 17 2 2 16 1 1 19 2 2 0 6 6 2 4 4 4 4 4 4 0 0 6 2 2 0 1 1 1 5 5 3 7 7 5 5 5 3 1 1 1 3 3 7</p>
+        </triangles>
+      </mesh>
+    </geometry>
+    <geometry id="geom-Obj_000004" name="Obj_000004">
+      <mesh>
+        <source id="geom-Obj_000004-positions">
+          <float_array id="geom-Obj_000004-positions-array" count="24">-317.0631 -228.023 0 -152.0631 -228.023 20 -152.0631 -228.023 0 -317.0631 -228.023 20 -317.0631 -304.827 0 -317.0631 -304.827 20 -152.0631 -304.827 0 -152.0631 -304.827 20</float_array>
+          <technique_common>
+            <accessor source="#geom-Obj_000004-positions-array" count="8" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Obj_000004-normals">
+          <float_array id="geom-Obj_000004-normals-array" count="24">-0.5773503 0.5773503 -0.5773503 0.5773503 0.5773503 0.5773503 0.5773503 0.5773503 -0.5773503 -0.5773503 0.5773503 0.5773503 -0.5773503 -0.5773503 -0.5773503 -0.5773503 -0.5773503 0.5773503 0.5773503 -0.5773503 -0.5773503 0.5773503 -0.5773503 0.5773503</float_array>
+          <technique_common>
+            <accessor source="#geom-Obj_000004-normals-array" count="8" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Obj_000004-map1">
+          <float_array id="geom-Obj_000004-map1-array" count="72">0.01754707 0.2670502 0 0.01754707 0.4037386 0 0.3134761 0.2670502 0 0.3134761 0.2659899 0 0.3134761 0.404799 0 0.3134761 0.4037386 0 0.01754707 0.404799 0 0.01754707 0.2659899 0 0.4688132 0.3636135 0 0.3310644 0.3994837 0 0.3310644 0.3636135 0 0.4688132 0.3994837 0 0.4677529 0.3636135 0 0.3300042 0.3994837 0 0.3300042 0.3636135 0 0.4677529 0.3994837 0 0.6259331 0.3210309 0 0.3300042 0.3569011 0 0.3300042 0.3210309 0 0.6259331 0.3569011 0 0.6259331 0.320625 0 0.3300042 0.3564952 0 0.3300042 0.320625 0 0.6259331 0.3564952 0</float_array>
+          <technique_common>
+            <accessor source="#geom-Obj_000004-map1-array" count="24" stride="3">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+              <param name="P" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="geom-Obj_000004-vertices">
+          <input semantic="POSITION" source="#geom-Obj_000004-positions"/>
+        </vertices>
+        <triangles material="Buildings" count="12">
+          <input semantic="VERTEX" source="#geom-Obj_000004-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#geom-Obj_000004-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#geom-Obj_000004-map1" offset="2" set="0"/>
+          <p>0 0 16 1 1 17 2 2 18 1 1 17 0 0 16 3 3 19 4 4 12 3 3 13 0 0 14 3 3 13 4 4 12 5 5 15 6 6 20 5 5 21 4 4 22 5 5 21 6 6 20 7 7 23 2 2 8 7 7 9 6 6 10 7 7 9 2 2 8 1 1 11 0 0 0 2 2 2 6 6 4 6 6 4 4 4 6 0 0 0 3 3 1 7 7 3 1 1 5 7 7 3 3 3 1 5 5 7</p>
+        </triangles>
+      </mesh>
+    </geometry>
+    <geometry id="geom-Obj_000003" name="Obj_000003">
+      <mesh>
+        <source id="geom-Obj_000003-positions">
+          <float_array id="geom-Obj_000003-positions-array" count="12">442.9369 -84.82701 0 -317.0631 -84.82701 0 -317.0631 -164.827 0 442.9369 -164.827 0</float_array>
+          <technique_common>
+            <accessor source="#geom-Obj_000003-positions-array" count="4" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Obj_000003-normals">
+          <float_array id="geom-Obj_000003-normals-array" count="12">0 0 1 0 0 1 0 0 1 0 0 1</float_array>
+          <technique_common>
+            <accessor source="#geom-Obj_000003-normals-array" count="4" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Obj_000003-map1">
+          <float_array id="geom-Obj_000003-map1-array" count="12">1 0.3802229 0 2.98023e-8 0.3802229 0 2.98023e-8 0.24196 0 1 0.24196 0</float_array>
+          <technique_common>
+            <accessor source="#geom-Obj_000003-map1-array" count="4" stride="3">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+              <param name="P" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="geom-Obj_000003-vertices">
+          <input semantic="POSITION" source="#geom-Obj_000003-positions"/>
+        </vertices>
+        <triangles material="GroundA" count="2">
+          <input semantic="VERTEX" source="#geom-Obj_000003-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#geom-Obj_000003-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#geom-Obj_000003-map1" offset="2" set="0"/>
+          <p>0 0 0 1 1 1 2 2 2 0 0 0 2 2 2 3 3 3</p>
+        </triangles>
+      </mesh>
+    </geometry>
+    <geometry id="geom-Obj_000002" name="Obj_000002">
+      <mesh>
+        <source id="geom-Obj_000002-positions">
+          <float_array id="geom-Obj_000002-positions-array" count="12">442.9369 273.781 0 -317.0631 273.781 0 -317.0631 -84.82701 0 442.9369 -84.82701 0</float_array>
+          <technique_common>
+            <accessor source="#geom-Obj_000002-positions-array" count="4" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Obj_000002-normals">
+          <float_array id="geom-Obj_000002-normals-array" count="12">0 0 1 0 0 1 0 0 1 0 0 1</float_array>
+          <technique_common>
+            <accessor source="#geom-Obj_000002-normals-array" count="4" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Obj_000002-map1">
+          <float_array id="geom-Obj_000002-map1-array" count="12">1 1 0 2.98023e-8 1 0 2.98023e-8 0.3802229 0 1 0.3802229 0</float_array>
+          <technique_common>
+            <accessor source="#geom-Obj_000002-map1-array" count="4" stride="3">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+              <param name="P" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="geom-Obj_000002-vertices">
+          <input semantic="POSITION" source="#geom-Obj_000002-positions"/>
+        </vertices>
+        <triangles material="GroundA" count="2">
+          <input semantic="VERTEX" source="#geom-Obj_000002-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#geom-Obj_000002-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#geom-Obj_000002-map1" offset="2" set="0"/>
+          <p>0 0 0 1 1 1 2 2 2 0 0 0 2 2 2 3 3 3</p>
+        </triangles>
+      </mesh>
+    </geometry>
+    <geometry id="geom-Obj_000001" name="Obj_000001">
+      <mesh>
+        <source id="geom-Obj_000001-positions">
+          <float_array id="geom-Obj_000001-positions-array" count="12">442.9369 -164.827 0 -317.0631 -164.827 0 -317.0631 -304.827 0 442.9369 -304.827 0</float_array>
+          <technique_common>
+            <accessor source="#geom-Obj_000001-positions-array" count="4" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Obj_000001-normals">
+          <float_array id="geom-Obj_000001-normals-array" count="12">0 0 1 0 0 1 0 0 1 0 0 1</float_array>
+          <technique_common>
+            <accessor source="#geom-Obj_000001-normals-array" count="4" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Obj_000001-map1">
+          <float_array id="geom-Obj_000001-map1-array" count="12">1 0.24196 0 2.98023e-8 0.24196 0 2.98023e-8 0 0 1 0 0</float_array>
+          <technique_common>
+            <accessor source="#geom-Obj_000001-map1-array" count="4" stride="3">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+              <param name="P" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="geom-Obj_000001-vertices">
+          <input semantic="POSITION" source="#geom-Obj_000001-positions"/>
+        </vertices>
+        <triangles material="GroundA" count="2">
+          <input semantic="VERTEX" source="#geom-Obj_000001-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#geom-Obj_000001-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#geom-Obj_000001-map1" offset="2" set="0"/>
+          <p>0 0 0 1 1 1 2 2 2 0 0 0 2 2 2 3 3 3</p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_lights>
+    <light id="EnvironmentAmbientLight" name="EnvironmentAmbientLight">
+      <technique_common>
+        <ambient>
+          <color>0 0 0</color>
+        </ambient>
+      </technique_common>
+    </light>
+  </library_lights>
+  <library_images>
+    <image id="Building_jpg">
+      <init_from>images/Building.jpg</init_from>
+    </image>
+    <image id="GroundA_jpg">
+      <init_from>images/GroundA.jpg</init_from>
+    </image>
+  </library_images>
+  <library_visual_scenes>
+    <visual_scene id="MaxScene">
+      <node name="EnvironmentAmbientLight">
+        <instance_light url="#EnvironmentAmbientLight"/>
+      </node>
+      <node id="node-Obj_000009" name="Obj_000009">
+        <translate>0 1.22392e-6 -28</translate>
+        <instance_geometry url="#geom-Obj_000009">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="Buildings" target="#Buildings-material">
+                <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+      <node id="node-Obj_000008" name="Obj_000008">
+        <translate>0 1.22392e-6 -28</translate>
+        <instance_geometry url="#geom-Obj_000008">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="Buildings" target="#Buildings-material">
+                <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+      <node id="node-Obj_000007" name="Obj_000007">
+        <translate>0 1.22392e-6 -28</translate>
+        <instance_geometry url="#geom-Obj_000007">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="Buildings" target="#Buildings-material">
+                <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+      <node id="node-Obj_000006" name="Obj_000006">
+        <translate>0 1.22392e-6 -28</translate>
+        <instance_geometry url="#geom-Obj_000006">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="Buildings" target="#Buildings-material">
+                <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+      <node id="node-Obj_000005" name="Obj_000005">
+        <translate>0 1.22392e-6 -28</translate>
+        <instance_geometry url="#geom-Obj_000005">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="Buildings" target="#Buildings-material">
+                <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+      <node id="node-Obj_000004" name="Obj_000004">
+        <translate>0 1.22392e-6 -28</translate>
+        <instance_geometry url="#geom-Obj_000004">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="Buildings" target="#Buildings-material">
+                <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+      <node id="node-Obj_000003" name="Obj_000003">
+        <translate>0 1.22392e-6 -28</translate>
+        <instance_geometry url="#geom-Obj_000003">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="GroundA" target="#GroundA-material">
+                <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+      <node id="node-Obj_000002" name="Obj_000002">
+        <translate>0 1.22392e-6 -28</translate>
+        <instance_geometry url="#geom-Obj_000002">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="GroundA" target="#GroundA-material">
+                <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+      <node id="node-Obj_000001" name="Obj_000001">
+        <translate>0 1.22392e-6 -28</translate>
+        <instance_geometry url="#geom-Obj_000001">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="GroundA" target="#GroundA-material">
+                <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#MaxScene"/>
+  </scene>
+</COLLADA>

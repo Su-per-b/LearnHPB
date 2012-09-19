@@ -25,6 +25,11 @@ call:compileCopy rooftop\filter.obj
 call:compileCopy rooftop\heating-coil.obj
 call:compile rooftop\scene-bin.js
 
+call:compileCopy lighting\PendantLight.obj
+call:compileCopy lighting\RecessedLight.obj
+call:compile lighting\scene-bin.js
+
+
 
 
 goto:eof

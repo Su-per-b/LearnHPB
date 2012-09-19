@@ -59,7 +59,8 @@ THREE.SceneLoaderEx.prototype = {
 				fogs: {},
 				triggers: {},
 				empties: {},
-				groups: {}
+				groups: {},
+				appData: {}
 			};
 
 			// find out if there are some colliders
@@ -104,6 +105,15 @@ THREE.SceneLoaderEx.prototype = {
 					result.scene.updateMatrix();
 
 			}
+			
+			
+      if ( data.appData ) {
+
+          result.appData = data.appData;
+
+      }
+      
+			
 
 			function get_url( source_url, url_type ) {
 
@@ -120,6 +130,7 @@ THREE.SceneLoaderEx.prototype = {
 			};
 
 
+      
 			function handle_objects() {
 
 				for( dd in data.objects ) {
@@ -210,6 +221,7 @@ THREE.SceneLoaderEx.prototype = {
 								};
 								
 
+                
 								result.scene.add( object );
 
 								result.objects[ dd ] = object;

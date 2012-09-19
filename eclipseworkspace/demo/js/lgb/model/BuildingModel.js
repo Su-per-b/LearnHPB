@@ -34,7 +34,8 @@ lgb.model.BuildingModel.Group = {
   HVAC: 1,
   ENVELOPE: 2,
   ROOFTOP: 3,
-  DUCTWORK: 4
+  DUCTWORK: 4,
+  LIGHTING: 5
 };
 
 /*

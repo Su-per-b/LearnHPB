@@ -67,6 +67,7 @@ lgb.view.LeftNavView.prototype.injectCss_ = function() {
   cssInner += this.buttonGeneral.getCss();
   cssInner += this.buttonHvac.getCss();
   cssInner += this.buttonEnvelope.getCss();
+  cssInner += this.buttonLighting.getCss();
 
   var cssStr = "\n<style type='text/css'>{0}</style>".format(cssInner);
 
@@ -98,6 +99,13 @@ lgb.view.LeftNavView.prototype.init_ = function() {
       xPosition: -168,
       title: 'External Envelope'
     });
+    
+  this.buttonLighting =
+    new lgb.view.component.ToggleButtonA({
+      htmlId: 'leftNavButton_4',
+      xPosition: -126,
+      title: 'Lighting'
+    });
 
   this.currentlySelectedID = 'none';
 };
@@ -114,6 +122,7 @@ lgb.view.LeftNavView.prototype.injectHtml_ = function() {
       .append(this.buttonGeneral.getHtml())
       .append(this.buttonHvac.getHtml())
       .append(this.buttonEnvelope.getHtml())
+      .append(this.buttonLighting.getHtml())
       .css({
           position: 'absolute',
         width: '53px',
@@ -151,6 +160,10 @@ lgb.view.LeftNavView.prototype.bind_ = function() {
   this.buttonEnvelope.jq().click(
     lgb.model.BuildingModel.Group.ENVELOPE, delegate
   );
+  
+  this.buttonLighting.jq().click(
+    lgb.model.BuildingModel.Group.LIGHTING, delegate
+  );
 
 };
 
@@ -184,16 +197,25 @@ lgb.view.LeftNavView.prototype.updateSelected = function(visibilityGroup) {
       this.buttonGeneral.setSelected(true);
       this.buttonHvac.setSelected(false);
       this.buttonEnvelope.setSelected(false);
+      this.buttonLighting.setSelected(false);
       break;
     case lgb.model.BuildingModel.Group.HVAC:
       this.buttonGeneral.setSelected(false);
       this.buttonHvac.setSelected(true);
       this.buttonEnvelope.setSelected(false);
+      this.buttonLighting.setSelected(false);
       break;
     case lgb.model.BuildingModel.Group.ENVELOPE:
       this.buttonGeneral.setSelected(false);
       this.buttonHvac.setSelected(false);
       this.buttonEnvelope.setSelected(true);
+       this.buttonLighting.setSelected(false);
+      break;
+    case lgb.model.BuildingModel.Group.LIGHTING:
+      this.buttonGeneral.setSelected(false);
+      this.buttonHvac.setSelected(false);
+      this.buttonEnvelope.setSelected(false);
+      this.buttonLighting.setSelected(true);
       break;
     default :
       this.buttonGeneral.setSelected(false);

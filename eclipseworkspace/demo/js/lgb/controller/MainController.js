@@ -59,7 +59,9 @@ lgb.controller.MainController.prototype.init = function() {
    */
   this.containerDiv_ = document.createElement('div');
   document.body.appendChild(this.containerDiv_);
-
+  
+   $('title').html(lgb.Config.getTitle());
+   
   this.worldController_ = new
     lgb.controller.WorldController(this.containerDiv_);
 
@@ -67,10 +69,10 @@ lgb.controller.MainController.prototype.init = function() {
 
   var e = new lgb.events.WorldCreated();
   this.dispatch(e);
-
+  
   this.simulationController_ = new lgb.controller.SimulationController();
 
-  $('title').html(lgb.Config.getTitle());
+ 
 
   /**
   * The logger used by this object.

@@ -22,8 +22,8 @@ lgb.view.EnvelopeView = function(dataModel) {
   /**@const */
   this._NAME = 'lgb.view.EnvelopeView';
 
-  /**@type {Array.<THREE.Geometry>} */
-  this.floorGeometry = [];
+  ///**@type {Array.<THREE.Geometry>} */
+ // this.floorGeometry = [];
   this.floorObjs = [];
   this.init_();
 };
@@ -116,19 +116,9 @@ lgb.view.EnvelopeView.prototype.updateAllFromModel_ = function() {
  */
 lgb.view.EnvelopeView.prototype.makeFloors_ = function() {
 
-  //var geometry = this.floorGeometry[this.dataModel.floorHeight];
-
   var geometry = this.floorObjs[this.dataModel.floorHeight + 'ft'].geometry;
-
-
   this.floorDimensions = geometry.getDimensions();
-
-  //var floorMesh = this.floorObjs[this.dataModel.floorHeight + 'ft']
-
-
-
   this.dimensions = geometry.getDimensions();
-
 
   var m = this.masterGroup.children.length;
 

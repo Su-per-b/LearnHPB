@@ -7,8 +7,10 @@ goog.provide('lgb.controller.BuildingController');
 
 goog.require('lgb.controller.ControllerBase');
 goog.require('lgb.controller.DuctworkController');
+goog.require('lgb.controller.LightingController');
 goog.require('lgb.controller.EnvelopeController');
 goog.require('lgb.controller.RoofTopController');
+//goog.require('lgb.controller.FurnitureController');
 goog.require('lgb.controller.ZoneController');
 goog.require('lgb.events.VisibilityChanged');
 
@@ -36,6 +38,8 @@ lgb.controller.BuildingController.prototype.init_ = function() {
   this.envelopeController_ = new lgb.controller.EnvelopeController();
   this.roofTopController_ = new lgb.controller.RoofTopController();
   this.ductworkController_ = new lgb.controller.DuctworkController();
+  this.lightingController = new lgb.controller.LightingController();
+  //this.furnitureController = new lgb.controller.FurnitureController();
 
   this.bind_();
 };
@@ -67,6 +71,7 @@ lgb.controller.BuildingController.prototype.onRequestVisibilityChange_ =
   this.envelopeController_.setVisiblityGroup(group);
   this.roofTopController_.setVisiblityGroup(group);
   this.ductworkController_.setVisiblityGroup(group);
+  this.lightingController.setVisiblityGroup(group);
 
   this.dispatch(new lgb.events.VisibilityChanged(group));
 };

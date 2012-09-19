@@ -35,7 +35,7 @@ lgb.controller.EnvelopeController.prototype.init_ = function() {
   this.dataModel = new lgb.model.EnvelopeModel();
   this.view = new lgb.view.EnvelopeView(this.dataModel);
   this.bind_();
-  this.dispatch(new lgb.events.EnvelopeModelChanged(this.dataModel));
+
 };
 
 

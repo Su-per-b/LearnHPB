@@ -44,7 +44,7 @@ lgb.Config.APP_TITLE = 'Learn Grean Buildings - Demo';
  * @const
  * @type {string}
  */
-lgb.Config.APP_VERSION = '0.10.24';
+lgb.Config.APP_VERSION = '0.11.01';
 
 /**
  * Will show status in the upper left if set to true.
