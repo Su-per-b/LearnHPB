@@ -840,7 +840,7 @@ goog.addDependency("../../../lgb/view/DuctworkView.js", ['lgb.view.DuctworkView'
 goog.addDependency("../../../lgb/view/EnvelopeAdminView.js", ['lgb.view.EnvelopeAdminView'], ['lgb.component.RadioButtonDataSource', 'lgb.component.RadioButtonGroup', 'lgb.events.DataModelChanged', 'lgb.events.DataSourceChanged', 'lgb.events.RequestDataModelChange', 'lgb.view.ViewBase']);
 goog.addDependency("../../../lgb/view/EnvelopeView.js", ['lgb.view.EnvelopeView'], ['goog.userAgent', 'lgb.ThreeUtils', 'lgb.events.CamerasLoaded', 'lgb.events.ViewInitialized', 'lgb.view.ViewBase']);
 goog.addDependency("../../../lgb/view/FloorView.js", ['lgb.view.FloorView'], ['lgb.view.ViewBase']);
-goog.addDependency("../../../lgb/view/FurnitureView.js", ['lgb.view.FurnitureView'], ['lgb.view.ViewBase', 'lgb.model.GridModel']);
+goog.addDependency("../../../lgb/view/FurnitureView.js", ['lgb.view.FurnitureView'], ['lgb.view.ViewBase']);
 goog.addDependency("../../../lgb/view/LeftNavView.js", ['lgb.view.LeftNavView'], ['lgb.events.RequestVisibilityChange', 'lgb.model.BuildingModel.Group', 'lgb.view.ViewBase', 'lgb.view.component.ToggleButtonA']);
 goog.addDependency("../../../lgb/view/LightingAdminView.js", ['lgb.view.LightingAdminView'], ['lgb.component.Link', 'lgb.component.LinkDataSource', 'lgb.events.MouseClick', 'lgb.events.MouseOut', 'lgb.events.MouseOver', 'lgb.events.RequestLightingChange', 'lgb.model.LightingModel', 'lgb.view.ViewBase']);
 goog.addDependency("../../../lgb/view/LightingView.js", ['lgb.view.LightingView'], ['lgb.view.ViewBase', 'lgb.model.GridModel']);
