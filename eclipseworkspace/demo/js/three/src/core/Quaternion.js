@@ -1,18 +1,15 @@
 /**
  * @author mikael emtinger / http://gomo.se/
  * @author alteredq / http://alteredqualia.com/
+ * @author WestLangley / http://github.com/WestLangley
  */
 
 THREE.Quaternion = function( x, y, z, w ) {
 
-	this.set(
-
-		x || 0,
-		y || 0,
-		z || 0,
-		w !== undefined ? w : 1
-
-	);
+	this.x = x || 0;
+	this.y = y || 0;
+	this.z = z || 0;
+	this.w = ( w !== undefined ) ? w : 1;
 
 };
 
@@ -42,28 +39,63 @@ THREE.Quaternion.prototype = {
 
 	},
 
-	setFromEuler: function ( vec3 ) {
+	setFromEuler: function ( v, order ) {
 
-		var c = Math.PI / 360, // 0.5 * Math.PI / 360, // 0.5 is an optimization
-		x = vec3.x * c,
-		y = vec3.y * c,
-		z = vec3.z * c,
+		// http://www.mathworks.com/matlabcentral/fileexchange/
+		// 	20696-function-to-convert-between-dcm-euler-angles-quaternions-and-euler-vectors/
+		//	content/SpinCalc.m
+	
+		var c1 = Math.cos( v.x / 2 );
+		var c2 = Math.cos( v.y / 2 );
+		var c3 = Math.cos( v.z / 2 );
+		var s1 = Math.sin( v.x / 2 );
+		var s2 = Math.sin( v.y / 2 );
+		var s3 = Math.sin( v.z / 2 );
 
-		c1 = Math.cos( y  ),
-		s1 = Math.sin( y  ),
-		c2 = Math.cos( -z ),
-		s2 = Math.sin( -z ),
-		c3 = Math.cos( x  ),
-		s3 = Math.sin( x  ),
+		if ( order === undefined || order === 'XYZ' ) {
 
-		c1c2 = c1 * c2,
-		s1s2 = s1 * s2;
+			this.x = s1 * c2 * c3 + c1 * s2 * s3;
+			this.y = c1 * s2 * c3 - s1 * c2 * s3;
+			this.z = c1 * c2 * s3 + s1 * s2 * c3;
+			this.w = c1 * c2 * c3 - s1 * s2 * s3;
 
-		this.w = c1c2 * c3  - s1s2 * s3;
-	  	this.x = c1c2 * s3  + s1s2 * c3;
-		this.y = s1 * c2 * c3 + c1 * s2 * s3;
-		this.z = c1 * s2 * c3 - s1 * c2 * s3;
-
+		} else if ( order === 'YXZ' ) {
+	
+			this.x = s1 * c2 * c3 + c1 * s2 * s3;
+			this.y = c1 * s2 * c3 - s1 * c2 * s3;
+			this.z = c1 * c2 * s3 - s1 * s2 * c3;
+			this.w = c1 * c2 * c3 + s1 * s2 * s3;
+				
+		} else if ( order === 'ZXY' ) {
+	
+			this.x = s1 * c2 * c3 - c1 * s2 * s3;
+			this.y = c1 * s2 * c3 + s1 * c2 * s3;
+			this.z = c1 * c2 * s3 + s1 * s2 * c3;
+			this.w = c1 * c2 * c3 - s1 * s2 * s3;
+				
+		} else if ( order === 'ZYX' ) {
+	
+			this.x = s1 * c2 * c3 - c1 * s2 * s3;
+			this.y = c1 * s2 * c3 + s1 * c2 * s3;
+			this.z = c1 * c2 * s3 - s1 * s2 * c3;
+			this.w = c1 * c2 * c3 + s1 * s2 * s3;
+				
+		} else if ( order === 'YZX' ) {
+			
+			this.x = s1 * c2 * c3 + c1 * s2 * s3;
+			this.y = c1 * s2 * c3 + s1 * c2 * s3;
+			this.z = c1 * c2 * s3 - s1 * s2 * c3;
+			this.w = c1 * c2 * c3 - s1 * s2 * s3;
+				
+		} else if ( order === 'XZY' ) {
+			
+			this.x = s1 * c2 * c3 - c1 * s2 * s3;
+			this.y = c1 * s2 * c3 - s1 * c2 * s3;
+			this.z = c1 * c2 * s3 + s1 * s2 * c3;
+			this.w = c1 * c2 * c3 + s1 * s2 * s3;
+				
+		}
+		
 		return this;
 
 	},
@@ -84,24 +116,64 @@ THREE.Quaternion.prototype = {
 		return this;
 
 	},
-	
+
 	setFromRotationMatrix: function ( m ) {
-		// Adapted from: http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/index.htm
-		function copySign(a, b) {
-			return b < 0 ? -Math.abs(a) : Math.abs(a);
+
+		// http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/index.htm
+		
+		// assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
+		
+		var te = m.elements,
+			
+			m11 = te[0], m12 = te[4], m13 = te[8],
+			m21 = te[1], m22 = te[5], m23 = te[9],
+			m31 = te[2], m32 = te[6], m33 = te[10],
+			
+			trace = m11 + m22 + m33,
+			s;
+		
+		if( trace > 0 ) {
+		
+			s = 0.5 / Math.sqrt( trace + 1.0 );
+			
+			this.w = 0.25 / s;
+			this.x = ( m32 - m23 ) * s;
+			this.y = ( m13 - m31 ) * s;
+			this.z = ( m21 - m12 ) * s;
+		
+		} else if ( m11 > m22 && m11 > m33 ) {
+		
+			s = 2.0 * Math.sqrt( 1.0 + m11 - m22 - m33 );
+			
+			this.w = (m32 - m23 ) / s;
+			this.x = 0.25 * s;
+			this.y = (m12 + m21 ) / s;
+			this.z = (m13 + m31 ) / s;
+		
+		} else if (m22 > m33) {
+		
+			s = 2.0 * Math.sqrt( 1.0 + m22 - m11 - m33 );
+			
+			this.w = (m13 - m31 ) / s;
+			this.x = (m12 + m21 ) / s;
+			this.y = 0.25 * s;
+			this.z = (m23 + m32 ) / s;
+		
+		} else {
+		
+			s = 2.0 * Math.sqrt( 1.0 + m33 - m11 - m22 );
+			
+			this.w = ( m21 - m12 ) / s;
+			this.x = ( m13 + m31 ) / s;
+			this.y = ( m23 + m32 ) / s;
+			this.z = 0.25 * s;
+		
 		}
-		var absQ = Math.pow(m.determinant(), 1.0 / 3.0);
-		this.w = Math.sqrt( Math.max( 0, absQ + m.n11 + m.n22 + m.n33 ) ) / 2; 
-		this.x = Math.sqrt( Math.max( 0, absQ + m.n11 - m.n22 - m.n33 ) ) / 2; 
-		this.y = Math.sqrt( Math.max( 0, absQ - m.n11 + m.n22 - m.n33 ) ) / 2; 
-		this.z = Math.sqrt( Math.max( 0, absQ - m.n11 - m.n22 + m.n33 ) ) / 2; 
-		this.x = copySign( this.x, ( m.n32 - m.n23 ) );
-		this.y = copySign( this.y, ( m.n13 - m.n31 ) );
-		this.z = copySign( this.z, ( m.n21 - m.n12 ) );
-		this.normalize();
-		return this;
-	},
 	
+		return this;
+
+	},
+
 	calculateW : function () {
 
 		this.w = - Math.sqrt( Math.abs( 1.0 - this.x * this.x - this.y * this.y - this.z * this.z ) );
@@ -130,7 +202,7 @@ THREE.Quaternion.prototype = {
 
 		var l = Math.sqrt( this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w );
 
-		if ( l == 0 ) {
+		if ( l === 0 ) {
 
 			this.x = 0;
 			this.y = 0;
@@ -152,10 +224,25 @@ THREE.Quaternion.prototype = {
 
 	},
 
-	multiplySelf: function ( quat2 ) {
+	multiply: function ( a, b ) {
 
-		var qax = this.x,  qay = this.y,  qaz = this.z,  qaw = this.w,
-		qbx = quat2.x, qby = quat2.y, qbz = quat2.z, qbw = quat2.w;
+		// from http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/code/index.htm
+		var qax = a.x, qay = a.y, qaz = a.z, qaw = a.w,
+		qbx = b.x, qby = b.y, qbz = b.z, qbw = b.w;
+
+		this.x =  qax * qbw + qay * qbz - qaz * qby + qaw * qbx;
+		this.y = -qax * qbz + qay * qbw + qaz * qbx + qaw * qby;
+		this.z =  qax * qby - qay * qbx + qaz * qbw + qaw * qbz;
+		this.w = -qax * qbx - qay * qby - qaz * qbz + qaw * qbw;
+
+		return this;
+
+	},
+
+	multiplySelf: function ( b ) {
+
+		var qax = this.x, qay = this.y, qaz = this.z, qaw = this.w,
+		qbx = b.x, qby = b.y, qbz = b.z, qbw = b.w;
 
 		this.x = qax * qbw + qaw * qbx + qay * qbz - qaz * qby;
 		this.y = qay * qbw + qaw * qby + qaz * qbx - qax * qbz;
@@ -166,27 +253,14 @@ THREE.Quaternion.prototype = {
 
 	},
 
-	multiply: function ( q1, q2 ) {
+	multiplyVector3: function ( vector, dest ) {
 
-		// from http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/code/index.htm
+		if ( !dest ) { dest = vector; }
 
-		this.x =  q1.x * q2.w + q1.y * q2.z - q1.z * q2.y + q1.w * q2.x;
-		this.y = -q1.x * q2.z + q1.y * q2.w + q1.z * q2.x + q1.w * q2.y;
-		this.z =  q1.x * q2.y - q1.y * q2.x + q1.z * q2.w + q1.w * q2.z;
-		this.w = -q1.x * q2.x - q1.y * q2.y - q1.z * q2.z + q1.w * q2.w;
-		
-		return this;
-
-	},
-
-	multiplyVector3: function ( vec, dest ) {
-
-		if( !dest ) { dest = vec; }
-
-		var x    = vec.x,  y  = vec.y,  z  = vec.z,
+		var x    = vector.x,  y  = vector.y,  z  = vector.z,
 			qx   = this.x, qy = this.y, qz = this.z, qw = this.w;
 
-		// calculate quat * vec
+		// calculate quat * vector
 
 		var ix =  qw * x + qy * z - qz * y,
 			iy =  qw * y + qz * x - qx * z,
@@ -201,42 +275,129 @@ THREE.Quaternion.prototype = {
 
 		return dest;
 
+	},
+
+	slerpSelf: function ( qb, t ) {
+
+		var x = this.x, y = this.y, z = this.z, w = this.w;
+
+		// http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/slerp/
+
+		var cosHalfTheta = w * qb.w + x * qb.x + y * qb.y + z * qb.z;
+
+		if ( cosHalfTheta < 0 ) {
+
+			this.w = -qb.w;
+			this.x = -qb.x;
+			this.y = -qb.y;
+			this.z = -qb.z;
+
+			cosHalfTheta = -cosHalfTheta;
+
+		} else {
+
+			this.copy( qb );
+
+		}
+
+		if ( cosHalfTheta >= 1.0 ) {
+
+			this.w = w;
+			this.x = x;
+			this.y = y;
+			this.z = z;
+
+			return this;
+
+		}
+
+		var halfTheta = Math.acos( cosHalfTheta );
+		var sinHalfTheta = Math.sqrt( 1.0 - cosHalfTheta * cosHalfTheta );
+
+		if ( Math.abs( sinHalfTheta ) < 0.001 ) {
+
+			this.w = 0.5 * ( w + this.w );
+			this.x = 0.5 * ( x + this.x );
+			this.y = 0.5 * ( y + this.y );
+			this.z = 0.5 * ( z + this.z );
+
+			return this;
+
+		}
+
+		var ratioA = Math.sin( ( 1 - t ) * halfTheta ) / sinHalfTheta,
+		ratioB = Math.sin( t * halfTheta ) / sinHalfTheta;
+
+		this.w = ( w * ratioA + this.w * ratioB );
+		this.x = ( x * ratioA + this.x * ratioB );
+		this.y = ( y * ratioA + this.y * ratioB );
+		this.z = ( z * ratioA + this.z * ratioB );
+
+		return this;
+
+	},
+
+	clone: function () {
+
+		return new THREE.Quaternion( this.x, this.y, this.z, this.w );
+
 	}
 
 }
 
 THREE.Quaternion.slerp = function ( qa, qb, qm, t ) {
 
+	// http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/slerp/
+
 	var cosHalfTheta = qa.w * qb.w + qa.x * qb.x + qa.y * qb.y + qa.z * qb.z;
+
+	if ( cosHalfTheta < 0 ) {
+
+		qm.w = -qb.w;
+		qm.x = -qb.x;
+		qm.y = -qb.y;
+		qm.z = -qb.z;
+
+		cosHalfTheta = -cosHalfTheta;
+
+	} else {
+
+		qm.copy( qb );
+
+	}
 
 	if ( Math.abs( cosHalfTheta ) >= 1.0 ) {
 
-		qm.w = qa.w; qm.x = qa.x; qm.y = qa.y; qm.z = qa.z;
-		return qm;
-
-	}
-
-	var halfTheta = Math.acos( cosHalfTheta ),
-	sinHalfTheta = Math.sqrt( 1.0 - cosHalfTheta * cosHalfTheta );
-
-	if ( Math.abs( sinHalfTheta ) < 0.001 ) { 
-
-		qm.w = 0.5 * ( qa.w + qb.w );
-		qm.x = 0.5 * ( qa.x + qb.x );
-		qm.y = 0.5 * ( qa.y + qb.y );
-		qm.z = 0.5 * ( qa.z + qb.z );
+		qm.w = qa.w;
+		qm.x = qa.x;
+		qm.y = qa.y;
+		qm.z = qa.z;
 
 		return qm;
 
 	}
 
-	var ratioA = Math.sin( ( 1 - t ) * halfTheta ) / sinHalfTheta,
-	ratioB = Math.sin( t * halfTheta ) / sinHalfTheta; 
+	var halfTheta = Math.acos( cosHalfTheta );
+	var sinHalfTheta = Math.sqrt( 1.0 - cosHalfTheta * cosHalfTheta );
 
-	qm.w = ( qa.w * ratioA + qb.w * ratioB );
-	qm.x = ( qa.x * ratioA + qb.x * ratioB );
-	qm.y = ( qa.y * ratioA + qb.y * ratioB );
-	qm.z = ( qa.z * ratioA + qb.z * ratioB );
+	if ( Math.abs( sinHalfTheta ) < 0.001 ) {
+
+		qm.w = 0.5 * ( qa.w + qm.w );
+		qm.x = 0.5 * ( qa.x + qm.x );
+		qm.y = 0.5 * ( qa.y + qm.y );
+		qm.z = 0.5 * ( qa.z + qm.z );
+
+		return qm;
+
+	}
+
+	var ratioA = Math.sin( ( 1 - t ) * halfTheta ) / sinHalfTheta;
+	var ratioB = Math.sin( t * halfTheta ) / sinHalfTheta;
+
+	qm.w = ( qa.w * ratioA + qm.w * ratioB );
+	qm.x = ( qa.x * ratioA + qm.x * ratioB );
+	qm.y = ( qa.y * ratioA + qm.y * ratioB );
+	qm.z = ( qa.z * ratioA + qm.z * ratioB );
 
 	return qm;
 

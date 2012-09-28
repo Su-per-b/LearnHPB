@@ -1,8 +1,10 @@
 /**
  * @author mikael emtinger / http://gomo.se/
+ * @author alteredq / http://alteredqualia.com/
+ * @author mrdoob / http://mrdoob.com/
  */
 
-THREE.LOD = function() {
+THREE.LOD = function () {
 
 	THREE.Object3D.call( this );
 
@@ -10,13 +12,8 @@ THREE.LOD = function() {
 
 };
 
-THREE.LOD.prototype = new THREE.Object3D();
-THREE.LOD.prototype.constructor = THREE.LOD;
-THREE.LOD.prototype.supr = THREE.Object3D.prototype;
 
-/*
- * Add
- */
+THREE.LOD.prototype = Object.create( THREE.Object3D.prototype );
 
 THREE.LOD.prototype.addLevel = function ( object3D, visibleAtDistance ) {
 
@@ -28,7 +25,7 @@ THREE.LOD.prototype.addLevel = function ( object3D, visibleAtDistance ) {
 
 	visibleAtDistance = Math.abs( visibleAtDistance );
 
-	for ( var l = 0; l < this.LODs.length; l++ ) {
+	for ( var l = 0; l < this.LODs.length; l ++ ) {
 
 		if ( visibleAtDistance < this.LODs[ l ].visibleAtDistance ) {
 
@@ -43,53 +40,18 @@ THREE.LOD.prototype.addLevel = function ( object3D, visibleAtDistance ) {
 
 };
 
-
-/*
- * Update
- */
-
-THREE.LOD.prototype.update = function ( parentMatrixWorld, forceUpdate, camera ) {
-
-	// update local
-
-	if ( this.matrixAutoUpdate ) {
-
-		forceUpdate |= this.updateMatrix();
-
-	}
-
-	// update global
-
-	if ( forceUpdate || this.matrixWorldNeedsUpdate ) {
-
-		if ( parentMatrixWorld ) {
-
-			this.matrixWorld.multiply( parentMatrixWorld, this.matrix );
-
-		} else {
-
-			this.matrixWorld.copy( this.matrix );
-
-		}
-
-		this.matrixWorldNeedsUpdate = false;
-		forceUpdate = true;
-
-	}
-
-
-	// update LODs
+THREE.LOD.prototype.update = function ( camera ) {
 
 	if ( this.LODs.length > 1 ) {
 
+		camera.matrixWorldInverse.getInverse( camera.matrixWorld );
 
 		var inverse  = camera.matrixWorldInverse;
-		var radius   = this.boundRadius * this.boundRadiusScale;
-		var distance = -( inverse.n31 * this.position.x + inverse.n32 * this.position.y + inverse.n33 * this.position.z + inverse.n34 );
+		var distance = -( inverse.elements[2] * this.matrixWorld.elements[12] + inverse.elements[6] * this.matrixWorld.elements[13] + inverse.elements[10] * this.matrixWorld.elements[14] + inverse.elements[14] );
 
 		this.LODs[ 0 ].object3D.visible = true;
 
-		for ( var l = 1; l < this.LODs.length; l++ ) {
+		for ( var l = 1; l < this.LODs.length; l ++ ) {
 
 			if( distance >= this.LODs[ l ].visibleAtDistance ) {
 
@@ -104,21 +66,12 @@ THREE.LOD.prototype.update = function ( parentMatrixWorld, forceUpdate, camera )
 
 		}
 
-		for( ; l < this.LODs.length; l++ ) {
+		for( ; l < this.LODs.length; l ++ ) {
 
 			this.LODs[ l ].object3D.visible = false;
 
 		}
 
 	}
-
-	// update children
-
-	for ( var c = 0; c < this.children.length; c++ ) {
-
-		this.children[ c ].update( this.matrixWorld, forceUpdate, camera );
-
-	}
-
 
 };

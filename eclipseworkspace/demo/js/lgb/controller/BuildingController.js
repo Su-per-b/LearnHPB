@@ -10,7 +10,7 @@ goog.require('lgb.controller.DuctworkController');
 goog.require('lgb.controller.LightingController');
 goog.require('lgb.controller.EnvelopeController');
 goog.require('lgb.controller.RoofTopController');
-//goog.require('lgb.controller.FurnitureController');
+goog.require('lgb.controller.FurnitureController');
 goog.require('lgb.controller.ZoneController');
 goog.require('lgb.events.VisibilityChanged');
 
@@ -34,12 +34,12 @@ goog.inherits(lgb.controller.BuildingController, lgb.controller.ControllerBase);
  */
 lgb.controller.BuildingController.prototype.init_ = function() {
 
-  this.zoneController_ = new lgb.controller.ZoneController();
-  this.envelopeController_ = new lgb.controller.EnvelopeController();
-  this.roofTopController_ = new lgb.controller.RoofTopController();
+ // this.zoneController_ = new lgb.controller.ZoneController();
+  //this.envelopeController_ = new lgb.controller.EnvelopeController();
+ // this.roofTopController_ = new lgb.controller.RoofTopController();
   this.ductworkController_ = new lgb.controller.DuctworkController();
-  this.lightingController = new lgb.controller.LightingController();
-  //this.furnitureController = new lgb.controller.FurnitureController();
+ // this.lightingController = new lgb.controller.LightingController();
+ // this.furnitureController = new lgb.controller.FurnitureController();
 
   this.bind_();
 };

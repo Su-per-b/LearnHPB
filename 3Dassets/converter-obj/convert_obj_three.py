@@ -1,4 +1,4 @@
-"""Convert Wavefront OBJ / MTL files into Three.js (JSON model version, to be used with web worker based ascii / binary loader)
+"""Convert Wavefront OBJ / MTL files into Three.js (JSON model version, to be used with ascii / binary loader)
 
 -------------------------
 How to use this converter
@@ -17,7 +17,6 @@ Notes:
         -t ascii|binary			export ascii or binary format (ascii has more features, binary just supports vertices, faces, normals, uvs and materials)
         -d invert|normal		invert transparency
         -b						bake material colors into face colors
-        -e						export edges
         -x 10.0                 scale and truncate
         -f 2                    morph frame sampling step
 
@@ -26,7 +25,6 @@ Notes:
         will be in ASCII format
         original model is assumed to use non-inverted transparency / dissolve (0.0 fully transparent, 1.0 fully opaque)
         no face colors baking
-        no edges export
         no scale and truncate
         morph frame step = 1 (all files will be processed)
 
@@ -48,12 +46,12 @@ How to use generated JS file in your HTML document
         // load ascii model
 
         var jsonLoader = new THREE.JSONLoader();
-        jsonLoader.load( { model: "Model_ascii.js", callback: function( geometry ) { createScene( geometry) } } );
+        jsonLoader.load( "Model_ascii.js", function( geometry ) { createScene( geometry ) } );
 
         // load binary model
 
         var binLoader = new THREE.BinaryLoader();
-        binLoader.load( { model: "Model_bin.js", callback: function( geometry ) { createScene( geometry) } } );
+        binLoader.load( "Model_bin.js", function( geometry ) { createScene( geometry) } );
 
         function createScene( geometry ) {
 
@@ -94,7 +92,7 @@ How to get proper OBJ + MTL files with Blender
 
     2. Select all meshes (Select -> Select All by Type -> Mesh)
 
-    3. Export to OBJ (File -> Export -> Wavefront .obj) [*]
+    3. Export to OBJ (File -> Export -> Wavefront .obj)
         - enable following options in exporter
             Material Groups
             Rotate X90
@@ -106,7 +104,6 @@ How to get proper OBJ + MTL files with Blender
             UVs
             Normals
             Materials
-            Edges
 
         - select empty folder
         - give your exported file name with "obj" extension
@@ -117,11 +114,6 @@ How to get proper OBJ + MTL files with Blender
           (OBJ / MTL files use relative paths)
 
         - for WebGL, textures must be power of 2 sized
-
-    [*] If OBJ export fails (Blender 2.54 beta), patch your Blender installation
-        following instructions here:
-
-            http://www.blendernation.com/2010/09/12/blender-2-54-beta-released/
 
 ------
 Author
@@ -154,7 +146,6 @@ SCALE = 1.0
 FRAMESTEP = 1
 
 BAKE_COLORS = False
-EXPORT_EDGES = False
 
 # default colors for debugging (each material gets one distinct color):
 # white, red, green, blue, yellow, cyan, magenta
@@ -164,22 +155,20 @@ COLORS = [0xeeeeee, 0xee0000, 0x00ee00, 0x0000ee, 0xeeee00, 0x00eeee, 0xee00ee]
 # Templates
 # #####################################################
 TEMPLATE_FILE_ASCII = u"""\
-// Converted from: %(fname)s
-//  vertices: %(nvertex)d
-//  faces: %(nface)d
-//  normals: %(nnormal)d
-//  colors: %(ncolor)d
-//  uvs: %(nuv)d
-//  materials: %(nmaterial)d
-//  edges: %(nedge)d
-//
-//  Generated with OBJ -> Three.js converter
-//  http://github.com/alteredq/three.js/blob/master/utils/exporters/convert_obj_three.py
+{
 
-
-var model = {
-
-    "version" : 2,
+    "metadata" :
+    {
+        "formatVersion" : 3.1,
+        "sourceFile"    : "%(fname)s",
+        "generatedBy"   : "OBJConverter",
+        "vertices"      : %(nvertex)d,
+        "faces"         : %(nface)d,
+        "normals"       : %(nnormal)d,
+        "colors"        : %(ncolor)d,
+        "uvs"           : %(nuv)d,
+        "materials"     : %(nmaterial)d
+    },
 
     "scale" : %(scale)f,
 
@@ -197,38 +186,31 @@ var model = {
 
     "uvs": [[%(uvs)s]],
 
-    "faces": [%(faces)s],
+    "faces": [%(faces)s]
 
-    "edges" : [%(edges)s]
-
-};
-
-postMessage( model );
-close();
+}
 """
 
 TEMPLATE_FILE_BIN = u"""\
-// Converted from: %(fname)s
-//  vertices: %(nvertex)d
-//  faces: %(nface)d
-//  materials: %(nmaterial)d
-//
-//  Generated with OBJ -> Three.js converter
-//  http://github.com/alteredq/three.js/blob/master/utils/exporters/convert_obj_three.py
+{
 
-
-var model = {
-
-    "version" : 1,
+    "metadata" :
+    {
+        "formatVersion" : 3.1,
+        "sourceFile"    : "%(fname)s",
+        "generatedBy"   : "OBJConverter",
+        "vertices"      : %(nvertex)d,
+        "faces"         : %(nface)d,
+        "normals"       : %(nnormal)d,
+        "uvs"           : %(nuv)d,
+        "materials"     : %(nmaterial)d
+    },
 
     "materials": [%(materials)s],
 
     "buffers": "%(buffers)s"
 
-};
-
-postMessage( model );
-close();
+}
 """
 
 TEMPLATE_VERTEX = "%f,%f,%f"
@@ -238,7 +220,6 @@ TEMPLATE_N = "%.5g,%.5g,%.5g"
 TEMPLATE_UV = "%.5g,%.5g"
 TEMPLATE_COLOR = "%.3g,%.3g,%.3g"
 TEMPLATE_COLOR_DEC = "%d"
-TEMPLATE_EDGE = "%d,%d"
 
 TEMPLATE_MORPH_VERTICES = '\t{ "name": "%s", "vertices": [%s] }'
 TEMPLATE_MORPH_COLORS   = '\t{ "name": "%s", "colors": [%s] }'
@@ -372,7 +353,7 @@ def veckey3(v):
 # MTL parser
 # #####################################################
 def texture_relative_path(fullpath):
-    texture_file = os.path.basename(fullpath)
+    texture_file = os.path.basename(fullpath.replace("\\", "/"))
     return texture_file
 
 def parse_mtl(fname):
@@ -387,8 +368,11 @@ def parse_mtl(fname):
 
             # Material start
             # newmtl identifier
-            if chunks[0] == "newmtl" and len(chunks) == 2:
-                identifier = chunks[1]
+            if chunks[0] == "newmtl":
+                if len(chunks) > 1:
+                    identifier = chunks[1]
+                else:
+                    identifier = ""
                 if not identifier in materials:
                     materials[identifier] = {}
 
@@ -509,6 +493,7 @@ def parse_obj(fname):
     faces = []
 
     materials = {}
+    material = ""
     mcounter = 0
     mcurrent = 0
 
@@ -555,15 +540,27 @@ def parse_obj(fname):
                 uv_index = []
                 normal_index = []
 
+
+                # Precompute vert / normal / uv lists
+                # for negative index lookup
+                vertlen = len(vertices) + 1
+                normlen = len(normals) + 1
+                uvlen = len(uvs) + 1
+
                 for v in chunks[1:]:
                     vertex = parse_vertex(v)
                     if vertex['v']:
+                        if vertex['v'] < 0:
+                            vertex['v'] += vertlen
                         vertex_index.append(vertex['v'])
                     if vertex['t']:
+                        if vertex['t'] < 0:
+                            vertex['t'] += uvlen
                         uv_index.append(vertex['t'])
                     if vertex['n']:
+                        if vertex['n'] < 0:
+                            vertex['n'] += normlen
                         normal_index.append(vertex['n'])
-
                 faces.append({
                     'vertex':vertex_index,
                     'uv':uv_index,
@@ -588,8 +585,11 @@ def parse_obj(fname):
                 mtllib = chunks[1]
 
             # Material
-            if chunks[0] == "usemtl" and len(chunks) == 2:
-                material = chunks[1]
+            if chunks[0] == "usemtl":
+                if len(chunks) > 1:
+                    material = chunks[1]
+                else:
+                    material = ""
                 if not material in materials:
                     mcurrent = mcounter
                     materials[material] = mcounter
@@ -699,16 +699,13 @@ def generate_normal(n):
     return TEMPLATE_N % (n[0], n[1], n[2])
 
 def generate_uv(uv):
-    return TEMPLATE_UV % (uv[0], 1.0 - uv[1])
+    return TEMPLATE_UV % (uv[0], uv[1])
 
 def generate_color_rgb(c):
     return TEMPLATE_COLOR % (c[0], c[1], c[2])
 
 def generate_color_decimal(c):
     return TEMPLATE_COLOR_DEC % hexcolor(c)
-
-def generate_edge(e):
-    return TEMPLATE_EDGE % (e[0], e[1])
 
 # #####################################################
 # Morphs
@@ -848,74 +845,6 @@ def generate_morph_colors(colorfiles, n_vertices, n_faces):
         morphColors = "\n%s\n\t" % ",\n".join(generate_morph_color(name, colors) for name, colors in morphColorData)
 
     return morphColors, colorFaces, materialColors
-
-# #####################################################
-# Edges
-# #####################################################
-def edge_hash(a, b):
-    return "%d_%d" % (min(a, b), max(a, b))
-
-def add_unique_edge(a, b, edge_set, edges):
-    h = edge_hash(a[0], b[0])
-    if h not in edge_set:
-        x = min(a[1], b[1])
-        y = max(a[1], b[1])
-        edges.append([x, y])
-        edge_set.add(h)
-
-def compute_edges(faces, vertices):
-    edges = []
-
-    # compute unique vertices
-
-    unique_vertices = {}
-    vertex_count = 0
-
-    for i, v in enumerate(vertices):
-        key = veckey3(v)
-        if key not in unique_vertices:
-            unique_vertices[key] = [vertex_count, i]
-            vertex_count += 1
-
-    # find edges between unique vertices
-
-    edge_set = set()
-
-    for f in faces:
-        vertex_indices = f["vertex"]
-        unique_indices = []
-
-        for vi in vertex_indices:
-            v = vertices[vi - 1]
-            key = veckey3(v)
-            unique_indices.append(unique_vertices[key])
-
-        if len(unique_indices) == 3:
-            a = unique_indices[0]
-            b = unique_indices[1]
-            c = unique_indices[2]
-
-            add_unique_edge(a, b, edge_set, edges)
-            add_unique_edge(b, c, edge_set, edges)
-            add_unique_edge(a, c, edge_set, edges)
-
-        elif len(unique_indices) == 4:
-            a = unique_indices[0]
-            b = unique_indices[1]
-            c = unique_indices[2]
-            d = unique_indices[3]
-
-            # this should be inside edge of quad, should it go in?
-            # add_unique_edge(b, d, edge_set, edges)
-
-            add_unique_edge(a, b, edge_set, edges)
-            add_unique_edge(a, d, edge_set, edges)
-            add_unique_edge(b, c, edge_set, edges)
-            add_unique_edge(c, d, edge_set, edges)
-
-    edges.sort()
-
-    return edges
 
 # #####################################################
 # Materials
@@ -1151,28 +1080,17 @@ def convert_ascii(infile, morphfiles, colorfiles, outfile):
         colors_string = ",".join(generate_color_decimal(c) for c in materialColors)
         ncolor = len(materialColors)
 
-    # generate edges string
-
-    nedge = 0
-    edges_string = ""
-
-    if EXPORT_EDGES:
-        edges = compute_edges(faces, vertices)
-        nedge = len(edges)
-        edges_string  = ",".join(generate_edge(e) for e in edges)
-
     # generate ascii model string
 
     text = TEMPLATE_FILE_ASCII % {
     "name"      : get_name(outfile),
-    "fname"     : infile,
+    "fname"     : os.path.basename(infile),
     "nvertex"   : len(vertices),
     "nface"     : len(faces),
     "nuv"       : len(uvs),
     "nnormal"   : nnormal,
     "ncolor"    : ncolor,
     "nmaterial" : len(materials),
-    "nedge"     : nedge,
 
     "materials" : generate_materials_string(materials, mtllib, infile),
 
@@ -1185,8 +1103,6 @@ def convert_ascii(infile, morphfiles, colorfiles, outfile):
     "morphColors"   : morphColors,
 
     "faces"     : ",".join(generate_face(f, fc) for f, fc in zip(faces, colorFaces)),
-
-    "edges"    : edges_string,
 
     "scale"    : SCALE
     }
@@ -1201,6 +1117,60 @@ def convert_ascii(infile, morphfiles, colorfiles, outfile):
 # #############################################################################
 # API - Binary converter
 # #############################################################################
+def dump_materials_to_buffer(faces, buffer):
+    for f in faces:
+        data = struct.pack('<H',
+                            f['material'])
+        buffer.append(data)
+
+def dump_vertices3_to_buffer(faces, buffer):
+    for f in faces:
+        vi = f['vertex']
+        data = struct.pack('<III',
+                            vi[0]-1, vi[1]-1, vi[2]-1)
+        buffer.append(data)
+
+def dump_vertices4_to_buffer(faces, buffer):
+    for f in faces:
+        vi = f['vertex']
+        data = struct.pack('<IIII',
+                            vi[0]-1, vi[1]-1, vi[2]-1, vi[3]-1)
+        buffer.append(data)
+
+def dump_normals3_to_buffer(faces, buffer):
+    for f in faces:
+        ni = f['normal']
+        data = struct.pack('<III',
+                            ni[0]-1, ni[1]-1, ni[2]-1)
+        buffer.append(data)
+
+def dump_normals4_to_buffer(faces, buffer):
+    for f in faces:
+        ni = f['normal']
+        data = struct.pack('<IIII',
+                            ni[0]-1, ni[1]-1, ni[2]-1, ni[3]-1)
+        buffer.append(data)
+
+def dump_uvs3_to_buffer(faces, buffer):
+    for f in faces:
+        ui = f['uv']
+        data = struct.pack('<III',
+                            ui[0]-1, ui[1]-1, ui[2]-1)
+        buffer.append(data)
+
+def dump_uvs4_to_buffer(faces, buffer):
+    for f in faces:
+        ui = f['uv']
+        data = struct.pack('<IIII',
+                            ui[0]-1, ui[1]-1, ui[2]-1, ui[3]-1)
+        buffer.append(data)
+
+def add_padding(buffer, n):
+    if n % 4:
+        for i in range(4 - n % 4):
+            data = struct.pack('<B', 0)
+            buffer.append(data)
+
 def convert_binary(infile, outfile):
     """Convert infile.obj to outfile.js + outfile.bin
     """
@@ -1224,6 +1194,11 @@ def convert_binary(infile, outfile):
 
     sfaces = sort_faces(faces)
 
+    if SHADING == "smooth":
+        nnormals = len(normals)
+    else:
+        nnormals = 0
+
     # ###################
     # generate JS file
     # ###################
@@ -1234,10 +1209,12 @@ def convert_binary(infile, outfile):
     "materials" : generate_materials_string(materials, mtllib, infile),
     "buffers"   : binfile,
 
-    "fname"     : infile,
+    "fname"     : os.path.basename(infile),
     "nvertex"   : len(vertices),
     "nface"     : len(faces),
-    "nmaterial" : len(materials)
+    "nmaterial" : len(materials),
+    "nnormal"   : nnormals,
+    "nuv"       : len(uvs)
     }
 
     out = open(outfile, "w")
@@ -1248,21 +1225,16 @@ def convert_binary(infile, outfile):
     # generate BIN file
     # ###################
 
-    if SHADING == "smooth":
-        nnormals = len(normals)
-    else:
-        nnormals = 0
-
     buffer = []
 
     # header
     # ------
-    header_bytes  = struct.calcsize('<8s')
+    header_bytes  = struct.calcsize('<12s')
     header_bytes += struct.calcsize('<BBBBBBBB')
     header_bytes += struct.calcsize('<IIIIIIIIIII')
 
     # signature
-    signature = struct.pack('<8s', 'Three.js')
+    signature = struct.pack('<12s', 'Three.js 003')
 
     # metadata (all data is little-endian)
     vertex_coordinate_bytes = 4
@@ -1293,6 +1265,16 @@ def convert_binary(infile, outfile):
                                uv_index_bytes,
                                material_index_bytes)
 
+    ntri_flat = len(sfaces['triangles_flat'])
+    ntri_smooth = len(sfaces['triangles_smooth'])
+    ntri_flat_uv = len(sfaces['triangles_flat_uv'])
+    ntri_smooth_uv = len(sfaces['triangles_smooth_uv'])
+
+    nquad_flat = len(sfaces['quads_flat'])
+    nquad_smooth = len(sfaces['quads_smooth'])
+    nquad_flat_uv = len(sfaces['quads_flat_uv'])
+    nquad_smooth_uv = len(sfaces['quads_smooth_uv'])
+
     # nvertices       unsigned int    4
     # nnormals        unsigned int    4
     # nuvs            unsigned int    4
@@ -1309,14 +1291,14 @@ def convert_binary(infile, outfile):
     ndata = struct.pack('<IIIIIIIIIII', len(vertices),
                                nnormals,
                                len(uvs),
-                               len(sfaces['triangles_flat']),
-                               len(sfaces['triangles_smooth']),
-                               len(sfaces['triangles_flat_uv']),
-                               len(sfaces['triangles_smooth_uv']),
-                               len(sfaces['quads_flat']),
-                               len(sfaces['quads_smooth']),
-                               len(sfaces['quads_flat_uv']),
-                               len(sfaces['quads_smooth_uv']))
+                               ntri_flat,
+                               ntri_smooth,
+                               ntri_flat_uv,
+                               ntri_smooth_uv,
+                               nquad_flat,
+                               nquad_smooth,
+                               nquad_flat_uv,
+                               nquad_smooth_uv)
     buffer.append(signature)
     buffer.append(bdata)
     buffer.append(ndata)
@@ -1343,139 +1325,145 @@ def convert_binary(infile, outfile):
                                        math.floor(n[2]*127+0.5))
             buffer.append(data)
 
+        add_padding(buffer, nnormals * 3)
+
     # 3. uvs
     # -----------
     # u float   4
     # v float   4
     for uv in uvs:
-        data = struct.pack('<ff', uv[0], 1.0-uv[1])
+        data = struct.pack('<ff', uv[0], uv[1])
         buffer.append(data)
 
-    # 4. flat triangles
+    # padding
+    #data = struct.pack('<BB', 0, 0)
+    #buffer.append(data)
+
+    # 4. flat triangles (vertices + materials)
     # ------------------
     # a unsigned int   4
     # b unsigned int   4
     # c unsigned int   4
+    # ------------------
     # m unsigned short 2
-    for f in sfaces['triangles_flat']:
-        vi = f['vertex']
-        data = struct.pack('<IIIH',
-                            vi[0]-1, vi[1]-1, vi[2]-1,
-                            f['material'])
-        buffer.append(data)
 
-    # 5. smooth triangles
+    dump_vertices3_to_buffer(sfaces['triangles_flat'], buffer)
+
+    dump_materials_to_buffer(sfaces['triangles_flat'], buffer)
+    add_padding(buffer, ntri_flat * 2)
+
+    # 5. smooth triangles (vertices + materials + normals)
     # -------------------
     # a  unsigned int   4
     # b  unsigned int   4
     # c  unsigned int   4
-    # m  unsigned short 2
+    # -------------------
     # na unsigned int   4
     # nb unsigned int   4
     # nc unsigned int   4
-    for f in sfaces['triangles_smooth']:
-        vi = f['vertex']
-        ni = f['normal']
-        data = struct.pack('<IIIHIII',
-                            vi[0]-1, vi[1]-1, vi[2]-1,
-                            f['material'],
-                            ni[0]-1, ni[1]-1, ni[2]-1)
-        buffer.append(data)
+    # -------------------
+    # m  unsigned short 2
 
-    # 6. flat triangles uv
+    dump_vertices3_to_buffer(sfaces['triangles_smooth'], buffer)
+    dump_normals3_to_buffer(sfaces['triangles_smooth'], buffer)
+
+    dump_materials_to_buffer(sfaces['triangles_smooth'], buffer)
+    add_padding(buffer, ntri_smooth * 2)
+
+    # 6. flat triangles uv (vertices + materials + uvs)
     # --------------------
     # a  unsigned int    4
     # b  unsigned int    4
     # c  unsigned int    4
-    # m  unsigned short  2
+    # --------------------
     # ua unsigned int    4
     # ub unsigned int    4
     # uc unsigned int    4
-    for f in sfaces['triangles_flat_uv']:
-        vi = f['vertex']
-        ui = f['uv']
-        data = struct.pack('<IIIHIII',
-                            vi[0]-1, vi[1]-1, vi[2]-1,
-                            f['material'],
-                            ui[0]-1, ui[1]-1, ui[2]-1)
-        buffer.append(data)
+    # --------------------
+    # m  unsigned short  2
 
-    # 7. smooth triangles uv
+    dump_vertices3_to_buffer(sfaces['triangles_flat_uv'], buffer)
+    dump_uvs3_to_buffer(sfaces['triangles_flat_uv'], buffer)
+
+    dump_materials_to_buffer(sfaces['triangles_flat_uv'], buffer)
+    add_padding(buffer, ntri_flat_uv * 2)
+
+    # 7. smooth triangles uv (vertices + materials + normals + uvs)
     # ----------------------
     # a  unsigned int    4
     # b  unsigned int    4
     # c  unsigned int    4
-    # m  unsigned short  2
+    # --------------------
     # na unsigned int    4
     # nb unsigned int    4
     # nc unsigned int    4
+    # --------------------
     # ua unsigned int    4
     # ub unsigned int    4
     # uc unsigned int    4
-    for f in sfaces['triangles_smooth_uv']:
-        vi = f['vertex']
-        ni = f['normal']
-        ui = f['uv']
-        data = struct.pack('<IIIHIIIIII',
-                            vi[0]-1, vi[1]-1, vi[2]-1,
-                            f['material'],
-                            ni[0]-1, ni[1]-1, ni[2]-1,
-                            ui[0]-1, ui[1]-1, ui[2]-1)
-        buffer.append(data)
+    # --------------------
+    # m  unsigned short  2
 
-    # 8. flat quads
+    dump_vertices3_to_buffer(sfaces['triangles_smooth_uv'], buffer)
+    dump_normals3_to_buffer(sfaces['triangles_smooth_uv'], buffer)
+    dump_uvs3_to_buffer(sfaces['triangles_smooth_uv'], buffer)
+
+    dump_materials_to_buffer(sfaces['triangles_smooth_uv'], buffer)
+    add_padding(buffer, ntri_smooth_uv * 2)
+
+    # 8. flat quads (vertices + materials)
     # ------------------
     # a unsigned int   4
     # b unsigned int   4
     # c unsigned int   4
     # d unsigned int   4
+    # --------------------
     # m unsigned short 2
-    for f in sfaces['quads_flat']:
-        vi = f['vertex']
-        data = struct.pack('<IIIIH',
-                            vi[0]-1, vi[1]-1, vi[2]-1, vi[3]-1,
-                            f['material'])
-        buffer.append(data)
 
-    # 9. smooth quads
+    dump_vertices4_to_buffer(sfaces['quads_flat'], buffer)
+
+    dump_materials_to_buffer(sfaces['quads_flat'], buffer)
+    add_padding(buffer, nquad_flat * 2)
+
+    # 9. smooth quads (vertices + materials + normals)
     # -------------------
     # a  unsigned int   4
     # b  unsigned int   4
     # c  unsigned int   4
     # d  unsigned int   4
-    # m  unsigned short 2
+    # --------------------
     # na unsigned int   4
     # nb unsigned int   4
     # nc unsigned int   4
     # nd unsigned int   4
-    for f in sfaces['quads_smooth']:
-        vi = f['vertex']
-        ni = f['normal']
-        data = struct.pack('<IIIIHIIII',
-                            vi[0]-1, vi[1]-1, vi[2]-1, vi[3]-1,
-                            f['material'],
-                            ni[0]-1, ni[1]-1, ni[2]-1, ni[3]-1)
-        buffer.append(data)
+    # --------------------
+    # m  unsigned short 2
 
-    # 10. flat quads uv
+    dump_vertices4_to_buffer(sfaces['quads_smooth'], buffer)
+    dump_normals4_to_buffer(sfaces['quads_smooth'], buffer)
+
+    dump_materials_to_buffer(sfaces['quads_smooth'], buffer)
+    add_padding(buffer, nquad_smooth * 2)
+
+    # 10. flat quads uv (vertices + materials + uvs)
     # ------------------
     # a unsigned int   4
     # b unsigned int   4
     # c unsigned int   4
     # d unsigned int   4
-    # m unsigned short 2
+    # --------------------
     # ua unsigned int  4
     # ub unsigned int  4
     # uc unsigned int  4
     # ud unsigned int  4
-    for f in sfaces['quads_flat_uv']:
-        vi = f['vertex']
-        ui = f['uv']
-        data = struct.pack('<IIIIHIIII',
-                            vi[0]-1, vi[1]-1, vi[2]-1, vi[3]-1,
-                            f['material'],
-                            ui[0]-1, ui[1]-1, ui[2]-1, ui[3]-1)
-        buffer.append(data)
+    # --------------------
+    # m unsigned short 2
+
+    dump_vertices4_to_buffer(sfaces['quads_flat_uv'], buffer)
+    dump_uvs4_to_buffer(sfaces['quads_flat_uv'], buffer)
+
+    dump_materials_to_buffer(sfaces['quads_flat_uv'], buffer)
+    add_padding(buffer, nquad_flat_uv * 2)
 
     # 11. smooth quads uv
     # -------------------
@@ -1483,25 +1471,25 @@ def convert_binary(infile, outfile):
     # b  unsigned int   4
     # c  unsigned int   4
     # d  unsigned int   4
-    # m  unsigned short 2
+    # --------------------
     # na unsigned int   4
     # nb unsigned int   4
     # nc unsigned int   4
     # nd unsigned int   4
+    # --------------------
     # ua unsigned int   4
     # ub unsigned int   4
     # uc unsigned int   4
     # ud unsigned int   4
-    for f in sfaces['quads_smooth_uv']:
-        vi = f['vertex']
-        ni = f['normal']
-        ui = f['uv']
-        data = struct.pack('<IIIIHIIIIIIII',
-                            vi[0]-1, vi[1]-1, vi[2]-1, vi[3]-1,
-                            f['material'],
-                            ni[0]-1, ni[1]-1, ni[2]-1, ni[3]-1,
-                            ui[0]-1, ui[1]-1, ui[2]-1, ui[3]-1)
-        buffer.append(data)
+    # --------------------
+    # m  unsigned short 2
+
+    dump_vertices4_to_buffer(sfaces['quads_smooth_uv'], buffer)
+    dump_normals4_to_buffer(sfaces['quads_smooth_uv'], buffer)
+    dump_uvs4_to_buffer(sfaces['quads_smooth_uv'], buffer)
+
+    dump_materials_to_buffer(sfaces['quads_smooth_uv'], buffer)
+    add_padding(buffer, nquad_smooth_uv * 2)
 
     path = os.path.dirname(outfile)
     fname = os.path.join(path, binfile)
@@ -1523,7 +1511,7 @@ if __name__ == "__main__":
 
     # get parameters from the command line
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "hbei:m:c:b:o:a:s:t:d:x:f:", ["help", "bakecolors", "edges", "input=", "morphs=", "colors=", "output=", "align=", "shading=", "type=", "dissolve=", "truncatescale=", "framestep="])
+        opts, args = getopt.getopt(sys.argv[1:], "hbi:m:c:b:o:a:s:t:d:x:f:", ["help", "bakecolors", "input=", "morphs=", "colors=", "output=", "align=", "shading=", "type=", "dissolve=", "truncatescale=", "framestep="])
 
     except getopt.GetoptError:
         usage()
@@ -1568,9 +1556,6 @@ if __name__ == "__main__":
 
         elif o in ("-b", "--bakecolors"):
             BAKE_COLORS = True
-
-        elif o in ("-e", "--edges"):
-            EXPORT_EDGES = True
 
         elif o in ("-x", "--truncatescale"):
             TRUNCATE = True

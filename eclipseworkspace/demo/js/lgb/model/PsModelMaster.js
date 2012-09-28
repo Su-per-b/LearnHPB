@@ -50,8 +50,8 @@ lgb.model.PsModelMaster.prototype.load = function() {
 
   /**@type {THREE.SceneLoaderEx} */
   this.loader_ = new THREE.SceneLoaderEx();
-  this.loader_.callbackSync = this.d(this.onSceneLoadedSync_);
-  this.loader_.load(lgb.Config.PARTICLE_SYSTEM_SCENE);
+//  this.loader_.callbackSync = this.d(this.onSceneLoadedSync_);
+  this.loader_.load(lgb.Config.PARTICLE_SYSTEM_SCENE, this.d(this.onSceneLoadedSync_));
 
   this.loadXML_();
 };
@@ -68,9 +68,9 @@ lgb.model.PsModelMaster.prototype.onSceneLoadedSync_ = function(result) {
 
   this.masterGroup = new THREE.Object3D();
 
-  var i = scene.objects.length;
+  var i = scene.children.length;
   while (i--) {
-      var mesh = scene.objects.shift();
+      var mesh = scene.children.shift();
       if (null != mesh.geometry) {
       mesh.bakeTransformsIntoGeometry();
 

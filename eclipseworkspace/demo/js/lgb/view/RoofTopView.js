@@ -44,7 +44,7 @@ lgb.view.RoofTopView.prototype.init = function() {
 lgb.view.RoofTopView.prototype.loadScene_ = function() {
 
 
-  var path = lgb.Config.ASSETS_BASE_PATH + 'rooftop/scene-bin.js';
+  var path = lgb.Config.ASSETS_BASE_PATH + 'rooftop/scene-bin.json';
 
   /**@type {THREE.SceneLoaderEx} */
   this.loader_ = new THREE.SceneLoaderEx();
@@ -81,8 +81,8 @@ lgb.view.RoofTopView.prototype.onSceneLoaded_ = function(result) {
   lgb.logInfo('onSceneLoaded_');
   this.masterGroup = new THREE.Object3D();
 
-  for (var i = scene.objects.length - 1; i >= 0; i--) {
-      var mesh = scene.objects[i];
+  for (var i = scene.children.length - 1; i >= 0; i--) {
+      var mesh = scene.children.pop();
 
       if (mesh.name == 'Ducting') {
         mesh.doubleSided = true;

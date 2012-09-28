@@ -171,10 +171,14 @@ lgb.view.PsView.prototype.createSystem = function() {
         particleElement.setVisible(false);
 
       this.particleElements[i] = particleElement;
-    this.inActiveParticles[i] = particleElement;
+      this.inActiveParticles[i] = particleElement;
 
       // add it to the geometry
-      this.particlesGeometry.vertices[i] = particleElement.threeParticle;
+      
+      vec = new THREE.Vector3(particleElement.threeParticle);
+      
+      this.particlesGeometry.vertices[i] = particleElement.threeParticle.position;
+      
       var idx = i % this.particlePathCount;
       particleElement.assignPath(this.particlePaths[idx]);
       particleElement.assignId(i);

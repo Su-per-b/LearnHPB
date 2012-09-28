@@ -1,8 +1,10 @@
 /**
- * @author mr.doob / http://mrdoob.com/
+ * @author mrdoob / http://mrdoob.com/
  */
 
 THREE.RenderableParticle = function () {
+
+	this.object = null;
 
 	this.x = null;
 	this.y = null;
@@ -11,6 +13,6 @@ THREE.RenderableParticle = function () {
 	this.rotation = null;
 	this.scale = new THREE.Vector2();
 
-	this.materials = null;
+	this.material = null;
 
 };

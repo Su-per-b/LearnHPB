@@ -1,5 +1,5 @@
 /**
- * @author mr.doob / http://mrdoob.com/
+ * @author mrdoob / http://mrdoob.com/
  */
 
 THREE.UV = function ( u, v ) {
@@ -26,6 +26,15 @@ THREE.UV.prototype = {
 
 		this.u = uv.u;
 		this.v = uv.v;
+
+		return this;
+
+	},
+
+	lerpSelf: function ( uv, alpha ) {
+
+		this.u += ( uv.u - this.u ) * alpha;
+		this.v += ( uv.v - this.v ) * alpha;
 
 		return this;
 

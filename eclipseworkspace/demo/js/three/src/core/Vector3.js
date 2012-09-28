@@ -1,9 +1,10 @@
 /**
- * @author mr.doob / http://mrdoob.com/
+ * @author mrdoob / http://mrdoob.com/
  * @author kile / http://kile.stravaganza.org/
  * @author philogb / http://blog.thejit.org/
  * @author mikael emtinger / http://gomo.se/
  * @author egraether / http://egraether.com/
+ * @author WestLangley / http://github.com/WestLangley
  */
 
 THREE.Vector3 = function ( x, y, z ) {
@@ -63,18 +64,11 @@ THREE.Vector3.prototype = {
 
 	},
 
-	clone: function () {
+	add: function ( a, b ) {
 
-		return new THREE.Vector3( this.x, this.y, this.z );
-
-	},
-
-
-	add: function ( v1, v2 ) {
-
-		this.x = v1.x + v2.x;
-		this.y = v1.y + v2.y;
-		this.z = v1.z + v2.z;
+		this.x = a.x + b.x;
+		this.y = a.y + b.y;
+		this.z = a.z + b.z;
 
 		return this;
 
@@ -100,11 +94,11 @@ THREE.Vector3.prototype = {
 
 	},
 
-	sub: function ( v1, v2 ) {
+	sub: function ( a, b ) {
 
-		this.x = v1.x - v2.x;
-		this.y = v1.y - v2.y;
-		this.z = v1.z - v2.z;
+		this.x = a.x - b.x;
+		this.y = a.y - b.y;
+		this.z = a.z - b.z;
 
 		return this;
 
@@ -170,7 +164,9 @@ THREE.Vector3.prototype = {
 
 		} else {
 
-			this.set( 0, 0, 0 );
+			this.x = 0;
+			this.y = 0;
+			this.z = 0;
 
 		}
 
@@ -181,7 +177,7 @@ THREE.Vector3.prototype = {
 
 	negate: function() {
 
-		return this.multiplyScalar( -1 );
+		return this.multiplyScalar( - 1 );
 
 	},
 
@@ -205,10 +201,7 @@ THREE.Vector3.prototype = {
 
 	lengthManhattan: function () {
 
-		// correct version
-		// return Math.abs( this.x ) + Math.abs( this.y ) + Math.abs( this.z );
-
-		return this.x + this.y + this.z;
+		return Math.abs( this.x ) + Math.abs( this.y ) + Math.abs( this.z );
 
 	},
 
@@ -224,6 +217,15 @@ THREE.Vector3.prototype = {
 
 	},
 
+	lerpSelf: function ( v, alpha ) {
+
+		this.x += ( v.x - this.x ) * alpha;
+		this.y += ( v.y - this.y ) * alpha;
+		this.z += ( v.z - this.z ) * alpha;
+
+		return this;
+
+	},
 
 	cross: function ( a, b ) {
 
@@ -237,16 +239,15 @@ THREE.Vector3.prototype = {
 
 	crossSelf: function ( v ) {
 
-		return this.set(
+		var x = this.x, y = this.y, z = this.z;
 
-			this.y * v.z - this.z * v.y,
-			this.z * v.x - this.x * v.z,
-			this.x * v.y - this.y * v.x
+		this.x = y * v.z - z * v.y;
+		this.y = z * v.x - x * v.z;
+		this.z = x * v.y - y * v.x;
 
-		);
+		return this;
 
 	},
-
 
 	distanceTo: function ( v ) {
 
@@ -260,32 +261,212 @@ THREE.Vector3.prototype = {
 
 	},
 
+	getPositionFromMatrix: function ( m ) {
 
-	setPositionFromMatrix: function ( m ) {
+		this.x = m.elements[12];
+		this.y = m.elements[13];
+		this.z = m.elements[14];
 
-		this.x = m.n14;
-		this.y = m.n24;
-		this.z = m.n34;
+		return this;
 
 	},
 
-	setRotationFromMatrix: function ( m ) {
+	setEulerFromRotationMatrix: function ( m, order ) {
 
-		var cosY = Math.cos( this.y );
+		// assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
 
-		this.y = Math.asin( m.n13 );
+		// clamp, to handle numerical problems
 
-		if ( Math.abs( cosY ) > 0.00001 ) {
+		function clamp( x ) {
 
-			this.x = Math.atan2( - m.n23 / cosY, m.n33 / cosY );
-			this.z = Math.atan2( - m.n12 / cosY, m.n11 / cosY );
-
-		} else {
-
-			this.x = 0;
-			this.z = Math.atan2( m.n21, m.n22 );
+			return Math.min( Math.max( x, -1 ), 1 );
 
 		}
+
+		var te = m.elements;
+		var m11 = te[0], m12 = te[4], m13 = te[8];
+		var m21 = te[1], m22 = te[5], m23 = te[9];
+		var m31 = te[2], m32 = te[6], m33 = te[10];
+
+		if ( order === undefined || order === 'XYZ' ) {
+
+			this.y = Math.asin( clamp( m13 ) );
+
+			if ( Math.abs( m13 ) < 0.99999 ) {
+
+				this.x = Math.atan2( - m23, m33 );
+				this.z = Math.atan2( - m12, m11 );
+
+			} else {
+
+				this.x = Math.atan2( m32, m22 );
+				this.z = 0;
+
+			}
+
+		} else if ( order === 'YXZ' ) {
+
+			this.x = Math.asin( - clamp( m23 ) );
+
+			if ( Math.abs( m23 ) < 0.99999 ) {
+
+				this.y = Math.atan2( m13, m33 );
+				this.z = Math.atan2( m21, m22 );
+
+			} else {
+
+				this.y = Math.atan2( - m31, m11 );
+				this.z = 0;
+
+			}
+
+		} else if ( order === 'ZXY' ) {
+
+			this.x = Math.asin( clamp( m32 ) );
+
+			if ( Math.abs( m32 ) < 0.99999 ) {
+
+				this.y = Math.atan2( - m31, m33 );
+				this.z = Math.atan2( - m12, m22 );
+
+			} else {
+
+				this.y = 0;
+				this.z = Math.atan2( m21, m11 );
+
+			}
+
+		} else if ( order === 'ZYX' ) {
+
+			this.y = Math.asin( - clamp( m31 ) );
+
+			if ( Math.abs( m31 ) < 0.99999 ) {
+
+				this.x = Math.atan2( m32, m33 );
+				this.z = Math.atan2( m21, m11 );
+
+			} else {
+
+				this.x = 0;
+				this.z = Math.atan2( - m12, m22 );
+
+			}
+
+		} else if ( order === 'YZX' ) {
+
+			this.z = Math.asin( clamp( m21 ) );
+
+			if ( Math.abs( m21 ) < 0.99999 ) {
+
+				this.x = Math.atan2( - m23, m22 );
+				this.y = Math.atan2( - m31, m11 );
+
+			} else {
+
+				this.x = 0;
+				this.y = Math.atan2( m13, m33 );
+
+			}
+
+		} else if ( order === 'XZY' ) {
+
+			this.z = Math.asin( - clamp( m12 ) );
+
+			if ( Math.abs( m12 ) < 0.99999 ) {
+
+				this.x = Math.atan2( m32, m22 );
+				this.y = Math.atan2( m13, m11 );
+
+			} else {
+
+				this.x = Math.atan2( - m23, m33 );
+				this.y = 0;
+
+			}
+
+		}
+
+		return this;
+
+	},
+
+	setEulerFromQuaternion: function ( q, order ) {
+
+		// q is assumed to be normalized
+
+		// clamp, to handle numerical problems
+
+		function clamp( x ) {
+
+			return Math.min( Math.max( x, -1 ), 1 );
+
+		}
+
+		// http://www.mathworks.com/matlabcentral/fileexchange/20696-function-to-convert-between-dcm-euler-angles-quaternions-and-euler-vectors/content/SpinCalc.m
+
+		var sqx = q.x * q.x;
+		var sqy = q.y * q.y;
+		var sqz = q.z * q.z;
+		var sqw = q.w * q.w;
+
+		if ( order === undefined || order === 'XYZ' ) {
+
+			this.x = Math.atan2( 2 * ( q.x * q.w - q.y * q.z ), ( sqw - sqx - sqy + sqz ) );
+			this.y = Math.asin(  clamp( 2 * ( q.x * q.z + q.y * q.w ) ) );
+			this.z = Math.atan2( 2 * ( q.z * q.w - q.x * q.y ), ( sqw + sqx - sqy - sqz ) );
+
+		} else if ( order ===  'YXZ' ) {
+
+			this.x = Math.asin(  clamp( 2 * ( q.x * q.w - q.y * q.z ) ) );
+			this.y = Math.atan2( 2 * ( q.x * q.z + q.y * q.w ), ( sqw - sqx - sqy + sqz ) );
+			this.z = Math.atan2( 2 * ( q.x * q.y + q.z * q.w ), ( sqw - sqx + sqy - sqz ) );
+
+		} else if ( order === 'ZXY' ) {
+
+			this.x = Math.asin(  clamp( 2 * ( q.x * q.w + q.y * q.z ) ) );
+			this.y = Math.atan2( 2 * ( q.y * q.w - q.z * q.x ), ( sqw - sqx - sqy + sqz ) );
+			this.z = Math.atan2( 2 * ( q.z * q.w - q.x * q.y ), ( sqw - sqx + sqy - sqz ) );
+
+		} else if ( order === 'ZYX' ) {
+
+			this.x = Math.atan2( 2 * ( q.x * q.w + q.z * q.y ), ( sqw - sqx - sqy + sqz ) );
+			this.y = Math.asin(  clamp( 2 * ( q.y * q.w - q.x * q.z ) ) );
+			this.z = Math.atan2( 2 * ( q.x * q.y + q.z * q.w ), ( sqw + sqx - sqy - sqz ) );
+
+		} else if ( order === 'YZX' ) {
+
+			this.x = Math.atan2( 2 * ( q.x * q.w - q.z * q.y ), ( sqw - sqx + sqy - sqz ) );
+			this.y = Math.atan2( 2 * ( q.y * q.w - q.x * q.z ), ( sqw + sqx - sqy - sqz ) );
+			this.z = Math.asin(  clamp( 2 * ( q.x * q.y + q.z * q.w ) ) );
+
+		} else if ( order === 'XZY' ) {
+
+			this.x = Math.atan2( 2 * ( q.x * q.w + q.y * q.z ), ( sqw - sqx + sqy - sqz ) );
+			this.y = Math.atan2( 2 * ( q.x * q.z + q.y * q.w ), ( sqw + sqx - sqy - sqz ) );
+			this.z = Math.asin(  clamp( 2 * ( q.z * q.w - q.x * q.y ) ) );
+
+		}
+
+		return this;
+
+	},
+
+	getScaleFromMatrix: function ( m ) {
+
+		var sx = this.set( m.elements[0], m.elements[1], m.elements[2] ).length();
+		var sy = this.set( m.elements[4], m.elements[5], m.elements[6] ).length();
+		var sz = this.set( m.elements[8], m.elements[9], m.elements[10] ).length();
+
+		this.x = sx;
+		this.y = sy;
+		this.z = sz;
+
+		return this;
+	},
+
+	equals: function ( v ) {
+
+		return ( ( v.x === this.x ) && ( v.y === this.y ) && ( v.z === this.z ) );
 
 	},
 
@@ -294,14 +475,12 @@ THREE.Vector3.prototype = {
 		return ( this.lengthSq() < 0.0001 /* almostZero */ );
 
 	},
-  toString: function () {
 
-    return '[ ' + this.x.toString() +
-    ', ' + this.y.toString() +
-    ', ' + this.z.toString() +
-    ' ]';
-  }
-  
-	
+	clone: function () {
+
+		return new THREE.Vector3( this.x, this.y, this.z );
+
+	}
 
 };
+

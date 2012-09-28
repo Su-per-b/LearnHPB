@@ -38,10 +38,20 @@ lgb.view.DuctworkView.prototype.init = function() {
  */
 lgb.view.DuctworkView.prototype.loadScene_ = function() {
 
-  var path = lgb.Config.ASSETS_BASE_PATH + 'ductwork/scene-bin.js';
+  var path = lgb.Config.ASSETS_BASE_PATH + 'ductwork_and_diffusers/scene-6.json';
   this.loader_ = new THREE.SceneLoaderEx();
-
+  
   this.loader_.load(path, this.d(this.onSceneLoaded_));
+};
+
+
+
+/**
+ * @override
+ * @protected
+ */
+lgb.view.DuctworkView.prototype.fake = function(event) {
+  var x = 0;
 };
 
 
@@ -57,18 +67,30 @@ lgb.view.DuctworkView.prototype.onSceneLoaded_ = function(result) {
 
   lgb.logInfo('DuctworkView.onSceneLoaded_');
   this.masterGroup = new THREE.Object3D();
-
-  for (var i = scene.objects.length - 1; i >= 0; i--) {
-      var mesh = scene.objects[i];
-
-      if (mesh.name == 'DuctWork') {
-        mesh.doubleSided = true;
+  
+  var len = scene.children.length;
+  for (var i = 0; i < len; i++) {
+    
+      var mesh = scene.children.pop();
+    
+      if (mesh != null) {
+        
+        //TODO:RAJ target selectable meshes with "groups"
+        if (mesh.name != 'ductingObject') {
+          var event = new lgb.events.SelectableLoaded(mesh);
+          this.dispatchLocal(event);
+        }
+        
+        this.masterGroup.add(mesh);
       } else {
-      var event = new lgb.events.SelectableLoaded(mesh);
-      this.dispatchLocal(event);
+        
+        console.log ("test");
+        
       }
-      this.masterGroup.add(mesh);
+    
+
   }
+  
 
   this.masterGroup.position = scene.position;
   this.masterGroup.rotation = scene.rotation;
@@ -76,7 +98,7 @@ lgb.view.DuctworkView.prototype.onSceneLoaded_ = function(result) {
 
   this.requestAddToWorld(this.masterGroup);
 
-  delete this.loader_;
+  //delete this.loader_;
 
 };
 

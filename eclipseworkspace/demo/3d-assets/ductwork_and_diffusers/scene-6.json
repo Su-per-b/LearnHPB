@@ -1,0 +1,182 @@
+{
+
+	"objects": {
+
+		"DuctWork": {
+			"geometry": "geomDuctWork",
+			"materials": ["Default"]
+		},
+		"Diffuser01": {
+			"geometry": "geomDiffuser",
+			"materials": ["Default", "DefaultVent", "Ductwork", "VAVCoilFins", "VAVControlBox", "VAVHeatingCoils", "VAVHydraulic", "VAVLever", "VAVLink", "VAVLinkHinge", "VAVPaddle", "VAVPaddleAxle", "VAVPiston", "VAVPistonHinge", "VAVWireGold", "VAVWireGreen", "VAVWireRed"],
+			"position": [-13.53900, 0.68174, -8.71199],
+			"rotation": [0, 3.141516, 0]
+		},
+		"Diffuser02": {
+			"geometry": "geomDiffuser",
+			"materials": ["Default", "DefaultVent", "Ductwork", "VAVCoilFins", "VAVControlBox", "VAVHeatingCoils", "VAVHydraulic", "VAVLever", "VAVLink", "VAVLinkHinge", "VAVPaddle", "VAVPaddleAxle", "VAVPiston", "VAVPistonHinge", "VAVWireGold", "VAVWireGreen", "VAVWireRed"],
+			"position": [1.37899, 0.68174, -8.71199],
+			"rotation": [0, 3.141516, 0]
+		},
+		"Diffuser03": {
+			"geometry": "geomDiffuser",
+			"materials": ["Default", "DefaultVent", "Ductwork", "VAVCoilFins", "VAVControlBox", "VAVHeatingCoils", "VAVHydraulic", "VAVLever", "VAVLink", "VAVLinkHinge", "VAVPaddle", "VAVPaddleAxle", "VAVPiston", "VAVPistonHinge", "VAVWireGold", "VAVWireGreen", "VAVWireRed"],
+			"position": [16.39205, 0.68174, -8.71199],
+			"rotation": [0, 3.141516, 0]
+		},
+		"Diffuser04": {
+			"geometry": "geomDiffuser",
+			"materials": ["Default", "DefaultVent", "Ductwork", "VAVCoilFins", "VAVControlBox", "VAVHeatingCoils", "VAVHydraulic", "VAVLever", "VAVLink", "VAVLinkHinge", "VAVPaddle", "VAVPaddleAxle", "VAVPiston", "VAVPistonHinge", "VAVWireGold", "VAVWireGreen", "VAVWireRed"],
+			"position": [-15.06445, 0.68174, 0.20537],
+			"rotation": [0, -1.570758, 0]
+		},
+		"Diffuser05": {
+			"geometry": "geomDiffuser",
+			"materials": ["Default", "DefaultVent", "Ductwork", "VAVCoilFins", "VAVControlBox", "VAVHeatingCoils", "VAVHydraulic", "VAVLever", "VAVLink", "VAVLinkHinge", "VAVPaddle", "VAVPaddleAxle", "VAVPiston", "VAVPistonHinge", "VAVWireGold", "VAVWireGreen", "VAVWireRed"],
+			"position": [6.74999, 0.68174, -0.55826],
+			"rotation": [0, -1.570758, 0]
+		},
+		"Diffuser06": {
+			"geometry": "geomDiffuser",
+			"materials": ["Default", "DefaultVent", "Ductwork", "VAVCoilFins", "VAVControlBox", "VAVHeatingCoils", "VAVHydraulic", "VAVLever", "VAVLink", "VAVLinkHinge", "VAVPaddle", "VAVPaddleAxle", "VAVPiston", "VAVPistonHinge", "VAVWireGold", "VAVWireGreen", "VAVWireRed"],
+			"position": [18.12763, 0.68174, 0.08074],
+			"rotation": [0, 1.570758, 0]
+		},
+		"Diffuser07": {
+			"geometry": "geomDiffuser",
+			"materials": ["Default", "DefaultVent", "Ductwork", "VAVCoilFins", "VAVControlBox", "VAVHeatingCoils", "VAVHydraulic", "VAVLever", "VAVLink", "VAVLinkHinge", "VAVPaddle", "VAVPaddleAxle", "VAVPiston", "VAVPistonHinge", "VAVWireGold", "VAVWireGreen", "VAVWireRed"],
+			"position": [-13.43104, 0.68174, 9.23402]
+		},
+		"Diffuser08": {
+			"geometry": "geomDiffuser",
+			"materials": ["Default", "DefaultVent", "Ductwork", "VAVCoilFins", "VAVControlBox", "VAVHeatingCoils", "VAVHydraulic", "VAVLever", "VAVLink", "VAVLinkHinge", "VAVPaddle", "VAVPaddleAxle", "VAVPiston", "VAVPistonHinge", "VAVWireGold", "VAVWireGreen", "VAVWireRed"],
+			"position": [1.46575, 0.68174, 9.23402]
+		},
+		"Diffuser09": {
+			"geometry": "geomDiffuser",
+			"materials": ["Default", "DefaultVent", "Ductwork", "VAVCoilFins", "VAVControlBox", "VAVHeatingCoils", "VAVHydraulic", "VAVLever", "VAVLink", "VAVLinkHinge", "VAVPaddle", "VAVPaddleAxle", "VAVPiston", "VAVPistonHinge", "VAVWireGold", "VAVWireGreen", "VAVWireRed"],
+			"position": [16.50194, 0.68174, 9.23402]
+		}
+	},
+
+
+	"geometries": {
+		"geomDiffuser": {
+			"type": "binary",
+			"url": "diffuser_6.obj.json"
+		},
+
+		"geomDuctWork": {
+			"type": "binary",
+			"url": "ductwork_6.obj.json"
+		}
+	},
+
+
+	"materials": {
+		"Default": {
+			"parameters": {
+				"color": 13158600,
+				"side": "double"
+			}
+		},
+
+		"DefaultVent": {
+			"parameters": {
+				"color": 13158600
+			}
+		},
+
+		"Ductwork": {
+			"parameters": {
+				"color": 3289650
+			}
+		},
+
+		"VAVCoilFins": {
+			"parameters": {
+				"color": 16751466,
+				"opacity": 0.2,
+				"transparent": true
+			}
+		},
+
+		"VAVControlBox": {
+			"parameters": {
+				"color": 9945724
+			}
+		},
+
+		"VAVHeatingCoils": {
+			"parameters": {
+				"color": 16711680
+			}
+		},
+
+		"VAVHydraulic": {
+			"parameters": {
+				"color": 13020243
+			}
+		},
+
+		"VAVLever": {
+			"parameters": {
+				"color": 11251650
+			}
+		},
+
+		"VAVLink": {
+			"parameters": {
+				"color": 11251650
+			}
+		},
+
+		"VAVLinkHinge": {
+			"parameters": {
+				"color": 27551
+			}
+		},
+
+		"VAVPaddle": {
+			"parameters": {
+				"color": 13602416
+			}
+		},
+
+		"VAVPaddleAxle": {
+			"parameters": {
+				"color": 27551
+			}
+		},
+
+		"VAVPiston": {
+			"parameters": {
+				"color": 6779021
+			}
+		},
+
+		"VAVPistonHinge": {
+			"parameters": {
+				"color": 27551
+			}
+		},
+
+		"VAVWireGold": {
+			"parameters": {
+				"color": 12555072
+			}
+		},
+
+		"VAVWireGreen": {
+			"parameters": {
+				"color": 2719273
+			}
+		},
+
+		"VAVWireRed": {
+			"parameters": {
+				"color": 7743301
+			}
+		}
+	}
+}

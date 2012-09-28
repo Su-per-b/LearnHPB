@@ -1,14 +1,15 @@
 /**
- * @author mr.doob / http://mrdoob.com/
+ * @author mrdoob / http://mrdoob.com/
  * @author mikael emtinger / http://gomo.se/
  * @author alteredq / http://alteredqualia.com/
  */
 
-THREE.Object3D = function() {
-
-	this.name = '';
+THREE.Object3D = function () {
 
 	this.id = THREE.Object3DCount ++;
+
+	this.name = '';
+	this.properties = {};
 
 	this.parent = undefined;
 	this.children = [];
@@ -20,16 +21,11 @@ THREE.Object3D = function() {
 	this.eulerOrder = 'XYZ';
 	this.scale = new THREE.Vector3( 1, 1, 1 );
 
-	this.dynamic = false; // when true it retains arrays so they can be updated with __dirty*
-
-	this.doubleSided = false;
-	this.flipSided = false;
-
 	this.renderDepth = null;
 
 	this.rotationAutoUpdate = true;
 
-	this.matrix = new THREE.Matrix4()
+	this.matrix = new THREE.Matrix4();
 	this.matrixWorld = new THREE.Matrix4();
 	this.matrixRotationWorld = new THREE.Matrix4();
 
@@ -58,6 +54,19 @@ THREE.Object3D.prototype = {
 
 	constructor: THREE.Object3D,
 
+	applyMatrix: function ( matrix ) {
+
+		this.matrix.multiply( matrix, this.matrix );
+
+		this.scale.getScaleFromMatrix( this.matrix );
+
+		var mat = new THREE.Matrix4().extractRotation( this.matrix );
+		this.rotation.setEulerFromRotationMatrix( mat, this.eulerOrder );
+
+		this.position.getPositionFromMatrix( this.matrix );
+
+	},
+
 	translate: function ( distance, axis ) {
 
 		this.matrix.rotateAxis( axis );
@@ -83,6 +92,18 @@ THREE.Object3D.prototype = {
 
 	},
 
+	localToWorld: function ( vector ) {
+
+		return this.matrixWorld.multiplyVector3( vector );
+
+	},
+
+	worldToLocal: function ( vector ) {
+
+		return THREE.Object3D.__m1.getInverse( this.matrixWorld ).multiplyVector3( vector );
+
+	},
+
 	lookAt: function ( vector ) {
 
 		// TODO: Add hierarchy support.
@@ -91,7 +112,7 @@ THREE.Object3D.prototype = {
 
 		if ( this.rotationAutoUpdate ) {
 
-			this.rotation.setRotationFromMatrix( this.matrix );
+			this.rotation.setEulerFromRotationMatrix( this.matrix, this.eulerOrder );
 
 		}
 
@@ -99,11 +120,18 @@ THREE.Object3D.prototype = {
 
 	add: function ( object ) {
 
-		if ( this.children.indexOf( object ) === - 1 ) {
+		if ( object === this ) {
 
-			if( object.parent !== undefined ) {
+			console.warn( 'THREE.Object3D.add: An object can\'t be added as a child of itself.' );
+			return;
 
-				object.parent.remove(object);
+		}
+
+		if ( object instanceof THREE.Object3D ) {
+
+			if ( object.parent !== undefined ) {
+
+				object.parent.remove( object );
 
 			}
 
@@ -122,7 +150,7 @@ THREE.Object3D.prototype = {
 
 			if ( scene !== undefined && scene instanceof THREE.Scene )  {
 
-				scene.addChildRecurse( object );
+				scene.__addObject( object );
 
 			}
 
@@ -132,16 +160,16 @@ THREE.Object3D.prototype = {
 
 	remove: function ( object ) {
 
-		var scene = this;
+		var index = this.children.indexOf( object );
 
-		var childIndex = this.children.indexOf( object );
-
-		if ( childIndex !== - 1 ) {
+		if ( index !== - 1 ) {
 
 			object.parent = undefined;
-			this.children.splice( childIndex, 1 );
+			this.children.splice( index, 1 );
 
 			// remove from scene
+
+			var scene = this;
 
 			while ( scene.parent !== undefined ) {
 
@@ -151,7 +179,7 @@ THREE.Object3D.prototype = {
 
 			if ( scene !== undefined && scene instanceof THREE.Scene ) {
 
-				scene.removeChildRecurse( object );
+				scene.__removeObject( object );
 
 			}
 
@@ -159,9 +187,9 @@ THREE.Object3D.prototype = {
 
 	},
 
-	getChildByName: function ( name, doRecurse ) {
+	getChildByName: function ( name, recursive ) {
 
-		var c, cl, child, recurseResult;
+		var c, cl, child;
 
 		for ( c = 0, cl = this.children.length; c < cl; c ++ ) {
 
@@ -173,13 +201,13 @@ THREE.Object3D.prototype = {
 
 			}
 
-			if ( doRecurse ) {
+			if ( recursive ) {
 
-				recurseResult = child.getChildByName( name, doRecurse );
+				child = child.getChildByName( name, recursive );
 
-				if ( recurseResult !== undefined ) {
+				if ( child !== undefined ) {
 
-					return recurseResult;
+					return child;
 
 				}
 
@@ -191,17 +219,33 @@ THREE.Object3D.prototype = {
 
 	},
 
+	getDescendants: function ( array ) {
+
+		if ( array === undefined ) array = [];
+
+		Array.prototype.push.apply( array, this.children );
+
+		for ( var i = 0, l = this.children.length; i < l; i ++ ) {
+
+			this.children[ i ].getDescendants( array );
+
+		};
+
+		return array;
+
+	},
+
 	updateMatrix: function () {
 
 		this.matrix.setPosition( this.position );
 
-		if ( this.useQuaternion )  {
+		if ( this.useQuaternion === false )  {
 
-			this.matrix.setRotationFromQuaternion( this.quaternion );
+			this.matrix.setRotationFromEuler( this.rotation, this.eulerOrder );
 
 		} else {
 
-			this.matrix.setRotationFromEuler( this.rotation, this.eulerOrder );
+			this.matrix.setRotationFromQuaternion( this.quaternion );
 
 		}
 
@@ -216,29 +260,25 @@ THREE.Object3D.prototype = {
 
 	},
 
-	update: function ( parentMatrixWorld, forceUpdate, camera ) {
+	updateMatrixWorld: function ( force ) {
 
-		this.matrixAutoUpdate && this.updateMatrix();
+		if ( this.matrixAutoUpdate === true ) this.updateMatrix();
 
-		// update matrixWorld
+		if ( this.matrixWorldNeedsUpdate === true || force === true ) {
 
-		if ( this.matrixWorldNeedsUpdate || forceUpdate ) {
-
-			if ( parentMatrixWorld ) {
-
-				this.matrixWorld.multiply( parentMatrixWorld, this.matrix );
-
-			} else {
+			if ( this.parent === undefined ) {
 
 				this.matrixWorld.copy( this.matrix );
 
-			}
+			} else {
 
-			this.matrixRotationWorld.extractRotation( this.matrixWorld, this.scale );
+				this.matrixWorld.multiply( this.parent.matrixWorld, this.matrix );
+
+			}
 
 			this.matrixWorldNeedsUpdate = false;
 
-			forceUpdate = true;
+			force = true;
 
 		}
 
@@ -246,9 +286,15 @@ THREE.Object3D.prototype = {
 
 		for ( var i = 0, l = this.children.length; i < l; i ++ ) {
 
-			this.children[ i ].update( this.matrixWorld, forceUpdate, camera );
+			this.children[ i ].updateMatrixWorld( force );
 
 		}
+
+	},
+
+	clone: function () {
+
+		// TODO
 
 	},
 
@@ -274,23 +320,9 @@ THREE.Object3D.prototype = {
     
   },
 
-	// DEPRECATED
-
-	addChild: function ( child ) {
-
-		console.warn( 'DEPRECATED: Object3D.addChild() is now Object3D.add().' );
-		this.add( child );
-
-	},
-
-	removeChild: function ( child ) {
-
-		console.warn( 'DEPRECATED: Object3D.removeChild() is now Object3D.remove().' );
-		this.remove( child );
-
-	}
-	
 
 };
+
+THREE.Object3D.__m1 = new THREE.Matrix4();
 
 THREE.Object3DCount = 0;

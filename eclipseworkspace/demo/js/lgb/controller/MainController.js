@@ -43,10 +43,8 @@ lgb.controller.MainController.prototype.init = function() {
 
 
   window.onerror = function(errorMsg, url, lineNumber) {
-
-   // var w = $('#errorWindow').data('kendoWindow');
-   // w.content(errorMsg + '<br />url:' + url + '<br />line:' + lineNumber);
-  //     w.open();
+    // alert(printStackTrace({guess:true}).join("\n"));
+     //debugger;
   };
 
 
@@ -70,7 +68,7 @@ lgb.controller.MainController.prototype.init = function() {
   var e = new lgb.events.WorldCreated();
   this.dispatch(e);
   
-  this.simulationController_ = new lgb.controller.SimulationController();
+ // this.simulationController_ = new lgb.controller.SimulationController();
 
  
 

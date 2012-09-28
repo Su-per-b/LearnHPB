@@ -34,10 +34,10 @@ lgb.view.CameraView.prototype.init = function() {
     10000
   );
 
-  this.camera.position.z = 500;
+ // this.camera.position.z = 500;
   this.orbitRadius = 65;
   this.camera.position.x = 0;
-  this.camera.position.y = 2;
+  this.camera.position.y = 0;
   this.camera.position.z = this.orbitRadius;
 
   this.camera.lookAt(new THREE.Vector3(0, 0, 0));
@@ -46,15 +46,21 @@ lgb.view.CameraView.prototype.init = function() {
   this.camera.name = 'ActiveCamera';
 
   this.listen(lgb.events.WindowResize.TYPE, this.onWindowResize);
-  this.masterGroup = new THREE.Object3D();
-  this.masterGroup.name = this._NAME;
+  //this.masterGroup = new THREE.Object3D();
+  //this.masterGroup.name = this._NAME;
 
-  var event = new lgb.events.Object3DLoaded(this.masterGroup);
-  this.dispatchLocal(event);
+  //var event = new lgb.events.Object3DLoaded(this.masterGroup);
+ // this.dispatchLocal(event);
+
+  //var event2 = new lgb.events.Object3DLoaded(this.camera);
+ // this.dispatchLocal(event2);
+
 
   this.cameraCraneController_ = new lgb.controller.CameraCraneController();
   this.cameraCraneController_.debugMode = false;
   this.cameraCraneController_.init(this.camera);
+  
+  
 };
 
 /**

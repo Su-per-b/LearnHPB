@@ -47,7 +47,7 @@ lgb.view.EnvelopeView.prototype.init_ = function() {
  */
 lgb.view.EnvelopeView.prototype.loadScene_ = function() {
 
-  var path = lgb.Config.ASSETS_BASE_PATH + 'envelope/scene-bin.js';
+  var path = lgb.Config.ASSETS_BASE_PATH + 'envelope/scene-bin.json';
   this.loader_ = new THREE.SceneLoaderEx();
 
   this.loader_.load(path, this.d(this.onSceneLoaded_));
@@ -70,7 +70,7 @@ lgb.view.EnvelopeView.prototype.onSceneLoaded_ = function(result) {
 
   //var objects = result['objects'];
 
-  this.each(scene.objects, lgb.ThreeUtils.chromeBlinkingFix);
+  this.each(scene.children, lgb.ThreeUtils.chromeBlinkingFix);
   this.floorObjs = lgb.ThreeUtils.convertGroupHashToMeshHash(groups);
   this.masterGroup = new THREE.Object3D();
   this.masterGroup.position = scene.position;

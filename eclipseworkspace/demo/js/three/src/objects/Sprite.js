@@ -2,13 +2,18 @@
  * @author mikael emtinger / http://gomo.se/
  */
 
-THREE.Sprite = function( parameters ) {
+THREE.Sprite = function ( parameters ) {
 
 	THREE.Object3D.call( this );
 
-	this.color 	  = ( parameters.color !== undefined ) ? new THREE.Color( parameters.color ) : new THREE.Color( 0xffffff );
-	this.map      = ( parameters.map instanceof THREE.Texture ) ? parameters.map : THREE.ImageUtils.loadTexture( parameters.map );
+	this.color = ( parameters.color !== undefined ) ? new THREE.Color( parameters.color ) : new THREE.Color( 0xffffff );
+	this.map = ( parameters.map !== undefined ) ? parameters.map : new THREE.Texture();
+
 	this.blending = ( parameters.blending !== undefined ) ? parameters.blending : THREE.NormalBlending;
+
+	this.blendSrc = parameters.blendSrc !== undefined ? parameters.blendSrc : THREE.SrcAlphaFactor;
+	this.blendDst = parameters.blendDst !== undefined ? parameters.blendDst : THREE.OneMinusSrcAlphaFactor;
+	this.blendEquation = parameters.blendEquation !== undefined ? parameters.blendEquation : THREE.AddEquation;
 
 	this.useScreenCoordinates = ( parameters.useScreenCoordinates !== undefined ) ? parameters.useScreenCoordinates : true;
 	this.mergeWith3D = ( parameters.mergeWith3D !== undefined ) ? parameters.mergeWith3D : !this.useScreenCoordinates;
@@ -25,10 +30,7 @@ THREE.Sprite = function( parameters ) {
 
 };
 
-THREE.Sprite.prototype             = new THREE.Object3D();
-THREE.Sprite.prototype.constructor = THREE.Sprite;
-THREE.Sprite.prototype.supr        = THREE.Object3D.prototype;
-
+THREE.Sprite.prototype = Object.create( THREE.Object3D.prototype );
 
 /*
  * Custom update matrix

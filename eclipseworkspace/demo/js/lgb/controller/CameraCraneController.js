@@ -106,6 +106,14 @@ lgb.controller.CameraCraneController.prototype.moveToPosition =
   var p = this.cameraDestination_.position;
   var r = this.cameraDestination_.rotation;
   var t = this.cameraDestination_.target;
+  
+  console.log("CameraCraneController.moveToPosition() " + 
+  "x: " + p.x + 
+  "y: " + p.y + 
+  "z: " + p.z );
+  
+  
+  
   this.listenForRender = true;
   
   var props = {
@@ -179,12 +187,12 @@ lgb.controller.CameraCraneController.prototype.makeLine = function(startObject, 
   var vertices = [];
 
   var vector3Start = startObject.position.clone();
-  var vertexStart = new THREE.Vertex(vector3Start);
-  vertices.push(vertexStart);
+ // var vertexStart = new THREE.Vertex(vector3Start);
+  vertices.push(vector3Start);
  
   var vector3End = endObject.position.clone();
-  var vertexEnd = new THREE.Vertex(vector3End);
-  vertices.push(vertexEnd);
+ // var vertexEnd = new THREE.Vertex(vector3End);
+  vertices.push(vector3End);
      
   var geometry = new THREE.Geometry();
   geometry.vertices = vertices;

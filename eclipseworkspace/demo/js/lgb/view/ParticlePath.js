@@ -60,8 +60,8 @@ lgb.view.ParticlePath.prototype.makeVisibleLine = function() {
 
   while (i--) {
      var vector3 = this.frameToPositionMap[i];
-     var vertex = new THREE.Vertex(vector3);
-     vertices.push(vertex);
+   //  var vertex = new THREE.Vertex(vector3);
+     vertices.push(vector3);
   }
 
   var geometry = new THREE.Geometry();

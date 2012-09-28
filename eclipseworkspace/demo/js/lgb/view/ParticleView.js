@@ -60,9 +60,8 @@ lgb.view.ParticleView.prototype.init = function() {
           pY = (Math.random() * this.volY) - this.volY / 2,
           pZ = (Math.random() * this.volZ) - this.volZ / 2,
 
-          particle = new THREE.Vertex(
-              new THREE.Vector3(pX, pY, pZ)
-          );
+          particle = new THREE.Vector3(pX, pY, pZ);
+
 
 
 

@@ -1,14 +1,13 @@
 /**
- * @author mr.doob / http://mrdoob.com/
+ * @author mrdoob / http://mrdoob.com/
  */
 
-THREE.Particle = function ( materials ) {
+THREE.Particle = function ( material ) {
 
 	THREE.Object3D.call( this );
 
-	this.materials = materials instanceof Array ? materials : [ materials ];
+	this.material = material;
 
 };
 
-THREE.Particle.prototype = new THREE.Object3D();
-THREE.Particle.prototype.constructor = THREE.Particle;
+THREE.Particle.prototype = Object.create( THREE.Object3D.prototype );

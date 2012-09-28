@@ -63,6 +63,7 @@ lgb.controller.WorldController.prototype.init = function() {
   );
 
   this.camera_ = this.cameraController_.getCamera();
+  this.scene_.add(this.camera_);
 
   this.initLights_();
 
@@ -89,7 +90,7 @@ lgb.controller.WorldController.prototype.init = function() {
   this.buildingController_ = new lgb.controller.BuildingController();
 
   /**@type {lgb.controller.PsControllerMaster} */
-  this.PsControllerMaster_ = new lgb.controller.PsControllerMaster();
+ // this.PsControllerMaster_ = new lgb.controller.PsControllerMaster();
 
   /**@type {lgb.controller.WorldSelectionController} */
   this.selectionController_ =
@@ -122,16 +123,26 @@ lgb.controller.WorldController.prototype.initLights_ = function() {
    * @private
    */
 
-  
-  
-  this.ambientLight_ = new THREE.AmbientLight(0x606060);
+  this.ambientLight_ = new THREE.AmbientLight(0x111111);
   this.scene_.add(this.ambientLight_);
 
-  this.sun_ = new THREE.DirectionalLight(0xffffff);
- // this.sun_.castShadow = true;
- // this.sun_.position = new THREE.Vector3(0,100,30);
-  this.sun_.position = this.camera_.position.clone();
-  this.scene_.add(this.sun_);
+  this.light1_ = new THREE.DirectionalLight( 0xffffff, 1 , 5);
+  this.light1_.position.set( 0, 50, -10 );
+  
+  this.scene_.add( this.light1_ );
+
+  this.light2_ = new THREE.DirectionalLight( 0xffffff, 1 , 10);
+  this.light2_.position.set( -25, -50, 0 );
+  this.scene_.add( this.light2_ );
+
+  this.light3_ = new THREE.DirectionalLight( 0xffffff, 1 , 10);
+  this.light3_.position.set( 25, 0, 25 );
+  this.scene_.add( this.light3_ );
+  
+
+   
+
+ 
 };
 
 

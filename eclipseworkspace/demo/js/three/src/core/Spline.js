@@ -32,10 +32,10 @@ THREE.Spline = function ( points ) {
 		intPoint = Math.floor( point );
 		weight = point - intPoint;
 
-		c[ 0 ] = intPoint == 0 ? intPoint : intPoint - 1;
+		c[ 0 ] = intPoint === 0 ? intPoint : intPoint - 1;
 		c[ 1 ] = intPoint;
-		c[ 2 ] = intPoint > this.points.length - 2 ? intPoint : intPoint + 1;
-		c[ 3 ] = intPoint > this.points.length - 3 ? intPoint : intPoint + 2;
+		c[ 2 ] = intPoint  > this.points.length - 2 ? this.points.length - 1 : intPoint + 1;
+		c[ 3 ] = intPoint  > this.points.length - 3 ? this.points.length - 1 : intPoint + 2;
 
 		pa = this.points[ c[ 0 ] ];
 		pb = this.points[ c[ 1 ] ];
@@ -73,7 +73,7 @@ THREE.Spline = function ( points ) {
 
 	this.getLength = function ( nSubDivisions ) {
 
-		var i, index, nSamples,
+		var i, index, nSamples, position,
 			point = 0, intPoint = 0, oldIntPoint = 0,
 			oldPosition = new THREE.Vector3(),
 			tmpVec = new THREE.Vector3(),
@@ -126,7 +126,7 @@ THREE.Spline = function ( points ) {
 		var i, j,
 			index, indexCurrent, indexNext,
 			linearDistance, realDistance,
-			sampling,
+			sampling, position,
 			newpoints = [],
 			tmpVec = new THREE.Vector3(),
 			sl = this.getLength();

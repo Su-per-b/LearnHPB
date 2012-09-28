@@ -133,14 +133,15 @@ lgb.model.SelectableModel.prototype.select = function(intersect) {
 
 /**
  * @param {THREE.Mesh} mesh The mesh to add.
+ * TODO:Raj fix this CollisionUtils reference
  */
 lgb.model.SelectableModel.prototype.addMesh = function(mesh) {
 
   if (this.selectable[mesh.name] == true) {
-    var mc = THREE.CollisionUtils.MeshColliderWBox(mesh);
-    THREE.Collisions.colliders.push(mc);
+  //  var mc = THREE.CollisionUtils.MeshColliderWBox(mesh);
+   // THREE.Collisions.colliders.push(mc);
 
-    this.selectableMeshes[mesh.name] = mesh;
+    //this.selectableMeshes[mesh.name] = mesh;
     //this.selectableMeshes.push(mesh);
   }
 };

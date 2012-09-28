@@ -1,20 +1,28 @@
 /**
- * @author mr.doob / http://mrdoob.com/
+ * @author mrdoob / http://mrdoob.com/
  */
 
-THREE.Line = function ( geometry, materials, type ) {
+THREE.Line = function ( geometry, material, type ) {
 
 	THREE.Object3D.call( this );
 
 	this.geometry = geometry;
-	this.materials = materials instanceof Array ? materials : [ materials ];
+	this.material = ( material !== undefined ) ? material : new THREE.LineBasicMaterial( { color: Math.random() * 0xffffff } );
+	this.type = ( type !== undefined ) ? type : THREE.LineStrip;
 
-	this.type = ( type != undefined ) ? type : THREE.LineStrip;
+	if ( this.geometry ) {
+
+		if ( ! this.geometry.boundingSphere ) {
+
+			this.geometry.computeBoundingSphere();
+
+		}
+
+	}
 
 };
 
 THREE.LineStrip = 0;
 THREE.LinePieces = 1;
 
-THREE.Line.prototype = new THREE.Object3D();
-THREE.Line.prototype.constructor = THREE.Line;
+THREE.Line.prototype = Object.create( THREE.Object3D.prototype );

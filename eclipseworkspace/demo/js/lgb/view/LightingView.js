@@ -40,7 +40,7 @@ lgb.view.LightingView.prototype.init = function() {
  */
 lgb.view.LightingView.prototype.loadScene_ = function() {
 
-   var path = lgb.Config.ASSETS_BASE_PATH + 'lighting/scene-bin.js';
+   var path = lgb.Config.ASSETS_BASE_PATH + 'lighting/scene-bin.json';
    this.loader_ = new THREE.SceneLoaderEx();
    this.loader_.load(path, this.d(this.onSceneLoaded_));
 };
@@ -67,8 +67,8 @@ lgb.view.LightingView.prototype.onSceneLoaded_ = function(result) {
   this.masterGroup = new THREE.Object3D();
   
   
-  for (var i = scene.objects.length - 1; i >= 0; i--) {
-      var mesh = scene.objects[i];
+  for (var i = scene.children.length - 1; i >= 0; i--) {
+      var mesh = scene.children.pop();
       
 
       if (mesh.name == 'recessed') {

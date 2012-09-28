@@ -46,6 +46,8 @@ lgb.controller.CameraController.prototype.getCamera = function() {
  */
 lgb.controller.CameraController.prototype.bind_ = function() {
 
+ // this.makeAddToWorldRequestGlobal();
+  
   this.listen(
     lgb.events.RequestGoToViewPoint.TYPE,
     this.onRequestGoToViewPoint_

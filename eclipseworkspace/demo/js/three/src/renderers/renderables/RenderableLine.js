@@ -1,5 +1,5 @@
 /**
- * @author mr.doob / http://mrdoob.com/
+ * @author mrdoob / http://mrdoob.com/
  */
 
 THREE.RenderableLine = function () {
@@ -9,6 +9,6 @@ THREE.RenderableLine = function () {
 	this.v1 = new THREE.RenderableVertex();
 	this.v2 = new THREE.RenderableVertex();
 
-	this.materials = null;
+	this.material = null;
 
 };

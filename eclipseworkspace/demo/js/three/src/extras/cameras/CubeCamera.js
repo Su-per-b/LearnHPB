@@ -5,116 +5,73 @@
  * @author alteredq / http://alteredqualia.com/
  */
 
-THREE.CubeCamera = function ( near, far, height, resolution ) {
+THREE.CubeCamera = function ( near, far, cubeResolution ) {
+
+	THREE.Object3D.call( this );
 
 	var fov = 90, aspect = 1;
 
-	this.cameraPX = new THREE.PerspectiveCamera( fov, aspect, near, far );
-	this.cameraNX = new THREE.PerspectiveCamera( fov, aspect, near, far );
-	this.cameraPY = new THREE.PerspectiveCamera( fov, aspect, near, far );
-	this.cameraNY = new THREE.PerspectiveCamera( fov, aspect, near, far );
-	this.cameraPZ = new THREE.PerspectiveCamera( fov, aspect, near, far );
-	this.cameraNZ = new THREE.PerspectiveCamera( fov, aspect, near, far );
+	var cameraPX = new THREE.PerspectiveCamera( fov, aspect, near, far );
+	cameraPX.up.set( 0, -1, 0 );
+	cameraPX.lookAt( new THREE.Vector3( 1, 0, 0 ) );
+	this.add( cameraPX );
 
-	this.cameraPXTarget = new THREE.Vector3( 0, 0, 0 );
-	this.cameraNXTarget = new THREE.Vector3( 0, 0, 0 );
-	this.cameraPYTarget = new THREE.Vector3( 0, 0, 0 );
-	this.cameraNYTarget = new THREE.Vector3( 0, 0, 0 );
-	this.cameraPZTarget = new THREE.Vector3( 0, 0, 0 );
-	this.cameraNZTarget = new THREE.Vector3( 0, 0, 0 );
+	var cameraNX = new THREE.PerspectiveCamera( fov, aspect, near, far );
+	cameraNX.up.set( 0, -1, 0 );
+	cameraNX.lookAt( new THREE.Vector3( -1, 0, 0 ) );
+	this.add( cameraNX );
 
-	this.height = height;
-	this.position = new THREE.Vector3( 0, height, 0 );
+	var cameraPY = new THREE.PerspectiveCamera( fov, aspect, near, far );
+	cameraPY.up.set( 0, 0, 1 );
+	cameraPY.lookAt( new THREE.Vector3( 0, 1, 0 ) );
+	this.add( cameraPY );
 
-	this.cameraPX.position = this.position;
-	this.cameraNX.position = this.position;
-	this.cameraPY.position = this.position;
-	this.cameraNY.position = this.position;
-	this.cameraPZ.position = this.position;
-	this.cameraNZ.position = this.position;
+	var cameraNY = new THREE.PerspectiveCamera( fov, aspect, near, far );
+	cameraNY.up.set( 0, 0, -1 );
+	cameraNY.lookAt( new THREE.Vector3( 0, -1, 0 ) );
+	this.add( cameraNY );
 
-	this.cameraPY.up.set( 0, 0, 1 );
-	this.cameraPZ.up.set( 0, -1, 0 );
-	this.cameraNZ.up.set( 0, -1, 0 );
+	var cameraPZ = new THREE.PerspectiveCamera( fov, aspect, near, far );
+	cameraPZ.up.set( 0, -1, 0 );
+	cameraPZ.lookAt( new THREE.Vector3( 0, 0, 1 ) );
+	this.add( cameraPZ );
 
-	this.renderTarget = new THREE.WebGLRenderTargetCube( resolution, resolution, { format: THREE.RGBFormat, magFilter: THREE.LinearFilter, minFilter: THREE.LinearFilter } );
+	var cameraNZ = new THREE.PerspectiveCamera( fov, aspect, near, far );
+	cameraNZ.up.set( 0, -1, 0 );
+	cameraNZ.lookAt( new THREE.Vector3( 0, 0, -1 ) );
+	this.add( cameraNZ );
 
-	this.updatePosition = function ( position ) {
-
-		this.position.x = position.x;
-		this.position.z = position.z;
-
-		this.cameraPXTarget.add( this.position, new THREE.Vector3( -1,  0,  0 ) );
-		this.cameraNXTarget.add( this.position, new THREE.Vector3(  1,  0,  0 ) );
-
-		this.cameraPYTarget.add( this.position, new THREE.Vector3(  0,  1,  0 ) );
-		this.cameraNYTarget.add( this.position, new THREE.Vector3(  0, -1,  0 ) );
-
-		this.cameraPZTarget.add( this.position, new THREE.Vector3(  0,  0,  1 ) );
-		this.cameraNZTarget.add( this.position, new THREE.Vector3(  0,  0, -1 ) );
-
-		this.cameraPX.lookAt( this.cameraPXTarget );
-		this.cameraNX.lookAt( this.cameraNXTarget );
-
-		this.cameraPY.lookAt( this.cameraPYTarget );
-		this.cameraNY.lookAt( this.cameraNYTarget );
-
-		this.cameraPZ.lookAt( this.cameraPZTarget );
-		this.cameraNZ.lookAt( this.cameraNZTarget );
-
-	};
+	this.renderTarget = new THREE.WebGLRenderTargetCube( cubeResolution, cubeResolution, { format: THREE.RGBFormat, magFilter: THREE.LinearFilter, minFilter: THREE.LinearFilter } );
 
 	this.updateCubeMap = function ( renderer, scene ) {
 
-		var cubeTarget = this.renderTarget;
+		var renderTarget = this.renderTarget;
+		var generateMipmaps = renderTarget.generateMipmaps;
 
-		renderer.setFaceCulling( "back", "cw" );
+		renderTarget.generateMipmaps = false;
 
-		scene.scale.y = -1;
-		scene.position.y = 2 * this.height;
-		scene.updateMatrix();
+		renderTarget.activeCubeFace = 0;
+		renderer.render( scene, cameraPX, renderTarget );
 
-		cubeTarget.activeCubeFace = 0;
-		renderer.render( scene, this.cameraPX, cubeTarget );
+		renderTarget.activeCubeFace = 1;
+		renderer.render( scene, cameraNX, renderTarget );
 
-		cubeTarget.activeCubeFace = 1;
-		renderer.render( scene, this.cameraNX, cubeTarget );
+		renderTarget.activeCubeFace = 2;
+		renderer.render( scene, cameraPY, renderTarget );
 
-		scene.scale.y = 1;
-		scene.position.y = 0;
-		scene.updateMatrix();
+		renderTarget.activeCubeFace = 3;
+		renderer.render( scene, cameraNY, renderTarget );
 
-		scene.scale.x = -1;
-		scene.updateMatrix();
+		renderTarget.activeCubeFace = 4;
+		renderer.render( scene, cameraPZ, renderTarget );
 
-		cubeTarget.activeCubeFace = 2;
-		renderer.render( scene, this.cameraPY, cubeTarget );
+		renderTarget.generateMipmaps = generateMipmaps;
 
-		scene.scale.x = 1;
-		scene.updateMatrix();
-
-		renderer.setFaceCulling( "back", "ccw" );
-
-		cubeTarget.activeCubeFace = 3;
-		renderer.render( scene, this.cameraNY, cubeTarget );
-
-		scene.scale.x = -1;
-		scene.updateMatrix();
-
-		renderer.setFaceCulling( "back", "cw" );
-
-		cubeTarget.activeCubeFace = 4;
-		renderer.render( scene, this.cameraPZ, cubeTarget );
-
-		cubeTarget.activeCubeFace = 5;
-		renderer.render( scene, this.cameraNZ, cubeTarget );
-
-		scene.scale.x = 1;
-		scene.updateMatrix();
-
-		renderer.setFaceCulling( "back", "ccw" );
+		renderTarget.activeCubeFace = 5;
+		renderer.render( scene, cameraNZ, renderTarget );
 
 	};
 
 };
 
+THREE.CubeCamera.prototype = Object.create( THREE.Object3D.prototype );

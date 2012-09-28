@@ -1,5 +1,5 @@
 /**
- * @author mr.doob / http://mrdoob.com/
+ * @author mrdoob / http://mrdoob.com/
  * @author greggman / http://games.greggman.com/
  * @author zz85 / http://www.lab4games.net/zz85/blog
  */
@@ -17,8 +17,7 @@ THREE.PerspectiveCamera = function ( fov, aspect, near, far ) {
 
 };
 
-THREE.PerspectiveCamera.prototype = new THREE.Camera();
-THREE.PerspectiveCamera.prototype.constructor = THREE.PerspectiveCamera;
+THREE.PerspectiveCamera.prototype = Object.create( THREE.Camera.prototype );
 
 
 /**
@@ -27,13 +26,11 @@ THREE.PerspectiveCamera.prototype.constructor = THREE.PerspectiveCamera;
  * Formula based on http://www.bobatkins.com/photography/technical/field_of_view.html
  */
 
-THREE.PerspectiveCamera.prototype.setLens = function ( focalLength, frameSize ) {
+THREE.PerspectiveCamera.prototype.setLens = function ( focalLength, frameHeight ) {
 
-	frameSize = frameSize !== undefined ? frameSize : 43.25; // 36x24mm
+	if ( frameHeight === undefined ) frameHeight = 24;
 
-	this.fov = 2 * Math.atan( frameSize / ( focalLength * 2 ) );
-	this.fov = 180 / Math.PI * this.fov;
-
+	this.fov = 2 * Math.atan( frameHeight / ( focalLength * 2 ) ) * ( 180 / Math.PI );
 	this.updateProjectionMatrix();
 
 }
@@ -101,17 +98,18 @@ THREE.PerspectiveCamera.prototype.updateProjectionMatrix = function () {
 		var width = Math.abs( right - left );
 		var height = Math.abs( top - bottom );
 
-		this.projectionMatrix = THREE.Matrix4.makeFrustum(
+		this.projectionMatrix.makeFrustum(
 			left + this.x * width / this.fullWidth,
 			left + ( this.x + this.width ) * width / this.fullWidth,
 			top - ( this.y + this.height ) * height / this.fullHeight,
 			top - this.y * height / this.fullHeight,
 			this.near,
-			this.far );
+			this.far
+		);
 
 	} else {
 
-		this.projectionMatrix = THREE.Matrix4.makePerspective( this.fov, this.aspect, this.near, this.far );
+		this.projectionMatrix.makePerspective( this.fov, this.aspect, this.near, this.far );
 
 	}
 

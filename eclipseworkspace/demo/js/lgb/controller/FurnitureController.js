@@ -52,9 +52,11 @@ lgb.controller.FurnitureController.prototype.bind_ = function() {
   
   this.makeAddToWorldRequestGlobal();
 
+  this.listenTo(this.view,
+    lgb.events.ViewInitialized.TYPE,
+    this.onViewInitialized_);
 
 };
-
 
 
 /**

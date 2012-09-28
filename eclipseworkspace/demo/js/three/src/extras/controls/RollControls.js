@@ -28,9 +28,6 @@ THREE.RollControls = function ( object, domElement ) {
 	this.forward = new THREE.Vector3( 0, 0, 1 );
 	this.roll = 0;
 
-	this.lastUpdate = -1;
-	this.delta = 0;
-
 	var xTemp = new THREE.Vector3();
 	var yTemp = new THREE.Vector3();
 	var zTemp = new THREE.Vector3();
@@ -40,30 +37,32 @@ THREE.RollControls = function ( object, domElement ) {
 
 	var mouseX = 0, mouseY = 0;
 
-	var windowHalfX = window.innerWidth / 2;
-	var windowHalfY = window.innerHeight / 2;
+	var windowHalfX = 0;
+	var windowHalfY = 0;
+
+	//
+
+	this.handleResize = function () {
+
+		windowHalfX = window.innerWidth / 2;
+		windowHalfY = window.innerHeight / 2;
+
+	};
 
 	// custom update
 
-	this.update = function() {
-
-		var now = new Date().getTime();
-
-		if ( this.lastUpdate == -1 ) this.lastUpdate = now;
-
-		this.delta = ( now - this.lastUpdate ) / 1000;
-		this.lastUpdate = now;
+	this.update = function ( delta ) {
 
 		if ( this.mouseLook ) {
 
-			var actualLookSpeed = this.delta * this.lookSpeed;
+			var actualLookSpeed = delta * this.lookSpeed;
 
 			this.rotateHorizontally( actualLookSpeed * mouseX );
 			this.rotateVertically( actualLookSpeed * mouseY );
 
 		}
 
-		var actualSpeed = this.delta * this.movementSpeed;
+		var actualSpeed = delta * this.movementSpeed;
 		var forwardOrAuto = ( forwardSpeed > 0 || ( this.autoForward && ! ( forwardSpeed < 0 ) ) ) ? 1 : forwardSpeed;
 
 		this.object.translateZ( -actualSpeed * forwardOrAuto );
@@ -72,7 +71,7 @@ THREE.RollControls = function ( object, domElement ) {
 
 		if( doRoll ) {
 
-			this.roll += this.rollSpeed * this.delta * rollDirection;
+			this.roll += this.rollSpeed * delta * rollDirection;
 
 		}
 
@@ -99,15 +98,15 @@ THREE.RollControls = function ( object, domElement ) {
 		xTemp.cross( yTemp, zTemp ).normalize();
 		yTemp.cross( zTemp, xTemp ).normalize();
 
-		this.object.matrix.n11 = xTemp.x; this.object.matrix.n12 = yTemp.x; this.object.matrix.n13 = zTemp.x;
-		this.object.matrix.n21 = xTemp.y; this.object.matrix.n22 = yTemp.y; this.object.matrix.n23 = zTemp.y;
-		this.object.matrix.n31 = xTemp.z; this.object.matrix.n32 = yTemp.z; this.object.matrix.n33 = zTemp.z;
+		this.object.matrix.elements[0] = xTemp.x; this.object.matrix.elements[4] = yTemp.x; this.object.matrix.elements[8] = zTemp.x;
+		this.object.matrix.elements[1] = xTemp.y; this.object.matrix.elements[5] = yTemp.y; this.object.matrix.elements[9] = zTemp.y;
+		this.object.matrix.elements[2] = xTemp.z; this.object.matrix.elements[6] = yTemp.z; this.object.matrix.elements[10] = zTemp.z;
 
 		// calculate roll matrix
 
 		rollMatrix.identity();
-		rollMatrix.n11 = Math.cos( this.roll ); rollMatrix.n12 = -Math.sin( this.roll );
-		rollMatrix.n21 = Math.sin( this.roll ); rollMatrix.n22 =  Math.cos( this.roll );
+		rollMatrix.elements[0] = Math.cos( this.roll ); rollMatrix.elements[4] = -Math.sin( this.roll );
+		rollMatrix.elements[1] = Math.sin( this.roll ); rollMatrix.elements[5] =  Math.cos( this.roll );
 
 		// multiply camera with roll
 
@@ -116,34 +115,34 @@ THREE.RollControls = function ( object, domElement ) {
 
 		// set position
 
-		this.object.matrix.n14 = this.object.position.x;
-		this.object.matrix.n24 = this.object.position.y;
-		this.object.matrix.n34 = this.object.position.z;
+		this.object.matrix.elements[12] = this.object.position.x;
+		this.object.matrix.elements[13] = this.object.position.y;
+		this.object.matrix.elements[14] = this.object.position.z;
 
 
 	};
 
 	this.translateX = function ( distance ) {
 
-		this.object.position.x += this.object.matrix.n11 * distance;
-		this.object.position.y += this.object.matrix.n21 * distance;
-		this.object.position.z += this.object.matrix.n31 * distance;
+		this.object.position.x += this.object.matrix.elements[0] * distance;
+		this.object.position.y += this.object.matrix.elements[1] * distance;
+		this.object.position.z += this.object.matrix.elements[2] * distance;
 
 	};
 
 	this.translateY = function ( distance ) {
 
-		this.object.position.x += this.object.matrix.n12 * distance;
-		this.object.position.y += this.object.matrix.n22 * distance;
-		this.object.position.z += this.object.matrix.n32 * distance;
+		this.object.position.x += this.object.matrix.elements[4] * distance;
+		this.object.position.y += this.object.matrix.elements[5] * distance;
+		this.object.position.z += this.object.matrix.elements[6] * distance;
 
 	};
 
 	this.translateZ = function ( distance ) {
 
-		this.object.position.x -= this.object.matrix.n13 * distance;
-		this.object.position.y -= this.object.matrix.n23 * distance;
-		this.object.position.z -= this.object.matrix.n33 * distance;
+		this.object.position.x -= this.object.matrix.elements[8] * distance;
+		this.object.position.y -= this.object.matrix.elements[9] * distance;
+		this.object.position.z -= this.object.matrix.elements[10] * distance;
 
 	};
 
@@ -152,7 +151,7 @@ THREE.RollControls = function ( object, domElement ) {
 
 		// please note that the amount is NOT degrees, but a scale value
 
-		xTemp.set( this.object.matrix.n11, this.object.matrix.n21, this.object.matrix.n31 );
+		xTemp.set( this.object.matrix.elements[0], this.object.matrix.elements[1], this.object.matrix.elements[2] );
 		xTemp.multiplyScalar( amount );
 
 		this.forward.subSelf( xTemp );
@@ -164,7 +163,7 @@ THREE.RollControls = function ( object, domElement ) {
 
 		// please note that the amount is NOT degrees, but a scale value
 
-		yTemp.set( this.object.matrix.n12, this.object.matrix.n22, this.object.matrix.n32 );
+		yTemp.set( this.object.matrix.elements[4], this.object.matrix.elements[5], this.object.matrix.elements[6] );
 		yTemp.multiplyScalar( amount );
 
 		this.forward.addSelf( yTemp );
@@ -174,7 +173,9 @@ THREE.RollControls = function ( object, domElement ) {
 
 	function onKeyDown( event ) {
 
-		switch( event.keyCode ) {
+		//event.preventDefault();
+
+		switch ( event.keyCode ) {
 
 			case 38: /*up*/
 			case 87: /*W*/ forwardSpeed = 1; break;
@@ -266,5 +267,7 @@ THREE.RollControls = function ( object, domElement ) {
 	this.domElement.addEventListener( 'mouseup', onMouseUp, false );
 	this.domElement.addEventListener( 'keydown', onKeyDown, false );
 	this.domElement.addEventListener( 'keyup', onKeyUp, false );
+
+	this.handleResize();
 
 };

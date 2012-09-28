@@ -59,7 +59,7 @@ lgb.Config.SHOW_STATS = false;
  * @type {string}
  */
 lgb.Config.PARTICLE_SYSTEM_SCENE = lgb.Config.ASSETS_BASE_PATH +
-'particle-systems/ps8.js';
+'particle-systems/ps8.json';
 
 /**
  * the XML file for all the particle systems.

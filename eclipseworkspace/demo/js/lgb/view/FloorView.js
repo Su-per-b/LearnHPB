@@ -36,23 +36,25 @@ lgb.view.FloorView.prototype.init = function() {
   var floor = -0.04, step = 1, size = 14;
 
   for (var i = 0; i <= size / step * 2; i++) {
+    
+    
+    var vec3 = new THREE.Vector3(- size, floor, i * step - size);
+    geometry.vertices.push(vec3);
+    
     geometry.vertices.push(
-      new THREE.Vertex(new THREE.Vector3(- size, floor, i * step - size))
+      new THREE.Vector3(size, floor, i * step - size)
     );
     geometry.vertices.push(
-      new THREE.Vertex(new THREE.Vector3(size, floor, i * step - size))
-    );
-    geometry.vertices.push(new THREE.Vertex(
-      new THREE.Vector3(i * step - size, floor, -size))
+      new THREE.Vector3(i * step - size, floor, -size)
     );
     geometry.vertices.push(
-      new THREE.Vertex(new THREE.Vector3(i * step - size, floor, size))
+      new THREE.Vector3(i * step - size, floor, size)
     );
   }
 
   var plane = new THREE.Line(geometry, line_material, THREE.LinePieces);
   var event = new lgb.events.Object3DLoaded(plane);
-  this.dispatchLocal(event);
+ // this.dispatchLocal(event);
 };
 
 
