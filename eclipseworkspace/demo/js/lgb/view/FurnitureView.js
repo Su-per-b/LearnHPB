@@ -36,17 +36,17 @@ lgb.view.FurnitureView.prototype.init = function() {
 lgb.view.FurnitureView.prototype.loadScene_ = function() {
 
   this.loadSceneCollada_();
- // this.loadSceneThreeJS_();
+  this.loadSceneThreeJS_();
 };
 
 lgb.view.FurnitureView.prototype.loadSceneThreeJS_ = function() {
 
   //colada Loader
    //var path = lgb.Config.ASSETS_BASE_PATH + 'test/optimized_marker/scene.json';
-   var path = lgb.Config.ASSETS_BASE_PATH + 'eLADShadedDetail/optimized_marker/scene.json';
+   //var path = lgb.Config.ASSETS_BASE_PATH + 'eLADShadedDetail/optimized_marker/scene.json';
+   var path = lgb.Config.ASSETS_BASE_PATH + 'furniture/scene.json';
    
-   
-   this.loader_ = new THREE.SceneLoader();
+   this.loader_ = new THREE.SceneLoaderEx();
    this.loader_.load(path, this.d(this.onSceneLoadedThreeJS_));
 
 };
@@ -54,9 +54,9 @@ lgb.view.FurnitureView.prototype.loadSceneThreeJS_ = function() {
 lgb.view.FurnitureView.prototype.loadSceneCollada_ = function() {
 
   //colada Loader
-   var path = lgb.Config.ASSETS_BASE_PATH + 'eLADShadedDetail/furniture_layoutA_low.dae';
-   this.loader_ = new THREE.ColladaLoader();
-   this.loader_.load(path, this.d(this.onSceneLoadedCollada_));
+   var path = lgb.Config.ASSETS_BASE_PATH + 'eLADShadedDetail/furniture_layoutA_low_2.dae';
+   this.loader2_ = new THREE.ColladaLoader();
+   this.loader2_.load(path, this.d(this.onSceneLoadedCollada_));
 
 };
 
@@ -79,12 +79,11 @@ lgb.view.FurnitureView.prototype.onSceneLoadedCollada_ = function(result) {
   
   for (var i = 0; i < len; i++) {
       var mesh = scene.children.pop();
-      
       this.masterGroup.add(mesh);
   }
   
 
-  this.masterGroup.position = new THREE.Vector3(0,-3, -6);
+  this.masterGroup.position = new THREE.Vector3(0,-1.5, -6);
   this.masterGroup.scale = new THREE.Vector3(0.4, 0.4,0.4);
   
   if (scene.up.y == 1) {
@@ -93,7 +92,7 @@ lgb.view.FurnitureView.prototype.onSceneLoadedCollada_ = function(result) {
   
   this.requestAddToWorld(this.masterGroup);
 
-  //delete this.loader_;
+  delete this.loader2_;
   this.updateVisible_();
   
   this.dispatchLocal(new lgb.events.ViewInitialized());

@@ -1,0 +1,56 @@
+{
+
+    "metadata" :
+    {
+        "formatVersion" : 3.1,
+        "sourceFile"    : "BlueChair2.obj",
+        "generatedBy"   : "OBJConverter",
+        "vertices"      : 1365,
+        "faces"         : 1182,
+        "normals"       : 0,
+        "uvs"           : 0,
+        "materials"     : 3
+    },
+
+    "materials": [	{
+	"DbgColor" : 15658734,
+	"DbgIndex" : 0,
+	"DbgName" : "leather",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [0.138039, 0.304314, 0.511373],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"illumination" : 2,
+	"opticalDensity" : 1.0,
+	"specularCoef" : 96.078431,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 15597568,
+	"DbgIndex" : 1,
+	"DbgName" : "chrome",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [0.119216, 0.119216, 0.119216],
+	"colorSpecular" : [0.478431, 0.478431, 0.478431],
+	"illumination" : 2,
+	"opticalDensity" : 1.0,
+	"specularCoef" : 96.078431,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 60928,
+	"DbgIndex" : 2,
+	"DbgName" : "blackplastic",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [0.075294, 0.075294, 0.075294],
+	"colorSpecular" : [0.054902, 0.054902, 0.054902],
+	"illumination" : 2,
+	"opticalDensity" : 1.0,
+	"specularCoef" : 96.078431,
+	"transparency" : 1.0
+	}],
+
+    "buffers": "BlueChair2.obj.bin"
+
+}
