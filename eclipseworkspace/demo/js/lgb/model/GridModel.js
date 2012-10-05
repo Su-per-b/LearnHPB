@@ -47,14 +47,14 @@ lgb.model.GridModel.prototype.calculatePosition_ = function() {
   var xPos = this.position.x +
   (-1 * (this.dimensions.x / 2)) + 
   (this.geometryDimensions.x / 2) + 
-  (this.columnSpacing / 2);
+  (this.rowSpacing / 2);
   
   var zPos = this.position.z +
-  (1 * (this.dimensions.z / 2)) - 
-  (this.geometryDimensions.z / 2) -
-  (this.rowSpacing / 2)
+  (-1 * (this.dimensions.z / 2)) + 
+  (this.geometryDimensions.z / 2) +
+  (this.columnSpacing/ 2)
   
-  var yPos = this.position.y + (-1 * this.geometryDimensions.y / 2);
+  var yPos = this.position.y + (1 * this.geometryDimensions.y / 2);
 
   this.centeredPosition  = new THREE.Vector3(
     xPos,
@@ -98,8 +98,8 @@ lgb.model.GridModel.prototype.getCellPosition = function(rowNumber, columnNumber
 
   var cellPosition = new THREE.Vector3(
     x,
-    z,
-    0
+    0,
+    z
   );
   
   

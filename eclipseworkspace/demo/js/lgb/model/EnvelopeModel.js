@@ -33,7 +33,7 @@ lgb.model.EnvelopeModel.prototype.init_ = function() {
   lgb.model.ModelBase.call(this);
 
   this.floorCount = 5;
-  this.floorHeight = 11;
+  this.floorHeight = 9;
   this.floorWidth = 125;
   this.floorDepth = 80;
 

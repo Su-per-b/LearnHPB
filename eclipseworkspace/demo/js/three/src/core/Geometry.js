@@ -672,9 +672,9 @@ THREE.Geometry.prototype = {
     this.computeBoundingBox();
     var bb = this.boundingBox;
   
-    var xExt = bb.x[1] - bb.x[0];
-    var yExt = bb.y[1] - bb.y[0];
-    var zExt = bb.z[1] - bb.z[0];
+    var xExt = bb.max.x - bb.min.x;
+    var yExt = bb.max.y - bb.min.y;
+    var zExt = bb.max.z - bb.min.z;
     
     var dimensions = new THREE.Vector3(xExt, yExt, zExt);
     return dimensions;
@@ -686,14 +686,14 @@ THREE.Geometry.prototype = {
    */
   getBoundingBoxPoints: function () {
     this.computeBoundingBox();
-    var bb = this.boundingBox;
-    var min = [bb.x[0], bb.y[0],bb.z[0]];
-    var max = [bb.x[1], bb.y[1],bb.z[1]];
+   // var bb = this.boundingBox;
+    //var min = [bb.x[0], bb.y[0],bb.z[0]];
+   // var max = [bb.x[1], bb.y[1],bb.z[1]];
     
-    var min = new THREE.Vector3(bb.x[0], bb.y[0], bb.z[0]);
-    var max = new THREE.Vector3(bb.x[1], bb.y[1], bb.z[1]);
+    //var min = new THREE.Vector3(bb.x[0], bb.y[0], bb.z[0]);
+    //var max = new THREE.Vector3(bb.x[1], bb.y[1], bb.z[1]);
     
-    return [min,max]
+    return [this.boundingBox.min,this.boundingBox.max]
   }
 
 };

@@ -44,7 +44,7 @@ lgb.view.RoofTopView.prototype.init = function() {
 lgb.view.RoofTopView.prototype.loadScene_ = function() {
 
 
-  var path = lgb.Config.ASSETS_BASE_PATH + 'rooftop/scene-bin.json';
+  var path = lgb.Config.ASSETS_BASE_PATH + 'rooftop/scene.json';
 
   /**@type {THREE.SceneLoaderEx} */
   this.loader_ = new THREE.SceneLoaderEx();
@@ -84,24 +84,22 @@ lgb.view.RoofTopView.prototype.onSceneLoaded_ = function(result) {
   for (var i = scene.children.length - 1; i >= 0; i--) {
       var mesh = scene.children.pop();
 
-      if (mesh.name == 'Ducting') {
-        mesh.doubleSided = true;
-      }
+      //if (mesh.name == 'Ducting') {
+       //  mesh.sided = "true";
+      //}
       
     mesh.castShadow = true;
     mesh.receiveShadow = true;
       
     mesh.dynamic = true;
-    mesh.bakeTransformsIntoGeometry();
-    mesh.extractPositionFromGeometry();
+    //mesh.bakeTransformsIntoGeometry();
+   // mesh.extractPositionFromGeometry();
     this.masterGroup.add(mesh);
 
     var event = new lgb.events.SelectableLoaded(mesh);
     this.dispatchLocal(event);
 
   }
-
-
 
   this.masterGroup.position = scene.position;
   this.masterGroup.rotation = scene.rotation;

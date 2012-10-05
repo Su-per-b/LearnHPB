@@ -182,7 +182,10 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
 
             // not anymore support for multiple materials
             // shouldn't really be array
-
+            if (o.materials === undefined) {
+              o.materials = [];
+            }
+            
             material = result.materials[o.materials[0]];
             hasNormals = material instanceof THREE.ShaderMaterial;
 
@@ -766,10 +769,17 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
   }
 
   // materials
+  var materialsLocal = data.materials;
+  // var materialsLocal = matttt["Default"];
+  //var mddddd  = data.materials["Default"];
+  
+  
+  for (dm in materialsLocal ) {
 
-  for (dm in data.materials ) {
 
-    m = data.materials[dm];
+    var debugLine = dm;
+   // 
+    m = materialsLocal[dm];
   
     //set default type and blending
     if (m.type === undefined) m.type = "MeshLambertMaterial";

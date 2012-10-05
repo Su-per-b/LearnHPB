@@ -35,14 +35,17 @@ lgb.view.FurnitureView.prototype.init = function() {
  */
 lgb.view.FurnitureView.prototype.loadScene_ = function() {
 
-  //this.loadSceneCollada_();
-  this.loadSceneThreeJS_();
+  this.loadSceneCollada_();
+ // this.loadSceneThreeJS_();
 };
 
 lgb.view.FurnitureView.prototype.loadSceneThreeJS_ = function() {
 
   //colada Loader
-   var path = lgb.Config.ASSETS_BASE_PATH + 'test/optimized_marker/scene.json';
+   //var path = lgb.Config.ASSETS_BASE_PATH + 'test/optimized_marker/scene.json';
+   var path = lgb.Config.ASSETS_BASE_PATH + 'eLADShadedDetail/optimized_marker/scene.json';
+   
+   
    this.loader_ = new THREE.SceneLoader();
    this.loader_.load(path, this.d(this.onSceneLoadedThreeJS_));
 
@@ -81,9 +84,12 @@ lgb.view.FurnitureView.prototype.onSceneLoadedCollada_ = function(result) {
   }
   
 
-  this.masterGroup.position = scene.position;
-  this.masterGroup.rotation = scene.rotation;
-  this.masterGroup.scale = scene.scale;
+  this.masterGroup.position = new THREE.Vector3(0,-3, -6);
+  this.masterGroup.scale = new THREE.Vector3(0.4, 0.4,0.4);
+  
+  if (scene.up.y == 1) {
+    this.masterGroup.rotation = new THREE.Vector3(-1.570758, 0, 0);
+  }
   
   this.requestAddToWorld(this.masterGroup);
 

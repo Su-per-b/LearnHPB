@@ -43,8 +43,8 @@ lgb.controller.MainController.prototype.init = function() {
 
 
   window.onerror = function(errorMsg, url, lineNumber) {
-    // alert(printStackTrace({guess:true}).join("\n"));
-     //debugger;
+     //alert(printStackTrace({guess:true}).join("\n"));
+     debugger;
   };
 
 

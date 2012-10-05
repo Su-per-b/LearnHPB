@@ -1,0 +1,62 @@
+{
+
+	"materials": {
+		"blue": {
+			"parameters": {
+				"color": 163
+			}
+		},
+
+		"green": {
+			"parameters": {
+				"color": 41728
+			}
+		},
+
+		"red": {
+			"parameters": {
+				"color": 10682368
+			}
+		}
+	},
+
+	"objects": {
+
+		"upObject": {
+			"geometry": "upGeom",
+			"position": [0, 1, 0],
+			"rotation": [0, 0, 0]
+		},
+
+		"rightObject": {
+			"geometry": "rightGeom",
+			"position": [1, 0, 0],
+			"rotation": [0, 0, -1.5708]
+		},
+
+		"backObject": {
+			"geometry": "backGeom",
+			"position": [0, 0, 1],
+			"rotation": [1.5708, 0, 0]
+		}
+	},
+
+
+	"geometries": {
+
+		"upGeom": {
+			"type": "binary",
+			"url": "up.obj.json"
+		},
+
+		"rightGeom": {
+			"type": "binary",
+			"url": "right.obj.json"
+		},
+
+		"backGeom": {
+			"type": "binary",
+			"url": "back.obj.json"
+		}
+	}
+}

@@ -35,10 +35,10 @@ goog.inherits(lgb.controller.BuildingController, lgb.controller.ControllerBase);
 lgb.controller.BuildingController.prototype.init_ = function() {
 
  // this.zoneController_ = new lgb.controller.ZoneController();
-  //this.envelopeController_ = new lgb.controller.EnvelopeController();
- // this.roofTopController_ = new lgb.controller.RoofTopController();
+  this.envelopeController_ = new lgb.controller.EnvelopeController();
+  this.roofTopController_ = new lgb.controller.RoofTopController();
   this.ductworkController_ = new lgb.controller.DuctworkController();
- // this.lightingController = new lgb.controller.LightingController();
+  this.lightingController = new lgb.controller.LightingController();
  // this.furnitureController = new lgb.controller.FurnitureController();
 
   this.bind_();

@@ -1,0 +1,63 @@
+{
+	"objects": {
+		"DuctWork": {
+			"geometry": "geomDuctWork"
+		},
+		"Diffuser01": {
+			"geometry": "geomDiffuser",
+			"position": [-13.53900, 0.68174, -8.71199],
+			"rotation": [0, 3.141516, 0]
+		},
+		"Diffuser02": {
+			"geometry": "geomDiffuser",
+			"position": [1.37899, 0.68174, -8.71199],
+			"rotation": [0, 3.141516, 0]
+		},
+		"Diffuser03": {
+			"geometry": "geomDiffuser",
+			"position": [16.39205, 0.68174, -8.71199],
+			"rotation": [0, 3.141516, 0]
+		},
+		"Diffuser04": {
+			"geometry": "geomDiffuser",
+			"position": [-15.06445, 0.68174, 0.20537],
+			"rotation": [0, -1.570758, 0]
+		},
+		"Diffuser05": {
+			"geometry": "geomDiffuser",
+			"position": [6.74999, 0.68174, -0.55826],
+			"rotation": [0, -1.570758, 0]
+		},
+		"Diffuser06": {
+			"geometry": "geomDiffuser",
+			"position": [18.12763, 0.68174, 0.08074],
+			"rotation": [0, 1.570758, 0]
+		},
+		"Diffuser07": {
+			"geometry": "geomDiffuser",
+			"position": [-13.43104, 0.68174, 9.23402]
+		},
+		"Diffuser08": {
+			"geometry": "geomDiffuser",
+			"position": [1.46575, 0.68174, 9.23402]
+		},
+		"Diffuser09": {
+			"geometry": "geomDiffuser",
+			"position": [16.50194, 0.68174, 9.23402]
+		}
+	},
+
+
+	"geometries": {
+		"geomDiffuser": {
+			"type": "binary",
+			"url": "diffuser_6.obj.json"
+		},
+
+		"geomDuctWork": {
+			"type": "binary",
+			"url": "ductwork_6.obj.json"
+		}
+	}
+
+}

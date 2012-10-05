@@ -40,7 +40,7 @@ lgb.view.LightingView.prototype.init = function() {
  */
 lgb.view.LightingView.prototype.loadScene_ = function() {
 
-   var path = lgb.Config.ASSETS_BASE_PATH + 'lighting/scene-bin.json';
+   var path = lgb.Config.ASSETS_BASE_PATH + 'lighting/scene.json';
    this.loader_ = new THREE.SceneLoaderEx();
    this.loader_.load(path, this.d(this.onSceneLoaded_));
 };

@@ -59,8 +59,8 @@ lgb.view.AdminView.prototype.injectHtml_ = function() {
  * @private
  */
 lgb.view.AdminView.prototype.makeDialog_ = function() {
-    var jq = $('<div>')
-    .attr('id', this.htmlID);
+    var jq = $('<div>');
+    jq.attr('id', this.htmlID);
     jq.direction = 'left';
     jq.bind('dialogclose', this.d(this.onCloseButtonClicked));
 

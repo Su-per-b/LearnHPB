@@ -24,7 +24,7 @@ lgb.view.EnvelopeView = function(dataModel) {
 
   ///**@type {Array.<THREE.Geometry>} */
  // this.floorGeometry = [];
-  this.floorObjs = [];
+  this.floorGeometryHash_ = [];
   this.init_();
 };
 goog.inherits(lgb.view.EnvelopeView, lgb.view.ViewBase);
@@ -47,7 +47,7 @@ lgb.view.EnvelopeView.prototype.init_ = function() {
  */
 lgb.view.EnvelopeView.prototype.loadScene_ = function() {
 
-  var path = lgb.Config.ASSETS_BASE_PATH + 'envelope/scene-bin.json';
+  var path = lgb.Config.ASSETS_BASE_PATH + 'envelope/scene.json';
   this.loader_ = new THREE.SceneLoaderEx();
 
   this.loader_.load(path, this.d(this.onSceneLoaded_));
@@ -66,19 +66,18 @@ lgb.view.EnvelopeView.prototype.onSceneLoaded_ = function(result) {
   var cameras = result['cameras'];
 
 
-
-
   //var objects = result['objects'];
-
-  this.each(scene.children, lgb.ThreeUtils.chromeBlinkingFix);
-  this.floorObjs = lgb.ThreeUtils.convertGroupHashToMeshHash(groups);
+  //this.each(scene.children, lgb.ThreeUtils.chromeBlinkingFix);
+  this.floorGeometryHash_ = lgb.ThreeUtils.convertGroupHashToMeshHash(groups);
   this.masterGroup = new THREE.Object3D();
+  
   this.masterGroup.position = scene.position;
   this.masterGroup.rotation = scene.rotation;
   this.masterGroup.scale = scene.scale;
   this.requestAddToWorld(this.masterGroup);
 
   this.updateAllFromModel_();
+  
   delete this.loader_;
   this.dispatchLocal(new lgb.events.ViewInitialized());
 
@@ -87,7 +86,7 @@ lgb.view.EnvelopeView.prototype.onSceneLoaded_ = function(result) {
     this.dispatchLocal(e);
   }
 
-
+  return;
 };
 
 
@@ -106,6 +105,7 @@ lgb.view.EnvelopeView.prototype.onChange = function(event) {
  * @private
  */
 lgb.view.EnvelopeView.prototype.updateAllFromModel_ = function() {
+
   this.makeFloors_();
   this.updateVisible_();
 };
@@ -115,10 +115,14 @@ lgb.view.EnvelopeView.prototype.updateAllFromModel_ = function() {
  * @private
  */
 lgb.view.EnvelopeView.prototype.makeFloors_ = function() {
-
-  var geometry = this.floorObjs[this.dataModel.floorHeight + 'ft'].geometry;
+  
+  
+  var hashKey = this.dataModel.floorHeight + 'ft';
+  var mesh = this.floorGeometryHash_[hashKey];
+  var geometry = mesh.geometry;
+  
   this.floorDimensions = geometry.getDimensions();
-  this.dimensions = geometry.getDimensions();
+  //this.dimensions = geometry.getDimensions();
 
   var m = this.masterGroup.children.length;
 
@@ -130,10 +134,10 @@ lgb.view.EnvelopeView.prototype.makeFloors_ = function() {
 
   for (var j = 0; j < l; j++) {
     var floor = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial());
-    floor.castShadow = true;
-    floor.receiveShadow = true;
+   // floor.castShadow = true;
+    //floor.receiveShadow = true;
     
-    floor.position.z -= j * this.dimensions.z;
+    floor.position.y -= j * this.floorDimensions.y;
     this.masterGroup.add(floor);
   }
 

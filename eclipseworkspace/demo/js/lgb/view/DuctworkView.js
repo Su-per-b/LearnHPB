@@ -27,8 +27,6 @@ goog.inherits(lgb.view.DuctworkView, lgb.view.ViewBase);
  * loads the geometry
  */
 lgb.view.DuctworkView.prototype.init = function() {
-  //this.loader_ = new lgb.Loader();
-  //this.loader_.loadFile('ductwork102611.b.js', this.d(this.onGeometryLoaded));
   this.loadScene_();
 };
 
@@ -38,7 +36,7 @@ lgb.view.DuctworkView.prototype.init = function() {
  */
 lgb.view.DuctworkView.prototype.loadScene_ = function() {
 
-  var path = lgb.Config.ASSETS_BASE_PATH + 'ductwork_and_diffusers/scene-6.json';
+  var path = lgb.Config.ASSETS_BASE_PATH + 'ductwork_and_diffusers/scene.json';
   this.loader_ = new THREE.SceneLoaderEx();
   
   this.loader_.load(path, this.d(this.onSceneLoaded_));
