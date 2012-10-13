@@ -21,37 +21,16 @@ lgb.view.EnvelopeView = function(dataModel) {
 
   /**@const */
   this._NAME = 'lgb.view.EnvelopeView';
+  this._ASSETS_FOLDER = 'envelope';
 
-  ///**@type {Array.<THREE.Geometry>} */
- // this.floorGeometry = [];
+
   this.floorGeometryHash_ = [];
-  this.init_();
+  this.floorDimensions_ = null;
+    
+  this.init();
 };
 goog.inherits(lgb.view.EnvelopeView, lgb.view.ViewBase);
 
-
-/**
- * Initializes the View
- * and loads the meshes from remote files
- * @private
- */
-lgb.view.EnvelopeView.prototype.init_ = function() {
-  this.floorDimensions = null;
-  this.loadScene_();
-};
-
-
-/**
- * Initiates the loading of the scene file.
- * @private
- */
-lgb.view.EnvelopeView.prototype.loadScene_ = function() {
-
-  var path = lgb.Config.ASSETS_BASE_PATH + 'envelope/scene.json';
-  this.loader_ = new THREE.SceneLoaderEx();
-
-  this.loader_.load(path, this.d(this.onSceneLoaded_));
-};
 
 
 /**
@@ -60,33 +39,10 @@ lgb.view.EnvelopeView.prototype.loadScene_ = function() {
  * @param {Object} result From the THREE.js lib.
  */
 lgb.view.EnvelopeView.prototype.onSceneLoaded_ = function(result) {
-  /**@type THREE.Scene */
-  var scene = result['scene'];
-  var groups = result['groups'];
-  var cameras = result['cameras'];
 
-
-  //var objects = result['objects'];
-  //this.each(scene.children, lgb.ThreeUtils.chromeBlinkingFix);
-  this.floorGeometryHash_ = lgb.ThreeUtils.convertGroupHashToMeshHash(groups);
-  this.masterGroup = new THREE.Object3D();
-  
-  this.masterGroup.position = scene.position;
-  this.masterGroup.rotation = scene.rotation;
-  this.masterGroup.scale = scene.scale;
-  this.requestAddToWorld(this.masterGroup);
-
+  this.floorGeometryHash_ = lgb.ThreeUtils.convertGroupHashToMeshHash(this.groups_);
   this.updateAllFromModel_();
-  
-  delete this.loader_;
-  this.dispatchLocal(new lgb.events.ViewInitialized());
 
-  if (cameras !== undefined) {
-    var e = new lgb.events.CamerasLoaded(cameras);
-    this.dispatchLocal(e);
-  }
-
-  return;
 };
 
 
@@ -121,24 +77,20 @@ lgb.view.EnvelopeView.prototype.makeFloors_ = function() {
   var mesh = this.floorGeometryHash_[hashKey];
   var geometry = mesh.geometry;
   
-  this.floorDimensions = geometry.getDimensions();
-  //this.dimensions = geometry.getDimensions();
+  this.floorDimensions_ = geometry.getDimensions();
+  var m = this.masterGroup_.children.length;
 
-  var m = this.masterGroup.children.length;
-
-  for (var i = this.masterGroup.children.length - 1; i >= 0; i--) {
-    this.masterGroup.remove(this.masterGroup.children[i]);
+  for (var i = this.masterGroup_.children.length - 1; i >= 0; i--) {
+    this.masterGroup_.remove(this.masterGroup_.children[i]);
   }
 
   var l = this.dataModel.floorCount;
 
   for (var j = 0; j < l; j++) {
     var floor = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial());
-   // floor.castShadow = true;
-    //floor.receiveShadow = true;
     
-    floor.position.y -= j * this.floorDimensions.y;
-    this.masterGroup.add(floor);
+    floor.position.y -= j * this.floorDimensions_.y;
+    this.masterGroup_.add(floor);
   }
 
 };
@@ -153,10 +105,10 @@ lgb.view.EnvelopeView.prototype.makeFloors_ = function() {
  * @private
  */
 lgb.view.EnvelopeView.prototype.updateVisible_ = function() {
-  var m = this.masterGroup.children.length;
+  var m = this.masterGroup_.children.length;
 
   for (var i = 0; i < m; i++) {
-    this.masterGroup.children[i].visible = this.dataModel.isVisible;
+    this.masterGroup_.children[i].visible = this.dataModel.isVisible;
   }
 };
 

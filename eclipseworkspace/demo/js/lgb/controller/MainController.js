@@ -43,8 +43,13 @@ lgb.controller.MainController.prototype.init = function() {
 
 
   window.onerror = function(errorMsg, url, lineNumber) {
-     //alert(printStackTrace({guess:true}).join("\n"));
-     debugger;
+    
+    
+    var w = $('#errorWindow').data('kendoWindow');
+     w.content(errorMsg + '<br />url:' + url + '<br />line:' + lineNumber);
+       w.open();
+       
+     //debugger;
   };
 
 

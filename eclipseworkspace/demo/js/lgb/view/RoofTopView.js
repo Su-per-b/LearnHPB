@@ -23,95 +23,30 @@ lgb.view.RoofTopView = function(dataModel) {
 
   this.dataModel = dataModel;
   this._NAME = 'lgb.view.RoofTopView';
-
+  this._ASSETS_FOLDER = 'rooftop';
 
 };
 goog.inherits(lgb.view.RoofTopView, lgb.view.ViewBase);
 
 
 
-/**
- * Initializes the View
- */
-lgb.view.RoofTopView.prototype.init = function() {
-  this.loadScene_();
-};
 
 /**
- * begins the file load process.
+ * Event handler called by the base class when the scene is loaded
  * @private
  */
-lgb.view.RoofTopView.prototype.loadScene_ = function() {
+lgb.view.RoofTopView.prototype.onSceneLoaded_ = function() {
 
-
-  var path = lgb.Config.ASSETS_BASE_PATH + 'rooftop/scene.json';
-
-  /**@type {THREE.SceneLoaderEx} */
-  this.loader_ = new THREE.SceneLoaderEx();
-
-  this.loader_.load(path, this.d(this.onSceneLoaded_));
-};
-
-
-
-
-/**
- * @private
- * @param {*} result The result of the scene load.
- *       result = {.
-
-        scene: new THREE.Scene(),
-        geometries: {},
-        materials: {},
-        textures: {},
-        objects: {},
-        cameras: {},
-        lights: {},
-        fogs: {},
-        triggers: {},
-        empties: {}
-
-      };
- */
-lgb.view.RoofTopView.prototype.onSceneLoaded_ = function(result) {
-
-  /**@type THREE.Scene */
-  var scene = result['scene'];
-
-  lgb.logInfo('onSceneLoaded_');
-  this.masterGroup = new THREE.Object3D();
-
-  for (var i = scene.children.length - 1; i >= 0; i--) {
-      var mesh = scene.children.pop();
-
-      //if (mesh.name == 'Ducting') {
-       //  mesh.sided = "true";
-      //}
+  for (var i = this.scene_.children.length - 1; i >= 0; i--) {
+    
+      var mesh = this.scene_.children.pop();
+      this.masterGroup_.add(mesh);
       
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-      
-    mesh.dynamic = true;
-    //mesh.bakeTransformsIntoGeometry();
-   // mesh.extractPositionFromGeometry();
-    this.masterGroup.add(mesh);
-
-    var event = new lgb.events.SelectableLoaded(mesh);
-    this.dispatchLocal(event);
-
+      //TODO:(Raj) make the selectable loaded event work with an array
+      var event = new lgb.events.SelectableLoaded(mesh);
+      this.dispatchLocal(event);
   }
 
-  this.masterGroup.position = scene.position;
-  this.masterGroup.rotation = scene.rotation;
-  this.masterGroup.scale = scene.scale;
-  this.masterGroup.castShadow = true;
-  this.masterGroup.receiveShadow = true;
-
-  this.requestAddToWorld(this.masterGroup);
-  //var event = new lgb.events.Object3DLoaded(this.masterGroup);
-//  this.dispatchLocal(event);
-
-  delete this.loader_;
 };
 
 
@@ -143,10 +78,10 @@ lgb.view.RoofTopView.prototype.updateAllFromModel_ = function() {
  * @private
  */
 lgb.view.RoofTopView.prototype.updateVisible_ = function() {
-  var m = this.masterGroup.children.length;
+  var m = this.masterGroup_.children.length;
 
   for (var i = 0; i < m; i++) {
-    this.masterGroup.children[i].visible = this.dataModel.isVisible;
+    this.masterGroup_.children[i].visible = this.dataModel.isVisible;
   }
 };
 

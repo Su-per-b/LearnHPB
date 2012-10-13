@@ -53,14 +53,9 @@ lgb.controller.EnvelopeController.prototype.bind_ = function() {
     lgb.events.ViewInitialized.TYPE,
     this.onViewInitialized_);
 
-  this.listenTo(this.view,
-    lgb.events.CamerasLoaded.TYPE,
-    this.onCamerasLoaded_);
-
   this.listenTo(this.dataModel,
     lgb.events.DataModelChanged.TYPE,
     this.onDataModelChanged_);
-
 
 };
 

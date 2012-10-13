@@ -33,10 +33,15 @@ lgb.controller.ControllerBase.prototype.dispatch = function(event) {
  * @protected
  */
 lgb.controller.ControllerBase.prototype.makeAddToWorldRequestGlobal =
-  function() {
-
+  function(viewObject) {
+  
+  
+  if ( undefined === viewObject) {
+    viewObject = this.view;
+  }
+  
   this.listenTo(
-    this.view,
+    viewObject,
     lgb.events.Object3DLoaded.TYPE,
     this.onObject3DLoaded_);
 };

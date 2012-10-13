@@ -18,39 +18,12 @@ lgb.view.DuctworkView = function(dataModel) {
 
   this.dataModel = dataModel;
   this._NAME = 'lgb.view.DuctworkView';
+  this._ASSETS_FOLDER = 'hvac';
+  
 };
 goog.inherits(lgb.view.DuctworkView, lgb.view.ViewBase);
 
 
-/**
- * Initializes the View
- * loads the geometry
- */
-lgb.view.DuctworkView.prototype.init = function() {
-  this.loadScene_();
-};
-
-/**
- * Initiates the scene load process.
- * @private
- */
-lgb.view.DuctworkView.prototype.loadScene_ = function() {
-
-  var path = lgb.Config.ASSETS_BASE_PATH + 'ductwork_and_diffusers/scene.json';
-  this.loader_ = new THREE.SceneLoaderEx();
-  
-  this.loader_.load(path, this.d(this.onSceneLoaded_));
-};
-
-
-
-/**
- * @override
- * @protected
- */
-lgb.view.DuctworkView.prototype.fake = function(event) {
-  var x = 0;
-};
 
 
 /**
@@ -60,16 +33,11 @@ lgb.view.DuctworkView.prototype.fake = function(event) {
  * @private
  */
 lgb.view.DuctworkView.prototype.onSceneLoaded_ = function(result) {
-  /**@type THREE.Scene */
-  var scene = result['scene'];
 
-  lgb.logInfo('DuctworkView.onSceneLoaded_');
-  this.masterGroup = new THREE.Object3D();
-  
-  var len = scene.children.length;
+  var len = this.scene_.children.length;
   for (var i = 0; i < len; i++) {
     
-      var mesh = scene.children.pop();
+      var mesh = this.scene_.children.pop();
     
       if (mesh != null) {
         
@@ -79,26 +47,16 @@ lgb.view.DuctworkView.prototype.onSceneLoaded_ = function(result) {
           this.dispatchLocal(event);
         }
         
-        this.masterGroup.add(mesh);
+        this.masterGroup_.add(mesh);
       } else {
         
-        console.log ("test");
-        
+        //console.log ("test");
+        throw ('Mesh is null');
       }
-    
-
   }
-  
-
-  this.masterGroup.position = scene.position;
-  this.masterGroup.rotation = scene.rotation;
-  this.masterGroup.scale = scene.scale;
-
-  this.requestAddToWorld(this.masterGroup);
-
-  //delete this.loader_;
 
 };
+
 
 
 /**
@@ -126,9 +84,9 @@ lgb.view.DuctworkView.prototype.updateAllFromModel_ = function() {
  * @private
  */
 lgb.view.DuctworkView.prototype.updateVisible_ = function() {
-  var m = this.masterGroup.children.length;
+  var m = this.masterGroup_.children.length;
 
   for (var i = 0; i < m; i++) {
-    this.masterGroup.children[i].visible = this.dataModel.isVisible;
+    this.masterGroup_.children[i].visible = this.dataModel.isVisible;
   }
 };

@@ -43,15 +43,14 @@ lgb.view.SelectionView.prototype.init = function() {
   this.mouseMoveDirty = false;
   this.containerDiv_.addEventListener('mouseup', this.d(this.onClick_), false);
 
-
   this.selectedMaterial = new THREE.MeshLambertMaterial({ color: 0xbb0000 });
   this.savedMaterials = {};
 
-  this.masterGroup = new THREE.Object3D();
-  this.masterGroup.name = this._NAME;
+  //this.masterGroup_ = new THREE.Object3D();
+  //this.masterGroup_.name = this._NAME;
 
-  var event = new lgb.events.Object3DLoaded(this.masterGroup);
-  this.dispatchLocal(event);
+ // var event = new lgb.events.Object3DLoaded(this.masterGroup_);
+  //this.dispatchLocal(event);
 };
 
 

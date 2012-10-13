@@ -46,8 +46,8 @@ lgb.view.CameraView.prototype.init = function() {
   this.camera.name = 'ActiveCamera';
 
   this.listen(lgb.events.WindowResize.TYPE, this.onWindowResize);
-  //this.masterGroup = new THREE.Object3D();
-  //this.masterGroup.name = this._NAME;
+  //this.masterGroup_= new THREE.Object3D();
+  //this.masterGroup_.name = this._NAME;
 
   //var event = new lgb.events.Object3DLoaded(this.masterGroup);
  // this.dispatchLocal(event);

@@ -14,7 +14,6 @@ goog.require('lgb.view.ViewBase');
 lgb.view.FurnitureView = function(dataModel) {
   lgb.view.ViewBase.call(this, dataModel);
 
- // this.dataModel = dataModel;
   this._NAME = 'lgb.view.FurnitureView';
 
 };
@@ -36,7 +35,7 @@ lgb.view.FurnitureView.prototype.init = function() {
 lgb.view.FurnitureView.prototype.loadScene_ = function() {
 
   this.loadSceneCollada_();
-  this.loadSceneThreeJS_();
+  //this.loadSceneThreeJS_();
 };
 
 lgb.view.FurnitureView.prototype.loadSceneThreeJS_ = function() {
@@ -74,23 +73,25 @@ lgb.view.FurnitureView.prototype.onSceneLoadedCollada_ = function(result) {
   //return;
   
   var scene = result['scene'];
-  this.masterGroup = new THREE.Object3D();
+  this.masterGroup_ = new THREE.Object3D();
+  this.masterGroup_.name = "Furniture Collada";
+  
   var len = scene.children.length-1;
   
   for (var i = 0; i < len; i++) {
       var mesh = scene.children.pop();
-      this.masterGroup.add(mesh);
+      this.masterGroup_.add(mesh);
   }
   
 
-  this.masterGroup.position = new THREE.Vector3(0,-1.5, -6);
-  this.masterGroup.scale = new THREE.Vector3(0.4, 0.4,0.4);
+  this.masterGroup_.position = new THREE.Vector3(0,-1.5, -6);
+  this.masterGroup_.scale = new THREE.Vector3(0.4, 0.4,0.4);
   
   if (scene.up.y == 1) {
-    this.masterGroup.rotation = new THREE.Vector3(-1.570758, 0, 0);
+    this.masterGroup_.rotation = new THREE.Vector3(-1.570758, 0, 0);
   }
   
-  this.requestAddToWorld(this.masterGroup);
+  this.requestAddToWorld(this.masterGroup_);
 
   delete this.loader2_;
   this.updateVisible_();
@@ -98,6 +99,7 @@ lgb.view.FurnitureView.prototype.onSceneLoadedCollada_ = function(result) {
   this.dispatchLocal(new lgb.events.ViewInitialized());
     
 };
+
 
 /**
  * Event handler called when the scene file is loaded
@@ -110,17 +112,17 @@ lgb.view.FurnitureView.prototype.onSceneLoadedThreeJS_ = function(result) {
   lgb.logInfo('FurnitureView.onSceneLoaded_');
   
   var scene = result['scene'];
-  this.masterGroup = new THREE.Object3D();
+  this.masterGroup_= new THREE.Object3D();
   var len = scene.children.length;
   
   for (var i = 0; i < len; i++) {
       var mesh = scene.children.pop();
-      this.masterGroup.add(mesh);
+      this.masterGroup_.add(mesh);
   }
   
-  this.masterGroup.position = scene.position;
-  this.masterGroup.rotation = scene.rotation;
-  this.masterGroup.scale = scene.scale;
+  this.masterGroup_.position = scene.position;
+  this.masterGroup_.rotation = scene.rotation;
+  this.masterGroup_.scale = scene.scale;
   
   this.requestAddToWorld(this.masterGroup);
 
@@ -139,9 +141,9 @@ lgb.view.FurnitureView.prototype.onSceneLoadedThreeJS_ = function(result) {
  * @private
  */
 lgb.view.FurnitureView.prototype.updateVisible_ = function() {
-  var m = this.masterGroup.children.length;
+  var m = this.masterGroup_.children.length;
 
   for (var i = 0; i < m; i++) {
-    this.masterGroup.children[i].visible = this.dataModel.isVisible;
+    this.masterGroup_.children[i].visible = this.dataModel.isVisible;
   }
 };

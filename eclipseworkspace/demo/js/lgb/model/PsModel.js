@@ -25,12 +25,12 @@ lgb.model.PsModel = function(systemConfig) {
   this._NAME = 'lgb.model.PsModel';
 
   /**@type {string} */
-  this._TITLE = systemConfig.title;
+  this.title = systemConfig.title;
 
   lgb.model.ModelBase.call(this);
 
   this.isRunning = false;
-  this.showBoxes = false;
+  this.showBoxes = true;
   this.showCurves = false;
   this.isEmitting = true;
   this.particleCount = systemConfig.particleCount;

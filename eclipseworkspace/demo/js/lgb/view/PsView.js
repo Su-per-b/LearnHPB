@@ -2,7 +2,7 @@
  * @author Raj Dye - raj@rajdye.com
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
- 
+
 goog.provide('lgb.view.PsView');
 
 goog.require('lgb.events.Object3DLoaded');
@@ -10,32 +10,25 @@ goog.require('lgb.view.ParticleElement');
 goog.require('lgb.view.ParticlePath');
 goog.require('lgb.view.ViewBase');
 
-
 /**
  * @constructor
  * @extends {lgb.view.ViewBase}
  * @param {lgb.model.PsModel} dataModel The data model to display.
  */
 lgb.view.PsView = function(dataModel) {
-  lgb.view.ViewBase.call(this);
-
-  this.dataModel = dataModel;
-  this.listenTo(
-    this.dataModel,
-    lgb.events.DataModelChanged.TYPE,
-    this.onDataModelChanged
-  );
+  lgb.view.ViewBase.call(this, dataModel);
 
   this._NAME = 'lgb.view.PsView';
+  this.title = dataModel.title;
+
 };
 goog.inherits(lgb.view.PsView, lgb.view.ViewBase);
-
 
 /**
  * Event Handler.
  * @param {lgb.events.DataModelChanged} event The event.
  */
-lgb.view.PsView.prototype.onDataModelChanged = function(event) {
+lgb.view.PsView.prototype.onChange = function(event) {
 
   var whatIsDirty = event.payload;
 
@@ -51,7 +44,6 @@ lgb.view.PsView.prototype.onDataModelChanged = function(event) {
   }
 };
 
-
 /**
  * Updates the running state from the dataModel.
  * @private
@@ -64,7 +56,6 @@ lgb.view.PsView.prototype.updateIsRunning_ = function() {
     this.unlisten(this.renderListenerKey);
   }
 };
-
 
 /**
  * Initializes the View.
@@ -79,33 +70,25 @@ lgb.view.PsView.prototype.init = function() {
 
   /**@type THREE.Object3D */
   this.systemGroup = new THREE.Object3D();
-  this.systemGroup.name = 'PsView-systemGroup';
+  this.systemGroup.name = 'PsView-systemGroup-'+ this.dataModel.title;
 
   /**@type THREE.Object3D */
-  this.masterGroup = new THREE.Object3D();
-  this.masterGroup.name = 'PsView-masterGroup';
+  this.masterGroup_ = new THREE.Object3D();
+  this.masterGroup_.name = 'PsView-masterGroup-'+ this.dataModel.title;
 
-  this.masterGroup.add(this.systemGroup);
+  this.masterGroup_.add(this.systemGroup);
   this.parseConfig();
 
-  this.positionVector = new THREE.Vector3(
-      this.dataModel.translate[0],
-    this.dataModel.translate[1],
-    this.dataModel.translate[2]
-  );
+  this.positionVector = new THREE.Vector3(this.dataModel.translate[0], this.dataModel.translate[1], this.dataModel.translate[2]);
 
   var degreesX = this.dataModel.rotate[0] * Math.PI / 180;
   var degreesY = this.dataModel.rotate[1] * Math.PI / 180;
   var degreesZ = this.dataModel.rotate[2] * Math.PI / 180;
 
-  this.rotationVector = new THREE.Vector3(
-      degreesX,
-    degreesY,
-    degreesZ
-  );
+  this.rotationVector = new THREE.Vector3(degreesX, degreesY, degreesZ);
 
-  this.masterGroup.position = this.positionVector;
-  this.masterGroup.rotation = this.rotationVector;
+  this.masterGroup_.position = this.positionVector;
+  this.masterGroup_.rotation = this.rotationVector;
 
   this.generateParticlePaths();
   this.createSystem();
@@ -113,15 +96,12 @@ lgb.view.PsView.prototype.init = function() {
   this.showBoxes(this.dataModel.showBoxes);
   this.showCurves(this.dataModel.showCurves);
 
-
   this.updateIsRunning_();
   this.currentFrameNumber = this.launchDelayBetweenParticles + 1;
 
-  var event = new lgb.events.Object3DLoaded(this.masterGroup);
-  this.dispatchLocal(event);
-
+  this.requestAddToWorld(this.masterGroup_);
+  
 };
-
 
 /**
  * parse the particle system config.
@@ -142,20 +122,20 @@ lgb.view.PsView.prototype.parseConfig = function() {
 
 };
 
-
 /**
  * create the particle system.
  */
 lgb.view.PsView.prototype.createSystem = function() {
+  
   var cicle = THREE.ImageUtils.loadTexture('3d-assets/textures/circle.png');
 
   this.pMaterial = new THREE.ParticleBasicMaterial({
-          color: 0x0000ff,
-          size: 1,
-          map: cicle,
-          blending: THREE.AdditiveBlending,
-          transparent: true
-      });
+    color : 0x0000ff,
+    size : 1,
+    map : cicle,
+    blending : THREE.AdditiveBlending,
+    transparent : true
+  });
 
   this.particlesGeometry = new THREE.Geometry();
   this.particlesGeometry.dynamic = true;
@@ -167,35 +147,32 @@ lgb.view.PsView.prototype.createSystem = function() {
   this.inActiveParticles = [];
 
   while (i--) {
-        var particleElement = new lgb.view.ParticleElement(this.pMaterial);
-        particleElement.setVisible(false);
+    var particleElement = new lgb.view.ParticleElement(this.pMaterial);
+    particleElement.setVisible(false);
 
-      this.particleElements[i] = particleElement;
-      this.inActiveParticles[i] = particleElement;
+    this.particleElements[i] = particleElement;
+    this.inActiveParticles[i] = particleElement;
 
-      // add it to the geometry
-      
-      vec = new THREE.Vector3(particleElement.threeParticle);
-      
-      this.particlesGeometry.vertices[i] = particleElement.threeParticle.position;
-      
-      var idx = i % this.particlePathCount;
-      particleElement.assignPath(this.particlePaths[idx]);
-      particleElement.assignId(i);
+    // add it to the geometry
+
+    vec = new THREE.Vector3(particleElement.threeParticle);
+
+    this.particlesGeometry.vertices[i] = particleElement.threeParticle.position;
+
+    var idx = i % this.particlePathCount;
+    particleElement.assignPath(this.particlePaths[idx]);
+    particleElement.assignId(i);
   }
 
   this.activeParticles = [];
 
-  this.threePS = new THREE.ParticleSystem(
-    this.particlesGeometry,
-    this.pMaterial);
+  this.threePS = new THREE.ParticleSystem(this.particlesGeometry, this.pMaterial);
 
   this.threePS.sortParticles = false;
   this.threePS.dynamic = true;
   this.systemGroup.add(this.threePS);
 
 };
-
 
 /**
  * creates the THREE.js lines.
@@ -204,14 +181,13 @@ lgb.view.PsView.prototype.createSystem = function() {
 lgb.view.PsView.prototype.makeVisibleLines_ = function() {
   this.visibleLineGroup = new THREE.Object3D();
 
-    var j = this.particlePaths.length;
-    while (j--) {
-      var onePath = this.particlePaths[j];
-      var line = onePath.makeVisibleLine();
-      this.visibleLineGroup.add(line);
-    }
+  var j = this.particlePaths.length;
+  while (j--) {
+    var onePath = this.particlePaths[j];
+    var line = onePath.makeVisibleLine();
+    this.visibleLineGroup.add(line);
+  }
 };
-
 
 /**
  * converts the curves to paths.
@@ -228,9 +204,6 @@ lgb.view.PsView.prototype.generateParticlePaths = function() {
     this.particlePaths.push(pp);
   }
 };
-
-
-
 
 /**
  * Generate a new curve running through the system's bounding boxes.
@@ -251,13 +224,9 @@ lgb.view.PsView.prototype.newCurve = function() {
   }
 
   var splineCurve3 = new THREE.SplineCurve3(vec3AlongCurve);
-    
+
   return splineCurve3;
 };
-
-
-
-
 
 /**
  * @param {boolean} isVisible whether to show the curves or hide them.
@@ -268,13 +237,17 @@ lgb.view.PsView.prototype.showCurves = function(isVisible) {
     if (this.visibleLineGroup == null) {
       this.makeVisibleLines_();
     }
-    this.masterGroup.add(this.visibleLineGroup);
+    this.masterGroup_.add(this.visibleLineGroup);
 
   } else {
-    this.masterGroup.remove(this.visibleLineGroup);
+    
+    if (undefined !== this.visibleLineGroup && this.visibleLineGroup !== null) {
+      this.masterGroup_.remove(this.visibleLineGroup);
+    }
+    
+
   }
 };
-
 
 /**
  * @param {boolean} isVisible whether to show the boxes or hide them.
@@ -283,21 +256,22 @@ lgb.view.PsView.prototype.showBoxes = function(isVisible) {
 
   if (isVisible) {
 
-    this.boxGroup = new THREE.Object3D();
-    var num = this.dataModel.meshes.length;
+    this.boxGroup_ = new THREE.Object3D();
+    this.boxGroup_.name = this.title + '-BoxGroup';
+    
+    var len = this.dataModel.meshes.length;
 
-    for (var i = 0; i < num; i++) {
+    for (var i = 0; i < len; i++) {
       var boxMesh = this.dataModel.meshes[i];
-      this.boxGroup.add(boxMesh);
+      this.boxGroup_.add(boxMesh);
     }
 
-    this.masterGroup.add(this.boxGroup);
+    this.masterGroup_.add(this.boxGroup_);
 
   } else {
-    this.masterGroup.remove(this.boxGroup);
+    this.masterGroup_.remove(this.boxGroup_);
   }
 };
-
 
 /**
  * event Handler
@@ -316,7 +290,7 @@ lgb.view.PsView.prototype.onRender = function(event) {
       p.reset();
       this.activeParticles.push(p);
     } //else if (this.dataModel.isEmitting) {
-      //var p = this.makeParticleElement();
+    //var p = this.makeParticleElement();
     //}
   }
 
@@ -325,12 +299,10 @@ lgb.view.PsView.prototype.onRender = function(event) {
   while (i--) {
     var p = this.activeParticles[i];
 
-    if (p == null) {
+    if (p == null || p.render == null) {
       throw ('error rendering particle element');
     }
-    if (p.render == null) {
-      throw ('error rendering particle element');
-    }
+
 
     p.render();
     if (p.isFinished) {
@@ -343,6 +315,6 @@ lgb.view.PsView.prototype.onRender = function(event) {
     this.inActiveParticles.push(finishedParticle);
   }
 
-    this.threePS.geometry.__dirtyVertices = true;
+  this.threePS.geometry.__dirtyVertices = true;
 
 };

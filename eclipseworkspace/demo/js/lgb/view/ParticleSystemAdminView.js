@@ -136,7 +136,7 @@ lgb.view.ParticleSystemAdminView.prototype.getHTML = function() {
 
   html = html.format(
     this.htmlID,
-    this.dataModel._TITLE
+    this.dataModel.title
     );
   return html;
 

@@ -14,7 +14,11 @@ goog.require('goog.events.Event');
  * @extends {goog.events.Event}
  */
 lgb.events.Object3DLoaded = function(obj) {
-
+  
+  if (undefined === obj) {
+    throw ("You passed an undefined object to the constructor: lgb.events.Object3DLoaded" );
+  }
+  
   goog.events.Event.call(this, lgb.events.Object3DLoaded.TYPE);
 
   /**@type {THREE.Object3D} **/

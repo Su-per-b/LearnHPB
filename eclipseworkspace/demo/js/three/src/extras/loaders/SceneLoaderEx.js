@@ -637,6 +637,8 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
 
       }
 
+    } else {
+      throw ("Unknown Geometry type: " + g.type + " in " + url);
     }
 
   }

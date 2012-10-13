@@ -74,8 +74,10 @@ lgb.controller.WorldSelectionController.prototype.init_ = function() {
 lgb.controller.WorldSelectionController.prototype.bind_ = function() {
   this.makeAddToWorldRequestGlobal();
 
-  this.listen(lgb.events.SelectableLoaded.TYPE, this.onSelectableLoaded_);
-
+  this.listen(
+    lgb.events.SelectableLoaded.TYPE,
+    this.onSelectableLoaded_);
+    
   this.listenTo(this.view,
     lgb.events.Object3DSelected.TYPE,
     this.Object3DSelected_
@@ -143,4 +145,5 @@ lgb.controller.WorldSelectionController.prototype.onSelectableLoaded_ =
   function(event) {
 
   this.dataModel.addMesh(event.payload);
+  
 };

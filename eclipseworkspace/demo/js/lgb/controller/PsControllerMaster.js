@@ -44,22 +44,13 @@ lgb.controller.PsControllerMaster.prototype.init = function() {
  * @private
  */
 lgb.controller.PsControllerMaster.prototype.bind_ = function() {
+  
+ // this.makeAddToWorldRequestGlobal();
 
   this.listenTo(this.psDataModelMaster,
     lgb.events.DataModelInitialized.TYPE,
     this.onPsDataModelInitialized_);
 
-};
-
-
-/**
- * @private
- * @param {lgb.events.Object3DLoaded} event The Event.
- */
-lgb.controller.PsControllerMaster.prototype.onObject3DLoaded_ =
-  function(event) {
-
-  this.dispatch(event);
 };
 
 

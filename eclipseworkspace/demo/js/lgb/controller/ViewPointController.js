@@ -8,11 +8,11 @@ goog.provide('lgb.controller.ViewPointController');
 goog.require('lgb.controller.ControllerBase');
 goog.require('lgb.view.ViewPointAdminView');
 goog.require('lgb.model.ViewPointModel');
-
+goog.require('lgb.view.ViewPointView');
 goog.require('lgb.events.CamerasLoaded');
 goog.require('lgb.events.RequestGoToViewPoint');
 goog.require('lgb.events.RequestGoToViewPointName');
-
+goog.require('lgb.events.ViewInitialized');
 /**
  * @constructor
  * @extends lgb.controller.ControllerBase
@@ -21,7 +21,6 @@ lgb.controller.ViewPointController = function( ) {
   lgb.controller.ControllerBase.call(this);
   this.init_();
 };
-
 goog.inherits(lgb.controller.ViewPointController, lgb.controller.ControllerBase);
 
 
@@ -31,10 +30,12 @@ goog.inherits(lgb.controller.ViewPointController, lgb.controller.ControllerBase)
 lgb.controller.ViewPointController.prototype.init_ = function() {
   
   this.dataModel = new lgb.model.ViewPointModel();
+  
+  this.view = new lgb.view.ViewPointView(this.dataModel);
+  this.view.init();
+  
   this.adminView = new lgb.view.ViewPointAdminView (this.dataModel, 'adminView');
-  //this.adminView.init();
   this.bind_();
-
 };
 
 
@@ -45,26 +46,42 @@ lgb.controller.ViewPointController.prototype.init_ = function() {
  * @private
  */
 lgb.controller.ViewPointController.prototype.bind_ = function() {
-
-  this.listen(
+  
+  this.makeAddToWorldRequestGlobal();
+  
+  this.listenTo(this.view,
     lgb.events.CamerasLoaded.TYPE,
     this.onCamerasLoaded_);
 
-
+  this.listenTo(this.view,
+    lgb.events.ViewInitialized.TYPE,
+    this.onViewInitialized_);
+    
+    
   this.listenTo(
     this.adminView,
     lgb.events.RequestGoToViewPoint.TYPE,
     this.onRequestGoToViewPoint_
   );
   
-  
   this.listen(
     lgb.events.RequestGoToViewPointName.TYPE,
     this.onRequestGoToViewPointName_
     );
     
-    
 };
+
+/**
+ * Event handler.
+ * @private
+ * @param {lgb.events.ViewInitialized} event Fired by the view.
+ */
+lgb.controller.ViewPointController.prototype.onViewInitialized_ =
+  function(event) {
+
+      
+};
+
 
 /**
  * @private

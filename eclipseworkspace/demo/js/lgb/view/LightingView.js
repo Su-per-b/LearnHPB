@@ -18,6 +18,8 @@ lgb.view.LightingView = function(dataModel) {
 
   this.dataModel = dataModel;
   this._NAME = 'lgb.view.LightingView';
+  this._ASSETS_FOLDER = 'lighting';
+  
   this.pendantGeom  = null;
   this.recessedGeom = null;
   
@@ -26,24 +28,6 @@ lgb.view.LightingView = function(dataModel) {
 goog.inherits(lgb.view.LightingView, lgb.view.ViewBase);
 
 
-/**
- * Initializes the View
- * loads the geometry
- */
-lgb.view.LightingView.prototype.init = function() {
-  this.loadScene_();
-};
-
-/**
- * Initiates the scene load process.
- * @private
- */
-lgb.view.LightingView.prototype.loadScene_ = function() {
-
-   var path = lgb.Config.ASSETS_BASE_PATH + 'lighting/scene.json';
-   this.loader_ = new THREE.SceneLoaderEx();
-   this.loader_.load(path, this.d(this.onSceneLoaded_));
-};
 
 
 /**
@@ -52,31 +36,18 @@ lgb.view.LightingView.prototype.loadScene_ = function() {
  * @param {Object} result The result from the THREE.js lib.
  * @private
  */
-lgb.view.LightingView.prototype.onSceneLoaded_ = function(result) {
-  
-  lgb.logInfo('LightingView.onSceneLoaded_');
-  
-  /**@type THREE.Scene */
-  var scene = result['scene'];
-  var groups = result['groups'];
-  var appData = result['appData'];
+lgb.view.LightingView.prototype.onSceneLoaded_ = function() {
   
 
-  
-  
-  this.masterGroup = new THREE.Object3D();
-  
-  
-  for (var i = scene.children.length - 1; i >= 0; i--) {
-      var mesh = scene.children.pop();
+  for (var i = this.scene_.children.length - 1; i >= 0; i--) {
+      var mesh = this.scene_.children.pop();
       
-
       if (mesh.name == 'recessed') {
         
         this.recessedGeom = mesh.geometry;
         
         this.gridRecessed = new lgb.model.GridModel (
-          appData.gridRecessed,
+          this.appData_ .gridRecessed,
           mesh.geometry.getDimensions()
           );
     
@@ -85,28 +56,18 @@ lgb.view.LightingView.prototype.onSceneLoaded_ = function(result) {
         this.pendantGeom = mesh.geometry;
         
         this.gridPendant = new lgb.model.GridModel (
-          appData.gridPendant, 
+          this.appData_ .gridPendant, 
           mesh.geometry.getDimensions()
           );
       }
       
       
-      this.masterGroup.add(mesh);
+      this.masterGroup_.add(mesh);
   }
   
-
-  
-  this.masterGroup.position = scene.position;
-  this.masterGroup.rotation = scene.rotation;
-  this.masterGroup.scale = scene.scale;
-
-  this.requestAddToWorld(this.masterGroup);
-
-  delete this.loader_;
-  
+ 
+  this.requestAddToWorld(this.masterGroup_);
   this.updateAllFromModel_();
- //this.dispatchLocal(new lgb.events.ViewInitialized());
-  
 
 };
 
@@ -157,10 +118,10 @@ lgb.view.LightingView.prototype.updateAllFromModel_ = function() {
 lgb.view.LightingView.prototype.buildGrid_ = function() {
 
 
-  var m = this.masterGroup.children.length;
+  var m = this.masterGroup_.children.length;
 
-  for (var i = this.masterGroup.children.length - 1; i >= 0; i--) {
-    this.masterGroup.remove(this.masterGroup.children[i]);
+  for (var i = this.masterGroup_.children.length - 1; i >= 0; i--) {
+    this.masterGroup_.remove(this.masterGroup_.children[i]);
   }
   
   var geometry;
@@ -203,13 +164,13 @@ lgb.view.LightingView.prototype.buildGridHelper_ = function(gridModel,geometry) 
       light.receiveShadow = true;
       
       light.position = gridModel.getCellPosition(r,c);
-      this.masterGroup.add(light);
+      this.masterGroup_.add(light);
     
     }
     
   };
   
-  this.masterGroup.position = gridModel.centeredPosition
+  this.masterGroup_.position = gridModel.centeredPosition
   
   
 }
@@ -222,9 +183,9 @@ lgb.view.LightingView.prototype.buildGridHelper_ = function(gridModel,geometry) 
  * @private
  */
 lgb.view.LightingView.prototype.updateVisible_ = function() {
-  var m = this.masterGroup.children.length;
+  var m = this.masterGroup_.children.length;
 
   for (var i = 0; i < m; i++) {
-    this.masterGroup.children[i].visible = this.dataModel.isVisible;
+    this.masterGroup_.children[i].visible = this.dataModel.isVisible;
   }
 };

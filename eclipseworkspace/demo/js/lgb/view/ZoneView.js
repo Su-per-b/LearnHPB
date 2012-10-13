@@ -41,11 +41,11 @@ lgb.view.ZoneView.prototype.init = function() {
   var cubeGeom = new THREE.CubeGeometry(5, 5, 5, 1, 1, 1);
   this.cubeMesh = new THREE.Mesh(cubeGeom, this.material);
 
-  this.masterGroup = new THREE.Object3D();
-  this.masterGroup.name = this._NAME;
-  this.masterGroup.add(this.cubeMesh);
+  this.masterGroup_ = new THREE.Object3D();
+  this.masterGroup_.name = this._NAME;
+  this.masterGroup_.add(this.cubeMesh);
 
-  this.requestAddToWorld(this.masterGroup);
+  this.requestAddToWorld(this.masterGroup_);
 };
 
 
@@ -96,9 +96,9 @@ lgb.view.ZoneView.prototype.addCube_ = function(zoneNumber, geom, position) {
       -1 * floorHeight / 2 + 1,
       z);
 
-    this.masterGroup.position.x = 0.5;
-    this.masterGroup.position.y = -0.9;
-    this.masterGroup.add(this.cubeMesh);
+    this.masterGroup_.position.x = 0.5;
+    this.masterGroup_.position.y = -0.9;
+    this.masterGroup_.add(this.cubeMesh);
 };
 
 
@@ -109,7 +109,9 @@ lgb.view.ZoneView.prototype.addCube_ = function(zoneNumber, geom, position) {
 lgb.view.ZoneView.prototype.onChange = function(event) {
 
  if (event.payload.config) {
-  this.masterGroup.removeAll();
+   
+  this.masterGroup_.removeAllChildren();
+  
   var len = this.dataModel.z.length;
   for (var i = 0; i < len; i++) {
     var geom = this.dataModel.z[i].dimensions;
@@ -138,7 +140,7 @@ lgb.view.ZoneView.prototype.setVisible = function(zoneIdx, makeVisible) {
     makeVisible = true;
   }
 
-  var zoneCube = this.masterGroup.children[zoneIdx];
+  var zoneCube = this.masterGroup_.children[zoneIdx];
 
   if (zoneCube.visible != makeVisible) {
     zoneCube.visible = makeVisible;

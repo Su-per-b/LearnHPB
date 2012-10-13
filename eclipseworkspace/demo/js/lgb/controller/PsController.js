@@ -48,11 +48,8 @@ lgb.controller.PsController.prototype.init_ = function() {
  * @private
  */
 lgb.controller.PsController.prototype.bind_ = function() {
-
-  this.listenTo(
-    this.view,
-    lgb.events.Object3DLoaded.TYPE,
-    this.onObject3DLoaded_);
+  
+  this.makeAddToWorldRequestGlobal();
 
   this.listenTo(this.adminView,
     lgb.events.RequestDataModelChange.TYPE,
@@ -61,15 +58,6 @@ lgb.controller.PsController.prototype.bind_ = function() {
 };
 
 
-/**
- * @private
- * @param {lgb.events.Object3DLoaded} event Fired by a view.
- */
-lgb.controller.PsController.prototype.onObject3DLoaded_ =
-  function(event) {
-
-  this.dispatch(event);
-};
 
 
 /**

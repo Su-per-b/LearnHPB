@@ -25,7 +25,9 @@ lgb.controller.CameraCraneController = function() {
   
   this.metersPerSecondPostion = 6;
   this.metersPerSecondRotation = .1;
-  this.easing = Ease.quadInOut;
+  this.easing = createjs.Ease.quadInOut;
+  
+// var x = 0;
   
 };
 goog.inherits(lgb.controller.CameraCraneController, lgb.controller.ControllerBase);
@@ -46,16 +48,16 @@ lgb.controller.CameraCraneController.prototype.init =
     
     this.debugPath = this.makeLine(this.cameraOnCrane_, this.cameraDestination_);
 
-    this.masterGroup = new THREE.Object3D();
+    this.masterGroup_= new THREE.Object3D();
       
     var blueMaterial = new THREE.MeshLambertMaterial( { color: 0x0077ff } );
     var dummyGeo = new THREE.CubeGeometry( 2, 2, 4 );
 
     this.debugObject = new THREE.Mesh(dummyGeo, blueMaterial);
-    this.masterGroup.add(this.debugObject);
-    this.masterGroup.add(this.debugPath);
+    this.masterGroup_.add(this.debugObject);
+    this.masterGroup_.add(this.debugPath);
     
-    var event = new lgb.events.Object3DLoaded(this.masterGroup);
+    var event = new lgb.events.Object3DLoaded(this.masterGroup_);
     this.dispatch(event);
   };
 
@@ -126,7 +128,7 @@ lgb.controller.CameraCraneController.prototype.moveToPosition =
     z: r.z
   }
   
-  new Tween(this.cameraOnCrane_.rotation, props).to( 
+  new createjs.Tween(this.cameraOnCrane_.rotation, props).to( 
     rotationTween,
     this.moveDuration-100,
     this.easing 
@@ -139,7 +141,7 @@ lgb.controller.CameraCraneController.prototype.moveToPosition =
       y: t.y,
       z: t.z
     }
-    new Tween(this.lookAtTarget, props).to(
+    new createjs.Tween(this.lookAtTarget, props).to(
       lookAtTween,
       this.lookAtDuration,
       this.easing 
@@ -152,7 +154,7 @@ lgb.controller.CameraCraneController.prototype.moveToPosition =
     y: p.y,
     z: p.z
   }
-  Tween.get(this.cameraOnCrane_.position, props)
+  createjs.Tween.get(this.cameraOnCrane_.position, props)
     .to(
       positionTween,
       this.moveDuration +10,
@@ -166,7 +168,7 @@ lgb.controller.CameraCraneController.prototype.moveToPosition =
     y: this.cameraDestination_.up.y,
     z: this.cameraDestination_.up.z
   }
-  new Tween(this.cameraOnCrane_.up, props).to(
+  new createjs.Tween(this.cameraOnCrane_.up, props).to(
     upTween,
     this.lookAtDuration,
     this.easing 

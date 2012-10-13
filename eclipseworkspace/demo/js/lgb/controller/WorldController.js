@@ -8,7 +8,6 @@ goog.provide('lgb.controller.WorldController');
 goog.require('lgb.controller.BuildingController');
 goog.require('lgb.controller.CameraController');
 goog.require('lgb.controller.ControllerBase');
-goog.require('lgb.controller.FloorController');
 goog.require('lgb.controller.PsControllerMaster');
 goog.require('lgb.controller.TrackBallController');
 goog.require('lgb.controller.UtilityController');
@@ -69,13 +68,6 @@ lgb.controller.WorldController.prototype.init = function() {
   this.initLights_();
 
 
-  /**
-   * The grid on the floor
-   * type {lgb.controller.FloorController}
-   * private
-  */
-  this.floorController = new lgb.controller.FloorController();
-
   if (lgb.Config.SHOW_STATS) {
     this.statsView_ = new lgb.view.StatsView(this.containerDiv_);
   } else {
@@ -89,11 +81,17 @@ lgb.controller.WorldController.prototype.init = function() {
     * @private
   */
   this.buildingController_ = new lgb.controller.BuildingController();
-
-  //this.utilityCOntroller = new lgb.controller.UtilityController();
+ 
+ 
+  /**
+   * The grid on the floor and the axis arrows
+   * type {lgb.controller.UtilityController}
+   * private
+  */
+  this.utilityController_ = new lgb.controller.UtilityController();
 
   /**@type {lgb.controller.PsControllerMaster} */
- // this.PsControllerMaster_ = new lgb.controller.PsControllerMaster();
+  this.PsControllerMaster_ = new lgb.controller.PsControllerMaster();
 
   /**@type {lgb.controller.WorldSelectionController} */
   this.selectionController_ =
@@ -107,9 +105,6 @@ lgb.controller.WorldController.prototype.init = function() {
     this.containerDiv_,
     this.camera_
   );
-
-
-
 
   this.containerDiv_.appendChild(this.renderer_.domElement);
 
@@ -142,10 +137,6 @@ lgb.controller.WorldController.prototype.initLights_ = function() {
   this.light3_.position.set( 45, 0, 45 );
   this.scene_.add( this.light3_ );
   
-
-   
-
- 
 };
 
 
@@ -200,22 +191,10 @@ lgb.controller.WorldController.prototype.initRenderer_ = function() {
  * @private
  */
 lgb.controller.WorldController.prototype.bind_ = function() {
-  //this.listen(lgb.events.MeshLoaded.TYPE, this.onMeshLoaded);
   this.listen(lgb.events.Object3DLoaded.TYPE, this.onObject3DLoaded_);
   this.listen(lgb.events.WindowResize.TYPE, this.onWindowResize_);
 };
 
-
-
-/*
-lgb.controller.WorldController.prototype.onMeshLoaded = function(event) {
-  var mesh = event.payload;
-  this.scene_.add(mesh);
-
-  var mc = THREE.CollisionUtils.MeshColliderWBox(mesh);
-  THREE.Collisions.colliders.push(mc);
-};
-*/
 
 
 /**
@@ -232,9 +211,7 @@ lgb.controller.WorldController.prototype.onObject3DLoaded_ = function(event) {
     'you request to add it to the scene.');
   } else {
     lgb.logInfo('adding to scene: ' + obj.name);
-
   }
-
 
   this.scene_.add(obj);
 };
@@ -328,7 +305,8 @@ lgb.controller.WorldController.prototype.renderHelper = function(timestamp) {
   }
 
   this.timestamp = currentTimeStamp;
-  Tween.tick(delta, false);
+  createjs.Tween.tick(delta, false);
+  
 
   //THREE.AnimationHandler.update( 1/60 );
   this.renderEvent.payload = timestamp;

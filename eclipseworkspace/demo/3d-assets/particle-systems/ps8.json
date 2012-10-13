@@ -1,7 +1,5 @@
 {
 
-"type" : "scene",
-"urlBaseType" : "relativeToScene",
 
 
 "objects" :
@@ -15,11 +13,7 @@
         "position"  : [ -7.629147, -16.429964, 0.752242 ],
         "rotation"  : [ 0.000000, -0.000000, 1.570797 ],
         "quaternion": [ 0.707107, 0.000000, 0.000000, 0.707107 ],
-        "scale"     : [ 0.200000, 0.200000, 0.200000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.200000, 0.200000, 0.200000 ]
     },
 
     "Mesh.947" : {
@@ -29,11 +23,7 @@
         "position"  : [ -10.441900, -16.384926, -0.698152 ],
         "rotation"  : [ 0.000000, -0.000000, 1.570797 ],
         "quaternion": [ 0.707107, 0.000000, 0.000000, 0.707107 ],
-        "scale"     : [ 1.000000, 1.000000, 0.100000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 1.000000, 1.000000, 0.100000 ]
     },
 
     "Mesh.946" : {
@@ -43,11 +33,7 @@
         "position"  : [ -10.404901, -16.434925, -0.147152 ],
         "rotation"  : [ 0.000000, -0.000000, 1.570797 ],
         "quaternion": [ 0.707107, 0.000000, 0.000000, 0.707107 ],
-        "scale"     : [ 0.500000, 0.500000, 0.100000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.500000, 0.500000, 0.100000 ]
     },
 
     "Mesh.944" : {
@@ -57,11 +43,7 @@
         "position"  : [ -10.021488, -16.448397, 0.768098 ],
         "rotation"  : [ 1.396264,  1.570794 , 0.0],
         "quaternion": [ 0.541675, 0.454520, 0.454520, 0.541675 ],
-        "scale"     : [ 0.150000, 0.150000, 0.075000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.150000, 0.150000, 0.075000 ]
     },
 
     "Mesh.945" : {
@@ -71,11 +53,7 @@
         "position"  : [ -10.418222, -16.464926, 0.405396 ],
         "rotation"  : [ 0.000000, -0.000000, 1.570797 ],
         "quaternion": [ 0.707107, 0.000000, 0.000000, 0.707107 ],
-        "scale"     : [ 0.150000, 0.150000, 0.075000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.150000, 0.150000, 0.075000 ]
     },
 
     "Mesh.943" : {
@@ -85,11 +63,7 @@
         "position"  : [ -9.353886, -16.519964, 0.791848 ],
         "rotation"  : [ 0.000000, -0.000000, 1.570797 ],
         "quaternion": [ 0.707107, 0.000000, 0.000000, 0.707107 ],
-        "scale"     : [ 0.175000, 0.175000, 0.175000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.175000, 0.175000, 0.175000 ]
     },
 
     "Mesh.942" : {
@@ -99,11 +73,7 @@
         "position"  : [ -8.052162, -16.474407, 0.786956 ],
         "rotation"  : [ 0, 1.570797, 0 ],
         "quaternion": [ 0.500000, 0.500000, 0.500000, 0.500000 ],
-        "scale"     : [ 0.180000, 0.180000, 0.150000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.180000, 0.180000, 0.150000 ]
     },
 
 
@@ -114,11 +84,7 @@
         "position"  : [ -8.046207, -1.434597, 0.786201 ],
         "rotation"  : [ 0, 1.570797, 0 ],
         "quaternion": [ 0.500000, 0.500000, 0.500000, 0.500000 ],
-        "scale"     : [ 0.180000, 0.180000, 0.150000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.180000, 0.180000, 0.150000 ]
     },
 
     "Mesh.843" : {
@@ -128,11 +94,7 @@
         "position"  : [ -9.347931, -1.480153, 0.791093 ],
         "rotation"  : [ 0.000000, -0.000000, 1.570797 ],
         "quaternion": [ 0.707107, 0.000000, 0.000000, 0.707107 ],
-        "scale"     : [ 0.175000, 0.175000, 0.175000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.175000, 0.175000, 0.175000 ]
     },
 
     "Mesh.845" : {
@@ -142,11 +104,7 @@
         "position"  : [ -10.412268, -1.425114, 0.404640 ],
         "rotation"  : [ 0.000000, -0.000000, 1.570797 ],
         "quaternion": [ 0.707107, 0.000000, 0.000000, 0.707107 ],
-        "scale"     : [ 0.150000, 0.150000, 0.075000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.150000, 0.150000, 0.075000 ]
     },
 
     "Mesh.844" : {
@@ -156,11 +114,7 @@
         "position"  : [ -10.015533, -1.408585, 0.767343 ],
         "rotation"  : [ 1.396264,  1.570794 , 0.0],
         "quaternion": [ 0.541675, 0.454520, 0.454520, 0.541675 ],
-        "scale"     : [ 0.150000, 0.150000, 0.075000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.150000, 0.150000, 0.075000 ]
     },
 
     "Mesh.846" : {
@@ -170,12 +124,8 @@
         "position"  : [ -10.398946, -1.395114, -0.147907 ],
         "rotation"  : [ 0.000000, -0.000000, 1.570797 ],
         "quaternion": [ 0.707107, 0.000000, 0.000000, 0.707107 ],
-        "scale"     : [ 0.500000, 0.500000, 0.100000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
-    },
+        "scale"     : [ 0.500000, 0.500000, 0.100000 ]
+   },
 
     "Mesh.847" : {
         "geometry"  : "geo_CubeGeom",
@@ -184,11 +134,7 @@
         "position"  : [ -10.435946, -1.345114, -0.698907 ],
         "rotation"  : [ 0.000000, -0.000000, 1.570797 ],
         "quaternion": [ 0.707107, 0.000000, 0.000000, 0.707107 ],
-        "scale"     : [ 1.000000, 1.000000, 0.100000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 1.000000, 1.000000, 0.100000 ]
     },
 
     "Mesh.841" : {
@@ -198,11 +144,7 @@
         "position"  : [ -7.623192, -1.390152, 0.751487 ],
         "rotation"  : [ 0.000000, -0.000000, 1.570797 ],
         "quaternion": [ 0.707107, 0.000000, 0.000000, 0.707107 ],
-        "scale"     : [ 0.200000, 0.200000, 0.200000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.200000, 0.200000, 0.200000 ]
     },
 
 
@@ -213,11 +155,7 @@
         "position"  : [ -7.629145, 13.503014, 0.752242 ],
         "rotation"  : [ 0.000000, -0.000000, 1.570797 ],
         "quaternion": [ 0.707107, 0.000000, 0.000000, 0.707107 ],
-        "scale"     : [ 0.200000, 0.200000, 0.200000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.200000, 0.200000, 0.200000 ]
     },
 
     "Mesh.747" : {
@@ -227,11 +165,7 @@
         "position"  : [ -10.441898, 13.548052, -0.698152 ],
         "rotation"  : [ 0.000000, -0.000000, 1.570797 ],
         "quaternion": [ 0.707107, 0.000000, 0.000000, 0.707107 ],
-        "scale"     : [ 1.000000, 1.000000, 0.100000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 1.000000, 1.000000, 0.100000 ]
     },
 
     "Mesh.746" : {
@@ -241,11 +175,7 @@
         "position"  : [ -10.404899, 13.498052, -0.147152 ],
         "rotation"  : [ 0.000000, -0.000000, 1.570797 ],
         "quaternion": [ 0.707107, 0.000000, 0.000000, 0.707107 ],
-        "scale"     : [ 0.500000, 0.500000, 0.100000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.500000, 0.500000, 0.100000 ]
     },
 
     "Mesh.744" : {
@@ -255,11 +185,7 @@
         "position"  : [ -10.021486, 13.484580, 0.768098 ],
         "rotation"  : [ 1.396264,  1.570794 , 0.0],
         "quaternion": [ 0.541675, 0.454520, 0.454520, 0.541675 ],
-        "scale"     : [ 0.150000, 0.150000, 0.075000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.150000, 0.150000, 0.075000 ]
     },
 
     "Mesh.745" : {
@@ -269,11 +195,7 @@
         "position"  : [ -10.418221, 13.468052, 0.405396 ],
         "rotation"  : [ 0.000000, -0.000000, 1.570797 ],
         "quaternion": [ 0.707107, 0.000000, 0.000000, 0.707107 ],
-        "scale"     : [ 0.150000, 0.150000, 0.075000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.150000, 0.150000, 0.075000 ]
     },
 
     "Mesh.743" : {
@@ -283,11 +205,7 @@
         "position"  : [ -9.353884, 13.413013, 0.791848 ],
         "rotation"  : [ 0.000000, -0.000000, 1.570797 ],
         "quaternion": [ 0.707107, 0.000000, 0.000000, 0.707107 ],
-        "scale"     : [ 0.175000, 0.175000, 0.175000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.175000, 0.175000, 0.175000 ]
     },
 
     "Mesh.742" : {
@@ -297,11 +215,7 @@
         "position"  : [ -8.052160, 13.458569, 0.786956 ],
         "rotation"  : [ 0, 1.570797, 0 ],
         "quaternion": [ 0.500000, 0.500000, 0.500000, 0.500000 ],
-        "scale"     : [ 0.180000, 0.180000, 0.150000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.180000, 0.180000, 0.150000 ]
     },
 
 
@@ -312,11 +226,7 @@
         "position"  : [ -0.074221, -16.913517, 0.777133 ],
         "rotation"  : [ 1.570797, -0.000000, -3.141591 ],
         "quaternion": [ -0.000000, -0.000000, 0.707107, 0.707107 ],
-        "scale"     : [ 0.180000, 0.180000, 0.150000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.180000, 0.180000, 0.150000 ]
     },
 
     "Mesh.643" : {
@@ -326,11 +236,7 @@
         "position"  : [ -0.028664, -18.215240, 0.782024 ],
         "rotation"  : [ 0.000000, -0.000000, 3.141591 ],
         "quaternion": [ 0.000001, 0.000000, 0.000000, 1.000000 ],
-        "scale"     : [ 0.175000, 0.175000, 0.175000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.175000, 0.175000, 0.175000 ]
     },
 
     "Mesh.645" : {
@@ -340,11 +246,7 @@
         "position"  : [ -0.083702, -19.279579, 0.395572 ],
         "rotation"  : [ 0.000000, -0.000000, 3.141591 ],
         "quaternion": [ 0.000001, 0.000000, 0.000000, 1.000000 ],
-        "scale"     : [ 0.150000, 0.150000, 0.075000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.150000, 0.150000, 0.075000 ]
     },
 
     "Mesh.644" : {
@@ -354,11 +256,7 @@
         "position"  : [ -0.100231, -18.882843, 0.758274 ],
         "rotation"  : [ 1.396264,  0 , 0.0],
         "quaternion": [ 0.000000, -0.000000, 0.642788, 0.766044 ],
-        "scale"     : [ 0.150000, 0.150000, 0.075000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.150000, 0.150000, 0.075000 ]
     },
 
     "Mesh.646" : {
@@ -368,11 +266,7 @@
         "position"  : [ -0.113702, -19.266256, -0.156976 ],
         "rotation"  : [ 0.000000, -0.000000, 3.141591 ],
         "quaternion": [ 0.000001, 0.000000, 0.000000, 1.000000 ],
-        "scale"     : [ 0.500000, 0.500000, 0.100000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.500000, 0.500000, 0.100000 ]
     },
 
     "Mesh.647" : {
@@ -382,11 +276,7 @@
         "position"  : [ -0.163702, -19.303257, -0.707976 ],
         "rotation"  : [ 0.000000, -0.000000, 3.141591 ],
         "quaternion": [ 0.000001, 0.000000, 0.000000, 1.000000 ],
-        "scale"     : [ 1.000000, 1.000000, 0.100000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 1.000000, 1.000000, 0.100000 ]
     },
 
     "Mesh.641" : {
@@ -396,11 +286,7 @@
         "position"  : [ -0.118666, -16.490501, 0.742418 ],
         "rotation"  : [ 0.000000, -0.000000, 3.141591 ],
         "quaternion": [ 0.000001, 0.000000, 0.000000, 1.000000 ],
-        "scale"     : [ 0.200000, 0.200000, 0.200000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.200000, 0.200000, 0.200000 ]
     },
 
 
@@ -411,11 +297,7 @@
         "position"  : [ -0.153107, 13.872704, 0.786953 ],
         "rotation"  : [ 1.570797, -0.000000, 0.000000 ],
         "quaternion": [ 0.707107, 0.707107, 0.000000, 0.000000 ],
-        "scale"     : [ 0.180000, 0.180000, 0.150000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.180000, 0.180000, 0.150000 ]
     },
 
     "Mesh.443" : {
@@ -425,11 +307,7 @@
         "position"  : [ -0.198662, 15.174427, 0.791845 ],
         "rotation"  : [ 0.000000, -0.000000, 0.000000 ],
         "quaternion": [ 1.000000, 0.000000, 0.000000, 0.000000 ],
-        "scale"     : [ 0.175000, 0.175000, 0.175000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.175000, 0.175000, 0.175000 ]
     },
 
     "Mesh.445" : {
@@ -439,11 +317,7 @@
         "position"  : [ -0.143622, 16.238764, 0.405392 ],
         "rotation"  : [ 0.000000, -0.000000, 0.000000 ],
         "quaternion": [ 1.000000, 0.000000, 0.000000, 0.000000 ],
-        "scale"     : [ 0.150000, 0.150000, 0.075000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.150000, 0.150000, 0.075000 ]
     },
 
     "Mesh.444" : {
@@ -453,11 +327,7 @@
         "position"  : [ -0.127094, 15.842029, 0.768095 ],
         "rotation"  : [ 1.396264,  0 , 0.0],
         "quaternion": [ 0.766044, 0.642788, 0.000000, 0.000000 ],
-        "scale"     : [ 0.150000, 0.150000, 0.075000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.150000, 0.150000, 0.075000 ]
     },
 
     "Mesh.446" : {
@@ -467,11 +337,7 @@
         "position"  : [ -0.113622, 16.225441, -0.147155 ],
         "rotation"  : [ 0.000000, -0.000000, 0.000000 ],
         "quaternion": [ 1.000000, 0.000000, 0.000000, 0.000000 ],
-        "scale"     : [ 0.500000, 0.500000, 0.100000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.500000, 0.500000, 0.100000 ]
     },
 
     "Mesh.447" : {
@@ -481,11 +347,7 @@
         "position"  : [ -0.063622, 16.262442, -0.698155 ],
         "rotation"  : [ 0.000000, -0.000000, 0.000000 ],
         "quaternion": [ 1.000000, 0.000000, 0.000000, 0.000000 ],
-        "scale"     : [ 1.000000, 1.000000, 0.100000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 1.000000, 1.000000, 0.100000 ]
     },
 
     "Mesh.441" : {
@@ -495,11 +357,7 @@
         "position"  : [ -0.108662, 13.449688, 0.752239 ],
         "rotation"  : [ 0.000000, -0.000000, 0.000000 ],
         "quaternion": [ 1.000000, 0.000000, 0.000000, 0.000000 ],
-        "scale"     : [ 0.200000, 0.200000, 0.200000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.200000, 0.200000, 0.200000 ]
     },
 
     "Mesh.342" : {
@@ -509,11 +367,7 @@
         "position"  : [ 7.542764, -16.454205, 0.787095 ],
         "rotation"  : [ 1.570797, -0.000000, -1.570797 ],
         "quaternion": [ 0.500000, 0.500000, -0.500000, -0.500000 ],
-        "scale"     : [ 0.180000, 0.180000, 0.150000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.180000, 0.180000, 0.150000 ]
     },
 
     "Mesh.343" : {
@@ -523,11 +377,7 @@
         "position"  : [ 8.844488, -16.408649, 0.791986 ],
         "rotation"  : [ 0.000000, 0.000000, -1.570797 ],
         "quaternion": [ 0.707107, 0.000000, 0.000000, -0.707107 ],
-        "scale"     : [ 0.175000, 0.175000, 0.175000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.175000, 0.175000, 0.175000 ]
     },
 
     "Mesh.345" : {
@@ -537,11 +387,7 @@
         "position"  : [ 9.908825, -16.463692, 0.405534 ],
         "rotation"  : [ 0.000000, 0.000000, -1.570797 ],
         "quaternion": [ 0.707107, 0.000000, 0.000000, -0.707107 ],
-        "scale"     : [ 0.150000, 0.150000, 0.075000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.150000, 0.150000, 0.075000 ]
     },
 
     "Mesh.344" : {
@@ -551,11 +397,7 @@
         "position"  : [ 9.512089, -16.480219, 0.768236 ],
         "rotation"  : [ 1.396264,  1.570794 , 0.0],
         "quaternion": [ 0.541675, 0.454520, -0.454520, -0.541675 ],
-        "scale"     : [ 0.150000, 0.150000, 0.075000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.150000, 0.150000, 0.075000 ]
     },
 
     "Mesh.346" : {
@@ -565,11 +407,7 @@
         "position"  : [ 9.895502, -16.493690, -0.147014 ],
         "rotation"  : [ 0.000000, 0.000000, -1.570797 ],
         "quaternion": [ 0.707107, 0.000000, 0.000000, -0.707107 ],
-        "scale"     : [ 0.500000, 0.500000, 0.100000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.500000, 0.500000, 0.100000 ]
     },
 
     "Mesh.347" : {
@@ -579,11 +417,7 @@
         "position"  : [ 9.932503, -16.543692, -0.698014 ],
         "rotation"  : [ 0.000000, 0.000000, -1.570797 ],
         "quaternion": [ 0.707107, 0.000000, 0.000000, -0.707107 ],
-        "scale"     : [ 1.000000, 1.000000, 0.100000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 1.000000, 1.000000, 0.100000 ]
     },
 
     "Mesh.341" : {
@@ -593,11 +427,7 @@
         "position"  : [ 7.119749, -16.498650, 0.752380 ],
         "rotation"  : [ 0.000000, 0.000000, -1.570797 ],
         "quaternion": [ 0.707107, 0.000000, 0.000000, -0.707107 ],
-        "scale"     : [ 0.200000, 0.200000, 0.200000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.200000, 0.200000, 0.200000 ]
     },
 
     "Mesh.242" : {
@@ -607,11 +437,7 @@
         "position"  : [ 7.554988, -1.441148, 0.787100 ],
         "rotation"  : [ 1.570797, -0.000000, -1.570797 ],
         "quaternion": [ 0.500000, 0.500000, -0.500000, -0.500000 ],
-        "scale"     : [ 0.180000, 0.180000, 0.150000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.180000, 0.180000, 0.150000 ]
     },
 
     "Mesh.243" : {
@@ -621,11 +447,7 @@
         "position"  : [ 8.856712, -1.395593, 0.791992 ],
         "rotation"  : [ 0.000000, 0.000000, -1.570797 ],
         "quaternion": [ 0.707107, 0.000000, 0.000000, -0.707107 ],
-        "scale"     : [ 0.175000, 0.175000, 0.175000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.175000, 0.175000, 0.175000 ]
     },
 
     "Mesh.245" : {
@@ -635,11 +457,7 @@
         "position"  : [ 9.921049, -1.450634, 0.405539 ],
         "rotation"  : [ 0.000000, 0.000000, -1.570797 ],
         "quaternion": [ 0.707107, 0.000000, 0.000000, -0.707107 ],
-        "scale"     : [ 0.150000, 0.150000, 0.075000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.150000, 0.150000, 0.075000 ]
     },
 
     "Mesh.244" : {
@@ -649,11 +467,7 @@
         "position"  : [ 9.524313, -1.467162, 0.768241 ],
         "rotation"  : [ 1.396264,  1.570794 , 0.0],
         "quaternion": [ 0.541675, 0.454520, -0.454520, -0.541675 ],
-        "scale"     : [ 0.150000, 0.150000, 0.075000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.150000, 0.150000, 0.075000 ]
     },
 
     "Mesh.246" : {
@@ -663,11 +477,7 @@
         "position"  : [ 9.907726, -1.480633, -0.147008 ],
         "rotation"  : [ 0.000000, 0.000000, -1.570797 ],
         "quaternion": [ 0.707107, 0.000000, 0.000000, -0.707107 ],
-        "scale"     : [ 0.500000, 0.500000, 0.100000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.500000, 0.500000, 0.100000 ]
     },
 
     "Mesh.247" : {
@@ -677,11 +487,7 @@
         "position"  : [ 9.944727, -1.530634, -0.698008 ],
         "rotation"  : [ 0.000000, 0.000000, -1.570797 ],
         "quaternion": [ 0.707107, 0.000000, 0.000000, -0.707107 ],
-        "scale"     : [ 1.000000, 1.000000, 0.100000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 1.000000, 1.000000, 0.100000 ]
     },
 
     "Mesh.241" : {
@@ -691,11 +497,7 @@
         "position"  : [ 7.131973, -1.485592, 0.752386 ],
         "rotation"  : [ 0.000000, 0.000000, -1.570797 ],
         "quaternion": [ 0.707107, 0.000000, 0.000000, -0.707107 ],
-        "scale"     : [ 0.200000, 0.200000, 0.200000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.200000, 0.200000, 0.200000 ]
     },
 
     "Mesh.101" : {
@@ -705,11 +507,7 @@
         "position"  : [ 7.554988, 13.546850, 0.787099 ],
         "rotation"  : [ 3.141592, 1.570795, 0.000000 ],
         "quaternion": [ 0.000000, -0.707107, -0.000001, 0.707107 ],
-        "scale"     : [ 0.180000, 0.180000, 0.150000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.180000, 0.180000, 0.150000 ]
     },
 
     "Mesh.102" : {
@@ -719,11 +517,7 @@
         "position"  : [ 8.856711, 13.592408, 0.791991 ],
         "rotation"  : [ 0.000000, 0.000000, -1.570794 ],
         "quaternion": [ 0.707107, 0.000000, 0.000000, -0.707106 ],
-        "scale"     : [ 0.175000, 0.175000, 0.175000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.175000, 0.175000, 0.175000 ]
     },
 
     "Mesh.104" : {
@@ -733,11 +527,7 @@
         "position"  : [ 9.921048, 13.537371, 0.405539 ],
         "rotation"  : [ 0.000000, 0.000000, -1.570794 ],
         "quaternion": [ 0.707107, 0.000000, 0.000000, -0.707106 ],
-        "scale"     : [ 0.150000, 0.150000, 0.075000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.150000, 0.150000, 0.075000 ]
     },
 
     "Mesh.103" : {
@@ -747,11 +537,7 @@
         "position"  : [ 9.524313, 13.520842, 0.768241 ],
         "rotation"  : [ 1.396264,  1.570794 , 0.0],
         "quaternion": [ 0.541676, 0.454520, -0.454519, -0.541675 ],
-        "scale"     : [ 0.150000, 0.150000, 0.075000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.150000, 0.150000, 0.075000 ]
     },
 
     "Mesh.105" : {
@@ -761,11 +547,7 @@
         "position"  : [ 9.907726, 13.507370, -0.147009 ],
         "rotation"  : [ 0.000000, 0.000000, -1.570794 ],
         "quaternion": [ 0.707107, 0.000000, 0.000000, -0.707106 ],
-        "scale"     : [ 0.500000, 0.500000, 0.100000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.500000, 0.500000, 0.100000 ]
     },
 
     "Mesh.106" : {
@@ -775,11 +557,7 @@
         "position"  : [ 9.944727, 13.457371, -0.698009 ],
         "rotation"  : [ 0.000000, 0.000000, -1.570794 ],
         "quaternion": [ 0.707107, 0.000000, 0.000000, -0.707106 ],
-        "scale"     : [ 1.000000, 1.000000, 0.100000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 1.000000, 1.000000, 0.100000 ]
     },
 
     "Mesh.100" : {
@@ -789,11 +567,7 @@
         "position"  : [ 7.131972, 13.502405, 0.752385 ],
         "rotation"  : [ 0.000000, 0.000000, -1.570794 ],
         "quaternion": [ 0.707107, 0.000000, 0.000000, -0.707106 ],
-        "scale"     : [ 0.200000, 0.200000, 0.200000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.200000, 0.200000, 0.200000 ]
     },
 
     "Mesh.011" : {
@@ -803,11 +577,7 @@
         "position"  : [ 0.654960, -8.364754, 0.754394 ],
         "rotation"  : [ 0.000000, -0.000000, 0.000000 ],
         "quaternion": [ 1.000000, 0.000000, 0.000000, 0.000000 ],
-        "scale"     : [ 0.200000, 0.200000, 0.200000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.200000, 0.200000, 0.200000 ]
     },
 
     "Mesh.017" : {
@@ -817,11 +587,7 @@
         "position"  : [ 0.700000, -5.552000, -0.696000 ],
         "rotation"  : [ 0.000000, -0.000000, 0.000000 ],
         "quaternion": [ 1.000000, 0.000000, 0.000000, 0.000000 ],
-        "scale"     : [ 1.000000, 1.000000, 0.100000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 1.000000, 1.000000, 0.100000 ]
     },
 
     "Mesh.016" : {
@@ -831,11 +597,7 @@
         "position"  : [ 0.650000, -5.589000, -0.145000 ],
         "rotation"  : [ 0.000000, -0.000000, 0.000000 ],
         "quaternion": [ 1.000000, 0.000000, 0.000000, 0.000000 ],
-        "scale"     : [ 0.500000, 0.500000, 0.100000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.500000, 0.500000, 0.100000 ]
     },
 
     "Mesh.014" : {
@@ -845,11 +607,7 @@
         "position"  : [ 0.636528, -5.972413, 0.770250 ],
         "rotation"  : [ 1.396264,  0 , 0.0],
         "quaternion": [ 0.766044, 0.642788, 0.000000, 0.000000 ],
-        "scale"     : [ 0.150000, 0.150000, 0.075000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.150000, 0.150000, 0.075000 ]
     },
 
     "Mesh.015" : {
@@ -859,11 +617,7 @@
         "position"  : [ 0.620000, -5.575678, 0.407548 ],
         "rotation"  : [ 0.000000, -0.000000, 0.000000 ],
         "quaternion": [ 1.000000, 0.000000, 0.000000, 0.000000 ],
-        "scale"     : [ 0.150000, 0.150000, 0.075000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.150000, 0.150000, 0.075000 ]
     },
 
     "Mesh.013" : {
@@ -873,11 +627,7 @@
         "position"  : [ 0.564960, -6.640015, 0.794000 ],
         "rotation"  : [ 0.000000, -0.000000, 0.000000 ],
         "quaternion": [ 1.000000, 0.000000, 0.000000, 0.000000 ],
-        "scale"     : [ 0.175000, 0.175000, 0.175000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.175000, 0.175000, 0.175000 ]
     },
 
     "Mesh.012" : {
@@ -887,11 +637,7 @@
         "position"  : [ 0.610515, -7.941738, 0.789108 ],
         "rotation"  : [ 1.570797, -0.000000, 0.000000 ],
         "quaternion": [ 0.707107, 0.707107, 0.000000, 0.000000 ],
-        "scale"     : [ 0.180000, 0.180000, 0.150000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.180000, 0.180000, 0.150000 ]
     },
 
     "Mesh.026" : {
@@ -901,11 +647,7 @@
         "position"  : [ 0.532000, 3.446000, 3.000000 ],
         "rotation"  : [ 0.000000, -0.000000, 0.000000 ],
         "quaternion": [ 1.000000, 0.000000, 0.000000, 0.000000 ],
-        "scale"     : [ 0.800000, 0.800000, 0.700000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.800000, 0.800000, 0.700000 ]
     },
 
     "Mesh.025" : {
@@ -915,11 +657,7 @@
         "position"  : [ 0.598000, 3.446000, 2.019000 ],
         "rotation"  : [ 0.000000, -0.000000, 0.000000 ],
         "quaternion": [ 1.000000, 0.000000, 0.000000, 0.000000 ],
-        "scale"     : [ 0.800000, 0.800000, 0.100000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.800000, 0.800000, 0.100000 ]
     },
 
     "Mesh.024" : {
@@ -929,11 +667,7 @@
         "position"  : [ 0.598000, 3.446000, 0.602000 ],
         "rotation"  : [ 0.000000, -0.000000, 0.000000 ],
         "quaternion": [ 1.000000, 0.000000, 0.000000, 0.000000 ],
-        "scale"     : [ 0.800000, 0.800000, 0.100000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.800000, 0.800000, 0.100000 ]
     },
 
     "Mesh.023" : {
@@ -943,11 +677,7 @@
         "position"  : [ 0.598000, 2.455000, 0.602000 ],
         "rotation"  : [ 1.570797, -0.000000, 0.000000 ],
         "quaternion": [ 0.707107, 0.707107, 0.000000, 0.000000 ],
-        "scale"     : [ 0.600000, 0.500000, 0.100000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.600000, 0.500000, 0.100000 ]
     },
 
     "Mesh.022" : {
@@ -957,11 +687,7 @@
         "position"  : [ 0.700000, 0.957000, -0.381000 ],
         "rotation"  : [ 0.000000, -0.000000, 0.000000 ],
         "quaternion": [ 1.000000, 0.000000, 0.000000, 0.000000 ],
-        "scale"     : [ 1.999999, 1.499999, 0.100000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 1.999999, 1.499999, 0.100000 ]
     },
 
     "Mesh.021" : {
@@ -971,11 +697,7 @@
         "position"  : [ 0.700000, -0.603000, -1.213000 ],
         "rotation"  : [ 0.000000, -0.000000, 0.000000 ],
         "quaternion": [ 1.000000, 0.000000, 0.000000, 0.000000 ],
-        "scale"     : [ 1.999999, 2.999999, 0.100000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 1.999999, 2.999999, 0.100000 ]
     },
 
     "Mesh.020" : {
@@ -985,11 +707,7 @@
         "position"  : [ 0.750000, -1.684000, -1.806000 ],
         "rotation"  : [ 0.000000, -0.000000, 0.000000 ],
         "quaternion": [ 1.000000, 0.000000, 0.000000, 0.000000 ],
-        "scale"     : [ 1.999999, 3.999998, 0.100000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 1.999999, 3.999998, 0.100000 ]
     },
 
     "Mesh.019" : {
@@ -999,11 +717,7 @@
         "position"  : [ 0.700000, -3.812000, -2.463000 ],
         "rotation"  : [ 0.000000, -0.000000, 0.000000 ],
         "quaternion": [ 1.000000, 0.000000, 0.000000, 0.000000 ],
-        "scale"     : [ 1.999999, 3.999998, 0.100000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 1.999999, 3.999998, 0.100000 ]
     },
 
     "Mesh.006" : {
@@ -1013,11 +727,7 @@
         "position"  : [ -0.100000, -5.797994, 2.994682 ],
         "rotation"  : [0, 1.570797, 0.000],
         "quaternion": [ 0.500000, -0.499999, -0.500000, 0.500001 ],
-        "scale"     : [ 0.750000, 0.750000, 0.220000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.750000, 0.750000, 0.220000 ]
     },
 
     "Mesh.005" : {
@@ -1027,11 +737,7 @@
         "position"  : [ 0.500000, -4.266000, 3.010249 ],
         "rotation"  : [ -1.570797, 0.000000, 0.000000 ],
         "quaternion": [ 0.707107, -0.707107, 0.000000, 0.000000 ],
-        "scale"     : [ 0.800000, 0.840000, 0.220000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.800000, 0.840000, 0.220000 ]
     },
 
     "Mesh.004" : {
@@ -1041,11 +747,7 @@
         "position"  : [ 0.500000, -2.799000, 3.014000 ],
         "rotation"  : [ -1.570797, 0.000000, 0.000000 ],
         "quaternion": [ 0.707107, -0.707107, 0.000000, 0.000000 ],
-        "scale"     : [ 0.800000, 0.840000, 0.220000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.800000, 0.840000, 0.220000 ]
     },
 
     "Mesh.003" : {
@@ -1055,11 +757,7 @@
         "position"  : [ 0.500000, -1.227000, 3.014000 ],
         "rotation"  : [ -1.570797, 0.000000, 0.000000 ],
         "quaternion": [ 0.707107, -0.707107, 0.000000, 0.000000 ],
-        "scale"     : [ 0.800000, 0.840000, 0.220000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.800000, 0.840000, 0.220000 ]
     },
 
     "Mesh.002" : {
@@ -1069,11 +767,7 @@
         "position"  : [ 0.500000, 0.527000, 2.975000 ],
         "rotation"  : [ 0.000000, -0.000000, 0.000000 ],
         "quaternion": [ 1.000000, 0.000000, 0.000000, 0.000000 ],
-        "scale"     : [ 0.750000, 0.750000, 0.750000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.750000, 0.750000, 0.750000 ]
     },
 
     "Mesh.000" : {
@@ -1083,11 +777,7 @@
         "position"  : [ 0.500000, 0.542000, 6.790000 ],
         "rotation"  : [ 0.000000, -0.000000, 0.000000 ],
         "quaternion": [ 1.000000, 0.000000, 0.000000, 0.000000 ],
-        "scale"     : [ 1.499999, 1.499999, 0.200000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 1.499999, 1.499999, 0.200000 ]
     },
 
     "Mesh.007" : {
@@ -1097,11 +787,7 @@
         "position"  : [ 0.629892, -5.717768, 3.001649 ],
         "rotation"  : [ -0.000000, 1.570796, 0.000000 ],
         "quaternion": [ 0.707107, 0.000000, 0.707107, 0.000000 ],
-        "scale"     : [ 0.610000, 0.610000, 0.490000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.610000, 0.610000, 0.490000 ]
     },
 
     "Mesh.018" : {
@@ -1111,11 +797,7 @@
         "position"  : [ 0.700000, -5.706000, -1.302000 ],
         "rotation"  : [ 0.000000, -0.000000, 0.000000 ],
         "quaternion": [ 1.000000, 0.000000, 0.000000, 0.000000 ],
-        "scale"     : [ 1.999999, 1.999999, 0.100000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 1.999999, 1.999999, 0.100000 ]
     },
 
     "Mesh.010" : {
@@ -1125,11 +807,7 @@
         "position"  : [ 0.500000, -8.601000, 1.354399 ],
         "rotation"  : [ 0.000000, -0.000000, 0.000000 ],
         "quaternion": [ 1.000000, 0.000000, 0.000000, 0.000000 ],
-        "scale"     : [ 0.800000, 0.400000, 0.200000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.800000, 0.400000, 0.200000 ]
     },
 
     "Mesh.009" : {
@@ -1139,11 +817,7 @@
         "position"  : [ 0.500000, -8.457000, 2.110537 ],
         "rotation"  : [ 0.000000, -0.000000, 0.000000 ],
         "quaternion": [ 1.000000, 0.000000, 0.000000, 0.000000 ],
-        "scale"     : [ 0.800000, 0.400000, 0.200000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.800000, 0.400000, 0.200000 ]
     },
 
     "Mesh.008" : {
@@ -1153,11 +827,7 @@
         "position"  : [ 0.523018, -7.544209, 3.172215 ],
         "rotation"  : [ 0.436333, -0.000000, 0.000000 ],
         "quaternion": [ 0.976296, 0.216440, 0.000000, 0.000000 ],
-        "scale"     : [ 0.680000, 0.405000, 0.290000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.680000, 0.405000, 0.290000 ]
     },
 
     "Mesh.001" : {
@@ -1167,11 +837,7 @@
         "position"  : [ 0.500000, 0.500000, 5.941000 ],
         "rotation"  : [ 0.000000, -0.000000, 0.000000 ],
         "quaternion": [ 1.000000, 0.000000, 0.000000, 0.000000 ],
-        "scale"     : [ 0.800000, 0.700000, 0.200000 ],
-        "visible"       : true,
-        "castsShadow"   : false,
-        "meshCollider"  : false,
-        "trigger"       : "None"
+        "scale"     : [ 0.800000, 0.700000, 0.200000 ]
     }
 },
 
@@ -1179,16 +845,15 @@
 "geometries" :
 {
     "geo_CubeGeom" : {
-        "type" : "embedded_mesh",
+        "type" : "embedded",
         "id"  : "emb_CubeGeom"
     },
 
     "geo_CylinderGeom" : {
-        "type" : "embedded_mesh",
+        "type" : "embedded",
         "id"  : "emb_CylinderGeom"
     }
 },
-
 
 "materials" :
 {
@@ -1276,16 +941,11 @@
 
 "transform" :
 {
-    "position"  : [ -0.80000, -1.20000, 0.000000 ],
-    "rotation"  : [ -1.570796, 0.000000, 1.570796 ],
-    "scale"     : [ 1.000000, 1.000000, 1.000000 ]
-},
-
-"defaults" :
-{
-    "bgcolor" : [ 0.000000, 0.000000, 0.000000 ],
-    "bgalpha" : 1.000000,
-    "camera"  : ""
+    "position"  : [ 0,0,0 ],
+    "rotation"  : [ 0,0,0 ],
+    "scale"     : [ 0,0,0 ]
 }
+
+
 
 }

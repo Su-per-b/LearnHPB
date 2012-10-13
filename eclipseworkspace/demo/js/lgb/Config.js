@@ -44,14 +44,14 @@ lgb.Config.APP_TITLE = 'Learn Grean Buildings - Demo';
  * @const
  * @type {string}
  */
-lgb.Config.APP_VERSION = '0.11.01';
+lgb.Config.APP_VERSION = '0.11.03';
 
 /**
  * Will show status in the upper left if set to true.
  * @const
  * @type {boolean}
  */
-lgb.Config.SHOW_STATS = false;
+lgb.Config.SHOW_STATS = true;
 
 /**
  * The file that holds the Three.js scene for all the particle systems.
@@ -79,8 +79,17 @@ lgb.Config.getTitle = function() {
 };
 
 
+/**
+ * @define {boolean} If this is set to true, then all global events
+ * are logged in lgb.events.EventBus.
+ */
+lgb.Config.UTILITY_SHOW_GRID = true;
 
-
+/**
+ * @define {boolean} If this is set to true, then all global events
+ * are logged in lgb.events.EventBus.
+ */
+lgb.Config.UTILITY_SHOW_AXIS = false;
 
 
 
