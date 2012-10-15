@@ -25,7 +25,8 @@ lgb.view.ViewBase = function(dataModel) {
 
   this.parentHTMLid = 'theBody';
   this.htmlID = '';
-
+  this.filename = 'scene.json';
+  
   //this._NAME = 'lgb.view.ViewBase';
 
 };
@@ -101,7 +102,7 @@ lgb.view.ViewBase.prototype.init = function() {
  */
 lgb.view.ViewBase.prototype.loadSceneFromFolder_ = function(folderName) {
 
-  var path = lgb.Config.ASSETS_BASE_PATH + folderName + '/scene.json';
+  var path = lgb.Config.ASSETS_BASE_PATH + folderName + '/' + this.filename;
   this.loader_ = new THREE.SceneLoaderEx();
   this.loader_.load(path, this.d(this.onSceneLoadedBase_));
 };

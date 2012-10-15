@@ -35,12 +35,9 @@ lgb.controller.UtilityController.prototype.init_ = function() {
   }
 
   if (lgb.Config.UTILITY_SHOW_AXIS) {
-
     this.axisView = new lgb.view.UtilityAxisView();
     this.makeAddToWorldRequestGlobal(this.axisView);
     this.axisView.init();
-
   }
-
 };
 

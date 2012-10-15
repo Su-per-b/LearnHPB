@@ -1,24 +1,5 @@
 {
 
-	"materials": {
-		"blue": {
-			"parameters": {
-				"color": 163
-			}
-		},
-
-		"green": {
-			"parameters": {
-				"color": 41728
-			}
-		},
-
-		"red": {
-			"parameters": {
-				"color": 10682368
-			}
-		}
-	},
 
 	"objects": {
 
@@ -55,8 +36,8 @@
 		},
 
 		"backGeom": {
-			"type": "binary",
-			"url": "back.obj.json"
+        "type" : "ascii",
+        "url"  : "box_ascii_cube.json"
 		}
 	}
 }

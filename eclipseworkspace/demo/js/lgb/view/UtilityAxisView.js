@@ -14,8 +14,9 @@ goog.require('lgb.view.ViewBase');
 lgb.view.UtilityAxisView = function() {
   lgb.view.ViewBase.call(this, null);
 
-  this._NAME = 'lgb.view.UtilityView';
+  this._NAME = 'lgb.view.UtilityAxisView';
   this._ASSETS_FOLDER = 'utility/axis';
+  this.filename = 'axis_flipped.json';
 };
 goog.inherits(lgb.view.UtilityAxisView, lgb.view.ViewBase);
 
@@ -31,5 +32,4 @@ lgb.view.UtilityAxisView.prototype.onSceneLoaded_ = function() {
   this.masterGroup_.addChildren(this.scene_);
   
 };
-
 

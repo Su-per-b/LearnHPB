@@ -59,7 +59,7 @@ lgb.Config.SHOW_STATS = true;
  * @type {string}
  */
 lgb.Config.PARTICLE_SYSTEM_SCENE = lgb.Config.ASSETS_BASE_PATH +
-'particle-systems/ps8.json';
+'particle-systems/ps9.json';
 
 /**
  * the XML file for all the particle systems.
@@ -67,7 +67,7 @@ lgb.Config.PARTICLE_SYSTEM_SCENE = lgb.Config.ASSETS_BASE_PATH +
  * @type {string}
  */
 lgb.Config.PARTICLE_SYSTEM_XML = lgb.Config.XML_BASE_PATH +
-'ps8.xml';
+'ps9.xml';
 
 /**
  * @return {string} The string used to inject into the <title>
@@ -89,7 +89,7 @@ lgb.Config.UTILITY_SHOW_GRID = true;
  * @define {boolean} If this is set to true, then all global events
  * are logged in lgb.events.EventBus.
  */
-lgb.Config.UTILITY_SHOW_AXIS = false;
+lgb.Config.UTILITY_SHOW_AXIS = true;
 
 
 

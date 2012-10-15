@@ -662,39 +662,7 @@ THREE.Geometry.prototype = {
 
 		// TODO
 
-	},
-
-  /*
-   * @author Raj Dye
-   * @return {THREE.Vector3}
-   */
-  getDimensions: function () {
-    this.computeBoundingBox();
-    var bb = this.boundingBox;
-  
-    var xExt = bb.max.x - bb.min.x;
-    var yExt = bb.max.y - bb.min.y;
-    var zExt = bb.max.z - bb.min.z;
-    
-    var dimensions = new THREE.Vector3(xExt, yExt, zExt);
-    return dimensions;
-  },
-  
-  /*
-   * @author Raj Dye
-   * @return {Array.<THREE.Vector3>}
-   */
-  getBoundingBoxPoints: function () {
-    this.computeBoundingBox();
-   // var bb = this.boundingBox;
-    //var min = [bb.x[0], bb.y[0],bb.z[0]];
-   // var max = [bb.x[1], bb.y[1],bb.z[1]];
-    
-    //var min = new THREE.Vector3(bb.x[0], bb.y[0], bb.z[0]);
-    //var max = new THREE.Vector3(bb.x[1], bb.y[1], bb.z[1]);
-    
-    return [this.boundingBox.min,this.boundingBox.max]
-  }
+	}
 
 };
 

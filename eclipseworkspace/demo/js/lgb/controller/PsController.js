@@ -25,6 +25,7 @@ lgb.controller.PsController = function(dataModel) {
 };
 goog.inherits(lgb.controller.PsController, lgb.controller.ControllerBase);
 
+
 /**
  * @private
  */
@@ -54,7 +55,7 @@ lgb.controller.PsController.prototype.bind_ = function() {
   this.listenTo(this.adminView,
     lgb.events.RequestDataModelChange.TYPE,
     this.onRequestDataModelChange_);
-
+    
 };
 
 

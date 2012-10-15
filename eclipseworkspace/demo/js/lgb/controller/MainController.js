@@ -88,7 +88,6 @@ lgb.controller.MainController.prototype.init = function() {
   lgb.logInfo('jQuery version: ' + $('').jquery);
   lgb.logInfo('jQuery.ui version: ' + $.ui.version);
 
-
   $(window).resize(this.d(this.onWindowResize_));
 
 };
