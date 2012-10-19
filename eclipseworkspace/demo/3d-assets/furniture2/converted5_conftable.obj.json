@@ -1,0 +1,19 @@
+{
+
+
+    "materials": [	{
+	"DbgColor" : 15658734,
+	"DbgIndex" : 0,
+	"DbgName" : "conftable",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [0.0, 0.0, 0.0],
+	"colorSpecular" : [0.5, 0.5, 0.5],
+	"illumination" : 2,
+	"opticalDensity" : 1.0,
+	"specularCoef" : 96.078431,
+	"transparency" : 1.0
+	}],
+
+    "buffers": "converted5_conftable.obj.bin"
+
+}

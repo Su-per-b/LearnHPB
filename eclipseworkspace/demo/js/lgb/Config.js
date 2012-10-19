@@ -89,7 +89,7 @@ lgb.Config.UTILITY_SHOW_GRID = true;
  * @define {boolean} If this is set to true, then all global events
  * are logged in lgb.events.EventBus.
  */
-lgb.Config.UTILITY_SHOW_AXIS = true;
+lgb.Config.UTILITY_SHOW_AXIS = false;
 
 
 

@@ -39,7 +39,7 @@ lgb.controller.BuildingController.prototype.init_ = function() {
   this.roofTopController_ = new lgb.controller.RoofTopController();
   this.ductworkController_ = new lgb.controller.DuctworkController();
   this.lightingController = new lgb.controller.LightingController();
- // this.furnitureController = new lgb.controller.FurnitureController();
+  this.furnitureController = new lgb.controller.FurnitureController();
 
   this.bind_();
 };

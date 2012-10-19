@@ -97,7 +97,7 @@ lgb.view.UtilityGridView.prototype.init = function() {
   
   
   var step = 1;
-  var halfWidth = 20;
+  var halfWidth = 30;
 
   var squaresOnEachSide = halfWidth / step * 2;
   
@@ -150,32 +150,34 @@ lgb.view.UtilityGridView.prototype.init = function() {
     
   }
   
-
     var planeXY = new THREE.Line(geometryPlaneXZ, line_material, THREE.LinePieces);
-    
     var lineXpositive = new THREE.Line(geometryXpositive, line_material_red, THREE.LinePieces);
     var lineXnegative = new THREE.Line(geometryXnegative, line_material_red_desaturate, THREE.LinePieces);
-    
     var lineYpositive = new THREE.Line(geometryYpositive, line_material_blue, THREE.LinePieces);
     var lineYnegative = new THREE.Line(geometryYnegative, line_material_blue_desaturate, THREE.LinePieces);
-    
     var lineZpositive = new THREE.Line(geometryZpositive, line_material_green, THREE.LinePieces);
     var lineZnegative = new THREE.Line(geometryZnegative, line_material_green_desaturate, THREE.LinePieces);
     
+    lineXpositive.name = 'lineXpositive';
+    lineXnegative.name = 'lineXnegative';
+    lineYpositive.name = 'lineYpositive';
+    lineYnegative.name = 'lineYnegative';
+    lineZpositive.name = 'lineZpositive';
+    lineZnegative.name = 'lineZnegative';
+    planeXY.name = 'planeXY';
     
+    this.masterGroup_ = new THREE.Object3D();
+    this.masterGroup_.name = this._NAME;
     
-
-    this.requestAddToWorld(lineXpositive);
-    this.requestAddToWorld(lineXnegative);
+    this.masterGroup_.add(lineXpositive);
+    this.masterGroup_.add(lineXnegative);
+    this.masterGroup_.add(lineYpositive);
+    this.masterGroup_.add(lineYnegative);
+    this.masterGroup_.add(lineZpositive);
+    this.masterGroup_.add(lineZnegative);
+    this.masterGroup_.add(planeXY);
     
-    this.requestAddToWorld(lineYpositive);
-    this.requestAddToWorld(lineYnegative);
-    
-    this.requestAddToWorld(lineZpositive);
-    this.requestAddToWorld(lineZnegative);
-    
-
-    this.requestAddToWorld(planeXY);
+    this.requestAddToWorld(this.masterGroup_);
 
 };
 
