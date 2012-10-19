@@ -1,1 +1,1 @@
-python build-custom.py --common --includes --extras --minified
+python build.py --include common --include extras --minify --output ../build/three.min.js

@@ -19,7 +19,7 @@ call:js kendo.slider.js
 
 copy /Y kendo_license.txt temp\kendo.min.js  
 type temp\kendo_raw.min.js >> temp\kendo.min.js
-
+del temp\kendo_raw.min.js
 goto:eof
 
 ::--------------------------------------------------------

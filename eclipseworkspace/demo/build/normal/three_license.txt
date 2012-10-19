@@ -4,7 +4,6 @@ by Raj Dye before being compiled into this project:
 
 THREE.Mesh - added 3 functions 
 THREE.BinaryLoader - modified 1 function
-THREE.PathControls.js - modified 1 function
 THREE.Geometry - added 2 functions 
 THREE.Object3D - added 1 function
 

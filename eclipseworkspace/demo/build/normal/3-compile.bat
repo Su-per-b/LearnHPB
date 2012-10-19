@@ -23,8 +23,8 @@ copy /Y lgb_license.txt temp\lgb.js
 -i %SRC%\js\kendo\kendo.draganddrop.js ^
 -i %SRC%\js\kendo\kendo.slider.js ^
 -i %SRC%\js\lib\tipped.js ^
--i %SRC%\js\lib\Tween.js ^
--i %SRC%\js\lib\Ease.js ^
+-i %SRC%\js\lib\tweenjs\Tween.js ^
+-i %SRC%\js\lib\tweenjs\Ease.js ^
 -p %SRC%\js\closure ^
 -p %SRC%\js\lgb ^
 --compiler_flag=--externs=%SRC%\js\externs\browser.js ^
@@ -55,4 +55,3 @@ copy /Y lgb_license.txt temp\lgb.js
 
 type temp\lgb_raw.js >> temp\lgb.js
 
-%DEST%\lgb.js
