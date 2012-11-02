@@ -38,7 +38,7 @@ goog.inherits(lgb.view.EnvelopeView, lgb.view.ViewBase);
  * @private
  * @param {Object} result From the THREE.js lib.
  */
-lgb.view.EnvelopeView.prototype.onSceneLoaded_ = function(result) {
+lgb.view.EnvelopeView.prototype.onSceneLoaded_ = function() {
 
   this.floorGeometryHash_ = lgb.ThreeUtils.convertGroupHashToMeshHash(this.groups_);
   this.updateAllFromModel_();

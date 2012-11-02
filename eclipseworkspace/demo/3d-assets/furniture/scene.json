@@ -1,9 +1,22 @@
 {
 
-
 	"type": "scene",
+	
+    "appData": {
+        "gridQuadOffice": {
+            "position": [
+                8,
+                -2.8,
+                0
+            ],
+            "columnCount": 3,
+            "rowCount": 2,
+            "width": 50,
+            "depth": 50
+        }
 
-
+    },
+    
 	"objects": {
 		"Chair_01": {
 			"geometry": "geo_Chair",
@@ -19,14 +32,13 @@
 		},
 		"Chair_03": {
 			"geometry": "geo_Chair",
-			"position": [2.8, -0.521, -2.7 ],
+			"position": [2.8, -0.509, -2.7 ],
 			"rotation": [0, 3.1416, 0],
 			"groups": ["QuadOffice"]
 		},
-
 		"Chair_04": {
 			"geometry": "geo_Chair",
-			"position": [2.8, -0.521, 2.2081  ],
+			"position": [2.8, -0.509, 2.2081  ],
 			"rotation": [0, 0, 0],
 			"groups": ["QuadOffice"]
 		},
@@ -84,7 +96,66 @@
 			"position": [0, 0, 0],
 			"rotation": [0, 1.5707965, 0],
 			"groups": ["QuadOffice"]
+		},
+		
+		"ConfTable": {
+			"geometry": "geo_ConfTable",
+			"position": [0, -1.1, 0],
+			"rotation": [-1.5707965, 0, 0],
+			"scale"     : [1,1,1],
+			"groups": ["ConferenceRoom"]
+		},
+		"ChairConf_01": {
+			"geometry": "geo_Chair",
+			"position": [3.0, -0.509, 5.0  ],
+			"rotation": [0, -1.5707965, 0],
+			"groups": ["ConferenceRoom"]
+		},
+		"ChairConf_02": {
+			"geometry": "geo_Chair",
+			"position": [3.0, -0.509, 2  ],
+			"rotation": [0, -1.5707965, 0],
+			"groups": ["ConferenceRoom"]
+		},
+		"ChairConf_03": {
+			"geometry": "geo_Chair",
+			"position": [3.0, -0.509, -1.25 ],
+			"rotation": [0, -1.5707965, 0],
+			"groups": ["ConferenceRoom"]
+		},
+		"ChairConf_04": {
+			"geometry": "geo_Chair",
+			"position": [3.0, -0.509, -4.5  ],
+			"rotation": [0, -1.5707965, 0],
+			"groups": ["ConferenceRoom"]
+		},
+		"ChairConf_05": {
+			"geometry": "geo_Chair",
+			"position": [-3.0, -0.509, 5.0  ],
+			"rotation": [0, 1.5707965, 0],
+			"groups": ["ConferenceRoom"]
+		},
+		"ChairConf_06": {
+			"geometry": "geo_Chair",
+			"position": [-3.0, -0.509, 2  ],
+			"rotation": [0, 1.5707965, 0],
+			"groups": ["ConferenceRoom"]
+		},
+		"ChairConf_07": {
+			"geometry": "geo_Chair",
+			"position": [-3.0, -0.509, -1.25 ],
+			"rotation": [0, 1.5707965, 0],
+			"groups": ["ConferenceRoom"]
+		},
+		"ChairConf_08": {
+			"geometry": "geo_Chair",
+			"position": [-3.0, -0.509, -4.5  ],
+			"rotation": [0, 1.5707965, 0],
+			"groups": ["ConferenceRoom"]
 		}
+		
+		
+		
 	},
 
 
@@ -109,7 +180,20 @@
 		"geo_QuadDesk": {
 			"type": "binary",
 			"url": "QuadDesk_from_LW.obj.json"
+		},
+		
+		"geo_ConfTable": {
+			"type": "binary",
+			"url": "ConfTable3_from_BLENDER.obj.json"
 		}
 
+	},
+	
+	"transform" :
+	{
+	    "position"  : [ 0, 0, 0 ],
+	    "rotation"  : [ 0, 0, 0 ],
+	    "scale"     : [0.50, 0.50,0.50]
 	}
+	
 }

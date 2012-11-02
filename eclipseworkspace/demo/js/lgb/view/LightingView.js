@@ -42,7 +42,7 @@ lgb.view.LightingView.prototype.onSceneLoaded_ = function() {
   for (var i = this.scene_.children.length - 1; i >= 0; i--) {
       var mesh = this.scene_.children.pop();
       
-      if (mesh.name == 'recessed') {
+      if (mesh.name == 'recessed' ) {
         
         this.recessedGeom = mesh.geometry;
         

@@ -1,0 +1,18 @@
+{
+
+
+    "materials": [	{
+	"DbgColor" : 15658734,
+	"DbgIndex" : 0,
+	"DbgName" : "conftable",
+	"colorAmbient" : [1.0, 1.0, 1.0],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [1.0, 1.0, 1.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 96.0,
+	"transparency" : 1.0
+	}],
+
+    "buffers": "ConfTable.obj.bin"
+
+}

@@ -234,6 +234,8 @@ THREE.Object3D.prototype = {
 		return array;
 
 	},
+	
+
 
 	updateMatrix: function () {
 

@@ -137,6 +137,8 @@ lgb.view.ViewBase.prototype.onSceneLoadedBase_ = function(result) {
 
 };
 
+
+
 /**
  * Event Handler that fires when the data model changes
  * @param {lgb.events.DataModelChanged} event The event.
@@ -144,6 +146,20 @@ lgb.view.ViewBase.prototype.onSceneLoadedBase_ = function(result) {
  */
 lgb.view.ViewBase.prototype.onChange = function(event) {
   throw ('this should be overriden Class name: ' + this._NAME);
+};
+
+
+/**
+ * @protected
+ */
+lgb.view.ViewBase.prototype.moveGroupToObject3D_ = function(groupName) {
+  
+  var obj3D = new THREE.Object3D();
+  
+  obj3D.name = this._NAME + "_GROUP_" + groupName;
+  obj3D.addArray(this.groups_[groupName]);
+  
+  return obj3D;
 };
 
 /**

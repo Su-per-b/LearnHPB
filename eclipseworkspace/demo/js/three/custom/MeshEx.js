@@ -16,47 +16,48 @@ THREE.Mesh.prototype.bakeTransformsIntoGeometry = function() {
 };
 
 
+
+THREE.Mesh.prototype.cloneEx = function(deepCloneChildren, cloneGeometry) {
+  
+  var geo;
+  
+  if (cloneGeometry) {
+    geo = THREE.GeometryUtils.clone(this.geometry);
+  } else {
+    geo = this.geometry;
+  }
+
+   var theClone = new THREE.Mesh(geo, this.material);
+   this.cloneBuilder_(theClone);
+   
+   if (deepCloneChildren) {
+     var len = this.children.length;
+     for (var i=0; i <  len ; i++) {
+       var childClone = this.children[i].cloneEx(deepCloneChildren, cloneGeometry);
+       theClone.add(childClone);
+     };
+   }
+   
+   return theClone;
+};
+
+
+
 /**
  *  "Master Obi-Wan, not victory. The shroud of the dark side has fallen.
  * Begun, the Clone War has!"
  *  ―Yoda (http://starwars.wikia.com/wiki/Star_Wars_Episode_II:_Attack_of_the_Clones)
+ * 
+ * by default a shallow clone
  * @author Raj Dye raj@pcdigi.com
  * @public
  */
 THREE.Mesh.prototype.clone = function() {
-
-  var newGeom = THREE.GeometryUtils.clone(this.geometry);
-
-  var theClone = new THREE.Mesh(newGeom, this.materials);
-
-  theClone.parent = this.parent;
-  theClone.up = this.up;
-  theClone.position = this.position;
-  theClone.rotation = this.rotation;
-  theClone.eulerOrder = this.eulerOrder;
-  theClone.dynamic = this.dynamic;
-  theClone.doubleSided = this.doubleSided;
-  theClone.flipSided = this.flipSided;
-  theClone.renderDepth = this.renderDepth;
-  theClone.rotationAutoUpdate = this.rotationAutoUpdate;
-  //theClone.matrix = this.matrix;
-  //   theClone.matrixWorld = this.matrixWorld;
-  //  theClone.matrixRotationWorld = this.matrixRotationWorld;
-  theClone.matrixAutoUpdate = this.matrixAutoUpdate;
-  theClone.matrixWorldNeedsUpdate = this.matrixWorldNeedsUpdate;
-  //  theClone.quaternion = this.quaternion;
-  theClone.useQuaternion = this.useQuaternion;
-  theClone.boundRadius = this.boundRadius;
-  theClone.boundRadiusScale = this.boundRadiusScale;
-  theClone.visible = this.visible;
-  theClone.castShadow = this.castShadow;
-  theClone.receiveShadow = this.receiveShadow;
-  theClone.frustumCulled = this.frustumCulled;
-  //theClone._vector = this.useQuaternion;
-
-  return theClone;
-
+  return this.cloneEx(false,false);
 };
+
+
+
 
 //@author Raj Dye raj@pcdigi.com
 THREE.Mesh.prototype.extractPositionFromGeometry = function() {
