@@ -5,206 +5,62 @@
 
 
 	"objects": {
-		"TaskLight_12": {
-			"geometry": "geo_TaskLight",
-			"position": [2393.36, 230.979, 3000.85],
-			"rotation": [0, -1.82212, 0]
-		},
 
-		"TaskLight_11": {
-			"geometry": "geo_TaskLight",
-			"position": [247.723, 230.979, 3000.85],
-			"rotation": [0, -1.82212, 0]
+		"Chair_01": {
+			"geometry": "geo_HMI_Celle_Chair",
+			"position": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"scale": [1, 1, 1]
 		},
-
-		"TaskLight_10": {
-			"geometry": "geo_TaskLight",
-			"position": [-1916.25, 230.979, 3000.85],
-			"rotation": [0, -1.82212, 0]
+		"Chair_02": {
+			"geometry": "geo_HMI_Aeron_Chair",
+			"position": [3, 0, 0],
+			"rotation": [0, 0, 0],
+			"scale": [1, 1, 1]
 		},
-
-		"TaskLight_9": {
-			"geometry": "geo_TaskLight",
-			"position": [-667.785, 230.979, 3270.43],
-			"rotation": [0, 2.80125, 0]
-		},
-
-		"TaskLight_8": {
-			"geometry": "geo_TaskLight",
-			"position": [1496.19, 230.979, 3270.43],
-			"rotation": [0, 2.80125, 0]
-		},
-
-		"TaskLight_7": {
-			"geometry": "geo_TaskLight",
-			"position": [3651, 230.979, 3270.43],
-			"rotation": [0, 2.80125, 0]
-		},
-
-		"TaskLight_6": {
-			"geometry": "geo_TaskLight",
-			"position": [3427.21, 230.979, 3118.02],
-			"rotation": [0, 1.43292, 0]
-		},
-
-		"TaskLight_5": {
-			"geometry": "geo_TaskLight",
-			"position": [1263.23, 230.979, 3118.02],
-			"rotation": [0, 1.43292, 0]
-		},
-
-		"TaskLight_4": {
-			"geometry": "geo_TaskLight",
-			"position": [-882.404, 230.979, 3118.02],
-			"rotation": [0, 1.43292, 0]
-		},
-
-		"TaskLight_3": {
-			"geometry": "geo_TaskLight",
-			"position": [-2152.4, 230.979, 2840.28],
-			"rotation": [0, 0.357793, 0]
-		},
-
-		"TaskLight_2": {
-			"geometry": "geo_TaskLight",
-			"position": [11.5771, 230.979, 2840.28],
-			"rotation": [0, 0.357793, 0]
-		},
-
-		"TaskLight_1": {
-			"geometry": "geo_TaskLight",
-			"position": [2131.79, 230.979, 2840.28],
-			"rotation": [0, 0.357793, 0]
-		},
-
-		"Chair_18": {
+		"Chair_03": {
 			"geometry": "geo_Chair",
-			"position": [-3608.02, 208.971, 2406.18],
-			"rotation": [0, 3.12239, 0]
+			"position": [6, 0, 0],
+			"rotation": [0, 0, 0],
+			"scale": [0.01, 0.01, 0.01]
 		},
-
-		"Chair_17": {
-			"geometry": "geo_Chair",
-			"position": [-3608.02, 208.971, 3109.46],
-			"rotation": [0, 3.12239, 0]
+		"Chair_04": {
+			"geometry": "geo_ChairLeather",
+			"position": [9, 0, 0],
+			"rotation": [0, 0, 0],
+			"scale": [1, 1, 1]
 		},
-
-		"Chair_16": {
-			"geometry": "geo_Chair",
-			"position": [-3608.02, 208.971, 2783.67],
-			"rotation": [0, 3.12239, 0]
-		},
-
-		"Chair_15": {
-			"geometry": "geo_Chair",
-			"position": [-3177.2, 208.971, 2458.59]
-		},
-
-		"Chair_14": {
-			"geometry": "geo_Chair",
-			"position": [-3138.92, 208.971, 3148.92]
-		},
-
-		"Chair_13": {
-			"geometry": "geo_Chair",
-			"position": [-3138.92, 208.971, 2857.88]
-		},
-
-		"ConfTable": {
-			"geometry": "geo_ConfTable",
-			"position": [-3381.83, 185.128, 3271.21]
-		},
-
-		"Chair_12": {
-			"geometry": "geo_Chair",
-			"position": [-1004.09, 208.971, 3267.56],
-			"rotation": [0, -3.1381, 0]
-		},
-
-		"Chair_11": {
-			"geometry": "geo_Chair",
-			"position": [1199.48, 208.971, 2810.1],
-			"rotation": [0, -3.1381, 0]
-		},
-
-		"Chair_10": {
-			"geometry": "geo_Chair",
-			"position": [1177.11, 208.971, 3284.57],
-			"rotation": [0, -3.1381, 0]
-		},
-
-		"Chair_9": {
-			"geometry": "geo_Chair",
-			"position": [-1013.51, 208.971, 2782.24],
-			"rotation": [0, -3.1381, 0]
-		},
-
-		"Chair_8": {
-			"geometry": "geo_Chair",
-			"position": [3326.83, 208.971, 2810.27],
-			"rotation": [0, -3.1381, 0]
-		},
-
-		"Chair_7": {
-			"geometry": "geo_Chair",
-			"position": [3326.83, 208.971, 3288.78],
-			"rotation": [0, -3.1381, 0]
-		},
-
-		"Chair_6": {
-			"geometry": "geo_Chair",
-			"position": [2459.07, 208.971, 2857.88]
-		},
-
-		"Chair_5": {
-			"geometry": "geo_Chair",
-			"position": [2478.85, 208.971, 3286.29]
-		},
-
-		"Chair_4": {
-			"geometry": "geo_Chair",
-			"position": [328.187, 208.971, 2857.88]
-		},
-
-		"Chair_3": {
-			"geometry": "geo_Chair",
-			"position": [328.187, 208.971, 3249.4]
-		},
-
-		"Chair_2": {
-			"geometry": "geo_Chair",
-			"position": [-1845.1, 208.971, 3249.4]
-		},
-
-		"Chair_1": {
-			"geometry": "geo_Chair",
-			"position": [-1845.1, 208.971, 2857.88]
+		"Chair_05": {
+			"geometry": "geo_ChairRaj",
+			"position": [-3, 0, 0],
+			"rotation": [0, 0, 0],
+			"scale": [1, 1, 1]
 		}
 	},
 
 
 	"geometries": {
-		"geo_TaskLight": {
-			"type": "binary",
-			"url": "converted5_TaskLight.obj.json"
-		},
 
+		"geo_HMI_Celle_Chair": {
+			"type": "binary",
+			"url": "HMI_Celle_Chair_3D3.obj.json"
+		},
+		"geo_HMI_Aeron_Chair": {
+			"type": "binary",
+			"url": "HMI_Aeron_Chair_3D_from_obj.obj.json"
+		},
 		"geo_Chair": {
 			"type": "binary",
 			"url": "converted5_chair.obj.json"
 		},
-
-		"geo_ConfTable": {
+		"geo_ChairLeather": {
 			"type": "binary",
-			"url": "converted5_conftable.obj.json"
+			"url": "leather_chair_v5b.obj.json"
+		},
+		"geo_ChairRaj": {
+			"type": "binary",
+			"url": "mesh_chair_raj_7.obj.json"
 		}
-	},
 
-
-
-	"transform": {
-		"rotation": [0, 0, 0],
-		"scale": [0.01, 0.01, 0.01],
-		"position": [0, -5, -30]
 	}
 }

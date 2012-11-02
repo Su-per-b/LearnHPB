@@ -1,0 +1,27 @@
+{
+
+	"objects": {
+		"BlueChair2": {
+			"geometry": "geom_BlueChair2"
+		},
+		"BlueChair3": {
+			"geometry": "geom_BlueChair3",
+			 "position"  : [ 2, 0, 0 ]
+		}
+
+	},
+	"geometries": {
+		"geom_BlueChair2": {
+			"type": "binary",
+			"url": "BlueChair2.obj.json"
+		},
+		"geom_BlueChair3": {
+			"type": "binary",
+			"url": "BlueChair3.obj.json"
+		}
+	},
+	"transform" :
+	{
+	    "position"  : [ 0, 10, 0 ]
+	}
+}

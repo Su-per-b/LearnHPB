@@ -1,0 +1,82 @@
+{
+
+    "metadata" :
+    {
+        "formatVersion" : 3.1,
+        "sourceFile"    : "HM-Lounge-Chair.obj",
+        "generatedBy"   : "OBJConverter",
+        "vertices"      : 4905,
+        "faces"         : 3682,
+        "normals"       : 3518,
+        "uvs"           : 0,
+        "materials"     : 5
+    },
+
+    "materials": [	{
+	"DbgColor" : 15658734,
+	"DbgIndex" : 0,
+	"DbgName" : "l_ner_66",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [0.098, 0.098, 0.098],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"illumination" : 2,
+	"opticalDensity" : 1.5,
+	"specularCoef" : 9.0,
+	"transparency" : 0.0
+	},
+
+	{
+	"DbgColor" : 15597568,
+	"DbgIndex" : 1,
+	"DbgName" : "a_bada00",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [0.0431, 0.0431, 0.0431],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"illumination" : 2,
+	"opticalDensity" : 1.5,
+	"specularCoef" : 34.0,
+	"transparency" : 0.0
+	},
+
+	{
+	"DbgColor" : 60928,
+	"DbgIndex" : 2,
+	"DbgName" : "m_alu_b",
+	"colorAmbient" : [0.0275, 0.0275, 0.0275],
+	"colorDiffuse" : [0.0784, 0.0784, 0.0784],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"illumination" : 2,
+	"opticalDensity" : 1.5,
+	"specularCoef" : 48.0,
+	"transparency" : 0.0
+	},
+
+	{
+	"DbgColor" : 238,
+	"DbgIndex" : 3,
+	"DbgName" : "palisan3",
+	"colorAmbient" : [0.8431, 0.6745, 0.5765],
+	"colorDiffuse" : [0.7686, 0.5922, 0.4078],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"illumination" : 2,
+	"opticalDensity" : 1.5,
+	"specularCoef" : 34.0,
+	"transparency" : 0.0
+	},
+
+	{
+	"DbgColor" : 15658496,
+	"DbgIndex" : 4,
+	"DbgName" : "w_che_04",
+	"colorAmbient" : [0.6549, 0.3333, 0.2392],
+	"colorDiffuse" : [0.6549, 0.3333, 0.2392],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"illumination" : 2,
+	"opticalDensity" : 1.5,
+	"specularCoef" : 34.0,
+	"transparency" : 0.0
+	}],
+
+    "buffers": "HM-Lounge-Chair.obj.bin"
+
+}

@@ -81,10 +81,8 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
   
   // async geometry loaders
   for (var typeID in this.geometryHandlerMap ) {
-
     var loaderClass = this.geometryHandlerMap[ typeID ]["loaderClass"];
     this.geometryHandlerMap[ typeID ]["loaderObject"] = new loaderClass();
-
   }
 
   counter_models = 0;
@@ -149,15 +147,15 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
   // toplevel loader function, delegates to handle_children
 
   function handle_objects() {
-
     handle_children(result.scene, data.objects);
-
   }
 
   // handle all the children from the loaded json and attach them to given parent
 
   function handle_children(parent, children) {
 
+
+    
     for (var dd in children ) {
 
       // check by id if child has already been handled,
@@ -166,15 +164,15 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
       if (result.objects[dd] === undefined) {
 
         var o = children[dd];
-
         var object = null;
+        
+        
 
         if (o.geometry !== undefined) {
 
           geometry = result.geometries[o.geometry];
 
           // geometry already loaded
-
           if (geometry) {
 
             var hasNormals = false;
@@ -189,9 +187,7 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
             hasNormals = material instanceof THREE.ShaderMaterial;
 
             if (hasNormals) {
-
               geometry.computeTangents();
-
             }
 
             //if values are not set then use defaults
@@ -207,51 +203,40 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
             q = 0;
 
             if (o.materials.length === 0) {
-
               material = new THREE.MeshFaceMaterial();
-
             }
+            
 
             // dirty hack to handle meshes with multiple materials
             // just use face materials defined in model
-
             if (o.materials.length > 1) {
-
               material = new THREE.MeshFaceMaterial();
-
             }
 
             if (o.morph) {
-
               object = new THREE.MorphAnimMesh(geometry, material);
-
               if (o.duration !== undefined) {
-
                 object.duration = o.duration;
-
               }
 
               if (o.time !== undefined) {
-
                 object.time = o.time;
-
               }
 
               if (o.mirroredLoop !== undefined) {
-
                 object.mirroredLoop = o.mirroredLoop;
-
               }
 
               if (material.morphNormals) {
-
                 geometry.computeMorphNormals();
-
               }
 
             } else {
+              
 
               object = new THREE.Mesh(geometry, material);
+              
+
 
             }
 
@@ -372,7 +357,15 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
   };
 
   function handle_mesh(geo, id) {
-
+  
+  
+    if (undefined !== data.geometries[id].subdivisionModifier) {
+      
+      var divisions =  data.geometries[id].subdivisionModifier;
+      var modifier = new THREE.SubdivisionModifier( divisions );
+      modifier.modify( geo );
+    }
+    
     result.geometries[id] = geo;
     handle_objects();
 
@@ -381,15 +374,10 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
   function create_callback(id) {
 
     return function(geo) {
-
       handle_mesh(geo, id);
-
       counter_models -= 1;
-
       scope.onLoadComplete();
-
       async_callback_gate();
-
     }
   };
 
@@ -611,9 +599,7 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
       for (var parType in g ) {
 
         if (parType !== "type" && parType !== "url") {
-
           loaderParameters[parType] = g[parType];
-
         }
 
       }

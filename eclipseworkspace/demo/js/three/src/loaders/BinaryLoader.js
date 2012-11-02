@@ -236,47 +236,6 @@ THREE.BinaryLoader.prototype.createBinModel = function ( data, callback, texture
 				'nquad_smooth_uv' :parseUInt32( data, offset + 20 + 4*10 )
 
 			};
-/*
-			console.log( "signature: " + metaData.signature );
-
-			console.log( "header_bytes: " + metaData.header_bytes );
-			console.log( "vertex_coordinate_bytes: " + metaData.vertex_coordinate_bytes );
-			console.log( "normal_coordinate_bytes: " + metaData.normal_coordinate_bytes );
-			console.log( "uv_coordinate_bytes: " + metaData.uv_coordinate_bytes );
-
-			console.log( "vertex_index_bytes: " + metaData.vertex_index_bytes );
-			console.log( "normal_index_bytes: " + metaData.normal_index_bytes );
-			console.log( "uv_index_bytes: " + metaData.uv_index_bytes );
-			console.log( "material_index_bytes: " + metaData.material_index_bytes );
-
-			console.log( "nvertices: " + metaData.nvertices );
-			console.log( "nnormals: " + metaData.nnormals );
-			console.log( "nuvs: " + metaData.nuvs );
-
-			console.log( "ntri_flat: " + metaData.ntri_flat );
-			console.log( "ntri_smooth: " + metaData.ntri_smooth );
-			console.log( "ntri_flat_uv: " + metaData.ntri_flat_uv );
-			console.log( "ntri_smooth_uv: " + metaData.ntri_smooth_uv );
-
-			console.log( "nquad_flat: " + metaData.nquad_flat );
-			console.log( "nquad_smooth: " + metaData.nquad_smooth );
-			console.log( "nquad_flat_uv: " + metaData.nquad_flat_uv );
-			console.log( "nquad_smooth_uv: " + metaData.nquad_smooth_uv );
-
-			var total = metaData.header_bytes
-					  + metaData.nvertices * metaData.vertex_coordinate_bytes * 3
-					  + metaData.nnormals * metaData.normal_coordinate_bytes * 3
-					  + metaData.nuvs * metaData.uv_coordinate_bytes * 2
-					  + metaData.ntri_flat * ( metaData.vertex_index_bytes*3 + metaData.material_index_bytes )
-					  + metaData.ntri_smooth * ( metaData.vertex_index_bytes*3 + metaData.material_index_bytes + metaData.normal_index_bytes*3 )
-					  + metaData.ntri_flat_uv * ( metaData.vertex_index_bytes*3 + metaData.material_index_bytes + metaData.uv_index_bytes*3 )
-					  + metaData.ntri_smooth_uv * ( metaData.vertex_index_bytes*3 + metaData.material_index_bytes + metaData.normal_index_bytes*3 + metaData.uv_index_bytes*3 )
-					  + metaData.nquad_flat * ( metaData.vertex_index_bytes*4 + metaData.material_index_bytes )
-					  + metaData.nquad_smooth * ( metaData.vertex_index_bytes*4 + metaData.material_index_bytes + metaData.normal_index_bytes*4 )
-					  + metaData.nquad_flat_uv * ( metaData.vertex_index_bytes*4 + metaData.material_index_bytes + metaData.uv_index_bytes*4 )
-					  + metaData.nquad_smooth_uv * ( metaData.vertex_index_bytes*4 + metaData.material_index_bytes + metaData.normal_index_bytes*4 + metaData.uv_index_bytes*4 );
-			console.log( "total bytes: " + total );
-*/
 
 			return metaData;
 

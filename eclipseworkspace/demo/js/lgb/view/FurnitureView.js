@@ -34,7 +34,7 @@ lgb.view.FurnitureView.prototype.init = function() {
  */
 lgb.view.FurnitureView.prototype.loadScene_ = function() {
 
- // this.loadSceneCollada_();
+  //this.loadSceneCollada_();
   this.loadSceneThreeJS_();
 };
 
@@ -43,7 +43,7 @@ lgb.view.FurnitureView.prototype.loadSceneThreeJS_ = function() {
   //colada Loader
    //var path = lgb.Config.ASSETS_BASE_PATH + 'test/optimized_marker/scene.json';
    //var path = lgb.Config.ASSETS_BASE_PATH + 'eLADShadedDetail/optimized_marker/scene.json';
-   var path = lgb.Config.ASSETS_BASE_PATH + 'furniture2/scene.json';
+   var path = lgb.Config.ASSETS_BASE_PATH + 'furniture/scene.json';
    
    this.loader_ = new THREE.SceneLoaderEx();
    this.loader_.load(path, this.d(this.onSceneLoadedThreeJS_));

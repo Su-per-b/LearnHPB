@@ -1,0 +1,45 @@
+{
+
+    "metadata" :
+    {
+        "formatVersion" : 3.1,
+        "sourceFile"    : "raj_chair2.obj",
+        "generatedBy"   : "OBJConverter",
+        "vertices"      : 663,
+        "faces"         : 697,
+        "normals"       : 0,
+        "uvs"           : 1411,
+        "materials"     : 2
+    },
+
+    "materials": [	{
+	"DbgColor" : 15658734,
+	"DbgIndex" : 0,
+	"DbgName" : "HMI_Aeron_Black_Metal",
+	"colorAmbient" : [0.184314, 0.184314, 0.184314],
+	"colorDiffuse" : [0.172549, 0.172549, 0.172549],
+	"colorSpecular" : [0.269412, 0.269412, 0.269412],
+	"illumination" : 2,
+	"opticalDensity" : 1.5,
+	"specularCoef" : 22.0,
+	"transparency" : 0.0
+	},
+
+	{
+	"DbgColor" : 15597568,
+	"DbgIndex" : 1,
+	"DbgName" : "HMI_8T24_Sayl_Cushion",
+	"colorAmbient" : [0.588235, 0.588235, 0.588235],
+	"colorDiffuse" : [0.588235, 0.588235, 0.588235],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"illumination" : 2,
+	"mapAmbient" : "HMI_8T24_3D.jpg",
+	"mapDiffuse" : "HMI_8T24_3D.jpg",
+	"opticalDensity" : 1.5,
+	"specularCoef" : 9.999999,
+	"transparency" : 0.0
+	}],
+
+    "buffers": "raj_chair2.obj.bin"
+
+}

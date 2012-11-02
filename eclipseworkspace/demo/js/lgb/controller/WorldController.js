@@ -124,16 +124,16 @@ lgb.controller.WorldController.prototype.initLights_ = function() {
   this.ambientLight_ = new THREE.AmbientLight(0x111111);
   this.scene_.add(this.ambientLight_);
 
-  this.light1_ = new THREE.DirectionalLight( 0xffffff, 2 , 30);
+  this.light1_ = new THREE.DirectionalLight( 0xffffff, 1.5 , 30);
   this.light1_.position.set( 0, 70, -45 );
   
   this.scene_.add( this.light1_ );
 
-  this.light2_ = new THREE.DirectionalLight( 0xffffff, 1 , 30);
+  this.light2_ = new THREE.DirectionalLight( 0xffffff, 0.8 , 30);
   this.light2_.position.set( -45, -70, 0 );
   this.scene_.add( this.light2_ );
 
-  this.light3_ = new THREE.DirectionalLight( 0xffffff, 2 , 30);
+  this.light3_ = new THREE.DirectionalLight( 0xffffff, 1.6 , 30);
   this.light3_.position.set( 45, 0, 45 );
   this.scene_.add( this.light3_ );
   

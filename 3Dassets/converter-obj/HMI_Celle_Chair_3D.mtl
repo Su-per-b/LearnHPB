@@ -1,0 +1,25 @@
+# Blender MTL File: 'None'
+# Material Count: 2
+newmtl HMI-_Cellular_Op
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.235294 0.238431 0.222745
+Ks 0.449020 0.449020 0.449020
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd E:\3Dstuff\HermanMiller\work chairs\HMI_Celle_Chair_3ds_3D\MC Celle\HMI_CELL.JPG
+map_d E:\\3Dstuff\\HermanMiller\\work chairs\\HMI_Celle_Chair_3ds_3D\\MC Celle\\HMI_CELL.JPG
+map_Bump E:\\3Dstuff\\HermanMiller\\work chairs\\HMI_Celle_Chair_3ds_3D\\MC Celle\\HMI_CELL.JPG
+
+
+newmtl HMI-_G1_(Graphit
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.235294 0.238431 0.222745
+Ks 0.449020 0.449020 0.449020
+Ni 1.000000
+d 1.000000
+illum 2
+
+
