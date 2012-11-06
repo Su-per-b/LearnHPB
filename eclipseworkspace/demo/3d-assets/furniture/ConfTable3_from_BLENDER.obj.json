@@ -8,7 +8,7 @@
 	"colorAmbient" : [0.8, 0.8, 0.8],
 	"colorDiffuse" : [0.8, 0.8, 0.8],
 	"colorSpecular" : [0.8, 0.8, 0.8],
-	"mapDiffuse" : "../3d-assets/furniture/images/LearnHPBConfTable.jpg",
+	"mapDiffuse" : "images/LearnHPBConfTable.jpg",
 	"illumination" : 2,
 	"opticalDensity" : 1.0,
 	"specularCoef" : 92.156863,

@@ -50,11 +50,16 @@ lgb.model.ViewPointModel.prototype.getCameraByName = function(name) {
 lgb.model.ViewPointModel.prototype.addCameras = function(cameras) {
 
   for (var camName in cameras) {
-    var theCamera = cameras[camName];
-    theCamera.name = camName;
+    
+    if (undefined !== camName) {
+      
+        var theCamera = cameras[camName];
+        theCamera.name = camName;
+    
+        this.camMap[camName] = theCamera;
+        this.cameras.push(theCamera);
 
-    this.camMap[camName] = theCamera;
-    this.cameras.push(theCamera);
+    }
 
   }
 

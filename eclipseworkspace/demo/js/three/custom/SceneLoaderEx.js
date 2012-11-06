@@ -138,7 +138,8 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
 
     } else {
 
-      return urlBase + "/" + source_url;
+      newUrlString = urlBase + source_url;
+      return newUrlString;
 
     }
 
@@ -595,17 +596,24 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
 
     } else if (g.type in this.geometryHandlerMap) {
 
-      var loaderParameters = {};
-      for (var parType in g ) {
+    var loaderParameters = {};
+    for (var parType in g ) {
 
-        if (parType !== "type" && parType !== "url") {
-          loaderParameters[parType] = g[parType];
-        }
-
+      if (parType !== "type" && parType !== "url") {
+        loaderParameters[parType] = g[parType];
       }
 
+    }
+
+    //loaderParameters.texturePath = "images/";
+    
+  
       var loader = this.geometryHandlerMap[ g.type ]["loaderObject"];
-      loader.load(get_url(g.url, data.urlBaseType), create_callback(dg), loaderParameters);
+      
+      var geometryUrl = get_url(g.url, data.urlBaseType);
+      var onLoadCallback = create_callback(dg);
+      
+      loader.load(geometryUrl, onLoadCallback, loaderParameters);
 
     } else if (g.type === "embedded") {
 

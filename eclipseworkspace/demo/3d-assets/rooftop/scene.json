@@ -37,8 +37,23 @@
 	    "Fan" : {
 	        "geometry"  : "geo_Fan",
         	"position"  : [ 4.81478, 1.71910 , -0.74870]
+	    },
+	    "Boiler" : {
+	        "geometry"  : "geo_Boiler",
+        	"position"  : [ 4.81478, 1.6 , -3.74870],
+        	"scale" : [0.4, 0.4,0.4],
+        	"side" : "double"
+	    },
+	    "Cooler" : {
+	        "geometry"  : "geo_Cooler",
+        	"position"  : [ -1, 1.71910 , -4.5],
+        	"scale" : [0.4, 0.4,0.4]
+	    },
+	    "Chiller" : {
+	        "geometry"  : "geo_Chiller",
+        	"position"  : [ -7, 2.0 , -6],
+        	"scale" : [1, 1,1]
 	    }
-		
 	},
 
 
@@ -67,6 +82,18 @@
 		"geo_Fan": {
 			"type": "binary",
 			"url": "Fan.obj.json"
+		},
+		"geo_Boiler": {
+			"type": "binary",
+			"url": "boiler_blender2.obj.json"
+		},
+		"geo_Cooler": {
+			"type": "binary",
+			"url": "Cooler2.obj.json"
+		},
+		"geo_Chiller": {
+			"type": "binary",
+			"url": "chiller.obj.json"
 		}
 	},
 	

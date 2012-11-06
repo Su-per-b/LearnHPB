@@ -19,7 +19,7 @@
 	"colorAmbient" : [0.784314, 0.784314, 0.784314],
 	"colorDiffuse" : [1.0, 1.0, 1.0],
 	"colorSpecular" : [1.0, 1.0, 1.0],
-	"mapDiffuse" : "../3d-assets/furniture/images/elad_quadeskB_1.jpg",
+	"mapDiffuse" : "images/elad_quadeskB_1.jpg",
 	"opticalDensity" : 1.0,
 	"specularCoef" : 400.0,
 	"transparency" : 1.0
