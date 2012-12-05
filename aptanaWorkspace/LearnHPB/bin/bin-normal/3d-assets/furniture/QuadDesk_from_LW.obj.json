@@ -1,0 +1,78 @@
+{
+
+    "metadata" :
+    {
+        "formatVersion" : 3.1,
+        "sourceFile"    : "QuadDesk_from_LW.obj",
+        "generatedBy"   : "OBJConverter",
+        "vertices"      : 2994,
+        "faces"         : 1714,
+        "normals"       : 6268,
+        "uvs"           : 3676,
+        "materials"     : 5
+    },
+
+    "materials": [	{
+	"DbgColor" : 15658734,
+	"DbgIndex" : 0,
+	"DbgName" : "Default",
+	"colorAmbient" : [0.784314, 0.784314, 0.784314],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [1.0, 1.0, 1.0],
+	"mapDiffuse" : "images/elad_quadeskB_1.jpg",
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 15597568,
+	"DbgIndex" : 1,
+	"DbgName" : "whitedesk",
+	"colorAmbient" : [1.0, 0.995404, 0.977352],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.12, 0.12, 0.12],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 60928,
+	"DbgIndex" : 2,
+	"DbgName" : "Brown",
+	"colorAmbient" : [0.4, 0.4, 0.4],
+	"colorDiffuse" : [0.4, 0.4, 0.4],
+	"colorSpecular" : [0.4, 0.4, 0.4],
+	"opticalDensity" : 0.2,
+	"specularCoef" : 80.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 238,
+	"DbgIndex" : 3,
+	"DbgName" : "smokedglass",
+	"colorAmbient" : [0.687783, 0.687783, 0.687783],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 0.69
+	},
+
+	{
+	"DbgColor" : 15658496,
+	"DbgIndex" : 4,
+	"DbgName" : "mesh",
+	"colorAmbient" : [0.848571, 0.848705, 0.848523],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	}],
+
+    "buffers": "QuadDesk_from_LW.obj.bin"
+
+}

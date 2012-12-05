@@ -1,0 +1,76 @@
+{
+
+
+"objects" :
+{
+    "Cube" : {
+        "geometry"  : "geo_Cube"
+    }
+},
+
+
+"geometries" :
+{
+    "geo_Cube" : {
+        "type" : "embedded",
+        "id"  : "geo_Cube"
+    }
+},
+
+
+"materials" :
+{
+    "Materialxxx" : {
+        "type": "MeshLambertMaterial",
+        "parameters": { "color": 10724259, "opacity": 1, "blending": "NormalBlending" }
+    }
+},
+
+
+"embeds" :
+{
+"geo_Cube": {    "scale" : 4.000000,
+
+    "materials": [	{
+	"DbgColor" : 15658734,
+	"DbgIndex" : 0,
+	"DbgName" : "Materialxxx",
+	"blending" : "NormalBlending",
+	"colorAmbient" : [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+	"colorDiffuse" : [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+	"colorSpecular" : [0.5, 0.5, 0.5],
+	"depthTest" : true,
+	"depthWrite" : true,
+	"shading" : "Lambert",
+	"specularCoef" : 50,
+	"transparency" : 1.0,
+	"transparent" : false,
+	"vertexColors" : false
+	}],
+
+    "vertices": [1,1,-1,1,-1,-1,-1,-1,-1,-1,1,-1,1,0.999999,1,0.999999,-1,1,-1,-1,1,-1,1,1],
+
+    "morphTargets": [],
+
+    "normals": [],
+
+    "colors": [],
+
+    "uvs": [[]],
+
+    "faces": [],
+
+    "bones" : [],
+
+    "skinIndices" : [],
+
+    "skinWeights" : [],
+
+    "animation" : {}
+}
+}
+
+
+
+
+}

@@ -1,0 +1,6 @@
+folder: E:\LearnGreenBuildings\aptanaWorkspace\.metadata\.plugins\org.eclipse.core.runtime\.settings
+file: com.aptana.index.core.ui.prefs
+
+contents:
+FILTERED_INDEX_URIS=workspace\:/LearnHPB/3d-assets
+eclipse.preferences.version=1

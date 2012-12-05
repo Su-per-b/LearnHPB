@@ -1,0 +1,83 @@
+{
+
+    "metadata" :
+    {
+        "formatVersion" : 3.1,
+        "sourceFile"    : "chair_v10_from_3DS.obj",
+        "generatedBy"   : "OBJConverter",
+        "vertices"      : 663,
+        "faces"         : 697,
+        "normals"       : 0,
+        "uvs"           : 1411,
+        "materials"     : 5
+    },
+
+    "materials": [	{
+	"DbgColor" : 15658734,
+	"DbgIndex" : 0,
+	"DbgName" : "HMI_Aeron_Black_Metal",
+	"colorAmbient" : [0.184314, 0.184314, 0.184314],
+	"colorDiffuse" : [0.172549, 0.172549, 0.172549],
+	"colorSpecular" : [0.269412, 0.269412, 0.269412],
+	"illumination" : 2,
+	"opticalDensity" : 1.5,
+	"specularCoef" : 22.0,
+	"transparency" : 0.0
+	},
+
+	{
+	"DbgColor" : 15597568,
+	"DbgIndex" : 1,
+	"DbgName" : "wire_149149149",
+	"colorAmbient" : [0.584314, 0.584314, 0.584314],
+	"colorDiffuse" : [0.584314, 0.584314, 0.584314],
+	"colorSpecular" : [0.35, 0.35, 0.35],
+	"illumination" : 2,
+	"specularCoef" : 32.0,
+	"transparency" : 0.0
+	},
+
+	{
+	"DbgColor" : 60928,
+	"DbgIndex" : 2,
+	"DbgName" : "ChairCushion",
+	"colorAmbient" : [0.164706, 0.164706, 0.639216],
+	"colorDiffuse" : [0.164706, 0.164706, 0.639216],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"illumination" : 2,
+	"mapBump" : "../3d-assets/furniture/images/HMI_8T24_3D_blue.jpg",
+	"mapDiffuse" : "../3d-assets/furniture/images/HMI_8T24_3D_blue.jpg",
+	"opticalDensity" : 1.5,
+	"specularCoef" : 10.0,
+	"transparency" : 0.0
+	},
+
+	{
+	"DbgColor" : 238,
+	"DbgIndex" : 3,
+	"DbgName" : "HMI_Black_Armpad",
+	"colorAmbient" : [0.156863, 0.152941, 0.152941],
+	"colorDiffuse" : [0.156863, 0.152941, 0.152941],
+	"colorSpecular" : [0.475961, 0.475961, 0.475961],
+	"illumination" : 2,
+	"opticalDensity" : 1.5,
+	"specularCoef" : 33.0,
+	"transparency" : 0.0
+	},
+
+	{
+	"DbgColor" : 15658496,
+	"DbgIndex" : 4,
+	"DbgName" : "HMI__Polished_Steel",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [0.439216, 0.439216, 0.439216],
+	"colorSpecular" : [0.398039, 0.398039, 0.398039],
+	"illumination" : 2,
+	"opticalDensity" : 1.5,
+	"specularCoef" : 9.999999,
+	"transparency" : 0.0
+	}],
+
+    "buffers": "chair_v10_from_3DS.obj.bin"
+
+}

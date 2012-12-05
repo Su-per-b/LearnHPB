@@ -1,0 +1,31 @@
+{
+
+    "metadata" :
+    {
+        "formatVersion" : 3.1,
+        "sourceFile"    : "boiler_blender2.obj",
+        "generatedBy"   : "OBJConverter",
+        "vertices"      : 1358,
+        "faces"         : 1402,
+        "normals"       : 0,
+        "uvs"           : 2189,
+        "materials"     : 1
+    },
+
+    "materials": [	{
+	"DbgColor" : 15658734,
+	"DbgIndex" : 0,
+	"DbgName" : "outer_MetalBase0123_S.jpg",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [0.627451, 0.627451, 0.627451],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"illumination" : 2,
+	"mapDiffuse" : "MetalBase0123_S.jpg",
+	"opticalDensity" : 1.0,
+	"specularCoef" : 37.254902,
+	"transparency" : 1.0
+	}],
+
+    "buffers": "boiler_blender2.obj.bin"
+
+}

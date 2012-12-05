@@ -1,0 +1,85 @@
+{
+
+
+    "materials": [	{
+	"DbgColor" : 15658734,
+	"DbgIndex" : 0,
+	"DbgName" : "Default",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [0.784314, 0.784314, 0.784314],
+	"colorSpecular" : [1.0, 1.0, 1.0],
+	"illumination" : 2,
+	"mapDiffuse" : "../3d-assets/furniture/map/elad_quadeskB_1.jpg",
+	"opticalDensity" : 1.0,
+	"specularCoef" : 131.372549,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 15597568,
+	"DbgIndex" : 1,
+	"DbgName" : "Default_Smoothing",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [0.784314, 0.784314, 0.784314],
+	"colorSpecular" : [1.0, 1.0, 1.0],
+	"illumination" : 2,
+	"opticalDensity" : 1.0,
+	"specularCoef" : 131.372549,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 60928,
+	"DbgIndex" : 2,
+	"DbgName" : "whitedesk",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [1.0, 0.995404, 0.977352],
+	"colorSpecular" : [0.12, 0.12, 0.12],
+	"illumination" : 2,
+	"opticalDensity" : 1.0,
+	"specularCoef" : 131.372549,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 238,
+	"DbgIndex" : 3,
+	"DbgName" : "Brown",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [0.0, 0.0, 0.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"illumination" : 1,
+	"opticalDensity" : 1.0,
+	"specularCoef" : 76.470588,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 15658496,
+	"DbgIndex" : 4,
+	"DbgName" : "smokedglass",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [0.687783, 0.687783, 0.687783],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"illumination" : 1,
+	"opticalDensity" : 1.0,
+	"specularCoef" : 131.372549,
+	"transparency" : 0.69
+	},
+
+	{
+	"DbgColor" : 61166,
+	"DbgIndex" : 5,
+	"DbgName" : "mesh",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [0.848571, 0.848705, 0.848523],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"illumination" : 1,
+	"opticalDensity" : 1.0,
+	"specularCoef" : 131.372549,
+	"transparency" : 1.0
+	}],
+
+    "buffers": "quadDesk-02.obj.bin"
+
+}

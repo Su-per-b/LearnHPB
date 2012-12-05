@@ -1,0 +1,48 @@
+{
+    "appData": {
+        "gridRecessed": {
+            "position": [
+                0,
+                1.65,
+                0
+            ],
+            "columnCount": 12,
+            "rowCount": 8,
+            "width": 38.10004729626849,
+            "depth": 23.75
+        },
+        "gridPendant": {
+            "position": [
+                0,
+                -0.4,
+                0
+            ],
+            "columnCount": 10,
+            "rowCount": 5,
+            "width": 38.10004729626849,
+            "depth": 24
+        }
+    },
+    "objects": {
+        "recessed": {
+            "geometry": "geo_RecessedLight"
+        },
+        "pendant": {
+            "geometry": "geo_PendantLight"
+        }
+    },
+    "geometries": {
+        "geo_RecessedLight": {
+            "type": "binary",
+            "url": "RecessedLight.obj.json"
+        },
+        "geo_PendantLight": {
+            "type": "binary",
+            "url": "PendantLight.obj.json"
+        }
+    }
+    
+    
+    
+
+}
