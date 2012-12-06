@@ -7,7 +7,7 @@ goog.provide('lgb.simulation.model.MainModel');
 
 goog.require('lgb.model.ModelBase');
 goog.require('lgb.simulation.model.voNative.SimStateNative');
-
+goog.require('lgb.simulation.model.WebSocketConnectionState');
 
 
 /**
@@ -24,9 +24,13 @@ lgb.simulation.model.MainModel = function() {
   this._TITLE = 'MainModel';
   lgb.model.ModelBase.call(this);
 
-  this.state  = null;
-  this.socketServerURL = null;
+  this.simStateNative = lgb.simulation.model.voNative.SimStateNative.simStateNative_unknown;
+  this.webSocketConnectionState = lgb.simulation.model.WebSocketConnectionState.uninitialized;
   
+  this.socketServerURL = null;
+  this.messageStruct = null;
+  this.xmlParsedInfo = null;
+  this.scalarValueResults = null;
   this.init_();
 
 };
@@ -39,9 +43,7 @@ goog.inherits(lgb.simulation.model.MainModel, lgb.model.ModelBase);
  */
 lgb.simulation.model.MainModel.prototype.init_ = function(event) {
   
-  this.isPlaying = false;
-  this.state = lgb.simulation.model.voNative.SimStateNative.simStateNative_0_uninitialized;
-  
+
   url = String (window.location);
   console.log('window.location: '+ url);
   
@@ -54,20 +56,58 @@ lgb.simulation.model.MainModel.prototype.init_ = function(event) {
   
 };
 
+lgb.simulation.model.MainModel.prototype.setScalarValueResults = function(scalarValueResults) {
+    
+    this.scalarValueResults = scalarValueResults;
+    this.dispatchChange({scalarValueResults:true});
+    
+};
 
-lgb.simulation.model.MainModel.prototype.setState_ = function(state) {
 
-    if (this.state_ != state) {
-        this.state_ = state;
+
+lgb.simulation.model.MainModel.prototype.setWebSocketConnectionState = function(webSocketConnectionState) {
+
+    if (this.webSocketConnectionState != webSocketConnectionState) {
+        this.webSocketConnectionState = webSocketConnectionState;
      
-        this.dispatchChange({state:true});
+       // this.dispatchChange({webSocketConnectionState:true});
     }
  
 };
 
-lgb.simulation.model.MainModel.prototype.getState = function() {
 
-    return this.state_; 
+
+lgb.simulation.model.MainModel.prototype.getWebSocketConnectionState = function() {
+    return this.webSocketConnectionState;
+};
+
+
+
+
+lgb.simulation.model.MainModel.prototype.setSimStateNative = function(simStateNative) {
+
+    if (this.simStateNative != simStateNative) {
+        this.simStateNative = simStateNative;
+     
+        this.dispatchChange({simStateNative:true});
+    }
+ 
+};
+
+
+lgb.simulation.model.MainModel.prototype.setXMLparsedInfo = function(xmlParsedInfo) {
+
+        this.xmlParsedInfo = xmlParsedInfo;
+        
+        this.dispatchChange({xmlParsedInfo:true});
+    
+ 
+};
+
+
+lgb.simulation.model.MainModel.prototype.getSimStateNative = function() {
+
+    return this.simStateNative; 
 };
 
 
@@ -88,29 +128,17 @@ lgb.simulation.model.MainModel.prototype.addResult = function(text) {
   
 };
 
-
-
-
 /**
- * @param {Object} stateObject Contains information about what to change.
+ * @param {String} text
  */
-lgb.simulation.model.MainModel.prototype.change = function(stateObject) {
-
-  var isAnythingDirty = false;
-  var whatIsDirty = {};
-
-  if (stateObject.state != null &&
-    stateObject.state != this.state) {
-
-    this.state = stateObject.state;
-    whatIsDirty.state = true;
-    isAnythingDirty = true;
-  }
-
-  if (isAnythingDirty) {
-    this.dispatchChange(whatIsDirty);
-  }
+lgb.simulation.model.MainModel.prototype.setMessage = function(messageStruct) {
   
+  this.messageStruct = messageStruct;
+  this.dispatchChange({messageStruct:true});
   
 };
 
+
+
+
+ 

@@ -48,6 +48,7 @@ lgb.simulation.model.voNative.SimStateNative = {
   simStateNative_7_resume_requested: 26,
   simStateNative_7_resume_completed: 27,
   
-  simStateNative_e_error: 28
+  simStateNative_e_error: 28,
+  simStateNative_unknown:29
 };
 

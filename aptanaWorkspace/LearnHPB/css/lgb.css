@@ -134,23 +134,21 @@ img {
 
 
 
-
-
 .propertiesView-dialog div.ui-dialog-titlebar, 
 	.adminView-dialog div.ui-dialog-titlebar,
 	.simulationView-dialog div.ui-dialog-titlebar
-	  {
+{
 		padding: 0 0 8px 28px;
 }
+
 .propertiesView-dialog div.ui-dialog-titlebar {
 	background-image:url("../images/properties_21px.png");
 }
-
 .adminView-dialog div.ui-dialog-titlebar {
 	background-image:url("../images/admin_21px.png");
 }
 .simulationView-dialog div.ui-dialog-titlebar {
-	background-image:url("../images/admin_21px.png");
+	background-image:url("../images/properties_21px.png");
 }
 
 .propertiesSubPanel {
@@ -204,6 +202,12 @@ a.admin-link:hover {
 	background-color: #6d9d35;
 }
 
+#simulationView{
+	text-align: left;	
+	font-size:10pt;
+}
+
+
 #simulationView-topPanel a.admin-link {
 	font-weight:normal;
 	font-size:10pt;
@@ -241,5 +245,13 @@ a.admin-link:hover {
 #simulationView-tabstrip-1{
 	text-align: left;	
 	font-size:10pt;
+
 }
+#simulationView-tabstrip{
+	text-align: left;	
+	width: 10000px;
+	overflow:scroll;
+}
+
+
 

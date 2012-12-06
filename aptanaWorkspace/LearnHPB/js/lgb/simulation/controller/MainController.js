@@ -29,10 +29,14 @@ lgb.simulation.controller.MainController.prototype.init_ = function(event) {
     this.jsonController_ = new lgb.simulation.controller.JsonController();
     this.dataModel = new lgb.simulation.model.MainModel();
 
+    this.webSocketConnectionState_ = lgb.simulation.model.WebSocketConnectionState.uninitialized;
+
+    this.delayedMessages = [];
+
     //this.state_ = lgb.simulation.model.WebSocketConnectionState.uninitialized;
 
-    this.dataModel.setState_(lgb.simulation.model.WebSocketConnectionState.uninitialized);
-    
+    // this.dataModel.setSimStateNative(lgb.simulation.model.WebSocketConnectionState.uninitialized);
+
     // this.view = new lgb.view.DuctworkView(this.dataModel);
     // this.bind_();
     //this.view.init();
@@ -51,6 +55,8 @@ lgb.simulation.controller.MainController.prototype.getDataModel = function() {
 
 lgb.simulation.controller.MainController.prototype.connect = function(event) {
 
+    this.dataModel.setWebSocketConnectionState(lgb.simulation.model.WebSocketConnectionState.open_requested);
+
     if (window.MozWebSocket) {
         this.ws_ = new MozWebSocket(this.dataModel.socketServerURL);
     } else if (window.WebSocket) {
@@ -65,48 +71,60 @@ lgb.simulation.controller.MainController.prototype.connect = function(event) {
     this.ws_.onclose = this.d(this.onClose_);
     this.ws_.onerror = this.d(this.onError_);
 
-    this.dataModel.setState_(lgb.simulation.model.WebSocketConnectionState.connected);
-
 };
-
-
-
-lgb.simulation.controller.MainController.prototype.requestStateChange = function(state) {
-
-    var event = new lgb.simulation.events.SimStateNativeRequest(state);
-    //this.dispatch(event);
-    
-    this.serializeAndSend(event);
-};
-
 
 lgb.simulation.controller.MainController.prototype.serializeAndSend = function(event) {
 
-   var jsonString  = event.toJson();
-    
-   this.ws_.send(jsonString);
+    var jsonString = event.toJson();
+    var state = this.dataModel.getWebSocketConnectionState();
+
+    if (state == lgb.simulation.model.WebSocketConnectionState.uninitialized) {
+        this.connect();
+        this.delayedMessages.push(jsonString);
+    } else {
+
+        if (undefined === this.ws_ || this.ws_.readyState !== this.ws_.OPEN) {
+            this.delayedMessages.push(jsonString);
+        } else {
+            this.ws_.send(jsonString);
+        }
+
+    }
+
 };
-
-
-
 
 
 
 /**
-lgb.simulation.controller.MainController.prototype.setState_ = function(state) {
+ lgb.simulation.controller.MainController.prototype.setState_ = function(state) {
 
-    this.state_ = state;
-    var event = new lgb.simulation.events.WebSocketConnectionStateEvent(state);
-    this.dispatch(event);
+ this.state_ = state;
+ var event = new lgb.simulation.events.WebSocketConnectionStateEvent(state);
+ this.dispatch(event);
 
-};
-
+ };
 
  * Handler used for websocket communication
  * @private
  */
 lgb.simulation.controller.MainController.prototype.onOpen_ = function(event) {
-    this.dataModel.setState_(lgb.simulation.model.WebSocketConnectionState.opened);
+    
+    this.dataModel.setWebSocketConnectionState(lgb.simulation.model.WebSocketConnectionState.opened);
+
+    while(msg = this.delayedMessages.shift()) {
+        this.ws_.send(msg);
+    }
+
+/*
+    var len = this.delayedMessages.length;
+
+    for (var i = 0; i < len; i++) {
+        var message = this.delayedMessages[i];
+
+    };
+*/
+
+   // this.delayedMessages = [];
 };
 
 /**
@@ -118,13 +136,11 @@ lgb.simulation.controller.MainController.prototype.onMessage_ = function(event) 
     if (event.data) {
         var jsonString = event.data;
         console.log("SimulationController.onMessage_() - " + jsonString);
-       
+
         var event = this.jsonController_.deSerialize(jsonString);
 
-        this.dispatch(event);
-
+        this.dispatchLocal(event);
     }
-
 };
 
 /**
@@ -133,7 +149,7 @@ lgb.simulation.controller.MainController.prototype.onMessage_ = function(event) 
  */
 lgb.simulation.controller.MainController.prototype.onClose_ = function(event) {
 
-    this.dataModel.setState_(lgb.simulation.model.WebSocketConnectionState.closed);
+    this.dataModel.setWebSocketConnectionState(lgb.simulation.model.WebSocketConnectionState.closed);
 };
 
 /**
@@ -142,6 +158,6 @@ lgb.simulation.controller.MainController.prototype.onClose_ = function(event) {
  */
 lgb.simulation.controller.MainController.prototype.onError_ = function(event) {
 
-    this.dataModel.setState_(lgb.simulation.model.WebSocketConnectionState.error);
+    this.dataModel.setWebSocketConnectionState(lgb.simulation.model.WebSocketConnectionState.error);
 
 };

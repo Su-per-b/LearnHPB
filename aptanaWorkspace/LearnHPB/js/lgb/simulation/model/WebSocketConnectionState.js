@@ -10,7 +10,7 @@ goog.provide('lgb.simulation.model.WebSocketConnectionState');
  */
 lgb.simulation.model.WebSocketConnectionState = {
   uninitialized: 0,
-  connected: 1,
+  open_requested: 1,
   opened: 2,
   closed: 3,
   timed_out: 4,

@@ -21,7 +21,8 @@ lgb.component.Link = function(ds) {
   lgb.view.ViewBase.call(this);
   this.ds = ds;
   
-  this.selector_ = '#{0}'.format(this.ds.htmlID);
+  this.htmlID = this.ds.htmlID;
+  //this.selector_ = '#{0}'.format(this.ds.htmlID);
 };
 goog.inherits(lgb.component.Link, lgb.view.ViewBase);
 
@@ -68,23 +69,31 @@ lgb.component.Link.prototype.bind = function() {
   var delegateOut = this.d(this.onMouseOut_);
 
 
-  $(this.selector_).click(delegateClick);
-  $(this.selector_).hover(delegateOver, delegateOut);
+  this.jq().click(delegateClick);
+  this.jq().hover(delegateOver, delegateOut);
 
 };
 
 
 lgb.component.Link.prototype.setEnabled = function(isEnabled) {
    
+   
+   
+   
     if (this.ds.isEnabled != isEnabled) {
         this.ds.isEnabled = isEnabled;
 
+
+        var element = this.jq();
+        
+        
         if(isEnabled) {
-            $(this.selector_).removeClass('admin-link');
-            $(this.selector_).addClass('admin-link-disabled');
+            element.removeClass('admin-link-disabled');
+            element.addClass('admin-link');
+            
         } else {
-            $(this.selector_).removeClass('admin-link-disabled');
-            $(this.selector_).addClass('admin-link');
+            element.removeClass('admin-link');
+            element.addClass('admin-link-disabled');
         }
    
     }

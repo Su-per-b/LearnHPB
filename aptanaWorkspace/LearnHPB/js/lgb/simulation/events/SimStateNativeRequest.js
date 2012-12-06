@@ -5,6 +5,7 @@
  
 goog.provide('lgb.simulation.events.SimStateNativeRequest');
 goog.require('lgb.simulation.events.BaseEvent');
+goog.require('lgb.simulation.model.voNative.SimStateNative');
 
 /**
  * @constructor

@@ -66,7 +66,7 @@ test.TestSimulationController.prototype.testMessages = function() {
   
   
   equal(
-      that.mainController.getState(), 
+      that.mainController.getsetSimStateNative(), 
       lgb.simulation.model.WebSocketConnectionState.uninitialized,
       'WebSocketConnectionState.uninitialized'
   );

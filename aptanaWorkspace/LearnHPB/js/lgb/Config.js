@@ -37,14 +37,14 @@ lgb.Config.XML_BASE_PATH = 'xml/';
  * @const
  * @type {string}
  */
-lgb.Config.APP_TITLE = 'Learn Grean Buildings - Demo';
+lgb.Config.APP_TITLE = 'Learn High Performance Buildings';
 
 /**
  * The application verison, will appear in the <title>
  * @const
  * @type {string}
  */
-lgb.Config.APP_VERSION = '0.11.03';
+lgb.Config.APP_VERSION = 'Alph 0.5.0';
 
 /**
  * Will show status in the upper left if set to true.

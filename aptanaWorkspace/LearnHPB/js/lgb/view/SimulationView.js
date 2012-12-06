@@ -7,13 +7,11 @@ goog.provide('lgb.view.SimulationView');
 
 goog.require('lgb.simulation.model.MainModel');
 goog.require('lgb.simulation.model.voNative.SimStateNative');
-
 goog.require('lgb.component.LinkDataSource');
 goog.require('lgb.component.Link');
-
 goog.require('lgb.view.DialogView');
-
 goog.require('lgb.events.MouseClick');
+goog.require('lgb.simulation.events.SimStateNativeRequest');
 
 /**
  * @constructor
@@ -41,11 +39,11 @@ lgb.view.SimulationView.prototype.onChange = function(event) {
 
     var whatIsDirty = event.payload;
 
-    if (whatIsDirty.state) {
+    if (whatIsDirty.simStateNative) {
 
         this.disableAllButtons();
 
-        switch (this.dataModel.state) {
+        switch (this.dataModel.simStateNative) {
 
             case lgb.simulation.model.voNative.SimStateNative.simStateNative_0_uninitialized :
                 this.connectLink_.setEnabled(true);
@@ -72,26 +70,113 @@ lgb.view.SimulationView.prototype.onChange = function(event) {
 
     }
 
+    if (whatIsDirty.messageStruct) {
+
+        var messageStruct = this.dataModel.messageStruct;
+        this.messageBox_.append(messageStruct.msgText + '<br />' + "\n");
+    }
+
+    if (whatIsDirty.xmlParsedInfo) {
+
+        var xmlParsedInfo = this.dataModel.xmlParsedInfo;
+        this.showXMLparsedInfo(xmlParsedInfo);
+    }
+
+    if (whatIsDirty.scalarValueResults) {
+        this.showScalarValueResults(this.dataModel.scalarValueResults);
+    }
+
 };
+
+lgb.view.SimulationView.prototype.showScalarValueResults = function(scalarValueResults) {
+
+    var time = scalarValueResults.time_;
+    
+    var realVarList = scalarValueResults.output.realList;
+    var newRow = {time:time};
+    
+    for (var i = 1, j = this.columnHeaders_.length; i < j; i++) {
+        var columnHeader = this.columnHeaders_[i];
+        newRow[columnHeader] = realVarList[i-1].value_;
+    };
+    
+    this.resultLogDataSource_.insert(0,newRow);
+    
+    
+    
+    return;
+
+}
+
+
+lgb.view.SimulationView.prototype.showXMLparsedInfo = function(xmlParsedInfo) {
+
+
+    var fields = {time:  { type: "number" , width: "100px" } };
+
+    
+    this.scalarVariablesAll_ = xmlParsedInfo.scalarVariablesAll_;
+    this.columnHeaders_ = ['time'];
+
+    var resultLogVars = this.scalarVariablesAll_.output_.realVarList_;
+
+
+    var fields = {time: { type: "number" }};
+    
+    var len = resultLogVars.length;
+    for (var i = 0, j = len; i < j; i++) {
+
+        var oneVar = resultLogVars[i];
+
+        var propertyName = oneVar.name_;
+        propertyName = propertyName.split('[').join('_');
+        propertyName = propertyName.split(']').join('');
+        fields[propertyName] = { type: "number" , width: "150px" };
+        
+        this.columnHeaders_ .push(propertyName);
+    };
+    
+
+
+    this.resultLogDataSource_ = new kendo.data.DataSource( {
+
+      schema: {
+           model: {
+               fields: fields
+           }
+       }
+
+       }
+    );
+    
+    this.resultsLogBox_.kendoGrid({
+        dataSource : this.resultLogDataSource_,
+        autoBind: true,
+        height:700,
+        scrollable: true,
+        filterable: true,
+        sortable: true,
+        groupable: false,
+        pageable: false
+    });
+    
+    this.resultsLogGrid_ = this.outputBox_.data("kendoGrid");
+    
+    
+
+};
+
 
 /**
  * @public
  */
 lgb.view.SimulationView.prototype.init = function() {
 
-    /*
-     this.stateMap = {
-     simStateNative_0_uninitialized : 0,
-     lgb.simulation.model.voNative.SimStateNative.simStateNative_1_connect_completed : [1],
-     lgb.simulation.model.voNative.SimStateNative.simStateNative_2_xmlParse_completed : [2],
-     lgb.simulation.model.voNative.SimStateNative.simStateNative_3_ready : [3,4]
-
-     }
-     */
 
     this.injectHtml_();
     this.bind_();
 };
+
 
 /**
  * injects HTML into the DOM
@@ -102,9 +187,26 @@ lgb.view.SimulationView.prototype.injectHtml_ = function() {
     this.makeDialog_();
     this.makeTopPanel_();
     this.makeBottomPanel_();
-    
-     this.show();
+    this.show();
 };
+
+
+
+/**
+ * event handler
+ * @private
+ * @param {lgb.events.MouseClick} event The Event.
+ */
+lgb.view.SimulationView.prototype.onClickSimStateNativeRequest_ = function(event) {
+
+    var simState = event.target.data;
+
+    var event = new lgb.simulation.events.SimStateNativeRequest(simState);
+    this.dispatchLocal(event);
+
+};
+
+
 
 /**
  * Binds specific event types to functions which handle the events.
@@ -115,13 +217,21 @@ lgb.view.SimulationView.prototype.injectHtml_ = function() {
 lgb.view.SimulationView.prototype.bind_ = function() {
 
     //data model changed
-    this.listenTo(this.dataModel, lgb.events.DataModelChanged.TYPE, this.onChange);
+    //this.listenTo(this.dataModel, lgb.events.DataModelChanged.TYPE, this.onChange);
 
-    //connect link
-    this.connectLink_.bind();
-    this.listenTo(this.connectLink_, lgb.events.MouseClick.TYPE, this.onMouseClickConnect_);
+    var len = this.topPanelButtons_.length;
+    for (var i = 0; i < len - 1; i++) {
+
+        var button = this.topPanelButtons_[i];
+
+        button.bind();
+        this.listenTo(button, lgb.events.MouseClick.TYPE, this.onClickSimStateNativeRequest_);
+
+    };
 
 };
+
+
 
 /**
  * Event handler triggered when the user clicks the
@@ -131,12 +241,6 @@ lgb.view.SimulationView.prototype.bind_ = function() {
 lgb.view.SimulationView.prototype.onCloseButtonClicked = function(event) {
     // this.dispatchLocal(new lgb.events.ViewClosed());
 
-    var stateObject = {
-        state : lgb.model.SimulationModelState.STOPPED
-    };
-
-    var event = new lgb.events.RequestSimulationStateChange(stateObject);
-    this.dispatchLocal(event);
 };
 
 /**
@@ -149,73 +253,84 @@ lgb.view.SimulationView.prototype.makeTopPanel_ = function() {
     this.topPanelButtons_ = new Array();
 
     // linkHtml = '';
-
     var ds = new lgb.component.LinkDataSource('Connect~', this.htmlID, 'connect')
     this.connectLink_ = new lgb.component.Link(ds);
+    this.connectLink_.data = lgb.simulation.model.voNative.SimStateNative.simStateNative_1_connect_requested;
     this.topPanelButtons_.push(this.connectLink_);
 
     var ds2 = new lgb.component.LinkDataSource('XML Parse {}', this.htmlID, 'xmlParse-link')
     this.xmlParseLink_ = new lgb.component.Link(ds2);
+    this.xmlParseLink_.data = lgb.simulation.model.voNative.SimStateNative.simStateNative_2_xmlParse_requested;
+
     this.topPanelButtons_.push(this.xmlParseLink_);
 
     var ds3 = new lgb.component.LinkDataSource('Init ^', this.htmlID, 'init-link')
     this.initLink_ = new lgb.component.Link(ds3);
+    this.initLink_.data = lgb.simulation.model.voNative.SimStateNative.simStateNative_3_init_requested;
+
     this.topPanelButtons_.push(this.initLink_);
 
     var ds4 = new lgb.component.LinkDataSource('Run >', this.htmlID, 'run-link')
     this.runLink_ = new lgb.component.Link(ds4);
+    this.runLink_.data = lgb.simulation.model.voNative.SimStateNative.simStateNative_4_run_requested;
+
     this.topPanelButtons_.push(this.runLink_);
 
     var ds5 = new lgb.component.LinkDataSource('Step >', this.htmlID, 'step-link')
     this.stepLink_ = new lgb.component.Link(ds5);
+    this.stepLink_.data = lgb.simulation.model.voNative.SimStateNative.simStateNative_5_step_requested;
+
     this.topPanelButtons_.push(this.stepLink_);
 
     var ds6 = new lgb.component.LinkDataSource('Stop []', this.htmlID, 'stop-link')
     this.stopLink_ = new lgb.component.Link(ds6);
+    this.stopLink_.data = lgb.simulation.model.voNative.SimStateNative.simStateNative_5_stop_requested;
+
     this.topPanelButtons_.push(this.stopLink_);
 
     var ds7 = new lgb.component.LinkDataSource('Terminate.', this.htmlID, 'terminate-link')
     this.terminateLink_ = new lgb.component.Link(ds7);
+    this.terminateLink_.data = lgb.simulation.model.voNative.SimStateNative.simStateNative_7_terminate_requested;
+
     this.topPanelButtons_.push(this.terminateLink_);
 
     var ds8 = new lgb.component.LinkDataSource('Clear -', this.htmlID, 'clear-link')
     this.clearLink_ = new lgb.component.Link(ds8);
     this.topPanelButtons_.push(this.clearLink_);
 
-    var linkHtml2 = this.topPanelButtons_[0].getHTML2();
+    var linkHtml = "";
+    //this.topPanelButtons_[0].getHTML2();
 
     var len = this.topPanelButtons_.length;
-    for (var i = 1; i < len; i++) {
+    for (var i = 0; i < len; i++) {
 
         var button = this.topPanelButtons_[i];
 
-        button.setEnabled(false);
-        linkHtml2 += button.getHTML2();
+        button.ds.isEnabled = false;
+        linkHtml += button.getHTML2();
 
     };
 
-    var divHtml = '<div id="{0}" class="simulationViewClass">' + linkHtml2 + '</div>';
-
+    var divHtml = '<div id="{0}" class="simulationViewClass">' + linkHtml + '</div>';
     divHtml = divHtml.format(this.topPanelID);
-
     this.dialog.append(divHtml);
 
 };
 
+
 lgb.view.SimulationView.prototype.disableAllButtons = function() {
 
     var len = this.topPanelButtons_.length;
-    for (var i = 1; i < len; i++) {
+    for (var i = 0; i < len; i++) {
         var button = this.topPanelButtons_[i];
         button.setEnabled(false);
     };
 
-}
+};
 
 lgb.view.SimulationView.prototype.makeBottomPanel_ = function() {
 
     this.mainPanel_ = $('<div>').attr('id', "simulationViewMainPanel");
-    // this.messageBox.append('wla wla');
     this.mainPanel_.appendTo(this.jq());
 
     var tabsID = 'simulationView-tabs';
@@ -234,39 +349,31 @@ lgb.view.SimulationView.prototype.makeBottomPanel_ = function() {
     this.kendoTabStrip.append([{
         text : 'Console'
     }, {
+        text : 'Input'
+    }, {
         text : 'Output'
+    }, {
+        text : 'Results Log'
     }]);
 
     this.kendoTabStrip.select(this.kendoTabStrip.tabGroup[0].children[0]);
 
     this.messageBox_ = $('<div>').attr('id', "simulationViewMessageBox");
-
-    //this.messageBox_.appendTo(this.jq());
-
     $('#' + tabStripID + '-1').append(this.messageBox_);
-    this.messageBox_.append('wla wla');
-}
-/**
- * event handler
- * @private
- * @param {lgb.events.MouseClick} event The Event.
- */
-lgb.view.SimulationView.prototype.onMouseClickConnect_ = function(event) {
 
-    //var w = $('#simulationWindow').data('kendoWindow');
+    this.inputBox_ = $('<div>').attr('id', "simulationViewInputBox");
+    $('#' + tabStripID + '-2').append(this.inputBox_);
 
-    // w.content("output " );
-    // w.open();
+    //  this.outputBox_ = $('<div>').attr('id', "simulationViewOutputBox");
 
-    //var stateObject = {state: lgb.model.SimulationModelState.PLAYING};
-
-    //var event = new lgb.events.RequestSimulationStateChange(stateObject);
-    // this.dispatchLocal(event);
+    this.outputBox_ = $('#' + tabStripID + '-3');
+    
+    this.resultsLogBox_ = $('#' + tabStripID + '-4');
+    
+    //this.resultsLogBox_ = $('<div>').attr('id', "simulationViewResultsLogBox");
+   // $('#' + tabStripID + '-4').append(this.resultsLogBox_);
 
 };
-
-
-
 
 /**
  * injects the dialog panel into the DOM

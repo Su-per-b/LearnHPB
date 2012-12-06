@@ -164,7 +164,7 @@ lgb.view.ViewBase.prototype.moveGroupToObject3D_ = function(groupName) {
 
 /**
  * Binds an event listener to handle when the MVC data model changes.
- * @private
+ * @protected
  */
 lgb.view.ViewBase.prototype.listenForChange_ = function() {
 
