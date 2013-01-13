@@ -1,3 +1,13 @@
+/*
+* Kendo UI v2011.3.1129 (http://kendoui.com)
+* Copyright 2011 Telerik AD. All rights reserved.
+*
+* Kendo UI commercial licenses may be obtained at http://kendoui.com/license.
+* If you do not own a commercial license, this file shall be governed by the
+* GNU General Public License (GPL) version 3. For GPL requirements, please
+* review: http://www.gnu.org/copyleft/gpl.html
+*/
+
 (function($, undefined) {
     var kendo = window.kendo,
         proxy = $.proxy,
@@ -7,13 +17,13 @@
         FIELD = "field",
         DESC = "desc",
         TLINK = ".k-link",
-        Component = kendo.ui.Component;
+        Widget = kendo.ui.Widget;
 
-    var Sortable = Component.extend({
+    var Sortable = Widget.extend({
         init: function(element, options) {
             var that = this, link;
 
-            Component.fn.init.call(that, element, options);
+            Widget.fn.init.call(that, element, options);
 
             that.dataSource = that.options.dataSource.bind("change", proxy(that.refresh, that));
             link = that.element.find(TLINK);
@@ -27,6 +37,7 @@
         },
 
         options: {
+            name: "Sortable",
             mode: SINGLE,
             allowUnsort: true
         },
@@ -98,5 +109,5 @@
         }
     });
 
-    kendo.ui.plugin("Sortable", Sortable);
+    kendo.ui.plugin(Sortable);
 })(jQuery);

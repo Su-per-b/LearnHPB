@@ -1,3 +1,13 @@
+/*
+* Kendo UI v2011.3.1129 (http://kendoui.com)
+* Copyright 2011 Telerik AD. All rights reserved.
+*
+* Kendo UI commercial licenses may be obtained at http://kendoui.com/license.
+* If you do not own a commercial license, this file shall be governed by the
+* GNU General Public License (GPL) version 3. For GPL requirements, please
+* review: http://www.gnu.org/copyleft/gpl.html
+*/
+
 (function($, undefined) {
     var kendo = window.kendo,
         isArray = $.isArray,
@@ -18,6 +28,9 @@
                     model.id = that.getter(model.id);
                     if (model.fields) {
                         each(model.fields, function(field, value) {
+                            if (isPlainObject(value) && value.field) {
+                                value = value.field;
+                            }
                             model.fields[field] = that.getter(value);
                         });
                     }
@@ -38,6 +51,8 @@
                 data = that.xpathToMember(data);
                 that.data = function(value) {
                     var record, field, result = that.evaluate(value, data);
+
+                    result = isArray(result) ? result : [result];
 
                     if (that.model && model.fields) {
                         return map(result, function(value) {

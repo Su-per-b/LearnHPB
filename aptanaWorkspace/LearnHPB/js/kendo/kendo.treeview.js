@@ -1,3 +1,13 @@
+/*
+* Kendo UI v2011.3.1129 (http://kendoui.com)
+* Copyright 2011 Telerik AD. All rights reserved.
+*
+* Kendo UI commercial licenses may be obtained at http://kendoui.com/license.
+* If you do not own a commercial license, this file shall be governed by the
+* GNU General Public License (GPL) version 3. For GPL requirements, please
+* review: http://www.gnu.org/copyleft/gpl.html
+*/
+
 (function($, undefined){
     /**
      * @name kendo.ui.TreeView.Description
@@ -72,7 +82,7 @@
         ui = kendo.ui,
         extend = $.extend,
         template = kendo.template,
-        Component = ui.Component,
+        Widget = ui.Widget,
         proxy = $.proxy,
         SELECT = "select",
         EXPAND = "expand",
@@ -191,14 +201,14 @@
         empty: template("")
     };
 
-    TreeView = Component.extend(/** @lends kendo.ui.TreeView.prototype */ {
+    TreeView = Widget.extend(/** @lends kendo.ui.TreeView.prototype */ {
         /**
          * @constructs
-         * @extends kendo.ui.Component
+         * @extends kendo.ui.Widget
          * @param {DomElement} element DOM element
          * @param {Object} options Configuration options.
          * @option {Array} [dataSource] The data that the TreeView will be bound to.
-         * @option {Object} [animation] A collection of {Animation} objects, used to change default animations. A value of false will disable all animations in the component.
+         * @option {Object} [animation] A collection of {Animation} objects, used to change default animations. A value of false will disable all animations in the widget.
          * @option {Boolean} [dragAndDrop] <false> Controls whether the treeview nodes can be dragged and rearranged.
          * @option {Animation} [animation.expand] The animation that will be used when expanding items.
          * @option {Animation} [animation.collapse] The animation that will be used when collapsing items.
@@ -210,7 +220,7 @@
 
             options = $.isArray(options) ? (dataInit = true, { dataSource: options }) : options;
 
-            Component.prototype.init.call(that, element, options);
+            Widget.prototype.init.call(that, element, options);
 
             element = that.element;
             options = that.options;
@@ -332,6 +342,7 @@
         },
 
         options: {
+            name: "TreeView",
             dataSource: {},
             animation: {
                 expand: {
@@ -402,7 +413,7 @@
                 firstLevel = item.hasClass(TTREEVIEW),
                 group = {
                     firstLevel: firstLevel,
-                    expanded: firstLevel || item.data("expanded") === true
+                    expanded: firstLevel || item.attr(kendo.attr("expanded")) === "true"
                 },
                 groupElement = item.find("> ul");
 
@@ -423,7 +434,7 @@
             nodes.each(function(i, node) {
                 node = $(node);
 
-                nodeData = { index: i, expanded: node.data("expanded") === true };
+                nodeData = { index: i, expanded: node.attr(kendo.attr("expanded")) === "true" };
 
                 updateNodeHtml(node);
 
@@ -768,25 +779,17 @@
         /**
          * Searches the treeview for a node that has specific text.
          * @param {String} text The text that is being searched for.
-         * @returns {Node} The first node that contains the text.
+         * @returns {jQueryObject} All nodes that have the text.
          * @example
          * var treeview = $("#treeview").data("kendoTreeView");
          *
          * // searches the treeview for the item that has the text "foo"
          * var foundNode = treeview.findByText("foo");
          */
-        findByText: function (text) {
-            var result;
-
-            this.element.find(".k-in").each(function() {
-                var that = $(this);
-                if (that.text() == text) {
-                    result = that.closest(NODE);
-                    return false;
-                }
-            });
-
-            return result;
+        findByText: function(text) {
+            return $(this.element).find(".k-in").filter(function(i, element) {
+                return $(element).text() == text;
+            }).closest(NODE);
         }
     });
 
@@ -1088,5 +1091,5 @@
         }
     };
 
-    ui.plugin("TreeView", TreeView);
+    ui.plugin(TreeView);
 })(jQuery);

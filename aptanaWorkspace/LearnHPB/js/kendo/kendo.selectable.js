@@ -1,8 +1,18 @@
+/*
+* Kendo UI v2011.3.1129 (http://kendoui.com)
+* Copyright 2011 Telerik AD. All rights reserved.
+*
+* Kendo UI commercial licenses may be obtained at http://kendoui.com/license.
+* If you do not own a commercial license, this file shall be governed by the
+* GNU General Public License (GPL) version 3. For GPL requirements, please
+* review: http://www.gnu.org/copyleft/gpl.html
+*/
+
 (function ($, undefined) {
     var kendo = window.kendo,
         keys = kendo.keys,
         touch = kendo.support.touch,
-        Component = kendo.ui.Component,
+        Widget = kendo.ui.Widget,
         proxy = $.proxy,
         MOUSEUP = touch? "touchend" : "mouseup",
         MOUSEDOWN = touch? "touchstart" : "mousedown",
@@ -15,11 +25,11 @@
         CHANGE = "change",
         UNSELECTING = "k-state-unselecting";
 
-    var Selectable = Component.extend({
+    var Selectable = Widget.extend({
         init: function(element, options) {
             var that = this;
 
-            Component.fn.init.call(that, element, options);
+            Widget.fn.init.call(that, element, options);
 
             that._marquee = $("<div class='k-marquee'></div>");
             that._lastActive = null;
@@ -33,6 +43,7 @@
         },
 
         options: {
+            name: "Selectable",
             filter: ">*",
             multiple: false
         },
@@ -276,6 +287,6 @@
         }
     });
 
-    kendo.ui.plugin("Selectable", Selectable);
+    kendo.ui.plugin(Selectable);
 
 })(jQuery);

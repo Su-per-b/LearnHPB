@@ -1,3 +1,13 @@
+/*
+* Kendo UI v2011.3.1129 (http://kendoui.com)
+* Copyright 2011 Telerik AD. All rights reserved.
+*
+* Kendo UI commercial licenses may be obtained at http://kendoui.com/license.
+* If you do not own a commercial license, this file shall be governed by the
+* GNU General Public License (GPL) version 3. For GPL requirements, please
+* review: http://www.gnu.org/copyleft/gpl.html
+*/
+
 (function($, undefined) {
     /**
     * @name kendo.ui.Splitter.Description
@@ -41,7 +51,8 @@
     *       <li>Orientation of the splitter</li>
     *   </ul>
     *   <p>
-    *       Pane properties are set for each individual pane in a Splitter, whereas Splitter properties apply to the entire widget.
+    *       Pane properties are set for each individual pane in a Splitter,
+    *       whereas Splitter properties apply to the entire widget.
     *   </p>
     * @exampleTitle Setting Splitter and Pane properties
     * @example
@@ -65,7 +76,7 @@
     *   </p>
     * @exampleTitle Creating nested Splitter layout
     * @example
-    *   <!-- Define nested HTML layout with divs-->
+    *   <!-- Define nested HTML layout with divs -->
     *   <div id="horizontalSplitter">
     *       <div><p>Left Side Pane Content</p></div>
     *       <div>
@@ -77,10 +88,10 @@
     *   </div>
     * @exampleTitle
     * @example
-    *   //Initialize both Splitters with the proper orientation
-    *   $(document).ready(function(){
+    *   // Initialize both Splitters with the proper orientation
+    *   $(document).ready(function() {
     *       $("horizontalSplitter").kendoSplitter();
-    *       $("verticalSplitter").kendoSplitter({orientation: "vertical"});
+    *       $("verticalSplitter").kendoSplitter({ orientation: "vertical" });
     *   });
     *
     * @section
@@ -88,21 +99,28 @@
     *   <p>
     *       While any valid technique for loading Ajax content can be used, Splitter provides built-in
     *       support for asynchronously loading content from URLs. These URLs should return HTML fragments
-    *       that can be loaded in a Splitter pane. Ajax content loading must be configured for each Pane that should use it.
+    *       that can be loaded in a Splitter pane. If you want to load a whole page in an IFRAME,
+    *       you can do so by specifying the complete URL (e.g. http://kendoui.com/)
+    *       Ajax content loading must be configured for each Pane that should use it.
     *   </p>
     * @exampleTitle Loading Splitter content asynchronously
     * @example
-    *   <!-- Define the Splitter HTML-->
+    *   <!-- Define the Splitter HTML -->
     *   <div id="splitter">
     *       <div>Area 1 with Static Content</div>
-    *       <div> </div>
+    *       <div></div>
+    *       <div></div>
     *   </div>
     * @exampleTitle
     * @example
-    *   //Initialize the Splitter and configure async loading for one pane
-    *   $(document).ready(function(){
+    *   // Initialize the Splitter and configure async loading for one pane, and an iframe for a thrid pane
+    *   $(document).ready(function() {
     *       $("#splitter").kendoSplitter({
-    *           panes: [null,{ contentUrl: "html-content-snippet.html"}]
+    *           panes: [
+    *               {},
+    *               { contentUrl: "html-content-snippet.html" },
+    *               { contentUrl: "http://kendoui.com" }
+    *           ]
     *       });
     *   });
     */
@@ -110,13 +128,14 @@
         ui = kendo.ui,
         extend = $.extend,
         proxy = $.proxy,
-        Component = ui.Component,
-        pxUnitsRegex = /^\d+px$/i,
+        Widget = ui.Widget,
+        pxUnitsRegex = /^\d+(\.\d+)?px$/i,
         percentageUnitsRegex = /^\d+(\.\d+)?%$/i,
         EXPAND = "expand",
         COLLAPSE = "collapse",
         CONTENTLOAD = "contentLoad",
         RESIZE = "resize",
+        LAYOUTCHANGE = "layoutChange",
         HORIZONTAL = "horizontal",
         VERTICAL = "vertical",
         MOUSEENTER = "mouseenter",
@@ -153,11 +172,11 @@
         };
     }
 
-    var Splitter = Component.extend(/** @lends kendo.ui.Splitter.prototype */ {
+    var Splitter = Widget.extend(/** @lends kendo.ui.Splitter.prototype */ {
         /**
          * Creates a Splitter instance.
          * @constructs
-         * @extends kendo.ui.Component
+         * @extends kendo.ui.Widget
          * @param {DomElement} element DOM element
          * @param {Object} options Configuration options.
          * @option {String} [orientation] <horizontal> Specifies the orientation of the splitter.
@@ -178,7 +197,7 @@
          * @option {Array} [panes] Array of pane definitions.
          * _example
          *  $("#splitter").kendoSplitter({
-         *      //definitions for the first three panes
+         *      // definitions for the first three panes
          *      panes: [
          *          {
          *              size: "200px",
@@ -225,7 +244,7 @@
                     that.trigger(RESIZE);
                 };
 
-            Component.fn.init.call(that, element, options);
+            Widget.fn.init.call(that, element, options);
 
             that.orientation = that.options.orientation.toLowerCase() != VERTICAL ? HORIZONTAL : VERTICAL;
             splitbarSelector = ".k-splitbar-draggable-" + that.orientation;
@@ -262,7 +281,13 @@
                  * @param {Event} e
                  * @param {Element} e.pane The pane which is resized
                  */
-                RESIZE
+                RESIZE,
+                /**
+                 * Fires when the splitter layout has changed
+                 * @name kendo.ui.Splitter#layoutChange
+                 * @event
+                 */
+                LAYOUTCHANGE
             ], that.options);
 
             that.bind(RESIZE, proxy(that._resize, that));
@@ -272,6 +297,7 @@
             that.element
                 .delegate(splitbarSelector, MOUSEENTER, function() { $(this).addClass("k-splitbar-" + that.orientation + "-hover"); })
                 .delegate(splitbarSelector, MOUSELEAVE, function() { $(this).removeClass("k-splitbar-" + that.orientation + "-hover"); })
+                .delegate(splitbarSelector, "mousedown", function() { that.element.find("> .k-pane > .k-content-frame").after("<div class='k-overlay' />"); })
                 .delegate(expandCollapseSelector, MOUSEENTER, function() { $(this).addClass("k-state-hover")})
                 .delegate(expandCollapseSelector, MOUSELEAVE, function() { $(this).removeClass('k-state-hover')})
                 .delegate(".k-splitbar .k-collapse-next, .k-splitbar .k-collapse-prev", CLICK, that._arrowClick(COLLAPSE))
@@ -287,6 +313,7 @@
         },
 
         options: {
+            name: "Splitter",
             orientation: HORIZONTAL
         },
 
@@ -313,7 +340,7 @@
 
         /**
         * Loads the pane content from the specified URL.
-        * @param {Selector|DomElement|jQueryObject} pane The pane whose content
+        * @param {Selector|DomElement|jQueryObject} pane The pane whose content should be loaded.
         * @param {String} url The URL which returns the pane content.
         * @param {Object|String} data Data to be sent to the server.
         * @example
@@ -330,17 +357,24 @@
             if (url) {
                 pane.append("<span class='k-icon k-loading k-pane-loading' />");
 
-                $.ajax({
-                    url: url,
-                    data: data || {},
-                    type: "GET",
-                    dataType: "html",
-                    success: function (data) {
-                        pane.html(data);
+                if (kendo.isLocalUrl(url)) {
+                    $.ajax({
+                        url: url,
+                        data: data || {},
+                        type: "GET",
+                        dataType: "html",
+                        success: function (data) {
+                            pane.html(data);
 
-                        that.trigger(CONTENTLOAD, { pane: pane[0] });
-                    }
-                });
+                            that.trigger(CONTENTLOAD, { pane: pane[0] });
+                        }
+                    });
+                } else {
+                    pane.removeClass("k-scrollable")
+                        .html("<iframe src='" + url + "' frameborder='0' class='k-content-frame'>" +
+                                "This page requires frames in order to show content" +
+                            + "</iframe>");
+                }
             }
         },
         _triggerAction: function(type, pane) {
@@ -391,36 +425,45 @@
                 that._triggerAction(arrowType, pane);
             };
         },
-        _appendSplitBars: function(panes) {
-            var splitBarsCount = panes.length - 1,
-                pane,
-                previousPane,
-                nextPane,
-                idx,
-                isSplitBarDraggable,
-                catIconIf = function(iconType, condition) {
+        _updateSplitBar: function(splitBar, previousPane, nextPane) {
+            var catIconIf = function(iconType, condition) {
                    return condition ? "<div class='k-icon " + iconType + "' />" : "";
-                };
+                },
+                orientation = this.orientation,
+                draggable = (previousPane.resizable !== false) && (nextPane.resizable !== false),
+                prevCollapsible = previousPane.collapsible,
+                prevCollapsed = previousPane.collapsed,
+                nextCollapsible = nextPane.collapsible,
+                nextCollapsed = nextPane.collapsed;
 
-            for (idx = 0; idx < splitBarsCount; idx++) {
-                pane = panes.eq(idx);
-                previousPane = pane.data(PANE);
-                nextPane = pane.next().data(PANE);
+            splitBar.addClass("k-splitbar k-state-default k-splitbar-" + orientation)
+                .removeClass("k-splitbar-" + orientation + "-hover")
+                .toggleClass("k-splitbar-draggable-" + orientation,
+                    draggable && !prevCollapsed && !nextCollapsed)
+                .toggleClass("k-splitbar-static-" + orientation,
+                    !draggable && !prevCollapsible && !nextCollapsible)
+                .html(
+                    catIconIf("k-collapse-prev", prevCollapsible && !prevCollapsed && !nextCollapsed) +
+                    catIconIf("k-expand-prev", prevCollapsible && prevCollapsed && !nextCollapsed) +
+                    catIconIf("k-resize-handle", draggable) +
+                    catIconIf("k-collapse-next", nextCollapsible && !nextCollapsed && !prevCollapsed) +
+                    catIconIf("k-expand-next", nextCollapsible && nextCollapsed && !prevCollapsed)
+                );
+        },
+        _updateSplitBars: function() {
+            var that = this;
+
+            this.element.children(".k-splitbar").each(function() {
+                var splitbar = $(this),
+                    previousPane = splitbar.prev(".k-pane").data(PANE),
+                    nextPane = splitbar.next(".k-pane").data(PANE);
 
                 if (!nextPane) {
-                    continue;
+                    return;
                 }
 
-                isSplitBarDraggable = (previousPane.resizable !== false) && (nextPane.resizable !== false);
-
-                pane.after("<div class='k-splitbar k-state-default k-splitbar-" + this.orientation +
-                        (isSplitBarDraggable && !previousPane.collapsed && !nextPane.collapsed ?  " k-splitbar-draggable-" + this.orientation : "") +
-                    "'>" + catIconIf("k-collapse-prev", previousPane.collapsible && !previousPane.collapsed) +
-                    catIconIf("k-expand-prev", previousPane.collapsible && previousPane.collapsed) +
-                    catIconIf("k-resize-handle", isSplitBarDraggable) +
-                    catIconIf("k-collapse-next", nextPane.collapsible && !nextPane.collapsed) +
-                    catIconIf("k-expand-next", nextPane.collapsible && nextPane.collapsed) + "</div>");
-            }
+                that._updateSplitBar(splitbar, previousPane, nextPane);
+            });
         },
         _resize: function() {
             var that = this,
@@ -434,8 +477,11 @@
 
             if (splitBarsCount === 0) {
                 splitBarsCount = panes.length - 1;
-                that._appendSplitBars(panes);
+                panes.slice(0, splitBarsCount).after("<div class='k-splitbar' />");
+                that._updateSplitBars();
                 splitBars = element.children(".k-splitbar");
+            } else {
+                that._updateSplitBars();
             }
 
             // discard splitbar sizes from total size
@@ -476,8 +522,11 @@
                 freeSizePaneWidth = Math.floor(totalSize / freeSizePanesCount);
 
             freeSizedPanes
-                .slice(0, freeSizePanesCount - 1).css(sizingProperty, freeSizePaneWidth).end()
-                .eq(freeSizePanesCount - 1).css(sizingProperty, totalSize - (freeSizePanesCount - 1) * freeSizePaneWidth);
+                .slice(0, freeSizePanesCount - 1)
+                    .css(sizingProperty, freeSizePaneWidth)
+                .end()
+                .eq(freeSizePanesCount - 1)
+                    .css(sizingProperty, totalSize - (freeSizePanesCount - 1) * freeSizePaneWidth);
 
             // arrange panes
             var sum = 0,
@@ -491,36 +540,16 @@
                     child.style[positioningProperty] = Math.floor(sum) + "px";
                     sum += child[sizingDomProperty];
                 });
+
+            that.trigger(LAYOUTCHANGE);
         },
         toggle: function(pane, expand) {
             var pane = $(pane),
-                previousSplitBar = pane.prev(".k-splitbar"),
-                nextSplitBar = pane.next(".k-splitbar"),
-                splitbars = previousSplitBar.add(nextSplitBar),
-                paneConfig = pane.data(PANE),
-                prevPaneConfig = pane.prevAll(".k-pane:first").data(PANE),
-                nextPaneConfig = pane.nextAll(".k-pane:first").data(PANE),
-                orentation = this.orientation,
-                hoverClass = "k-splitbar-" + orentation + "-hover",
-                draggableClass = "k-splitbar-draggable-" + orentation;
+                paneConfig = pane.data(PANE);
 
             if (arguments.length == 1) {
                 expand = paneConfig.collapsed === undefined ? false : paneConfig.collapsed;
             }
-
-            previousSplitBar
-                .toggleClass(draggableClass, expand && paneConfig.resizable !== false && (!prevPaneConfig || prevPaneConfig.resizable !== false))
-                .removeClass(hoverClass)
-                .find(expand ? ".k-expand-next" : ".k-collapse-next")
-                    .toggleClass("k-expand-next", !expand)
-                    .toggleClass("k-collapse-next", expand);
-
-            nextSplitBar
-                .toggleClass(draggableClass, expand && paneConfig.resizable !== false && (!nextPaneConfig || nextPaneConfig.resizable !== false))
-                .removeClass(hoverClass)
-                .find(expand ? ".k-expand-prev" : ".k-collapse-prev")
-                    .toggleClass("k-expand-prev", !expand)
-                    .toggleClass("k-collapse-prev", expand);
 
             paneConfig.collapsed = !expand;
 
@@ -530,7 +559,7 @@
         * Collapses the specified Pane item
         * @param {Selector|DomElement|jQueryObject} pane The pane, which will be collapsed.
         * @example
-        * splitter.collapse("#Item1"); //id of the first pane
+        * splitter.collapse("#Item1"); // id of the first pane
         */
         collapse: function(pane) {
             this.toggle(pane, false);
@@ -539,7 +568,7 @@
         * Expands the specified Pane item
         * @param {Selector|DomElement|jQueryObject} pane The pane, which will be expanded.
         * @example
-        * splitter.expand("#Item1"); //id of the first pane
+        * splitter.expand("#Item1"); // id of the first pane
         */
         expand: function(pane) {
             this.toggle(pane, true);
@@ -576,7 +605,7 @@
         max: panePropertyAccessor("max")
     });
 
-    ui.plugin("Splitter", Splitter);
+    ui.plugin(Splitter);
 
     var verticalDefaults = {
             sizingProperty: "height",
@@ -595,22 +624,23 @@
         };
 
     function PaneResizing(splitter) {
-        var that = this;
+        var that = this,
+            orientation = splitter.orientation;
 
         that.owner = splitter;
-        that._element = that.owner.element;
-        that.orientation = that.owner.orientation;
+        that._element = splitter.element;
+        that.orientation = orientation;
 
-        extend(that, that.orientation === HORIZONTAL ? horizontalDefaults : verticalDefaults);
+        extend(that, orientation === HORIZONTAL ? horizontalDefaults : verticalDefaults);
 
         that._resizable = new kendo.ui.Resizable(splitter.element, {
-            orientation: that.orientation,
-            handle: that.orientation == HORIZONTAL ? ".k-splitbar-draggable-horizontal" : ".k-splitbar-draggable-vertical",
+            orientation: orientation,
+            handle: ".k-splitbar-draggable-" + orientation,
             hint: proxy(that._createHint, that),
             start: proxy(that._start, that),
             max: proxy(that._max, that),
             min: proxy(that._min, that),
-            invalidClass:"k-restricted-size-" + that.orientation,
+            invalidClass:"k-restricted-size-" + orientation,
             resizeend: proxy(that._stop, that)
         });
     }
@@ -652,11 +682,13 @@
             return this._minPosition;
         },
         _stop: function(e) {
-            var that = this;
+            var that = this,
+                splitBar = $(e.currentTarget);
+
+            splitBar.siblings(".k-pane").find("> .k-content-frame + .k-overlay").remove();
 
             if (e.keyCode !== kendo.keys.ESC) {
                 var ghostPosition = e.position,
-                    splitBar = $(e.currentTarget),
                     previousPane = splitBar.prev(),
                     nextPane = splitBar.next(),
                     previousPaneConfig = previousPane.data(PANE),

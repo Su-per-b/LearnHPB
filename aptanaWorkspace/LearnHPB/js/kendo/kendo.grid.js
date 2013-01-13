@@ -1,24 +1,44 @@
+/*
+* Kendo UI v2011.3.1129 (http://kendoui.com)
+* Copyright 2011 Telerik AD. All rights reserved.
+*
+* Kendo UI commercial licenses may be obtained at http://kendoui.com/license.
+* If you do not own a commercial license, this file shall be governed by the
+* GNU General Public License (GPL) version 3. For GPL requirements, please
+* review: http://www.gnu.org/copyleft/gpl.html
+*/
+
 (function($, undefined) {
     var kendo = window.kendo,
         ui = kendo.ui,
         DataSource = kendo.data.DataSource,
-        Groupable = kendo.ui.Groupable,
+        Groupable = ui.Groupable,
         tbodySupportsInnerHtml = kendo.support.tbodyInnerHtml,
-        Component = ui.Component,
+        Widget = ui.Widget,
         keys = kendo.keys,
         isPlainObject = $.isPlainObject,
         extend = $.extend,
         map = $.map,
         isArray = $.isArray,
         proxy = $.proxy,
+        isFunction = $.isFunction,
         math = Math,
         REQUESTSTART = "requestStart",
         ERROR = "error",
-        ROW_SELECTOR = "tbody>tr:not(.k-grouping-row):visible",
-        CELL_SELECTOR =  ROW_SELECTOR + ">td:not(.k-group-cell)",
+        ROW_SELECTOR = "tbody>tr:not(.k-grouping-row,.k-detail-row):visible",
+        DATA_CELL = ":not(.k-group-cell,.k-hierarchy-cell):visible",
+        CELL_SELECTOR =  ROW_SELECTOR + ">td" + DATA_CELL,
         FIRST_CELL_SELECTOR = CELL_SELECTOR + ":first",
+        EDIT = "edit",
+        SAVE = "save",
+        REMOVE = "remove",
+        DETAILINIT = "detailInit",
         CHANGE = "change",
+        SAVECHANGES = "saveChanges",
+        MODELCHANGE = "modelChange",
         DATABOUND = "dataBound",
+        DETAILEXPAND = "detailExpand",
+        DETAILCOLLAPSE = "detailCollapse",
         FOCUSED = "k-state-focused",
         FOCUSABLE = "k-focusable",
         SELECTED = "k-state-selected",
@@ -26,19 +46,24 @@
         HEIGHT = "height",
         TABINDEX = "tabIndex",
         FUNCTION = "function",
-        STRING = "string";
+        STRING = "string",
+        DELETECONFIRM = "Are you sure you want to delete this record?",
+        formatRegExp = /\}/ig,
+        templateHashRegExp = /#/ig,
+        COMMANDBUTTONTEMP = '<a class="k-button k-button-icontext #=className#" #=attr# href="\\#"><span class="k-icon #=imageClass#"></span>#=text#</a>';
 
-    var VirtualScrollable =  Component.extend({
+    var VirtualScrollable =  Widget.extend({
         init: function(element, options) {
             var that = this;
 
-            Component.fn.init.call(that, element, options);
+            Widget.fn.init.call(that, element, options);
             that.dataSource = options.dataSource;
             that.dataSource.bind(CHANGE, proxy(that.refresh, that));
             that.wrap();
         },
 
         options: {
+            name: "VirtualScrollable",
             itemHeight: $.noop
         },
 
@@ -165,6 +190,10 @@
                 maxHeight = 250000,
                 dataSource = that.dataSource,
                 rangeStart = that._rangeStart,
+                scrollbar = kendo.support.scrollbar(),
+                wrapperElement = that.wrapper[0],
+                totalHeight,
+                idx,
                 itemHeight;
 
             kendo.ui.progress(that.wrapper, false);
@@ -172,9 +201,11 @@
 
             itemHeight = that.itemHeight = that.options.itemHeight() || 0;
 
-            totalHeight = dataSource.total() * itemHeight;
+            var addScrollBarHeight = (wrapperElement.scrollWidth > wrapperElement.offsetWidth) ? scrollbar : 0;
 
-            for (idx = 0; idx < math.round(totalHeight / maxHeight); idx++) {
+            totalHeight = dataSource.total() * itemHeight + addScrollBarHeight;
+
+            for (idx = 0; idx < math.floor(totalHeight / maxHeight); idx++) {
                 html += '<div style="width:1px;height:' + maxHeight + 'px"></div>';
             }
 
@@ -183,7 +214,7 @@
             }
 
             that.verticalScrollbar.html(html);
-            that.wrapper[0].scrollTop = that._scrollTop;
+            wrapperElement.scrollTop = that._scrollTop;
 
             if (rangeStart && !that._fetching) { // we are rebound from outside local range should be reset
                 that._rangeStart = dataSource.skip();
@@ -194,6 +225,29 @@
 
     function groupCells(count) {
         return new Array(count + 1).join('<td class="k-group-cell"></td>');
+    }
+
+    var defaultCommands = {
+        create: {
+            text: "Add new record",
+            imageClass: "k-add",
+            className: "k-grid-add"
+        },
+        cancel: {
+            text: "Cancel changes",
+            imageClass: "k-cancel",
+            className: "k-grid-cancel-changes"
+        },
+        save: {
+            text: "Save changes",
+            imageClass: "k-update",
+            className: "k-grid-save-changes"
+        },
+        destroy: {
+            text: "Delete",
+            imageClass: "k-delete",
+            className: "k-grid-delete"
+        }
     }
 
     /**
@@ -221,7 +275,7 @@
      *   <thead>
      *       <tr>
      *           <th data-field="title">Title<th>
-     *           <th data-field="year">Year<th>
+     *           <th datao-field="year">Year<th>
      *       </tr>
      *   </thead>
      *   <tbody>
@@ -251,7 +305,7 @@
      *  @exampleTitle Initialize the Kendo Grid and configure columns & data binding
      *  @example
      *    $(document).ready(function(){
-     *       $("#grid").kendoGrid({
+     *       $("#grid").kendoGrid({modelSet.get(1)
      *           columns:[
      *               {
      *                   field: "FirstName",
@@ -308,10 +362,10 @@
      *       });
      *   });
      */
-    var Grid = Component.extend(/** @lends kendo.ui.Grid.prototype */ {
+    var Grid = Widget.extend(/** @lends kendo.ui.Grid.prototype */ {
         /**
          * @constructs
-         * @extends kendo.ui.Component
+         * @extends kendo.ui.Widget
          * @param {DomElement} element DOM element
          * @param {Object} options Configuration options.
          * @option {kendo.data.DataSource|Object} [dataSource] Instance of DataSource or Object with DataSource configuration.
@@ -333,10 +387,52 @@
          *          pageSize: 1
          *      }
          *  });
+         * @option {Function} [detailTemplate] Template to be used for rendering the detail rows in the grid.
+         * @option {Object} [sortable] Defines whether grid columns are sortable.
+         * @option {String} [sortable.mode] <"single"> Defines sorting mode. Possible values:
+         *    <dl>
+         *         <dt>
+         *              "single"
+         *         </dt>
+         *         <dd>
+         *             Defines that only once column can be sorted at a time.
+         *         </dd>
+         *         <dt>
+         *              "multiple"
+         *         </dt>
+         *         <dd>
+         *              Defines that multiple columns can be sorted at a time.
+         *         </dd>
+         *    </dl>
+         *
+         * @option {Boolean} [sortable.allowUnsort] <false>  Defines whether column can have unsorted state.
          * @option {Array} [columns] A collection of column objects or collection of strings that represents the name of the fields.
          * @option {String} [columns.field] The field that will displayed in the column.
          * @option {String} [columns.title] The title that will displayed in the column header.
+         * @option {String} [columns.format] The format that will be applied on the column cells.
+         * _example
+         *  $(".k-grid").kendoGrid({
+         *      dataSource: {
+         *          data: createRandomData(50),
+         *          pageSize: 10
+         *      },
+         *      columns: [
+         *          {
+         *              field: "BirthDate",
+         *              title: "Birth Date",
+         *              format: "{0:dd/MMMM/yyyy}"
+         *         }
+         *      ]
+         *   });
+         * @option {Boolean} [columns.filterable] <true> Specifies whether given column is filterable.
+         * @option {Boolean} [columns.sortable] <true> Specifies whether given column is sortable.
+         * @option {Function} [columns.editor] The editor will be used when column is edited.
+         * @option {Object} [columns.editor.container] The container in which the editor must be added.
+         * @option {Object} [columns.editor.options] Additional options.
+         * @option {String} [columns.editor.options.field] The field for the editor.
+         * @option {Object} [columns.editor.options.model] The model for the editor.
          * @option {String} [columns.width] The width of the column.
+         * @option {String} [columns.command] Definition of command column. The supported built-in commands are: "create", "cancel", "save", "destroy".
          * @option {String} [columns.template] The template for column's cells.
          * _example
          *  $(".k-grid").kendoGrid({
@@ -437,7 +533,7 @@
          *  &lt;/script&gt;
          *
          *  //grid intialization
-         *  &lt;script&gt;
+         *  &lt;script&gt;PO details informaiton
          *      $("#grid").kendoGrid({
          *          dataSource: dataSource,
          *          rowTemplate: kendo.template($("#rowTemplate").html()),
@@ -450,7 +546,7 @@
 
             options = isArray(options) ? { dataSource: options } : options;
 
-            Component.fn.init.call(that, element, options);
+            Widget.fn.init.call(that, element, options);
 
             that._element();
 
@@ -464,13 +560,7 @@
 
             that._groupable();
 
-            that._thead();
-
-            that._templates();
-
-            that._navigatable();
-
-            that._selectable();
+            that._toolbar();
 
             that.bind([
                 /**
@@ -486,15 +576,92 @@
                  * @event
                  * @param {Event} e
                  */
-                DATABOUND
+                DATABOUND,
+                /**
+                 * Fires when the grid detail row is expanded.
+                 * @name kendo.ui.Grid#detailExpand
+                 * @event
+                 * @param {Event} e
+                 * @param {Object} e.masterRow The jQuery element representing master row.
+                 * @param {Object} e.detailRow The jQuery element representing detail row.
+                 */
+                DETAILEXPAND,
+                /**
+                 * Fires when the grid detail row is collapsed.
+                 * @name kendo.ui.Grid#detailCollapse
+                 * @event
+                 * @param {Event} e
+                 * @param {Object} e.masterRow The jQuery element representing master row.
+                 * @param {Object} e.detailRow The jQuery element representing detail row.
+                 */
+                DETAILCOLLAPSE,
+                /**
+                 * Fires when the grid detail is initialized.
+                 * @name kendo.ui.Grid#detailInit
+                 * @event
+                 * @param {Event} e
+                 * @param {Object} e.masterRow The jQuery element representing master row.
+                 * @param {Object} e.detailRow The jQuery element representing detail row.
+                 * @param {Object} e.detailCell The jQuery element representing detail cell.
+                 * @param {Object} e.data The data for the master row.
+                 */
+                DETAILINIT,
+                /**
+                 * Fires when the grid enters edit mode.
+                 * @name kendo.ui.Grid#edit
+                 * @event
+                 * @param {Event} e
+                 * @param {Object} e.container The jQuery element to be edited.
+                 * @param {Object} e.model The model to be edited.
+                 */
+                EDIT,
+                /**
+                 * Fires before the grid item is changed.
+                 * @name kendo.ui.Grid#save
+                 * @event
+                 * @param {Event} e
+                 * @param {Object} e.values The values entered by the user.
+                 * @param {Object} e.container The jQuery element which is in edit mode.
+                 * @param {Object} e.model The edited model.
+                 */
+                SAVE,
+                /**
+                 * Fires before the grid item is removed.
+                 * @name kendo.ui.Grid#remove
+                 * @event
+                 * @param {Event} e
+                 * @param {Object} e.row The row element to be deleted.
+                 * @param {Object} e.model The model which to be deleted.
+                 */
+                REMOVE,
+                /**
+                 * Fires before the grid calls DataSource sync.
+                 * @name kendo.ui.Grid#saveChanges
+                 * @event
+                 * @param {Event} e
+                 */
+                SAVECHANGES
             ], that.options);
 
+            that._thead();
+
+            that._templates();
+
+            that._navigatable();
+
+            that._selectable();
+
+            that._details();
+
+            that._editable();
+
             if (that.options.autoBind) {
-                that.dataSource.query();
+                that.dataSource.fetch();
             }
         },
 
         options: {
+            name: "Grid",
             columns: [],
             autoBind: true,
             scrollable: true,
@@ -515,6 +682,284 @@
             that._wrapper();
         },
 
+        /**
+         * Returns the index of the cell in the grid item skipping group and hierarchy cells.
+         * @param {Selector|DOMElement} cell Target cell.
+         */
+        cellIndex: function(td) {
+            return $(td).parent().find('td:not(.k-group-cell,.k-hierarchy-cell)').index(td);
+        },
+
+        _modelForContainer: function(container) {
+            var id = (container.is("tr") ? container : container.closest("tr")).attr(kendo.attr("id"));
+
+            return this.dataSource.get(id);
+        },
+
+        _editable: function() {
+            var that = this,
+                cell,
+                model,
+                column,
+                editable = that.options.editable,
+                handler = function () {
+                    var target = document.activeElement,
+                        cell = that._editContainer;
+
+                    if (cell && !$.contains(cell[0], target) && cell[0] !== target && !$(target).closest(".k-animation-container").length) {
+                        if (that.editable.end()) {
+                            that.closeCell();
+                        }
+                    }
+                };
+
+            if (editable) {
+
+                if (editable.update !== false) {
+                    that.wrapper.delegate("tr:not(.k-grouping-row) > td:not(.k-hierarchy-cell,.k-detail-cell,.k-group-cell,.k-edit-cell,:has(a.k-grid-delete))", CLICK, function(e) {
+                        var td = $(this)
+
+                        if (td.closest("tbody")[0] !== that.tbody[0] || $(e.target).is(":input")) {
+                            return;
+                        }
+
+                        if (that.editable) {
+                            if (that.editable.end()) {
+                                that.closeCell();
+                                that.editCell(td);
+                            }
+                        } else {
+                            that.editCell(td);
+                        }
+
+                    });
+
+                    that.wrapper.bind("focusin", function(e) {
+                        clearTimeout(that.timer);
+                        that.timer = null;
+                    });
+                    that.wrapper.bind("focusout", function(e) {
+                        that.timer = setTimeout(handler, 1);
+                    });
+                }
+
+                if (editable.destroy !== false) {
+                    that.wrapper.delegate("tbody>tr:not(.k-detail-row,.k-grouping-row):visible a.k-grid-delete", "click", function(e) {
+                        e.preventDefault();
+                        that.removeRow($(this).closest("tr"));
+                    });
+               }
+            }
+        },
+
+        /**
+         * Puts the specified table cell in edit mode. It requires a jQuery object representing the cell. The editCell method triggers edit event.
+         * @param {Selector} cell Cell to be edited.
+         * @example
+         * // edit first table cell
+         * grid.editCell(grid.tbody.find(">tr>td:first"));
+         */
+        editCell: function(cell) {
+            var that = this,
+                column = that.columns[that.cellIndex(cell)],
+                model = that._modelForContainer(cell);
+
+            if (model.editable(column.field) && !cell.has("a.k-grid-delete").length) {
+                that._editContainer = cell;
+
+                that.editable = cell.addClass("k-edit-cell")
+                    .kendoEditable({
+                        fields: { field: column.field, format: column.format },
+                        model: model,
+                        change: function(e) {
+                            if (that.trigger(SAVE, { values: e.values, container: cell, model: model } )) {
+                                e.preventDefault();
+                            }
+                        }
+                    }).data("kendoEditable");
+
+                cell.parent().addClass("k-grid-edit-row");
+
+                that.trigger(EDIT, { container: cell, model: model });
+            }
+        },
+
+        _distroyEditable: function() {
+            var that = this;
+
+            if (that.editable) {
+                that.editable.distroy();
+                delete that.editable;
+                that._editContainer = null;
+            }
+        },
+
+        /**
+         * Closes current edited cell.
+         * @example
+         * grid.closeCell();
+         */
+        closeCell: function() {
+            var that = this,
+                cell = that._editContainer.removeClass("k-edit-cell"),
+                id = cell.closest("tr").attr(kendo.attr("id")),
+                column = that.columns[that.cellIndex(cell)],
+                model = that.dataSource.get(id);
+
+            cell.parent().removeClass("k-grid-edit-row");
+
+            that._displayCell(cell, column, model.data);
+
+            if (column.field in (model.changes() || {})) {
+                $('<span class="k-dirty"/>').prependTo(cell);
+            }
+            that._distroyEditable();
+        },
+
+        _displayCell: function(cell, column, dataItem) {
+            var that = this,
+                state = { storage: {}, count: 0 },
+                settings = extend({}, kendo.Template, that.options.templateSettings),
+                tmpl = kendo.template(that._cellTmpl(column, state), settings);
+
+            if (state.count > 0) {
+                tmpl = proxy(tmpl, state.storage);
+            }
+
+            cell.empty().html(tmpl(dataItem));
+        },
+
+        /**
+         * Removes the specified row from the grid. The removeRow method triggers remove event.
+         * @param {Selector|DOMElement} row Row to be removed.
+         * @example
+         * // remove first table row
+         * grid.removeRow(grid.tbody.find(">tr:first"));
+         *
+         */
+        removeRow: function(row) {
+            var that = this,
+                model;
+
+            if (!that._confirmation()) {
+                return;
+            }
+
+            row = $(row).hide();
+            model = that._modelForContainer(row);
+
+            if (model && !that.trigger(REMOVE, { row: row, model: model })) {
+                that.dataSource.remove(model);
+            }
+        },
+
+        _showMessage: function(text) {
+            return confirm(text);
+        },
+
+        _confirmation: function() {
+            var that = this;
+                confirmation = that.options.editable === true ? DELETECONFIRM : that.options.editable.confirmation;
+
+            return confirmation !== false ? that._showMessage(confirmation) : true;
+        },
+
+        /**
+         * Cancels any pending changes during. Deleted rows are restored. Inserted rows are removed. Updated rows are restored to their original values.
+         * @example
+         * grid.cancelChanges();
+         */
+        cancelChanges: function() {
+            this.dataSource.cancelChanges();
+        },
+
+        /**
+         * Calls DataSource sync to submit any pending changes if state is valid. The saveChanges method triggers saveChanges event.
+         * @example
+         * grid.saveChanges();
+         */
+        saveChanges: function() {
+            var that = this;
+
+            if (((that.editable && that.editable.end()) || !that.editable) && !that.trigger(SAVECHANGES)) {
+                that.dataSource.sync();
+            }
+        },
+
+        /**
+         * Adds a new empty table row in edit mode. The addRow method triggers edit event.
+         * @example
+         * grid.addRow();
+         */
+        addRow: function() {
+            var that = this,
+                dataSource = that.dataSource;
+
+            if ((that.editable && that.editable.end()) || !that.editable) {
+                var index = dataSource.indexOf((dataSource.view() || [])[0]) || 0,
+                    model = dataSource.insert(index, {}),
+                    id = model.id(),
+                    cell = that.table.find("tr[" + kendo.attr("id") + "=" + id + "] > td:not(.k-group-cell,.k-hierarchy-cell)").first();
+
+                if (cell.length) {
+                    that.editCell(cell);
+                }
+            }
+        },
+
+        _toolbar: function() {
+            var that = this,
+                wrapper = that.wrapper,
+                toolbar = that.options.toolbar,
+                template;
+
+            if (toolbar) {
+                toolbar = isFunction(toolbar) ? toolbar({}) : (typeof toolbar === STRING ? toolbar : that._toolbarTmpl(toolbar).replace(templateHashRegExp, "\\#"));
+
+                template = proxy(kendo.template(toolbar), that)
+
+                $('<div class="k-toolbar k-grid-toolbar" />')
+                    .html(template({}))
+                    .prependTo(wrapper)
+                    .delegate(".k-grid-add", CLICK, function(e) { e.preventDefault(); that.addRow(); })
+                    .delegate(".k-grid-cancel-changes", CLICK, function(e) { e.preventDefault(); that.cancelChanges(); })
+                    .delegate(".k-grid-save-changes", CLICK, function(e) { e.preventDefault(); that.saveChanges(); });
+            }
+        },
+
+        _toolbarTmpl: function(commands) {
+            var that = this,
+                idx,
+                length,
+                html = "",
+                options,
+                commandName,
+                template,
+                command;
+
+            if (isArray(commands)) {
+                for (idx = 0, length = commands.length; idx < length; idx++) {
+                    html += that._createButton(commands[idx]);
+                }
+            }
+            return html;
+        },
+
+        _createButton: function(command) {
+            var that = this,
+                template = command.template || COMMANDBUTTONTEMP,
+                commandName = typeof command === STRING ? command : command.name,
+                options = { className: "", text: commandName, imageClass: "", attr: "" };
+
+            if (isPlainObject(command)) {
+                options = extend(true, options, defaultCommands[commandName], command);
+            } else {
+                options = extend(true, options, defaultCommands[commandName]);
+            }
+
+            return kendo.template(template)(options);
+        },
+
         _groupable: function() {
             var that = this,
                 wrapper = that.wrapper,
@@ -522,11 +967,11 @@
 
             if (groupable) {
                 if(!wrapper.has("div.k-grouping-header")[0]) {
-                    $("<div />").addClass("k-grouping-header").prependTo(wrapper);
+                    $("<div />").addClass("k-grouping-header").html("&nbsp;").prependTo(wrapper);
                 }
 
                 that.groupable = new Groupable(wrapper, {
-                    filter: "th:not(.k-group-cell)",
+                    filter: "th:not(.k-group-cell)[" + kendo.attr("field") + "]",
                     groupContainer: "div.k-grouping-header",
                     dataSource: that.dataSource
                 });
@@ -565,9 +1010,9 @@
 
                 if (that.options.navigatable) {
                     that.wrapper.keydown(function(e) {
-                        if (e.keyCode === keys.SPACEBAR) {
+                        var current = that.current();
+                        if (e.keyCode === keys.SPACEBAR && !current.hasClass("k-edit-cell")) {
                             e.preventDefault();
-                            var current = that.current();
                             current = cell ? current : current.parent();
 
                             if(multi) {
@@ -627,7 +1072,7 @@
             var that = this,
                 current = that._current;
 
-            if(element !== undefined && element.length) {
+            if (element !== undefined && element.length) {
                 if (!current || current[0] !== element[0]) {
                     element.addClass(FOCUSED);
                     if (current) {
@@ -636,9 +1081,9 @@
                     that._current = element;
                     that._scrollTo(element.parent()[0]);
                 }
-            } else {
-                return that._current;
             }
+
+            return that._current;
         },
 
         _scrollTo: function(element) {
@@ -666,9 +1111,10 @@
                 table = that.table.addClass(FOCUSABLE),
                 currentProxy = proxy(that.current, that),
                 selector = "." + FOCUSABLE + " " + CELL_SELECTOR,
+                browser = $.browser,
                 clickCallback = function(e) {
                     currentProxy($(e.currentTarget));
-                    if(e.type == CLICK) {
+                    if(e.type == CLICK && !$(e.target).is(":button,a,:input,a>.k-icon,textarea")) {
                         wrapper.focus();
                     }
                 };
@@ -691,30 +1137,55 @@
                     keydown: function(e) {
                         var key = e.keyCode,
                             current = that.current(),
+                            shiftKey = e.shiftKey,
                             dataSource = that.dataSource,
                             pageable = that.options.pageable,
+                            canHandle = !$(e.target).is(":button,a,:input,a>.t-icon"),
                             handled = false;
 
-                        if (keys.UP === key) {
-                            currentProxy(current ? current.parent().prevAll(ROW_SELECTOR).first().children().eq(current.index()) : table.find(FIRST_CELL_SELECTOR));
+                        if (canHandle && keys.UP === key) {
+                            currentProxy(current ? current.parent().prevAll(ROW_SELECTOR).last().children(":eq(" + current.index() + "),:eq(0)").last() : table.find(FIRST_CELL_SELECTOR));
                             handled = true;
-                        } else if (keys.DOWN === key) {
-                            currentProxy(current ? current.parent().nextAll(ROW_SELECTOR).first().children().eq(current.index()) : table.find(FIRST_CELL_SELECTOR));
+                        } else if (canHandle && keys.DOWN === key) {
+                            currentProxy(current ? current.parent().nextAll(ROW_SELECTOR).first().children(":eq(" + current.index() + "),:eq(0)").last() : table.find(FIRST_CELL_SELECTOR));
                             handled = true;
-                        } else if (keys.LEFT === key) {
-                            currentProxy(current ? current.prev(":not(.k-group-cell)") : table.find(FIRST_CELL_SELECTOR));
+                        } else if (canHandle && keys.LEFT === key) {
+                            currentProxy(current ? current.prevAll(DATA_CELL + ":first") : table.find(FIRST_CELL_SELECTOR));
                             handled = true;
-                        } else if (keys.RIGHT === key) {
-                            currentProxy(current ? current.next() : table.find(FIRST_CELL_SELECTOR));
+                        } else if (canHandle && keys.RIGHT === key) {
+                            currentProxy(current ? current.nextAll(":visible:first") : table.find(FIRST_CELL_SELECTOR));
                             handled = true;
-                        } else if (pageable && keys.PAGEDOWN == key) {
+                        } else if (canHandle && pageable && keys.PAGEDOWN == key) {
                             that._current = null;
                             dataSource.page(dataSource.page() + 1);
                             handled = true;
-                        } else if (pageable && keys.PAGEUP == key) {
+                        } else if (canHandle && pageable && keys.PAGEUP == key) {
                             that._current = null;
                             dataSource.page(dataSource.page() - 1);
                             handled = true;
+                        } else if (that.options.editable) {
+                            if (keys.ENTER == key || keys.F12 == key) {
+                                that._handleEditing(current);
+                                handled = true;
+                            } else if (keys.TAB == key) {
+                                var cell = shiftKey ? current.prevAll(DATA_CELL + ":first") : current.nextAll(":visible:first");
+                                if (!cell.length) {
+                                    cell = current.parent()[shiftKey ? "prevAll" : "nextAll"]("tr:not(.k-grouping-row,.k-detail-row):visible")
+                                        .children(DATA_CELL + (shiftKey ? ":last" : ":first"));
+                                }
+
+                                if (cell.length) {
+                                    that._handleEditing(current, cell);
+                                    handled = true;
+                                }
+                            } else if (keys.ESC == key && current.hasClass("k-edit-cell")) {
+                                that.closeCell();
+                                if (browser.msie && parseInt(browser.version) < 9) {
+                                    document.body.focus();
+                                }
+                                wrapper.focus();
+                                handled = true;
+                            }
                         }
 
                         if(handled) {
@@ -723,18 +1194,46 @@
                     }
                 });
 
-                wrapper.delegate(selector, $.browser.msie ? CLICK : "mousedown", clickCallback);
+                wrapper.delegate(selector, browser.msie ? CLICK : "mousedown", clickCallback);
+            }
+        },
+
+        _handleEditing: function(current, next) {
+            var that = this,
+                isEdited = current.hasClass("k-edit-cell");
+
+            if (that.editable) {
+                if ($.contains(that._editContainer[0], document.activeElement)) {
+                    document.activeElement.blur();
+                }
+
+                if (that.editable.end()) {
+                    that.closeCell();
+                } else {
+                    that.current(that._editContainer);
+                    that._editContainer.find(":input:visible:first").focus();
+                    return;
+                }
+            }
+
+            if (next) {
+                that.current(next);
+            }
+
+            that.wrapper.focus();
+            if ((!isEdited && !next) || next) {
+                that.editCell(that.current());
             }
         },
 
         _wrapper: function() {
             var that = this,
                 table = that.table,
-                height = that.options.height || table.css(HEIGHT),
+                height = that.options.height,
                 wrapper = that.element;
 
             if (!wrapper.is("div")) {
-               wrapper = wrapper.wrap("<div />").parent();
+               wrapper = wrapper.wrap("<div/>").parent();
             }
 
             that.wrapper = wrapper.addClass("k-grid k-widget")
@@ -742,7 +1241,7 @@
 
             table.removeAttr(TABINDEX);
 
-            if (height && height !== "0px") {
+            if (height) {
                 that.wrapper.css(HEIGHT, height);
                 table.css(HEIGHT, "auto");
             }
@@ -756,7 +1255,7 @@
             tbody = table.find(">tbody");
 
             if (!tbody.length) {
-                tbody = $("<tbody />").appendTo(table);
+                tbody = $("<tbody/>").appendTo(table);
             }
 
             that.tbody = tbody;
@@ -811,7 +1310,22 @@
                     height -= $(".k-grouping-header").outerHeight();
                 }
 
+                if(options.toolbar) {
+                    height -= $(".k-grid-toolbar").outerHeight();
+                }
                 that.content.height(height);
+
+                var scrollables = header.find(">.k-grid-header-wrap"); // add footer when implemented
+
+                if (scrollable.virtual) {
+                    that.content.find(">.k-virtual-scrollable-wrap").bind('scroll', function () {
+                        scrollables.scrollLeft(this.scrollLeft);
+                    });
+                } else {
+                    that.content.bind('scroll', function () {
+                        scrollables.scrollLeft(this.scrollLeft);
+                    });
+                }
             }
         },
 
@@ -840,16 +1354,13 @@
         _dataSource: function() {
             var that = this,
                 options = that.options,
+                pageable,
                 dataSource = options.dataSource;
 
             dataSource = isArray(dataSource) ? { data: dataSource } : dataSource;
 
             if (isPlainObject(dataSource)) {
                 extend(dataSource, { table: that.table, fields: that.columns });
-
-                if (options.data) {
-                    dataSource.data = options.data;
-                }
 
                 pageable = options.pageable;
 
@@ -861,13 +1372,39 @@
             that.dataSource = DataSource.create(dataSource)
                                 .bind(CHANGE, proxy(that.refresh, that))
                                 .bind(REQUESTSTART, proxy(that._requestStart, that))
-                                .bind(ERROR, proxy(that._error, that));
+                                .bind(ERROR, proxy(that._error, that))
+                                .bind(MODELCHANGE, proxy(that._modelChange, that));
         },
+
         _error: function() {
             this._progress(false);
         },
+
         _requestStart: function() {
             this._progress(true);
+        },
+
+        _modelChange: function(model) {
+            var that = this,
+                row = that.tbody.find("tr[" + kendo.attr("id") + "=" + model.id() +"]"),
+                changes = model.changes() || {},
+                cell,
+                column,
+                isAlt = row.hasClass("k-alt");
+
+            if (row.has(".k-edit-cell")) {
+                row.find(">td:not(.k-group-cell,.k-hierarchy-cell,.k-edit-cell)").each(function() {
+                    cell = $(this);
+                    column = that.columns[that.cellIndex(cell)];
+
+                    if (column.field in changes) {
+                        that._displayCell(cell, column, model.data);
+                        $('<span class="k-dirty"/>').prependTo(cell);
+                    }
+                });
+            } else {
+                row.replaceWith($((isAlt ? that.altRowTemplate : that.rowTemplate)(model.data)));
+            }
         },
 
         _pageable: function() {
@@ -882,32 +1419,61 @@
                     wrapper = $('<div class="k-grid-pager"/>').appendTo(that.wrapper);
                 }
 
-                if (typeof pageable === "object" && pageable instanceof kendo.ui.Pageable) {
+                if (typeof pageable === "object" && pageable instanceof kendo.ui.Pager) {
                     that.pager = pageable;
                 } else {
-                    that.pager = new kendo.ui.Pageable(wrapper, extend({}, pageable, { dataSource: that.dataSource }));
+                    that.pager = new kendo.ui.Pager(wrapper, extend({}, pageable, { dataSource: that.dataSource }));
                 }
+            }
+        },
+
+        _filterable: function() {
+            var that = this,
+                columns = that.columns,
+                filterable = that.options.filterable;
+
+            if (filterable) {
+                that.thead
+                    .find("th:not(.k-hierarchy-cell)")
+                    .each(function(index) {
+                        if (columns[index].filterable !== false) {
+                            $(this).kendoFilterMenu(extend(true, {}, filterable, columns[index].filterable, { dataSource: that.dataSource }));
+                        }
+                    })
             }
         },
 
         _sortable: function() {
             var that = this,
+                columns = that.columns,
+                column,
                 sortable = that.options.sortable;
 
             if (sortable) {
-                that.thead.find("th").kendoSortable(extend({}, sortable, { dataSource: that.dataSource }));
+                that.thead
+                    .find("th:not(.k-hierarchy-cell)")
+                    .each(function(index) {
+                        column = columns[index];
+                        if (column.sortable !== false && !column.command) {
+                            $(this).kendoSortable(extend({}, sortable, { dataSource: that.dataSource }));
+                        }
+                    })
             }
         },
 
         _columns: function(columns) {
             var that = this,
                 table = that.table,
-                cols = table.find("col");
+                encoded,
+                cols = table.find("col"),
+                dataSource = that.options.dataSource;
 
             // using HTML5 data attributes as a configuration option e.g. <th data-field="foo">Foo</foo>
             columns = columns.length ? columns : map(table.find("th"), function(th, idx) {
                 var th = $(th),
-                    field = th.data("field");
+                    sortable = th.attr(kendo.attr("sortable"))
+                    filterable = th.attr(kendo.attr("filterable"))
+                    field = th.attr(kendo.attr("field"));
 
                 if (!field) {
                    field = th.text().replace(/\s|[^A-z0-9]/g, "");
@@ -915,14 +1481,18 @@
 
                 return {
                     field: field,
-                    template: th.data("template"),
+                    sortable: sortable !== "false",
+                    filterable: filterable !== "false",
+                    template: th.attr(kendo.attr("template")),
                     width: cols.eq(idx).css("width")
                 };
             });
 
+            encoded = !(that.table.find("tbody tr").length > 0 && (!dataSource || !dataSource.transport));
+
             that.columns = map(columns, function(column) {
                 column = typeof column === STRING ? { field: column } : column;
-                return extend({ encoded: true }, column);
+                return extend({ encoded: encoded }, column);
             });
         },
 
@@ -934,18 +1504,27 @@
                 length = that.columns.length,
                 template,
                 model = that.dataSource.options.schema.model,
-                templateFunctionStorage = {},
+                state = { storage: {}, count: 0 },
                 id,
-                templateFunctionCount = 0,
                 column,
                 type,
+                hasDetails = that._hasDetails(),
+                className = [],
                 groups = that.dataSource.group().length;
 
             if (!rowTemplate) {
                 rowTemplate = "<tr";
 
                 if (alt) {
-                    rowTemplate += ' class="k-alt"';
+                    className.push("k-alt");
+                }
+
+                if (hasDetails) {
+                    className.push("k-master-row");
+                }
+
+                if (className.length) {
+                    rowTemplate += ' class="' + className.join(" ") + '"';
                 }
 
                 if (model) {
@@ -954,18 +1533,10 @@
                         // render the id as data-id attribute
                         type = typeof id;
 
-                        rowTemplate += ' data-id="#=';
-
-                        if (type === STRING) {
-                            if (!settings.useWithBlock) {
-                                rowTemplate += paramName + ".";
-                            }
-                            rowTemplate += id;
-                        } else if (type === FUNCTION) {
-                            templateFunctionStorage["tmpl" + templateFunctionCount] = id;
-                            rowTemplate += 'this.tmpl' + templateFunctionCount + "(" + paramName + ")";
-                            templateFunctionCount++;
-                        }
+                        rowTemplate += ' ' + kendo.attr("id") + '="#=';
+                        state.storage["tmpl" + state.count] = type === FUNCTION ? id : that.dataSource.reader.model.id;
+                        rowTemplate += 'this.tmpl' + state.count + "(" + paramName + ")";
+                        state.count++;
 
                         rowTemplate += '#"';
                     }
@@ -977,44 +1548,72 @@
                     rowTemplate += groupCells(groups);
                 }
 
+                if (hasDetails) {
+                    rowTemplate += '<td class="k-hierarchy-cell"><a class="k-icon k-plus" href="\\#"></a></td>';
+                }
+
                 for (idx = 0; idx < length; idx++) {
                     column = that.columns[idx];
                     template = column.template;
                     type = typeof template;
 
                     rowTemplate += "<td>";
-
-                    if (type === FUNCTION) {
-                        templateFunctionStorage["tmpl" + templateFunctionCount] = template;
-                        rowTemplate += "#=this.tmpl" + templateFunctionCount + "(" + paramName + ")#";
-                        templateFunctionCount ++;
-                    } else if (type === STRING) {
-                        rowTemplate += template;
-                    } else {
-                        rowTemplate += column.encoded ? "${" : "#=";
-
-                        if (!settings.useWithBlock) {
-                            rowTemplate += paramName + ".";
-                        }
-
-                        rowTemplate += column.field;
-                        rowTemplate += column.encoded ? "}" : "#";
-                    }
+                    rowTemplate += that._cellTmpl(column, state);
 
                     rowTemplate += "</td>";
                 }
 
                 rowTemplate += "</tr>";
-
             }
 
             rowTemplate = kendo.template(rowTemplate, settings);
 
-            if (templateFunctionCount > 0) {
-                return proxy(rowTemplate, templateFunctionStorage);
+            if (state.count > 0) {
+                return proxy(rowTemplate, state.storage);
             }
 
             return rowTemplate;
+        },
+
+        _cellTmpl: function(column, state) {
+            var that = this,
+                settings = extend({}, kendo.Template, that.options.templateSettings),
+                template = column.template,
+                paramName = settings.paramName,
+                html = "",
+                format = column.format,
+                type = typeof template;
+
+            if (column.command) {
+                return that._createButton(column.command).replace(templateHashRegExp, "\\#");
+            }
+
+            if (type === FUNCTION) {
+                state.storage["tmpl" + state.count] = template;
+                html += "#=this.tmpl" + state.count + "(" + paramName + ")#";
+                state.count ++;
+            } else if (type === STRING) {
+                html += template;
+            } else {
+                html += column.encoded ? "${" : "#=";
+
+                if (format) {
+                    html += 'kendo.format(\"' + format.replace(formatRegExp,"\\}") + '\",';
+                }
+
+                if (!settings.useWithBlock) {
+                    html += paramName + ".";
+                }
+
+                html += column.field;
+
+                if (format) {
+                    html += ")";
+                }
+
+                html += column.encoded ? "}" : "#";
+            }
+            return html;
         },
 
         _templates: function() {
@@ -1023,6 +1622,117 @@
 
             that.rowTemplate = that._tmpl(options.rowTemplate);
             that.altRowTemplate = that._tmpl(options.altRowTemplate || options.rowTemplate, true);
+
+            if (that._hasDetails()) {
+                that.detailTemplate = that._detailTmpl(options.detailTemplate || "");
+            }
+        },
+
+        _detailTmpl: function(template) {
+            var that = this,
+                html = "",
+                settings = extend({}, kendo.Template, that.options.templateSettings),
+                paramName = settings.paramName,
+                templateFunctionStorage = {},
+                templateFunctionCount = 0,
+                groups = that.dataSource.group().length,
+                columns = that.columns.length,
+                type = typeof template;
+
+                html += '<tr class="k-detail-row">';
+                if (groups > 0) {
+                    html += groupCells(groups);
+                }
+                html += '<td class="k-hierarchy-cell"></td><td class="k-detail-cell"' + (columns ? ' colspan="' + columns + '"' : '') + ">";
+
+            if (type === FUNCTION) {
+                templateFunctionStorage["tmpl" + templateFunctionCount] = template;
+                html += "#=this.tmpl" + templateFunctionCount + "(" + paramName + ")#";
+                templateFunctionCount ++;
+            } else {
+                html += template;
+            }
+
+            html += "</td></tr>";
+
+            html = kendo.template(html, settings);
+
+            if (templateFunctionCount > 0) {
+                return proxy(html, templateFunctionStorage);
+            }
+
+            return html;
+        },
+
+        _hasDetails: function() {
+            var that = this;
+
+            return that.options.detailTemplate !== undefined  || (that._events[DETAILINIT] || []).length;
+        },
+
+        _details: function() {
+            var that = this;
+
+            that.table.delegate(".k-hierarchy-cell .k-plus, .k-hierarchy-cell .k-minus", CLICK, function(e) {
+                var button = $(this),
+                    expanding = button.hasClass("k-plus"),
+                    masterRow = button.closest("tr.k-master-row"),
+                    detailRow,
+                    detailTemplate = that.detailTemplate,
+                    data,
+                    hasDetails = that._hasDetails();
+
+                button.toggleClass("k-plus", !expanding)
+                    .toggleClass("k-minus", expanding);
+
+                if(hasDetails && !masterRow.next().hasClass("k-detail-row")) {
+                    data = that.dataItem(masterRow),
+                    $(detailTemplate(data)).insertAfter(masterRow);
+
+                    that.trigger(DETAILINIT, { masterRow: masterRow, detailRow: masterRow.next(), data: data, detailCell: masterRow.next().find(".k-detail-cell") });
+                }
+
+                detailRow = masterRow.next();
+
+                that.trigger(expanding ? DETAILEXPAND : DETAILCOLLAPSE, { masterRow: masterRow, detailRow: detailRow});
+                detailRow.toggle(expanding);
+
+                e.preventDefault();
+                return false;
+            });
+        },
+
+        /**
+         * Returns the data item to which a given table row (tr DOM element) is bound.
+         * @param {Selector|DOMElement} tr Target row.
+         * @example
+         * // returns the data item for first row
+         * grid.dataItem(grid.tbody.find(">tr:first"));
+         */
+        dataItem: function(tr) {
+            return this._data[this.tbody.find('> tr:not(.k-grouping-row,.k-detail-row)').index($(tr))]
+        },
+
+        /**
+         * Expands specified master row.
+         * @param {Selector|DOMElement} row Target master row to expand.
+         * @example
+         * // expands first master row
+         * grid.expandRow(grid.tbody.find(">tr.k-master-row:first"));
+         */
+        expandRow: function(tr) {
+            $(tr).find('> td .k-plus, > td .k-expand').click();
+        },
+
+        /**
+         * Collapses specified master row.
+         * @param {Selector|DOMElement} row Target master row to collapse.
+         * @example
+         * // collapses first master row
+         * grid.collapseRow(grid.tbody.find(">tr.k-master-row:first"));
+         */
+        collapseRow: function(tr) {
+            $(tr).find('> td .k-minus, > td .k-plus').click();
         },
 
         _thead: function() {
@@ -1049,9 +1759,22 @@
             }
 
             if (!tr.children().length) {
+                if (that._hasDetails() && columns.length) {
+                    html += '<th class="k-hierarchy-cell">&nbsp;</th>';
+                }
+
                 for (idx = 0, length = columns.length; idx < length; idx++) {
                     th = columns[idx];
-                    html += "<th data-field='" + th.field + "'>" + (th.title || th.field) + "</th>";
+
+                    if (!th.command) {
+                        html += "<th " + kendo.attr("field") + "='" + th.field + "' ";
+                        if (th.title) {
+                            html += kendo.attr("title") + "='" + th.title + "'";
+                        }
+                        html += ">" + (th.title || th.field || "") + "</th>";
+                    } else {
+                        html += "<th>" + (th.title || "") + "</th>";
+                    }
                 }
 
                 tr.html(html);
@@ -1069,6 +1792,8 @@
 
             that._sortable();
 
+            that._filterable();
+
             that._scrollable();
 
             that._updateCols();
@@ -1082,12 +1807,16 @@
                 cols = map(that.columns, function(column) {
                     width = column.width;
                     if (width && parseInt(width) != 0) {
-                        return kendo.format('<col style="width:{0}"/>', width);
+                        return kendo.format('<col style="width:{0}"/>', typeof width === STRING? width : width + "px");
                     }
 
                     return "<col />";
                 }),
                 groups = that.dataSource.group().length;
+
+            if (that._hasDetails()) {
+                cols.splice(0, 0, '<col class="k-hierarchy-col" />');
+            }
 
             if (colgroup.length) {
                 colgroup.remove();
@@ -1114,6 +1843,7 @@
                 that._templates();
             }
         },
+
         _rowsHtml: function(data) {
             var that = this,
                 html = "",
@@ -1128,22 +1858,28 @@
                 } else {
                     html += rowTemplate(data[idx]);
                 }
+
+                that._data.push(data[idx]);
             }
 
             return html;
         },
+
         _groupRowHtml: function(group, colspan, level) {
             var that = this,
                 html = "",
                 idx,
                 length,
+                field = group.field,
+                column = $.grep(that.columns, function(column) { return column.field == field; })[0] || { },
+                value = column.format ? kendo.format(column.format, group.value) : group.value,
                 groupItems = group.items;
 
             html +=  '<tr class="k-grouping-row">' + groupCells(level) +
                       '<td colspan="' + colspan + '">' +
                         '<p class="k-reset">' +
                          '<a class="k-icon k-collapse" href="#"></a>' +
-                         group.field + ': ' + group.value +'</p></td></tr>';
+                         (column.title || field) + ': ' + value +'</p></td></tr>';
 
             if(group.hasSubgroups) {
                 for(idx = 0, length = groupItems.length; idx < length; idx++) {
@@ -1198,6 +1934,7 @@
                 }
             });
         },
+
         _updateHeader: function(groups) {
             var that = this,
                 cells = that.thead.find("th.k-group-cell"),
@@ -1248,7 +1985,11 @@
                 groups = (that.dataSource.group() || []).length,
                 colspan = groups + that.columns.length;
 
+            that._distroyEditable();
+
             that._progress(false);
+
+            that._data = [];
 
             if (!that.columns.length) {
                 that._autoColumns(that._firstDataItem(data[0], groups));
@@ -1265,6 +2006,11 @@
             }
 
             if(groups > 0) {
+
+                if (that.detailTemplate) {
+                    colspan++;
+                }
+
                 for (idx = 0, length = data.length; idx < length; idx++) {
                     html += that._groupRowHtml(data[idx], colspan, 0);
                 }
@@ -1285,6 +2031,6 @@
        }
    });
 
-   ui.plugin("Grid", Grid);
-   ui.plugin("VirtualScrollable", VirtualScrollable);
+   ui.plugin(Grid);
+   ui.plugin(VirtualScrollable);
 })(jQuery);

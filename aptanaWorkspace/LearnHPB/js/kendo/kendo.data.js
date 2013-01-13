@@ -1,3 +1,13 @@
+/*
+* Kendo UI v2011.3.1129 (http://kendoui.com)
+* Copyright 2011 Telerik AD. All rights reserved.
+*
+* Kendo UI commercial licenses may be obtained at http://kendoui.com/license.
+* If you do not own a commercial license, this file shall be governed by the
+* GNU General Public License (GPL) version 3. For GPL requirements, please
+* review: http://www.gnu.org/copyleft/gpl.html
+*/
+
 (function($, undefined) {
     /**
      * @name kendo.data
@@ -155,6 +165,7 @@
         UPDATE = "update",
         DESTROY = "destroy",
         CHANGE = "change",
+        MODELCHANGE = "modelChange",
         MULTIPLE = "multiple",
         SINGLE = "single",
         ERROR = "error",
@@ -163,8 +174,7 @@
         identity = function(o) { return o; },
         getter = kendo.getter,
         stringify = kendo.stringify,
-        math = Math,
-        rgDate = /^\/Date\((.*?)\)\/$/;
+        math = Math;
 
     var Comparer = {
         selector: function(field) {
@@ -210,212 +220,237 @@
         }
     };
 
-    var Filter = {
-        create: function(expressions) {
-            var idx,
-                length,
-                expr,
-                selector,
-                operator,
-                desc,
-                descriptors = [],
-                caseSensitive,
-                predicate;
+    map = function (array, callback) {
+        var idx, length = array.length, result = new Array(length);
 
-            expressions = expressions || [];
-            for(idx = 0, length = expressions.length; idx < length; idx ++) {
-                expr = expressions[idx];
-                if(typeof expr.value === STRING && !expr.caseSensitive) {
-                     caseSensitive = function(value) {
-                        return value.toLowerCase();
-                     };
-                } else {
-                    caseSensitive = function(value) {
-                        return value;
-                    };
-                }
-                selector = Filter.selector(expr.field, caseSensitive);
-                operator = Filter.operator(expr.operator);
-                desc = operator(selector, caseSensitive(expr.value));
-                descriptors.push(desc);
-            }
-            predicate = Filter.combine(descriptors);
-
-            return function(data) {
-                return Filter.execute(predicate, data);
-            };
-        },
-        selector: function(field, caseSensitive) {
-            if (field) {
-                if (isFunction(field)) {
-                    return field;
-                } else {
-                    var accessor = getter(field);
-                    return function(record) {
-                        var value = accessor(record);
-                        if (typeof value === "string") {
-                            var date = rgDate.exec(value);
-                            if (date) {
-                                value = new Date(parseInt(date[1]));
-                            }
-                        }
-                        return caseSensitive(value);
-                    };
-                }
-            }
-            return function(record) {
-                return caseSensitive(record);
-            };
-        },
-        execute: function(predicate, data) {
-            var idx,
-                length = data.length,
-                record,
-                result = [];
-
-            for(idx = 0; idx < length; idx ++) {
-                record = data[idx];
-
-                if (predicate(record)) {
-                    result.push(record);
-                }
-            }
-
-            return result;
-        },
-        combine: function(descriptors) {
-            return function(record) {
-                var result = true,
-                    idx = 0,
-                    length = descriptors.length;
-
-                while (result && idx < length) {
-                    result = descriptors[idx ++](record);
-                }
-
-                return result;
-            };
-        },
-        operator: function(operator) {
-            if (!operator) {
-                return Filter.eq;
-            }
-
-            if (isFunction(operator)) {
-                return operator;
-            }
-
-            operator = operator.toLowerCase();
-            operatorStrings = Filter.operatorStrings;
-            for (var op in operatorStrings) {
-                if ($.inArray(operator, operatorStrings[op]) > -1) {
-                    operator = op;
-                    break;
-                }
-            }
-
-            return Filter[operator];
-        },
-        operatorStrings: {
-            "eq": ["eq", "==", "isequalto", "equals", "equalto", "equal"],
-            "neq": ["neq", "!=", "isnotequalto", "notequals", "notequalto", "notequal", "not", "ne"],
-            "lt": ["lt", "<", "islessthan", "lessthan", "less"],
-            "lte": ["lte", "<=", "islessthanorequalto", "lessthanequal", "le"],
-            "gt": ["gt", ">", "isgreaterthan", "greaterthan", "greater"],
-            "gte": ["gte", ">=", "isgreaterthanorequalto", "greaterthanequal", "ge"],
-            "startswith": ["startswith"],
-            "endswith": ["endswith"],
-            "contains": ["contains", "substringof"]
-        },
-        eq: function(selector, value) {
-            return function(record){
-                var item = selector(record);
-                return item > value ? false : (value > item ? false : true);
-            };
-        },
-        neq: function(selector, value) {
-            return function(record){
-                return selector(record) != value;
-            };
-        },
-        lt: function(selector, value) {
-            return function(record){
-                return selector(record) < value;
-            };
-        },
-        lte: function(selector, value) {
-            return function(record){
-                return selector(record) <= value;
-            };
-        },
-        gt: function(selector, value) {
-            return function(record){
-                return selector(record) > value;
-            };
-        },
-        gte: function(selector, value) {
-            return function(record){
-                return selector(record) >= value;
-            };
-        },
-        startswith: function(selector, value) {
-            return function(record){
-                return selector(record).indexOf(value) == 0;
-            };
-        },
-        endswith: function(selector, value) {
-            return function(record){
-                var item = selector(record);
-                return item.lastIndexOf(value) == item.length - (value || "").length;
-            };
-        },
-        contains: function(selector, value) {
-            return function(record){
-                return selector(record).indexOf(value) > -1;
-            };
+        for (idx = 0; idx < length; idx++) {
+            result[idx] = callback(array[idx], idx, array);
         }
+
+        return result;
     }
 
-    if (Array.prototype.map !== undefined) {
-        map = function (array, callback) {
-            return array.map(callback);
-        }
-    } else {
-        map = function (array, callback) {
-            var length = array.length, result = new Array(length);
+    var operators = (function(){
+        var dateRegExp = /^\/Date\((.*?)\)\/$/,
+            quoteRegExp = /'/g;
 
-            for (var i = 0; i < length; i++) {
-                result[i] = callback(array[i], i, array);
+        function operator(op, a, b, ignore) {
+            var date;
+
+            if (b != undefined) {
+                if (typeof b === STRING) {
+                    b = b.replace(quoteRegExp, "\\'");
+                    date = dateRegExp.exec(b);
+                    if (date) {
+                        b = new Date(+date[1]);
+                    } else if (ignore) {
+                        b = "'" + b.toLowerCase() + "'";
+                        a = a + ".toLowerCase()";
+                    } else {
+                        b = "'" + b + "'";
+                    }
+                }
+
+                if (b.getTime) {
+                    //b looks like a Date
+                    a += ".getTime()";
+                    b = b.getTime();
+                }
             }
 
-            return result;
+            return a + " " + op + " " + b;
         }
-    }
+
+        return {
+            eq: function(a, b, ignore) {
+                return operator("==", a, b, ignore);
+            },
+            neq: function(a, b, ignore) {
+                return operator("!=", a, b, ignore);
+            },
+            gt: function(a, b, ignore) {
+                return operator(">", a, b, ignore);
+            },
+            gte: function(a, b, ignore) {
+                return operator(">=", a, b, ignore);
+            },
+            lt: function(a, b, ignore) {
+                return operator("<", a, b, ignore);
+            },
+            lte: function(a, b, ignore) {
+                return operator("<=", a, b, ignore);
+            },
+            startswith: function(a, b, ignore) {
+                if (ignore) {
+                    a = a + ".toLowerCase()";
+                    if (b) {
+                        b = b.toLowerCase();
+                    }
+                }
+                return a + ".lastIndexOf('" + b + "', 0) == 0";
+            },
+            endswith: function(a, b, ignore) {
+                if (ignore) {
+                    a = a + ".toLowerCase()";
+                    if (b) {
+                        b = b.toLowerCase();
+                    }
+                }
+                return a + ".lastIndexOf('" + b + "') == " + a + ".length - " + (b || "").length;
+            },
+            contains: function(a, b, ignore) {
+                if (ignore) {
+                    a = a + ".toLowerCase()";
+                    if (b) {
+                        b = b.toLowerCase();
+                    }
+                }
+                return a + ".indexOf('" + b + "') >= 0"
+            }
+        };
+    })();
 
     function Query(data) {
         this.data = data || [];
     }
 
-    function expandSort(field, dir) {
+    Query.normalizeFilter = normalizeFilter;
+
+    Query.filterExpr = function(expression) {
+        var expressions = [],
+            logic = { and: " && ", or: " || " },
+            idx,
+            length,
+            filter,
+            expr,
+            fieldFunctions = [],
+            operatorFunctions = [],
+            field,
+            operator,
+            filters = expression.filters;
+
+        for (idx = 0, length = filters.length; idx < length; idx++) {
+            filter = filters[idx];
+            field = filter.field;
+            operator = filter.operator;
+
+            if (filter.filters) {
+                expr = Query.filterExpr(filter);
+                //Nested function fields or operators - update their index e.g. __o[0] -> __o[1]
+                filter = expr.expression
+                             .replace(/__o\[(\d+)\]/g, function(match, index) {
+                                index = +index;
+                                return "__o[" + (operatorFunctions.length + index) + "]";
+                             })
+                             .replace(/__f\[(\d+)\]/g, function(match, index) {
+                                index = +index;
+                                return "__f[" + (fieldFunctions.length + index) + "]";
+                             });
+
+                operatorFunctions.push.apply(operatorFunctions, expr.operators);
+                fieldFunctions.push.apply(fieldFunctions, expr.fields);
+            } else {
+                if (typeof field === "function") {
+                    expr = "__f[" + fieldFunctions.length +"](d)";
+                    fieldFunctions.push(field);
+                } else {
+                    expr = kendo.expr(field);
+                }
+
+                if (typeof operator === "function") {
+                    filter = "__o[" + operatorFunctions.length + "](" + expr + ", " + filter.value + ")";
+                    operatorFunctions.push(operator);
+                } else {
+                    filter = operators[(operator || "eq").toLowerCase()](expr, filter.value, filter.ignoreCase !== undefined? filter.ignoreCase : true);
+                }
+            }
+
+            expressions.push(filter);
+        }
+
+        return  { expression: "(" + expressions.join(logic[expression.logic]) + ")", fields: fieldFunctions, operators: operatorFunctions };
+    }
+
+    function normalizeSort(field, dir) {
         if (field) {
-        var descriptor = typeof field === STRING ? { field: field, dir: dir } : field,
-            descriptors = isArray(descriptor) ? descriptor : (descriptor !== undefined ? [descriptor] : []);
+            var descriptor = typeof field === STRING ? { field: field, dir: dir } : field,
+                descriptors = isArray(descriptor) ? descriptor : (descriptor !== undefined ? [descriptor] : []);
 
-        return grep(descriptors, function(d) { return !!d.dir; });
+            return grep(descriptors, function(d) { return !!d.dir; });
         }
     }
 
-    function expandFilter(expressions) {
-        if (expressions) {
-            return expressions = isArray(expressions) ? expressions : [expressions];
+    var operatorMap = {
+        "==": "eq",
+        equals: "eq",
+        isequalto: "eq",
+        equalto: "eq",
+        equal: "eq",
+        "!=": "neq",
+        ne: "neq",
+        notequals: "neq",
+        isnotequalto: "neq",
+        notequalto: "neq",
+        notequal: "neq",
+        "<": "lt",
+        islessthan: "lt",
+        lessthan: "lt",
+        less: "lt",
+        "<=": "lte",
+        le: "lte",
+        islessthanorequalto: "lte",
+        lessthanequal: "lte",
+        ">": "gt",
+        isgreaterthan: "gt",
+        greaterthan: "gt",
+        greater: "gt",
+        ">=": "gte",
+        isgreaterthanorequalto: "gte",
+        greaterthanequal: "gte",
+        ge: "gte"
+    }
+
+    function normalizeOperator(expression) {
+        var idx,
+            length,
+            filter,
+            operator,
+            filters = expression.filters;
+
+        if (filters) {
+            for (idx = 0, length = filters.length; idx < length; idx++) {
+                filter = filters[idx];
+                operator = filter.operator;
+
+                if (operator && typeof operator === STRING) {
+                    filter.operator = operatorMap[operator.toLowerCase()] || operator;
+                }
+
+                normalizeOperator(filter);
+            }
         }
     }
 
-    function expandAggregates(expressions) {
+    function normalizeFilter(expression) {
+        if (expression && !isEmptyObject(expression)) {
+            if (isArray(expression) || !expression.filters) {
+                expression = {
+                    logic: "and",
+                    filters: isArray(expression) ? expression : [expression]
+                }
+            }
+
+            normalizeOperator(expression);
+
+            return expression;
+        }
+    }
+
+    function normalizeAggregate(expressions) {
         return expressions = isArray(expressions) ? expressions : [expressions];
     }
 
-    function expandGroup(field, dir) {
+    function normalizeGroup(field, dir) {
        var descriptor = typeof field === STRING ? { field: field, dir: dir } : field,
            descriptors = isArray(descriptor) ? descriptor : (descriptor !== undefined ? [descriptor] : []);
 
@@ -450,7 +485,7 @@
         sort: function(field, dir) {
             var idx,
                 length,
-                descriptors = expandSort(field, dir),
+                descriptors = normalizeSort(field, dir),
                 comparers = [];
 
             if (descriptors.length) {
@@ -463,12 +498,49 @@
 
             return this;
         },
+
         filter: function(expressions) {
-            var predicate = Filter.create(expandFilter(expressions));
-            return new Query(predicate(this.data));
+            var idx,
+                current,
+                length,
+                compiled,
+                predicate,
+                data = this.data,
+                fields,
+                operators,
+                result = [],
+                filter;
+
+            expressions = normalizeFilter(expressions);
+
+            if (!expressions || expressions.filters.length === 0) {
+                return this;
+            }
+
+            compiled = Query.filterExpr(expressions);
+            fields = compiled.fields;
+            operators = compiled.operators;
+
+            predicate = filter = new Function("d, __f, __o", "return " + compiled.expression);
+
+            if (fields.length || operators.length) {
+                filter = function(d) {
+                    return predicate(d, fields, operators);
+                };
+            }
+
+            for (idx = 0, length = data.length; idx < length; idx++) {
+                current = data[idx];
+
+                if (filter(current)) {
+                    result.push(current);
+                }
+            }
+            return new Query(result);
         },
+
         group: function(descriptors, allData) {
-            descriptors =  expandGroup(descriptors || []);
+            descriptors =  normalizeGroup(descriptors || []);
             allData = allData || this.data;
 
             var that = this,
@@ -592,7 +664,7 @@
         var query = new Query(data),
             options = options || {},
             group = options.group,
-            sort = expandSort(options.sort || []).concat(expandGroup(group || [])),
+            sort = normalizeSort(options.sort || []).concat(normalizeGroup(group || [])),
             total,
             filter = options.filter,
             skip = options.skip,
@@ -645,7 +717,11 @@
         read: function(options) {
             options.success(this.data);
         },
-        update: noop
+        update: function(options) {
+            options.success(options.data);
+        },
+        create: noop,
+        destory: noop
     });
 
     var RemoteTransport = Class.extend( {
@@ -837,11 +913,11 @@
          * @option {Array|Object} [filter] <undefined> Sets initial filter
          * _example
          * // returns only data where orderId is equal to 10248
-         * filter: { field: "orderId", operation: "eq", value: 10248 }
+         * filter: { field: "orderId", operator: "eq", value: 10248 }
          *
          * // returns only data where orderId is equal to 10248 and customerName starts with Paul
-         * filter: [ { field: "orderId", operation: "eq", value: 10248 },
-         *           { field: "customerName", operation: "startswith", value: "Paul" } ]
+         * filter: [ { field: "orderId", operator: "eq", value: 10248 },
+         *           { field: "customerName", operator: "startswith", value: "Paul" } ]
          *
          * @option {Array|Object} [group] <undefined> Sets initial grouping
          * _example
@@ -947,9 +1023,9 @@
                 _view: [],
                 _pageSize: options.pageSize,
                 _page: options.page  || (options.pageSize ? 1 : undefined),
-                _sort: expandSort(options.sort),
-                _filter: expandFilter(options.filter),
-                _group: expandGroup(options.group),
+                _sort: normalizeSort(options.sort),
+                _filter: normalizeFilter(options.filter),
+                _group: normalizeGroup(options.group),
                 _aggregate: options.aggregate
             });
 
@@ -985,7 +1061,15 @@
                     sendAllFields: options.sendAllFields,
                     transport: that.transport,
                     change: function() {
-                        that.trigger(CHANGE);
+                        var data = that.data();
+                        that._total = that.reader.total(data);
+                        that._process(data);
+                    },
+                    modelChange: function(model) {
+                        that.trigger(MODELCHANGE, model);
+                    },
+                    error: function(response) {
+                        that.trigger(ERROR, response);
                     }
                 });
             }
@@ -1007,7 +1091,7 @@
                          * @event
                          */
                         CHANGE,
-                        CREATE, DESTROY, UPDATE, REQUESTSTART], options);
+                        CREATE, DESTROY, UPDATE, REQUESTSTART, MODELCHANGE], options);
         },
 
         options: {
@@ -1022,18 +1106,50 @@
             batch: false
         },
 
+        /**
+         * Retrieves a Model instance by given id.
+         * @param {Number} id of the model to be retrieved
+         * @returns {Object} Model instance if found
+         */
         get: function(id) {
             return this._set.get(id);
         },
 
+        /**
+         * Synchronizes changes through the transport.
+         */
         sync: function() {
             this._set.sync();
         },
 
+        /**
+         * Adds a new Model instance to the DataSource
+         * @param {Object} Either a Model instance or object from which the Model will be created
+         * @returns {Object} The Model instance which has been added
+         */
         add: function(model) {
             return this._set.add(model);
         },
 
+        /**
+         * Inserts a new Model instance to the DataSource.
+         * @param {Object} Either a Model instance or object from which the Model will be created
+         * @returns {Object} The Model instance which has been inserted
+         */
+        insert: function(index, model) {
+            return this._set.insert(index, model);
+        },
+
+        /**
+         * Cancel the changes made to the DataSource after the last sync.
+         */
+        cancelChanges : function() {
+            this._set.cancelChanges();
+        },
+
+        /**
+         * Populate the DataSource using the assign transport instance.
+         */
         read: function(data) {
             var that = this, params = that._params(data);
 
@@ -1046,6 +1162,10 @@
                     error: proxy(that.error, that)
                 });
             });
+        },
+
+        indexOf: function(dataItem) {
+            return this._set.indexOf(dataItem);
         },
 
         _params: function(data) {
@@ -1082,6 +1202,10 @@
             }
         },
 
+        /**
+         * Removes a Model instance from the DataSource.
+         * @param {Object} Model instance to be removed
+         */
         remove: function(model) {
             this._set.remove(model);
         },
@@ -1110,6 +1234,12 @@
                 data = that.reader.data(data);
             }
 
+            that._data = data;
+
+            if (that._set) {
+                that._set.data(data);
+            }
+
             var start = that._skip || 0,
                 end = start + data.length;
 
@@ -1125,12 +1255,6 @@
                 options = {},
                 result,
                 hasGroups = that.options.serverGrouping === true && that._group && that._group.length > 0;
-
-            that._data = data;
-
-            if (that._set) {
-                that._set.data(data);
-            }
 
             if (that.options.serverPaging !== true) {
                 options.skip = that._skip;
@@ -1169,6 +1293,11 @@
             that.trigger(CHANGE);
         },
 
+        /**
+         * Returns the raw data record at the specified index
+         * @param {Number} The zero-based index of the data record
+         * @returns {Object}
+         */
         at: function(index) {
             return this._data[index];
         },
@@ -1180,6 +1309,12 @@
         data: function(value) {
             var that = this;
             if (value !== undefined) {
+                that._data = value;
+
+                if (that._set) {
+                    that._set.data(value);
+                }
+
                 that._process(value);
             } else {
                 return that._data;
@@ -1241,18 +1376,18 @@
                 }
 
                 if (options.sort) {
-                    that._sort = options.sort = expandSort(options.sort);
+                    that._sort = options.sort = normalizeSort(options.sort);
                 }
 
                 if (options.filter) {
-                    that._filter = options.filter = expandFilter(options.filter);
+                    that._filter = options.filter = normalizeFilter(options.filter);
                 }
 
                 if (options.group) {
-                    that._group = options.group = expandGroup(options.group);
+                    that._group = options.group = normalizeGroup(options.group);
                 }
                 if (options.aggregate) {
-                    that._aggregate = options.aggregate = expandAggregates(options.aggregate);
+                    that._aggregate = options.aggregate = normalizeAggregate(options.aggregate);
                 }
             }
 
@@ -1262,8 +1397,12 @@
                 that.trigger(REQUESTSTART);
                 result = process(that._data, options);
 
-                if (result.total !== undefined && !that.options.serverFiltering) {
-                    that._total = result.total;
+                if (!that.options.serverFiltering) {
+                    if (result.total !== undefined) {
+                        that._total = result.total;
+                    } else {
+                        that._total = that.reader.total(that._data);
+                    }
                 }
 
                 that._view = result.data;
@@ -1277,8 +1416,14 @@
          * If data is not available or remote operations are enabled data is requested through the transport,
          * otherwise operations are executed over the available data.
          */
-        fetch: function() {
-            this._query();
+        fetch: function(callback) {
+            var that = this;
+
+            if (callback && isFunction(callback)) {
+                that.one(CHANGE, callback);
+            }
+
+            that._query();
         },
 
         _query: function(options) {
@@ -1358,10 +1503,10 @@
         /**
          * Get current filters or filter the data.
          *<p>
-         * <i>Supported filter operations/aliases are</i>:
+         * <i>Supported filter operators/aliases are</i>:
          * <ul>
          * <li><strong>Equal To</strong>: "eq", "==", "isequalto", "equals", "equalto", "equal"</li>
-         * <li><strong>Not Equal To</strong>: "neq", "!=", "isnotequalto", "notequals", "notequalto", "notequal", "not", "ne"</li>
+         * <li><strong>Not Equal To</strong>: "neq", "!=", "isnotequalto", "notequals", "notequalto", "notequal", "ne"</li>
          * <li><strong>Less Then</strong>: "lt", "<", "islessthan", "lessthan", "less"</li>
          * <li><strong>Less Then or Equal To</strong>: "lte", "<=", "islessthanorequalto", "lessthanequal", "le"</li>
          * <li><strong>Greater Then</strong>: "gt", ">", "isgreaterthan", "greaterthan", "greater"</li>
@@ -1373,22 +1518,21 @@
          * </p>
          * @param {Object|Array} [val] <undefined> Filter(s) to be applied to the data.
          * @example
-         * dataSource.filter({ field: "orderId", operation: "eq", value: 10428 });
+         * dataSource.filter({ field: "orderId", operator: "eq", value: 10428 });
          * dataSource.filter([
-         *      { field: "orderId", operation: "neq", value: 42 },
-         *      { field: "unitPrice", operation: "ge", value: 3.14 }
+         *      { field: "orderId", operator: "neq", value: 42 },
+         *      { field: "unitPrice", operator: "ge", value: 3.14 }
          * ]);
          * @returns {Array} Current filter descriptors
          */
         filter: function(val) {
             var that = this;
 
-            if(val !== undefined) {
-                that._query({ filter: val });
-                return;
+            if (val === undefined) {
+                return that._filter;
             }
 
-            return that._filter;
+            that._query({ filter: val });
         },
 
         /**

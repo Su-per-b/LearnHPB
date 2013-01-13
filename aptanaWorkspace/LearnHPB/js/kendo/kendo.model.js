@@ -1,3 +1,13 @@
+/*
+* Kendo UI v2011.3.1129 (http://kendoui.com)
+* Copyright 2011 Telerik AD. All rights reserved.
+*
+* Kendo UI commercial licenses may be obtained at http://kendoui.com/license.
+* If you do not own a commercial license, this file shall be governed by the
+* GNU General Public License (GPL) version 3. For GPL requirements, please
+* review: http://www.gnu.org/copyleft/gpl.html
+*/
+
 (function($, undefined) {
     var kendo = window.kendo,
         extend = $.extend,
@@ -6,8 +16,12 @@
         setter = kendo.setter,
         accessor = kendo.accessor,
         each = $.each,
+        isPlainObject = $.isPlainObject,
         CHANGE = "change",
-        Observable = kendo.Observable;
+        ERROR = "error",
+        MODELCHANGE = "modelChange",
+        Observable = kendo.Observable,
+        dateRegExp = /^\/Date\((.*?)\)\/$/;
 
     function equal(x, y) {
         if (x === y) {
@@ -37,6 +51,45 @@
         return true;
     }
 
+    var parsers = {
+        "number": function(value) {
+            return kendo.parseFloat(value);
+        },
+
+        "date": function(value) {
+            if (typeof value === "string") {
+                var date = dateRegExp.exec(value);
+                if (date) {
+                    return new Date(parseInt(date[1]));
+                }
+            }
+            return kendo.parseDate(value);
+        },
+
+        "boolean": function(value) {
+            if (typeof value === "string") {
+                return value.toLowerCase() === "true";
+            }
+            return !!value;
+        },
+
+        "string": function(value) {
+            return value + "";
+        },
+
+        "default": function(value) {
+            return value;
+        }
+    };
+
+    var defaultValues = {
+        "string": "",
+        "number": 0,
+        "date": new Date(),
+        "boolean": false,
+        "default": ""
+    }
+
     var Model = Observable.extend({
         init: function(data) {
             var that = this;
@@ -47,10 +100,10 @@
 
             that._modified = false;
 
-            that.data = data || {};
-            that.pristine = extend(true, {}, data);
+            that.data = data && !$.isEmptyObject(data) ? data : extend(true, {}, that.defaultItem);
+            that.pristine = extend(true, {}, that.data);
 
-            if (that.id() === undefined) {
+            if (that.id() === undefined || that.id() === that.defaultId) {
                 that._isNew = true;
                 that.data["__id"] = kendo.guid();
             }
@@ -64,6 +117,26 @@
 
         get: function(field) {
             return this._accessor(field).get(this.data);
+        },
+
+        _parse: function(field, value) {
+            var that = this,
+                parse;
+
+            field = (that.fields || {})[field];
+            if (field) {
+                parse = field.parse;
+                if (!parse && field.type) {
+                    parse = parsers[field.type.toLowerCase()];
+                }
+            }
+
+            return parse ? parse(value) : value;
+        },
+
+        editable: function(field) {
+            field = (this.fields || {})[field];
+            return field ? field.editable !== false : true;
         },
 
         set: function(fields, value) {
@@ -80,9 +153,13 @@
             }
 
             for (field in values) {
+                if(!that.editable(field)) {
+                    continue;
+                }
+
                 accessor = that._accessor(field);
 
-                value = values[field];
+                value = that._parse(field, values[field]);
 
                 if (!equal(value, accessor.get(that.data))) {
                     accessor.set(that.data, value);
@@ -93,6 +170,13 @@
             if (modified) {
                 that.trigger(CHANGE);
             }
+        },
+
+        reset: function() {
+            var that = this;
+
+            extend(that.data, that.pristine);
+            that._modified = false;
         },
 
         _accept: function(data) {
@@ -134,8 +218,9 @@
 
     Model.define = function(options) {
         var model,
-            proto = extend({}, options),
+            proto = extend({}, { defaultItem: {} }, options),
             id = proto.id || "id",
+            defaultId,
             set,
             get;
 
@@ -147,11 +232,31 @@
             set = setter(id);
         }
 
+        for (var name in proto.fields) {
+            var field = proto.fields[name],
+                type = field.type || "default",
+                value = null;
+
+            name = field.field || name;
+
+            if (!field.nullable) {
+                value = proto.defaultItem[name] = field.defaultValue !== undefined ? field.defaultValue : defaultValues[type.toLowerCase()];
+            }
+
+            if (options.id === name) {
+                defaultId = proto._defaultId = value;
+            }
+
+            proto.defaultItem[name] = value;
+
+            field.parse = field.parse || parsers[type];
+        }
+
         id = function(data, value) {
             var result;
             if (value === undefined) {
                 result = get(data);
-                return result !== undefined? result : data["__id"];
+                return result !== undefined && result !== null && result !== defaultId ? result : data["__id"];
             } else {
                 set(data, value);
             }
@@ -185,7 +290,7 @@
 
             Observable.fn.init.call(that);
 
-            that.bind([CHANGE], options);
+            that.bind([CHANGE, MODELCHANGE, ERROR], options);
         },
 
         options: {
@@ -194,8 +299,18 @@
             autoSync: false
         },
 
+        indexOf: function(dataItem) {
+            var that = this,
+                model = that.options.model,
+                id = model.id(dataItem);
+
+            return that._idMap[id];
+        },
+
         _map: function() {
             var that = this,
+                idx,
+                length,
                 data = that._data,
                 model = that.options.model;
 
@@ -227,6 +342,9 @@
 
                 if (data) {
                     model = that._models[id] = new that.options.model(data);
+                    model.bind(CHANGE, function () {
+                        that.trigger(MODELCHANGE, model);
+                    });
                 }
             }
 
@@ -234,20 +352,36 @@
         },
 
         add: function(model) {
+            var that = this;
+
+            return that.insert(that._data.length, model);
+        },
+
+        insert: function(index, model) {
             var that = this, data;
 
-            if (model instanceof Model) {
-                data = model.data;
-            } else {
-                data = model;
+            if (model === undefined && isPlainObject(index)) {
+                model = index;
+                index = 0;
+            }
+
+            if (!(model instanceof Model)) {
                 model = new that.options.model(model);
             }
 
-            that._data.push(data);
+            data = model.data;
+
+            model.bind(CHANGE, function () {
+                that.trigger(MODELCHANGE, model);
+            });
+
+            that._data.splice(index, 0, data);
 
             that._map();
 
             that._models[model.id()] = model;
+
+            that.trigger(CHANGE);
 
             if (that.options.autoSync) {
                 that.sync();
@@ -268,11 +402,15 @@
                 that._data.splice(that._idMap[id], 1);
                 that._map();
 
+                model.unbind(CHANGE);
+
                 delete that._models[id];
 
                 if (!model.isNew()) {
                     that._destroyed.push(model);
                 }
+
+                that.trigger(CHANGE);
 
                 if (that.options.autoSync) {
                     that.sync();
@@ -342,6 +480,7 @@
                     }
 
                     that.trigger(CHANGE);
+                    that._map();
                 });
         },
 
@@ -380,7 +519,10 @@
                                 type: type
                             });
                         },
-                        error: deferred.reject
+                        error: function(response) {
+                            deferred.reject(response);
+                            that.trigger(ERROR, response);
+                        }
                     }, data)
                 );
             }).promise();
@@ -418,6 +560,37 @@
             });
 
             return promises;
+        },
+
+        cancelChanges: function() {
+            var that = this,
+                destroyed = that._destroyed,
+                models = that._models,
+                model,
+                data = that._data,
+                idx,
+                length;
+
+            for (idx = 0, length = destroyed.length; idx < length; idx++) {
+                model = destroyed[idx];
+                model.reset();
+
+                data.push(model.data);
+            }
+
+            for (idx in models) {
+                model = models[idx];
+
+                if (model.isNew()) {
+                    data.splice(that._idMap[idx], 1);
+                } else if (model.hasChanges()) {
+                    model.reset();
+                }
+            }
+
+            that.data(data);
+
+            that.trigger(CHANGE);
         }
     });
 

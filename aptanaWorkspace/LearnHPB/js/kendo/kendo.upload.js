@@ -1,3 +1,13 @@
+/*
+* Kendo UI v2011.3.1129 (http://kendoui.com)
+* Copyright 2011 Telerik AD. All rights reserved.
+*
+* Kendo UI commercial licenses may be obtained at http://kendoui.com/license.
+* If you do not own a commercial license, this file shall be governed by the
+* GNU General Public License (GPL) version 3. For GPL requirements, please
+* review: http://www.gnu.org/copyleft/gpl.html
+*/
+
 (function($, undefined) {
     /**
      * @name kendo.ui.Upload.Description
@@ -75,7 +85,7 @@
      * @exampleTitle
      * 1. Create a simple HTML input of type "file" (no HTML form is required*)
      * @example
-     * <input name="files" id="files" type="file" />
+     * <input name="files[]" id="files" type="file" />
      *
      * @exampleTitle
      * 2. Initialize Upload and configure async upload end-points
@@ -85,6 +95,7 @@
      *     async: {
      *         saveUrl: "saveHandler.php",
      *         removeUrl: "removeHandler.php",
+     *         removeField: "fileNames[]",
      *         autoUpload: true
      *     }
      * });
@@ -131,7 +142,7 @@
      * });
      */
     var kendo = window.kendo,
-        Component = kendo.ui.Component,
+        Widget = kendo.ui.Widget,
         rFileExtension = /\.([^\.]+)$/,
         SELECT = "select",
         UPLOAD = "upload",
@@ -142,10 +153,10 @@
         LOAD = "load",
         REMOVE = "remove";
 
-    var Upload = Component.extend(/** @lends kendo.ui.Upload.prototype */{
+    var Upload = Widget.extend(/** @lends kendo.ui.Upload.prototype */{
         /**
          * @constructs
-         * @extends kendo.ui.Component
+         * @extends kendo.ui.Widget
          * @param {DomElement} element DOM element
          * @param {Object} options Configuration options.
          * @option {Boolean} [enabled] <true>
@@ -168,7 +179,14 @@
          *     <dd>
          *         The URL of the handler that will receive the submitted files.
          *         The handler must accept POST requests containing one or more
-         *         files with the same name as the upload component.
+         *         fields with the same name as the original input name.
+         *     </dd>
+         *     <dt>
+         *         saveField: (String)
+         *     </dt>
+         *     <dd>
+         *         The name of the form field submitted to the Save URL.
+         *         The default value is the input name.
          *     </dd>
          *     <dt>
          *         removeUrl: (String)
@@ -184,6 +202,13 @@
          *     <dd>
          *         The HTTP verb to be used by the remove action.
          *         The default value is "DELETE".
+         *     </dd>
+         *     <dt>
+         *         removeField: (String)
+         *     </dt>
+         *     <dd>
+         *         The name of the form field submitted to the Remove URL.
+         *         The default value is fileNames.
          *     </dd>
          *     <dt>
          *         autoUpload: (Boolean)
@@ -223,7 +248,7 @@
         init: function(element, options) {
             var that = this;
 
-            Component.fn.init.call(that, element, options);
+            Widget.fn.init.call(that, element, options);
 
             that.name = element.name;
             that.multiple = that.options.multiple;
@@ -407,11 +432,13 @@
         },
 
         options: {
+            name: "Upload",
             enabled: true,
             multiple: true,
             showFileList: true,
             async: {
-                removeVerb: "POST"
+                removeVerb: "POST",
+                autoUpload: true
             },
             localization: {
                 "select": "Select...",
@@ -533,7 +560,8 @@
             }
 
             existingFileEntries = $(".k-file", fileList);
-            fileEntry = $("<li class='k-file'><span class='k-icon'></span><span class='k-filename'>" + name + "</span></li>")
+            fileEntry =
+                $("<li class='k-file'><span class='k-icon'></span><span class='k-filename' title='" + name + "'>" + name + "</span></li>")
                 .appendTo(fileList)
                 .data(data);
 
@@ -783,8 +811,11 @@
         },
 
         _submitRemove: function(fileNames, data, onSuccess, onError) {
-            var params = $.extend(data, getAntiForgeryTokens());
-            params["fileNames"] = fileNames;
+            var upload = this,
+                removeField = upload.options.async.removeField || "fileNames",
+                params = $.extend(data, getAntiForgeryTokens());
+
+            params[removeField] = fileNames;
 
             $.ajax({
                   type: this.options.async.removeVerb,
@@ -861,6 +892,8 @@
             .bind("t:abort", $.proxy(this.onAbort, this));
     };
 
+    Upload._frameId = 0;
+
     iframeUploadModule.prototype = /** @ignore */ {
         onSelect: function(e) {
             var upload = this.upload,
@@ -882,12 +915,12 @@
         prepareUpload: function(sourceInput) {
             var upload = this.upload;
             var activeInput = $(upload.element);
-            var name = sourceInput.attr("name");
+            var name = upload.options.async.saveField || sourceInput.attr("name");
             upload._addInput(sourceInput.clone().val(""));
 
             sourceInput.attr("name", name);
 
-            var iframe = this.createFrame(upload.name + "_" + this.iframes.length);
+            var iframe = this.createFrame(upload.name + "_" + Upload._frameId++);
             this.registerFrame(iframe);
 
             var form = this.createForm(upload.options.async.saveUrl, iframe.attr("name"))
@@ -1066,6 +1099,7 @@
 
         cleanupFrame: function(frame) {
             var form = frame.data("form");
+
             frame.data("file").data("frame", null);
 
             setTimeout(function () {
@@ -1223,9 +1257,10 @@
         },
 
         createFormData: function(fileInfo) {
-            var formData = new FormData();
+            var formData = new FormData(),
+            upload = this.upload;
 
-            formData.append(this.upload.name, fileInfo.rawFile);
+            formData.append(upload.options.async.saveField || upload.name, fileInfo.rawFile);
 
             return formData;
         },
@@ -1236,6 +1271,7 @@
             tryParseJSON(xhr.responseText,
                 function(jsonResult) {
                     fileEntry.trigger("t:upload-success", [ jsonResult, xhr ]);
+                    fileEntry.trigger("t:progress", [ 100 ]);
                     module.cleanupFileEntry(fileEntry);
                 },
                 function() {
@@ -1425,5 +1461,5 @@
 
         return tokens;
     }
-    kendo.ui.plugin("Upload", Upload);
+    kendo.ui.plugin(Upload);
 })(jQuery);

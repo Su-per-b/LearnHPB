@@ -1,3 +1,13 @@
+/*
+* Kendo UI v2011.3.1129 (http://kendoui.com)
+* Copyright 2011 Telerik AD. All rights reserved.
+*
+* Kendo UI commercial licenses may be obtained at http://kendoui.com/license.
+* If you do not own a commercial license, this file shall be governed by the
+* GNU General Public License (GPL) version 3. For GPL requirements, please
+* review: http://www.gnu.org/copyleft/gpl.html
+*/
+
 (function($, undefined) {
     var kendo = window.kendo,
         ui = kendo.ui,
@@ -25,17 +35,17 @@
         MOUSEDOWN = touch ? "touchstart" : "mousedown",
         extend = $.extend,
         proxy = $.proxy,
-        Component = ui.Component;
+        Widget = ui.Widget;
 
     function contains(container, target) {
         return container === target || $.contains(container, target);
     }
 
-    var Popup = Component.extend({
+    var Popup = Widget.extend({
         init: function(element, options) {
             var that = this;
 
-            Component.fn.init.call(that, element, options);
+            Widget.fn.init.call(that, element, options);
 
             options = that.options;
 
@@ -49,6 +59,7 @@
                 .addClass("k-popup k-group k-reset")
                 .css({ position : ABSOLUTE })
                 .appendTo($(options.appendTo));
+
 
             that.wrapper = $();
 
@@ -70,16 +81,19 @@
                 complete: function() {
                     that.wrapper.hide();
 
-                    var location = that.wrapper.data(LOCATION);
+                    var location = that.wrapper.data(LOCATION),
+                        anchor = $(options.anchor),
+                        direction, dirClass;
+
                     if (location) {
                         that.wrapper.css(location);
                     }
 
                     if (options.anchor != BODY) {
-                        var direction = options.anchor.hasClass(ACTIVEBORDER + "-down") ? "down" : "up";
-                        var dirClass = ACTIVEBORDER + "-" + direction;
+                        direction = anchor.hasClass(ACTIVEBORDER + "-down") ? "down" : "up";
+                        dirClass = ACTIVEBORDER + "-" + direction;
 
-                        options.anchor
+                        anchor
                             .removeClass(dirClass)
                             .children(ACTIVECHILDREN)
                             .removeClass(ACTIVE)
@@ -96,7 +110,7 @@
 
             $(document.documentElement).bind(MOUSEDOWN, proxy(that._mousedown, that));
 
-            $(window).bind("resize", function() {
+            $(window).bind("resize scroll", function() {
                 that.close();
             });
 
@@ -105,6 +119,7 @@
             }
         },
         options: {
+            name: "Popup",
             toggleEvent: "click",
             origin: BOTTOM + " " + LEFT,
             position: TOP + " " + LEFT,
@@ -114,6 +129,7 @@
             animation: {
                 open: {
                     effects: "slideIn:down",
+                    transition: !/chrome/i.test(navigator.userAgent),
                     duration: 200,
                     show: true
                 },
@@ -130,7 +146,8 @@
                 element = that.element,
                 options = that.options,
                 direction = "down",
-                animation;
+                animation, wrapper,
+                anchor = $(options.anchor);
 
             if (!that.visible()) {
 
@@ -138,17 +155,17 @@
                     return;
                 }
 
-                that.wrapper = kendo.wrap(element)
-                                    .css({
-                                        overflow: HIDDEN,
-                                        display: "block",
-                                        position: ABSOLUTE
-                                    });
+                that.wrapper = wrapper = kendo.wrap(element)
+                                        .css({
+                                            overflow: HIDDEN,
+                                            display: "block",
+                                            position: ABSOLUTE
+                                        });
 
-                that.wrapper.css(POSITION);
+                wrapper.css(POSITION);
 
                 if (options.appendTo == BODY) {
-                    that.wrapper.css(TOP, "-10000px");
+                    wrapper.css(TOP, "-10000px");
                 }
 
                 animation = extend({}, options.animation.open);
@@ -166,7 +183,7 @@
 
                     element.addClass(ACTIVEBORDER + "-" + kendo.directions[direction].reverse);
 
-                    options.anchor
+                    anchor
                         .addClass(dirClass)
                         .children(ACTIVECHILDREN)
                         .addClass(ACTIVE)
@@ -222,7 +239,13 @@
                 options = that.options,
                 anchor = $(options.anchor)[0],
                 toggleTarget = options.toggleTarget,
-                target = e.target;
+                target = e.target,
+                popup = $(target).closest(".k-popup")[0];
+
+
+            if (popup && popup !== that.element[0] ){
+                return;
+            }
 
             if (!contains(container, target) && !contains(anchor, target) && !(toggleTarget && contains($(toggleTarget)[0], target))) {
                 that.close();
@@ -398,5 +421,5 @@
         }
     });
 
-    ui.plugin("Popup", Popup);
+    ui.plugin(Popup);
 })(jQuery);

@@ -1,3 +1,13 @@
+/*
+* Kendo UI v2011.3.1129 (http://kendoui.com)
+* Copyright 2011 Telerik AD. All rights reserved.
+*
+* Kendo UI commercial licenses may be obtained at http://kendoui.com/license.
+* If you do not own a commercial license, this file shall be governed by the
+* GNU General Public License (GPL) version 3. For GPL requirements, please
+* review: http://www.gnu.org/copyleft/gpl.html
+*/
+
 (function ($, undefined) {
     /**
      * @name kendo.ui.Menu.Description
@@ -38,11 +48,11 @@
      * @exampleTitle Changing Menu animation and open behavior
      * @example
      * $("#menu").kendoMenu({
-	 *      animation: {
-	 *        open : {effects: fadeIn},
-	 *        hoverDelay: 500
-	 *      },
-	 *      openOnClick: true
+     *      animation: {
+     *        open : {effects: fadeIn},
+     *        hoverDelay: 500
+     *      },
+     *      openOnClick: true
      *  });
      *
      *  @section
@@ -64,8 +74,8 @@
      *  var menu = $("#menu").kendoMenu().data("kendoMenu");
      *
      *  menu.insertAfter(
-	 *      { text: "New Menu Item" },
-	 *      menu.element.children("li:last")
+     *      { text: "New Menu Item" },
+     *      menu.element.children("li:last")
      *  );
      *
      */
@@ -76,7 +86,7 @@
         proxy = $.proxy,
         each = $.each,
         template = kendo.template,
-        Component = ui.Component,
+        Widget = ui.Widget,
         excludedNodesRegExp = /^(ul|a|div)$/i,
         IMG = "img",
         OPEN = "open",
@@ -88,6 +98,7 @@
         TIMER = "timer",
         FIRST = "k-first",
         IMAGE = "k-image",
+        EMPTY = ":empty",
         SELECT = "select",
         ZINDEX = "zIndex",
         MOUSEENTER = "mouseenter",
@@ -262,15 +273,15 @@
         item.filter(":last-child").addClass(LAST);
     }
 
-    var Menu = Component.extend({/** @lends kendo.ui.Menu.prototype */
+    var Menu = Widget.extend({/** @lends kendo.ui.Menu.prototype */
         /**
          * Creates a Menu instance.
          * @constructs
-         * @extends kendo.ui.Component
-         * @class Menu UI component
+         * @extends kendo.ui.Widget
+         * @class Menu UI widget
          * @param {Selector} element DOM element
          * @param {Object} options Configuration options.
-         * @option {Object} [animation] A collection of <b>Animation</b> objects, used to change default animations. A value of false will disable all animations in the component.
+         * @option {Object} [animation] A collection of <b>Animation</b> objects, used to change default animations. A value of false will disable all animations in the widget.
          * @option {Animation} [animation.open] The animation that will be used when opening sub menus.
          * @option {Animation} [animation.close] The animation that will be used when closing sub menus.
          * @option {String} [orientation] <"horizontal"> Root menu orientation.
@@ -281,9 +292,21 @@
             element = $(element);
             var that = this;
 
-            Component.fn.init.call(that, element, options);
+            Widget.fn.init.call(that, element, options);
 
             options = that.options;
+
+            if (that.element.is(EMPTY)) {
+                that.element.append($(Menu.renderGroup({
+                    items: options.dataSource,
+                    group: {
+                        firstLevel: true,
+                        horizontal: that.element.hasClass(MENU + "-horizontal"),
+                        expanded: true
+                    },
+                    menu: {}
+                })).children());
+            }
 
             that._updateClasses();
 
@@ -332,6 +355,7 @@
             ], that.options);
         },
         options: {
+            name: "Menu",
             animation: {
                 open: {
                     duration: 200,
@@ -655,7 +679,6 @@
 
         _click: function (e) {
             var that = this, openHandle;
-            e.stopPropagation();
 
             var element = $(e.currentTarget);
 
@@ -664,7 +687,10 @@
                 return;
             }
 
-            that.trigger(SELECT, { item: element[0] });
+            if (!e.handled) // We shouldn't stop propagation.
+                that.trigger(SELECT, { item: element[0] });
+
+            e.handled = true;
 
             if (!element.parent().hasClass(MENU) || (!that.options.openOnClick && !touch)) {
                 return;
@@ -733,6 +759,6 @@
         }
     });
 
-    kendo.ui.plugin("Menu", Menu, Component);
+    kendo.ui.plugin(Menu);
 
 })(jQuery);

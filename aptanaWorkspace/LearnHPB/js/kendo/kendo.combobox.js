@@ -1,12 +1,21 @@
+/*
+* Kendo UI v2011.3.1129 (http://kendoui.com)
+* Copyright 2011 Telerik AD. All rights reserved.
+*
+* Kendo UI commercial licenses may be obtained at http://kendoui.com/license.
+* If you do not own a commercial license, this file shall be governed by the
+* GNU General Public License (GPL) version 3. For GPL requirements, please
+* review: http://www.gnu.org/copyleft/gpl.html
+*/
+
 (function($, undefined) {
     /**
     * @name kendo.ui.ComboBox.Description
     *
     * @section
     *   <p>
-    *       The ComboBox widget displays flat data as a list of values and allows the selection of
-    *       a single value from the list or the input of a new value. It is a richer version of the
-    *       standard HTML select, providing support for local and remote data binding, item templates,
+    *       The ComboBox widget allows the selection from pre-defined values or entering a new value.
+    *       It is a richer version of the standard HTML select, providing support for local and remote data binding, item templates,
     *       and configurable options for controlling the list behavior.
     *   </p>
     *   If you do not want to allow user input, use the <a href="../dropdownlist/index.html" title="Kendo UI DropDownList">Kendo UI DropDownList</a>.
@@ -42,7 +51,7 @@
     * @exampleTitle ComboBox initialization
     * @example
     *   $(document).ready(function(){
-    *       $("#combobox").kendComboBox();
+    *       $("#combobox").kendoComboBox();
     *   });
     *
     * @section
@@ -78,7 +87,7 @@
     *   <p>
     *       ComboBox leverages Kendo UI high-performance Templates to give you complete control
     *       over item rendering. For a complete overview of Kendo UI Template capabilities and syntax,
-    *       please review the <a href="../templates/index.html" title="Kendo UI Template">Kendo UI Template</a> component demos and documentation.
+    *       please review the <a href="../templates/index.html" title="Kendo UI Template">Kendo UI Template</a> demos and documentation.
     *   </p>
     * @exampleTitle Basic item template customization
     * @example
@@ -122,12 +131,16 @@
         CLICK = "click",
         ATTRIBUTE = "disabled",
         CHANGE = "change",
+        DEFAULT = "k-state-default",
         DISABLED = "k-state-disabled",
+        FOCUSED = "k-state-focused",
         SELECT = "select",
         STATE_SELECTED = "k-state-selected",
+        STATE_FILTER = "filter",
+        STATE_ACCEPT = "accept",
         HOVER = "k-state-hover",
         HOVEREVENTS = "mouseenter mouseleave",
-        INPUTWRAPPER = ".k-dropdown-wrap",
+        NULL = null,
         proxy = $.proxy;
 
     var ComboBox = Select.extend(/** @lends kendo.ui.ComboBox.prototype */{
@@ -139,7 +152,7 @@
         * @option {kendo.data.DataSource|Object} [dataSource] Instance of DataSource or the data that the ComboBox will be bound to.
         * @option {Boolean} [enable] <true> Controls whether the ComboBox should be initially enabled.
         * @option {Number} [index] <-1> Defines the initial selected item.
-        * @option {Boolean} [autoBind] <true> Controls whether to bind the component on initialization.
+        * @option {Boolean} [autoBind] <true> Controls whether to bind the widget on initialization.
         * @option {Boolean} [highlightFirst] <true> Controls whether the first item will be automatically highlighted.
         * @option {Boolean} [suggest] <false> Controls whether the ComboBox should automatically auto-type the rest of text.
         * @option {Number} [delay] <200> Specifies the delay in ms after which the ComboBox will start filtering dataSource.
@@ -156,8 +169,12 @@
 
             Select.fn.init.call(that, element, options);
 
-            element = that.element;
             options = that.options;
+            element = that.element.focus(function() {
+                        that.input.focus();
+                      });
+
+            that._reset();
 
             that._wrapper();
 
@@ -196,22 +213,21 @@
             that.input.bind({
                 keydown: proxy(that._keydown, that),
                 focus: function() {
-                    that.input.parent().addClass("k-state-focused");
+                    that._inputWrapper.addClass(FOCUSED);
                 },
                 blur: function() {
                     that._bluring = setTimeout(function() {
-                        if (!that._current) {
-                            that.text(that.text());
-                        }
-
                         clearTimeout(that._typing);
+
+                        that.text(that.text());
                         that._blur();
-                        that.input.parent().removeClass("k-state-focused");
+
+                        that._inputWrapper.removeClass(FOCUSED);
                     }, 100);
                 }
             });
 
-            that.previous = that.value();
+            that._old = that.value();
 
             if (options.autoBind) {
                 that._select();
@@ -221,13 +237,14 @@
         },
 
         options: {
+            name: "ComboBox",
             enable: true,
             index: -1,
             autoBind: true,
             delay: 200,
             dataTextField: "text",
             dataValueField: "value",
-            minLength: 1,
+            minLength: 0,
             height: 200,
             highlightFirst: true,
             filter: "none",
@@ -237,6 +254,12 @@
         current: function(li) {
             var that = this,
                 current = that._current;
+
+            if (li === undefined) {
+                return current;
+            }
+
+            that._selected = NULL;
 
             if (current) {
                 current.removeClass(STATE_SELECTED);
@@ -254,34 +277,32 @@
         */
 
         /**
-        * Enables/disables the combobox component
+        * Enables/disables the combobox widget
         * @param {Boolean} enable Desired state
         */
         enable: function(enable) {
             var that = this,
-                element = that.element,
-                wrapper = that.wrapper,
                 input = that.input,
-                arrowWrapper = that.arrow.parent();
+                element = that.element,
+                wrapper = that._inputWrapper,
+                arrow = that._arrow.parent();
 
             if (enable === false) {
                 wrapper
+                    .removeClass(DEFAULT)
                     .addClass(DISABLED)
-                    .children(INPUTWRAPPER)
                     .unbind(HOVEREVENTS);
 
-                input.attr(ATTRIBUTE, ATTRIBUTE);
-                element.attr(ATTRIBUTE, ATTRIBUTE);
-                arrowWrapper.unbind(CLICK);
+                input.add(element).attr(ATTRIBUTE, ATTRIBUTE);
+                arrow.unbind(CLICK);
             } else {
                 wrapper
                     .removeClass(DISABLED)
-                    .children(INPUTWRAPPER)
+                    .addClass(DEFAULT)
                     .bind(HOVEREVENTS, that._toggleHover);
 
-                input.removeAttr(ATTRIBUTE);
-                element.removeAttr(ATTRIBUTE);
-                arrowWrapper.bind(CLICK, function() { that.toggle() });
+                input.add(element).removeAttr(ATTRIBUTE);
+                arrow.bind(CLICK, function() { that.toggle() });
             }
         },
 
@@ -294,9 +315,13 @@
             var that = this,
                 selected = that._selected;
 
-            if (!that.ul[0].firstChild || (that._filtered && selected)) {
-                that.options.autoBind = false;
-                that._filtered = false;
+            if (that.popup.visible()) {
+                return;
+            }
+
+            if (!that.ul[0].firstChild || that._state === STATE_ACCEPT) {
+                that._open = true;
+                that._state = "";
                 that._select();
             } else {
                 that.popup.open();
@@ -312,7 +337,7 @@
                 options = that.options,
                 suggest = options.suggest,
                 height = options.height,
-                data = that.dataSource.view(),
+                data = that._data(),
                 length = data.length;
 
             ul[0].innerHTML = kendo.render(that.template, data);
@@ -332,7 +357,8 @@
                 }
             }
 
-            if (!options.autoBind) {
+            if (that._open) {
+                that._open = false;
                 that.toggle(!!length);
             }
 
@@ -361,7 +387,7 @@
                 text,
                 value,
                 idx = that._highlight(li),
-                data = that.dataSource.view();
+                data = that._data();
 
             if (idx !== -1) {
                 that._selected = that._current.addClass(STATE_SELECTED);
@@ -370,8 +396,8 @@
                 text = that._text(data);
                 value = that._value(data);
 
-                that.input[0].value = text;
-                that.element[0].value = value !== undefined ? value : text;
+                that._prev = that.input[0].value = text;
+                that._accessor(value != undefined ? value : text, idx);
             }
         },
 
@@ -393,15 +419,17 @@
 
             clearTimeout(that._typing);
 
-            if (!length) {
-                that.close();
-            } else if (length >= options.minLength) {
+            if (length >= options.minLength) {
                 if (filter === "none") {
                     that._filter(word);
                 } else {
-                    that._filtered = true;
-                    options.autoBind = false;
-                    that.dataSource.filter( {field: options.dataTextField, operator: filter, value: word } );
+                    that._open = true;
+                    that._state = STATE_FILTER,
+                    that.dataSource.filter( {
+                        field: options.dataTextField,
+                        operator: filter,
+                        value: word
+                    });
                 }
             }
         },
@@ -452,7 +480,6 @@
 
                 if (!that._selected) {
                     that._custom(text);
-                    that.element.val(text);
                 }
 
                 input.value = text;
@@ -474,7 +501,7 @@
             var that = this;
             clearTimeout(that._bluring);
             that.input[0].focus();
-            setTimeout( function () { that._toggle(toggle); }, 0); // Fixes an annoying flickering issue in iOS.
+            setTimeout( function () { that._toggle(toggle); }); // Fixes an annoying flickering issue in iOS.
         },
 
         /**
@@ -501,37 +528,30 @@
                 if (idx > -1) {
                     that.select(idx);
                 } else {
-                    that.current(null);
+                    that.current(NULL);
                     that._custom(value);
-
-                    element.val(value);
                     that.text(value);
                 }
 
-                that.previous = element.val();
+                that._old = that._accessor();
             } else {
-                return element.val();
+                return that._accessor();
             }
         },
 
         _accept: function(li) {
-            var that = this,
-                previous;
-
-            if (li) {
-                setTimeout( function () { that._focus(li); }, 0);
-            } else {
-                previous = that.previous;
-                that.value(that.text());
-                that.previous = previous;
-                that._change();
-            }
-        },
-
-        _clear: function() {
             var that = this;
-            if (!that.text()) {
-                that.current(null);
+
+            if (li && that.popup.visible()) {
+
+                if (that._state === STATE_FILTER) {
+                    that._state = STATE_ACCEPT;
+                }
+
+                setTimeout( function () { that._focus(li); });
+            } else {
+                that.text(that.text());
+                that._change();
             }
         },
 
@@ -546,6 +566,9 @@
                     element.append(custom);
                 }
                 custom.text(value);
+                custom[0].selected = true;
+            } else {
+                element.val(value);
             }
         },
 
@@ -557,16 +580,17 @@
                 predicate = function (dataItem) {
                     var text = that._text(dataItem);
                     if (text !== undefined) {
-                        return (text + "").toLowerCase().indexOf(word) === 0;
+                        text = text + "";
+                        if (text !== "" && word === "") {
+                            return false;
+                        }
+
+                        return text.toLowerCase().indexOf(word) === 0;
                     }
                 };
 
             if (!that.ul[0].firstChild) {
-                options.autoBind = true;
-                dataSource.bind(CHANGE, function search() {
-                    that.search(word);
-                    dataSource.unbind(CHANGE, search);
-                }).fetch();
+                dataSource.one(CHANGE, function () { that.search(word); }).fetch();
                 return;
             }
 
@@ -581,21 +605,26 @@
         },
 
         _highlight: function(li) {
-            var that = this;
+            var that = this, idx;
 
             if (li == undefined) {
                 return -1;
             }
 
-            that.current(null);
-
             li = that._get(li);
+            idx = List.inArray(li[0], that.ul[0]);
 
-            if (li[0] && !li.hasClass("k-state-focused")) {
-                that.current(li);
+            if (idx == -1) {
+                if (that.options.highlightFirst && !that.text()) {
+                    li = $(that.ul[0].firstChild);
+                } else {
+                    li = NULL;
+                }
             }
 
-            return List.inArray(li[0], that.ul[0]);
+            that.current(li);
+
+            return idx;
         },
 
         _input: function() {
@@ -608,22 +637,24 @@
             input = wrapper.find(SELECTOR);
 
             if (!input[0]) {
-                wrapper.append('<div class="k-dropdown-wrap k-state-default"><input class="k-input" type="text" autocomplete="off"/><span class="k-select"><span class="k-icon k-arrow-down">select</span></span></div>')
+                wrapper.append('<span class="k-dropdown-wrap k-state-default"><input class="k-input" type="text" autocomplete="off"/><span class="k-select"><span class="k-icon k-arrow-down">select</span></span></span>')
                        .append(that.element);
 
                 input = wrapper.find(SELECTOR);
             }
 
             input[0].style.cssText = element.style.cssText;
-            input.css({
-                width: "100%",
-                height: "auto"
-            });
-            input.addClass(element.className).show();
+            input.addClass(element.className)
+                 .val(element.value)
+                 .css({
+                    width: "100%",
+                    height: "auto"
+                 })
+                 .show();
 
             that._focused = that.input = input;
-
-            that.arrow = wrapper.find(".k-icon");
+            that._arrow = wrapper.find(".k-icon");
+            that._inputWrapper = $(wrapper[0].firstChild)
         },
 
         _keydown: function(e) {
@@ -631,11 +662,14 @@
 
             if (kendo.keys.TAB === e.keyCode) {
                 that.text(that.input.val());
-            } else if (!that._move(e)) {
-                that._search();
-            }
 
-            setTimeout(proxy(that._clear, that));
+                if (that._state === STATE_FILTER && that._selected) {
+                    that._state = STATE_ACCEPT;
+                }
+
+            } else if (!that._move(e)) {
+               that._search();
+            }
         },
 
         _search: function() {
@@ -644,31 +678,27 @@
 
             that._typing = setTimeout(function() {
                 var value = that.text();
-                if (that._prevText !== value) {
-                    that._prevText = value;
+                if (that._prev !== value) {
+                    that._prev = value;
                     that.search(value);
                 }
             }, that.options.delay);
         },
 
         _select: function() {
-            var that = this,
-                dataSource = that.dataSource,
-                handler = function () {
-                    var value = that.value();
-                    if (value) {
-                        that.value(value);
-                    } else {
-                        that.select(that.options.index);
-                    }
+            var that = this;
 
-                    that.previous = that.value();
-                    dataSource.unbind(CHANGE, handler);
-                };
+            that.dataSource.one(CHANGE, function() {
+                var value = that.value();
+                if (value) {
+                    that.value(value);
+                } else {
+                    that.select(that.options.index);
+                }
 
-            dataSource.bind(CHANGE, handler).query();
+                that._old = that.value();
+            }).query();
         },
-
 
         _wrapper: function() {
             var that = this,
@@ -677,8 +707,8 @@
 
             wrapper = element.parent();
 
-            if (!wrapper.is("div.k-widget")) {
-                wrapper = element.hide().wrap("<div />").parent();
+            if (!wrapper.is("span.k-widget")) {
+                wrapper = element.hide().wrap("<span />").parent();
             }
 
             wrapper[0].style.cssText = element[0].style.cssText;
@@ -686,5 +716,5 @@
         }
     });
 
-    ui.plugin("ComboBox", ComboBox);
+    ui.plugin(ComboBox);
 })(jQuery);

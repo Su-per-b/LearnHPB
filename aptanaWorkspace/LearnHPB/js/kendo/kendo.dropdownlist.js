@@ -1,13 +1,22 @@
+/*
+* Kendo UI v2011.3.1129 (http://kendoui.com)
+* Copyright 2011 Telerik AD. All rights reserved.
+*
+* Kendo UI commercial licenses may be obtained at http://kendoui.com/license.
+* If you do not own a commercial license, this file shall be governed by the
+* GNU General Public License (GPL) version 3. For GPL requirements, please
+* review: http://www.gnu.org/copyleft/gpl.html
+*/
+
 (function($, undefined) {
     /**
     * @name kendo.ui.DropDownList.Description
     *
     * @section
     *   <p>
-    *       The DropDownList widget displays flat data as a list of values and allows the
-    *       selection of a single value from the list. It is a richer version of the standard
-    *       HTML select, providing support for local and remote data binding, item templates, and
-    *       configurable options for controlling the list behavior.
+    *       The DropDownList widget displays a list of values and allows the selection of a single value from the list.
+    *       It is a richer version of the standard HTML select, providing support for local and remote data binding, item templates,
+    *       and configurable options for controlling the list behavior.
     *   </p>
     *   If you want to allow user input, use the <a href="../combobox/index.html" title="Kendo UI ComboBox">Kendo UI ComboBox</a>.
     *
@@ -42,7 +51,7 @@
     * @exampleTitle DropDownList initialization
     * @example
     *   $(document).ready(function(){
-    *       $("#dropdownlist").kendDropDownList();
+    *       $("#dropdownlist").kendoDropDownList();
     *   });
     *
     * @section
@@ -78,7 +87,7 @@
     *   <p>
     *       DropDownList leverages Kendo UI high-performance Templates to give you complete control
     *       over item rendering. For a complete overview of Kendo UI Template capabilities and syntax,
-    *       please review the <a href="../templates/index.html" title="Kendo UI Template">Kendo UI Template</a> component demos and documentation.
+    *       please review the <a href="../templates/index.html" title="Kendo UI Template">Kendo UI Template</a> demos and documentation.
     *   </p>
     * @exampleTitle Basic item template customization
     * @example
@@ -118,10 +127,13 @@
     var kendo = window.kendo,
         ui = kendo.ui,
         Select = ui.Select,
+        ATTRIBUTE = "disabled",
         CHANGE = "change",
         SELECT = "select",
-        SELECTED = "k-state-selected",
+        FOCUSED = "k-state-focused",
+        DEFAULT = "k-state-default",
         DISABLED = "k-state-disabled",
+        SELECTED = "k-state-selected",
         HOVER = "k-state-hover",
         HOVEREVENTS = "mouseenter mouseleave",
         INPUTWRAPPER = ".k-dropdown-wrap",
@@ -136,11 +148,12 @@
          * @option {kendo.data.DataSource|Object} [dataSource] Instance of DataSource or the data that the DropDownList will be bound to.
          * @option {Boolean} [enable] <true> Controls whether the DropDownList should be initially enabled.
          * @option {Number} [index] <0> Defines the initial selected item.
-         * @option {Boolean} [autoBind] <true> Controls whether to bind the component on initialization.
+         * @option {Boolean} [autoBind] <true> Controls whether to bind the widget on initialization.
          * @option {Number} [delay] <500> Specifies the delay in ms before the search text typed by the end user is cleared.
          * @option {String} [dataTextField] <"text"> Sets the field of the data item that provides the text content of the list items.
          * @option {String} [dataValueField] <"value"> Sets the field of the data item that provides the value content of the list items.
          * @option {Number} [height] <200> Define the height of the drop-down list in pixels.
+         * @option {String} [optionLabel] Define the text of the default empty item.
          */
         init: function(element, options) {
             var that = this,
@@ -149,8 +162,12 @@
 
             Select.fn.init.call(that, element, options);
 
-            element = that.element;
             options = that.options;
+            element = that.element.focus(function() {
+                that.wrapper.focus();
+            });
+
+            that._reset();
 
             that._word = "";
 
@@ -196,6 +213,7 @@
         },
 
         options: {
+            name: "DropDownList",
             enable: true,
             index: 0,
             autoBind: true,
@@ -214,49 +232,51 @@
         */
 
         /**
-        * Enables/disables the dropdownlist component
+        * Enables/disables the dropdownlist widget
         * @param {Boolean} enable Desired state
         */
         enable: function(enable) {
             var that = this,
-                wrapper = that.wrapper,
                 element = that.element,
-                ATTRIBUTE = "disabled";
+                wrapper = that.wrapper,
+                dropDownWrapper = that._inputWrapper;
 
             if (enable === false) {
-                wrapper
-                    .addClass(DISABLED)
-                    .unbind()
-                    .children(INPUTWRAPPER)
-                    .unbind(HOVEREVENTS);
                 element.attr(ATTRIBUTE, ATTRIBUTE);
+
+                wrapper.unbind();
+
+                dropDownWrapper
+                    .removeClass(DEFAULT)
+                    .addClass(DISABLED)
+                    .unbind(HOVEREVENTS)
+
             } else {
                 element.removeAttr(ATTRIBUTE, ATTRIBUTE);
-                wrapper
+
+                dropDownWrapper
+                    .addClass(DEFAULT)
                     .removeClass(DISABLED)
+                    .bind(HOVEREVENTS, that._toggleHover);
+
+                wrapper
                     .bind({
                         keydown: proxy(that._keydown, that),
                         keypress: proxy(that._keypress, that),
                         focusin: function() {
-                            that.span.parent().addClass("k-state-focused");
+                            that._inputWrapper.addClass(FOCUSED);
                             clearTimeout(that._bluring);
                         },
                         click: function() {
-                            if(!that.ul[0].firstChild) {
-                                that.dataSource.fetch();
-                            } else {
-                                that.toggle();
-                            }
+                            that.toggle();
                         },
                         focusout: function(e) {
                             that._bluring = setTimeout(function() {
                                 that._blur();
-                                that.span.parent().removeClass("k-state-focused");
+                                that._inputWrapper.removeClass(FOCUSED);
                             }, 100);
                         }
-                    })
-                    .children(INPUTWRAPPER)
-                    .bind(HOVEREVENTS, that._toggleHover);
+                    });
             }
         },
 
@@ -270,7 +290,7 @@
                 current = that._current;
 
             if (!that.ul[0].firstChild) {
-                that.options.autoBind = false;
+                that._open = true;
                 that.dataSource.fetch();
             } else {
                 that.popup.open();
@@ -297,7 +317,7 @@
             var that = this,
                 value = that.value(),
                 options = that.options,
-                data = that.dataSource.view(),
+                data = that._data(),
                 length = data.length;
 
             that.ul[0].innerHTML = kendo.render(that.template, data);
@@ -313,9 +333,9 @@
                 that.select(options.index);
             }
 
-            that.previous = that.value();
+            that._old = that.value();
 
-            if (!options.autoBind) {
+            if (that._open) {
                 that.toggle(length);
             }
 
@@ -364,11 +384,12 @@
         */
         select: function(li) {
             var that = this,
-                idx,
-                text,
+                element = that.element[0],
+                current = that._current,
+                data = that._data(),
                 value,
-                data = that.dataSource.view(),
-                current = that._current;
+                text,
+                idx;
 
             li = that._get(li);
 
@@ -384,7 +405,7 @@
                     value = that._value(data);
 
                     that.text(text);
-                    that.element[0].value = value != undefined ? value : text;
+                    that._accessor(value != undefined ? value : text, idx);
                     that.current(li.addClass(SELECTED));
                 }
             }
@@ -432,14 +453,46 @@
                 idx = that._index(value);
 
                 that.select(idx > -1 ? idx : 0);
-                that.previous = element.val();
+                that._old = that._accessor();
             } else {
-                return element.val();
+                return that._accessor();
             }
         },
 
         _accept: function(li) {
             this._focus(li);
+        },
+
+        _data: function() {
+            var that = this,
+                options = that.options,
+                optionLabel = options.optionLabel,
+                textField = options.dataTextField,
+                valueField = options.dataValueField,
+                data = that.dataSource.view(),
+                length = data.length,
+                first = optionLabel,
+                idx = 0;
+
+            if (optionLabel && length) {
+                if (textField) {
+                    first = {};
+                    first[textField] = optionLabel;
+
+                    if (valueField) {
+                        first[valueField] = "";
+                    }
+                }
+
+                first = [first];
+
+                for (; idx < length; idx++) {
+                    first.push(data[idx]);
+                }
+                data = first;
+            }
+
+            return data;
         },
 
         _keydown: function(e) {
@@ -488,14 +541,15 @@
             span = wrapper.find(SELECTOR);
 
             if (!span[0]) {
-                wrapper.append('<div class="k-dropdown-wrap k-state-default"><span class="k-input">&nbsp;</span><span class="k-select"><span class="k-icon k-arrow-down">select</span></span></div>')
+                wrapper.append('<span class="k-dropdown-wrap k-state-default"><span class="k-input">&nbsp;</span><span class="k-select"><span class="k-icon k-arrow-down">select</span></span></span>')
                        .append(that.element);
 
                 span = wrapper.find(SELECTOR);
             }
-            that.span = span;
 
-            that.arrow = wrapper.find(".k-icon");
+            that.span = span;
+            that._arrow = wrapper.find(".k-icon");
+            that._inputWrapper = $(wrapper[0].firstChild)
         },
 
         _wrapper: function() {
@@ -507,8 +561,8 @@
 
             wrapper = element.parent();
 
-            if (!wrapper.is("div.k-widget")) {
-                wrapper = element.wrap("<div />").parent();
+            if (!wrapper.is("span.k-widget")) {
+                wrapper = element.wrap("<span />").parent();
             }
 
             if (!wrapper.attr(TABINDEX)) {
@@ -524,5 +578,5 @@
         }
     });
 
-    ui.plugin("DropDownList", DropDownList);
+    ui.plugin(DropDownList);
 })(jQuery);

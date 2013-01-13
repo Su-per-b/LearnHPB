@@ -1,7 +1,17 @@
+/*
+* Kendo UI v2011.3.1129 (http://kendoui.com)
+* Copyright 2011 Telerik AD. All rights reserved.
+*
+* Kendo UI commercial licenses may be obtained at http://kendoui.com/license.
+* If you do not own a commercial license, this file shall be governed by the
+* GNU General Public License (GPL) version 3. For GPL requirements, please
+* review: http://www.gnu.org/copyleft/gpl.html
+*/
+
 (function ($, undefined) {
     var kendo = window.kendo,
         document = window.document,
-        Component = kendo.ui.Component,
+        Widget = kendo.ui.Widget,
         proxy = $.proxy,
         extend = $.extend,
         touch = kendo.support.touch,
@@ -57,10 +67,10 @@
         }
     }
 
-    var DropTarget = Component.extend(/** @lends kendo.ui.DropTarget.prototype */ {
+    var DropTarget = Widget.extend(/** @lends kendo.ui.DropTarget.prototype */ {
         /**
          * @constructs
-         * @extends kendo.ui.Component
+         * @extends kendo.ui.Widget
          * @param {DomElement} element DOM element
          * @param {Object} options Configuration options.
          * @option {String} [group] <"default"> Used to group sets of draggable and drop targets. A draggable with the same group value as a drop target will be accepted by the drop target.
@@ -68,7 +78,7 @@
         init: function(element, options) {
             var that = this;
 
-            Component.fn.init.call(that, element, options);
+            Widget.fn.init.call(that, element, options);
 
             that.element.bind(MOUSEENTER, proxy(that._over, that))
                 .bind(MOUSEUP, proxy(that._drop, that))
@@ -97,6 +107,7 @@
                  * @event
                  * @param {Event} e
                  * @param {jQueryObject} e.draggable Reference to the draggable that is dropped over the drop target.
+                 * @param {jQueryObject} e.draggable.currentTarget The element that the drag and drop operation started from.
                  */
                 DROP
             ], that.options);
@@ -111,6 +122,7 @@
         },
 
         options: {
+            name: "DropTarget",
             group: "default"
         },
 
@@ -143,7 +155,7 @@
         }
     });
 
-    kendo.ui.plugin("DropTarget", DropTarget);
+    kendo.ui.plugin(DropTarget);
 
     /**
      * @name kendo.ui.Draggable.Description
@@ -162,16 +174,16 @@
      * @example
      * var dropTarget = $("#dropTarget").kendoDropTarget();
      */
-    var Draggable = Component.extend(/** @lends kendo.ui.Draggable.prototype */{
+    var Draggable = Widget.extend(/** @lends kendo.ui.Draggable.prototype */{
         /**
          * @constructs
-         * @extends kendo.ui.Component
+         * @extends kendo.ui.Widget
          * @param {DomElement} element DOM element
          * @param {Object} options Configuration options.
          * @option {Integer} [distance] <5> The required distance that the mouse should travel in order to initiate a drag.
-         * @option {Selector} [filter] Selects child elements that are draggable if component is attached to a container.
+         * @option {Selector} [filter] Selects child elements that are draggable if a widget is attached to a container.
          * @option {String} [group] <"default"> Used to group sets of draggable and drop targets. A draggable with the same group value as a drop target will be accepted by the drop target.
-         * @option {Function|jQuery} [hint] Provides a way for customization of the drag indicator.
+         * @option {Function|jQueryObject} [hint] Provides a way for customization of the drag indicator.
          * _example
          *  //hint as a function
          *  $("#draggable").kendoDraggable({
@@ -182,13 +194,13 @@
          *
          * //hint as jQuery object
          *  $("#draggable").kendoDraggable({
-         *      hint: return $("#draggableHint");
+         *      hint: $("#draggableHint");
          *  });
          */
         init: function (element, options) {
             var that = this;
 
-            Component.fn.init.call(that, element, options);
+            Widget.fn.init.call(that, element, options);
 
             bind(that.element, that.options.filter, MOUSEDOWN + NAMESPACE, proxy(that._wait, that));
 
@@ -220,11 +232,12 @@
         },
 
         options: {
+            name: "Draggable",
             distance: 5,
             group: "default",
             cursorOffset: {
                 left: 10,
-                top: 10
+                top: touch ? -40 / kendo.support.zoomLevel() : 10
             },
             dropped: false
         },
@@ -392,6 +405,6 @@
         }
     });
 
-    kendo.ui.plugin("Draggable", Draggable);
+    kendo.ui.plugin(Draggable);
 
  })(jQuery);

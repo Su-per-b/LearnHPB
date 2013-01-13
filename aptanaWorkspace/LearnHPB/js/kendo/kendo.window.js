@@ -1,3 +1,13 @@
+/*
+* Kendo UI v2011.3.1129 (http://kendoui.com)
+* Copyright 2011 Telerik AD. All rights reserved.
+*
+* Kendo UI commercial licenses may be obtained at http://kendoui.com/license.
+* If you do not own a commercial license, this file shall be governed by the
+* GNU General Public License (GPL) version 3. For GPL requirements, please
+* review: http://www.gnu.org/copyleft/gpl.html
+*/
+
 (function ($, undefined) {
     /**
      * @name kendo.ui.Window.Description
@@ -69,14 +79,14 @@
      *  <button id="btnOpen">Open Window</button>
      * @exampleTitle
      * @example
-     *  //Initialize Window, center, and configure button click action-->
+     *  // Initialize Window, center, and configure button click action
      *  $(document).ready(function(){
      *      var window = $("#window").kendoWindow({
-     *      title: "Centered Window",
-     *      width: "200px",
-     *      height: "200px",
-     *      visible: false
-     *  }).data("kendoWindow");
+     *              title: "Centered Window",
+     *              width: "200px",
+     *              height: "200px",
+     *              visible: false
+     *          }).data("kendoWindow");
      *  });
      *
      *  $("#btnOpen").click(function(){
@@ -97,21 +107,23 @@
      *  <div id="window"></div>
      * @exampleTitle
      * @example
-     *  //Initialize and configure to load content async -->
+     *  // Initialize window and configure content loading
      *  $(document).ready(function(){
      *      $("#window").kendoWindow({
      *        title: "Async Window Content",
-     *        contentUrl: "html-content-snippet.html"
+     *        content: "html-content-snippet.html"
      *      });
      *  });
      */
     var kendo = window.kendo,
-        Component = kendo.ui.Component,
+        Widget = kendo.ui.Widget,
         Draggable = kendo.ui.Draggable,
         fx = kendo.fx,
+        isPlainObject = $.isPlainObject,
         proxy = $.proxy,
         each = $.each,
         template = kendo.template,
+        body,
         templates,
         // classNames
         KWINDOW = ".k-window",
@@ -120,20 +132,20 @@
         KOVERLAY = ".k-overlay",
         LOADING = "k-loading",
         KHOVERSTATE = "k-state-hover",
+        // constants
         VISIBLE = ":visible",
+        CURSOR = "cursor",
         // events
         OPEN = "open",
         ACTIVATE = "activate",
+        DEACTIVATE = "deactivate",
         CLOSE = "close",
         REFRESH = "refresh",
         RESIZE = "resize",
+        DRAGEND = "dragend",
         ERROR = "error",
         OVERFLOW = "overflow",
-        localUrlRe = /^([a-z]+:)?\/\//i;
-
-    function isLocalUrl(url) {
-        return url && !localUrlRe.test(url);
-    }
+        isLocalUrl = kendo.isLocalUrl;
 
     function windowObject(element) {
         return element.children(KWINDOWCONTENT).data("kendoWindow");
@@ -147,10 +159,10 @@
     }
 
 
-    var Window = Component.extend(/** @lends kendo.ui.Window.prototype */ {
+    var Window = Widget.extend(/** @lends kendo.ui.Window.prototype */ {
         /**
          * @constructs
-         * @extends kendo.ui.Component
+         * @extends kendo.ui.Widget
          * @param {DomElement} element DOM element
          * @param {Object} options Configuration options.
          * @option {Boolean} [modal] <false> Specifies whether the window should block interaction with other page elements.
@@ -159,10 +171,10 @@
          * @option {Boolean} [resizable] <true> Specifies whether the users may to resize the window.
          * @option {Integer} [minWidth] <50> The minimum width that may be achieved by resizing the window.
          * @option {Integer} [minHeight] <50> The minimum height that may be achieved by resizing the window.
-         * @option {String} [contentUrl] Specifies a URL that the window should load its content from. For remote URLs, a container iframe element is automatically created.
+         * @option {Object|String} [content] Specifies a URL or request options that the window should load its content from. For remote URLs, a container iframe element is automatically created.
          * @option {Array<String>} [actions] <"Close"> The buttons for interacting with the window. Predefined array values are "Close", "Refresh", "Minimize", "Maximize".
          * @option {String} [title] The text in the window title bar.
-         * @option {Object} [animation] A collection of {Animation} objects, used to change default animations. A value of false will disable all animations in the component.
+         * @option {Object} [animation] A collection of {Animation} objects, used to change default animations. A value of false will disable all animations in the widget.
          * @option {Animation} [animation.open] The animation that will be used when the window opens.
          * @option {Animation} [animation.close] The animation that will be used when the window closes.
          */
@@ -173,7 +185,9 @@
                 titleBar, offset,
                 isVisible = false;
 
-            Component.fn.init.call(that, element, options);
+            body = document.body;
+
+            Widget.fn.init.call(that, element, options);
             options = that.options;
             element = that.element;
 
@@ -216,6 +230,13 @@
                     wrapper.height(options.height);
                 }
 
+                $.each(["minWidth","minHeight","maxWidth","maxHeight"], function(_, prop) {
+                    var value = options[prop];
+                    if (value && value != Infinity) {
+                        wrapper.css(prop, value);
+                    }
+                });
+
                 if (!options.visible) {
                     wrapper.hide();
                 }
@@ -236,13 +257,16 @@
             }
 
             wrapper.toggleClass("k-rtl", that.wrapper.closest(".k-rtl").length)
-                   .appendTo(document.body);
+                   .appendTo(body);
+
+            that.toFront();
 
             if (options.modal) {
                 that._overlay(wrapper.is(VISIBLE)).css({ opacity: 0.5 });
             }
 
             wrapper
+                .bind("mousedown", proxy(that.toFront, that))
                 .delegate(windowActions, "mouseenter", function () { $(this).addClass(KHOVERSTATE); })
                 .delegate(windowActions, "mouseleave", function () { $(this).removeClass(KHOVERSTATE); })
                 .delegate(windowActions, "click", proxy(that._windowActionHandler, that));
@@ -278,6 +302,13 @@
                  */
                 ACTIVATE,
                 /**
+                 * Fires when the window has finished its closing animation
+                 * @name kendo.ui.Window#deactivate
+                 * @event
+                 * @param {Event} e
+                 */
+                DEACTIVATE,
+                /**
                  * Fires when the window is being closed (by the user or through the close() method)
                  * @name kendo.ui.Window#close
                  * @event
@@ -300,6 +331,13 @@
                  */
                 RESIZE,
                 /**
+                 * Fires when the window has been moved by the user.
+                 * @name kendo.ui.Window#dragend
+                 * @event
+                 * @param {Event} e
+                 */
+                DRAGEND,
+                /**
                  * Fires when an AJAX request for content fails.
                  * @name kendo.ui.Window#error
                  * @event
@@ -310,8 +348,12 @@
 
             $(window).resize(proxy(that._onDocumentResize, that));
 
-            if (isLocalUrl(options.contentUrl)) {
-                that._ajaxRequest(options.contentUrl);
+            if (!$.isPlainObject(options.content)) {
+                options.content = { url: options.content };
+            }
+
+            if (isLocalUrl(options.content.url)) {
+                that._ajaxRequest(options.content);
             }
 
             if (wrapper.is(VISIBLE)) {
@@ -321,6 +363,7 @@
         },
 
         options: {
+            name: "Window",
             animation: {
                 open: {
                     effects: { zoomIn: {}, fadeIn: {} },
@@ -340,6 +383,8 @@
             draggable: true,
             minWidth: 50,
             minHeight: 50,
+            maxWidth: Infinity,
+            maxHeight: Infinity,
             visible: true
         },
 
@@ -429,7 +474,7 @@
          * var content = wnd.content();
          *
          * // set the content
-         * wnd.content("<p>New content</p>");
+         * wnd.content("&lt;p&gt;New content&lt;/p&gt;");
          */
         content: function (html) {
             var content = this.wrapper.children(KWINDOWCONTENT);
@@ -482,6 +527,8 @@
                         }
                     });
                 }
+
+                that.toFront();
             }
 
             if (that.options.isMaximized) {
@@ -532,6 +579,7 @@
                     duration: hideOptions.duration,
                     complete: function() {
                         wrapper.hide();
+                        that.trigger(DEACTIVATE);
                     }
                 });
             }
@@ -544,40 +592,69 @@
         },
 
         /**
+         * Brings the window on top of other windows.
+         */
+        toFront: function () {
+            var that = this,
+                wrapper = that.wrapper,
+                currentWindow = wrapper[0],
+                zIndex = +wrapper.css("zIndex");
+
+            $(KWINDOW).each(function(i, element) {
+                var windowObject = $(element),
+                    zIndexNew = windowObject.css("zIndex"),
+                    contentElement = windowObject.find(".k-window-content");
+
+                if (!isNaN(zIndexNew)) {
+                    zIndex = Math.max(+zIndexNew, zIndex);
+                }
+
+                // Add overlay to windows with iframes and lower z-index to prevent
+                // trapping of events when resizing / dragging
+                if (element != currentWindow && contentElement.find("> .k-content-frame").length > 0) {
+                    contentElement.append(templates.overlay);
+                }
+            });
+
+            wrapper.css("zIndex", zIndex + 2)
+            that.element.find("> .k-overlay").remove();
+
+            return that;
+        },
+
+        /**
          * Toggles the window between a maximized and restored state.
          */
-        toggleMaximization: function (e) {
-            if (e && $(e.target).closest(".k-window-action").length > 0) {
-                return;
-            }
-
-            this[this.options.isMaximized ? "restore" : "maximize"]();
+        toggleMaximization: function () {
+            return this[this.options.isMaximized ? "restore" : "maximize"]();
         },
 
         /**
          * Restores a maximized window to its previous size.
          */
         restore: function () {
-            var that = this;
+            var that = this,
+                options = that.options,
+                restorationSettings = that.restorationSettings;
 
-            if (!that.options.isMaximized) {
+            if (!options.isMaximized) {
                 return;
             }
 
             that.wrapper
                 .css({
                     position: "absolute",
-                    left: that.restorationSettings.left,
-                    top: that.restorationSettings.top,
-                    width: that.restorationSettings.width,
-                    height: that.restorationSettings.height
+                    left: restorationSettings.left,
+                    top: restorationSettings.top,
+                    width: restorationSettings.width,
+                    height: restorationSettings.height
                 })
                 .find(".k-resize-handle").show().end()
                 .find(".k-window-titlebar .k-restore").addClass("k-maximize").removeClass("k-restore");
 
             $("html, body").css(OVERFLOW, "");
 
-            that.options.isMaximized = false;
+            options.isMaximized = false;
 
             that.trigger(RESIZE);
 
@@ -587,7 +664,7 @@
         /**
          * Maximizes a window so that it fills the entire screen.
          */
-        maximize: function (e) {
+        maximize: function () {
             var that = this;
 
             if (that.options.isMaximized) {
@@ -618,50 +695,61 @@
         },
 
         _onDocumentResize: function () {
-            if (!this.options.isMaximized) {
+            var that = this,
+                wrapper = that.wrapper,
+                wnd = $(window);
+
+            if (!that.options.isMaximized) {
                 return;
             }
 
-            var wrapper = this.wrapper;
-
-            wrapper
-                .css({
-                    width: $(window).width(),
-                    height: $(window).height()
+            wrapper.css({
+                    width: wnd.width(),
+                    height: wnd.height()
                 });
 
-            this.trigger(RESIZE);
+            that.trigger(RESIZE);
         },
 
         /**
          * Refreshes the window content from a remote url.
-         * @param {String} url The URL that the window should be refreshed from. If omitted, the window content is refreshed from the contentUrl that was supplied upon the window creation.
-         * @param {Object} data Data to be sent to the server.
+         * @param {Object|String} options Options for requesting data from the server. If omitted, the window uses the <code>content</code> property that was supplied when the window was created. Any options specified here are passed to the jQuery.ajax call.
+         * @param {String} options.url The server URL that will be requested.
+         * @param {Object} options.data A JSON object containing the data that will be passed to the server.
+         * @param {String} options.type The request method ("GET", "POST").
+         * @example
+         * var windowObject = $("#window").data("kendoWindow");
+         * windowObject.refresh("/feedbackForm");
+         * windowObject.refresh({
+         *     url: "/feedbackForm",
+         *     data: { userId: 42 }
+         * });
          */
-        refresh: function (url, data) {
-            var that = this;
+        refresh: function (options) {
+            if (!$.isPlainObject(options)) {
+                options = { url: options };
+            }
 
-            url = url || that.options.contentUrl;
+            var that = this,
+                url = options.url = options.url || that.options.content.url;
 
             if (isLocalUrl(url)) {
-                that._ajaxRequest(url, data);
+                that._ajaxRequest(options);
             }
 
             return that;
         },
 
-        _ajaxRequest: function (url, data) {
+        _ajaxRequest: function (options) {
             var that = this,
                 refreshIcon = that.wrapper.find(".k-window-titlebar .k-refresh"),
                 loadingIconTimeout = setTimeout(function () {
                     refreshIcon.addClass(LOADING);
                 }, 100);
 
-            $.ajax({
+            $.ajax($.extend({
                 type: "GET",
-                url: url,
                 dataType: "html",
-                data: data || {},
                 cache: false,
                 error: proxy(function (xhr, status) {
                     that.trigger(ERROR);
@@ -675,7 +763,7 @@
 
                     that.trigger(REFRESH);
                 }, that)
-            });
+            }, that.options.content, options));
         },
 
         /**
@@ -701,7 +789,7 @@
     });
 
     templates = {
-        wrapper: template("<div class='k-widget k-window'></div>"),
+        wrapper: template("<div class='k-widget k-window' />"),
         titlebar: template(
             "<div class='k-window-titlebar k-header'>&nbsp;" +
                 "<span class='k-window-title'>#= title #</span>" +
@@ -714,9 +802,10 @@
                 "</div>" +
             "</div>"
         ),
+        overlay: "<div class='k-overlay' />",
         iframe: template(
-            "<iframe src='#= contentUrl #' title='#= title #' frameborder='0'" +
-                " style='border:0;width:100%;height:100%;'>" +
+            "<iframe src='#= content #' title='#= title #' frameborder='0'" +
+                " class='k-content-frame'>" +
                     "This page requires frames in order to show content" +
             "</iframe>"
         ),
@@ -730,14 +819,14 @@
             contentHtml.attr("style", "overflow:hidden;");
         }
 
-        if (options.contentUrl && !isLocalUrl(options.contentUrl)) {
+        if (options.content && !isLocalUrl(options.content)) {
             contentHtml.html(templates.iframe(options));
         }
 
         $(templates.wrapper(options))
             .append(templates.titlebar(options))
             .append(contentHtml)
-            .appendTo(document.body);
+            .appendTo(body);
     }
 
     function WindowResizing(wnd) {
@@ -768,57 +857,46 @@
                 height: wnd.wrapper.height()
             };
 
-            $("<div class='k-overlay' />").appendTo(wnd.wrapper);
+            wrapper
+                .append(templates.overlay)
+                .find(".k-resize-handle").not(e.currentTarget).hide();
 
-            wrapper.find(".k-resize-handle").not(e.currentTarget).hide();
-
-            $(document.body).css("cursor", e.currentTarget.css("cursor"));
+            $(body).css(CURSOR, e.currentTarget.css(CURSOR));
         },
         drag: function (e) {
             var wnd = this.owner,
                 wrapper = wnd.wrapper,
+                options = wnd.options,
+                constrain = function(value, low, high) {
+                    return Math.max(Math.min(value, high), low);
+                },
                 resizeHandlers = {
                     "e": function () {
-                        var width = e.pageX - wnd.initialCursorPosition.left;
+                        var newWidth = e.pageX - wnd.initialCursorPosition.left;
 
-                        wrapper.width((width < wnd.options.minWidth ? wnd.options.minWidth
-                                    : (wnd.options.maxWidth && width > wnd.options.maxWidth) ? wnd.options.maxWidth
-                                    : width));
+                        wrapper.width(constrain(newWidth, options.minWidth, options.maxWidth));
                     },
                     "s": function () {
-                        var height = e.pageY - wnd.initialCursorPosition.top - wnd.elementPadding;
+                        var newHeight = e.pageY - wnd.initialCursorPosition.top - wnd.elementPadding;
 
-                        wrapper
-                            .height((height < wnd.options.minHeight ? wnd.options.minHeight
-                                : (wnd.options.maxHeight && height > wnd.options.maxHeight) ? wnd.options.maxHeight
-                                : height));
+                        wrapper.height(constrain(newHeight, options.minHeight, options.maxHeight));
                     },
                     "w": function () {
                         var windowRight = wnd.initialCursorPosition.left + wnd.initialSize.width,
-                            width = windowRight - e.pageX;
+                            newWidth = constrain(windowRight - e.pageX, options.minWidth, options.maxWidth);
 
-                        /// TODO: use Math.min / Math.max to sort these out
                         wrapper.css({
-                            left: e.pageX (windowRight - wnd.options.minWidth) ? windowRight - wnd.options.minWidth
-                                : e.pageX < (windowRight - wnd.options.maxWidth) ? windowRight - wnd.options.maxWidth
-                                : e.pageX,
-                            width: (width < wnd.options.minWidth ? wnd.options.minWidth
-                                   : (wnd.options.maxWidth && width > wnd.options.maxWidth) ? wnd.options.maxWidth
-                                   : width)
+                            left: windowRight - newWidth,
+                            width: newWidth
                         })
                     },
                     "n": function () {
                         var windowBottom = wnd.initialCursorPosition.top + wnd.initialSize.height,
-                            height = windowBottom - e.pageY;
+                            newHeight = constrain(windowBottom - e.pageY, options.minHeight, options.maxHeight);
 
-                        /// TODO: use Math.min / Math.max to sort these out
                         wrapper.css({
-                            top: e.pageY > (windowBottom - wnd.options.minHeight) ? windowBottom - wnd.options.minHeight
-                               : e.pageY < (windowBottom - wnd.options.maxHeight) ? windowBottom - wnd.options.maxHeight
-                               : e.pageY,
-                            height: (height < wnd.options.minHeight ? wnd.options.minHeight
-                                  : (wnd.options.maxHeight && height > wnd.options.maxHeight) ? wnd.options.maxHeight
-                                  : height)
+                            top: windowBottom - newHeight,
+                            height: newHeight
                         });
                     }
                 };
@@ -837,7 +915,7 @@
                 .find(KOVERLAY).remove().end()
                 .find(".k-resize-handle").not(e.currentTarget).show();
 
-            $(document.body).css("cursor", "");
+            $(body).css(CURSOR, "");
 
             if (e.keyCode == 27) {
                 wrapper.css(wnd.initialCursorPosition)
@@ -863,7 +941,8 @@
 
     WindowDragging.prototype = /** @ignore */{
         dragstart: function (e) {
-            var wnd = this.owner;
+            var wnd = this.owner,
+                $element = $(wnd.element);
 
             wnd.initialWindowPosition = wnd.wrapper.position();
 
@@ -872,16 +951,23 @@
                 top: e.pageY - wnd.initialWindowPosition.top
             };
 
-            $(".k-resize-handle", wnd.wrapper).hide();
+            var actionsElement = $element.find(".k-window-actions");
+            if (actionsElement.length > 0) {
+                wnd.minLeftPosition = actionsElement.outerWidth() + parseInt(actionsElement.css("right"), 10) - $element.outerWidth();
+            } else {
+                wnd.minLeftPosition =  20 - $element.outerWidth(); // at least 20px remain visible
+            }
 
-            $("<div class='k-overlay' />").appendTo(wnd.wrapper);
+            wnd.wrapper
+                .append(templates.overlay)
+                .find(".k-resize-handle").hide();
 
-            $(document.body).css("cursor", e.currentTarget.css("cursor"));
+            $(body).css(CURSOR, e.currentTarget.css(CURSOR));
         },
         drag: function (e) {
             var wnd = this.owner,
                 coordinates = {
-                    left: e.pageX - wnd.startPosition.left,
+                    left: Math.max(e.pageX - wnd.startPosition.left, wnd.minLeftPosition),
                     top: Math.max(e.pageY - wnd.startPosition.top, 0)
                 };
 
@@ -894,16 +980,18 @@
                 .find(".k-resize-handle").show().end()
                 .find(KOVERLAY).remove();
 
-            $(document.body).css("cursor", "");
+            $(body).css(CURSOR, "");
 
             if (e.keyCode == 27) {
                 e.currentTarget.closest(KWINDOW).css(wnd.initialWindowPosition);
+            } else {
+                wnd.trigger(DRAGEND);
             }
 
             return false;
         }
     };
 
-    kendo.ui.plugin("Window", Window);
+    kendo.ui.plugin(Window);
 
 })(jQuery);

@@ -1,3 +1,13 @@
+/*
+* Kendo UI v2011.3.1129 (http://kendoui.com)
+* Copyright 2011 Telerik AD. All rights reserved.
+*
+* Kendo UI commercial licenses may be obtained at http://kendoui.com/license.
+* If you do not own a commercial license, this file shall be governed by the
+* GNU General Public License (GPL) version 3. For GPL requirements, please
+* review: http://www.gnu.org/copyleft/gpl.html
+*/
+
 (function ($, undefined) {
     /**
      * @name kendo.ui.PanelBar.Description
@@ -128,7 +138,7 @@
         extend = $.extend,
         each = $.each,
         template = kendo.template,
-        Component = ui.Component,
+        Widget = ui.Widget,
         excludedNodesRegExp = /^(ul|a|div)$/i,
         IMG = "img",
         HREF = "href",
@@ -253,7 +263,7 @@
                 return item.content ? item.content : item.contentUrl ? "" : "&nbsp;";
             },
             contentUrl: function(item) {
-                return item.contentUrl ? " data-content-url=\"" + item.contentUrl + "\"" : "";
+                return item.contentUrl ? kendo.attr("content-url") + '="' + item.contentUrl + '"' : "";
             }
         };
 
@@ -304,7 +314,7 @@
     function updateArrow (items) {
         items = $(items);
 
-        items.find(".k-icon").remove();
+        items.children(".k-link").children(".k-icon").remove();
 
         items
             .filter(":has(.k-group),:has(.k-content)")
@@ -326,15 +336,15 @@
         items.filter(":last-child").addClass(LAST);
     }
 
-    var PanelBar = Component.extend({/** @lends kendo.ui.PanelBar.prototype */
+    var PanelBar = Widget.extend({/** @lends kendo.ui.PanelBar.prototype */
         /**
          * Creates a PanelBar instance.
          * @constructs
-         * @extends kendo.ui.Component
-         * @class PanelBar UI component
+         * @extends kendo.ui.Widget
+         * @class PanelBar UI widget
          * @param {Selector} element DOM element
          * @param {Object} options Configuration options.
-         * @option {Object} [animation] A collection of <b>Animation</b> objects, used to change default animations. A value of false will disable all animations in the component.
+         * @option {Object} [animation] A collection of <b>Animation</b> objects, used to change default animations. A value of false will disable all animations in the widget.
          * @option {Animation} [animation.open] The animation that will be used when expanding items.
          * @option {Animation} [animation.close] The animation that will be used when collapsing items.
          * @option {String} [expandMode] <multiple> Specifies if PanelBar should collapse the already expanded item when expanding next item
@@ -345,7 +355,7 @@
             var that = this,
                 content;
 
-            Component.fn.init.call(that, element, options);
+            Widget.fn.init.call(that, element, options);
 
             options = that.options;
 
@@ -425,11 +435,12 @@
 
             content = element.find("li" + ACTIVECLASS + " > ." + CONTENT);
 
-            if (content.length > 0 && content.is(EMPTY)) {
-                that.expand(content.parent());
+            if (content.length > 0) {
+                that.expand(content.parent(), false);
             }
         },
         options: {
+            name: "PanelBar",
             animation: {
                 open: {
                     effects: "expandVertical",
@@ -1007,6 +1018,6 @@
         }
     });
 
-    kendo.ui.plugin("PanelBar", PanelBar, Component);
+    kendo.ui.plugin(PanelBar);
 
 })(jQuery);

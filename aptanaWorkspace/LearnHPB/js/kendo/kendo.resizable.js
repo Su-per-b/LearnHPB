@@ -1,7 +1,17 @@
+/*
+* Kendo UI v2011.3.1129 (http://kendoui.com)
+* Copyright 2011 Telerik AD. All rights reserved.
+*
+* Kendo UI commercial licenses may be obtained at http://kendoui.com/license.
+* If you do not own a commercial license, this file shall be governed by the
+* GNU General Public License (GPL) version 3. For GPL requirements, please
+* review: http://www.gnu.org/copyleft/gpl.html
+*/
+
 (function($, undefined) {
     var kendo = window.kendo,
         ui = kendo.ui,
-        Component = ui.Component,
+        Widget = ui.Widget,
         proxy = $.proxy,
         isFunction = $.isFunction,
         extend = $.extend,
@@ -11,11 +21,11 @@
         RESIZE = "resize",
         RESIZEEND = "resizeend";
 
-    var Resizable = Component.extend({
+    var Resizable = Widget.extend({
         init: function(element, options) {
             var that = this;
 
-            Component.fn.init.call(that, element, options);
+            Widget.fn.init.call(that, element, options);
 
             that.orientation = that.options.orientation.toLowerCase() != VERTICAL ? HORIZONTAL : VERTICAL;
             that._positionMouse = that.orientation == HORIZONTAL ? "pageX" : "pageY";
@@ -34,6 +44,7 @@
         },
 
         options: {
+            name: "Resizable",
             orientation: HORIZONTAL
         },
         _max: function(e) {
@@ -104,6 +115,6 @@
         }
     });
 
-    kendo.ui.plugin("Resizable", Resizable);
+    kendo.ui.plugin(Resizable);
 
 })(jQuery);

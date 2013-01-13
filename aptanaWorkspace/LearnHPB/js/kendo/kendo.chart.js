@@ -1,10 +1,20 @@
+/*
+* Kendo UI v2011.3.1129 (http://kendoui.com)
+* Copyright 2011 Telerik AD. All rights reserved.
+*
+* Kendo UI commercial licenses may be obtained at http://kendoui.com/license.
+* If you do not own a commercial license, this file shall be governed by the
+* GNU General Public License (GPL) version 3. For GPL requirements, please
+* review: http://www.gnu.org/copyleft/gpl.html
+*/
+
 (function ($, undefined) {
 
     // Imports ================================================================
     var doc = document,
         kendo = window.kendo,
         Class = kendo.Class,
-        Component = kendo.ui.Component,
+        Widget = kendo.ui.Widget,
         DataSource = kendo.data.DataSource,
         baseTemplate = kendo.template,
         format = kendo.format,
@@ -14,9 +24,13 @@
         getter = kendo.getter,
         extend = $.extend;
 
+    var template = function(definition) {
+        return baseTemplate(definition, { useWithBlock: false, paramName: "d" });
+    }
+
     // Constants ==============================================================
     var ABOVE = "above",
-        ARIAL12 = "12px Arial, sans-serif",
+        DEFAULT_FONT = "12px sans-serif",
         ANIMATION_STEP = 10,
         BASELINE_MARKER_SIZE = 1,
         BAR = "bar",
@@ -40,7 +54,6 @@
         DEGREE = math.PI / 180,
         FADEIN = "fadeIn",
         GLASS = "glass",
-        GLOBAL_CLIP = "globalClip",
         HEIGHT = "height",
         HORIZONTAL = "horizontal",
         INITIAL_ANIMATION_DURATION = 600,
@@ -65,21 +78,8 @@
         RADIAL = "radial",
         RIGHT = "right",
         ROUNDED_BEVEL = "roundedBevel",
-        SANS = "Arial,Helvetica,sans-serif",
-        SANS11 = "11px " + SANS,
-        SANS12 = "12px " + SANS,
-        SANS16 = "16px " + SANS,
         SERIES_CLICK = "seriesClick",
         SQUARE = "square",
-        SVG_DASH_TYPE = {
-            dot: [1.5, 3.5],
-            dash: [4, 3.5],
-            longdash: [8, 3.5],
-            dashdot: [3.5, 3.5, 1.5, 3.5],
-            longdashdot: [8, 3.5, 1.5, 3.5],
-            longdashdotdot: [8, 3.5, 1.5, 3.5, 1.5, 3.5]
-        },
-        SVG_NS = "http://www.w3.org/2000/svg",
         SWING = "swing",
         TOP = "top",
         TOOLTIP_ANIMATION_DURATION = 150,
@@ -96,1219 +96,13 @@
         ZERO_THRESHOLD = 0.2;
 
     // Chart ==================================================================
-    /**
-     * @name kendo.ui.Chart.Description
-     *
-     * @section
-     * <p>
-     * The Chart widget uses modern browser technologies to render high-quality
-     * data visualizations in the browser. Rather than generating images
-     * on a server, Chart graphics are rendered in the browser using
-     * SVG (scalable vector graphics), with a fallback to
-     * VML (vector markup language) for older browsers.
-     * </p>
-     *
-     * <p>
-     * Supported chart types:
-     * </p>
-     * <ul>
-     *     <li>Bar</li>
-     *     <li>Column</li>
-     *     <li>Line</li>
-     *     <li>Pie</li>
-     * </ul>
-     *
-     * <p>
-     * Please visit the Kendo UI Road Map for additional information about
-     * new Chart types and features.
-     * </p>
-     *
-     * <h3>
-     * Getting Started
-     * </h3>
-     * @exampleTitle
-     * 1. Create a simple HTML div (optionally set a height and width with CSS)
-     * @example
-     * <div id="chart"></div>
-     *
-     * @exampleTitle
-     * 2. Initialize the Kendo UI Chart with configuration and data
-     * @example
-     *    $(document).ready(function() {
-     *        $("#chart").kendoChart({
-     *            title: {
-     *                text: "My Chart Title"
-     *            },
-     *            series: [
-     *                {
-     *                    name: "Series 1",
-     *                    data: [200, 450, 300, 125]
-     *                }
-     *            ],
-     *            categoryAxis: {
-     *                categories: [2000, 2001, 2002, 2003]
-     *            }
-     *        });
-     *    });
-     * @section
-     * <p>
-     * The basic configuration requires series data (Y-axis values) and
-     * categories (X-axis values). A chart title can also optionally be defined.
-     * The default chart type is column (vertical bars).
-     * </p>
-     *
-     * <h3>
-     * Binding to Data
-     * </h3>
-     * <p>
-     * A chart can be bound to both local and remote data.
-     * Rather than directly specifying an Array of values in the Chart configuration,
-     * the Chart DataSource property is used to bind to an Array or to
-     * a remote data service with the Kendo DataSource component.
-     * </p>
-     * @exampleTitle
-     * Binding a line chart to local JavaScript object array
-     * @example
-     * var salesData = [{
-     *     employee: "Joe Smith",
-     *     sales: 2000
-     * }, {
-     *     employee: "Jane Smith",
-     *     sales: 2250
-     * }, {
-     *     employee: "Will Roberts",
-     *     sales: 1550
-     * }]
-     *
-     * $(document).ready(function() {
-     *     $("#chart").kendoChart({
-     *         title: {
-     *             text: "Employee Sales"
-     *         },
-     *         dataSource:{
-     *             data: salesData
-     *         },
-     *         series:[{
-     *             type: "line",
-     *             field: "sales",
-     *             name: "Sales in Units"
-     *         }],
-     *         categoryAxis:{
-     *             field: "employee"
-     *         }
-     *     });
-     * });
-     *
-     * @exampleTitle
-     * Binding to remote JSON data with multiple series
-     * @example
-     * $(document).ready(function(){
-     *     $("#chart").kendoChart({
-     *         title: {
-     *             text: "Division Sales"
-     *         },
-     *         dataSource:{
-     *             transport:{
-     *                 read:{
-     *                     url: "company-sales.json",
-     *                     dataType: "json"
-     *                 }
-     *             },
-     *             sort: {
-     *                 field: "year",
-     *                 dir: "asc"
-     *             }
-     *         },
-     *         series: [{
-     *             field: "americaSales",
-     *             name: "North America"
-     *         }, {
-     *             field: "asiaSales",
-     *             name: "Asia"
-     *         }, {
-     *             field: "europeSales",
-     *             name: "Europe"
-     *         }],
-     *         categoryAxis:{
-     *             field: "year"
-     *         },
-     *         valueAxis: {
-     *             majorUnit: 1000
-     *         }
-     *     });
-     * });
-     *
-     * @section
-     * <h3>
-     * Configuring the Chart
-     * </h3>
-     * <p>
-     * The Kendo UI Chart is highly configurable. With simple configuration settings,
-     * you can format and display series labels, position the chart legend,
-     * format and display tooltips, and change the chart type.
-     * </p>
-     * <p>
-     * Refer to the Chart demos and configuration API for a complete reference.
-     * </p>
-     */
-    var Chart = Component.extend(/** @lends kendo.ui.Chart.prototype */{
-        /**
-         * @constructs
-         * @extends kendo.ui.Component
-         * @param {DomElement} element DOM element
-         * @param {Object} options Configuration options.
-         * @option {String} [theme] Sets Chart theme. Available themes: kendo, blueOpal, black.
-         * @option {Object} [dataSource] DataSource configuration or instance.
-         * _example
-         * $("#chart").kendoChart({
-         *     dataSource: {
-         *         transport: {
-         *              read: "spain-electricity.json"
-         *         }
-         *     },
-         *     series: [{
-         *         field: "value"
-         *     }],
-         *     categoryAxis: {
-         *         field: "year"
-         *     }
-         * });
-         *
-         * // Alternative configuraiton
-         * var dataSource = new kendo.data.DataSource({
-         *     transport: {
-         *          read: "spain-electricity.json"
-         *     }
-         * });
-         *
-         * $("#chart").kendoChart({
-         *     dataSource: dataSource,
-         *     series: [{
-         *         field: "value"
-         *     }],
-         *     categoryAxis: {
-         *         field: "year"
-         *     }
-         * });
-         * @option {Object} [title] The chart title configuration options.
-         * @option {String} [title.text] The title of the chart.
-         * @option {String} [title.font] <"16px Arial,Helvetica,sans-serif"> The font style of the title.
-         * @option {String} [title.position] <"top"> The positions of the title.
-         *    <dl>
-         *         <dt>
-         *              "top"
-         *         </dt>
-         *         <dd>
-         *              The title is positioned on the top.
-         *         </dd>
-         *         <dt>
-         *              "bottom"
-         *         </dt>
-         *         <dd>
-         *              The title is positioned on the bottom.
-         *         </dd>
-         *    </dl>
-         * @option {String} [title.align] <"center"> The alignment of the title.
-         *    <dl>
-         *         <dt>
-         *              "left"
-         *         </dt>
-         *         <dd>
-         *              The text is aligned to the left.
-         *         </dd>
-         *         <dt>
-         *              "center"
-         *         </dt>
-         *         <dd>
-         *              The text is aligned to the middle.
-         *         </dd>
-         *         <dt>
-         *              "right"
-         *         </dt>
-         *         <dd>
-         *              The text is aligned to the right.
-         *         </dd>
-         *    </dl>
-         * @option {Boolean} [title.visible] <false> The visibility of the title.
-         * @option {Number|Object} [title.margin] <5> The margin of the title.
-         * _example
-         * // sets the top, right, bottom and left margin to 3px.
-         * margin: 3
-         *
-         * // sets the top and left margin to 1px
-         * // margin right and bottom are with 5px (by default)
-         * margin: { top: 1, left: 1 }
-         * @option {Number|Object} [title.padding] <5> The padding of the title.
-         * _example
-         * // sets the top, right, bottom and left padding to 3px.
-         * padding: 3
-         *
-         * // sets the top and left padding to 1px
-         * // padding right and bottom are with 5px (by default)
-         * padding: { top: 1, left: 1 }
-         * @option {Object} [title.border] The border of the title.
-         * @option {Number} [title.border.width] <0> The width of the border.
-         * @option {String} [title.border.color] <"black"> The color of the border.
-         * @option {Object} [legend] The chart legend configuration options.
-         * @option {String} [legend.font] <12px Arial,Helvetica,sans-serif> The font style of the legend.
-         * @option {String} [legend.position] <right> The positions of the legend.
-         *    <dl>
-         *         <dt>
-         *              "top"
-         *         </dt>
-         *         <dd>
-         *              The legend is positioned on the top.
-         *         </dd>
-         *         <dt>
-         *              "bottom"
-         *         </dt>
-         *         <dd>
-         *              The legend is positioned on the bottom.
-         *         </dd>
-         *         <dt>
-         *              "left"
-         *         </dt>
-         *         <dd>
-         *              The legend is positioned on the left.
-         *         </dd>
-         *         <dt>
-         *              "right"
-         *         </dt>
-         *         <dd>
-         *              The legend is positioned on the right.
-         *         </dd>
-         *         <dt>
-         *              "custom"
-         *         </dt>
-         *         <dd>
-         *              The legend is positioned using OffsetX and OffsetY.
-         *         </dd>
-         *    </dl>
-         * @option {Number} [legend.offsetX] <0> The X offset from its position.
-         * @option {Number} [legend.offsetY] <0> The Y offset from its position.
-         * @option {Boolean} [legend.visible] <true> The visibility of the legend.
-         * @option {Number|Object} [legend.margin] <10> The margin of the legend.
-         * _example
-         * // sets the top, right, bottom and left margin to 3px.
-         * margin: 3
-         *
-         * // sets the top and left margin to 1px
-         * // margin right and bottom are with 10px (by default)
-         * margin: { top: 1, left: 1 }
-         * @option {Number|Object} [legend.padding] <5> The padding of the legend.
-         * _example
-         * // sets the top, right, bottom and left padding to 3px.
-         * padding: 3
-         *
-         * // sets the top and left padding to 1px
-         * // padding right and bottom are with 5px (by default)
-         * padding: { top: 1, left: 1 }
-         * @option {Object} [legend.border] The border of the legend.
-         * @option {Number} [legend.border.width] <0> The width of the border.
-         * @option {String} [legend.border.color] <"black"> The color of the border.
-         * @option {Object} [valueAxis] The value axis configuration options.
-         * @option {Number} [valueAxis.axisCrossingValue] <0>
-         * Value at which the first perpendicular axis crosses this axis.
-         * @option {Number} [valueAxis.min] <0> The minimum value of the axis.
-         * @option {Number} [valueAxis.max] <1> The maximum value of the axis.
-         * @option {Number} [valueAxis.majorUnits] The interval between major divisions.
-         * @option {Number} [valueAxis.minorTickSize] <3> The axis minor tick size.
-         * @option {String} [valueAxis.minorTickType] <none> The minor tick type.
-         *    <dl>
-         *         <dt>
-         *              "outside"
-         *         </dt>
-         *         <dd>
-         *              The tick is drawn on the outer side of the axis.
-         *         </dd>
-         *         <dt>
-         *              "none"
-         *         </dt>
-         *         <dd>
-         *              No tick is drawn.
-         *         </dd>
-         *    </dl>
-         * @option {Number} [valueAxis.majorTickSize] <4> The axis major tick size.
-         * @option {String} [valueAxis.majorTickType] <outside> The major tick type.
-         *    <dl>
-         *         <dt>
-         *              "outside"
-         *         </dt>
-         *         <dd>
-         *              The tick is drawn on the outer side of the axis.
-         *         </dd>
-         *         <dt>
-         *              "none"
-         *         </dt>
-         *         <dd>
-         *              No tick is drawn.
-         *         </dd>
-         *    </dl>
-         * @option {Object} [valueAxis.minorGridLines] Configures the minor grid lines.
-         * @option {Number} [valueAxis.minorGridLines.width] <1> The width of the lines.
-         * @option {String} [valueAxis.minorGridLines.color] <"black"> The color of the lines.
-         * @option {Boolean} [valueAxis.minorGridLines.visible] <false> The visibility of the lines.
-         * @option {Object} [valueAxis.majorGridLines] Configures the major grid lines.
-         * @option {Number} [valueAxis.majorGridLines.width] <1> The width of the lines.
-         * @option {String} [valueAxis.majorGridLines.color] <"black"> The color of the lines.
-         * @option {Boolean} [valueAxis.majorGridLines.visible] <true> The visibility of the lines.
-         * @option {Object} [valueAxis.line] Configures the axis line.
-         * @option {Number} [valueAxis.line.width] <1> The width of the lines.
-         * @option {String} [valueAxis.line.color] <"black"> The color of the lines.
-         * @option {Boolean} [valueAxis.line.visible] <true> The visibility of the lines.
-         * @option {Object} [valueAxis.labels] Configures the axis labels.
-         * @option {String} [valueAxis.labels.font] <"12px Arial,Helvetica,sans-serif">
-         * The font style of the labels.
-         * @option {Boolean} [valueAxis.labels.visible] <true> The visibility of the labels.
-         * @option {Number|Object} [valueAxis.labels.margin] <0> The margin of the labels.
-         * _example
-         * // sets the top, right, bottom and left margin to 3px.
-         * margin: 3
-         *
-         * // sets the top and left margin to 1px
-         * // margin right and bottom are with 0px (by default)
-         * margin: { top: 1, left: 1 }
-         * @option {Number|Object} [valueAxis.labels.padding] <0> The padding of the labels.
-         * _example
-         * // sets the top, right, bottom and left padding to 3px.
-         * padding: 3
-         *
-         * // sets the top and left padding to 1px
-         * // padding right and bottom are with 0px (by default)
-         * padding: { top: 1, left: 1 }
-         * @option {Object} [valueAxis.labels.border] The border of the labels.
-         * @option {Number} [valueAxis.labels.border.width] <0> The width of the border.
-         * @option {String} [valueAxis.labels.border.color] <"black"> The color of the border.
-         * @option {Number} [valueAxis.labels.rotation] <0> The rotation angle of the labels.
-         * @option {String/Function} [valueAxis.labels.template] The label template.
-         * Template variables:
-         * <ul>
-         *     <li><strong>value</strong> - the value</li>
-         * </ul>
-         * _example
-         * // chart intialization
-         * $("#chart").kendoChart({
-         *      title: {
-         *          text: "My Chart Title"
-         *      },
-         *      series: [
-         *          {
-         *              name: "Series 1",
-         *              data: [200, 450, 300, 125]
-         *          }
-         *      ],
-         *      categoryAxis: {
-         *          categories: [2000, 2001, 2002, 2003]
-         *      },
-         *      valueAxis: {
-         *          labels: {
-         *              // label template
-         *              template: "${ value }%"
-         *          }
-         *      }
-         * });
-         * @option {String} [valueAxis.labels.format] The format of the labels.
-         * _example
-         * //sets format of the labels
-         * format: "{0:C}"
-         * @option {Object} [categoryAxis] The value axis configuration options.
-         * @option {Array} [categoryAxis.categories] Array of category names.
-         * @option {String} [categoryAxis.field] The data field containing the category name.
-         * @option {Number} [categoryAxis.axisCrossingValue] <0>
-         * Category index at which the first perpendicular axis crosses this axis.
-         * @option {Number} [categoryAxis.minorTickSize] <3> The axis minor tick size.
-         * @option {String} [categoryAxis.minorTickType] <"none"> The axis minor tick size.
-         *    <dl>
-         *         <dt>
-         *              "outside"
-         *         </dt>
-         *         <dd>
-         *              The tick is drawn on the outer side of the axis.
-         *         </dd>
-         *         <dt>
-         *              "none"
-         *         </dt>
-         *         <dd>
-         *              No tick is drawn.
-         *         </dd>
-         *    </dl>
-         * @option {Number} [categoryAxis.majorTickSize] <3> The axis major tick size.
-         * @option {String} [categoryAxis.majorTickType] <"outside"> The axis major tick size.
-         *    <dl>
-         *         <dt>
-         *              "outside"
-         *         </dt>
-         *         <dd>
-         *              The tick is drawn on the outer side of the axis.
-         *         </dd>
-         *         <dt>
-         *              "none"
-         *         </dt>
-         *         <dd>
-         *              No tick is drawn.
-         *         </dd>
-         *    </dl>
-         * @option {Object} [categoryAxis.minorGridLines] Configures the minor grid lines.
-         * @option {Number} [categoryAxis.minorGridLines.width] <1> The width of the lines.
-         * @option {String} [categoryAxis.minorGridLines.color] <"black"> The color of the lines.
-         * @option {Boolean} [categoryAxis.minorGridLines.visible] <false> The visibility of the lines.
-         * @option {Object} [categoryAxis.majorGridLines] Configures the major grid lines.
-         * @option {Number} [categoryAxis.majorGridLines.width] <1> The width of the lines.
-         * @option {String} [categoryAxis.majorGridLines.color] <"black"> The color of the lines.
-         * @option {Boolean} [categoryAxis.majorGridLines.visible] <false> The visibility of the lines.
-         * @option {Object} [categoryAxis.line] Configures the axis line.
-         * @option {Number} [categoryAxis.line.width] <1> The width of the lines.
-         * @option {String} [categoryAxis.line.color] <"black"> The color of the lines.
-         * @option {Boolean} [categoryAxis.line.visible] <true> The visibility of the lines.
-         * @option {Object} [categoryAxis.labels] Configures the axis labels.
-         * @option {String} [categoryAxis.labels.font] <"12px Arial,Helvetica,sans-serif">
-         * The font style of the labels.
-         * @option {Boolean} [categoryAxis.labels.visible] <true> The visibility of the labels.
-         * @option {Number|Object} [categoryAxis.labels.margin] <0> The margin of the labels.
-         * _example
-         * // sets the top, right, bottom and left margin to 3px.
-         * margin: 3
-         *
-         * // sets the top and left margin to 1px
-         * // margin right and bottom are with 0px (by default)
-         * margin: { top: 1, left: 1 }
-         * @option {Number|Object} [categoryAxis.labels.padding] <0> The padding of the labels.
-         * _example
-         * // sets the top, right, bottom and left padding to 3px.
-         * padding: 3
-         *
-         * // sets the top and left padding to 1px
-         * // padding right and bottom are with 0px (by default)
-         * padding: { top: 1, left: 1 }
-         * @option {Object} [categoryAxis.labels.border] The border of the labels.
-         * @option {Number} [categoryAxis.labels.border.width] <0> The width of the border.
-         * @option {String} [categoryAxis.labels.border.color] <"black"> The color of the border.
-         * @option {Number} [categoryAxis.labels.rotation] <0> The rotation angle of the labels.
-         * @option {String/Function} [categoryAxis.labels.template] The label template.
-         * Template variables:
-         * <ul>
-         *     <li><strong>value</strong> - the value</li>
-         *     <li><strong>dataItem</strong> - the original data item used to construct the point.
-         *         Will be null if binding to array.
-         *     </li>
-         * </ul>
-         * _example
-         * // chart intialization
-         * $("#chart").kendoChart({
-         *      title: {
-         *          text: "My Chart Title"
-         *      },
-         *      series: [
-         *          {
-         *              name: "Series 1",
-         *              data: [200, 450, 300, 125]
-         *          }
-         *      ],
-         *      categoryAxis: {
-         *          categories: [2000, 2001, 2002, 2003],
-         *          labels: {
-         *              // label template
-         *              template: "Year: ${ value }"
-         *          }
-         *      }
-         * });
-         * @option {String} [categoryAxis.labels.format] The format of the labels.
-         * _example
-         * //sets format of the labels
-         * format: "{0:C}"
-         * @option {Object} [seriesDefaults] Default values for each series.
-         * @option {Boolean} [seriesDefaults.stacked] <false>
-         * A value indicating if the series should be stacked.
-         * @option {Number} [seriesDefaults.gap] <1.5> The distance between category clusters.
-         * @option {Number} [seriesDefaults.spacing] <0.4> Space between bars.
-         * @option {Object} [seriesDefaults.labels] Configures the series data labels.
-         * @option {String} [seriesDefaults.labels.font] <"12px Arial,Helvetica,sans-serif">
-         * The font style of the labels.
-         * @option {Boolean} [seriesDefaults.labels.visible] <false> The visibility of the labels.
-         * @option {Number|Object} [seriesDefaults.labels.margin] <0> The margin of the labels.
-         * _example
-         * // sets the top, right, bottom and left margin to 3px.
-         * margin: 3
-         *
-         * // sets the top and left margin to 1px
-         * // margin right and bottom are with 0px (by default)
-         * margin: { top: 1, left: 1 }
-         * @option {Number|Object} [seriesDefaults.labels.padding] <0> The padding of the labels.
-         * _example
-         * // sets the top, right, bottom and left padding to 3px.
-         * padding: 3
-         *
-         * // sets the top and left padding to 1px
-         * // padding right and bottom are with 0px (by default)
-         * padding: { top: 1, left: 1 }
-         * @option {Object} [seriesDefaults.labels.border] The border of the labels.
-         * @option {Number} [seriesDefaults.labels.border.width] <0> The width of the border.
-         * @option {String} [seriesDefaults.labels.border.color] <"black"> The color of the border.
-         * @option {String/Function} [seriesDefaults.labels.template] The label template.
-         * Template variables:
-         * <ul>
-         *     <li><strong>value</strong> - the point value</li>
-         *     <li><strong>category</strong> - the category name</li>
-         *     <li><strong>series</strong> - the data series</li>
-         *     <li><strong>dataItem</strong> - the original data item used to construct the point.
-         *         Will be null if binding to array.
-         *     </li>
-         * </ul>
-         * _example
-         * // chart intialization
-         * $("#chart").kendoChart({
-         *      title: {
-         *          text: "My Chart Title"
-         *      },
-         *      seriesDefault: {
-         *          labels: {
-         *              // label template
-         *              template: "${ value }%",
-         *              visible: true
-         *          }
-         *      },
-         *      series: [
-         *          {
-         *              name: "Series 1",
-         *              data: [200, 450, 300, 125]
-         *          }
-         *      ],
-         *      categoryAxis: {
-         *          categories: [2000, 2001, 2002, 2003]
-         *      }
-         * });
-         * @option {String} [seriesDefaults.labels.format] The format of the labels.
-         * _example
-         * //sets format of the labels
-         * format: "{0:C}"
-         * @option {Object} [seriesDefaults.border] The border of the series.
-         * @option {Number} [seriesDefaults.border.width] <0> The width of the border.
-         * @option {String} [seriesDefaults.border.color] <"black"> The color of the border.
-         * @option {Object} [seriesDefaults.overlay] The effects overlay.
-         * @option {String} [seriesDefaults.overlay.gradient] <"glass"> Gradient name.
-         *    <dl>
-         *         <dt>
-         *              "glass"
-         *         </dt>
-         *         <dd>
-         *              The bars have glass effect overlay.
-         *         </dd>
-         *         <dt>
-         *              "none"
-         *         </dt>
-         *         <dd>
-         *              The bars have no effect overlay.
-         *         </dd>
-         *    </dl>
-         * @option {Object} [seriesDefaults.bar]
-         * The default options for all bar series. For more details see the series options.
-         * @option {Object} [seriesDefaults.column] The column configuration options.
-         * The default options for all column series. For more details see the series options.
-         * @option {Object} [seriesDefaults.line] The line configuration options.
-         * The default options for all line series. For more details see the series options.
-         * @option {Object} [seriesDefaults.pie] The pie configuration options.
-         * The default options for all pie series. For more details see the series options.
-         * @option {Array} [series] Array of series definitions.
-         * <p>
-         * The series type is determined by the value of the type field.
-         * If a type value is missing, the type is assumed to be the one specified in seriesDefaults.
-         * </p>
-         * <p>
-         * Each series type has a different set of options.
-         * </p>
-         * @option {String} [series.name] The series name visible in the legend.
-         * @option {String} [series.field] The data field containing the series value.
-         * @option [series.type="bar"] The type of the series.
-         * @option {Boolean} [series.type="bar".stacked] <false>
-         * A value indicating if the series should be stacked.
-         * @option {Number} [series.type="bar".gap] <1.5> The distance between category clusters.
-         * @option {Number} [series.type="bar".spacing] <0.4> Space between bars.
-         * @option {String} [series.type="bar".name] The series name.
-         * @option {String} [series.type="bar".color] The series base color.
-         * @option {Number} [series.type="bar".opacity] <1> The series opacity.
-         * @option {Object} [series.type="bar".labels] Configures the series data labels.
-         * @option {String} [series.type="bar".labels.font] <"12px Arial,Helvetica,sans-serif">
-         * The font style of the labels.
-         * @option {String} [series.type="bar".labels.position] <"outsideEnd">
-         * Defines the position of the bar labels.
-         *    <dl>
-         *         <dt>
-         *              "center"
-         *         </dt>
-         *         <dd>
-         *              The label is positioned at the bar center.
-         *         </dd>
-         *         <dt>
-         *              "insideEnd"
-         *         </dt>
-         *         <dd>
-         *              The label is positioned inside, near the end of the bar.
-         *         </dd>
-         *         <dt>
-         *              "insideBase"
-         *         </dt>
-         *         <dd>
-         *              The label is positioned inside, near the base of the bar.
-         *         </dd>
-         *         <dt>
-         *              "outsideEnd"
-         *         </dt>
-         *         <dd>
-         *              The label is positioned outside, near the end of the bar.
-         *              Not applicable for stacked bar series.
-         *         </dd>
-         *    </dl>
-         * @option {Boolean} [series.type="bar".labels.visible] <false> The visibility of the labels.
-         * @option {Number|Object} [series.type="bar".labels.margin] <2> The margin of the labels.
-         * _example
-         * // sets the top, right, bottom and left margin to 3px.
-         * margin: 3
-         *
-         * // sets the top and left margin to 1px
-         * // margin right and bottom are with 2px (by default)
-         * margin: { top: 1, left: 1 }
-         * @option {Number|Object} [series.type="bar".labels.padding] <2> The padding of the labels.
-         * _example
-         * // sets the top, right, bottom and left padding to 3px.
-         * padding: 3
-         *
-         * // sets the top and left padding to 1px
-         * // padding right and bottom are with 2px (by default)
-         * padding: { top: 1, left: 1 }
-         * @option {Object} [series.type="bar".labels.border] The border of the labels.
-         * @option {Number} [series.type="bar".labels.border.width] <0> The width of the border.
-         * @option {String} [series.type="bar".labels.border.color] <"black"> The color of the border.
-         * @option {String/Function} [series.type="bar".labels.template] The label template.
-         * Template variables:
-         * <ul>
-         *     <li><strong>value</strong> - the point value</li>
-         *     <li><strong>category</strong> - the category name</li>
-         *     <li><strong>series</strong> - the data series</li>
-         *     <li><strong>dataItem</strong> - the original data item used to construct the point.
-         *         Will be null if binding to array.
-         *     </li>
-         * </ul>
-         * _example
-         * // chart intialization
-         * $("#chart").kendoChart({
-         *      title: {
-         *          text: "My Chart Title"
-         *      },
-         *      series: [
-         *          {
-         *              type: "bar",
-         *              name: "Series 1",
-         *              data: [200, 450, 300, 125],
-         *              labels: {
-         *                  // label template
-         *                  template: "${ value }%",
-         *                  visible: true
-         *              }
-         *          }
-         *      ],
-         *      categoryAxis: {
-         *          categories: [2000, 2001, 2002, 2003]
-         *      }
-         * });
-         * @option {String} [series.type="bar".labels.format] The format of the labels.
-         * _example
-         * //sets format of the labels
-         * format: "{0:C}"
-         * @option {Object} [series.type="bar".border] The border of the series.
-         * @option {Number} [series.type="bar".border.width] <1> The width of the border.
-         * @option {String} [series.type="bar".border.color] <the color of the curren series>
-         * The color of the border.
-         * @option {String} [series.type="bar".overlay] <"glass"> The effects overlay.
-         * @option [series.type="column"] The type of the series.
-         * @option {Boolean} [series.type="column".stacked] <false>
-         * A value indicating if the series should be stacked.
-         * @option {Number} [series.type="column".gap] <1.5> The distance between category clusters.
-         * @option {Number} [series.type="column".spacing] <0.4> Space between bars.
-         * @option {String} [series.type="column".name] The series name.
-         * @option {String} [series.type="column".color] The series base color.
-         * @option {Number} [series.type="column".opacity] <1> The series opacity.
-         * @option {Object} [series.type="column".labels] Configures the series data labels.
-         * @option {String} [series.type="column".labels.font] <"12px Arial,Helvetica,sans-serif">
-         * The font style of the labels.
-         * @option {String} [series.type="column".labels.position] <"outsideEnd">
-         * Defines the position of the column labels.
-         *    <dl>
-         *         <dt>
-         *              "center"
-         *         </dt>
-         *         <dd>
-         *              The label is positioned at the bar center.
-         *         </dd>
-         *         <dt>
-         *              "insideEnd"
-         *         </dt>
-         *         <dd>
-         *              The label is positioned inside, near the end of the bar.
-         *         </dd>
-         *         <dt>
-         *              "insideBase"
-         *         </dt>
-         *         <dd>
-         *              The label is positioned inside, near the base of the bar.
-         *         </dd>
-         *         <dt>
-         *              "outsideEnd"
-         *         </dt>
-         *         <dd>
-         *              The label is positioned outside, near the end of the bar.
-         *              Not applicable for stacked bar series.
-         *         </dd>
-         *    </dl>
-         * @option {Boolean} [series.type="column".labels.visible] <false> The visibility of the labels.
-         * @option {Number|Object} [series.type="column".labels.margin] <2> The margin of the labels.
-         * _example
-         * // sets the top, right, bottom and left margin to 3px.
-         * margin: 3
-         *
-         * // sets the top and left margin to 1px
-         * // margin right and bottom are with 2px (by default)
-         * margin: { top: 1, left: 1 }
-         * @option {Number|Object} [series.type="column".labels.padding] <2> The padding of the labels.
-         * _example
-         * // sets the top, right, bottom and left padding to 3px.
-         * padding: 3
-         *
-         * // sets the top and left padding to 1px
-         * // padding right and bottom are with 2px (by default)
-         * padding: { top: 1, left: 1 }
-         * @option {Object} [series.type="column".labels.border] The border of the labels.
-         * @option {Number} [series.type="column".labels.border.width] <0> The width of the border.
-         * @option {String} [series.type="column".labels.border.color] <"black">
-         * The color of the border.
-         * @option {String/Function} [series.type="column".labels.template] The label template.
-         * Template variables:
-         * <ul>
-         *     <li><strong>value</strong> - the point value</li>
-         *     <li><strong>category</strong> - the category name</li>
-         *     <li><strong>series</strong> - the data series</li>
-         *     <li><strong>dataItem</strong> - the original data item used to construct the point.
-         *         Will be null if binding to array.
-         *     </li>
-         * </ul>
-         * _example
-         * // chart intialization
-         * $("#chart").kendoChart({
-         *      title: {
-         *          text: "My Chart Title"
-         *      },
-         *      series: [
-         *          {
-         *              type: "bar",
-         *              name: "Series 1",
-         *              data: [200, 450, 300, 125],
-         *              labels: {
-         *                  // label template
-         *                  template: "${ value }%",
-         *                  visible: true
-         *              }
-         *          }
-         *      ],
-         *      categoryAxis: {
-         *          categories: [2000, 2001, 2002, 2003]
-         *      }
-         * });
-         * @option {String} [series.type="column".labels.format] The format of the labels.
-         * _example
-         * //sets format of the labels
-         * format: "{0:C}"
-         * @option {Object} [series.type="column".border] The border of the series.
-         * @option {Number} [series.type="column".border.width] <1> The width of the border.
-         * @option {String} [series.type="column".border.color] <the color of the current series>
-         * The color of the border.
-         * @option {String} [series.type="column".overlay] <"glass"> The effects overlay.
-         * @option [series.type="line"] The type of the series.
-         * @option {Boolean} [series.type="line".stacked] <false>
-         * A value indicating if the series should be stacked.
-         * @option {String} [series.type="line".name] The series name.
-         * @option {String} [series.type="line".color] The series base color.
-         * @option {Number} [series.type="line".opacity] <1> The series opacity.
-         * @option {Object} [series.type="line".labels] Configures the series data labels.
-         * @option {String} [series.type="line".labels.font] <"12px Arial,Helvetica,sans-serif">
-         * The font style of the labels.
-         * @option {String} [series.type="line".labels.missingValues] <"gap">
-         * Configures the behavior for handling missing values in line series.
-         *    <dl>
-         *         <dt>
-         *              "interpolate"
-         *         </dt>
-         *         <dd>
-         *              The value is interpolated from neighboring points.
-         *         </dd>
-         *         <dt>
-         *              "zero"
-         *         </dt>
-         *         <dd>
-         *              The value is assumed to be zero.
-         *         </dd>
-         *         <dt>
-         *              "gap"
-         *         </dt>
-         *         <dd>
-         *              The line stops before the missing point and continues after it.
-         *         </dd>
-         *    </dl>
-         * @option {Object} [series.type="line".markers] Configures the line markers.
-         * @option {String} [series.type="line".markers.type] <"square">
-         * Configures the markers shape type.
-         *    <dl>
-         *         <dt>
-         *              "square"
-         *         </dt>
-         *         <dd>
-         *              The marker shape is square.
-         *         </dd>
-         *         <dt>
-         *              "triagle"
-         *         </dt>
-         *         <dd>
-         *              The marker shape is triagle.
-         *         </dd>
-         *         <dt>
-         *              "circle"
-         *         </dt>
-         *         <dd>
-         *              The marker shape is circle.
-         *         </dd>
-         *    </dl>
-         * @option {Number} [series.type="line".markers.size] <6> The marker size.
-         * @option {Boolean} [series.type="line".markers.visible] <true> The markers visibility.
-         * @option {Object} [series.type="line".markers.border] The border of the markers.
-         * @option {Number} [series.type="line".markers.border.width] <0> The width of the border.
-         * @option {String} [series.type="line".markers.border.color] <"black"> The color of the border.
-         * @option {String} [series.type="line".markers.background]
-         * The background color of the current series markers.
-         * @option {String} [series.type="line".labels.position] <"above">
-         * Defines the position of the bar labels.
-         *    <dl>
-         *         <dt>
-         *              "above"
-         *         </dt>
-         *         <dd>
-         *              The label is positioned at the top of the line chart marker.
-         *         </dd>
-         *         <dt>
-         *              "right"
-         *         </dt>
-         *         <dd>
-         *              The label is positioned at the right of the line chart marker.
-         *         </dd>
-         *         <dt>
-         *              "below"
-         *         </dt>
-         *         <dd>
-         *              The label is positioned at the bottom of the line chart marker.
-         *         </dd>
-         *         <dt>
-         *              "left"
-         *         </dt>
-         *         <dd>
-         *              The label is positioned at the left of the line chart marker.
-         *         </dd>
-         *    </dl>
-         * @option {Boolean} [series.type="line".labels.visible] <false> The visibility of the labels.
-         * @option {Number|Object} [series.type="line".labels.margin] <{ left: 5, right: 5}>
-         * The margin of the labels.
-         * _example
-         * // sets the top, right, bottom and left margin to 3px.
-         * margin: 3
-         *
-         * // sets the top and bottom margin to 1px
-         * // margin left and right are with 5px (by default)
-         * margin: { top: 1, bottom: 1 }
-         * @option {Number|Object} [series.type="line".labels.padding] <0> The padding of the labels.
-         * _example
-         * // sets the top, right, bottom and left padding to 3px.
-         * padding: 3
-         *
-         * // sets the top and left padding to 1px
-         * // padding right and bottom are with 0px (by default)
-         * padding: { top: 1, left: 1 }
-         * @option {Object} [series.type="line".labels.border] The border of the labels.
-         * @option {Number} [series.type="line".labels.border.width] <0> The width of the border.
-         * @option {String} [series.type="line".labels.border.color] <"black"> The color of the border.
-         * @option {String/Function} [series.type="line".labels.template] The label template.
-         * Template variables:
-         * <ul>
-         *     <li><strong>value</strong> - the value</li>
-         *     <li><strong>dataItem</strong> - the original data item used to construct the point.
-         *         Will be null if binding to array.
-         *     </li>
-         * </ul>
-         * _example
-         * // chart intialization
-         * $("#chart").kendoChart({
-         *      title: {
-         *          text: "My Chart Title"
-         *      },
-         *      series: [
-         *          {
-         *              type: "column",
-         *              name: "Series 1",
-         *              data: [200, 450, 300, 125],
-         *              labels: {
-         *                  // label template
-         *                  template: "${ value }%",
-         *                  visible: true
-         *              }
-         *          }
-         *      ],
-         *      categoryAxis: {
-         *          categories: [2000, 2001, 2002, 2003]
-         *      }
-         * });
-         * @option {String} [series.type="line".labels.format] The format of the labels.
-         * _example
-         * //sets format of the labels
-         * format: "{0:C}"
-         *
-         * @option [series.type="pie"] The type of the series.
-         * @option {Array} [series.type="pie".data] Array of data items (optional).
-         * The pie chart can be bound to an array of numbers or an array of objects
-         * with the following fields:
-         *    <dl>
-         *         <dt>
-         *              value
-         *         </dt>
-         *         <dd>
-         *              The sector value.
-         *         </dd>
-         *         <dt>
-         *              category
-         *         </dt>
-         *         <dd>
-         *              The sector category that is shown in the legend.
-         *         </dd>
-         *         <dt>
-         *              color
-         *         </dt>
-         *         <dd>
-         *              The sector color.
-         *         </dd>
-         *         <dt>
-         *              explode
-         *         </dt>
-         *         <dd>
-         *              A boolean value indicating whether to explode the sector.
-         *         </dd>
-         *    </dl>
-         *  _example
-         *  // ...
-         *  series:[{
-         *      type: "pie",
-         *      data:[{
-         *          value: 40,
-         *          category: "Apples"
-         *      }, {
-         *          value: 60,
-         *          category: "Oranges",
-         *          color: "#ff6103"
-         *          }
-         *      ],
-         *      name: "Sales in Percent"
-         *  }]
-         *  // ...
-         * @option {Number} [series.type="pie".padding] <60> The padding around the pie chart (equal on all sides).
-         * @option {Number} [series.type="pie".opacity] <1> The series opacity.
-         * @option {Object} [series.type="pie".labels] Configures the series data labels.
-         * @option {String} [series.type="pie".labels.font] <"12px Arial, sans-serif">
-         * The font style of the labels.
-         * @option {Boolean} [series.type="pie".labels.visible] <false> The visibility of the labels.
-         * @option {Number|Object} [series.type="pie".labels.margin] <0.5> The margin of the labels.
-         * _example
-         * // sets the top, right, bottom and left margin to 3px.
-         * margin: 3
-         *
-         * // sets the top and left margin to 1px
-         * // margin right and bottom are with 2px (by default)
-         * margin: { top: 1, left: 1 }
-         * @option {Number|Object} [series.type="pie".labels.padding] <0> The padding of the labels.
-         * _example
-         * // sets the top, right, bottom and left padding to 3px.
-         * padding: 3
-         *
-         * // sets the top and left padding to 1px
-         * // padding right and bottom are with 2px (by default)
-         * padding: { top: 1, left: 1 }
-         * @option {Object} [series.type="pie".labels.border] The border of the labels.
-         * @option {Number} [series.type="pie".labels.border.width] <0> The width of the border.
-         * @option {String} [series.type="pie".labels.border.color] <"black"> The color of the border.
-         * @option {String/Function} [series.type="pie".labels.template] The label template.
-         * Template variables:
-         *     <dl>
-         *         <dt>
-         *              value
-         *         </dt>
-         *         <dd>
-         *              the point value
-         *         </dd>
-         *         <dt>
-         *              category
-         *         </dt>
-         *         <dd>
-         *              the category name
-         *         </dd>
-         *         <dt>
-         *              series
-         *         </dt>
-         *         <dd>
-         *              the data series
-         *         </dd>
-         *         <dt>
-         *              dataItem
-         *         </dt>
-         *         <dd>
-         *              the original data item used to construct the point (when binding from dataSource)
-         *         </dd>
-         *     </dl>
-         * _example
-         * // chart intialization
-         * $("#chart").kendoChart({
-         *      title: {
-         *          text: "My Chart Title"
-         *      },
-         *      series: [
-         *          {
-         *              type: "pie",
-         *              name: "Series 1",
-         *              data: [
-         *                  { value: 200, category: 2000 },
-         *                  { value: 450, category: 2001 },
-         *                  { value: 300, category: 2002 },
-         *                  { value: 125, category: 2003 }
-         *              ],
-         *              labels: {
-         *                  // label template
-         *                  template: "${ value }%",
-         *                  visible: true
-         *              }
-         *          }
-         *      ],
-         *      categoryAxis: {
-         *          categories: [2000, 2001, 2002, 2003]
-         *      }
-         * });
-         * @option {String} [series.type="pie".labels.format] The format of the labels.
-         * _example
-         * //sets format of the labels
-         * format: "{0:C}"
-         * @option {String} [series.type="pie".labels.align] <"circle">
-         * Defines the alignment of the pie labels.
-         *    <dl>
-         *         <dt>
-         *              "circle"
-         *         </dt>
-         *         <dd>
-         *              The labels are positioned in circle around the pie chart.
-         *         </dd>
-         *         <dt>
-         *              "column"
-         *         </dt>
-         *         <dd>
-         *              The labels are positioned in columns to the left and right of the pie chart.
-         *         </dd>
-         *    </dl>
-         * @option {Object} [series.type="pie".border] The border of the series.
-         * @option {Number} [series.type="pie".border.width] <1> The width of the border.
-         * @option {String} [series.type="pie".border.color] <the color of the curren series>
-         * The color of the border.
-         * @option {String} [series.type="pie".overlay] <"glass"> The effects overlay.
-         * @option {Object} [series.type="pie".connector] The labels connector options.
-         * @option {Number} [series.type="pie".connector.width] <1> The width of the connector line.
-         * @option {String} [series.type="pie".connector.color] <"#939393"> The color of the connector line.
-         * @option {Number} [series.type="pie".connector.padding] <4>
-         * The padding between the connector line and the label.
-         * @option {number} [series.type="pie".startAngle] <90> The start angle of the first pie segment.
-         * @option {Object} [chartArea] The chart area configuration options.
-         * This is the entire visible area of the chart.
-         * @option {String} [chartArea.background] <"white"> The background color of the chart area.
-         * @option {Number|Object} [chartArea.margin] <5> The margin of the chart area.
-         * _example
-         * // sets the top, right, bottom and left margin to 3px.
-         * margin: 3
-         *
-         * // sets the top and left margin to 1px
-         * // margin right and bottom are with 5px (by default)
-         * margin: { top: 1, left: 1 }
-         * @option {Object} [chartArea.border] The border of the chart area.
-         * @option {Number} [chartArea.border.width] <0> The width of the border.
-         * @option {String} [chartArea.border.color] <"black"> The color of the border.
-         * @option {Object} [plotArea]
-         * The plot area configuration options. This is the area containing the plotted series.
-         * @option {String} [plotArea.background] <"white"> The background color of the plot area.
-         * @option {Number|Object} [plotArea.margin] <5> The margin of the plot area.
-         * _example
-         * // sets the top, right, bottom and left margin to 3px.
-         * margin: 3
-         *
-         * // sets the top and left margin to 1px
-         * // margin right and bottom are with 5px (by default)
-         * margin: { top: 1, left: 1 }
-         * @option {Object} [plotArea.border] The border of the plot area.
-         * @option {Number} [plotArea.border.width] <0> The width of the border.
-         * @option {String} [plotArea.border.color] <"black"> The color of the border.
-         * @option {Object} [tooltip] The data point tooltip configuration options.
-         * @option {String} [tooltip.format] The tooltip format.
-         * _example
-         * //sets format of the tooltip
-         * format: "{0:C}"
-         * @option {String|Function} [tooltip.template] The tooltip template.
-         * Template variables:
-         * <ul>
-         *     <li><strong>value</strong> - the point value</li>
-         *     <li><strong>category</strong> - the category name</li>
-         *     <li><strong>series</strong> - the data series</li>
-         *     <li><strong>dataItem</strong> -
-         *         the original data item (when binding to dataSource)
-         *     </li>
-         * </ul>
-         * _example
-         * $("#chart").kendoChart({
-         *      title: {
-         *          text: "My Chart Title"
-         *      },
-         *      series: [
-         *          {
-         *              name: "Series 1",
-         *              data: [200, 450, 300, 125]
-         *          }
-         *      ],
-         *      categoryAxis: {
-         *          categories: [2000, 2001, 2002, 2003]
-         *      },
-         *      tooltip: {
-         *          visible: true,
-         *          template: "${category} - ${value}"
-         *      }
-         * });
-         * @option {String} [tooltip.font] <"12px Arial,Helvetica,sans-serif"> The tooltip font.
-         * @option {String} [tooltip.color]
-         * The text color of the tooltip. The default is the same as the series labels color.
-         * @option {String} [tooltip.background]
-         * The background color of the tooltip. The default is determined from the series color.
-         * @option {Number|Object} [tooltip.padding] The padding of the tooltip.
-         * _example
-         * // sets the top, right, bottom and left padding to 3px.
-         * padding: 3
-         *
-         * // sets the top and left padding to 1px
-         * // right and bottom padding are left at their default values
-         * padding: { top: 1, left: 1 }
-         * @option {Object} [tooltip.border] The border configuration options.
-         * @option {Number} [tooltip.border.width] <0> The width of the border.
-         * @option {String} [tooltip.border.color] <"black"> The color of the border.
-         * @option {Boolean} [transitions] <true>
-         * A value indicating if transition animations should be played.
-         */
+    var Chart = Widget.extend({
         init: function(element, options) {
             var chart = this,
+                themeOptions,
                 theme;
 
-            Component.fn.init.call(chart, element);
+            Widget.fn.init.call(chart, element);
 
             if (options && options.dataSource) {
                 chart.dataSource = DataSource
@@ -1317,48 +111,29 @@
             }
 
             options = deepExtend({}, chart.options, options);
-            applyAxisDefaults(options);
-
             theme = options.theme;
+            themeOptions = theme ? Chart.themes[theme] || Chart.themes[theme.toLowerCase()] : {};
 
-            chart.options = deepExtend(
-                {},
-                theme ? Chart.themes[theme] || Chart.themes[theme.toLowerCase()] : {},
-                options
-            );
+            applyAxisDefaults(options, themeOptions);
+            applySeriesDefaults(options, themeOptions);
 
-            applySeriesDefaults(chart.options);
+            chart.options = deepExtend({}, themeOptions, options);
+
+            applySeriesColors(chart.options);
 
             chart.bind([
-                /**
-                 * Fires when the chart has received data from the data source
-                 * and is about to render it.
-                 * @name kendo.ui.Chart#dataBound
-                 * @event
-                 * @param {Event} e
-                 */
                 DATABOUND,
-
-                /**
-                 * Fires when chart series are clicked.
-                 * @name kendo.ui.Chart#seriesClick
-                 * @event
-                 * @param {Event} e
-                 * @param {Object} e.value The data point value.
-                 * @param {Object} e.category The data point category
-                 * @param {Object} e.series The clicked series.
-                 * @param {Object} e.dataItem The original data item (when binding to dataSource).
-                 * @param {Object} e.element The DOM element of the data point.
-                 */
                 SERIES_CLICK
             ], chart.options);
+
+            $(element).addClass("k-chart");
 
             chart._refresh();
             chart._attachEvents();
         },
 
         options: {
-            theme: "default",
+            name: "Chart",
             chartArea: {},
             title: {
                 visible: true
@@ -1372,6 +147,7 @@
             categoryAxis: {
                 categories: []
             },
+            autoBind: true,
             seriesDefaults: {
                 type: COLUMN,
                 data: [],
@@ -1395,14 +171,6 @@
             transitions: true
         },
 
-        /**
-         * Reloads the data and repaints the chart.
-         * @example
-         * var chart = $("#chart").data("kendoChart");
-         *
-         * // refreshes the chart
-         * chart.refresh();
-         */
         refresh: function() {
             var chart = this;
 
@@ -1414,14 +182,36 @@
 
         _refresh: function() {
             var chart = this;
-            if (chart.options.dataSource) {
-                chart.dataSource.read();
+            if (chart.options.dataSource && chart.options.autoBind) {
+                chart.dataSource.query();
             } else {
                 chart._redraw();
             }
         },
 
         _redraw: function() {
+            var chart = this,
+                options = chart.options,
+                element = chart.element,
+                model = chart._model = chart._getModel(),
+                plotArea = chart._plotArea = model._plotArea,
+                viewClass = chart._supportsSVG() ? Chart.SVGView : Chart.VMLView,
+                view = chart._view = viewClass.fromModel(model);
+
+            element.css("position", "relative");
+            chart._viewElement = view.renderTo(element[0]);
+            chart._tooltip = new Tooltip(element, options.tooltip);
+            chart._highlight = new Highlight(view, chart._viewElement);
+        },
+
+        svg: function() {
+            var model = this._getModel(),
+                view = Chart.SVGView.fromModel(model);
+
+            return view.render();
+        },
+
+        _getModel: function() {
             var chart = this,
                 options = chart.options,
                 element = chart.element,
@@ -1432,26 +222,22 @@
                     }, options.chartArea)),
                 plotArea;
 
-            chart._model = model;
-
             if (options.title && options.title.visible && options.title.text) {
                 model.append(new Title(options.title));
             }
 
-
-            plotArea = chart._plotArea = new PlotArea(options);
+            plotArea = model._plotArea = new PlotArea(options);
             if (options.legend.visible) {
                 model.append(new Legend(plotArea.options.legend));
             }
             model.append(plotArea);
             model.reflow();
 
-            chart.element.css("position", "relative");
-            chart._view = model.getView();
-            chart._viewElement = chart._view.renderTo(chart.element[0]);
-            chart._tooltip = new Tooltip(chart.element, chart.options.tooltip);
-            chart._highlight = new Highlight(chart._view, chart._viewElement);
+            return model;
         },
+
+        // Needs to be overridable in tests
+        _supportsSVG: supportsSVG,
 
         _attachEvents: function() {
             var chart = this,
@@ -1471,8 +257,8 @@
                 point;
 
             if (chartElement) {
-                if (chartElement.getSeriesPoint && metadata) {
-                    point = chartElement.getSeriesPoint(coords.x, coords.y, metadata.seriesIx);
+                if (chartElement.getNearestPoint && metadata) {
+                    point = chartElement.getNearestPoint(coords.x, coords.y, metadata.seriesIx);
                 } else {
                     point = chartElement;
                 }
@@ -1482,13 +268,15 @@
         },
 
         _eventCoordinates: function(e) {
-            var chart = this,
-                chartOffset = chart.element.offset(),
+            var element = this.element,
+                offset = element.offset(),
+                paddingLeft = parseInt(element.css("paddingLeft"), 10),
+                paddingTop = parseInt(element.css("paddingTop"), 10),
                 win = $(window);
 
             return({
-                x: e.clientX - chartOffset.left + win.scrollLeft(),
-                y: e.clientY - chartOffset.top + win.scrollTop()
+                x: e.clientX - offset.left - paddingLeft + win.scrollLeft(),
+                y: e.clientY - offset.top - paddingTop + win.scrollTop()
             });
         },
 
@@ -1511,17 +299,18 @@
             var chart = this,
                 tooltip = chart._tooltip,
                 highlight = chart._highlight,
+                tooltipOptions,
                 point;
 
-            if (highlight.element === e.target) {
+            if (!highlight || highlight.element === e.target) {
                 return;
             }
 
             point = chart._getPoint(e);
             if (point) {
                 chart._activePoint = point;
-
-                if (chart.options.tooltip.visible) {
+                tooltipOptions = deepExtend({}, chart.options.tooltip, point.options.tooltip);
+                if (tooltipOptions.visible) {
                     tooltip.show(point);
                 }
 
@@ -1537,17 +326,19 @@
                 highlight = chart._highlight,
                 coords = chart._eventCoordinates(e),
                 point = chart._activePoint,
+                tooltipOptions,
                 owner,
                 seriesPoint;
 
             if (chart._plotArea.box.containsPoint(coords.x, coords.y)) {
                 if (point && point.series.type === LINE) {
                     owner = point.owner;
-                    seriesPoint = owner.getSeriesPoint(coords.x, coords.y, point.seriesIx);
+                    seriesPoint = owner.getNearestPoint(coords.x, coords.y, point.seriesIx);
                     if (seriesPoint && seriesPoint != point) {
                         chart._activePoint = seriesPoint;
 
-                        if (tooltip.visible) {
+                        tooltipOptions = deepExtend({}, chart.options.tooltip, point.options.tooltip);
+                        if (tooltipOptions.visible) {
                             tooltip.show(seriesPoint);
                         }
                         highlight.show(seriesPoint);
@@ -1567,13 +358,25 @@
                 options = chart.options,
                 series = options.series,
                 categoryAxis = options.categoryAxis,
-                data = chart.dataSource.view();
+                data = chart.dataSource.view(),
+                row,
+                category,
+                currentSeries,
+                value;
+
+            for (var seriesIdx = 0, seriesLength = series.length; seriesIdx < seriesLength; seriesIdx++) {
+                currentSeries = series[seriesIdx];
+                if (currentSeries.field || (currentSeries.xField && currentSeries.yField)) {
+                    currentSeries.data = [];
+                    currentSeries.dataItems = [];
+                }
+            }
 
             for (var dataIdx = 0, dataLength = data.length; dataIdx < dataLength; dataIdx++) {
-                var row = data[dataIdx];
+                row = data[dataIdx];
 
                 if (categoryAxis.field) {
-                    var category = getter(categoryAxis.field)(row);
+                    category = getter(categoryAxis.field, true)(row);
                     if (dataIdx === 0) {
                         categoryAxis.categories = [category];
                     } else {
@@ -1582,10 +385,17 @@
                 }
 
                 for (var seriesIdx = 0, seriesLength = series.length; seriesIdx < seriesLength; seriesIdx++) {
-                    var currentSeries = series[seriesIdx],
-                        value = getter(currentSeries.field)(row);
+                    currentSeries = series[seriesIdx];
 
                     if (currentSeries.field) {
+                        value = getter(currentSeries.field, true)(row);
+                    } else if (currentSeries.xField && currentSeries.yField) {
+                        value = [getter(currentSeries.xField, true)(row), getter(currentSeries.yField, true)(row)];
+                    } else {
+                        value = undefined;
+                    }
+
+                    if (defined(value)) {
                         if (dataIdx === 0) {
                             currentSeries.data = [value];
                             currentSeries.dataItems = [row];
@@ -1601,16 +411,6 @@
             chart._redraw();
         }
     });
-
-
-    // **************************
-    // Themes
-    // **************************
-    Chart.themes = {
-        "default": {
-            seriesColors: ["#d7df23", "#adc32b", "#799b28", "#4c7520"]
-        }
-    };
 
 
     // **************************
@@ -1817,7 +617,7 @@
                 radianAngle = angle * DEGREE,
                 ax = math.cos(radianAngle),
                 ay = math.sin(radianAngle),
-                x = sector.c.x - (ax * sector.r)
+                x = sector.c.x - (ax * sector.r),
                 y = sector.c.y - (ay * sector.r);
 
             return new Point2D(x, y);
@@ -1943,16 +743,6 @@
             }
         },
 
-        getView: function() {
-            var root = this,
-                options = root.options,
-                view = root.supportsSVG() ? new SVGView(options) : new VMLView(options);
-
-            append(view.children, root.getViewElements(view));
-
-            return view;
-        },
-
         getViewElements: function(view) {
             var root = this,
                 options = root.options,
@@ -1974,10 +764,7 @@
 
         getRoot: function() {
             return this;
-        },
-
-        // Needs to be overridable in tests
-        supportsSVG: supportsSVG
+        }
     });
 
     var BoxElement = ChartElement.extend({
@@ -1988,8 +775,8 @@
         options: {
             align: LEFT,
             vAlign: TOP,
-            margin: { },
-            padding: { },
+            margin: {},
+            padding: {},
             border: {
                 color: BLACK,
                 width: 0
@@ -2103,7 +890,7 @@
         },
 
         options: {
-            font: SANS12,
+            font: DEFAULT_FONT,
             color: BLACK,
             align: LEFT,
             vAlign: ""
@@ -2200,7 +987,6 @@
         },
 
         options: {
-            font: SANS12,
             position: OUTSIDE_END,
             margin: getSpacing(3),
             padding: getSpacing(4),
@@ -2305,7 +1091,6 @@
 
         options: {
             text: "",
-            font: SANS16,
             color: BLACK,
             position: TOP,
             align: CENTER,
@@ -2333,9 +1118,7 @@
         options: {
             position: RIGHT,
             items: [],
-            labels: {
-                font: SANS12
-            },
+            labels: {},
             offsetX: 0,
             offsetY: 0,
             margin: getSpacing(10),
@@ -2426,12 +1209,6 @@
                 group.children.push(view.createRect(markerBox, { fill: color, stroke: color }));
             }
 
-            // Sets the correct width of the label box
-            // when the position of the legend is top or bottom.
-            if (inArray(options.position, ["top", "bottom"])) {
-                labelBox.x2 += markerSize * (items.length + 1);
-            }
-
             if (children.length > 0) {
                 var padding = getSpacing(options.padding);
                 padding.left += markerSize * 2;
@@ -2495,41 +1272,54 @@
                 options = legend.options,
                 children = legend.children,
                 childrenCount = children.length,
-                labelBox = children[0].box.clone(),
+                box = children[0].box.clone(),
                 markerWidth = legend.markerSize() * 3,
                 offsetX,
                 offsetY,
                 margin = getSpacing(options.margin),
+                boxWidth = children[0].box.width() + markerWidth,
+                plotAreaWidth = targetBox.width(),
                 label,
+                labelY = 0,
                 i;
 
             // Position labels next to each other
             for (i = 1; i < childrenCount; i++) {
-                label = legend.children[i];
-                label.box.alignTo(legend.children[i - 1].box, RIGHT);
-                labelBox.wrap(label.box);
-                label.box.x1 = label.box.x1 + i * markerWidth;
+                label = children[i];
+
+                boxWidth += label.box.width() + markerWidth;
+                if (boxWidth > plotAreaWidth - markerWidth) {
+                    label.box = new Box2D(box.x1, box.y2,
+                        box.x1 + label.box.width(), box.y2 + label.box.height());
+                    boxWidth = label.box.width() + markerWidth;
+                    labelY = label.box.y1;
+                } else {
+                    label.box.alignTo(children[i - 1].box, RIGHT);
+                    label.box.y2 = labelY + label.box.height();
+                    label.box.y1 = labelY;
+                    label.box.translate(markerWidth, 0);
+                }
+                box.wrap(label.box);
             }
 
-            if (options.position == TOP) {
-                offsetX = (targetBox.x2 - labelBox.width() - markerWidth) / 2;
+            offsetX = (targetBox.width() - box.width() + markerWidth) / 2;
+            if (options.position === TOP) {
                 offsetY = targetBox.y1 + margin.top;
-                labelBox.y2 = targetBox.y1 + labelBox.height() + margin.top + margin.bottom;
-                labelBox.y1 = targetBox.y1;
+                box.y2 = targetBox.y1 + box.height() + margin.top + margin.bottom;
+                box.y1 = targetBox.y1;
             } else {
-                offsetX = (targetBox.x2 - labelBox.width() - markerWidth) / 2;
-                offsetY = targetBox.y2 - labelBox.height() - margin.bottom;
-                labelBox.y1 = targetBox.y2 - labelBox.height() - margin.top - margin.bottom;
-                labelBox.y2 = targetBox.y2;
+                offsetY = targetBox.y2 - box.height() - margin.bottom;
+                box.y1 = targetBox.y2 - box.height() - margin.top - margin.bottom;
+                box.y2 = targetBox.y2;
             }
 
             legend.translateChildren(offsetX + options.offsetX,
                     offsetY + options.offsetY);
 
-            labelBox.x1 = targetBox.x1;
-            labelBox.x2 = targetBox.x2;
+            box.x1 = targetBox.x1;
+            box.x2 = targetBox.x2;
 
-            legend.box = labelBox;
+            legend.box = box;
         },
 
         customLayout: function (targetBox) {
@@ -2538,13 +1328,14 @@
                 children = legend.children,
                 childrenCount = children.length,
                 labelBox = children[0].box.clone(),
-                markerWidth = legend.markerSize() * 2;
+                markerWidth = legend.markerSize() * 2,
+                i;
 
             // Position labels next to each other
-            for (var i = 1; i < childrenCount; i++) {
-                var label = legend.children[i]
-                label.box.alignTo(legend.children[i - 1].box, BOTTOM);
-                labelBox.wrap(label.box);
+            for (i = 1; i < childrenCount; i++) {
+                labelBox = legend.children[i].box;
+                labelBox.alignTo(legend.children[i - 1].box, BOTTOM);
+                labelBox.wrap(labelBox);
             }
 
             legend.translateChildren(options.offsetX + markerWidth, options.offsetY);
@@ -2602,53 +1393,53 @@
 
             if (options.majorTickType.toLowerCase() === OUTSIDE) {
                 ticks = ticks.concat(map(majorTicks, function(pos) {
-                                        return {
-                                            pos: pos,
-                                            size: options.majorTickSize,
-                                            width: options.line.width,
-                                            color: options.line.color
-                                        };
-                                    }));
+                    return {
+                        pos: pos,
+                        size: options.majorTickSize,
+                        width: options.line.width,
+                        color: options.line.color
+                    };
+                }));
             }
 
             if (options.minorTickType.toLowerCase()  === OUTSIDE) {
                 ticks = ticks.concat(map(axis.getMinorTickPositions(), function(pos) {
-                            if (options.majorTickType.toLowerCase() !== NONE) {
-                                if (!inArray(pos, majorTicks)) {
-                                    return {
-                                        pos: pos,
-                                        size: options.minorTickSize,
-                                        width: options.line.width,
-                                        color: options.line.color
-                                    };
-                                }
-                            } else {
-                                    return {
-                                        pos: pos,
-                                        size: options.minorTickSize,
-                                        width: options.line.width,
-                                        color: options.line.color
-                                    };
-                            }
-                        }));
+                    if (options.majorTickType.toLowerCase() !== NONE) {
+                        if (!inArray(pos, majorTicks)) {
+                            return {
+                                pos: pos,
+                                size: options.minorTickSize,
+                                width: options.line.width,
+                                color: options.line.color
+                            };
+                        }
+                    } else {
+                        return {
+                            pos: pos,
+                            size: options.minorTickSize,
+                            width: options.line.width,
+                            color: options.line.color
+                        };
+                    }
+                }));
             }
 
             return map(ticks, function(tick) {
                 if (isVertical) {
                     return view.createLine(
-                            box.x2 - tick.size, tick.pos, box.x2, tick.pos,
-                            {
-                                strokeWidth: tick.width,
-                                stroke: tick.color
-                            }
+                        box.x2 - tick.size, tick.pos, box.x2, tick.pos,
+                        {
+                            strokeWidth: tick.width,
+                            stroke: tick.color
+                        }
                     );
                 } else {
                     return view.createLine(
-                            tick.pos, box.y1, tick.pos, box.y1 + tick.size,
-                            {
-                                strokeWidth: tick.width,
-                                stroke: tick.color
-                            }
+                        tick.pos, box.y1, tick.pos, box.y1 + tick.size,
+                        {
+                            strokeWidth: tick.width,
+                            stroke: tick.color
+                        }
                     );
                 }
             });
@@ -2676,9 +1467,12 @@
                 isVertical = axis.options.orientation === VERTICAL,
                 children = axis.children,
                 tickPositions = axis.getMajorTickPositions(),
-                tickSize = axis.getActualTickSize();
+                tickSize = axis.getActualTickSize(),
+                labelBox,
+                labelY,
+                i;
 
-            for (var i = 0; i < children.length; i++) {
+            for (i = 0; i < children.length; i++) {
                 var label = children[i],
                     tickIx = isVertical ? (children.length - 1 - i) : i,
                     labelSize = isVertical ? label.box.height() : label.box.width(),
@@ -2690,7 +1484,7 @@
 
                 if (isVertical) {
                     if (positions == ON_MINOR_TICKS) {
-                        firstTickPosition = tickPositions[i],
+                        firstTickPosition = tickPositions[i];
                         nextTickPosition = tickPositions[i + 1];
 
                         middle = firstTickPosition + (nextTickPosition - firstTickPosition) / 2;
@@ -2702,7 +1496,7 @@
                                          labelX, labelPos)
                 } else {
                     if (positions == ON_MINOR_TICKS) {
-                        firstTickPosition = tickPositions[i],
+                        firstTickPosition = tickPositions[i];
                         nextTickPosition = tickPositions[i + 1];
                     } else {
                         firstTickPosition = labelPos;
@@ -2733,7 +1527,9 @@
             var majorDivisions = axis.getDivisions(options.majorUnit),
                 currentValue = options.min,
                 align = options.orientation === VERTICAL ? RIGHT : CENTER,
-                labelOptions = deepExtend({ }, options.labels, { align: align }),
+                labelOptions = deepExtend({ }, options.labels, {
+                    align: align, zIndex: options.zIndex
+                }),
                 labelText;
 
             for (i = 0; i < majorDivisions; i++) {
@@ -3057,12 +1853,12 @@
                 i;
 
             for (i = 0; i < count; i++) {
-                content = options.categories[i];
+                content = defined(options.categories[i]) ? options.categories[i] : "";
 
                 if (labelOptions.template) {
                     labelTemplate = baseTemplate(labelOptions.template);
                     content = labelTemplate({ value: content });
-            }
+                }
 
                 axis.append(new TextBox(content, labelOptions));
             }
@@ -3121,11 +1917,11 @@
 
             if (line.width > 0) {
                 lineOptions = {
-                        strokeWidth: line.width,
-                        stroke: line.color,
-                        dashType: line.dashType,
-                        zIndex: line.zIndex
-                    };
+                    strokeWidth: line.width,
+                    stroke: line.color,
+                    dashType: line.dashType,
+                    zIndex: line.zIndex
+                };
 
                 if (isVertical) {
                     childElements.push(view.createLine(
@@ -3258,7 +2054,6 @@
             var stack = this,
                 options = stack.options,
                 isVertical = options.isVertical,
-                isReversed = options.isReversed,
                 positionAxis = isVertical ? X : Y,
                 stackAxis = isVertical ? Y : X,
                 stackBase = targetBox[stackAxis + 2],
@@ -3321,7 +2116,7 @@
             },
             animation: {
                 type: BAR
-        },
+            },
             opacity: 1
         },
 
@@ -3390,7 +2185,6 @@
                 rectStyle = deepExtend({
                     id: options.id,
                     fill: options.color,
-                    overlay: deepExtend({rotation: normalAngle }, options.overlay),
                     normalAngle: normalAngle,
                     aboveAxis: options.aboveAxis,
                     fillOpacity: options.opacity,
@@ -3401,12 +2195,14 @@
                 elements = [],
                 label = bar.children[0];
 
-            elements.push(
-                view.createRect(box, rectStyle)
-            );
+            if (options.overlay) {
+                rectStyle.overlay = deepExtend({rotation: normalAngle }, options.overlay);
+            }
+
+            elements.push(view.createRect(box, rectStyle));
+
             append(elements,
-                ChartElement.fn.getViewElements.call(bar, view)
-            );
+                ChartElement.fn.getViewElements.call(bar, view));
 
             bar.registerId(options.id);
             if (label) {
@@ -3464,6 +2260,12 @@
             }
 
             return new Point2D(x, y);
+        },
+
+        formatPointValue: function(format) {
+            var point = this;
+
+            return point.owner.formatPointValue(point.value, format);
         }
     });
 
@@ -3555,10 +2357,11 @@
                 categorySlots = chart.categorySlots = [],
                 chartPoints = chart.points,
                 valueAxis = isVertical ? plotArea.axisY : plotArea.axisX,
-                axisCrossingValue = valueAxis.options.axisCrossingValue;
+                axisCrossingValue = valueAxis.options.axisCrossingValue,
+                point;
 
             chart.traverseDataPoints(function(value, category, categoryIx) {
-                var point = chartPoints[pointIx++];
+                point = chartPoints[pointIx++];
                 if (point && point.plotValue) {
                     value = point.plotValue;
                 }
@@ -3607,35 +2410,8 @@
             }
         },
 
-        getSeriesPoint: function(x, y, seriesIx) {
-            var chart = this,
-                isVertical = chart.options.isVertical,
-                axis = isVertical ? X : Y,
-                pos = isVertical ? x : y,
-                points = chart.seriesPoints[seriesIx],
-                nearestPointDistance = Number.MAX_VALUE,
-                pointsLength = points.length,
-                currentPoint,
-                pointBox,
-                pointDistance,
-                nearestPoint,
-                i;
-
-            for (i = 0; i < pointsLength; i++) {
-                currentPoint = points[i];
-
-                if (currentPoint && defined(currentPoint.value) && currentPoint.value !== null) {
-                    pointBox = currentPoint.box;
-                    pointDistance = math.abs(pointBox.center()[axis] - pos);
-
-                    if (pointDistance < nearestPointDistance) {
-                        nearestPoint = currentPoint;
-                        nearestPointDistance = pointDistance;
-                    }
-                }
-            }
-
-            return nearestPoint;
+        formatPointValue: function(value, tooltipFormat) {
+            return format(tooltipFormat, value);
         }
     });
 
@@ -3662,15 +2438,13 @@
                 }
             }
 
-            var bar = new Bar(value, {
-                color: series.color,
-                opacity: series.opacity,
-                border: series.border,
-                isVertical: options.isVertical,
-                overlay: series.overlay,
-                labels: labelOptions,
-                isStacked: isStacked
-            });
+            var bar = new Bar(value,
+                deepExtend({}, {
+                    isVertical: options.isVertical,
+                    overlay: series.overlay,
+                    labels: labelOptions,
+                    isStacked: isStacked
+                }, series));
 
             var cluster = children[categoryIx];
             if (!cluster) {
@@ -3684,8 +2458,8 @@
 
             if (isStacked) {
                 var stackWrap = cluster.children[0],
-                positiveStack,
-                negativeStack;
+                    positiveStack,
+                    negativeStack;
 
                 if (!stackWrap) {
                     stackWrap = new ChartElement();
@@ -3780,6 +2554,10 @@
                 element = BoxElement.fn.getViewElements.call(marker, view, renderOptions)[0],
                 halfWidth = box.width() / 2;
 
+            if (!element) {
+                return [];
+            }
+
             if (type === TRIANGLE) {
                 element = view.createPolyline([
                     new Point2D(box.x1 + halfWidth, box.y1),
@@ -3851,30 +2629,31 @@
                     new Color(markerBackground).brightness(BAR_BORDER_BRIGHTNESS).toHex();
             }
 
-            if (labels.template) {
-                var labelTemplate = baseTemplate(labels.template);
-                labelText = labelTemplate({
-                    dataItem: point.dataItem,
-                    category: point.category,
-                    value: point.value,
-                    series: point.series
-                });
-            }
-
             point.marker = new ShapeElement({
-                    id: uniqueId(),
-                    visible: markers.visible,
-                    type: markers.type,
-                    width: markers.size,
-                    height: markers.size,
-                    background: markerBackground,
-                    border: markerBorder,
-                    opacity: markers.opacity
+                id: uniqueId(),
+                visible: markers.visible,
+                type: markers.type,
+                width: markers.size,
+                height: markers.size,
+                background: markerBackground,
+                border: markerBorder,
+                opacity: markers.opacity
             });
 
             point.append(point.marker);
 
             if (labels.visible) {
+                if (labels.template) {
+                    var labelTemplate = baseTemplate(labels.template);
+                    labelText = labelTemplate({
+                        dataItem: point.dataItem,
+                        category: point.category,
+                        value: point.value,
+                        series: point.series
+                    });
+                } else if (labels.format) {
+                    labelText = point.formatPointValue(labels.format);
+                }
                 point.label = new TextBox(labelText,
                     deepExtend({
                         id: uniqueId(),
@@ -3884,7 +2663,7 @@
                             left: 5,
                             right: 5
                         }
-                    }, labels)
+                    }, labels, { format: "" })
                 );
                 point.append(point.label);
             }
@@ -3963,7 +2742,11 @@
             element.registerId(outlineId);
             options = deepExtend({}, options, { id: outlineId });
 
-            return marker.getViewElements(view, options)[0];
+            return marker.getViewElements(view, deepExtend(options, {
+                fill: marker.options.border.color,
+                fillOpacity: 1,
+                strokeOpacity: 0
+            }))[0];
         },
 
         tooltipAnchor: function(tooltipWidth, tooltipHeight) {
@@ -3975,8 +2758,103 @@
                 markerBox.x2 + TOOLTIP_OFFSET,
                 aboveAxis ? markerBox.y1 - tooltipHeight : markerBox.y2
             );
+        },
+
+        formatPointValue: function(format) {
+            var point = this;
+
+            return point.owner.formatPointValue(point.value, format);
         }
     });
+
+    var LineChartMixin = {
+        createLines: function(view) {
+            var chart = this,
+                options = chart.options,
+                series = options.series,
+                seriesPoints = chart.seriesPoints,
+                currentSeries,
+                seriesIx,
+                seriesCount = seriesPoints.length,
+                currentSeriesPoints,
+                linePoints,
+                point,
+                pointCount,
+                lines = [];
+
+            for (seriesIx = 0; seriesIx < seriesCount; seriesIx++) {
+                currentSeriesPoints = seriesPoints[seriesIx];
+                pointCount = currentSeriesPoints.length;
+                currentSeries = series[seriesIx];
+                linePoints = [];
+
+                for (pointIx = 0; pointIx < pointCount; pointIx++) {
+                    point = currentSeriesPoints[pointIx];
+                    if (point) {
+                        pointCenter = point.markerBox().center();
+                        linePoints.push(new Point2D(pointCenter.x, pointCenter.y));
+                    } else if (currentSeries.missingValues !== INTERPOLATE) {
+                        if (linePoints.length > 1) {
+                            lines.push(
+                                chart.createLine(uniqueId(), view, linePoints, currentSeries, seriesIx)
+                            );
+                        }
+                        linePoints = [];
+                    }
+                }
+
+                if (linePoints.length > 1) {
+                    lines.push(
+                        chart.createLine(uniqueId(), view, linePoints, currentSeries, seriesIx));
+                }
+            }
+
+            return lines;
+        },
+
+        createLine: function(lineId, view, points, series, seriesIx) {
+            this.registerId(lineId, { seriesIx: seriesIx });
+            return view.createPolyline(points, false, {
+                id: lineId,
+                stroke: series.color,
+                strokeWidth: series.width,
+                strokeOpacity: series.opacity,
+                fill: "",
+                dashType: series.dashType
+            });
+        },
+
+        getNearestPoint: function(x, y, seriesIx) {
+            var chart = this,
+                isVertical = chart.options.isVertical,
+                axis = isVertical ? X : Y,
+                pos = isVertical ? x : y,
+                points = chart.seriesPoints[seriesIx],
+                nearestPointDistance = Number.MAX_VALUE,
+                pointsLength = points.length,
+                currentPoint,
+                pointBox,
+                pointDistance,
+                nearestPoint,
+                i;
+
+            for (i = 0; i < pointsLength; i++) {
+                currentPoint = points[i];
+
+                if (currentPoint && defined(currentPoint.value) && currentPoint.value !== null) {
+                    pointBox = currentPoint.box;
+                    pointDistance = math.abs(pointBox.center()[axis] - pos);
+
+                    if (pointDistance < nearestPointDistance) {
+                        nearestPoint = currentPoint;
+                        nearestPointDistance = pointDistance;
+                    }
+                }
+            }
+
+            return nearestPoint;
+        }
+    };
 
     var LineChart = CategoricalChart.extend({
         init: function(plotArea, options) {
@@ -4048,72 +2926,215 @@
 
         getViewElements: function(view) {
             var chart = this,
-                options = chart.options,
                 elements = CategoricalChart.fn.getViewElements.call(chart, view),
-                series = options.series,
-                currentSeries,
-                seriesIx,
-                seriesPoints = chart.seriesPoints,
-                seriesCount = seriesPoints.length,
-                currentSeriesPoints,
-                pointIx,
-                pointCount,
+                group = view.createGroup({
+                    animation: {
+                        type: CLIP
+                    }
+                }),
+                lines = chart.createLines(view);
+
+
+            group.children = lines.concat(elements);
+            return [group];
+        }
+    });
+    deepExtend(LineChart.fn, LineChartMixin);
+
+    var ScatterChart = ChartElement.extend({
+        init: function(plotArea, options) {
+            var chart = this;
+
+            ChartElement.fn.init.call(chart, options);
+
+            chart.plotArea = plotArea;
+            chart._seriesMin = [Number.MAX_VALUE, Number.MAX_VALUE];
+            chart._seriesMax = [-Number.MAX_VALUE, -Number.MAX_VALUE];
+            chart.points = [];
+            chart.seriesPoints = [];
+
+            chart.render();
+        },
+
+        options: {
+            series: [],
+            tooltip: {
+                format: "{0}, {1}"
+            },
+            labels: {
+                format: "{0}, {1}"
+            }
+        },
+
+        render: function() {
+            var chart = this;
+
+            chart.traverseDataPoints(proxy(chart.addValue, chart));
+        },
+
+        addValue: function(value, fields) {
+            var chart = this,
                 point,
-                pointCenter,
-                linePoints,
-                interpolate,
-                lines = [],
+                seriesIx = fields.seriesIx,
+                seriesPoints = chart.seriesPoints[seriesIx];
+
+            chart.updateRange(value);
+
+            if (!seriesPoints) {
+                chart.seriesPoints[seriesIx] = seriesPoints = [];
+            }
+
+            point = chart.createPoint(value, fields.series, seriesIx);
+            if (point) {
+                extend(point, fields);
+            }
+
+            chart.points.push(point);
+            seriesPoints.push(point);
+        },
+
+        updateRange: function(value) {
+            var chart = this,
+                x = value.x,
+                y = value.y,
+                seriesMin = chart._seriesMin,
+                seriesMax = chart._seriesMax;
+
+            if (defined(x)) {
+                seriesMin[0] = math.min(seriesMin[0], x);
+                seriesMax[0] = math.max(seriesMax[0], x);
+            }
+
+            if (defined(y)) {
+                seriesMin[1] = math.min(seriesMin[1], y);
+                seriesMax[1] = math.max(seriesMax[1], y);
+            }
+        },
+
+        valueRange: function() {
+            var chart = this;
+
+            if (chart.points.length) {
+                return { min: chart._seriesMin, max: chart._seriesMax };
+            }
+
+            return null;
+        },
+
+        createPoint: function(value, series, seriesIx) {
+            var chart = this;
+
+            if (!defined(value.x) || !defined(value.y)) {
+                return null;
+            }
+
+            var point = new LinePoint(value,
+                deepExtend({
+                    markers: {
+                        border: {
+                            color: series.color
+                        },
+                        opacity: series.opacity
+                    },
+                    tooltip: {
+                        format: chart.options.tooltip.format
+                    },
+                    labels: {
+                        format: chart.options.labels.format
+                    }
+                }, series)
+            );
+
+            chart.append(point);
+
+            return point;
+        },
+
+        reflow: function(targetBox) {
+            var chart = this,
+                plotArea = chart.plotArea,
+                chartPoints = chart.points,
+                pointIx = 0,
+                point;
+
+            chart.traverseDataPoints(function(value) {
+                point = chartPoints[pointIx++];
+
+                var slotX = plotArea.axisX.getSlot(value.x, value.x),
+                    slotY = plotArea.axisY.getSlot(value.y, value.y),
+                    pointSlot = new Box2D(slotX.x1, slotY.y1, slotX.x2, slotY.y2);
+
+                if (point) {
+                    point.reflow(pointSlot);
+                }
+            });
+
+            chart.box = targetBox;
+        },
+
+        getViewElements: function(view) {
+            var chart = this,
+                elements = ChartElement.fn.getViewElements.call(chart, view),
                 group = view.createGroup({
                     animation: {
                         type: CLIP
                     }
                 });
 
-            for (seriesIx = 0; seriesIx < seriesCount; seriesIx++) {
-                currentSeriesPoints = seriesPoints[seriesIx];
-                pointCount = currentSeriesPoints.length;
-                currentSeries = series[seriesIx];
-                linePoints = [];
-                interpolate = currentSeries.missingValues === INTERPOLATE;
-
-                for (pointIx = 0; pointIx < pointCount; pointIx++) {
-                    point = currentSeriesPoints[pointIx];
-                    if (point) {
-                        pointCenter = point.markerBox().center();
-                        linePoints.push(new Point2D(pointCenter.x, pointCenter.y));
-                    } else if (!interpolate) {
-                        if (linePoints.length > 1) {
-                            lines.push(
-                                chart.createLine(uniqueId(), view, linePoints, currentSeries, seriesIx)
-                            );
-                        }
-                        linePoints = [];
-                    }
-                }
-
-                if (linePoints.length > 1) {
-                    lines.push(
-                        chart.createLine(uniqueId(), view, linePoints, currentSeries, seriesIx)
-                    );
-                }
-            }
-
-            group.children = lines.concat(elements);
+            group.children = elements;
             return [group];
         },
 
-        createLine: function(lineId, view, points, series, seriesIx) {
-            this.registerId(lineId, { seriesIx: seriesIx });
-            return view.createPolyline(points, false, {
-                id: lineId,
-                stroke: series.color,
-                strokeWidth: series.width,
-                strokeOpacity: series.opacity,
-                fill: "",
-                dashType: series.dashType
-            });
+        traverseDataPoints: function(callback) {
+            var chart = this,
+                options = chart.options,
+                series = options.series,
+                pointIx = 0,
+                seriesIx,
+                currentSeries,
+                dataItems,
+                value,
+                pointData;
+
+            for (seriesIx = 0; seriesIx < series.length; seriesIx++) {
+                currentSeries = series[seriesIx];
+                for (pointIx = 0; pointIx < currentSeries.data.length; pointIx++) {
+                    pointData = currentSeries.data[pointIx] || [];
+                    dataItems = currentSeries.dataItems;
+                    value = { x: pointData[0], y: pointData[1] };
+
+                    callback(value, {
+                        pointIx: pointIx,
+                        series: currentSeries,
+                        seriesIx: seriesIx,
+                        dataItem: dataItems ? dataItems[pointIx] : value,
+                        owner: chart
+                    });
+                }
+            }
+        },
+
+        formatPointValue: function(value, tooltipFormat) {
+            return format(tooltipFormat, value.x, value.y);
         }
     });
+
+    var ScatterLineChart = ScatterChart.extend({
+        getViewElements: function(view) {
+            var chart = this,
+                elements = ScatterChart.fn.getViewElements.call(chart, view),
+                group = view.createGroup({
+                    animation: {
+                        type: CLIP
+                    }
+                }),
+                lines = chart.createLines(view);
+
+            group.children = lines.concat(elements);
+            return [group];
+        }
+    });
+    deepExtend(ScatterLineChart.fn, LineChartMixin);
 
     var PieSegment = ChartElement.extend({
         init: function(value, sector, options) {
@@ -4136,9 +3157,11 @@
             labels: {
                 visible: false,
                 distance: 35,
-                font: ARIAL12,
+                font: DEFAULT_FONT,
                 margin: getSpacing(0.5),
-                align: CIRCLE
+                align: CIRCLE,
+                zIndex: 1,
+                position: OUTSIDE_END
             },
             animation: {
                 type: PIE
@@ -4170,24 +3193,21 @@
                     dataItem: segment.dataItem,
                     category: segment.category,
                     value: segment.value,
-                    series: segment.series
+                    series: segment.series,
+                    percentage: segment.percentage
                 });
             }
 
             if (labels.visible) {
-                segment.label = new TextBox(labelText, {
+                segment.label = new TextBox(labelText, deepExtend({}, labels, {
                         id: uniqueId(),
                         align: CENTER,
                         vAlign: "",
                         animation: {
                             type: FADEIN,
                             delay: segment.categoryIx * PIE_SECTOR_ANIM_DELAY
-                        },
-                        font: labels.font,
-                        margin: labels.margin,
-                        padding: labels.padding,
-                        color: labels.color
-                    });
+                        }
+                    }));
 
                 segment.append(segment.label);
                 segment.registerId(segment.label.options.id);
@@ -4195,47 +3215,57 @@
         },
 
         reflow: function(targetBox) {
-            var segment = this,
-                options = segment.options,
-                childBox;
+            var segment = this;
 
             segment.render();
 
             segment.box = targetBox;
-            childBox = targetBox.clone();
+            targetBox.clone();
 
             segment.reflowLabel();
         },
 
         reflowLabel: function() {
             var segment = this,
-                sector = segment.sector,
+                sector = segment.sector.clone(),
                 options = segment.options,
                 label = segment.label,
-                labelDistance = options.labels.distance,
-                startAngle = segment.sector.startAngle % 90,
+                labelsOptions = options.labels,
+                labelsDistance = labelsOptions.distance,
                 lp,
                 x1,
-                y1,
-                angle = sector.middle();
+                angle = sector.middle(),
+                labelWidth,
+                labelHeight;
 
             if (label) {
-                lp = sector.clone().expand(labelDistance).point(angle);
-                if (lp.x >= sector.c.x) {
-                    x1 = lp.x + label.box.width();
-                    label.orientation = RIGHT;
+                labelHeight = label.box.height();
+                labelWidth = label.box.width();
+                if (labelsOptions.position == "center") {
+                    sector.r = math.abs((sector.r - labelHeight) / 2) + labelHeight;
+                    lp = sector.point(angle);
+                    label.reflow(new Box2D(lp.x, lp.y - labelHeight / 2, lp.x, lp.y));
+                } else if (labelsOptions.position == "insideEnd") {
+                    sector.r = sector.r - labelHeight / 2;
+                    lp = sector.point(angle);
+                    label.reflow(new Box2D(lp.x, lp.y - labelHeight / 2, lp.x, lp.y));
                 } else {
-                    x1 = lp.x - label.box.width();
-                    label.orientation = LEFT;
+                    lp = sector.clone().expand(labelsDistance).point(angle);
+                    if (lp.x >= sector.c.x) {
+                        x1 = lp.x + labelWidth;
+                        label.orientation = RIGHT;
+                    } else {
+                        x1 = lp.x - labelWidth;
+                        label.orientation = LEFT;
+                    }
+                    label.reflow(new Box2D(x1, lp.y - labelHeight, lp.x, lp.y));
                 }
-                label.reflow(new Box2D(x1, lp.y - label.box.height(), lp.x, lp.y));
             }
         },
 
         getViewElements: function(view) {
             var segment = this,
                 sector = segment.sector,
-                segmentID = uniqueId(),
                 options = segment.options,
                 borderOptions = options.border || {},
                 border = borderOptions.width > 0 ? {
@@ -4243,16 +3273,21 @@
                     strokeWidth: borderOptions.width,
                     dashType: borderOptions.dashType
                 } : {},
-                elements = [];
+                elements = [],
+                overlay = options.overlay;
+
+            if (overlay) {
+                overlay = deepExtend({}, options.overlay, {
+                    r: sector.r,
+                    cx: sector.c.x,
+                    cy: sector.c.y
+                })
+            }
 
             elements.push(view.createSector(sector, deepExtend({
                 id: options.id,
                 fill: options.color,
-                overlay: deepExtend({}, options.overlay, {
-                    r: sector.r,
-                    cx: sector.c.x,
-                    cy: sector.c.y
-                }),
+                overlay: overlay,
                 fillOpacity: options.opacity,
                 strokeOpacity: options.opacity,
                 animation: deepExtend(options.animation, {
@@ -4265,19 +3300,6 @@
             );
 
             return elements;
-        },
-
-        registerId: function(id, metadata) {
-            var element = this,
-                root;
-
-            root = element.getRoot();
-            if (root) {
-                root.idMap[id] = element;
-                if (metadata) {
-                    root.idMapMetadata[id] = metadata;
-                }
-            }
         },
 
         getOutlineElement: function(view, options) {
@@ -4306,6 +3328,12 @@
                 tooltipCenter = sector.point(sector.middle());
 
             return new Point2D(tooltipCenter.x - w, tooltipCenter.y - h);
+        },
+
+        formatPointValue: function(format) {
+            var point = this;
+
+            return point.owner.formatPointValue(point.value, format);
         }
     });
 
@@ -4324,7 +3352,7 @@
         options: {
             startAngle: 90,
             padding: 60,
-            connector: {
+            connectors: {
                 width: 1,
                 color: "#939393",
                 padding: 4
@@ -4348,20 +3376,21 @@
                 currentName,
                 currentSeries,
                 currentData,
-                currentColor,
-                totalAngle,
                 seriesIx,
                 angle,
                 data,
-                total,
                 anglePerValue,
+                value,
+                explode,
+                total,
                 i;
 
             for (seriesIx = 0; seriesIx < series.length; seriesIx++) {
                 currentSeries = series[seriesIx];
-                dataItems = currentSeries.dataItems,
+                dataItems = currentSeries.dataItems;
                 data = currentSeries.data;
-                anglePerValue = 360 / chart.pointsTotal(data);
+                total = chart.pointsTotal(data)
+                anglePerValue = 360 / total;
 
                 for (i = 0; i < data.length; i++) {
                     currentData = chart.pointData(currentSeries, i);
@@ -4378,24 +3407,15 @@
                         categoryIx: i,
                         series: currentSeries,
                         seriesIx: seriesIx,
-                        dataItem: dataItems ? dataItems[i] : currentData,
-                        explode: explode
+                        dataItem: dataItems ? dataItems[i] : { value: currentData },
+                        percentage: value / total,
+                        explode: explode,
+                        currentData: currentData
                     });
 
                     startAngle += angle;
                 }
             }
-        },
-
-        addValue: function(value, sector, fields) {
-            var chart = this,
-                segment;
-
-            segment = new PieSegment(value, sector, fields.series);
-            segment.options.id = uniqueId();
-            extend(segment, fields);
-            chart.append(segment);
-            chart.segments.push(segment);
         },
 
         addValue: function(value, sector, fields) {
@@ -4415,7 +3435,6 @@
 
         pointData: function(series, index) {
             var chart = this,
-                dataItems = series.dataItems,
                 data = series.data[index];
 
             return {
@@ -4432,7 +3451,7 @@
                 value = data[prop];
 
             if (valueField && series.dataItems) {
-                return getter(valueField)(series.dataItems[index]);
+                return getter(valueField, true)(series.dataItems[index]);
             } else {
                 return defined(value) ? value : "";
             }
@@ -4454,9 +3473,10 @@
         reflow: function(targetBox) {
             var chart = this,
                 options = chart.options,
-                padding = options.padding,
                 box = targetBox.clone(),
                 minWidth = math.min(box.width(), box.height()),
+                space = 5,
+                padding = options.padding > minWidth / 2 - space ? minWidth / 2 - space : options.padding,
                 newBox = new Box2D(box.x1, box.y1,
                     box.x1 + minWidth, box.y1 + minWidth),
                 newBoxCenter = newBox.center(),
@@ -4490,10 +3510,12 @@
 
                 label = segment.label;
                 if (label) {
-                    if (label.orientation === RIGHT) {
-                        rightSideLabels.push(label);
-                    } else {
-                        leftSideLabels.push(label);
+                    if (label.options.position === OUTSIDE_END) {
+                        if (label.orientation === RIGHT) {
+                            rightSideLabels.push(label);
+                        } else {
+                            leftSideLabels.push(label);
+                        }
                     }
                 }
             }
@@ -4584,7 +3606,6 @@
 
         reflowLabels: function(distances, labels) {
             var chart = this,
-                connector = chart.options,
                 segments = chart.segments,
                 segment = segments[0],
                 sector = segment.sector,
@@ -4594,7 +3615,8 @@
                 boxY = sector.c.y - (sector.r + labelDistance) - labels[0].box.height(),
                 label,
                 boxX,
-                box;
+                box,
+                i;
 
             distances[0] += 2;
             for (i = 0; i < labelsCount; i++) {
@@ -4629,7 +3651,7 @@
         getViewElements: function(view) {
             var chart = this,
                 options = chart.options,
-                connector = options.connector,
+                connectors = options.connectors,
                 segments = chart.segments,
                 connectorLine,
                 sector,
@@ -4652,80 +3674,81 @@
 
                 if (label) {
                     points = [];
+                    if (label.options.position === OUTSIDE_END) {
+                        var box = label.box,
+                            centerPoint = sector.c,
+                            start = sector.point(angle),
+                            middle = new Point2D(box.x1, box.center().y),
+                            sr,
+                            end,
+                            crossing;
 
-                    var box = label.box,
-                        centerPoint = sector.c,
-                        start = sector.point(angle),
-                        middle = new Point2D(box.x1, box.center().y),
-                        sr,
-                        end,
-                        crossing;
+                        start = sector.clone().expand(connectors.padding).point(angle);
+                        points.push(start);
+                        if (label.orientation == RIGHT) {
+                            end = new Point2D(box.x1 - connectors.padding, box.center().y);
+                            crossing = intersection(centerPoint, start, middle, end);
+                            middle = new Point2D(end.x - space, end.y);
+                            crossing = crossing || middle;
+                            crossing.x = math.min(crossing.x, middle.x);
 
-                    start = sector.clone().expand(connector.padding).point(angle);
-                    points.push(start);
-                    if (label.orientation == RIGHT) {
-                        end = new Point2D(box.x1 - connector.padding, box.center().y);
-                        crossing = intersection(centerPoint, start, middle, end);
-                        middle = new Point2D(end.x - space, end.y);
-                        crossing = crossing || middle;
-                        crossing.x = math.min(crossing.x, middle.x);
-
-                        if (chart.pointInCircle(crossing, sector.c, sector.r + space) ||
-                            crossing.x < sector.c.x) {
-                            sr = sector.c.x + sector.r + space;
-                            if (segment.options.labels.align !== COLUMN) {
-                                if (sr < middle.x) {
-                                    points.push(new Point2D(sr, start.y));
+                            if (chart.pointInCircle(crossing, sector.c, sector.r + space) ||
+                                crossing.x < sector.c.x) {
+                                sr = sector.c.x + sector.r + space;
+                                if (segment.options.labels.align !== COLUMN) {
+                                    if (sr < middle.x) {
+                                        points.push(new Point2D(sr, start.y));
+                                    } else {
+                                        points.push(new Point2D(start.x + space * 2, start.y));
+                                    }
                                 } else {
-                                    points.push(new Point2D(start.x + space * 2, start.y));
-                                }
-                            } else {
-                                points.push(new Point2D(sr, start.y));
-                            }
-                            points.push(new Point2D(middle.x, end.y));
-                        } else {
-                            crossing.y = end.y;
-                            points.push(crossing);
-                        }
-                    } else {
-                        end = new Point2D(box.x2 + connector.padding, box.center().y);
-                        crossing = intersection(centerPoint, start, middle, end);
-                        middle = new Point2D(end.x + space, end.y);
-                        crossing = crossing || middle;
-                        crossing.x = math.max(crossing.x, middle.x);
-
-                        if (chart.pointInCircle(crossing, sector.c, sector.r + space) ||
-                            crossing.x > sector.c.x) {
-                            sr = sector.c.x - sector.r - space;
-                            if (segment.options.labels.align !== COLUMN) {
-                                if (sr > middle.x) {
                                     points.push(new Point2D(sr, start.y));
-                                } else {
-                                    points.push(new Point2D(start.x - space * 2, start.y));
                                 }
+                                points.push(new Point2D(middle.x, end.y));
                             } else {
-                                points.push(new Point2D(sr, start.y));
+                                crossing.y = end.y;
+                                points.push(crossing);
                             }
-                            points.push(new Point2D(middle.x, end.y));
                         } else {
-                            crossing.y = end.y;
-                            points.push(crossing);
+                            end = new Point2D(box.x2 + connectors.padding, box.center().y);
+                            crossing = intersection(centerPoint, start, middle, end);
+                            middle = new Point2D(end.x + space, end.y);
+                            crossing = crossing || middle;
+                            crossing.x = math.max(crossing.x, middle.x);
+
+                            if (chart.pointInCircle(crossing, sector.c, sector.r + space) ||
+                                crossing.x > sector.c.x) {
+                                sr = sector.c.x - sector.r - space;
+                                if (segment.options.labels.align !== COLUMN) {
+                                    if (sr > middle.x) {
+                                        points.push(new Point2D(sr, start.y));
+                                    } else {
+                                        points.push(new Point2D(start.x - space * 2, start.y));
+                                    }
+                                } else {
+                                    points.push(new Point2D(sr, start.y));
+                                }
+                                points.push(new Point2D(middle.x, end.y));
+                            } else {
+                                crossing.y = end.y;
+                                points.push(crossing);
+                            }
                         }
+
+                        points.push(end);
+                        connectorLine = view.createPolyline(points, false, {
+                            id: uniqueId(),
+                            stroke: connectors.color,
+                            strokeWidth: connectors.width,
+                            animation: {
+                                type: FADEIN,
+                                delay: segment.categoryIx * PIE_SECTOR_ANIM_DELAY
+                            }
+                        });
+                        lines.push(connectorLine);
+                        segment.registerId(connectorLine.options.id, seriesIx);
                     }
-
-                    points.push(end);
-                    connectorLine = view.createPolyline(points, false, {
-                        id: uniqueId(),
-                        stroke: connector.color,
-                        strokeWidth: connector.width,
-                        animation: {
-                            type: FADEIN,
-                            delay: segment.categoryIx * PIE_SECTOR_ANIM_DELAY
-                        }
-                    });
-                    lines.push(connectorLine);
                     segment.registerId(label.options.id, seriesIx);
-                    segment.registerId(connectorLine.options.id, seriesIx);
                 }
 
                 segment.registerId(segment.options.id, seriesIx);
@@ -4741,7 +3764,6 @@
             reverse = (reverse) ? -1 : 1;
 
             return function(a, b) {
-                var startAngle = a.parent.sector.startAngle;
                 a = (a.parent.sector.middle() + 270) % 360;
                 b = (b.parent.sector.middle() + 270) % 360;
                 return (a - b) * reverse;
@@ -4763,6 +3785,10 @@
 
         pointInCircle: function(point, c, r) {
             return sqr(c.x - point.x) + sqr(c.y - point.y) < sqr(r);
+        },
+
+        formatPointValue: function(value, tooltipFormat) {
+            return format(tooltipFormat, value);
         }
     });
 
@@ -4788,7 +3814,6 @@
                 width: 0
             },
             range: {},
-            invertAxis: false,
             legend: {}
         },
 
@@ -4801,11 +3826,12 @@
                 pieSeries = [],
                 barSeries = [],
                 lineSeries = [],
+                scatterSeries = [],
+                scatterLineSeries = [],
                 i;
 
             options.legend.items = [];
-            options.invertAxes = options.categoryAxis.orientation === VERTICAL,
-            options.range = { min: 0, max: 1 }
+            options.range = { min: 0, max: 1 };
             plotArea.charts = [];
             for (i = 0; i < seriesLength; i++) {
                 currentSeries = series[i];
@@ -4816,6 +3842,10 @@
                     lineSeries.push(currentSeries);
                 } else if (currentSeries.type === PIE) {
                     pieSeries.push(currentSeries);
+                } else if (currentSeries.type === "scatter") {
+                    scatterSeries.push(currentSeries);
+                } else if (currentSeries.type === "scatterLine") {
+                    scatterLineSeries.push(currentSeries);
                 }
             }
 
@@ -4831,7 +3861,24 @@
                 plotArea.createPieChart(pieSeries);
             }
 
-            if (seriesLength != pieSeries.length || seriesLength == 0) {
+            if (scatterSeries.length > 0 || scatterLineSeries.length > 0) {
+                if (scatterSeries.length > 0) {
+                    plotArea.createScatterChart(scatterSeries);
+                } else {
+                    plotArea.createScatterLineChart(scatterLineSeries);
+                }
+
+                plotArea.axisX = new NumericAxis(options.range.min[0], options.range.max[0],
+                    deepExtend({}, options.xAxis, { orientation: HORIZONTAL })
+                );
+
+                plotArea.axisY = new NumericAxis(options.range.min[1], options.range.max[1],
+                    deepExtend({}, options.yAxis, { orientation: VERTICAL })
+                );
+
+                plotArea.append(plotArea.axisY);
+                plotArea.append(plotArea.axisX);
+            } else if (seriesLength != pieSeries.length || seriesLength == 0) {
                 plotArea.createAxes(options.range.min, options.range.max, options.invertAxes);
             }
 
@@ -4901,6 +3948,34 @@
             plotArea.addToLegend(series);
         },
 
+        createScatterChart: function(series) {
+            var plotArea = this,
+                options = plotArea.options,
+                // Override the original invertAxes
+                scatterChart = new ScatterChart(plotArea, { series: series }),
+                scatterChartRange = scatterChart.valueRange() || options.range;
+
+            // Override the original range
+            options.range = scatterChartRange;
+            plotArea.charts.push(scatterChart);
+
+            plotArea.addToLegend(series);
+        },
+
+        createScatterLineChart: function(series) {
+            var plotArea = this,
+                options = plotArea.options,
+                // Override the original invertAxes
+                scatterLineChart = new ScatterLineChart(plotArea, { series: series }),
+                scatterLineChartRange = scatterLineChart.valueRange() || options.range;
+
+            // Override the original range
+            options.range = scatterLineChartRange;
+            plotArea.charts.push(scatterLineChart);
+
+            plotArea.addToLegend(series);
+        },
+
         createPieChart: function(series) {
             var plotArea = this,
                 options = plotArea.options,
@@ -4908,7 +3983,8 @@
                 pieChart = new PieChart(plotArea, {
                     series: series,
                     padding: firstSeries.padding,
-                    startAngle: firstSeries.startAngle
+                    startAngle: firstSeries.startAngle,
+                    connectors: firstSeries.connectors
                 }),
                 segments = pieChart.segments,
                 count = segments.length,
@@ -4929,11 +4005,15 @@
                 categoryAxis = new CategoryAxis(deepExtend({
                         orientation: invertAxes ? VERTICAL : HORIZONTAL,
                         axisCrossingValue: invertAxes ? categoriesCount : 0
-                    }, options.categoryAxis)
+                    },
+                    options.categoryAxis,
+                    invertAxes ? options.yAxis : options.xAxis)
                 ),
                 valueAxis = new NumericAxis(seriesMin, seriesMax, deepExtend({
                         orientation: invertAxes ? HORIZONTAL : VERTICAL
-                    }, options.valueAxis)
+                    },
+                    options.valueAxis,
+                    invertAxes ? options.xAxis : options.yAxis)
                 );
 
             plotArea.axisX = invertAxes ? valueAxis : categoryAxis;
@@ -5040,7 +4120,6 @@
                 secAxisPos = round(crossingSlot[isVertical ? "y1" : "x1"]),
                 lineStart = boundaries[0],
                 lineEnd = boundaries.pop(),
-                linePos,
                 majorTicks = axis.getMajorTickPositions(),
                 gridLines = [],
                 gridLine = function (pos, options) {
@@ -5123,7 +4202,7 @@
     });
 
     // **************************
-    // Visual elements - Generic, SVG, VML
+    // Visual elements
     // **************************
 
     var ViewElement = Class.extend({
@@ -5208,8 +4287,7 @@
                 decorators = view.decorators,
                 i,
                 length = decorators.length,
-                currentDecorator,
-                j;
+                currentDecorator;
 
             for (i = 0; i < length; i++) {
                 currentDecorator = decorators[i];
@@ -5249,9 +4327,1128 @@
             while(anim = view.animations.shift()) {
                 anim.play();
             }
+        },
+
+        buildGradient: function(options) {
+            var view = this,
+                cache = view._gradientCache,
+                hashCode,
+                overlay,
+                definition;
+
+            if (!cache) {
+                cache = view._gradientCache = [];
+            }
+
+            if (options) {
+                hashCode = getHash(options);
+                overlay = cache[hashCode];
+                definition = Chart.Gradients[options.gradient];
+                if (!overlay && definition) {
+                    overlay = deepExtend({ id: uniqueId() }, definition, options);
+                    cache[hashCode] = overlay;
+                }
+            }
+
+            return overlay;
         }
     });
 
+    function supportsSVG() {
+        return doc.implementation.hasFeature(
+            "http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1");
+    }
+
+    // Animations
+    var BarAnimationDecorator = Class.extend({
+        init: function(view) {
+            this.view = view;
+        },
+
+        decorate: function(element) {
+            var decorator = this,
+                view = decorator.view,
+                animation = element.options.animation;
+
+            if (animation && view.options.transitions) {
+                if (animation.type === BAR) {
+                    view.animations.push(
+                        new BarAnimation(element)
+                    );
+                }
+            }
+
+            return element;
+        }
+    });
+
+    var PieAnimationDecorator = Class.extend({
+        init: function(view) {
+            this.view = view;
+        },
+
+        decorate: function(element) {
+            var decorator = this,
+                view = decorator.view,
+                animation = element.options.animation;
+
+            if (animation && animation.type === PIE && view.options.transitions) {
+                view.animations.push(
+                    new PieAnimation(element, animation)
+                );
+            }
+
+            return element;
+        }
+    });
+
+    var FadeAnimationDecorator = Class.extend({
+        init: function(view) {
+            this.view = view;
+        },
+
+        decorate: function(element) {
+            var decorator = this,
+                view = decorator.view,
+                options = view.options,
+                animation = element.options.animation;
+
+            if (animation && animation.type === FADEIN && options.transitions) {
+                view.animations.push(
+                    new FadeAnimation(element, animation)
+                );
+            }
+
+            return element;
+        }
+    });
+
+    var ElementAnimation = Class.extend({
+        init: function(element, options) {
+            var anim = this;
+
+            anim.options = deepExtend({}, anim.options, options);
+            anim.element = element;
+        },
+
+        options: {
+            duration: INITIAL_ANIMATION_DURATION,
+            easing: SWING
+        },
+
+        play: function() {
+            var anim = this,
+                options = anim.options,
+                element = anim.element,
+                delay = options.delay || 0,
+                start = +new Date() + delay,
+                duration = options.duration,
+                finish = start + duration,
+                domElement = doc.getElementById(element.options.id),
+                easing = jQuery.easing[options.easing],
+                time,
+                pos,
+                easingPos;
+
+            setTimeout(function() {
+                var loop = function() {
+                    time = +new Date();
+                    pos = time > finish ? 1 : (time - start) / duration;
+                    easingPos = easing(pos, time - start, 0, 1, duration);
+
+                    anim.step(easingPos);
+
+                    element.refresh(domElement);
+
+                    if (time < finish) {
+                        requestAnimFrame(loop, domElement);
+                    }
+                };
+
+                loop();
+            }, delay);
+        },
+
+        setup: function() {
+        },
+
+        step: function(pos) {
+        }
+    });
+
+    var FadeAnimation = ElementAnimation.extend({
+        options: {
+            duration: 200,
+            easing: LINEAR
+        },
+
+        setup: function() {
+            var anim = this,
+                options = anim.element.options;
+
+            anim.targetFillOpacity = options.fillOpacity;
+            anim.targetStrokeOpacity = options.strokeOpacity;
+            options.fillOpacity = options.strokeOpacity = 0;
+        },
+
+        step: function(pos) {
+            var anim = this,
+                options = anim.element.options;
+
+            options.fillOpacity = pos * anim.targetFillOpacity;
+            options.strokeOpacity = pos * anim.targetStrokeOpacity;
+        }
+    });
+
+    var ExpandAnimation = ElementAnimation.extend({
+        options: {
+            size: 0,
+            easing: LINEAR
+        },
+
+        setup: function() {
+            var anim = this,
+                points = anim.element.points;
+
+            points[1].x = points[2].x = points[0].x;
+        },
+
+        step: function(pos) {
+            var anim = this,
+                options = anim.options,
+                size = interpolateValue(0, options.size, pos),
+                points = anim.element.points;
+
+            // Expands rectangle to the right
+            points[1].x = points[2].x = points[0].x + size;
+        }
+    });
+
+    var requestAnimFrame =
+        window.requestAnimationFrame       ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame    ||
+        window.oRequestAnimationFrame      ||
+        window.msRequestAnimationFrame     ||
+        function(callback, element) {
+            setTimeout(callback, ANIMATION_STEP);
+        };
+
+    var BarAnimation = ElementAnimation.extend({
+        options: {
+            easing: SWING
+        },
+
+        setup: function() {
+            var anim = this,
+                element = anim.element,
+                points = element.points,
+                options = element.options,
+                axis = options.normalAngle === 0 ? Y : X,
+                stackBase = options.stackBase,
+                aboveAxis = options.aboveAxis,
+                startPosition,
+                endState = anim.endState = {
+                    top: points[0].y,
+                    right: points[1].x,
+                    bottom: points[3].y,
+                    left: points[0].x
+                };
+
+            if (axis === Y) {
+                startPosition = defined(stackBase) ? stackBase :
+                    aboveAxis ? endState.bottom : endState.top;
+            } else {
+                startPosition = defined(stackBase) ? stackBase :
+                    aboveAxis ? endState.left : endState.right;
+            }
+
+            anim.startPosition = startPosition;
+
+            updateArray(points, axis, startPosition);
+        },
+
+        step: function(pos) {
+            var anim = this,
+                startPosition = anim.startPosition,
+                endState = anim.endState,
+                element = anim.element,
+                points = element.points;
+
+            if (element.options.normalAngle === 0) {
+                points[0].y = points[1].y =
+                    interpolateValue(startPosition, endState.top, pos);
+
+                points[2].y = points[3].y =
+                    interpolateValue(startPosition, endState.bottom, pos);
+            } else {
+                points[0].x = points[3].x =
+                    interpolateValue(startPosition, endState.left, pos);
+
+                points[1].x = points[2].x =
+                    interpolateValue(startPosition, endState.right, pos);
+            }
+        }
+    });
+
+    var PieAnimation = ElementAnimation.extend({
+        options: {
+            easing: "easeOutElastic",
+            duration: INITIAL_ANIMATION_DURATION
+        },
+
+        setup: function() {
+            var anim = this,
+                sector = anim.element.circleSector;
+
+            anim.endRadius = sector.r;
+            sector.r = 0;
+        },
+
+        step: function(pos) {
+            var anim = this,
+                endRadius = anim.endRadius,
+                sector = anim.element.circleSector;
+
+            sector.r = interpolateValue(0, endRadius, pos);
+        }
+    });
+
+    var Highlight = Class.extend({
+        init: function(view, viewElement, options) {
+            var highlight = this;
+            highlight.options = deepExtend({}, highlight.options, options);
+
+            highlight.view = view;
+            highlight.viewElement = viewElement;
+        },
+
+        options: {
+            fill: WHITE,
+            fillOpacity: 0.2,
+            stroke: WHITE,
+            strokeWidth: 1,
+            strokeOpacity: 0.2
+        },
+
+        show: function(point) {
+            var highlight = this,
+                view = highlight.view,
+                viewElement = highlight.viewElement,
+                outline,
+                element;
+
+            highlight.hide();
+
+            if (point.getOutlineElement) {
+                outline = point.getOutlineElement(view, highlight.options);
+
+                if (outline) {
+                    element = view.renderElement(outline);
+                    viewElement.appendChild(element);
+
+                    highlight.element = element;
+                    highlight.visible = true;
+                }
+            }
+        },
+
+        hide: function() {
+            var highlight = this,
+                element = highlight.element;
+
+            if (element) {
+                element.parentNode.removeChild(element);
+
+                delete highlight.element;
+                highlight.visible = false;
+            }
+        }
+    });
+
+    var Tooltip = Class.extend({
+        init: function(chartElement, options) {
+            var tooltip = this;
+
+            tooltip.options = deepExtend({}, tooltip.options, options);
+            options = tooltip.options;
+
+            tooltip.chartElement = chartElement;
+
+            tooltip.template = Tooltip.template;
+            if (!tooltip.template) {
+                tooltip.template = Tooltip.template = template(
+                    "<div style='display:none; position: absolute; font: #= d.font #;" +
+                    "border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;" +
+                    "border: #= d.border.width #px solid;" +
+                    "opacity: #= d.opacity #; filter: alpha(opacity=#= d.opacity * 100 #);" +
+                    "padding: 2px 6px; white-space: nowrap;'></div>"
+                );
+            }
+
+            tooltip.element = $(tooltip.template(tooltip.options)).appendTo(chartElement);
+        },
+
+        options: {
+            background: BLACK,
+            color: WHITE,
+            border: {
+                width: 3
+            },
+            opacity: 1,
+            animation: {
+                duration: TOOLTIP_ANIMATION_DURATION
+            }
+        },
+
+        show: function(point) {
+            var tooltip = this;
+
+            tooltip.point = point;
+            setTimeout(proxy(tooltip._show, tooltip), TOOLTIP_SHOW_DELAY);
+        },
+
+        _show: function() {
+            var tooltip = this,
+                point = tooltip.point,
+                element = tooltip.element,
+                options = tooltip.options,
+                anchor,
+                template,
+                content,
+                tooltipOptions,
+                top,
+                left;
+
+            if (!point) {
+                return;
+            }
+            content = point.value.toString();
+
+            tooltipOptions = deepExtend({}, tooltip.options, point.options.tooltip);
+
+            if (tooltipOptions.template) {
+                template = baseTemplate(tooltipOptions.template);
+                content = template({
+                    value: point.value,
+                    category: point.category,
+                    series: point.series,
+                    dataItem: point.dataItem,
+                    percentage: point.percentage
+                });
+            } else if (tooltipOptions.format) {
+                content = point.formatPointValue(tooltipOptions.format);
+            }
+
+            element.html(content);
+
+            anchor = point.tooltipAnchor(element.outerWidth(), element.outerHeight());
+            top = round(anchor.y) + "px";
+            left = round(anchor.x) + "px";
+
+            if (!tooltip.visible) {
+                tooltip.element.css({ top: top, left: left });
+            }
+
+            tooltip.element
+                .css({
+                   backgroundColor: tooltipOptions.background,
+                   borderColor: tooltipOptions.border.color || point.options.color,
+                   color: tooltipOptions.color,
+                   opacity: tooltipOptions.opacity,
+                   borderWidth: tooltipOptions.border.width
+                })
+                .stop(true, true)
+                .show()
+                .animate({
+                    left: left,
+                    top: top
+                }, options.animation.duration);
+
+            tooltip.visible = true;
+        },
+
+        hide: function() {
+            var tooltip = this;
+
+            if (tooltip.visible) {
+                tooltip.element.fadeOut();
+
+                tooltip.point = null;
+                tooltip.visible = false;
+            }
+        }
+    });
+
+    // Helper functions
+    function ceil(value, step) {
+        return round(math.ceil(value / step) * step, DEFAULT_PRECISION);
+    }
+
+    function floor(value, step) {
+        return round(math.floor(value / step) * step, DEFAULT_PRECISION);
+    }
+
+    function round(value, precision) {
+        var power = math.pow(10, precision || 0);
+        return math.round(value * power) / power;
+    }
+
+    function measureText(text, style, rotation) {
+        var styleHash = getHash(style),
+            cacheKey = text + styleHash + rotation,
+            cachedResult = measureText.cache[cacheKey];
+
+        if (cachedResult) {
+            return cachedResult;
+        }
+
+        var measureBox = measureText.measureBox,
+            baselineMarker = measureText.baselineMarker.cloneNode(false);
+
+        if (!measureBox) {
+            measureBox = measureText.measureBox =
+                $("<div style='position: absolute; top: -4000px; left: -4000px;" +
+                              "line-height: normal; visibility: hidden;' />")
+                .appendTo(doc.body)[0];
+        }
+
+        for (var styleKey in style) {
+            measureBox.style[styleKey] = style[styleKey];
+        }
+        measureBox.innerHTML = text;
+        measureBox.appendChild(baselineMarker);
+
+        var size = {
+                width: measureBox.offsetWidth - BASELINE_MARKER_SIZE,
+                height: measureBox.offsetHeight,
+                baseline: baselineMarker.offsetTop + BASELINE_MARKER_SIZE
+            };
+
+        if (rotation) {
+            var width = size.width,
+                height = size.height,
+                cx = width / 2,
+                cy = height / 2,
+                r1 = rotatePoint(0, 0, cx, cy, rotation),
+                r2 = rotatePoint(width, 0, cx, cy, rotation),
+                r3 = rotatePoint(width, height, cx, cy, rotation);
+                r4 = rotatePoint(0, height, cx, cy, rotation);
+
+            size.normalWidth = width;
+            size.normalHeight = height;
+            size.width = math.max(r1.x, r2.x, r3.x, r4.x) - math.min(r1.x, r2.x, r3.x, r4.x);
+            size.height = math.max(r1.y, r2.y, r3.y, r4.y) - math.min(r1.y, r2.y, r3.y, r4.y);
+        }
+
+        measureText.cache[cacheKey] = size;
+
+        return size;
+    }
+
+    measureText.cache = [];
+    measureText.baselineMarker =
+        $("<div style='display: inline-block; vertical-align: baseline;" +
+                  "width: " + BASELINE_MARKER_SIZE + "px; height: " + BASELINE_MARKER_SIZE + "px;" +
+                  "zoom: 1; *display: inline; overflow: hidden;' />")[0];
+
+    function getHash(object) {
+        var hash = [];
+        for (var key in object) {
+            hash.push(key + object[key]);
+        }
+
+        return hash.sort().join(" ");
+    }
+
+    function rotatePoint(x, y, cx, cy, angle) {
+        var theta = angle * DEGREE;
+        return {
+            x: cx + (x - cx) * math.cos(theta) + (y - cy) * math.sin(theta),
+            y: cy - (x - cx) * math.sin(theta) + (y - cy) * math.cos(theta)
+        }
+    }
+
+    function boxDiff(r, s) {
+        if (r.x1 == s.x1 && r.y1 == s.y1 && r.x2 == s.x2 && r.y2 == s.y2) {
+            return s;
+        }
+
+        var a = math.min(r.x1, s.x1);
+        var b = math.max(r.x1, s.x1);
+        var c = math.min(r.x2, s.x2);
+        var d = math.max(r.x2, s.x2);
+
+        var e = math.min(r.y1, s.y1);
+        var f = math.max(r.y1, s.y1);
+        var g = math.min(r.y2, s.y2);
+        var h = math.max(r.y2, s.y2);
+
+        // X = intersection, 0-7 = possible difference areas
+        // h +-+-+-+
+        // . |5|6|7|
+        // g +-+-+-+
+        // . |3|X|4|
+        // f +-+-+-+
+        // . |0|1|2|
+        // e +-+-+-+
+        // . a b c d
+
+        var result = [];
+
+        // we'll always have rectangles 1, 3, 4 and 6
+        result[0] = new Box2D(b, e, c, f);
+        result[1] = new Box2D(a, f, b, g);
+        result[2] = new Box2D(c, f, d, g);
+        result[3] = new Box2D(b, g, c, h);
+
+        // decide which corners
+        if( r.x1 == a && r.y1 == e || s.x1 == a && s.y1 == e )
+        { // corners 0 and 7
+            result[4] = new Box2D(a, e, b, f);
+            result[5] = new Box2D(c, g, d, h);
+        }
+        else
+        { // corners 2 and 5
+            result[4] = new Box2D(c, e, d, f);
+            result[5] = new Box2D(a, g, b, h);
+        }
+
+        return $.grep(result, function(box) {
+            return box.height() > 0 && box.width() > 0
+        })[0];
+    }
+
+    function sparseArrayMin(arr) {
+        return sparseArrayLimits(arr).min;
+    }
+
+    function sparseArrayMax(arr) {
+        return sparseArrayLimits(arr).max;
+    }
+
+    function sparseArrayLimits(arr) {
+        var min = Number.MAX_VALUE,
+            max = - Number.MAX_VALUE;
+        for (var i = 0, length = arr.length; i < length; i++) {
+            var n = arr[i];
+            if (defined(n)) {
+                min = math.min(min, n);
+                max = math.max(max, n);
+            }
+        }
+
+        return { min: min, max: max };
+    }
+
+    function getSpacing(value) {
+        var spacing = { top: 0, right: 0, bottom: 0, left: 0 };
+
+        if (typeof(value) === "number") {
+            spacing[TOP] = spacing[RIGHT] = spacing[BOTTOM] = spacing[LEFT] = value;
+        } else {
+            spacing[TOP] = value[TOP] || 0;
+            spacing[RIGHT] = value[RIGHT] || 0;
+            spacing[BOTTOM] = value[BOTTOM] || 0;
+            spacing[LEFT] = value[LEFT] || 0;
+        }
+
+        return spacing;
+    }
+
+    function inArray(value, array) {
+        return $.inArray(value, array) != -1;
+    }
+
+    function deepExtend(destination) {
+        var i = 1,
+            length = arguments.length;
+
+        for (i = 1; i < length; i++) {
+            deepExtendOne(destination, arguments[i]);
+        }
+
+        return destination;
+    }
+
+    function deepExtendOne(destination, source) {
+        var property,
+            propValue,
+            propType,
+            destProp;
+
+        for (property in source) {
+            propValue = source[property];
+            propType = typeof propValue;
+            if (propType === OBJECT && propValue !== null && propValue.constructor !== Array) {
+                destProp = destination[property];
+                if (typeof (destProp) === OBJECT) {
+                    destination[property] = destProp || {};
+                } else {
+                    destination[property] = {};
+                }
+                deepExtendOne(destination[property], propValue);
+            } else if (propType !== UNDEFINED) {
+                destination[property] = propValue;
+            }
+        }
+
+        return destination;
+    }
+
+    function intersection(a1, a2, b1, b2) {
+        var result,
+            ua_t = (b2.x - b1.x) * (a1.y - b1.y) - (b2.y - b1.y) * (a1.x - b1.x),
+            u_b = (b2.y - b1.y) * (a2.x - a1.x) - (b2.x - b1.x) * (a2.y - a1.y),
+            ua;
+
+        if (u_b != 0) {
+            ua = (ua_t / u_b);
+
+            result = new Point2D(
+                a1.x + ua * (a2.x - a1.x),
+                a1.y + ua * (a2.y - a1.y)
+            );
+        }
+
+        return result;
+    }
+
+    function append(first, second) {
+        [].push.apply(first, second);
+    }
+
+    function interpolateValue(start, end, progress) {
+        return round(start + (end - start) * progress, COORD_PRECISION);
+    }
+
+    function applySeriesDefaults(options, themeOptions) {
+        var series = options.series,
+            i,
+            seriesLength = series.length,
+            seriesType,
+            seriesDefaults = options.seriesDefaults,
+            baseSeriesDefaults = deepExtend({}, options.seriesDefaults),
+            themeSeriesDefaults = themeOptions ? deepExtend({}, themeOptions.seriesDefaults) : {};
+
+        delete baseSeriesDefaults.bar;
+        delete baseSeriesDefaults.column;
+        delete baseSeriesDefaults.line;
+        delete baseSeriesDefaults.pie;
+        delete baseSeriesDefaults.scatter;
+        delete baseSeriesDefaults.scatterLine;
+
+        for (i = 0; i < seriesLength; i++) {
+            seriesType = series[i].type || options.seriesDefaults.type;
+
+            series[i] = deepExtend(
+                {},
+                themeSeriesDefaults,
+                themeSeriesDefaults[seriesType],
+                { tooltip: options.tooltip },
+                baseSeriesDefaults,
+                seriesDefaults[seriesType],
+                series[i]);
+        }
+    }
+
+    function applySeriesColors(options) {
+        var series = options.series,
+            i,
+            seriesLength = series.length,
+            colors = options.seriesColors || [];
+
+        for (i = 0; i < seriesLength; i++) {
+            series[i].color = series[i].color || colors[i % colors.length];
+        }
+    }
+
+    function applyAxisDefaults(options, themeOptions) {
+        var themeAxisDefaults = themeOptions ? deepExtend({}, themeOptions.axisDefaults) : {};
+
+        $.each(["category", "value", "x", "y"], function() {
+            var axisName = this + "Axis";
+            options[axisName] = deepExtend({},
+                themeAxisDefaults,
+                themeAxisDefaults[axisName],
+                options.axisDefaults,
+                options[axisName]
+            );
+        });
+    }
+
+    function incrementSlot(slots, index, value) {
+        slots[index] = (slots[index] || 0) + value;
+    }
+
+    function uniqueId() {
+        var id = "k", i;
+
+        for (i = 0; i < 16; i++) {
+            id += (math.random() * 16 | 0).toString(16);
+        }
+
+        return id;
+    }
+
+    function defined(value) {
+        return typeof value !== UNDEFINED;
+    }
+
+    var Color = function(value) {
+        var color = this,
+            formats = Color.formats,
+            re,
+            processor,
+            parts,
+            i,
+            channels;
+
+        if (arguments.length === 1) {
+            value = color.resolveColor(value);
+
+            for (i = 0; i < formats.length; i++) {
+                re = formats[i].re;
+                processor = formats[i].process;
+                parts = re.exec(value);
+
+                if (parts) {
+                    channels = processor(parts);
+                    color.r = channels[0];
+                    color.g = channels[1];
+                    color.b = channels[2];
+                }
+            }
+        } else {
+            color.r = arguments[0];
+            color.g = arguments[1];
+            color.b = arguments[2];
+        }
+
+        color.r = color.normalizeByte(color.r);
+        color.g = color.normalizeByte(color.g);
+        color.b = color.normalizeByte(color.b);
+    };
+
+    Color.prototype = {
+        toHex: function() {
+            var color = this,
+                pad = color.padDigit,
+                r = color.r.toString(16),
+                g = color.g.toString(16),
+                b = color.b.toString(16);
+
+            return "#" + pad(r) + pad(g) + pad(b);
+        },
+
+        resolveColor: function(value) {
+            value = value || BLACK;
+
+            if (value.charAt(0) == "#") {
+                value = value.substr(1, 6);
+            }
+
+            value = value.replace(/ /g, "");
+            value = value.toLowerCase();
+            value = Color.namedColors[value] || value;
+
+            return value;
+        },
+
+        normalizeByte: function(value) {
+            return (value < 0 || isNaN(value)) ? 0 : ((value > 255) ? 255 : value);
+        },
+
+        padDigit: function(value) {
+            return (value.length === 1) ? "0" + value : value;
+        },
+
+        brightness: function(value) {
+            var color = this,
+                round = math.round;
+
+            color.r = round(color.normalizeByte(color.r * value));
+            color.g = round(color.normalizeByte(color.g * value));
+            color.b = round(color.normalizeByte(color.b * value));
+
+            return color;
+        }
+    };
+
+    Color.formats = [{
+            re: /^rgb\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3})\)$/,
+            process: function(parts) {
+                return [
+                    parseInt(parts[1], 10), parseInt(parts[2], 10), parseInt(parts[3], 10)
+                ];
+            }
+        }, {
+            re: /^(\w{2})(\w{2})(\w{2})$/,
+            process: function(parts) {
+                return [
+                    parseInt(parts[1], 16), parseInt(parts[2], 16), parseInt(parts[3], 16)
+                ];
+            }
+        }, {
+            re: /^(\w{1})(\w{1})(\w{1})$/,
+            process: function(parts) {
+                return [
+                    parseInt(parts[1] + parts[1], 16),
+                    parseInt(parts[2] + parts[2], 16),
+                    parseInt(parts[3] + parts[3], 16)
+                ];
+            }
+        }
+    ];
+
+    Color.namedColors = {
+        aqua: "00ffff", azure: "f0ffff", beige: "f5f5dc",
+        black: "000000", blue: "0000ff", brown: "a52a2a",
+        coral: "ff7f50", cyan: "00ffff", darkblue: "00008b",
+        darkcyan: "008b8b", darkgray: "a9a9a9", darkgreen: "006400",
+        darkorange: "ff8c00", darkred: "8b0000", dimgray: "696969",
+        fuchsia: "ff00ff", gold: "ffd700", goldenrod: "daa520",
+        gray: "808080", green: "008000", greenyellow: "adff2f",
+        indigo: "4b0082", ivory: "fffff0", khaki: "f0e68c",
+        lightblue: "add8e6", lightgrey: "d3d3d3", lightgreen: "90ee90",
+        lightpink: "ffb6c1", lightyellow: "ffffe0", lime: "00ff00",
+        limegreen: "32cd32", linen: "faf0e6", magenta: "ff00ff",
+        maroon: "800000", mediumblue: "0000cd", navy: "000080",
+        olive: "808000", orange: "ffa500", orangered: "ff4500",
+        orchid: "da70d6", pink: "ffc0cb", plum: "dda0dd",
+        purple: "800080", red: "ff0000", royalblue: "4169e1",
+        salmon: "fa8072", silver: "c0c0c0", skyblue: "87ceeb",
+        slateblue: "6a5acd", slategray: "708090", snow: "fffafa",
+        steelblue: "4682b4", tan: "d2b48c", teal: "008080",
+        tomato: "ff6347", turquoise: "40e0d0", violet: "ee82ee",
+        wheat: "f5deb3", white: "ffffff", whitesmoke: "f5f5f5",
+        yellow: "ffff00", yellowgreen: "9acd32"
+    };
+
+    Chart.Gradients = {
+        glass: {
+            type: LINEAR,
+            rotation: 0,
+            stops: [{
+                offset: 0,
+                color: WHITE,
+                opacity: 0
+            }, {
+                offset: 0.1,
+                color: WHITE,
+                opacity: 0
+            }, {
+                offset: 0.25,
+                color: WHITE,
+                opacity: 0.3
+            }, {
+                offset: 0.92,
+                color: WHITE,
+                opacity: 0
+            }, {
+                offset: 1,
+                color: WHITE,
+                opacity: 0
+            }]
+        },
+        sharpBevel: {
+            type: RADIAL,
+            stops: [{
+                offset: 0,
+                color: WHITE,
+                opacity: 0.55
+            }, {
+                offset: 0.65,
+                color: WHITE,
+                opacity: 0
+            }, {
+                offset: 0.95,
+                color: WHITE,
+                opacity: 0
+            }, {
+                offset: 0.95,
+                color: WHITE,
+                opacity: 0.25
+            }]
+        },
+        roundedBevel: {
+            type: RADIAL,
+            stops: [{
+                offset: 0.33,
+                color: WHITE,
+                opacity: 0.06
+            }, {
+                offset: 0.83,
+                color: WHITE,
+                opacity: 0.2
+            }, {
+                offset: 0.95,
+                color: WHITE,
+                opacity: 0
+            }]
+        }
+    };
+
+    function updateArray(arr, prop, value) {
+        var i,
+            length = arr.length;
+
+        for(i = 0; i < length; i++) {
+            arr[i][prop] = value;
+        }
+    }
+
+    function categoriesCount(series) {
+        var seriesCount = series.length,
+            categories = 0,
+            i;
+
+        for (i = 0; i < seriesCount; i++) {
+            categories = math.max(categories, series[i].data.length);
+        }
+
+        return categories;
+    }
+
+    function sqr(value) {
+        return value * value;
+    }
+
+    jQuery.extend(jQuery.easing, {
+        easeOutElastic: function (n, d, first, diff) {
+            var s = 1.70158,
+                p = 0,
+                a = diff;
+
+            if ( n === 0 ) {
+                return first;
+            }
+
+            if ( n === 1) {
+                return first + diff;
+            }
+
+            if (!p) {
+                p = 0.5;
+            }
+
+            if (a < Math.abs(diff)) {
+                a=diff;
+                s = p / 4;
+            } else {
+                s = p / (2 * Math.PI) * Math.asin(diff / a);
+            }
+
+            return a * Math.pow(2,-10 * n) *
+                   Math.sin((n * 1 - s) * (1.1 * Math.PI) / p) +
+                   diff + first;
+        }
+    });
+
+    // Exports ================================================================
+
+    kendo.ui.plugin(Chart);
+
+    deepExtend(Chart, {
+        COORD_PRECISION: COORD_PRECISION,
+        CLIP: CLIP,
+        DEFAULT_WIDTH: DEFAULT_WIDTH,
+        DEFAULT_HEIGHT: DEFAULT_HEIGHT,
+        DEFAULT_FONT: DEFAULT_FONT,
+        defined: defined,
+        template: template,
+        rotatePoint: rotatePoint,
+        round: round,
+        supportsSVG: supportsSVG,
+        uniqueId: uniqueId,
+        Box2D: Box2D,
+        Point2D: Point2D,
+        Sector: Sector,
+        Text: Text,
+        BarLabel: BarLabel,
+        ChartElement: ChartElement,
+        RootElement: RootElement,
+        BoxElement: BoxElement,
+        TextBox: TextBox,
+        NumericAxis: NumericAxis,
+        CategoryAxis: CategoryAxis,
+        Bar: Bar,
+        BarChart: BarChart,
+        ShapeElement: ShapeElement,
+        LinePoint: LinePoint,
+        LineChart: LineChart,
+        ClusterLayout: ClusterLayout,
+        StackLayout: StackLayout,
+        Title: Title,
+        Legend: Legend,
+        PlotArea: PlotArea,
+        Tooltip: Tooltip,
+        Highlight: Highlight,
+        PieSegment: PieSegment,
+        PieChart: PieChart,
+        ViewElement: ViewElement,
+        ScatterChart: ScatterChart,
+        ScatterLineChart: ScatterLineChart,
+        ViewBase: ViewBase,
+        deepExtend: deepExtend,
+        Color: Color,
+        measureText: measureText,
+        ExpandAnimation: ExpandAnimation,
+        BarAnimation: BarAnimation,
+        BarAnimationDecorator: BarAnimationDecorator,
+        PieAnimation: PieAnimation,
+        PieAnimationDecorator: PieAnimationDecorator,
+        FadeAnimation: FadeAnimation,
+        FadeAnimationDecorator: FadeAnimationDecorator,
+        categoriesCount: categoriesCount
+    });
+
+})(jQuery);
+(function () {
+
+    // Imports ================================================================
+    var $ = jQuery,
+        kendo = window.kendo,
+        Class = kendo.Class,
+        Chart = kendo.ui.Chart,
+        BarAnimationDecorator = Chart.BarAnimationDecorator,
+        PieAnimationDecorator = Chart.PieAnimationDecorator,
+        FadeAnimationDecorator = Chart.FadeAnimationDecorator,
+        Box2D = Chart.Box2D,
+        Point2D = Chart.Point2D,
+        ExpandAnimation = Chart.ExpandAnimation,
+        ViewBase = Chart.ViewBase,
+        ViewElement = Chart.ViewElement,
+        deepExtend = Chart.deepExtend,
+        defined = Chart.defined,
+        template = Chart.template,
+        uniqueId = Chart.uniqueId,
+        round = Chart.round,
+        doc = document,
+        math = Math;
+
+    // Constants ==============================================================
+    var CLIP = Chart.CLIP,
+        COORD_PRECISION = Chart.COORD_PRECISION,
+        DEFAULT_WIDTH = Chart.DEFAULT_WIDTH,
+        DEFAULT_HEIGHT = Chart.DEFAULT_HEIGHT,
+        DEFAULT_FONT = Chart.DEFAULT_FONT,
+        GLOBAL_CLIP = "globalClip",
+        NONE = "none",
+        RADIAL = "radial",
+        SQUARE = "square",
+        SVG_NS = "http://www.w3.org/2000/svg",
+        SVG_DASH_TYPE = {
+            dot: [1.5, 3.5],
+            dash: [4, 3.5],
+            longdash: [8, 3.5],
+            dashdot: [3.5, 3.5, 1.5, 3.5],
+            longdashdot: [8, 3.5, 1.5, 3.5],
+            longdashdotdot: [8, 3.5, 1.5, 3.5, 1.5, 3.5]
+        },
+        UNDEFINED = "undefined";
+
+    // View ===================================================================
     var SVGView = ViewBase.extend({
         init: function(options) {
             var view = this;
@@ -5391,38 +5588,14 @@
         }
     });
 
+    SVGView.fromModel = function(model) {
+        var view = new SVGView(model.options);
+        [].push.apply(view.children, model.getViewElements(view));
 
-    var SVGGroup = ViewElement.extend({
-        init: function(options) {
-            var group = this;
-            ViewElement.fn.init.call(group, options);
+        return view;
+    }
 
-            group.template = SVGGroup.template;
-            if (!group.template) {
-                group.template = SVGGroup.template =
-                template("<g#= d.renderAttr(\"id\", d.options.id) #" +
-                           "#= d.renderAttr(\"clip-path\", d.options.clipPath) #>" +
-                         "#= d.renderContent() #</g>");
-            }
-        }
-    });
-
-
-    var SVGClipPath = ViewElement.extend({
-        init: function(options) {
-            var clip = this;
-            ViewElement.fn.init.call(clip, options);
-
-            clip.template = SVGClipPath.template;
-            if (!clip.template) {
-                clip.template = SVGClipPath.template =
-                template("<clipPath#= d.renderAttr(\"id\", d.options.id) #>" +
-                         "#= d.renderContent() #</clipPath>");
-            }
-        }
-    });
-
-
+    // Primitives =============================================================
     var SVGText = ViewElement.extend({
         init: function(content, options) {
             var text = this;
@@ -5447,7 +5620,7 @@
             x: 0,
             y: 0,
             baseline: 0,
-            font: SANS16,
+            font: DEFAULT_FONT,
             size: {
                 width: 0,
                 height: 0
@@ -5498,6 +5671,7 @@
                     "#= d.renderAttr(\"stroke-width\", d.options.strokeWidth) #" +
                     "#= d.renderDashType() # " +
                     "stroke-linecap='#= d.renderLinecap() #' " +
+                    "stroke-linejoin='round' " +
                     "fill-opacity='#= d.options.fillOpacity #' " +
                     "stroke-opacity='#= d.options.strokeOpacity #' " +
                     "fill='#= d.options.fill || \"none\" #'></path>"
@@ -5678,6 +5852,35 @@
         }
     });
 
+    var SVGGroup = ViewElement.extend({
+        init: function(options) {
+            var group = this;
+            ViewElement.fn.init.call(group, options);
+
+            group.template = SVGGroup.template;
+            if (!group.template) {
+                group.template = SVGGroup.template =
+                template("<g#= d.renderAttr(\"id\", d.options.id) #" +
+                           "#= d.renderAttr(\"clip-path\", d.options.clipPath) #>" +
+                         "#= d.renderContent() #</g>");
+            }
+        }
+    });
+
+    var SVGClipPath = ViewElement.extend({
+        init: function(options) {
+            var clip = this;
+            ViewElement.fn.init.call(clip, options);
+
+            clip.template = SVGClipPath.template;
+            if (!clip.template) {
+                clip.template = SVGClipPath.template =
+                template("<clipPath#= d.renderAttr(\"id\", d.options.id) #>" +
+                         "#= d.renderContent() #</clipPath>");
+            }
+        }
+    });
+
     var SVGLinearGradient = ViewElement.extend({
         init: function(options) {
             var gradient = this;
@@ -5769,11 +5972,12 @@
         }
     });
 
+    // Decorators =============================================================
     function SVGOverlayDecorator(view) {
         this.view = view;
     }
 
-    SVGOverlayDecorator.prototype = /** @ignore */ {
+    SVGOverlayDecorator.prototype = {
         decorate: function(element) {
             var decorator = this,
                 view = decorator.view,
@@ -5783,7 +5987,7 @@
                 overlay;
 
             if (options.overlay) {
-            element.options.id = uniqueId();
+                element.options.id = uniqueId();
 
                 group = view.createGroup();
                 overlay = element.clone();
@@ -5793,18 +5997,18 @@
                 overlay.options.id = id;
                 overlay.options.fill = options.overlay;
 
-            return group;
+                return group;
             } else {
                 return element;
+            }
         }
-    }
     }
 
     function SVGGradientDecorator(view) {
         this.view = view;
     }
 
-    SVGGradientDecorator.prototype = /** @ignore */ {
+    SVGGradientDecorator.prototype = {
         decorate: function(element) {
             var decorator = this,
                 options = element.options;
@@ -5822,19 +6026,19 @@
                 overlayId,
                 gradient;
 
-            if (paint && paint.gradient) {
-                overlay = buildGradient(paint);
+            if (paint && defined(paint.gradient)) {
+                overlay = view.buildGradient(paint);
                 if (overlay) {
-                overlayId = overlay.id;
-                gradient = definitions[overlayId];
-                if (!gradient) {
-                    gradient = view.createGradient(overlay);
-                    definitions[overlayId] = gradient;
-                }
+                    overlayId = overlay.id;
+                    gradient = definitions[overlayId];
+                    if (!gradient) {
+                        gradient = view.createGradient(overlay);
+                        definitions[overlayId] = gradient;
+                    }
 
-                return "url(#" + gradient.options.id + ")";
-            } else {
-                    return "";
+                    return "url(#" + gradient.options.id + ")";
+                } else {
+                    return NONE;
                 }
             } else {
                 return paint;
@@ -5842,6 +6046,139 @@
         }
     };
 
+    var SVGClipAnimationDecorator = Class.extend({
+        init: function(view) {
+            this.view = view;
+        },
+
+        decorate: function(element) {
+            var decorator = this,
+                view = decorator.view,
+                options = view.options,
+                animation = element.options.animation,
+                definitions = view.definitions,
+                clipPath = definitions[GLOBAL_CLIP],
+                clipRect;
+
+            if (animation && animation.type === CLIP && options.transitions) {
+                if (!clipPath) {
+                    clipPath = new SVGClipPath({ id: GLOBAL_CLIP });
+                    clipRect = view.createRect(
+                        new Box2D(0, 0, options.width, options.height), { id: uniqueId() });
+                    clipPath.children.push(clipRect);
+                    definitions[GLOBAL_CLIP] = clipPath;
+
+                    view.animations.push(
+                        new ExpandAnimation(clipRect, { size: options.width })
+                    );
+                }
+
+                element.options.clipPath = "url(#" + GLOBAL_CLIP + ")";
+            }
+
+            return element;
+        }
+    });
+
+    // Helpers ================================================================
+    function alignToPixel(coord) {
+        return math.round(coord) + 0.5;
+    }
+
+    function renderSVGDash(dashType, strokeWidth) {
+        var result = [],
+            dashType = dashType ? dashType.toLowerCase() : null,
+            dashTypeArray,
+            i;
+
+        if (dashType && dashType != "solid" && strokeWidth) {
+            dashTypeArray = SVG_DASH_TYPE[dashType];
+            for (i = 0; i < dashTypeArray.length; i++) {
+                result.push(dashTypeArray[i] * strokeWidth);
+            }
+
+            return "stroke-dasharray='" + result.join(" ") + "' ";
+        }
+
+        return "";
+    }
+
+    function renderSVG(container, svg) {
+        container.innerHTML = svg;
+    }
+
+    (function() {
+        var testFragment = "<svg xmlns='" + SVG_NS + "'></svg>",
+            testContainer = doc.createElement("div"),
+            hasParser = typeof DOMParser != UNDEFINED;
+
+        testContainer.innerHTML = testFragment;
+
+        if (hasParser && testContainer.firstChild.namespaceURI != SVG_NS) {
+            renderSVG = function(container, svg) {
+                var parser = new DOMParser(),
+                    chartDoc = parser.parseFromString(svg, "text/xml"),
+                    importedDoc = doc.adoptNode(chartDoc.documentElement);
+
+                container.innerHTML = "";
+                container.appendChild(importedDoc);
+            };
+        }
+    })();
+
+    // Exports ================================================================
+    deepExtend(Chart, {
+        SVGView: SVGView,
+        SVGText: SVGText,
+        SVGPath: SVGPath,
+        SVGLine: SVGLine,
+        SVGSector: SVGSector,
+        SVGCircle: SVGCircle,
+        SVGGroup: SVGGroup,
+        SVGClipPath: SVGClipPath,
+        SVGLinearGradient: SVGLinearGradient,
+        SVGRadialGradient: SVGRadialGradient,
+        SVGOverlayDecorator: SVGOverlayDecorator,
+        SVGGradientDecorator: SVGGradientDecorator,
+        SVGClipAnimationDecorator: SVGClipAnimationDecorator
+    });
+
+})(jQuery);
+(function () {
+
+    // Imports ================================================================
+    var $ = jQuery,
+        kendo = window.kendo,
+        Class = kendo.Class,
+        Chart = kendo.ui.Chart,
+        Color = Chart.Color,
+        Box2D = Chart.Box2D,
+        Point2D = Chart.Point2D,
+        BarAnimationDecorator = Chart.BarAnimationDecorator,
+        PieAnimationDecorator = Chart.PieAnimationDecorator,
+        FadeAnimationDecorator = Chart.FadeAnimationDecorator,
+        ExpandAnimation = Chart.ExpandAnimation,
+        ViewBase = Chart.ViewBase,
+        ViewElement = Chart.ViewElement,
+        deepExtend = Chart.deepExtend,
+        template = Chart.template,
+        uniqueId = Chart.uniqueId,
+        rotatePoint = Chart.rotatePoint,
+        round = Chart.round,
+        supportsSVG = Chart.supportsSVG,
+        doc = document,
+        math = Math;
+
+    // Constants ==============================================================
+    var BLACK = "#000",
+        CLIP = Chart.CLIP,
+        DEFAULT_WIDTH = Chart.DEFAULT_WIDTH,
+        DEFAULT_HEIGHT = Chart.DEFAULT_HEIGHT,
+        DEFAULT_FONT = Chart.DEFAULT_FONT,
+        OBJECT = "object",
+        RADIAL = "radial";
+
+    // View ===================================================================
     var VMLView = ViewBase.extend({
         init: function(options) {
             var view = this;
@@ -5897,7 +6234,7 @@
             var container = doc.createElement("div"),
                 element;
 
-            container.style.display = NONE;
+            container.style.display = "none";
             doc.body.appendChild(container);
             container.innerHTML = element.render();
 
@@ -5957,15 +6294,14 @@
         }
     });
 
-    function supportsSVG() {
-        return doc.implementation.hasFeature(
-            "http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1");
+    VMLView.fromModel = function(model) {
+        var view = new VMLView(model.options);
+        [].push.apply(view.children, model.getViewElements(view));
+
+        return view;
     }
 
-    function isIE9CompatibilityView() {
-        return $.browser.msie && !supportsSVG() && typeof window.performance !== UNDEFINED;
-    }
-
+    // Primitives =============================================================
     var VMLText = ViewElement.extend({
         init: function(content, options) {
             var text = this;
@@ -5988,7 +6324,7 @@
         options: {
             x: 0,
             y: 0,
-            font: SANS16,
+            font: DEFAULT_FONT,
             color: BLACK,
             fillOpacity: 1
         },
@@ -6030,7 +6366,7 @@
         options: {
             x: 0,
             y: 0,
-            font: SANS16,
+            font: DEFAULT_FONT,
             color: BLACK,
             size: {
                 width: 0,
@@ -6053,6 +6389,41 @@
                    "v='m " + round(r1.x) + "," + round(r1.y) +
                    " l " + round(r2.x) + "," + round(r2.y) +
                    "' />";
+        }
+    });
+
+    var VMLStroke = ViewElement.extend({
+        init: function(options) {
+            var stroke = this;
+            ViewElement.fn.init.call(stroke, options);
+
+            stroke.template = VMLStroke.template;
+            if (!stroke.template) {
+                stroke.template = VMLStroke.template = template(
+                    "<kvml:stroke on='#= !!d.options.stroke #' " +
+                    "#= d.renderAttr(\"color\", d.options.stroke) #" +
+                    "#= d.renderAttr(\"weight\", d.options.strokeWidth) #" +
+                    "#= d.renderAttr(\"dashstyle\", d.options.dashType) #" +
+                    "#= d.renderAttr(\"opacity\", d.options.strokeOpacity) # />"
+                );
+            }
+        }
+    });
+
+    var VMLFill = ViewElement.extend({
+        init: function(options) {
+            var stroke = this;
+            ViewElement.fn.init.call(stroke, options);
+
+            stroke.template = VMLFill.template;
+            if (!stroke.template) {
+                stroke.template = VMLFill.template = template(
+                    "<kvml:fill on='#= !!d.options.fill #' " +
+                    "#= d.renderAttr(\"color\", d.options.fill) #" +
+                    "#= d.renderAttr(\"weight\", d.options.fillWidth) #" +
+                    "#= d.renderAttr(\"opacity\", d.options.fillOpacity) # />"
+                );
+            }
         }
     });
 
@@ -6203,41 +6574,6 @@
         }
     });
 
-    var VMLStroke = ViewElement.extend({
-        init: function(options) {
-            var stroke = this;
-            ViewElement.fn.init.call(stroke, options);
-
-            stroke.template = VMLStroke.template;
-            if (!stroke.template) {
-                stroke.template = VMLStroke.template = template(
-                    "<kvml:stroke on='#= !!d.options.stroke #' " +
-                    "#= d.renderAttr(\"color\", d.options.stroke) #" +
-                    "#= d.renderAttr(\"weight\", d.options.strokeWidth) #" +
-                    "#= d.renderAttr(\"dashstyle\", d.options.dashType) #" +
-                    "#= d.renderAttr(\"opacity\", d.options.strokeOpacity) # />"
-                );
-            }
-        }
-    });
-
-    var VMLFill = ViewElement.extend({
-        init: function(options) {
-            var stroke = this;
-            ViewElement.fn.init.call(stroke, options);
-
-            stroke.template = VMLFill.template;
-            if (!stroke.template) {
-                stroke.template = VMLFill.template = template(
-                    "<kvml:fill on='#= !!d.options.fill #' " +
-                    "#= d.renderAttr(\"color\", d.options.fill) #" +
-                    "#= d.renderAttr(\"weight\", d.options.fillWidth) #" +
-                    "#= d.renderAttr(\"opacity\", d.options.fillOpacity) # />"
-                );
-            }
-        }
-    });
-
     var VMLCircle = ViewElement.extend({
         init: function(center, radius, options) {
             var circle = this;
@@ -6371,14 +6707,25 @@
         }
     });
 
+    // Decorators =============================================================
     function VMLOverlayDecorator(view) {
         this.view = view;
     }
 
-    VMLOverlayDecorator.prototype = /** @ignore */ {
+    VMLOverlayDecorator.prototype = {
         decorate: function(element) {
             var options = element.options,
-                overlay = buildGradient(element.options.overlay);
+                view = this.view,
+                overlay;
+
+            if (options.overlay) {
+                overlay = view.buildGradient(
+                    deepExtend({}, options.overlay, {
+                        // Make the gradient definition unique for this color
+                        _overlayFill: options.fill
+                    })
+                );
+            }
 
             if (!overlay || overlay.type === RADIAL) {
                 return element;
@@ -6398,7 +6745,7 @@
         this.view = view;
     }
 
-    VMLGradientDecorator.prototype = /** @ignore */ {
+    VMLGradientDecorator.prototype = {
         decorate: function(element) {
             var decorator = this,
                 view = decorator.view,
@@ -6407,95 +6754,17 @@
 
             if (fill) {
                 if (fill.gradient) {
-                    fill = buildGradient(fill);
+                    fill = view.buildGradient(fill);
                 }
 
-            if (typeof fill === OBJECT) {
-                element.fill = view.createGradient(fill);
-            }
+                if (typeof fill === OBJECT) {
+                    element.fill = view.createGradient(fill);
+                }
             }
 
             return element;
         }
     };
-
-    // Animations
-    var BarAnimationDecorator = Class.extend({
-        init: function(view) {
-            this.view = view;
-        },
-
-        decorate: function(element) {
-            var decorator = this,
-                view = decorator.view,
-                box = element.options.box,
-                animation = element.options.animation;
-
-            if (animation && view.options.transitions) {
-                if (animation.type === BAR) {
-                    view.animations.push(
-                        new BarAnimation(element)
-                    );
-                }
-            }
-
-            return element;
-        }
-    });
-
-    var PieAnimationDecorator = Class.extend({
-        init: function(view) {
-            this.view = view;
-        },
-
-        decorate: function(element) {
-            var decorator = this,
-                view = decorator.view,
-                animation = element.options.animation;
-
-            if (animation && animation.type === PIE && view.options.transitions) {
-                view.animations.push(
-                    new PieAnimation(element, animation)
-                );
-            }
-
-            return element;
-        }
-    });
-
-    var SVGClipAnimationDecorator = Class.extend({
-        init: function(view) {
-            this.view = view;
-        },
-
-        decorate: function(element) {
-            var decorator = this,
-                view = decorator.view,
-                options = view.options,
-                animation = element.options.animation,
-                definitions = view.definitions,
-                clipPath = definitions[GLOBAL_CLIP],
-                clipRect;
-
-            if (animation && animation.type === CLIP && options.transitions) {
-                if (!clipPath) {
-                    clipPath = new SVGClipPath({ id: GLOBAL_CLIP });
-                    clipRect = view.createRect(
-                        new Box2D(0, 0, 0, options.height), { id: uniqueId() });
-                    clipPath.children.push(clipRect);
-                    definitions[GLOBAL_CLIP] = clipPath;
-
-                    view.animations.push(
-                        new ExpandAnimation(clipRect, { size: options.width })
-                    );
-                }
-
-                element.options.clipPath = "url(#" + GLOBAL_CLIP + ")";
-            }
-
-            return element;
-        }
-    });
 
     var VMLClipAnimationDecorator = Class.extend({
         init: function(view) {
@@ -6528,839 +6797,10 @@
         }
     });
 
-    var FadeAnimationDecorator = Class.extend({
-        init: function(view) {
-            this.view = view;
-        },
-
-        decorate: function(element) {
-            var decorator = this,
-                view = decorator.view,
-                options = view.options,
-                animation = element.options.animation;
-
-            if (animation && animation.type === FADEIN && options.transitions) {
-                view.animations.push(
-                    new FadeAnimation(element, animation)
-                );
-            }
-
-            return element;
-        }
-    });
-
-    var ElementAnimation = Class.extend({
-        init: function(element, options) {
-            var anim = this;
-
-            anim.options = deepExtend({}, anim.options, options);
-            anim.element = element;
-        },
-
-        options: {
-            duration: INITIAL_ANIMATION_DURATION,
-            easing: SWING
-        },
-
-        play: function() {
-            var anim = this,
-                options = anim.options,
-                element = anim.element,
-                delay = options.delay || 0,
-                start = +new Date() + delay,
-                duration = options.duration,
-                finish = start + duration,
-                domElement = doc.getElementById(element.options.id),
-                easing = jQuery.easing[options.easing],
-                time,
-                pos,
-                easingPos;
-
-            setTimeout(function() {
-                var loop = function() {
-                    time = +new Date();
-                    pos = time > finish ? 1 : (time - start) / duration;
-                    easingPos = easing(pos, time - start, 0, 1);
-
-                    anim.step(easingPos);
-
-                    element.refresh(domElement);
-
-                    if (time < finish) {
-                        requestAnimFrame(loop, domElement);
-                    }
-                };
-
-                loop();
-            }, delay);
-        },
-
-        setup: function() {
-        },
-
-        step: function(pos) {
-        }
-    });
-
-    var FadeAnimation = ElementAnimation.extend({
-        options: {
-            duration: 200,
-            easing: LINEAR
-        },
-
-        setup: function() {
-            var anim = this,
-                options = anim.element.options;
-
-            anim.targetFillOpacity = options.fillOpacity;
-            anim.targetStrokeOpacity = options.strokeOpacity;
-            options.fillOpacity = options.strokeOpacity = 0;
-        },
-
-        step: function(pos) {
-            var anim = this,
-                options = anim.element.options;
-
-            options.fillOpacity = pos * anim.targetFillOpacity;
-            options.strokeOpacity = pos * anim.targetStrokeOpacity;
-        }
-    });
-
-    var ExpandAnimation = ElementAnimation.extend({
-        options: {
-            size: 0,
-            easing: LINEAR
-        },
-
-        step: function(pos) {
-            var anim = this,
-                options = anim.options,
-                size = interpolateValue(0, options.size, pos),
-                points = anim.element.points;
-
-            // Expands rectangle to the right
-            points[1].x = points[2].x = points[0].x + size;
-        }
-    });
-
-    var requestAnimFrame =
-        window.requestAnimationFrame       ||
-        window.webkitRequestAnimationFrame ||
-        window.mozRequestAnimationFrame    ||
-        window.oRequestAnimationFrame      ||
-        window.msRequestAnimationFrame     ||
-        function(callback, element) {
-            setTimeout(callback, ANIMATION_STEP);
-        };
-
-    var BarAnimation = ElementAnimation.extend({
-        options: {
-            easing: SWING
-        },
-
-        setup: function() {
-            var anim = this,
-                element = anim.element,
-                points = element.points,
-                options = element.options,
-                axis = options.normalAngle === 0 ? Y : X,
-                stackBase = options.stackBase,
-                aboveAxis = options.aboveAxis,
-                startPosition,
-                endState = anim.endState = {
-                    top: points[0].y,
-                    right: points[1].x,
-                    bottom: points[3].y,
-                    left: points[0].x
-                };
-
-            if (axis === Y) {
-                startPosition = defined(stackBase) ? stackBase :
-                    aboveAxis ? endState.bottom : endState.top;
-            } else {
-                startPosition = defined(stackBase) ? stackBase :
-                    aboveAxis ? endState.left : endState.right;
-            }
-
-            anim.startPosition = startPosition;
-
-            updateArray(points, axis, startPosition);
-        },
-
-        step: function(pos) {
-            var anim = this,
-                startPosition = anim.startPosition,
-                endState = anim.endState,
-                element = anim.element,
-                points = element.points;
-
-            if (element.options.normalAngle === 0) {
-                points[0].y = points[1].y =
-                    interpolateValue(startPosition, endState.top, pos);
-
-                points[2].y = points[3].y =
-                    interpolateValue(startPosition, endState.bottom, pos);
-            } else {
-                points[0].x = points[3].x =
-                    interpolateValue(startPosition, endState.left, pos);
-
-                points[1].x = points[2].x =
-                    interpolateValue(startPosition, endState.right, pos);
-            }
-        }
-    });
-
-    var PieAnimation = ElementAnimation.extend({
-        options: {
-            easing: "easeOutElastic",
-            duration: INITIAL_ANIMATION_DURATION
-        },
-
-        setup: function() {
-            var anim = this,
-                sector = anim.element.circleSector;
-
-            anim.endRadius = sector.r;
-            sector.r = 0;
-        },
-
-        step: function(pos) {
-            var anim = this,
-                endRadius = anim.endRadius,
-                sector = anim.element.circleSector;
-
-            sector.r = interpolateValue(0, endRadius, pos);
-        }
-    });
-
-    var Highlight = Class.extend({
-        init: function(view, viewElement, options) {
-            var highlight = this;
-            highlight.options = deepExtend({}, highlight.options, options);
-
-            highlight.view = view;
-            highlight.viewElement = viewElement;
-        },
-
-        options: {
-            fill: WHITE,
-            fillOpacity: 0.2,
-            stroke: WHITE,
-            strokeWidth: 1,
-            strokeOpacity: 0.2
-        },
-
-        show: function(point) {
-            var highlight = this,
-                chart = highlight.chart,
-                view = highlight.view,
-                viewElement = highlight.viewElement,
-                outline,
-                element;
-
-            highlight.hide();
-
-            if (point.getOutlineElement) {
-                outline = point.getOutlineElement(view, highlight.options);
-
-                element = view.renderElement(outline);
-                viewElement.appendChild(element);
-
-                highlight.element = element;
-                highlight.visible = true;
-            }
-        },
-
-        hide: function() {
-            var highlight = this,
-                element = highlight.element;
-
-            if (element) {
-                element.parentNode.removeChild(element);
-
-                delete highlight.element;
-                highlight.visible = false;
-            }
-        }
-    });
-
-    var Tooltip = Class.extend({
-        init: function(chartElement, options) {
-            var tooltip = this;
-
-            tooltip.options = deepExtend({}, tooltip.options, options);
-            options = tooltip.options;
-
-            tooltip.chartElement = chartElement;
-
-            tooltip.template = Tooltip.template;
-            if (!tooltip.template) {
-                tooltip.template = Tooltip.template = template(
-                    "<div style='display:none; position: absolute; font: #= d.font #;" +
-                    "border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;" +
-                    "border: #= d.border.width #px solid;" +
-                    "opacity: #= d.opacity #; filter: alpha(opacity=#= d.opacity * 100 #);" +
-                    "padding: 2px 6px; white-space: nowrap;'></div>"
-                );
-            }
-
-            tooltip.element = $(tooltip.template(tooltip.options)).appendTo(chartElement);
-        },
-
-        options: {
-            background: BLACK,
-            color: WHITE,
-            font: SANS12,
-            border: {
-                width: 3
-            },
-            opacity: 1,
-            animation: {
-                duration: TOOLTIP_ANIMATION_DURATION
-            }
-        },
-
-        show: function(point) {
-            var tooltip = this;
-
-            tooltip.point = point;
-            setTimeout(proxy(tooltip._show, tooltip), TOOLTIP_SHOW_DELAY);
-        },
-
-        _show: function() {
-            var tooltip = this,
-                point = tooltip.point,
-                element = tooltip.element,
-                options = tooltip.options,
-                anchor,
-                template,
-                content,
-                top,
-                left;
-
-            if (!point) {
-                return;
-            }
-
-            content = point.value.toString();
-
-            if (options.template) {
-                template = baseTemplate(options.template);
-                content = template({
-                    value: point.value,
-                    category: point.category,
-                    series: point.series,
-                    dataItem: point.dataItem
-                });
-            } else if (options.format) {
-                content = format(options.format, point.value);
-            }
-
-            element.html(content);
-
-            anchor = point.tooltipAnchor(element.outerWidth(), element.outerHeight());
-            top = round(anchor.y) + "px";
-            left = round(anchor.x) + "px";
-
-            if (!tooltip.visible) {
-                tooltip.element.css({top: top, left: left});
-            }
-
-            tooltip.element
-                .css({
-                   backgroundColor: options.background,
-                   borderColor: options.border.color || point.options.color,
-                   color: options.color,
-                   opacity: options.opacity
-                })
-                .stop(true, true)
-                .show()
-                .animate({
-                    left: left,
-                    top: top
-                }, options.animation.duration);
-
-            tooltip.visible = true;
-        },
-
-        hide: function() {
-            var tooltip = this;
-
-            if (tooltip.visible) {
-                tooltip.element.fadeOut();
-
-                tooltip.point = null;
-                tooltip.visible = false;
-            }
-        }
-    });
-
-    // Helper functions
-    function ceil(value, step) {
-        return round(math.ceil(value / step) * step, DEFAULT_PRECISION);
+    // Helpers ================================================================
+    function isIE9CompatibilityView() {
+        return $.browser.msie && !supportsSVG() && typeof window.performance !== "undefined";
     }
-
-    function floor(value, step) {
-        return round(math.floor(value / step) * step, DEFAULT_PRECISION);
-    }
-
-    function round(value, precision) {
-        var power = math.pow(10, precision || 0);
-        return math.round(value * power) / power;
-    }
-
-    function measureText(text, style, rotation) {
-        var styleHash = getHash(style),
-            cacheKey = text + styleHash + rotation,
-            cachedResult = measureText.cache[cacheKey];
-
-        if (cachedResult) {
-            return cachedResult;
-        }
-
-        var measureBox = measureText.measureBox,
-            baselineMarker = measureText.baselineMarker.cloneNode(false);
-
-        if (!measureBox) {
-            measureBox = measureText.measureBox =
-                $("<div style='position: absolute; top: -4000px; left: -4000px;" +
-                              "line-height: normal; visibility: hidden;' />")
-                .appendTo(doc.body)[0];
-        }
-
-        for (var styleKey in style) {
-            measureBox.style[styleKey] = style[styleKey];
-        }
-        measureBox.innerHTML = text;
-        measureBox.appendChild(baselineMarker);
-
-        var size = {
-                width: measureBox.offsetWidth - BASELINE_MARKER_SIZE,
-                height: measureBox.offsetHeight,
-                baseline: baselineMarker.offsetTop + BASELINE_MARKER_SIZE
-            };
-
-        if (rotation) {
-            var width = size.width,
-                height = size.height,
-                cx = width / 2,
-                cy = height / 2,
-                r1 = rotatePoint(0, 0, cx, cy, rotation),
-                r2 = rotatePoint(width, 0, cx, cy, rotation),
-                r3 = rotatePoint(width, height, cx, cy, rotation);
-                r4 = rotatePoint(0, height, cx, cy, rotation);
-
-            size.normalWidth = width;
-            size.normalHeight = height;
-            size.width = math.max(r1.x, r2.x, r3.x, r4.x) - math.min(r1.x, r2.x, r3.x, r4.x);
-            size.height = math.max(r1.y, r2.y, r3.y, r4.y) - math.min(r1.y, r2.y, r3.y, r4.y);
-        }
-
-        measureText.cache[cacheKey] = size;
-
-        return size;
-    }
-
-    measureText.cache = [];
-    measureText.baselineMarker =
-        $("<div style='display: inline-block; vertical-align: baseline;" +
-                  "width: " + BASELINE_MARKER_SIZE + "px; height: " + BASELINE_MARKER_SIZE + "px;" +
-                  "zoom: 1; *display: inline; overflow: hidden;' />")[0];
-
-    function getHash(object) {
-        var hash = [];
-        for (var key in object) {
-            hash.push(key + object[key]);
-        }
-
-        return hash.sort().join(" ");
-    }
-
-    function rotatePoint(x, y, cx, cy, angle) {
-        var theta = angle * DEGREE;
-        return {
-            x: cx + (x - cx) * math.cos(theta) + (y - cy) * math.sin(theta),
-            y: cy - (x - cx) * math.sin(theta) + (y - cy) * math.cos(theta)
-        }
-    }
-
-    function boxDiff(r, s) {
-        if (r.x1 == s.x1 && r.y1 == s.y1 && r.x2 == s.x2 && r.y2 == s.y2) {
-            return s;
-        }
-
-        var a = math.min(r.x1, s.x1);
-        var b = math.max(r.x1, s.x1);
-        var c = math.min(r.x2, s.x2);
-        var d = math.max(r.x2, s.x2);
-
-        var e = math.min(r.y1, s.y1);
-        var f = math.max(r.y1, s.y1);
-        var g = math.min(r.y2, s.y2);
-        var h = math.max(r.y2, s.y2);
-
-        // X = intersection, 0-7 = possible difference areas
-        // h +-+-+-+
-        // . |5|6|7|
-        // g +-+-+-+
-        // . |3|X|4|
-        // f +-+-+-+
-        // . |0|1|2|
-        // e +-+-+-+
-        // . a b c d
-
-        var result = [];
-
-        // we'll always have rectangles 1, 3, 4 and 6
-        result[0] = new Box2D(b, e, c, f);
-        result[1] = new Box2D(a, f, b, g);
-        result[2] = new Box2D(c, f, d, g);
-        result[3] = new Box2D(b, g, c, h);
-
-        // decide which corners
-        if( r.x1 == a && r.y1 == e || s.x1 == a && s.y1 == e )
-        { // corners 0 and 7
-            result[4] = new Box2D(a, e, b, f);
-            result[5] = new Box2D(c, g, d, h);
-        }
-        else
-        { // corners 2 and 5
-            result[4] = new Box2D(c, e, d, f);
-            result[5] = new Box2D(a, g, b, h);
-        }
-
-        return $.grep(result, function(box) {
-            return box.height() > 0 && box.width() > 0
-        })[0];
-    }
-
-    function alignToPixel(coord) {
-        return math.round(coord) + 0.5;
-    }
-
-    function sparseArrayMin(arr) {
-        return sparseArrayLimits(arr).min;
-    }
-
-    function sparseArrayMax(arr) {
-        return sparseArrayLimits(arr).max;
-    }
-
-    function sparseArrayLimits(arr) {
-        var min = Number.MAX_VALUE,
-            max = - Number.MAX_VALUE;
-        for (var i = 0, length = arr.length; i < length; i++) {
-            var n = arr[i];
-            if (defined(n)) {
-                min = math.min(min, n);
-                max = math.max(max, n);
-            }
-        }
-
-        return { min: min, max: max };
-    }
-
-    function getSpacing(value) {
-        var spacing = {};
-
-        if (typeof(value) === "number") {
-            spacing[TOP] = spacing[RIGHT] = spacing[BOTTOM] = spacing[LEFT] = value;
-        } else {
-            spacing[TOP] = value[TOP] || 0;
-            spacing[RIGHT] = value[RIGHT] || 0;
-            spacing[BOTTOM] = value[BOTTOM] || 0;
-            spacing[LEFT] = value[LEFT] || 0;
-        }
-
-        return spacing;
-    }
-
-    function inArray(value, array) {
-        return $.inArray(value, array) != -1;
-    }
-
-    function deepExtend(destination) {
-        var i = 1,
-            length = arguments.length,
-            source,
-            property,
-            propValue;
-
-        for (i = 1; i < length; i++) {
-            source = arguments[i];
-
-            for (property in source) {
-                propValue = source[property];
-                if (typeof propValue === OBJECT && propValue !== null && propValue.constructor !== Array) {
-                    if (typeof(destination[property]) === OBJECT) {
-                        destination[property] = destination[property] || {};
-                    } else {
-                        destination[property] = {};
-                    }
-                    deepExtend(destination[property], propValue);
-                } else if (defined(propValue)) {
-                    destination[property] = propValue;
-                }
-            }
-        }
-
-        return destination;
-    }
-
-    function renderSVGDash(dashType, strokeWidth) {
-        var result = [],
-            dashType = dashType ? dashType.toLowerCase() : null,
-            dashTypeArray,
-            i;
-
-        if (dashType && dashType != "solid" && strokeWidth) {
-            dashTypeArray = SVG_DASH_TYPE[dashType];
-            for (i = 0; i < dashTypeArray.length; i++) {
-                result.push(dashTypeArray[i] * strokeWidth);
-            }
-
-            return "stroke-dasharray='" + result.join(" ") + "' ";
-        }
-
-        return "";
-    }
-
-    function intersection(a1, a2, b1, b2) {
-        var result,
-            ua_t = (b2.x - b1.x) * (a1.y - b1.y) - (b2.y - b1.y) * (a1.x - b1.x),
-            ub_t = (a2.x - a1.x) * (a1.y - b1.y) - (a2.y - a1.y) * (a1.x - b1.x),
-            u_b = (b2.y - b1.y) * (a2.x - a1.x) - (b2.x - b1.x) * (a2.y - a1.y),
-            ua,
-            ub;
-
-        if (u_b != 0) {
-            ua = (ua_t / u_b);
-            ub = (ub_t / u_b);
-
-            result = new Point2D(
-                a1.x + ua * (a2.x - a1.x),
-                a1.y + ua * (a2.y - a1.y)
-            );
-        }
-
-        return result;
-    }
-
-    function append(first, second) {
-        [].push.apply(first, second);
-    }
-
-    function interpolateValue(start, end, progress) {
-        return round(start + (end - start) * progress, COORD_PRECISION);
-    }
-
-    function applySeriesDefaults(options) {
-        var series = options.series,
-            i,
-            seriesLength = series.length,
-            seriesType,
-            colors = options.seriesColors || [],
-            seriesDefaults = options.seriesDefaults,
-            baseSeriesDefaults = deepExtend({}, options.seriesDefaults);
-
-        delete baseSeriesDefaults.bar;
-        delete baseSeriesDefaults.column;
-        delete baseSeriesDefaults.line;
-        delete baseSeriesDefaults.pie;
-
-        for (i = 0; i < seriesLength; i++) {
-            seriesType = series[i].type || options.seriesDefaults.type;
-
-            series[i] = deepExtend(
-                { color: colors[i % colors.length] },
-                baseSeriesDefaults,
-                seriesDefaults[seriesType],
-                series[i]);
-        }
-    }
-
-    function applyAxisDefaults(options) {
-        options.categoryAxis = deepExtend({},
-            options.axisDefaults,
-            options.categoryAxis
-        );
-
-        options.valueAxis = deepExtend({},
-            options.axisDefaults,
-            options.valueAxis
-        );
-    }
-
-    function incrementSlot(slots, index, value) {
-        slots[index] = (slots[index] || 0) + value;
-    }
-
-    function uniqueId() {
-        var id = "k", i;
-
-        for (i = 0; i < 16; i++) {
-            id += (math.random() * 16 | 0).toString(16);
-        }
-
-        return id;
-    }
-
-    function defined(value) {
-        return typeof value !== UNDEFINED;
-    }
-
-    // renderSVG ==============================================================
-    function renderSVG(container, svg) {
-        container.innerHTML = svg;
-    }
-
-    (function() {
-        var testFragment = "<svg xmlns='" + SVG_NS + "'></svg>",
-            testContainer = doc.createElement("div"),
-            hasParser = typeof DOMParser != UNDEFINED;
-
-        testContainer.innerHTML = testFragment;
-
-        if (hasParser && testContainer.firstChild.namespaceURI != SVG_NS) {
-            renderSVG = function(container, svg) {
-                var parser = new DOMParser(),
-                    chartDoc = parser.parseFromString(svg, "text/xml"),
-                    importedDoc = doc.adoptNode(chartDoc.documentElement);
-
-                container.innerHTML = "";
-                container.appendChild(importedDoc);
-            };
-        }
-    })();
-
-    var Color = function(value) {
-        var color = this,
-            formats = Color.formats,
-            re,
-            processor,
-            parts,
-            channels;
-
-        if(arguments.length === 1) {
-            value = color.resolveColor(value);
-
-            for (i = 0; i < formats.length; i++) {
-                re = formats[i].re;
-                processor = formats[i].process;
-                parts = re.exec(value);
-
-                if (parts) {
-                    channels = processor(parts);
-                    color.r = channels[0];
-                    color.g = channels[1];
-                    color.b = channels[2];
-                }
-            }
-        } else {
-            color.r = arguments[0];
-            color.g = arguments[1];
-            color.b = arguments[2];
-        }
-
-        color.r = color.normalizeByte(color.r);
-        color.g = color.normalizeByte(color.g);
-        color.b = color.normalizeByte(color.b);
-    };
-
-    Color.prototype = /** @ignore */ {
-        toHex: function() {
-            var color = this,
-                pad = color.padDigit,
-                r = color.r.toString(16);
-                g = color.g.toString(16);
-                b = color.b.toString(16);
-
-            return "#" + pad(r) + pad(g) + pad(b);
-        },
-
-        resolveColor: function(value) {
-            value = value || BLACK;
-
-            if (value.charAt(0) == "#") {
-                value = value.substr(1, 6);
-            }
-
-            value = value.replace(/ /g, "");
-            value = value.toLowerCase();
-            value = Color.namedColors[value] || value;
-
-            return value;
-        },
-
-        normalizeByte: function(value) {
-            return (value < 0 || isNaN(value)) ? 0 : ((value > 255) ? 255 : value);
-        },
-
-        padDigit: function(value) {
-            return (value.length === 1) ? "0" + value : value;
-        },
-
-        brightness: function(value) {
-            var color = this,
-                round = math.round;
-
-            color.r = round(color.normalizeByte(color.r * value));
-            color.g = round(color.normalizeByte(color.g * value));
-            color.b = round(color.normalizeByte(color.b * value));
-
-            return color;
-        }
-    };
-
-    Color.formats = [{
-            re: /^rgb\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3})\)$/,
-            process: function(parts) {
-                return [
-                    parseInt(parts[1], 10), parseInt(parts[2], 10), parseInt(parts[3], 10)
-                ];
-            }
-        }, {
-            re: /^(\w{2})(\w{2})(\w{2})$/,
-            process: function(parts) {
-                return [
-                    parseInt(parts[1], 16), parseInt(parts[2], 16), parseInt(parts[3], 16)
-                ];
-            }
-        }, {
-            re: /^(\w{1})(\w{1})(\w{1})$/,
-            process: function(parts) {
-                return [
-                    parseInt(parts[1] + parts[1], 16),
-                    parseInt(parts[2] + parts[2], 16),
-                    parseInt(parts[3] + parts[3], 16)
-                ];
-            }
-        }
-    ];
-
-    Color.namedColors = {
-        aqua: "00ffff", azure: "f0ffff", beige: "f5f5dc",
-        black: "000000", blue: "0000ff", brown: "a52a2a",
-        coral: "ff7f50", cyan: "00ffff", darkblue: "00008b",
-        darkcyan: "008b8b", darkgray: "a9a9a9", darkgreen: "006400",
-        darkorange: "ff8c00", darkred: "8b0000", dimgray: "696969",
-        fuchsia: "ff00ff", gold: "ffd700", goldenrod: "daa520",
-        gray: "808080", green: "008000", greenyellow: "adff2f",
-        indigo: "4b0082", ivory: "fffff0", khaki: "f0e68c",
-        lightblue: "add8e6", lightgrey: "d3d3d3", lightgreen: "90ee90",
-        lightpink: "ffb6c1", lightyellow: "ffffe0", lime: "00ff00",
-        limegreen: "32cd32", linen: "faf0e6", magenta: "ff00ff",
-        maroon: "800000", mediumblue: "0000cd", navy: "000080",
-        olive: "808000", orange: "ffa500", orangered: "ff4500",
-        orchid: "da70d6", pink: "ffc0cb", plum: "dda0dd",
-        purple: "800080", red: "ff0000", royalblue: "4169e1",
-        salmon: "fa8072", silver: "c0c0c0", skyblue: "87ceeb",
-        slateblue: "6a5acd", slategray: "708090", snow: "fffafa",
-        steelblue: "4682b4", tan: "d2b48c", teal: "008080",
-        tomato: "ff6347", turquoise: "40e0d0", violet: "ee82ee",
-        wheat: "f5deb3", white: "ffffff", whitesmoke: "f5f5f5",
-        yellow: "ffff00", yellowgreen: "9acd32"
-    };
 
     function blendColors(base, overlay, alpha) {
         var baseColor = new Color(base),
@@ -7396,231 +6836,51 @@
         return result;
     }
 
-    Chart.Gradients = {
-        glass: {
-            type: LINEAR,
-            rotation: 0,
-            stops: [{
-                offset: 0,
-                color: WHITE,
-                opacity: 0
-            }, {
-                offset: 0.1,
-                color: WHITE,
-                opacity: 0
-            }, {
-                offset: 0.25,
-                color: WHITE,
-                opacity: 0.3
-            }, {
-                offset: 0.92,
-                color: WHITE,
-                opacity: 0
-            }, {
-                offset: 1,
-                color: WHITE,
-                opacity: 0
-            }]
-        },
-        sharpBevel: {
-            type: RADIAL,
-            stops: [{
-                offset: 0,
-                color: WHITE,
-                opacity: 0.55
-            }, {
-                offset: 0.65,
-                color: WHITE,
-                opacity: 0
-            }, {
-                offset: 0.95,
-                color: WHITE,
-                opacity: 0
-            }, {
-                offset: 0.95,
-                color: WHITE,
-                opacity: 0.25
-            }]
-        },
-        roundedBevel: {
-            type: RADIAL,
-            stops: [{
-                offset: 0.33,
-                color: WHITE,
-                opacity: 0.06
-            }, {
-                offset: 0.83,
-                color: WHITE,
-                opacity: 0.2
-            }, {
-                offset: 0.95,
-                color: WHITE,
-                opacity: 0
-            }]
-        }
-    };
-
-    function buildGradient(options) {
-            var hashCode,
-                overlay,
-                definition;
-
-            if (options) {
-                hashCode = getHash(options);
-                overlay = buildGradient.cache[hashCode];
-                definition = Chart.Gradients[options.gradient];
-                if (!overlay && definition) {
-                    overlay = deepExtend({ id: uniqueId() }, definition, options);
-                    buildGradient.cache[hashCode] = overlay;
-                }
-            }
-
-            return overlay;
-    }
-    buildGradient.cache = {};
-
-    function template(definition) {
-        return baseTemplate(definition, { useWithBlock: false, paramName: "d" });
-    }
-
-    function updateArray(arr, prop, value) {
-        var i,
-            length = arr.length;
-
-        for(i = 0; i < length; i++) {
-            arr[i][prop] = value;
-        }
-    }
-
-    function categoriesCount(series) {
-        var seriesCount = series.length,
-            categories = 0,
-            i;
-
-        for (i = 0; i < seriesCount; i++) {
-            categories = math.max(categories, series[i].data.length);
-        }
-
-        return categories;
-    }
-
-    function sqr(value) {
-        return value * value;
-    }
-
-    jQuery.extend(jQuery.easing, {
-        easeOutElastic: function (n, d, first, diff) {
-            var s = 1.70158,
-                p = 0,
-                a = diff;
-
-            if ( n === 0 ) {
-                return first;
-            }
-
-            if ( n === 1) {
-                return first + diff;
-            }
-
-            if (!p) {
-                p = 0.5;
-            }
-
-            if (a < Math.abs(diff)) {
-                a=diff;
-                s = p / 4;
-            } else {
-                s = p / (2 * Math.PI) * Math.asin(diff / a);
-            }
-
-            return a * Math.pow(2,-10 * n) *
-                   Math.sin((n * 1 - s) * (1.1 * Math.PI) / p) +
-                   diff + first;
-        }
-    });
-
     // Exports ================================================================
-
-    kendo.ui.plugin("Chart", Chart);
-
     deepExtend(Chart, {
-        Box2D: Box2D,
-        Point2D: Point2D,
-        Sector: Sector,
-        Text: Text,
-        BarLabel: BarLabel,
-        ChartElement: ChartElement,
-        RootElement: RootElement,
-        BoxElement: BoxElement,
-        TextBox: TextBox,
-        NumericAxis: NumericAxis,
-        CategoryAxis: CategoryAxis,
-        Bar: Bar,
-        BarChart: BarChart,
-        ShapeElement: ShapeElement,
-        LinePoint: LinePoint,
-        LineChart: LineChart,
-        ClusterLayout: ClusterLayout,
-        StackLayout: StackLayout,
-        Title: Title,
-        Legend: Legend,
-        PlotArea: PlotArea,
-        Tooltip: Tooltip,
-        Highlight: Highlight,
-        PieSegment: PieSegment,
-        PieChart: PieChart,
-        ViewElement: ViewElement,
-        ViewBase: ViewBase,
-        SVGView: SVGView,
-        SVGGroup: SVGGroup,
-        SVGText: SVGText,
-        SVGPath: SVGPath,
-        SVGLine: SVGLine,
-        SVGCircle: SVGCircle,
-        SVGClipPath: SVGClipPath,
-        SVGOverlayDecorator: SVGOverlayDecorator,
-        SVGLinearGradient: SVGLinearGradient,
-        SVGRadialGradient: SVGRadialGradient,
-        SVGGradientDecorator: SVGGradientDecorator,
-        SVGClipAnimationDecorator: SVGClipAnimationDecorator,
-        SVGSector: SVGSector,
         VMLView: VMLView,
         VMLText: VMLText,
         VMLRotatedText: VMLRotatedText,
-        VMLPath: VMLPath,
-        VMLLine: VMLLine,
-        VMLCircle: VMLCircle,
-        VMLGroup: VMLGroup,
-        VMLSector: VMLSector,
-        VMLClipRect: VMLClipRect,
-        VMLOverlayDecorator: VMLOverlayDecorator,
-        VMLLinearGradient: VMLLinearGradient,
-        VMLClipAnimationDecorator: VMLClipAnimationDecorator,
         VMLStroke: VMLStroke,
         VMLFill: VMLFill,
-        deepExtend: deepExtend,
-        Color: Color,
+        VMLPath: VMLPath,
+        VMLLine: VMLLine,
+        VMLSector: VMLSector,
+        VMLCircle: VMLCircle,
+        VMLGroup: VMLGroup,
+        VMLClipRect: VMLClipRect,
+        VMLLinearGradient: VMLLinearGradient,
+        VMLOverlayDecorator: VMLOverlayDecorator,
+        VMLClipAnimationDecorator: VMLClipAnimationDecorator,
         blendColors: blendColors,
-        blendGradient: blendGradient,
-        measureText: measureText,
-        ExpandAnimation: ExpandAnimation,
-        BarAnimation: BarAnimation,
-        BarAnimationDecorator: BarAnimationDecorator,
-        PieAnimation: PieAnimation,
-        PieAnimationDecorator: PieAnimationDecorator,
-        FadeAnimation: FadeAnimation,
-        FadeAnimationDecorator: FadeAnimationDecorator,
-        categoriesCount: categoriesCount,
-        buildGradient: buildGradient
+        blendGradient: blendGradient
     });
 
-    // Themes
+})(jQuery);
+(function () {
+
+    // Imports ================================================================
+    var kendo = window.kendo,
+        Chart = kendo.ui.Chart,
+        deepExtend = Chart.deepExtend;
+
+    // Constants ==============================================================
+    var BLACK = "#000",
+        SANS = "Arial,Helvetica,sans-serif",
+        SANS11 = "11px " + SANS,
+        SANS12 = "12px " + SANS,
+        SANS16 = "16px " + SANS,
+        WHITE = "#fff";
+
+    // Kendo themes ===========================================================
     var baseTheme = {
             title: {
                 font: SANS16
             },
             legend: {
-                font: SANS12
+                labels: {
+                    font: SANS12
+                }
             },
             seriesDefaults: {
                 labels: {
@@ -7642,7 +6902,9 @@
             }
         };
 
-    Chart.themes.black = deepExtend({}, baseTheme, {
+    var themes = { };
+
+    themes.black = deepExtend({}, baseTheme, {
         title: {
             color: WHITE
         },
@@ -7658,7 +6920,7 @@
             pie: {
                 highlight: {
                     opacity: 0.6,
-                    color: "#393939",
+                    color: "#3d3d3d",
                     border: {
                         width: 0.5,
                         opacity: 0.9,
@@ -7668,43 +6930,54 @@
                 overlay: {
                     gradient: "sharpBevel"
                 }
+            },
+            line: {
+                markers: {
+                    background: "#3d3d3d"
+                }
+            },
+            scatter: {
+                markers: {
+                    background: "#3d3d3d"
+                }
+            },
+            scatterLine: {
+                markers: {
+                    background: "#3d3d3d"
+                }
             }
         },
         chartArea: {
-            background: "#393939"
+            background: "#3d3d3d"
         },
         seriesColors: ["#0081da", "#3aafff", "#99c900", "#ffeb3d", "#b20753", "#ff4195"],
         categoryAxis: {
-            line: {
-                color: "#808184"
-            },
-            labels: {
-                color: WHITE
-            },
             majorGridLines: {
-                color: "#58595b",
                 visible: true
             }
         },
-        valueAxis: {
+        axisDefaults: {
             line: {
-                color: "#808184"
+                color: "#8e8e8e"
             },
             labels: {
                 color: WHITE
             },
             majorGridLines: {
-                color: "#58595b"
+                color: "#545454"
+            },
+            minorGridLines: {
+                color: "#454545"
             }
         },
         tooltip: {
-            background: "#393939",
+            background: "#3d3d3d",
             color: WHITE,
             opacity: 0.8
         }
     });
 
-    Chart.themes.kendo = deepExtend({}, baseTheme, {
+    themes["default"] = deepExtend({}, baseTheme, {
         title: {
             color: "#8e8e8e"
         },
@@ -7720,25 +6993,21 @@
                 opacity: 0.5
             }
         },
-        seriesColors: ["#ff5400", "#ff8b24", "#ffc066", "#9da600", "#688900", "#3e6100"],
+        seriesColors: ["#ff6800", "#a0a700", "#ff8d00", "#678900", "#ffb53c", "#396000"],
         categoryAxis: {
-            line: {
-                color: "#8e8e8e"
-            },
-            labels: {
-                color: "#232323"
-            },
             majorGridLines: {
-                color: "#dfdfdf",
                 visible: true
             }
         },
-        valueAxis: {
+        axisDefaults: {
             line: {
                 color: "#8e8e8e"
             },
             labels: {
                 color: "#232323"
+            },
+            minorGridLines: {
+                color: "#f0f0f0"
             },
             majorGridLines: {
                 color: "#dfdfdf"
@@ -7751,7 +7020,7 @@
         }
     });
 
-    Chart.themes.blueopal = deepExtend({}, baseTheme, {
+    themes.blueopal = deepExtend({}, baseTheme, {
         title: {
             color: "#293135"
         },
@@ -7769,18 +7038,11 @@
         },
         seriesColors: ["#0069a5", "#0098ee", "#7bd2f6", "#ffb800", "#ff8517", "#e34a00"],
         categoryAxis: {
-            line: {
-                color: "#9aabb2"
-            },
-            labels: {
-                color: "#293135"
-            },
             majorGridLines: {
-                color: "#c4d0d5",
                 visible: true
             }
         },
-        valueAxis: {
+        axisDefaults: {
             line: {
                 color: "#9aabb2"
             },
@@ -7789,6 +7051,9 @@
             },
             majorGridLines: {
                 color: "#c4d0d5"
+            },
+            minorGridLines: {
+                color: "#edf1f2"
             }
         },
         tooltip: {
@@ -7798,4 +7063,100 @@
         }
     });
 
+    themes.silver = deepExtend({}, baseTheme, {
+        title: {
+            color: "#4e5968"
+        },
+        legend: {
+            labels: {
+                color: "#4e5968"
+            }
+        },
+        seriesDefaults: {
+            labels: {
+                color: "#293135",
+                background: "#eaeaec",
+                opacity: 0.5
+            },
+            pie: {
+                connectors: {
+                    color: "#A6B1C0"
+                }
+            }
+        },
+        chartArea: {
+            background: "#eaeaec"
+        },
+        seriesColors: ["#007bc3", "#76b800", "#ffae00", "#ef4c00", "#a419b7", "#430B62"],
+        categoryAxis: {
+            majorGridLines: {
+                visible: true
+            }
+        },
+        axisDefaults: {
+            line: {
+                color: "#a6b1c0"
+            },
+            labels: {
+                color: "#4e5968"
+            },
+            majorGridLines: {
+                color: "#dcdcdf"
+            },
+            minorGridLines: {
+                color: "#eeeeef"
+            }
+        },
+        tooltip: {
+            background: WHITE,
+            color: "#4e5968",
+            opacity: 0.8
+        }
+    });
+
+    themes.metro = deepExtend({}, baseTheme, {
+        title: {
+            color: "#777777"
+        },
+        legend: {
+            labels: {
+                color: "#777777"
+            }
+        },
+        seriesDefaults: {
+            labels: {
+                color: "#000000"
+            }
+        },
+        seriesColors: ["#25a0da", "#309b46", "#8ebc00", "#ff6900", "#e61e26", "#d8e404", "#16aba9", "#7e51a1", "#313131", "#ed1691"],
+        categoryAxis: {
+            majorGridLines: {
+                visible: true
+            }
+        },
+        axisDefaults: {
+            line: {
+                color: "#c7c7c7"
+            },
+            labels: {
+                color: "#777777"
+            },
+            minorGridLines: {
+                color: "#c7c7c7"
+            },
+            majorGridLines: {
+                color: "#c7c7c7"
+            }
+        },
+        tooltip: {
+            background: WHITE,
+            color: BLACK
+        }
+    });
+
+    // Exports ================================================================
+    Chart.themes = themes;
+    Chart.prototype.options.theme = "default";
+
 })(jQuery);
+
