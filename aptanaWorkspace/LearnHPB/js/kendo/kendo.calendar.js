@@ -1,123 +1,36 @@
 /*
-* Kendo UI v2011.3.1129 (http://kendoui.com)
-* Copyright 2011 Telerik AD. All rights reserved.
+* Kendo UI Web v2012.3.1114 (http://kendoui.com)
+* Copyright 2012 Telerik AD. All rights reserved.
 *
-* Kendo UI commercial licenses may be obtained at http://kendoui.com/license.
+* Kendo UI Web commercial licenses may be obtained at
+* https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
 * If you do not own a commercial license, this file shall be governed by the
-* GNU General Public License (GPL) version 3. For GPL requirements, please
-* review: http://www.gnu.org/copyleft/gpl.html
+* GNU General Public License (GPL) version 3.
+* For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
-
 (function($, undefined) {
-    /**
-    * @name kendo.ui.Calendar.Description
-    *
-    * @section
-    *   <p>
-    *       The Calendar widget renders a graphical calendar that supports navigation and selection.
-    *       It supports custom templates for "month" view, configurable options for min and max date,
-    *       start view and the depth of the navigation.
-    *   </p>
-    *
-    *   <h3>Getting Started</h3>
-    *
-    * @exampleTitle Creating a Calendar from existing DIV element
-    * @example
-    * <!-- HTML -->
-    * <div id="calendar"></div>
-    *
-    * @exampleTitle Calendar initialization
-    * @example
-    *   $(document).ready(function(){
-    *      $("#calendar").kendoCalendar();
-    *   });
-    * @section
-    *  <p>
-    *      When a Calendar is initialized, it will automatically be displayed near the
-    *      location of the used HTML element.
-    *  </p>
-    *  <h3>Configuring Calendar behaviors</h3>
-    *  <p>
-    *      Calendar provides many configuration options that can be easily set during initialization.
-    *      Among the properties that can be controlled:
-    *  </p>
-    *  <ul>
-    *      <li>Selected date</li>
-    *      <li>Minimum/Maximum date</li>
-    *      <li>Start view</li>
-    *      <li>Define the navigation depth (last view to which end user can navigate)</li>
-    *      <li>Day template</li>
-    *      <li>Footer template</li>
-    *  </ul>
-    * @exampleTitle Create Calendar with selected date and defined min and max date
-    * @example
-    *  $("#calendar").kendoCalendar({
-    *      value: new Date(),
-    *      min: new Date(1950, 0, 1),
-    *      max: new Date(2049, 11, 31)
-    *  });
-    * <p>
-    *   Calendar will not navigate to dates less than min and bigger than max date.
-    * </p>
-    * @section
-    * <h3>Define start view and navigation depth</h3>
-    * <p>
-    *    The first rendered view can be defined with "start" option. Navigation depth
-    *    can be controlled with "depth" option. Predefined views are:
-    *    <ul>
-    *       <li>"month" - shows the days from the month</li>
-    *       <li>"year" - shows the months of the year</li>
-    *       <li>"decade" - shows the years from the decade</li>
-    *       <li>"century" - shows the decades from the century</li>
-    *    </ul>
-    * </p>
-    *
-    * @exampleTitle Create Calendar, which allows to select month
-    * @example
-    *  $("#calendar").kendoCalendar({
-    *      start: "year",
-    *      depth: "year"
-    *  });
-    *
-    *  @section
-    * <h3>Customize day template</h3>
-    * <p>
-    *   Calendar allows to customize content of the rendered day in the "month" view.
-    *
-    * @exampleTitle Create Calendar with custom template
-    * @example
-    *  $("#calendar").kendoCalendar({
-    *      month: {
-    *         content: '<div class="custom"><#=data.value#></div>'
-    *      }
-    *  });
-    *  @section
-    *  <p>
-    *     This templates wraps the "value" in a div HTML element. Here is an example of the object
-    *     passed to the template function:
-    *  </p>
-    * @exampleTitle Structure of the data object passed to the template
-    * @example
-    *  data = {
-    *    date: date, // Date object corresponding to the current cell
-    *    title: kendo.toString(date, "D"),
-    *    value: date.getDate(),
-    *    dateString: "2011/0/1" //formatted date using yyyy/MM/dd format and month is zero based
-    *  };
-    */
     var kendo = window.kendo,
         ui = kendo.ui,
         Widget = ui.Widget,
         parse = kendo.parseDate,
+        adjustDate = kendo._adjustDate,
+        keys = kendo.keys,
+        extractFormat = kendo._extractFormat,
         template = kendo.template,
+        getCulture = kendo.getCulture,
         transitions = kendo.support.transitions,
         transitionOrigin = transitions ? transitions.css + "transform-origin" : "",
-        cellTemplate = template('<td#=data.cssClass#><a class="k-link" href="\\#" data-#=data.ns#value="#=data.dateString#">#=data.value#</a></td>', { useWithBlock: false }),
-        emptyCellTemplate = template("<td>&nbsp;</td>", { useWithBlock: false }),
-        CLICK = kendo.support.touch ? "touchend" : "click",
+        cellTemplate = template('<td#=data.cssClass# role="gridcell"><a tabindex="-1" class="k-link" href="\\#" data-#=data.ns#value="#=data.dateString#">#=data.value#</a></td>', { useWithBlock: false }),
+        emptyCellTemplate = template('<td role="gridcell">&nbsp;</td>', { useWithBlock: false }),
+        browser = kendo.support.browser,
+        isIE8 = browser.msie && (parseInt(browser.version, 10) < 9 || (document.documentMode && document.documentMode < 9)),
+        ns = ".kendoCalendar",
+        CLICK = "touchend" + ns + " click" + ns,
+        KEYDOWN_NS = "keydown" + ns,
+        ID = "id",
         MIN = "min",
         LEFT = "left",
-        SLIDE = "slide",
+        SLIDE = "slideIn",
         MONTH = "month",
         CENTURY = "century",
         CHANGE = "change",
@@ -125,15 +38,23 @@
         VALUE = "value",
         HOVER = "k-state-hover",
         DISABLED = "k-state-disabled",
+        FOCUSED = "k-state-focused",
         OTHERMONTH = "k-other-month",
         OTHERMONTHCLASS = ' class="' + OTHERMONTH + '"',
+        TODAY = "k-nav-today",
         CELLSELECTOR = "td:has(.k-link)",
-        MOUSEENTER = "mouseenter",
-        MOUSELEAVE = "mouseleave",
+        BLUR = "blur" + ns,
+        FOCUS = "focus",
+        FOCUS_WITH_NS = FOCUS + ns,
+        MOUSEENTER = "touchstart mouseenter",
+        MOUSEENTER_WITH_NS = "touchstart" + ns + " mouseenter" + ns,
+        MOUSELEAVE = "touchend" + ns + " mouseleave" + ns,
         MS_PER_MINUTE = 60000,
         MS_PER_DAY = 86400000,
         PREVARROW = "_prevArrow",
         NEXTARROW = "_nextArrow",
+        ARIA_DISABLED = "aria-disabled",
+        ARIA_SELECTED = "aria-selected",
         proxy = $.proxy,
         extend = $.extend,
         DATE = Date,
@@ -144,67 +65,59 @@
             century: 3
         };
 
-    var Calendar = Widget.extend(/** @lends kendo.ui.Calendar.prototype */{
-        /**
-         * @constructs
-         * @extends kendo.ui.Widget
-         * @param {DomElement} element DOM element
-         * @param {Object} options Configuration options.
-         * @option {Date} [value] <null> Specifies the selected date.
-         * @option {Date} [min] <Date(1900, 0, 1)> Specifies the minimum date, which the calendar can show.
-         * @option {Date} [max] <Date(2099, 11, 31)> Specifies the maximum date, which the calendar can show.
-         * @option {String} [footer] <> Specifies the content of the footer. If false, the footer will not be rendered.
-         * @option {String} [format] <MM/dd/yyyy> Specifies the format, which is used to parse value set with value() method.
-         * @option {String} [start] <month> Specifies the start view.
-         * @option {String} [depth] Specifies the navigation depth.
-         */
+    var Calendar = Widget.extend({
         init: function(element, options) {
-            var that = this, value;
+            var that = this, value, id;
 
             Widget.fn.init.call(that, element, options);
 
-            element = that.element;
+            element = that.wrapper = that.element;
             options = that.options;
 
-            element.addClass("k-widget k-calendar");
+            options.url = window.unescape(options.url);
 
             that._templates();
 
             that._header();
 
-            if (options.footer) {
-                that._footer();
+            that._footer(that.footer);
+
+            id = element
+                    .addClass("k-widget k-calendar")
+                    .on(MOUSEENTER_WITH_NS + " " + MOUSELEAVE, CELLSELECTOR, mousetoggle)
+                    .on(KEYDOWN_NS, "table.k-content", proxy(that._move, that))
+                    .on(CLICK, CELLSELECTOR, function(e) {
+                        var link = e.currentTarget.firstChild;
+
+                        if (link.href.indexOf("#") != -1) {
+                            e.preventDefault();
+                        }
+
+                        that._click($(link));
+                    })
+                    .attr(ID);
+
+            if (id) {
+                that._cellID = id + "_cell_selected";
             }
 
-            element
-                .delegate(CELLSELECTOR, MOUSEENTER, mouseenter)
-                .delegate(CELLSELECTOR, MOUSELEAVE, mouseleave)
-                .delegate(CELLSELECTOR, CLICK, proxy(that._click, that));
-
-            that.bind([
-                /**
-                * Fires when the selected date is changed
-                * @name kendo.ui.Calendar#change
-                * @event
-                * @param {Event} e
-                */
-                /**
-                * Fires when navigate
-                * @name kendo.ui.Calendar#navigate
-                * @event
-                * @param {Event} e
-                */
-                CHANGE,
-                NAVIGATE
-            ], options);
-
             value = options.value;
-            validate(options);
+            normalize(options);
 
             that._index = views[options.start];
-            that._current = new DATE(restrictValue(value, options.min, options.max));
+            that._current = new DATE(+restrictValue(value, options.min, options.max));
+
+            that._addClassProxy = function() {
+                that._cell.addClass(FOCUSED);
+            };
+
+            that._removeClassProxy = function() {
+                that._cell.removeClass(FOCUSED);
+            };
 
             that.value(value);
+
+            kendo.notify(that);
         },
 
         options: {
@@ -212,12 +125,18 @@
             value: null,
             min: new DATE(1900, 0, 1),
             max: new DATE(2099, 11, 31),
-            footer : '#= kendo.toString(data,"D") #',
+            dates: [],
+            url: "",
+            culture: "",
+            footer : "",
+            format : "",
+            month : {},
             start: MONTH,
             depth: MONTH,
             animation: {
                 horizontal: {
                     effects: SLIDE,
+                    reverse: true,
                     duration: 500,
                     divisor: 2
                 },
@@ -228,63 +147,56 @@
             }
         },
 
-        /**
-        * Gets/Sets the min value of the calendar.
-        * @param {Date|String} value The min date to set.
-        * @returns {Date} The min value of the calendar.
-        * @example
-        * var calendar = $("#calendar").data("kendoCalendar");
-        *
-        * // get the min value of the calendar.
-        * var min = calendar.min();
-        *
-        * // set the min value of the calendar.
-        * calendar.min(new Date(1900, 0, 1));
-        */
+        events: [
+            CHANGE,
+            NAVIGATE
+        ],
+
+        setOptions: function(options) {
+            normalize(options);
+
+            Widget.fn.setOptions.call(this, options);
+        },
+
+        destroy: function() {
+            var that = this,
+                today = that._today.off(ns);
+
+            that.element.off(ns);
+            that._title.off(ns);
+            that[PREVARROW].off(ns);
+            that[NEXTARROW].off(ns);
+
+            kendo.destroy(today);
+            kendo.destroy(that._view);
+
+            Widget.fn.destroy.call(that);
+        },
+
+        focus: function(table) {
+            table = table || this._table;
+            if (this.options.focusOnNav !== false) {
+                table.focus();
+                this._bindTable(table);
+            }
+        },
+
         min: function(value) {
             return this._option(MIN, value);
         },
 
-        /**
-        * Gets/Sets the max value of the calendar.
-        * @param {Date|String} value The max date to set.
-        * @returns {Date} The max value of the calendar.
-        * @example
-        * var calendar = $("#calendar").data("kendoCalendar");
-        *
-        * // get the max value of the calendar.
-        * var max = calendar.max();
-        *
-        * // set the max value of the calendar.
-        * calendar.max(new Date(2100, 0, 1));
-        */
         max: function(value) {
             return this._option("max", value);
         },
 
-        /**
-        * Navigates to the past
-        * @example
-        * calendar.navigateToPast();
-        */
         navigateToPast: function() {
             this._navigate(PREVARROW, -1);
         },
 
-        /**
-        * Navigates to the future
-        * @example
-        * calendar.navigateToFuture();
-        */
         navigateToFuture: function() {
             this._navigate(NEXTARROW, 1);
         },
 
-        /**
-        * Navigates to the upper view
-        * @example
-        * calendar.navigateUp();
-        */
         navigateUp: function() {
             var that = this,
                 index = that._index;
@@ -296,12 +208,6 @@
             that.navigate(that._current, ++index);
         },
 
-        /**
-        * Navigates to the lower view
-        * @param {Date} value Desired date
-        * @example
-        * calendar.navigateDown(value);
-        */
         navigateDown: function(value) {
             var that = this,
             index = that._index,
@@ -322,18 +228,12 @@
             that.navigate(value, --index);
         },
 
-        /**
-        * Navigates to view
-        * @param {Date} value Desired date
-        * @param {String} view Desired view
-        * @example
-        * calendar.navigate(value, view);
-        */
         navigate: function(value, view) {
             view = isNaN(view) ? views[view] : view;
 
             var that = this,
                 options = that.options,
+                culture = options.culture,
                 min = options.min,
                 max = options.max,
                 title = that._title,
@@ -342,17 +242,13 @@
                 currentValue = that._current,
                 future = value && +value > +currentValue,
                 vertical = view !== undefined && view !== that._index,
-                to, currentView, compare;
-
-            //do not navigate if the view is still animating
-            if (from && from.parent().data("animating")) {
-                return;
-            }
+                to, currentView, compare,
+                disabled;
 
             if (!value) {
                 value = currentValue;
             } else {
-                that._current = value = new DATE(restrictValue(value, min, max))
+                that._current = value = new DATE(+restrictValue(value, min, max));
             }
 
             if (view === undefined) {
@@ -364,18 +260,29 @@
             that._view = currentView = calendar.views[view];
             compare = currentView.compare;
 
-            title.toggleClass(DISABLED, view === views[CENTURY])
-            that[PREVARROW].toggleClass(DISABLED, compare(value, min) < 1);
-            that[NEXTARROW].toggleClass(DISABLED, compare(value, max) > -1);
+            disabled = view === views[CENTURY];
+            title.toggleClass(DISABLED, disabled).attr(ARIA_DISABLED, disabled);
+
+            disabled = compare(value, min) < 1;
+            that[PREVARROW].toggleClass(DISABLED, disabled).attr(ARIA_DISABLED, disabled);
+
+            disabled = compare(value, max) > -1;
+            that[NEXTARROW].toggleClass(DISABLED, disabled).attr(ARIA_DISABLED, disabled);
 
             if (!from || that._changeView) {
-                title.html(currentView.title(value));
+                title.html(currentView.title(value, culture));
 
                 that._table = to = $(currentView.content(extend({
                     min: min,
                     max: max,
-                    date: value
+                    date: value,
+                    url: options.url,
+                    dates: options.dates,
+                    format: options.format,
+                    culture: culture
                 }, that[currentView.name])));
+
+                makeUnselectable(to);
 
                 that._animate({
                     from: from,
@@ -384,6 +291,7 @@
                     future: future
                 });
 
+                that._focus(value);
                 that.trigger(NAVIGATE);
             }
 
@@ -391,22 +299,15 @@
                 that._class("k-state-selected", currentView.toDateString(selectedValue));
             }
 
+            that._class(FOCUSED, currentView.toDateString(value));
+
+            if (!from && that._cell) {
+                that._cell.removeClass(FOCUSED);
+            }
+
             that._changeView = true;
         },
 
-        /**
-        * Gets/Sets the value of the calendar.
-        * @param {Date|String} value The date to set.
-        * @returns {Date} The value of the calendar.
-        * @example
-        * var calendar = $("#calendar").data("kendoCalendar");
-        *
-        * // get the value of the calendar.
-        * var value = calendar.value();
-        *
-        * // set the value of the calendar.
-        * calendar.value(new Date());
-        */
         value: function(value) {
             var that = this,
             view = that._view,
@@ -418,10 +319,10 @@
                 return that._value;
             }
 
-            value = parse(value, options.format);
+            value = parse(value, options.format, options.culture);
 
             if (value !== null) {
-                value = new DATE(value);
+                value = new DATE(+value);
 
                 if (!isInRange(value, min, max)) {
                     value = null;
@@ -434,6 +335,73 @@
             that.navigate(value);
         },
 
+        _move: function(e) {
+            var that = this,
+                options = that.options,
+                key = e.keyCode,
+                view = that._view,
+                index = that._index,
+                currentValue = new DATE(+that._current),
+                value, prevent, method;
+
+            if (e.ctrlKey) {
+                if (key == keys.RIGHT) {
+                    that.navigateToFuture();
+                    prevent = true;
+                } else if (key == keys.LEFT) {
+                    that.navigateToPast();
+                    prevent = true;
+                } else if (key == keys.UP) {
+                    that.navigateUp();
+                    prevent = true;
+                } else if (key == keys.DOWN) {
+                    that._click($(that._cell[0].firstChild));
+                    prevent = true;
+                }
+            } else {
+                if (key == keys.RIGHT) {
+                    value = 1;
+                    prevent = true;
+                } else if (key == keys.LEFT) {
+                    value = -1;
+                    prevent = true;
+                } else if (key == keys.UP) {
+                    value = index === 0 ? -7 : -4;
+                    prevent = true;
+                } else if (key == keys.DOWN) {
+                    value = index === 0 ? 7 : 4;
+                    prevent = true;
+                } else if (key == keys.ENTER) {
+                    that._click($(that._cell[0].firstChild));
+                    prevent = true;
+                } else if (key == keys.HOME || key == keys.END) {
+                    method = key == keys.HOME ? "first" : "last";
+                    currentValue = view[method](currentValue);
+                    prevent = true;
+                } else if (key == keys.PAGEUP) {
+                    prevent = true;
+                    that.navigateToPast();
+                } else if (key == keys.PAGEDOWN) {
+                    prevent = true;
+                    that.navigateToFuture();
+                }
+
+                if (value || method) {
+                    if (!method) {
+                        view.setDate(currentValue, value);
+                    }
+
+                    that._focus(restrictValue(currentValue, options.min, options.max));
+                }
+            }
+
+            if (prevent) {
+                e.preventDefault();
+            }
+
+            return that._current;
+        },
+
         _animate: function(options) {
             var that = this,
                 from = options.from,
@@ -441,8 +409,16 @@
 
             if (!from) {
                 to.insertAfter(that.element[0].firstChild);
+                that._bindTable(to);
+            } else if (from.parent().data("animating")) {
+                from.parent().kendoStop(true, true).remove();
+                from.remove();
+
+                to.insertAfter(that.element[0].firstChild);
+                that.focus();
             } else if (!from.is(":visible") || that.options.animation === false) {
                 to.insertAfter(from);
+                that.focus();
                 from.remove();
             } else {
                 that[options.vertical ? "_vertical" : "_horizontal"](from, to, options.future);
@@ -455,12 +431,13 @@
                 effects = horizontal.effects,
                 viewWidth = from.outerWidth();
 
-                if (effects && effects.indexOf(SLIDE) != -1) {
-                    from.add(to).css({ width: viewWidth });
+            if (effects && effects.indexOf(SLIDE) != -1) {
+                from.add(to).css({ width: viewWidth });
 
-                    from.wrap("<div/>");
+                from.wrap("<div/>");
+                that.focus(from);
 
-                    from.parent()
+                from.parent()
                     .css({
                         position: "relative",
                         width: viewWidth * 2,
@@ -468,28 +445,28 @@
                         left: future ? 0 : -viewWidth
                     });
 
-                    to[future ? "insertAfter" : "insertBefore"](from);
+                to[future ? "insertAfter" : "insertBefore"](from);
 
-                    extend(horizontal, {
-                        effects: SLIDE + ":" + (future ? LEFT : "right"),
-                        complete: function() {
-                            from.remove();
-                            to.unwrap();
-                        }
-                    });
+                extend(horizontal, {
+                    effects: SLIDE + ":" + (future ? "right" : LEFT),
+                    complete: function() {
+                        from.remove();
+                        to.unwrap();
+                        that.focus();
+                    }
+                });
 
-                    from.parent().kendoStop(true, true).kendoAnimate(horizontal);
-                }
+                from.parent().kendoStop(true, true).kendoAnimate(horizontal);
+            }
         },
 
         _vertical: function(from, to) {
             var that = this,
                 vertical = that.options.animation.vertical,
                 effects = vertical.effects,
-                viewWidth = from.outerWidth(),
                 cell, position;
 
-            if (effects && effects.indexOf("zoomIn") != -1) {
+            if (effects && effects.indexOf("zoom") != -1) {
                 to.css({
                     position: "absolute",
                     top: from.prev().outerHeight(),
@@ -499,7 +476,7 @@
                 if (transitionOrigin) {
                     cell = that._cellByDate(that._view.toDateString(that._current));
                     position = cell.position();
-                    position = (position.left + parseInt(cell.width() / 2)) + "px" + " " + (position.top + parseInt(cell.height() / 2) + "px");
+                    position = (position.left + parseInt(cell.width() / 2, 10)) + "px" + " " + (position.top + parseInt(cell.height() / 2, 10) + "px");
                     to.css(transitionOrigin, position);
                 }
 
@@ -513,6 +490,7 @@
                             top: 0,
                             left: 0
                         });
+                        that.focus();
                     }
                 });
 
@@ -520,17 +498,57 @@
             }
         },
 
-        _click: function(e) {
+        _cellByDate: function(value) {
+            return this._table.find("td:not(." + OTHERMONTH + ")")
+                       .filter(function() {
+                           return $(this.firstChild).attr(kendo.attr(VALUE)) === value;
+                       });
+        },
+
+        _class: function(className, value) {
+            var that = this,
+                id = that._cellID,
+                cell = that._cell;
+
+            if (cell) {
+                cell.removeAttr(ARIA_SELECTED)
+                    .removeAttr(ID);
+            }
+
+            cell = that._table
+                       .find("td:not(." + OTHERMONTH + ")")
+                       .removeClass(className)
+                       .filter(function() {
+                          return $(this.firstChild).attr(kendo.attr(VALUE)) === value;
+                       })
+                       .addClass(className)
+                       .attr(ARIA_SELECTED, true);
+
+            if (cell[0]) {
+                that._cell = cell;
+            }
+
+            if (id) {
+                cell.attr(ID, id);
+                that._table.removeAttr("aria-activedescendant").attr("aria-activedescendant", id);
+            }
+        },
+
+        _bindTable: function (table) {
+            table
+                .on(FOCUS_WITH_NS, this._addClassProxy)
+                .on(BLUR, this._removeClassProxy);
+        },
+
+        _click: function(link) {
             var that = this,
                 options = that.options,
                 currentValue = that._current,
-                link = $(e.currentTarget.firstChild),
                 value = link.attr(kendo.attr(VALUE)).split("/");
 
             //Safari cannot create corretly date from "1/1/2090"
             value = new DATE(value[0], value[1], value[2]);
-
-            e.preventDefault();
+            adjustDate(value);
 
             if (link.parent().hasClass(OTHERMONTH)) {
                 currentValue = value;
@@ -549,25 +567,32 @@
                 that.navigate(value);
             } else {
                 that._current = value;
+                that._class(FOCUSED, view.toDateString(value));
             }
-
-            that._class("k-state-focused", view.toDateString(value));
         },
 
-        _footer: function() {
+        _footer: function(template) {
             var that = this,
                 element = that.element,
-                today = new DATE();
+                today = new DATE(),
+                footer = element.find(".k-footer");
 
-            if (!element.find(".k-footer")[0]) {
-                element.append('<div class="k-footer"><a href="#" class="k-link k-nav-today"></a></div>');
+            if (!template) {
+                that._toggle(false);
+                footer.hide();
+                return;
             }
 
-            that._today = element
-                        .find(".k-nav-today")
-                        .html(template(that.options.footer)(today))
-                        .attr("title", kendo.toString(today, "D"))
-                        .bind(CLICK, proxy(that._todayClick, that));
+            if (!footer[0]) {
+                footer = $('<div class="k-footer"><a href="#" class="k-link k-nav-today"></a></div>').appendTo(element);
+            }
+
+            that._today = footer.show()
+                                .find(".k-link")
+                                .html(template(today))
+                                .attr("title", kendo.toString(today, "D", that.options.culture));
+
+            that._toggle();
         },
 
         _header: function() {
@@ -576,42 +601,26 @@
             links;
 
             if (!element.find(".k-header")[0]) {
-                element.html('<div class="k-header">'
-                           + '<a href="#" class="k-link k-nav-prev"><span class="k-icon k-arrow-prev"></span></a>'
-                           + '<a href="#" class="k-link k-nav-fast"></a>'
-                           + '<a href="#" class="k-link k-nav-next"><span class="k-icon k-arrow-next"></span></a>'
-                           + '</div>');
+                element.html('<div class="k-header">' +
+                             '<a href="#" role="button" class="k-link k-nav-prev"><span class="k-icon k-i-arrow-w"></span></a>' +
+                             '<a href="#" role="button" aria-live="assertive" aria-atomic="true" class="k-link k-nav-fast"></a>' +
+                             '<a href="#" role="button" class="k-link k-nav-next"><span class="k-icon k-i-arrow-e"></span></a>' +
+                             '</div>');
             }
 
             links = element.find(".k-link")
-                           .hover(mouseenter, mouseleave)
+                           .on(MOUSEENTER_WITH_NS + " " + MOUSELEAVE + " " + FOCUS_WITH_NS + " " + BLUR, mousetoggle)
                            .click(false);
 
-            that._title = links.eq(1).bind(CLICK, proxy(that.navigateUp, that));
-            that[PREVARROW] = links.eq(0).bind(CLICK, proxy(that.navigateToPast, that));
-            that[NEXTARROW] = links.eq(2).bind(CLICK, proxy(that.navigateToFuture, that));
-        },
-
-        _cellByDate: function(value) {
-            return this._table.find("td:not(." + OTHERMONTH + ")")
-                       .filter(function() {
-                           return $(this.firstChild).attr(kendo.attr(VALUE)) === value;
-                       });
-        },
-
-        _class: function(className, value) {
-            this._table.find("td:not(." + OTHERMONTH + ")")
-                .removeClass(className)
-                .filter(function() {
-                   return $(this.firstChild).attr(kendo.attr(VALUE)) === value;
-                })
-                .addClass(className);
+            that._title = links.eq(1).on(CLICK, proxy(that.navigateUp, that));
+            that[PREVARROW] = links.eq(0).on(CLICK, proxy(that.navigateToPast, that));
+            that[NEXTARROW] = links.eq(2).on(CLICK, proxy(that.navigateToFuture, that));
         },
 
         _navigate: function(arrow, modifier) {
             var that = this,
                 index = that._index + 1,
-                currentValue = new DATE(that._current);
+                currentValue = new DATE(+that._current);
 
             arrow = that[arrow];
 
@@ -636,19 +645,19 @@
                 return options[option];
             }
 
-            value = parse(value, options.format);
+            value = parse(value, options.format, options.culture);
 
             if (!value) {
                 return;
             }
 
-            options[option] = new DATE(value);
+            options[option] = new DATE(+value);
 
             navigate = that._view.compare(value, that._current);
 
             if (option === MIN) {
                 bigger = +value > selectedValue;
-                navigate = navigate > -1
+                navigate = navigate > -1;
             } else {
                 bigger = selectedValue > +value;
                 navigate = navigate < 1;
@@ -658,6 +667,32 @@
                 that.value(null);
             } else if (navigate) {
                 that.navigate();
+            }
+
+            that._toggle();
+        },
+
+        _toggle: function(toggle) {
+            var that = this,
+                options = that.options,
+                link = that._today;
+
+            if (toggle === undefined) {
+                toggle = isInRange(new DATE(), options.min, options.max);
+            }
+
+            if (link) {
+                link.off(CLICK);
+
+                if (toggle) {
+                    link.addClass(TODAY)
+                        .removeClass(DISABLED)
+                        .on(CLICK, proxy(that._todayClick, that));
+                } else {
+                    link.removeClass(TODAY)
+                        .addClass(DISABLED)
+                        .on(CLICK, prevent);
+                }
             }
         },
 
@@ -680,14 +715,20 @@
 
         _templates: function() {
             var that = this,
-                month = that.options.month || {},
+                options = that.options,
+                footer = options.footer,
+                month = options.month,
                 content = month.content,
                 empty = month.empty;
 
             that.month = {
-                content: template('<td#=data.cssClass#><a class="k-link" href="\\#" ' + kendo.attr("value") + '="#=data.dateString#" title="#=data.title#">' + (content || "#=data.value#") + '</a></td>', { useWithBlock: !!content }),
-                empty: template("<td>" + (empty || "&nbsp;") + "</td>", { useWithBlock: !!empty })
+                content: template('<td#=data.cssClass# role="gridcell"><a tabindex="-1" class="k-link#=data.linkClass#" href="#=data.url#" ' + kendo.attr("value") + '="#=data.dateString#" title="#=data.title#">' + (content || "#=data.value#") + '</a></td>', { useWithBlock: !!content }),
+                empty: template('<td role="gridcell">' + (empty || "&nbsp;") + "</td>", { useWithBlock: !!empty })
             };
+
+            if (footer !== false) {
+                that.footer = template(footer || '#= kendo.toString(data,"D","' + options.culture +'") #', { useWithBlock: false });
+            }
         }
     });
 
@@ -702,12 +743,14 @@
             );
         },
 
-        firstVisibleDay: function (date) {
-            var firstDay = kendo.culture().calendar.firstDay,
+        firstVisibleDay: function (date, calendarInfo) {
+            calendarInfo = calendarInfo || kendo.culture().calendar;
+
+            var firstDay = calendarInfo.firstDay,
             firstVisibleDay = new DATE(date.getFullYear(), date.getMonth(), 0, date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds());
 
             while (firstVisibleDay.getDay() != firstDay) {
-                calendar.setTime(firstVisibleDay, -1 * MS_PER_DAY)
+                calendar.setTime(firstVisibleDay, -1 * MS_PER_DAY);
             }
 
             return firstVisibleDay;
@@ -722,8 +765,8 @@
         },
         views: [{
             name: MONTH,
-            title: function(date) {
-                return kendo.culture().calendar.months.names[date.getMonth()] + " " + date.getFullYear();
+            title: function(date, culture) {
+                return getCalendarInfo(culture).months.names[date.getMonth()] + " " + date.getFullYear();
             },
             content: function(options) {
                 var that = this,
@@ -731,29 +774,35 @@
                 min = options.min,
                 max = options.max,
                 date = options.date,
-                currentCalendar = kendo.culture().calendar,
+                dates = options.dates,
+                format = options.format,
+                culture = options.culture,
+                navigateUrl = options.url,
+                hasUrl = navigateUrl && dates[0],
+                currentCalendar = getCalendarInfo(culture),
                 firstDayIdx = currentCalendar.firstDay,
                 days = currentCalendar.days,
                 names = shiftArray(days.names, firstDayIdx),
-                abbr = shiftArray(days.namesAbbr, firstDayIdx),
                 short = shiftArray(days.namesShort, firstDayIdx),
-                start = calendar.firstVisibleDay(date),
+                start = calendar.firstVisibleDay(date, currentCalendar),
                 firstDayOfMonth = that.first(date),
                 lastDayOfMonth = that.last(date),
                 toDateString = that.toDateString,
                 today = new DATE(),
-                html = '<table class="k-content" cellspacing="0"><thead><tr>';
+                html = '<table tabindex="0" role="grid" class="k-content" cellspacing="0"><thead><tr role="row">';
 
                 for (; idx < 7; idx++) {
-                    html += '<th abbr="' + abbr[idx] + '" scope="col" title="' + names[idx] + '">' + short[idx] + '</th>';
+                    html += '<th scope="col" title="' + names[idx] + '">' + short[idx] + '</th>';
                 }
 
-                today = +new DATE(today.getFullYear(), today.getMonth(), today.getDate());
+                today = new DATE(today.getFullYear(), today.getMonth(), today.getDate());
+                adjustDate(today);
+                today = +today;
 
                 return view({
                     cells: 42,
                     perRow: 7,
-                    html: html += "</tr></thead><tbody><tr>",
+                    html: html += '</tr></thead><tbody><tr role="row">',
                     start: new DATE(start.getFullYear(), start.getMonth(), start.getDate()),
                     min: new DATE(min.getFullYear(), min.getMonth(), min.getDate()),
                     max: new DATE(max.getFullYear(), max.getMonth(), max.getDate()),
@@ -762,7 +811,9 @@
                     setter: that.setDate,
                     build: function(date, idx) {
                         var cssClass = [],
-                        day = date.getDay();
+                            day = date.getDay(),
+                            linkClass = "",
+                            url = "#";
 
                         if (date < firstDayOfMonth || date > lastDayOfMonth) {
                             cssClass.push(OTHERMONTH);
@@ -776,13 +827,21 @@
                             cssClass.push("k-weekend");
                         }
 
+                        if (hasUrl && inArray(+date, dates)) {
+                            url = navigateUrl.replace("{0}", kendo.toString(date, format, culture));
+                            linkClass = " k-action-link";
+                        }
+
                         return {
                             date: date,
+                            dates: dates,
                             ns: kendo.ns,
-                            title: kendo.toString(date, "D"),
+                            title: kendo.toString(date, "D", culture),
                             value: date.getDate(),
                             dateString: toDateString(date),
-                            cssClass: cssClass[0] ? ' class="' + cssClass.join(" ") + '"' : ""
+                            cssClass: cssClass[0] ? ' class="' + cssClass.join(" ") + '"' : "",
+                            linkClass: linkClass,
+                            url: url
                         };
                     }
                 });
@@ -791,7 +850,15 @@
                 return calendar.firstDayOfMonth(date);
             },
             last: function(date) {
-                return new DATE(date.getFullYear(), date.getMonth() + 1, 0);
+                var last = new DATE(date.getFullYear(), date.getMonth() + 1, 0),
+                    first = calendar.firstDayOfMonth(date),
+                    timeOffset = Math.abs(last.getTimezoneOffset() - first.getTimezoneOffset());
+
+                if (timeOffset) {
+                    last.setHours(first.getHours() + (timeOffset / 60));
+                }
+
+                return last;
             },
             compare: function(date1, date2) {
                 var result,
@@ -811,11 +878,13 @@
                 return result;
             },
             setDate: function(date, value) {
+                var hours = date.getHours();
                 if (value instanceof DATE) {
                     date.setFullYear(value.getFullYear(), value.getMonth(), value.getDate());
                 } else {
                     calendar.setTime(date, value * MS_PER_DAY);
                 }
+                adjustDate(date, hours);
             },
             toDateString: function(date) {
                 return date.getFullYear() + "/" + date.getMonth() + "/" + date.getDate();
@@ -827,7 +896,7 @@
                 return date.getFullYear();
             },
             content: function(options) {
-                var namesAbbr = kendo.culture().calendar.months.namesAbbr,
+                var namesAbbr = getCalendarInfo(options.culture).months.namesAbbr,
                 toDateString = this.toDateString,
                 min = options.min,
                 max = options.max;
@@ -857,12 +926,19 @@
                 return compare(date1, date2);
             },
             setDate: function(date, value) {
+                var month,
+                    hours = date.getHours();
+
                 if (value instanceof DATE) {
-                    date.setFullYear(value.getFullYear(),
-                    value.getMonth(),
-                    date.getDate());
+                    month = value.getMonth();
+
+                    date.setFullYear(value.getFullYear(), month, date.getDate());
+
+                    if (month !== date.getMonth()) {
+                        date.setDate(0);
+                    }
                 } else {
-                    var month = date.getMonth() + value;
+                    month = date.getMonth() + value;
 
                     date.setMonth(month);
 
@@ -870,10 +946,12 @@
                         month -= 12;
                     }
 
-                    if (date.getMonth() != month) {
+                    if (month > 0 && date.getMonth() != month) {
                         date.setDate(0);
                     }
                 }
+
+                adjustDate(date, hours);
             },
             toDateString: function(date) {
                 return date.getFullYear() + "/" + date.getMonth() + "/1";
@@ -902,7 +980,7 @@
                             value: date.getFullYear(),
                             ns: kendo.ns,
                             dateString: toDateString(date),
-                            cssClass: idx == 0 || idx == 11 ? OTHERMONTHCLASS : ""
+                            cssClass: idx === 0 || idx == 11 ? OTHERMONTHCLASS : ""
                         };
                     }
                 });
@@ -958,7 +1036,7 @@
                             value: year + " - " + (year + 9),
                             ns: kendo.ns,
                             dateString: toDateString(date),
-                            cssClass: idx == 0 || idx == 11 ? OTHERMONTHCLASS : ""
+                            cssClass: idx === 0 || idx == 11 ? OTHERMONTHCLASS : ""
                         };
                     }
                 });
@@ -982,12 +1060,11 @@
                 return (year - year % 10) + "/0/1";
             }
         }]
-    }
+    };
 
     function view(options) {
         var idx = 0,
             data,
-            view = options.view,
             min = options.min,
             max = options.max,
             start = options.start,
@@ -995,14 +1072,13 @@
             build = options.build,
             length = options.cells || 12,
             cellsPerRow = options.perRow || 4,
-            toDateString = options.toDateString,
             content = options.content || cellTemplate,
             empty = options.empty || emptyCellTemplate,
-            html = options.html || '<table class="k-content k-meta-view" cellspacing="0"><tbody><tr>';
+            html = options.html || '<table tabindex="0" role="grid" class="k-content k-meta-view" cellspacing="0"><tbody><tr role="row">';
 
         for(; idx < length; idx++) {
-            if (idx > 0 && idx % cellsPerRow == 0) {
-                html += "</tr><tr>";
+            if (idx > 0 && idx % cellsPerRow === 0) {
+                html += '</tr><tr role="row">';
             }
 
             data = build(start, idx);
@@ -1041,13 +1117,13 @@
         today = new DATE(today.getFullYear(), today.getMonth(), today.getDate());
 
         if (value) {
-            today = new DATE(value);
+            today = new DATE(+value);
         }
 
         if (min > today) {
-            today = new DATE(min);
+            today = new DATE(+min);
         } else if (max < today) {
-            today = new DATE(max);
+            today = new DATE(+max);
         }
         return today;
     }
@@ -1065,18 +1141,28 @@
         date.setFullYear(value);
     }
 
-    function mouseenter() {
-        $(this).addClass(HOVER);
+    function mousetoggle(e) {
+        if (e.type.indexOf("touch") === -1) {
+            e.stopImmediatePropagation();
+        }
+
+        $(this).toggleClass(HOVER, MOUSEENTER.indexOf(e.type) > -1 || e.type == FOCUS);
     }
 
-    function mouseleave() {
-        $(this).removeClass(HOVER);
+    function prevent (e) {
+        e.preventDefault();
     }
 
-    function validate(options) {
+    function getCalendarInfo(culture) {
+        return getCulture(culture).calendars.standard;
+    }
+
+    function normalize(options) {
         var start = views[options.start],
             depth = views[options.depth],
-            format = options.format || kendo.culture().calendar.patterns.d;
+            culture = getCulture(options.culture);
+
+        options.format = extractFormat(options.format || culture.calendars.standard.patterns.d);
 
         if (isNaN(start)) {
             start = 0;
@@ -1087,17 +1173,42 @@
             options.depth = MONTH;
         }
 
-        if (format.slice(0,3) === "{0:") {
-            format = format.slice(3, format.length - 1);
+        if (!options.dates) {
+            options.dates = [];
         }
-
-        options.format = format;
     }
 
+    function makeUnselectable(element) {
+        if (isIE8) {
+            element.find("*").attr("unselectable", "on");
+        }
+    }
+
+    function inArray(date, dates) {
+        for(var i = 0, length = dates.length; i < length; i++) {
+            if (date === +dates[i]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function isEqualDatePart(value1, value2) {
+        if (value1) {
+            return value1.getFullYear() === value2.getFullYear() &&
+                   value1.getMonth() === value2.getMonth() &&
+                   value1.getDate() === value2.getDate();
+        }
+
+        return false;
+    }
+
+    calendar.isEqualDatePart = isEqualDatePart;
+    calendar.makeUnselectable =  makeUnselectable;
     calendar.restrictValue = restrictValue;
     calendar.isInRange = isInRange;
-    calendar.validate = validate;
+    calendar.normalize = normalize;
     calendar.viewsEnum = views;
 
     kendo.calendar = calendar;
-})(jQuery);
+})(window.kendo.jQuery);

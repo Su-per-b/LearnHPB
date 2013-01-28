@@ -1,22 +1,24 @@
 /*
-* Kendo UI v2011.3.1129 (http://kendoui.com)
-* Copyright 2011 Telerik AD. All rights reserved.
+* Kendo UI Web v2012.3.1114 (http://kendoui.com)
+* Copyright 2012 Telerik AD. All rights reserved.
 *
-* Kendo UI commercial licenses may be obtained at http://kendoui.com/license.
+* Kendo UI Web commercial licenses may be obtained at
+* https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
 * If you do not own a commercial license, this file shall be governed by the
-* GNU General Public License (GPL) version 3. For GPL requirements, please
-* review: http://www.gnu.org/copyleft/gpl.html
+* GNU General Public License (GPL) version 3.
+* For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
-
 (function($, undefined) {
     var kendo = window.kendo,
         proxy = $.proxy,
-        DIR = "dir",
+        DIR = "data-dir",
         ASC = "asc",
         SINGLE = "single",
-        FIELD = "field",
+        FIELD = "data-field",
         DESC = "desc",
+        NS = ".kendoSortable",
         TLINK = ".k-link",
+        ARIASORT = "aria-sort",
         Widget = kendo.ui.Widget;
 
     var Sortable = Widget.extend({
@@ -25,7 +27,10 @@
 
             Widget.fn.init.call(that, element, options);
 
-            that.dataSource = that.options.dataSource.bind("change", proxy(that.refresh, that));
+            that._refreshHandler = proxy(that.refresh, that);
+
+            that.dataSource = that.options.dataSource.bind("change", that._refreshHandler);
+
             link = that.element.find(TLINK);
 
             if (!link[0]) {
@@ -33,13 +38,24 @@
             }
 
             that.link = link;
-            that.element.click(proxy(that._click, that));
+
+            that.element.on("click" + NS, proxy(that._click, that));
         },
 
         options: {
             name: "Sortable",
             mode: SINGLE,
             allowUnsort: true
+        },
+
+        destroy: function() {
+            var that = this;
+
+            Widget.fn.destroy.call(that);
+
+            that.element.off(NS);
+
+            that.dataSource.unbind("change", that._refreshHandler);
         },
 
         refresh: function() {
@@ -50,34 +66,37 @@
                 descriptor,
                 dir,
                 element = that.element,
-                field = element.data(FIELD);
+                field = element.attr(FIELD);
 
-            element.removeData(DIR);
+            element.removeAttr(DIR);
+            element.removeAttr(ARIASORT);
 
             for (idx = 0, length = sort.length; idx < length; idx++) {
                descriptor = sort[idx];
 
                if (field == descriptor.field) {
-                   element.data(DIR, descriptor.dir);
+                   element.attr(DIR, descriptor.dir);
                }
             }
 
-            dir = element.data(DIR);
+            dir = element.attr(DIR);
 
-            element.find(".k-arrow-up,.k-arrow-down").remove();
+            element.find(".k-i-arrow-n,.k-i-arrow-s").remove();
 
             if (dir === ASC) {
-                $('<span class="k-icon k-arrow-up" />').appendTo(that.link);
+                $('<span class="k-icon k-i-arrow-n" />').appendTo(that.link);
+                element.attr(ARIASORT, "ascending");
             } else if (dir === DESC) {
-                $('<span class="k-icon k-arrow-down" />').appendTo(that.link);
+                $('<span class="k-icon k-i-arrow-s" />').appendTo(that.link);
+                element.attr(ARIASORT, "descending");
             }
         },
 
         _click: function(e) {
             var that = this,
                 element = that.element,
-                field = element.data(FIELD),
-                dir = element.data(DIR),
+                field = element.attr(FIELD),
+                dir = element.attr(DIR),
                 options = that.options,
                 sort = that.dataSource.sort() || [],
                 idx,
@@ -110,4 +129,4 @@
     });
 
     kendo.ui.plugin(Sortable);
-})(jQuery);
+})(window.kendo.jQuery);

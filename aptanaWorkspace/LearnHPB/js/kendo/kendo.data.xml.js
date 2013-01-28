@@ -1,23 +1,25 @@
 /*
-* Kendo UI v2011.3.1129 (http://kendoui.com)
-* Copyright 2011 Telerik AD. All rights reserved.
+* Kendo UI Web v2012.3.1114 (http://kendoui.com)
+* Copyright 2012 Telerik AD. All rights reserved.
 *
-* Kendo UI commercial licenses may be obtained at http://kendoui.com/license.
+* Kendo UI Web commercial licenses may be obtained at
+* https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
 * If you do not own a commercial license, this file shall be governed by the
-* GNU General Public License (GPL) version 3. For GPL requirements, please
-* review: http://www.gnu.org/copyleft/gpl.html
+* GNU General Public License (GPL) version 3.
+* For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
-
 (function($, undefined) {
     var kendo = window.kendo,
         isArray = $.isArray,
         isPlainObject = $.isPlainObject,
         map = $.map,
         each = $.each,
+        extend = $.extend,
         getter = kendo.getter,
         Class = kendo.Class;
 
-    var XmlDataReader = Class.extend({ init: function(options) {
+    var XmlDataReader = Class.extend({
+        init: function(options) {
             var that = this,
                 total = options.total,
                 model = options.model,
@@ -25,14 +27,23 @@
 
             if (model) {
                 if (isPlainObject(model)) {
-                    model.id = that.getter(model.id);
                     if (model.fields) {
                         each(model.fields, function(field, value) {
                             if (isPlainObject(value) && value.field) {
-                                value = value.field;
+                                value = extend(value, { field: that.getter(value.field) });
+                            } else {
+                                value = { field: that.getter(value) };
                             }
-                            model.fields[field] = that.getter(value);
+                            model.fields[field] = value;
                         });
+                    }
+                    var id = model.id;
+                    if (id) {
+                        var idField = {};
+
+                        idField[that.xpathToMember(id, true)] = { field : that.getter(id) };
+                        model.fields = extend(idField, model.fields);
+                        model.id = that.xpathToMember(id);
                     }
                     model = kendo.data.Model.define(model);
                 }
@@ -43,24 +54,31 @@
             if (total) {
                 total = that.getter(total);
                 that.total = function(data) {
-                    return parseInt(total(data));
+                    return parseInt(total(data), 10);
                 };
             }
 
             if (data) {
                 data = that.xpathToMember(data);
                 that.data = function(value) {
-                    var record, field, result = that.evaluate(value, data);
+                    var result = that.evaluate(value, data),
+                        modelInstance;
 
                     result = isArray(result) ? result : [result];
 
                     if (that.model && model.fields) {
+                        modelInstance = new that.model();
+
                         return map(result, function(value) {
-                            record = {};
-                            for (field in model.fields) {
-                                record[field] = model.fields[field](value);
+                            if (value) {
+                                var record = {}, field;
+
+                                for (field in model.fields) {
+                                    record[field] = modelInstance._parse(field, model.fields[field].field(value));
+                                }
+
+                                return record;
                             }
-                            return record;
                         });
                     }
 
@@ -70,6 +88,9 @@
         },
         total: function(result) {
             return this.data(result).length;
+        },
+        errors: function(data) {
+            return data ? data.errors : null;
         },
         parseDOM: function(element) {
             var result = {},
@@ -161,7 +182,7 @@
             return result;
         },
 
-        xpathToMember: function(member) {
+        xpathToMember: function(member, raw) {
             if (!member) {
                 return "";
             }
@@ -171,12 +192,12 @@
 
             if (member.indexOf("@") >= 0) {
                 // replace @attribute with '["@attribute"]'
-                return member.replace(/\.?(@.*)/, '["$1"]');
+                return member.replace(/\.?(@.*)/, raw? '$1':'["$1"]');
             }
 
             if (member.indexOf("text()") >= 0) {
                 // replace ".text()" with '["#text"]'
-                return member.replace(/(\.?text\(\))/, '["#text"]');
+                return member.replace(/(\.?text\(\))/, raw? '#text':'["#text"]');
             }
 
             return member;
@@ -192,4 +213,4 @@
             xml: XmlDataReader
         }
     });
-})(jQuery);
+})(window.kendo.jQuery);

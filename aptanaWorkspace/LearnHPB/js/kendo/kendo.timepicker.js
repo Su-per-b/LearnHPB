@@ -1,99 +1,44 @@
 /*
-* Kendo UI v2011.3.1129 (http://kendoui.com)
-* Copyright 2011 Telerik AD. All rights reserved.
+* Kendo UI Web v2012.3.1114 (http://kendoui.com)
+* Copyright 2012 Telerik AD. All rights reserved.
 *
-* Kendo UI commercial licenses may be obtained at http://kendoui.com/license.
+* Kendo UI Web commercial licenses may be obtained at
+* https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
 * If you do not own a commercial license, this file shall be governed by the
-* GNU General Public License (GPL) version 3. For GPL requirements, please
-* review: http://www.gnu.org/copyleft/gpl.html
+* GNU General Public License (GPL) version 3.
+* For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
 
 (function($, undefined) {
-    /**
-    * @name kendo.ui.TimePicker.Description
-    *
-    * @section
-    *   <p>
-    *       The TimePicker widget allows the end user to select a value from a list of predefined values or to type a new value.
-    *       It supports configurable options for the format, min and max time and the interval between predefined values in the list.
-    *   </p>
-    *
-    *   <h3>Getting Started</h3>
-    *
-    * @exampleTitle Creating a TimePicker from existing INPUT element
-    * @example
-    * <!-- HTML -->
-    * <input id="timepicker"/>
-    *
-    * @exampleTitle TimePicker initialization
-    * @example
-    *   $(document).ready(function(){
-    *      $("#timepicker").kendoTimePicker();
-    *   });
-    * @section
-    *  <p>
-    *      When a TimePicker is initialized, it will automatically be displayed near the
-    *      location of the used HTML element.
-    *  </p>
-    *  <h3>Configuring TimePicker behaviors</h3>
-    *  <p>
-    *      TimePicker provides configuration options that can be easily set during initialization.
-    *      Among the properties that can be controlled:
-    *  </p>
-    *  <ul>
-    *      <li>Selected time</li>
-    *      <li>Minimum/Maximum time</li>
-    *      <li>Define format</li>
-    *      <li>Define interval between predefined values in the list</li>
-    *  </ul>
-    * @exampleTitle Create TimePicker with selected time and defined min and max time
-    * @example
-    *  $("#timepicker").kendoTimePicker({
-    *      value: new Date(2000, 10, 10, 10, 0, 0),
-    *      min: new Date(1950, 0, 1, 8, 0, 0),
-    *      max: new Date(2049, 11, 31, 18, 0, 0)
-    *  });
-    *  @section
-    * <p>
-    *   TimePicker will set the value only if the entered time is valid and if it is in the defined range
-    * </p>
-    * @section
-    *
-    * @exampleTitle Define time format
-    * @example
-    *  $("#timepicker").kendoTimePicker({
-    *      format: "hh:mm:ss tt"
-    *  });
-    *
-    * @exampleTitle Define the interval between values in the list
-    * @example
-    *  $("#timepicker").kendoTimePicker({
-    *      interval: 15 //in minutes
-    *  });
-    *
-    */
-
     var kendo = window.kendo,
-        touch = kendo.support.touch,
         keys = kendo.keys,
+        extractFormat = kendo._extractFormat,
         ui = kendo.ui,
         Widget = ui.Widget,
-        keys = kendo.keys,
+        OPEN = "open",
+        CLOSE = "close",
         CHANGE = "change",
-        CLICK = (touch ? "touchend" : "click"),
+        ns = ".kendoTimePicker",
+        CLICK = "touchend" + ns + " click" + ns,
         DEFAULT = "k-state-default",
         DISABLED = "disabled",
         LI = "li",
-        DIV = "<div/>",
         SPAN = "<span/>",
         FOCUSED = "k-state-focused",
         HOVER = "k-state-hover",
-        HOVEREVENTS = "mouseenter mouseleave",
-        MOUSEDOWN = (touch ? "touchstart" : "mousedown"),
+        HOVEREVENTS = "mouseenter" + ns + " mouseleave" + ns,
+        MOUSEDOWN = "mousedown" + ns,
         MS_PER_MINUTE = 60000,
         MS_PER_DAY = 86400000,
         SELECTED = "k-state-selected",
         STATEDISABLED = "k-state-disabled",
+        ARIA_SELECTED = "aria-selected",
+        ARIA_EXPANDED = "aria-expanded",
+        ARIA_HIDDEN = "aria-hidden",
+        ARIA_ACTIVEDESCENDANT = "aria-activedescendant",
+        ID = "id",
+        isArray = $.isArray,
+        extend = $.extend,
         proxy = $.proxy,
         DATE = Date,
         TODAY = new DATE();
@@ -101,40 +46,59 @@
     TODAY = new DATE(TODAY.getFullYear(), TODAY.getMonth(), TODAY.getDate(), 0, 0, 0);
 
     var TimeView = function(options) {
-        var that = this, list;
+        var that = this,
+            id = options.id;
 
         that.options = options;
 
-        that.ul = $('<ul class="k-list k-reset"/>')
-                    .css({ overflow: "auto"})
-                    .bind(MOUSEDOWN, options.clearBlurTimeout)
-                    .delegate(LI, CLICK, proxy(that._click, that))
-                    .delegate(LI, "mouseenter", function() { $(this).addClass(HOVER); })
-                    .delegate(LI, "mouseleave", function() { $(this).removeClass(HOVER); });
+        that.ul = $('<ul tabindex="-1" role="listbox" aria-hidden="true" unselectable="on" class="k-list k-reset"/>')
+                    .css({ overflow: kendo.support.kineticScrollNeeded ? "": "auto" })
+                    .on(CLICK, LI, proxy(that._click, that))
+                    .on("mouseenter" + ns, LI, function() { $(this).addClass(HOVER); })
+                    .on("mouseleave" + ns, LI, function() { $(this).removeClass(HOVER); });
 
-        that.list = $("<div class='k-list-container'/>").append(that.ul);
+        that.list = $("<div class='k-list-container'/>")
+                    .append(that.ul)
+                    .on(MOUSEDOWN, preventDefault);
+
+        if (id) {
+            that._timeViewID = id + "_timeview";
+            that._optionID = id + "_option_selected";
+
+            that.ul.attr(ID, that._timeViewID);
+        }
 
         that._popup();
 
-        that.template = kendo.template('<li class="k-item" unselectable="on">#=data#</li>', { useWithBlock: false });
-    }
+        that.template = kendo.template('<li tabindex="-1" role="option" class="k-item" unselectable="on">#=data#</li>', { useWithBlock: false });
+    };
 
     TimeView.prototype = {
         current: function(candidate) {
-            var that = this;
+            var that = this,
+                active = that.options.active;
 
             if (candidate !== undefined) {
                 if (that._current) {
-                    that._current.removeClass(SELECTED);
+                    that._current
+                        .removeClass(SELECTED)
+                        .removeAttr(ARIA_SELECTED)
+                        .removeAttr(ID);
                 }
 
                 if (candidate) {
-                    candidate = $(candidate);
-                    candidate.addClass(SELECTED);
+                    candidate = $(candidate).addClass(SELECTED)
+                                            .attr(ID, that._optionID)
+                                            .attr(ARIA_SELECTED, true);
+
                     that.scroll(candidate[0]);
                 }
 
                 that._current = candidate;
+
+                if (active) {
+                    active(candidate);
+                }
             } else {
                 return that._current;
             }
@@ -144,11 +108,20 @@
             this.popup.close();
         },
 
+        destroy: function() {
+            var that = this;
+
+            that.ul.off(ns);
+            that.list.off(ns);
+
+            that.popup.destroy();
+        },
+
         open: function() {
             var that = this;
 
             if (!that.ul[0].firstChild) {
-                that.refresh();
+                that.bind();
             }
 
             that.popup.open();
@@ -157,10 +130,34 @@
             }
         },
 
+        dataBind: function(dates) {
+            var that = this,
+                options = that.options,
+                format = options.format,
+                toString = kendo.toString,
+                template = that.template,
+                length = dates.length,
+                idx = 0,
+                date,
+                html = "";
+
+            for (; idx < length; idx++) {
+                date = dates[idx];
+
+                if (isInRange(date, options.min, options.max)) {
+                    html += template(toString(date, format, options.culture));
+                }
+            }
+
+            that._html(html, length);
+        },
+
         refresh: function() {
             var that = this,
                 options = that.options,
                 format = options.format,
+                offset = dst(),
+                ignoreDST = offset < 0,
                 min = options.min,
                 max = options.max,
                 msMin = getMilliseconds(min),
@@ -168,10 +165,16 @@
                 msInterval = options.interval * MS_PER_MINUTE,
                 toString = kendo.toString,
                 template = that.template,
-                start = new DATE(min),
-                length = MS_PER_DAY / msInterval,
+                start = new DATE(+min),
                 idx = 0, length,
                 html = "";
+
+            if (ignoreDST) {
+                length = (MS_PER_DAY + (offset * MS_PER_MINUTE)) / msInterval;
+            } else {
+                length = MS_PER_DAY / msInterval;
+            }
+
 
             if (msMin != msMax) {
                 if (msMin > msMax) {
@@ -182,25 +185,44 @@
 
             for (; idx < length; idx++) {
                 if (idx) {
-                    setTime(start, msInterval);
+                    setTime(start, msInterval, ignoreDST);
                 }
 
                 if (msMax && getMilliseconds(start) > msMax) {
-                    start = new DATE(max);
+                    start = new DATE(+max);
                 }
 
-                html += template(toString(start, format));
+                html += template(toString(start, format, options.culture));
             }
 
-            that.ul[0].innerHTML = html;
+            that._html(html, length);
+        },
 
+        bind: function() {
+            var that = this,
+                dates = that.options.dates;
+
+            if (dates && dates[0]) {
+                that.dataBind(dates);
+            } else {
+                that.refresh();
+            }
+        },
+
+        _html: function(html, length) {
+            var that = this;
+
+            that.ul[0].innerHTML = html;
             that._height(length);
 
+            that.current(null);
             that.select(that._value);
         },
 
         scroll: function(item) {
-            if (!item) return;
+            if (!item) {
+                return;
+            }
 
             var ul = this.ul[0],
                 itemOffsetTop = item.offsetTop,
@@ -209,16 +231,19 @@
                 ulOffsetHeight = ul.clientHeight,
                 bottomDistance = itemOffsetTop + itemOffsetHeight;
 
-            ul.scrollTop = ulScrollTop > itemOffsetTop
-                        ? itemOffsetTop
-                        : bottomDistance > (ulScrollTop + ulOffsetHeight)
-                        ? bottomDistance - ulOffsetHeight
-                        : ulScrollTop;
+                ul.scrollTop = ulScrollTop > itemOffsetTop ?
+                               itemOffsetTop : bottomDistance > (ulScrollTop + ulOffsetHeight) ?
+                               bottomDistance - ulOffsetHeight : ulScrollTop;
         },
 
         select: function(li) {
             var that = this,
+                options = that.options,
                 current = that._current;
+
+            if (li instanceof Date) {
+                li = kendo.toString(li, options.format, options.culture);
+            }
 
             if (typeof li === "string") {
                 if (!current || current.text() !== li) {
@@ -258,9 +283,11 @@
             var that = this,
                 li = $(e.currentTarget);
 
-            that.select(li);
-            that.options.change(li.text(), true);
-            that.close();
+            if (!e.isDefaultPrevented()) {
+                that.select(li);
+                that.options.change(li.text(), true);
+                that.close();
+            }
         },
 
         _height: function(length) {
@@ -277,6 +304,30 @@
             }
         },
 
+        _parse: function(value) {
+            var that = this,
+                options = that.options,
+                current = that._value || TODAY;
+
+            if (value instanceof DATE) {
+                return value;
+            }
+
+            value = kendo.parseDate(value, options.parseFormats, options.culture);
+
+            if (value) {
+                value = new DATE(current.getFullYear(),
+                                 current.getMonth(),
+                                 current.getDate(),
+                                 value.getHours(),
+                                 value.getMinutes(),
+                                 value.getSeconds(),
+                                 value.getMilliseconds());
+            }
+
+            return value;
+        },
+
         _popup: function() {
             var that = this,
                 list = that.list,
@@ -284,12 +335,13 @@
                 anchor = options.anchor,
                 width;
 
-            that.popup = new ui.Popup(list, {
+            that.popup = new ui.Popup(list, extend(options.popup, {
                 anchor: anchor,
                 open: options.open,
                 close: options.close,
-                animation: options.animation
-            });
+                animation: options.animation,
+                isRtl: kendo.support.isRtl(options.anchor)
+            }));
 
             width = anchor.outerWidth() - (list.outerWidth() - list.width());
 
@@ -297,6 +349,8 @@
                 fontFamily: anchor.css("font-family"),
                 width: width
             });
+
+            kendo.touchScroller(that.popup.element);
         },
 
         move: function(e) {
@@ -325,17 +379,32 @@
 
             } else if (key === keys.ENTER || key === keys.TAB || key === keys.ESC) {
                 e.preventDefault();
+                if (current) {
+                    that.options.change(current.text(), true);
+                }
                 that.close();
             }
         }
     };
 
-    function setTime(date, time) {
-        var tzOffsetBefore = date.getTimezoneOffset(),
-        resultDATE = new DATE(date.getTime() + time),
-        tzOffsetDiff = resultDATE.getTimezoneOffset() - tzOffsetBefore;
+    function setTime(date, time, ignoreDST) {
+        var offset = date.getTimezoneOffset(),
+            offsetDiff;
 
-        date.setTime(resultDATE.getTime() + tzOffsetDiff * MS_PER_MINUTE);
+        date.setTime(date.getTime() + time);
+
+        if (!ignoreDST) {
+            offsetDiff = date.getTimezoneOffset() - offset;
+            date.setTime(date.getTime() + offsetDiff * MS_PER_MINUTE);
+        }
+    }
+
+    function dst() {
+        var today = new DATE(),
+            midnight = new DATE(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0),
+            noon = new DATE(today.getFullYear(), today.getMonth(), today.getDate(), 12, 0, 0);
+
+        return -1 * (midnight.getTimezoneOffset() - noon.getTimezoneOffset());
     }
 
     function getMilliseconds(date) {
@@ -361,36 +430,28 @@
             msMax += MS_PER_DAY;
         }
 
-        return msValue >= msMin && msValue <= msMax
+        return msValue >= msMin && msValue <= msMax;
     }
+
+    TimeView.getMilliseconds = getMilliseconds;
 
     kendo.TimeView = TimeView;
 
-    var TimePicker = Widget.extend(/** @lends kendo.ui.TimePicker.prototype */{
-        /**
-         * @constructs
-         * @extends kendo.ui.Widget
-         * @param {DomElement} element DOM element
-         * @param {Object} options Configuration options.
-         * @option {Date} [value] <null> Specifies the selected time.
-         * @option {Date} [min] <00:00> Specifies the start value in the popup list.
-         * @option {Date} [max] <00:00> Specifies the end value in the popup list.
-         * @option {String} [format] <h:mm tt> Specifies the format, which is used to parse value set with value() method.
-         * @option {Number} [interval] <30> Specifies the interval, between values in the popup list, in minutes.
-         */
+    var TimePicker = Widget.extend({
         init: function(element, options) {
-            var that = this;
+            var that = this, ul, timeView;
 
             Widget.fn.init.call(that, element, options);
 
             element = that.element;
             options = that.options;
 
-            options.format = options.format || kendo.culture().calendar.patterns.t;
+            normalize(options);
 
             that._wrapper();
 
-            that.timeView = new TimeView($.extend({}, options, {
+            that.timeView = timeView = new TimeView(extend({}, options, {
+                id: element.attr(ID),
                 anchor: that.wrapper,
                 format: options.format,
                 change: function(value, trigger) {
@@ -400,169 +461,156 @@
                         element.val(value);
                     }
                 },
-                clearBlurTimeout: proxy(that._clearBlurTimeout, that)
+                open: function(e) {
+                    if (that.trigger(OPEN)) {
+                        e.preventDefault();
+                    } else {
+                        element.attr(ARIA_EXPANDED, true);
+                        ul.attr(ARIA_HIDDEN, false);
+                    }
+                },
+                close: function(e) {
+                    if (that.trigger(CLOSE)) {
+                        e.preventDefault();
+                    } else {
+                        element.attr(ARIA_EXPANDED, false);
+                        ul.attr(ARIA_HIDDEN, true);
+                    }
+                },
+                active: function(current) {
+                    element.removeAttr(ARIA_ACTIVEDESCENDANT);
+                    if (current) {
+                        element.attr(ARIA_ACTIVEDESCENDANT, timeView._optionID);
+                    }
+                }
             }));
+            ul = timeView.ul;
 
             that._icon();
+            that._reset();
 
+            element[0].type = "text";
             element.addClass("k-input")
-                .bind({
-                    keydown: proxy(that._keydown, that),
-                    focus: function(e) {
-                        clearTimeout(that._bluring);
-                        that._inputWrapper.addClass(FOCUSED);
-                    },
-                    blur: proxy(that._blur, that)
+                .on("keydown" + ns, proxy(that._keydown, that))
+                .on("blur" + ns, proxy(that._blur, that))
+                .on("focus" + ns, function() {
+                    that._inputWrapper.addClass(FOCUSED);
                 })
-                .closest("form")
-                .bind("reset", function() {
-                    that.value(element[0].defaultValue);
+                .attr({
+                    "role": "textbox",
+                    "aria-haspopup": true,
+                    "aria-expanded": false,
+                    "aria-owns": timeView._timeViewID
                 });
-
-            /**
-            * Fires when the value is changed
-            * @name kendo.ui.TimePicker#change
-            * @event
-            * @param {Event} e
-            */
-            /**
-            * Fires when the popup is opened
-            * @name kendo.ui.TimePicker#open
-            * @event
-            * @param {Event} e
-            */
-            /**
-            * Fires when the popup is closed
-            * @name kendo.ui.TimePicker#close
-            * @event
-            * @param {Event} e
-            */
-            that.bind(CHANGE, options);
 
             that.enable(!element.is('[disabled]'));
             that.value(options.value || element.val());
+
+            kendo.notify(that);
         },
 
         options: {
             name: "TimePicker",
             min: TODAY,
             max: TODAY,
+            format: "",
+            dates: [],
+            parseFormats: [],
             value: null,
             interval: 30,
-            height: 200
+            height: 200,
+            animation: {}
         },
 
-        /**
-        * Enable/Disable the timepicker widget.
-        * @param {Boolean} enable The argument, which defines whether to enable/disable the timepicker.
-        * @example
-        * var timepicker = $("timepicker").data("kendoTimePicker");
-        *
-        * // disables the timepicker
-        * timepicker.enable(false);
-        *
-        * // enables the timepicker
-        * timepicker.enable(true);
-        */
+        events: [
+         OPEN,
+         CLOSE,
+         CHANGE
+        ],
+
+        setOptions: function(options) {
+            var that = this,
+                timeView = that.timeView,
+                timeViewOptions = timeView.options;
+
+            Widget.fn.setOptions.call(that, options);
+
+            normalize(that.options);
+
+            timeView.options = extend(timeViewOptions, that.options, {
+                active: timeViewOptions.active,
+                change: timeViewOptions.change,
+                close: timeViewOptions.close,
+                open: timeViewOptions.open
+            });
+
+            timeView.ul[0].innerHTML = "";
+        },
+
+        dataBind: function(dates) {
+            if (isArray(dates)) {
+                this.timeView.dataBind(dates);
+            }
+        },
+
         enable: function(enable) {
             var that = this,
-                arrow = that._arrow,
                 element = that.element,
-                wrapper = that._inputWrapper;
-
-            arrow.unbind(CLICK)
-                 .unbind(MOUSEDOWN);
+                arrow = that._arrow.off(ns),
+                wrapper = that._inputWrapper.off(HOVEREVENTS);
 
             if (enable === false) {
                 wrapper
                     .removeClass(DEFAULT)
-                    .addClass(STATEDISABLED)
-                    .unbind(HOVEREVENTS);
+                    .addClass(STATEDISABLED);
 
                 element.attr(DISABLED, DISABLED);
             } else {
                 wrapper
                     .removeClass(STATEDISABLED)
                     .addClass(DEFAULT)
-                    .bind(HOVEREVENTS, that._toggleHover);
+                    .on(HOVEREVENTS, that._toggleHover);
 
                 element
                     .removeAttr(DISABLED);
 
-                arrow.bind(CLICK, proxy(that._click, that))
-                     .bind(MOUSEDOWN, proxy(that._clearBlurTimeout, that))
+                arrow.on(CLICK, proxy(that._click, that))
+                     .on(MOUSEDOWN, preventDefault);
             }
         },
 
-        /**
-        * Closes the popup.
-        * @name kendo.ui.TimePicker#close
-        * @function
-        * @example
-        * timepicker.close();
-        */
+        destroy: function() {
+            var that = this;
+
+            Widget.fn.destroy.call(that);
+
+            that.timeView.destroy();
+
+            that.element.off(ns);
+            that._arrow.off(ns);
+            that._inputWrapper.off(ns);
+
+            if (that._form) {
+                that._form.off("reset", that._resetHandler);
+            }
+        },
+
         close: function() {
             this.timeView.close();
         },
 
-        /**
-        * Opens the popup.
-        * @name kendo.ui.TimePicker#open
-        * @function
-        * @example
-        * timepicker.open();
-        */
         open: function() {
             this.timeView.open();
         },
 
-        /**
-        * Gets/Sets the min value of the timepicker.
-        * @param {Date|String} value The min time to set.
-        * @returns {Date} The min value of the timepicker.
-        * @example
-        * var timepicker = $("#timepicker").data("kendoTimePicker");
-        *
-        * // get the min value of the timepicker.
-        * var min = timepicker.min();
-        *
-        * // set the min value of the timepicker.
-        * timepicker.min(new Date(1900, 0, 1, 10, 0, 0));
-        */
         min: function (value) {
             return this._option("min", value);
         },
 
-        /**
-        * Gets/Sets the max value of the timepicker.
-        * @param {Date|String} value The max time to set.
-        * @returns {Date} The max value of the timepicker.
-        * @example
-        * var timepicker = $("#timepicker").data("kendoTimePicker");
-        *
-        * // get the max value of the timepicker.
-        * var max = timepicker.max();
-        *
-        * // set the max value of the timepicker.
-        * timepicker.max(new Date(1900, 0, 1, 18, 0, 0));
-        */
         max: function (value) {
             return this._option("max", value);
         },
 
-        /**
-        * Gets/Sets the value of the timepicker.
-        * @param {Date|String} value The value to set.
-        * @returns {Date} The value of the timepicker.
-        * @example
-        * var timepicker = $("#timepicker").data("kendoTimePicker");
-        *
-        * // get the value of the timepicker.
-        * var value = timepicker.value();
-        *
-        * // set the value of the timepicker.
-        * timepicker.value("10:00 AM"); //parse "10:00 AM" time and selects it in the popup.
-        */
         value: function(value) {
             var that = this;
 
@@ -576,25 +624,20 @@
         _blur: function() {
             var that = this;
 
-            that._bluring = setTimeout(function() {
-                that._change(that.element.val());
-                if (!touch) {
-                    that.close();
-                }
-                that._inputWrapper.removeClass(FOCUSED);
-            }, 100);
+            that.close();
+            that._change(that.element.val());
+            that._inputWrapper.removeClass(FOCUSED);
         },
 
-        _clearBlurTimeout: function() {
-            var that = this;
-            setTimeout(function() {
-                clearTimeout(that._bluring);
-                that.element.focus();
-            });
-        },
+        _click: function(e) {
+            var that = this,
+                element = that.element;
 
-        _click: function() {
-            this.timeView.toggle();
+            that.timeView.toggle();
+
+            if (e.type === "click" && element[0] !== document.activeElement) {
+                element.focus();
+            }
         },
 
         _change: function(value) {
@@ -619,23 +662,23 @@
             arrow = element.next("span.k-select");
 
             if (!arrow[0]) {
-                arrow = $('<span class="k-select"><span class="k-icon k-icon-clock">select</span></span>').insertAfter(element);
+                arrow = $('<span unselectable="on" class="k-select"><span unselectable="on" class="k-icon k-i-clock">select</span></span>').insertAfter(element);
             }
 
-            that._arrow = arrow;
+            that._arrow = arrow.attr({
+                "role": "button",
+                "aria-controls": that.timeView._timeViewID
+            });
         },
 
         _keydown: function(e) {
             var that = this,
                 key = e.keyCode,
-                enter = key == keys.ENTER,
                 timeView = that.timeView;
 
-            if (timeView.popup.visible() || e.altKey || enter) {
+            if (timeView.popup.visible() || e.altKey) {
                 timeView.move(e);
-            }
-
-            if (enter) {
+            } else if (key === keys.ENTER) {
                 that._change(that.element.val());
             }
         },
@@ -648,62 +691,36 @@
                 return options[option];
             }
 
-            value = that._parse(value);
+            value = that.timeView._parse(value);
 
             if (!value) {
                 return;
             }
 
-            value = new DATE(value);
+            value = new DATE(+value);
 
             options[option] = value;
             that.timeView.options[option] = value;
-            that.timeView.refresh();
-        },
-
-        _parse: function(value) {
-            var that = this,
-                current = that._value || TODAY;
-
-            if (value instanceof DATE) {
-                return value;
-            }
-
-            value = kendo.parseDate(value, that.options.format);
-
-            if (value) {
-                value = new DATE(current.getFullYear(),
-                                 current.getMonth(),
-                                 current.getDate(),
-                                 value.getHours(),
-                                 value.getMinutes(),
-                                 value.getSeconds(),
-                                 value.getMilliseconds());
-            }
-
-            return value;
+            that.timeView.bind();
         },
 
         _toggleHover: function(e) {
-            if (!touch) {
-                $(e.currentTarget).toggleClass(HOVER, e.type === "mouseenter");
-            }
+            $(e.currentTarget).toggleClass(HOVER, e.type === "mouseenter");
         },
 
         _update: function(value) {
             var that = this,
-                current = that._value,
                 options = that.options,
-                date = that._parse(value),
-                text = kendo.toString(date, options.format);
+                timeView = that.timeView,
+                date = timeView._parse(value);
 
             if (!isInRange(date, options.min, options.max)) {
                 date = null;
             }
 
             that._value = date;
-            that.element.val(date ? text : value);
-            that.timeView.value(text);
+            that.element.val(date ? kendo.toString(date, options.format, options.culture) : value);
+            timeView.value(date);
 
             return date;
         },
@@ -723,14 +740,44 @@
             wrapper[0].style.cssText = element[0].style.cssText;
             element.css({
                 width: "100%",
-                height: "auto"
+                height: element[0].style.height
             });
 
-            that.wrapper = wrapper.addClass("k-widget k-timepicker k-header");
+            that.wrapper = wrapper.addClass("k-widget k-timepicker k-header")
+                                  .addClass(element[0].className);
+
             that._inputWrapper = $(wrapper[0].firstChild);
+        },
+
+        _reset: function() {
+            var that = this,
+                element = that.element,
+                form = element.closest("form");
+
+            if (form[0]) {
+                that._resetHandler = function() {
+                    that.value(element[0].defaultValue);
+                };
+
+                that._form = form.on("reset", that._resetHandler);
+            }
         }
     });
 
+    function normalize(options) {
+        var parseFormats = options.parseFormats;
+
+        options.format = extractFormat(options.format || kendo.getCulture(options.culture).calendars.standard.patterns.t);
+
+        parseFormats = isArray(parseFormats) ? parseFormats : [parseFormats];
+        parseFormats.splice(0, 0, options.format);
+        options.parseFormats = parseFormats;
+    }
+
+    function preventDefault(e) {
+        e.preventDefault();
+    }
+
     ui.plugin(TimePicker);
 
-})(jQuery);
+})(window.kendo.jQuery);

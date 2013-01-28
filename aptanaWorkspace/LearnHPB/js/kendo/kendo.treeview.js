@@ -1,123 +1,107 @@
 /*
-* Kendo UI v2011.3.1129 (http://kendoui.com)
-* Copyright 2011 Telerik AD. All rights reserved.
+* Kendo UI Web v2012.3.1114 (http://kendoui.com)
+* Copyright 2012 Telerik AD. All rights reserved.
 *
-* Kendo UI commercial licenses may be obtained at http://kendoui.com/license.
+* Kendo UI Web commercial licenses may be obtained at
+* https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
 * If you do not own a commercial license, this file shall be governed by the
-* GNU General Public License (GPL) version 3. For GPL requirements, please
-* review: http://www.gnu.org/copyleft/gpl.html
+* GNU General Public License (GPL) version 3.
+* For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
-
 (function($, undefined){
-    /**
-     * @name kendo.ui.TreeView.Description
-     *
-     * @section
-     * <p>The TreeView widget displays hierarchical data in a traditional tree structure,
-     * with support for interactive drag-and-drop reordering operations.
-     * A TreeView can be defined statically using HTML lists,
-     * or it can be dynamically bound to hierarchical data.</p>
-     *
-     * <h3>Getting Started</h3>
-     *
-     * <p>There are two primary ways to create a TreeView:</p>
-     *
-     * <ol>
-     *     <li>Define a hierarchical list with static HTML</li>
-     *     <li>Use dynamic data binding</li>
-     * </ol>
-     *
-     * <p>Static HTML definition is appropriate for small hierarchies and for data that does not change frequently.
-     * Data binding should be used for larger data sets and for data that changes frequently.</p>
-     *
-     * <h3>Creating a treeview from HTML</h3>
-     * @exampleTitle Create a hierarchical HTML list
-     * @example
-     * <ul id="treeview">
-     *     <li>Item 1
-     *         <ul>
-     *             <li>Item 1.1</li>
-     *             <li>Item 1.2</li>
-     *         </ul>
-     *     </li>
-     *     <li>Item 2</li>
-     * </ul>
-     *
-     * @exampleTitle Initialize the TreeView using a jQuery selector
-     * @example var treeview = $("#treeview").kendoTreeView();
-     *
-     * @section <h3>Creating a TreeView with data binding (local data source)</h3>
-     *
-     * @exampleTitle Create a hierarchical HTML list
-     * @example
-     * <div id="treeview"></div>
-     *
-     * @exampleTitle Initialize and bind the TreeView
-     * @example
-     * $("#treeview").kendoTreeView({
-     *     dataSource: [
-     *         { text: "Item 1", items: [
-     *             { text: "Item 1.1" },
-     *             { text: "Item 1.2" }
-     *         ]},
-     *         { text: "Item 2" }
-     *     ]
-     * });
-     *
-     * @section <h3>Configuring TreeView behavior</h3>
-     * <p> A number of TreeView behaviors can be easily controlled by simple configuration properties,
-     * such as animation behaviors and drag-and-drop behaviors.
-     * Refer to the demo Configuration tab for more API details.</p>
-     *
-     * @exampleTitle Enabling TreeView node drag-and-drop
-     * @example
-     * $("#treeview").kendoTreeView({
-     *     dragAndDrop: true
-     * });
-     *
-     * @section When drag-and-drop is enabled, TreeView nodes can be dragged and dropped between all levels,
-     * with useful tooltips helping indicate where the node will be dropped.
-     */
     var kendo = window.kendo,
         ui = kendo.ui,
+        data = kendo.data,
         extend = $.extend,
         template = kendo.template,
+        isArray = $.isArray,
         Widget = ui.Widget,
+        HierarchicalDataSource = data.HierarchicalDataSource,
         proxy = $.proxy,
+        keys = kendo.keys,
+        NS = ".kendoTreeView",
         SELECT = "select",
+        NAVIGATE = "navigate",
         EXPAND = "expand",
+        CHANGE = "change",
+        CHECKED = "checked",
         COLLAPSE = "collapse",
         DRAGSTART = "dragstart",
         DRAG = "drag",
-        NODEDRAGCANCELLED = "nodeDragCancelled",
         DROP = "drop",
         DRAGEND = "dragend",
+        DATABOUND = "dataBound",
         CLICK = "click",
         VISIBILITY = "visibility",
-        TSTATEHOVER = "k-state-hover",
-        TTREEVIEW = "k-treeview",
-        TITEM = "k-item",
+        UNDEFINED = "undefined",
+        KSTATEHOVER = "k-state-hover",
+        KTREEVIEW = "k-treeview",
         VISIBLE = ":visible",
         NODE = ".k-item",
-        SUBGROUP = ">.k-group,>.k-animation-container>.k-group",
-        NODECONTENTS = SUBGROUP + ",>.k-content,>.k-animation-container>.k-content",
-        templates, rendering, TreeView;
+        ARIASELECTED = "aria-selected",
+        ARIADISABLED = "aria-disabled",
+        TreeView,
+        subGroup, nodeContents, nodeIcon,
+        bindings = {
+            text: "dataTextField",
+            url: "dataUrlField",
+            spriteCssClass: "dataSpriteCssClassField",
+            imageUrl: "dataImageUrlField"
+        },
+        isDomElement = function (o){
+            return (
+                typeof HTMLElement === "object" ? o instanceof HTMLElement : //DOM2
+                o && typeof o === "object" && o.nodeType === 1 && typeof o.nodeName === "string"
+            );
+        };
+
+    function contentChild(filter) {
+        return function(node) {
+            var result = node.children(".k-animation-container");
+
+            if (!result.length) {
+                result = node;
+            }
+
+            return result.children(filter);
+        };
+    }
+
+    subGroup = contentChild(".k-group");
+    nodeContents = contentChild(".k-group,.k-content");
+    nodeIcon = function(node) {
+        return node.children("div").children(".k-icon");
+    };
+
+    function checkboxes(node) {
+        return node.children("div").find(":checkbox:first");
+    }
 
     function updateNodeHtml(node) {
-        var wrapper = node.find(">div"),
-            subGroup = node.find(">ul"),
-            toggleButton = wrapper.find(">.k-icon"),
-            innerWrapper = wrapper.find(">.k-in");
+        var wrapper = node.children("div"),
+            group = node.children("ul"),
+            toggleButton = wrapper.children(".k-icon"),
+            checkbox = node.children(":checkbox"),
+            innerWrapper = wrapper.children(".k-in"),
+            currentNode, tmp;
+
+        if (node.hasClass("k-treeview")) {
+            return;
+        }
 
         if (!wrapper.length) {
             wrapper = $("<div />").prependTo(node);
         }
 
-        if (!toggleButton.length && subGroup.length) {
+        if (!toggleButton.length && group.length) {
             toggleButton = $("<span class='k-icon' />").prependTo(wrapper);
-        } else if (!subGroup.length || !subGroup.children().length) {
+        } else if (!group.length || !group.children().length) {
             toggleButton.remove();
-            subGroup.remove();
+            group.remove();
+        }
+
+        if (checkbox.length) {
+            $("<span class='k-checkbox' />").appendTo(wrapper).append(checkbox);
         }
 
         if (!innerWrapper.length) {
@@ -130,122 +114,54 @@
             while (currentNode && currentNode.nodeName.toLowerCase() != "ul") {
                 tmp = currentNode;
                 currentNode = currentNode.nextSibling;
+
+                if (tmp.nodeType == 3) {
+                    tmp.nodeValue = $.trim(tmp.nodeValue);
+                }
+
                 innerWrapper.appendChild(tmp);
             }
         }
     }
 
-    function updateNodeClasses(node, groupData, nodeData) {
-        var wrapper = node.find(">div"),
-            subGroup = node.find(">ul")
-
-        if (!nodeData) {
-            nodeData = {
-                expanded: !(subGroup.css("display") == "none"),
-                index: node.index(),
-                enabled: !wrapper.find(">.k-in").hasClass("k-state-disabled")
-            };
-        }
-
-        if (!groupData) {
-            groupData = {
-                firstLevel: node.parent().parent().hasClass(TTREEVIEW),
-                length: node.parent().children().length
-            };
-        }
-
-        // li
-        node.removeClass("k-first k-last")
-            .addClass(rendering.wrapperCssClass(groupData, nodeData));
-
-        // div
-        wrapper.removeClass("k-top k-mid k-bot")
-               .addClass(rendering.cssClass(groupData, nodeData));
-
-        // toggle button
-        if (subGroup.length) {
-            wrapper.find(">.k-icon").removeClass("k-plus k-minus k-plus-disabled k-minus-disabled")
-                .addClass(rendering.toggleButtonClass(nodeData));
-
-            subGroup.addClass("k-group");
-        }
-    }
-
-
-    templates = {
-        dragClue: template("<div class='k-header k-drag-clue'><span class='k-icon k-drag-status'></span>#= text #</div>"),
-        group: template(
-            "<ul class='#= groupCssClass(group) #'#= groupAttributes(group) #>" +
-                "#= renderItems(data) #" +
-            "</ul>"
-        ),
-        itemWrapper: template(
-            "<div class='#= cssClass(group, item) #'>" +
-                "#= toggleButton(data) #" +
-                "<#= tag(item) # class='#= textClass(item) #'#= textAttributes(item) #>" +
-                    "#= image(item) ##= sprite(item) ##= text(item) #" +
-                "</#= tag(item) #>" +
-            "</div>"
-        ),
-        item: template(
-            "<li class='#= wrapperCssClass(group, item) #'>" +
-                "#= itemWrapper(data) #" +
-                "# if (item.items) { #" +
-                "#= subGroup({ items: item.items, treeview: treeview, group: { expanded: item.expanded } }) #" +
-                "# } #" +
-            "</li>"
-        ),
-        image: template("<img class='k-image' alt='' src='#= imageUrl #' />"),
-        toggleButton: template("<span class='#= toggleButtonClass(item) #'></span>"),
-        sprite: template("<span class='k-sprite #= spriteCssClass #'></span>"),
-        empty: template("")
-    };
-
-    TreeView = Widget.extend(/** @lends kendo.ui.TreeView.prototype */ {
-        /**
-         * @constructs
-         * @extends kendo.ui.Widget
-         * @param {DomElement} element DOM element
-         * @param {Object} options Configuration options.
-         * @option {Array} [dataSource] The data that the TreeView will be bound to.
-         * @option {Object} [animation] A collection of {Animation} objects, used to change default animations. A value of false will disable all animations in the widget.
-         * @option {Boolean} [dragAndDrop] <false> Controls whether the treeview nodes can be dragged and rearranged.
-         * @option {Animation} [animation.expand] The animation that will be used when expanding items.
-         * @option {Animation} [animation.collapse] The animation that will be used when collapsing items.
-         */
+    TreeView = Widget.extend({
         init: function (element, options) {
             var that = this,
-                clickableItems = ".k-in:not(.k-state-selected,.k-state-disabled)",
-                dataInit;
+                dataInit,
+                inferred = false;
 
-            options = $.isArray(options) ? (dataInit = true, { dataSource: options }) : options;
+            if (isArray(options)) {
+                dataInit = true;
+                options = { dataSource: options };
+            }
+
+            if (options && typeof options.loadOnDemand == UNDEFINED && isArray(options.dataSource)) {
+                options.loadOnDemand = false;
+            }
 
             Widget.prototype.init.call(that, element, options);
 
             element = that.element;
             options = that.options;
 
-            if (options.animation === false) {
-                options.animation = {
-                    expand: { show: true, effects: {} },
-                    collapse: { hide: true, effects: {} }
-                };
+            inferred = element.is("ul") || element.hasClass(KTREEVIEW);
+
+            if (inferred) {
+                options.dataSource.list = element.is("ul") ? element : element.children("ul");
             }
 
+            that._animation();
+
+            that._accessors();
+
+            that._templates();
+
             // render treeview if it's not already rendered
-            if (!element.hasClass(TTREEVIEW)) {
+            if (!element.hasClass(KTREEVIEW)) {
                 that._wrapper();
 
-                if (!that.root.length) { // treeview initialized from empty element
-                    that.root = that.wrapper.html(TreeView.renderGroup({
-                        items: options.dataSource,
-                        group: {
-                            firstLevel: true,
-                            expanded: true
-                        },
-                        treeview: {}
-                    })).children("ul");
-                } else {
+                if (inferred) {
+                    that.root = element;
                     that._group(that.wrapper);
                 }
             } else {
@@ -254,108 +170,408 @@
                 that.root = element.children("ul").eq(0);
             }
 
-            that.wrapper
-                .delegate(".k-in.k-state-selected", "mouseenter", function(e) { e.preventDefault(); })
-                .delegate(clickableItems, "mouseenter", function () { $(this).addClass(TSTATEHOVER); })
-                .delegate(clickableItems, "mouseleave", function () { $(this).removeClass(TSTATEHOVER); })
-                .delegate(clickableItems, CLICK, proxy(that._nodeClick, that))
-                .delegate("div:not(.k-state-disabled) .k-in", "dblclick", proxy(that._toggleButtonClick, that))
-                .delegate(".k-plus,.k-minus", CLICK, proxy(that._toggleButtonClick, that));
+            that._tabindex();
+
+            if (!that.wrapper.filter("[role=tree]").length) {
+                that.wrapper.attr("role", "tree");
+            }
+
+            that._dataSource(inferred);
+
+            that._attachEvents();
 
             if (options.dragAndDrop) {
-                that.bind([
-                        /**
-                         * Fires before the dragging of a node starts.
-                         * @name kendo.ui.TreeView#dragstart
-                         * @event
-                         * @param {Event} e
-                         * @param {Node} e.sourceNode The node that will be dragged.
-                         */
-                        DRAGSTART,
-                        /**
-                         * Fires while a node is being dragged.
-                         * @name kendo.ui.TreeView#drag
-                         * @event
-                         * @param {Event} e
-                         * @param {Node} e.sourceNode The node that is being dragged.
-                         * @param {DomElement} e.dropTarget The element that the node is placed over.
-                         * @param {Integer} e.pageX The x coordinate of the mouse.
-                         * @param {Integer} e.pageY The y coordinate of the mouse.
-                         * @param {String} e.statusClass The status that the drag clue shows.
-                         * @param {Function} e.setStatusClass Allows a custom drag clue status to be set.
-                         */
-                        DRAG,
-                        /**
-                         * Fires when a node is being dropped.
-                         * @name kendo.ui.TreeView#drop
-                         * @event
-                         * @param {Event} e
-                         * @param {Node} e.sourceNode The node that is being dropped.
-                         * @param {Node} e.destinationNode The node that the sourceNode is being dropped upon.
-                         * @param {Boolean} e.valid Whether this drop operation is permitted
-                         * @param {Function} e.setValid Allows the drop to be prevented.
-                         * @param {DomElement} e.dropTarget The element that the node is placed over.
-                         * @param {String} e.dropPosition Shows where the new sourceLocation would be.
-                         */
-                        DROP,
-                        /**
-                         * Fires after a node is has been dropped.
-                         * @name kendo.ui.TreeView#dragend
-                         * @event
-                         * @param {Event} e
-                         * @param {Node} e.sourceNode The node that is being dropped.
-                         * @param {Node} e.destinationNode The node that the sourceNode is being dropped upon.
-                         * @param {String} e.dropPosition Shows where the new sourceLocation would be.
-                         */
-                        DRAGEND
-                    ], options);
-
                 that.dragging = new TreeViewDragAndDrop(that);
             }
 
-            that.bind([
-                /**
-                 * Fires before a subgroup gets expanded.
-                 * @name kendo.ui.TreeView#expand
-                 * @event
-                 * @param {Event} e
-                 * @param {Node} e.node The expanded node
-                 */
-                EXPAND,
-                /**
-                 * Fires before a subgroup gets collapsed.
-                 * @name kendo.ui.TreeView#collapse
-                 * @event
-                 * @param {Event} e
-                 * @param {Node} e.node The collapsed node
-                 */
-                COLLAPSE,
-                /**
-                 * Fires when a node gets selected.
-                 * @name kendo.ui.TreeView#select
-                 * @event
-                 * @param {Event} e
-                 * @param {Node} e.node The selected node
-                 */
-                SELECT
-            ], options);
+            if (!inferred) {
+                if (options.autoBind) {
+                    that._progress(true);
+                    that.dataSource.fetch();
+                }
+            } else {
+                that._attachUids();
+            }
+
+            if (options.checkboxes && options.checkboxes.checkChildren) {
+                that.wrapper.find(":checkbox").closest(NODE).each(function(e) {
+                    that._updateIndeterminate($(this));
+                });
+            }
+
+            if (that.element[0].id) {
+                that._ariaId = kendo.format("{0}_tv_active", that.element[0].id);
+            }
         },
+
+        _attachEvents: function() {
+            var that = this,
+                clickableItems = ".k-in:not(.k-state-selected,.k-state-disabled)",
+                MOUSEENTER = "mouseenter";
+
+            that.wrapper
+                .on(MOUSEENTER + NS, ".k-in.k-state-selected", function(e) { e.preventDefault(); })
+                .on(MOUSEENTER + NS, clickableItems, function () { $(this).addClass(KSTATEHOVER); })
+                .on("mouseleave" + NS, clickableItems, function () { $(this).removeClass(KSTATEHOVER); })
+                .on(CLICK + NS, clickableItems, proxy(that._click, that))
+                .on("dblclick" + NS, ".k-in:not(.k-state-disabled)", proxy(that._toggleButtonClick, that))
+                .on(CLICK + NS, ".k-plus,.k-minus", proxy(that._toggleButtonClick, that))
+                .on("keydown" + NS, proxy(that._keydown, that))
+                .on("focus" + NS, proxy(that._focus, that))
+                .on("blur" + NS, proxy(that._blur, that))
+                .on("mousedown" + NS, ".k-in,.k-checkbox :checkbox", proxy(that._mousedown, that))
+                .on("change" + NS, ".k-checkbox :checkbox", proxy(that._checkboxChange, that))
+                .on("click" + NS, ".k-checkbox :checkbox", proxy(that._checkboxClick, that))
+                .on("click" + NS, function() { that.focus(); });
+        },
+
+        _checkboxClick: function(e) {
+            var checkbox = $(e.target);
+
+            if (checkbox.data("indeterminate")) {
+                checkbox
+                    .data("indeterminate", false)
+                    .prop("indeterminate", false)
+                    .prop(CHECKED, true);
+
+                this._checkboxChange(e);
+            }
+        },
+
+        _attachUids: function(root, dataSource) {
+            var that = this,
+                data,
+                uidAttr = kendo.attr("uid");
+
+            root = root || that.root;
+            dataSource = dataSource || that.dataSource;
+
+            data = dataSource.view();
+
+            root.children("li").each(function(index, item) {
+                item = $(item).attr(uidAttr, data[index].uid);
+                item.attr("role", "treeitem");
+                that._attachUids(item.children("ul"), data[index].children);
+            });
+        },
+
+        _animation: function() {
+            var options = this.options,
+                animationOptions = options.animation;
+
+            if (animationOptions === false) {
+                animationOptions = {
+                    expand: { effects: {} },
+                    collapse: { hide: true, effects: {} }
+                };
+            } else if (!animationOptions.collapse || !("effects" in animationOptions.collapse)) {
+                animationOptions.collapse = extend({ reverse: true }, animationOptions.expand);
+            }
+
+            extend(animationOptions.collapse, { hide: true });
+
+            options.animation = animationOptions;
+        },
+
+        _templates: function() {
+            var that = this,
+                options = that.options,
+                fieldAccessor = proxy(that._fieldAccessor, that);
+
+            if (options.template && typeof options.template == "string") {
+                options.template = template(options.template);
+            } else if (!options.template) {
+                options.template = template(
+                    "# var text = " + fieldAccessor("text") + "(item); #" +
+                    "# if (typeof item.encoded != 'undefined' && item.encoded === false) {#" +
+                        "#= text #" +
+                    "# } else { #" +
+                        "#: text #" +
+                    "# } #"
+                );
+            }
+
+            that._checkboxes();
+
+            that.templates = {
+                wrapperCssClass: function (group, item) {
+                    var result = "k-item",
+                        index = item.index;
+
+                    if (group.firstLevel && index === 0) {
+                        result += " k-first";
+                    }
+
+                    if (index == group.length-1) {
+                        result += " k-last";
+                    }
+
+                    return result;
+                },
+                cssClass: function(group, item) {
+                    var result = "",
+                        index = item.index,
+                        groupLength = group.length - 1;
+
+                    if (group.firstLevel && index === 0) {
+                        result += "k-top ";
+                    }
+
+                    if (index === 0 && index != groupLength) {
+                        result += "k-top";
+                    } else if (index == groupLength) {
+                        result += "k-bot";
+                    } else {
+                        result += "k-mid";
+                    }
+
+                    return result;
+                },
+                textClass: function(item) {
+                    var result = "k-in";
+
+                    if (item.enabled === false) {
+                        result += " k-state-disabled";
+                    }
+
+                    if (item.selected === true) {
+                        result += " k-state-selected";
+                    }
+
+                    return result;
+                },
+                toggleButtonClass: function(item) {
+                    var result = "k-icon";
+
+                    if (item.expanded !== true) {
+                        result += " k-plus";
+                    } else {
+                        result += " k-minus";
+                    }
+
+                    if (item.enabled === false) {
+                        result += "-disabled";
+                    }
+
+                    return result;
+                },
+                groupAttributes: function(group) {
+                    return group.expanded !== true ? " style='display:none'" : "";
+                },
+                groupCssClass: function(group) {
+                    var cssClass = "k-group";
+
+                    if (group.firstLevel) {
+                        cssClass += " k-treeview-lines";
+                    }
+
+                    return cssClass;
+                },
+                dragClue: template(
+                    "<div class='k-header k-drag-clue'><span class='k-icon k-drag-status'></span>#= text #</div>"
+                ),
+                group: template(
+                    "<ul class='#= r.groupCssClass(group) #'#= r.groupAttributes(group) # role='group'>" +
+                        "#= renderItems(data) #" +
+                    "</ul>"
+                ),
+                itemContent: template(
+                    "# var imageUrl = " + fieldAccessor("imageUrl") + "(item); #" +
+                    "# var spriteCssClass = " + fieldAccessor("spriteCssClass") + "(item); #" +
+                    "# if (imageUrl) { #" +
+                        "<img class='k-image' alt='' src='#= imageUrl #'>" +
+                    "# } #" +
+
+                    "# if (spriteCssClass) { #" +
+                        "<span class='k-sprite #= spriteCssClass #'></span>" +
+                    "# } #" +
+
+                    "#= treeview.template(data) #"
+                ),
+                itemElement: template(
+                    "# var url = " + fieldAccessor("url") + "(item); #" +
+                    "<div class='#= r.cssClass(group, item) #'>" +
+                        "# if (item.hasChildren) { #" +
+                            "<span class='#= r.toggleButtonClass(item) #' role='presentation'></span>" +
+                        "# } #" +
+
+                        "# if (treeview.checkboxes) { #" +
+                            "<span class='k-checkbox' role='presentation'>" +
+                                "#= treeview.checkboxes.template(data) #" +
+                            "</span>" +
+                        "# } #" +
+
+                        "# var tag = url ? 'a' : 'span'; #" +
+                        "# var textAttr = url ? ' href=\\'' + url + '\\'' : ''; #" +
+
+                        "<#=tag#  class='#= r.textClass(item) #'#= textAttr #>" +
+                            "#= r.itemContent(data) #" +
+                        "</#=tag#>" +
+                    "</div>"
+                ),
+                item: template(
+                    "<li role='treeitem' class='#= r.wrapperCssClass(group, item) #'" +
+                        " " + kendo.attr("uid") + "='#= item.uid #'" +
+                        "#=item.selected ? \"aria-selected='true'\" : ''#" +
+                        "#=item.enabled === false ? \"aria-disabled='true'\" : ''#" +
+                    ">" +
+                        "#= r.itemElement(data) #" +
+                    "</li>"
+                ),
+                loading: template(
+                    "<div class='k-icon k-loading' /> Loading..."
+                )
+            };
+        },
+
+        items: function() {
+            return this.element.find(".k-item");
+        },
+
+        setDataSource: function(dataSource) {
+            this.options.dataSource = dataSource;
+
+            this._dataSource();
+
+            this.dataSource.fetch();
+        },
+
+        _dataSource: function(silentRead) {
+            var that = this,
+                options = that.options,
+                dataSource = options.dataSource;
+
+            function recursiveRead(data) {
+                for (var i = 0; i < data.length; i++) {
+                    data[i]._initChildren();
+
+                    data[i].children.fetch();
+
+                    recursiveRead(data[i].children.view());
+                }
+            }
+
+            dataSource = isArray(dataSource) ? { data: dataSource } : dataSource;
+
+            if (that.dataSource && that._refreshHandler) {
+                that.dataSource.unbind(CHANGE, that._refreshHandler);
+            } else {
+                that._refreshHandler = proxy(that.refresh, that);
+            }
+
+            if (!dataSource.fields) {
+                dataSource.fields = [
+                    { field: "text" },
+                    { field: "url" },
+                    { field: "spriteCssClass" },
+                    { field: "imageUrl" }
+                ];
+            }
+
+            that.dataSource = HierarchicalDataSource.create(dataSource);
+
+            if (silentRead) {
+                that.dataSource.fetch();
+
+                recursiveRead(that.dataSource.view());
+            }
+
+            that.dataSource.bind(CHANGE, that._refreshHandler);
+        },
+
+        events: [
+            DRAGSTART,
+            DRAG,
+            DROP,
+            DRAGEND,
+
+            DATABOUND,
+
+            EXPAND,
+            COLLAPSE,
+            SELECT,
+            NAVIGATE
+        ],
 
         options: {
             name: "TreeView",
             dataSource: {},
             animation: {
                 expand: {
-                    effects: "expandVertical",
-                    duration: 200,
-                    show: true
-                },
-                collapse: {
-                    duration: 100,
-                    show: false,
-                    hide: true
+                    effects: "expand:vertical",
+                    duration: 200
+                }, collapse: {
+                    duration: 100
                 }
+            },
+            dragAndDrop: false,
+            checkboxes: false,
+            autoBind: true,
+            loadOnDemand: true,
+            template: ""
+        },
+
+        _accessors: function() {
+            var that = this,
+                options = that.options,
+                i, field, textField,
+                element = that.element;
+
+            for (i in bindings) {
+                field = options[bindings[i]];
+                textField = element.attr(kendo.attr(i + "-field"));
+
+                if (textField) {
+                    field = textField;
+                }
+
+                if (!field) {
+                    field = i;
+                }
+
+                if (!isArray(field)) {
+                    field = [field];
+                }
+
+                options[bindings[i]] = field;
             }
+        },
+
+        _fieldAccessor: function(fieldName) {
+            var fieldBindings = this.options[bindings[fieldName]],
+                count = fieldBindings.length,
+                result = "(function(item) {";
+
+            if (count === 0) {
+                result += "return item['" + fieldName + "'];";
+            } else {
+                result += "var level = item.level();" +
+                          "var levels = [" +
+                            $.map(fieldBindings, function(x) {
+                                return "function(d){ return " + kendo.expr(x) + "}";
+                            }).join(",") + "];";
+
+                // generates levels[level < 3 ? level : 2](item);
+                result += "return levels[Math.min(level, " + count + "-1)](item)";
+            }
+
+            result += "})";
+
+            return result;
+        },
+
+        setOptions: function(options) {
+            var that = this;
+
+            if (("dragAndDrop" in options) && options.dragAndDrop && !that.options.dragAndDrop) {
+                that.dragging = new TreeViewDragAndDrop(that);
+            }
+
+            Widget.fn.setOptions.call(that, options);
+
+            that._animation();
+
+            that._templates();
         },
 
         _trigger: function (eventName, node) {
@@ -364,14 +580,214 @@
             });
         },
 
+        _updateIndeterminate: function(node) {
+            var parentNode = node.parent().closest(NODE),
+                siblingCheckboxes, i,
+                all = true;
+
+            if (parentNode.length) {
+                siblingCheckboxes = checkboxes(node.siblings().andSelf());
+
+                for (i = 1; i < siblingCheckboxes.length; i++) {
+                    if (siblingCheckboxes[i].checked != siblingCheckboxes[i-1].checked ||
+                        siblingCheckboxes[i].indeterminate || siblingCheckboxes[i-1].indeterminate) {
+                        all = false;
+                        break;
+                    }
+                }
+
+                checkboxes(parentNode)
+                    .data("indeterminate", !all)
+                    .prop("indeterminate", !all)
+                    .prop(CHECKED, all && siblingCheckboxes[0].checked);
+
+                this._updateIndeterminate(parentNode);
+            }
+        },
+
+        _checkboxChange: function(e) {
+            var checkbox = $(e.target),
+                isChecked = checkbox.prop(CHECKED),
+                node = checkbox.closest(NODE),
+                that = this;
+
+            if (that.options.checkboxes.checkChildren) {
+                node.find(":checkbox").each(function() {
+                    that.dataItem(this).set(CHECKED, isChecked);
+                });
+
+                that._updateIndeterminate(node);
+            } else {
+                that.dataItem(node).set(CHECKED, isChecked);
+            }
+        },
+
         _toggleButtonClick: function (e) {
             this.toggle($(e.target).closest(NODE));
         },
 
-        _nodeClick: function (e) {
+        _mousedown: function(e) {
+            this._clickTarget = $(e.currentTarget).closest(NODE);
+        },
+
+        _focusable: function (node) {
+            return node && node.length && node.is(":visible") && !node.find(".k-in:first").hasClass("k-state-disabled");
+        },
+
+        _focus: function(e) {
+            var current = this.select();
+
+            if (!this._focusable(current)) {
+                current = this._clickTarget;
+            }
+
+            if (!this._focusable(current)) {
+                current = this.current();
+            }
+
+            if (!this._focusable(current)) {
+                current = this._nextVisible($());
+            }
+
+            this.current(current);
+        },
+
+        focus: function() {
+            this.wrapper.focus();
+        },
+
+        _blur: function(e) {
+            this.current().find(".k-in:first").removeClass("k-state-focused");
+        },
+
+        _enabled: function(node) {
+            return !node.children("div").children(".k-in").hasClass("k-state-disabled");
+        },
+
+        parent: function(node) {
+            return $(node).parent().closest(NODE);
+        },
+
+        _nextVisible: function(node) {
+            var that = this,
+                expanded = that._expanded(node),
+                result;
+
+            if (!node.length || !node.is(":visible")) {
+                result = that.root.children().eq(0);
+            } else if (expanded) {
+                result = subGroup(node).children().first();
+            } else {
+                while (node.length && !node.next().length) {
+                    node = that.parent(node);
+                }
+
+                if (node.next().length) {
+                    result = node.next();
+                } else {
+                    result = node;
+                }
+            }
+
+            if (!that._enabled(result)) {
+                result = that._nextVisible(result);
+            }
+
+            return result;
+        },
+
+        _previousVisible: function(node) {
+            var that = this,
+                result;
+
+            if (!node.length || node.prev().length) {
+                if (node.length) {
+                    result = node.prev();
+                } else {
+                    result = that.root.children().last();
+                }
+
+                while (that._expanded(result)) {
+                    result = subGroup(result).children().last();
+                }
+            } else {
+                result = that.parent(node) || node;
+            }
+
+            if (!that._enabled(result)) {
+                result = that._previousVisible(result);
+            }
+
+            return result;
+        },
+
+        _keydown: function(e) {
+            var that = this,
+                key = e.keyCode,
+                target,
+                focused = that.current(),
+                expanded = that._expanded(focused),
+                checkbox = focused.find(":checkbox:first"),
+                rtl = kendo.support.isRtl(that.element);
+
+            if (e.target != e.currentTarget) {
+                return;
+            }
+
+            if ((!rtl && key == keys.RIGHT) || (rtl && key == keys.LEFT)) {
+                if (expanded) {
+                    target = that._nextVisible(focused);
+                } else {
+                    that.expand(focused);
+                }
+            } else if ((!rtl && key == keys.LEFT) || (rtl && key == keys.RIGHT)) {
+                if (expanded) {
+                    that.collapse(focused);
+                } else {
+                    target = that.parent(focused);
+
+                    if (!that._enabled(target)) {
+                        target = undefined;
+                    }
+                }
+            } else if (key == keys.DOWN) {
+                target = that._nextVisible(focused);
+            } else if (key == keys.UP) {
+                target = that._previousVisible(focused);
+            } else if (key == keys.HOME) {
+                target = that._nextVisible($());
+            } else if (key == keys.END) {
+                target = that._previousVisible($());
+            } else if (key == keys.ENTER) {
+                if (!focused.find(".k-in:first").hasClass("k-state-selected")) {
+                    if (!that._trigger(SELECT, focused)) {
+                        that.select(focused);
+                    }
+                }
+            } else if (key == keys.SPACEBAR && checkbox.length) {
+                checkbox.prop(CHECKED, !checkbox.prop(CHECKED))
+                    .data("indeterminate", false)
+                    .prop("indeterminate", false);
+
+                that._checkboxChange({ target: checkbox });
+
+                target = focused;
+            }
+
+            if (target) {
+                e.preventDefault();
+
+                if (focused[0] != target[0]) {
+                    that._trigger(NAVIGATE, target);
+                    that.current(target);
+                }
+            }
+        },
+
+        _click: function (e) {
             var that = this,
                 node = $(e.target),
-                contents = node.closest(NODE).find(NODECONTENTS),
+                contents = nodeContents(node.closest(NODE)),
                 href = node.attr("href"),
                 shouldNavigate;
 
@@ -385,7 +801,7 @@
                 e.preventDefault();
             }
 
-            if (!node.hasClass(".k-state-selected") && !that._trigger("select", node)) {
+            if (!node.hasClass(".k-state-selected") && !that._trigger(SELECT, node)) {
                 that.select(node);
             }
         },
@@ -394,31 +810,31 @@
             var that = this,
                 element = that.element,
                 wrapper, root,
-                wrapperClasses = "k-widget k-treeview k-reset";
+                wrapperClasses = "k-widget k-treeview";
 
             if (element.is("div")) {
-                wrapper = element.addClass(wrapperClasses);
+                wrapper = element;
                 root = wrapper.children("ul").eq(0);
             } else { // element is ul
-                wrapper = element.wrap('<div class="' + wrapperClasses + '" />').parent();
+                wrapper = element.wrap('<div />').parent();
                 root = element;
             }
 
-            that.wrapper = wrapper;
+            that.wrapper = wrapper.addClass(wrapperClasses);
             that.root = root;
         },
 
         _group: function(item) {
             var that = this,
-                firstLevel = item.hasClass(TTREEVIEW),
+                firstLevel = item.hasClass(KTREEVIEW),
                 group = {
                     firstLevel: firstLevel,
-                    expanded: firstLevel || item.attr(kendo.attr("expanded")) === "true"
+                    expanded: firstLevel || that._expanded(item)
                 },
-                groupElement = item.find("> ul");
+                groupElement = item.children("ul");
 
             groupElement
-                .addClass(rendering.groupCssClass(group))
+                .addClass(that.templates.groupCssClass(group))
                 .css("display", group.expanded ? "" : "none");
 
             that._nodes(groupElement, group);
@@ -426,7 +842,7 @@
 
         _nodes: function(groupElement, groupData) {
             var that = this,
-                nodes = groupElement.find("> li"),
+                nodes = groupElement.children("li"),
                 nodeData;
 
             groupData = extend({ length: nodes.length }, groupData);
@@ -434,16 +850,87 @@
             nodes.each(function(i, node) {
                 node = $(node);
 
-                nodeData = { index: i, expanded: node.attr(kendo.attr("expanded")) === "true" };
+                nodeData = { index: i, expanded: that._expanded(node) };
 
                 updateNodeHtml(node);
 
-                updateNodeClasses(node, groupData, nodeData);
+                that._updateNodeClasses(node, groupData, nodeData);
 
                 // iterate over child nodes
                 that._group(node);
             });
         },
+
+        _checkboxes: function() {
+            var options = this.options,
+                checkboxOptions = options.checkboxes,
+                checkboxTemplate;
+
+            if (checkboxOptions || options.checkboxTemplate) {
+
+                if (options.checkboxTemplate) {
+                    checkboxTemplate = options.checkboxTemplate;
+                } else {
+                    checkboxTemplate = "<input type='checkbox' #= item.checked ? 'checked' : '' #";
+
+                    if (checkboxOptions.name) {
+                        checkboxTemplate += " name='" + checkboxOptions.name + "'";
+                    }
+
+                    checkboxTemplate += " />";
+                }
+
+                checkboxOptions = extend({
+                    template: checkboxTemplate
+                }, options.checkboxes);
+
+                if (typeof checkboxOptions.template == "string") {
+                    checkboxOptions.template = template(checkboxOptions.template);
+                }
+
+                options.checkboxes = checkboxOptions;
+            }
+        },
+
+        _updateNodeClasses: function (node, groupData, nodeData) {
+            var wrapper = node.children("div"),
+                group = node.children("ul"),
+                templates = this.templates;
+
+            if (node.hasClass("k-treeview")) {
+                return;
+            }
+
+            nodeData = nodeData || {};
+            nodeData.expanded = typeof nodeData.expanded != UNDEFINED ? nodeData.expanded : this._expanded(node);
+            nodeData.index = typeof nodeData.index != UNDEFINED ? nodeData.index : node.index();
+            nodeData.enabled = typeof nodeData.enabled != UNDEFINED ? nodeData.enabled : !wrapper.children(".k-in").hasClass("k-state-disabled");
+
+            groupData = groupData || {};
+            groupData.firstLevel = typeof groupData.firstLevel != UNDEFINED ? groupData.firstLevel : node.parent().parent().hasClass(KTREEVIEW);
+            groupData.length = typeof groupData.length != UNDEFINED ? groupData.length : node.parent().children().length;
+
+            // li
+            node.removeClass("k-first k-last")
+                .addClass(templates.wrapperCssClass(groupData, nodeData));
+
+            // div
+            wrapper.removeClass("k-top k-mid k-bot")
+                   .addClass(templates.cssClass(groupData, nodeData));
+
+            // span
+            wrapper.children(".k-in").removeClass("k-in k-state-default k-state-disabled")
+                .addClass(templates.textClass(nodeData));
+
+            // toggle button
+            if (group.length || node.attr("data-hasChildren") == "true") {
+                wrapper.children(".k-icon").removeClass("k-plus k-minus k-plus-disabled k-minus-disabled")
+                    .addClass(templates.toggleButtonClass(nodeData));
+
+                group.addClass("k-group");
+            }
+        },
+
 
         _processNodes: function(nodes, callback) {
             var that = this;
@@ -452,216 +939,46 @@
             });
         },
 
-        /**
-         * Expands nodes.
-         * @param {Selector} nodes The nodes that are to be expanded.
-         * @example
-         * var treeview = $("#treeview").data("kendoTreeView");
-         *
-         * // expands the node with id="firstItem"
-         * treeview.expand(document.getElementById("firstItem"));
-         *
-         * // expands all nodes
-         * treeview.expand(".k-item");
-         */
-        expand: function (nodes) {
-            this._processNodes(nodes, function (index, item) {
-                var contents = item.find(NODECONTENTS);
+        dataItem: function(node) {
+            var uid = $(node).closest(NODE).attr(kendo.attr("uid")),
+                dataSource = this.dataSource;
 
-                if (contents.length > 0 && !contents.is(VISIBLE)) {
-                    this.toggle(item);
-                }
-            });
+            return dataSource && dataSource.getByUid(uid);
         },
 
-        /**
-         * Collapses nodes.
-         * @param {Selector} nodes The nodes that are to be collapsed.
-         * @example
-         * var treeview = $("#treeview").data("kendoTreeView");
-         *
-         * // collapse the node with id="firstItem"
-         * treeview.collapse(document.getElementById("firstItem"));
-         *
-         * // collapse all nodes
-         * treeview.collapse(".k-item");
-         */
-        collapse: function (nodes) {
-            this._processNodes(nodes, function (index, item) {
-                var contents = item.find(NODECONTENTS);
-
-                if (contents.length > 0 && contents.is(VISIBLE)) {
-                    this.toggle(item);
-                }
-            });
-        },
-
-        /**
-         * Enables or disables nodes.
-         * @param {Selector} nodes The nodes that are to be enabled/disabled.
-         * @param {Boolean} [enable=true] Whether the nodes should be enabled or disabled.
-         * @example
-         * var treeview = $("#treeview").data("kendoTreeView");
-         *
-         * // disable the node with id="firstItem"
-         * treeview.enable(document.getElementById("firstItem"), false);
-         *
-         * // enable all nodes
-         * treeview.enable(".k-item");
-         */
-        enable: function (nodes, enable) {
-            enable = arguments.length == 2 ? !!enable : true;
-
-            this._processNodes(nodes, function (index, item) {
-                var isCollapsed = !item.find(NODECONTENTS).is(VISIBLE);
-
-                if (!enable) {
-                    this.collapse(item);
-                    isCollapsed = true;
-                }
-
-                item.find(">div")
-                        .find(">.k-in")
-                            .toggleClass("k-state-default", enable)
-                            .toggleClass("k-state-disabled", !enable)
-                        .end()
-                        .find(">.k-icon")
-                            .toggleClass("k-plus", isCollapsed && enable)
-                            .toggleClass("k-plus-disabled", isCollapsed && !enable)
-                            .toggleClass("k-minus", !isCollapsed && enable)
-                            .toggleClass("k-minus-disabled", !isCollapsed && !enable);
-            });
-        },
-
-        /**
-         * Gets/sets the selected node.
-         * @param {Selector} [node] The node that should be selected.
-         * @returns {Node} The currently selected node
-         * @example
-         * var treeview = $("#treeview").data("kendoTreeView");
-         *
-         * // select the node with id="firstItem"
-         * treeview.select(document.getElementById("firstItem"));
-         *
-         * // get the currently selected node
-         * var selectedNode = treeview.select();
-         */
-        select: function (node) {
-            var element = this.element;
-
-            if (arguments.length == 0) {
-                return element.find(".k-state-selected").closest(NODE);
-            }
-
-            node = $(node).closest(NODE);
-
-            if (node.length) {
-                element.find(".k-in").removeClass("k-state-hover k-state-selected");
-
-                node.find(".k-in:first").addClass("k-state-selected");
-            }
-        },
-
-        /**
-         * Toggles a node between expanded and collapsed state.
-         * @param {jQueryObject} node The node that should be toggled.
-         * @example
-         * var treeview = $("#treeview").data("kendoTreeView");
-         *
-         * // toggle the node with id="firstItem"
-         * treeview.toggle(document.getElementById("firstItem"));
-         */
-        toggle: function (node) {
-            node = $(node);
-
-            if (node.find(".k-minus,.k-plus").length == 0) {
-                return;
-            }
-
-            if (node.find("> div > .k-state-disabled").length) {
-                return;
-            }
-
+        _insertNode: function(nodeData, index, parentNode, insertCallback, collapsed) {
             var that = this,
-                contents = node.find(NODECONTENTS),
-                isExpanding = !contents.is(VISIBLE),
-                animationSettings = that.options.animation || {},
-                animation = animationSettings.expand,
-                collapse = animationSettings.collapse,
-                hasCollapseAnimation = collapse && 'effects' in collapse;
-
-            if (contents.data("animating"))
-                return;
-
-            if (!isExpanding) {
-                animation = hasCollapseAnimation ? collapse
-                                    : extend({ reverse: true }, animation, { show: false, hide: true });
-            }
-
-            if (contents.children().length > 0) {
-                if (!that._trigger(isExpanding ? "expand" : "collapse", node)) {
-                    node.find("> div > .k-icon")
-                        .toggleClass("k-minus", isExpanding)
-                        .toggleClass("k-plus", !isExpanding);
-
-                    if (!isExpanding) {
-                        contents.css("height", contents.height()).css("height");
-                    }
-
-                    contents.kendoStop(true, true).kendoAnimate(extend(animation, {
-                        complete: function() {
-                            if (isExpanding) {
-                                contents.css("height", "");
-                            }
-                        }
-                    }));
-                }
-            }
-        },
-
-        /**
-         * Get the text of a node.
-         * @param {Selector} node The node that you need the text for.
-         * @returns {String} The text of the node.
-         * @example
-         * var treeview = $("#treeview").data("kendoTreeView");
-         *
-         * // get the text of the node with id="firstItem"
-         * var nodeText = treeview.text(document.getElementById("firstItem"));
-         */
-        text: function (node) {
-            return $(node).closest(NODE).find(">div>.k-in").text();
-        },
-
-        _insertNode: function(nodeData, index, parentNode, group, insertCallback) {
-            var that = this,
+                group = subGroup(parentNode),
                 updatedGroupLength = group.children().length + 1,
-                fromNodeData = $.isPlainObject(nodeData),
+                childrenData,
                 groupData = {
-                    firstLevel: parentNode.hasClass(TTREEVIEW),
-                    expanded: true,
+                    firstLevel: parentNode.hasClass(KTREEVIEW),
+                    expanded: !collapsed,
                     length: updatedGroupLength
-                }, node;
+                }, node, i, item, nodeHtml = "",
+                append = function(item, group) {
+                    item.appendTo(group);
+                };
 
-            if (fromNodeData) {
-                node = $(TreeView.renderItem({
+            for (i = 0; i < nodeData.length; i++) {
+                item = nodeData[i];
+
+                item.index = index + i;
+
+                nodeHtml += that._renderItem({
                     group: groupData,
-                    item: extend(nodeData, { index: index })
-                }));
-            } else {
-                node = $(nodeData);
+                    item: item
+                });
+            }
 
-                if (group.children()[index - 1] == node[0]) {
-                    return node;
-                }
+            node = $(nodeHtml);
 
-                if (node.closest(".k-treeview")[0] == that.wrapper[0]) {
-                    that.remove(node);
-                }
+            if (!node.length) {
+                return;
             }
 
             if (!group.length) {
-                group = $(TreeView.renderGroup({
+                group = $(that._renderGroup({
                     group: groupData
                 })).appendTo(parentNode);
             }
@@ -670,126 +987,539 @@
 
             if (parentNode.hasClass("k-item")) {
                 updateNodeHtml(parentNode);
-                updateNodeClasses(parentNode);
+                that._updateNodeClasses(parentNode);
             }
 
-            if (!fromNodeData) {
-                updateNodeClasses(node);
-            }
+            that._updateNodeClasses(node.prev().first());
+            that._updateNodeClasses(node.next().last());
 
-            updateNodeClasses(node.prev());
-            updateNodeClasses(node.next());
+            // render sub-nodes
+            for (i = 0; i < nodeData.length; i++) {
+                item = nodeData[i];
+
+                if (item.hasChildren) {
+                    childrenData = item.children.data();
+
+                    if (childrenData.length) {
+                        that._insertNode(childrenData, item.index, node.eq(i), append, !that._expanded(node.eq(i)));
+                    }
+                }
+            }
 
             return node;
         },
 
-        /**
-         * Inserts a node after another node.
-         * @param {NodeData} nodeData JSON that specifies the node data, or a reference to a node in the TreeView.
-         * @param {Node} referenceNode The node that will be before the newly appended node.
-         * @example
-         * var treeview = $("#treeview").data("kendoTreeView");
-         *
-         * // inserts a new node with the text "new node" after the node with id="firstItem"
-         * treeview.insertAfter({ text: "new node" }, document.getElementById("firstItem"));
-         *
-         * // moves the node with id="secondNode" after the node with id="firstItem"
-         * treeview.insertAfter(document.getElementById("secondNode"), document.getElementById("firstItem"));
-         */
-        insertAfter: function (nodeData, referenceNode) {
-            var group = referenceNode.parent();
+        _updateNode: function(field, items) {
+            var that = this, i, node, item,
+                context = { treeview: that.options, item: item };
 
-            return this._insertNode(nodeData, referenceNode.index() + 1, group.parent(), group, function(item, group) {
-                item.insertAfter(referenceNode);
+            if (field == "selected") {
+                item = items[0];
+
+                node = that.findByUid(item.uid).find(".k-in:first")
+                        .removeClass("k-state-hover")
+                        .toggleClass("k-state-selected", item[field])
+                        .end();
+
+                if (item[field]) {
+                    that.current(node);
+                    node.attr(ARIASELECTED, true);
+                } else {
+                    node.attr(ARIASELECTED, false);
+                }
+            } else {
+                for (i = 0; i < items.length; i++) {
+                    context.item = item = items[i];
+
+                    if (field == "spriteCssClass" || field == "imageUrl" ||
+                        $.inArray(field, that.options.dataTextField) >= 0) {
+                        that.findByUid(item.uid).find(">div>.k-in").html(that.templates.itemContent(context));
+                    } else if (field == CHECKED) {
+                        node = that.findByUid(item.uid);
+                        node.children("div").find(":checkbox")
+                            .prop(CHECKED, item[field])
+                            .data("indeterminate", false)
+                            .prop("indeterminate", false);
+                    } else if (field == "expanded") {
+                        that._toggle(that.findByUid(item.uid), item, item[field]);
+                    }
+                }
+            }
+        },
+
+        refresh: function(e) {
+            var that = this,
+                parentNode = that.wrapper,
+                node = e.node,
+                action = e.action,
+                items = e.items,
+                index = e.index,
+                loadOnDemand = that.options.loadOnDemand,
+                i;
+
+            function append(items, parentNode) {
+                var group = subGroup(parentNode),
+                    children = group.children(),
+                    collapsed = !that._expanded(parentNode);
+
+                if (typeof index == UNDEFINED) {
+                    index = children.length;
+                }
+
+                that._insertNode(items, index, parentNode, function(item, group) {
+                    // insert node into DOM
+                    if (index == children.length) {
+                        item.appendTo(group);
+                    } else {
+                        item.insertBefore(children.eq(index));
+                    }
+                }, collapsed);
+
+                if (that._expanded(parentNode)) {
+                    that._updateNodeClasses(parentNode);
+                    subGroup(parentNode).css("display", "block");
+                }
+            }
+
+            if (e.field) {
+                return that._updateNode(e.field, items);
+            }
+
+            if (node) {
+                parentNode = that.findByUid(node.uid);
+                that._progress(parentNode, false);
+            }
+
+            if (action == "add") {
+                append(items, parentNode);
+            } else if (action == "remove") {
+                that._remove(that.findByUid(items[0].uid), false);
+            } else {
+                if (node) {
+                    subGroup(parentNode).empty();
+
+                    append(items, parentNode);
+                } else {
+                    that.root = that.wrapper.html(that._renderGroup({
+                        items: items,
+                        group: {
+                            firstLevel: true,
+                            expanded: true
+                        }
+                    })).children("ul");
+                }
+            }
+
+            for (i = 0; i < items.length; i++) {
+                if (!loadOnDemand || items[i].expanded) {
+                    items[i].load();
+                }
+            }
+
+            that.trigger(DATABOUND, {
+                node: node ? parentNode : undefined
             });
         },
 
-        /**
-         * Inserts a node before another node.
-         * @param {NodeData} nodeData JSON that specifies the node data, or a reference to a node in the TreeView.
-         * @param {Node} referenceNode The node that will be after the newly appended node.
-         * @example
-         * var treeview = $("#treeview").data("kendoTreeView");
-         *
-         * // inserts a new node with the text "new node" before the node with id="firstItem"
-         * treeview.insertBefore({ text: "new node" }, document.getElementById("firstItem"));
-         *
-         * // moves the node with id="secondNode" before the node with id="firstItem"
-         * treeview.insertBefore(document.getElementById("secondNode"), document.getElementById("firstItem"));
-         */
-        insertBefore: function (nodeData, referenceNode) {
-            var group = referenceNode.parent();
-
-            return this._insertNode(nodeData, referenceNode.index(), group.parent(), group, function(item, group) {
-                item.insertBefore(referenceNode);
+        expand: function (nodes) {
+            this._processNodes(nodes, function (index, item) {
+                this.toggle(item, true);
             });
         },
 
-        /**
-         * Appends a node to a treeview group.
-         * @param {NodeData} nodeData JSON that specifies the node data, or a reference to a node in the TreeView.
-         * @param {Node} [parentNode] The node that will contain the newly appended node. If not specified, the new node will be appended to the root group of the treeview.
-         * @example
-         * var treeview = $("#treeview").data("kendoTreeView");
-         *
-         * // appends a new node with the text "new node" to the node with id="firstItem"
-         * treeview.append({ text: "new node" }, document.getElementById("firstItem"));
-         *
-         * // moves the node with id="secondNode" as a last child of the node with id="firstItem"
-         * treeview.append(document.getElementById("secondNode"), document.getElementById("firstItem"));
-         */
-        append: function (nodeData, parentNode) {
-            parentNode = parentNode || this.element;
-
-            var group = parentNode.find(SUBGROUP);
-
-            return this._insertNode(nodeData, group.children().length, parentNode, group, function(item, group) {
-                item.appendTo(group);
+        collapse: function (nodes) {
+            this._processNodes(nodes, function (index, item) {
+                this.toggle(item, false);
             });
         },
 
-        /**
-         * Removes a node
-         * @param {Selector} node The node that is to be removed.
-         * @example
-         * var treeview = $("#treeview").data("kendoTreeView");
-         *
-         * // remove the node with id="firstItem"
-         * treeview.remove(document.getElementById("firstItem"));
-         */
-        remove: function (node) {
+        enable: function (nodes, enable) {
+            enable = arguments.length == 2 ? !!enable : true;
+
+            this._processNodes(nodes, function (index, item) {
+                var isCollapsed = !nodeContents(item).is(VISIBLE);
+
+                item.removeAttr(ARIADISABLED);
+
+                if (!enable) {
+                    this.collapse(item);
+                    isCollapsed = true;
+                    item.find(".k-in:first").removeClass("k-state-selected");
+                    item.removeAttr(ARIASELECTED);
+                    item.attr(ARIADISABLED, true);
+                }
+
+                this._updateNodeClasses(item, {}, { enabled: enable, expanded: !isCollapsed });
+            });
+        },
+
+        current: function(node) {
+            var that = this,
+                current = that._current,
+                element = that.element,
+                id = that._ariaId;
+
+            if (arguments.length > 0 && node && node.length) {
+                if (current) {
+                    current.removeAttr("id")
+                        .find(".k-in:first").removeClass("k-state-focused");
+                }
+
+                current = that._current = $(node, element).closest(NODE);
+
+                current.find(".k-in:first").addClass("k-state-focused");
+
+                if (id) {
+                    that.wrapper.removeAttr("aria-activedescendant");
+                    current.attr("id", id);
+                    that.wrapper.attr("aria-activedescendant", id);
+                }
+
+                return;
+            }
+
+            if (!current) {
+                current = that._nextVisible($());
+            }
+
+            return current;
+        },
+
+        select: function (node) {
+            var that = this,
+                element = that.element;
+
+            if (!arguments.length) {
+                return element.find(".k-state-selected").closest(NODE);
+            }
+
+            node = $(node, element).closest(NODE);
+
+            if (node.length) {
+                element.find(".k-state-selected").each(function() {
+                    var dataItem = that.dataItem(this);
+                    dataItem.set("selected", false);
+                    delete dataItem.selected;
+                });
+
+                that.dataItem(node).set("selected", true);
+            }
+        },
+
+        _toggle: function(node, dataItem, expand) {
+            var that = this,
+                options = that.options,
+                contents = nodeContents(node),
+                direction = expand ? "expand" : "collapse",
+                animation = options.animation[direction],
+                loaded;
+
+            if (contents.data("animating")) {
+                return;
+            }
+
+            if (!that._trigger(direction, node)) {
+                that._expanded(node, expand);
+
+                loaded = dataItem && dataItem.loaded();
+
+                if (loaded && contents.children().length > 0) {
+                    that._updateNodeClasses(node, {}, { expanded: expand });
+
+                    if (contents.is(":visible") == expand) {
+                        return;
+                    }
+
+                    if (!expand) {
+                        contents.css("height", contents.height()).css("height");
+                    }
+
+                    contents.kendoStop(true, true).kendoAnimate(extend({ reset: true }, animation, {
+                        complete: function() {
+                            if (expand) {
+                                contents.css("height", "");
+                            }
+                        }
+                    }));
+                } else if (dataItem) {
+                    if (options.loadOnDemand) {
+                        that._progress(node, true);
+                    }
+
+                    contents.remove();
+                    dataItem.load();
+                }
+            }
+        },
+
+        toggle: function (node, expand) {
             node = $(node);
 
-            var that = this,
-                parentNode = node.parent().parent(),
-                prevSibling = node.prev(),
-                nextSibling = node.next();
+            if (!nodeIcon(node).is(".k-minus,.k-plus,.k-minus-disabled,.k-plus-disabled")) {
+                return;
+            }
 
-            node.remove();
+            if (arguments.length == 1) {
+                expand = !this._expanded(node);
+            }
+
+            this._expanded(node, expand);
+        },
+
+        destroy: function() {
+            var that = this;
+
+            Widget.fn.destroy.call(that);
+
+            that.element.off(NS);
+
+            if (that.dragging) {
+                that.dragging.destroy();
+            }
+
+            kendo.destroy(that.element);
+        },
+
+        _expanded: function(node, value) {
+            var expandedAttr = kendo.attr("expanded"),
+                dataItem = this.dataItem(node);
+
+            if (arguments.length == 1) {
+                return node.attr(expandedAttr) === "true" || (dataItem && dataItem.expanded);
+            }
+
+            if (nodeContents(node).data("animating")) {
+                return;
+            }
+
+            if (dataItem) {
+                dataItem.set("expanded", value);
+            }
+
+            if (value) {
+                node.attr(expandedAttr, "true");
+                node.attr("aria-expanded", "true");
+            } else {
+                node.removeAttr(expandedAttr);
+                node.attr("aria-expanded", "false");
+            }
+        },
+
+        _progress: function(node, showProgress) {
+            var element = this.element;
+
+            if (arguments.length == 1) {
+                showProgress = node;
+
+                if (showProgress) {
+                    element.html(this.templates.loading);
+                } else {
+                    element.empty();
+                }
+            } else {
+                nodeIcon(node).toggleClass("k-loading", showProgress);
+            }
+        },
+
+        text: function (node, text) {
+            var dataItem = this.dataItem(node),
+                fieldBindings = this.options[bindings.text],
+                level = dataItem.level(),
+                length = fieldBindings.length,
+                field = fieldBindings[Math.min(level, length-1)];
+
+            if (text) {
+                dataItem.set(field, text);
+            } else {
+                return dataItem[field];
+            }
+        },
+
+        _objectOrSelf: function (node) {
+            return $(node).closest("[data-role=treeview]").data("kendoTreeView") || this;
+        },
+
+        _dataSourceMove: function(nodeData, group, parentNode, callback) {
+            var that = this,
+                srcTreeView = that._objectOrSelf(nodeData),
+                srcDataSource,
+                dataItem,
+                referenceDataItem, i,
+                destTreeview = that._objectOrSelf(parentNode || group),
+                destDataSource = destTreeview.dataSource;
+
+            if (parentNode) {
+                referenceDataItem = destTreeview.dataItem(parentNode);
+
+                if (!referenceDataItem.loaded()) {
+                    destTreeview._progress(parentNode, true);
+                    referenceDataItem.load();
+                }
+
+                if (parentNode != that.root) {
+                    destDataSource = referenceDataItem.children;
+                }
+            }
+
+            if (nodeData instanceof window.jQuery || isDomElement(nodeData)) {
+                // move node within or between treeviews
+                nodeData = $(nodeData);
+                srcDataSource = srcTreeView.dataSource;
+                dataItem = srcDataSource.getByUid(nodeData.attr(kendo.attr("uid")));
+
+                if (dataItem) {
+                    dataItem = srcDataSource.remove(dataItem);
+                }
+
+                dataItem = callback(destDataSource, dataItem);
+            } else if (isArray(nodeData) || nodeData instanceof data.ObservableArray){
+                // insert array of nodes
+                for (i = 0; i < nodeData.length; i++) {
+                    dataItem = callback(destDataSource, nodeData[i]);
+                }
+            } else {
+                // insert single node from data
+                dataItem = callback(destDataSource, nodeData);
+            }
+
+            return dataItem && that.findByUid(dataItem.uid);
+        },
+
+        insertAfter: function (nodeData, referenceNode) {
+            var group = referenceNode.parent(),
+                parentNode;
+
+            if (group.parent().is("li")) {
+                parentNode = group.parent();
+            }
+
+            return this._dataSourceMove(nodeData, group, parentNode, function (dataSource, model) {
+                return dataSource.insert(referenceNode.index() + 1, model);
+            });
+        },
+
+        insertBefore: function (nodeData, referenceNode) {
+            var group = referenceNode.parent(),
+                parentNode;
+
+            if (group.parent().is("li")) {
+                parentNode = group.parent();
+            }
+
+            return this._dataSourceMove(nodeData, group, parentNode, function (dataSource, model) {
+                return dataSource.insert(referenceNode.index(), model);
+            });
+        },
+
+        append: function (nodeData, parentNode) {
+            var that = this,
+                group = that.root;
+
+            if (parentNode) {
+                group = subGroup(parentNode);
+            }
+
+            return that._dataSourceMove(nodeData, group, parentNode, function (dataSource, model) {
+                function add() {
+                    if (parentNode) {
+                        that._expanded(parentNode, true);
+                    }
+
+                    return dataSource.add(model);
+                }
+
+                if (!dataSource.data()) {
+                    dataSource.one(CHANGE, add);
+
+                    return null;
+                } else {
+                    return add();
+                }
+            });
+        },
+
+        _remove: function (node, keepData) {
+            var that = this,
+                parentNode,
+                prevSibling, nextSibling;
+
+            node = $(node, that.element);
+
+            parentNode = node.parent().parent();
+            prevSibling = node.prev();
+            nextSibling = node.next();
+
+            node[keepData ? "detach" : "remove"]();
 
             if (parentNode.hasClass("k-item")) {
                 updateNodeHtml(parentNode);
-                updateNodeClasses(parentNode);
+                that._updateNodeClasses(parentNode);
             }
 
-            updateNodeClasses(prevSibling);
-            updateNodeClasses(nextSibling);
+            that._updateNodeClasses(prevSibling);
+            that._updateNodeClasses(nextSibling);
+
+            return node;
         },
 
-        /**
-         * Searches the treeview for a node that has specific text.
-         * @param {String} text The text that is being searched for.
-         * @returns {jQueryObject} All nodes that have the text.
-         * @example
-         * var treeview = $("#treeview").data("kendoTreeView");
-         *
-         * // searches the treeview for the item that has the text "foo"
-         * var foundNode = treeview.findByText("foo");
-         */
+        remove: function (node) {
+            var dataItem = this.dataItem(node);
+            if (dataItem) {
+                this.dataSource.remove(dataItem);
+            }
+        },
+
+        detach: function (node) {
+            return this._remove(node, true);
+        },
+
         findByText: function(text) {
             return $(this.element).find(".k-in").filter(function(i, element) {
                 return $(element).text() == text;
             }).closest(NODE);
+        },
+
+        findByUid: function(uid) {
+            return this.element.find(".k-item[" + kendo.attr("uid") + "=" + uid + "]");
+        },
+
+        _renderItem: function (options) {
+            if (!options.group) {
+                options.group = {};
+            }
+
+            options.treeview = this.options;
+
+            options.r = this.templates;
+
+            return this.templates.item(options);
+        },
+
+        _renderGroup: function (options) {
+            var that = this;
+
+            options.renderItems = function(options) {
+                    var html = "",
+                        i = 0,
+                        items = options.items,
+                        len = items ? items.length : 0,
+                        group = options.group;
+
+                    group.length = len;
+
+                    for (; i < len; i++) {
+                        options.group = group;
+                        options.item = items[i];
+                        options.item.index = i;
+                        html += that._renderItem(options);
+                    }
+
+                    return html;
+                };
+
+            options.r = that.templates;
+
+            return that.templates.group(options);
         }
     });
 
@@ -797,19 +1527,34 @@
         var that = this;
 
         that.treeview = treeview;
+        that.hovered = treeview.element;
 
         that._draggable = new ui.Draggable(treeview.element, {
            filter: "div:not(.k-state-disabled) .k-in",
            hint: function(node) {
-               return templates.dragClue({ text: node.text() });
+               return treeview.templates.dragClue({ text: node.text() });
+           },
+           cursorOffset: {
+               left: 10,
+               top: kendo.support.touch ? -40 / kendo.support.zoomLevel() : 10
            },
            dragstart: proxy(that.dragstart, that),
+           dragcancel: proxy(that.dragcancel, that),
            drag: proxy(that.drag, that),
            dragend: proxy(that.dragend, that)
         });
     }
 
-    TreeViewDragAndDrop.prototype = /** @ignore */{
+    TreeViewDragAndDrop.prototype = {
+        _removeTouchHover: function() {
+            var that = this;
+
+            if (kendo.support.touch && that.hovered) {
+                that.hovered.find("." + KSTATEHOVER).removeClass(KSTATEHOVER);
+                that.hovered = false;
+            }
+        },
+
         _hintStatus: function(newStatus) {
             var statusElement = this._draggable.hint.find(".k-drag-status")[0];
 
@@ -826,7 +1571,7 @@
                 sourceNode = that.sourceNode = e.currentTarget.closest(NODE);
 
             if (treeview.trigger(DRAGSTART, { sourceNode: sourceNode[0] })) {
-                return false;
+                e.preventDefault();
             }
 
             that.dropHint = $("<div class='k-drop-hint' />")
@@ -839,13 +1584,14 @@
                 treeview = that.treeview,
                 sourceNode = that.sourceNode,
                 dropTarget = that.dropTarget = $(kendo.eventTarget(e)),
-                statusClass,
+                statusClass, closestTree = dropTarget.closest(".k-treeview"),
                 hoveredItem, hoveredItemPos, itemHeight, itemTop, itemContent, delta,
                 insertOnTop, insertOnBottom, addChild;
 
-            if (!dropTarget.closest(".k-treeview").length) {
+            if (!closestTree.length) {
                 // dragging node outside of treeview
                 statusClass = "k-denied";
+                that._removeTouchHover();
             } else if ($.contains(sourceNode[0], dropTarget[0])) {
                 // dragging node within itself
                 statusClass = "k-denied";
@@ -853,22 +1599,22 @@
                 // moving or reordering node
                 statusClass = "k-insert-middle";
 
-                that.dropHint.css(VISIBILITY, "visible");
-
                 hoveredItem = dropTarget.closest(".k-top,.k-mid,.k-bot");
 
-                if (hoveredItem.length > 0) {
+                if (hoveredItem.length) {
                     itemHeight = hoveredItem.outerHeight();
                     itemTop = hoveredItem.offset().top;
                     itemContent = dropTarget.closest(".k-in");
                     delta = itemHeight / (itemContent.length > 0 ? 4 : 2);
 
-                    insertOnTop = e.pageY < (itemTop + delta);
-                    insertOnBottom = (itemTop + itemHeight - delta) < e.pageY;
-                    addChild = itemContent.length > 0 && !insertOnTop && !insertOnBottom;
+                    insertOnTop = e.y.location < (itemTop + delta);
+                    insertOnBottom = (itemTop + itemHeight - delta) < e.y.location;
+                    that._removeTouchHover();
+                    addChild = itemContent.length && !insertOnTop && !insertOnBottom;
+                    that.hovered = addChild ? closestTree : false;
 
-                    itemContent.toggleClass(TSTATEHOVER, addChild);
                     that.dropHint.css(VISIBILITY, addChild ? "hidden" : "visible");
+                    itemContent.toggleClass(KSTATEHOVER, addChild);
 
                     if (addChild) {
                         statusClass = "k-add";
@@ -878,7 +1624,7 @@
 
                         that.dropHint
                             .css(hoveredItemPos)
-                            [insertOnTop ? "prependTo" : "appendTo"](dropTarget.closest(NODE).find("> div:first"));
+                            [insertOnTop ? "prependTo" : "appendTo"](dropTarget.closest(NODE).children("div:first"));
 
                         if (insertOnTop && hoveredItem.hasClass("k-top")) {
                             statusClass = "k-insert-top";
@@ -888,208 +1634,90 @@
                             statusClass = "k-insert-bottom";
                         }
                     }
+                } else if (dropTarget[0] != that.dropHint[0]) {
+                    statusClass = "k-denied";
                 }
             }
 
             treeview.trigger(DRAG, {
                 sourceNode: sourceNode[0],
                 dropTarget: dropTarget[0],
-                pageY: e.pageY,
-                pageX: e.pageX,
+                pageY: e.y.location,
+                pageX: e.x.location,
                 statusClass: statusClass.substring(2),
-                setStatusClass: function (value) { statusClass = value }
+                setStatusClass: function (value) {
+                    statusClass = value;
+                }
             });
 
-            if (statusClass.indexOf("k-insert") != 0) {
+            if (statusClass.indexOf("k-insert") !== 0) {
                 that.dropHint.css(VISIBILITY, "hidden");
             }
 
             that._hintStatus(statusClass);
         },
 
+        dragcancel: function(e) {
+            this.dropHint.remove();
+        },
+
         dragend: function (e) {
             var that = this,
-                treeview = that.treeview,
-                dropPosition = "over",
-                sourceNode = that.sourceNode,
-                destinationNode,
-                valid, dropPrevented;
+            treeview = that.treeview,
+            dropPosition = "over",
+            sourceNode = that.sourceNode,
+            destinationNode,
+            dropHint = that.dropHint,
+            valid, dropPrevented;
 
-            if (e.keyCode == kendo.keys.ESC){
-                that.dropHint.remove();
-                //treeview.trigger("nodeDragCancelled", { item: sourceNode[0] });
-            } else {
-                if (that.dropHint.css(VISIBILITY) == "visible") {
-                    dropPosition = that.dropHint.prevAll(".k-in").length > 0 ? "after" : "before";
-                    destinationNode = that.dropHint.closest(NODE);
-                } else if (that.dropTarget) {
-                    destinationNode = that.dropTarget.closest(NODE);
-                }
-
-                valid = that._hintStatus() != "k-denied";
-
-                dropPrevented = treeview.trigger(DROP, {
-                    sourceNode: sourceNode[0],
-                    destinationNode: destinationNode[0],
-                    valid: valid,
-                    setValid: function(newValid) { valid = newValid; },
-                    dropTarget: e.target,
-                    dropPosition: dropPosition
-                });
-
-                that.dropHint.remove();
-
-                if (!valid || dropPrevented) {
-                    that._draggable.dropped = valid;
-                    return;
-                }
-
-                that._draggable.dropped = true;
-
-                // perform reorder / move
-                if (dropPosition == "over") {
-                    treeview.append(sourceNode, destinationNode);
-                    treeview.expand(destinationNode);
-                } else if (dropPosition == "before") {
-                    treeview.insertBefore(sourceNode, destinationNode);
-                } else if (dropPosition == "after") {
-                    treeview.insertAfter(sourceNode, destinationNode);
-                }
-
-                treeview.trigger(DRAGEND, {
-                    sourceNode: sourceNode[0],
-                    destinationNode: destinationNode[0],
-                    dropPosition: dropPosition
-                });
+            if (dropHint.css(VISIBILITY) == "visible") {
+                dropPosition = dropHint.prevAll(".k-in").length > 0 ? "after" : "before";
+                destinationNode = dropHint.closest(NODE);
+            } else if (that.dropTarget) {
+                destinationNode = that.dropTarget.closest(NODE);
             }
-        }
-    };
 
-    // client-side rendering
+            valid = that._hintStatus() != "k-denied";
 
-    extend(TreeView, {
-        renderItem: function (options) {
-            options = extend({ treeview: {}, group: {} }, options);
+            dropPrevented = treeview.trigger(DROP, {
+                sourceNode: sourceNode[0],
+                destinationNode: destinationNode[0],
+                valid: valid,
+                setValid: function(newValid) { valid = newValid; },
+                dropTarget: that.dropTarget[0],
+                dropPosition: dropPosition
+            });
 
-            var empty = templates.empty,
-                item = options.item,
-                treeview = options.treeview;
+            dropHint.remove();
+            that._removeTouchHover();
 
-            return templates.item(extend(options, {
-                image: item.imageUrl ? templates.image : empty,
-                sprite: item.spriteCssClass ? templates.sprite : empty,
-                itemWrapper: templates.itemWrapper,
-                toggleButton: item.items ? templates.toggleButton : empty,
-                subGroup: TreeView.renderGroup
-            }, rendering));
+            if (!valid || dropPrevented) {
+                that._draggable.dropped = valid;
+                return;
+            }
+
+            that._draggable.dropped = true;
+
+            // perform reorder / move
+            if (dropPosition == "over") {
+                sourceNode = treeview.append(sourceNode, destinationNode);
+            } else if (dropPosition == "before") {
+                sourceNode = treeview.insertBefore(sourceNode, destinationNode);
+            } else if (dropPosition == "after") {
+                sourceNode = treeview.insertAfter(sourceNode, destinationNode);
+            }
+
+            treeview.trigger(DRAGEND, {
+                sourceNode: sourceNode && sourceNode[0],
+                destinationNode: destinationNode[0],
+                dropPosition: dropPosition
+            });
         },
 
-        renderGroup: function (options) {
-            return templates.group(extend({
-                renderItems: function(options) {
-                    var html = "",
-                        i = 0,
-                        items = options.items,
-                        len = items ? items.length : 0,
-                        group = extend({ length: len }, options.group);
-
-                    for (; i < len; i++) {
-                        html += TreeView.renderItem(extend(options, {
-                            group: group,
-                            item: extend({ index: i }, items[i])
-                        }));
-                    }
-
-                    return html;
-                }
-            }, options, rendering));
-        }
-    });
-
-    rendering = /** @ignore */{
-        wrapperCssClass: function (group, item) {
-            var result = "k-item",
-                index = item.index;
-
-            if (group.firstLevel && index == 0) {
-                result += " k-first"
-            }
-
-            if (index == group.length-1) {
-                result += " k-last";
-            }
-
-            return result;
-        },
-        cssClass: function(group, item) {
-            var result = "",
-                index = item.index,
-                groupLength = group.length - 1;
-
-            if (group.firstLevel && index == 0) {
-                result += "k-top ";
-            }
-
-            if (index == 0 && index != groupLength) {
-                result += "k-top";
-            } else if (index == groupLength) {
-                result += "k-bot";
-            } else {
-                result += "k-mid";
-            }
-
-            return result;
-        },
-        textClass: function(item) {
-            var result = "k-in";
-
-            if (item.enabled === false) {
-                result += " k-state-disabled";
-            }
-
-            if (item.selected === true) {
-                result += " k-state-selected";
-            }
-
-            return result;
-        },
-        textAttributes: function(item) {
-            return item.url ? " href='" + item.url + "'" : "";
-        },
-        toggleButtonClass: function(item) {
-            var result = "k-icon";
-
-            if (item.expanded !== true) {
-                result += " k-plus";
-            } else {
-                result += " k-minus";
-            }
-
-            if (item.enabled === false) {
-                result += "-disabled";
-            }
-
-            return result;
-        },
-        text: function(item) {
-            return item.encoded === false ? item.text : kendo.htmlEncode(item.text);
-        },
-        tag: function(item) {
-            return item.url ? "a" : "span";
-        },
-        groupAttributes: function(group) {
-            return group.expanded !== true ? " style='display:none'" : "";
-        },
-        groupCssClass: function(group) {
-            var cssClass = "k-group";
-
-            if (group.firstLevel) {
-                cssClass += " k-treeview-lines";
-            }
-
-            return cssClass;
+        destroy: function() {
+            this._draggable.destroy();
         }
     };
 
     ui.plugin(TreeView);
-})(jQuery);
+})(window.kendo.jQuery);

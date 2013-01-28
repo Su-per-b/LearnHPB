@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--   
+    Learn Green Buildings (http://su-per-b.org/projects_lgb.html)
+    by Institute For Superior Performance of Buildings (http://su-per-b.org)
+    for California Energy Commission (http://www.energy.ca.gov/)
+   -->
+  <meta name="author" content="Joseph Deringer"><!-- Project Leader -->
+  <meta name="author" content="Raj Dye"><!-- Software Engineer (http://rajdye.com) -->
+  <meta name="author" content="Andrew Scully"><!-- 3D Modeling and Animation -->
+  <meta name="author" content="Elliot Nahman"><!-- Information Architecture -->
+  
+  <meta name = "description" content = "Learn High Performance Buildings: Commercial building energy use simulation" />
+  <meta name = "revised" content = "January 13, 2013" />
+  <meta name="Copyright" content="Copyright 2013, Institute For Superior Performance of Buildings">
+    
+  <meta charset="UTF-8" />
+  
+
+	<link type="text/css" href="css/examples-offline.css" rel="stylesheet" />
+	<link type="text/css" href="css/kendo.common.css" rel="stylesheet" />
+	<link type="text/css" href="css/kendo.default.css" rel="stylesheet" />
+	<link type="text/css" href="css/jquery-ui.css" rel="stylesheet" />
+	<link type="text/css" href="css/sim.css" rel="stylesheet" />
+	
+	
+	<!-- JavaScript  	<script src="inc.sim.js"></script>-->
+	<script src="js/closure/core/goog/base.js"></script>
+
+	
+	
+	
+	<script src="js/lib/jquery.src.js"></script>
+	<script src="js/sim/console.js"></script>
+	<script src="js/kendo/kendo.web.js"></script>
+	
+
+
+	
+	<title>sim</title>
+
+</head>
+  
+  
+  
+<body id="theBody">
+	
+<script>
+	
+	goog.require('sim.controller.MainController');		
+	goog.require('sim.events.EventBus');
+	goog.require('sim.Global');
+	goog.require('sim');
+	
+    jQuery(document).ready(function() {
+    	
+		sim.init();
+		var mainController = new sim.controller.MainController();
+		
+	});
+	
+
+
+
+</script>
+        
+        
+  
+
+     
+      
+	
+</body>
+
+
+
+
+  
+</html>

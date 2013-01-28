@@ -34,6 +34,7 @@ lgb.controller.MainController = function() {
 goog.inherits(lgb.controller.MainController, lgb.controller.ControllerBase);
 
 
+
 /**
  * Initializes the Main Controller after the document is ready
  */
@@ -75,10 +76,6 @@ lgb.controller.MainController.prototype.init = function() {
   var e = new lgb.events.WorldCreated();
   this.dispatch(e);
   
-  
-
-  
-
    
   this.simulationController_ = new lgb.controller.SimulationController();
 

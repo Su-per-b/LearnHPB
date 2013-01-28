@@ -56,7 +56,7 @@ sim.logSevere = function(msg, loggerName) {
 sim.logHelper_ = function(msg, loggerName, level) {
 
   if (loggerName === undefined) {
-  loggerName = 'lgb';
+  loggerName = 'sim';
   }
 
   var logRecord = new goog.debug.LogRecord(level, msg, loggerName);

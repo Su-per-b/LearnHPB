@@ -44,7 +44,7 @@ sim.Config.APP_TITLE = 'Learn High Performance Buildings';
  * @const
  * @type {string}
  */
-sim.Config.APP_VERSION = 'Alph 0.5.0';
+sim.Config.APP_VERSION = 'Alph 0.6.0';
 
 /**
  * Will show status in the upper left if set to true.

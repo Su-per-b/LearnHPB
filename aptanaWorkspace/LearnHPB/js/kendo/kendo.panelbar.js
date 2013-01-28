@@ -1,193 +1,81 @@
 /*
-* Kendo UI v2011.3.1129 (http://kendoui.com)
-* Copyright 2011 Telerik AD. All rights reserved.
+* Kendo UI Web v2012.3.1114 (http://kendoui.com)
+* Copyright 2012 Telerik AD. All rights reserved.
 *
-* Kendo UI commercial licenses may be obtained at http://kendoui.com/license.
+* Kendo UI Web commercial licenses may be obtained at
+* https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
 * If you do not own a commercial license, this file shall be governed by the
-* GNU General Public License (GPL) version 3. For GPL requirements, please
-* review: http://www.gnu.org/copyleft/gpl.html
+* GNU General Public License (GPL) version 3.
+* For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
-
-(function ($, undefined) {
-    /**
-     * @name kendo.ui.PanelBar.Description
-     *
-     * @section
-     *  <p>
-     *      The PanelBar widget displays hierarchical data as a multi-level expandable panel
-     *      bar. PanelBar structure can be defined statically in HTML or configured dynamically
-     *      with the PanelBar API. Content for PanelBar items can also be easily loaded with
-     *      Ajax simply by specifying the content URL.
-     *  </p>
-     *  <h3>Getting Started</h3>
-     *
-     *
-     * @exampleTitle Create a simple HTML hierarchical list of items
-     * @example
-     *  <ul id="panelbar">
-     *      <li>Item 1
-     *          <ul>
-     *              <li>Sub Item 1</li>
-     *              <li>Sub Item 2</li>
-     *          </ul>
-     *      <li>
-     *      <li>Item 2</li>
-     *      <li>Item with Content
-     *          <div>This is some PanelBar Item content</div>
-     *      </li>
-     *  </ul>
-     *
-     *
-     * @exampleTitle Initialize Kendo PanelBar using jQuery selector
-     * @example
-     * var panelBar = $("#panelBar").kendoPanelBar();
-     *
-     * @section
-     *  <p>
-     *      Items in a PanelBar can optionally define in-line HTML content. To add content,
-     *      simply place the HTML inside of a div. Text content outside of the div will be used as
-     *      the Item's PanelBar text.
-     *  </p>
-     *  <h3>Loading Content with Ajax</h3>
-     *  <p>
-     *      While any valid technique for loading Ajax content can be used, PanelBar provides
-     *      built-in support for asynchronously loading content from URLs. These URLs should return
-     *      HTML fragments that can be loaded in the PanelBar item content area.
-     *  </p>
-     *  <br/>
-     *  <p>
-     *      When PanelBar loads content with Ajax, it is cached so that subsequent
-     *      expand/collapse actions do not re-trigger the Ajax request.
-     *  </p>
-     *
-     * @exampleTitle Loading PanelBar content asynchronously
-     * @example
-     *  <!-- HTML structure -->
-     *  <ul id="panelbar">
-     *      <li>Item 1
-     *          <ul>
-     *              <li>Sub Item 1</li>
-     *          </ul>
-     *      </li>
-     *      <li>Item 2</li>
-     *      <li>
-     *          Item with Dynamic Content
-     *          <div></div>
-     *      </li>
-     *  </ul>
-     *
-     * @exampleTitle
-     * @example
-     *  //JavaScript initialization and configuration
-     *  $(document).ready(function(){
-     *      $("#panelbar").kendoPanelBar({
-     *          contentUrls:[
-     *            null,
-     *            null,
-     *            "html-content-snippet.html"
-     *          ]
-     *      });
-     *  });
-     *
-     * @section
-     *  <h3>Customizing PanelBar Animations</h3>
-     *  <p>
-     *      By default, the PanelBar uses a slide animation to expand and reveal sub-items as
-     *      the mouse hovers. Animations can be easily customized using configuration properties,
-     *      changing the open and close animation style. A PanelBar can also be configured to
-     *      only allow one panel to remain open at a time.
-     *  </p>
-     * @exampleTitle Changing PanelBar animation and expandMode behavior
-     * @example
-     *  $("#panelbar").kendoPanelBar({
-     *      animation: {
-     *          open : {effects: fadeIn}
-     *      },
-     *      expandMode: "single"
-     *  });
-     * @section
-     *  <h3>Dynamically configuring PanelBar items</h3>
-     *  <p>
-     *      The PanelBar API provides several methods for dynamically adding or removing
-     *      Items. To add items, provide the new item as a JSON object along with a reference
-     *      item that will be used to determine the placement in the hierarchy.
-     *  </p>
-     *  <br/>
-     *  <p>
-     *      A reference item is simply a target PanelBar Item HTML element that already exists
-     *      in the PanelBar. Any valid jQuery selector can be used to obtain a reference to the
-     *      target item. For examples, see the PanelBar API demos.
-     *  </p>
-     *  </br>
-     *  <p>
-     *      Removing an item only requires a reference to the target element that should be removed.
-     *  </p>
-     *
-     * @exampleTitle Dynamically add a new root PanelBar item
-     * @example
-     *  var pb = $("#panelbar").kendoPanelBar().data("kendoPanelBar");
-     *
-     *  pb.insertAfter(
-     *      { text: "New PanelBar Item" },
-     *      pb.element.children("li:last")
-     *  );
-     *
-     */
+(function($, undefined) {
     var kendo = window.kendo,
         ui = kendo.ui,
+        keys = kendo.keys,
         extend = $.extend,
         each = $.each,
         template = kendo.template,
         Widget = ui.Widget,
         excludedNodesRegExp = /^(ul|a|div)$/i,
+        NS = ".kendoPanelBar",
         IMG = "img",
         HREF = "href",
         LAST = "k-last",
         LINK = "k-link",
+        LINKSELECTOR = "." + LINK,
         ERROR = "error",
-        CLICK = "click",
         ITEM = ".k-item",
+        GROUP = ".k-group",
+        VISIBLEGROUP = GROUP + ":visible",
         IMAGE = "k-image",
         FIRST = "k-first",
         EXPAND = "expand",
         SELECT = "select",
         CONTENT = "k-content",
+        ACTIVATE = "activate",
         COLLAPSE = "collapse",
         CONTENTURL = "contentUrl",
         MOUSEENTER = "mouseenter",
         MOUSELEAVE = "mouseleave",
         CONTENTLOAD = "contentLoad",
-        ACTIVECLASS = ".k-state-active",
-        GROUPS = "> .k-group",
+        ACTIVECLASS = "k-state-active",
+        GROUPS = "> .k-panel",
         CONTENTS = "> .k-content",
-        SELECTEDCLASS = ".k-state-selected",
-        DISABLEDCLASS = ".k-state-disabled",
-        HIGHLIGHTEDCLASS = ".k-state-highlighted",
-        clickableItems = ITEM + ":not(.k-state-disabled) .k-link",
-        disabledItems = ITEM + ".k-state-disabled .k-link",
+        FOCUSEDCLASS = "k-state-focused",
+        DISABLEDCLASS = "k-state-disabled",
+        SELECTEDCLASS = "k-state-selected",
+        SELECTEDSELECTOR = "." + SELECTEDCLASS,
+        HIGHLIGHTEDCLASS = "k-state-highlighted",
+        ACTIVEITEMSELECTOR = ITEM + ":not(.k-state-disabled)",
+        clickableItems = ACTIVEITEMSELECTOR + " > .k-link",
+        disabledItems = ITEM + ".k-state-disabled > .k-link",
+        selectableItems = "> li > " + SELECTEDSELECTOR + ", .k-panel > li > " + SELECTEDSELECTOR,
         defaultState = "k-state-default",
+        ARIA_DISABLED = "aria-disabled",
+        ARIA_EXPANDED = "aria-expanded",
+        ARIA_HIDDEN = "aria-hidden",
+        ARIA_SELECTED = "aria-selected",
         VISIBLE = ":visible",
         EMPTY = ":empty",
         SINGLE = "single",
-        animating = false,
 
         templates = {
             content: template(
-                "<div class='k-content'#= contentAttributes(data) #>#= content(item) #</div>"
+                "<div role='region' class='k-content'#= contentAttributes(data) #>#= content(item) #</div>"
             ),
             group: template(
-                "<ul class='#= groupCssClass(group) #'#= groupAttributes(group) #>" +
+                "<ul role='group' aria-hidden='true' class='#= groupCssClass(group) #'#= groupAttributes(group) #>" +
                     "#= renderItems(data) #" +
                 "</ul>"
             ),
             itemWrapper: template(
-                "<#= tag(item) # class='#= textClass(item, group) #'#= contentUrl(item) ##= textAttributes(item) #>" +
+                "<#= tag(item) # class='#= textClass(item, group) #' #= contentUrl(item) ##= textAttributes(item) #>" +
                     "#= image(item) ##= sprite(item) ##= text(item) #" +
                     "#= arrow(data) #" +
                 "</#= tag(item) #>"
             ),
             item: template(
-                "<li class='#= wrapperCssClass(group, item) #'>" +
+                "<li role='menuitem' #=aria(item)#class='#= wrapperCssClass(group, item) #'>" +
                     "#= itemWrapper(data) #" +
                     "# if (item.items) { #" +
                     "#= subGroup({ items: item.items, panelBar: panelBar, group: { expanded: item.expanded } }) #" +
@@ -195,24 +83,40 @@
                 "</li>"
             ),
             image: template("<img class='k-image' alt='' src='#= imageUrl #' />"),
-            arrow: template("<span class='#= arrowClass(item, group) #'></span>"),
+            arrow: template("<span class='#= arrowClass(item) #'></span>"),
             sprite: template("<span class='k-sprite #= spriteCssClass #'></span>"),
             empty: template("")
         },
 
         rendering = {
+            aria: function(item) {
+                var attr = "";
+
+                if (item.items || item.content || item.contentUrl) {
+                    attr += ARIA_EXPANDED + "='" + (item.expanded ? "true" : "false") + "' ";
+                }
+
+                if (item.enabled === false) {
+                    attr += ARIA_DISABLED + "='true'";
+                }
+
+                return attr;
+            },
+
             wrapperCssClass: function (group, item) {
                 var result = "k-item",
                     index = item.index;
 
                 if (item.enabled === false) {
-                    result += " k-state-disabled";
+                    result += " " + DISABLEDCLASS;
+                } else if (item.expanded === true) {
+                    result += " " + ACTIVECLASS;
                 } else {
                     result += " k-state-default";
                 }
 
-                if (index == 0) {
-                    result += " k-first"
+                if (index === 0) {
+                    result += " k-first";
                 }
 
                 if (index == group.length-1) {
@@ -221,6 +125,7 @@
 
                 return result;
             },
+
             textClass: function(item, group) {
                 var result = LINK;
 
@@ -233,14 +138,10 @@
             textAttributes: function(item) {
                 return item.url ? " href='" + item.url + "'" : "";
             },
-            arrowClass: function(item, group) {
+            arrowClass: function(item) {
                 var result = "k-icon";
 
-                if (group.horizontal) {
-                    result += " k-arrow-down";
-                } else {
-                    result += " k-arrow-right";
-                }
+                result += item.expanded ? " k-i-arrow-n k-panelbar-collapse" : " k-i-arrow-s k-panelbar-expand";
 
                 return result;
             },
@@ -254,10 +155,10 @@
                 return group.expanded !== true ? " style='display:none'" : "";
             },
             groupCssClass: function(group) {
-                return "k-group";
+                return "k-group k-panel";
             },
             contentAttributes: function(content) {
-                return content.active !== true ? " style='display:none'" : "";
+                return content.item.expanded !== true ? " style='display:none'" : "";
             },
             content: function(item) {
                 return item.content ? item.content : item.contentUrl ? "" : "&nbsp;";
@@ -267,63 +168,19 @@
             }
         };
 
-    function updateItemClasses (item, menuElement) {
-        item = $(item).addClass("k-item");
-
-        item
-            .children(IMG)
-            .addClass(IMAGE);
-        item
-            .children("a")
-            .addClass(LINK)
-            .children(IMG)
-            .addClass(IMAGE);
-        item
-            .filter(":not([disabled]):not([class*=k-state])")
-            .addClass("k-state-default");
-        item
-            .filter("li[disabled]")
-            .addClass("k-state-disabled")
-            .removeAttr("disabled");
-        item
-            .filter(":not([class*=k-state])")
-            .children("a:focus")
-            .parent()
-            .addClass(ACTIVECLASS.substr(1));
-        item
-            .find(">div")
-            .addClass(CONTENT)
-            .css({ display: "none" });
-
-        item.each(function() {
-            var item = $(this);
-
-            if (!item.children("." + LINK).length) {
-                item
-                    .contents()      // exclude groups, real links, templates and empty text nodes
-                    .filter(function() { return (!this.nodeName.match(excludedNodesRegExp) && !(this.nodeType == 3 && !$.trim(this.nodeValue))); })
-                    .wrapAll("<span class='" + LINK + "'/>");
-            }
-        });
-
-        menuElement
-            .find(" > li > ." + LINK)
-            .addClass("k-header");
-    }
-
     function updateArrow (items) {
         items = $(items);
 
-        items.children(".k-link").children(".k-icon").remove();
+        items.children(LINKSELECTOR).children(".k-icon").remove();
 
         items
-            .filter(":has(.k-group),:has(.k-content)")
-            .children(".k-link:not(:has([class*=k-arrow]))")
+            .filter(":has(.k-panel),:has(.k-content)")
+            .children(".k-link:not(:has([class*=k-i-arrow]))")
             .each(function () {
                 var item = $(this),
                     parent = item.parent();
 
-                item.append("<span class='k-icon " + (parent.hasClass(ACTIVECLASS.substr(1)) ? "k-arrow-up k-panelbar-collapse" : "k-arrow-down k-panelbar-expand") + "'/>");
+                item.append("<span class='k-icon " + (parent.hasClass(ACTIVECLASS) ? "k-i-arrow-n k-panelbar-collapse" : "k-i-arrow-s k-panelbar-expand") + "'/>");
             });
     }
 
@@ -336,190 +193,153 @@
         items.filter(":last-child").addClass(LAST);
     }
 
-    var PanelBar = Widget.extend({/** @lends kendo.ui.PanelBar.prototype */
-        /**
-         * Creates a PanelBar instance.
-         * @constructs
-         * @extends kendo.ui.Widget
-         * @class PanelBar UI widget
-         * @param {Selector} element DOM element
-         * @param {Object} options Configuration options.
-         * @option {Object} [animation] A collection of <b>Animation</b> objects, used to change default animations. A value of false will disable all animations in the widget.
-         * @option {Animation} [animation.open] The animation that will be used when expanding items.
-         * @option {Animation} [animation.close] The animation that will be used when collapsing items.
-         * @option {String} [expandMode] <multiple> Specifies if PanelBar should collapse the already expanded item when expanding next item
-         */
+    var PanelBar = Widget.extend({
         init: function(element, options) {
-            element = $(element);
-
             var that = this,
                 content;
 
             Widget.fn.init.call(that, element, options);
 
+            element = that.wrapper = that.element.addClass("k-widget k-reset k-header k-panelbar");
             options = that.options;
 
-            if (that.element.is(EMPTY)) {
-                that.element.append($(PanelBar.renderGroup({
-                    items: options.dataSource,
-                    group: {
-                        firstLevel: true,
-                        expanded: true
-                    },
-                    panelBar: {}
-                })).children());
+            if (options.dataSource) {
+                that.element.empty();
+                that.append(options.dataSource, element);
             }
 
+            if (element[0].id) {
+                that._itemId = element[0].id + "_pb_active";
+            }
+
+            that._tabindex();
             that._updateClasses();
 
             if (options.animation === false) {
-                options.animation = { open: { show: true, effects: {} }, close: { hide:true, effects: {} } };
+                options.animation = { expand: { effects: {} }, collapse: { hide:true, effects: {} } };
             }
 
             element
-                .delegate(clickableItems, CLICK, $.proxy(that._click, that))
-                .delegate(clickableItems, MOUSEENTER + " " + MOUSELEAVE, that._toggleHover)
-                .delegate(disabledItems, CLICK, false);
+                .on("touchend" + NS + " click" + NS, clickableItems, function(e) {
+                    if (that._click($(e.currentTarget))) {
+                        e.preventDefault();
+                    }
+                })
+                .on(MOUSEENTER  + NS + " " + MOUSELEAVE + NS, clickableItems, that._toggleHover)
+                .on("touchend" + NS + " click" + NS, disabledItems, false)
+                .on("keydown" + NS, $.proxy(that._keydown, that))
+                .on("focus" + NS, function() {
+                    var item = that.select();
+                    that._current(item[0] ? item : that._first());
+                })
+                .on("blur" + NS, function() {
+                    that._current(null);
+                })
+                .attr("role", "menu");
 
-            that.bind([
-                /**
-                 * Fires before an item is expanded.
-                 * @name kendo.ui.PanelBar#expand
-                 * @event
-                 * @param {Event} e
-                 * @param {Element} e.item The expanding item
-                 */
-                EXPAND,
-                /**
-                 * Fires before an item is collapsed.
-                 * @name kendo.ui.PanelBar#collapse
-                 * @event
-                 * @param {Event} e
-                 * @param {Element} e.item The collapsing item
-                 */
-                COLLAPSE,
-                /**
-                 * Fires before an item is selected.
-                 * @name kendo.ui.PanelBar#select
-                 * @event
-                 * @param {Event} e
-                 * @param {Element} e.item The selected item
-                 */
-                SELECT,
-                /**
-                 * Fires when ajax request results in an error.
-                 * @name kendo.ui.PanelBar#error
-                 * @event
-                 * @param {Event} e
-                 * @param {jqXHR} e.xhr The jqXHR object used to load the content
-                 * @param {String} e.status The returned status.
-                 */
-                ERROR,
-                /**
-                 * Fires when content is fetched from an ajax request.
-                 * @name kendo.ui.PanelBar#contentLoad
-                 * @event
-                 * @param {Event} e
-                 * @param {Element} e.item The selected item
-                 * @param {Element} e.item The loaded content element
-                 */
-                CONTENTLOAD
-            ], that.options);
-
-            if (that.options.contentUrls) {
+            if (options.contentUrls) {
                 element.find("> .k-item")
                     .each(function(index, item) {
-                        $(item).find("." + LINK).data(CONTENTURL, that.options.contentUrls[index]);
+                        $(item).find(LINKSELECTOR).data(CONTENTURL, options.contentUrls[index]);
                     });
             }
 
-            content = element.find("li" + ACTIVECLASS + " > ." + CONTENT);
+            content = element.find("li." + ACTIVECLASS + " > ." + CONTENT);
 
-            if (content.length > 0) {
+            if (content[0]) {
                 that.expand(content.parent(), false);
             }
+
+            kendo.notify(that);
         },
+
+        events: [
+            EXPAND,
+            COLLAPSE,
+            SELECT,
+            ACTIVATE,
+            ERROR,
+            CONTENTLOAD
+        ],
         options: {
             name: "PanelBar",
             animation: {
-                open: {
-                    effects: "expandVertical",
-                    duration: 200,
-                    show: true
+                expand: {
+                    effects: "expand:vertical",
+                    duration: 200
                 },
-                close: { // if close animation effects are defined, they will be used instead of open.reverse
-                    duration: 200,
-                    show: false,
-                    hide: true
+                collapse: { // if collapse animation effects are defined, they will be used instead of expand.reverse
+                    duration: 200
                 }
             },
             expandMode: "multiple"
         },
 
-        /**
-         * Expands the specified PanelBar item/s
-         * @param {Selector} element Target item selector.
-         * @param {Boolean} useAnimation Use this parameter to temporary disable the animation.
-         * @example
-         * panelBar.expand("#Item1");
-         */
+        destroy: function() {
+            Widget.fn.destroy.call(this);
+
+            this.element.off(NS);
+
+            kendo.destroy(this.element);
+        },
         expand: function (element, useAnimation) {
             var that = this,
                 animBackup = {};
             useAnimation = useAnimation !== false;
+            element = this.element.find(element);
 
-            $(element).each(function (index, item) {
+            element.each(function (index, item) {
                 item = $(item);
                 var groups = item.find(GROUPS).add(item.find(CONTENTS));
 
                 if (!item.hasClass(DISABLEDCLASS) && groups.length > 0) {
 
                     if (that.options.expandMode == SINGLE && that._collapseAllExpanded(item)) {
-                        return;
+                        return that;
                     }
 
-                    element.find(HIGHLIGHTEDCLASS).removeClass(HIGHLIGHTEDCLASS.substr(1));
-                    item.addClass(HIGHLIGHTEDCLASS.substr(1));
+                    element.find("." + HIGHLIGHTEDCLASS).removeClass(HIGHLIGHTEDCLASS);
+                    item.addClass(HIGHLIGHTEDCLASS);
 
                     if (!useAnimation) {
                         animBackup = that.options.animation;
-                        that.options.animation = { open: { show: true, effects: {} }, close: { hide:true, effects: {} } };
+                        that.options.animation = { expand: { effects: {} }, collapse: { hide: true, effects: {} } };
                     }
 
-                    that._toggleItem(item, false, null);
+                    if (!that._triggerEvent(EXPAND, item)) {
+                        that._toggleItem(item, false);
+                    }
 
                     if (!useAnimation) {
                         that.options.animation = animBackup;
                     }
                 }
             });
+
+            return that;
         },
 
-        /**
-         * Collapses the specified PanelBar item/s
-         * @param {Selector} element Target item selector.
-         * @param {Boolean} useAnimation Use this parameter to temporary disable the animation.
-         * @example
-         * panelBar.collapse("#Item1");
-         */
         collapse: function (element, useAnimation) {
             var that = this,
                 animBackup = {};
             useAnimation = useAnimation !== false;
+            element = that.element.find(element);
 
-            $(element).each(function (index, item) {
+            element.each(function (index, item) {
                 item = $(item);
                 var groups = item.find(GROUPS).add(item.find(CONTENTS));
 
                 if (!item.hasClass(DISABLEDCLASS) && groups.is(VISIBLE)) {
-                    item.removeClass(HIGHLIGHTEDCLASS.substr(1));
+                    item.removeClass(HIGHLIGHTEDCLASS);
 
                     if (!useAnimation) {
                         animBackup = that.options.animation;
-                        that.options.animation = { open: { show: true, effects: {} }, close: { hide:true, effects: {} } };
+                        that.options.animation = { expand: { effects: {} }, collapse: { hide: true, effects: {} } };
                     }
 
-                    that._toggleItem(item, true, null);
+                    if (!that._triggerEvent(COLLAPSE, item)) {
+                        that._toggleItem(item, true);
+                    }
 
                     if (!useAnimation) {
                         that.options.animation = animBackup;
@@ -527,88 +347,65 @@
                 }
 
             });
+
+            return that;
         },
 
-        toggle: function (element, enable) {
-            $(element)
+        _toggleDisabled: function (element, enable) {
+            element = this.element.find(element);
+            element
                 .toggleClass(defaultState, enable)
-                .toggleClass(DISABLEDCLASS.substr(1), !enable);
+                .toggleClass(DISABLEDCLASS, !enable)
+                .attr(ARIA_DISABLED, !enable);
         },
 
-        /**
-         * Selects the specified PanelBar item/s. If called without arguments - returns the selected item.
-         * @param {Selector} element Target item selector.
-         * @example
-         * panelBar.select("#Item1");
-         */
         select: function (element) {
             var that = this;
 
-            if (arguments.length === 0) {
-                return that.element.find(".k-item > " + SELECTEDCLASS).parent();
+            if (element === undefined) {
+                return that.element.find(selectableItems).parent();
             }
 
-            $(element).each(function (index, item) {
-                item = $(item);
-                var link = item.children("." + LINK);
+            that.element
+                .find(element)
+                .each(function (index) {
+                    var item = $(this),
+                        link = item.children(LINKSELECTOR);
 
-                if (item.is(DISABLEDCLASS)) {
-                    return;
-                }
+                    if (item.hasClass(DISABLEDCLASS)) {
+                        return that;
+                    }
 
-                $(SELECTEDCLASS, that.element).removeClass(SELECTEDCLASS.substr(1));
-                $(HIGHLIGHTEDCLASS, that.element).removeClass(HIGHLIGHTEDCLASS.substr(1));
+                    that._updateSelected(link);
+                });
 
-                link.addClass(SELECTEDCLASS.substr(1));
-                link.parentsUntil(that.element, ITEM).filter(":has(.k-header)").addClass(HIGHLIGHTEDCLASS.substr(1));
-            });
+            return that;
         },
 
-        /**
-         * Enables/disables a PanelBar item
-         * @param {Selector} element Target element
-         * @param {Boolean} enable Desired state
-         */
         enable: function (element, state) {
-            this.toggle(element, state !== false);
+            this._toggleDisabled(element, state !== false);
+
+            return this;
         },
 
-        /**
-         * Disables a PanelBar item
-         * @param {Selector} element Target element
-         */
         disable: function (element) {
-            this.toggle(element, false);
+            this._toggleDisabled(element, false);
+
+            return this;
         },
 
-        /**
-         * Appends a PanelBar item in the specified referenceItem
-         * @param {Selector} item Target item, specified as a JSON object. You can pass item text, content or contentUrl here. Can handle an HTML string or array of such strings or JSON.
-         * @param {Item} referenceItem A reference item to append the new item in
-         * @example
-         * panelBar.append(
-         *     [{
-         *         text: "Item 1",
-         *         content: "text"
-         *     },
-         *     {
-         *         text: "Item 2",
-         *         contentUrl: "partialContent.html"
-         *     }],
-         *     referenceItem
-         * );
-         */
         append: function (item, referenceItem) {
-            referenceItem = $(referenceItem);
+            referenceItem = this.element.find(referenceItem);
 
-            var inserted = this._insert(item, referenceItem, referenceItem.length ? referenceItem.find("> .k-group") : null);
+            var inserted = this._insert(item, referenceItem, referenceItem.length ? referenceItem.find(GROUPS) : null);
 
             each(inserted.items, function (idx) {
                 inserted.group.append(this);
 
                 var contents = inserted.contents[idx];
-                if (contents)
+                if (contents) {
                     $(this).append(contents);
+                }
 
                 updateFirstLast(this);
             });
@@ -616,27 +413,12 @@
             updateArrow(referenceItem);
             updateFirstLast(inserted.group.find(".k-first, .k-last"));
             inserted.group.height("auto");
+
+            return this;
         },
 
-        /**
-         * Inserts a PanelBar item before the specified referenceItem
-         * @param {Selector} item Target item, specified as a JSON object. You can pass item text, content or contentUrl here. Can handle an HTML string or array of such strings or JSON.
-         * @param {Item} referenceItem A reference item to insert the new item before
-         * @example
-         * panelBar.insertBefore(
-         *     [{
-         *         text: "Item 1",
-         *         content: "text"
-         *     },
-         *     {
-         *         text: "Item 2",
-         *         contentUrl: "partialContent.html"
-         *     }],
-         *     referenceItem
-         * );
-         */
         insertBefore: function (item, referenceItem) {
-            referenceItem = $(referenceItem);
+            referenceItem = this.element.find(referenceItem);
 
             var inserted = this._insert(item, referenceItem, referenceItem.parent());
 
@@ -644,35 +426,21 @@
                 referenceItem.before(this);
 
                 var contents = inserted.contents[idx];
-                if (contents)
+                if (contents) {
                     $(this).append(contents);
+                }
 
                 updateFirstLast(this);
             });
 
             updateFirstLast(referenceItem);
             inserted.group.height("auto");
+
+            return this;
         },
 
-        /**
-         * Inserts a PanelBar item after the specified referenceItem
-         * @param {Selector} item Target item, specified as a JSON object. You can pass item text, content or contentUrl here. Can handle an HTML string or array of such strings or JSON.
-         * @param {Item} referenceItem A reference item to insert the new item after
-         * @example
-         * panelBar.insertAfter(
-         *     [{
-         *         text: "Item 1",
-         *         content: "text"
-         *     },
-         *     {
-         *         text: "Item 2",
-         *         contentUrl: "partialContent.html"
-         *     }],
-         *     referenceItem
-         * );
-         */
         insertAfter: function (item, referenceItem) {
-            referenceItem = $(referenceItem);
+            referenceItem = this.element.find(referenceItem);
 
             var inserted = this._insert(item, referenceItem, referenceItem.parent());
 
@@ -680,24 +448,21 @@
                 referenceItem.after(this);
 
                 var contents = inserted.contents[idx];
-                if (contents)
+                if (contents) {
                     $(this).append(contents);
+                }
 
                 updateFirstLast(this);
             });
 
             updateFirstLast(referenceItem);
             inserted.group.height("auto");
+
+            return this;
         },
 
-        /**
-         * Removes the specified PanelBar item/s
-         * @param {Selector} element Target item selector.
-         * @example
-         * panelBar.remove("#Item1");
-         */
         remove: function (element) {
-            element = $(element);
+            element = this.element.find(element);
 
             var that = this,
                 parent = element.parentsUntil(that.element, ITEM),
@@ -705,7 +470,7 @@
 
             element.remove();
 
-            if (group && !group.children(ITEM).length) {
+            if (group && !group.hasClass("k-panelbar") && !group.children(ITEM).length) {
                 group.remove();
             }
 
@@ -715,24 +480,165 @@
                 updateArrow(parent);
                 updateFirstLast(parent);
             }
+
+            return that;
+        },
+
+        reload: function (element) {
+            var that = this;
+            element = that.element.find(element);
+
+            element.each(function () {
+                var item = $(this);
+
+                that._ajaxRequest(item, item.children("." + CONTENT), !item.is(VISIBLE));
+            });
+        },
+
+        _first: function() {
+            return this.element.children(ACTIVEITEMSELECTOR).first();
+        },
+
+        _last: function() {
+            var item = this.element.children(ACTIVEITEMSELECTOR).last(),
+                group = item.children(VISIBLEGROUP);
+
+            if (group[0]) {
+                return group.children(ACTIVEITEMSELECTOR).last();
+            }
+            return item;
+        },
+
+        _current: function(candidate) {
+            var that = this,
+                focused = that._focused;
+
+            if (candidate === undefined) {
+                return focused;
+            }
+
+            that.element.removeAttr("aria-activedescendant");
+
+            if (focused) {
+                focused
+                    .removeAttr("id")
+                    .children(LINKSELECTOR)
+                    .removeClass(FOCUSEDCLASS);
+            }
+
+            if (candidate) {
+                candidate.attr("id", that._itemId)
+                         .children(LINKSELECTOR)
+                         .addClass(FOCUSEDCLASS);
+
+                that.element.attr("aria-activedescendant", that._itemId);
+            }
+
+            that._focused = candidate;
+        },
+
+        _keydown: function(e) {
+            var that = this,
+                key = e.keyCode,
+                current = that._current();
+
+            if (e.target != e.currentTarget) {
+                return;
+            }
+
+            if (key == keys.DOWN || key == keys.RIGHT) {
+                that._current(that._nextItem(current));
+                e.preventDefault();
+            } else if (key == keys.UP || key == keys.LEFT) {
+                that._current(that._prevItem(current));
+                e.preventDefault();
+            } else if (key == keys.ENTER || key == keys.SPACEBAR) {
+                that._click(current.children(LINKSELECTOR));
+                e.preventDefault();
+            } else if (key == keys.HOME) {
+                that._current(that._first());
+                e.preventDefault();
+            } else if (key == keys.END) {
+                that._current(that._last());
+                e.preventDefault();
+            }
+        },
+
+        _nextItem: function(item) {
+            if (!item) {
+                return this._first();
+            }
+
+            var group = item.children(VISIBLEGROUP),
+                next = item.next();
+
+            if (group[0]) {
+                next = group.children("." + FIRST);
+            }
+
+            if (!next[0]) {
+                next = item.parent(VISIBLEGROUP).parent(ITEM).next();
+            }
+
+            if (!next[0] || !next.is(":visible")) {
+                next = this._first();
+            }
+
+            if (next.hasClass(DISABLEDCLASS)) {
+                next = this._nextItem(next);
+            }
+
+            return next;
+        },
+
+        _prevItem: function(item) {
+            if (!item) {
+                return this._last();
+            }
+
+            var prev = item.prev(),
+                result;
+
+            if (!prev[0]) {
+                prev = item.parent(VISIBLEGROUP).parent(ITEM);
+                if (!prev[0]) {
+                    prev = this._last();
+                }
+            } else {
+                result = prev;
+                while (result[0]) {
+                    result = result.children(VISIBLEGROUP).children("." + LAST);
+                    if (result[0]) {
+                        prev = result;
+                    }
+                }
+            }
+
+            if (prev.hasClass(DISABLEDCLASS)) {
+                prev = this._prevItem(prev);
+            }
+
+            return prev;
         },
 
         _insert: function (item, referenceItem, parent) {
-            var that = this, contents = [];
+            var that = this,
+                items, contents = [],
+                plain = $.isPlainObject(item),
+                isReferenceItem = referenceItem && referenceItem[0],
+                groupData;
 
-            if (!referenceItem || !referenceItem.length) {
+            if (!isReferenceItem) {
                 parent = that.element;
             }
 
-            var plain = $.isPlainObject(item),
-                items,
-                groupData = {
-                    firstLevel: parent.hasClass("k-panelbar"),
-                    expanded: parent.parent().hasClass("k-state-active"),
-                    length: parent.children().length
-                };
+            groupData = {
+                firstLevel: parent.hasClass("k-panelbar"),
+                expanded: parent.parent().hasClass(ACTIVECLASS),
+                length: parent.children().length
+            };
 
-            if (referenceItem && !parent.length) {
+            if (isReferenceItem && !parent.length) {
                 parent = $(PanelBar.renderGroup({ group: groupData })).appendTo(referenceItem);
             }
 
@@ -747,6 +653,7 @@
                                 }));
                             }
                         });
+
                 contents = $.map(plain ? [ item ] : item, function (value, idx) {
                             if (value.content || value.contentUrl) {
                                 return $(PanelBar.renderContent({
@@ -756,10 +663,13 @@
                                 return false;
                             }
                         });
+
+                if (isReferenceItem) {
+                    referenceItem.attr(ARIA_EXPANDED, false);
+                }
             } else {
                 items = $(item);
-
-                updateItemClasses(items, that.element);
+                that._updateItemsClasses(items);
             }
 
             return { items: items, group: parent, contents: contents };
@@ -768,39 +678,111 @@
         _toggleHover: function(e) {
             var target = $(e.currentTarget);
 
-            if (!target.parents("li" + DISABLEDCLASS).length) {
+            if (!target.parents("li." + DISABLEDCLASS).length) {
                 target.toggleClass("k-state-hover", e.type == MOUSEENTER);
             }
         },
 
         _updateClasses: function() {
-            var that = this;
+            var that = this,
+                panels, items;
 
-            that.element.addClass("k-widget k-reset k-header k-panelbar");
+            panels = that.element
+                         .find("li > ul")
+                         .not(function () { return $(this).parentsUntil(".k-panelbar", "div").length; })
+                         .addClass("k-group k-panel")
+                         .attr("role", "group");
 
-            var items = that.element
-                            .find("ul")
-                            .addClass("k-group")
-                            .end()
-                            .find("li:not(" + ACTIVECLASS + ") > ul")
-                            .css({ display: "none" })
-                            .end()
-                            .find("li");
+            panels.parent()
+                  .attr(ARIA_EXPANDED, false)
+                  .not("." + ACTIVECLASS)
+                  .children("ul")
+                  .attr(ARIA_HIDDEN, true)
+                  .hide();
 
-            items.each(function () {
-                updateItemClasses(this, that.element);
-            });
+            items = that.element.add(panels).children();
 
+            that._updateItemsClasses(items);
             updateArrow(items);
             updateFirstLast(items);
         },
 
-        _click: function (e) {
-            var that = this,
-                target = $(e.currentTarget),
-                element = that.element;
+        _updateItemsClasses: function(items) {
+            var length = items.length,
+                idx = 0;
 
-            if (target.parents("li" + DISABLEDCLASS).length) {
+            for(; idx < length; idx++) {
+                this._updateItemClasses(items[idx]);
+            }
+        },
+
+        _updateItemClasses: function(item) {
+            var selected = this._selected,
+                link;
+
+            item = $(item).addClass("k-item").attr("role", "menuitem");
+
+            item
+                .children(IMG)
+                .addClass(IMAGE);
+
+            item
+                .children("a")
+                .addClass(LINK)
+                .children(IMG)
+                .addClass(IMAGE);
+
+            item
+                .filter(":not([disabled]):not([class*=k-state])")
+                .addClass("k-state-default");
+
+            item
+                .filter("li[disabled]")
+                .addClass("k-state-disabled")
+                .attr(ARIA_DISABLED, true)
+                .removeAttr("disabled");
+
+            item
+                .children("div")
+                .addClass(CONTENT)
+                .attr("role", "region")
+                .attr(ARIA_HIDDEN, true)
+                .hide()
+                .parent()
+                .attr(ARIA_EXPANDED, false);
+
+            link = item.children(SELECTEDSELECTOR);
+            if (link[0]) {
+                if (selected) {
+                    selected.removeAttr(ARIA_SELECTED)
+                            .children(SELECTEDSELECTOR)
+                            .removeClass(SELECTEDCLASS);
+                }
+
+                link.addClass(SELECTEDCLASS);
+                this._selected = item.attr(ARIA_SELECTED, true);
+            }
+
+            if (!item.children(LINKSELECTOR)[0]) {
+                item
+                    .contents()      // exclude groups, real links, templates and empty text nodes
+                    .filter(function() { return (!this.nodeName.match(excludedNodesRegExp) && !(this.nodeType == 3 && !$.trim(this.nodeValue))); })
+                    .wrapAll("<span class='" + LINK + "'/>");
+            }
+
+            if (item.parent(".k-panelbar")[0]) {
+                item
+                    .children(LINKSELECTOR)
+                    .addClass("k-header");
+            }
+        },
+
+        _click: function (target) {
+            var that = this,
+                element = that.element,
+                prevent;
+
+            if (target.parents("li." + DISABLEDCLASS).length) {
                 return;
             }
 
@@ -808,14 +790,10 @@
                 return;
             }
 
-            var link = target.closest("." + LINK),
+            var link = target.closest(LINKSELECTOR),
                 item = link.closest(ITEM);
 
-            $(SELECTEDCLASS, element).removeClass(SELECTEDCLASS.substr(1));
-            $(HIGHLIGHTEDCLASS, element).removeClass(HIGHLIGHTEDCLASS.substr(1));
-
-            link.addClass(SELECTEDCLASS.substr(1));
-            link.parentsUntil(that.element, ITEM).filter(":has(.k-header)").addClass(HIGHLIGHTEDCLASS.substr(1));
+            that._updateSelected(link);
 
             var contents = item.find(GROUPS).add(item.find(CONTENTS)),
                 href = link.attr(HREF),
@@ -826,11 +804,11 @@
             }
 
             if (that._triggerEvent(SELECT, item)) {
-                e.preventDefault();
+                prevent = true;
             }
 
             if (isAnchor || contents.length) {
-                e.preventDefault();
+                prevent = true;
             } else {
                 return;
             }
@@ -845,30 +823,26 @@
                 var visibility = contents.is(VISIBLE);
 
                 if (!that._triggerEvent(!visibility ? EXPAND : COLLAPSE, item)) {
-                    that._toggleItem(item, visibility, e);
+                    prevent = that._toggleItem(item, visibility);
                 }
             }
+
+            return prevent;
         },
 
-        _toggleItem: function (element, isVisible, e) {
+        _toggleItem: function (element, isVisible) {
             var that = this,
-                childGroup = element.find("> .k-group");
+                childGroup = element.find(GROUPS),
+                prevent, content;
 
             if (childGroup.length) {
-
                 this._toggleGroup(childGroup, isVisible);
-
-                if (e) {
-                    e.preventDefault();
-                }
+                prevent = true;
             } else {
-
-                var content = element.find("> ."  + CONTENT);
+                content = element.children("."  + CONTENT);
 
                 if (content.length) {
-                    if (e) {
-                        e.preventDefault();
-                    }
+                    prevent = true;
 
                     if (!content.is(EMPTY)) {
                         that._toggleGroup(content, isVisible);
@@ -877,56 +851,71 @@
                     }
                 }
             }
+            return prevent;
         },
 
         _toggleGroup: function (element, visibility) {
             var that = this,
-                hasCloseAnimation = "effects" in that.options.animation.close,
-                closeAnimation = extend({}, that.options.animation.open);
+                animationSettings = that.options.animation,
+                animation = animationSettings.expand,
+                collapse = extend({}, animationSettings.collapse),
+                hasCollapseAnimation = collapse && "effects" in collapse;
 
             if (element.is(VISIBLE) != visibility) {
                 return;
             }
 
-            visibility && element.css("height", element.height()); // Set initial height on visible items (due to a Chrome bug/feature).
-            element.css("height");
-
             element
                 .parent()
+                .attr(ARIA_EXPANDED, !visibility)
+                .attr(ARIA_HIDDEN, visibility)
                 .toggleClass(defaultState, visibility)
-                .toggleClass(ACTIVECLASS.substr(1), !visibility)
+                .toggleClass(ACTIVECLASS, !visibility)
                 .find("> .k-link > .k-icon")
-                    .toggleClass("k-arrow-up", !visibility)
+                    .toggleClass("k-i-arrow-n", !visibility)
                     .toggleClass("k-panelbar-collapse", !visibility)
-                    .toggleClass("k-arrow-down", visibility)
+                    .toggleClass("k-i-arrow-s", visibility)
                     .toggleClass("k-panelbar-expand", visibility);
+
+            if (visibility) {
+                animation = extend( hasCollapseAnimation ? collapse
+                                    : extend({ reverse: true }, animation), { hide: true });
+            } else {
+                animation = extend( { complete: function (element) {
+                    that._triggerEvent(ACTIVATE, element.closest(ITEM));
+                } }, animation );
+            }
 
             element
                 .kendoStop(true, true)
-                .kendoAnimate(extend( hasCloseAnimation && visibility ?
-                                          that.options.animation.close :
-                                          !hasCloseAnimation && visibility ?
-                                               extend(closeAnimation, { show: false, hide: true }) :
-                                               that.options.animation.open, {
-                                                   reverse: !hasCloseAnimation && visibility
-                                               }));
+                .kendoAnimate( animation );
         },
 
         _collapseAllExpanded: function (item) {
-            var that = this;
+            var that = this, children, stopExpand = false;
 
-            if (item.find("> ." + LINK).hasClass("k-header")) {
+            if (item.children(LINKSELECTOR).hasClass("k-header")) {
                 var groups = item.find(GROUPS).add(item.find(CONTENTS));
-                if (groups.is(VISIBLE) || groups.length == 0) {
-                    return true;
-                } else {
-                    var children = $(that.element).children();
+
+                if (groups.is(VISIBLE)) {
+                    stopExpand = true;
+                }
+
+                if (!(groups.is(VISIBLE) || groups.length === 0)) {
+                    children = $(that.element).children();
                     children.find(GROUPS).add(children.find(CONTENTS))
-                            .filter(function () { return $(this).is(VISIBLE) })
+                            .filter(function () { return $(this).is(VISIBLE); })
                             .each(function (index, content) {
-                                that._toggleGroup($(content), true);
+                                content = $(content);
+
+                                stopExpand = that._triggerEvent(COLLAPSE, content.closest(ITEM));
+                                if (!stopExpand) {
+                                    that._toggleGroup(content, true);
+                                }
                             });
                 }
+
+                return stopExpand;
             }
         },
 
@@ -934,7 +923,7 @@
 
             var that = this,
                 statusIcon = element.find(".k-panelbar-collapse, .k-panelbar-expand"),
-                link = element.find("." + LINK),
+                link = element.find(LINKSELECTOR),
                 loadingIconTimeout = setTimeout(function () {
                     statusIcon.addClass("k-loading");
                 }, 100),
@@ -948,6 +937,7 @@
                 data: data,
 
                 error: function (xhr, status) {
+                    statusIcon.removeClass("k-loading");
                     if (that.trigger(ERROR, { xhr: xhr, status: status })) {
                         this.complete();
                     }
@@ -970,7 +960,27 @@
         _triggerEvent: function (eventName, element) {
             var that = this;
 
-            that.trigger(eventName, { item: element[0] });
+            return that.trigger(eventName, { item: element[0] });
+        },
+
+        _updateSelected: function(link) {
+            var that = this,
+                element = that.element,
+                item = link.parent(ITEM),
+                selected = that._selected;
+
+            if (selected) {
+                selected.removeAttr(ARIA_SELECTED);
+            }
+
+            that._selected = item.attr(ARIA_SELECTED, true);
+
+            element.find(selectableItems).removeClass(SELECTEDCLASS);
+            element.find("> .k-state-highlighted, .k-panel > .k-state-highlighted").removeClass(HIGHLIGHTEDCLASS);
+
+            link.addClass(SELECTEDCLASS);
+            link.parentsUntil(element, ITEM).filter(":has(.k-header)").addClass(HIGHLIGHTEDCLASS);
+            that._current(item);
         }
     });
 
@@ -980,14 +990,13 @@
             options = extend({ panelBar: {}, group: {} }, options);
 
             var empty = templates.empty,
-                item = options.item,
-                panelBar = options.panelBar;
+                item = options.item;
 
             return templates.item(extend(options, {
                 image: item.imageUrl ? templates.image : empty,
                 sprite: item.spriteCssClass ? templates.sprite : empty,
                 itemWrapper: templates.itemWrapper,
-                arrow: item.items ? templates.arrow : empty,
+                arrow: item.items || item.content || item.contentUrl ? templates.arrow : empty,
                 subGroup: PanelBar.renderGroup
             }, rendering));
         },
@@ -1020,4 +1029,4 @@
 
     kendo.ui.plugin(PanelBar);
 
-})(jQuery);
+})(window.kendo.jQuery);

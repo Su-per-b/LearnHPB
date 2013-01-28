@@ -1,15 +1,16 @@
 /*
-* Kendo UI v2011.3.1129 (http://kendoui.com)
-* Copyright 2011 Telerik AD. All rights reserved.
+* Kendo UI Web v2012.3.1114 (http://kendoui.com)
+* Copyright 2012 Telerik AD. All rights reserved.
 *
-* Kendo UI commercial licenses may be obtained at http://kendoui.com/license.
+* Kendo UI Web commercial licenses may be obtained at
+* https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
 * If you do not own a commercial license, this file shall be governed by the
-* GNU General Public License (GPL) version 3. For GPL requirements, please
-* review: http://www.gnu.org/copyleft/gpl.html
+* GNU General Public License (GPL) version 3.
+* For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
-
 (function($, undefined) {
     var kendo = window.kendo,
+        extend = $.extend,
         odataFilters = {
             eq: "eq",
             neq: "ne",
@@ -20,6 +21,45 @@
             contains : "substringof",
             endswith: "endswith",
             startswith: "startswith"
+        },
+        mappers = {
+            pageSize: $.noop,
+            page: $.noop,
+            filter: function(params, filter) {
+                if (filter) {
+                    params.$filter = toOdataFilter(filter);
+                }
+            },
+            sort: function(params, orderby) {
+                var expr = $.map(orderby, function(value) {
+                    var order = value.field.replace(/\./g, "/");
+
+                    if (value.dir === "desc") {
+                        order += " desc";
+                    }
+
+                    return order;
+                }).join(",");
+
+                if (expr) {
+                    params.$orderby = expr;
+                }
+            },
+            skip: function(params, skip) {
+                if (skip) {
+                    params.$skip = skip;
+                }
+            },
+            take: function(params, take) {
+                if (take) {
+                    params.$top = take;
+                }
+            }
+        },
+        defaultDataType = {
+            read: {
+                dataType: "jsonp"
+            }
         };
 
     function toOdataFilter(filter) {
@@ -32,6 +72,7 @@
             format,
             operator,
             value,
+            ignoreCase,
             filters = filter.filters;
 
         for (idx = 0, length = filters.length; idx < length; idx++) {
@@ -43,14 +84,20 @@
             if (filter.filters) {
                 filter = toOdataFilter(filter);
             } else {
-                field = field.replace(/\./g, "/"),
-
+                ignoreCase = filter.ignoreCase;
+                field = field.replace(/\./g, "/");
                 filter = odataFilters[operator];
 
                 if (filter && value !== undefined) {
                     type = $.type(value);
                     if (type === "string") {
                         format = "'{1}'";
+                        value = value.replace(/'/g, "''");
+
+                        if (ignoreCase === true) {
+                            field = "tolower(" + field + ")";
+                        }
+
                     } else if (type === "date") {
                         format = "datetime'{1:yyyy-MM-ddTHH:mm:ss}'";
                     } else {
@@ -83,11 +130,13 @@
         return filter;
     }
 
-    $.extend(true, kendo.data, {
+    extend(true, kendo.data, {
         schemas: {
             odata: {
                 type: "json",
-                data: "d.results",
+                data: function(data) {
+                    return data.d.results || [data.d];
+                },
                 total: "d.__count"
             }
         },
@@ -96,40 +145,72 @@
                 read: {
                     cache: true, // to prevent jQuery from adding cache buster
                     dataType: "jsonp",
-                    jsonpCallback: "callback", //required by OData
-                    jsonp: false // to prevent jQuery from adding the jsonpCallback in the query string - we will add it ourselves
+                    jsonp: "$callback"
                 },
-                parameterMap: function(options) {
-                    var result = ["$format=json", "$inlinecount=allpages", "$callback=callback"],
-                        data = options || {};
+                update: {
+                    cache: true,
+                    dataType: "json",
+                    contentType: "application/json", // to inform the server the the request body is JSON encoded
+                    type: "PUT" // can be PUT or MERGE
+                },
+                create: {
+                    cache: true,
+                    dataType: "json",
+                    contentType: "application/json",
+                    type: "POST" // must be POST to create new entity
+                },
+                destroy: {
+                    cache: true,
+                    dataType: "json",
+                    type: "DELETE"
+                },
+                parameterMap: function(options, type) {
+                    var params,
+                        value,
+                        option,
+                        dataType;
 
-                    if (data.skip) {
-                        result.push("$skip=" + data.skip);
-                    }
+                    options = options || {};
+                    type = type || "read";
+                    dataType = (this.options || defaultDataType)[type];
+                    dataType = dataType ? dataType.dataType : "json";
 
-                    if (data.take) {
-                        result.push("$top=" + data.take);
-                    }
+                    if (type === "read") {
+                        params = {
+                            $inlinecount: "allpages"
+                        };
 
-                    if (data.sort) {
-                        result.push("$orderby=" + $.map(data.sort, function(value) {
-                            var order = value.field.replace(/\./g, "/");
+                        if (dataType != "json") {
+                            params.$format = "json";
+                        }
 
-                            if (value.dir === "desc") {
-                                order += " desc";
+                        for (option in options) {
+                            if (mappers[option]) {
+                                mappers[option](params, options[option]);
+                            } else {
+                                params[option] = options[option];
+                            }
+                        }
+                    } else {
+                        if (dataType !== "json") {
+                            throw new Error("Only json dataType can be used for " + type + " operation.");
+                        }
+
+                        if (type !== "destroy") {
+                            for (option in options) {
+                                value = options[option];
+                                if (typeof value === "number") {
+                                    options[option] = value + "";
+                                }
                             }
 
-                            return order;
-                        }).join(","));
+                            params = kendo.stringify(options);
+                        }
                     }
 
-                    if (data.filter) {
-                        result.push("$filter=" + toOdataFilter(data.filter));
-                    }
-
-                    return result.join("&");
+                    return params;
                 }
             }
         }
     });
-})(jQuery);
+})(window.kendo.jQuery);

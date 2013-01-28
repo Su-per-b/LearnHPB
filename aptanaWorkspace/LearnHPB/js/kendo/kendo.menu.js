@@ -1,119 +1,59 @@
 /*
-* Kendo UI v2011.3.1129 (http://kendoui.com)
-* Copyright 2011 Telerik AD. All rights reserved.
+* Kendo UI Web v2012.3.1114 (http://kendoui.com)
+* Copyright 2012 Telerik AD. All rights reserved.
 *
-* Kendo UI commercial licenses may be obtained at http://kendoui.com/license.
+* Kendo UI Web commercial licenses may be obtained at
+* https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
 * If you do not own a commercial license, this file shall be governed by the
-* GNU General Public License (GPL) version 3. For GPL requirements, please
-* review: http://www.gnu.org/copyleft/gpl.html
+* GNU General Public License (GPL) version 3.
+* For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
-
 (function ($, undefined) {
-    /**
-     * @name kendo.ui.Menu.Description
-     *
-     * @section
-     *  <p>
-     *      The Menu widget displays hierarchical data as a multi-level menu. Menus provide
-     *      rich styling for unordered lists of items, and can be used for both navigation and
-     *      executing JavaScript commands. Items can be defined and initialized from HTML, or
-     *      the rich Menu API can be used to add and remove items.
-     *  </p>
-     *
-     *  <h3>Getting Started</h3>
-     * @exampleTitle Create a simple HTML hierarchical list of items
-     * @example
-     * <ul id="menu">
-     *     <li>Item 1
-     *         <ul>
-     *             <li>Item 1.1</li>
-     *             <li>Item 1.2</li>
-     *         </ul>
-     *     </li>
-     *     <li>Item 2</li>
-     * </ul>
-     *
-     * @exampleTitle Initialize Kendo Menu using jQuery selector
-     * @example
-     * var menu = $("#menu").kendoMenu();
-     *
-     * @section
-     *  <h3>Customizing Menu Animations</h3>
-     *  <p>
-     *      By default, the Menu uses a slide animation to expand and reveal sub-items as the
-     *      mouse hovers. Animations can be easily customized using configuration properties, changing
-     *      the animation style and delay. Menu items can also be configured to open on click instead of on hover.
-     *  </p>
-     *
-     * @exampleTitle Changing Menu animation and open behavior
-     * @example
-     * $("#menu").kendoMenu({
-     *      animation: {
-     *        open : {effects: fadeIn},
-     *        hoverDelay: 500
-     *      },
-     *      openOnClick: true
-     *  });
-     *
-     *  @section
-     *   <h3>Dynamically configuring Menu items</h3>
-     *   <p>
-     *          The Menu API provides several methods for dynamically adding or removing Items.
-     *          To add items, provide the new item as a JSON object along with a reference item that
-     *          will be used to determine the placement in the hierarchy.
-     *  </p>
-     *  <br/>
-     *  <p>
-     *          A reference item is simply a target Menu Item HTML element that already exists in
-     *          the Menu. Any valid jQuery selector can be used to obtain a reference to the target
-     *          item. For examples, see the <a href="../menu/api.html" title="Menu API demos">Menu API demos</a>.
-     *          Removing an item only requires a reference to the target element that should be removed.
-     *  </p>
-     * @exampleTitle Dynamically add a new root Menu item
-     * @example
-     *  var menu = $("#menu").kendoMenu().data("kendoMenu");
-     *
-     *  menu.insertAfter(
-     *      { text: "New Menu Item" },
-     *      menu.element.children("li:last")
-     *  );
-     *
-     */
     var kendo = window.kendo,
         ui = kendo.ui,
-        touch = kendo.support.touch,
+        touch = (kendo.support.touch && kendo.support.mobileOS) || kendo.support.pointers,
+        MOUSEDOWN = kendo.support.mousedown,
+        CLICK = kendo.support.click,
         extend = $.extend,
         proxy = $.proxy,
         each = $.each,
         template = kendo.template,
+        keys = kendo.keys,
         Widget = ui.Widget,
         excludedNodesRegExp = /^(ul|a|div)$/i,
+        NS = ".kendoMenu",
         IMG = "img",
         OPEN = "open",
         MENU = "k-menu",
         LINK = "k-link",
         LAST = "k-last",
         CLOSE = "close",
-        CLICK = "click",
         TIMER = "timer",
         FIRST = "k-first",
         IMAGE = "k-image",
-        EMPTY = ":empty",
         SELECT = "select",
         ZINDEX = "zIndex",
         MOUSEENTER = "mouseenter",
         MOUSELEAVE = "mouseleave",
         KENDOPOPUP = "kendoPopup",
-        SLIDEINRIGHT = "slideIn:right",
         DEFAULTSTATE = "k-state-default",
+        HOVERSTATE = "k-state-hover",
+        FOCUSEDSTATE = "k-state-focused",
         DISABLEDSTATE = "k-state-disabled",
+        groupSelector = ".k-group",
+        ACTIVESTATE = "k-state-active",
+        allItemsSelector = ":not(.k-list) > .k-item",
         disabledSelector = ".k-item.k-state-disabled",
         itemSelector = ".k-item:not(.k-state-disabled)",
         linkSelector = ".k-item:not(.k-state-disabled) > .k-link",
+        templateSelector = "div:not(.k-animation-container,.k-list-container)",
 
         templates = {
+            content: template(
+                "<div class='k-content k-group'>#= content(item) #</div>"
+            ),
             group: template(
-                "<ul class='#= groupCssClass(group) #'#= groupAttributes(group) #>" +
+                "<ul class='#= groupCssClass(group) #'#= groupAttributes(group) # role='menu' aria-hidden='true'>" +
                     "#= renderItems(data) #" +
                 "</ul>"
             ),
@@ -124,7 +64,8 @@
                 "</#= tag(item) #>"
             ),
             item: template(
-                "<li class='#= wrapperCssClass(group, item) #'>" +
+                "<li class='#= wrapperCssClass(group, item) #' role='menuitem' #=item.items ? \"aria-haspopup='true'\": \"\"#" +
+                    "#=item.enabled === false ? \"aria-disabled='true'\" : ''#>" +
                     "#= itemWrapper(data) #" +
                     "# if (item.items) { #" +
                     "#= subGroup({ items: item.items, menu: menu, group: { expanded: item.expanded } }) #" +
@@ -138,7 +79,7 @@
         },
 
         rendering = {
-            /** @ignore */
+
             wrapperCssClass: function (group, item) {
                 var result = "k-item",
                     index = item.index;
@@ -149,8 +90,8 @@
                     result += " k-state-default";
                 }
 
-                if (group.firstLevel && index == 0) {
-                    result += " k-first"
+                if (group.firstLevel && index === 0) {
+                    result += " k-first";
                 }
 
                 if (index == group.length-1) {
@@ -159,49 +100,70 @@
 
                 return result;
             },
-            /** @ignore */
+
             textClass: function(item) {
                 return LINK;
             },
-            /** @ignore */
+
             textAttributes: function(item) {
                 return item.url ? " href='" + item.url + "'" : "";
             },
-            /** @ignore */
+
             arrowClass: function(item, group) {
                 var result = "k-icon";
 
                 if (group.horizontal) {
-                    result += " k-arrow-down";
+                    result += " k-i-arrow-s";
                 } else {
-                    result += " k-arrow-right";
+                    result += " k-i-arrow-e";
                 }
 
                 return result;
             },
-            /** @ignore */
+
             text: function(item) {
                 return item.encoded === false ? item.text : kendo.htmlEncode(item.text);
             },
-            /** @ignore */
+
             tag: function(item) {
                 return item.url ? "a" : "span";
             },
-            /** @ignore */
+
             groupAttributes: function(group) {
                 return group.expanded !== true ? " style='display:none'" : "";
             },
-            /** @ignore */
+
             groupCssClass: function(group) {
                 return "k-group";
+            },
+
+            content: function(item) {
+                return item.content ? item.content : "&nbsp;";
             }
         };
 
-    function getEffectOptions(item) {
-        var parent = item.parent();
-        return {
-            effects: parent.hasClass(MENU) ? parent.hasClass(MENU + "-vertical") ? SLIDEINRIGHT : "slideIn:down" : SLIDEINRIGHT
-        };
+    function getEffectDirection(direction, root) {
+        direction = direction.split(" ")[!root+0] || direction;
+        return direction.replace("top", "up").replace("bottom", "down");
+    }
+
+    function parseDirection(direction, root, isRtl) {
+        direction = direction.split(" ")[!root+0] || direction;
+        var output = { origin: ["bottom", (isRtl ? "right" : "left")], position: ["top", (isRtl ? "right" : "left")] },
+            horizontal = /left|right/.test(direction);
+
+        if (horizontal) {
+            output.origin = [ "top", direction ];
+            output.position[1] = kendo.directions[direction].reverse;
+        } else {
+            output.origin[0] = direction;
+            output.position[0] = kendo.directions[direction].reverse;
+        }
+
+        output.origin = output.origin.join(" ");
+        output.position = output.position.join(" ");
+
+        return output;
     }
 
     function contains(parent, child) {
@@ -215,7 +177,7 @@
     function updateItemClasses (item) {
         item = $(item);
 
-        item
+        item.addClass("k-item")
             .children(IMG)
             .addClass(IMAGE);
         item
@@ -232,11 +194,17 @@
         item
             .filter("li[disabled]")
             .addClass(DISABLEDSTATE)
-            .removeAttr("disabled");
+            .removeAttr("disabled")
+            .attr("aria-disabled", true);
         item
-            .children("a:focus")
+            .children("a")
+            .filter(":focus")
             .parent()
-            .addClass("k-state-active");
+            .addClass(ACTIVESTATE);
+
+        if (!item.filter("[role]").length) {
+            item.attr("role", "menuitem");
+        }
 
         if (!item.children("." + LINK).length) {
             item
@@ -255,12 +223,12 @@
         item.find(".k-icon").remove();
 
         item.filter(":has(.k-group)")
-            .children(".k-link:not(:has([class*=k-arrow]))")
+            .children(".k-link:not(:has([class*=k-i-arrow]))")
             .each(function () {
                 var item = $(this),
                     parent = item.parent().parent();
 
-                item.append("<span class='k-icon " + (parent.hasClass(MENU + "-horizontal") ? "k-arrow-down" : "k-arrow-next") + "'/>");
+                item.append("<span class='k-icon " + (parent.hasClass(MENU + "-horizontal") ? "k-i-arrow-s" : "k-i-arrow-e") + "'/>");
             });
     }
 
@@ -273,216 +241,187 @@
         item.filter(":last-child").addClass(LAST);
     }
 
-    var Menu = Widget.extend({/** @lends kendo.ui.Menu.prototype */
-        /**
-         * Creates a Menu instance.
-         * @constructs
-         * @extends kendo.ui.Widget
-         * @class Menu UI widget
-         * @param {Selector} element DOM element
-         * @param {Object} options Configuration options.
-         * @option {Object} [animation] A collection of <b>Animation</b> objects, used to change default animations. A value of false will disable all animations in the widget.
-         * @option {Animation} [animation.open] The animation that will be used when opening sub menus.
-         * @option {Animation} [animation.close] The animation that will be used when closing sub menus.
-         * @option {String} [orientation] <"horizontal"> Root menu orientation.
-         * @option {Boolean} [openOnClick] <false> Specifies that the root sub menus will be opened on item click.
-         * @option {Number} [hoverDelay] <100> Specifies the delay in ms before the menu is opened/closed - used to avoid accidental closure on leaving.
-         */
+    var Menu = Widget.extend({
         init: function(element, options) {
-            element = $(element);
             var that = this;
 
             Widget.fn.init.call(that, element, options);
 
+            element = that.wrapper = that.element;
             options = that.options;
 
-            if (that.element.is(EMPTY)) {
-                that.element.append($(Menu.renderGroup({
-                    items: options.dataSource,
-                    group: {
-                        firstLevel: true,
-                        horizontal: that.element.hasClass(MENU + "-horizontal"),
-                        expanded: true
-                    },
-                    menu: {}
-                })).children());
+            if (options.dataSource) {
+                that.element.empty();
+                that.append(options.dataSource, element);
             }
 
             that._updateClasses();
 
             if (options.animation === false) {
-                options.animation = { open: { show: true, effects: {} }, close: { hide:true, effects: {} } };
+                options.animation = { open: { effects: {} }, close: { hide: true, effects: {} } };
             }
 
             that.nextItemZIndex = 100;
 
-            element.delegate(disabledSelector, CLICK, false);
+            that._tabindex();
 
-            element.delegate(itemSelector, MOUSEENTER, proxy(that._mouseenter, that))
-                   .delegate(itemSelector, MOUSELEAVE, proxy(that._mouseleave, that))
-                   .delegate(itemSelector, CLICK, proxy(that._click , that));
+            element.on("touchstart", function (e) {
+                        that.element[0].blur();
+                        that.element[0].focus();
+                        setTimeout(function () {
+                            that._moveHover([], $(kendo.eventTarget(e)).closest(allItemsSelector));
+                        }, 200); // Focus happens after click in WebKit.
+                    })
+                    .on("MSPointerDown", function (e) {
+                        that._oldHoverItem = $(e.target).closest(allItemsSelector);
+                    })
+                   .on(CLICK + NS, disabledSelector, false)
+                   .on(CLICK + NS, itemSelector, proxy(that._click , that))
+                   .on("keydown" + NS, proxy(that._keydown, that))
+                   .on("focus" + NS, proxy(that._focus, that))
+                   .on("blur" + NS, proxy(that._removeHoverItem, that))
+                   .on(MOUSEENTER + NS, itemSelector, proxy(that._mouseenter, that))
+                   .on(MOUSELEAVE + NS, itemSelector, proxy(that._mouseleave, that))
+                   .on(MOUSEENTER + NS + " " + MOUSELEAVE + NS + " " +
+                       MOUSEDOWN + NS + " " + CLICK + NS, linkSelector, proxy(that._toggleHover, that));
 
-            element.delegate(linkSelector, MOUSEENTER + " " + MOUSELEAVE, that._toggleHover);
+            if (options.openOnClick) {
+                that.clicked = false;
+                that._documentClickHandler = proxy(that._documentClick, that);
+                $(document).click(that._documentClickHandler);
+            }
 
-            $(document).click(proxy( that._documentClick, that ));
-            that.clicked = false;
+            element.attr("role", "menubar");
 
-            that.bind([
-                /**
-                 * Fires before a sub menu gets opened.
-                 * @name kendo.ui.Menu#open
-                 * @event
-                 * @param {Event} e
-                 * @param {Element} e.item The opened item
-                 */
-                OPEN,
-                /**
-                 * Fires after a sub menu gets closed.
-                 * @name kendo.ui.Menu#close
-                 * @event
-                 * @param {Event} e
-                 * @param {Element} e.item The closed item
-                 */
-                CLOSE,
-                /**
-                 * Fires when a menu item gets selected.
-                 * @name kendo.ui.Menu#select
-                 * @event
-                 * @param {Event} e
-                 * @param {Element} e.item The selected item
-                 */
-                SELECT
-            ], that.options);
+            if (element[0].id) {
+                that._ariaId = kendo.format("{0}_mn_active", element[0].id);
+            }
+
+            kendo.notify(that);
         },
+
+        events: [
+            OPEN,
+            CLOSE,
+            SELECT
+        ],
+
         options: {
             name: "Menu",
             animation: {
                 open: {
-                    duration: 200,
-                    show: true
+                    duration: 200
                 },
                 close: { // if close animation effects are defined, they will be used instead of open.reverse
-                    duration: 100,
-                    show: false,
-                    hide: true
+                    duration: 100
                 }
             },
             orientation: "horizontal",
+            direction: "default",
             openOnClick: false,
+            closeOnClick: true,
             hoverDelay: 100
         },
 
-        /**
-         * Enables/disables a Menu item
-         * @param {Selector} element Target element
-         * @param {Boolean} enable Desired state
-         */
+        destroy: function() {
+            var that = this;
+
+            Widget.fn.destroy.call(that);
+
+            that.element.off(NS);
+
+            if (that._documentClickHandler) {
+                $(document).unbind(that._documentClickHandler);
+            }
+        },
+
         enable: function (element, enable) {
             this._toggleDisabled(element, enable !== false);
+
+            return this;
         },
 
-        /**
-         * Disables a Menu item
-         * @param {Selector} element Target element
-         */
         disable: function (element) {
             this._toggleDisabled(element, false);
+
+            return this;
         },
 
-        /**
-         * Appends a Menu item in the specified referenceItem's sub menu
-         * @param {Selector} item Target item, specified as a JSON object. Can also handle an array of such objects.
-         * @param {Item} referenceItem A reference item to append the new item in
-         * @example
-         * menu.append(
-         *     [{
-         *         text: "Item 1"
-         *     },
-         *     {
-         *         text: "Item 2"
-         *     }],
-         *     referenceItem
-         * );
-         */
         append: function (item, referenceItem) {
-            referenceItem = $(referenceItem);
+            referenceItem = this.element.find(referenceItem);
 
             var inserted = this._insert(item, referenceItem, referenceItem.length ? referenceItem.find("> .k-group, .k-animation-container > .k-group") : null);
 
-            each(inserted.items, function () {
+            each(inserted.items, function (idx) {
                 inserted.group.append(this);
-                updateFirstLast(this);
+
+                var contents = inserted.contents[idx];
+                if (contents) {
+                    $(this).append(contents);
+                }
+
+                updateArrow(this);
             });
 
             updateArrow(referenceItem);
-            updateFirstLast(inserted.group.find(".k-first, .k-last"));
+            updateFirstLast(inserted.group.find(".k-first, .k-last").add(inserted.items));
+
+            return this;
         },
 
-        /**
-         * Inserts a Menu item before the specified referenceItem
-         * @param {Selector} item Target item, specified as a JSON object. Can also handle an array of such objects.
-         * @param {Selector} referenceItem A reference item to insert the new item before
-         * @example
-         * menu.insertBefore(
-         *     [{
-         *         text: "Item 1"
-         *     },
-         *     {
-         *         text: "Item 2"
-         *     }],
-         *     referenceItem
-         * );
-         */
         insertBefore: function (item, referenceItem) {
-            referenceItem = $(referenceItem);
+            referenceItem = this.element.find(referenceItem);
 
             var inserted = this._insert(item, referenceItem, referenceItem.parent());
 
-            each(inserted.items, function () {
+            each(inserted.items, function (idx) {
                 referenceItem.before(this);
+
+                var contents = inserted.contents[idx];
+                if (contents) {
+                    $(this).append(contents);
+                }
+
+                updateArrow(this);
                 updateFirstLast(this);
             });
 
             updateFirstLast(referenceItem);
+
+            return this;
         },
 
-        /**
-         * Inserts a Menu item after the specified referenceItem
-         * @param {Selector} item Target item, specified as a JSON object. Can also handle an array of such objects.
-         * @param {Selector} referenceItem A reference item to insert the new item after
-         * @example
-         * menu.insertAfter(
-         *     [{
-         *         text: "Item 1"
-         *     },
-         *     {
-         *         text: "Item 2"
-         *     }],
-         *     referenceItem
-         * );
-         */
         insertAfter: function (item, referenceItem) {
-            referenceItem = $(referenceItem);
+            referenceItem = this.element.find(referenceItem);
 
             var inserted = this._insert(item, referenceItem, referenceItem.parent());
 
-            each(inserted.items, function () {
+            each(inserted.items, function (idx) {
                 referenceItem.after(this);
+
+                var contents = inserted.contents[idx];
+                if (contents) {
+                    $(this).append(contents);
+                }
+
+                updateArrow(this);
                 updateFirstLast(this);
             });
 
             updateFirstLast(referenceItem);
+
+            return this;
         },
 
         _insert: function (item, referenceItem, parent) {
-            var that = this;
+            var that = this,
+                items, groups, contents = [];
 
             if (!referenceItem || !referenceItem.length) {
                 parent = that.element;
             }
 
             var plain = $.isPlainObject(item),
-                items,
                 groupData = {
                     firstLevel: parent.hasClass(MENU),
                     horizontal: parent.hasClass(MENU + "-horizontal"),
@@ -496,38 +435,56 @@
 
             if (plain || $.isArray(item)) { // is JSON
                 items = $.map(plain ? [ item ] : item, function (value, idx) {
-                            return $(Menu.renderItem({
-                                group: groupData,
-                                item: extend(value, { index: idx })
-                            }));
+                            if (typeof value === "string") {
+                                return $(value);
+                            } else {
+                                return $(Menu.renderItem({
+                                    group: groupData,
+                                    item: extend(value, { index: idx })
+                                }));
+                            }
+                        });
+                contents = $.map(plain ? [ item ] : item, function (value, idx) {
+                            if (value.content || value.contentUrl) {
+                                return $(Menu.renderContent({
+                                    item: extend(value, { index: idx })
+                                }));
+                            } else {
+                                return false;
+                            }
                         });
             } else {
                 items = $(item);
+                groups = items.find("> ul")
+                                .addClass("k-group")
+                                .attr("role", "menu");
 
-                updateItemClasses(items);
+                items = items.filter("li");
+
+                items.add(groups.find("> li")).each(function () {
+                    updateItemClasses(this);
+                });
             }
 
-            return { items: items, group: parent };
+            return { items: items, group: parent, contents: contents };
         },
 
-        /**
-         * Removes the specified Menu item/s from the Menu
-         * @param {Selector} element Target item selector.
-         * @example
-         * menu.remove("#Item1");
-         */
         remove: function (element) {
-            element = $(element);
+            element = this.element.find(element);
 
             var that = this,
-                parent = element.parentsUntil(that.element, ".k-item"),
+                parent = element.parentsUntil(that.element, allItemsSelector),
                 group = element.parent("ul");
 
             element.remove();
 
-            if (group && !group.children(".k-item").length) {
+            if (group && !group.children(allItemsSelector).length) {
                 var container = group.parent(".k-animation-container");
-                container.length ? container.remove() : group.remove();
+                if (container.length) {
+                    container.remove();
+                } else {
+                    group.remove();
+                }
             }
 
             if (parent.length) {
@@ -536,18 +493,37 @@
                 updateArrow(parent);
                 updateFirstLast(parent);
             }
+
+            return that;
         },
 
-        /**
-         * Opens the sub menu of the specified Menu item/s
-         * @param {Selector} element Target item selector.
-         * @example
-         * menu.open("#Item1");
-         */
         open: function (element) {
-            var that = this;
+            var that = this,
+                options = that.options,
+                horizontal = options.orientation == "horizontal",
+                direction = options.direction,
+                isRtl = kendo.support.isRtl(that.wrapper);
+            element = that.element.find(element);
 
-            $(element).each(function () {
+            if (/^(top|bottom|default)$/.test(direction)) {
+                if (isRtl) {
+                    direction = horizontal ? (direction + " left").replace("default", "bottom") : "left";
+                } else {
+                    direction = horizontal ? (direction + " right").replace("default", "bottom") : "right";
+                }
+            }
+
+            element.siblings()
+                   .find(">.k-popup:visible,>.k-animation-container>.k-popup:visible")
+                   .each(function () {
+                       var popup = $(this).data("kendoPopup");
+
+                       if (popup) {
+                           popup.close();
+                       }
+                   });
+
+            element.each(function () {
                 var li = $(this);
 
                 clearTimeout(li.data(TIMER));
@@ -555,88 +531,121 @@
                 li.data(TIMER, setTimeout(function () {
                     var ul = li.find(".k-group:first:hidden"), popup;
 
-                    if (ul[0]) {
+                    if (ul[0] && that.trigger(OPEN, { item: li[0] }) === false) {
                         li.data(ZINDEX, li.css(ZINDEX));
                         li.css(ZINDEX, that.nextItemZIndex ++);
 
                         popup = ul.data(KENDOPOPUP);
-                        var parentHorizontal = li.parent().hasClass(MENU + "-horizontal");
+                        var root = li.parent().hasClass(MENU),
+                            parentHorizontal = root && horizontal,
+                            directions = parseDirection(direction, root, isRtl),
+                            effects = options.animation.open.effects,
+                            openEffects = effects !== undefined ? effects : "slideIn:" + getEffectDirection(direction, root);
 
                         if (!popup) {
                             popup = ul.kendoPopup({
-                                origin: parentHorizontal ? "bottom left" : "top right",
-                                position: "top left",
-                                collision: parentHorizontal ? "fit" : "fit flip",
+                                origin: directions.origin,
+                                position: directions.position,
+                                collision: options.popupCollision !== undefined ? options.popupCollision : (parentHorizontal ? "fit" : "fit flip"),
                                 anchor: li,
                                 appendTo: li,
                                 animation: {
-                                    open: extend( getEffectOptions(li), that.options.animation.open),
-                                    close: that.options.animation.close
+                                    open: extend(true, { effects: openEffects }, options.animation.open),
+                                    close: options.animation.close
+                                },
+                                close: function (e) {
+                                    var li = e.sender.wrapper.parent();
+
+                                    if (!that.trigger(CLOSE, { item: li[0] })) {
+                                        li.css(ZINDEX, li.data(ZINDEX));
+                                        li.removeData(ZINDEX);
+                                    } else {
+                                        e.preventDefault();
+                                    }
                                 }
                             }).data(KENDOPOPUP);
+                        } else {
+                            popup = ul.data(KENDOPOPUP);
+                            popup.options.origin = directions.origin;
+                            popup.options.position = directions.position;
+                            popup.options.animation.open.effects = openEffects;
                         }
-
+                        ul.removeAttr("aria-hidden");
                         popup.open();
                     }
 
                 }, that.options.hoverDelay));
             });
+
+            return that;
         },
 
-        /**
-         * Closes the sub menu of the specified Menu item/s
-         * @param {Selector} element Target item selector.
-         * @example
-         * menu.close("#Item1");
-         */
-        close: function (element) {
-            var that = this;
+        close: function (items) {
+            var that = this,
+                element = that.element;
 
-            $(element).each(function () {
+            items = element.find(items);
+
+            if (!items.length) {
+                items = element.find(">.k-item");
+            }
+
+            items.each(function () {
                 var li = $(this);
 
                 clearTimeout(li.data(TIMER));
 
                 li.data(TIMER, setTimeout(function () {
-                    var ul = li.find(".k-group:first:visible"), popup;
-                    if (ul[0]) {
-                        li.css(ZINDEX, li.data(ZINDEX));
-                        li.removeData(ZINDEX);
+                    var popup = li.find(".k-group:first:visible").data(KENDOPOPUP);
 
-                        popup = ul.data(KENDOPOPUP);
+                    if (popup) {
                         popup.close();
+                        popup.element.attr("aria-hidden", true);
                     }
                 }, that.options.hoverDelay));
             });
+
+            return that;
         },
 
-        _toggleDisabled: function (element, enable) {
-            $(element).each(function () {
+        _toggleDisabled: function (items, enable) {
+            this.element.find(items).each(function () {
                 $(this)
                     .toggleClass(DEFAULTSTATE, enable)
-                    .toggleClass(DISABLEDSTATE, !enable);
+                    .toggleClass(DISABLEDSTATE, !enable)
+                    .attr("aria-disabled", !enable);
             });
         },
 
         _toggleHover: function(e) {
-            var target = $(e.currentTarget);
+            var target = $(kendo.eventTarget(e) || e.target).closest(allItemsSelector),
+                isEnter = e.type == MOUSEENTER || MOUSEDOWN.indexOf(e.type) !== -1;
 
             if (!target.parents("li." + DISABLEDSTATE).length) {
-                target.toggleClass("k-state-hover", e.type == MOUSEENTER);
+                target.toggleClass(HOVERSTATE, isEnter);
+            }
+
+            this._removeHoverItem();
+        },
+
+        _removeHoverItem: function() {
+            var oldHoverItem = this._oldHoverItem;
+
+            if (oldHoverItem && oldHoverItem.hasClass(FOCUSEDSTATE)) {
+                oldHoverItem.removeClass(FOCUSEDSTATE);
+                this._oldHoverItem = null;
             }
         },
 
         _updateClasses: function() {
-            var that = this;
+            var element = this.element,
+                items;
 
-            that.element.addClass("k-widget k-reset k-header " + MENU).addClass(MENU + "-" + that.options.orientation);
+            element.addClass("k-widget k-reset k-header " + MENU).addClass(MENU + "-" + this.options.orientation);
 
-            var items = that.element
-                            .find("ul")
-                            .addClass("k-group")
-                            .end()
-                            .find("li")
-                            .addClass("k-item");
+            element.find("li > ul").addClass("k-group").attr("role", "menu").attr("aria-hidden", element.is(":visible"));
+
+            items = element.find("> li,.k-group > li");
 
             items.each(function () {
                 updateItemClasses(this);
@@ -646,19 +655,19 @@
         _mouseenter: function (e) {
             var that = this,
                 element = $(e.currentTarget),
-                hasChildren = (element.children(".k-animation-container").length || element.children(".k-group").length);
+                hasChildren = (element.children(".k-animation-container").length || element.children(groupSelector).length);
+
+            if (e.delegateTarget != element.parents(".k-menu")[0]) {
+                return;
+            }
 
             if (!that.options.openOnClick || that.clicked) {
                 if (!contains(e.currentTarget, e.relatedTarget) && hasChildren) {
-                    if (that.trigger(OPEN, { item: element[0] }) === false) {
-                        that.open(element);
-                    }
+                    that.open(element);
                 }
             }
 
-            if (that.options.openOnClick && that.clicked) {
-                that.trigger(CLOSE, { item: element[0] });
-
+            if (that.options.openOnClick && that.clicked || touch) {
                 element.siblings().each(proxy(function (_, sibling) {
                     that.close(sibling);
                 }, that));
@@ -668,55 +677,332 @@
         _mouseleave: function (e) {
             var that = this,
                 element = $(e.currentTarget),
-                hasChildren = (element.children(".k-animation-container").length || element.children(".k-group").length);
+                hasChildren = (element.children(".k-animation-container").length || element.children(groupSelector).length);
 
-            if (!that.options.openOnClick && !contains(e.currentTarget, e.relatedTarget) && hasChildren) {
-                if (that.trigger(CLOSE, { item: element[0] }) === false) {
-                    that.close(element);
-                }
+            if (element.parentsUntil(".k-animation-container", ".k-list-container,.k-calendar-container")[0]) {
+                e.stopImmediatePropagation();
+                return;
+            }
+
+            if (!that.options.openOnClick && !touch && !contains(e.currentTarget, e.relatedTarget) && hasChildren) {
+                that.close(element);
             }
         },
 
         _click: function (e) {
-            var that = this, openHandle;
+            var that = this, openHandle,
+                options = that.options,
+                target = $(kendo.eventTarget(e)),
+                nodeName = target[0] ? target[0].nodeName.toUpperCase() : "",
+                formNode = (nodeName == "INPUT" || nodeName == "SELECT" || nodeName == "BUTTON"),
+                link = target.closest("." + LINK),
+                element = target.closest(allItemsSelector),
+                href = link.attr("href"), childGroup, childGroupVisible,
+                isLink = (!!href && href.charAt(href.length - 1) != "#");
 
-            var element = $(e.currentTarget);
+            if (element.children(templateSelector)[0]) {
+                return;
+            }
 
             if (element.hasClass(DISABLEDSTATE)) {
                 e.preventDefault();
                 return;
             }
 
-            if (!e.handled) // We shouldn't stop propagation.
-                that.trigger(SELECT, { item: element[0] });
+            if (!e.handled && that.trigger(SELECT, { item: element[0] }) && !formNode) { // We shouldn't stop propagation and shoudn't prevent form elements.
+                e.preventDefault();
+            }
 
             e.handled = true;
 
-            if (!element.parent().hasClass(MENU) || (!that.options.openOnClick && !touch)) {
+            childGroup = element.children(groupSelector + ",.k-animation-container");
+            childGroupVisible = childGroup.is(":visible");
+
+            if (options.closeOnClick && !isLink && (!childGroup.length || (options.openOnClick && childGroupVisible))) {
+                element.removeClass(HOVERSTATE).css("height"); // Force refresh for Chrome
+                that._oldHoverItem = that._findRootParent(element);
+                that.close(link.parentsUntil(that.element, allItemsSelector));
+                that.clicked = false;
+                if ("touchend MSPointerUp".indexOf(e.type) != -1) {
+                    e.preventDefault();
+                }
                 return;
             }
 
-            e.preventDefault();
+            if ((!element.parent().hasClass(MENU) || !options.openOnClick) && !kendo.support.touch) {
+                return;
+            }
+
+            if (!isLink && !formNode) {
+                e.preventDefault();
+            }
 
             that.clicked = true;
-            openHandle = element.children(".k-animation-container, .k-group").is(":visible") ? CLOSE : OPEN;
-
-            that.trigger(openHandle, { item: element[0] });
+            openHandle = childGroup.is(":visible") ? CLOSE : OPEN;
             that[openHandle](element);
         },
 
         _documentClick: function (e) {
-            var that = this;
-
-            if (contains(that.element[0], e.target)) {
+            if (contains(this.element[0], e.target)) {
                 return;
             }
 
-            if (that.clicked) {
-                that.clicked = false;
-                that.close(that.element.find(".k-item>.k-animation-container:visible").parent());
+            this.clicked = false;
+        },
+
+        _focus: function (e) {
+            var that = this,
+                target = e.target,
+                hoverItem = that._hoverItem();
+
+            if (target == that.wrapper[0] && hoverItem.length) {
+                that._moveHover([], hoverItem);
+            } else if (target == that.wrapper[0] && !that._oldHoverItem) {
+                that._moveHover([], that.wrapper.children().first());
             }
+        },
+
+        _keydown: function (e) {
+            var that = this,
+                key = e.keyCode,
+                hoverItem = that._oldHoverItem,
+                target,
+                belongsToVertical,
+                hasChildren,
+                isRtl = kendo.support.isRtl(that.wrapper);
+
+            if (e.target != e.currentTarget && key != keys.ESC) {
+                return;
+            }
+
+            if (!hoverItem) {
+                hoverItem  = that._oldHoverItem = that._hoverItem();
+            }
+
+            belongsToVertical = that._itemBelongsToVertival(hoverItem);
+            hasChildren = that._itemHasChildren(hoverItem);
+
+            if (key == keys.RIGHT) {
+                target = that[isRtl ? "_itemLeft" : "_itemRight"](hoverItem, belongsToVertical, hasChildren);
+            } else if (key == keys.LEFT) {
+                target = that[isRtl ? "_itemRight" : "_itemLeft"](hoverItem, belongsToVertical, hasChildren);
+            } else if (key == keys.DOWN) {
+                target = that._itemDown(hoverItem, belongsToVertical, hasChildren);
+            } else if (key == keys.UP) {
+                target = that._itemUp(hoverItem, belongsToVertical, hasChildren);
+            } else if (key == keys.ESC) {
+                target = that._itemEsc(hoverItem, belongsToVertical);
+            } else if (key == keys.ENTER || key == keys.SPACEBAR) {
+                target = hoverItem.children(".k-link");
+                if (target.length > 0) {
+                    that._click({ target: target[0], preventDefault: function () {} });
+                    that._moveHover(hoverItem, that._findRootParent(hoverItem));
+                }
+            } else if (key == keys.TAB) {
+                target = that._findRootParent(hoverItem);
+                that.close(target);
+                that._moveHover(hoverItem, target);
+
+                return;
+            }
+
+            if (target && target[0]) {
+                e.preventDefault();
+                e.stopPropagation(); // needed to handle ESC in column menu only when a root item is focused
+            }
+        },
+
+        _hoverItem: function() {
+            return this.wrapper.find("li.k-item.k-state-hover").filter(":visible");
+        },
+
+        _itemBelongsToVertival: function (item) {
+            var menuIsVertical = this.wrapper.hasClass("k-menu-vertical");
+
+            if (!item.length) {
+                return menuIsVertical;
+            }
+            return item.parent().hasClass("k-group") || menuIsVertical;
+        },
+
+        _itemHasChildren: function (item) {
+            if (!item.length) {
+                return false;
+            }
+            return item.children("ul.k-group, div.k-animation-container").length > 0;
+        },
+
+        _moveHover: function (item, nextItem) {
+            var that = this,
+                id = that._ariaId;
+
+            if (item.length && nextItem.length) {
+                item.removeClass(FOCUSEDSTATE);
+                if (item[0].id === id) {
+                    item.removeAttr("id");
+                }
+            }
+
+            if (nextItem.length) {
+                if (nextItem[0].id) {
+                    id = nextItem[0].id;
+                }
+
+                nextItem.addClass(FOCUSEDSTATE);
+                that._oldHoverItem = nextItem;
+
+                if (id) {
+                    that.element.removeAttr("aria-activedescendant");
+                    nextItem.attr("id", id);
+                    that.element.attr("aria-activedescendant", id);
+                }
+            }
+        },
+
+        _findRootParent: function (item) {
+            if (item.parent().hasClass("k-menu")) {
+                return item;
+            } else {
+                return item.parentsUntil(".k-menu", "li.k-item").last();
+            }
+        },
+
+        _isRootItem: function (item) {
+            return item.parent().hasClass("k-menu");
+        },
+
+        _itemRight: function (item, belongsToVertical, hasChildren) {
+            var that = this,
+                nextItem,
+                parentItem;
+
+            if (!belongsToVertical) {
+                nextItem = item.next();
+                if (nextItem.is(".k-separator")) {
+                    nextItem = nextItem.next();
+                }
+                if (!nextItem.length) {
+                    nextItem = item.parent().children().first();
+                }
+            } else if (hasChildren) {
+                that.open(item);
+                nextItem = item.find(".k-group").children().first();
+            } else if (that.options.orientation == "horizontal") {
+                parentItem = that._findRootParent(item);
+                that.close(parentItem);
+                nextItem = parentItem.next();
+                if (nextItem.is(".k-separator")) {
+                    nextItem = nextItem.next();
+                }
+            }
+
+            if (nextItem && !nextItem.length) {
+                nextItem = that.wrapper.children(".k-item").first();
+            } else if (!nextItem) {
+                nextItem = [];
+            }
+
+            that._moveHover(item, nextItem);
+            return nextItem;
+        },
+
+        _itemLeft: function (item, belongsToVertical, hasChildren) {
+            var that = this,
+                nextItem;
+
+            if (!belongsToVertical) {
+                nextItem = item.prev();
+                if (nextItem.is(".k-separator")) {
+                    nextItem = nextItem.prev();
+                }
+                if (!nextItem.length) {
+                    nextItem = item.parent().children().last();
+                }
+            } else {
+                nextItem = item.parent().closest(".k-item");
+                that.close(nextItem);
+                if (that._isRootItem(nextItem) && that.options.orientation == "horizontal") {
+                    nextItem = nextItem.prev();
+                    if (nextItem.is(".k-separator")) {
+                        nextItem = nextItem.prev();
+                    }
+                }
+            }
+
+            if (!nextItem.length) {
+                nextItem = that.wrapper.children(".k-item").last();
+            }
+
+            that._moveHover(item, nextItem);
+            return nextItem;
+        },
+
+        _itemDown: function (item, belongsToVertical, hasChildren) {
+            var that = this,
+                nextItem;
+
+            if (!belongsToVertical) {
+                if (!hasChildren || item.hasClass(DISABLEDSTATE)) {
+                    return;
+                } else {
+                    that.open(item);
+                    nextItem = item.find(".k-group").children().first();
+                }
+            } else {
+                nextItem = item.next();
+                if (nextItem.is(".k-separator")) {
+                    nextItem = nextItem.next();
+                }
+            }
+
+            if (!nextItem.length && item.length) {
+                nextItem = item.parent().children().first();
+            } else if (!item.length) {
+                nextItem = that.wrapper.children(".k-item").first();
+            }
+
+            that._moveHover(item, nextItem);
+            return nextItem;
+        },
+
+        _itemUp: function (item, belongsToVertical, hasChildren) {
+            var that = this,
+                nextItem;
+
+            if (!belongsToVertical) {
+                return;
+            } else {
+                nextItem = item.prev();
+                if (nextItem.is(".k-separator")) {
+                    nextItem = nextItem.prev();
+                }
+            }
+
+            if (!nextItem.length && item.length) {
+                nextItem = item.parent().children().last();
+            } else if (!item.length) {
+                nextItem = that.wrapper.children(".k-item").last();
+            }
+
+            that._moveHover(item, nextItem);
+            return nextItem;
+        },
+
+        _itemEsc: function (item, belongsToVertical) {
+            var that = this,
+                nextItem;
+
+            if (!belongsToVertical) {
+                return item;
+            } else {
+                nextItem = item.parent().closest(".k-item");
+                that.close(nextItem);
+                that._moveHover(item, nextItem);
+            }
+
+            return nextItem;
         }
+
     });
 
     // client-side rendering
@@ -725,14 +1011,13 @@
             options = extend({ menu: {}, group: {} }, options);
 
             var empty = templates.empty,
-                item = options.item,
-                menu = options.menu;
+                item = options.item;
 
             return templates.item(extend(options, {
                 image: item.imageUrl ? templates.image : empty,
                 sprite: item.spriteCssClass ? templates.sprite : empty,
                 itemWrapper: templates.itemWrapper,
-                arrow: item.items ? templates.arrow : empty,
+                arrow: item.items || item.content ? templates.arrow : empty,
                 subGroup: Menu.renderGroup
             }, rendering));
         },
@@ -756,9 +1041,13 @@
                     return html;
                 }
             }, options, rendering));
+        },
+
+        renderContent: function (options) {
+            return templates.content(extend(options, rendering));
         }
     });
 
     kendo.ui.plugin(Menu);
 
-})(jQuery);
+})(window.kendo.jQuery);

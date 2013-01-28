@@ -1,100 +1,35 @@
 /*
-* Kendo UI v2011.3.1129 (http://kendoui.com)
-* Copyright 2011 Telerik AD. All rights reserved.
+* Kendo UI Web v2012.3.1114 (http://kendoui.com)
+* Copyright 2012 Telerik AD. All rights reserved.
 *
-* Kendo UI commercial licenses may be obtained at http://kendoui.com/license.
+* Kendo UI Web commercial licenses may be obtained at
+* https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
 * If you do not own a commercial license, this file shall be governed by the
-* GNU General Public License (GPL) version 3. For GPL requirements, please
-* review: http://www.gnu.org/copyleft/gpl.html
+* GNU General Public License (GPL) version 3.
+* For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
-
 (function($, undefined) {
-    /**
-    * @name kendo.ui.NumericTextBox.Description
-    *
-    * @section
-    * <p>
-    *    The NumericTextBox widget can convert an INPUT element into a numeric, percentage or currency textbox.
-    *    The type is defined depending on the specified format. The widget renders spin buttons and with their help you can
-    *    increment/decrement the value with a predefined step. The NumericTextBox widget accepts only numeric entries.
-    *    The widget uses <em>kendo.culture.current</em> culture in order to determine number precision and other culture
-    *    specific properties.
-    * </p>
-    *
-    * <h3>Getting Started</h3>
-    *
-    * @exampleTitle Creating a NumericTextBox from existing INPUT element
-    * @example
-    * <!-- HTML -->
-    * <input id="textbox" />
-    *
-    * @exampleTitle NumericTextBox initialization
-    * @example
-    *   $(document).ready(function(){
-    *      $("#textbox").kendoNumericTextBox();
-    *   });
-    * @section
-    *  <p>
-    *      When a NumericTextBox is initialized, it will automatically wraps the input element with SPAN
-    *      element and will render spin buttons.
-    *  </p>
-    *  <h3>Configuring NumericTextBox behaviors</h3>
-    *  <p>
-    *      NumericTextBox provides configuration options that can be easily set during initialization.
-    *      Among the properties that can be controlled:
-    *  </p>
-    *  <ul>
-    *      <li>Value of the NumericTextBox</li>
-    *      <li>Min/Max values</li>
-    *      <li>Increment step</li>
-    *      <li>Precision of the number</li>
-    *      <li>Number format. Any valid number format is allowed.</li>
-    *  </ul>
-    *  <p>
-    *      To see a full list of available properties and values, review the Slider Configuration API documentation tab.
-    *  </p>
-    * @exampleTitle Customizing NumericTextBox defaults
-    * @example
-    *  $("#textbox").kendoNumericTextBox({
-    *      value: 10,
-    *      min: -10,
-    *      max: 100,
-    *      step: 0.75,
-    *      format: "n",
-    *      decimals: 3
-    *  });
-    * @section
-    * @exampleTitle Create Currency NumericTextBox widget
-    * @example
-    *  $("#textbox").kendoNumericTextBox({
-    *      format: "c2" //Define currency type and 2 digits precision
-    *  });
-    * @section
-    * @exampleTitle Create Percentage NumericTextBox widget
-    * @example
-    *  $("#textbox").kendoNumericTextBox({
-    *      format: "p",
-    *      value: 0.15 // 15 %
-    *  });
-    */
-
     var kendo = window.kendo,
         keys = kendo.keys,
         ui = kendo.ui,
         Widget = ui.Widget,
+        extractFormat = kendo._extractFormat,
         parse = kendo.parseFloat,
-        touch = kendo.support.touch,
+        placeholderSupported = kendo.support.placeholder,
+        getCulture = kendo.getCulture,
         CHANGE = "change",
         DISABLED = "disabled",
         INPUT = "k-input",
+        SPIN = "spin",
+        ns = ".kendoNumericTextBox",
         TOUCHEND = "touchend",
-        MOUSEDOWN = touch ? "touchstart" : "mousedown",
-        MOUSEUP = touch ? "touchmove " + TOUCHEND : "mouseup mouseleave",
-        HIDE = "k-hide-text",
+        MOUSELEAVE = "mouseleave" + ns,
+        MOUSEDOWN = "touchstart" + ns + " mousedown" + ns,
+        MOUSEUP = "touchcancel" + ns + " " + "touchend" + ns + " mouseup" + ns + " " + MOUSELEAVE,
+        HOVEREVENTS = "mouseenter" + ns + " " + MOUSELEAVE,
         DEFAULT = "k-state-default",
         FOCUSED = "k-state-focused",
         HOVER = "k-state-hover",
-        HOVEREVENTS = "mouseenter mouseleave",
         POINT = ".",
         SELECTED = "k-state-selected",
         STATEDISABLED = "k-state-disabled",
@@ -105,60 +40,39 @@
             188 : ","
         };
 
-    var NumericTextBox = Widget.extend(/** @lends kendo.ui.NumericTextBox.prototype */{
-        /**
-         * @constructs
-         * @extends kendo.ui.Widget
-         * @param {DomElement} element DOM element
-         * @param {Object} options Configuration options
-         * @option {Number} [value] <null> Specifies the value of the NumericTextBox widget.
-         * @option {Number} [min] <null> Specifies the smallest value, which user can enter.
-         * @option {Number} [max] <null> Specifies the biggest value, which user can enter.
-         * @option {Number} [decimals] <null> Specifies the number precision. If not set precision defined by current culture is used.
-         * @option {String} [format] <n> Specifies the format of the number. Any valid number format is allowed.
-         * @option {String} [placeholder] <Enter value> Specifies the text displayed when the input is empty.
-         * @option {String} [upArrowText] <Increase value> Specifies the title of the up arrow.
-         * @option {String} [downArrowText] <Decrease value> Specifies the title of the down arrow.
-         */
+    var NumericTextBox = Widget.extend({
          init: function(element, options) {
              var that = this,
-             isStep = options && options[step] !== undefined,
-             min, max, step, value, format;
+             isStep = options && options.step !== undefined,
+             min, max, step, value;
 
              Widget.fn.init.call(that, element, options);
 
              options = that.options;
              element = that.element.addClass(INPUT)
-                           .bind({
-                               keydown: proxy(that._keydown, that),
-                               paste: proxy(that._paste, that),
-                               blur: proxy(that._focusout, that)
-                           });
+                           .on("keydown" + ns, proxy(that._keydown, that))
+                           .on("paste" + ns, proxy(that._paste, that))
+                           .on("blur" + ns, proxy(that._focusout, that))
+                           .attr("role", "spinbutton");
 
-             element.closest("form")
-                    .bind("reset", function() {
-                        setTimeout(function() {
-                            that.value(element[0].value);
-                        });
-                    });
+             options.placeholder = options.placeholder || element.attr("placeholder");
 
+             that._reset();
              that._wrapper();
              that._arrows();
              that._input();
 
-             /**
-             * Fires when the value is changed
-             * @name kendo.ui.NumericTextBox#change
-             * @event
-             * @param {Event} e
-             */
-             that.bind(CHANGE, options);
+            that._text.on(TOUCHEND + ns, function() {
+                that._toggleText(false);
+            });
 
-             that._text.focus(proxy(that._click, that));
+             if (!kendo.support.mobileOS) {
+                 that._text.on("focus" + ns, proxy(that._click, that));
+             }
 
-             min = parse(element.attr("min"));
-             max = parse(element.attr("max"));
-             step = parse(element.attr("step"));
+             min = that.min(element.attr("min"));
+             max = that.max(element.attr("max"));
+             step = that._parse(element.attr("step"));
 
              if (options.min === NULL && min !== NULL) {
                  options.min = min;
@@ -172,75 +86,67 @@
                  options.step = step;
              }
 
-             format = options.format;
-             if (format.slice(0,3) === "{0:") {
-                 options.format = format.slice(3, format.length - 1);
-             }
+             element.attr("aria-valuemin", options.min)
+                    .attr("aria-valuemax", options.max);
+
+             options.format = extractFormat(options.format);
 
              value = options.value;
              that.value(value !== NULL ? value : element.val());
 
              that.enable(!element.is('[disabled]'));
+
+             kendo.notify(that);
          },
 
         options: {
             name: "NumericTextBox",
+            decimals: NULL,
             min: NULL,
             max: NULL,
             value: NULL,
             step: 1,
+            culture: "",
             format: "n",
+            spinners: true,
+            placeholder: "",
             upArrowText: "Increase value",
             downArrowText: "Decrease value"
         },
-
-        /**
-        * Enable/Disable the numerictextbox widget.
-        * @param {Boolean} enable The argument, which defines whether to enable/disable tha numerictextbox.
-        * @example
-        * var textbox = $("#textbox").data("kendoNumericTextBox");
-        *
-        * // disables the numerictextbox
-        * numerictextbox.enable(false);
-        *
-        * // enables the numerictextbox
-        * numerictextbox.enable(true);
-        */
+        events: [
+            CHANGE,
+            SPIN
+        ],
         enable: function(enable) {
             var that = this,
-                text = that._text,
-                element = that.element;
-                wrapper = that._inputWrapper,
-                upArrow = that._upArrow,
-                downArrow = that._downArrow;
-
-            upArrow.unbind(MOUSEDOWN);
-            downArrow.unbind(MOUSEDOWN);
+                text = that._text.add(that.element),
+                wrapper = that._inputWrapper.off(HOVEREVENTS),
+                upArrow = that._upArrow.off(MOUSEDOWN),
+                downArrow = that._downArrow.off(MOUSEDOWN);
 
             that._toggleText(true);
 
             if (enable === false) {
                 wrapper
                     .removeClass(DEFAULT)
-                    .addClass(STATEDISABLED)
-                    .unbind(HOVEREVENTS);
+                    .addClass(STATEDISABLED);
 
-                text.add(element).attr(DISABLED, DISABLED);
+                text.attr(DISABLED, DISABLED);
             } else {
                 wrapper
                     .addClass(DEFAULT)
                     .removeClass(STATEDISABLED)
-                    .bind(HOVEREVENTS, that._toggleHover);
+                    .on(HOVEREVENTS, that._toggleHover);
 
-                text.add(element).removeAttr(DISABLED);
+                text.removeAttr(DISABLED);
 
-                upArrow.bind(MOUSEDOWN, function(e) {
+                upArrow.on(MOUSEDOWN, function(e) {
                     e.preventDefault();
                     that._spin(1);
                     that._upArrow.addClass(SELECTED);
                 });
 
-                downArrow.bind(MOUSEDOWN, function(e) {
+                downArrow.on(MOUSEDOWN, function(e) {
                     e.preventDefault();
                     that._spin(-1);
                     that._downArrow.addClass(SELECTED);
@@ -248,28 +154,55 @@
             }
         },
 
-        /**
-        * Gets/Sets the value of the numerictextbox.
-        * @param {Number|String} value The value to set.
-        * @returns {Number} The value of the numerictextbox.
-        * @example
-        * var numerictextbox = $("#textbox").data("kendoNumericTextBox");
-        *
-        * // get the value of the numerictextbox.
-        * var value = numerictextbox.value();
-        *
-        * // set the value of the numerictextbox.
-        * numerictextbox.value("10.20");
-        */
-        value: function(value) {
+        destroy: function() {
             var that = this;
+
+            that.element
+                .add(that._text)
+                .add(that._upArrow)
+                .add(that._downArrow)
+                .add(that._inputWrapper)
+                .off(ns);
+
+            if (that._form) {
+                that._form.off("reset", that._resetHandler);
+            }
+
+            Widget.fn.destroy.call(that);
+        },
+
+        min: function(value) {
+            return this._option("min", value);
+        },
+
+        max: function(value) {
+            return this._option("max", value);
+        },
+
+        step: function(value) {
+            return this._option("step", value);
+        },
+
+        value: function(value) {
+            var that = this, adjusted;
 
             if (value === undefined) {
                 return that._value;
             }
 
+            value = that._parse(value);
+            adjusted = that._adjust(value);
+
+            if (value !== adjusted) {
+                return;
+            }
+
             that._update(value);
             that._old = that._value;
+        },
+
+        focus: function() {
+            this._focusin();
         },
 
         _adjust: function(value) {
@@ -277,6 +210,10 @@
             options = that.options,
             min = options.min,
             max = options.max;
+
+            if (value === NULL) {
+                return value;
+            }
 
             if (min !== NULL && value < min) {
                 value = min;
@@ -291,23 +228,27 @@
             var that = this,
             arrows,
             options = that.options,
+            spinners = options.spinners,
             element = that.element;
 
             arrows = element.siblings(".k-icon");
 
             if (!arrows[0]) {
-                arrows = $(buttonHtml("up", options.upArrowText) + buttonHtml("down", options.downArrowText))
+                arrows = $(buttonHtml("n", options.upArrowText) + buttonHtml("s", options.downArrowText))
                         .insertAfter(element);
 
                 arrows.wrapAll('<span class="k-select"/>');
             }
 
-            arrows.bind(MOUSEUP, function(e) {
-                if (!touch || kendo.eventTarget(e) != e.currentTarget || e.type === TOUCHEND) {
-                    clearTimeout( that._spinning );
-                }
+            arrows.on(MOUSEUP, function(e) {
+                clearTimeout( that._spinning );
                 arrows.removeClass(SELECTED);
             });
+
+            if (!spinners) {
+                arrows.toggle(spinners);
+                that._inputWrapper.addClass("k-expand-padding");
+            }
 
             that._upArrow = arrows.eq(0);
             that._downArrow = arrows.eq(1);
@@ -364,27 +305,29 @@
             }
         },
 
+        _culture: function(culture) {
+            return culture || getCulture(this.options.culture);
+        },
+
         _focusin: function() {
             var that = this;
-            clearTimeout(that._bluring);
-            that._toggleText(false);
-            that.element.focus();
             that._inputWrapper.addClass(FOCUSED);
+            that._toggleText(false);
+            that.element[0].focus();
         },
 
         _focusout: function() {
             var that = this;
-            that._bluring = setTimeout(function() {
-                that._inputWrapper.removeClass(FOCUSED);
-                that._blur();
-            }, 100);
+
+            clearTimeout(that._focusing);
+            that._inputWrapper.removeClass(FOCUSED);
+            that._blur();
         },
 
-        _format: function(format) {
-            var that = this,
-                options = that.options,
-                numberFormat = kendo.culture().numberFormat;
+        _format: function(format, culture) {
+            var numberFormat = this._culture(culture).numberFormat;
 
+            format = format.toLowerCase();
 
             if (format.indexOf("c") > -1) {
                 numberFormat = numberFormat.currency;
@@ -399,8 +342,9 @@
             var that = this,
                 CLASSNAME = "k-formatted-value",
                 element = that.element.show()[0],
+                accessKey = element.accessKey,
                 wrapper = that.wrapper,
-                text;
+                DOMInput, text;
 
 
             text = wrapper.find(POINT + CLASSNAME);
@@ -409,11 +353,22 @@
                 text = $("<input />").insertBefore(element).addClass(CLASSNAME);
             }
 
-            element.type = "text";
-            text[0].type = "text";
+            DOMInput = text[0];
+            DOMInput.type = "text";
+            DOMInput.style.cssText = element.style.cssText;
+            DOMInput.tabIndex = element.tabIndex;
 
-            text[0].style.cssText = element.style.cssText;
-            that._text = text.attr("readonly", true).addClass(element.className);
+            element.tabIndex = 0;
+            element.type = "text";
+            text.attr("placeholder", that.options.placeholder);
+
+            if (accessKey) {
+                text.attr("accesskey", accessKey);
+                element.accessKey = "";
+            }
+
+            that._text = text.attr("readonly", true)
+                             .addClass(element.className);
         },
 
         _keydown: function(e) {
@@ -428,7 +383,7 @@
                 that._change(that.element.val());
             }
 
-            if (that._prevent(key) && !e.ctrlKey) {
+            if (that._prevent(key, e.shiftKey) && !e.ctrlKey) {
                 e.preventDefault();
             }
         },
@@ -437,46 +392,78 @@
             var that = this,
                 element = e.target,
                 value = element.value;
+
             setTimeout(function() {
-                if (parse(element.value) === NULL) {
+                if (that._parse(element.value) === NULL) {
                     that._update(value);
                 }
             });
         },
 
-        _prevent: function(key) {
+        _prevent: function(key, shiftKey) {
             var that = this,
-                prevent = true,
-                min = that.options.min,
                 element = that.element[0],
                 value = element.value,
-                separator = that._format(that.options.format)[POINT],
+                options = that.options,
+                min = options.min,
+                numberFormat = that._format(options.format),
+                separator = numberFormat[POINT],
+                precision = options.decimals,
                 idx = caret(element),
-                end;
+                prevent = true,
+                number;
 
-            if ((key > 16 && key < 21)
-             || (key > 32 && key < 37)
-             || (key > 47 && key < 58)
-             || (key > 95 && key < 106)
-             || key == 45 /* INSERT */
-             || key == 46 /* DELETE */
-             || key == keys.LEFT
-             || key == keys.RIGHT
-             || key == keys.TAB
-             || key == keys.BACKSPACE
-             || key == keys.ENTER) {
-                prevent = false;
-            } else if (decimals[key] === separator && value.indexOf(separator) == -1) {
-                prevent = false;
-            } else if ((min === NULL || min < 0) && value.indexOf("-") == -1 && (key == 189 || key == 109) && idx == 0) { //sign
-                prevent = false;
-            } else if (key == 110 && value.indexOf(separator) == -1) {
-                end = value.substring(idx);
+            if (precision === NULL) {
+                precision = numberFormat.decimals;
+            }
 
-                element.value = value.substring(0, idx) + separator + end;
+            if ((key > 16 && key < 21) ||
+                (key > 32 && key < 37) ||
+                (key > 47 && key < 58) ||
+                (key > 95 && key < 106) ||
+                 key == keys.INSERT ||
+                 key == keys.DELETE ||
+                 key == keys.LEFT ||
+                 key == keys.RIGHT ||
+                 key == keys.TAB ||
+                 key == keys.BACKSPACE ||
+                 key == keys.ENTER)
+            {
+                prevent = false;
+                if (shiftKey) {
+                    number = parseInt(String.fromCharCode(key), 10);
+                    if (!isNaN(number)) {
+                        element.value = value.substring(0, idx) + number + value.substring(idx);
+                        prevent = true;
+                    }
+                }
+            } else if (decimals[key] === separator && precision > 0 && value.indexOf(separator) == -1) {
+                prevent = false;
+            } else if ((min === NULL || min < 0) && value.indexOf("-") == -1 && (key == 189 || key == 109) && idx === 0) { //sign
+                prevent = false;
+            } else if (key == 110 && precision > 0 && value.indexOf(separator) == -1) {
+                element.value = value.substring(0, idx) + separator + value.substring(idx);
             }
 
             return prevent;
+        },
+
+        _option: function(option, value) {
+            var that = this,
+                options = that.options;
+
+            if (value === undefined) {
+                return options[option];
+            }
+
+            value = that._parse(value);
+
+            if (!value && option === "step") {
+                return;
+            }
+
+            options[option] = that._parse(value);
+            that.element.attr("aria-value" + option, options[option]);
         },
 
         _spin: function(step, timeout) {
@@ -495,29 +482,32 @@
         _step: function(step) {
             var that = this,
                 element = that.element,
-                value = parse(element.val()) || 0;
+                value = that._parse(element.val()) || 0;
 
             if (document.activeElement != element[0]) {
                 that._focusin();
             }
 
-            value += that.options.step * parse(step);
+            value += that.options.step * step;
 
             that._update(that._adjust(value));
+
+            that.trigger(SPIN);
         },
 
         _toggleHover: function(e) {
-            if (!touch) {
-                $(e.currentTarget).toggleClass(HOVER, e.type === "mouseenter");
-            }
+            $(e.currentTarget).toggleClass(HOVER, e.type === "mouseenter");
         },
 
         _toggleText: function(toggle) {
             var that = this;
 
-            toggle = !!toggle;
             that._text.toggle(toggle);
             that.element.toggle(!toggle);
+        },
+
+        _parse: function(value, culture) {
+            return parse(value, this._culture(culture), this.options.format);
         },
 
         _update: function(value) {
@@ -525,14 +515,15 @@
                 options = that.options,
                 format = options.format,
                 decimals = options.decimals,
-                numberFormat = that._format(format),
+                culture = that._culture(),
+                numberFormat = that._format(format, culture),
                 isNotNull;
 
-            if (decimals === undefined) {
+            if (decimals === NULL) {
                 decimals = numberFormat.decimals;
             }
 
-            value = parse(value);
+            value = that._parse(value, culture);
 
             isNotNull = value !== NULL;
 
@@ -541,30 +532,59 @@
             }
 
             that._value = value = that._adjust(value);
-            that._text.val(isNotNull ? kendo.toString(value, format) : options.placeholder);
-            that.element.val(isNotNull ? value.toString().replace(POINT, numberFormat[POINT]) : "");
+            that._placeholder(kendo.toString(value, format, culture));
+            that.element.val(isNotNull ? value.toString().replace(POINT, numberFormat[POINT]) : "")
+                        .attr("aria-valuenow", value);
+        },
+
+        _placeholder: function(value) {
+            this._text.val(value);
+            if (!placeholderSupported && !value) {
+                this._text.val(this.options.placeholder);
+            }
         },
 
         _wrapper: function() {
             var that = this,
                 element = that.element,
+                DOMElement = element[0],
                 wrapper;
 
-            wrapper = element.parent();
+            wrapper = element.parents(".k-numerictextbox");
 
-            if (!wrapper.is("span.k-widget")) {
+            if (!wrapper.is("span.k-numerictextbox")) {
                 wrapper = element.hide().wrap('<span class="k-numeric-wrap k-state-default" />').parent();
                 wrapper = wrapper.wrap("<span/>").parent();
             }
 
-            wrapper[0].style.cssText = element[0].style.cssText;
-            that.wrapper = wrapper.addClass("k-widget k-numerictextbox").show();
+            wrapper[0].style.cssText = DOMElement.style.cssText;
+            DOMElement.style.width = "";
+            that.wrapper = wrapper.addClass("k-widget k-numerictextbox")
+                                  .addClass(DOMElement.className)
+                                  .css("display", "");
+
             that._inputWrapper = $(wrapper[0].firstChild);
+        },
+
+        _reset: function() {
+            var that = this,
+                element = that.element,
+                form = element.closest("form");
+
+            if (form[0]) {
+                that._resetHandler = function() {
+                    setTimeout(function() {
+                        that.value(element[0].value);
+                    });
+                };
+
+                that._form = form.on("reset", that._resetHandler);
+            }
         }
     });
 
     function buttonHtml(className, text) {
-        return '<span unselectable="on" class="k-link"><span class="k-icon k-arrow-' + className + '" title="' + text + '">' + text + '</span></span>'
+        return '<span unselectable="on" class="k-link"><span unselectable="on" class="k-icon k-i-arrow-' + className + '" title="' + text + '">' + text + '</span></span>';
     }
 
     function caret(element, position) {
@@ -572,8 +592,10 @@
             isPosition = position !== undefined;
 
         if (document.selection) {
-            element.focus();
-            var range = document.selection.createRange();
+            if ($(element).is(":visible")) {
+                element.focus();
+            }
+            range = document.selection.createRange();
             if (isPosition) {
                 range.move("character", position);
                 range.select();
@@ -599,4 +621,4 @@
     }
 
     ui.plugin(NumericTextBox);
-})(jQuery);
+})(window.kendo.jQuery);
