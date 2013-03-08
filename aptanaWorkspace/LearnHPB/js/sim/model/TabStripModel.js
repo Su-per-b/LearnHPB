@@ -7,7 +7,7 @@ goog.require('sim.model.ModelBase');
  * @constructor
  * @extends lgb.model.ModelBase
  */
-sim.model.TabStripModel = function() {
+sim.model.TabStripModel = function(tabModelArray) {
 
   /**@const */
   this._NAME = 'sim.model.TabStripModel';
@@ -17,20 +17,40 @@ sim.model.TabStripModel = function() {
   
 
   
+  if (undefined === tabModelArray || tabModelArray.length == 0) {
+      
     this.tab1 = {
-                    text: "INPUTS",
-                    spriteCssClass: "tabA",
-                    content: "Brazil, officially the Federative Republic of Brazil, is the largest country in South America. It is the world's fifth largest country, both by geographical area and by population with over 192 million people. It is the only Portuguese-speaking country in the Americas and the largest lusophone country in the world."
+                    title: "{title}",
+                    cssClass: "",
+                    content: "{content}"
             };
  
  
-    this.tab2 = {
-                    text: "INPUTS2",
-                    spriteCssClass: "tabA",
-                    content: "Brazil, officially the Federative Republic of Brazil, is the largest country in South America. It is the world's fifth largest country, both by geographical area and by population with over 192 million people. It is the only Portuguese-speaking country in the Americas and the largest lusophone country in the world."
-            };
             
-    this.dataSource = [this.tab1,this.tab2 ];
+    this.dataSource = [this.tab1];
+      
+  } else {
+      
+      var len = tabModelArray.length;
+      this.dataSource = [];
+      
+      for (var i=0; i < len; i++) {
+          
+        var tabModel = tabModelArray[i];
+        
+        var obj = {
+            title: tabModel.title,
+            content: tabModel.content,
+            cssClass: tabModel.cssClass
+        };
+        
+        this.dataSource.push(obj);
+        
+      };
+      
+  }
+  
+
   
 };
 goog.inherits(sim.model.TabStripModel, sim.model.ModelBase);

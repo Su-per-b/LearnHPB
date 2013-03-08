@@ -26,7 +26,7 @@ lgb.view.PropertiesButtonView.prototype.init = function() {
   this._NAME = 'lgb.view.PropertiesView';
   this.button =
     new lgb.view.component.ToggleButtonA({
-      htmlId: 'propertiesButtonLink',
+      htmlID: 'propertiesButtonLink',
       buttonHeight: 33,
       xPosition: 33,
       title: 'Show / Hide Properties panel',

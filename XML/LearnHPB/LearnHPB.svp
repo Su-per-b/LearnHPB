@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project>
+	<Folder FolderName="Base">
+		<Folder FolderName="Image Files" ExtStr="gif;jpg;png;bmp;tif;wmf;ras;tga;jff;jtf"/>
+		<Folder FolderName="XML Files" ExtStr="xml;xbrl">
+			<File FilePath="IDREF1.xml"/>
+			<File FilePath="LearnHPBv2.xml"/>
+		</Folder>
+		<Folder FolderName="XML Schema/DTD Files" ExtStr="xsd;dtd">
+			<File FilePath="IDREF1.xsd"/>
+			<File FilePath="learnHPBv2.xsd"/>
+		</Folder>
+		<Folder FolderName="CSS Files" ExtStr="css"/>
+		<Folder FolderName="HTML Files" ExtStr="htm;html;shtm;shtml;xhtm;xhtml"/>
+		<Folder FolderName="SPS/PXF Files" ExtStr="sps;pxf">
+			<File FilePath="LearnHPBv2.sps"/>
+		</Folder>
+	</Folder>
+	<Folder FolderName="Systems">
+		<File FilePath="Systems.xml"/>
+		<File FilePath="Systems.xsd"/>
+		<File FilePath="Systems1.sps"/>
+	</Folder>
+	<Folder FolderName="GUI">
+		<File FilePath="GUI.xml"/>
+		<File FilePath="GUI.xsd"/>
+	</Folder>
+	<Folder FolderName="Lighting">
+		<File FilePath="Lighting.xml"/>
+		<File FilePath="Lighting.xsd"/>
+	</Folder>
+</Project>

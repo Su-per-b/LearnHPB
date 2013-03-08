@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project>
+	<Folder FolderName="Base">
+		<Folder FolderName="Entities" ExtStr="ent"/>
+		<Folder FolderName="XSL Files" ExtStr="xsl;xslt"/>
+		<Folder FolderName="XQuery Files" ExtStr="xq;xql;xquery"/>
+		<Folder FolderName="HTML Files" ExtStr="html;htm;xhtml;asp"/>
+		<Folder FolderName="DTD/Schemas" ExtStr="dtd;dcd;xdr;biz;xsd">
+			<File FilePath="IDREF1.xsd" HomeFolder="Yes"/>
+			<File FilePath="learnHPB.xsd" HomeFolder="Yes"/>
+			<File FilePath="learnHPBv2.xsd" HomeFolder="Yes"/>
+		</Folder>
+		<Folder FolderName="XML Files" ExtStr="xml;cml;math;rdf;smil;svg;wml">
+			<File FilePath="IDREF1.xml" HomeFolder="Yes"/>
+			<File FilePath="LearnHPB.xml" HomeFolder="Yes"/>
+			<File FilePath="LearnHPBv2.xml" HomeFolder="Yes"/>
+		</Folder>
+	</Folder>
+	<Folder FolderName="Systems">
+		<File FilePath="Systems.xml" HomeFolder="Yes"/>
+		<File FilePath="Systems.xsd" HomeFolder="Yes"/>
+	</Folder>
+	<Folder FolderName="GUI">
+		<File FilePath="GUI.xml" HomeFolder="Yes"/>
+		<File FilePath="GUI.xsd" HomeFolder="Yes"/>
+	</Folder>
+	<Folder FolderName="LIghting">
+		<File FilePath="Lighting.xml" HomeFolder="Yes"/>
+		<File FilePath="Lighting.xsd" HomeFolder="Yes"/>
+	</Folder>
+	<File FilePath="styles.css" HomeFolder="Yes"/>
+</Project>

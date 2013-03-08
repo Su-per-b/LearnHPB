@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?altova_sps LearnHPBv2.sps?>
+<scenario xmlns="http://www.learnhpb.org/schemas/learn-hpb" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:schemaLocation="http://www.learnhpb.org/schemas/learn-hpb learnHPBv2.xsd">
+	<component>
+		<system-ref ref="HV"/>
+	</component>
+	<systemList>
+		<system id="GN">
+			<long-name>General</long-name>
+		</system>
+		<system id="HV">
+			<long-name>HVAC</long-name>
+		</system>
+		<system id="EN">
+			<long-name>Envelope </long-name>
+		</system>
+		<system id="LT">
+			<long-name>Lighting</long-name>
+		</system>
+		<system id="DL">
+			<long-name>Daylighting</long-name>
+		</system>
+	</systemList>
+</scenario>

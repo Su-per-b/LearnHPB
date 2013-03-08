@@ -1,21 +1,121 @@
+
+
 html
 {
     overflow-y:scroll;
-    font:75% 'Lucida Sans Unicode','Lucida Grande',arial,helvetica,sans-serif;
+    font-family:arial,'Lucida Sans Unicode','Lucida Grande',helvetica,sans-serif;
+    font-size:11px;
     background:#6C6D6F;
+    font-weight:500;
+}
+
+	
+.k-sprite {
+  display: inline-block;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  font-size: 0;
+  line-height: 0;
+  text-indent: -3333px;
+  text-align: center;
+  vertical-align: middle;  
+  background:none;
+  width: 4px;
+  height: 18px;
+  padding-top: 4px;
 }
 
 
-h3 {
-	font-weight: normal;
-	padding: 0 0 2em 0;
-}
-
-.demo-section {
-	width: 500px;
+.k-tabstrip .k-tabstrip-items {
+  padding: 0.7em 0.7em 0;
 }
 
 
+.k-tabstrip .k-content {
+	padding-top: 3px;
+	padding-bottom: 25px;
+}
+
+
+.k-tabstrip-items .k-link {
+  display: inline-block;
+  border-bottom-width: 0;
+  padding: 0 2px 0 0;
+  -moz-border-radius: 0px 0x 0 0;
+  -webkit-border-radius: 0px 0px 0 0;
+  border-radius: 0px 0px 0 0;
+  
+  margin: 0px 3px 0px 2px;
+
+}
+
+
+.k-tabstrip-items .k-item .k-sprite {
+  margin: 0;
+  vertical-align: middle;
+
+}
+
+
+
+/* background color when clicked */
+li.k-item  {
+	background:#FF5252;
+}
+	
+
+/* this is for square corners */
+li.k-item.k-state-default {
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+    color: #58595B;
+}
+		
+
+.k-tabstrip-items .k-item {
+  background: #BBBDBF;
+  margin: 0 4px 0 0;
+  color: #58595B;
+}
+
+
+.k-tabstrip-items .k-state-active {
+  background: #ffffff;
+  color: #58595B;
+}
+
+
+.k-button:hover,
+.k-autocomplete.k-state-hover,
+.k-picker-wrap.k-state-hover,
+.k-numeric-wrap.k-state-hover,
+.k-dropdown-wrap.k-state-hover,
+.k-textbox:hover,
+.k-state-hover,
+.k-state-hover:hover,
+.k-pager-wrap .k-link:hover,
+.k-other-month.k-state-hover .k-link,
+div.k-imagebrowser-dropzone em {
+  background: #ddd;
+  color: #58595B;
+}
+
+
+li.k-state-default .tab2 {
+	background-position: -25px -50px;
+}
+
+li.k-state-active .tab2 {
+	background-position: -25px 0px;
+}
+
+li.k-state-hover .tab2 {
+	background-position: -25px -25px;
+}
+
+
+/*showing icon 
 .k-sprite {
 	  display: inline-block;
 	  width: 25px;
@@ -29,16 +129,35 @@ h3 {
 	  vertical-align: middle;
 }
 
-
 #tabstrip-input .k-sprite {
     background-image: url("../images/systemBtn_grid_25.png");
 }
 
-         
-#tabstrip-input-1 .k-sprite {
-    background:none;
-	width: 4px;
+*/
+
+   /*          
+.k-tabstrip-items .k-link {
+  display: inline-block;
+  border-bottom-width: 0;
+  padding: 0 2px -6px -2px;
+  margin: 0px 3px -4px 2px;
 }
+ */
+
+
+/* this is click state 
+.k-tabstrip-items .k-item .k-state-default {
+  background-image: url('textures/highlight.png');
+  background-image: none, -webkit-linear-gradient(top, #ffBDBF 0%, #f6f6f6 100%);
+  background-image: none, -moz-linear-gradient(top, #ffBDBF 0%, #f6f6f6 100%);
+  background-image: none, -o-linear-gradient(top, #ffBDBF 0%, #f6f6f6 100%);
+  background-image: none, linear-gradient(to bottom, #ffBDBF 0%, #f6f6f6 100%);
+}
+
+#inputTabStrip .k-sprite {
+	background-image: url("images/systemBtn_grid_25.png");
+            }
+       
 
 .k-state-hover .k-link  {
 	opacity: 0.8;
@@ -106,75 +225,9 @@ h3 {
 .k-state-hover .tab5 {
 	background-position: -100px -25px;
 }
+     
+.k-tabstrip-items .k-state-active {
 
-
-.k-tabstrip .k-tabstrip-items {
-  padding: 0.7em 0.7em 0;
-}
-
-
-.k-tabstrip .k-content {
-	padding-top: 3px;
-	padding-bottom: 25px;
-}
-
-#inputPanel01 {
-	background-color: rgba(255, 0, 0, .5); 
-    background:#6C6D6F;
-	border:none;
-}
-
-
-#gui-wrapper {
-    height: 380px;
-    width: 700px;
-	background-color: rgba(0, 255, 0, .5); 
-	border:none;
-}
-
-
-#middle-pane { background-color: rgba(60, 70, 80, 0.10); }
-#bottom-pane { background-color: rgba(60, 70, 80, 0.15); }
-
-#left-pane { 
-	background-color: rgba(60, 70, 80, 0.05); 
-}
-
-
-#right-pane { 
-    background:#6C6D6F;
-}
-
-
-.pane-content {
-    padding: 0 10px;
-}
-
-.pane-content-dark {
-    padding: 0 10px;
-    background:#6C6D6F;
-}
-
-
-.k-tabstrip-items .k-link {
-  display: inline-block;
-  border-bottom-width: 0;
-  padding: 0 2px 0 0;
-}
-
-.k-tabstrip-items .k-link {
-  -moz-border-radius: 0px 0x 0 0;
-  -webkit-border-radius: 0px 0px 0 0;
-  border-radius: 0px 0px 0 0;
-}
-
-
-.k-tabstrip-items .k-item .k-image,
-.k-tabstrip-items .k-item .k-sprite,
-.k-panelbar .k-tabstrip-items .k-item .k-image,
-.k-panelbar .k-tabstrip-items .k-item .k-sprite {
-  margin: 0;
-  vertical-align: middle;
-}
-
-   
+} 
+        
+*/

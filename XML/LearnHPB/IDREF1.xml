@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?altova_sps IDREF1.sps?>
+<dataset xmlns="http://www.learnhpb.org/schemas/test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.learnhpb.org/schemas/test
+IDREF1.xsd">
+	<component>
+		<componentIDREF>LT</componentIDREF>
+	</component>
+	<list>
+		<def>
+			<componentID>LT</componentID>
+			<componentName>Lighting</componentName>
+		</def>
+		<def>
+			<componentID>GN</componentID>
+			<componentName>General</componentName>
+		</def>
+	</list>
+	<order>
+		<customerName>Test</customerName>
+		<customerAddress>Test Address</customerAddress>
+		<customerContact>12345678</customerContact>
+		<orderIDREF>k1</orderIDREF>
+		<orderIDREFS>k1 k2</orderIDREFS>
+	</order>
+	<orderlist>
+		<orderID>k1</orderID>
+		<orderID>k2</orderID>
+	</orderlist>
+</dataset>

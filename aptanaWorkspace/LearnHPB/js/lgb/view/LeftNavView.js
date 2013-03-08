@@ -81,28 +81,28 @@ lgb.view.LeftNavView.prototype.injectCss_ = function() {
 lgb.view.LeftNavView.prototype.init_ = function() {
   this.buttonGeneral =
     new lgb.view.component.ToggleButtonA({
-      htmlId: 'leftNavButton_1',
+      htmlID: 'leftNavButton_1',
       xPosition: -42,
       title: 'General'
     });
 
   this.buttonHvac =
     new lgb.view.component.ToggleButtonA({
-      htmlId: 'leftNavButton_2',
+      htmlID: 'leftNavButton_2',
       xPosition: -84,
       title: 'HVAC'
     });
 
   this.buttonEnvelope =
     new lgb.view.component.ToggleButtonA({
-      htmlId: 'leftNavButton_3',
+      htmlID: 'leftNavButton_3',
       xPosition: -168,
       title: 'External Envelope'
     });
     
   this.buttonLighting =
     new lgb.view.component.ToggleButtonA({
-      htmlId: 'leftNavButton_4',
+      htmlID: 'leftNavButton_4',
       xPosition: -126,
       title: 'Lighting'
     });

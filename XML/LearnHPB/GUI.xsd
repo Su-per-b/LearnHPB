@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by Allan Abraham (Altova GmbH) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" 
+<xs:import namespace="http://www.xmlspy.com/schemas/textstate" schemaLocation="../Systems/Systems.xsd"/>
+>
+
+				<xs:element name="component">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element   ref="system" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				
+</xs:schema>

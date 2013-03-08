@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by Allan Abraham (Altova GmbH) -->
+<xs:schema 
+	targetNamespace="http://www.learnhpb.org/schemas/hpb"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns="http://www.learnhpb.org/schemas/hpb" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified"
+>
+
+	<xs:element name="systems">
+		<xs:annotation>
+			<xs:documentation>Comment describing your root element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="system" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="system">
+		<xs:complexType>
+			<xs:sequence minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="system"/>
+			</xs:sequence>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+			<xs:attribute name="pfx" type="xs:string" use="required"/>
+			<xs:attribute name="description" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	
+</xs:schema>

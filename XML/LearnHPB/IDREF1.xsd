@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:test="http://www.learnhpb.org/schemas/test" targetNamespace="http://www.learnhpb.org/schemas/test" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:element name="dataset">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="component" type="test:componentType" maxOccurs="99"/>
+				
+			
+				<xsd:element name="list" type="test:listType"/>  
+				
+				<xsd:element name="order" type="test:orderDetails"/>
+				<xsd:element name="orderlist" type="test:orderLists"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	
+	
+  <xsd:complexType name="listType">  
+     <xsd:sequence>  
+      <xsd:element name="def" type="test:componentDefType" minOccurs="0" maxOccurs="unbounded"/>  
+     </xsd:sequence>  
+  </xsd:complexType>  
+  
+  
+  
+	<xsd:complexType name="componentType">
+		<xsd:sequence>
+			<xsd:element name="componentIDREF" type="xsd:IDREF"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	
+	
+	<xsd:complexType name="componentDefType">
+		<xsd:sequence>
+			<xsd:element name="componentID" type="xsd:ID" maxOccurs="unbounded"/>
+			<xsd:element name="componentName" type="xsd:string" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	
+	<xsd:complexType name="orderDetails">
+		<xsd:sequence>
+			<xsd:element name="customerName" type="xsd:string"/>
+			<xsd:element name="customerAddress" type="xsd:string"/>
+			<xsd:element name="customerContact" type="xsd:string"/>
+			<xsd:element name="orderIDREF" type="xsd:IDREF"/>
+			<xsd:element name="orderIDREFS" type="xsd:IDREFS"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="orderLists">
+		<xsd:sequence>
+			<xsd:element name="orderID" type="xsd:ID" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

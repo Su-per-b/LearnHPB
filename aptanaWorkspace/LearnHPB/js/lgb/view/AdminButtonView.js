@@ -28,7 +28,7 @@ lgb.view.AdminButtonView.prototype.init = function() {
 
   this.button =
     new lgb.view.component.ToggleButtonA({
-      htmlId: 'adminButtonLink',
+      htmlID: 'adminButtonLink',
       buttonHeight: 33,
       xPosition: 66,
       title: 'Show / Hide Admin panel',

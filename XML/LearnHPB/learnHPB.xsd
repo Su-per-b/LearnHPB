@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns:hpb="http://www.learnhpb.org/schemas/learn-hpb" xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.learnhpb.org/schemas/learn-hpb" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<element name="scenario">
+		<complexType>
+			<sequence>
+				<element name="component-1" type="hpb:component" maxOccurs="unbounded"/>
+			</sequence>
+		</complexType>
+	</element>
+	
+	
+	<complexType name="component">
+		<sequence>
+			<element name="component-name" type="string"/>
+			<element name="component-type" type="string"/>
+		</sequence>
+	</complexType>
+	
+	
+</schema>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?altova_sps LearnHPB.sps?>
+<scenario 
+xmlns="http://www.learnhpb.org/schemas/learn-hpb" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" 
+xs:schemaLocation="http://www.learnhpb.org/schemas/learn-hpb learnHPB.xsd">
+
+	<Title>Learn HPB Modelica and GUI Input/Output Variables</Title>
+	<component-1>
+		<component-name>Scenario</component-name>
+		<component-type>Ceiling Mounted</component-type>
+	</component-1>
+</scenario>

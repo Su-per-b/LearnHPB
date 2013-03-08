@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema 
+targetNamespace="http://www.learnhpb.org/IPO" 
+xmlns:ipo="http://www.learnhpb.org/IPO" 
+xmlns="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified" 
+attributeFormDefault="unqualified">
+
+	<annotation>
+		<documentation>
+			Fore LearnHPB lighting
+	  </documentation>
+	</annotation>
+	
+	
+
+	<simpleType name="lighting-type">
+	
+		<restriction base="string">
+			<enumeration value="CM"/>
+			<enumeration value="WL"/>
+			<enumeration value="FM"/>
+			<enumeration value="DSK"/>
+			<enumeration value="CTR"/>
+		</restriction>
+		
+	</simpleType>
+	
+	
+
+</schema>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<systems xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:noNamespaceSchemaLocation="Systems.xsd"
+>
+
+	<system name="General" pfx="GN" description="General Description" >
+			<system name="Scenario" pfx="SC" description="Scenario Description" />
+			<system name="Site" pfx="SIT" description="Site Description" />
+			<system name="Building" pfx="BD" description="Building Description" />
+			<system name="Zone" pfx="ZN" />
+			<system name="Space Use ??" pfx="SU" />
+			<system name="Interior" pfx="IN" />
+	</system>
+	
+	<system name="Envelope" pfx="EN" >
+			<system name="Fenestration" pfx="FEN" />
+			<system name="Roof" pfx="RF" />
+			<system name="Opaque Wall" pfx="WA" />
+			<system name="Intersections" pfx="INT" />
+	</system>
+
+	<system name="Lighting" pfx="LT"  >
+			<system name="Ceiling Mounted" pfx="CM" />
+			<system name="Wall Lighting" pfx="WL" />
+			<system name="Furniture Mounted" pfx="FM" />
+			<system name="Desk Lights" pfx="DSK" />
+			<system name="Controls" pfx="CTR" />
+	</system>
+
+	<system name="HVAC" pfx="HV">
+			<system name="Heating Coil" pfx="HC" />
+			<system name="Cooling Coil" pfx="CC" />
+			<system name="Fan" pfx="FAN" />
+			<system name="VAV Box" pfx="VAV" />
+			<system name="Filter" pfx="FLT" />
+			<system name="Chiller" pfx="CHL" />
+			<system name="Boiler" pfx="BOI" />
+			<system name="Economizer/Mixing Box" pfx="MX" />
+			<system name="Cooling Tower" pfx="CT" />
+			<system name="System" pfx="SYS" />
+			<system name="Room" pfx="RM" />
+			<system name="Duct" pfx="DCT" />
+	</system>
+	
+	<system name="Daylighting" pfx="DL">
+	</system>
+	
+</systems>

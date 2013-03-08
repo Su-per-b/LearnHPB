@@ -17,12 +17,12 @@ goog.require('lgb.view.ViewBase');
  * @constructor
  * @extends {lgb.view.ViewBase}
  * @param {lgb.model.EnvelopeModel} dataModel the model to display.
- * @param {string} parentHTMLid The CSS id of the DOM parent.
+ * @param {string} parentHtmlID The CSS id of the DOM parent.
  */
-lgb.view.EnvelopeAdminView = function(dataModel, parentHTMLid) {
+lgb.view.EnvelopeAdminView = function(dataModel, parentHtmlID) {
   lgb.view.ViewBase.call(this, dataModel);
 
-  this.parentHTMLid = parentHTMLid;
+  this.parentHtmlID = parentHtmlID;
   this._NAME = 'lgb.view.EnvelopeAdminView';
   this.htmlID = 'envelopeAdminView';
   this.init_();

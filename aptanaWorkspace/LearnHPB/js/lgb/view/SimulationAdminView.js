@@ -23,12 +23,12 @@ goog.require('lgb.view.ViewBase');
  * @constructor
  * @extends {lgb.view.ViewBase}
  * @param {lgb.model.EnvelopeModel} dataModel the model to display.
- * @param {string} parentHTMLid The CSS id of the DOM parent.
+ * @param {string} parentHtmlID The CSS id of the DOM parent.
  */
-lgb.view.SimulationAdminView = function(dataModel, parentHTMLid) {
+lgb.view.SimulationAdminView = function(dataModel, parentHtmlID) {
   lgb.view.ViewBase.call(this, dataModel);
 
-  this.parentHTMLid = parentHTMLid;
+  this.parentHtmlID = parentHtmlID;
   this._NAME = 'lgb.view.SimulationAdminView';
   this.htmlID = 'simulationAdminView';
   
@@ -49,7 +49,7 @@ lgb.view.SimulationAdminView.prototype.init = function() {
   /*
   this.button =
     new lgb.view.component.ToggleButtonA({
-      htmlId: 'simulationButtonLink',
+      htmlID: 'simulationButtonLink',
       buttonHeight: 33,
       xPosition: 66,
       title: 'Play / Pause',

@@ -19,13 +19,13 @@ goog.require('lgb.view.ViewBase');
 /**
  * @constructor
  * @param {lgb.model.ViewPointModel} dataModel The data model to display.
- * @param {string} parentHTMLid the CSS id of the parent to inject into the DOM.
+ * @param {string} parentHtmlID the CSS id of the parent to inject into the DOM.
  * @extends {lgb.view.ViewBase}
  */
-lgb.view.ViewPointAdminView = function(dataModel, parentHTMLid) {
+lgb.view.ViewPointAdminView = function(dataModel, parentHtmlID) {
   lgb.view.ViewBase.call(this, dataModel);
 
-  this.parentHTMLid = parentHTMLid;
+  this.parentHtmlID = parentHtmlID;
   this._NAME = 'lgb.view.ViewPointAdminView';
   this.htmlID = 'ViewPointAdminView';
 };

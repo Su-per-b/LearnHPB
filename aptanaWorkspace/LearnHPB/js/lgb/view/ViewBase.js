@@ -23,7 +23,7 @@ lgb.view.ViewBase = function(dataModel) {
     this.listenForChange_();
   }
 
-  this.parentHTMLid = 'theBody';
+  this.parentHtmlID = 'theBody';
   this.htmlID = '';
   this.filename = 'scene.json';
   
@@ -51,6 +51,11 @@ lgb.view.ViewBase.prototype.makeID = function(id) {
   return newID;
 };
 
+
+
+
+
+
 /**
  * converts and id into a Jquery object
  * @param {string=} id The css id.
@@ -77,7 +82,7 @@ lgb.view.ViewBase.prototype.jq = function(id) {
  * @return {jQuery} Jquery object.
  */
 lgb.view.ViewBase.prototype.jqParent = function() {
-  var selector = $('#{0}'.format(this.parentHTMLid));
+  var selector = $('#{0}'.format(this.parentHtmlID));
   return selector;
 };
 

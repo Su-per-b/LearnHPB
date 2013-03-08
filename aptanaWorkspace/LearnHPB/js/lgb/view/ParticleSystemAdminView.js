@@ -14,12 +14,12 @@ goog.require('lgb.view.component.CheckBox');
  * @constructor
  * @extends {lgb.view.ViewBase}
  * @param {lgb.model.PsModel} dataModel The model to display a GUI for.
- * @param {string} parentHTMLid The CSS ID of the parent in the DOM.
+ * @param {string} parentHtmlID The CSS ID of the parent in the DOM.
  */
-lgb.view.ParticleSystemAdminView = function(dataModel, parentHTMLid) {
+lgb.view.ParticleSystemAdminView = function(dataModel, parentHtmlID) {
   lgb.view.ViewBase.call(this, dataModel);
 
-  this.parentHTMLid = parentHTMLid;
+  this.parentHtmlID = parentHtmlID;
   this._NAME = 'lgb.view.ParticleSystemAdminView';
   this.htmlID = 'adminSubpanel-' + dataModel.getCssID() + '-' + dataModel.id;
 };

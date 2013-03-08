@@ -24,7 +24,7 @@ goog.inherits(sim.model.ModelBase, sim.BaseClass);
  * @protected
  */
 sim.model.ModelBase.prototype.dispatchChange = function(whatIsDirty) {
-    this.dispatchLocal(new lgb.events.DataModelChanged(whatIsDirty));
+    this.dispatchLocal(new sim.events.DataModelChanged(whatIsDirty));
 };
 
 

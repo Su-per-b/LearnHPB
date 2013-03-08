@@ -8,8 +8,6 @@ goog.require('lgb.view.ViewBase');
 
 
 
-
-
 /**
  * @constructor
  * @extends {lgb.view.ViewBase}
@@ -17,13 +15,16 @@ goog.require('lgb.view.ViewBase');
 lgb.view.TitleBarView = function() {
 
   lgb.view.ViewBase.call(this);
+  this._NAME = 'lgb.view.TitleBarView';
+  
   this.htmlID = 'titleBar';
 
   this.injectHtml_();
   this.bind_();
-  this._NAME = 'lgb.view.TitleBarView';
+
 };
 goog.inherits(lgb.view.TitleBarView, lgb.view.ViewBase);
+
 
 /**
  * @private

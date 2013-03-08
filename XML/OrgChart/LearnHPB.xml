@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://www.learnhpb.org/schemas/learn-hpb" xmlns:ipo="http://www.learnhpb.org/IPO" xs:schemaLocation="LearnHPB.xsd">
+
+	<ipo:lighting-type>CM</ipo:lighting-type>
+	
+</root>

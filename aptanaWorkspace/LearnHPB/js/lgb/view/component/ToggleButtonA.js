@@ -17,14 +17,14 @@ lgb.view.component.ToggleButtonA = function(options) {
   lgb.view.ViewBase.call(this);
 
   this.options = $.extend({ // Default values
-    htmlId: 'IDnotSet',
+    htmlID: 'IDnotSet',
     xPosition: 0,
     buttonHeight: 42, // millisecond, transition time
     title: 'link title not set',
     cssClass: false
   }, options);
 
-  this.htmlID = options.htmlId;
+  this.htmlID = options.htmlID;
   this.isSelected = false;
 
   this._NAME = 'lgb.view.component.ToggleButtonA';
@@ -79,7 +79,7 @@ lgb.view.component.ToggleButtonA.prototype.getHtml = function() {
 
     var html =
     '<a id="{0}" title="{1}"{2} href="#"></a>'
-    .format(this.options.htmlId, this.options.title, cssClass);
+    .format(this.options.htmlID, this.options.title, cssClass);
 
      return html;
 };
@@ -98,7 +98,7 @@ lgb.view.component.ToggleButtonA.prototype.makeBackgroundPosition =
 
   var cssStr =
   '#{0}{1}{background-position: {2}px {3}px;}'
-  .format(this.options.htmlId,
+  .format(this.options.htmlID,
     appendToSelector,
     this.options.xPosition.toString(),
     pixelShift.toString());

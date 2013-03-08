@@ -23,14 +23,44 @@ sim.view.ViewBase = function(dataModel) {
     this.listenForChange_();
   }
 
-  this.parentHTMLid = 'theBody';
+  this.parentHtmlID = 'theBody';
   this.htmlID = '';
   this.filename = 'scene.json';
   
-  //this._NAME = 'sim.view.ViewBase';
-
 };
 goog.inherits(sim.view.ViewBase, sim.BaseClass);
+
+
+
+
+sim.view.ViewBase.prototype.setIds_ = function(htmlID, parentHtmlID) {
+    
+  if (this._NAME === undefined  ) {
+    throw ("You must define this._NAME")
+  }
+  
+  if (undefined === htmlID || '' === htmlID) {
+      
+      var ary=this._NAME.split(".");
+      var len = ary.length;
+      this.htmlID = ary[len-1];
+      
+  } else {
+      this.htmlID = htmlID;
+  }
+  
+  
+  if (parentHtmlID !== undefined && 
+      parentHtmlID !== null &&
+      parentHtmlID !== ''
+      ) {
+    this.parentHtmlID = parentHtmlID;
+  }
+  
+};
+
+
+
 
 /**
  * injects html into the DOM
@@ -77,7 +107,7 @@ sim.view.ViewBase.prototype.jq = function(id) {
  * @return {jQuery} Jquery object.
  */
 sim.view.ViewBase.prototype.jqParent = function() {
-  var selector = $('#{0}'.format(this.parentHTMLid));
+  var selector = $('#{0}'.format(this.parentHtmlID));
   return selector;
 };
 

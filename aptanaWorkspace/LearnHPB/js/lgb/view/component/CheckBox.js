@@ -13,18 +13,18 @@ goog.require('lgb.view.ViewBase');
 
 /**
  * Html component that contains a cusmtom checkbox
- * @param {string} parentHTMLid The CSS id of the parent.
+ * @param {string} parentHtmlID The CSS id of the parent.
  * @param {string} subID The second  part fo the CSS id.
  * @param {string} title Ysed fro the label of the component.
  * @constructor
  * @extends {lgb.view.ViewBase}
  */
-lgb.view.component.CheckBox = function(parentHTMLid, subID, title) {
+lgb.view.component.CheckBox = function(parentHtmlID, subID, title) {
   lgb.view.ViewBase.call(this);
 
   /** @const */
-  this.htmlID = parentHTMLid + '-' + subID;
-  this.parentHTMLid = parentHTMLid;
+  this.htmlID = parentHtmlID + '-' + subID;
+  this.parentHtmlID = parentHtmlID;
   this.title = title;
   this.isChecked = false;
   this.hasBeenInjected = false;

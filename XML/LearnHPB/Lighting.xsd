@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by Allan Abraham (Altova GmbH) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.learnhpb.org/schemas/hpb" targetNamespace="http://www.learnhpb.org/schemas/hpb" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	
+	<xs:element name="BuildingSystemList">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="BuildingSystem" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+
+	<xs:complexType name="Atom">
+		<xs:sequence>
+			<xs:element name="description" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="abbr" type="xs:string" use="required"/>
+	</xs:complexType>
+	
+	<xs:element name="BuildingSystem">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="Atom">
+					<xs:sequence>
+						<xs:element ref="Category" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	
+	
+	<xs:element name="Category">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="Atom">
+					<xs:sequence >
+						<xs:element ref="Variable" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	
+	
+	<xs:element name="Variable">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="Atom">
+				
+					<xs:sequence>
+						<xs:choice>
+							<xs:element name="Enum" type="TypeEnum"/>
+							<xs:element name="Decimal" type="TypeDecimal"/>						
+						</xs:choice>
+					</xs:sequence>
+					
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	
+
+		
+		<xs:complexType name="TypeDecimal">
+			<xs:sequence>
+				<xs:element name="value" type="xs:decimal" minOccurs="0" />
+			</xs:sequence>
+			<xs:attribute name="unit" type="xs:string"/>
+		</xs:complexType>
+		
+
+		<xs:complexType name="TypeEnum">
+			<xs:sequence>
+				<xs:element name="Option" type="xs:string" minOccurs="0" maxOccurs="unbounded"  >
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+
+
+</xs:schema>

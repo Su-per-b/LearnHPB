@@ -21,13 +21,13 @@ goog.require('lgb.view.ViewBase');
 /**
  * @constructor
  * @param {lgb.model.LightingModel} dataModel The data model to display.
- * @param {string} parentHTMLid the CSS id of the parent to inject into the DOM.
+ * @param {string} parentHtmlID the CSS id of the parent to inject into the DOM.
  * @extends {lgb.view.ViewBase}
  */
-lgb.view.LightingAdminView = function(dataModel, parentHTMLid) {
+lgb.view.LightingAdminView = function(dataModel, parentHtmlID) {
   lgb.view.ViewBase.call(this, dataModel);
 
-  this.parentHTMLid = parentHTMLid;
+  this.parentHtmlID = parentHtmlID;
   this._NAME = 'lgb.view.LightingAdminView';
   this.htmlID = 'LightingAdminView';
   this.init_();

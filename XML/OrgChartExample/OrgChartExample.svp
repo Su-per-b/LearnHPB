@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project>
+	<Folder FolderName="SPS/PXF Files" ExtStr="sps;pxf">
+		<File FilePath="HTML-Orgchart.sps"/>
+	</Folder>
+	<Folder FolderName="XML Files" ExtStr="xml;xbrl"/>
+	<Folder FolderName="XML Schema/DTD Files" ExtStr="xsd;dtd"/>
+	<Folder FolderName="CSS Files" ExtStr="css"/>
+	<Folder FolderName="HTML Files" ExtStr="htm;html;shtm;shtml;xhtm;xhtml"/>
+	<Folder FolderName="Image Files" ExtStr="gif;jpg;png;bmp;tif;wmf;ras;tga;jff;jtf"/>
+</Project>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema 
+xmlns:hpb="http://www.learnhpb.org/schemas/learn-hpb" 
+xmlns="http://www.w3.org/2001/XMLSchema" 
+targetNamespace="http://www.learnhpb.org/schemas/learn-hpb" 
+elementFormDefault="qualified" 
+attributeFormDefault="unqualified">
+
+	<element name="scenario">
+		<complexType>
+			<sequence>
+				<element name="component" type="hpb:Tcomponent" maxOccurs="unbounded"/>
+				<element name="systemList" type="hpb:TsystemList" maxOccurs="1"/>
+			</sequence>
+		</complexType>
+	</element>
+	<complexType name="Tcomponent">
+		<sequence>
+			<element name="system-ref">
+				<complexType>
+					<attribute name="ref" type="IDREF" use="required"/>
+				</complexType>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="TsystemList">
+		<sequence>
+			<element name="system" type="hpb:Tsystem" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	<complexType name="Tsystem">
+		<sequence>
+			<element name="long-name" type="string"/>
+		</sequence>
+		<attribute name="id" type="ID" use="required"/>
+	</complexType>
+	<!--
+	<element name="
+anElement">
+		<complexType>
+			<simpleContent>
+				<extension base="string">
+					<attribute name="otherText" type="string"/>
+					<attribute name="myNote">
+						<simpleType>
+							<restriction base="NOTATION">
+								<enumeration value="gif"/>
+								<enumeration value="myNote"/>
+							</restriction>
+						</simpleType>
+					</attribute>
+				</extension>
+			</simpleContent>
+		</complexType>
+	</element>
+<complexType abstract="true" name="SystemBase">
+  <sequence>
+    <element name="long-name" type="string"/>
+    <element name="code-name" type="string"/>
+  </sequence>
+</complexType>
+
+
+<complexType name="System">
+  <sequence>
+    <element name="long-name" type="string"/>
+    <element name="code-name" type="string"/>
+  </sequence>
+</complexType>
+
+
+<complexType name="SystemEX">
+  <sequence>
+       <choice minOccurs="1" maxOccurs="1">
+          <element name="General" type="string" />
+          <element name="Envelope" type="string" />
+          <element name="Lighting" type="string" />
+        </choice>
+  </sequence>
+</complexType>
+
+-->
+</schema>
