@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Building xmlns="http://www.learnhpb.org/schemas/hpb" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.learnhpb.org/schemas/hpb Lighting2.xsd">
+	
+	
+	<light>
+		<lamp name="T5-1"></lamp>
+	</light>
+	
+	
+	
+	<lampList name="String" abbr="String">
+	
+		<lamp name="T5-1">
+			<type>T5</type>
+			<wattage>25</wattage>
+			<lumens>2475</lumens>
+		</lamp>
+		
+		<lamp id="xx2" name="T5-2">
+			<type>T5</type>
+			<wattage>28</wattage>
+			<lumens>2725</lumens>
+		</lamp>
+		
+	</lampList>
+
+
+	
+</Building>

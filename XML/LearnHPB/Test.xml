@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Passengers xmlns="http://www.learnhpb.org/schemas/hpb" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.learnhpb.org/schemas/hpb Test.xsd">
+	
+	
+
+      <Passenger AssociatedInfantID="cc" ID="1" SequenceNo="1">
+            <FullName>Mark Sean</FullName>
+      </Passenger>
+      
+      <Passenger ID="2" SequenceNo="2">
+            <FullName>John Smith</FullName>
+      </Passenger>
+      
+      <Infant ID="3" AssociatedPassengerID="1" SequenceNo="1">
+            <FullName>Daniel Kemp</FullName>
+      </Infant>
+
+	
+</Passengers>

@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 sp1 (x64) (http://www.altova.com) by RD (pcd) -->
+<SystemList xmlns="http://www.learnhpb.org/schemas/hpb" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.learnhpb.org/schemas/hpb Building.xsd">
+	<System name="General" abbr="GN">
+		<SubSystem name="Site" abbr="Sit">
+			<Category name="Day of Year" abbr="DoY">
+				<Variable name="Day of Year" abbr="" scope="gui" phase="1a" variability="parameter" unit="Day">
+					<Integer min="1" max="365" default="1"/>
+				</Variable>
+			</Category>
+			<Category name="Time of Day" abbr="Tm">
+				<Variable name="Hours" abbr="Hr" scope="gui" phase="1a" variability="parameter" unit="Hour">
+					<Integer min="0" max="23" default="0"/>
+				</Variable>
+				<Variable name="Minutes" abbr="Mn" scope="gui" phase="1a" variability="parameter" unit="Minute">
+					<Integer min="0" max="59" default="0"/>
+				</Variable>
+				<Variable name="Seconds" abbr="Sc" scope="gui" phase="1a" variability="parameter" unit="Second">
+					<Integer min="0" max="59" default="0"/>
+				</Variable>
+			</Category>
+			<Category name="Location" abbr="Loc">
+				<Variable name="City" abbr="" scope="gui" phase="1a" variability="parameter" unit="latlong">
+					<OptionList>
+						<Option name="Chicago" default="true"/>
+						<Option name="Palm Springs"/>
+						<Option name="Pittsburgh" description="(40.497615-80.256329)" disabled="true"/>
+					</OptionList>
+				</Variable>
+			</Category>
+		</SubSystem>
+		<SubSystem name="Scenario" abbr="Sc">
+			<Category name="Simulation Period" abbr="SimPd">
+				<Variable name="Simulation Period" abbr="" phase="1a" scope="gui" variability="parameter">
+					<OptionList>
+						<Option name="instance in time"/>
+						<Option name="diurnal" description="daily"/>
+						<Option name="annual"/>
+						<Option name="quarterly"/>
+						<Option name="monthly"/>
+						<Option name="weekly"/>
+					</OptionList>
+				</Variable>
+			</Category>
+			<Category name="Use Schedule" abbr="Use">
+				<Variable name="Occupancy Use Schedule" abbr="Sc" phase="1a" scope="gui" variability="parameter">
+					<OptionList>
+						<Option name="M-F 9am-5pm"/>
+						<Option name="Saturday"/>
+						<Option name="Sunday"/>
+					</OptionList>
+				</Variable>
+				<Variable name="Peak Condition" abbr="ScPk" unit="sf/person" phase="1a" scope="gui" variability="parameter">
+					<Integer min="4" max="1000"/>
+				</Variable>
+			</Category>
+		</SubSystem>
+		<SubSystem name="Building" abbr="Bd">
+			<Category name="Number of Floors" abbr="NumFl">
+				<Variable name="Number of Floors" abbr="" scope="gui" phase="1a" variability="parameter" unit="{none}">
+					<OptionList>
+						<Option name="3" default="true"/>
+						<Option name="5" disabled="true"/>
+						<Option name="7" disabled="true"/>
+					</OptionList>
+				</Variable>
+			</Category>
+			<Category name="Floor location in Building" abbr="FlLoc">
+				<Variable name="Number of Floors" abbr="" scope="gui" phase="1a" variability="parameter" unit="{none}">
+					<OptionList>
+						<Option name="1" disabled="true"/>
+						<Option name="2" default="true"/>
+						<Option name="3" disabled="true"/>
+					</OptionList>
+				</Variable>
+			</Category>
+		</SubSystem>
+		<SubSystem name="Zone" abbr="Zn">
+			<Category name="Ceiling Height" abbr="CeHt">
+				<Variable name="Ceiling Height" abbr="" scope="gui" phase="1a" variability="parameter" unit="ft">
+					<OptionList>
+						<Option name="9" default="true"/>
+						<Option name="11" disabled="true"/>
+						<Option name="13" disabled="true"/>
+					</OptionList>
+				</Variable>
+			</Category>
+			<Category name="Floor Location" abbr="FlLoc">
+				<Variable name="Floor Location" abbr="" scope="gui" phase="1a" variability="parameter" unit="{none}">
+					<OptionList>
+						<Option name="N" description="North Zone"/>
+						<Option name="NE" description="North East Zone"/>
+						<Option name="E" description="East Zone"/>
+						<Option name="SE" description="South East Zone"/>
+						<Option name="S" description="South Zone"/>
+						<Option name="SW" description="South West Zone"/>
+						<Option name="W" description="West Zone"/>
+						<Option name="Core" description="Core Zone"/>
+					</OptionList>
+				</Variable>
+			</Category>
+		</SubSystem>
+		<SubSystem name="Space Use" abbr="Su"/>
+		<SubSystem name="Interior" abbr="In">
+			<Category name="Furniture" abbr="Fu">
+				<Variable name="Furniture Layout" abbr="Layout" phase="1a" scope="gui" variability="parameter">
+					<OptionList>
+						<Option name="rectilinear #1"/>
+						<Option name="rectilinear #2" default="true"/>
+						<Option name="free-form"/>
+					</OptionList>
+				</Variable>
+			</Category>
+		</SubSystem>
+	</System>
+	<System name="Envelope" abbr="En">
+		<SubSystem name="Fenestration" abbr="Fen">
+			<Category name="Window" abbr="Win">
+				<Variable name="Window System Type" abbr="SysTyp" scope="gui" variability="parameter" phase="1a">
+					<OptionList>
+						<Option name="Window Wall System" default="true"/>
+						<Option name="Punched Windows" disabled="true"/>
+						<Option name="Curtain Wall System" disabled="true"/>
+					</OptionList>
+				</Variable>
+				<Variable name="Window Orientation" abbr="Or" scope="gui" variability="parameter" phase="1a">
+					<OptionList>
+						<Option name="North" default="true"/>
+						<Option name="East"/>
+						<Option name="South"/>
+						<Option name="West"/>
+					</OptionList>
+				</Variable>
+				<Variable name="Frame Type" abbr="FrTyp" scope="gui" variability="parameter" phase="1a">
+					<OptionList>
+						<Option name="Aluminum" default="true"/>
+						<Option name="Vinyl"/>
+						<Option name="Wood"/>
+					</OptionList>
+				</Variable>
+				<Variable name="Frame thermal breaks" abbr="FrThBrk" scope="gui" variability="parameter" phase="1a">
+					<OptionList>
+						<Option name="0" default="true"/>
+						<Option name="0.5"/>
+						<Option name="1"/>
+					</OptionList>
+				</Variable>
+				<Variable name="Number of Panes" abbr="FrThBrk" scope="gui" variability="parameter" phase="1a">
+					<OptionList>
+						<Option name="0" default="true"/>
+						<Option name="0.5"/>
+						<Option name="1"/>
+					</OptionList>
+				</Variable>
+				<Variable name="Zone 1 (N) vision window height" abbr="ZN1VisH" scope="input" variability="continuous" phase="1a" unit="m">
+					<Decimal min="0" max="100" default="1"/>
+				</Variable>
+				<Variable name="Zone 1 (N) vision window width" abbr="ZN1VisW" scope="input" variability="continuous" phase="1a" unit="m">
+					<Decimal min="0" max="100" default="1"/>
+				</Variable>
+				<Variable name="Zone 2 (N) vision window height" abbr="ZN2VisH" scope="input" variability="continuous" phase="1a" unit="m">
+					<Decimal min="0" max="100" default="1"/>
+				</Variable>
+				<Variable name="Zone 2 (N) vision window width" abbr="ZN2VisW" scope="input" variability="continuous" phase="1a" unit="m">
+					<Decimal min="0" max="100" default="1"/>
+				</Variable>
+				<Variable name="Zone 3 (N) vision window height" abbr="ZN3VisH" scope="input" variability="continuous" phase="1a" unit="m">
+					<Decimal min="0" max="100" default="1"/>
+				</Variable>
+				<Variable name="Zone 3 (N) vision window width" abbr="ZN3VisW" scope="input" variability="continuous" phase="1a" unit="m">
+					<Decimal min="0" max="100" default="1"/>
+				</Variable>
+				<Variable name="Zone 4 (N) vision window height" abbr="ZN4VisH" scope="input" variability="continuous" phase="1a" unit="m">
+					<Decimal min="0" max="100" default="1"/>
+				</Variable>
+				<Variable name="Zone 4 (N) vision window width" abbr="ZN4VisW" scope="input" variability="continuous" phase="1a" unit="m">
+					<Decimal min="0" max="100" default="1"/>
+				</Variable>
+				<Variable name="Zone 5 (N) vision window height" abbr="ZN5VisH" scope="input" variability="continuous" phase="1a" unit="m">
+					<Decimal min="0" max="100" default="1"/>
+				</Variable>
+				<Variable name="Zone 5 (N) vision window width" abbr="ZN5VisW" scope="input" variability="continuous" phase="1a" unit="m">
+					<Decimal min="0" max="100" default="1"/>
+				</Variable>
+				<Variable name="Zone 6 (N) vision window height" abbr="ZN6VisH" scope="input" variability="continuous" phase="1a" unit="m">
+					<Decimal min="0" max="100" default="1"/>
+				</Variable>
+				<Variable name="Zone 6 (N) vision window width" abbr="ZN6VisW" scope="input" variability="continuous" phase="1a" unit="m">
+					<Decimal min="0" max="100" default="1"/>
+				</Variable>
+				<Variable name="Zone 7 (N) vision window height" abbr="ZN7VisH" scope="input" variability="continuous" phase="1a" unit="m">
+					<Decimal min="0" max="100" default="1"/>
+				</Variable>
+				<Variable name="Zone 7 (N) vision window width" abbr="ZN7VisW" scope="input" variability="continuous" phase="1a" unit="m">
+					<Decimal min="0" max="100" default="1"/>
+				</Variable>
+				<Variable name="Zone 8 (N) vision window height" abbr="ZN8VisH" scope="input" variability="continuous" phase="1a" unit="m">
+					<Decimal min="0" max="100" default="1"/>
+				</Variable>
+				<Variable name="Zone 8 (N) vision window width" abbr="ZN8VisW" scope="input" variability="continuous" phase="1a" unit="m">
+					<Decimal min="0" max="100" default="1"/>
+				</Variable>
+			</Category>
+			<Category name="Glazing" abbr="Gl">
+				<Variable name="Number of Panes" abbr="NumPn" scope="gui" variability="parameter" phase="1a">
+					<OptionList>
+						<Option name="Single" disabled="true"/>
+						<Option name="Double" default="true"/>
+						<Option name="Triple" disabled="true"/>
+						<Option name="Quad" disabled="true"/>
+					</OptionList>
+				</Variable>
+				<Variable name="Coatings" abbr="Coat" scope="gui" variability="parameter" phase="1a">
+					<OptionList>
+						<Option name="Clear"/>
+						<Option name="Tinted"/>
+						<Option name="Reflected"/>
+						<Option name="Low-e" default="true"/>
+					</OptionList>
+				</Variable>
+				<Variable name="Visible Transmittance" abbr="SHGC" scope="input" variability="parameter" phase="1a">
+					<OptionList>
+						<Option name="0.25" disabled="true"/>
+						<Option name="0.4" default="true"/>
+						<Option name="0.6" disabled="true"/>
+						<Option name="0.7" disabled="true"/>
+					</OptionList>
+				</Variable>
+				<Variable name="U-Value" abbr="SHGC" scope="input" variability="parameter" phase="1a">
+					<OptionList>
+						<Option name="Center" disabled="true"/>
+						<Option name="Edge" disabled="true"/>
+						<Option name="Frame" disabled="true"/>
+						<Option name="Assembly" default="true"/>
+					</OptionList>
+				</Variable>
+			</Category>
+			<Category name="Venetian Blinds" abbr="Vb">
+				<Variable name="Interior" abbr="Int" scope="gui" variability="parameter" phase="1a">
+					<OptionList>
+						<Option name="None" disabled="true"/>
+						<Option name="Slates open (horizontal)" disabled="true"/>
+						<Option name="45 degree angle" disabled="true"/>
+						<Option name="Closed (vertical)" default="true"/>
+					</OptionList>
+				</Variable>
+			</Category>
+		</SubSystem>
+		<SubSystem name="Opaque Wall" abbr="Ow">
+			<Category name="Light Gauge Steel Framing" abbr="StlF">
+				<Variable name="Stud Depth &amp; Spacing" abbr="Stud" scope="gui" variability="parameter" phase="1a">
+					<OptionList>
+						<Option name="2x4-16 &quot; oc" default="true"/>
+						<Option name="2x4-24 &quot; oc" disabled="true"/>
+						<Option name="2x6-16 &quot; oc" disabled="true"/>
+						<Option name="2x6-24 &quot; oc" disabled="true"/>
+					</OptionList>
+				</Variable>
+				<Variable name="Interior or Cavity Insulation Type" abbr="CavInsTyp" scope="gui" variability="parameter" phase="1a">
+					<OptionList>
+						<Option name="Batt" default="true"/>
+						<Option name="Cellulose" disabled="true"/>
+						<Option name="0.5lb cuft Closed Cell Spray Foam" disabled="true"/>
+						<Option name="2.0lb cuft Closed Cell Spray Foam" disabled="true"/>
+					</OptionList>
+				</Variable>
+				<Variable name="Interior or Cavity Insulation R-Value" abbr="CavInsR" scope="input" variability="parameter" phase="1a">
+					<description>[Product of Insulation type and Insulation Thickness]</description>
+					<Decimal/>
+				</Variable>
+				<Variable name="Exterior Continuous or Cavity Insulation Type" abbr="ExtInsTyp" scope="gui" variability="parameter" phase="1a">
+					<OptionList>
+						<Option name="Expanded Polystyrene(EPS)" disabled="true"/>
+						<Option name="Extruded Polystyrene (XPS)" disabled="true"/>
+						<Option name="Poly Isocyanurate Foam (ISO)" disabled="true"/>
+					</OptionList>
+				</Variable>
+				<Variable name="Exterior Continuous or Cavity Insulation Thickness" abbr="ExtInsThk" scope="gui" variability="parameter" phase="1a">
+					<OptionList>
+						<Option name="0.5" disabled="true"/>
+						<Option name="2" disabled="true"/>
+						<Option name="4" disabled="true"/>
+						<Option name="6" disabled="true"/>
+					</OptionList>
+				</Variable>
+				<Variable name="Exterior Continuous or Cavity Insulation R-Value" abbr="ExtInsR" scope="input" variability="parameter" phase="1a">
+					<description>[Vary by type and thickness]</description>
+					<Decimal/>
+				</Variable>
+			</Category>
+		</SubSystem>
+		<SubSystem name="Roof" abbr="Rf"/>
+		<SubSystem name="Intersections" abbr="Int">
+			<Category name="Infiltration" abbr="Inf">
+				<Variable name="Infiltrationat zone 1" abbr="ZN1Lvl" scope="gui" variability="parameter" phase="1a">
+					<OptionList>
+						<Option name="loose" disabled="true"/>
+						<Option name="traditional" default="true"/>
+						<Option name="basic barrier"/>
+						<Option name="adv barrier" disabled="true"/>
+					</OptionList>
+				</Variable>
+				<Variable name="Infiltrationat zone 2" abbr="ZN2Lvl" scope="gui" variability="parameter" phase="1a">
+					<OptionList>
+						<Option name="loose" disabled="true"/>
+						<Option name="traditional" default="true"/>
+						<Option name="basic barrier"/>
+						<Option name="adv barrier" disabled="true"/>
+					</OptionList>
+				</Variable>
+				<Variable name="Infiltrationat zone 3" abbr="ZN3Lvl" scope="gui" variability="parameter" phase="1a">
+					<OptionList>
+						<Option name="loose" disabled="true"/>
+						<Option name="traditional" default="true"/>
+						<Option name="basic barrier"/>
+						<Option name="adv barrier" disabled="true"/>
+					</OptionList>
+				</Variable>
+				<Variable name="Infiltrationat zone 4" abbr="ZN4Lvl" scope="gui" variability="parameter" phase="1a">
+					<OptionList>
+						<Option name="loose" disabled="true"/>
+						<Option name="traditional" default="true"/>
+						<Option name="basic barrier"/>
+						<Option name="adv barrier" disabled="true"/>
+					</OptionList>
+				</Variable>
+				<Variable name="Infiltrationat zone 5" abbr="ZN5Lvl" scope="gui" variability="parameter" phase="1a">
+					<OptionList>
+						<Option name="loose" disabled="true"/>
+						<Option name="traditional" default="true"/>
+						<Option name="basic barrier"/>
+						<Option name="adv barrier" disabled="true"/>
+					</OptionList>
+				</Variable>
+				<Variable name="Infiltrationat zone 6" abbr="ZN6Lvl" scope="gui" variability="parameter" phase="1a">
+					<OptionList>
+						<Option name="loose" disabled="true"/>
+						<Option name="traditional" default="true"/>
+						<Option name="basic barrier"/>
+						<Option name="adv barrier" disabled="true"/>
+					</OptionList>
+				</Variable>
+				<Variable name="Infiltrationat zone 7" abbr="ZN7Lvl" scope="gui" variability="parameter" phase="1a">
+					<OptionList>
+						<Option name="loose" disabled="true"/>
+						<Option name="traditional" default="true"/>
+						<Option name="basic barrier"/>
+						<Option name="adv barrier" disabled="true"/>
+					</OptionList>
+				</Variable>
+				<Variable name="Infiltrationat zone 8" abbr="ZN8Lvl" scope="gui" variability="parameter" phase="1a">
+					<OptionList>
+						<Option name="loose" disabled="true"/>
+						<Option name="traditional" default="true"/>
+						<Option name="basic barrier"/>
+						<Option name="adv barrier" disabled="true"/>
+					</OptionList>
+				</Variable>
+				<Variable name="Venetian Blinds" abbr="ZN8Lvl" scope="gui" variability="parameter" phase="1a">
+					<OptionList>
+						<Option name="loose" disabled="true"/>
+						<Option name="traditional" default="true"/>
+						<Option name="basic barrier"/>
+						<Option name="adv barrier" disabled="true"/>
+					</OptionList>
+				</Variable>
+			</Category>
+		</SubSystem>
+	</System>
+	<System name="Lighting" abbr="Lt">
+		<SubSystem name="Ceiling Mounted" abbr="Cm">
+			<Category name="Lighting Vintage" abbr="Lv">
+				<Variable name="Lighting Vintage" abbr="" phase="1a" scope="gui" variability="parameter">
+					<OptionList>
+						<Option name="1990"/>
+						<Option name="2000"/>
+						<Option name="2004"/>
+						<Option name="2010"/>
+					</OptionList>
+				</Variable>
+			</Category>
+			<Category name="Parabolic Troffer" abbr="Pt">
+				<Variable name="Luminaire Size" abbr="LumSz" phase="1a" unit="m" scope="gui" variability="parameter">
+					<description>This is a description of the System</description>
+					<OptionList>
+						<Option name="1x4"/>
+						<Option name="2x2"/>
+						<Option name="2x4"/>
+					</OptionList>
+				</Variable>
+				<Variable name="Color Temperature" abbr="CCT" phase="1a" scope="gui" unit="K" variability="parameter">
+					<OptionList>
+						<Option name="2700"/>
+						<Option name="3500"/>
+						<Option name="4100"/>
+					</OptionList>
+				</Variable>
+				<Variable name="Number of Lamps" abbr="NumLp" phase="1a" scope="gui" variability="parameter">
+					<OptionList>
+						<Option name="2"/>
+						<Option name="3"/>
+						<Option name="4"/>
+					</OptionList>
+				</Variable>
+				<Component name="Lamp Type">
+					<ComponentOption name="T5">
+						<Variable name="Lamp Type" abbr="LpTyp" phase="1a" scope="gui" variability="parameter">
+							<Constant value="T5"/>
+						</Variable>
+						<Variable name="Wattage" abbr="PwrT5" phase="1b" unit="W">
+							<OptionList>
+								<Option name="24"/>
+								<Option name="28"/>
+								<Option name="54"/>
+							</OptionList>
+						</Variable>
+						<Variable name="Lamp Lumens per T5" abbr="LumT5" phase="1b" unit="Lumens">
+							<OptionList>
+								<Option name="1750"/>
+								<Option name="2600"/>
+								<Option name="4450"/>
+							</OptionList>
+						</Variable>
+					</ComponentOption>
+					<ComponentOption name="T8"/>
+					<ComponentOption name="T12"/>
+				</Component>
+				<Variable name="Lamp Type" abbr="LpTyp" phase="1a" scope="gui" variability="parameter">
+					<OptionList>
+						<Option name="T5">
+							<Variable name="Wattage" abbr="PwrT5" phase="1b" unit="W">
+								<OptionList>
+									<Option name="24"/>
+									<Option name="28"/>
+									<Option name="54"/>
+								</OptionList>
+							</Variable>
+							<Variable name="Lamp Lumens per T5" abbr="LumT5" phase="1b" unit="Lumens">
+								<OptionList>
+									<Option name="1750"/>
+									<Option name="2600"/>
+									<Option name="4450"/>
+								</OptionList>
+							</Variable>
+						</Option>
+						<Option name="T8">
+							<Variable name="Wattage" abbr="PwrT8" phase="1b" scope="gui" variability="parameter" unit="W">
+								<OptionList>
+									<Option name="24"/>
+									<Option name="28"/>
+									<Option name="34"/>
+								</OptionList>
+							</Variable>
+							<Variable name="Lamp Lumens per T8" abbr="Lum" phase="1b" variability="parameter" unit="Lumens">
+								<OptionList>
+									<Option name="2475"/>
+									<Option name="2725"/>
+									<Option name="3100"/>
+								</OptionList>
+							</Variable>
+						</Option>
+						<Option name="T12">
+							<Variable name="Wattage" abbr="PwrT12" phase="1a" scope="gui" unit="W" variability="parameter">
+								<OptionList>
+									<Option name="24"/>
+									<Option name="28"/>
+								</OptionList>
+							</Variable>
+							<Variable name="Lamp Lumens per T12" abbr="Lum" phase="1a" scope="gui" unit="Lumens" variability="parameter">
+								<OptionList>
+									<Option name="3100"/>
+									<Option name="2600"/>
+									<Option name="3450"/>
+								</OptionList>
+							</Variable>
+						</Option>
+					</OptionList>
+				</Variable>
+				<Variable name="Lamp Wattage" abbr="LmpPwr" phase="1a" scope="output" unit="W" variability="continuous">
+					<Decimal default="0"/>
+				</Variable>
+				<Variable name="Lamp Lumens" abbr="LmpLum" phase="1a" scope="output" unit="Lumens" variability="continuous">
+					<Decimal default="0"/>
+				</Variable>
+				<Variable name="Lamp Lumen Depreciation" abbr="LLD" phase="1a" scope="output" unit="Lumens" variability="continuous">
+					<Decimal default="0"/>
+				</Variable>
+				<Variable name="Type of Ballast" abbr="BalTyp" phase="1a" scope="gui" variability="parameter">
+					<OptionList>
+						<Option name="Magnetic/ Rapid"/>
+						<Option name="Electronic/ Instant"/>
+						<Option name="Electronic/ Programmed Start"/>
+					</OptionList>
+				</Variable>
+				<Variable name="Ballast Start Type" abbr="BalStTyp" phase="1a" scope="gui" variability="parameter">
+					<OptionList>
+						<Option name="Rapid"/>
+						<Option name="Instant"/>
+						<Option name="Programed Start"/>
+					</OptionList>
+				</Variable>
+				<Variable name="Ballast / System Wattage (per luminaire)" abbr="WattPerLmr" phase="1a" scope="output" unit="W" variability="parameter">
+					<Decimal default="0"/>
+				</Variable>
+				<Variable name="Ballast Factor" abbr="BalFact" phase="1a" scope="output">
+					<Decimal default="0"/>
+				</Variable>
+				<Variable name="Luminaire Dirt Depreciation1" abbr="Ldd1" phase="1a" scope="input" variability="parameter">
+					<Decimal default="0.907"/>
+				</Variable>
+				<Variable name="Luminaire Dirt Depreciation2" abbr="Ldd2" phase="1a" scope="input" variability="parameter">
+					<Decimal default="0.89"/>
+				</Variable>
+				<Variable name="Luminaire Dirt Depreciation3" abbr="Ldd3" phase="1a" scope="input" variability="parameter">
+					<Decimal default="0.877"/>
+				</Variable>
+				<Variable name="Light Loss Factor" abbr="LLF" phase="1a" scope="equation" variability="parameter">
+					<Decimal default="0.0"/>
+				</Variable>
+				<Variable name="Total Lumens" abbr="TotLum" phase="1a" scope="equation" variability="parameter">
+					<Decimal default="0.0"/>
+				</Variable>
+				<Variable name="Luminaires required" abbr="LumReq" phase="1a" scope="equation" variability="parameter">
+					<Decimal default="0.0"/>
+				</Variable>
+				<Variable name="Luminaire Spacing" abbr="LumSp" phase="1a" scope="input" variability="parameter">
+					<OptionList>
+						<Option name="8 x 8"/>
+						<Option name="8 x 10" default="true"/>
+						<Option name="10 x 10"/>
+					</OptionList>
+				</Variable>
+				<Variable name="Total Watts per meter sq" abbr="WattPerM2" phase="1a" scope="output" variability="continuous" unit="W/m^2">
+					<Decimal default="0.0"/>
+				</Variable>
+			</Category>
+		</SubSystem>
+		<SubSystem name="Wall Lighting" abbr="Wl"/>
+		<SubSystem name="Furniture Mounted" abbr="Fm"/>
+		<SubSystem name="Desk Lights" abbr="Dsk"/>
+		<SubSystem name="Controls" abbr="Ctr">
+			<Category name="Manual" abbr="Man">
+				<Variable name="Manual Control" abbr="OnOff" phase="1a" scope="gui" variability="parameter">
+					<OptionList>
+						<Option name="On"/>
+						<Option name="Off" default="true"/>
+					</OptionList>
+				</Variable>
+			</Category>
+			<Category name="Automatic" abbr="Aut">
+				<Variable name="Clock Timer" abbr="Clc" phase="1a" scope="input" variability="parameter">
+					<OptionList>
+						<Option name="On"/>
+						<Option name="Off" default="true"/>
+					</OptionList>
+				</Variable>
+			</Category>
+		</SubSystem>
+	</System>
+	<System name="HVAC" abbr="Hv">
+		<SubSystem name="Heating Coil" abbr="HC"/>
+		<SubSystem name="Cooling Coil" abbr="CC"/>
+		<SubSystem name="Fan" abbr="FAN"/>
+		<SubSystem name="VAV Box" abbr="VAV"/>
+		<SubSystem name="Filter" abbr="FLT"/>
+		<SubSystem name="Chiller" abbr="CHL"/>
+		<SubSystem name="Boiler" abbr="BOI"/>
+		<SubSystem name="Economizer/Mixing Box" abbr="MX"/>
+		<SubSystem name="Cooling Tower" abbr="CT"/>
+		<SubSystem name="System" abbr="SYS"/>
+		<SubSystem name="Room" abbr="RM"/>
+		<SubSystem name="Duct" abbr="DCT"/>
+	</System>
+	<System name="Daylighting" abbr="Dl">
+	</System>
+</SystemList>

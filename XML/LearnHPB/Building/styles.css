@@ -1,5 +1,5 @@
 body {
-	font-family:Arial;
+	font-family:verdana;
 	font-size:11pt;
 }
 
@@ -17,27 +17,11 @@ h3 {
 }
 
 h4 {
-	font-size:14pt;
+	font-size:12pt;
 	color:black;
 	margin-left:20px;
+
 }
-
-
-
-/*
-
-table {
-	border:none;
-	border-collapse:collapse;
-}
-th {
-	background-color:#c0c0c0;
-	border-color:black;
-	border-width:1px;
-	border-style:solid;
-}
-*/
-
 
 
 div.level1, div.level2, div.level3, div.variable  {
@@ -131,13 +115,7 @@ table {
 	border-collapse:collapse;
 }
 
-div.variable {
-	background-color:#F9D654;
-	margin-left:40px;
-	width:500px;
 
-	padding:4px;
-}
 
 div.variable h4 {
 	font-family:"lucida console";
@@ -146,11 +124,6 @@ div.variable h4 {
 
 }
 
-table.variable {
-	border:none;
-	border-collapse:collapse;
-	width: 1600px;
-}
 
 table.options {
 	border:none;
@@ -173,14 +146,44 @@ th {
 	border-width:1px;
 	border-style:solid;
 	font-size:11pt;
-	font-weight:500;
+	font-weight:630;
 	color:#333333;
 }
 
 
-.variable table {
-	font-family:"lucida console";
+.textbox {
+	width:100px;
 }
+
+div.variable {
+	background-color:#F9D654;
+	margin-left:40px;
+	width:630px;
+	padding:0px;
+	font-size:10pt;
+	
+}
+
+
+.variable-integer {
+	font-size:10pt;
+}
+
+.variable h4 {
+	font-size:10pt;
+	color:black;
+	margin-left:20px;
+
+}
+
+
+div.variable-inner {
+	padding:4px;
+	border-bottom:1px solid white;
+}
+
+
+
 
 
 .variable th {
@@ -189,18 +192,19 @@ th {
 	border-width:1px;
 	padding:3px;
 	font-weight:700;
-	font-family:"lucida console";
 	text-align:left;
 	font-size:10pt;
 }
+
+
 
 
 .variable td {
 	background-color:#f9e6a0;
 	border-width:1px;
 	border-style:solid;
+	border-color:#fff;
 	padding:3px;
-	font-family:"lucida console";
 	font-size:10pt;
 }
 
@@ -216,7 +220,42 @@ th {
 
 .optionlist td {
 	background-color:#f9c154;
+	width:120px;
+	border-top:none;
+	margin-top:-1;
 }
+.optionlist table {
+	border:none;
+}
+
 .optionlist th {
 	background-color:#cccccc;
+}
+
+.code-name-level-1 {
+	background-color:#ddeedd;
+}
+.code-name-level-2 {
+	color:#000;
+	background-color:#cccccc;
+}
+.code-name-level-3{
+	color:#000;
+	background-color:#cccccc;
+}
+
+.code-name-all {
+	padding-bottom:4px;
+	
+}
+
+.fakeheader td{
+	background-color:#c0c0c0;
+	border-color:black;
+	border-width:1px;
+	border-style:solid;
+	font-size:11pt;
+	font-weight:630;
+	color:#333333;
+	width:120px;
 }

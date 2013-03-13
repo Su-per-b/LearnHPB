@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 sp1 (x64) (http://www.altova.com) by RD (pcd) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.learnhpb.org/schemas/hpb" targetNamespace="http://www.learnhpb.org/schemas/hpb" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Passengers">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="Passenger" type="PassengerType"/>
+				<xs:element name="Infant" type="InfantType"/>
+			</xs:choice>
+		</xs:complexType>
+		<xs:unique name="PassengerInfantUniqueSequnceNo">
+			<xs:selector xpath="Passenger | Infant"/>
+			<xs:field xpath="@SequenceNo"/>
+		</xs:unique>
+		<xs:unique name="PassengerInfantUniqueID">
+			<xs:selector xpath="Passenger | Infant"/>
+			<xs:field xpath="@ID"/>
+		</xs:unique>
+		<xs:key name="PassengerIdKey">
+			<xs:selector xpath="Passenger"/>
+			<xs:field xpath="@ID"/>
+		</xs:key>
+		<xs:key name="InfantIdKey">
+			<xs:selector xpath="Infant"/>
+			<xs:field xpath="@ID"/>
+		</xs:key>
+		<xs:keyref name="PassengerAssociationRef" refer="InfantIdKey">
+			<xs:selector xpath="Passenger"/>
+			<xs:field xpath="@AssociatedInfantID"/>
+		</xs:keyref>
+		<xs:keyref name="InfantAssociationRef" refer="PassengerIdKey">
+			<xs:selector xpath="Infant"/>
+			<xs:field xpath="@AssociatedPassengerID"/>
+		</xs:keyref>
+	</xs:element>
+	<xs:complexType name="PassengerType">
+		<xs:sequence>
+			<xs:element name="FullName" type="xs:string"/>
+		</xs:sequence>
+		<xs:attribute name="SequenceNo" type="xs:int" use="required"/>
+		<xs:attribute name="ID" type="xs:int" use="required"/>
+		<xs:attribute name="AssociatedInfantID" type="xs:int"/>
+	</xs:complexType>
+	<xs:complexType name="InfantType">
+		<xs:sequence>
+			<xs:element name="FullName" type="xs:string"/>
+		</xs:sequence>
+		<xs:attribute name="SequenceNo" type="xs:int" use="required"/>
+		<xs:attribute name="ID" type="xs:int" use="required"/>
+		<xs:attribute name="AssociatedPassengerID" type="xs:int" use="required"/>
+	</xs:complexType>
+</xs:schema>

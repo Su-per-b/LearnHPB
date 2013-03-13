@@ -26,7 +26,16 @@
 		<File FilePath="GUI.xsd"/>
 	</Folder>
 	<Folder FolderName="Lighting">
+		<File FilePath="Lighting.sps"/>
 		<File FilePath="Lighting.xml"/>
 		<File FilePath="Lighting.xsd"/>
+		<File FilePath="Lighting2.xml"/>
+		<File FilePath="Lighting2.xsd"/>
+		<File FilePath="Lighting3.sps"/>
+		<File FilePath="Lighting3.xml"/>
+		<File FilePath="Lighting3.xsd"/>
+		<File FilePath="variablelist.sps"/>
 	</Folder>
+	<File FilePath="Building.xml"/>
+	<File FilePath="Building.xsd"/>
 </Project>

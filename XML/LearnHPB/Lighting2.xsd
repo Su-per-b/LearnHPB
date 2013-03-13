@@ -1,13 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSpy v2013 sp1 (x64) (http://www.altova.com) by RD (pcd) -->
+<!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by Allan Abraham (Altova GmbH) -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.learnhpb.org/schemas/hpb" targetNamespace="http://www.learnhpb.org/schemas/hpb" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:element name="Building">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="System" maxOccurs="unbounded"/>
+				<xs:element ref="light" maxOccurs="unbounded"/>
+				<xs:element ref="lampList" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+	<xs:element name="light">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="lamp" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="lampList">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="Atom">
+					<xs:sequence>
+						<xs:element ref="lamp" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="lamp">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="type" type="xs:string" minOccurs="0"/>
+				<xs:element name="wattage" type="xs:string" minOccurs="0"/>
+				<xs:element name="lumens" type="xs:string" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="lamp">
+		<xs:sequence>
+			<xs:element name="description" type="xs:string" minOccurs="0"/>
+			<xs:element name="wattage" type="xs:string" minOccurs="0"/>
+			<xs:element name="lumens" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="abbr" type="xs:string" use="required"/>
+	</xs:complexType>
 	<xs:complexType name="Atom">
 		<xs:sequence>
 			<xs:element name="description" type="xs:string" minOccurs="0"/>
@@ -15,18 +53,6 @@
 		<xs:attribute name="name" type="xs:string" use="required"/>
 		<xs:attribute name="abbr" type="xs:string" use="required"/>
 	</xs:complexType>
-	<xs:element name="System">
-		<xs:complexType>
-			<xs:complexContent>
-				<xs:extension base="Atom">
-					<xs:sequence>
-						<xs:element ref="Category" minOccurs="0" maxOccurs="unbounded"/>
-					</xs:sequence>
-				</xs:extension>
-			</xs:complexContent>
-		</xs:complexType>
-	</xs:element>
-	
 	<xs:element name="Category">
 		<xs:complexType>
 			<xs:complexContent>
@@ -38,8 +64,6 @@
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
-	
-	
 	<xs:element name="Variable">
 		<xs:complexType>
 			<xs:complexContent>
@@ -56,7 +80,6 @@
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
-	
 	<xs:complexType name="TypeDecimal">
 		<xs:sequence>
 			<xs:element name="value" type="xs:decimal" minOccurs="0"/>

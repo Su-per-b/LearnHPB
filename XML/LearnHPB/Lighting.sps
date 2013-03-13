@@ -51,35 +51,16 @@
 									<text fixtext="Building System List"/>
 								</children>
 							</paragraph>
-							<template subtype="element" match="n1:BuildingSystemList">
+							<template subtype="element" match="n1:Building">
 								<children>
 									<newline/>
-									<template subtype="element" match="n1:BuildingSystem">
+									<template subtype="element" match="n1:System">
 										<children>
-											<newline/>
-											<paragraph paragraphtag="h3">
-												<children>
-													<template subtype="attribute" match="name">
-														<children>
-															<content subtype="regular"/>
-														</children>
-														<variables/>
-													</template>
-													<text fixtext=" ("/>
-													<template subtype="attribute" match="abbr">
-														<children>
-															<content subtype="regular"/>
-														</children>
-														<variables/>
-													</template>
-													<text fixtext=")"/>
-												</children>
-											</paragraph>
-											<newline/>
-											<template subtype="element" match="n1:Category">
+											<paragraph>
 												<children>
 													<newline/>
-													<paragraph paragraphtag="h4">
+													<paragraph>
+														<properties class="level1"/>
 														<children>
 															<template subtype="attribute" match="name">
 																<children>
@@ -87,96 +68,261 @@
 																</children>
 																<variables/>
 															</template>
+															<text fixtext=" ("/>
+															<template subtype="attribute" match="abbr">
+																<children>
+																	<content subtype="regular"/>
+																</children>
+																<variables/>
+															</template>
+															<text fixtext=")"/>
 														</children>
 													</paragraph>
-													<newline/>
-													<tgrid>
-														<properties cellpadding="5" cellspacing="0" width="300"/>
+													<template subtype="element" match="n1:Category">
 														<children>
-															<tgridbody-cols>
+															<paragraph>
+																<properties class="level2"/>
 																<children>
-																	<tgridcol>
-																		<properties align="left" width="80%"/>
-																	</tgridcol>
-																	<tgridcol>
-																		<properties align="center" width="20%"/>
-																	</tgridcol>
-																	<tgridcol>
-																		<properties align="center" width="20%"/>
-																	</tgridcol>
-																</children>
-															</tgridbody-cols>
-															<tgridbody-rows>
-																<children>
-																	<template subtype="element" match="n1:Variable">
+																	<template subtype="attribute" match="name">
 																		<children>
-																			<tgridrow>
-																				<children>
-																					<tgridcell>
-																						<children>
-																							<template subtype="attribute" match="name">
-																								<children>
-																									<content subtype="regular"/>
-																								</children>
-																								<variables/>
-																							</template>
-																						</children>
-																					</tgridcell>
-																					<tgridcell>
-																						<properties bgcolor="red"/>
-																						<children>
-																							<template subtype="attribute" match="abbr">
-																								<children>
-																									<content subtype="regular"/>
-																								</children>
-																								<variables/>
-																							</template>
-																						</children>
-																					</tgridcell>
-																					<tgridcell>
-																						<children>
-																							<template subtype="element" match="n1:Enum">
-																								<children>
-																									<template subtype="element" match="n1:Option">
-																										<children>
-																											<content subtype="regular"/>
-																											<text fixtext="  "/>
-																										</children>
-																										<variables/>
-																									</template>
-																								</children>
-																								<variables/>
-																							</template>
-																						</children>
-																					</tgridcell>
-																				</children>
-																			</tgridrow>
+																			<content subtype="regular"/>
 																		</children>
 																		<variables/>
 																	</template>
 																</children>
-															</tgridbody-rows>
+															</paragraph>
+															<paragraph>
+																<properties class="level3"/>
+																<children>
+																	<tgrid>
+																		<properties border="1" class="tableheader"/>
+																		<children>
+																			<tgridbody-cols>
+																				<children>
+																					<tgridcol>
+																						<properties class="col1"/>
+																					</tgridcol>
+																					<tgridcol>
+																						<properties class="col2"/>
+																					</tgridcol>
+																					<tgridcol>
+																						<properties class="col3"/>
+																					</tgridcol>
+																					<tgridcol>
+																						<properties class="col3"/>
+																					</tgridcol>
+																					<tgridcol>
+																						<properties class="col4"/>
+																					</tgridcol>
+																					<tgridcol>
+																						<properties class="col5"/>
+																					</tgridcol>
+																					<tgridcol>
+																						<properties class="col6"/>
+																					</tgridcol>
+																					<tgridcol>
+																						<properties class="col7"/>
+																					</tgridcol>
+																					<tgridcol>
+																						<properties class="col8"/>
+																					</tgridcol>
+																					<tgridcol>
+																						<properties class="col9"/>
+																					</tgridcol>
+																				</children>
+																			</tgridbody-cols>
+																			<tgridheader-rows>
+																				<children>
+																					<tgridrow>
+																						<children>
+																							<tgridcell>
+																								<children>
+																									<text fixtext="ph"/>
+																								</children>
+																							</tgridcell>
+																							<tgridcell>
+																								<children>
+																									<text fixtext="Name"/>
+																								</children>
+																							</tgridcell>
+																							<tgridcell>
+																								<children>
+																									<text fixtext="scope"/>
+																								</children>
+																							</tgridcell>
+																							<tgridcell>
+																								<children>
+																									<text fixtext="abbr"/>
+																								</children>
+																							</tgridcell>
+																							<tgridcell>
+																								<children>
+																									<text fixtext="option 1"/>
+																								</children>
+																							</tgridcell>
+																							<tgridcell>
+																								<children>
+																									<text fixtext="option 2"/>
+																								</children>
+																							</tgridcell>
+																							<tgridcell>
+																								<children>
+																									<text fixtext="option 3"/>
+																								</children>
+																							</tgridcell>
+																							<tgridcell>
+																								<children>
+																									<text fixtext="option 4"/>
+																								</children>
+																							</tgridcell>
+																							<tgridcell>
+																								<children>
+																									<text fixtext="Decimal"/>
+																								</children>
+																							</tgridcell>
+																							<tgridcell>
+																								<children>
+																									<text fixtext="description"/>
+																								</children>
+																							</tgridcell>
+																						</children>
+																					</tgridrow>
+																				</children>
+																			</tgridheader-rows>
+																			<tgridbody-rows>
+																				<children>
+																					<template subtype="element" match="n1:Variable">
+																						<children>
+																							<tgridrow>
+																								<children>
+																									<tgridcell>
+																										<children>
+																											<template subtype="attribute" match="phase">
+																												<children>
+																													<content subtype="regular"/>
+																												</children>
+																												<variables/>
+																											</template>
+																										</children>
+																									</tgridcell>
+																									<tgridcell>
+																										<children>
+																											<template subtype="attribute" match="name">
+																												<children>
+																													<content subtype="regular"/>
+																												</children>
+																												<variables/>
+																											</template>
+																										</children>
+																									</tgridcell>
+																									<tgridcell>
+																										<children>
+																											<template subtype="attribute" match="scope">
+																												<children>
+																													<content subtype="regular"/>
+																												</children>
+																												<variables/>
+																											</template>
+																										</children>
+																									</tgridcell>
+																									<tgridcell>
+																										<children>
+																											<template subtype="attribute" match="abbr">
+																												<children>
+																													<content subtype="regular"/>
+																												</children>
+																												<variables/>
+																											</template>
+																										</children>
+																									</tgridcell>
+																									<tgridcell>
+																										<children>
+																											<template subtype="element" match="n1:Enum">
+																												<children>
+																													<autocalc xpath="n1:Option[2]"/>
+																												</children>
+																												<variables/>
+																											</template>
+																										</children>
+																									</tgridcell>
+																									<tgridcell>
+																										<children>
+																											<template subtype="element" match="n1:Enum">
+																												<children>
+																													<autocalc xpath="n1:Option[3]"/>
+																												</children>
+																												<variables/>
+																											</template>
+																										</children>
+																									</tgridcell>
+																									<tgridcell>
+																										<children>
+																											<template subtype="element" match="n1:Enum">
+																												<children>
+																													<autocalc xpath="n1:Option[3]"/>
+																												</children>
+																												<variables/>
+																											</template>
+																										</children>
+																									</tgridcell>
+																									<tgridcell>
+																										<children>
+																											<template subtype="element" match="n1:Enum">
+																												<children>
+																													<autocalc xpath="n1:Option[4]"/>
+																												</children>
+																												<variables/>
+																											</template>
+																										</children>
+																									</tgridcell>
+																									<tgridcell>
+																										<children>
+																											<template subtype="element" match="n1:Decimal">
+																												<children>
+																													<content subtype="regular"/>
+																												</children>
+																												<variables/>
+																											</template>
+																										</children>
+																									</tgridcell>
+																									<tgridcell>
+																										<children>
+																											<template subtype="element" match="n1:description">
+																												<children>
+																													<content subtype="regular"/>
+																												</children>
+																												<variables/>
+																											</template>
+																										</children>
+																									</tgridcell>
+																								</children>
+																							</tgridrow>
+																						</children>
+																						<variables/>
+																					</template>
+																				</children>
+																			</tgridbody-rows>
+																		</children>
+																	</tgrid>
+																</children>
+															</paragraph>
 														</children>
-													</tgrid>
-													<newline/>
-													<newline/>
+														<variables/>
+													</template>
 												</children>
-												<variables/>
-											</template>
-											<newline/>
-											<newline/>
+											</paragraph>
 										</children>
 										<variables/>
 									</template>
-									<newline/>
-									<newline/>
 								</children>
 								<variables/>
 							</template>
-							<newline/>
 						</children>
 						<variables/>
 					</template>
+					<newline/>
+					<newline/>
+					<newline/>
 				</children>
 			</globaltemplate>
 		</children>

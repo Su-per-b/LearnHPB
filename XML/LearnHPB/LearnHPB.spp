@@ -11,12 +11,14 @@
 			<File FilePath="learnHPBv2.xsd" HomeFolder="Yes"/>
 		</Folder>
 		<Folder FolderName="XML Files" ExtStr="xml;cml;math;rdf;smil;svg;wml">
+			<File FilePath="Building.xml" HomeFolder="Yes"/>
 			<File FilePath="IDREF1.xml" HomeFolder="Yes"/>
 			<File FilePath="LearnHPB.xml" HomeFolder="Yes"/>
 			<File FilePath="LearnHPBv2.xml" HomeFolder="Yes"/>
 		</Folder>
 	</Folder>
 	<Folder FolderName="Systems">
+		<File FilePath="Building.xsd" HomeFolder="Yes"/>
 		<File FilePath="Systems.xml" HomeFolder="Yes"/>
 		<File FilePath="Systems.xsd" HomeFolder="Yes"/>
 	</Folder>
@@ -27,6 +29,17 @@
 	<Folder FolderName="LIghting">
 		<File FilePath="Lighting.xml" HomeFolder="Yes"/>
 		<File FilePath="Lighting.xsd" HomeFolder="Yes"/>
+		<File FilePath="Lighting2.xml" HomeFolder="Yes"/>
+		<File FilePath="Lighting2.xsd" HomeFolder="Yes"/>
+		<File FilePath="Lighting3.xml" HomeFolder="Yes"/>
+		<File FilePath="Lighting3.xsd" HomeFolder="Yes"/>
+		<File FilePath="Test.xml" HomeFolder="Yes"/>
+		<File FilePath="Test.xsd" HomeFolder="Yes"/>
+	</Folder>
+	<Folder FolderName="Building">
+		<File FilePath="Building\Building.xml" HomeFolder="Yes"/>
+		<File FilePath="Building\Building.xsd" HomeFolder="Yes"/>
+		<File FilePath="Building\styles.css" HomeFolder="Yes"/>
 	</Folder>
 	<File FilePath="styles.css" HomeFolder="Yes"/>
 </Project>

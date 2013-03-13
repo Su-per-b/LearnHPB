@@ -27,11 +27,13 @@
 		</xs:complexType>
 	</xs:element>
 	
+	
 	<xs:element name="Category">
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="Atom">
 					<xs:sequence>
+						<xs:element ref="Category" minOccurs="0" maxOccurs="unbounded"/>		
 						<xs:element ref="Variable" minOccurs="0" maxOccurs="unbounded"/>
 					</xs:sequence>
 				</xs:extension>
@@ -46,12 +48,15 @@
 				<xs:extension base="Atom">
 					<xs:sequence>
 						<xs:choice>
-							<xs:element name="Enum" type="TypeEnum"/>
+							<xs:element name="OptionList" type="TypeOptionList"/>
 							<xs:element name="Decimal" type="TypeDecimal"/>
+							<xs:element name="Integer" type="TypeInteger"/>
 						</xs:choice>
 					</xs:sequence>
 					<xs:attribute name="phase" type="ProjectPhase"/>
 					<xs:attribute name="scope" type="Scope"/>
+					<xs:attribute name="unit" type="Unit"/>
+					<xs:attribute name="variability" type="Variability"/>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
@@ -61,12 +66,34 @@
 		<xs:sequence>
 			<xs:element name="value" type="xs:decimal" minOccurs="0"/>
 		</xs:sequence>
-		<xs:attribute name="unit" type="xs:string"/>
+		<xs:attribute name="min" type="xs:decimal"/>
+		<xs:attribute name="max" type="xs:decimal"/>
+		<xs:attribute name="default" type="xs:decimal"/>
 	</xs:complexType>
-	<xs:complexType name="TypeEnum">
+	
+	<xs:complexType name="TypeInteger">
 		<xs:sequence>
-			<xs:element name="Option" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="value" type="xs:decimal" minOccurs="0"/>
 		</xs:sequence>
+		<xs:attribute name="min" type="xs:decimal"/>
+		<xs:attribute name="max" type="xs:decimal"/>
+		<xs:attribute name="default" type="xs:decimal"/>
+	</xs:complexType>
+	
+	<xs:complexType name="TypeOptionList">
+		<xs:sequence>
+			<xs:element name="Option" type="OptionType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OptionType">
+		<xs:sequence>
+			<xs:element name="description" type="xs:string" minOccurs="0"/>
+			<xs:element ref="Variable" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="description" type="xs:string"/>
+		<xs:attribute name="default" type="xs:boolean"/>
+		<xs:attribute name="disabled" type="xs:boolean"/>
 	</xs:complexType>
 	<xs:simpleType name="ProjectPhase">
 		<xs:restriction base="xs:string">
@@ -87,6 +114,30 @@
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="parameter"/>
 			<xs:enumeration value="continuous"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Unit">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="m"/>
+			<xs:enumeration value="W"/>
+			<xs:enumeration value="multiplier"/>
+			
+			<xs:enumeration value="Year"/>
+			<xs:enumeration value="Day"/>
+			<xs:enumeration value="Hour"/>
+			<xs:enumeration value="Minute"/>
+			<xs:enumeration value="Second"/>
+				
+			<xs:enumeration value="K"/>
+			<xs:enumeration value="Lumens"/>
+			<xs:enumeration value="W/m^2"/>
+			
+			<xs:enumeration value="sf/person"/>
+			<xs:enumeration value="latlong"/>
+			<xs:enumeration value="ft"/>
+			<xs:enumeration value="kW"/>
+			
+			<xs:enumeration value="{none}"/>
 		</xs:restriction>
 	</xs:simpleType>
 </xs:schema>

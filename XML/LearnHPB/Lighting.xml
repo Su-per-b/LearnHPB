@@ -1,104 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
-
-<BuildingSystemList
- xmlns="http://www.learnhpb.org/schemas/hpb"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://www.learnhpb.org/schemas/hpb Lighting.xsd">
- 
-	<BuildingSystem name="General" abbr="GN" >
-		<description>This is a description of the BuildingSystem </description>
-		<Category name="Scenario" abbr="SC"  />
-		<Category name="Site" abbr="SIT" />
-		<Category name="Building" abbr="BD" />
-		<Category name="Zone" abbr="ZN" />
-		<Category name="Space Use" abbr="SU" />
-		<Category name="Interior" abbr="IN" />
-	</BuildingSystem>
-	
-	<BuildingSystem name="Envelope" abbr="EN" >
-		<Category name="Fenestration" abbr="FEN" />
-		<Category name="Roof" abbr="RF" />
-		<Category name="Opaque Wall" abbr="WA" />
-		<Category name="Intersections" abbr="INT" />
-	</BuildingSystem>
-
-	<BuildingSystem name="Lighting" abbr="LT"  >
-	
-		<Category name="Parabolic Troffer" abbr="PT" >
-			<description>This is a description of the System</description>
-			
-			<Variable name="Luminaire Size" abbr="LumSz">
-			<description>This is a description of the System</description>
+<Building xmlns="http://www.learnhpb.org/schemas/hpb" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.learnhpb.org/schemas/hpb Lighting.xsd">
+	<System name="General" abbr="GN">
+		<description>This is a description of the System </description>
+		<Category name="Scenario" abbr="SC"/>
+		<Category name="Site" abbr="SIT"/>
+		<Category name="Building" abbr="BD"/>
+		<Category name="Zone" abbr="ZN"/>
+		<Category name="Space Use" abbr="SU"/>
+		<Category name="Interior" abbr="IN"/>
+	</System>
+	<System name="Envelope" abbr="EN">
+		<Category name="Fenestration" abbr="FEN"/>
+		<Category name="Roof" abbr="RF"/>
+		<Category name="Opaque Wall" abbr="WA"/>
+		<Category name="Intersections" abbr="INT"/>
+	</System>
+	<System name="Lighting" abbr="LT">
+		<Category name="Lighting Vintage" abbr="Lv">
+			<Variable name="Lighting Vintage" abbr="Lv" phase="1a" scope="gui">
+				<description>This is a description of the System</description>
 				<Enum>
-						<Option>1x4</Option>
-						<Option>2x2</Option>
-						<Option>2x4</Option>
+					<Option>1990</Option>
+					<Option>2000</Option>
+					<Option>2004</Option>
+					<Option>2010</Option>
 				</Enum>
 			</Variable>
-			
-			
+		</Category>
+		<Category name="Parabolic Troffer" abbr="PT">
+			<description>This is a description of the System</description>
+			<Variable name="Luminaire Size" abbr="LumSz" phase="1a">
+				<description>This is a description of the System</description>
+				<Enum>
+					<Option>1x4</Option>
+					<Option>2x2</Option>
+					<Option>2x4</Option>
+				</Enum>
+			</Variable>
 			<Variable name="Mounting Length" abbr="MntHgt">
-			<description>This is a description of the Variable</description>
-				<Decimal />
+				<description>This is a description of the Variable</description>
+				<Decimal/>
 			</Variable>
-			
-			
 			<Variable name="Type of Ballast" abbr="LumSz">
-			<description>This is a description of the Variable</description>
+				<description>This is a description of the Variable</description>
 				<Enum>
-						<Option>Magnetic/ Rapid</Option>
-						<Option>Electronic/ Instant</Option>
-						<Option>Electronic/ Programmed Start</Option>
+					<Option>Magnetic/ Rapid</Option>
+					<Option>Electronic/ Instant</Option>
+					<Option>Electronic/ Programmed Start</Option>
 				</Enum>
 			</Variable>
-			
 			<Variable name="Ballast Start Type" abbr="BalTyp">
-			<description>This is a description of the Variable</description>
+				<description>This is a description of the Variable</description>
 				<Enum>
-						<Option>Rapid</Option>
-						<Option>Instant</Option>
-						<Option>Programed Start</Option>
+					<Option>Rapid</Option>
+					<Option>Instant</Option>
+					<Option>Programed Start</Option>
 				</Enum>
 			</Variable>
-			
 			<Variable name="Ballast - System Wattage " abbr="BalStTyp">
-			<description>(per luminaire)</description>
-				<Decimal unit="watt"></Decimal>
+				<description>(per luminaire)</description>
+				<Decimal unit="watt"/>
 			</Variable>
-			
 			<Variable name="Ballast Factor" abbr="BalFact">
-			<description>This is a description of the Variable</description>
+				<description>This is a description of the Variable</description>
 				<Decimal unit="multiplier"/>
 			</Variable>
-			
-			
 		</Category>
-		
-		<Category name="Ceiling Mounted" abbr="CM" />
-		<Category name="Wall Lighting" abbr="WL" />
-		<Category name="Furniture Mounted" abbr="FM" />
-		<Category name="Desk Lights" abbr="DSK" />
-		<Category name="Controls" abbr="CTR" />
-	</BuildingSystem>
-
-	<BuildingSystem name="HVAC" abbr="HV">
-		<Category name="Heating Coil" abbr="HC" />
-		<Category name="Cooling Coil" abbr="CC" />
-		<Category name="Fan" abbr="FAN" />
-		<Category name="VAV Box" abbr="VAV" />
-		<Category name="Filter" abbr="FLT" />
-		<Category name="Chiller" abbr="CHL" />
-		<Category name="Boiler" abbr="BOI" />
-		<Category name="Economizer/Mixing Box" abbr="MX" />
-		<Category name="Cooling Tower" abbr="CT" />
-		<Category name="System" abbr="SYS" />
-		<Category name="Room" abbr="RM" />
-		<Category name="Duct" abbr="DCT" />
-	</BuildingSystem>
-	
-	<BuildingSystem name="Daylighting" abbr="DL">
-	</BuildingSystem>
-	
-</BuildingSystemList>
+		<Category name="Ceiling Mounted" abbr="CM"/>
+		<Category name="Wall Lighting" abbr="WL"/>
+		<Category name="Furniture Mounted" abbr="FM"/>
+		<Category name="Desk Lights" abbr="DSK"/>
+		<Category name="Controls" abbr="CTR"/>
+	</System>
+	<System name="HVAC" abbr="HV">
+		<Category name="Heating Coil" abbr="HC"/>
+		<Category name="Cooling Coil" abbr="CC"/>
+		<Category name="Fan" abbr="FAN"/>
+		<Category name="VAV Box" abbr="VAV"/>
+		<Category name="Filter" abbr="FLT"/>
+		<Category name="Chiller" abbr="CHL"/>
+		<Category name="Boiler" abbr="BOI"/>
+		<Category name="Economizer/Mixing Box" abbr="MX"/>
+		<Category name="Cooling Tower" abbr="CT"/>
+		<Category name="System" abbr="SYS"/>
+		<Category name="Room" abbr="RM"/>
+		<Category name="Duct" abbr="DCT"/>
+	</System>
+	<System name="Daylighting" abbr="DL">
+	</System>
+</Building>
