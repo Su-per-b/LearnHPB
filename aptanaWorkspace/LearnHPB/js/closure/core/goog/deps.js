@@ -757,7 +757,7 @@ goog.addDependency("../../../sim/component/TabStrip.js", ['sim.component.TabStri
 goog.addDependency("../../../sim/component/TabStripDataSource.js", ['sim.component.TabStripDataSource'], ['sim.component.DataSourceBase']);
 goog.addDependency("../../../sim/controller/ControllerBase.js", ['sim.controller.ControllerBase'], ['goog.events.Event', 'sim.BaseClass']);
 goog.addDependency("../../../sim/controller/InputController.js", ['sim.controller.InputController'], ['sim.controller.ControllerBase', 'goog.debug.Logger', 'sim.view.TabStripView', 'sim.model.TabStripModel', 'sim.model.TabModel', 'sim.Config', 'sim.view.InputView']);
-goog.addDependency("../../../sim/controller/MainController.js", ['sim.controller.MainController'], ['sim.controller.ControllerBase', 'goog.debug.Logger', 'sim.Config', 'sim.controller.InputController', 'sim.component.TabStrip', 'sim.component.TabStripDataSource']);
+goog.addDependency("../../../sim/controller/MainController.js", ['sim.controller.MainController'], ['sim.controller.ControllerBase', 'goog.debug.Logger', 'sim.Config', 'sim.controller.InputController', 'sim.component.TabStrip', 'sim.component.TabStripDataSource', 'sim']);
 goog.addDependency("../../../sim/events/DataSourceChanged.js", ['sim.events.DataSourceChanged'], ['goog.events.Event']);
 goog.addDependency("../../../sim/events/EventBus.js", ['sim.events.EventBus'], ['goog.events.EventTarget']);
 goog.addDependency("../../../sim/model/DataModelChanged.js", ['sim.events.DataModelChanged'], ['goog.events.Event']);

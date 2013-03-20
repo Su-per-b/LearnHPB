@@ -36,6 +36,11 @@
 		<File FilePath="Lighting3.xsd"/>
 		<File FilePath="variablelist.sps"/>
 	</Folder>
-	<File FilePath="Building.xml"/>
-	<File FilePath="Building.xsd"/>
+	<Folder FolderName="Building">
+		<File FilePath="Building\Building.sps"/>
+		<File FilePath="Building\Building.xml"/>
+		<File FilePath="Building\Building.xsd"/>
+		<File FilePath="Building\styles.css"/>
+		<File FilePath="Building\variablelist.sps"/>
+	</Folder>
 </Project>

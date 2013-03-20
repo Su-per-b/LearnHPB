@@ -9,7 +9,6 @@ html
 {
     overflow-y:scroll;
     font:75% 'Lucida Sans Unicode','Lucida Grande',arial,helvetica,sans-serif;
-    background:#e2e2e2 url("flowers-left.png") no-repeat fixed 0 400px;
 }
 
 .page
