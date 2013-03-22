@@ -1,6 +1,6 @@
 /*
-* Kendo UI Web v2012.3.1114 (http://kendoui.com)
-* Copyright 2012 Telerik AD. All rights reserved.
+* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
 * https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
@@ -8,6 +8,14 @@
 * GNU General Public License (GPL) version 3.
 * For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
+kendo_module({
+    id: "datepicker",
+    name: "DatePicker",
+    category: "web",
+    description: "The DatePicker widget allows the user to select a date from a calendar or by direct input.",
+    depends: [ "calendar", "popup" ]
+});
+
 (function($, undefined) {
     var kendo = window.kendo,
     ui = kendo.ui,
@@ -15,15 +23,17 @@
     parse = kendo.parseDate,
     keys = kendo.keys,
     template = kendo.template,
+    activeElement = kendo._activeElement,
     DIV = "<div />",
     SPAN = "<span />",
     ns = ".kendoDatePicker",
-    CLICK = "touchend" + ns + " click" + ns,
+    CLICK = "click" + ns,
     OPEN = "open",
     CLOSE = "close",
     CHANGE = "change",
     DATEVIEW = "dateView",
     DISABLED = "disabled",
+    READONLY = "readonly",
     DEFAULT = "k-state-default",
     FOCUSED = "k-state-focused",
     SELECTED = "k-state-selected",
@@ -31,7 +41,7 @@
     HOVER = "k-state-hover",
     KEYDOWN = "keydown" + ns,
     HOVEREVENTS = "mouseenter" + ns + " mouseleave" + ns,
-    MOUSEDOWN = "touchstart" + ns + " mousedown" + ns,
+    MOUSEDOWN = "mousedown" + ns,
     ID = "id",
     MIN = "min",
     MAX = "max",
@@ -39,6 +49,7 @@
     ARIA_DISABLED = "aria-disabled",
     ARIA_EXPANDED = "aria-expanded",
     ARIA_HIDDEN = "aria-hidden",
+    ARIA_READONLY = "aria-readonly",
     calendar = kendo.calendar,
     isInRange = calendar.isInRange,
     restrictValue = calendar.restrictValue,
@@ -48,12 +59,15 @@
     DATE = Date;
 
     function normalize(options) {
-        var parseFormats = options.parseFormats;
+        var parseFormats = options.parseFormats,
+            format = options.format;
 
         calendar.normalize(options);
 
         parseFormats = $.isArray(parseFormats) ? parseFormats : [parseFormats];
-        parseFormats.splice(0, 0, options.format);
+        if ($.inArray(format, parseFormats) === -1) {
+            parseFormats.splice(0, 0, options.format);
+        }
 
         options.parseFormats = parseFormats;
     }
@@ -124,7 +138,7 @@
                 calendar.min(options.min);
                 calendar.max(options.max);
 
-                calendar.navigate(that._value, options.start);
+                calendar.navigate(that._value || that._current, options.start);
                 that.value(that._value);
             }
         },
@@ -133,9 +147,10 @@
             var that = this,
                 calendar = that.calendar,
                 element = calendar.element,
+                dv = element.data(DATEVIEW),
                 popups;
 
-            if (element.data(DATEVIEW) === that) {
+            if (dv === undefined || dv === that) {
                 popups = $(".k-calendar-container");
 
                 if (popups.length > 1) {
@@ -143,6 +158,7 @@
                 } else {
                     element.off(ns);
                     calendar.destroy();
+                    calendar.element.remove();
                     DatePicker.sharedCalendar = null;
                 }
             }
@@ -267,7 +283,9 @@
 
     var DatePicker = Widget.extend({
         init: function(element, options) {
-            var that = this, div;
+            var that = this,
+                disabled,
+                div;
 
             Widget.fn.init.call(that, element, options);
             element = that.element;
@@ -299,12 +317,14 @@
                     if (that.trigger(OPEN)) {
                         e.preventDefault();
                     } else {
-                        date = parse(element.val(), options.parseFormats, options.culture);
-                        if (!date) {
-                            that.dateView.value(date);
-                        } else {
-                            that.dateView._current = date;
-                            that.dateView.calendar._focus(date);
+                        if (that.element.val() !== that._oldText) {
+                            date = parse(element.val(), options.parseFormats, options.culture);
+                            if (!date) {
+                                that.dateView.value(date);
+                            } else {
+                                that.dateView._current = date;
+                                that.dateView.calendar._focus(date);
+                            }
                         }
 
                         element.attr(ARIA_EXPANDED, true);
@@ -319,11 +339,6 @@
             element[0].type = "text";
             element
                 .addClass("k-input")
-                .on("keydown" + ns, proxy(that._keydown, that))
-                .on("blur" + ns, proxy(that._blur, that))
-                .on("focus" + ns, function(e) {
-                    that._inputWrapper.addClass(FOCUSED);
-                })
                 .attr({
                     role: "textbox",
                     "aria-haspopup": true,
@@ -334,7 +349,13 @@
             that._reset();
             that._template();
 
-            that.enable(!element.is('[disabled]'));
+            disabled = element.is("[disabled]");
+            if (disabled) {
+                that.enable(false);
+            } else {
+                that.readonly(element.is("[readonly]"));
+            }
+
             that.value(options.value || that.element.val());
 
             kendo.notify(that);
@@ -376,32 +397,56 @@
             });
         },
 
-        enable: function(enable) {
+        _editable: function(options) {
             var that = this,
                 icon = that._dateIcon.off(ns),
+                element = that.element.off(ns),
                 wrapper = that._inputWrapper.off(ns),
-                element = that.element;
+                readonly = options.readonly,
+                disable = options.disable;
 
-            if (enable === false) {
-                wrapper
-                    .removeClass(DEFAULT)
-                    .addClass(STATEDISABLED);
-
-                element.attr(DISABLED, DISABLED)
-                       .attr(ARIA_DISABLED, true);
-            } else {
+            if (!readonly && !disable) {
                 wrapper
                     .addClass(DEFAULT)
                     .removeClass(STATEDISABLED)
                     .on(HOVEREVENTS, that._toggleHover);
 
-                element
-                    .removeAttr(DISABLED)
-                    .attr(ARIA_DISABLED, false);
+                element.removeAttr(DISABLED)
+                       .removeAttr(READONLY)
+                       .attr(ARIA_DISABLED, false)
+                       .attr(ARIA_READONLY, false)
+                       .on("keydown" + ns, proxy(that._keydown, that))
+                       .on("blur" + ns, proxy(that._blur, that))
+                       .on("focus" + ns, function() {
+                           that._inputWrapper.addClass(FOCUSED);
+                       });
 
-                icon.on(CLICK, proxy(that._click, that))
-                    .on(MOUSEDOWN, preventDefault);
+               icon.on(CLICK, proxy(that._click, that))
+                   .on(MOUSEDOWN, preventDefault);
+            } else {
+                wrapper
+                    .addClass(disable ? STATEDISABLED : DEFAULT)
+                    .removeClass(disable ? DEFAULT : STATEDISABLED);
+
+                element.attr(DISABLED, disable)
+                       .attr(READONLY, readonly)
+                       .attr(ARIA_DISABLED, disable)
+                       .attr(ARIA_READONLY, readonly);
             }
+        },
+
+        readonly: function(readonly) {
+            this._editable({
+                readonly: readonly === undefined ? true : readonly,
+                disable: false
+            });
+        },
+
+        enable: function(enable) {
+            this._editable({
+                readonly: false,
+                disable: !(enable = enable === undefined ? true : enable)
+            });
         },
 
         destroy: function() {
@@ -444,6 +489,12 @@
             }
 
             that._old = that._update(value);
+
+            if (that._old === null) {
+                that.element.val("");
+            }
+
+            that._oldText = that.element.val();
         },
 
         _toggleHover: function(e) {
@@ -451,20 +502,24 @@
         },
 
         _blur: function() {
-            var that = this;
+            var that = this,
+                value = that.element.val();
 
             that.close();
-            that._change(that.element.val());
+            if (value !== that._oldText) {
+                that._change(value);
+            }
+
             that._inputWrapper.removeClass(FOCUSED);
         },
 
-        _click: function(e) {
+        _click: function() {
             var that = this,
                 element = that.element;
 
             that.dateView.toggle();
 
-            if (e.type === "click" && element[0] !== document.activeElement) {
+            if (!kendo.support.touch && element[0] !== activeElement()) {
                 element.focus();
             }
         },
@@ -476,6 +531,8 @@
 
             if (+that._old != +value) {
                 that._old = value;
+                that._oldText = that.element.val();
+
                 that.trigger(CHANGE);
 
                 // trigger the DOM change event so any subscriber gets notified
@@ -485,10 +542,11 @@
 
         _keydown: function(e) {
             var that = this,
-                dateView = that.dateView;
+                dateView = that.dateView,
+                value = that.element.val();
 
-            if (!dateView.popup.visible() && e.keyCode == keys.ENTER) {
-                that._change(that.element.val());
+            if (!dateView.popup.visible() && e.keyCode == keys.ENTER && value !== that._oldText) {
+                that._change(value);
             } else {
                 dateView.move(e);
                 that._updateARIA(dateView._current);

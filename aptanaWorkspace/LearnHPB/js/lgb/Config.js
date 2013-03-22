@@ -44,7 +44,7 @@ lgb.Config.APP_TITLE = 'Learn High Performance Buildings';
  * @const
  * @type {string}
  */
-lgb.Config.APP_VERSION = 'Alph 0.5.0';
+lgb.Config.APP_VERSION = 'Alph 0.6.1';
 
 /**
  * Will show status in the upper left if set to true.

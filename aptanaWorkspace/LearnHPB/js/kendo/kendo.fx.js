@@ -1,6 +1,6 @@
 /*
-* Kendo UI Web v2012.3.1114 (http://kendoui.com)
-* Copyright 2012 Telerik AD. All rights reserved.
+* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
 * https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
@@ -8,6 +8,14 @@
 * GNU General Public License (GPL) version 3.
 * For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
+kendo_module({
+    id: "fx",
+    name: "Effects",
+    category: "framework",
+    description: "Required for animation effects in all Kendo UI widgets.",
+    depends: [ "core" ]
+});
+
 (function($, undefined) {
     /**
      * @name kendo.fx
@@ -49,10 +57,13 @@
         ABORT_ID = "abortId",
         OVERFLOW = "overflow",
         TRANSLATE = "translate",
+        COMPLETE_CALLBACK = "completeCallback",
         TRANSITION = cssPrefix + "transition",
         TRANSFORM = cssPrefix + "transform",
-        PERSPECTIVE = cssPrefix + "perspective",
         BACKFACE = cssPrefix + "backface-visibility",
+        PERSPECTIVE = cssPrefix + "perspective",
+        DEFAULT_PERSPECTIVE = "800px",
+        TRANSFORM_PERSPECTIVE = "perspective(" + DEFAULT_PERSPECTIVE + ")",
         directions = {
             left: {
                 reverse: "right",
@@ -310,18 +321,25 @@
                     options
                 );
 
-                var stopTransition = function() {
-                   if (timeoutID) {
-                       clearTimeout(timeoutID);
-                       timeoutID = null;
-                       element
-                           .removeData(ABORT_ID)
-                           .dequeue()
-                           .css(TRANSITION, "")
-                           .css(TRANSITION);
+                var stopTransitionCalled = false;
 
-                       options.complete.call(element);
-                   }
+                var stopTransition = function() {
+                    if (!stopTransitionCalled) {
+                        stopTransitionCalled = true;
+
+                        if (timeoutID) {
+                            clearTimeout(timeoutID);
+                            timeoutID = null;
+                        }
+
+                        element
+                        .removeData(ABORT_ID)
+                        .dequeue()
+                        .css(TRANSITION, "")
+                        .css(TRANSITION);
+
+                        options.complete.call(element);
+                    }
                 };
 
                 options.duration = $.fx ? $.fx.speeds[options.duration] || options.duration : options.duration;
@@ -336,43 +354,45 @@
                 element.css(TRANSITION, options.exclusive + " " + options.duration + "ms " + options.ease).css(TRANSITION);
                 element.css(css).css(TRANSFORM);
 
-                if (browser.mozilla) {
+                /**
+                 * Use transitionEnd event for browsers who support it - but duplicate it with setTimeout, as the transitionEnd event will not be triggered if no CSS properties change.
+                 * This should be cleaned up at some point (widget by widget), and refactored to widgets not relying on the complete callback if no transition occurs.
+                 *
+                 * For IE9 and below, resort to setTimeout.
+                 */
+                if (transitions.event) {
                     element.one(transitions.event, stopTransition);
-                    delay = 50;
+                    if (options.duration !== 0) {
+                        delay = 500;
+                    }
                 }
 
                 timeoutID = setTimeout(stopTransition, options.duration + delay);
                 element.data(ABORT_ID, timeoutID);
+                element.data(COMPLETE_CALLBACK, stopTransition);
             },
 
             stopQueue: function(element, clearQueue, gotoEnd) {
-                if (element.data(ABORT_ID)) {
-                    clearTimeout(element.data(ABORT_ID));
-                    element.removeData(ABORT_ID);
-                }
-
-                var that = this, cssValues,
+                var cssValues,
                     taskKeys = element.data("keys"),
-                    retainPosition = (gotoEnd === false && taskKeys);
+                    retainPosition = (!gotoEnd && taskKeys),
+                    completeCallback = element.data(COMPLETE_CALLBACK);
 
                 if (retainPosition) {
                     cssValues = kendo.getComputedStyles(element[0], taskKeys);
                 }
 
-                element.css(TRANSITION, "").css(TRANSITION);
+                if (completeCallback) {
+                    completeCallback();
+                }
 
                 if (retainPosition) {
                     element.css(cssValues);
                 }
 
-                element.removeData("keys");
-
-                if (that.complete) {
-                    that.complete.call(element);
-                }
-
-                element.stop(clearQueue);
-                return element;
+                return element
+                        .removeData("keys")
+                        .stop(clearQueue);
             }
         });
     }
@@ -499,7 +519,7 @@
         },
 
         stop: function() {
-            $(this.element).kendoStop();
+            $(this.element).kendoStop(true, true);
         },
 
         addRestoreProperties: function(restore) {
@@ -575,7 +595,7 @@
             if (effectClass) {
                 effect = new effectClass(element, parsedEffects[effectName].direction);
                 effects.push(effect);
-            }
+           }
         }
 
         if (effects[0]) {
@@ -855,7 +875,7 @@
                 children[idx].stop();
             }
 
-            $(this.element).kendoStop();
+            $(this.element).kendoStop(true, true);
             return this;
         },
 
@@ -1023,7 +1043,7 @@
                 var that = this,
                     opacity = that.element.data(property),
                     out = that.shouldHide(),
-                    value = isNaN(opacity) ? that._start() : opacity;
+                    value = isNaN(opacity) || opacity === "" ? that._start() : opacity;
 
                 start[property] = end[property] = that._end();
 
@@ -1231,8 +1251,8 @@
 
             start[BACKFACE] = HIDDEN;
 
-            end[TRANSFORM] = reverse ? rotation.start : rotation.end;
-            start[TRANSFORM] = reverse ? rotation.end : rotation.start;
+            end[TRANSFORM] = TRANSFORM_PERSPECTIVE + (reverse ? rotation.start : rotation.end);
+            start[TRANSFORM] = TRANSFORM_PERSPECTIVE + (reverse ? rotation.end : rotation.start);
         },
 
         setup: function() {
@@ -1279,7 +1299,7 @@
 
         restore: ["clip"],
 
-        prepare: function(start, end) {
+        prepare: function(start) {
             var that = this,
                 direction = that._reverse ? directions[that._direction].reverse : that._direction;
 
@@ -1335,8 +1355,8 @@
             ];
         },
 
-        prepare: function(start, end) {
-            start[PERSPECTIVE] = 1000;
+        prepare: function(start) {
+            start[PERSPECTIVE] = DEFAULT_PERSPECTIVE;
             start.transformStyle = "preserve-3d";
         },
 
@@ -1376,8 +1396,8 @@
             ];
         },
 
-        prepare: function(start, end) {
-            start[PERSPECTIVE] = 1000;
+        prepare: function(start) {
+            start[PERSPECTIVE] = DEFAULT_PERSPECTIVE;
             start.transformStyle = "preserve-3d";
         }
     });
@@ -1440,7 +1460,7 @@
         },
 
         timePassed: function() {
-            return Math.min(this.duration, (+new Date()) - this.startDate);
+            return Math.min(this.duration, (Date.now()) - this.startDate);
         },
 
         moveTo: function(options) {
@@ -1454,7 +1474,7 @@
 
             that.tick = that._easeProxy(options.ease);
 
-            that.startDate = +new Date();
+            that.startDate = Date.now();
             that.start();
         },
 

@@ -1,6 +1,6 @@
 /*
-* Kendo UI Web v2012.3.1114 (http://kendoui.com)
-* Copyright 2012 Telerik AD. All rights reserved.
+* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
 * https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
@@ -8,8 +8,17 @@
 * GNU General Public License (GPL) version 3.
 * For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
+kendo_module({
+    id: "calendar",
+    name: "Calendar",
+    category: "web",
+    description: "The Calendar widget renders a graphical calendar that supports navigation and selection.",
+    depends: [ "core" ]
+});
+
 (function($, undefined) {
     var kendo = window.kendo,
+        support = kendo.support,
         ui = kendo.ui,
         Widget = ui.Widget,
         parse = kendo.parseDate,
@@ -23,9 +32,9 @@
         cellTemplate = template('<td#=data.cssClass# role="gridcell"><a tabindex="-1" class="k-link" href="\\#" data-#=data.ns#value="#=data.dateString#">#=data.value#</a></td>', { useWithBlock: false }),
         emptyCellTemplate = template('<td role="gridcell">&nbsp;</td>', { useWithBlock: false }),
         browser = kendo.support.browser,
-        isIE8 = browser.msie && (parseInt(browser.version, 10) < 9 || (document.documentMode && document.documentMode < 9)),
+        isIE8 = browser.msie && browser.version < 9,
         ns = ".kendoCalendar",
-        CLICK = "touchend" + ns + " click" + ns,
+        CLICK = "click" + ns,
         KEYDOWN_NS = "keydown" + ns,
         ID = "id",
         MIN = "min",
@@ -46,9 +55,9 @@
         BLUR = "blur" + ns,
         FOCUS = "focus",
         FOCUS_WITH_NS = FOCUS + ns,
-        MOUSEENTER = "touchstart mouseenter",
-        MOUSEENTER_WITH_NS = "touchstart" + ns + " mouseenter" + ns,
-        MOUSELEAVE = "touchend" + ns + " mouseleave" + ns,
+        MOUSEENTER = support.touch ? "touchstart" : "mouseenter",
+        MOUSEENTER_WITH_NS = support.touch ? "touchstart" + ns : "mouseenter" + ns,
+        MOUSELEAVE = support.touch ? "touchend" + ns + " touchmove" + ns : "mouseleave" + ns,
         MS_PER_MINUTE = 60000,
         MS_PER_DAY = 86400000,
         PREVARROW = "_prevArrow",
@@ -95,6 +104,9 @@
 
                         that._click($(link));
                     })
+                    .on("mouseup" + ns, function() {
+                        that._focusView(that.options.focusOnNav !== false);
+                    })
                     .attr(ID);
 
             if (id) {
@@ -108,10 +120,12 @@
             that._current = new DATE(+restrictValue(value, options.min, options.max));
 
             that._addClassProxy = function() {
+                that._active = true;
                 that._cell.addClass(FOCUSED);
             };
 
             that._removeClassProxy = function() {
+                that._active = false;
                 that._cell.removeClass(FOCUSED);
             };
 
@@ -160,25 +174,34 @@
 
         destroy: function() {
             var that = this,
-                today = that._today.off(ns);
+                today = that._today;
 
             that.element.off(ns);
             that._title.off(ns);
             that[PREVARROW].off(ns);
             that[NEXTARROW].off(ns);
 
-            kendo.destroy(today);
             kendo.destroy(that._view);
+
+            if (today) {
+                kendo.destroy(today.off(ns));
+            }
 
             Widget.fn.destroy.call(that);
         },
 
+        current: function() {
+            return this._current;
+        },
+
+        view: function() {
+            return this._view;
+        },
+
         focus: function(table) {
             table = table || this._table;
-            if (this.options.focusOnNav !== false) {
-                table.focus();
-                this._bindTable(table);
-            }
+            this._bindTable(table);
+            table.focus();
         },
 
         min: function(value) {
@@ -238,6 +261,7 @@
                 max = options.max,
                 title = that._title,
                 from = that._table,
+                old = that._oldTable,
                 selectedValue = that._value,
                 currentValue = that._current,
                 future = value && +value > +currentValue,
@@ -269,8 +293,15 @@
             disabled = compare(value, max) > -1;
             that[NEXTARROW].toggleClass(DISABLED, disabled).attr(ARIA_DISABLED, disabled);
 
+            if (from && old && old.data("animating")) {
+                old.kendoStop(true, true);
+                from.kendoStop(true, true);
+            }
+
+            that._oldTable = from;
+
             if (!from || that._changeView) {
-                title.html(currentView.title(value, culture));
+                title.html(currentView.title(value, min, max, culture));
 
                 that._table = to = $(currentView.content(extend({
                     min: min,
@@ -312,6 +343,7 @@
             var that = this,
             view = that._view,
             options = that.options,
+            old = that._view,
             min = options.min,
             max = options.max;
 
@@ -330,9 +362,13 @@
             }
 
             that._value = value;
-            that._changeView = !value || view && view.compare(value, that._current) !== 0;
 
-            that.navigate(value);
+            if (old && value === null && that._cell) {
+                that._cell.removeClass("k-state-selected");
+            } else {
+                that._changeView = !value || view && view.compare(value, that._current) !== 0;
+                that.navigate(value);
+            }
         },
 
         _move: function(e) {
@@ -342,13 +378,18 @@
                 view = that._view,
                 index = that._index,
                 currentValue = new DATE(+that._current),
-                value, prevent, method;
+                isRtl = kendo.support.isRtl(that.wrapper),
+                value, prevent, method, temp;
+
+            if (e.target === that._table[0]) {
+                that._active = true;
+            }
 
             if (e.ctrlKey) {
-                if (key == keys.RIGHT) {
+                if (key == keys.RIGHT && !isRtl || key == keys.LEFT && isRtl) {
                     that.navigateToFuture();
                     prevent = true;
-                } else if (key == keys.LEFT) {
+                } else if (key == keys.LEFT && !isRtl || key == keys.RIGHT && isRtl) {
                     that.navigateToPast();
                     prevent = true;
                 } else if (key == keys.UP) {
@@ -359,10 +400,10 @@
                     prevent = true;
                 }
             } else {
-                if (key == keys.RIGHT) {
+                if (key == keys.RIGHT && !isRtl || key == keys.LEFT && isRtl) {
                     value = 1;
                     prevent = true;
-                } else if (key == keys.LEFT) {
+                } else if (key == keys.LEFT && !isRtl || key == keys.RIGHT && isRtl) {
                     value = -1;
                     prevent = true;
                 } else if (key == keys.UP) {
@@ -376,7 +417,8 @@
                     prevent = true;
                 } else if (key == keys.HOME || key == keys.END) {
                     method = key == keys.HOME ? "first" : "last";
-                    currentValue = view[method](currentValue);
+                    temp = view[method](currentValue);
+                    currentValue = new DATE(temp.getFullYear(), temp.getMonth(), temp.getDate(), currentValue.getHours(), currentValue.getMinutes(), currentValue.getSeconds(), currentValue.getMilliseconds());
                     prevent = true;
                 } else if (key == keys.PAGEUP) {
                     prevent = true;
@@ -405,7 +447,8 @@
         _animate: function(options) {
             var that = this,
                 from = options.from,
-                to = options.to;
+                to = options.to,
+                active = that._active;
 
             if (!from) {
                 to.insertAfter(that.element[0].firstChild);
@@ -415,11 +458,12 @@
                 from.remove();
 
                 to.insertAfter(that.element[0].firstChild);
-                that.focus();
+                that._focusView(active);
             } else if (!from.is(":visible") || that.options.animation === false) {
                 to.insertAfter(from);
-                that.focus();
                 from.remove();
+
+                that._focusView(active);
             } else {
                 that[options.vertical ? "_vertical" : "_horizontal"](from, to, options.future);
             }
@@ -427,6 +471,7 @@
 
         _horizontal: function(from, to, future) {
             var that = this,
+                active = that._active,
                 horizontal = that.options.animation.horizontal,
                 effects = horizontal.effects,
                 viewWidth = from.outerWidth();
@@ -435,14 +480,15 @@
                 from.add(to).css({ width: viewWidth });
 
                 from.wrap("<div/>");
-                that.focus(from);
+
+                that._focusView(active, from);
 
                 from.parent()
                     .css({
                         position: "relative",
                         width: viewWidth * 2,
                         "float": LEFT,
-                        left: future ? 0 : -viewWidth
+                        "margin-left": future ? 0 : -viewWidth
                     });
 
                 to[future ? "insertAfter" : "insertBefore"](from);
@@ -452,7 +498,10 @@
                     complete: function() {
                         from.remove();
                         to.unwrap();
-                        that.focus();
+
+                        that._focusView(active);
+
+                        that._oldTable = undefined;
                     }
                 });
 
@@ -464,6 +513,7 @@
             var that = this,
                 vertical = that.options.animation.vertical,
                 effects = vertical.effects,
+                active = that._active, //active state before from's blur
                 cell, position;
 
             if (effects && effects.indexOf("zoom") != -1) {
@@ -485,12 +535,16 @@
                     duration: 600,
                     complete: function() {
                         from.remove();
+
                         to.css({
                             position: "static",
                             top: 0,
                             left: 0
                         });
-                        that.focus();
+
+                        that._focusView(active);
+
+                        that._oldTable = undefined;
                     }
                 });
 
@@ -521,8 +575,13 @@
                        .filter(function() {
                           return $(this.firstChild).attr(kendo.attr(VALUE)) === value;
                        })
-                       .addClass(className)
                        .attr(ARIA_SELECTED, true);
+
+            if (className === FOCUSED && !that._active && that.options.focusOnNav !== false) {
+                className = "";
+            }
+
+            cell.addClass(className);
 
             if (cell[0]) {
                 that._cell = cell;
@@ -543,18 +602,14 @@
         _click: function(link) {
             var that = this,
                 options = that.options,
-                currentValue = that._current,
+                currentValue = new Date(+that._current),
                 value = link.attr(kendo.attr(VALUE)).split("/");
 
-            //Safari cannot create corretly date from "1/1/2090"
+            //Safari cannot create correctly date from "1/1/2090"
             value = new DATE(value[0], value[1], value[2]);
             adjustDate(value);
 
-            if (link.parent().hasClass(OTHERMONTH)) {
-                currentValue = value;
-            } else {
-                that._view.setDate(currentValue, value);
-            }
+            that._view.setDate(currentValue, value);
 
             that.navigateDown(restrictValue(currentValue, options.min, options.max));
         },
@@ -568,6 +623,12 @@
             } else {
                 that._current = value;
                 that._class(FOCUSED, view.toDateString(value));
+            }
+        },
+
+        _focusView: function(active, table) {
+            if (active) {
+                this.focus(table);
             }
         },
 
@@ -598,6 +659,7 @@
         _header: function() {
             var that = this,
             element = that.element,
+            active = that.options.focusOnNav !== false,
             links;
 
             if (!element.find(".k-header")[0]) {
@@ -612,9 +674,9 @@
                            .on(MOUSEENTER_WITH_NS + " " + MOUSELEAVE + " " + FOCUS_WITH_NS + " " + BLUR, mousetoggle)
                            .click(false);
 
-            that._title = links.eq(1).on(CLICK, proxy(that.navigateUp, that));
-            that[PREVARROW] = links.eq(0).on(CLICK, proxy(that.navigateToPast, that));
-            that[NEXTARROW] = links.eq(2).on(CLICK, proxy(that.navigateToFuture, that));
+            that._title = links.eq(1).on(CLICK, function() { that._focusView(active); that.navigateUp(); });
+            that[PREVARROW] = links.eq(0).on(CLICK, function() { that._focusView(active); that.navigateToPast(); });
+            that[NEXTARROW] = links.eq(2).on(CLICK, function() { that._focusView(active); that.navigateToFuture(); });
         },
 
         _navigate: function(arrow, modifier) {
@@ -639,7 +701,8 @@
             var that = this,
                 options = that.options,
                 selectedValue = +that._value,
-                bigger, navigate;
+                bigger, navigate,
+                arrow = NEXTARROW;
 
             if (value === undefined) {
                 return options[option];
@@ -658,6 +721,7 @@
             if (option === MIN) {
                 bigger = +value > selectedValue;
                 navigate = navigate > -1;
+                arrow = PREVARROW;
             } else {
                 bigger = selectedValue > +value;
                 navigate = navigate < 1;
@@ -667,6 +731,10 @@
                 that.value(null);
             } else if (navigate) {
                 that.navigate();
+            } else {
+                that[arrow]
+                    .toggleClass(DISABLED, false)
+                    .attr(ARIA_DISABLED, false);
             }
 
             that._toggle();
@@ -765,7 +833,7 @@
         },
         views: [{
             name: MONTH,
-            title: function(date, culture) {
+            title: function(date, min, max, culture) {
                 return getCalendarInfo(culture).months.names[date.getMonth()] + " " + date.getFullYear();
             },
             content: function(options) {
@@ -783,7 +851,7 @@
                 firstDayIdx = currentCalendar.firstDay,
                 days = currentCalendar.days,
                 names = shiftArray(days.names, firstDayIdx),
-                short = shiftArray(days.namesShort, firstDayIdx),
+                shortNames = shiftArray(days.namesShort, firstDayIdx),
                 start = calendar.firstVisibleDay(date, currentCalendar),
                 firstDayOfMonth = that.first(date),
                 lastDayOfMonth = that.last(date),
@@ -792,7 +860,7 @@
                 html = '<table tabindex="0" role="grid" class="k-content" cellspacing="0"><thead><tr role="row">';
 
                 for (; idx < 7; idx++) {
-                    html += '<th scope="col" title="' + names[idx] + '">' + short[idx] + '</th>';
+                    html += '<th scope="col" title="' + names[idx] + '">' + shortNames[idx] + '</th>';
                 }
 
                 today = new DATE(today.getFullYear(), today.getMonth(), today.getDate());
@@ -809,7 +877,7 @@
                     content: options.content,
                     empty: options.empty,
                     setter: that.setDate,
-                    build: function(date, idx) {
+                    build: function(date) {
                         var cssClass = [],
                             day = date.getDay(),
                             linkClass = "",
@@ -959,12 +1027,8 @@
         },
         {
             name: "decade",
-            title: function(date) {
-                var start = date.getFullYear();
-
-                start = start - start % 10;
-
-                return start + "-" + (start + 9);
+            title: function(date, min, max) {
+                return title(date, min, max, 10);
             },
             content: function(options) {
                 var year = options.date.getFullYear(),
@@ -1005,18 +1069,16 @@
         },
         {
             name: CENTURY,
-            title: function(date) {
-                var start = date.getFullYear();
-
-                start = start - start % 100;
-
-                return start + "-" + (start + 99);
+            title: function(date, min, max) {
+                return title(date, min, max, 100);
             },
             content: function(options) {
                 var year = options.date.getFullYear(),
-                minYear = options.min.getFullYear(),
-                maxYear = options.max.getFullYear(),
-                toDateString = this.toDateString;
+                min = options.min.getFullYear(),
+                max = options.max.getFullYear(),
+                toDateString = this.toDateString,
+                minYear = min,
+                maxYear = max;
 
                 minYear = minYear - minYear % 10;
                 maxYear = maxYear - maxYear % 10;
@@ -1031,10 +1093,20 @@
                     max: new DATE(maxYear, 0, 1),
                     setter: this.setDate,
                     build: function(date, idx) {
-                        var year = date.getFullYear();
+                        var start = date.getFullYear(),
+                            end = start + 9;
+
+                        if (start < min) {
+                            start = min;
+                        }
+
+                        if (end > max) {
+                            end = max;
+                        }
+
                         return {
-                            value: year + " - " + (year + 9),
                             ns: kendo.ns,
+                            value: start + " - " + end,
                             dateString: toDateString(date),
                             cssClass: idx === 0 || idx == 11 ? OTHERMONTHCLASS : ""
                         };
@@ -1061,6 +1133,25 @@
             }
         }]
     };
+
+    function title(date, min, max, modular) {
+        var start = date.getFullYear(),
+            minYear = min.getFullYear(),
+            maxYear = max.getFullYear(),
+            end;
+
+        start = start - start % modular;
+        end = start + (modular - 1);
+
+        if (start < minYear) {
+            start = minYear;
+        }
+        if (end > maxYear) {
+            end = maxYear;
+        }
+
+        return start + "-" + end;
+    }
 
     function view(options) {
         var idx = 0,
@@ -1142,10 +1233,6 @@
     }
 
     function mousetoggle(e) {
-        if (e.type.indexOf("touch") === -1) {
-            e.stopImmediatePropagation();
-        }
-
         $(this).toggleClass(HOVER, MOUSEENTER.indexOf(e.type) > -1 || e.type == FOCUS);
     }
 

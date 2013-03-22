@@ -1,6 +1,6 @@
 /*
-* Kendo UI Web v2012.3.1114 (http://kendoui.com)
-* Copyright 2012 Telerik AD. All rights reserved.
+* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
 * https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
@@ -8,6 +8,14 @@
 * GNU General Public License (GPL) version 3.
 * For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
+kendo_module({
+    id: "editable",
+    name: "Editable",
+    category: "framework",
+    depends: [ "datepicker", "numerictextbox", "validator", "binder" ],
+    hidden: true
+});
+
 (function($, undefined) {
     var kendo = window.kendo,
         ui = kendo.ui,
@@ -16,7 +24,7 @@
         isFunction = $.isFunction,
         isPlainObject = $.isPlainObject,
         inArray = $.inArray,
-        nameSpecialCharRegExp = /(\[|\]|\$|\.|\:|\+)/g,
+        nameSpecialCharRegExp = /("|'|\[|\]|\$|\.|\:|\+)/g,
         ERRORTEMPLATE = '<div class="k-widget k-tooltip k-tooltip-validation" style="margin:0.5em"><span class="k-icon k-warning"> </span>' +
                     '#=message#<div class="k-callout k-callout-n"></div></div>',
         CHANGE = "change";
@@ -29,7 +37,7 @@
     }
 
     function convertToValueBinding(container) {
-        container.find(":input:not(:button, [" + kendo.attr("role") + "=upload], [" + kendo.attr("skip") + "]), select").each(function() {
+        container.find(":input:not(:button, [" + kendo.attr("role") + "=upload], [" + kendo.attr("skip") + "], [type=file]), select").each(function() {
             var bindAttr = kendo.attr("bind"),
                 binding = this.getAttribute(bindAttr) || "",
                 bindingName = this.type === "checkbox" ||  this.type === "radio" ? "checked:" : "value:",
@@ -173,7 +181,7 @@
                 type = isValuesEditor ? "values" : fieldType(modelField),
                 isCustomEditor = isObject && field.editor,
                 editor = isCustomEditor ? field.editor : editors[type],
-                container = that.element.find("[data-container-for=" + fieldName.replace(nameSpecialCharRegExp, "\\$1")+ "]");
+                container = that.element.find("[" + kendo.attr("container-for") + "=" + fieldName.replace(nameSpecialCharRegExp, "\\$1")+ "]");
 
             editor = editor ? editor : editors["string"];
 
@@ -196,7 +204,7 @@
 
             values[e.field] = e.value;
 
-            input = $(':input[' + kendo.attr("bind") + '="' + (isBoolean ? 'checked:' : 'value:') + e.field + '"]', that.element);
+            input = $(':input[' + kendo.attr("bind") + '="' + (isBoolean ? 'checked:' : 'value:') + e.field.replace(nameSpecialCharRegExp, "\\$1") + '"]', that.element);
 
             try {
                 that._validationEventInProgress = true;

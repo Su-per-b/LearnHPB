@@ -1,6 +1,6 @@
 /*
-* Kendo UI Web v2012.3.1114 (http://kendoui.com)
-* Copyright 2012 Telerik AD. All rights reserved.
+* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
 * https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
@@ -8,6 +8,14 @@
 * GNU General Public License (GPL) version 3.
 * For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
+kendo_module({
+    id: "draganddrop",
+    name: "Drag & drop",
+    category: "framework",
+    description: "Drag & drop functionality for any DOM element.",
+    depends: [ "core", "userevents" ]
+});
+
 (function ($, undefined) {
     var kendo = window.kendo,
         support = kendo.support,
@@ -65,7 +73,7 @@
     }
 
     function containerBoundaries(container, element) {
-        var offset = container.offset(),
+        var offset = getOffset(container),
             minX = offset.left + numericCssPropery(container, "borderLeftWidth") + numericCssPropery(container, "paddingLeft"),
             minY = offset.top + numericCssPropery(container, "borderTopWidth") + numericCssPropery(container, "paddingTop"),
             maxX = minX + container.width() - element.outerWidth(true),
@@ -452,7 +460,7 @@
 
         destroy: function() {
             var groupName = this.options.group,
-                group = dropTargets[groupName],
+                group = dropTargets[groupName] || dropAreas[groupName],
                 i;
 
             if (group.length > 1) {
@@ -500,7 +508,7 @@
     });
 
     DropTarget.destroyGroup = function(groupName) {
-        var group = dropTargets[groupName],
+        var group = dropTargets[groupName] || dropAreas[groupName],
             i;
 
         if (group) {
@@ -510,6 +518,7 @@
 
             group.length = 0;
             delete dropTargets[groupName];
+            delete dropAreas[groupName];
         }
     };
 
@@ -620,7 +629,11 @@
             that.currentTargetOffset = getOffset(that.currentTarget);
 
             if (hint) {
-                that.hint = $.isFunction(hint) ? $(hint(that.currentTarget)) : hint;
+                if (that.hint) {
+                    that.hint.stop(true, true).remove();
+                }
+
+                that.hint = $.isFunction(hint) ? $(hint.call(that, that.currentTarget)) : hint;
 
                 var offset = getOffset(that.currentTarget);
                 that.hintOffset = offset;
@@ -697,11 +710,14 @@
             that._cancel(e.event);
         },
 
-        _cancel: function(e) {
+        _cancel: function() {
             var that = this;
 
             if (that.hint && !that.dropped) {
-                that.hint.animate(that.currentTargetOffset, "fast", that._afterEndHandler);
+                setTimeout(function() {
+                    that.hint.stop(true, true).animate(that.currentTargetOffset, "fast", that._afterEndHandler);
+                }, 0);
+
             } else {
                 that._afterEnd();
             }

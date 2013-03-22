@@ -1,6 +1,6 @@
 /*
-* Kendo UI Web v2012.3.1114 (http://kendoui.com)
-* Copyright 2012 Telerik AD. All rights reserved.
+* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
 * https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
@@ -8,31 +8,43 @@
 * GNU General Public License (GPL) version 3.
 * For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
+kendo_module({
+    id: "numerictextbox",
+    name: "NumericTextBox",
+    category: "web",
+    description: "The NumericTextBox widget can format and display numeric, percentage or currency textbox.",
+    depends: [ "core", "userevents" ]
+});
+
 (function($, undefined) {
     var kendo = window.kendo,
         keys = kendo.keys,
         ui = kendo.ui,
         Widget = ui.Widget,
+        activeElement = kendo._activeElement,
         extractFormat = kendo._extractFormat,
         parse = kendo.parseFloat,
         placeholderSupported = kendo.support.placeholder,
         getCulture = kendo.getCulture,
         CHANGE = "change",
         DISABLED = "disabled",
+        READONLY = "readonly",
         INPUT = "k-input",
         SPIN = "spin",
         ns = ".kendoNumericTextBox",
         TOUCHEND = "touchend",
         MOUSELEAVE = "mouseleave" + ns,
-        MOUSEDOWN = "touchstart" + ns + " mousedown" + ns,
         MOUSEUP = "touchcancel" + ns + " " + "touchend" + ns + " mouseup" + ns + " " + MOUSELEAVE,
         HOVEREVENTS = "mouseenter" + ns + " " + MOUSELEAVE,
         DEFAULT = "k-state-default",
         FOCUSED = "k-state-focused",
         HOVER = "k-state-hover",
+        FOCUS = "focus",
         POINT = ".",
         SELECTED = "k-state-selected",
         STATEDISABLED = "k-state-disabled",
+        ARIA_DISABLED = "aria-disabled",
+        ARIA_READONLY = "aria-readonly",
         NULL = null,
         proxy = $.proxy,
         decimals = {
@@ -44,14 +56,12 @@
          init: function(element, options) {
              var that = this,
              isStep = options && options.step !== undefined,
-             min, max, step, value;
+             min, max, step, value, disabled;
 
              Widget.fn.init.call(that, element, options);
 
              options = that.options;
-             element = that.element.addClass(INPUT)
-                           .on("keydown" + ns, proxy(that._keydown, that))
-                           .on("paste" + ns, proxy(that._paste, that))
+             element = that.element
                            .on("blur" + ns, proxy(that._focusout, that))
                            .attr("role", "spinbutton");
 
@@ -62,12 +72,15 @@
              that._arrows();
              that._input();
 
-            that._text.on(TOUCHEND + ns, function() {
-                that._toggleText(false);
-            });
-
              if (!kendo.support.mobileOS) {
-                 that._text.on("focus" + ns, proxy(that._click, that));
+                 that._text.on(FOCUS + ns, proxy(that._click, that));
+             } else {
+                 that._text.on(TOUCHEND + ns + " " + FOCUS + ns, function(e) {
+                    that._toggleText(false);
+                    if (e.type === FOCUS) {
+                        element.focus();
+                    }
+                 });
              }
 
              min = that.min(element.attr("min"));
@@ -94,7 +107,12 @@
              value = options.value;
              that.value(value !== NULL ? value : element.val());
 
-             that.enable(!element.is('[disabled]'));
+             disabled = element.is("[disabled]");
+             if (disabled) {
+                 that.enable(false);
+             } else {
+                 that.readonly(element.is("[readonly]"));
+             }
 
              kendo.notify(that);
          },
@@ -117,41 +135,72 @@
             CHANGE,
             SPIN
         ],
-        enable: function(enable) {
+
+        _editable: function(options) {
             var that = this,
-                text = that._text.add(that.element),
-                wrapper = that._inputWrapper.off(HOVEREVENTS),
-                upArrow = that._upArrow.off(MOUSEDOWN),
-                downArrow = that._downArrow.off(MOUSEDOWN);
+                element = that.element,
+                disable = options.disable,
+                readonly = options.readonly,
+                text = that._text.add(element),
+                wrapper = that._inputWrapper.off(HOVEREVENTS);
 
             that._toggleText(true);
 
-            if (enable === false) {
-                wrapper
-                    .removeClass(DEFAULT)
-                    .addClass(STATEDISABLED);
+            that._upArrowEventHandler.unbind("press");
+            that._downArrowEventHandler.unbind("press");
+            element.off("keydown" + ns).off("paste" + ns);
 
-                text.attr(DISABLED, DISABLED);
-            } else {
+            if (!readonly && !disable) {
                 wrapper
                     .addClass(DEFAULT)
                     .removeClass(STATEDISABLED)
                     .on(HOVEREVENTS, that._toggleHover);
 
-                text.removeAttr(DISABLED);
+                text.removeAttr(DISABLED)
+                    .removeAttr(READONLY)
+                    .attr(ARIA_DISABLED, false)
+                    .attr(ARIA_READONLY, false);
 
-                upArrow.on(MOUSEDOWN, function(e) {
+                that._upArrowEventHandler.bind("press", function(e) {
                     e.preventDefault();
                     that._spin(1);
                     that._upArrow.addClass(SELECTED);
                 });
 
-                downArrow.on(MOUSEDOWN, function(e) {
+                that._downArrowEventHandler.bind("press", function(e) {
                     e.preventDefault();
                     that._spin(-1);
                     that._downArrow.addClass(SELECTED);
                 });
+
+                that.element
+                    .on("keydown" + ns, proxy(that._keydown, that))
+                    .on("paste" + ns, proxy(that._paste, that));
+
+            } else {
+                wrapper
+                    .addClass(disable ? STATEDISABLED : DEFAULT)
+                    .removeClass(disable ? DEFAULT : STATEDISABLED);
+
+                text.attr(DISABLED, disable)
+                    .attr(READONLY, readonly)
+                    .attr(ARIA_DISABLED, disable)
+                    .attr(ARIA_READONLY, readonly);
             }
+        },
+
+        readonly: function(readonly) {
+            this._editable({
+                readonly: readonly === undefined ? true : readonly,
+                disable: false
+            });
+        },
+
+        enable: function(enable) {
+            this._editable({
+                readonly: false,
+                disable: !(enable = enable === undefined ? true : enable)
+            });
         },
 
         destroy: function() {
@@ -240,18 +289,20 @@
                 arrows.wrapAll('<span class="k-select"/>');
             }
 
-            arrows.on(MOUSEUP, function(e) {
+            arrows.on(MOUSEUP, function() {
                 clearTimeout( that._spinning );
                 arrows.removeClass(SELECTED);
             });
 
             if (!spinners) {
-                arrows.toggle(spinners);
+                arrows.parent().toggle(spinners);
                 that._inputWrapper.addClass("k-expand-padding");
             }
 
             that._upArrow = arrows.eq(0);
+            that._upArrowEventHandler = new kendo.UserEvents(that._upArrow);
             that._downArrow = arrows.eq(1);
+            that._downArrowEventHandler = new kendo.UserEvents(that._downArrow);
         },
 
         _blur: function() {
@@ -267,7 +318,7 @@
             clearTimeout(that._focusing);
             that._focusing = setTimeout(function() {
                 var input = e.target,
-                    idx = caret(input),
+                    idx = caret(input)[0],
                     value = input.value.substring(0, idx),
                     format = that._format(that.options.format),
                     group = format[","],
@@ -320,7 +371,7 @@
             var that = this;
 
             clearTimeout(that._focusing);
-            that._inputWrapper.removeClass(FOCUSED);
+            that._inputWrapper.removeClass(FOCUSED).removeClass(HOVER);
             that._blur();
         },
 
@@ -341,34 +392,28 @@
         _input: function() {
             var that = this,
                 CLASSNAME = "k-formatted-value",
-                element = that.element.show()[0],
+                element = that.element.addClass(INPUT).show()[0],
                 accessKey = element.accessKey,
                 wrapper = that.wrapper,
-                DOMInput, text;
-
+                text;
 
             text = wrapper.find(POINT + CLASSNAME);
 
             if (!text[0]) {
-                text = $("<input />").insertBefore(element).addClass(CLASSNAME);
+                text = $('<input type="text"/>').insertBefore(element).addClass(CLASSNAME);
             }
 
-            DOMInput = text[0];
-            DOMInput.type = "text";
-            DOMInput.style.cssText = element.style.cssText;
-            DOMInput.tabIndex = element.tabIndex;
-
-            element.tabIndex = 0;
             element.type = "text";
-            text.attr("placeholder", that.options.placeholder);
+            text[0].tabIndex = element.tabIndex;
+            text[0].style.cssText = element.style.cssText;
+            text.prop("placeholder", that.options.placeholder);
 
             if (accessKey) {
                 text.attr("accesskey", accessKey);
                 element.accessKey = "";
             }
 
-            that._text = text.attr("readonly", true)
-                             .addClass(element.className);
+            that._text = text.addClass(element.className);
         },
 
         _keydown: function(e) {
@@ -409,7 +454,10 @@
                 numberFormat = that._format(options.format),
                 separator = numberFormat[POINT],
                 precision = options.decimals,
-                idx = caret(element),
+                selection = caret(element),
+                selectionStart = selection[0],
+                selectionEnd = selection[1],
+                textSelected = selectionStart === 0 && selectionEnd === value.length,
                 prevent = true,
                 number;
 
@@ -433,16 +481,25 @@
                 if (shiftKey) {
                     number = parseInt(String.fromCharCode(key), 10);
                     if (!isNaN(number)) {
-                        element.value = value.substring(0, idx) + number + value.substring(idx);
+                        number = number + "";
+                        value = value.substring(0, selectionStart) + number + value.substring(selectionEnd);
+                        if (element.maxLength === -1 || element.maxLength >= value.length) {
+                            element.value = value;
+                            caret(element, selectionStart + number.length);
+                        }
+
                         prevent = true;
                     }
                 }
-            } else if (decimals[key] === separator && precision > 0 && value.indexOf(separator) == -1) {
+            } else if ((decimals[key] === separator || key == 110) && precision > 0 && (value.indexOf(separator) == -1 || textSelected)) {
+                if (key == 110) {
+                    element.value = value.substring(0, selectionStart) + separator + value.substring(selectionEnd);
+                    caret(element, selectionStart + separator.length);
+                } else if (!shiftKey) {
+                    prevent = false;
+                }
+            } else if ((min === NULL || min < 0) && value.indexOf("-") == -1 && (key == 189 || key == 109 || key == 173) && selectionStart === 0) { //sign
                 prevent = false;
-            } else if ((min === NULL || min < 0) && value.indexOf("-") == -1 && (key == 189 || key == 109) && idx === 0) { //sign
-                prevent = false;
-            } else if (key == 110 && precision > 0 && value.indexOf(separator) == -1) {
-                element.value = value.substring(0, idx) + separator + value.substring(idx);
             }
 
             return prevent;
@@ -484,7 +541,7 @@
                 element = that.element,
                 value = that._parse(element.val()) || 0;
 
-            if (document.activeElement != element[0]) {
+            if (activeElement() != element[0]) {
                 that._focusin();
             }
 
@@ -591,7 +648,14 @@
         var range,
             isPosition = position !== undefined;
 
-        if (document.selection) {
+        if (element.selectionStart !== undefined) {
+            if (isPosition) {
+                element.focus();
+                element.setSelectionRange(position, position);
+            } else {
+                position = [element.selectionStart, element.selectionEnd];
+            }
+        } else if (document.selection) {
             if ($(element).is(":visible")) {
                 element.focus();
             }
@@ -601,19 +665,15 @@
                 range.select();
             } else {
                 var rangeElement = element.createTextRange(),
-                    rangeDuplicated = rangeElement.duplicate();
+                    rangeDuplicated = rangeElement.duplicate(),
+                    selectionStart, selectionEnd;
+
                     rangeElement.moveToBookmark(range.getBookmark());
                     rangeDuplicated.setEndPoint('EndToStart', rangeElement);
+                    selectionStart = rangeDuplicated.text.length;
+                    selectionEnd = selectionStart + rangeElement.text.length;
 
-                position = rangeDuplicated.text.length;
-
-            }
-        } else if (element.selectionStart !== undefined) {
-            if (isPosition) {
-                element.focus();
-                element.setSelectionRange(position, position);
-            } else {
-                position = element.selectionStart;
+                position = [selectionStart, selectionEnd];
             }
         }
 

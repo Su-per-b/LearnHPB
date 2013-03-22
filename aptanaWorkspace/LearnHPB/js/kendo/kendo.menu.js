@@ -1,6 +1,6 @@
 /*
-* Kendo UI Web v2012.3.1114 (http://kendoui.com)
-* Copyright 2012 Telerik AD. All rights reserved.
+* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
 * https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
@@ -8,12 +8,22 @@
 * GNU General Public License (GPL) version 3.
 * For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
+kendo_module({
+    id: "menu",
+    name: "Menu",
+    category: "web",
+    description: "The Menu widget displays hierarchical data as a multi-level menu.",
+    depends: [ "popup" ]
+});
+
 (function ($, undefined) {
     var kendo = window.kendo,
         ui = kendo.ui,
-        touch = (kendo.support.touch && kendo.support.mobileOS) || kendo.support.pointers,
-        MOUSEDOWN = kendo.support.mousedown,
-        CLICK = kendo.support.click,
+        activeElement = kendo._activeElement,
+        touch = (kendo.support.touch && kendo.support.mobileOS),
+        mobile = touch || kendo.support.pointers,
+        MOUSEDOWN = "mousedown",
+        CLICK = "click",
         extend = $.extend,
         proxy = $.proxy,
         each = $.each,
@@ -33,24 +43,28 @@
         IMAGE = "k-image",
         SELECT = "select",
         ZINDEX = "zIndex",
-        MOUSEENTER = "mouseenter",
-        MOUSELEAVE = "mouseleave",
+        ACTIVATE = "activate",
+        DEACTIVATE = "deactivate",
+        MOUSEENTER = kendo.support.pointers ? "MSPointerOver" : "mouseenter",
+        MOUSELEAVE = kendo.support.pointers ? "MSPointerOut" : "mouseleave",
         KENDOPOPUP = "kendoPopup",
         DEFAULTSTATE = "k-state-default",
         HOVERSTATE = "k-state-hover",
         FOCUSEDSTATE = "k-state-focused",
         DISABLEDSTATE = "k-state-disabled",
         groupSelector = ".k-group",
-        ACTIVESTATE = "k-state-active",
         allItemsSelector = ":not(.k-list) > .k-item",
         disabledSelector = ".k-item.k-state-disabled",
         itemSelector = ".k-item:not(.k-state-disabled)",
         linkSelector = ".k-item:not(.k-state-disabled) > .k-link",
+        exclusionSelector = ":not(.k-item.k-separator)",
+        nextSelector = exclusionSelector + ":eq(0)",
+        lastSelector = exclusionSelector + ":last",
         templateSelector = "div:not(.k-animation-container,.k-list-container)",
 
         templates = {
             content: template(
-                "<div class='k-content k-group'>#= content(item) #</div>"
+                "<div class='k-content k-group' tabindex='-1'>#= content(item) #</div>"
             ),
             group: template(
                 "<ul class='#= groupCssClass(group) #'#= groupAttributes(group) # role='menu' aria-hidden='true'>" +
@@ -69,6 +83,8 @@
                     "#= itemWrapper(data) #" +
                     "# if (item.items) { #" +
                     "#= subGroup({ items: item.items, menu: menu, group: { expanded: item.expanded } }) #" +
+                    "# } else if (item.content || item.contentUrl) { #" +
+                    "#= renderContent(data) #" +
                     "# } #" +
                 "</li>"
             ),
@@ -98,10 +114,14 @@
                     result += " k-last";
                 }
 
+                if (item.cssClass) {
+                    result += " " + item.cssClass;
+                }
+
                 return result;
             },
 
-            textClass: function(item) {
+            textClass: function() {
                 return LINK;
             },
 
@@ -133,7 +153,7 @@
                 return group.expanded !== true ? " style='display:none'" : "";
             },
 
-            groupCssClass: function(group) {
+            groupCssClass: function() {
                 return "k-group";
             },
 
@@ -196,11 +216,6 @@
             .addClass(DISABLEDSTATE)
             .removeAttr("disabled")
             .attr("aria-disabled", true);
-        item
-            .children("a")
-            .filter(":focus")
-            .parent()
-            .addClass(ACTIVESTATE);
 
         if (!item.filter("[role]").length) {
             item.attr("role", "menuitem");
@@ -220,7 +235,7 @@
     function updateArrow (item) {
         item = $(item);
 
-        item.find(".k-icon").remove();
+        item.find("> .k-link > [class*=k-i-arrow]").remove();
 
         item.filter(":has(.k-group)")
             .children(".k-link:not(:has([class*=k-i-arrow]))")
@@ -250,35 +265,24 @@
             element = that.wrapper = that.element;
             options = that.options;
 
-            if (options.dataSource) {
-                that.element.empty();
-                that.append(options.dataSource, element);
-            }
+            that._initData(options);
 
             that._updateClasses();
 
-            if (options.animation === false) {
-                options.animation = { open: { effects: {} }, close: { hide: true, effects: {} } };
-            }
+            that._animations(options);
 
             that.nextItemZIndex = 100;
 
             that._tabindex();
 
-            element.on("touchstart", function (e) {
-                        that.element[0].blur();
-                        that.element[0].focus();
-                        setTimeout(function () {
-                            that._moveHover([], $(kendo.eventTarget(e)).closest(allItemsSelector));
-                        }, 200); // Focus happens after click in WebKit.
-                    })
-                    .on("MSPointerDown", function (e) {
-                        that._oldHoverItem = $(e.target).closest(allItemsSelector);
-                    })
+            that._focusProxy = proxy(that._focusHandler, that);
+
+            element.on("touchstart MSPointerDown", that._focusProxy)
                    .on(CLICK + NS, disabledSelector, false)
                    .on(CLICK + NS, itemSelector, proxy(that._click , that))
                    .on("keydown" + NS, proxy(that._keydown, that))
                    .on("focus" + NS, proxy(that._focus, that))
+                   .on("focus" + NS, ".k-content", proxy(that._focus, that))
                    .on("blur" + NS, proxy(that._removeHoverItem, that))
                    .on(MOUSEENTER + NS, itemSelector, proxy(that._mouseenter, that))
                    .on(MOUSELEAVE + NS, itemSelector, proxy(that._mouseleave, that))
@@ -303,6 +307,8 @@
         events: [
             OPEN,
             CLOSE,
+            ACTIVATE,
+            DEACTIVATE,
             SELECT
         ],
 
@@ -323,6 +329,29 @@
             hoverDelay: 100
         },
 
+        _initData: function(options) {
+            var that = this;
+
+            if (options.dataSource) {
+                that.element.empty();
+                that.append(options.dataSource, that.element);
+            }
+        },
+
+        setOptions: function(options) {
+            var animation = this.options.animation;
+
+            this._animations(options);
+
+            options.animation = extend(true, animation, options.animation);
+
+            if ("dataSource" in options) {
+                this._initData(options);
+            }
+
+            Widget.fn.setOptions.call(this, options);
+        },
+
         destroy: function() {
             var that = this;
 
@@ -331,7 +360,7 @@
             that.element.off(NS);
 
             if (that._documentClickHandler) {
-                $(document).unbind(that._documentClickHandler);
+                $(document).unbind("click", that._documentClickHandler);
             }
         },
 
@@ -350,16 +379,10 @@
         append: function (item, referenceItem) {
             referenceItem = this.element.find(referenceItem);
 
-            var inserted = this._insert(item, referenceItem, referenceItem.length ? referenceItem.find("> .k-group, .k-animation-container > .k-group") : null);
+            var inserted = this._insert(item, referenceItem, referenceItem.length ? referenceItem.find("> .k-group, > .k-animation-container > .k-group") : null);
 
-            each(inserted.items, function (idx) {
+            each(inserted.items, function () {
                 inserted.group.append(this);
-
-                var contents = inserted.contents[idx];
-                if (contents) {
-                    $(this).append(contents);
-                }
-
                 updateArrow(this);
             });
 
@@ -374,14 +397,8 @@
 
             var inserted = this._insert(item, referenceItem, referenceItem.parent());
 
-            each(inserted.items, function (idx) {
+            each(inserted.items, function () {
                 referenceItem.before(this);
-
-                var contents = inserted.contents[idx];
-                if (contents) {
-                    $(this).append(contents);
-                }
-
                 updateArrow(this);
                 updateFirstLast(this);
             });
@@ -396,14 +413,8 @@
 
             var inserted = this._insert(item, referenceItem, referenceItem.parent());
 
-            each(inserted.items, function (idx) {
+            each(inserted.items, function () {
                 referenceItem.after(this);
-
-                var contents = inserted.contents[idx];
-                if (contents) {
-                    $(this).append(contents);
-                }
-
                 updateArrow(this);
                 updateFirstLast(this);
             });
@@ -415,7 +426,7 @@
 
         _insert: function (item, referenceItem, parent) {
             var that = this,
-                items, groups, contents = [];
+                items, groups;
 
             if (!referenceItem || !referenceItem.length) {
                 parent = that.element;
@@ -444,15 +455,6 @@
                                 }));
                             }
                         });
-                contents = $.map(plain ? [ item ] : item, function (value, idx) {
-                            if (value.content || value.contentUrl) {
-                                return $(Menu.renderContent({
-                                    item: extend(value, { index: idx })
-                                }));
-                            } else {
-                                return false;
-                            }
-                        });
             } else {
                 items = $(item);
                 groups = items.find("> ul")
@@ -466,7 +468,7 @@
                 });
             }
 
-            return { items: items, group: parent, contents: contents };
+            return { items: items, group: parent };
         },
 
         remove: function (element) {
@@ -544,6 +546,8 @@
 
                         if (!popup) {
                             popup = ul.kendoPopup({
+                                activate: function() { that.trigger(ACTIVATE, { item: this.wrapper.parent() }); },
+                                deactivate: function() { that.trigger(DEACTIVATE, { item: this.wrapper.parent() }); },
                                 origin: directions.origin,
                                 position: directions.position,
                                 collision: options.popupCollision !== undefined ? options.popupCollision : (parentHorizontal ? "fit" : "fit flip"),
@@ -622,14 +626,14 @@
                 isEnter = e.type == MOUSEENTER || MOUSEDOWN.indexOf(e.type) !== -1;
 
             if (!target.parents("li." + DISABLEDSTATE).length) {
-                target.toggleClass(HOVERSTATE, isEnter);
+                target.toggleClass(HOVERSTATE, isEnter || e.type == "mousedown" || e.type == "click");
             }
 
             this._removeHoverItem();
         },
 
         _removeHoverItem: function() {
-            var oldHoverItem = this._oldHoverItem;
+            var oldHoverItem = this._hoverItem();
 
             if (oldHoverItem && oldHoverItem.hasClass(FOCUSEDSTATE)) {
                 oldHoverItem.removeClass(FOCUSEDSTATE);
@@ -643,7 +647,14 @@
 
             element.addClass("k-widget k-reset k-header " + MENU).addClass(MENU + "-" + this.options.orientation);
 
-            element.find("li > ul").addClass("k-group").attr("role", "menu").attr("aria-hidden", element.is(":visible"));
+            element.find("li > ul")
+                   .addClass("k-group")
+                   .attr("role", "menu")
+                   .attr("aria-hidden", element.is(":visible"))
+                   .end()
+                   .find("li > div")
+                   .addClass("k-content")
+                   .attr("tabindex", "-1"); // Capture the focus before the Menu
 
             items = element.find("> li,.k-group > li");
 
@@ -667,7 +678,7 @@
                 }
             }
 
-            if (that.options.openOnClick && that.clicked || touch) {
+            if (that.options.openOnClick && that.clicked || mobile) {
                 element.siblings().each(proxy(function (_, sibling) {
                     that.close(sibling);
                 }, that));
@@ -684,7 +695,7 @@
                 return;
             }
 
-            if (!that.options.openOnClick && !touch && !contains(e.currentTarget, e.relatedTarget) && hasChildren) {
+            if (!that.options.openOnClick && !touch && !(kendo.support.pointers && e.originalEvent.pointerType == 2) && !contains(e.currentTarget, e.relatedTarget) && hasChildren) {
                 that.close(element);
             }
         },
@@ -723,13 +734,13 @@
                 that._oldHoverItem = that._findRootParent(element);
                 that.close(link.parentsUntil(that.element, allItemsSelector));
                 that.clicked = false;
-                if ("touchend MSPointerUp".indexOf(e.type) != -1) {
+                if ("MSPointerUp".indexOf(e.type) != -1) {
                     e.preventDefault();
                 }
                 return;
             }
 
-            if ((!element.parent().hasClass(MENU) || !options.openOnClick) && !kendo.support.touch) {
+            if ((!element.parent().hasClass(MENU) || !options.openOnClick) && mobile) {
                 return;
             }
 
@@ -739,6 +750,9 @@
 
             that.clicked = true;
             openHandle = childGroup.is(":visible") ? CLOSE : OPEN;
+            if (!options.closeOnClick && openHandle == CLOSE) {
+                return;
+            }
             that[openHandle](element);
         },
 
@@ -753,12 +767,22 @@
         _focus: function (e) {
             var that = this,
                 target = e.target,
-                hoverItem = that._hoverItem();
+                hoverItem = that._hoverItem(),
+                active = activeElement();
 
-            if (target == that.wrapper[0] && hoverItem.length) {
-                that._moveHover([], hoverItem);
-            } else if (target == that.wrapper[0] && !that._oldHoverItem) {
-                that._moveHover([], that.wrapper.children().first());
+            if (target != that.wrapper[0] && !$(target).is(":focusable")) {
+                e.stopPropagation();
+                $(target).closest(".k-content").closest(".k-group").closest(".k-item").addClass(FOCUSEDSTATE);
+                that.wrapper.focus();
+                return;
+            }
+
+            if (active === e.currentTarget) {
+                if (hoverItem.length) {
+                    that._moveHover([], hoverItem);
+                } else if (!that._oldHoverItem) {
+                    that._moveHover([], that.wrapper.children().first());
+                }
             }
         },
 
@@ -813,7 +837,7 @@
         },
 
         _hoverItem: function() {
-            return this.wrapper.find("li.k-item.k-state-hover").filter(":visible");
+            return this.wrapper.find(".k-item.k-state-hover,.k-item.k-state-focused").filter(":visible");
         },
 
         _itemBelongsToVertival: function (item) {
@@ -877,12 +901,9 @@
                 parentItem;
 
             if (!belongsToVertical) {
-                nextItem = item.next();
-                if (nextItem.is(".k-separator")) {
-                    nextItem = nextItem.next();
-                }
+                nextItem = item.nextAll(nextSelector);
                 if (!nextItem.length) {
-                    nextItem = item.parent().children().first();
+                    nextItem = item.prevAll(lastSelector);
                 }
             } else if (hasChildren) {
                 that.open(item);
@@ -890,10 +911,7 @@
             } else if (that.options.orientation == "horizontal") {
                 parentItem = that._findRootParent(item);
                 that.close(parentItem);
-                nextItem = parentItem.next();
-                if (nextItem.is(".k-separator")) {
-                    nextItem = nextItem.next();
-                }
+                nextItem = parentItem.nextAll(nextSelector);
             }
 
             if (nextItem && !nextItem.length) {
@@ -906,26 +924,20 @@
             return nextItem;
         },
 
-        _itemLeft: function (item, belongsToVertical, hasChildren) {
+        _itemLeft: function (item, belongsToVertical) {
             var that = this,
                 nextItem;
 
             if (!belongsToVertical) {
-                nextItem = item.prev();
-                if (nextItem.is(".k-separator")) {
-                    nextItem = nextItem.prev();
-                }
+                nextItem = item.prevAll(nextSelector);
                 if (!nextItem.length) {
-                    nextItem = item.parent().children().last();
+                    nextItem = item.nextAll(lastSelector);
                 }
             } else {
                 nextItem = item.parent().closest(".k-item");
                 that.close(nextItem);
                 if (that._isRootItem(nextItem) && that.options.orientation == "horizontal") {
-                    nextItem = nextItem.prev();
-                    if (nextItem.is(".k-separator")) {
-                        nextItem = nextItem.prev();
-                    }
+                    nextItem = nextItem.prevAll(nextSelector);
                 }
             }
 
@@ -949,10 +961,7 @@
                     nextItem = item.find(".k-group").children().first();
                 }
             } else {
-                nextItem = item.next();
-                if (nextItem.is(".k-separator")) {
-                    nextItem = nextItem.next();
-                }
+                nextItem = item.nextAll(nextSelector);
             }
 
             if (!nextItem.length && item.length) {
@@ -965,17 +974,14 @@
             return nextItem;
         },
 
-        _itemUp: function (item, belongsToVertical, hasChildren) {
+        _itemUp: function (item, belongsToVertical) {
             var that = this,
                 nextItem;
 
             if (!belongsToVertical) {
                 return;
             } else {
-                nextItem = item.prev();
-                if (nextItem.is(".k-separator")) {
-                    nextItem = nextItem.prev();
-                }
+                nextItem = item.prevAll(nextSelector);
             }
 
             if (!nextItem.length && item.length) {
@@ -1001,6 +1007,24 @@
             }
 
             return nextItem;
+        },
+
+        _focusHandler: function (e) {
+            var that = this,
+                item = $(kendo.eventTarget(e)).closest(allItemsSelector);
+
+            setTimeout(function () {
+                that._moveHover([], item);
+                if (item.children(".k-content")[0]) {
+                    item.parent().closest(".k-item").removeClass(FOCUSEDSTATE);
+                }
+            }, 200);
+        },
+
+        _animations: function(options) {
+            if (options && ("animation" in options) && !options.animation) {
+                options.animation = { open: { effects: {} }, close: { hide: true, effects: {} } };
+            }
         }
 
     });
@@ -1017,6 +1041,7 @@
                 image: item.imageUrl ? templates.image : empty,
                 sprite: item.spriteCssClass ? templates.sprite : empty,
                 itemWrapper: templates.itemWrapper,
+                renderContent: Menu.renderContent,
                 arrow: item.items || item.content ? templates.arrow : empty,
                 subGroup: Menu.renderGroup
             }, rendering));

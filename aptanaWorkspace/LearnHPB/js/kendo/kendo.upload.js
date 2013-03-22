@@ -1,6 +1,6 @@
 /*
-* Kendo UI Web v2012.3.1114 (http://kendoui.com)
-* Copyright 2012 Telerik AD. All rights reserved.
+* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
 * https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
@@ -8,6 +8,14 @@
 * GNU General Public License (GPL) version 3.
 * For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
+kendo_module({
+    id: "upload",
+    name: "Upload",
+    category: "web",
+    description: "The Upload widget uses progressive enhancement to deliver the best possible uploading experience to users.",
+    depends: [ "core" ]
+});
+
 (function($, undefined) {
     var kendo = window.kendo,
         Widget = kendo.ui.Widget,
@@ -639,7 +647,7 @@
             }
         },
 
-        onSaveSelected: function(e) {
+        onSaveSelected: function() {
             var module = this;
 
             $(".k-file", this.element).each(function() {
@@ -658,8 +666,8 @@
 
             try {
                 responseText = iframe.contents().text();
-            } catch (e) {
-                responseText = "Error trying to get server response: " + e;
+            } catch (ex) {
+                responseText = "Error trying to get server response: " + ex;
             }
 
             this.processResponse(iframe, responseText);
@@ -671,7 +679,7 @@
                 fakeXHR = {
                     responseText: responseText
                 };
-
+            responseText = responseText || "null";
             tryParseJSON(responseText,
                 function(jsonResult) {
                     $.extend(fakeXHR, { statusText: "OK", status: "200" });
@@ -751,7 +759,6 @@
                 frame.stop();
             } else if (frame.document) {
                 frame.document.execCommand("Stop");
-                frame.contentWindow.location.href = frame.contentWindow.location.href;
             }
         },
 
@@ -883,7 +890,7 @@
             }
         },
 
-        onSaveSelected: function(e) {
+        onSaveSelected: function() {
             var module = this;
 
             $(".k-file", this.element).each(function() {
@@ -1082,7 +1089,7 @@
                     XMLHttpRequest: xhr });
             },
 
-            function onError(xhr, textStatus) {
+            function onError(xhr) {
                 upload.trigger(ERROR, {
                     operation: "remove",
                     files: files,
@@ -1117,7 +1124,7 @@
         var hideInterval, lastDrag;
 
         element
-            .on("dragenter" + namespace, function(e) {
+            .on("dragenter" + namespace, function() {
                 onDragEnter();
                 lastDrag = new Date();
 
@@ -1133,7 +1140,7 @@
                     }, 100);
                 }
             })
-            .on("dragover" + namespace, function(e) {
+            .on("dragover" + namespace, function() {
                 lastDrag = new Date();
             });
     }

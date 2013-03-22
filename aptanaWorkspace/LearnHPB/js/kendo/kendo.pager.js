@@ -1,6 +1,6 @@
 /*
-* Kendo UI Web v2012.3.1114 (http://kendoui.com)
-* Copyright 2012 Telerik AD. All rights reserved.
+* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
 * https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
@@ -8,6 +8,14 @@
 * GNU General Public License (GPL) version 3.
 * For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
+kendo_module({
+    id: "pager",
+    name: "Pager",
+    category: "framework",
+    depends: [ "data" ],
+    advanced: true
+});
+
 (function($, undefined) {
     var kendo = window.kendo,
         ui = kendo.ui,
@@ -48,11 +56,11 @@
               .toggleClass("k-state-disabled", disabled);
     }
 
-    function first(element, page, totalPages) {
+    function first(element, page) {
         update(element, FIRST, 1, page <= 1);
     }
 
-    function prev(element, page, totalPages) {
+    function prev(element, page) {
         update(element, PREV, Math.max(1, page - 1), page <= 1);
     }
 
@@ -157,7 +165,7 @@
                         '"><span class="k-icon k-i-refresh">' + options.messages.refresh + "</span></a>");
                 }
 
-                that.element.on("touchend" + NS + " " + CLICK + NS, ".k-pager-refresh", proxy(that._refreshClick, that));
+                that.element.on(CLICK + NS, ".k-pager-refresh", proxy(that._refreshClick, that));
             }
 
             if (options.info) {
@@ -167,7 +175,7 @@
             }
 
             that.element
-                .on("touchend" + NS + " " + CLICK + NS , "a", proxy(that._click, that))
+                .on(CLICK + NS , "a", proxy(that._click, that))
                 .addClass("k-pager-wrap k-widget");
 
             if (options.autoBind) {
@@ -307,7 +315,12 @@
             }
 
             if (options.pageSizes) {
-                that.element.find(".k-pager-sizes select").val(pageSize);
+                that.element
+                    .find(".k-pager-sizes select")
+                    .val(pageSize)
+                    .filter("[" + kendo.attr("role") + "=dropdownlist]")
+                    .kendoDropDownList("value", pageSize)
+                    .kendoDropDownList("text", pageSize); // handles custom values
             }
         },
 

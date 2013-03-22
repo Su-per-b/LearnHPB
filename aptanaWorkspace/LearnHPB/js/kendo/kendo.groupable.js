@@ -1,6 +1,6 @@
 /*
-* Kendo UI Web v2012.3.1114 (http://kendoui.com)
-* Copyright 2012 Telerik AD. All rights reserved.
+* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
 * https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
@@ -8,6 +8,14 @@
 * GNU General Public License (GPL) version 3.
 * For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
+kendo_module({
+    id: "groupable",
+    name: "Groupable",
+    category: "framework",
+    depends: [ "core", "draganddrop" ],
+    advanced: true
+});
+
 (function ($, undefined) {
     var kendo = window.kendo,
         Widget = kendo.ui.Widget,
@@ -36,7 +44,7 @@
                 .prepend('<span class="k-icon k-drag-status k-denied" />');
         },
         dropCue = $('<div class="k-grouping-dropclue"/>'),
-        nameSpecialCharRegExp = /(\[|\]|\$|\.|\:|\+)/g;
+        nameSpecialCharRegExp = /("|'|\[|\]|\$|\.|\:|\+)/g;
 
     function dropCueOffsetTop(element) {
         return element.position().top + 3;
@@ -53,8 +61,8 @@
 
             Widget.fn.init.call(that, element, options);
 
-            draggable = that.options.draggable || new kendo.ui.Draggable(that.element, {
-                filter: that.options.filter,
+            that.draggable = draggable = that.options.draggable || new kendo.ui.Draggable(that.element, {
+                filter: that.options.draggableElements,
                 hint: hint,
                 group: group
             });
@@ -85,7 +93,7 @@
                             return;
                         }
                         if(lastCuePosition) {
-                            position = that._dropCuePosition(dropCue.offset().left + parseInt(lastCuePosition.element.css("marginLeft"), 10) + parseInt(lastCuePosition.element.css("marginRight"), 10));
+                            position = that._dropCuePosition(kendo.getOffset(dropCue).left + parseInt(lastCuePosition.element.css("marginLeft"), 10) + parseInt(lastCuePosition.element.css("marginRight"), 10));
                             if(position && that._canDrop($(sourceIndicator), position.element, position.left)) {
                                 if(position.before) {
                                     position.element.before(sourceIndicator || that.buildIndicator(field, title));
@@ -188,7 +196,12 @@
 
             that.groupContainer
                 .off(NS)
+                .kendoDropTarget("destroy")
                 .kendoDraggable("destroy");
+
+            if (!that.options.draggable) {
+                that.draggable.destroy();
+            }
 
             if (that.dataSource && that._refreshHandler) {
                 that.dataSource.unbind("change", that._refreshHandler);
@@ -198,6 +211,7 @@
         options: {
             name: "Groupable",
             filter: "th",
+            draggableElements: "th",
             messages: {
                 empty: "Drag a column header and drop it here to group by that column"
             }
@@ -211,7 +225,7 @@
                 })[0];
         },
         buildIndicator: function(field, title, dir) {
-            return indicatorTmpl({ field: field, dir: dir, title: title, ns: kendo.ns });
+            return indicatorTmpl({ field: field.replace(/"/g, "'"), dir: dir, title: title, ns: kendo.ns });
         },
         descriptors: function() {
             var that = this,
@@ -296,9 +310,9 @@
             return position;
         },
         _drag: function(event) {
-            var location = kendo.touchLocation(event),
-                position = this._dropCuePosition(location.x);
-            if(position) {
+            var position = this._dropCuePosition(event.x.location);
+
+            if (position) {
                 dropCue.css({ left: position.left });
             }
         },
@@ -335,7 +349,7 @@
                 left;
             that._dropCuePositions = $.map(indicators, function(item) {
                 item = $(item);
-                left = item.offset().left;
+                left = kendo.getOffset(item).left;
                 return {
                     left: parseInt(left, 10),
                     right: parseInt(left + item.outerWidth(), 10),

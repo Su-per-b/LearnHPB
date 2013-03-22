@@ -1,6 +1,6 @@
 /*
-* Kendo UI Web v2012.3.1114 (http://kendoui.com)
-* Copyright 2012 Telerik AD. All rights reserved.
+* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
 * https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
@@ -8,20 +8,31 @@
 * GNU General Public License (GPL) version 3.
 * For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
+kendo_module({
+    id: "timepicker",
+    name: "TimePicker",
+    category: "web",
+    description: "The TimePicker widget allows the end user to select a value from a list of predefined values or to type a new value.",
+    depends: [ "popup" ]
+});
 
 (function($, undefined) {
     var kendo = window.kendo,
         keys = kendo.keys,
+        activeElement = kendo._activeElement,
         extractFormat = kendo._extractFormat,
+        support = kendo.support,
+        browser = support.browser,
         ui = kendo.ui,
         Widget = ui.Widget,
         OPEN = "open",
         CLOSE = "close",
         CHANGE = "change",
         ns = ".kendoTimePicker",
-        CLICK = "touchend" + ns + " click" + ns,
+        CLICK = "click" + ns,
         DEFAULT = "k-state-default",
         DISABLED = "disabled",
+        READONLY = "readonly",
         LI = "li",
         SPAN = "<span/>",
         FOCUSED = "k-state-focused",
@@ -35,6 +46,8 @@
         ARIA_SELECTED = "aria-selected",
         ARIA_EXPANDED = "aria-expanded",
         ARIA_HIDDEN = "aria-hidden",
+        ARIA_DISABLED = "aria-disabled",
+        ARIA_READONLY = "aria-readonly",
         ARIA_ACTIVEDESCENDANT = "aria-activedescendant",
         ID = "id",
         isArray = $.isArray,
@@ -52,7 +65,7 @@
         that.options = options;
 
         that.ul = $('<ul tabindex="-1" role="listbox" aria-hidden="true" unselectable="on" class="k-list k-reset"/>')
-                    .css({ overflow: kendo.support.kineticScrollNeeded ? "": "auto" })
+                    .css({ overflow: support.kineticScrollNeeded ? "": "auto" })
                     .on(CLICK, LI, proxy(that._click, that))
                     .on("mouseenter" + ns, LI, function() { $(this).addClass(HOVER); })
                     .on("mouseleave" + ns, LI, function() { $(this).removeClass(HOVER); });
@@ -166,6 +179,8 @@
                 toString = kendo.toString,
                 template = that.template,
                 start = new DATE(+min),
+                startDay = start.getDate(),
+                msStart, lastIdx,
                 idx = 0, length,
                 html = "";
 
@@ -180,16 +195,26 @@
                 if (msMin > msMax) {
                     msMax += MS_PER_DAY;
                 }
-                length = (msMax - msMin) / msInterval + 1;
+
+                length = ((msMax - msMin) / msInterval) + 1;
             }
+
+            lastIdx = parseInt(length, 10);
 
             for (; idx < length; idx++) {
                 if (idx) {
                     setTime(start, msInterval, ignoreDST);
                 }
 
-                if (msMax && getMilliseconds(start) > msMax) {
-                    start = new DATE(+max);
+                if (msMax && lastIdx == idx) {
+                    msStart = getMilliseconds(start);
+                    if (startDay < start.getDate()) {
+                        msStart += MS_PER_DAY;
+                    }
+
+                    if (msStart > msMax) {
+                        start = new DATE(+max);
+                    }
                 }
 
                 html += template(toString(start, format, options.culture));
@@ -328,27 +353,45 @@
             return value;
         },
 
+        _adjustListWidth: function() {
+            var list = this.list,
+                width = list[0].style.width,
+                wrapper = this.options.anchor,
+                computedStyle, computedWidth;
+
+            if (!list.data("width") && width) {
+                return;
+            }
+
+            computedStyle = window.getComputedStyle ? window.getComputedStyle(wrapper[0], null) : 0;
+            computedWidth = computedStyle ? parseFloat(computedStyle.width) : wrapper.outerWidth();
+
+            if (computedStyle && (browser.mozilla || browser.msie)) { // getComputedStyle returns different box in FF and IE.
+                computedWidth += parseFloat(computedStyle.paddingLeft) + parseFloat(computedStyle.paddingRight) + parseFloat(computedStyle.borderLeftWidth) + parseFloat(computedStyle.borderRightWidth);
+            }
+
+            width = computedWidth - (list.outerWidth() - list.width());
+
+            list.css({
+                fontFamily: wrapper.css("font-family"),
+                width: width
+            })
+            .data("width", width);
+        },
+
         _popup: function() {
             var that = this,
                 list = that.list,
                 options = that.options,
-                anchor = options.anchor,
-                width;
+                anchor = options.anchor;
 
             that.popup = new ui.Popup(list, extend(options.popup, {
                 anchor: anchor,
                 open: options.open,
                 close: options.close,
                 animation: options.animation,
-                isRtl: kendo.support.isRtl(options.anchor)
+                isRtl: support.isRtl(options.anchor)
             }));
-
-            width = anchor.outerWidth() - (list.outerWidth() - list.width());
-
-            list.css({
-                fontFamily: anchor.css("font-family"),
-                width: width
-            });
 
             kendo.touchScroller(that.popup.element);
         },
@@ -439,7 +482,7 @@
 
     var TimePicker = Widget.extend({
         init: function(element, options) {
-            var that = this, ul, timeView;
+            var that = this, ul, timeView, disabled;
 
             Widget.fn.init.call(that, element, options);
 
@@ -462,6 +505,8 @@
                     }
                 },
                 open: function(e) {
+                    that.timeView._adjustListWidth();
+
                     if (that.trigger(OPEN)) {
                         e.preventDefault();
                     } else {
@@ -491,19 +536,20 @@
 
             element[0].type = "text";
             element.addClass("k-input")
-                .on("keydown" + ns, proxy(that._keydown, that))
-                .on("blur" + ns, proxy(that._blur, that))
-                .on("focus" + ns, function() {
-                    that._inputWrapper.addClass(FOCUSED);
-                })
-                .attr({
-                    "role": "textbox",
-                    "aria-haspopup": true,
-                    "aria-expanded": false,
-                    "aria-owns": timeView._timeViewID
-                });
+                   .attr({
+                        "role": "textbox",
+                        "aria-haspopup": true,
+                        "aria-expanded": false,
+                        "aria-owns": timeView._timeViewID
+                   });
 
-            that.enable(!element.is('[disabled]'));
+            disabled = element.is("[disabled]");
+            if (disabled) {
+                that.enable(false);
+            } else {
+                that.readonly(element.is("[readonly]"));
+            }
+
             that.value(options.value || element.val());
 
             kendo.notify(that);
@@ -553,30 +599,56 @@
             }
         },
 
-        enable: function(enable) {
+        _editable: function(options) {
             var that = this,
-                element = that.element,
+                disable = options.disable,
+                readonly = options.readonly,
                 arrow = that._arrow.off(ns),
-                wrapper = that._inputWrapper.off(HOVEREVENTS);
+                element = that.element.off(ns),
+                wrapper = that._inputWrapper.off(ns);
 
-            if (enable === false) {
+            if (!readonly && !disable) {
                 wrapper
-                    .removeClass(DEFAULT)
-                    .addClass(STATEDISABLED);
-
-                element.attr(DISABLED, DISABLED);
-            } else {
-                wrapper
-                    .removeClass(STATEDISABLED)
                     .addClass(DEFAULT)
+                    .removeClass(STATEDISABLED)
                     .on(HOVEREVENTS, that._toggleHover);
 
-                element
-                    .removeAttr(DISABLED);
+                element.removeAttr(DISABLED)
+                       .removeAttr(READONLY)
+                       .attr(ARIA_DISABLED, false)
+                       .attr(ARIA_READONLY, false)
+                       .on("keydown" + ns, proxy(that._keydown, that))
+                       .on("blur" + ns, proxy(that._blur, that))
+                       .on("focus" + ns, function() {
+                           that._inputWrapper.addClass(FOCUSED);
+                       });
 
-                arrow.on(CLICK, proxy(that._click, that))
-                     .on(MOUSEDOWN, preventDefault);
+               arrow.on(CLICK, proxy(that._click, that))
+                   .on(MOUSEDOWN, preventDefault);
+            } else {
+                wrapper
+                    .addClass(disable ? STATEDISABLED : DEFAULT)
+                    .removeClass(disable ? DEFAULT : STATEDISABLED);
+
+                element.attr(DISABLED, disable)
+                       .attr(READONLY, readonly)
+                       .attr(ARIA_DISABLED, disable)
+                       .attr(ARIA_READONLY, readonly);
             }
+        },
+
+        readonly: function(readonly) {
+            this._editable({
+                readonly: readonly === undefined ? true : readonly,
+                disable: false
+            });
+        },
+
+        enable: function(enable) {
+            this._editable({
+                readonly: false,
+                disable: !(enable = enable === undefined ? true : enable)
+            });
         },
 
         destroy: function() {
@@ -619,23 +691,32 @@
             }
 
             that._old = that._update(value);
+
+            if (that._old === null) {
+                that.element.val("");
+            }
+
+            that._oldText = that.element.val();
         },
 
         _blur: function() {
-            var that = this;
+            var that = this,
+                value = that.element.val();
 
             that.close();
-            that._change(that.element.val());
+            if (value !== that._oldText) {
+                that._change(value);
+            }
             that._inputWrapper.removeClass(FOCUSED);
         },
 
-        _click: function(e) {
+        _click: function() {
             var that = this,
                 element = that.element;
 
             that.timeView.toggle();
 
-            if (e.type === "click" && element[0] !== document.activeElement) {
+            if (!support.touch && element[0] !== activeElement()) {
                 element.focus();
             }
         },
@@ -647,6 +728,8 @@
 
             if (+that._old != +value) {
                 that._old = value;
+                that._oldText = that.element.val();
+
                 that.trigger(CHANGE);
 
                 // trigger the DOM change event so any subscriber gets notified
@@ -674,12 +757,13 @@
         _keydown: function(e) {
             var that = this,
                 key = e.keyCode,
-                timeView = that.timeView;
+                timeView = that.timeView,
+                value = that.element.val();
 
             if (timeView.popup.visible() || e.altKey) {
                 timeView.move(e);
-            } else if (key === keys.ENTER) {
-                that._change(that.element.val());
+            } else if (key === keys.ENTER && value !== that._oldText) {
+                that._change(value);
             }
         },
 
@@ -738,13 +822,13 @@
             }
 
             wrapper[0].style.cssText = element[0].style.cssText;
+            that.wrapper = wrapper.addClass("k-widget k-timepicker k-header")
+                                  .addClass(element[0].className);
+
             element.css({
                 width: "100%",
                 height: element[0].style.height
             });
-
-            that.wrapper = wrapper.addClass("k-widget k-timepicker k-header")
-                                  .addClass(element[0].className);
 
             that._inputWrapper = $(wrapper[0].firstChild);
         },

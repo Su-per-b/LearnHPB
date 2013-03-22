@@ -1,6 +1,6 @@
 /*
-* Kendo UI Web v2012.3.1114 (http://kendoui.com)
-* Copyright 2012 Telerik AD. All rights reserved.
+* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
 * https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
@@ -8,13 +8,22 @@
 * GNU General Public License (GPL) version 3.
 * For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
-;(function($, undefined) {
+kendo_module({
+    id: "imagebrowser",
+    name: "ImageBrowser",
+    category: "web",
+    description: "",
+    depends: [ "listview", "upload" ]
+});
+
+(function($, undefined) {
     var kendo = window.kendo,
         Widget = kendo.ui.Widget,
         isPlainObject = $.isPlainObject,
         proxy = $.proxy,
         extend = $.extend,
         placeholderSupported = kendo.support.placeholder,
+        browser = kendo.support.browser,
         isFunction = $.isFunction,
         trimSlashesRegExp = /(^\/|\/$)/g,
         CHANGE = "change",
@@ -114,7 +123,7 @@
         var hideInterval, lastDrag;
 
         element
-            .on("dragenter" + NS, function(e) {
+            .on("dragenter" + NS, function() {
                 onDragEnter();
                 lastDrag = new Date();
 
@@ -130,13 +139,13 @@
                     }, 100);
                 }
             })
-            .on("dragover" + NS, function(e) {
+            .on("dragover" + NS, function() {
                 lastDrag = new Date();
             });
     }
 
     var offsetTop;
-    if ($.browser.msie && parseFloat($.browser.version) < 8) {
+    if (browser.msie && browser.version < 8) {
         offsetTop = function (element) {
             return element.offsetTop;
         };
@@ -218,7 +227,8 @@
                 deleteFile: 'Are you sure you want to delete "{0}"?',
                 invalidFileType: "The selected file \"{0}\" is not valid. Supported file types are {1}.",
                 overwriteFile: "A file with name \"{0}\" already exists in the current directory. Do you want to overwrite it?",
-                dropFilesHere: "drop files here to upload"
+                dropFilesHere: "drop files here to upload",
+                search: "Search"
             },
             transport: {},
             path: "/",
@@ -408,6 +418,7 @@
                         model.set(fileNameField, e.response[fileNameField]);
                         model.set(sizeField, e.response[sizeField]);
                         that._tiles = that.listView.items().filter("[" + kendo.attr("type") + "=f]");
+                        that._scroll();
                     });
                 }
             } else {
@@ -523,7 +534,7 @@
             }
         },
 
-        _directoryBlur: function(e) {
+        _directoryBlur: function() {
             this.listView.save();
         },
 
@@ -640,10 +651,12 @@
         _listViewChange: function() {
             var selected = this._selectedItem();
 
-            this.toolbar.find(".k-delete").parent().removeClass("k-state-disabled");
+            if (selected) {
+                this.toolbar.find(".k-delete").parent().removeClass("k-state-disabled");
 
-            if (selected && selected.get(this._getFieldName(TYPEFIELD)) === "f") {
-                this.trigger(CHANGE);
+                if (selected.get(this._getFieldName(TYPEFIELD)) === "f") {
+                    this.trigger(CHANGE);
+                }
             }
         },
 
@@ -703,6 +716,7 @@
 
             that.searchBox = navigation.parent().find("input:last")
                     .kendoSearchBox({
+                        label: that.options.messages.search,
                         change: function() {
                             that.search(this.value());
                         }
@@ -744,24 +758,34 @@
                 element = $(li),
                 dataItem = that.dataSource.getByUid(element.attr(kendo.attr("uid"))),
                 name = dataItem.get(that._getFieldName(NAMEFIELD)),
+                thumbnailUrl = that.options.transport.thumbnailUrl,
                 img = $("<img />", {
                     alt: name
                 })
                 .hide()
                 .on("load" + NS, function() {
                     $(this).prev().remove().end().addClass("k-image").fadeIn();
-                });
+                }),
+                urlJoin = "?";
 
             element.find(".k-loading").after(img);
+            if (isFunction(thumbnailUrl)) {
+                thumbnailUrl = thumbnailUrl(that.path(), encodeURIComponent(name));
+            } else {
+                if (thumbnailUrl.indexOf("?") >= 0) {
+                    urlJoin = "&";
+                }
 
+                thumbnailUrl = thumbnailUrl + urlJoin + "path=" + that.path() + encodeURIComponent(name);
+            }
             // IE8 will trigger the load event immediately when the src is assign
             // if the image is loaded from the cache
-            img.attr("src", that.options.transport.thumbnailUrl + "?path=" + that.path() + encodeURIComponent(name));
+            img.attr("src", thumbnailUrl);
 
             li.loaded = true;
         },
 
-        _scroll: function(e) {
+        _scroll: function() {
             var that = this;
             if (that.options.transport && that.options.transport.thumbnailUrl) {
                 clearTimeout(that._timeout);

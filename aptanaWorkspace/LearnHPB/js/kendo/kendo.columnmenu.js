@@ -1,6 +1,6 @@
 /*
-* Kendo UI Web v2012.3.1114 (http://kendoui.com)
-* Copyright 2012 Telerik AD. All rights reserved.
+* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
 * https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
@@ -8,6 +8,14 @@
 * GNU General Public License (GPL) version 3.
 * For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
+kendo_module({
+    id: "columnmenu",
+    name: "Column Menu",
+    category: "framework",
+    depends: [ "popup", "filtermenu", "menu" ],
+    advanced: true
+});
+
 (function($, undefined) {
     var kendo = window.kendo,
         ui = kendo.ui,
@@ -20,6 +28,7 @@
         ASC = "asc",
         DESC = "desc",
         CHANGE = "change",
+        INIT = "init",
         POPUP = "kendoPopup",
         FILTERMENU = "kendoFilterMenu",
         MENU = "kendoMenu",
@@ -56,6 +65,11 @@
                 .on("click" + NS, proxy(that._click, that));
 
             that.wrapper = $('<div class="k-column-menu"/>');
+        },
+
+        _init: function() {
+            var that = this,
+                options = that.options;
 
             that.wrapper.html(kendo.template(template)({
                 ns: kendo.ns,
@@ -67,7 +81,7 @@
             }));
 
             that.popup = that.wrapper[POPUP]({
-                anchor: link,
+                anchor: that.link,
                 open: proxy(that._open, that),
                 activate: proxy(that._activate, that),
                 close: that.options.closeCallback
@@ -80,7 +94,11 @@
             that._columns();
 
             that._filter();
+
+            that.trigger(INIT, { field: that.field, container: that.wrapper });
         },
+
+        events: [ INIT ],
 
         options: {
             name: "ColumnMenu",
@@ -111,12 +129,16 @@
                 that.owner.unbind("columnHide", that._updateColumnsMenuHandler);
             }
 
-            that.menu.element.off(NS);
-            that.menu.destroy();
+            if (that.menu) {
+                that.menu.element.off(NS);
+                that.menu.destroy();
+            }
 
             that.wrapper.off(NS);
 
-            that.popup.destroy();
+            if (that.popup) {
+                that.popup.destroy();
+            }
 
             that.link.off(NS);
         },
@@ -130,6 +152,11 @@
         _click: function(e) {
             e.preventDefault();
             e.stopPropagation();
+
+            if (!this.popup) {
+                this._init();
+            }
+
             this.popup.toggle();
         },
 
@@ -189,9 +216,19 @@
 
                 that.dataSource.bind(CHANGE, that._refreshHandler);
 
-                that.menu.element.on("click" + NS, ".k-sort-asc, .k-sort-desc", function() {
-                    var item = $(this),
-                        dir = item.hasClass("k-sort-asc") ? ASC : DESC;
+                that.menu.bind("select", function(e) {
+                    var item = $(e.item),
+                        dir;
+
+                    if (item.hasClass("k-sort-asc")) {
+                        dir = ASC;
+                    } else if (item.hasClass("k-sort-desc")) {
+                        dir = DESC;
+                    }
+
+                    if (!dir) {
+                        return;
+                    }
 
                     item.parent().find(".k-sort-" + (dir == ASC ? DESC : ASC)).removeClass(ACTIVE);
 
@@ -280,17 +317,17 @@
             var attr = "[" + kendo.attr("field") + "=",
                 columns = this._ownerColumns(),
                 allselector = map(columns, function(col) {
-                    return attr + col.field.replace(nameSpecialCharRegExp, "\\$1") + "]";
+                    return attr + '"' + col.field.replace(nameSpecialCharRegExp, "\\$1") + '"]';
                 }).join(","),
                 visible = grep(columns, function(field) {
                     return !field.hidden;
                 }),
                 selector = map(visible, function(col) {
-                    return attr + col.field.replace(nameSpecialCharRegExp, "\\$1") + "]";
+                    return attr + '"' + col.field.replace(nameSpecialCharRegExp, "\\$1") + '"]';
                 }).join(",");
 
-            this.wrapper.find(allselector).attr("checked", false);
-            this.wrapper.find(selector).attr("checked", true).attr("disabled", visible.length == 1);
+            this.wrapper.find(allselector).prop("checked", false);
+            this.wrapper.find(selector).prop("checked", true).prop("disabled", visible.length == 1);
         },
 
         _filter: function() {

@@ -1,6 +1,6 @@
 /*
-* Kendo UI Web v2012.3.1114 (http://kendoui.com)
-* Copyright 2012 Telerik AD. All rights reserved.
+* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
 * https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
@@ -8,6 +8,14 @@
 * GNU General Public License (GPL) version 3.
 * For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
+kendo_module({
+    id: "mobile.scroller",
+    name: "Scroller",
+    category: "mobile",
+    description: "The Kendo Mobile Scroller widget enables touch friendly kinetic scrolling for the contents of a given DOM element.",
+    depends: [ "core", "fx", "draganddrop" ]
+});
+
 (function($, undefined) {
     var kendo = window.kendo,
         mobile = kendo.mobile,
@@ -215,6 +223,18 @@
 
             element = that.element;
 
+            if (that.options.useNative && kendo.support.hasNativeScrolling) {
+                element.addClass("km-native-scroller")
+                    .prepend('<div class="km-scroll-header"/>');
+
+                extend(that, {
+                    scrollElement: element,
+                    fixedContainer: element.children().first()
+                });
+
+                return;
+            }
+
             element
                 .css("overflow", "hidden")
                 .addClass("km-scroll-wrapper")
@@ -316,6 +336,7 @@
             zoom: false,
             pullOffset: 140,
             elastic: true,
+            useNative: false,
             pullTemplate: "Pull to refresh",
             releaseTemplate: "Release to refresh",
             refreshTemplate: "Refreshing"
@@ -382,8 +403,8 @@
             that.pulled = false;
             that.refreshHint.removeClass(RELEASECLASS).addClass(REFRESHCLASS);
             that.hintContainer.html(that.refreshTemplate({}));
-            that.trigger("pull");
             that.yinertia.freeze(that.options.pullOffset / 2);
+            that.trigger("pull");
         },
 
         _paneChange: function() {

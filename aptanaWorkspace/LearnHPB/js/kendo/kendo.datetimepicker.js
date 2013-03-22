@@ -1,6 +1,6 @@
 /*
-* Kendo UI Web v2012.3.1114 (http://kendoui.com)
-* Copyright 2012 Telerik AD. All rights reserved.
+* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
 * https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
@@ -8,11 +8,20 @@
 * GNU General Public License (GPL) version 3.
 * For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
+kendo_module({
+    id: "datetimepicker",
+    name: "DateTimePicker",
+    category: "web",
+    description: "The DateTimePicker allows the end user to select a value from a calendar or a time drop-down list.",
+    depends: [ "datepicker", "timepicker" ]
+});
+
 (function($, undefined) {
 
     var kendo = window.kendo,
         TimeView = kendo.TimeView,
         parse = kendo.parseDate,
+        activeElement = kendo._activeElement,
         extractFormat = kendo._extractFormat,
         calendar = kendo.calendar,
         isInRange = calendar.isInRange,
@@ -25,20 +34,23 @@
         CLOSE = "close",
         CHANGE = "change",
         ns = ".kendoDateTimePicker",
-        CLICK = "touchend" + ns + " click" + ns,
+        CLICK = "click" + ns,
         DISABLED = "disabled",
+        READONLY = "readonly",
         DEFAULT = "k-state-default",
         FOCUSED = "k-state-focused",
         HOVER = "k-state-hover",
         STATEDISABLED = "k-state-disabled",
         HOVEREVENTS = "mouseenter" + ns + " mouseleave" + ns,
-        MOUSEDOWN = "touchstart" + ns + " mousedown" + ns,
+        MOUSEDOWN = "mousedown" + ns,
         MONTH = "month",
         SPAN = "<span/>",
         ARIA_ACTIVEDESCENDANT = "aria-activedescendant",
         ARIA_EXPANDED = "aria-expanded",
         ARIA_HIDDEN = "aria-hidden",
         ARIA_OWNS = "aria-owns",
+        ARIA_DISABLED = "aria-disabled",
+        ARIA_READONLY = "aria-readonly",
         DATE = Date,
         MIN = new DATE(1900, 0, 1),
         MAX = new DATE(2099, 11, 31),
@@ -48,7 +60,7 @@
 
     var DateTimePicker = Widget.extend({
         init: function(element, options) {
-            var that = this;
+            var that = this, disabled;
 
             Widget.fn.init.call(that, element, options);
 
@@ -68,25 +80,21 @@
 
             element[0].type = "text";
             element.addClass("k-input")
-                   .on("keydown" + ns, $.proxy(that._keydown, that))
-                   .on("focus" + ns, function() {
-                            that._inputWrapper.addClass(FOCUSED);
-                   })
-                   .on("blur" + ns, function() {
-                        that._inputWrapper.removeClass(FOCUSED);
-                        that._change(element.val());
-                        that.close("date");
-                        that.close("time");
-                    })
                    .attr({
-                        "role": "textbox",
-                        "aria-haspopup": true,
-                        "aria-expanded": false
+                       "role": "textbox",
+                       "aria-haspopup": true,
+                       "aria-expanded": false
                    });
+
 
             that._midnight = getMilliseconds(options.min) + getMilliseconds(options.max) === 0;
 
-            that.enable(!element.is('[disabled]'));
+            disabled = element.is("[disabled]");
+            if (disabled) {
+                that.enable(false);
+            } else {
+                that.readonly(element.is("[readonly]"));
+            }
             that.value(options.value || element.val());
 
             kendo.notify(that);
@@ -143,47 +151,81 @@
             that.timeView.ul[0].innerHTML = "";
         },
 
-        enable: function(enable) {
+        _editable: function(options) {
             var that = this,
-                element = that.element,
+                element = that.element.off(ns),
                 dateIcon = that._dateIcon.off(ns),
                 timeIcon = that._timeIcon.off(ns),
-                wrapper = that._inputWrapper.off(HOVEREVENTS);
+                wrapper = that._inputWrapper.off(ns),
+                readonly = options.readonly,
+                disable = options.disable;
 
-            if (enable === false) {
-                wrapper
-                    .removeClass(DEFAULT)
-                    .addClass(STATEDISABLED);
-
-                element.attr(DISABLED, DISABLED);
-            } else {
+            if (!readonly && !disable) {
                 wrapper
                     .addClass(DEFAULT)
                     .removeClass(STATEDISABLED)
                     .on(HOVEREVENTS, that._toggleHover);
 
-                element
-                    .removeAttr(DISABLED);
+                element.removeAttr(DISABLED)
+                       .removeAttr(READONLY)
+                       .attr(ARIA_DISABLED, false)
+                       .attr(ARIA_READONLY, false)
+                       .on("keydown" + ns, $.proxy(that._keydown, that))
+                       .on("focus" + ns, function() {
+                           that._inputWrapper.addClass(FOCUSED);
+                       })
+                       .on("blur" + ns, function() {
+                           that._inputWrapper.removeClass(FOCUSED);
+                           if (element.val() !== that._oldText) {
+                               that._change(element.val());
+                           }
+                           that.close("date");
+                           that.close("time");
+                       });
 
-                dateIcon.on(MOUSEDOWN, preventDefault)
-                        .on(CLICK, function(e) {
+               dateIcon.on(MOUSEDOWN, preventDefault)
+                        .on(CLICK, function() {
                             that.toggle("date");
 
-                            if (e.type === "click" && element[0] !== document.activeElement) {
+                            if (!kendo.support.touch && element[0] !== activeElement()) {
                                 element.focus();
                             }
                         });
 
 
-                timeIcon.on(MOUSEDOWN, preventDefault)
-                        .on(CLICK, function(e) {
+               timeIcon.on(MOUSEDOWN, preventDefault)
+                        .on(CLICK, function() {
                             that.toggle("time");
 
-                            if (e.type === "click" && element[0] !== document.activeElement) {
+                            if (!kendo.support.touch && element[0] !== activeElement()) {
                                 element.focus();
                             }
                         });
+
+            } else {
+                wrapper
+                    .addClass(disable ? STATEDISABLED : DEFAULT)
+                    .removeClass(disable ? DEFAULT : STATEDISABLED);
+
+                element.attr(DISABLED, disable)
+                       .attr(READONLY, readonly)
+                       .attr(ARIA_DISABLED, disable)
+                       .attr(ARIA_READONLY, readonly);
             }
+        },
+
+        readonly: function(readonly) {
+            this._editable({
+                readonly: readonly === undefined ? true : readonly,
+                disable: false
+            });
+        },
+
+        enable: function(enable) {
+            this._editable({
+                readonly: false,
+                disable: !(enable = enable === undefined ? true : enable)
+            });
         },
 
         destroy: function() {
@@ -249,6 +291,11 @@
             }
 
             that._old = that._update(value);
+            if (that._old === null) {
+                that.element.val("");
+            }
+
+            that._oldText = that.element.val();
         },
 
         _change: function(value) {
@@ -258,6 +305,8 @@
 
             if (+that._old != +value) {
                 that._old = value;
+                that._oldText = that.element.val();
+
                 that.trigger(CHANGE);
 
                 // trigger the DOM change event so any subscriber gets notified
@@ -391,6 +440,7 @@
             var that = this,
                 dateView = that.dateView,
                 timeView = that.timeView,
+                value = that.element.val(),
                 isDateViewVisible = dateView.popup.visible();
 
             if (e.altKey && e.keyCode === kendo.keys.DOWN) {
@@ -400,8 +450,8 @@
                 that._updateARIA(dateView._current);
             } else if (timeView.popup.visible()) {
                 timeView.move(e);
-            } else if (e.keyCode === kendo.keys.ENTER) {
-                that._change(that.element.val());
+            } else if (e.keyCode === kendo.keys.ENTER && value !== that._oldText) {
+                that._change(value);
             }
         },
 
@@ -454,12 +504,15 @@
                     if (that.trigger(OPEN, dateViewParams)) {
                         e.preventDefault();
                     } else {
-                        date = parse(element.val(), options.parseFormats, options.culture);
-                        if (!date) {
-                            that.dateView.value(date);
-                        } else {
-                            that.dateView._current = date;
-                            that.dateView.calendar._focus(date);
+
+                        if (that.element.val() !== that._oldText) {
+                            date = parse(element.val(), options.parseFormats, options.culture);
+                            if (!date) {
+                                that.dateView.value(date);
+                            } else {
+                                that.dateView._current = date;
+                                that.dateView.calendar._focus(date);
+                            }
                         }
 
                         div.attr(ARIA_HIDDEN, false);
@@ -515,6 +568,7 @@
                     }
                 },
                 open:  function(e) {
+                    timeView._adjustListWidth();
                     if (that.trigger(OPEN, timeViewParams)) {
                         e.preventDefault();
                     } else {
@@ -608,12 +662,15 @@
     }
 
     function normalize(options) {
-        var patterns = kendo.getCulture(options.culture).calendars.standard.patterns;
+        var patterns = kendo.getCulture(options.culture).calendars.standard.patterns,
+            timeFormat;
 
         options.format = extractFormat(options.format || patterns.g);
-        options.timeFormat = extractFormat(options.timeFormat || patterns.t);
+        options.timeFormat = timeFormat = extractFormat(options.timeFormat || patterns.t);
         kendo.DateView.normalize(options);
-        options.parseFormats.splice(1, 0, options.timeFormat);
+        if ($.inArray(timeFormat, options.parseFormats) === -1) {
+            options.parseFormats.splice(1, 0, timeFormat);
+        }
     }
 
     ui.plugin(DateTimePicker);

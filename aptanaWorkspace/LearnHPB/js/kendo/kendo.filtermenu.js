@@ -1,6 +1,6 @@
 /*
-* Kendo UI Web v2012.3.1114 (http://kendoui.com)
-* Copyright 2012 Telerik AD. All rights reserved.
+* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
 * https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
@@ -8,16 +8,28 @@
 * GNU General Public License (GPL) version 3.
 * For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
+kendo_module({
+    id: "filtermenu",
+    name: "Filtering Menu",
+    category: "framework",
+    depends: [ "datepicker", "numerictextbox", "dropdownlist" ],
+    advanced: true
+});
+
 (function($, undefined) {
     var kendo = window.kendo,
         ui = kendo.ui,
-        NUMERICTEXTBOX = "kendoNumericTextBox",
-        DATEPICKER = "kendoDatePicker",
         proxy = $.proxy,
         POPUP = "kendoPopup",
+        INIT = "init",
         NS = ".kendoFilterMenu",
         EQ = "Is equal to",
         NEQ = "Is not equal to",
+        roles = {
+            "number": "numerictextbox",
+            "date": "datepicker"
+        },
+        isFunction = $.isFunction,
         Widget = ui.Widget;
 
     var booleanTemplate =
@@ -31,8 +43,10 @@
                     '<input type="radio" data-#=ns#bind="checked: filters[0].value" value="false" name="filters[0].value"/>' +
                     '#=messages.isFalse#' +
                 '</label>' +
+                '<div>' +
                 '<button type="submit" class="k-button">#=messages.filter#</button>'+
                 '<button type="reset" class="k-button">#=messages.clear#</button>'+
+                '</div>' +
             '</div>';
 
     var defaultTemplate =
@@ -40,14 +54,14 @@
                 '<div class="k-filter-help-text">#=messages.info#</div>'+
                 '<select data-#=ns#bind="value: filters[0].operator" data-#=ns#role="dropdownlist">'+
                     '#for(var op in operators){#'+
-                        '<option value="#=op#">#=operators[op]#</option>'+
+                        '<option value="#=op#">#=operators[op]#</option>' +
                     '#}#'+
                 '</select>'+
                 '#if(values){#' +
                     '<select data-#=ns#bind="value:filters[0].value" data-#=ns#text-field="text" data-#=ns#value-field="value" data-#=ns#source=\'#=kendo.stringify(values).replace(/\'/g,"&\\#39;")#\' data-#=ns#role="dropdownlist" data-#=ns#option-label="#=messages.selectValue#">' +
                     '</select>' +
                 '#}else{#' +
-                    '<input data-#=ns#bind="value:filters[0].value" class="k-textbox" type="text" data-#=ns#type="#=type#"/>'+
+                    '<input data-#=ns#bind="value:filters[0].value" class="k-textbox" type="text" #=role ? "data-" + ns + "role=\'" + role + "\'" : ""# />'+
                 '#}#' +
                 '#if(extra){#'+
                     '<select class="k-filter-and" data-#=ns#bind="value: logic" data-#=ns#role="dropdownlist">'+
@@ -63,11 +77,13 @@
                         '<select data-#=ns#bind="value:filters[1].value" data-#=ns#text-field="text" data-#=ns#value-field="value" data-#=ns#source=\'#=kendo.stringify(values).replace(/\'/g,"&\\#39;")#\' data-#=ns#role="dropdownlist" data-#=ns#option-label="#=messages.selectValue#">' +
                         '</select>'+
                     '#}else{#' +
-                        '<input data-#=ns#bind="value: filters[1].value" class="k-textbox" type="text" data-#=ns#type="#=type#"/>'+
+                        '<input data-#=ns#bind="value: filters[1].value" class="k-textbox" type="text" #=role ? "data-" + ns + "role=\'" + role + "\'" : ""#/>'+
                     '#}#' +
                 '#}#'+
+                '<div>'+
                 '<button type="submit" class="k-button">#=messages.filter#</button>'+
                 '<button type="reset" class="k-button">#=messages.clear#</button>'+
+                '</div>'+
             '</div>';
 
     function removeFiltersForField(expression, field) {
@@ -109,12 +125,12 @@
             var that = this,
                 type = "string",
                 link,
-                field,
-                operators;
+                field;
 
             Widget.fn.init.call(that, element, options);
 
-            operators = options.operators || {};
+            that.operators = options.operators || {};
+
             element = that.element;
             options = that.options;
 
@@ -125,17 +141,12 @@
                     link = element.prepend('<a class="k-grid-filter" href="#"><span class="k-icon k-filter"/></a>').find(".k-grid-filter");
                 }
 
-                link
-                .attr("tabindex", -1)
-                .on("click" + NS, proxy(that._click, that));
-
-            } else {
-                that.link = $();
+                link.attr("tabindex", -1).on("click" + NS, proxy(that._click, that));
             }
 
-            that._refreshHandler = proxy(that.refresh, that);
+            that.link = link || $();
 
-            that.dataSource = options.dataSource.bind("change", that._refreshHandler);
+            that.dataSource = options.dataSource;
 
             that.field = options.field || element.attr(kendo.attr("field"));
 
@@ -150,7 +161,9 @@
 
                 if (field) {
                     type = field.type || "string";
-                    that._parse = proxy(field.parse, field);
+                    if (field.parse) {
+                        that._parse = proxy(field.parse, field);
+                    }
                 }
             }
 
@@ -158,46 +171,93 @@
                 type = "enums";
             }
 
+            that.type = type;
+
+            if (options.appendToElement) { // force creation if used in column menu
+                that._init();
+            }
+        },
+
+        _init: function() {
+            var that = this,
+                options = that.options,
+                operators = that.operators || {},
+                initial,
+                ui = options.ui,
+                setUI = isFunction(ui),
+                role,
+                type = that.type;
+
+            that._refreshHandler = proxy(that.refresh, that);
+
+            that.dataSource.bind("change", that._refreshHandler);
+
             operators = operators[type] || options.operators[type];
 
+            for (initial in operators) { // get the first operator
+                break;
+            }
+
+            that._defaultFilter = function() {
+                return { field: that.field, operator: initial || "eq", value: "" };
+            };
+
+            if (!setUI) {
+                role = ui || roles[type];
+            }
+
             that.form = $('<form class="k-filter-menu"/>')
-                            .html(kendo.template(type === "boolean" ? booleanTemplate : defaultTemplate)({
-                                field: that.field,
-                                ns: kendo.ns,
-                                messages: options.messages,
-                                extra: options.extra,
-                                operators: operators,
-                                type: type,
-                                values: convertItems(options.values)
-                            }))
-                            .on("keydown" + NS, proxy(that._keydown, that))
-                            .on("submit" + NS, proxy(that._submit, that))
-                            .on("reset" + NS, proxy(that._reset, that));
+                .html(kendo.template(type === "boolean" ? booleanTemplate : defaultTemplate)({
+                    field: that.field,
+                    format: options.format,
+                    ns: kendo.ns,
+                    messages: options.messages,
+                    extra: options.extra,
+                    operators: operators,
+                    type: type,
+                    role: role,
+                    values: convertItems(options.values)
+                }))
+                .on("keydown" + NS, proxy(that._keydown, that))
+                .on("submit" + NS, proxy(that._submit, that))
+                .on("reset" + NS, proxy(that._reset, that));
 
             if (!options.appendToElement) {
                 that.popup = that.form[POPUP]({
-                    anchor: link,
+                    anchor: that.link,
                     open: proxy(that._open, that),
                     activate: proxy(that._activate, that),
                     close: that.options.closeCallback
                 }).data(POPUP);
-
-                that.link = link;
             } else {
-                element.append(that.form);
+                that.element.append(that.form);
                 that.popup = that.element.closest(".k-popup").data(POPUP);
             }
 
+            if (setUI) {
+                that.form.find(".k-textbox")
+                    .removeClass("k-textbox")
+                    .each(function() {
+                        ui($(this));
+                    });
+            }
+
             that.form
-                 .find("[" + kendo.attr("type") + "=number]")
+                 .find("[" + kendo.attr("role") + "=numerictextbox]")
                  .removeClass("k-textbox")
-                 [NUMERICTEXTBOX]()
                  .end()
-                 .find("[" + kendo.attr("type") + "=date]")
+                 .find("[" + kendo.attr("role") + "=datetimepicker]")
                  .removeClass("k-textbox")
-                 [DATEPICKER]();
+                 .end()
+                 .find("[" + kendo.attr("role") + "=timepicker]")
+                 .removeClass("k-textbox")
+                 .end()
+                 .find("[" + kendo.attr("role") + "=datepicker]")
+                 .removeClass("k-textbox");
 
             that.refresh();
+
+            that.trigger(INIT, { field: that.field, container: that.form });
         },
 
         refresh: function() {
@@ -206,7 +266,7 @@
 
             that.filterModel = kendo.observable({
                 logic: "and",
-                filters: [{ field: that.field, operator: "eq", value: "" }, { field: that.field, operator: "eq", value: "" }]
+                filters: [ that._defaultFilter(), that._defaultFilter()]
             });
 
             //NOTE: binding the form element directly causes weird error in IE when grid is bound through MVVM and column is sorted
@@ -224,11 +284,12 @@
 
             Widget.fn.destroy.call(that);
 
-            kendo.unbind(that.form);
-            kendo.destroy(that.form);
-            that.form.unbind(NS);
-
-            that.popup.destroy();
+            if (that.form) {
+                kendo.unbind(that.form);
+                kendo.destroy(that.form);
+                that.form.unbind(NS);
+                that.popup.destroy();
+            }
 
             that.link.unbind(NS);
 
@@ -353,7 +414,7 @@
             that.popup.close();
         },
 
-        _reset: function(e) {
+        _reset: function() {
             this.clear();
             this.popup.close();
         },
@@ -361,6 +422,11 @@
         _click: function(e) {
             e.preventDefault();
             e.stopPropagation();
+
+            if (!this.popup) {
+                this._init();
+            }
+
             this.popup.toggle();
         },
 
@@ -384,6 +450,8 @@
                 this.popup.close();
             }
         },
+
+        events: [ INIT ],
 
         options: {
             name: "FilterMenu",

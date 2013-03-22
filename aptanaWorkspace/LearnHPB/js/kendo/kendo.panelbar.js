@@ -1,6 +1,6 @@
 /*
-* Kendo UI Web v2012.3.1114 (http://kendoui.com)
-* Copyright 2012 Telerik AD. All rights reserved.
+* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
 * https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
@@ -8,6 +8,14 @@
 * GNU General Public License (GPL) version 3.
 * For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
+kendo_module({
+    id: "panelbar",
+    name: "PanelBar",
+    category: "web",
+    description: "The PanelBar widget displays hierarchical data as a multi-level expandable panel bar.",
+    depends: [ "core" ]
+});
+
 (function($, undefined) {
     var kendo = window.kendo,
         ui = kendo.ui,
@@ -34,7 +42,6 @@
         CONTENT = "k-content",
         ACTIVATE = "activate",
         COLLAPSE = "collapse",
-        CONTENTURL = "contentUrl",
         MOUSEENTER = "mouseenter",
         MOUSELEAVE = "mouseleave",
         CONTENTLOAD = "contentLoad",
@@ -79,6 +86,8 @@
                     "#= itemWrapper(data) #" +
                     "# if (item.items) { #" +
                     "#= subGroup({ items: item.items, panelBar: panelBar, group: { expanded: item.expanded } }) #" +
+                    "# } else if (item.content || item.contentUrl) { #" +
+                    "#= renderContent(data) #" +
                     "# } #" +
                 "</li>"
             ),
@@ -123,6 +132,10 @@
                     result += " k-last";
                 }
 
+                if (item.cssClass) {
+                    result += " " + item.cssClass;
+                }
+
                 return result;
             },
 
@@ -154,7 +167,7 @@
             groupAttributes: function(group) {
                 return group.expanded !== true ? " style='display:none'" : "";
             },
-            groupCssClass: function(group) {
+            groupCssClass: function() {
                 return "k-group k-panel";
             },
             contentAttributes: function(content) {
@@ -203,30 +216,26 @@
             element = that.wrapper = that.element.addClass("k-widget k-reset k-header k-panelbar");
             options = that.options;
 
-            if (options.dataSource) {
-                that.element.empty();
-                that.append(options.dataSource, element);
-            }
-
             if (element[0].id) {
                 that._itemId = element[0].id + "_pb_active";
             }
 
             that._tabindex();
+
+            that._initData(options);
+
             that._updateClasses();
 
-            if (options.animation === false) {
-                options.animation = { expand: { effects: {} }, collapse: { hide:true, effects: {} } };
-            }
+            that._animations(options);
 
             element
-                .on("touchend" + NS + " click" + NS, clickableItems, function(e) {
+                .on("click" + NS, clickableItems, function(e) {
                     if (that._click($(e.currentTarget))) {
                         e.preventDefault();
                     }
                 })
                 .on(MOUSEENTER  + NS + " " + MOUSELEAVE + NS, clickableItems, that._toggleHover)
-                .on("touchend" + NS + " click" + NS, disabledItems, false)
+                .on("click" + NS, disabledItems, false)
                 .on("keydown" + NS, $.proxy(that._keydown, that))
                 .on("focus" + NS, function() {
                     var item = that.select();
@@ -237,12 +246,13 @@
                 })
                 .attr("role", "menu");
 
-            if (options.contentUrls) {
+            /*if (options.contentUrls) {
                 element.find("> .k-item")
                     .each(function(index, item) {
-                        $(item).find(LINKSELECTOR).data(CONTENTURL, options.contentUrls[index]);
+                        var span = $(item).find(LINKSELECTOR);
+                        span.replaceWith('<a class="k-link k-header" href="' + options.contentUrls[index] + '">' + span.html() + '</a>');
                     });
-            }
+            }*/
 
             content = element.find("li." + ACTIVECLASS + " > ." + CONTENT);
 
@@ -282,6 +292,30 @@
 
             kendo.destroy(this.element);
         },
+
+        _initData: function(options) {
+            var that = this;
+
+            if (options.dataSource) {
+                that.element.empty();
+                that.append(options.dataSource, that.element);
+            }
+        },
+
+        setOptions: function(options) {
+            var animation = this.options.animation;
+
+            this._animations(options);
+
+            options.animation = extend(true, animation, options.animation);
+
+            if ("dataSource" in options) {
+                this._initData(options);
+            }
+
+            Widget.fn.setOptions.call(this, options);
+        },
+
         expand: function (element, useAnimation) {
             var that = this,
                 animBackup = {};
@@ -368,7 +402,7 @@
 
             that.element
                 .find(element)
-                .each(function (index) {
+                .each(function () {
                     var item = $(this),
                         link = item.children(LINKSELECTOR);
 
@@ -399,14 +433,8 @@
 
             var inserted = this._insert(item, referenceItem, referenceItem.length ? referenceItem.find(GROUPS) : null);
 
-            each(inserted.items, function (idx) {
+            each(inserted.items, function () {
                 inserted.group.append(this);
-
-                var contents = inserted.contents[idx];
-                if (contents) {
-                    $(this).append(contents);
-                }
-
                 updateFirstLast(this);
             });
 
@@ -422,14 +450,8 @@
 
             var inserted = this._insert(item, referenceItem, referenceItem.parent());
 
-            each(inserted.items, function (idx) {
+            each(inserted.items, function () {
                 referenceItem.before(this);
-
-                var contents = inserted.contents[idx];
-                if (contents) {
-                    $(this).append(contents);
-                }
-
                 updateFirstLast(this);
             });
 
@@ -444,14 +466,8 @@
 
             var inserted = this._insert(item, referenceItem, referenceItem.parent());
 
-            each(inserted.items, function (idx) {
+            each(inserted.items, function () {
                 referenceItem.after(this);
-
-                var contents = inserted.contents[idx];
-                if (contents) {
-                    $(this).append(contents);
-                }
-
                 updateFirstLast(this);
             });
 
@@ -511,7 +527,8 @@
 
         _current: function(candidate) {
             var that = this,
-                focused = that._focused;
+                focused = that._focused,
+                id = that._itemId;
 
             if (candidate === undefined) {
                 return focused;
@@ -520,18 +537,23 @@
             that.element.removeAttr("aria-activedescendant");
 
             if (focused) {
+                if (focused[0].id === id) {
+                    focused.removeAttr("id");
+                }
+
                 focused
-                    .removeAttr("id")
                     .children(LINKSELECTOR)
                     .removeClass(FOCUSEDCLASS);
             }
 
             if (candidate) {
-                candidate.attr("id", that._itemId)
+                id = candidate[0].id || id;
+
+                candidate.attr("id", id)
                          .children(LINKSELECTOR)
                          .addClass(FOCUSEDCLASS);
 
-                that.element.attr("aria-activedescendant", that._itemId);
+                that.element.attr("aria-activedescendant", id);
             }
 
             that._focused = candidate;
@@ -623,7 +645,7 @@
 
         _insert: function (item, referenceItem, parent) {
             var that = this,
-                items, contents = [],
+                items,
                 plain = $.isPlainObject(item),
                 isReferenceItem = referenceItem && referenceItem[0],
                 groupData;
@@ -654,16 +676,6 @@
                             }
                         });
 
-                contents = $.map(plain ? [ item ] : item, function (value, idx) {
-                            if (value.content || value.contentUrl) {
-                                return $(PanelBar.renderContent({
-                                    item: extend(value, { index: idx })
-                                }));
-                            } else {
-                                return false;
-                            }
-                        });
-
                 if (isReferenceItem) {
                     referenceItem.attr(ARIA_EXPANDED, false);
                 }
@@ -672,7 +684,7 @@
                 that._updateItemsClasses(items);
             }
 
-            return { items: items, group: parent, contents: contents };
+            return { items: items, group: parent };
         },
 
         _toggleHover: function(e) {
@@ -712,13 +724,16 @@
                 idx = 0;
 
             for(; idx < length; idx++) {
-                this._updateItemClasses(items[idx]);
+                this._updateItemClasses(items[idx], idx);
             }
         },
 
-        _updateItemClasses: function(item) {
+        _updateItemClasses: function(item, index) {
             var selected = this._selected,
-                link;
+                contentUrls = this.options.contentUrls,
+                url = contentUrls && contentUrls[index],
+                root = this.element[0],
+                wrapElement, link;
 
             item = $(item).addClass("k-item").attr("role", "menuitem");
 
@@ -726,11 +741,16 @@
                 .children(IMG)
                 .addClass(IMAGE);
 
-            item
-                .children("a")
-                .addClass(LINK)
-                .children(IMG)
-                .addClass(IMAGE);
+            link = item
+                    .children("a")
+                    .addClass(LINK);
+
+            if (link[0]) {
+                link.attr("href", url); //url can be undefined
+
+                link.children(IMG)
+                    .addClass(IMAGE);
+            }
 
             item
                 .filter(":not([disabled]):not([class*=k-state])")
@@ -764,10 +784,15 @@
             }
 
             if (!item.children(LINKSELECTOR)[0]) {
+                wrapElement = "<span class='" + LINK + "'/>";
+                if (contentUrls && contentUrls[index] && item[0].parentNode == root) {
+                    wrapElement = '<a class="k-link k-header" href="' + contentUrls[index] + '"/>';
+                }
+
                 item
                     .contents()      // exclude groups, real links, templates and empty text nodes
                     .filter(function() { return (!this.nodeName.match(excludedNodesRegExp) && !(this.nodeType == 3 && !$.trim(this.nodeValue))); })
-                    .wrapAll("<span class='" + LINK + "'/>");
+                    .wrapAll(wrapElement);
             }
 
             if (item.parent(".k-panelbar")[0]) {
@@ -780,7 +805,7 @@
         _click: function (target) {
             var that = this,
                 element = that.element,
-                prevent;
+                prevent, contents, href, isAnchor;
 
             if (target.parents("li." + DISABLEDCLASS).length) {
                 return;
@@ -795,27 +820,26 @@
 
             that._updateSelected(link);
 
-            var contents = item.find(GROUPS).add(item.find(CONTENTS)),
-                href = link.attr(HREF),
-                isAnchor = link.data(CONTENTURL) || (href && (href.charAt(href.length - 1) == "#" || href.indexOf("#" + that.element[0].id + "-") != -1));
+            contents = item.find(GROUPS).add(item.find(CONTENTS));
+            href = link.attr(HREF);
+            isAnchor = href && (href.charAt(href.length - 1) == "#" || href.indexOf("#" + that.element[0].id + "-") != -1);
+            prevent = !!(isAnchor || contents.length);
 
             if (contents.data("animating")) {
-                return;
+                return prevent;
             }
 
             if (that._triggerEvent(SELECT, item)) {
                 prevent = true;
             }
 
-            if (isAnchor || contents.length) {
-                prevent = true;
-            } else {
+            if (prevent === false) {
                 return;
             }
 
             if (that.options.expandMode == SINGLE) {
                 if (that._collapseAllExpanded(item)) {
-                    return;
+                    return prevent;
                 }
             }
 
@@ -927,12 +951,13 @@
                 loadingIconTimeout = setTimeout(function () {
                     statusIcon.addClass("k-loading");
                 }, 100),
-                data = {};
+                data = {},
+                url = link.attr(HREF);
 
             $.ajax({
                 type: "GET",
                 cache: false,
-                url: link.data(CONTENTURL) || link.attr(HREF),
+                url: url,
                 dataType: "html",
                 data: data,
 
@@ -948,8 +973,18 @@
                     statusIcon.removeClass("k-loading");
                 },
 
-                success: function (data, textStatus) {
-                    contentElement.html(data);
+                success: function (data) {
+                    try {
+                        contentElement.html(data);
+                    } catch (e) {
+                        var console = window.console;
+
+                        if (console && console.error) {
+                            console.error(e.name + ": " + e.message + " in " + url);
+                        }
+                        this.error(this.xhr, "error");
+                    }
+
                     that._toggleGroup(contentElement, isVisible);
 
                     that.trigger(CONTENTLOAD, { item: element[0], contentElement: contentElement[0] });
@@ -981,7 +1016,14 @@
             link.addClass(SELECTEDCLASS);
             link.parentsUntil(element, ITEM).filter(":has(.k-header)").addClass(HIGHLIGHTEDCLASS);
             that._current(item);
+        },
+
+        _animations: function(options) {
+            if (options && ("animation" in options) && !options.animation) {
+                options.animation = { expand: { effects: {} }, collapse: { hide: true, effects: {} } };
+            }
         }
+
     });
 
     // client-side rendering
@@ -996,6 +1038,7 @@
                 image: item.imageUrl ? templates.image : empty,
                 sprite: item.spriteCssClass ? templates.sprite : empty,
                 itemWrapper: templates.itemWrapper,
+                renderContent: PanelBar.renderContent,
                 arrow: item.items || item.content || item.contentUrl ? templates.arrow : empty,
                 subGroup: PanelBar.renderGroup
             }, rendering));

@@ -1,6 +1,6 @@
 /*
-* Kendo UI Web v2012.3.1114 (http://kendoui.com)
-* Copyright 2012 Telerik AD. All rights reserved.
+* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
 * https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
@@ -8,7 +8,15 @@
 * GNU General Public License (GPL) version 3.
 * For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
-(function ($, unefined) {
+kendo_module({
+    id: "binder",
+    name: "MVVM",
+    category: "framework",
+    description: "Model View ViewModel (MVVM) is a design pattern which helps developers separate the Model (the data) from the View (the UI).",
+    depends: [ "core", "data" ]
+});
+
+(function ($, undefined) {
     var kendo = window.kendo,
         Observable = kendo.Observable,
         ObservableObject = kendo.data.ObservableObject,
@@ -34,12 +42,13 @@
     })();
 
     var Binding = Observable.extend( {
-        init: function(source, path) {
+        init: function(parents, path) {
             var that = this;
 
             Observable.fn.init.call(that);
 
-            that.source = source;
+            that.source = parents[0];
+            that.parents = parents;
             that.path = path;
             that.dependencies = {};
             that.dependencies[path] = true;
@@ -60,18 +69,16 @@
 
         change: function(e) {
             var dependency,
-                idx,
                 ch,
+                field = e.field,
                 that = this;
 
             if (that.path === "this") {
                 that.trigger(CHANGE, e);
             } else {
                 for (dependency in that.dependencies) {
-                    idx = dependency.indexOf(e.field);
-
-                    if (idx === 0) {
-                       ch = dependency.charAt(e.field.length);
+                    if (dependency.indexOf(field) === 0) {
+                       ch = dependency.charAt(field.length);
 
                        if (!ch || ch === "." || ch === "[") {
                             that.trigger(CHANGE, e);
@@ -82,67 +89,68 @@
             }
         },
 
-        start: function() {
-            if (this.observable) {
-                this.source.bind("get", this._access);
-            }
+        start: function(source) {
+            source.bind("get", this._access);
         },
 
-        stop: function() {
-            if (this.observable) {
-                this.source.unbind("get", this._access);
-            }
+        stop: function(source) {
+            source.unbind("get", this._access);
         },
 
         get: function() {
+
             var that = this,
                 source = that.source,
-                index,
+                index = 0,
                 path = that.path,
                 result = source;
 
-            that.start();
+            if (!that.observable) {
+                return result;
+            }
 
-            if (that.observable) {
-                result = source.get(path);
+            that.start(that.source);
 
-                // Traverse the observable hierarchy if the binding is not resolved at the current level.
-                while (result === undefined && source) {
-                    source = source.parent();
+            result = source.get(path);
 
-                    if (source instanceof ObservableObject) {
-                        result = source.get(path);
-                    }
-                }
+            // Traverse the observable hierarchy if the binding is not resolved at the current level.
+            while (result === undefined && source) {
 
-                // If the result is a function - invoke it
-                if (typeof result === "function") {
-                    index = path.lastIndexOf(".");
+                source = that.parents[++index];
 
-                    // If the function is a member of a nested observable object make that nested observable the context (this) of the function
-                    if (index > 0) {
-                        source = source.get(path.substring(0, index));
-                    }
-
-                    // Set the context (this) of the function
-                    result = proxy(result, source);
-
-                    // Invoke the function
-                    result = result(that.source);
-                }
-
-                // If the binding is resolved by a parent object
-                if (source && source !== that.source) {
-
-                    that.currentSource = source; // save parent object
-
-                    // Listen for changes in the parent object
-                    source.unbind(CHANGE, that._change)
-                          .bind(CHANGE, that._change);
+                if (source instanceof ObservableObject) {
+                    result = source.get(path);
                 }
             }
 
-            that.stop();
+            // If the result is a function - invoke it
+            if (typeof result === "function") {
+                index = path.lastIndexOf(".");
+
+                // If the function is a member of a nested observable object make that nested observable the context (this) of the function
+                if (index > 0) {
+                    source = source.get(path.substring(0, index));
+                }
+
+                // Invoke the function
+                that.start(source);
+
+                result = result.call(source, that.source);
+
+                that.stop(source);
+            }
+
+            // If the binding is resolved by a parent object
+            if (source && source !== that.source) {
+
+                that.currentSource = source; // save parent object
+
+                // Listen for changes in the parent object
+                source.unbind(CHANGE, that._change)
+                      .bind(CHANGE, that._change);
+            }
+
+            that.stop(that.source);
 
             return result;
         },
@@ -165,12 +173,14 @@
         get: function() {
             var source = this.source,
                 path = this.path,
+                index = 0,
                 handler;
 
             handler = source.get(path);
 
             while (!handler && source) {
-                source = source.parent();
+                source = this.parents[++index];
+
                 if (source instanceof ObservableObject) {
                     handler = source.get(path);
                 }
@@ -192,11 +202,11 @@
         render: function(value) {
             var html;
 
-            this.start();
+            this.start(this.source);
 
             html = kendo.render(this.template, value);
 
-            this.stop();
+            this.stop(this.source);
 
             return html;
         }
@@ -456,7 +466,7 @@
                 for (idx = 0, length = items.length; idx < length; idx++) {
                     child = clone.children[0];
                     element.insertBefore(child, reference || null);
-                    bindElement(child, items[idx], this.options.roles);
+                    bindElement(child, items[idx], this.options.roles, [items[idx]].concat(this.bindings.source.parents));
                 }
             }
         },
@@ -495,7 +505,7 @@
 
                 if (element.children.length) {
                     for (idx = 0, length = source.length; idx < length; idx++) {
-                        bindElement(element.children[idx], source[idx], this.options.roles);
+                        bindElement(element.children[idx], source[idx], this.options.roles, [source[idx]].concat(this.bindings.source.parents) );
                     }
                 }
             }
@@ -641,11 +651,14 @@
                     value = this.bindings[VALUE].get(),
                     values = value,
                     field = this.options.valueField || this.options.textField,
+                    found = false,
                     optionValue;
 
                 if (!(values instanceof ObservableArray)) {
                     values = new ObservableArray([value]);
                 }
+
+                element.selectedIndex = -1;
 
                 for (var valueIndex = 0; valueIndex < values.length; valueIndex++) {
                     value = values[valueIndex];
@@ -656,12 +669,14 @@
 
                     for (optionIndex = 0; optionIndex < options.length; optionIndex++) {
                         optionValue = options[optionIndex].value;
+
                         if (optionValue === "" && value !== "") {
                             optionValue = options[optionIndex].text;
                         }
 
                         if (optionValue == value) {
                             options[optionIndex].selected = true;
+                            found = true;
                         }
                     }
                 }
@@ -811,7 +826,7 @@
             },
 
             itemChange: function(e) {
-                bindElement(e.item[0], e.data, (e.ns || kendo.ui).roles);
+                bindElement(e.item[0], e.data, this._ns(e.ns), [e.data].concat(this.bindings.source.parents));
             },
 
             dataBinding: function() {
@@ -825,6 +840,15 @@
                 }
             },
 
+            _ns: function(ns) {
+                ns = ns || kendo.ui;
+                var all = [ kendo.ui, kendo.dataviz.ui, kendo.mobile.ui ];
+                all.splice($.inArray(ns, all), 1);
+                all.unshift(ns);
+
+                return kendo.rolesFromNamespaces(all);
+            },
+
             dataBound: function(e) {
                 var idx,
                     length,
@@ -832,7 +856,6 @@
                     items = widget.items(),
                     dataSource = widget.dataSource,
                     view = dataSource.view(),
-                    ns = e.ns || kendo.ui,
                     groups = dataSource.group() || [];
 
                 if (items.length) {
@@ -841,7 +864,7 @@
                     }
 
                     for (idx = 0, length = view.length; idx < length; idx++) {
-                        bindElement(items[idx], view[idx], ns.roles);
+                        bindElement(items[idx], view[idx], this._ns(e.ns), [view[idx]].concat(this.bindings.source.parents));
                     }
                 }
             },
@@ -860,8 +883,9 @@
                     widget.bind("dataBound", that._dataBound);
                     widget.bind("itemChange", that._itemChange);
 
-                    if (widget.dataSource instanceof kendo.data.DataSource) {
-                        source = that.bindings.source.get();
+                    source = that.bindings.source.get();
+
+                    if (widget.dataSource instanceof kendo.data.DataSource && widget.dataSource != source) {
                         if (source instanceof kendo.data.DataSource) {
                             widget.setDataSource(source);
                         } else if (source && source._dataSource) {
@@ -891,55 +915,96 @@
                 this.widget.first(CHANGE, this._change);
 
                 var value = this.bindings.value.get();
+
                 this._valueIsObservableObject = value == null || value instanceof ObservableObject;
+                this._valueIsObservableArray = value instanceof ObservableArray;
+                this._initChange = false;
             },
 
             change: function() {
-                var value = this.widget.value();
-                var idx, length;
+                var value = this.widget.value(),
+                    field = this.options.dataValueField || this.options.dataTextField,
+                    isArray = toString.call(value) === "[object Array]",
+                    isObservableObject = this._valueIsObservableObject,
+                    valueIndex, valueLength, values = [],
+                    sourceItem, sourceValue,
+                    idx, length, source;
 
-                var field = this.options.dataValueField || this.options.dataTextField;
+                this._initChange = true;
 
                 if (field) {
-                    var source,
-                        isObservableObject = this._valueIsObservableObject;
 
                     if (this.bindings.source) {
                         source = this.bindings.source.get();
                     }
 
-                    if (value === "" && isObservableObject) {
+                    if (value === "" && isObservableObject ) {
                         value = null;
                     } else {
                         if (!source || source instanceof kendo.data.DataSource) {
                             source = this.widget.dataSource.view();
                         }
 
+                        if (isArray) {
+                            valueLength = value.length;
+                            values = value.slice(0);
+                        }
+
                         for (idx = 0, length = source.length; idx < length; idx++) {
-                            if (source[idx].get(field) == value) {
-                                if (isObservableObject) {
-                                    value = source[idx];
-                                } else {
-                                    value = source[idx].get(field);
+                            sourceItem = source[idx];
+                            sourceValue = sourceItem.get(field);
+
+                            if (isArray) {
+                                for (valueIndex = 0; valueIndex < valueLength; valueIndex++) {
+                                    if (sourceValue == values[valueIndex]) {
+                                        values[valueIndex] = sourceItem;
+                                        break;
+                                    }
                                 }
+                            } else if (sourceValue == value) {
+                                value = isObservableObject ? sourceItem : sourceValue;
                                 break;
+                            }
+                        }
+
+                        if (values[0]) {
+                            if (this._valueIsObservableArray) {
+                                value = values;
+                            } else if (isObservableObject || !field) {
+                                value = values[0];
+                            } else {
+                                value = values[0].get(field);
                             }
                         }
                     }
                 }
 
                 this.bindings.value.set(value);
+                this._initChange = false;
             },
 
             refresh: function() {
-                var field = this.options.dataValueField || this.options.dataTextField;
-                var value = this.bindings.value.get();
 
-                if (field && value instanceof ObservableObject) {
-                    value = value.get(field);
+                if (!this._initChange) {
+                    var field = this.options.dataValueField || this.options.dataTextField,
+                        value = this.bindings.value.get(),
+                              idx = 0, length,
+                              values = [];
+
+                    if (field) {
+                        if (value instanceof ObservableArray) {
+                            for (length = value.length; idx < length; idx++) {
+                                values[idx] = value[idx].get(field);
+                            }
+                            value = values;
+                        } else if (value instanceof ObservableObject) {
+                            value = value.get(field);
+                        }
+                    }
+                    this.widget.value(value);
                 }
 
-                this.widget.value(value);
+                this._initChange = false;
             },
 
             destroy: function() {
@@ -1141,15 +1206,18 @@
         return result;
     }
 
-    function bindElement(element, source, roles) {
+    function bindElement(element, source, roles, parents) {
         var role = element.getAttribute("data-" + kendo.ns + "role"),
             idx,
             bind = element.getAttribute("data-" + kendo.ns + "bind"),
             children = element.children,
+            childrenCopy = [],
             deep = true,
             bindings,
             options = {},
             target;
+
+        parents = parents || [source];
 
         if (role || bind) {
             unbindElement(element);
@@ -1170,10 +1238,10 @@
 
             target.source = source;
 
-            bindings = createBindings(bind, source, Binding);
+            bindings = createBindings(bind, parents, Binding);
 
             if (options.template) {
-                bindings.template = new TemplateBinding(source, "", options.template);
+                bindings.template = new TemplateBinding(parents, "", options.template);
             }
 
             if (bindings.click) {
@@ -1187,15 +1255,15 @@
             }
 
             if (bind.attr) {
-                bindings.attr = createBindings(bind.attr, source, Binding);
+                bindings.attr = createBindings(bind.attr, parents, Binding);
             }
 
             if (bind.style) {
-                bindings.style = createBindings(bind.style, source, Binding);
+                bindings.style = createBindings(bind.style, parents, Binding);
             }
 
             if (bind.events) {
-                bindings.events = createBindings(bind.events, source, EventBinding);
+                bindings.events = createBindings(bind.events, parents, EventBinding);
             }
 
             target.bind(bindings);
@@ -1206,8 +1274,13 @@
         }
 
         if (deep && children) {
+            // https://github.com/telerik/kendo/issues/1240 for the weirdness.
             for (idx = 0; idx < children.length; idx++) {
-                bindElement(children[idx], source, roles);
+                childrenCopy[idx] = children[idx];
+            }
+
+            for (idx = 0; idx < childrenCopy.length; idx++) {
+                bindElement(childrenCopy[idx], source, roles, parents);
             }
         }
     }

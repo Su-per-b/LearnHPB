@@ -1,0 +1,27 @@
+
+upgrade 1.7u9 --> 1.7u17
+
+
+-download and install both 64 bit and 32 bit JDKs
+
+-change the JAVA_HOME environment variable:
+	 C:\Program Files (x86)\Java\jdk1.7.0_09 -> C:\Program Files (x86)\Java\jdk1.7.0_17
+
+-check environment variable: echo %JAVA_HOME%
+
+-launch eclipse with the server workspace
+
+- go to Window | Preferences | Java | Installed JREs
+- add the new JRE:
+	C:\Program Files (x86)\Java\jdk1.7.0_17
+	jdk1.7.0_17x32
+	-Xss1m -Xmx1024m
+
+- make the new JRE the default
+- go to Execution Environments and update the JavaSE-1.7
+
+- Do a a Maven "clean install" on the StrayligtServer Project
+
+- Debug "Socket Server" project watch for the text: "java.version: 1.7.0_17"
+
+- launch eclipse with the client workspace.

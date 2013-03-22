@@ -1,6 +1,6 @@
 /*
-* Kendo UI Web v2012.3.1114 (http://kendoui.com)
-* Copyright 2012 Telerik AD. All rights reserved.
+* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
 * https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
@@ -8,6 +8,14 @@
 * GNU General Public License (GPL) version 3.
 * For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
+kendo_module({
+    id: "data.odata",
+    name: "OData",
+    category: "framework",
+    depends: [ "core" ],
+    hidden: true
+});
+
 (function($, undefined) {
     var kendo = window.kendo,
         extend = $.extend,
@@ -19,6 +27,7 @@
             lt: "lt",
             lte: "le",
             contains : "substringof",
+            doesnotcontain: "substringof",
             endswith: "endswith",
             startswith: "startswith"
         },
@@ -109,6 +118,9 @@
                             format = "{0}({2}," + format + ")";
                         } else {
                             format = "{0}(" + format + ",{2})";
+                            if (operator === "doesnotcontain") {
+                                format += " eq false";
+                            }
                         }
                     } else {
                         format = "{2} {0} " + format;

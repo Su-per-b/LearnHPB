@@ -1,6 +1,6 @@
 /*
-* Kendo UI Web v2012.3.1114 (http://kendoui.com)
-* Copyright 2012 Telerik AD. All rights reserved.
+* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
 * https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
@@ -8,13 +8,21 @@
 * GNU General Public License (GPL) version 3.
 * For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
+kendo_module({
+    id: "sortable",
+    name: "Sortable",
+    category: "framework",
+    depends: [ "data" ],
+    advanced: true
+});
+
 (function($, undefined) {
     var kendo = window.kendo,
         proxy = $.proxy,
-        DIR = "data-dir",
+        DIR = "dir",
         ASC = "asc",
         SINGLE = "single",
-        FIELD = "data-field",
+        FIELD = "field",
         DESC = "desc",
         NS = ".kendoSortable",
         TLINK = ".k-link",
@@ -66,20 +74,20 @@
                 descriptor,
                 dir,
                 element = that.element,
-                field = element.attr(FIELD);
+                field = element.attr(kendo.attr(FIELD));
 
-            element.removeAttr(DIR);
+            element.removeAttr(kendo.attr(DIR));
             element.removeAttr(ARIASORT);
 
             for (idx = 0, length = sort.length; idx < length; idx++) {
                descriptor = sort[idx];
 
                if (field == descriptor.field) {
-                   element.attr(DIR, descriptor.dir);
+                   element.attr(kendo.attr(DIR), descriptor.dir);
                }
             }
 
-            dir = element.attr(DIR);
+            dir = element.attr(kendo.attr(DIR));
 
             element.find(".k-i-arrow-n,.k-i-arrow-s").remove();
 
@@ -95,8 +103,8 @@
         _click: function(e) {
             var that = this,
                 element = that.element,
-                field = element.attr(FIELD),
-                dir = element.attr(DIR),
+                field = element.attr(kendo.attr(FIELD)),
+                dir = element.attr(kendo.attr(DIR)),
                 options = that.options,
                 sort = that.dataSource.sort() || [],
                 idx,

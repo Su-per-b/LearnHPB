@@ -1,6 +1,6 @@
 /*
-* Kendo UI Web v2012.3.1114 (http://kendoui.com)
-* Copyright 2012 Telerik AD. All rights reserved.
+* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
 * https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
@@ -8,14 +8,21 @@
 * GNU General Public License (GPL) version 3.
 * For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
+kendo_module({
+    id: "popup",
+    name: "Pop-up",
+    category: "framework",
+    depends: [ "core" ],
+    advanced: true
+});
+
 (function($, undefined) {
     var kendo = window.kendo,
         ui = kendo.ui,
         Widget = ui.Widget,
         support = kendo.support,
         getOffset = kendo.getOffset,
-        browser = kendo.support.browser,
-        appendingToBodyTriggersResize = browser.msie && browser.version < 9,
+        activeElement = kendo._activeElement,
         OPEN = "open",
         CLOSE = "close",
         DEACTIVATE = "deactivate",
@@ -31,13 +38,11 @@
         LOCATION = "location",
         POSITION = "position",
         VISIBLE = "visible",
-        FITTED = "fitted",
         EFFECTS = "effects",
         ACTIVE = "k-state-active",
         ACTIVEBORDER = "k-state-border",
         ACTIVECHILDREN = ".k-picker-wrap, .k-dropdown-wrap, .k-link",
         MOUSEDOWN = "down",
-        DOCUMENT= $(document),
         WINDOW = $(window),
         DOCUMENT_ELEMENT = $(document.documentElement),
         RESIZE_SCROLL = "resize scroll",
@@ -78,7 +83,7 @@
                 that.collisions.push(that.collisions[0]);
             }
 
-            parentPopup = $(that.options.anchor).closest(".k-popup,.k-group"); // When popup is in another popup, make it relative.
+            parentPopup = $(that.options.anchor).closest(".k-popup,.k-group").filter(":not([class^=km-])"); // When popup is in another popup, make it relative.
             options.appendTo = $($(options.appendTo)[0] || parentPopup[0] || BODY);
 
             that.element.hide()
@@ -140,8 +145,6 @@
                 that._mousedown(e);
             };
 
-            that._currentWidth = DOCUMENT.width();
-
             that._resizeProxy = function(e) {
                 that._resize(e);
             };
@@ -166,6 +169,7 @@
             anchor: BODY,
             collision: "flip fit",
             viewport: window,
+            copyAnchorStyles: true,
             animation: {
                 open: {
                     effects: "slideIn:down",
@@ -217,7 +221,9 @@
                 anchor = $(options.anchor);
 
             if (!that.visible()) {
-                element.css(kendo.getComputedStyles(anchor[0], styles));
+                if (options.copyAnchorStyles) {
+                    element.css(kendo.getComputedStyles(anchor[0], styles));
+                }
 
                 if (element.data("animating") || that.trigger(OPEN)) {
                     return;
@@ -227,7 +233,7 @@
                                 .bind(MOUSEDOWN, that._mousedownProxy);
 
                 // this binding hangs iOS in editor
-                if (!support.mobileOS.ios) {
+                if (!(support.mobileOS.ios || support.mobileOS.android)) {
                     WINDOW.unbind(RESIZE_SCROLL, that._resizeProxy)
                           .bind(RESIZE_SCROLL, that._resizeProxy);
                 }
@@ -285,10 +291,12 @@
 
         close: function() {
             var that = this,
-                options = that.options,
+                options = that.options, wrap,
                 animation, openEffects, closeEffects;
 
             if (that.visible()) {
+                wrap = (that.wrapper[0] ? that.wrapper : kendo.wrap(that.element).hide());
+
                 if (that._closing || that.trigger(CLOSE)) {
                     return;
                 }
@@ -310,8 +318,6 @@
                 openEffects = that.element.data(EFFECTS);
                 closeEffects = animation.effects;
 
-                that.wrapper = kendo.wrap(that.element).css({ overflow: HIDDEN });
-
                 if (!closeEffects && !kendo.size(closeEffects) && openEffects && kendo.size(openEffects)) {
                     animation.effects = openEffects;
                     animation.reverse = true;
@@ -319,23 +325,25 @@
 
                 that._closing = true;
 
-                that.element.kendoStop(true).kendoAnimate(animation);
+                that.element.kendoStop(true);
+                wrap.css({ overflow: HIDDEN }); // stop callback will remove hidden overflow
+                that.element.kendoAnimate(animation);
             }
         },
 
         _resize: function(e) {
             var that = this;
 
-            if (appendingToBodyTriggersResize) {
-                var width = DOCUMENT.width();
-                if (width == that._currentWidth) {
-                    return;
+            if (e.type === "resize") {
+                clearTimeout(that._resizeTimeout);
+                that._resizeTimeout = setTimeout(function() {
+                    that._position();
+                    that._resizeTimeout = null;
+                }, 50);
+            } else {
+                if (!that._hovered && !contains(that.element[0], activeElement())) {
+                    that.close();
                 }
-                that._currentWidth = width;
-            }
-
-            if (!that._hovered) {
-                that.close();
             }
         },
 
@@ -399,14 +407,24 @@
                 positions = options.position.toLowerCase().split(" "),
                 collisions = that.collisions,
                 zoomLevel = support.zoomLevel(),
-                zIndex = 10002;
+                siblingContainer, parents,
+                parentZIndex, zIndex = 10002,
+                idx = 0, length;
 
-            var siblingContainer = anchor.parents().filter(wrapper.siblings());
+            siblingContainer = anchor.parents().filter(wrapper.siblings());
 
             if (siblingContainer[0]) {
-                var parentZIndex = Number($(siblingContainer).css("zIndex"));
+                parentZIndex = Number($(siblingContainer).css("zIndex"));
                 if (parentZIndex) {
                     zIndex = parentZIndex + 1;
+                } else {
+                    parents = anchor.parentsUntil(siblingContainer);
+                    for (length = parents.length; idx < length; idx++) {
+                        parentZIndex = Number($(parents[idx]).css("zIndex"));
+                        if (parentZIndex && zIndex < parentZIndex) {
+                            zIndex = parentZIndex + 1;
+                        }
+                    }
                 }
             }
 
@@ -418,12 +436,12 @@
                 wrapper.css(that._align(origins, positions));
             }
 
-            var pos = getOffset(wrapper, POSITION),
+            var pos = getOffset(wrapper, POSITION, anchor[0] === wrapper.offsetParent()[0]),
                 offset = getOffset(wrapper),
-                anchorParent = anchor.offsetParent().parent(".k-animation-container"); // If the parent is positioned, get the current positions
+                anchorParent = anchor.offsetParent().parent(".k-animation-container,.k-popup,.k-group"); // If the parent is positioned, get the current positions
 
-            if (anchorParent.length && anchorParent.data(FITTED)) {
-                pos = getOffset(wrapper, POSITION);
+            if (anchorParent.length) {
+                pos = getOffset(wrapper, POSITION, true);
                 offset = getOffset(wrapper);
             }
 
@@ -449,12 +467,6 @@
 
             if (collisions[1] === "fit") {
                 location.left += that._fit(offsets.left, wrapper.outerWidth(), viewport.width() / zoomLevel);
-            }
-
-            if (location.left != pos.left || location.top != pos.top) {
-                wrapper.data(FITTED, true);
-            } else {
-                wrapper.removeData(FITTED);
             }
 
             var flipPos = extend({}, location);

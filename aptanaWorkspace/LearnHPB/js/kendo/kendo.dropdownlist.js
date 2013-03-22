@@ -1,6 +1,6 @@
 /*
-* Kendo UI Web v2012.3.1114 (http://kendoui.com)
-* Copyright 2012 Telerik AD. All rights reserved.
+* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
 * https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
@@ -8,6 +8,13 @@
 * GNU General Public License (GPL) version 3.
 * For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
+kendo_module({
+    id: "dropdownlist",
+    name: "DropDownList",
+    category: "web",
+    description: "The DropDownList widget displays a list of values and allows the selection of a single value from the list.",
+    depends: [ "list" ]
+});
 
 (function($, undefined) {
     var kendo = window.kendo,
@@ -15,14 +22,18 @@
         Select = ui.Select,
         os = kendo.support.mobileOS,
         ns = ".kendoDropDownList",
-        ATTRIBUTE = "disabled",
+        DISABLED = "disabled",
+        READONLY = "readonly",
         CHANGE = "change",
         SELECT = "select",
         FOCUSED = "k-state-focused",
         DEFAULT = "k-state-default",
-        DISABLED = "k-state-disabled",
+        STATEDISABLED = "k-state-disabled",
+        ARIA_DISABLED = "aria-disabled",
+        ARIA_READONLY = "aria-readonly",
         SELECTED = "k-state-selected",
         HOVEREVENTS = "mouseenter" + ns + " mouseleave" + ns,
+        TABINDEX = "tabindex",
         proxy = $.proxy;
 
     var DropDownList = Select.extend( {
@@ -50,6 +61,7 @@
             that._wrapper();
 
             that._tabindex();
+            that.wrapper.data(TABINDEX, that.wrapper.attr(TABINDEX));
 
             that._aria();
 
@@ -62,13 +74,13 @@
             that._accessors();
 
             that._dataSource();
+            that._ignoreCase();
 
             that._enable();
 
             that._cascade();
 
-            that.selectedIndex = -1;
-
+            that._oldIndex = that.selectedIndex = -1;
             if (index !== undefined) {
                 options.index = index;
             }
@@ -76,7 +88,7 @@
             if (options.autoBind) {
                 that.dataSource.fetch();
             } else {
-                text = options.text;
+                text = options.text || "";
                 if (!text) {
                     optionLabel = that._optionLabelText(options.optionLabel),
                     useOptionLabel = optionLabel && options.index === 0;
@@ -91,6 +103,7 @@
                         text = optionLabel;
                     }
                 }
+
                 that.text(text);
             }
 
@@ -99,10 +112,11 @@
 
         options: {
             name: "DropDownList",
-            enable: true,
-            index: 0,
+            enabled: true,
             autoBind: true,
-            text: "",
+            index: 0,
+            text: null,
+            value: null,
             template: "",
             delay: 500,
             height: 200,
@@ -119,7 +133,8 @@
             CHANGE,
             "select",
             "dataBinding",
-            "dataBound"
+            "dataBound",
+            "cascade"
         ],
 
         setOptions: function(options) {
@@ -138,51 +153,6 @@
             that._inputWrapper.off(ns);
 
             Select.fn.destroy.call(that);
-        },
-
-        enable: function(enable) {
-            var that = this,
-                element = that.element,
-                wrapper = that.wrapper.off(ns),
-                dropDownWrapper = that._inputWrapper.off(HOVEREVENTS);
-
-            if (enable === false) {
-                element.attr(ATTRIBUTE, ATTRIBUTE);
-
-                dropDownWrapper
-                    .removeClass(DEFAULT)
-                    .addClass(DISABLED);
-
-            } else {
-                element.removeAttr(ATTRIBUTE, ATTRIBUTE);
-
-                dropDownWrapper
-                    .addClass(DEFAULT)
-                    .removeClass(DISABLED)
-                    .on(HOVEREVENTS, that._toggleHover);
-
-                wrapper
-                    .on("touchend" + ns + " click" + ns, function(e) {
-                            that._blured = false;
-                            e.preventDefault();
-                            that.toggle();
-                    })
-                    .on("keydown" + ns, proxy(that._keydown, that))
-                    .on("keypress" + ns, proxy(that._keypress, that))
-                    .on("focusin" + ns, function() {
-                        dropDownWrapper.addClass(FOCUSED);
-                        that._blured = false;
-                    })
-                    .on("focusout" + ns, function() {
-                        if (!that._blured) {
-                            that._blur();
-                            dropDownWrapper.removeClass(FOCUSED);
-
-                            that._blured = true;
-                            element.blur();
-                        }
-                    });
-            }
         },
 
         open: function() {
@@ -239,12 +209,11 @@
             that._hideBusy();
             that._makeUnselectable();
 
-            if (!that._valueCalled && data[0]) {
+            if (!that._fetch && length /*do set value when no data*/) {
                 that._selectItem();
             }
 
-            that._valueCalled = false;
-
+            that._bound = true;
             that.trigger("dataBound");
         },
 
@@ -274,18 +243,6 @@
             }
         },
 
-        select: function(li) {
-            var that = this;
-
-            if (li === undefined) {
-                return that.selectedIndex;
-            } else {
-                that._select(li);
-                that._old = that._accessor();
-                that._oldIndex = that.selectedIndex;
-            }
-        },
-
         text: function (text) {
             var span = this.span;
 
@@ -298,24 +255,86 @@
 
         value: function(value) {
             var that = this,
-                idx;
+                idx, hasValue;
 
             if (value !== undefined) {
                 if (value !== null) {
                     value = value.toString();
                 }
 
-                that._valueCalled = true;
+                that._selectedValue = value;
 
-                if (value && that._valueOnFetch(value)) {
+                hasValue = value || (that.options.optionLabel && !that.element[0].disabled && value === "");
+                if (hasValue && that._fetchItems(value)) {
                     return;
                 }
 
                 idx = that._index(value);
-
                 that.select(idx > -1 ? idx : 0);
             } else {
                 return that._accessor();
+            }
+        },
+
+        _editable: function(options) {
+            var that = this,
+                element = that.element,
+                disable = options.disable,
+                readonly = options.readonly,
+                wrapper = that.wrapper.off(ns),
+                dropDownWrapper = that._inputWrapper.off(HOVEREVENTS);
+
+            if (!readonly && !disable) {
+                element.removeAttr(DISABLED).removeAttr(READONLY);
+
+                dropDownWrapper
+                    .addClass(DEFAULT)
+                    .removeClass(STATEDISABLED)
+                    .on(HOVEREVENTS, that._toggleHover);
+
+                wrapper
+                    .attr(TABINDEX, wrapper.data(TABINDEX))
+                    .attr(ARIA_DISABLED, false)
+                    .attr(ARIA_READONLY, false)
+                    .on("click" + ns, function(e) {
+                            that._blured = false;
+                            e.preventDefault();
+                            that.toggle();
+                    })
+                    .on("keydown" + ns, proxy(that._keydown, that))
+                    .on("keypress" + ns, proxy(that._keypress, that))
+                    .on("focusin" + ns, function() {
+                        dropDownWrapper.addClass(FOCUSED);
+                        that._blured = false;
+                    })
+                    .on("focusout" + ns, function() {
+                        if (!that._blured) {
+                            that._triggerCascade();
+                            that._blur();
+                            dropDownWrapper.removeClass(FOCUSED);
+
+                            that._blured = true;
+                            element.blur();
+                        }
+                    });
+
+            } else {
+                if (disable) {
+                    wrapper.removeAttr(TABINDEX);
+                    dropDownWrapper
+                        .addClass(STATEDISABLED)
+                        .removeClass(DEFAULT);
+                } else {
+                    dropDownWrapper
+                        .addClass(DEFAULT)
+                        .removeClass(STATEDISABLED);
+                }
+
+                element.attr(DISABLED, disable)
+                       .attr(READONLY, readonly);
+
+                wrapper.attr(ARIA_DISABLED, disable)
+                       .attr(ARIA_READONLY, readonly);
             }
         },
 
@@ -394,11 +413,53 @@
             }
         },
 
+        _selectNext: function(character, index) {
+            var that = this,
+                ignoreCase = that.options.ignoreCase,
+                data = that._data(),
+                length = data.length,
+                text;
+
+            for (; index < length; index++) {
+                text = that._text(data[index]);
+                if (text) {
+                    text = text + "";
+                    if (ignoreCase) {
+                        text = text.toLowerCase();
+                    }
+
+                    if (text.indexOf(character) === 0) {
+                        that._select(index);
+                        that._triggerEvents();
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        },
+
         _keypress: function(e) {
             var that = this;
 
             setTimeout(function() {
-                that._word += String.fromCharCode(e.keyCode || e.charCode);
+                var character = String.fromCharCode(e.keyCode || e.charCode),
+                    index = that.selectedIndex;
+
+                if (that.options.ignoreCase) {
+                    character = character.toLowerCase();
+                }
+
+                if (character === that._last && index > -1) {
+                    that._word = character;
+                    if (that._selectNext(character, index + 1)) {
+                        return;
+                    }
+                } else {
+                    that._word += character;
+                }
+
+                that._last = character;
                 that._search();
             });
         },
@@ -412,14 +473,27 @@
         },
 
         _search: function() {
-            var that = this;
+            var that = this,
+                dataSource = that.dataSource,
+                word = that._word;
+
             clearTimeout(that._typing);
 
             that._typing = setTimeout(function() {
                 that._word = "";
             }, that.options.delay);
 
-            that.search(that._word);
+            if (!that.ul[0].firstChild) {
+                dataSource.one(CHANGE, function () {
+                    if (dataSource.data()[0]) {
+                        that.search(word);
+                    }
+                }).fetch();
+                return;
+            }
+
+            that.search(word);
+            that._triggerEvents();
         },
 
         _select: function(li) {
@@ -446,6 +520,8 @@
 
                     that.text(text);
                     that._accessor(value !== undefined ? value : text, idx);
+                    that._selectedValue = that._accessor();
+
                     that.current(li.addClass(SELECTED));
 
                     if (that._optionID) {
@@ -455,13 +531,20 @@
             }
         },
 
+        _triggerEvents: function() {
+            if (!this.popup.visible()) {
+                this._triggerCascade();
+                this._change();
+            }
+        },
+
         _mobile: function() {
             var that = this,
                 popup = that.popup,
                 root = popup.element.parents(".km-root").eq(0);
 
             if (root.length && os) {
-                popup.options.animation.open.effects = (os.android || os.meego) ? "fadeIn" : os.ios ? "slideIn:up" : popup.options.animation.open.effects;
+                popup.options.animation.open.effects = (os.android || os.meego) ? "fadeIn" : (os.ios || os.wp) ? "slideIn:up" : popup.options.animation.open.effects;
             }
         },
 
@@ -510,6 +593,20 @@
                                   "aria-haspopup": true,
                                   "aria-expanded": false
                               });
+        },
+
+        _clearSelection: function() {
+            var that = this,
+                optionLabel = that.options.optionLabel;
+
+            if (that.dataSource.view()[0] && optionLabel) {
+                that.select(0);
+                return;
+            }
+
+            that.text(optionLabel);
+            that.element.val("");
+            that.selectedIndex = -1;
         }
     });
 

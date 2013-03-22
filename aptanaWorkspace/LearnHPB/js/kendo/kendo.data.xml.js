@@ -1,6 +1,6 @@
 /*
-* Kendo UI Web v2012.3.1114 (http://kendoui.com)
-* Copyright 2012 Telerik AD. All rights reserved.
+* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
 * https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
@@ -8,6 +8,14 @@
 * GNU General Public License (GPL) version 3.
 * For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
+kendo_module({
+    id: "data.xml",
+    name: "XML",
+    category: "framework",
+    depends: [ "core" ],
+    hidden: true
+});
+
 (function($, undefined) {
     var kendo = window.kendo,
         isArray = $.isArray,
@@ -23,6 +31,8 @@
             var that = this,
                 total = options.total,
                 model = options.model,
+                parse = options.parse,
+                errors = options.errors,
                 data = options.data;
 
             if (model) {
@@ -52,37 +62,65 @@
             }
 
             if (total) {
-                total = that.getter(total);
-                that.total = function(data) {
-                    return parseInt(total(data), 10);
-                };
+                if (typeof total == "string") {
+                    total = that.getter(total);
+                    that.total = function(data) {
+                        return parseInt(total(data), 10);
+                    };
+                } else if (typeof total == "function"){
+                    that.total = total;
+                }
+            }
+
+            if (errors) {
+                if (typeof errors == "string") {
+                    errors = that.getter(errors);
+                    that.errors = function(data) {
+                        return errors(data) || null;
+                    };
+                } else if (typeof errors == "function"){
+                    that.errors = errors;
+                }
             }
 
             if (data) {
-                data = that.xpathToMember(data);
-                that.data = function(value) {
-                    var result = that.evaluate(value, data),
-                        modelInstance;
+                if (typeof data == "string") {
+                    data = that.xpathToMember(data);
+                    that.data = function(value) {
+                        var result = that.evaluate(value, data),
+                            modelInstance;
 
-                    result = isArray(result) ? result : [result];
+                        result = isArray(result) ? result : [result];
 
-                    if (that.model && model.fields) {
-                        modelInstance = new that.model();
+                        if (that.model && model.fields) {
+                            modelInstance = new that.model();
 
-                        return map(result, function(value) {
-                            if (value) {
-                                var record = {}, field;
+                            return map(result, function(value) {
+                                if (value) {
+                                    var record = {}, field;
 
-                                for (field in model.fields) {
-                                    record[field] = modelInstance._parse(field, model.fields[field].field(value));
+                                    for (field in model.fields) {
+                                        record[field] = modelInstance._parse(field, model.fields[field].field(value));
+                                    }
+
+                                    return record;
                                 }
+                            });
+                        }
 
-                                return record;
-                            }
-                        });
-                    }
+                        return result;
+                    };
+                } else if (typeof data == "function") {
+                    that.data = data;
+                }
+            }
 
-                    return result;
+            if (typeof parse == "function") {
+                var xmlParse = that.parse;
+
+                that.parse = function(data) {
+                    var xml = parse.call(that, data);
+                    return xmlParse.call(that, xml);
                 };
             }
         },

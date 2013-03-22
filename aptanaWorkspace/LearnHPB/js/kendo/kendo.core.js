@@ -1,6 +1,6 @@
 /*
-* Kendo UI Web v2012.3.1114 (http://kendoui.com)
-* Copyright 2012 Telerik AD. All rights reserved.
+* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
 * https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
@@ -8,7 +8,7 @@
 * GNU General Public License (GPL) version 3.
 * For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
-;(function($, undefined) {
+(function($, evil, undefined) {
     var kendo = window.kendo = window.kendo || {},
         extend = $.extend,
         each = $.each,
@@ -64,6 +64,14 @@
         return subclass;
     };
 
+    var preventDefault = function() {
+        this._defaultPrevented = true;
+    };
+
+    var isDefaultPrevented = function() {
+        return this._defaultPrevented === true;
+    };
+
     var Observable = Class.extend({
         init: function() {
             this._events = {};
@@ -78,6 +86,13 @@
                 handler,
                 handlersIsFunction = typeof handlers === FUNCTION,
                 events;
+
+            if (handlers === undefined) {
+                for (idx in eventName) {
+                    that.bind(idx, eventName[idx]);
+                }
+                return that;
+            }
 
             for (idx = 0, length = eventNames.length; idx < length; idx++) {
                 eventName = eventNames[idx];
@@ -131,31 +146,29 @@
             var that = this,
                 events = that._events[eventName],
                 idx,
-                length,
-                isDefaultPrevented = false;
+                length;
 
             if (events) {
                 e = e || {};
 
                 e.sender = that;
 
-                e.preventDefault = function () {
-                    isDefaultPrevented = true;
-                };
+                e._defaultPrevented = false;
 
-                e.isDefaultPrevented = function() {
-                    return isDefaultPrevented;
-                };
+                e.preventDefault = preventDefault;
+
+                e.isDefaultPrevented = isDefaultPrevented;
 
                 events = events.slice();
 
-                //Do not cache the length of the events array as removing events attached through one will fail
                 for (idx = 0, length = events.length; idx < length; idx++) {
                     events[idx].call(that, e);
                 }
+
+                return e._defaultPrevented === true;
             }
 
-            return isDefaultPrevented;
+            return false;
         },
 
         unbind: function(eventName, handler) {
@@ -306,7 +319,7 @@ function pad(number, digits, end) {
 
     if (typeof Date.prototype.toJSON !== FUNCTION) {
 
-        Date.prototype.toJSON = function (key) {
+        Date.prototype.toJSON = function () {
             var that = this;
 
             return isFinite(that.valueOf()) ?
@@ -318,7 +331,7 @@ function pad(number, digits, end) {
                 pad(that.getUTCSeconds())     + "Z" : null;
         };
 
-        String.prototype.toJSON = Number.prototype.toJSON = Boolean.prototype.toJSON = function (key) {
+        String.prototype.toJSON = Number.prototype.toJSON = Boolean.prototype.toJSON = function () {
             return this.valueOf();
         };
     }
@@ -499,7 +512,8 @@ function pad(number, digits, end) {
                 },
                 "/": "/",
                 ":": ":",
-                firstDay: 0
+                firstDay: 0,
+                twoDigitYearMax: 2029
             }
         }
     }};
@@ -530,6 +544,12 @@ function pad(number, digits, end) {
         return culture || kendo.cultures.current;
     }
 
+    function expandNumberFormat(numberFormat) {
+        numberFormat.groupSizes = numberFormat.groupSize;
+        numberFormat.percent.groupSizes = numberFormat.percent.groupSize;
+        numberFormat.currency.groupSizes = numberFormat.currency.groupSize;
+    }
+
     kendo.culture = function(cultureName) {
         var cultures = kendo.cultures, culture;
 
@@ -537,6 +557,11 @@ function pad(number, digits, end) {
             culture = findCulture(cultureName) || cultures[EN];
             culture.calendar = culture.calendars.standard;
             cultures.current = culture;
+
+            if (globalize) {
+                expandNumberFormat(culture.numberFormat);
+            }
+
         } else {
             return cultures.current;
         }
@@ -640,7 +665,9 @@ function pad(number, digits, end) {
             decimalIndex,
             sharpIndex,
             zeroIndex,
+            hasZero, hasSharp,
             percentIndex,
+            currencyIndex,
             startZeroIndex,
             start = -1,
             end;
@@ -778,9 +805,10 @@ function pad(number, digits, end) {
         }
 
         percentIndex = format.indexOf("%");
+        currencyIndex = format.indexOf("$");
 
         isPercent = percentIndex != -1;
-        isCurrency = format.indexOf("$") != -1;
+        isCurrency = currencyIndex != -1;
 
         //multiply number if the format has percent
         if (isPercent) {
@@ -789,6 +817,11 @@ function pad(number, digits, end) {
             } else {
                 format = format.split("\\").join("");
             }
+        }
+
+        if (isCurrency && format[currencyIndex - 1] === "\\") {
+            format = format.split("\\").join("");
+            isCurrency = false;
         }
 
         if (isCurrency || isPercent) {
@@ -810,20 +843,31 @@ function pad(number, digits, end) {
         length = format.length;
 
         if (decimalIndex != -1) {
-            zeroIndex = format.lastIndexOf(ZERO);
-            sharpIndex = format.lastIndexOf(SHARP);
+            zeroIndex = format.lastIndexOf(ZERO) - decimalIndex;
+            sharpIndex = format.lastIndexOf(SHARP) - decimalIndex;
             fraction = number.toString().split(POINT)[1] || EMPTY;
+            hasZero = zeroIndex > -1;
+            hasSharp = sharpIndex > -1;
+            idx = fraction.length;
 
-            if (sharpIndex > zeroIndex && fraction.length > (sharpIndex - zeroIndex)) {
-                idx = sharpIndex;
-            } else if (zeroIndex != -1 && zeroIndex >= decimalIndex) {
+            if (!hasZero && !hasSharp) {
+                format = format.substring(0, decimalIndex) + format.substring(decimalIndex + 1);
+                length = format.length;
+                decimalIndex = -1;
+                idx = 0;
+            } if (hasZero && zeroIndex > sharpIndex) {
                 idx = zeroIndex;
+            } else if (sharpIndex > zeroIndex) {
+                if (hasSharp && idx > sharpIndex) {
+                    idx = sharpIndex;
+                } else if (hasZero && idx < zeroIndex) {
+                    idx = zeroIndex;
+                }
             }
 
-            if (idx) {
-                number = number.toFixed(idx - decimalIndex);
+            if (idx > -1) {
+                number = number.toFixed(idx);
             }
-
         } else {
             number = number.toFixed(0);
         }
@@ -979,6 +1023,14 @@ function pad(number, digits, end) {
         return format;
     };
 
+    kendo._activeElement = function() {
+        try {
+            return document.activeElement;
+        } catch(e) {
+            return document.documentElement.activeElement;
+        }
+    };
+
     kendo.toString = toString;
     })();
 
@@ -1077,13 +1129,12 @@ function pad(number, digits, end) {
             valueIdx = 0,
             literal = false,
             date = new Date(),
-            shortYearCutOff = 30,
+            twoDigitYearMax = calendar.twoDigitYearMax || 2029,
             defaultYear = date.getFullYear(),
             ch, count, length, pattern,
             pmHour, UTC, ISO8601, matches,
             amDesignators, pmDesignators,
-            hoursOffset, minutesOffset,
-            century;
+            hoursOffset, minutesOffset;
 
         if (!format) {
             format = "d"; //shord date format
@@ -1132,11 +1183,14 @@ function pad(number, digits, end) {
                     }
 
                     if (count == 2) {
-                        century = defaultYear - defaultYear % 100;
-                        if (shortYearCutOff < year) {
-                            century -= 100;
+                        if (typeof twoDigitYearMax === "string") {
+                            twoDigitYearMax = defaultYear + parseInt(twoDigitYearMax, 10);
                         }
-                        year = century + year;
+
+                        year = (defaultYear - defaultYear % 100) + year;
+                        if (year > twoDigitYearMax) {
+                            year -= 100;
+                        }
                     }
                 } else if (ch === "h" ) {
                     lookAhead("h");
@@ -1269,6 +1323,10 @@ function pad(number, digits, end) {
             value.setFullYear(year);
         }
 
+        if (value.getDate() !== day && UTC === undefined) {
+            return null;
+        }
+
         return value;
     }
 
@@ -1306,6 +1364,8 @@ function pad(number, digits, end) {
             formats[++idx] = "yyyy-MM-ddTHH:mm:sszzz";
             formats[++idx] = "yyyy-MM-ddTHH:mmzzz";
             formats[++idx] = "yyyy-MM-ddTHH:mmzz";
+            formats[++idx] = "yyyy-MM-ddTHH:mm:ss";
+            formats[++idx] = "yyyy-MM-ddTHH:mm";
             formats[++idx] = "yyyy-MM-dd";
 
             idx = 0;
@@ -1404,9 +1464,13 @@ function pad(number, digits, end) {
             return globalize.parseDate(value, format, culture);
         };
 
-        kendo.parseFloat = function (value, culture, format) {
+        kendo.parseFloat = function (value, culture) {
             if (typeof value === NUMBER) {
                 return value;
+            }
+
+            if (value === undefined) {
+               return null;
             }
 
             return globalize.parseFloat(value, culture);
@@ -1604,7 +1668,6 @@ function pad(number, digits, end) {
             elementProto = "HTMLElement" in window ? HTMLElement.prototype : [];
 
         support.hasHW3D = ("WebKitCSSMatrix" in window && "m11" in new window.WebKitCSSMatrix()) || "MozPerspective" in document.documentElement.style || "msPerspective" in document.documentElement.style;
-        support.hasNativeScrolling = typeof document.documentElement.style.webkitOverflowScrolling == "string";
 
         each([ "Moz", "webkit", "O", "ms" ], function () {
             var prefix = this.toString(),
@@ -1614,9 +1677,9 @@ function pad(number, digits, end) {
                 var lowPrefix = prefix.toLowerCase();
 
                 transforms = {
-                    css: "-" + lowPrefix + "-",
+                    css: (lowPrefix != "ms") ? "-" + lowPrefix + "-" : "",
                     prefix: prefix,
-                    event: (lowPrefix === "o" || lowPrefix === "webkit") ? lowPrefix : lowPrefix === "ms" ? "MS" : ""
+                    event: (lowPrefix === "o" || lowPrefix === "webkit") ? lowPrefix : ""
                 };
 
                 if (hasTransitions) {
@@ -1632,9 +1695,12 @@ function pad(number, digits, end) {
         support.transitions = transitions;
 
         support.devicePixelRatio = window.devicePixelRatio === undefined ? 1 : window.devicePixelRatio;
+        support.screenWidth = window.outerWidth || window.screen ? window.screen.availWidth : window.innerWidth;
+        support.screenHeight = window.outerHeight || window.screen ? window.screen.availHeight : window.innerHeight;
 
         support.detectOS = function (ua) {
             var os = false, minorVersion, match = [],
+                notAndroidPhone = !/mobile safari/i.test(ua),
                 agentRxs = {
                     fire: /(Silk)\/(\d+)\.(\d+(\.\d+)?)/,
                     android: /(Android|Android.*(?:Opera|Firefox).*?\/)\s*(\d+)\.(\d+(\.\d+)?)/,
@@ -1644,14 +1710,17 @@ function pad(number, digits, end) {
                     webos: /(webOS)\/(\d+)\.(\d+(\.\d+)?)/,
                     blackberry: /(BlackBerry|BB10).*?Version\/(\d+)\.(\d+(\.\d+)?)/,
                     playbook: /(PlayBook).*?Tablet\s*OS\s*(\d+)\.(\d+(\.\d+)?)/,
-                    winphone: /(IEMobile)\/(\d+)\.(\d+(\.\d+)?)/,
-                    windows: /(MSIE)\s+(\d+)\.(\d+(\.\d+)?)/
+                    wp: /(Windows Phone(?: OS)?)\s(\d+)\.(\d+(\.\d+)?)/,
+                    windows: /(MSIE)\s+(\d+)\.(\d+(\.\d+)?)/,
+                    ffos: /(Mobile).*rv:(\d+)\.(\d+(\.\d+)?).*Firefox/
                 },
                 osRxs = {
                     ios: /^i(phone|pad|pod)$/i,
                     android: /^android|fire$/i,
                     blackberry: /^blackberry|playbook/i,
-                    windows: /windows|winphone/
+                    windows: /windows/,
+                    wp: /wp/,
+                    meego: /meego|ffos/
                 },
                 formFactorRxs = {
                     tablet: /playbook|ipad|fire/i
@@ -1684,7 +1753,7 @@ function pad(number, digits, end) {
                         os.flatVersion = os.majorVersion + minorVersion + (new Array(3 - (minorVersion.length < 3 ? minorVersion.length : 2)).join("0"));
                         os.appMode = window.navigator.standalone || (/file|local/).test(window.location.protocol) || typeof window.PhoneGap !== UNDEFINED || typeof window.cordova !== UNDEFINED; // Use file protocol to detect appModes.
 
-                        if (os.android && support.devicePixelRatio < 1.5 && (window.outerWidth > 800 || window.outerHeight > 800 || (window.screen && (window.screen.availWidth > 800 || window.screen.availHeight > 800)))) {
+                        if (os.android && (support.devicePixelRatio < 1.5 && os.flatVersion < 400 || notAndroidPhone) && (support.screenWidth > 800 || support.screenHeight > 800)) {
                             os.tablet = agent;
                         }
 
@@ -1695,9 +1764,17 @@ function pad(number, digits, end) {
             return os;
         };
 
-        support.mobileOS = support.detectOS(navigator.userAgent);
+        var mobileOS = support.mobileOS = support.detectOS(navigator.userAgent);
 
-        support.kineticScrollNeeded = support.mobileOS && support.touch;
+        support.kineticScrollNeeded = mobileOS && (support.touch || support.pointers);
+
+        support.hasNativeScrolling = false;
+
+        if ((mobileOS.ios && mobileOS.majorVersion > 4) || (mobileOS.android && mobileOS.majorVersion > 2) || mobileOS.wp) {
+            support.hasNativeScrolling = mobileOS;
+        }
+
+        support.mouseAndTouchPresent = support.touch && !(support.mobileOS.ios || support.mobileOS.android);
 
         function detectBrowser(ua) {
             var browser = false, match = [],
@@ -1716,19 +1793,43 @@ function pad(number, digits, end) {
                         browser = {};
                         browser[agent] = true;
                         browser[match[1].toLowerCase()] = true;
-                        browser.version = match[2];
+                        browser.version = parseInt(document.documentMode || match[2], 10);
 
                         break;
                     }
                 }
             }
+
             return browser;
         }
 
         support.browser = detectBrowser(navigator.userAgent);
 
+        (function(browser) {
+            // add browser-specific CSS class
+            var cssClass,
+                majorVersion = parseInt(browser.version, 10);
+
+            if (browser.msie) {
+                cssClass = "ie";
+            } else if (browser.mozilla) {
+                cssClass = "ff";
+            } else if (browser.safari) {
+                cssClass = "safari";
+            } else if (browser.webkit) {
+                cssClass = "webkit";
+            } else if (browser.opera) {
+                cssClass = "opera";
+            }
+
+            if (cssClass) {
+                $(document.documentElement).addClass("k-" + cssClass + " k-" + cssClass + majorVersion);
+            }
+        })(support.browser);
+
         support.zoomLevel = function() {
-            return support.touch ? (document.documentElement.clientWidth / window.innerWidth) : 1;
+            return support.touch ? (document.documentElement.clientWidth / window.innerWidth) :
+                   support.pointers ? (window.outerWidth / window.innerWidth) : 1;
         };
 
         support.eventCapture = document.documentElement.addEventListener;
@@ -1773,7 +1874,7 @@ function pad(number, digits, end) {
         return $.trim($(element).contents().filter(function () { return this.nodeType != 8; }).html()) === "";
     }
 
-    function getOffset(element, type) {
+    function getOffset(element, type, positioned) {
         if (!type) {
             type = "offset";
         }
@@ -1783,14 +1884,19 @@ function pad(number, digits, end) {
 
         if (support.touch && mobileOS.ios && mobileOS.flatVersion < 410) { // Extra processing only in broken iOS'
             var offset = type == "offset" ? result : element.offset(),
-                positioned = (result.left == offset.left && result.top == offset.top);
+                position = (result.left == offset.left && result.top == offset.top);
 
-            if (positioned) {
+            if (position) {
                 return {
                     top: result.top - window.scrollY,
                     left: result.left - window.scrollX
                 };
             }
+        }
+
+        if (kendo.support.pointers && !positioned) { // IE10 touch zoom is living in a separate viewport.
+            result.top -= (window.pageYOffset - document.documentElement.scrollTop);
+            result.left -= (window.pageXOffset - document.documentElement.scrollLeft);
         }
 
         return result;
@@ -1966,15 +2072,6 @@ function pad(number, digits, end) {
         return ("" + value).replace(ampRegExp, "&amp;").replace(ltRegExp, "&lt;").replace(gtRegExp, "&gt;");
     }
 
-    var touchLocation = function(e) {
-        var originalEvent = typeof e.pageX == UNDEFINED ? e.originalEvent : e;
-        return {
-            idx: support.pointers ? originalEvent.pointerId : 0,
-            x: originalEvent.pageX,
-            y: originalEvent.pageY
-        };
-    };
-
     var eventTarget = function (e) {
         return e.target;
     };
@@ -1982,30 +2079,6 @@ function pad(number, digits, end) {
     if (support.touch) {
 
         var mobileChrome = (support.mobileOS.browser == "chrome" && !support.mobileOS.ios);
-
-        touchLocation = function(e, id) {
-            var changedTouches = e.changedTouches || e.originalEvent.changedTouches;
-
-            if (id) {
-                var output = null;
-                each(changedTouches, function(idx, value) {
-                    if (id == value.identifier) {
-                        output = {
-                            idx: value.identifier,
-                            x: value.pageX,
-                            y: value.pageY
-                        };
-                    }
-                });
-                return output;
-            } else {
-                return {
-                    idx: changedTouches[0].identifier,
-                    x: changedTouches[0].pageX,
-                    y: changedTouches[0].pageY
-                };
-            }
-        };
 
         eventTarget = function(e) {
             var touches = "originalEvent" in e ? e.originalEvent.changedTouches : "changedTouches" in e ? e.changedTouches : null,
@@ -2027,7 +2100,7 @@ function pad(number, digits, end) {
             support.mouseup = "mouseup touchend";
             support.mousemove = "mousemove touchmove";
             support.mousecancel = "mouseleave touchcancel";
-            support.click = "click touchend";
+            support.click = "click";
             support.resize = "resize";
         } else {
             support.mousedown = "touchstart";
@@ -2053,9 +2126,8 @@ function pad(number, digits, end) {
         support.resize = "resize";
     }
 
-
-    var wrapExpression = function(members) {
-        var result = "d",
+    var wrapExpression = function(members, paramName) {
+        var result = paramName || "d",
             index,
             idx,
             length,
@@ -2131,24 +2203,30 @@ function pad(number, digits, end) {
         template: proxy(Template.compile, Template),
         render: proxy(Template.render, Template),
         stringify: proxy(JSON.stringify, JSON),
-        touchLocation: touchLocation,
         eventTarget: eventTarget,
         htmlEncode: htmlEncode,
         isLocalUrl: function(url) {
             return url && !localUrlRe.test(url);
         },
 
-        expr: function(expression, safe) {
+        expr: function(expression, safe, paramName) {
             expression = expression || "";
+
+            if (typeof safe == STRING) {
+                paramName = safe;
+                safe = false;
+            }
+
+            paramName = paramName || "d";
 
             if (expression && expression.charAt(0) !== "[") {
                 expression = "." + expression;
             }
 
             if (safe) {
-                expression =  wrapExpression(expression.split("."));
+                expression = wrapExpression(expression.split("."), paramName);
             } else {
-                expression = "d" + expression;
+                expression = paramName + expression;
             }
 
             return expression;
@@ -2159,7 +2237,7 @@ function pad(number, digits, end) {
         },
 
         setter: function(expression) {
-            return setterCache[expression] = setterCache[expression] || new Function("d,value", "d." + expression + "=value");
+            return setterCache[expression] = setterCache[expression] || new Function("d,value", kendo.expr(expression) + "=value");
         },
 
         accessor: function(expression) {
@@ -2264,7 +2342,7 @@ function pad(number, digits, end) {
     kendo.notify = noop;
 
     var templateRegExp = /template$/i,
-        jsonRegExp = /^\s*(?:\{(?:.|\n)*\}|\[(?:.|\n)*\])\s*$/,
+        jsonRegExp = /^\s*(?:\{(?:.|\r\n|\n)*\}|\[(?:.|\r\n|\n)*\])\s*$/,
         jsonFormatRegExp = /^\{(\d+)(:[^\}]+)?\}/,
         dashRegExp = /([A-Z])/g;
 
@@ -2290,7 +2368,7 @@ function pad(number, digits, end) {
         } else if (!isNaN(parseFloat(value))) {
             value = parseFloat(value);
         } else if (jsonRegExp.test(value) && !jsonFormatRegExp.test(value)) {
-            value = eval("(" + value + ")");
+            value = evil("(" + value + ")");
         }
 
         return value;
@@ -2386,15 +2464,19 @@ function pad(number, digits, end) {
     };
 
     kendo.rolesFromNamespaces = function(namespaces) {
-        var roles;
+        var roles = [],
+            idx,
+            length;
 
         if (!namespaces[0]) {
             namespaces = [kendo.ui, kendo.dataviz.ui];
         }
 
-        roles = $.map(namespaces, function(namespace) { return namespace.roles; }).reverse();
+        for (idx = 0, length = namespaces.length; idx < length; idx ++) {
+            roles[idx] = namespaces[idx].roles;
+        }
 
-        return extend.apply(null, [{}].concat(roles));
+        return extend.apply(null, [{}].concat(roles.reverse()));
     };
 
     kendo.init = function(element) {
@@ -2495,6 +2577,8 @@ function pad(number, digits, end) {
         }
     });
 
+    var ContainerNullObject = { bind: $.noop };
+
     var MobileWidget = Widget.extend({
         init: function(element, options) {
             Widget.fn.init.call(this, element, options);
@@ -2513,11 +2597,14 @@ function pad(number, digits, end) {
 
         events: [],
 
-        viewShow: $.noop,
-
         view: function() {
-            var viewElement = this.element.closest(kendo.roleSelector("view") + "," + kendo.roleSelector("splitview"));
-            return viewElement.data("kendoMobileView") || viewElement.data("kendoMobileSplitView");
+            var viewElement = this.element.closest(kendo.roleSelector("view splitview modalview"));
+            return kendo.widgetInstance(viewElement, kendo.mobile.ui);
+        },
+
+        container: function() {
+            var element = this.element.closest(kendo.roleSelector("view layout modalview"));
+            return kendo.widgetInstance(element, kendo.mobile.ui) || ContainerNullObject;
         }
     });
 
@@ -2608,27 +2695,33 @@ function pad(number, digits, end) {
         }
     });
 
-
     var MOUSE_EVENTS = ["mousedown", "mousemove", "mouseenter", "mouseleave", "mouseover", "mouseout", "mouseup", "click"];
+    var EXCLUDE_BUST_CLICK_SELECTOR = "label, input, [data-rel=external]";
 
-    $.extend(kendo, {
+    var MouseEventNormalizer = {
         setupMouseMute: function() {
             var idx = 0,
                 length = MOUSE_EVENTS.length,
                 element = document.documentElement;
 
-            if (kendo.mouseTrap || !support.eventCapture) {
+            if (MouseEventNormalizer.mouseTrap || !support.eventCapture) {
                 return;
             }
 
-            kendo.mouseTrap = true;
-            kendo.captureMouseEvents = false;
+            MouseEventNormalizer.mouseTrap = true;
+
+            MouseEventNormalizer.bustClick = false;
+            MouseEventNormalizer.captureMouse = false;
 
             var handler = function(e) {
-                if (kendo.captureMouse) {
-                    e.stopPropagation();
+                if (MouseEventNormalizer.captureMouse) {
                     if (e.type === "click") {
-                        e.preventDefault();
+                        if (MouseEventNormalizer.bustClick && !$(e.target).is(EXCLUDE_BUST_CLICK_SELECTOR)) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                        }
+                    } else {
+                        e.stopPropagation();
                     }
                 }
             };
@@ -2638,17 +2731,22 @@ function pad(number, digits, end) {
             }
         },
 
-        muteMouse: function() {
-            kendo.captureMouse = true;
-            clearTimeout(kendo.mouseTrapTimeoutID);
+        muteMouse: function(e) {
+            MouseEventNormalizer.captureMouse = true;
+            if (e.data.bustClick) {
+                MouseEventNormalizer.bustClick = true;
+            }
+            clearTimeout(MouseEventNormalizer.mouseTrapTimeoutID);
         },
 
         unMuteMouse: function() {
-            kendo.mouseTrapTimeoutID = setTimeout(function() {
-                kendo.captureMouse = false;
+            clearTimeout(MouseEventNormalizer.mouseTrapTimeoutID);
+            MouseEventNormalizer.mouseTrapTimeoutID = setTimeout(function() {
+                MouseEventNormalizer.captureMouse = false;
+                MouseEventNormalizer.bustClick = false;
             }, 400);
         }
-    });
+    };
 
     var eventMap = {
         down: "touchstart mousedown",
@@ -2657,22 +2755,88 @@ function pad(number, digits, end) {
         cancel: "mouseleave touchcancel"
     };
 
+    if (support.touch && (support.mobileOS.ios || support.mobileOS.android)) {
+        eventMap = {
+            down: "touchstart",
+            move: "touchmove",
+            up: "touchend touchcancel",
+            cancel: "touchcancel"
+        };
+    }
+
     if (support.pointers) {
         eventMap = {
             down: "MSPointerDown",
             move: "MSPointerMove",
             up: "MSPointerUp",
-            cancel: "MSPointerCancel"
+            cancel: "MSPointerCancel MSPointerLeave"
         };
+
+        // Create MSPointerEnter/MSPointerLeave events using mouseover/out and event-time checks
+        jQuery.each({
+            MSPointerEnter: "MSPointerOver",
+            MSPointerLeave: "MSPointerOut"
+        }, function( orig, fix ) {
+            jQuery.event.special[ orig ] = {
+                delegateType: fix,
+                bindType: fix,
+
+                handle: function( event ) {
+                    var ret,
+                        target = this,
+                        related = event.relatedTarget,
+                        handleObj = event.handleObj;
+
+                    // For mousenter/leave call the handler if related is outside the target.
+                    // NB: No relatedTarget if the mouse left/entered the browser window
+                    if ( !related || (related !== target && !jQuery.contains( target, related )) ) {
+                        event.type = handleObj.origType;
+                        ret = handleObj.handler.apply( this, arguments );
+                        event.type = fix;
+                    }
+                    return ret;
+                }
+            };
+        });
     }
 
-    function applyEventMap(e) {
-        return (eventMap[e] || e);
-    }
+
+    var getEventMap = function(e) { return (eventMap[e] || e); },
+        eventRegEx = /([^ ]+)/g;
+
+    kendo.applyEventMap = function(events, ns) {
+        events = events.replace(eventRegEx, getEventMap);
+
+        if (ns) {
+            events = events.replace(eventRegEx, "$1." + ns);
+        }
+
+        return events;
+    };
 
     var on = $.fn.on;
 
-    var kendoJQuery = $.sub();
+    function kendoJQuery(selector, context) {
+        return new kendoJQuery.fn.init(selector, context);
+    }
+
+    extend(true, kendoJQuery, $);
+
+    kendoJQuery.fn = kendoJQuery.prototype = new $();
+
+    kendoJQuery.fn.constructor = kendoJQuery;
+
+    kendoJQuery.fn.init = function(selector, context) {
+        if (context && context instanceof $ && !(context instanceof kendoJQuery)) {
+            context = kendoJQuery(context);
+        }
+
+        return $.fn.init.call(this, selector, context, rootjQuery);
+    };
+
+    kendoJQuery.fn.init.prototype = kendoJQuery.fn;
+
+    var rootjQuery = kendoJQuery(document);
 
     extend(kendoJQuery.fn, {
         handler: function(handler) {
@@ -2680,8 +2844,8 @@ function pad(number, digits, end) {
             return this;
         },
 
-        autoApplyNS: function() {
-            this.data("kendoNS", "." + kendo.guid());
+        autoApplyNS: function(ns) {
+            this.data("kendoNS", ns || kendo.guid());
             return this;
         },
 
@@ -2702,21 +2866,24 @@ function pad(number, digits, end) {
             }
 
             var callback =  args[args.length - 1],
-                events = args[0].replace(/([^ ]+)/g, applyEventMap);
-
-            if (ns) {
-
-                events = events.replace(/( |$)/g, ns + " ");
-            }
+                events = kendo.applyEventMap(args[0], ns);
 
             // setup mouse trap
-            if (support.touch && events.indexOf("mouse") > -1 && this[0] !== document.documentElement) {
-                kendo.setupMouseMute();
+            if (support.mouseAndTouchPresent && events.search(/mouse|click/) > -1 && this[0] !== document.documentElement) {
+                MouseEventNormalizer.setupMouseMute();
 
-                on.call(this, {
-                    touchstart: kendo.muteMouse,
-                    touchend: kendo.unMuteMouse
-                });
+                var selector = args.length === 2 ? null : args[1],
+                    bustClick = events.indexOf("click") > -1 && events.indexOf("touchend") > -1;
+
+                on.call(this,
+                    {
+                        touchstart: MouseEventNormalizer.muteMouse,
+                        touchend: MouseEventNormalizer.unMuteMouse
+                    },
+                    selector,
+                    {
+                        bustClick: bustClick
+                    });
             }
 
             if (typeof callback === STRING) {
@@ -2735,16 +2902,29 @@ function pad(number, digits, end) {
             return that;
         },
 
+        kendoDestroy: function(ns) {
+            ns = ns || this.data("kendoNS");
 
-        kendoDestroy: function() {
-            var ns = this.data("kendoNS");
             if (ns) {
-                this.off(ns);
+                this.off("." + ns);
             }
+
             return this;
         }
     });
 
     kendo.jQuery = kendoJQuery;
     kendo.eventMap = eventMap;
-})(jQuery);
+})(jQuery, eval);
+
+/*global kendo_module:true */
+if (typeof kendo_module === "undefined") {
+    kendo_module = function(){};
+}
+
+kendo_module({
+    id: "core",
+    name: "Core",
+    category: "framework",
+    description: "The core of the Kendo framework."
+});

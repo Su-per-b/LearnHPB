@@ -1,6 +1,6 @@
 /*
-* Kendo UI Web v2012.3.1114 (http://kendoui.com)
-* Copyright 2012 Telerik AD. All rights reserved.
+* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
 * https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
@@ -8,15 +8,35 @@
 * GNU General Public License (GPL) version 3.
 * For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
+kendo_module({
+    id: "listview",
+    name: "ListView",
+    category: "web",
+    description: "The ListView widget offers rich support for interacting with data.",
+    depends: [ "data" ],
+    features: [ {
+        id: "listview-editing",
+        name: "Editing",
+        description: "Support for record editing",
+        depends: [ "editable" ]
+    }, {
+        id: "listview-selection",
+        name: "Selection",
+        description: "Support for selection",
+        depends: [ "selectable" ]
+    } ]
+});
+
 (function($, undefined) {
     var kendo = window.kendo,
         CHANGE = "change",
+        CANCEL = "cancel",
         DATABOUND = "dataBound",
         DATABINDING = "dataBinding",
         Widget = kendo.ui.Widget,
         keys = kendo.keys,
         FOCUSSELECTOR =  ">*",
-        REQUESTSTART = "requestStart",
+        PROGRESS = "progress",
         ERROR = "error",
         FOCUSED = "k-state-focused",
         SELECTED = "k-state-selected",
@@ -28,6 +48,7 @@
         CLICK = "click",
         NS = ".kendoListView",
         proxy = $.proxy,
+        activeElement = kendo._activeElement,
         progress = kendo.ui.progress,
         DataSource = kendo.data.DataSource;
 
@@ -72,6 +93,7 @@
 
         events: [
             CHANGE,
+            CANCEL,
             DATABINDING,
             DATABOUND,
             EDIT,
@@ -110,7 +132,7 @@
             var that = this;
 
             that.dataSource.unbind(CHANGE, that._refreshHandler)
-                            .unbind(REQUESTSTART, that._requestStartHandler)
+                            .unbind(PROGRESS, that._progressHandler)
                             .unbind(ERROR, that._errorHandler);
         },
 
@@ -121,17 +143,17 @@
                 that._unbindDataSource();
             } else {
                 that._refreshHandler = proxy(that.refresh, that);
-                that._requestStartHandler = proxy(that._requestStart, that);
+                that._progressHandler = proxy(that._progress, that);
                 that._errorHandler = proxy(that._error, that);
             }
 
             that.dataSource = DataSource.create(that.options.dataSource)
                                 .bind(CHANGE, that._refreshHandler)
-                                .bind(REQUESTSTART, that._requestStartHandler)
+                                .bind(PROGRESS, that._progressHandler)
                                 .bind(ERROR, that._errorHandler);
         },
 
-        _requestStart: function() {
+        _progress: function() {
             progress(this.element, true);
         },
 
@@ -153,7 +175,8 @@
                 idx,
                 length,
                 template = that.template,
-                altTemplate = that.altTemplate;
+                altTemplate = that.altTemplate,
+                active = activeElement();
 
             if (e && e.action === "itemchange") {
                 if (!that.editable) {
@@ -161,8 +184,9 @@
                     idx = $.inArray(data, view);
 
                     if (idx >= 0) {
-                        item = $(template(data)).attr(kendo.attr("uid"), data.uid);
-                        that.items().eq(idx).replaceWith(item);
+                        that.items().eq(idx).replaceWith(template(data));
+                        item = that.items().eq(idx);
+                        item.attr(kendo.attr("uid"), data.uid);
 
                         that.trigger("itemChange", {
                             item: item,
@@ -199,7 +223,7 @@
                              .attr("aria-selected", "false");
             }
 
-            if (that.element[0] === document.activeElement && that.options.navigatable) {
+            if (that.element[0] === active && that.options.navigatable) {
                 that.current(items.eq(0));
             }
 
@@ -276,21 +300,29 @@
         current: function(candidate) {
             var that = this,
                 element = that.element,
-                current = that._current;
+                current = that._current,
+                id = that._itemId;
 
             if (candidate === undefined) {
                 return current;
             }
 
             if (current) {
-                current.removeClass(FOCUSED).removeAttr("id");
+                if (current[0].id === id) {
+                    current.removeAttr("id");
+                }
+
+                current.removeClass(FOCUSED);
                 element.removeAttr("aria-activedescendant");
             }
 
             if (candidate && candidate[0]) {
+                id = candidate[0].id || id;
+
                 that._scrollTo(candidate[0]);
-                element.attr("aria-activedescendant", that._itemId);
-                candidate.addClass(FOCUSED).attr("id", that._itemId);
+
+                element.attr("aria-activedescendant", id);
+                candidate.addClass(FOCUSED).attr("id", id);
             }
 
             that._current = candidate;
@@ -361,10 +393,9 @@
                             isTextBox = target.is(":text"),
                             preventDefault = kendo.preventDefault,
                             editItem = element.find("." + KEDITITEM),
-                            idx;
+                            active = activeElement(), idx;
 
                         if ((!canHandle && !isTextBox && keys.ESC != key) || (isTextBox && keys.ESC != key && keys.ENTER != key)) {
-                            //console.log("not handled");
                             return;
                         }
 
@@ -398,7 +429,9 @@
                         } else if (keys.ENTER === key) {
                             if (editItem.length !== 0 && (canHandle || isTextBox)) {
                                 idx = that.items().index(editItem);
-                                document.activeElement.blur();
+                                if (active) {
+                                    active.blur();
+                                }
                                 that.save();
                                 var focusAgain = function(){
                                     that.element.trigger("focus");
@@ -465,7 +498,8 @@
            var that = this,
                editable = that.editable,
                data,
-               container,
+               index,
+               template = that.template,
                valid = true;
 
            if (editable) {
@@ -474,10 +508,16 @@
                }
 
                if (valid) {
+                   if (editable.element.index() % 2) {
+                       template = that.altTemplate;
+                   }
+
                    data = that._modelFromElement(editable.element);
-                   container = $(that.template(data)).attr(kendo.attr("uid"), data.uid);
                    that._destroyEditable();
-                   editable.element.replaceWith(container);
+
+                   index = editable.element.index();
+                   editable.element.replaceWith(template(data));
+                   that.items().eq(index).attr(kendo.attr("uid"), data.uid);
                }
            }
 
@@ -487,11 +527,12 @@
        edit: function(item) {
            var that = this,
                data = that._modelFromElement(item),
-               container = $(that.editTemplate(data)).addClass(KEDITITEM);
+               container,
+               index = item.index();
 
             that.cancel();
-            container.attr(kendo.attr("uid"), data.uid);
-            item.replaceWith(container);
+            item.replaceWith(that.editTemplate(data));
+            container = that.items().eq(index).addClass(KEDITITEM).attr(kendo.attr("uid"), data.uid);
             that.editable = container.kendoEditable({ model: data, clearContainer: false, errorTemplate: false }).data("kendoEditable");
 
             that.trigger(EDIT, { model: data, item: container });
@@ -499,8 +540,15 @@
 
        save: function() {
            var that = this,
-               editable = that.editable.element,
-               model = that._modelFromElement(editable);
+               editable = that.editable,
+               model;
+
+           if (!editable) {
+               return;
+           }
+
+           editable = editable.element;
+           model = that._modelFromElement(editable);
 
            if (!that.trigger(SAVE, { model: model, item: editable }) && that._closeEditable(true)) {
                that.dataSource.sync();
@@ -538,14 +586,19 @@
                dataSource = that.dataSource;
 
            if (that.editable) {
-               dataSource.cancelChanges(that._modelFromElement(that.editable.element));
-               that._closeEditable(false);
+               var container = that.editable.element;
+               var model = that._modelFromElement(container);
+
+               if (!that.trigger(CANCEL, { model: model, container: container})) {
+                   dataSource.cancelChanges(model);
+                   that._closeEditable(false);
+               }
            }
        },
 
        _crudHandlers: function() {
            var that = this,
-               clickNS = "touchend" + NS + " " + CLICK + NS;
+               clickNS = CLICK + NS;
 
            that.element.on(clickNS, ".k-edit-button", function(e) {
                var item = $(this).closest("[" + kendo.attr("uid") + "]");

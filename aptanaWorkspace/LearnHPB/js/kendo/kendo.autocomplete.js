@@ -1,6 +1,6 @@
 /*
-* Kendo UI Web v2012.3.1114 (http://kendoui.com)
-* Copyright 2012 Telerik AD. All rights reserved.
+* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
 * https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
@@ -8,17 +8,28 @@
 * GNU General Public License (GPL) version 3.
 * For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
+kendo_module({
+    id: "autocomplete",
+    name: "AutoComplete",
+    category: "web",
+    description: "The AutoComplete widget provides suggestions depending on the typed text.It also allows multiple value entries.",
+    depends: [ "list" ]
+});
+
 (function ($, undefined) {
     var kendo = window.kendo,
         support = kendo.support,
+        activeElement = kendo._activeElement,
         placeholderSupported = support.placeholder,
         ui = kendo.ui,
         keys = kendo.keys,
         DataSource = kendo.data.DataSource,
         List = ui.List,
         ARIA_DISABLED = "aria-disabled",
+        ARIA_READONLY = "aria-readonly",
         DEFAULT = "k-state-default",
         DISABLED = "disabled",
+        READONLY = "readonly",
         FOCUSED = "k-state-focused",
         SELECTED = "k-state-selected",
         STATEDISABLED = "k-state-disabled",
@@ -73,10 +84,12 @@
             }
 
             that._wrapper();
+            that._loader();
 
             that._accessors();
 
             that._dataSource();
+            that._ignoreCase();
 
             element[0].type = "text";
             wrapper = that.wrapper;
@@ -105,8 +118,6 @@
 
             that._enable();
 
-            that._popup();
-
             that._old = that._accessor();
 
             if (element[0].id) {
@@ -122,7 +133,7 @@
 
         options: {
             name: "AutoComplete",
-            enable: true,
+            enabled: true,
             suggest: false,
             template: "",
             dataTextField: "",
@@ -144,10 +155,12 @@
                 that._unbindDataSource();
             } else {
                 that._refreshHandler = proxy(that.refresh, that);
+                that._progressHandler = proxy(that._showBusy, that);
             }
 
             that.dataSource = DataSource.create(that.options.dataSource)
-                .bind("change", that._refreshHandler);
+                .bind("change", that._refreshHandler)
+                .bind("progress", that._progressHandler);
         },
 
         setDataSource: function(dataSource) {
@@ -173,33 +186,43 @@
             this._aria();
         },
 
-
-        enable: function(enable) {
+        _editable: function(options) {
             var that = this,
                 element = that.element,
-                wrapper = that.wrapper.off(HOVEREVENTS);
+                wrapper = that.wrapper.off(ns),
+                readonly = options.readonly,
+                disable = options.disable;
 
-            if (enable === false) {
+            if (!readonly && !disable) {
                 wrapper
-                    .removeClass(DEFAULT)
-                    .addClass(STATEDISABLED);
-
-                element.attr(DISABLED, DISABLED)
-                       .attr(ARIA_DISABLED, true);
-            } else {
-                wrapper
-                    .removeClass(STATEDISABLED)
                     .addClass(DEFAULT)
+                    .removeClass(STATEDISABLED)
                     .on(HOVEREVENTS, that._toggleHover);
 
-                element
-                    .removeAttr(DISABLED)
-                    .attr(ARIA_DISABLED, false);
+                element.removeAttr(DISABLED)
+                       .removeAttr(READONLY)
+                       .attr(ARIA_DISABLED, false)
+                       .attr(ARIA_READONLY, false);
+            } else {
+                wrapper
+                    .addClass(disable ? STATEDISABLED : DEFAULT)
+                    .removeClass(disable ? DEFAULT : STATEDISABLED);
+
+                element.attr(DISABLED, disable)
+                       .attr(READONLY, readonly)
+                       .attr(ARIA_DISABLED, disable)
+                       .attr(ARIA_READONLY, readonly);
             }
         },
 
         close: function () {
-            var that = this;
+            var that = this,
+                current = that._current;
+
+            if (current) {
+                current.removeClass(SELECTED);
+            }
+
             that.current(null);
             that.popup.close();
         },
@@ -246,7 +269,7 @@
                 that._open = false;
                 action = length ? "open" : "close";
 
-                if (that._typing && that.element[0] !== document.activeElement) {
+                if (that._typing && that.element[0] !== activeElement()) {
                     action = "close";
                 }
 
@@ -260,6 +283,7 @@
 
             that._makeUnselectable();
 
+            that._hideBusy();
             that.trigger("dataBound");
         },
 
@@ -291,7 +315,7 @@
             } else if (length >= that.options.minLength) {
                 that._open = true;
 
-                that.dataSource.filter({
+                that._filterSource({
                     value: ignoreCase ? word.toLowerCase() : word,
                     operator: options.filter,
                     field: options.dataTextField,
@@ -374,7 +398,7 @@
                 element = that.element[0];
 
             if (value !== undefined) {
-                element.value = value;
+                element.value = value === null ? "" : value;
                 that._placeholder();
             } else {
                 value = element.value;
@@ -444,6 +468,27 @@
             if (that.options.suggest) {
                 that.suggest(li);
             }
+        },
+
+        _hideBusy: function () {
+            var that = this;
+            clearTimeout(that._busy);
+            that._loading.hide();
+            that.element.attr("aria-busy", false);
+            that._busy = null;
+        },
+
+        _showBusy: function () {
+            var that = this;
+
+            if (that._busy) {
+                return;
+            }
+
+            that._busy = setTimeout(function () {
+                that.element.attr("aria-busy", true);
+                that._loading.show();
+            }, 100);
         },
 
         _placeholder: function(show) {
@@ -516,6 +561,10 @@
                     that.current(li.addClass(SELECTED));
                 }
             }
+        },
+
+        _loader: function() {
+            this._loading = $('<span class="k-icon k-loading" style="display:none"></span>').insertAfter(this.element);
         },
 
         _toggleHover: function(e) {

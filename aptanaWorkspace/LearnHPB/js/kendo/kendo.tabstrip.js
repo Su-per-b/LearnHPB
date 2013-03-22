@@ -1,6 +1,6 @@
 /*
-* Kendo UI Web v2012.3.1114 (http://kendoui.com)
-* Copyright 2012 Telerik AD. All rights reserved.
+* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
 * https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
@@ -8,6 +8,14 @@
 * GNU General Public License (GPL) version 3.
 * For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
+kendo_module({
+    id: "tabstrip",
+    name: "TabStrip",
+    category: "web",
+    description: "The TabStrip widget displays a collection of tabs with associated tab content.",
+    depends: [ "data" ]
+});
+
 (function ($, undefined) {
     var kendo = window.kendo,
         ui = kendo.ui,
@@ -44,9 +52,7 @@
         HOVERSTATE = "k-state-hover",
         TABONTOP = "k-tab-on-top",
         NAVIGATABLEITEMS = ".k-item:not(." + DISABLEDSTATE + ")",
-        CLICKABLEITEMS = ".k-tabstrip-items > " + NAVIGATABLEITEMS,
         HOVERABLEITEMS = ".k-tabstrip-items > " + NAVIGATABLEITEMS + ":not(." + ACTIVESTATE + ")",
-        DISABLEDLINKS = ".k-tabstrip-items > .k-state-disabled .k-link",
 
         templates = {
             content: template(
@@ -173,18 +179,6 @@
 
             options = that.options;
 
-            that.wrapper
-                .on(CLICK + NS, DISABLEDLINKS, false)
-                .on("touchend" + NS + " click" + NS, CLICKABLEITEMS, function(e) {
-                    if (that._click($(e.currentTarget))) {
-                        e.preventDefault();
-                    }
-                })
-                .on(MOUSEENTER + NS + " " + MOUSELEAVE + NS, HOVERABLEITEMS, that._toggleHover)
-                .on("keydown" + NS, $.proxy(that._keydown, that))
-                .on("focus" + NS, $.proxy(that._active, that))
-                .on("blur" + NS, function() { that._current(null); });
-
             that._isRtl = kendo.support.isRtl(that.wrapper);
 
             that._tabindex();
@@ -204,8 +198,22 @@
                     });
             }
 
-            var selectedItems = that.wrapper.find("li." + ACTIVESTATE),
-                content = $(that.contentElement(selectedItems.parent().children().index(selectedItems)));
+            that.wrapper
+                .on(MOUSEENTER + NS + " " + MOUSELEAVE + NS, HOVERABLEITEMS, that._toggleHover)
+                .on("keydown" + NS, $.proxy(that._keydown, that))
+                .on("focus" + NS, $.proxy(that._active, that))
+                .on("blur" + NS, function() { that._current(null); });
+
+            that.wrapper.children(".k-tabstrip-items")
+                .on(CLICK + NS, ".k-state-disabled .k-link", false)
+                .on(CLICK + NS, " > " + NAVIGATABLEITEMS, function(e) {
+                    if (that._click($(e.currentTarget))) {
+                        e.preventDefault();
+                    }
+                });
+
+            var selectedItems = that.tabGroup.children("li." + ACTIVESTATE),
+                content = that.contentHolder(selectedItems.index());
 
             if (content.length > 0 && content[0].childNodes.length === 0) {
                 that.activateTab(selectedItems.eq(0));
@@ -222,7 +230,11 @@
 
         _active: function() {
             var item = this.tabGroup.children().filter("." + ACTIVESTATE);
-            this._current(item[0] ? item : this._endItem("first"));
+
+            item = item[0] ? item : this._endItem("first");
+            if (item[0]) {
+                this._current(item);
+            }
         },
 
         _endItem: function(action) {
@@ -264,8 +276,10 @@
             }
 
             if (focused) {
+                if (focused[0].id === id) {
+                    focused.removeAttr("id");
+                }
                 focused.removeClass(FOCUSEDSTATE);
-                focused.removeAttr("id");
             }
 
             if (candidate) {
@@ -274,6 +288,8 @@
                 }
 
                 that.element.removeAttr("aria-activedescendant");
+
+                id = candidate[0].id || id;
 
                 if (id) {
                     candidate.attr("id", id);
@@ -495,7 +511,7 @@
             var that = this;
 
             if (arguments.length === 0) {
-                return that.tabGroup.find("li." + ACTIVESTATE);
+                return that.tabGroup.children("li." + ACTIVESTATE);
             }
 
             if (!isNaN(element)) {
@@ -505,7 +521,7 @@
             element = that.tabGroup.find(element);
             $(element).each(function (index, item) {
                 item = $(item);
-                if (!item.hasClass(ACTIVESTATE) && !that.trigger(SELECT, { item: item[0], contentElement: that.contentElement(item.index()) })) {
+                if (!item.hasClass(ACTIVESTATE) && !that.trigger(SELECT, { item: item[0], contentElement: that.contentHolder(item.index())[0] })) {
                     that.activateTab(item);
                 }
             });
@@ -532,7 +548,7 @@
             element.each(function () {
                 var item = $(this),
                     contentUrl = item.find("." + LINK).data(CONTENTURL),
-                    content = $(that.contentElement(item.index()));
+                    content = that.contentHolder(item.index());
 
                 if (contentUrl) {
                     that.ajaxRequest(item, content, null, contentUrl);
@@ -675,7 +691,9 @@
                     .remove();
             }
 
-            tabs.eq(activeItem).addClass(TABONTOP);
+            if (activeItem >= 0) {
+                tabs.eq(activeItem).addClass(TABONTOP);
+            }
 
             that.contentElements = that.wrapper.children("div");
 
@@ -732,7 +750,7 @@
                 link = item.find("." + LINK),
                 href = link.attr(HREF),
                 collapse = that.options.collapsible,
-                content = $(that.contentElement(item.index())),
+                contentHolder = that.contentHolder(item.index()),
                 prevent, isAnchor;
 
             if (item.closest(".k-widget")[0] != that.wrapper[0]) {
@@ -743,19 +761,18 @@
                 return true;
             }
 
-            if (that.tabGroup.children("[data-animating], [data-in-request]").length) {
-                return;
+            isAnchor = link.data(CONTENTURL) || (href && (href.charAt(href.length - 1) == "#" || href.indexOf("#" + that.element[0].id + "-") != -1));
+            prevent = !href || isAnchor;
+
+            if (that.tabGroup.children("[data-animating]").length) {
+                return prevent;
             }
 
-            if (that.trigger(SELECT, { item: item[0], contentElement: content[0] })) {
+            if (that.trigger(SELECT, { item: item[0], contentElement: contentHolder[0] })) {
                 return true;
             }
 
-            isAnchor = link.data(CONTENTURL) || (href && (href.charAt(href.length - 1) == "#" || href.indexOf("#" + that.element[0].id + "-") != -1));
-
-            if (!href || isAnchor) {
-                prevent = true;
-            } else {
+            if (prevent === false) {
                 return;
             }
 
@@ -824,6 +841,11 @@
             // handle content elements
             var contentAnimators = that.contentAnimators;
 
+            if (item.data("in-request")) {
+                that.xhr.abort();
+                item.removeAttr("data-in-request");
+            }
+
             if (contentAnimators.length === 0) {
                 oldTab.removeClass(TABONTOP);
                 item.addClass(TABONTOP) // change these directly to bring the tab on top.
@@ -838,9 +860,10 @@
             }
 
             var visibleContents = contentAnimators.filter("." + ACTIVESTATE),
-                content = $(that.contentElement(itemIndex));
+                contentHolder = that.contentHolder(itemIndex),
+                contentElement = contentHolder.closest(".k-content");
 
-            if (content.length === 0) {
+            if (contentHolder.length === 0) {
                 visibleContents
                     .removeClass( ACTIVESTATE )
                     .attr("aria-hidden", true)
@@ -851,7 +874,7 @@
 
             item.attr("data-animating", true);
 
-            var isAjaxContent = (item.children("." + LINK).data(CONTENTURL) || false) && content.is(EMPTY),
+            var isAjaxContent = (item.children("." + LINK).data(CONTENTURL) || false) && contentHolder.is(EMPTY),
                 showContentElement = function () {
                     oldTab.removeClass(TABONTOP);
                     item.addClass(TABONTOP) // change these directly to bring the tab on top.
@@ -869,14 +892,13 @@
 
                     that._current(item);
 
-                    content
-                        .closest(".k-content")
+                    contentElement
                         .addClass(ACTIVESTATE)
                         .removeAttr("aria-hidden")
                         .kendoStop(true, true)
                         .attr("aria-expanded", true)
                         .kendoAnimate( extend({ init: function () {
-                            that.trigger(ACTIVATE, { item: item[0], contentElement: content[0] });
+                            that.trigger(ACTIVATE, { item: item[0], contentElement: contentHolder[0] });
                         } }, animation, { complete: function () { item.removeAttr("data-animating"); } } ) );
                 },
                 showContent = function() {
@@ -884,7 +906,9 @@
                         showContentElement();
                         that.trigger("change");
                     } else {
-                        that.ajaxRequest(item, content, function () {
+                        item.removeAttr("data-animating");
+                        that.ajaxRequest(item, contentHolder, function () {
+                            item.attr("data-animating", true);
                             showContentElement();
                             that.trigger("change");
                         });
@@ -929,6 +953,13 @@
             return undefined;
         },
 
+        contentHolder: function (itemIndex) {
+            var contentElement = $(this.contentElement(itemIndex)),
+                scrollContainer = contentElement.children(".km-scroll-container");
+
+            return kendo.support.touch && scrollContainer[0] ? scrollContainer : contentElement;
+        },
+
         ajaxRequest: function (element, content, complete, url) {
             element = this.tabGroup.find(element);
             if (element.find(".k-loading").length) {
@@ -943,17 +974,17 @@
                     statusIcon = $("<span class='k-icon k-loading'/>").prependTo(link);
                 }, 100);
 
+            url = url || link.data(CONTENTURL) || link.attr(HREF);
             element.attr("data-in-request", true);
 
-            $.ajax({
+            that.xhr = $.ajax({
                 type: "GET",
                 cache: false,
-                url: url || link.data(CONTENTURL) || link.attr(HREF),
+                url: url,
                 dataType: "html",
                 data: data,
 
                 error: function (xhr, status) {
-                    element.removeAttr("data-animating");
                     if (that.trigger("error", { xhr: xhr, status: status })) {
                         this.complete();
                     }
@@ -968,8 +999,17 @@
                     }
                 },
 
-                success: function (data, textStatus) {
-                    content.html(data);
+                success: function (data) {
+                    try {
+                        content.html(data);
+                    } catch (e) {
+                        var console = window.console;
+
+                        if (console && console.error) {
+                            console.error(e.name + ": " + e.message + " in " + url);
+                        }
+                        this.error(this.xhr, "error");
+                    }
 
                     if (complete) {
                         complete.call(that, content);

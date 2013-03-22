@@ -1,6 +1,6 @@
 /*
-* Kendo UI Web v2012.3.1114 (http://kendoui.com)
-* Copyright 2012 Telerik AD. All rights reserved.
+* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
 * https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
@@ -8,6 +8,14 @@
 * GNU General Public License (GPL) version 3.
 * For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
+kendo_module({
+    id: "combobox",
+    name: "ComboBox",
+    category: "web",
+    description: "The ComboBox widget allows the selection from pre-defined values or entering a new value.",
+    depends: [ "list" ]
+});
+
 (function($, undefined) {
     var kendo = window.kendo,
         ui = kendo.ui,
@@ -15,18 +23,19 @@
         Select = ui.Select,
         support = kendo.support,
         placeholderSupported = support.placeholder,
-        removeFiltersForField = Select.removeFiltersForField,
+        activeElement = kendo._activeElement,
         keys = kendo.keys,
         ns = ".kendoComboBox",
-        CLICK = "touchend" + ns + " click" + ns,
-        ATTRIBUTE = "disabled",
+        CLICK = "click" + ns,
+        MOUSEDOWN = "mousedown" + ns,
+        DISABLED = "disabled",
+        READONLY = "readonly",
         CHANGE = "change",
         DEFAULT = "k-state-default",
-        DISABLED = "k-state-disabled",
         FOCUSED = "k-state-focused",
-        MOUSEDOWN = "mousedown" + ns + " touchstart" + ns,
-        SELECT = "select",
+        STATEDISABLED = "k-state-disabled",
         ARIA_DISABLED = "aria-disabled",
+        ARIA_READONLY = "aria-readonly",
         STATE_SELECTED = "k-state-selected",
         STATE_FILTER = "filter",
         STATE_ACCEPT = "accept",
@@ -37,7 +46,7 @@
 
     var ComboBox = Select.extend({
         init: function(element, options) {
-            var that = this, wrapper, text;
+            var that = this, text;
 
             that.ns = ns;
 
@@ -60,53 +69,29 @@
 
             that._input();
 
+            that._tabindex(that.input);
+
             that._popup();
 
             that._accessors();
 
             that._dataSource();
+            that._ignoreCase();
 
             that._enable();
 
             that._cascade();
 
-            wrapper = that._inputWrapper;
-
-            that.input
-                .on("keydown" + ns, proxy(that._keydown, that))
-                .on("focus" + ns, function() {
-                    wrapper.addClass(FOCUSED);
-                    that._placeholder(false);
-                })
-                .on("blur" + ns, function() {
-                    wrapper.removeClass(FOCUSED);
-                    clearTimeout(that._typing);
-
-                    if (that.options.text !== that.input.val()) {
-                        that.text(that.text());
-                    }
-
-                    that._placeholder();
-                    that._blur();
-
-                    element.blur();
-                })
-                .attr({
-                    "role": "combobox",
-                    "aria-expanded": false
-                });
-
             that._aria();
 
             that._oldIndex = that.selectedIndex = -1;
-            that._old = that.value();
 
             if (options.autoBind) {
                 that._filterSource();
             } else {
                 text = options.text;
 
-                if (!text && element.is(SELECT)) {
+                if (!text && that._isSelect) {
                     text = element.children(":selected").text();
                 }
 
@@ -124,8 +109,10 @@
 
         options: {
             name: "ComboBox",
-            enable: true,
+            enabled: true,
             index: -1,
+            text: null,
+            value: null,
             autoBind: true,
             delay: 200,
             dataTextField: "",
@@ -143,13 +130,12 @@
 
         events:[
             "open",
-
             "close",
-
             CHANGE,
             "select",
             "dataBinding",
-            "dataBound"
+            "dataBound",
+            "cascade"
         ],
 
         setOptions: function(options) {
@@ -185,30 +171,57 @@
             Select.fn.destroy.call(that);
         },
 
-        enable: function(enable) {
+        _editable: function(options) {
             var that = this,
-                input = that.input.add(that.element),
-                wrapper = that._inputWrapper.off(HOVEREVENTS),
+                disable = options.disable,
+                readonly = options.readonly,
+                wrapper = that._inputWrapper.off(ns),
+                input = that.element.add(that.input.off(ns)),
                 arrow = that._arrow.parent().off(CLICK + " " + MOUSEDOWN);
 
-            if (enable === false) {
+            if (!readonly && !disable) {
                 wrapper
-                    .removeClass(DEFAULT)
-                    .addClass(DISABLED);
-
-                input.attr(ATTRIBUTE, ATTRIBUTE)
-                     .attr(ARIA_DISABLED, true);
-            } else {
-                wrapper
-                    .removeClass(DISABLED)
                     .addClass(DEFAULT)
+                    .removeClass(STATEDISABLED)
                     .on(HOVEREVENTS, that._toggleHover);
 
-                input.removeAttr(ATTRIBUTE)
-                     .attr(ARIA_DISABLED, false);
+                input.removeAttr(DISABLED)
+                     .removeAttr(READONLY)
+                     .attr(ARIA_DISABLED, false)
+                     .attr(ARIA_READONLY, false);
 
                 arrow.on(CLICK, function() { that.toggle(); })
                      .on(MOUSEDOWN, function(e) { e.preventDefault(); });
+
+                that.input
+                    .on("keydown" + ns, proxy(that._keydown, that))
+                    .on("focus" + ns, function() {
+                        wrapper.addClass(FOCUSED);
+                        that._placeholder(false);
+                    })
+                    .on("blur" + ns, function() {
+                        wrapper.removeClass(FOCUSED);
+                        clearTimeout(that._typing);
+
+                        if (that.options.text !== that.input.val()) {
+                            that.text(that.text());
+                        }
+
+                        that._placeholder();
+                        that._blur();
+
+                        that.element.blur();
+                    });
+
+            } else {
+                wrapper
+                    .addClass(disable ? STATEDISABLED : DEFAULT)
+                    .removeClass(disable ? DEFAULT : STATEDISABLED);
+
+                input.attr(DISABLED, disable)
+                     .attr(READONLY, readonly)
+                     .attr(ARIA_DISABLED, disable)
+                     .attr(ARIA_READONLY, readonly);
             }
         },
 
@@ -248,10 +261,10 @@
                 that.popup._position();
             }
 
-            if (that.element.is(SELECT)) {
+            if (that._isSelect) {
                 if (state === STATE_REBIND) {
-                    value = that.value();
                     that._state = "";
+                    value = that.value();
                 }
 
                 custom = that._option;
@@ -268,16 +281,20 @@
                     that.current($(ul.firstChild));
                 }
 
-                if (options.suggest && that.input.val() && that._valueCalled !== undefined) {
+                if (options.suggest && that.input.val() && that._request !== undefined /*first refresh ever*/) {
                     that.suggest($(ul.firstChild));
                 }
+            }
+
+            if (state !== STATE_FILTER && !that._fetch) {
+                that._selectItem();
             }
 
             if (that._open) {
                 that._open = false;
                 open = !!length;
 
-                if (that._typing && that.input[0] !== document.activeElement) {
+                if (that._typing && that.input[0] !== activeElement()) {
                     open = false;
                 }
 
@@ -291,25 +308,9 @@
 
             that._makeUnselectable();
 
-            if ((!that._valueCalled && state !== STATE_FILTER) || state === STATE_REBIND) {
-                that._selectItem(value);
-            }
-            that._valueCalled = false;
-
             that._hideBusy();
+            that._bound = true;
             that.trigger("dataBound");
-        },
-
-        select: function(li) {
-            var that = this;
-
-            if (li === undefined) {
-                return that.selectedIndex;
-            } else {
-                that._select(li);
-                that._old = that._accessor();
-                that._oldIndex = that.selectedIndex;
-            }
         },
 
         search: function(word) {
@@ -397,6 +398,7 @@
                 dataItem = that.dataItem();
 
                 if (dataItem && textAccessor(dataItem) === text) {
+                    that._triggerCascade();
                     return;
                 }
 
@@ -418,6 +420,8 @@
                     that._custom(text);
                     input.value = text;
                 }
+
+                that._triggerCascade();
             } else {
                 return input.value;
             }
@@ -438,9 +442,9 @@
                     value = value.toString();
                 }
 
-                that._valueCalled = true;
+                that._selectedValue = value;
 
-                if (value && that._valueOnFetch(value)) {
+                if (!that._open && value && that._fetchItems(value)) {
                     return;
                 }
 
@@ -451,11 +455,12 @@
                 } else {
                     that.current(NULL);
                     that._custom(value);
+
                     that.text(value);
                     that._placeholder();
                 }
 
-                that._old = that._accessor();
+                that._prev = that._old = that._accessor();
                 that._oldIndex = that.selectedIndex;
             } else {
                 return that._accessor();
@@ -465,7 +470,7 @@
         _accept: function(li) {
             var that = this;
 
-            if (li && that.popup.visible()) {
+            if (li) {
                 that._focus(li);
             } else {
                 that.text(that.text());
@@ -482,7 +487,7 @@
                 that._state = STATE_ACCEPT;
             }
 
-            if (element.is(SELECT)) {
+            if (that._isSelect) {
                 if (!custom) {
                     custom = that._option = $("<option/>");
                     element.append(custom);
@@ -492,6 +497,8 @@
             } else {
                 element.val(value);
             }
+
+            that._selectedValue = value;
         },
 
         _filter: function(word) {
@@ -564,12 +571,11 @@
         _input: function() {
             var that = this,
                 element = that.element.removeClass("k-input")[0],
-                tabIndex = element.tabIndex,
                 accessKey = element.accessKey,
                 wrapper = that.wrapper,
                 SELECTOR = "input.k-input",
-                input, DOMInput,
-                name = element.name || "";
+                name = element.name || "",
+                input;
 
             if (name) {
                 name = 'name="' + name + '_input" ';
@@ -584,12 +590,10 @@
                 input = wrapper.find(SELECTOR);
             }
 
-            DOMInput = input[0];
-            DOMInput.tabIndex = tabIndex;
-            DOMInput.style.cssText = element.style.cssText;
+            input[0].style.cssText = element.style.cssText;
 
             if (element.maxLength > -1) {
-                DOMInput.maxLength = element.maxLength;
+                input[0].maxLength = element.maxLength;
             }
 
             input.addClass(element.className)
@@ -597,6 +601,10 @@
                  .css({
                     width: "100%",
                     height: element.style.height
+                 })
+                 .attr({
+                     "role": "combobox",
+                     "aria-expanded": false
                  })
                  .show();
 
@@ -700,28 +708,13 @@
 
                 that._prev = that.input[0].value = text;
                 that._accessor(value !== undefined ? value : text, idx);
+                that._selectedValue = that._accessor();
                 that._placeholder();
 
                 if (that._optionID) {
                     that._current.attr("aria-selected", true);
                 }
             }
-        },
-
-        _filterSource: function(filter) {
-            var that = this,
-                options = that.options,
-                dataSource = that.dataSource,
-                expression = dataSource.filter() || {};
-
-            removeFiltersForField(expression, options.dataTextField);
-
-            if (filter) {
-                expression = expression.filters || [];
-                expression.push(filter);
-            }
-
-            dataSource.filter(expression);
         },
 
         _wrapper: function() {
@@ -737,6 +730,16 @@
             that.wrapper = wrapper.addClass("k-widget k-combobox k-header")
                                   .addClass(element[0].className)
                                   .css("display", "");
+        },
+
+        _clearSelection: function(parent, isFiltered) {
+            var that = this,
+                hasValue = parent._selectedValue || parent.value(),
+                custom = hasValue && parent.selectedIndex === -1;
+
+            if (isFiltered || !hasValue || custom) {
+                that.value("");
+            }
         }
     });
 

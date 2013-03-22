@@ -1,6 +1,6 @@
 /*
-* Kendo UI Web v2012.3.1114 (http://kendoui.com)
-* Copyright 2012 Telerik AD. All rights reserved.
+* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
 * https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
@@ -8,6 +8,14 @@
 * GNU General Public License (GPL) version 3.
 * For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
+kendo_module({
+    id: "splitter",
+    name: "Splitter",
+    category: "web",
+    description: "The Splitter widget provides an easy way to create a dynamic layout of resizable and collapsible panes.",
+    depends: [ "resizable" ]
+});
+
 (function ($, undefined) {
     var kendo = window.kendo,
         ui = kendo.ui,
@@ -38,7 +46,7 @@
     }
 
     function isPixelSize(size) {
-        return pxUnitsRegex.test(size);
+        return pxUnitsRegex.test(size) || /^\d+$/.test(size);
     }
 
     function isFluid(size) {
@@ -47,7 +55,7 @@
 
     function panePropertyAccessor(propertyName, triggersResize) {
         return function(pane, value) {
-            var paneConfig = $(pane).data(PANE);
+            var paneConfig = this.element.find(pane).data(PANE);
 
             if (arguments.length == 1) {
                 return paneConfig[propertyName];
@@ -114,21 +122,20 @@
         _attachEvents: function() {
             var that = this,
                 orientation = that.options.orientation,
-                splitbarSelector = ".k-splitbar-" + orientation,
-                splitbarDraggableSelector = ".k-splitbar-draggable-" + orientation,
-                expandCollapseSelector = ".k-splitbar .k-icon:not(.k-resize-handle)";
+                splitbarDraggableSelector = "> .k-splitbar-draggable-" + orientation;
 
+            // do not use delegated events to increase performance of nested elements
             that.element
-                .on("keydown" + NS, splitbarSelector, "_keydown")
-                .on("mousedown" + NS, splitbarSelector, function(e) { e.currentTarget.focus(); })
-                .on("focus" + NS, splitbarSelector, function(e) { $(e.currentTarget).addClass(FOCUSED);  })
-                .on("blur" + NS, splitbarSelector, function(e) { $(e.currentTarget).removeClass(FOCUSED); that.resizing.end(); })
-                .on(MOUSEENTER + NS, splitbarDraggableSelector, function() { $(this).addClass("k-splitbar-" + that.orientation + "-hover"); })
-                .on(MOUSELEAVE + NS, splitbarDraggableSelector, function() { $(this).removeClass("k-splitbar-" + that.orientation + "-hover"); })
-                .on("mousedown" + NS, splitbarDraggableSelector, function() { that.resizing.end(); that._panes().append("<div class='k-splitter-overlay k-overlay' />"); })
-                .on("mouseup" + NS, splitbarDraggableSelector, function() { that._panes().children(".k-splitter-overlay").remove(); })
-                .on(MOUSEENTER + NS, expandCollapseSelector, function() { $(this).addClass("k-state-hover"); })
-                .on(MOUSELEAVE + NS, expandCollapseSelector, function() { $(this).removeClass('k-state-hover'); })
+                .find(splitbarDraggableSelector)
+                    .on("keydown" + NS, $.proxy(that._keydown, that))
+                    .on("mousedown" + NS, function(e) { e.currentTarget.focus(); })
+                    .on("focus" + NS, function(e) { $(e.currentTarget).addClass(FOCUSED);  })
+                    .on("blur" + NS, function(e) { $(e.currentTarget).removeClass(FOCUSED); that.resizing.end(); })
+                    .on(MOUSEENTER + NS, function() { $(this).addClass("k-splitbar-" + that.orientation + "-hover"); })
+                    .on(MOUSELEAVE + NS, function() { $(this).removeClass("k-splitbar-" + that.orientation + "-hover"); })
+                    .on("mousedown" + NS, function() { that._panes().append("<div class='k-splitter-overlay k-overlay' />"); })
+                    .on("mouseup" + NS, function() { that._panes().children(".k-splitter-overlay").remove(); })
+                .end()
                 .on(CLICK + NS, ".k-splitbar .k-collapse-next, .k-splitbar .k-collapse-prev", that._arrowClick(COLLAPSE))
                 .on(CLICK + NS, ".k-splitbar .k-expand-next, .k-splitbar .k-expand-prev", that._arrowClick(EXPAND))
                 .on("dblclick" + NS, ".k-splitbar", proxy(that._togglePane, that))
@@ -149,15 +156,20 @@
 
         options: {
             name: "Splitter",
-            orientation: HORIZONTAL
+            orientation: HORIZONTAL,
+            panes: []
         },
 
         destroy: function() {
-            var that = this;
+            var that = this,
+                orientation = that.options.orientation,
+                splitbarDraggableSelector = "> .k-splitbar-draggable-" + orientation;
 
             Widget.fn.destroy.call(that);
 
-            that.element.off(NS);
+            that.element.off(NS)
+                .find(splitbarDraggableSelector).off(NS);
+
             that.resizing.destroy();
 
             $(window).off("resize", that._resizeHandler);
@@ -220,10 +232,11 @@
         },
 
         ajaxRequest: function(pane, url, data) {
-            pane = $(pane);
-
             var that = this,
-                paneConfig = pane.data(PANE);
+                paneConfig;
+
+            pane = that.element.find(pane);
+            paneConfig = pane.data(PANE);
 
             url = url || paneConfig.contentUrl;
 
@@ -438,7 +451,7 @@
         toggle: function(pane, expand) {
             var paneConfig;
 
-            pane = $(pane);
+            pane = this.element.find(pane);
             paneConfig = pane.data(PANE);
 
             if (!expand && !paneConfig.collapsible) {
@@ -464,7 +477,6 @@
         },
 
         collapse: function(pane) {
-
             this.toggle(pane, false);
         },
 
@@ -525,6 +537,11 @@
         },
 
         move: function(delta, target) {
+            if (!this.pressed) {
+                this.press(target);
+                this.pressed = true;
+            }
+
             if (!this._resizable.target) {
                 this._resizable.press(target);
             }
@@ -534,6 +551,7 @@
 
         end: function() {
             this._resizable.end();
+            this.pressed = false;
         },
 
         destroy: function() {
@@ -559,7 +577,7 @@
                 nextPaneConfig = nextPane.data(PANE),
                 prevBoundary = parseInt(previousPane[0].style[that.positioningProperty], 10),
                 nextBoundary = parseInt(nextPane[0].style[that.positioningProperty], 10) + nextPane[0][that.sizingDomProperty] - splitbar[0][that.sizingDomProperty],
-                totalSize = that._element.css(that.sizingProperty),
+                totalSize = parseInt(that._element.css(that.sizingProperty), 10),
                 toPx = function (value) {
                     var val = parseInt(value, 10);
                     return (isPixelSize(value) ? val : (totalSize * val) / 100) || 0;
@@ -574,10 +592,10 @@
             that._maxPosition = Math.min(nextBoundary - nextMinSize, prevBoundary + prevMaxSize);
             that._minPosition = Math.max(prevBoundary + prevMinSize, nextBoundary - nextMaxSize);
         },
-        _max: function(e) {
+        _max: function() {
               return this._maxPosition;
         },
-        _min: function(e) {
+        _min: function() {
             return this._minPosition;
         },
         _stop: function(e) {
@@ -611,10 +629,6 @@
 
                 owner.trigger(RESIZE);
             }
-
-            setTimeout(function() {
-                that.press(splitbar);
-            });
 
             return false;
         }

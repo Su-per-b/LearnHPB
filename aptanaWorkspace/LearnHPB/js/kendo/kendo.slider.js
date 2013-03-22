@@ -1,6 +1,6 @@
 /*
-* Kendo UI Web v2012.3.1114 (http://kendoui.com)
-* Copyright 2012 Telerik AD. All rights reserved.
+* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
 * https://www.kendoui.com/purchase/license-agreement/kendo-ui-web-commercial.aspx
@@ -8,6 +8,14 @@
 * GNU General Public License (GPL) version 3.
 * For GPL requirements, please review: http://www.gnu.org/copyleft/gpl.html
 */
+kendo_module({
+    id: "slider",
+    name: "Slider",
+    category: "web",
+    description: "The Slider widget provides a rich input for selecting values or ranges of values.",
+    depends: [ "draganddrop" ]
+});
+
 (function($, undefined) {
     var kendo = window.kendo,
         Widget = kendo.ui.Widget,
@@ -40,7 +48,9 @@
         STATE_DISABLED = "k-state-disabled",
         PRECISION = 3,
         DISABLED = "disabled",
-        UNDEFINED = "undefined";
+        UNDEFINED = "undefined",
+        TABINDEX = "tabindex",
+        getTouches = kendo.getTouches;
 
     var SliderBase = Widget.extend({
         init: function(element, options) {
@@ -381,14 +391,13 @@
             return html;
         },
 
-        _getDragableArea: function() {
+        _getDraggableArea: function() {
             var that = this,
-                offsetLeft = that._trackDiv.offset().left,
-                offsetTop = that._trackDiv.offset().top;
+                offset = kendo.getOffset(that._trackDiv);
 
             return {
-                startPoint: that._isHorizontal ? offsetLeft : offsetTop + that._maxSelection,
-                endPoint: that._isHorizontal ? offsetLeft + that._maxSelection : offsetTop
+                startPoint: that._isHorizontal ? offset.left : offset.top + that._maxSelection,
+                endPoint: that._isHorizontal ? offset.left + that._maxSelection : offset.top
             };
         },
 
@@ -575,50 +584,6 @@
         return value;
     }
 
-    var touchLocation = function(e) {
-        return {
-            idx: 0,
-            x: e.pageX,
-            y: e.pageY
-        };
-    };
-
-    if (support.pointers) {
-        touchLocation = function(e) {
-            return {
-                idx: 0,
-                x: e.originalEvent.clientX,
-                y: e.originalEvent.clientY
-            };
-        };
-    }
-
-    if (support.touch) {
-        touchLocation = function(e, id) {
-            var changedTouches = e.changedTouches || e.originalEvent.changedTouches;
-
-            if (id) {
-                var output = null;
-                $.each(changedTouches, function(idx, value) {
-                    if (id == value.identifier) {
-                        output = {
-                            idx: value.identifier,
-                            x: value.pageX,
-                            y: value.pageY
-                        };
-                    }
-                });
-                return output;
-            } else {
-                return {
-                    idx: changedTouches[0].identifier,
-                    x: changedTouches[0].pageX,
-                    y: changedTouches[0].pageY
-                };
-            }
-        };
-    }
-
     function defined(value) {
         return typeof value !== UNDEFINED;
     }
@@ -644,10 +609,11 @@
 
             SliderBase.fn.init.call(that, element, options);
             options = that.options;
-            if (!defined(options.value)) {
+            if (!defined(options.value) || options.value === null) {
                 options.value = options.min;
                 element.val(options.min);
             }
+            options.value = math.max(math.min(options.value, options.max), options.min);
 
             dragHandle = that.wrapper.find(DRAG_HANDLE);
 
@@ -661,7 +627,8 @@
             increaseButtonTitle: "Increase",
             decreaseButtonTitle: "Decrease",
             dragHandleTitle: "drag",
-            tooltip: { format: "{0}" }
+            tooltip: { format: "{0}" },
+            value: null
         },
 
         enable: function (enable) {
@@ -682,9 +649,14 @@
             that.wrapper.find("input").removeAttr(DISABLED);
 
             clickHandler = function (e) {
-                var location = touchLocation(e),
-                    mousePosition = that._isHorizontal ? location.x : location.y,
-                    dragableArea = that._getDragableArea(),
+                var touch = getTouches(e)[0];
+
+                if (!touch) {
+                    return;
+                }
+
+                var mousePosition = that._isHorizontal ? touch.location.pageX : touch.location.pageY,
+                    dragableArea = that._getDraggableArea(),
                     target = $(e.target);
 
                 if (target.hasClass("k-draghandle")) {
@@ -697,6 +669,7 @@
                 that._focusWithMouse(e);
 
                 that._drag.dragstart(e);
+                e.preventDefault();
             };
 
             that.wrapper
@@ -709,7 +682,8 @@
 
             that.wrapper
                 .find(DRAG_HANDLE)
-                .on(MOUSE_UP, function (e) {
+                .attr(TABINDEX, 0)
+                .on(MOUSE_UP, function () {
                     that._setTooltipTimeout();
                 })
                 .on(CLICK, function (e) {
@@ -779,7 +753,7 @@
                 .removeClass(STATE_DEFAULT)
                 .addClass(STATE_DISABLED);
 
-            $(that.element).attr(DISABLED, DISABLED);
+            $(that.element).prop(DISABLED, DISABLED);
 
             that.wrapper
                 .find(".k-button")
@@ -797,6 +771,7 @@
 
             that.wrapper
                 .find(DRAG_HANDLE)
+                .attr(TABINDEX, -1)
                 .off(MOUSE_UP)
                 .off(KEY_DOWN)
                 .off(CLICK)
@@ -828,7 +803,7 @@
 
             if (value >= options.min && value <= options.max) {
                 if (options.value != value) {
-                    that.element.attr("value", formatValue(value));
+                    that.element.prop("value", formatValue(value));
                     options.value = value;
                     that._refreshAriaAttr(value);
                     that._refresh();
@@ -853,7 +828,7 @@
             this.wrapper.find(DRAG_HANDLE).attr("aria-valuenow", value).attr("aria-valuetext", formattedValue);
         },
 
-        _clearTimer: function (e) {
+        _clearTimer: function () {
             clearTimeout(this.timeout);
             clearInterval(this.timer);
         },
@@ -937,7 +912,7 @@
         that.type = type;
 
         that.draggable = new Draggable(dragHandle, {
-            threshold: 0,
+            distance: 0,
             dragstart: proxy(that._dragstart, that),
             drag: proxy(that.drag, that),
             dragend: proxy(that.dragend, that),
@@ -965,8 +940,9 @@
 
             owner.element.off(MOUSE_OVER);
             that.dragHandle.addClass(STATE_SELECTED);
+            $(document.documentElement).css("cursor", "pointer");
 
-            that.dragableArea = owner._getDragableArea();
+            that.dragableArea = owner._getDraggableArea();
             that.step = math.max(options.smallStep * (owner._maxSelection / owner._distance), 0);
 
             if (that.type) {
@@ -986,7 +962,8 @@
                 owner = that.owner,
                 tooltip = that.options.tooltip,
                 html = '',
-                tooltipTemplate;
+                wnd = $(window),
+                tooltipTemplate, colloutCssClass;
 
             if (!tooltip.enabled) {
                 return;
@@ -1002,11 +979,17 @@
             html = owner._getFormattedValue(that.val || owner.value(), that);
 
             if (!that.type) {
-                that.tooltipInnerDiv = "<div class='k-callout k-callout-" + (owner._isHorizontal ? 's' : 'e') + "'><!-- --></div>";
+                colloutCssClass = "k-callout-" + (owner._isHorizontal ? 's' : 'e');
+                that.tooltipInnerDiv = "<div class='k-callout " + colloutCssClass + "'><!-- --></div>";
                 html += that.tooltipInnerDiv;
             }
 
             that.tooltipDiv.html(html);
+
+            that._scrollOffset = {
+                top: wnd.scrollTop(),
+                left: wnd.scrollLeft()
+            };
 
             that.moveTooltip();
         },
@@ -1077,7 +1060,7 @@
                 that._createTooltip();
             }
 
-            html = that.owner._getFormattedValue(val, that);
+            html = that.owner._getFormattedValue(round(val), that);
 
             if (!that.type) {
                 html += that.tooltipInnerDiv;
@@ -1087,14 +1070,17 @@
             that.moveTooltip();
         },
 
-        dragcancel: function(e) {
+        dragcancel: function() {
             this.owner._refresh();
+            $(document.documentElement).css("cursor", "");
             return this._end();
         },
 
-        dragend: function(e) {
+        dragend: function() {
             var that = this,
                 owner = that.owner;
+
+            $(document.documentElement).css("cursor", "");
 
             if (that.type) {
                 owner._update(that.selectionStart, that.selectionEnd);
@@ -1136,40 +1122,89 @@
         moveTooltip: function () {
             var that = this,
                 owner = that.owner,
-                positionTop = 0,
-                positionLeft = 0,
-                dragHandleOffset = that.dragHandle.offset(),
-                margin = 4,
+                top = 0,
+                left = 0,
+                dragHandle = that.dragHandle,
+                offset = kendo.getOffset(dragHandle),
+                margin = 8,
+                viewport = $(window),
                 callout = that.tooltipDiv.find(".k-callout"),
-                dragHandles,
-                firstDragHandleOffset,
-                secondDragHandleOffset;
+                width = that.tooltipDiv.outerWidth(),
+                height = that.tooltipDiv.outerHeight(),
+                dragHandles, sdhOffset, diff, anchorSize;
 
             if (that.type) {
                 dragHandles = owner.wrapper.find(DRAG_HANDLE);
-                firstDragHandleOffset = dragHandles.eq(0).offset();
-                secondDragHandleOffset = dragHandles.eq(1).offset();
+                offset = kendo.getOffset(dragHandles.eq(0));
+                sdhOffset = kendo.getOffset(dragHandles.eq(1));
 
                 if (owner._isHorizontal) {
-                    positionTop = secondDragHandleOffset.top;
-                    positionLeft = firstDragHandleOffset.left + ((secondDragHandleOffset.left - firstDragHandleOffset.left) / 2);
+                    top = sdhOffset.top;
+                    left = offset.left + ((sdhOffset.left - offset.left) / 2);
                 } else {
-                    positionTop = firstDragHandleOffset.top + ((secondDragHandleOffset.top - firstDragHandleOffset.top) / 2);
-                    positionLeft = secondDragHandleOffset.left;
+                    top = offset.top + ((sdhOffset.top - offset.top) / 2);
+                    left = sdhOffset.left;
                 }
+
+                anchorSize = dragHandles.eq(0).outerWidth() + 2 * margin;
             } else {
-                positionTop = dragHandleOffset.top;
-                positionLeft = dragHandleOffset.left;
-            }
-            if (owner._isHorizontal) {
-                positionLeft -= parseInt((that.tooltipDiv.outerWidth() - that.dragHandle[owner._outerSize]()) / 2, 10);
-                positionTop -= that.tooltipDiv.outerHeight() + (callout.height() || 0) + margin;
-            } else {
-                positionTop -= parseInt((that.tooltipDiv.outerHeight() - that.dragHandle[owner._outerSize]()) / 2, 10);
-                positionLeft -= that.tooltipDiv.outerWidth() + (callout.width() || 0) + margin;
+                top = offset.top;
+                left = offset.left;
+                anchorSize = dragHandle.outerWidth() + 2 * margin;
             }
 
-            that.tooltipDiv.css({ top: positionTop, left: positionLeft });
+            if (owner._isHorizontal) {
+                left -= parseInt((width - dragHandle[owner._outerSize]()) / 2, 10);
+                top -= height + callout.height() + margin;
+            } else {
+                top -= parseInt((height - dragHandle[owner._outerSize]()) / 2, 10);
+                left -= width + callout.width() + margin;
+            }
+
+            if (owner._isHorizontal) {
+                diff = that._flip(top, height, anchorSize, viewport.outerHeight() + that._scrollOffset.top);
+                top += diff;
+                left += that._fit(left, width, viewport.outerWidth() + that._scrollOffset.left);
+            } else {
+                diff = that._flip(left, width, anchorSize, viewport.outerWidth() + that._scrollOffset.left);
+                top += that._fit(top, height, viewport.outerHeight() + that._scrollOffset.top);
+                left += diff;
+            }
+
+            if (diff > 0 && callout) {
+                callout.removeClass();
+                callout.addClass("k-callout k-callout-" + (owner._isHorizontal ? "n" : "w"));
+            }
+
+            that.tooltipDiv.css({ top: top, left: left });
+        },
+
+        _fit: function(position, size, viewPortEnd) {
+            var output = 0;
+
+            if (position + size > viewPortEnd) {
+                output = viewPortEnd - (position + size);
+            }
+
+            if (position < 0) {
+                output = -position;
+            }
+
+            return output;
+        },
+
+        _flip: function(offset, size, anchorSize, viewPortEnd) {
+            var output = 0;
+
+            if (offset + size > viewPortEnd) {
+                output += -(anchorSize + size);
+            }
+
+            if (offset + output < 0) {
+                output += anchorSize + size;
+            }
+
+            return output;
         },
 
         constrainValue: function (position, min, max, maxOverflow) {
@@ -1221,12 +1256,12 @@
 
             SliderBase.fn.init.call(that, element, options);
             options = that.options;
-            if (!defined(options.selectionStart)) {
+            if (!defined(options.selectionStart) || options.selectionStart === null) {
                 options.selectionStart = options.min;
                 inputs.eq(0).val(options.min);
             }
 
-            if (!defined(options.selectionEnd)) {
+            if (!defined(options.selectionEnd) || options.selectionEnd === null) {
                 options.selectionEnd = options.max;
                 inputs.eq(1).val(options.max);
             }
@@ -1242,7 +1277,9 @@
             name: "RangeSlider",
             leftDragHandleTitle: "drag",
             rightDragHandleTitle: "drag",
-            tooltip: { format: "{0}" }
+            tooltip: { format: "{0}" },
+            selectionStart: null,
+            selectionEnd: null
         },
 
         enable: function (enable) {
@@ -1262,9 +1299,14 @@
             that.wrapper.find("input").removeAttr(DISABLED);
 
             clickHandler = function (e) {
-                var location = touchLocation(e),
-                    mousePosition = that._isHorizontal ? location.x : location.y,
-                    dragableArea = that._getDragableArea(),
+                var touch = getTouches(e)[0];
+
+                if (!touch) {
+                    return;
+                }
+
+                var mousePosition = that._isHorizontal ? touch.location.pageX : touch.location.pageY,
+                    dragableArea = that._getDraggableArea(),
                     val = that._getValueFromPosition(mousePosition, dragableArea),
                     target = $(e.target),
                     idx;
@@ -1306,7 +1348,8 @@
 
             that.wrapper
                 .find(DRAG_HANDLE)
-                .on(MOUSE_UP, function (e) {
+                .attr(TABINDEX, 0)
+                .on(MOUSE_UP, function () {
                     that._setTooltipTimeout();
                 })
                 .on(CLICK, function (e) {
@@ -1340,13 +1383,14 @@
                 .removeClass(STATE_DEFAULT)
                 .addClass(STATE_DISABLED);
 
-            that.wrapper.find("input").attr(DISABLED, DISABLED);
+            that.wrapper.find("input").prop(DISABLED, DISABLED);
 
             that.wrapper
                 .find(TICK_SELECTOR + ", " + TRACK_SELECTOR).off(TRACK_MOUSE_DOWN);
 
             that.wrapper
                 .find(DRAG_HANDLE)
+                .attr(TABINDEX, -1)
                 .off(MOUSE_UP)
                 .off(KEY_DOWN)
                 .off(CLICK)
@@ -1439,9 +1483,9 @@
                 end >= options.min && end <= options.max && start <= end) {
                 if (selectionStart != start || selectionEnd != end) {
                     that.element.find("input")
-                        .eq(0).attr("value", formatValue(start))
+                        .eq(0).prop("value", formatValue(start))
                         .end()
-                        .eq(1).attr("value", formatValue(end));
+                        .eq(1).prop("value", formatValue(end));
 
                     options.selectionStart = start;
                     options.selectionEnd = end;
