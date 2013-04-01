@@ -73,7 +73,10 @@ lgb.view.EnvelopeView.prototype.updateAllFromModel_ = function() {
 lgb.view.EnvelopeView.prototype.makeFloors_ = function() {
   
   
-  var hashKey = this.dataModel.floorHeight + 'ft';
+  var hashKeyx = this.dataModel.floorHeight + 'ft';
+  
+  var hashKey = 'feet' + this.dataModel.floorHeight;
+
   var mesh = this.floorGeometryHash_[hashKey];
   var geometry = mesh.geometry;
   

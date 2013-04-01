@@ -88,7 +88,7 @@ lgb.controller.WorldController.prototype.init = function() {
    * type {lgb.controller.UtilityController}
    * private
   */
-  //this.utilityController_ = new lgb.controller.UtilityController();
+  this.utilityController_ = new lgb.controller.UtilityController();
 
   /**@type {lgb.controller.PsControllerMaster} */
 //  this.PsControllerMaster_ = new lgb.controller.PsControllerMaster();

@@ -77,7 +77,7 @@ lgb.controller.MainController.prototype.init = function() {
   this.dispatch(e);
   
    
-  this.simulationController_ = new lgb.controller.SimulationController();
+  //this.simulationController_ = new lgb.controller.SimulationController();
 
  
 
