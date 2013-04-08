@@ -22,9 +22,12 @@ lgb.controller.CameraCraneController = function() {
   
   this.moveDuration = 5 * 1000; // milliseconds
   this.lookAtDuration = 2 * 1000; // milliseconds
+  this.fovDuration = 5 * 1000; // milliseconds
   
   this.metersPerSecondPostion = 6;
   this.metersPerSecondRotation = .1;
+  this.degreesPerSecondFOV = 4;
+  
   this.easing = createjs.Ease.quadInOut;
   
 // var x = 0;

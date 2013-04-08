@@ -13,6 +13,7 @@ goog.require('lgb.controller.RoofTopController');
 goog.require('lgb.controller.FurnitureController');
 goog.require('lgb.controller.ZoneController');
 goog.require('lgb.events.VisibilityChanged');
+goog.require('lgb.events.BuildingHeightChanged');
 
 
 /**
@@ -33,14 +34,15 @@ goog.inherits(lgb.controller.BuildingController, lgb.controller.ControllerBase);
  * @private
  */
 lgb.controller.BuildingController.prototype.init_ = function() {
+    
 
   this.zoneController_ = new lgb.controller.ZoneController();
-  this.envelopeController_ = new lgb.controller.EnvelopeController();
   this.roofTopController_ = new lgb.controller.RoofTopController();
   this.ductworkController_ = new lgb.controller.DuctworkController();
   this.lightingController = new lgb.controller.LightingController();
   this.furnitureController = new lgb.controller.FurnitureController();
-
+  this.envelopeController_ = new lgb.controller.EnvelopeController();
+  
   this.bind_();
 };
 
@@ -55,7 +57,31 @@ lgb.controller.BuildingController.prototype.bind_ = function() {
 
   this.listen(lgb.events.RequestVisibilityChange.TYPE,
     this.onRequestVisibilityChange_);
+    
+  this.listen(
+    lgb.events.BuildingHeightChanged.TYPE,
+    this.onBuildingHeightChanged_
+    );
+    
+    
 };
+
+
+
+/**
+ * @private
+ * @param {lgb.events.EnvelopeModelChanged} event The event telling
+ * about a change in the Building Envelope.
+ */
+lgb.controller.BuildingController.prototype.onBuildingHeightChanged_ =
+  function(event) {
+
+
+   var model = event.payload;
+   
+  //this.dataModel.update(event.payload);
+};
+
 
 
 /**

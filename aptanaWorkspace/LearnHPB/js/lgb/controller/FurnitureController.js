@@ -10,6 +10,11 @@ goog.require('lgb.events.RequestVisibilityChange');
 goog.require('lgb.events.ViewInitialized');
 goog.require('lgb.model.FurnitureModel');
 goog.require('lgb.view.FurnitureView');
+goog.require('lgb.events.TopFloorLoaded');
+goog.require('lgb.events.BuildingHeightChanged');
+goog.require('lgb.events.ViewPointLoaded');
+goog.require('lgb.model.BuildingHeightModel');
+goog.require('lgb.events.ViewPointLoaded');
 
 
 /**
@@ -55,7 +60,37 @@ lgb.controller.FurnitureController.prototype.bind_ = function() {
   this.listenTo(this.view,
     lgb.events.ViewInitialized.TYPE,
     this.onViewInitialized_);
+   
+    
+  this.listen(
+    lgb.events.BuildingHeightChanged.TYPE,
+    this.onBuildingHeightChanged_
+    );
+    
+  this.listenTo(
+    this.view,
+    lgb.events.ViewPointLoaded.TYPE,
+    this.onViewPointLoaded_
+    );
+    
+    
+};
 
+
+lgb.controller.FurnitureController.prototype.onViewPointLoaded_ =
+  function(event) {
+
+  this.dispatch(event);
+  
+};
+
+
+
+lgb.controller.FurnitureController.prototype.onBuildingHeightChanged_ =
+  function(event) {
+
+  this.view.setBuildingHeight(event.payload);
+  
 };
 
 

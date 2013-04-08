@@ -100,8 +100,8 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
     fogs : {},
     empties : {},
     groups : {},
-    appData : {}
-
+    appData : {},
+    containers : null
   };
 
   if (data.transform) {
@@ -118,16 +118,18 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
       result.scene.scale.set(scale[0], scale[1], scale[2]);
 
     if (position || rotation || scale) {
-
       result.scene.updateMatrix();
       result.scene.updateMatrixWorld();
-
     }
 
   }
 
   if (data.appData) {
     result.appData = data.appData;
+  }
+  
+  if (data.containers) {
+    result.containers = data.containers;
   }
 
   function get_url(source_url, url_type) {

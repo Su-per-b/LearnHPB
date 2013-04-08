@@ -10,7 +10,7 @@ goog.require('lgb.ThreeUtils');
 goog.require('lgb.events.CamerasLoaded');
 goog.require('lgb.events.ViewInitialized');
 goog.require('lgb.view.ViewBase');
-
+goog.require('lgb.model.BuildingHeightModel');
 
 /**
  * @constructor
@@ -23,7 +23,9 @@ lgb.view.ViewPointView = function(dataModel) {
   /**@const */
   this._NAME = 'lgb.view.ViewPointView';
   this._ASSETS_FOLDER = 'viewpoints';
-
+  this.topFloorMinY_ = null;
+  this.sceneY_ = null;
+  
 };
 goog.inherits(lgb.view.ViewPointView, lgb.view.ViewBase);
 
@@ -42,15 +44,55 @@ lgb.view.ViewPointView.prototype.loadSceneFromFolder_ = function(folderName) {
 };
 
 
+lgb.view.ViewPointView.prototype.setBuildingHeight = function(buildingHeightModel) {
+   
+  this.topFloorMinY_ = buildingHeightModel.topFloorMinY;
+  this.setY_();
+};
+
+
+lgb.view.ViewPointView.prototype.setY_ = function() {
+    
+  if (this.topFloorMinY_ && this.sceneY_ != null) {
+      this.masterGroup_.position.y = this.topFloorMinY_ + this.sceneY_;
+  }
+  
+};
+
+
+lgb.view.LightingView.prototype.onChange = function(event) {
+  
+  var whatIsDirty = event.payload;
+  
+  if (whatIsDirty) {
+    
+    if (whatIsDirty.lightingType) {
+      this.buildGrid_();
+      this.updateVisible_();
+    }
+    if (whatIsDirty.isVisible) {
+      this.updateVisible_();
+    }
+    
+  } else {
+    
+    this.updateVisible_();
+  }
+
+};
+
+
 /**
  * Event handler called by the base class when the scene is loaded
  * @private
  */
 lgb.view.ViewPointView.prototype.onSceneLoaded_ = function(result) {
   
+  
+  return;
+  
+  
   var scene = result['scene'];
-  
-  
   var cameras = result['cameras'];
   var camMap = {};
   
@@ -63,16 +105,13 @@ lgb.view.ViewPointView.prototype.onSceneLoaded_ = function(result) {
         theCamera.position.addSelf(scene.position);
         theCamera.target.addSelf(scene.position);
         
-        
         theCamera.name = camName;
         camMap[camName] = theCamera;
-        //this.cameras.push(theCamera);
-
     }
 
   }
   
-  
+
   if (cameras !== undefined) {
     var e = new lgb.events.CamerasLoaded( cameras);
     this.dispatchLocal(e);

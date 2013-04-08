@@ -20,5 +20,11 @@ THREE.Geometry.prototype.getBoundingBoxPoints = function() {
     return [this.boundingBox.min,this.boundingBox.max]
 };
 
-
+THREE.Geometry.prototype.getBoundingBoxObject = function() {
+ 
+    this.computeBoundingBox();
+    var boundingBoxObject = new THREE.BoundingBox(this.boundingBox.min, this.boundingBox.max);
+    
+    return boundingBoxObject
+};
 

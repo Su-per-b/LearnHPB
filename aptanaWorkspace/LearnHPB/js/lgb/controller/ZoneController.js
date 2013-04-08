@@ -13,6 +13,8 @@ goog.require('lgb.model.EnvelopeModel');
 goog.require('lgb.model.ZoneModel');
 goog.require('lgb.view.ZoneAdminView');
 goog.require('lgb.view.ZoneView');
+goog.require('lgb.events.BuildingHeightChanged');
+goog.require('lgb.model.BuildingHeightModel');
 
 /**
  * MVC controller for the Zones
@@ -69,8 +71,21 @@ lgb.controller.ZoneController.prototype.bind_ = function() {
     );
 
 
+  this.listen(
+    lgb.events.BuildingHeightChanged.TYPE,
+    this.onBuildingHeightChanged_
+    );
+     
+
+};
 
 
+
+lgb.controller.ZoneController.prototype.onBuildingHeightChanged_ =
+  function(event) {
+
+  this.view.setBuildingHeight(event.payload);
+  
 };
 
 

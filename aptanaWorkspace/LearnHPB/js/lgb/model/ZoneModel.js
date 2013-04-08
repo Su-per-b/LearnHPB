@@ -58,7 +58,6 @@ lgb.model.ZoneModel.prototype.update = function(envelopeModel) {
   this.floorHeight = envelopeModel.floorHeight;
   this.envelopeModel = envelopeModel;
 
-
   this.dispatchChange(
       {
         config: true

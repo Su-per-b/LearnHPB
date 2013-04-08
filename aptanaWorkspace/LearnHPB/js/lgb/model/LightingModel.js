@@ -46,10 +46,7 @@ lgb.model.LightingModel.prototype.setVisible = function(makeVisible) {
   if (this.isVisible != makeVisible) {
     this.isVisible = makeVisible;
     
-    var whatIsDirty = {isVisible : true};
-    //whatIsDirty.isVisible = true;
-    
-    this.dispatchChange(whatIsDirty);
+    this.dispatchChange({isVisible : true});
   }
 };
 

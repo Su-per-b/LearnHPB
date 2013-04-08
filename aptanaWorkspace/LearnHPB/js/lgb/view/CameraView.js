@@ -28,7 +28,7 @@ lgb.view.CameraView.prototype.init = function() {
 
 
   this.camera = new THREE.PerspectiveCamera(
-    30,
+    40,
     this.domElement_.width / this.domElement_.height,
     1,
     10000
@@ -66,8 +66,31 @@ lgb.view.CameraView.prototype.init = function() {
 /**
  * @param {THREE.Camera} camera The viewpoint to go to.
  */
-lgb.view.CameraView.prototype.goToViewPoint = function(camera) {
+lgb.view.CameraView.prototype.goToViewPoint = function(node) {
+    
+    var startPosition = this.camera.position.clone();
+    var targetPosition = node.getTargetPosition();
 
+    var targetBoundingBox = node.targetBoundingBox;
+    
+    var camera = new THREE.PerspectiveCamera(
+        this.camera.fov, this.camera .aspect, this.camera .near, this.camera .far);
+        
+        
+    var ray = new THREE.Ray(this.camera.position, targetPosition);
+    //var intersects = ray.intersectObjects(node.threeObject);
+    
+    var intersect = THREE.Collisions.rayCastNearest(ray);
+  
+    var intersects = ray.intersectScene(scene); 
+    
+    
+    camera.position.addSelf(scene.position);
+    camera.target = targetPosition;
+        
+    
+  // var camera = new 
+  
   this.cameraCraneController_.moveToPosition(camera);
 
 };

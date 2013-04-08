@@ -36,7 +36,8 @@ goog.inherits(lgb.view.RoofTopView, lgb.view.ViewBase);
  * @private
  */
 lgb.view.RoofTopView.prototype.onSceneLoaded_ = function() {
-
+    
+    return;
   for (var i = this.scene_.children.length - 1; i >= 0; i--) {
     
       var mesh = this.scene_.children.pop();
@@ -78,11 +79,15 @@ lgb.view.RoofTopView.prototype.updateAllFromModel_ = function() {
  * @private
  */
 lgb.view.RoofTopView.prototype.updateVisible_ = function() {
-  var m = this.masterGroup_.children.length;
-
-  for (var i = 0; i < m; i++) {
-    this.masterGroup_.children[i].visible = this.dataModel.isVisible;
+    
+  if (this.masterGroup_ && this.masterGroup_.children) {
+      var m = this.masterGroup_.children.length;
+    
+      for (var i = 0; i < m; i++) {
+        this.masterGroup_.children[i].visible = this.dataModel.isVisible;
+      }  
   }
+
 };
 
 

@@ -1,5 +1,7 @@
 
 
+THREE.Object3D.prototype._NAME = 'THREE.Object3D';
+
 THREE.Object3D.prototype.removeAllChildren = function() {
 
     var len = this.children.length;
@@ -21,30 +23,31 @@ THREE.Object3D.prototype.removeAllChildren = function() {
 
 
 THREE.Object3D.prototype.getDescendantsBoundingBox = function() {
- /*
+    
+    
    var decendants = this.getDescendants();
    var len = decendants.length;
  
    var decendantsBoundingBox = new THREE.BoundingBox();
-                                
-        
-        
+   
+   
    for (var i=0; i < len; i++) {
      
      var child = decendants[i];
      
-     if ( undefined !== child.geometry ) {
-
-       child.geometry.computeBoundingBox();
+     if ( "THREE.Mesh" == child._NAME ) {
+       var boundingBoxObject = child.getBoundingBox();
        
-       child.geometry.boundginBox.max;
+       boundingBoxObject.addSelf(child.position);
        
-       
-       addSelf
+       decendantsBoundingBox.mergeSelf(boundingBoxObject);
      }
      
    };
-   */
+   
+   return decendantsBoundingBox
+                              
+
 };
 
 
@@ -147,6 +150,27 @@ THREE.Object3D.prototype.addChildren = function(object3d) {
     this.addArray(object3d.children);
     
 };
+
+
+
+THREE.Object3D.prototype.cloneArray = function(ary) {
+  
+    var len = ary.length;
+      
+    if (1 > len) {
+      throw ("Array is empty");
+    }
+
+    for (var i = 0; i < len; i++) {
+      var arrayElement = ary[i];
+      
+      var clonedObj = arrayElement.cloneEx();
+      this.add(clonedObj);
+    }
+    
+    
+};
+
 
 THREE.Object3D.prototype.addArray = function(ary) {
   

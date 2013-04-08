@@ -1,0 +1,55 @@
+{
+
+
+
+    "materials": [	{
+	"DbgColor" : 15658734,
+	"DbgIndex" : 0,
+	"DbgName" : "tintglass",
+	"colorAmbient" : [0.16, 0.16, 0.16],
+	"colorDiffuse" : [0.0152778, 0.0, 0.373424],
+	"colorSpecular" : [0.8, 0.8, 0.8],
+	"opticalDensity" : 1.6,
+	"specularCoef" : 400.0,
+	"transparency" : 0.525
+	},
+
+	{
+	"DbgColor" : 15597568,
+	"DbgIndex" : 1,
+	"DbgName" : "clearglass",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [0.784314, 0.784314, 0.784314],
+	"colorSpecular" : [0.75, 0.75, 0.75],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 0.05
+	},
+
+	{
+	"DbgColor" : 60928,
+	"DbgIndex" : 2,
+	"DbgName" : "Mullion",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [0.426635, 0.426703, 0.426605],
+	"colorSpecular" : [0.5, 0.5, 0.5],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 639.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 238,
+	"DbgIndex" : 3,
+	"DbgName" : "Default",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [0.784314, 0.784314, 0.784314],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	}],
+	
+    "buffers": "floor13ft.obj.bin"
+
+}

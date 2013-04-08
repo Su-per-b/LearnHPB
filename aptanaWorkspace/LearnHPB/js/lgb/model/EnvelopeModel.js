@@ -33,11 +33,13 @@ lgb.model.EnvelopeModel.prototype.init_ = function() {
   lgb.model.ModelBase.call(this);
 
   this.floorCount = 5;
-  this.floorHeight = 9;
+  this.floorHeight = 11;
   this.floorWidth = 125;
   this.floorDepth = 80;
 
-
+   
+  this.floorHeightOptions = [9,11,13];
+  
   this.isVisible = true;
 
   this.groupMembership = {};
@@ -72,7 +74,7 @@ lgb.model.EnvelopeModel.prototype.change = function(stateObject) {
   }
 
   if (isAnythingDirty) {
-    this.dispatchLocal(new lgb.events.DataModelChanged(whatIsDirty));
+     this.dispatchChange(whatIsDirty);
   }
 };
 
@@ -81,12 +83,14 @@ lgb.model.EnvelopeModel.prototype.change = function(stateObject) {
  * @param {boolean} makeVisible Used to change the visibility.
  */
 lgb.model.EnvelopeModel.prototype.setVisible = function(makeVisible) {
-
+     
   if (this.isVisible != makeVisible) {
     this.isVisible = makeVisible;
-
-    this.dispatchChange();
+    
+    this.dispatchChange({isVisible : true});
   }
+  
+  
 };
 
 /**

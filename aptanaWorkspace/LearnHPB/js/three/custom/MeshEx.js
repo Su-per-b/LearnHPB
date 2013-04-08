@@ -1,4 +1,8 @@
 //@author Raj Dye raj@pcdigi.com
+
+
+THREE.Mesh.prototype._NAME = 'THREE.Mesh';
+
 THREE.Mesh.prototype.bakeTransformsIntoGeometry = function() {
 
   this.updateMatrix();
@@ -54,6 +58,18 @@ THREE.Mesh.prototype.cloneEx = function(deepCloneChildren, cloneGeometry) {
  */
 THREE.Mesh.prototype.clone = function() {
   return this.cloneEx(false,false);
+};
+
+
+THREE.Mesh.prototype.getBoundingBox = function() {
+    
+    var boundingBox;
+       
+    if (undefined != this.geometry) {
+        boundingBox = this.geometry.getBoundingBoxObject();
+    }
+
+    return boundingBox;
 };
 
 

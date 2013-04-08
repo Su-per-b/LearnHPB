@@ -7,6 +7,7 @@ goog.provide('lgb.view.LightingView');
 
 goog.require('lgb.view.ViewBase');
 goog.require('lgb.model.GridModel');
+goog.require('lgb.model.BuildingHeightModel');
 
 /**
  * @constructor
@@ -23,10 +24,27 @@ lgb.view.LightingView = function(dataModel) {
   this.pendantGeom  = null;
   this.recessedGeom = null;
   
-  
+  this.buildingHeightModel_ = null;
+  this.sceneY_ = null;
 };
 goog.inherits(lgb.view.LightingView, lgb.view.ViewBase);
 
+
+
+lgb.view.LightingView.prototype.setBuildingHeight = function(buildingHeightModel) {
+   
+  this.buildingHeightModel_ = buildingHeightModel;
+  this.setY_();
+};
+
+
+lgb.view.LightingView.prototype.setY_ = function() {
+    
+  if (this.buildingHeightModel_ && this.sceneY_) {
+      this.masterGroup_.position.y = this.buildingHeightModel_.topFloorMaxY + this.sceneY_;
+  }
+  
+};
 
 
 
@@ -65,9 +83,13 @@ lgb.view.LightingView.prototype.onSceneLoaded_ = function() {
       this.masterGroup_.add(mesh);
   }
   
- 
+
+  
   this.requestAddToWorld(this.masterGroup_);
   this.updateAllFromModel_();
+  
+  //this.sceneY_ = this.masterGroup_.position.y;
+
 
 };
 
@@ -108,6 +130,7 @@ lgb.view.LightingView.prototype.onChange = function(event) {
 lgb.view.LightingView.prototype.updateAllFromModel_ = function() {
   this.updateVisible_();
   this.buildGrid_();
+
 };
 
 /**
@@ -143,7 +166,7 @@ lgb.view.LightingView.prototype.buildGrid_ = function() {
   }
   
   this.buildGridHelper_( gridModel, geometry );
-  
+  this.setY_();
 
 };
 
@@ -170,8 +193,9 @@ lgb.view.LightingView.prototype.buildGridHelper_ = function(gridModel,geometry) 
     
   };
   
-  this.masterGroup_.position = gridModel.centeredPosition
-  
+  this.masterGroup_.position.x = gridModel.centeredPosition.x;
+  this.masterGroup_.position.z = gridModel.centeredPosition.z;
+  this.sceneY_ = gridModel.centeredPosition.y;
   
 }
 

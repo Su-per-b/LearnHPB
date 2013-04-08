@@ -6,7 +6,7 @@
 goog.provide('lgb.view.DuctworkView');
 
 goog.require('lgb.view.ViewBase');
-
+goog.require('lgb.model.BuildingHeightModel');
 
 /**
  * @constructor
@@ -19,10 +19,28 @@ lgb.view.DuctworkView = function(dataModel) {
   this.dataModel = dataModel;
   this._NAME = 'lgb.view.DuctworkView';
   this._ASSETS_FOLDER = 'hvac';
+  this.buildingHeightModel_ = null;
+  this.sceneY_ = null;
   
 };
 goog.inherits(lgb.view.DuctworkView, lgb.view.ViewBase);
 
+
+
+lgb.view.DuctworkView.prototype.setBuildingHeight = function(buildingHeightModel) {
+   
+  this.buildingHeightModel_ = buildingHeightModel;
+  this.setY_();
+};
+
+
+lgb.view.DuctworkView.prototype.setY_ = function() {
+    
+  if (this.buildingHeightModel_ && this.sceneY_) {
+      this.masterGroup_.position.y = this.buildingHeightModel_.topFloorMaxY + this.sceneY_;
+  }
+  
+};
 
 
 
@@ -54,6 +72,9 @@ lgb.view.DuctworkView.prototype.onSceneLoaded_ = function(result) {
         throw ('Mesh is null');
       }
   }
+  
+    this.sceneY_ = this.masterGroup_.position.y;
+    this.setY_();
 
 };
 

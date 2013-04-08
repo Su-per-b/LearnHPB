@@ -11,6 +11,10 @@ goog.require('lgb.events.CamerasLoaded');
 goog.require('lgb.events.ViewInitialized');
 goog.require('lgb.view.ViewBase');
 
+goog.require('lgb.model.BuildingHeightModel');
+goog.require('lgb.events.BuildingHeightChanged');
+
+
 /**
  * @constructor
  * @extends {lgb.view.ViewBase}
@@ -23,13 +27,34 @@ lgb.view.EnvelopeView = function(dataModel) {
   this._NAME = 'lgb.view.EnvelopeView';
   this._ASSETS_FOLDER = 'envelope';
 
-
-  this.floorGeometryHash_ = [];
+  this.floorMeshHash_ = [];
+  this.floorOffset_= [];  
+  
   this.floorDimensions_ = null;
-    
+  
+  this.topFloorContainer_ = new THREE.Object3D();
+  this.topFloorContainer_.name = this._NAME + "-topFloorContainer";
+  
+  this.lowerFloorContainer_ = new THREE.Object3D();
+  this.lowerFloorContainer_.name = this._NAME + "-lowerFloorContainer";
+  
+  
+  this.topFloorMesh_ = null;
+  
   this.init();
 };
 goog.inherits(lgb.view.EnvelopeView, lgb.view.ViewBase);
+
+
+
+
+
+
+lgb.view.EnvelopeView.prototype.getTopFloorContainer = function() {
+
+  return this.topFloorContainer_;
+
+};
 
 
 
@@ -40,8 +65,27 @@ goog.inherits(lgb.view.EnvelopeView, lgb.view.ViewBase);
  */
 lgb.view.EnvelopeView.prototype.onSceneLoaded_ = function() {
 
-  this.floorGeometryHash_ = lgb.ThreeUtils.convertGroupHashToMeshHash(this.groups_);
-  this.updateAllFromModel_();
+  
+  this.floorMeshHash_ = lgb.ThreeUtils.convertGroupHashToMeshHash(this.groups_);
+
+  var hashKeyArray = [];
+  var optionsAry = this.dataModel.floorHeightOptions;
+  var len = optionsAry.length;
+  
+  for (var i = 0; i < len; i++) {
+    var hashKey = optionsAry[i] + 'ft';
+    hashKeyArray.push(hashKey);
+    
+   var mesh = this.floorMeshHash_[hashKey];
+   var dim = mesh.geometry.getDimensions();
+   this.floorMeshHash_[hashKey].position.setY(dim.y/2);
+  }
+
+  this.masterGroup_.add(this.topFloorContainer_);
+  this.masterGroup_.add(this.lowerFloorContainer_);
+  this.requestAddToWorld(this.masterGroup_);
+    
+  this.makeFloors_();
 
 };
 
@@ -52,7 +96,19 @@ lgb.view.EnvelopeView.prototype.onSceneLoaded_ = function() {
  * @protected
  */
 lgb.view.EnvelopeView.prototype.onChange = function(event) {
-  this.updateAllFromModel_();
+    
+    var whatIsDirty = event.payload;
+    
+    if (whatIsDirty.isVisible) {
+        this.updateVisible_()
+    }
+     
+    if (whatIsDirty.floorHeight ||
+        whatIsDirty.floorCount) {
+            
+        this.makeFloors_()
+    }
+    
 };
 
 
@@ -73,29 +129,48 @@ lgb.view.EnvelopeView.prototype.updateAllFromModel_ = function() {
 lgb.view.EnvelopeView.prototype.makeFloors_ = function() {
   
   
-  var hashKeyx = this.dataModel.floorHeight + 'ft';
+  var hashKey = this.dataModel.floorHeight + 'ft';
   
-  var hashKey = 'feet' + this.dataModel.floorHeight;
-
-  var mesh = this.floorGeometryHash_[hashKey];
+  var mesh = this.floorMeshHash_[hashKey];
   var geometry = mesh.geometry;
   
   this.floorDimensions_ = geometry.getDimensions();
-  var m = this.masterGroup_.children.length;
+ 
+  this.lowerFloorContainer_.removeAllChildren();
+  var floorCount = this.dataModel.floorCount;
 
-  for (var i = this.masterGroup_.children.length - 1; i >= 0; i--) {
-    this.masterGroup_.remove(this.masterGroup_.children[i]);
+  for (var j = 0; j < floorCount-1; j++) {
+    var newFloor = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial());
+    newFloor.name = this._NAME + "-floor-" + (j + 1);
+    newFloor.position.y += j * this.floorDimensions_.y + mesh.position.y;
+    this.lowerFloorContainer_.add(newFloor);
   }
-
-  var l = this.dataModel.floorCount;
-
-  for (var j = 0; j < l; j++) {
-    var floor = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial());
-    
-    floor.position.y -= j * this.floorDimensions_.y;
-    this.masterGroup_.add(floor);
+  
+  //make top floor
+  var topFloorY = j * this.floorDimensions_.y + mesh.position.y;
+  
+  if (this.topFloorMesh_) {
+      this.topFloorContainer_.remove(this.topFloorMesh_);
   }
-
+  
+  this.topFloorMesh_ = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial());
+  this.topFloorMesh_.name = this._NAME + "-floor-" + (j + 1);
+  this.topFloorContainer_.position.y = topFloorY;
+  this.topFloorContainer_.add(this.topFloorMesh_);
+  
+  
+  
+  this.topFloorMesh_.geometry.computeBoundingBox();
+  
+  var bb = this.topFloorMesh_.geometry.boundingBox;
+  
+  var topFloorMaxY = topFloorY + bb.max.y;
+  var topFloorMinY = topFloorY + bb.min.y;
+  
+  var payload = new lgb.model.BuildingHeightModel(topFloorMaxY,topFloorMinY);
+  var event = new lgb.events.BuildingHeightChanged(payload);
+  this.dispatchLocal(event);
+  
 };
 
 
@@ -107,12 +182,20 @@ lgb.view.EnvelopeView.prototype.makeFloors_ = function() {
  * state of the MVC model.
  * @private
  */
+
 lgb.view.EnvelopeView.prototype.updateVisible_ = function() {
-  var m = this.masterGroup_.children.length;
+    
+    
+  var m = this.lowerFloorContainer_.children.length;
 
   for (var i = 0; i < m; i++) {
-    this.masterGroup_.children[i].visible = this.dataModel.isVisible;
+    this.lowerFloorContainer_.children[i].visible = this.dataModel.isVisible;
   }
+  
+
+  this.topFloorMesh_.visible = this.dataModel.isVisible;
+
+
 };
 
 

@@ -11,6 +11,8 @@ goog.require('lgb.events.ViewInitialized');
 goog.require('lgb.model.LightingModel');
 goog.require('lgb.view.LightingView');
 goog.require('lgb.view.LightingAdminView');
+goog.require('lgb.events.BuildingHeightChanged');
+goog.require('lgb.model.BuildingHeightModel');
 
 /**
  * MVC controller for the Ductwork
@@ -38,10 +40,16 @@ lgb.controller.LightingController.prototype.init_ = function() {
   this.bind_();
   
   this.view.init();
-  this.dispatch(new lgb.events.EnvelopeModelChanged(this.dataModel));
+  //this.dispatch(new lgb.events.EnvelopeModelChanged(this.dataModel));
 };
 
 
+lgb.controller.LightingController.prototype.onBuildingHeightChanged_ =
+  function(event) {
+
+  this.view.setBuildingHeight(event.payload);
+  
+};
 
 
 /**
@@ -62,6 +70,11 @@ lgb.controller.LightingController.prototype.bind_ = function() {
     this.onRequestDataModelChange_);
     
     
+  this.listen(
+    lgb.events.BuildingHeightChanged.TYPE,
+    this.onBuildingHeightChanged_
+    );
+     
 };
 
 

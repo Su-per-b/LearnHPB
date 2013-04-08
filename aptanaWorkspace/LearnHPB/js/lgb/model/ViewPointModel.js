@@ -6,8 +6,7 @@
 goog.provide('lgb.model.ViewPointModel');
 
 goog.require('lgb.model.ModelBase');
-
-
+goog.require('lgb.model.ViewPointNode');
 
 /**
  * @constructor
@@ -18,11 +17,15 @@ lgb.model.ViewPointModel = function() {
   this._NAME = 'lgb.model.ViewPointModel';
   /**@const */
   this._TITLE = 'ViewPoints';
-
   lgb.model.ModelBase.call(this);
-
   this.init_();
-
+  
+  this.viewPointNodeList = [];
+  this.viewPointNodeMap = {};
+  
+  this.cameras = [];
+  this.camMap = {};
+  
 };
 goog.inherits(lgb.model.ViewPointModel, lgb.model.ModelBase);
 
@@ -31,8 +34,7 @@ goog.inherits(lgb.model.ViewPointModel, lgb.model.ModelBase);
  * @private
  */
 lgb.model.ViewPointModel.prototype.init_ = function() {
-  this.cameras = [];
-  this.camMap = {};
+
 };
 
 /**
@@ -43,6 +45,35 @@ lgb.model.ViewPointModel.prototype.getCameraByName = function(name) {
   return this.camMap[name];
   
 };
+
+
+
+lgb.model.ViewPointModel.prototype.addViewPoint = function(viewPointNode) {
+
+
+    this.viewPointNodeList.push(viewPointNode);
+    this.viewPointNodeMap[viewPointNode.name] = viewPointNode;
+    
+    /*
+   var camera = new THREE.PerspectiveCamera(30, 1.333, 1, 1000);
+   camera.name = object3D.name;
+   
+   var target =  object3D.position.clone();
+   var position = target.clone();
+   position.y += 2.0;
+   position.z += 2.0;
+   
+    camera.target = target;
+    camera.position = position;
+    
+    this.camMap[object3D.name] = camera;
+    this.cameras.push(camera);
+    
+    */
+   
+};
+
+
 
 /**
  * @param {Array.<THREE.Camera>} cameras An array of camera objects.

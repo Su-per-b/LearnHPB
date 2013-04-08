@@ -37,6 +37,26 @@ goog.inherits(lgb.model.FurnitureModel, lgb.model.ModelBase);
 
 
 /**
+ * updates the geometry and location of the furniture
+ * @param {lgb.model.EnvelopeModel} envelopeModel The data model to
+ * use in the computation.
+ */
+lgb.model.FurnitureModel.prototype.update = function(envelopeModel) {
+
+  this.floorHeight = envelopeModel.floorHeight;
+  this.envelopeModel = envelopeModel;
+
+
+  this.dispatchChange(
+      {
+        config: true
+      }
+  );
+
+};
+
+
+/**
  * @param {boolean} makeVisible Used to change the visibility.
  */
 lgb.model.FurnitureModel.prototype.setVisible = function(makeVisible) {
@@ -44,11 +64,9 @@ lgb.model.FurnitureModel.prototype.setVisible = function(makeVisible) {
   if (this.isVisible != makeVisible) {
     this.isVisible = makeVisible;
     
-    var whatIsDirty = {isVisible : true};
-    //whatIsDirty.isVisible = true;
-    
-    this.dispatchChange(whatIsDirty);
+    this.dispatchChange({isVisible : true});
   }
+  
 };
 
 

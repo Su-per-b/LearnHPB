@@ -27,6 +27,9 @@ lgb.view.ViewBase = function(dataModel) {
   this.htmlID = '';
   this.filename = 'scene.json';
   
+  this.masterGroup_ = new THREE.Object3D();
+  this.masterGroup_.name = this._NAME;
+  
   //this._NAME = 'lgb.view.ViewBase';
 
 };
@@ -123,18 +126,21 @@ lgb.view.ViewBase.prototype.onSceneLoadedBase_ = function(result) {
   this.groups_ = result['groups'];
   this.cameras_ = result['cameras'];
   this.appData_ = result['appData'];
+  this.containers_ = result['containers'];
   
-
-  this.masterGroup_ = new THREE.Object3D();
-  this.masterGroup_.name = this._NAME;
-
   this.masterGroup_.position = this.scene_.position;
   this.masterGroup_.rotation = this.scene_.rotation;
   this.masterGroup_.scale = this.scene_.scale;
 
+  var c = this.containers_; 
+  if (this.containers_ != null) {
+    this.placeContainers_();
+  }
+  
   if (this.onSceneLoaded_ !== undefined) {
     this.onSceneLoaded_();
   }
+  
 
   this.requestAddToWorld(this.masterGroup_);
   delete this.loader_;
@@ -142,6 +148,77 @@ lgb.view.ViewBase.prototype.onSceneLoadedBase_ = function(result) {
 
 };
 
+
+
+lgb.view.ViewBase.prototype.placeContainers_ = function() {
+    
+
+    var count = 0;
+
+    
+    for(var containerName in this.containers_) {
+        
+       //var clonedGroup = 
+        
+     // var obj3D = this.cloneGroupToObject3D_(propName);
+    
+      var containerObject = this.containers_[containerName];
+      
+     // var newObj = obj3D.clone();
+     // this.masterGroup_.add(newObj);
+        
+      this.placeOneContainer_(containerName, containerObject);
+      
+      count++;
+    }
+
+};
+
+
+lgb.view.ViewBase.prototype.placeOneContainer_ = function(containerName, containerObject) {
+    
+    
+    
+    if (containerObject.type == "group") {
+        
+        var groupName = containerObject.groupName;
+      //  var group = this.groups_[groupName];
+        
+      //  var groupObject = new THREE.Object3D();
+      //  groupObject.name = groupName;
+      
+        var obj3D = new THREE.Object3D();
+        obj3D.name = containerName;
+        
+       // this.cloneGroupToObject3D_(obj3D, containerObject.groupName);
+
+        var ary = this.groups_[groupName];
+        obj3D.cloneArray(ary);
+          
+  
+        if (containerObject.position != null) {
+            obj3D.position = new THREE.Vector3(
+                containerObject.position[0],
+                containerObject.position[1],
+                containerObject.position[2]
+            );
+        }
+        
+        if (containerObject.rotation != null) {
+            obj3D.rotation = new THREE.Vector3(
+                containerObject.rotation[0],
+                containerObject.rotation[1],
+                containerObject.rotation[2]
+            );
+        }
+        
+        
+        
+        this.masterGroup_.add(obj3D);
+        
+    }
+  
+};
 
 
 /**
@@ -152,6 +229,15 @@ lgb.view.ViewBase.prototype.onSceneLoadedBase_ = function(result) {
 lgb.view.ViewBase.prototype.onChange = function(event) {
   throw ('this should be overriden Class name: ' + this._NAME);
 };
+
+
+
+lgb.view.ViewBase.prototype.cloneGroupToObject3D_ = function(obj3D, groupName) {
+  
+
+  
+};
+
 
 
 /**
@@ -166,6 +252,13 @@ lgb.view.ViewBase.prototype.moveGroupToObject3D_ = function(groupName) {
   
   return obj3D;
 };
+
+
+
+
+
+
+
 
 /**
  * Binds an event listener to handle when the MVC data model changes.

@@ -10,7 +10,8 @@ goog.require('lgb.events.RequestVisibilityChange');
 goog.require('lgb.events.SelectableLoaded');
 goog.require('lgb.model.DuctworkModel');
 goog.require('lgb.view.DuctworkView');
-
+goog.require('lgb.events.BuildingHeightChanged');
+goog.require('lgb.model.BuildingHeightModel');
 
 /**
  * MVC controller for the Ductwork
@@ -50,6 +51,21 @@ lgb.controller.DuctworkController.prototype.bind_ = function() {
   this.listenTo(this.view,
     lgb.events.SelectableLoaded.TYPE,
     this.onSelectableLoaded);
+    
+  this.listen(
+    lgb.events.BuildingHeightChanged.TYPE,
+    this.onBuildingHeightChanged_
+    );
+    
+     
+};
+
+
+lgb.controller.DuctworkController.prototype.onBuildingHeightChanged_ =
+  function(event) {
+
+  this.view.setBuildingHeight(event.payload);
+  
 };
 
 

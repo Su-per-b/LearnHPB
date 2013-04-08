@@ -9,7 +9,7 @@
 goog.provide('lgb.view.ZoneView');
 
 goog.require('lgb.view.ViewBase');
-
+goog.require('lgb.model.BuildingHeightModel');
 
 /**
  * MVC View
@@ -23,8 +23,28 @@ lgb.view.ZoneView = function(dataModel) {
 
   this._NAME = 'lgb.view.ZoneView';
   this.zoneVisibleIdx = -1;
+  
+  this.buildingHeightModel_ = null;
+  this.sceneY_ = null;
 };
 goog.inherits(lgb.view.ZoneView, lgb.view.ViewBase);
+
+
+
+lgb.view.ZoneView.prototype.setBuildingHeight = function(buildingHeightModel) {
+   
+  this.buildingHeightModel_ = buildingHeightModel;
+  this.setY_();
+};
+
+
+lgb.view.ZoneView.prototype.setY_ = function() {
+    
+  if (this.buildingHeightModel_ && this.sceneY_ != null) {
+      this.masterGroup_.position.y = this.buildingHeightModel_.topFloorMinY + this.sceneY_;
+  }
+  
+};
 
 
 /**
@@ -41,8 +61,8 @@ lgb.view.ZoneView.prototype.init = function() {
   var cubeGeom = new THREE.CubeGeometry(5, 5, 5, 1, 1, 1);
   this.cubeMesh = new THREE.Mesh(cubeGeom, this.material);
 
-  this.masterGroup_ = new THREE.Object3D();
-  this.masterGroup_.name = this._NAME;
+  //this.masterGroup_ = new THREE.Object3D();
+  //this.masterGroup_.name = this._NAME;
   this.masterGroup_.add(this.cubeMesh);
 
   this.requestAddToWorld(this.masterGroup_);
@@ -81,9 +101,9 @@ lgb.view.ZoneView.prototype.addCube_ = function(zoneNumber, geom, position) {
     depth,
     1, 1, 1);
 
-    this.cubeMesh = new THREE.Mesh(cubeGeom, this.material);
-    this.cubeMesh.name = this._NAME + '-zone-' + zoneNumber.toString();
-    this.cubeMesh.visible = false;
+    var cubeMesh = new THREE.Mesh(cubeGeom, this.material);
+    cubeMesh.name = this._NAME + '-zone-' + zoneNumber.toString();
+    cubeMesh.visible = false;
 
     var x = -1 * floorWidth / 2;
     x += posx + (width / 2);
@@ -91,14 +111,14 @@ lgb.view.ZoneView.prototype.addCube_ = function(zoneNumber, geom, position) {
     var z = -1 * floorDepth / 2;
     z += lgb.convertFeetToMeters(position.z) + (depth / 2);
 
-    this.cubeMesh.position = new THREE.Vector3(
+    cubeMesh.position = new THREE.Vector3(
       x,
-      -1 * floorHeight / 2 + 1,
+            (floorHeight / 2) ,
       z);
 
-    this.masterGroup_.position.x = 0.5;
-    this.masterGroup_.position.y = -0.9;
-    this.masterGroup_.add(this.cubeMesh);
+    //this.masterGroup_.position.x = 0.5;
+    //this.masterGroup_.position.y = -0.9;
+    this.masterGroup_.add(cubeMesh);
 };
 
 
@@ -119,6 +139,10 @@ lgb.view.ZoneView.prototype.onChange = function(event) {
 
     this.addCube_(i + 1, geom, position);
   }
+  
+    //this.sceneY_ = this.masterGroup_.position.y;
+    this.sceneY_ = 0;
+    this.setY_();
  }
 
   if (event.payload.isVisible) {
@@ -126,6 +150,8 @@ lgb.view.ZoneView.prototype.onChange = function(event) {
     var isVisible = this.dataModel.z[idx].isVisible;
     this.setVisible(idx, isVisible);
   }
+
+
 
 };
 

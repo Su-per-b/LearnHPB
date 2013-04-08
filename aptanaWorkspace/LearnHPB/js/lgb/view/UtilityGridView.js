@@ -15,6 +15,8 @@ lgb.view.UtilityGridView = function() {
   lgb.view.ViewBase.call(this);
 
   this._NAME = 'lgb.view.UtilityGridView';
+  this.width_ = 120;
+  
 };
 goog.inherits(lgb.view.UtilityGridView, lgb.view.ViewBase);
 
@@ -97,23 +99,17 @@ lgb.view.UtilityGridView.prototype.init = function() {
   
   
   var step = 1;
-  var halfWidth = 30;
+  var halfWidth = this.width_ / 2;
 
   var squaresOnEachSide = halfWidth / step * 2;
-  
-
   var positiveEdge = halfWidth;
   var negativeEdge = -1 * halfWidth;;
-  
   
   var delta = 0;
   
   for (var i = 0; i < squaresOnEachSide + 1; i++) {
     
     delta =  i * step  - halfWidth;
-    
-    
-    
     
     if (i == halfWidth ) {
       
@@ -153,10 +149,10 @@ lgb.view.UtilityGridView.prototype.init = function() {
     var planeXY = new THREE.Line(geometryPlaneXZ, line_material, THREE.LinePieces);
     var lineXpositive = new THREE.Line(geometryXpositive, line_material_red, THREE.LinePieces);
     var lineXnegative = new THREE.Line(geometryXnegative, line_material_red_desaturate, THREE.LinePieces);
-    var lineYpositive = new THREE.Line(geometryYpositive, line_material_blue, THREE.LinePieces);
-    var lineYnegative = new THREE.Line(geometryYnegative, line_material_blue_desaturate, THREE.LinePieces);
-    var lineZpositive = new THREE.Line(geometryZpositive, line_material_green, THREE.LinePieces);
-    var lineZnegative = new THREE.Line(geometryZnegative, line_material_green_desaturate, THREE.LinePieces);
+    var lineYpositive = new THREE.Line(geometryYpositive, line_material_green, THREE.LinePieces);
+    var lineYnegative = new THREE.Line(geometryYnegative, line_material_green_desaturate, THREE.LinePieces);
+    var lineZpositive = new THREE.Line(geometryZpositive, line_material_blue, THREE.LinePieces);
+    var lineZnegative = new THREE.Line(geometryZnegative, line_material_blue_desaturate, THREE.LinePieces);
     
     lineXpositive.name = 'lineXpositive';
     lineXnegative.name = 'lineXnegative';

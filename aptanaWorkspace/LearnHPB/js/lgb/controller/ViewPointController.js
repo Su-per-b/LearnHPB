@@ -13,6 +13,12 @@ goog.require('lgb.events.CamerasLoaded');
 goog.require('lgb.events.RequestGoToViewPoint');
 goog.require('lgb.events.RequestGoToViewPointName');
 goog.require('lgb.events.ViewInitialized');
+goog.require('lgb.events.ViewPointLoaded');
+goog.require('lgb.model.ViewPointNode');
+goog.require('lgb.events.BuildingHeightChanged');
+goog.require('lgb.model.BuildingHeightModel');
+
+
 /**
  * @constructor
  * @extends lgb.controller.ControllerBase
@@ -38,6 +44,14 @@ lgb.controller.ViewPointController.prototype.init_ = function() {
   this.bind_();
 };
 
+
+
+lgb.controller.ViewPointController.prototype.onBuildingHeightChanged_ =
+  function(event) {
+
+  this.view.setBuildingHeight(event.payload);
+  
+};
 
 /**
  * Binds specific event types to functions which handle the events.
@@ -69,6 +83,27 @@ lgb.controller.ViewPointController.prototype.bind_ = function() {
     this.onRequestGoToViewPointName_
     );
     
+    
+  this.listen(
+    lgb.events.ViewPointLoaded.TYPE,
+    this.onViewPointLoaded_); 
+    
+    
+  this.listen(
+    lgb.events.BuildingHeightChanged.TYPE,
+    this.onBuildingHeightChanged_
+    );
+    
+    
+};
+
+
+
+lgb.controller.ViewPointController.prototype.onViewPointLoaded_ =
+  function(event) {
+    
+      this.dataModel.addViewPoint(event.payload);
+      this.adminView.init();
 };
 
 /**
@@ -78,7 +113,8 @@ lgb.controller.ViewPointController.prototype.bind_ = function() {
  */
 lgb.controller.ViewPointController.prototype.onViewInitialized_ =
   function(event) {
-
+      
+ // this.dataModel.addViewPoint(event.payload);
       
 };
 
@@ -116,7 +152,7 @@ lgb.controller.ViewPointController.prototype.onCamerasLoaded_ =
   function(event) {
   
   this.dataModel.addCameras(event.payload);
-  this.adminView.init();
+
   
 };
 

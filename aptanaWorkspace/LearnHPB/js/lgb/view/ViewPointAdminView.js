@@ -72,9 +72,9 @@ lgb.view.ViewPointAdminView.prototype.bind_ = function() {
 lgb.view.ViewPointAdminView.prototype.onMouseClick_ = function(event) {
 
   var idx = event.target.ds.data;
-  var cam = this.dataModel.cameras[idx];
+  var node = this.dataModel.viewPointNodeList[idx];
 
-  this.dispatchLocal(new lgb.events.RequestGoToViewPoint(cam));
+  this.dispatchLocal(new lgb.events.RequestGoToViewPoint(node));
 
 
 };
@@ -97,7 +97,7 @@ lgb.view.ViewPointAdminView.prototype.onChange = function(event) {
 /**
  * injects the html into the DOM
  */
-lgb.view.ViewPointAdminView.prototype.injectHtml = function() {
+lgb.view.ViewPointAdminView.prototype.injectHtmlXXX = function() {
 
   this.links = [];
 
@@ -109,6 +109,47 @@ lgb.view.ViewPointAdminView.prototype.injectHtml = function() {
 
     var ds = new lgb.component.LinkDataSource(
       theCam.name,
+      this.htmlID,
+      '-' + i.toString()
+      );
+    ds.data = i;
+
+    var link = new lgb.component.Link(ds);
+
+    this.links.push(link);
+
+    linkHtml += link.getHTML();
+  }
+
+  var divHtml = '<div id="{0}" class="adminSubPanel">' +
+          '<h3>{1}</h3>' +
+          linkHtml +
+        '</div>';
+
+  divHtml = divHtml.format(
+    this.htmlID,
+    this.dataModel._TITLE
+    );
+
+  this.append(divHtml);
+
+};
+
+/**
+ * injects the html into the DOM
+ */
+lgb.view.ViewPointAdminView.prototype.injectHtml = function() {
+
+  this.links = [];
+
+  var linkHtml = '';
+  var len = this.dataModel.viewPointNodeList.length;
+  for (var i = 0; i < len; i++) {
+
+    var node = this.dataModel.viewPointNodeList[i];
+
+    var ds = new lgb.component.LinkDataSource(
+      node.name,
       this.htmlID,
       '-' + i.toString()
       );
