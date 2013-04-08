@@ -19,6 +19,8 @@ lgb.view.CameraView = function(domElement) {
   lgb.view.ViewBase.call(this);
   this._NAME = 'lgb.view.CameraView';
   this.domElement_ = domElement;
+  
+  this.offset_ = new THREE.Vector3(0,2,5);
 };
 goog.inherits(lgb.view.CameraView, lgb.view.ViewBase);
 
@@ -60,7 +62,7 @@ lgb.view.CameraView.prototype.init = function() {
   this.cameraCraneController_.debugMode = false;
   this.cameraCraneController_.init(this.camera);
   
-  
+
 };
 
 /**
@@ -77,18 +79,25 @@ lgb.view.CameraView.prototype.goToViewPoint = function(node) {
         this.camera.fov, this.camera .aspect, this.camera .near, this.camera .far);
         
         
-    var ray = new THREE.Ray(this.camera.position, targetPosition);
-    //var intersects = ray.intersectObjects(node.threeObject);
+   // var ray = new THREE.Ray(this.camera.position, targetPosition);
     
-    var intersect = THREE.Collisions.rayCastNearest(ray);
+   // var intersect = ray.intersectObject(node.threeObject, true);
+    
+   // var intersect = THREE.Collisions.rayCastNearest(ray);
   
-    var intersects = ray.intersectScene(scene); 
+    //var intersects = ray.intersectScene(scene); 
     
     
-    camera.position.addSelf(scene.position);
+   // camera.position.addSelf(scene.position);
+   
+    var moveToPosition = targetPosition.clone();
+    moveToPosition.addSelf(this.offset_);
+    
+    camera.position = moveToPosition;
     camera.target = targetPosition;
-        
+    camera.lookAt(targetPosition);
     
+    //  this.camera.lookAt(new THREE.Vector3(0, 0, 0));    
   // var camera = new 
   
   this.cameraCraneController_.moveToPosition(camera);

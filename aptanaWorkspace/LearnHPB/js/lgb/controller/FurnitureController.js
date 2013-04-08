@@ -13,6 +13,7 @@ goog.require('lgb.view.FurnitureView');
 goog.require('lgb.events.TopFloorLoaded');
 goog.require('lgb.events.BuildingHeightChanged');
 goog.require('lgb.events.ViewPointLoaded');
+goog.require('lgb.events.ViewPointListLoaded');
 goog.require('lgb.model.BuildingHeightModel');
 goog.require('lgb.events.ViewPointLoaded');
 
@@ -73,9 +74,22 @@ lgb.controller.FurnitureController.prototype.bind_ = function() {
     this.onViewPointLoaded_
     );
     
+  this.listenTo(
+    this.view,
+    lgb.events.ViewPointListLoaded.TYPE,
+    this.onViewPointListLoaded_
+    );
+    
     
 };
 
+
+lgb.controller.FurnitureController.prototype.onViewPointListLoaded_ =
+  function(event) {
+
+  this.dispatch(event);
+  
+};
 
 lgb.controller.FurnitureController.prototype.onViewPointLoaded_ =
   function(event) {

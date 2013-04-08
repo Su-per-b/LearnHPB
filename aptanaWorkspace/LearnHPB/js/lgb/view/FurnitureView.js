@@ -8,6 +8,7 @@ goog.require('lgb.model.GridModel');
 goog.require('lgb.ThreeUtils');
 goog.require('lgb.model.BuildingHeightModel');
 goog.require('lgb.events.ViewPointLoaded');
+goog.require('lgb.events.ViewPointListLoaded');
 goog.require('lgb.model.ViewPointNode');
 
 /**
@@ -49,11 +50,24 @@ lgb.view.FurnitureView.prototype.onSceneLoaded_ = function() {
     this.sceneY_ = this.masterGroup_.position.y;
     this.setY_();
   
+  
     var mesh = this.masterGroup_.children[0];
     var node = new lgb.model.ViewPointNode();
     node.init(mesh);
     
-    var event = new lgb.events.ViewPointLoaded(node);
+    var nodeList = [];
+    var len = this.masterGroup_.children.length;
+    
+      for (var i = 0; i < len; i++) {
+        var child  = this.masterGroup_.children[i];
+        var node = new lgb.model.ViewPointNode();
+        node.init(child);
+        
+        nodeList.push(node);
+      }
+    
+    
+    var event = new lgb.events.ViewPointListLoaded(nodeList);
     this.dispatchLocal(event);
     
 };

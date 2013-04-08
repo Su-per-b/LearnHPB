@@ -73,6 +73,18 @@ lgb.model.ViewPointModel.prototype.addViewPoint = function(viewPointNode) {
    
 };
 
+lgb.model.ViewPointModel.prototype.addViewPointList = function(viewPointList) {
+
+
+    var len = viewPointList.length;
+    
+      for (var i = 0; i < len; i++) {
+        var node = viewPointList[i];
+        this.addViewPoint(node);
+      }
+  
+};
+
 
 
 /**

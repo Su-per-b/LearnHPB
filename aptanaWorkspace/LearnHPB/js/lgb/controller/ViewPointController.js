@@ -14,6 +14,7 @@ goog.require('lgb.events.RequestGoToViewPoint');
 goog.require('lgb.events.RequestGoToViewPointName');
 goog.require('lgb.events.ViewInitialized');
 goog.require('lgb.events.ViewPointLoaded');
+goog.require('lgb.events.ViewPointListLoaded');
 goog.require('lgb.model.ViewPointNode');
 goog.require('lgb.events.BuildingHeightChanged');
 goog.require('lgb.model.BuildingHeightModel');
@@ -88,6 +89,11 @@ lgb.controller.ViewPointController.prototype.bind_ = function() {
     lgb.events.ViewPointLoaded.TYPE,
     this.onViewPointLoaded_); 
     
+  this.listen(
+    lgb.events.ViewPointListLoaded.TYPE,
+    this.onViewPointListLoaded_); 
+    
+   
     
   this.listen(
     lgb.events.BuildingHeightChanged.TYPE,
@@ -95,9 +101,17 @@ lgb.controller.ViewPointController.prototype.bind_ = function() {
     );
     
     
+    
 };
 
 
+
+lgb.controller.ViewPointController.prototype.onViewPointListLoaded_ =
+  function(event) {
+    
+      this.dataModel.addViewPointList(event.payload);
+      this.adminView.init();
+};
 
 lgb.controller.ViewPointController.prototype.onViewPointLoaded_ =
   function(event) {
