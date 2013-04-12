@@ -25,6 +25,7 @@ lgb.model.ViewPointNode = function(object3D) {
   
   this.threeObject = null;
   
+  this.init_(object3D);
 };
 
 
@@ -34,7 +35,7 @@ goog.inherits(lgb.model.ViewPointNode, lgb.model.ModelBase);
 /**
  * @private
  */
-lgb.model.ViewPointNode.prototype.init = function(threeObject) {
+lgb.model.ViewPointNode.prototype.init_ = function(threeObject) {
     
     var boundingBox;
     
@@ -56,14 +57,6 @@ lgb.model.ViewPointNode.prototype.init = function(threeObject) {
 
 
 
-/**
- * @param {string} name The camera name.
- */
-lgb.model.ViewPointNode.prototype.generateCamera = function() {
-
-
-  
-};
 
 lgb.model.ViewPointNode.prototype.getTargetPosition = function() {
 
@@ -76,4 +69,18 @@ lgb.model.ViewPointNode.prototype.getTargetPosition = function() {
 
 
 
+
+lgb.model.ViewPointNode.makeArray = function(object3DAry) {
+    
+    var nodeList = [];
+    var len = object3DAry.length;
+    
+    for (var i = 0; i < len; i++) {
+        var node = new lgb.model.ViewPointNode(object3DAry[i]);
+        nodeList.push(node);
+    }
+    
+    return nodeList;
+      
+};
 

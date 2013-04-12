@@ -115,6 +115,7 @@ lgb.view.ViewBase.prototype.loadSceneFromFolder_ = function(folderName) {
   this.loader_.load(path, this.d(this.onSceneLoadedBase_));
 };
 
+
 /**
  * Event handler called when the the scene is loaded.
  * @param {Object} result From the THREE.js lib.
@@ -154,19 +155,8 @@ lgb.view.ViewBase.prototype.placeContainers_ = function() {
     
 
     var count = 0;
-
-    
     for(var containerName in this.containers_) {
-        
-       //var clonedGroup = 
-        
-     // var obj3D = this.cloneGroupToObject3D_(propName);
-    
       var containerObject = this.containers_[containerName];
-      
-     // var newObj = obj3D.clone();
-     // this.masterGroup_.add(newObj);
-        
       this.placeOneContainer_(containerName, containerObject);
       
       count++;
@@ -177,21 +167,12 @@ lgb.view.ViewBase.prototype.placeContainers_ = function() {
 
 lgb.view.ViewBase.prototype.placeOneContainer_ = function(containerName, containerObject) {
     
-    
-    
     if (containerObject.type == "group") {
         
         var groupName = containerObject.groupName;
-      //  var group = this.groups_[groupName];
-        
-      //  var groupObject = new THREE.Object3D();
-      //  groupObject.name = groupName;
-      
         var obj3D = new THREE.Object3D();
         obj3D.name = containerName;
         
-       // this.cloneGroupToObject3D_(obj3D, containerObject.groupName);
-
         var ary = this.groups_[groupName];
         obj3D.cloneArray(ary);
           
@@ -211,7 +192,6 @@ lgb.view.ViewBase.prototype.placeOneContainer_ = function(containerName, contain
                 containerObject.rotation[2]
             );
         }
-        
         
         
         this.masterGroup_.add(obj3D);

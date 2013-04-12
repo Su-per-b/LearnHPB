@@ -9,11 +9,14 @@ goog.require('lgb.controller.ControllerBase');
 goog.require('lgb.controller.PsController');
 goog.require('lgb.events.DataModelChanged');
 goog.require('lgb.events.DataModelInitialized');
+goog.require('lgb.events.BuildingHeightChanged');
 goog.require('lgb.events.WorldCreated');
 goog.require('lgb.model.PsModel');
 goog.require('lgb.model.PsModelMaster');
 goog.require('lgb.view.ParticleSystemAdminView');
 goog.require('lgb.view.PsView');
+goog.require('lgb.view.PsViewMaster');
+
 
 
 /**
@@ -30,10 +33,14 @@ goog.inherits(lgb.controller.PsControllerMaster, lgb.controller.ControllerBase);
  * Initialized the controller.
  */
 lgb.controller.PsControllerMaster.prototype.init = function() {
+    
   this.psDataModelMaster = new lgb.model.PsModelMaster();
-  this.psControllers = [];
+  this.psViewMaster = new lgb.view.PsViewMaster(this.psDataModelMaster);
+  
   this.bind_();
-  this.psDataModelMaster.load();
+  
+ // this.psViewMaster.init();
+   this.psDataModelMaster.load();
 };
 
 
@@ -45,30 +52,25 @@ lgb.controller.PsControllerMaster.prototype.init = function() {
  */
 lgb.controller.PsControllerMaster.prototype.bind_ = function() {
   
- // this.makeAddToWorldRequestGlobal();
+  this.makeAddToWorldRequestGlobal(this.psViewMaster);
 
-  this.listenTo(this.psDataModelMaster,
-    lgb.events.DataModelInitialized.TYPE,
-    this.onPsDataModelInitialized_);
 
+
+  this.listen(
+    lgb.events.BuildingHeightChanged.TYPE,
+    this.onBuildingHeightChanged_
+   );
+    
 };
 
 
-/**
- * For each PS data model spawn an MVC triad.
- * @private
- * @param {lgb.events.DataModelInitialized} event Fired by the dataModel
- * when it is ready.
- */
-lgb.controller.PsControllerMaster.prototype.onPsDataModelInitialized_ =
+
+lgb.controller.PsControllerMaster.prototype.onBuildingHeightChanged_ =
   function(event) {
 
-  var len = this.psDataModelMaster.psModelList.length;
-  for (var i = 0; i < len; i++) {
-
-    var dataModel = this.psDataModelMaster.psModelList[i];
-    var controller = new lgb.controller.PsController(dataModel);
-    this.psControllers.push(controller);
-  }
-
+  this.psViewMaster.setBuildingHeight(event.payload);
 };
+
+
+
+

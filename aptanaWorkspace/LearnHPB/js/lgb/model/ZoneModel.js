@@ -35,15 +35,41 @@ goog.inherits(lgb.model.ZoneModel, lgb.model.ModelBase);
 lgb.model.ZoneModel.prototype.init_ = function() {
   this.z = [];
 
-  this.z[0] = new lgb.model.ZoneShapeModel(15, 0, 15, 0, 0, 0);
-  this.z[1] = new lgb.model.ZoneShapeModel(90, 0, 15, 15, 0, 0);
-  this.z[2] = new lgb.model.ZoneShapeModel(15, 0, 15, 105, 0, 0);
-  this.z[3] = new lgb.model.ZoneShapeModel(15, 0, 50, 0, 0, 15);
-  this.z[4] = new lgb.model.ZoneShapeModel(90, 0, 50, 15, 0, 15);
-  this.z[5] = new lgb.model.ZoneShapeModel(15, 0, 50, 105, 0, 15);
-  this.z[6] = new lgb.model.ZoneShapeModel(15, 0, 15, 0, 0, 65);
-  this.z[7] = new lgb.model.ZoneShapeModel(90, 0, 15, 15, 0, 65);
-  this.z[8] = new lgb.model.ZoneShapeModel(15, 0, 15, 105, 0, 65);
+  this.z[0] = new lgb.model.ZoneShapeModel(4.5, 0, 4.5);
+  this.z[1] = new lgb.model.ZoneShapeModel(28.524599075317383, 0, 4.7540998458862305);
+  this.z[2] = new lgb.model.ZoneShapeModel(4.7540998458862305, 0, 4.7540998458862305);
+  this.z[3] = new lgb.model.ZoneShapeModel(4.7540998458862305, 0, 15.24000048637390125);
+  this.z[4] = new lgb.model.ZoneShapeModel(28.524599075317383, 0, 15.24000048637390125);
+  this.z[5] = new lgb.model.ZoneShapeModel(4.7540998458862305, 0, 15.24000048637390125);
+  this.z[6] = new lgb.model.ZoneShapeModel(4.7540998458862305, 0, 4.7540998458862305);
+  this.z[7] = new lgb.model.ZoneShapeModel(28.524599075317383, 0, 4.7540998458862305);
+  this.z[8] = new lgb.model.ZoneShapeModel(4.7540998458862305, 0, 4.7540998458862305);
+  
+
+  
+  var currentX = 0;
+  var currentZ = 0;
+  
+  var len = 3;
+  
+  for (var j = 0; j < 3; j++) {
+
+      for (var i = 0; i < 3; i++) {
+          
+           var idx = (j * 3) + i;
+           this.z[idx].position = new THREE.Vector3(currentX, 0, currentZ);
+           
+           currentX += this.z[i].dimensions.x;
+           
+      }
+      
+      currentX = 0;
+      currentZ += this.z[idx].dimensions.z;
+  }
+  
+
+  
+
 
 };
 

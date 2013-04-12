@@ -37,7 +37,7 @@ lgb.view.FurnitureView.prototype.setBuildingHeight = function(buildingHeightMode
 
 lgb.view.FurnitureView.prototype.setY_ = function() {
     
-  if (this.topFloorMinY_ && this.sceneY_ != null) {
+  if (null != this.topFloorMinY_ && null != this.sceneY_) {
       this.masterGroup_.position.y = this.topFloorMinY_ + this.sceneY_;
   }
   
@@ -50,22 +50,7 @@ lgb.view.FurnitureView.prototype.onSceneLoaded_ = function() {
     this.sceneY_ = this.masterGroup_.position.y;
     this.setY_();
   
-  
-    var mesh = this.masterGroup_.children[0];
-    var node = new lgb.model.ViewPointNode();
-    node.init(mesh);
-    
-    var nodeList = [];
-    var len = this.masterGroup_.children.length;
-    
-      for (var i = 0; i < len; i++) {
-        var child  = this.masterGroup_.children[i];
-        var node = new lgb.model.ViewPointNode();
-        node.init(child);
-        
-        nodeList.push(node);
-      }
-    
+    var nodeList = lgb.model.ViewPointNode.makeArray(this.masterGroup_.children);
     
     var event = new lgb.events.ViewPointListLoaded(nodeList);
     this.dispatchLocal(event);

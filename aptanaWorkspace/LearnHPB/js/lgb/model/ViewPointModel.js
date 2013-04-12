@@ -23,8 +23,8 @@ lgb.model.ViewPointModel = function() {
   this.viewPointNodeList = [];
   this.viewPointNodeMap = {};
   
-  this.cameras = [];
-  this.camMap = {};
+ // this.cameras = [];
+  //this.camMap = {};
   
 };
 goog.inherits(lgb.model.ViewPointModel, lgb.model.ModelBase);
@@ -42,7 +42,7 @@ lgb.model.ViewPointModel.prototype.init_ = function() {
  */
 lgb.model.ViewPointModel.prototype.getCameraByName = function(name) {
 
-  return this.camMap[name];
+  return this.viewPointNodeMap[name];
   
 };
 

@@ -20,7 +20,7 @@ lgb.view.ParticleElement = function(pMaterial) {
 
   this.pMaterial = pMaterial;
 
-  this.threeParticle = new THREE.Particle();
+  this.threeParticle = new THREE.Particle(pMaterial);
 
   this.currentFrameNumber = 0;
     this.isFinished = false;
@@ -86,7 +86,8 @@ lgb.view.ParticleElement.prototype.render = function() {
   var vector3 = this.path.frameToPositionMap[this.currentFrameNumber];
 
   //set the position
-  this.threeParticle.position = vector3;
+  this.threeParticle.position.copy(vector3);
+
   
   this.currentFrameNumber++;
 

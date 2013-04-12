@@ -36,9 +36,17 @@ lgb.model.EnvelopeModel.prototype.init_ = function() {
   this.floorHeight = 11;
   this.floorWidth = 125;
   this.floorDepth = 80;
-
+  
+  this.floorWidthMeters = 38.032798767089844;
+  this.floorDepthMeters = 24.384000778198242;
+  this.floorHeightMeters = 4.267199993133545;
+  
    
   this.floorHeightOptions = [9,11,13];
+  this.floorHeightOptionsMeters = 
+  [3.6576159000396728,
+  4.267199993133545,
+  4.8768000602722168];
   
   this.isVisible = true;
 

@@ -25,8 +25,12 @@ goog.require('lgb.model.BuildingHeightModel');
  * @extends lgb.controller.ControllerBase
  */
 lgb.controller.ViewPointController = function( ) {
+    
   lgb.controller.ControllerBase.call(this);
+  
+  this.viewpointGroupsLoaded_ = 0;
   this.init_();
+  
 };
 goog.inherits(lgb.controller.ViewPointController, lgb.controller.ControllerBase);
 
@@ -109,8 +113,15 @@ lgb.controller.ViewPointController.prototype.bind_ = function() {
 lgb.controller.ViewPointController.prototype.onViewPointListLoaded_ =
   function(event) {
     
+    
       this.dataModel.addViewPointList(event.payload);
-      this.adminView.init();
+      
+      this.viewpointGroupsLoaded_++;
+      
+      if (this.viewpointGroupsLoaded_ > 1) {
+        this.adminView.init();
+      }
+
 };
 
 lgb.controller.ViewPointController.prototype.onViewPointLoaded_ =

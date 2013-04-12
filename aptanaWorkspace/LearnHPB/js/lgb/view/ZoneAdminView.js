@@ -87,7 +87,9 @@ lgb.view.ZoneAdminView.prototype.bind_ = function() {
 lgb.view.ZoneAdminView.prototype.onMouseClick_ = function(event) {
 
   var zoneIdx = event.target.ds.data;
-  var name = 'zone.00' + (zoneIdx + 1).toString();
+  var name = 'lgb.view.ZoneView-zone-' + (zoneIdx + 1).toString();
+
+
 
   this.dispatchLocal(new lgb.events.RequestGoToViewPointName(name));
 

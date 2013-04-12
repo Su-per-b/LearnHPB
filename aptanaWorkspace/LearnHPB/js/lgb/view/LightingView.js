@@ -40,7 +40,7 @@ lgb.view.LightingView.prototype.setBuildingHeight = function(buildingHeightModel
 
 lgb.view.LightingView.prototype.setY_ = function() {
     
-  if (this.buildingHeightModel_ && this.sceneY_) {
+  if (null != this.buildingHeightModel_ && null != this.sceneY_) {
       this.masterGroup_.position.y = this.buildingHeightModel_.topFloorMaxY + this.sceneY_;
   }
   

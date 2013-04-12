@@ -15,6 +15,8 @@ goog.require('lgb.view.ZoneAdminView');
 goog.require('lgb.view.ZoneView');
 goog.require('lgb.events.BuildingHeightChanged');
 goog.require('lgb.model.BuildingHeightModel');
+goog.require('lgb.events.ViewPointListLoaded');
+
 
 /**
  * MVC controller for the Zones
@@ -33,6 +35,7 @@ goog.inherits(lgb.controller.ZoneController, lgb.controller.ControllerBase);
  * @private
  */
 lgb.controller.ZoneController.prototype.init_ = function() {
+    
   this.dataModel = new lgb.model.ZoneModel();
   this.view = new lgb.view.ZoneView(this.dataModel);
   this.adminview = new lgb.view.ZoneAdminView(this.dataModel, 'adminView');
@@ -75,10 +78,24 @@ lgb.controller.ZoneController.prototype.bind_ = function() {
     lgb.events.BuildingHeightChanged.TYPE,
     this.onBuildingHeightChanged_
     );
+    
+  this.listenTo(
+    this.view,
+    lgb.events.ViewPointListLoaded.TYPE,
+    this.onViewPointListLoaded_
+    );
+     
+     
      
 
 };
 
+lgb.controller.ZoneController.prototype.onViewPointListLoaded_ =
+  function(event) {
+
+  this.dispatch(event);
+
+};
 
 
 lgb.controller.ZoneController.prototype.onBuildingHeightChanged_ =

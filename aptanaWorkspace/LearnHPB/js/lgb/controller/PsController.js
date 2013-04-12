@@ -18,9 +18,10 @@ goog.require('lgb.view.PsView');
  * @extends lgb.controller.ControllerBase
  * @param {lgb.model.PsModel} dataModel The model.
  */
-lgb.controller.PsController = function(dataModel) {
+lgb.controller.PsController = function(dataModel, parentMasterGroup) {
   lgb.controller.ControllerBase.call(this);
   this.dataModel = dataModel;
+  this.parentMasterGroup_ = parentMasterGroup;
   this.init_();
 };
 goog.inherits(lgb.controller.PsController, lgb.controller.ControllerBase);
@@ -31,7 +32,8 @@ goog.inherits(lgb.controller.PsController, lgb.controller.ControllerBase);
  */
 lgb.controller.PsController.prototype.init_ = function() {
 
-  this.view = new lgb.view.PsView(this.dataModel);
+  this.view = new lgb.view.PsView(this.dataModel, this.parentMasterGroup_ );
+  
   this.adminView = new
     lgb.view.ParticleSystemAdminView(this.dataModel, 'adminView');
 
@@ -50,8 +52,6 @@ lgb.controller.PsController.prototype.init_ = function() {
  */
 lgb.controller.PsController.prototype.bind_ = function() {
   
-  this.makeAddToWorldRequestGlobal();
-
   this.listenTo(this.adminView,
     lgb.events.RequestDataModelChange.TYPE,
     this.onRequestDataModelChange_);

@@ -76,12 +76,12 @@ lgb.model.PsModelMaster.prototype.onSceneLoadedSync_ = function(result) {
     if (null != mesh.geometry) {
       mesh.bakeTransformsIntoGeometry();
       
-      mesh.position = this.scene_.position;
-      mesh.rotation = this.scene_.rotation;
-      mesh.scale = this.scene_.scale;
+    //  mesh.position = this.scene_.position;
+    //  mesh.rotation = this.scene_.rotation;
+      //mesh.scale = this.scene_.scale;
       
-      mesh.bakeTransformsIntoGeometry();
-      this.masterGroup_.add(mesh);
+      //mesh.bakeTransformsIntoGeometry();
+      //this.masterGroup_.add(mesh);
     }
   }
 

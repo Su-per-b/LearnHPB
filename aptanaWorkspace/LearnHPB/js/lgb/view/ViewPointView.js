@@ -53,7 +53,7 @@ lgb.view.ViewPointView.prototype.setBuildingHeight = function(buildingHeightMode
 
 lgb.view.ViewPointView.prototype.setY_ = function() {
     
-  if (this.topFloorMinY_ && this.sceneY_ != null) {
+  if (null != this.topFloorMinY_ && null != this.sceneY_ ) {
       this.masterGroup_.position.y = this.topFloorMinY_ + this.sceneY_;
   }
   
