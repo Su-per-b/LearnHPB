@@ -17,8 +17,8 @@ goog.require('lgb.events.Object3DLoaded');
 goog.require('lgb.events.Render');
 goog.require('lgb.events.WindowResize');
 goog.require('lgb.view.StatsView');
-
-
+goog.require('lgb.events.WorldCreated');
+goog.require('lgb.events.LayoutChange');
 
 /**
  * MVC controller for the App
@@ -27,9 +27,9 @@ goog.require('lgb.view.StatsView');
  * @param {Element} containerDiv The DIV to use
  * when we render 3D.
  */
-lgb.controller.WorldController = function(containerDiv) {
+lgb.controller.WorldController = function() {
   lgb.controller.ControllerBase.call(this);
-  this.containerDiv_ = containerDiv;
+  this.parentHtmlID = lgb.Config.HUD_CONTAINER_STR;
 };
 goog.inherits(lgb.controller.WorldController, lgb.controller.ControllerBase);
 
@@ -39,6 +39,8 @@ goog.inherits(lgb.controller.WorldController, lgb.controller.ControllerBase);
  */
 lgb.controller.WorldController.prototype.init = function() {
   this.timestamp = 0;
+  this.containerDiv_ = $('#' + this.parentHtmlID);
+    
   /**
    * The top-level this.containerDiv_ object in the THREE.js world
    * contains lights, camera and objects
@@ -46,11 +48,9 @@ lgb.controller.WorldController.prototype.init = function() {
    * @private
    */
   this.scene_ = new THREE.Scene();
-
-
   this.initRenderer_();
-  this.setSize_();
-
+  
+  this.calculateSize_();
   this.bind_();
 
   /**
@@ -69,7 +69,7 @@ lgb.controller.WorldController.prototype.init = function() {
 
 
   if (lgb.Config.SHOW_STATS) {
-    this.statsView_ = new lgb.view.StatsView(this.containerDiv_);
+   // this.statsView_ = new lgb.view.StatsView(this.containerDiv_);
   } else {
     this.statsView_ = null;
   }
@@ -96,18 +96,20 @@ lgb.controller.WorldController.prototype.init = function() {
   /**@type {lgb.controller.WorldSelectionController} */
   this.selectionController_ =
     new lgb.controller.WorldSelectionController(
-      this.containerDiv_,
       this.camera_
   );
 
   /** @type {lgb.controller.TrackBallController} */
   this.trackController_ = new lgb.controller.TrackBallController(
-    this.containerDiv_,
     this.camera_
   );
+  
 
-  this.containerDiv_.appendChild(this.renderer_.domElement);
-
+  
+  this.containerDiv_.append(this.renderer_.domElement);
+  
+  var e = new lgb.events.WorldCreated();
+  this.dispatch(e);
 };
 
 /**
@@ -124,16 +126,16 @@ lgb.controller.WorldController.prototype.initLights_ = function() {
   this.ambientLight_ = new THREE.AmbientLight(0x111111);
   this.scene_.add(this.ambientLight_);
 
-  this.light1_ = new THREE.DirectionalLight( 0xffffff, 1.5 , 30);
+  this.light1_ = new THREE.DirectionalLight( 0xffffff, 1.0 , 40);
   this.light1_.position.set( 0, 70, -45 );
   
   this.scene_.add( this.light1_ );
 
-  this.light2_ = new THREE.DirectionalLight( 0xffffff, 0.8 , 30);
+  this.light2_ = new THREE.DirectionalLight( 0xffffff, 0.8 , 40);
   this.light2_.position.set( -45, -70, 0 );
   this.scene_.add( this.light2_ );
 
-  this.light3_ = new THREE.DirectionalLight( 0xffffff, 1.6 , 30);
+  this.light3_ = new THREE.DirectionalLight( 0xffffff, 1.3 , 40);
   this.light3_.position.set( 45, 0, 45 );
   this.scene_.add( this.light3_ );
   
@@ -150,6 +152,7 @@ lgb.controller.WorldController.prototype.initRenderer_ = function() {
    * @private
    */
   this.renderer_ = new THREE.WebGLRenderer({ antialias: false });
+  this.renderer_.domElement.id='wbGLrenderer';
 
 /*
   this.renderer_.shadowCameraNear = 3;
@@ -193,9 +196,15 @@ lgb.controller.WorldController.prototype.initRenderer_ = function() {
 lgb.controller.WorldController.prototype.bind_ = function() {
   this.listen(lgb.events.Object3DLoaded.TYPE, this.onObject3DLoaded_);
   this.listen(lgb.events.WindowResize.TYPE, this.onWindowResize_);
+    
+  this.listen(
+      lgb.events.LayoutChange.TYPE, 
+      this.onLayoutChange_);
 };
 
-
+lgb.controller.WorldController.prototype.onLayoutChange_ = function(event) {
+  this.calculateSize_();
+};
 
 /**
  * Handles an event fired by View classes
@@ -225,7 +234,7 @@ lgb.controller.WorldController.prototype.onObject3DLoaded_ = function(event) {
 lgb.controller.WorldController.prototype.onWindowResize_ =
   function(event) {
 
-  this.setSize_();
+  this.calculateSize_();
 };
 
 
@@ -233,8 +242,15 @@ lgb.controller.WorldController.prototype.onWindowResize_ =
  * sets the canvas size based on the window size
  * @private
  */
-lgb.controller.WorldController.prototype.setSize_ = function() {
-  this.renderer_.setSize(window.innerWidth, window.innerHeight);
+lgb.controller.WorldController.prototype.calculateSize_ = function() {
+    
+    var container = $(lgb.Config.HUD_CONTAINER);
+    
+    var w = this.containerDiv_.width();
+    var h = this.containerDiv_.height();
+    
+    this.renderer_.setSize(w,h);
+
 };
 
 

@@ -23,15 +23,13 @@ lgb.view.ViewBase = function(dataModel) {
     this.listenForChange_();
   }
 
-  this.parentHtmlID = 'theBody';
-  this.htmlID = '';
-  this.filename = 'scene.json';
-  
+  this.parentHtmlID = this.parentHtmlID || 'theBody';
+  this.htmlID = this.htmlID || '';
+  this.filename = this.filename || 'scene.json';
+    
   this.masterGroup_ = new THREE.Object3D();
   this.masterGroup_.name = this._NAME;
   
-  //this._NAME = 'lgb.view.ViewBase';
-
 };
 goog.inherits(lgb.view.ViewBase, lgb.BaseClass);
 
@@ -53,8 +51,6 @@ lgb.view.ViewBase.prototype.makeID = function(id) {
   var newID = '{0}-{1}'.format(this.htmlID, id);
   return newID;
 };
-
-
 
 
 

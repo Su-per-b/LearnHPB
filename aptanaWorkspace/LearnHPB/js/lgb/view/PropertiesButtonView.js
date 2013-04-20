@@ -15,7 +15,8 @@ goog.require('lgb.view.component.ToggleButtonA');
 lgb.view.PropertiesButtonView = function() {
   lgb.view.ViewBase.call(this);
   this.htmlID = 'propertiesButton';
-
+  this.parentHtmlID = lgb.Config.HUD_CONTAINER_STR
+  
 };
 goog.inherits(lgb.view.PropertiesButtonView, lgb.view.ViewBase);
 
@@ -29,14 +30,13 @@ lgb.view.PropertiesButtonView.prototype.init = function() {
       htmlID: 'propertiesButtonLink',
       buttonHeight: 33,
       xPosition: 33,
-      title: 'Show / Hide Properties panel',
-      cssClass: 'leftNavButton'
+      title: 'Show / Hide Properties panel'
     });
 
-  this.injectCss();
-  this.injectHtml();
+  this.injectCss_();
+  this.injectHtml_();
   this.bind_();
-  this.listen(lgb.events.WindowResize.TYPE, this.onResize);
+
 
 };
 
@@ -44,29 +44,29 @@ lgb.view.PropertiesButtonView.prototype.init = function() {
  * show the button.
  */
 lgb.view.PropertiesButtonView.prototype.show = function() {
-  this.position();
+  this.jumpToPosition();
 };
 
 /**
  * Set the position.
  */
-lgb.view.PropertiesButtonView.prototype.position = function() {
+lgb.view.PropertiesButtonView.prototype.jumpToPosition = function() {
 
-  var x = this.getXpos();
+  var x = this.getXpos_();
 
   var props = {left: x + 'px'};
     this.jq().css(props);
 
-  };
+};
 
 
 /**
  * Event handler for when the window is resized.
  * @param {lgb.events.WindowResize} event The resize event.
  */
-lgb.view.PropertiesButtonView.prototype.onResize = function(event) {
+lgb.view.PropertiesButtonView.prototype.tweenToPosition = function(event) {
 
-    var x = this.getXpos();
+    var x = this.getXpos_();
 
     var options = {
       duration: 500,
@@ -84,27 +84,32 @@ lgb.view.PropertiesButtonView.prototype.onResize = function(event) {
  * Get the Xposition for the button.
  * @return {number} The X.
  */
-lgb.view.PropertiesButtonView.prototype.getXpos = function() {
-  return window.innerWidth - 33 - 33 - 8;
+lgb.view.PropertiesButtonView.prototype.getXpos_ = function() {
+
+  var x = this.jqParent().width();
+  x = x - 33 -4 - 33 -4;
+    
+  return x;
+
 };
 
 
 /**
  * Injects the HTML into the DOM.
  */
-lgb.view.PropertiesButtonView.prototype.injectHtml = function() {
+lgb.view.PropertiesButtonView.prototype.injectHtml_ = function() {
   var html = '<div id="propertiesButton">' + this.button.getHtml() +
         '</div>';
 
 
-   $('body').append(html);
+   this.append(html);
 };
 
 
 /**
  * Injects the CSS into the DOM.
  */
-lgb.view.PropertiesButtonView.prototype.injectCss = function() {
+lgb.view.PropertiesButtonView.prototype.injectCss_ = function() {
     var cssInner = this.button.getCss();
     var cssStr = "<style type='text/css'>{0}</style>".format(cssInner);
     $(cssStr).appendTo('head');

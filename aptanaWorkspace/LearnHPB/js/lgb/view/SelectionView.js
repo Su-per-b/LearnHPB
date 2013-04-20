@@ -23,7 +23,7 @@ lgb.view.SelectionView = function(dataModel, containerDiv, camera) {
   lgb.view.ViewBase.call(this, dataModel);
   this.containerDiv_ = containerDiv;
   this.camera_ = camera;
-
+  this.parentHtmlID = lgb.Config.HUD_CONTAINER_STR;
   this._NAME = 'lgb.view.SelectionView';
 };
 goog.inherits(lgb.view.SelectionView, lgb.view.ViewBase);
@@ -41,7 +41,14 @@ lgb.view.SelectionView.prototype.init = function() {
   this.projector_ = new THREE.Projector();
   this.mouse = { x: 0, y: 0 };
   this.mouseMoveDirty = false;
-  this.containerDiv_.addEventListener('mouseup', this.d(this.onClick_), false);
+  
+  var p = this.jqParent();
+  
+ // p.addEventListener('mouseup', this.d(this.onClick_), false);
+  
+  p.bind('mouseup', this.d(this.onClick_));
+  
+
 
   this.selectedMaterial = new THREE.MeshLambertMaterial({ color: 0xbb0000 });
   this.savedMaterials = {};

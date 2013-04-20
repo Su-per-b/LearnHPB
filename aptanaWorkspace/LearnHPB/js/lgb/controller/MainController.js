@@ -13,9 +13,9 @@ goog.require('lgb.controller.GuiController');
 goog.require('lgb.controller.ScenarioController');
 goog.require('lgb.controller.WorldController');
 goog.require('lgb.controller.SimulationController');
+goog.require('lgb.controller.LayoutController');
 
 goog.require('lgb.events.WindowResize');
-goog.require('lgb.events.WorldCreated');
 goog.require('lgb.simulation.model.voNative.SimStateNative');
 
 
@@ -56,25 +56,22 @@ lgb.controller.MainController.prototype.init = function() {
   };
 
 
-  this.guiController = new lgb.controller.GuiController();
-  this.scenarioController = new lgb.controller.ScenarioController();
-
-  /**
-   * @type {Element}
-   * @private
-   */
-  this.containerDiv_ = document.createElement('div');
-  document.body.appendChild(this.containerDiv_);
+  this.layoutController_ = new lgb.controller.LayoutController();
+  this.layoutController_.init();
   
    $('title').html(lgb.Config.getTitle());
    
+  this.guiController = new lgb.controller.GuiController();
+  this.scenarioController = new lgb.controller.ScenarioController();
+   
   this.worldController_ = new
-    lgb.controller.WorldController(this.containerDiv_);
+    lgb.controller.WorldController();
 
   this.worldController_.init();
+    
 
-  var e = new lgb.events.WorldCreated();
-  this.dispatch(e);
+
+  $(window).resize(this.d(this.onWindowResize_));
   
    
   //this.simulationController_ = new lgb.controller.SimulationController();
@@ -92,11 +89,33 @@ lgb.controller.MainController.prototype.init = function() {
   lgb.logInfo('jQuery version: ' + $('').jquery);
   lgb.logInfo('jQuery.ui version: ' + $.ui.version);
 
-  $(window).resize(this.d(this.onWindowResize_));
 
 };
 
 
+
+/**
+ * Handles the browser resize event
+ * then dispatches a lgb event
+ * @private
+ * @param {Event} event The browser's event.
+ */
+lgb.controller.MainController.prototype.onWindowResize_ =
+  function(event) {
+
+  var w = window.innerWidth;
+  var h = window.innerHeight;
+  
+   this.dispatch(
+     new lgb.events.WindowResize(
+       w,
+       h
+     )
+   );
+  
+  return;
+
+};
 
 /**
  * Injects the HTML needed for the modal
@@ -149,20 +168,3 @@ lgb.controller.MainController.prototype.injectErrorWindow_ = function() {
 };
 
 
-/**
- * Handles the browser resize event
- * then dispatches a lgb event
- * @private
- * @param {Event} event The browser's event.
- */
-lgb.controller.MainController.prototype.onWindowResize_ =
-  function(event) {
-
-  this.dispatch(
-    new lgb.events.WindowResize(
-      window.innerWidth,
-      window.innerHeight
-    )
-  );
-
-};

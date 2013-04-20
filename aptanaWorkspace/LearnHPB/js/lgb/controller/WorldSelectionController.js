@@ -20,10 +20,9 @@ goog.require('goog.array');
  * @param {Element} containerDiv The DIV to use.
  * @param {THREE.Camera} camera We need a reference to this to pass to the view.
  */
-lgb.controller.WorldSelectionController = function(containerDiv, camera) {
+lgb.controller.WorldSelectionController = function( camera) {
 
   lgb.controller.ControllerBase.call(this);
-  this.containerDiv_ = containerDiv;
   this.camera_ = camera;
   this.init_();
 

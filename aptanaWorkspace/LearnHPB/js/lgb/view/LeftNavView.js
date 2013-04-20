@@ -134,7 +134,7 @@ lgb.view.LeftNavView.prototype.injectHtml_ = function() {
           opacity: '0.92',
           padding: '60px 0 0 10px'
         })
-    .appendTo('body');
+    .appendTo('#webGLcanvas');
 };
 
 

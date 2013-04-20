@@ -1,72 +1,35 @@
 {
 
 	"objects": {
-		"FrontRightWall_09ft": {
-			"geometry": "Geom_FrontRight_09ft",
-			"groups": ["9ft"]
-		},
-		"BackLeftWall_09ft": {
-			"geometry": "Geom_FrontRight_09ft",
+		"floor9ft": {
+			"geometry": "Geom_Floor_9ft",
 			"groups": ["9ft"],
-			"position": [0, 0, -0.07600],
-			"rotation": [0, 3.14154, 0]
+			"position": [0, 0, 0]
 		},
-		"Floor_All": {
-			"geometry": "Geom_Floor_All",
-			"groups": ["9ft", "11ft", "13ft"]
-		},
-		"Ceiling_09ft": {
-			"geometry": "Geom_Floor_All",
-			"groups": ["9ft"],
-			"position": [0, 3.50520, 0]
-		},
-		"FrontRightWall_11ft": {
-			"geometry": "Geom_FrontRightWall_11ft",
-			"groups": ["11ft"]
-		},
-		"BackRightWall_11ft": {
-			"geometry": "Geom_FrontRightWall_11ft",
+		"floor11ft": {
+			"geometry": "Geom_Floor_11ft",
 			"groups": ["11ft"],
-			"position": [0, 0, -0.07600],
-			"rotation": [0, 3.14154, 0]
+			"position": [0, 0, 0]
 		},
-		"Ceiling_11ft": {
-			"geometry": "Geom_Floor_All",
-			"groups": ["11ft"],
-			"position": [0, 4.11480, 0]
-		},
-		"FrontRightWall_13ft": {
-			"geometry": "Geom_FrontRightWall_13ft",
-			"groups": ["13ft"]
-		},
-		"BackRightWall_13ft": {
-			"geometry": "Geom_FrontRightWall_13ft",
+		"floor13ft": {
+			"geometry": "Geom_Floor_13ft",
 			"groups": ["13ft"],
-			"position": [0, 0, -0.07600],
-			"rotation": [0, 3.14154, 0]
-		},
-		"Ceiling_13ft": {
-			"geometry": "Geom_Floor_All",
-			"groups": ["13ft"],
-			"position": [0, 4.72510, 0]
+			"position": [0, 0, 0]
 		}
 	},
 	"geometries": {
-		"Geom_FrontRight_09ft": {
+
+		"Geom_Floor_9ft": {
 			"type": "binary",
-			"url": "FrontRightWall_09ft.obj.json"
+			"url": "floor9ft.obj.json"
 		},
-		"Geom_FrontRightWall_11ft": {
+		"Geom_Floor_11ft": {
 			"type": "binary",
-			"url": "FrontRightWall_11ft.obj.json"
+			"url": "floor11ft.obj.json"
 		},
-		"Geom_FrontRightWall_13ft": {
+		"Geom_Floor_13ft": {
 			"type": "binary",
-			"url": "FrontRightWall_13ft.obj.json"
-		},
-		"Geom_Floor_All": {
-			"type": "binary",
-			"url": "Floor_All.obj.json"
+			"url": "floor13ft.obj.json"
 		}
 	},
 	"transform" :

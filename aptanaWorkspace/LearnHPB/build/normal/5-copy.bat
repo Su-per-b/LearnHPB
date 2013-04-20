@@ -8,7 +8,7 @@ xcopy %SRC%\3d-assets %DEST%\3d-assets /y /i /s
 
 copy .\index.html  %DEST%\index.html
 copy .\htaccess.txt  %DEST%\.htaccess
-copy %SRC%\xml\ps9.xml  %DEST%\xml\ps9.xml
+copy %SRC%\xml\ps9.xml  %DEST%\xml\ps8.xml
 copy %SRC%\xml\DefaultScenario.xml  %DEST%\xml\DefaultScenario.xml
 xcopy %SRC%\images %DEST%\images /y /i /s
 copy %SRC%\css\lgb.min.css %DEST%\css\lgb.min.css

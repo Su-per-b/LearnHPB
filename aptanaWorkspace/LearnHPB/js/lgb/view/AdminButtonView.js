@@ -16,6 +16,8 @@ goog.require('lgb.view.component.ToggleButtonA');
  */
 lgb.view.AdminButtonView = function() {
   lgb.view.ViewBase.call(this);
+  this.parentHtmlID = lgb.Config.HUD_CONTAINER_STR;
+  
   this.htmlID = 'adminButton';
   this._NAME = 'lgb.view.AdminButtonView';
 };
@@ -32,44 +34,38 @@ lgb.view.AdminButtonView.prototype.init = function() {
       buttonHeight: 33,
       xPosition: 66,
       title: 'Show / Hide Admin panel',
-      cssClass: 'leftNavButton'
     });
 
-    this.injectCss();
-    this.injectHtml();
+    this.injectCss_();
+    this.injectHtml_();
     this.bind_();
-    this.listen(lgb.events.WindowResize.TYPE, this.onResize);
+
 };
+
 
 /**
  * show the panel.
  */
 lgb.view.AdminButtonView.prototype.show = function() {
-  this.position();
+  this.jumpToPosition();
 };
 
 /**
  * Compute the location of the window.
  */
-lgb.view.AdminButtonView.prototype.position = function() {
+lgb.view.AdminButtonView.prototype.jumpToPosition = function() {
 
-  var x = this.getXpos();
+  var x = this.getXpos_();
 
   var props = {left: x + 'px'};
-    this.jq().css(props);
+  this.jq().css(props);
 };
 
+lgb.view.AdminButtonView.prototype.tweenToPosition = function() {
 
-/**
- * Event handler
- * @param {lgb.events.WindowResize} event Notiftys us the the browser
- * window has been resized.
- */
-lgb.view.AdminButtonView.prototype.onResize = function(event) {
+   var x = this.getXpos_();
 
-    var x = this.getXpos();
-
-    var options = {
+   var options = {
       duration: 500,
       easing: 'easeInOutSine'
   };
@@ -82,30 +78,37 @@ lgb.view.AdminButtonView.prototype.onResize = function(event) {
 
 };
 
+
 /**
  * used to calculation the position of the button.
  * @return {number} the position x.
  */
-lgb.view.AdminButtonView.prototype.getXpos = function() {
-  return window.innerWidth - 33 - 4;
+lgb.view.AdminButtonView.prototype.getXpos_ = function() {
+    
+  var x = this.jqParent().width();
+  x = x - 33 -4
+  
+  return x;
 };
+
+
 
 /**
  * Injects the HTML into the DOM.
  */
-lgb.view.AdminButtonView.prototype.injectHtml = function() {
+lgb.view.AdminButtonView.prototype.injectHtml_ = function() {
   var html = '<div id="adminButton">' + this.button.getHtml() +
         '</div>';
 
 
-   $('body').append(html);
+   this.append(html);
 };
 
 
 /**
  * Injects the CSS into the DOM.
  */
-lgb.view.AdminButtonView.prototype.injectCss = function() {
+lgb.view.AdminButtonView.prototype.injectCss_ = function() {
 
     var cssInner = this.button.getCss();
     var cssStr = "<style type='text/css'>{0}</style>".format(cssInner);

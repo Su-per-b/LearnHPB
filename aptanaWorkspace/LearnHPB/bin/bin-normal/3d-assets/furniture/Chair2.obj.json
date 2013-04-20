@@ -1,0 +1,31 @@
+{
+
+    "metadata" :
+    {
+        "formatVersion" : 3.1,
+        "sourceFile"    : "Chair2.obj",
+        "generatedBy"   : "OBJConverter",
+        "vertices"      : 2247,
+        "faces"         : 1192,
+        "normals"       : 3576,
+        "uvs"           : 985,
+        "materials"     : 1
+    },
+
+    "materials": [	{
+	"DbgColor" : 15658734,
+	"DbgIndex" : 0,
+	"DbgName" : "Default",
+	"colorAmbient" : [0.784314, 0.784314, 0.784314],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"mapAmbient" : "images/ChairUV3.jpg",
+	"mapDiffuse" : "images/ChairUV3.jpg",
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	}],
+
+    "buffers": "Chair2.obj.bin"
+
+}

@@ -12,6 +12,8 @@ goog.require('lgb.events.ScenarioParsed');
 goog.require('lgb.events.WorldSelectionChanged');
 goog.require('lgb.view.PropertiesButtonView');
 goog.require('lgb.view.PropertiesView');
+goog.require('lgb.events.WindowResize');
+goog.require('lgb.events.LayoutChange');
 
 
 /**
@@ -20,20 +22,23 @@ goog.require('lgb.view.PropertiesView');
  */
 lgb.controller.PropertiesController = function() {
   lgb.controller.ControllerBase.call(this);
-
-  this.listen(lgb.events.ScenarioParsed.TYPE, this.onScenarioParsed);
+    this.init_();
 };
 goog.inherits(
   lgb.controller.PropertiesController,
   lgb.controller.ControllerBase);
 
 
+lgb.controller.PropertiesController.prototype.init_ = function() {
+    this.bind_();
+};
+
 
 /**
  * @param {lgb.events.ScenarioParsed} event The event fired when the XML
  * is parsed.
  */
-lgb.controller.PropertiesController.prototype.onScenarioParsed =
+lgb.controller.PropertiesController.prototype.onScenarioParsed_ =
   function(event) {
 
   this.buttonView = new lgb.view.PropertiesButtonView();
@@ -61,6 +66,25 @@ lgb.controller.PropertiesController.prototype.onScenarioParsed =
 
 };
 
+
+
+lgb.controller.PropertiesController.prototype.bind_ = function() {
+    
+  this.listen(lgb.events.ScenarioParsed.TYPE, this.onScenarioParsed_);
+  this.listen(lgb.events.WindowResize.TYPE, this.onWindowResize_);
+  this.listen(lgb.events.LayoutChange.TYPE, this.onLayoutChange_);
+};
+
+
+
+lgb.controller.PropertiesController.prototype.onLayoutChange_ = function(event) {
+    this.buttonView.tweenToPosition();
+};
+
+
+lgb.controller.PropertiesController.prototype.onWindowResize_ = function(event) {
+    this.buttonView.tweenToPosition();
+};
 
 
 /**

@@ -13,14 +13,14 @@ goog.require('lgb.view.ViewBase');
  * @extends {lgb.view.ViewBase}
  */
 lgb.view.TitleBarView = function() {
-
-  lgb.view.ViewBase.call(this);
+    
   this._NAME = 'lgb.view.TitleBarView';
-  
   this.htmlID = 'titleBar';
+  this.parentHtmlID = lgb.Config.HUD_CONTAINER_STR;
+  
+  lgb.view.ViewBase.call(this);
 
   this.injectHtml_();
-  this.bind_();
 
 };
 goog.inherits(lgb.view.TitleBarView, lgb.view.ViewBase);
@@ -31,60 +31,107 @@ goog.inherits(lgb.view.TitleBarView, lgb.view.ViewBase);
  */
 lgb.view.TitleBarView.prototype.injectHtml_ = function() {
     
-    $('<div>')
+    var element = $('<div>')
     .attr('id', this.htmlID)
     .css({
-        top: '-41px',
-        width: '245px',
-        height: '41px',
+        top: '-69px',
+        width: '237px',
+        height: '69px',
         'z-index': '101',
-        'background-image': 'url(images/top_title.png)'
+        'background-image': 'url(images/top_title2.png)'
       })
     .center({
       vertical: false
-    })
-    .appendTo('body');
+    });
+    
+    this.append(element);
+
 
 };
 
+
+
+lgb.view.TitleBarView.prototype.show = function() {
+  this.jumpToPosition();
+};
 
 
 /**
- * Binds specific event types to functions which handle the events.
- * If no event target is specified then the listener is set  on the global
- * event bus.
- * @private
+ * used to calculation the position of the element.
+ * @return {number} the position x.
  */
-lgb.view.TitleBarView.prototype.bind_ = function() {
-    this.listen(lgb.events.WindowResize.TYPE, this.onResize);
+lgb.view.TitleBarView.prototype.getXpos_ = function() {
+    
+  // var w = window.innerWidth;
+ // var h = window.innerHeight;
+  
+  // var x = w - this.jqParent().width() + 20;
+  
+  
+  return 6;
 };
+
+
+/**
+ * Compute the location of the window.
+ */
+lgb.view.TitleBarView.prototype.jumpToPosition = function() {
+
+  var x = this.getXpos_();
+
+  var props = {
+    left: x + 'px',
+    top: 0
+  };
+  
+  
+  this.jq().css(props);
+};
+
+lgb.view.TitleBarView.prototype.tweenToPosition = function() {
+
+   var x = this.getXpos_();
+
+   var options = {
+      duration: 500,
+      easing: 'easeInOutSine'
+  };
+  var props = {left: x + 'px'};
+
+  this.jq().animate(
+      props,
+      options
+  );
+
+};
+
+
 
 /**
  * showe the title bar.
- */
+
 lgb.view.TitleBarView.prototype.show = function() {
 
     this.jq().animate({
       top: '0',
       easing: 'easeInOutSine'
     }, 500);
-
 };
+
 
 /**
  * event handler.
- * @param {lgb.events.WindowResize} event The event.
- */
-lgb.view.TitleBarView.prototype.onResize = function(event) {
+lgb.view.TitleBarView.prototype.tweenToPosition = function() {
 
-  var jq = this.jq();
+    var jq = this.jq();
 
     jq.center({
       vertical: false,
       duration: 500,
-      easing: 'easeInOutSine'
+      easing: 'easeInOutSine',
+      inside:this.jqParent()
     });
 };
 
-
+*/
 

@@ -37,7 +37,7 @@ goog.inherits(lgb.view.RoofTopView, lgb.view.ViewBase);
  */
 lgb.view.RoofTopView.prototype.onSceneLoaded_ = function() {
     
-    return;
+  return;
   for (var i = this.scene_.children.length - 1; i >= 0; i--) {
     
       var mesh = this.scene_.children.pop();

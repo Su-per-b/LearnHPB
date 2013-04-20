@@ -102,7 +102,7 @@ lgb.view.PropertiesView.prototype.makeDialog_ = function() {
     jq.direction = 'left';
     jq.bind('dialogclose', this.d(this.onCloseButtonClicked));
 
-    jq.appendTo('body');
+    jq.appendTo(lgb.Config.HUD_CONTAINER);
 
     this.dialog = jq.dialog({
       title: this.title,

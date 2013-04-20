@@ -1,10 +1,21 @@
 {
 
+    "metadata" :
+    {
+        "formatVersion" : 3.1,
+        "sourceFile"    : "TaskLight.obj",
+        "generatedBy"   : "OBJConverter",
+        "vertices"      : 1214,
+        "faces"         : 594,
+        "normals"       : 1782,
+        "uvs"           : 1,
+        "materials"     : 4
+    },
 
     "materials": [	{
 	"DbgColor" : 15658734,
 	"DbgIndex" : 0,
-	"DbgName" : "blackLampMetal",
+	"DbgName" : "quadlamps_56",
 	"colorAmbient" : [0.042898, 0.0430043, 0.0433645],
 	"colorDiffuse" : [0.35, 0.35, 0.35],
 	"colorSpecular" : [0.5, 0.5, 0.5],
@@ -36,7 +47,6 @@
 	"specularCoef" : 159.0,
 	"transparency" : 1.0,
 	"shading" : "phong"
-	
 	},
 
 	{

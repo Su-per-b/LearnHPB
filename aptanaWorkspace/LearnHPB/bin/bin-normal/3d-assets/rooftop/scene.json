@@ -85,15 +85,15 @@
 		},
 		"geo_Boiler": {
 			"type": "binary",
-			"url": "boiler3b.obj.json"
+			"url": "test3.obj.json"
 		},
 		"geo_Cooler": {
 			"type": "binary",
-			"url": "Cooler2.obj.json"
+			"url": "test3.obj.json"
 		},
 		"geo_Chiller": {
 			"type": "binary",
-			"url": "chiller.obj.json"
+			"url": "test3.obj.json"
 		}
 	},
 	

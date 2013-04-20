@@ -290,8 +290,6 @@ lgb.view.PsView.prototype.setY_ = function() {
 
 
 
-
-
 /**
  * event Handler
  * @param {lgb.events.Render} event The event.

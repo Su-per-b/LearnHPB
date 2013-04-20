@@ -360,7 +360,7 @@ THREE.TrackballControlsEx = function ( object, domElement ) {
 	function mouseup( event ) {
     this.isDirty = true;
 		event.preventDefault();
-		event.stopPropagation();
+		//event.stopPropagation();
 
 		_state = this.STATE.NONE;
 
@@ -375,6 +375,8 @@ THREE.TrackballControlsEx = function ( object, domElement ) {
 		};
 
 	};
+
+        
 
 	this.domElement.addEventListener( 'contextmenu', function ( event ) { event.preventDefault(); }, false );
 

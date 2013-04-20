@@ -3,7 +3,7 @@
         "gridRecessed": {
             "position": [
                 0,
-                1.65,
+                -1.1,
                 0
             ],
             "columnCount": 12,
@@ -14,7 +14,7 @@
         "gridPendant": {
             "position": [
                 0,
-                -0.4,
+                -1.89,
                 0
             ],
             "columnCount": 10,

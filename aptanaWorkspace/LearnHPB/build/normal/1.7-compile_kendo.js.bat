@@ -13,7 +13,6 @@ call:js kendo.fx.js
 call:js kendo.tabstrip.js
 call:js kendo.grid.js
 call:js kendo.window.js
-call:js kendo.draganddrop.js
 call:js kendo.slider.js
 
 

@@ -231,6 +231,54 @@
 			"position": [1.2479, 0.57, 0.801],
 			"rotation": [0, 1.570758, 0],
 			"groups": ["QuadOfficeGroup"]
+		},
+		"Computer_01": {
+			"geometry": "geo_Computer",
+			"position": [-1.80, 0.91, -0.774],
+			"rotation": [0, 0, 0],
+			"groups": ["QuadOfficeGroup"]
+		},
+		"Computer_02": {
+			"geometry": "geo_Computer",
+			"position": [1.80, 0.91, -0.774],
+			"rotation": [0, 3.1416, 0],
+			"groups": ["QuadOfficeGroup"]
+		},
+		"Computer_03": {
+			"geometry": "geo_Computer",
+			"position": [-1.80, 0.91, 0.774],
+			"rotation": [0, 0, 0],
+			"groups": ["QuadOfficeGroup"]
+		},
+		"Computer_04": {
+			"geometry": "geo_Computer",
+			"position": [1.80, 0.91, 0.774],
+			"rotation": [0, 3.1416, 0],
+			"groups": ["QuadOfficeGroup"]
+		},
+		"TaskLight_01": {
+			"geometry": "geo_TaskLight",
+			"position": [-1.7636, 1.0, -0.4],
+			"rotation": [0, 0.179768913, 0],
+			"groups": ["QuadOfficeGroup"]
+		},
+		"TaskLight_02": {
+			"geometry": "geo_TaskLight",
+			"position": [1.7636, 1.0, -0.4],
+			"rotation": [0, 1.78547182, 0],
+			"groups": ["QuadOfficeGroup"]
+		},
+		"TaskLight_03": {
+			"geometry": "geo_TaskLight",
+			"position": [-1.7636, 1.0, 0.4],
+			"rotation": [0, 4.96022573, 0],
+			"groups": ["QuadOfficeGroup"]
+		},
+		"TaskLight_04": {
+			"geometry": "geo_TaskLight",
+			"position": [1.7636, 1.0, 0.4],
+			"rotation": [0, 3.55349036, 0],
+			"groups": ["QuadOfficeGroup"]
 		}
 	},
 
@@ -272,7 +320,7 @@
 	
 	"transform" :
 	{
-	    "position"  : [ 0, 0.148, 0 ],
+	    "position"  : [ 0, 0.15, 0 ],
 	    "rotation"  : [ 0, 0, 0 ],
 	    "scale"     : [1, 1, 1]
 	}

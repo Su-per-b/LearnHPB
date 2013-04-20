@@ -17,20 +17,24 @@ goog.require('lgb.view.ViewBase');
  * @param {Object} camera The object to use usually the camera.
  * @param {Element} domElement The div to use as a touch pad.
  */
-lgb.view.TrackBallView = function(domElement, camera) {
+lgb.view.TrackBallView = function( camera) {
   /**@constant **/
   this._NAME = 'lgb.view.TrackBallView';
   /**@constant **/
   this._SENSITIVITY = -0.4;
-
+  
   lgb.view.ViewBase.call(this);
-  this.domElement_ = domElement;
+  this.parentHtmlID = lgb.Config.HUD_CONTAINER_STR;
+  
+
+  var p = this.jqParent();
+  this.domElement_ = p.get(0);
   this.camera_ = camera;
 
   /**@type {THREE.TrackballControlsEx} */
-  this.trackballControls;
+ // this.trackballControls;
 
-  this.trackballControls = new THREE.TrackballControlsEx(camera, domElement);
+  this.trackballControls = new THREE.TrackballControlsEx(camera, this.domElement_);
   this.init_();
 };
 goog.inherits(lgb.view.TrackBallView, lgb.view.ViewBase);

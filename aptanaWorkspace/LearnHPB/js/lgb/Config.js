@@ -44,7 +44,7 @@ lgb.Config.APP_TITLE = 'Learn High Performance Buildings';
  * @const
  * @type {string}
  */
-lgb.Config.APP_VERSION = 'Alph 0.6.1';
+lgb.Config.APP_VERSION = 'Demo 12.0';
 
 /**
  * Will show status in the upper left if set to true.
@@ -52,6 +52,10 @@ lgb.Config.APP_VERSION = 'Alph 0.6.1';
  * @type {boolean}
  */
 lgb.Config.SHOW_STATS = true;
+
+
+lgb.Config.HUD_CONTAINER = "#webGLcanvas";
+lgb.Config.HUD_CONTAINER_STR = "webGLcanvas";
 
 /**
  * The file that holds the Three.js scene for all the particle systems.
