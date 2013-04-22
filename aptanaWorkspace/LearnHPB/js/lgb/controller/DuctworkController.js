@@ -11,6 +11,7 @@ goog.require('lgb.events.SelectableLoaded');
 goog.require('lgb.model.DuctworkModel');
 goog.require('lgb.view.DuctworkView');
 goog.require('lgb.events.BuildingHeightChanged');
+goog.require('lgb.events.ViewPointCollectionLoaded');
 goog.require('lgb.model.BuildingHeightModel');
 
 /**
@@ -57,6 +58,12 @@ lgb.controller.DuctworkController.prototype.bind_ = function() {
     this.onBuildingHeightChanged_
     );
     
+  this.listenTo(
+    this.view,
+    lgb.events.ViewPointCollectionLoaded.TYPE,
+    this.viewPointCollectionLoaded_
+    );
+    
      
 };
 
@@ -67,6 +74,13 @@ lgb.controller.DuctworkController.prototype.onBuildingHeightChanged_ =
   this.view.setBuildingHeight(event.payload);
   
 };
+
+
+lgb.controller.DuctworkController.prototype.viewPointCollectionLoaded_ =
+  function(event) {
+  this.dispatch(event);
+};
+
 
 
 /**

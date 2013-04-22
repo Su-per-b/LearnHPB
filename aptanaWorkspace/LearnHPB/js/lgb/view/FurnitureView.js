@@ -53,8 +53,7 @@ lgb.view.FurnitureView.prototype.onSceneLoaded_ = function() {
   
     var viewPointNodeCollection = new lgb.model.ViewPointCollection(
         "Furniture", this.masterGroup_.children);
-
-    
+        
     var event = new lgb.events.ViewPointCollectionLoaded(viewPointNodeCollection);
     this.dispatchLocal(event);
     

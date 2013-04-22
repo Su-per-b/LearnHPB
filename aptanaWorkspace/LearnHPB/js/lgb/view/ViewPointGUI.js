@@ -3,7 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.view.ViewPointGUIView');
+goog.provide('lgb.view.ViewPointGUI');
 
 goog.require('lgb.component.Link');
 goog.require('lgb.component.LinkDataSource');
@@ -22,21 +22,21 @@ goog.require('lgb.view.ViewBase');
  * @param {string} parentHtmlID the CSS id of the parent to inject into the DOM.
  * @extends {lgb.view.ViewBase}
  */
-lgb.view.ViewPointGUIView = function(dataModel, parentHtmlID) {
+lgb.view.ViewPointGUI = function(dataModel, parentHtmlID) {
 
   this.parentHtmlID = parentHtmlID;
-  this._NAME = 'lgb.view.ViewPointGUIView';
-  this.htmlID = 'ViewPointGUIView';
+  this._NAME = 'lgb.view.ViewPointGUI';
+  this.htmlID = 'ViewPointGUI';
   
   lgb.view.ViewBase.call(this, dataModel);
 };
-goog.inherits(lgb.view.ViewPointGUIView, lgb.view.ViewBase);
+goog.inherits(lgb.view.ViewPointGUI, lgb.view.ViewBase);
 
 
 /**
  * Initializes the View
  */
-lgb.view.ViewPointGUIView.prototype.init = function() {
+lgb.view.ViewPointGUI.prototype.init = function() {
   this.injectHtml();
   this.bind_();
 };
@@ -48,7 +48,7 @@ lgb.view.ViewPointGUIView.prototype.init = function() {
  * event bus.
  * @private
  */
-lgb.view.ViewPointGUIView.prototype.bind_ = function() {
+lgb.view.ViewPointGUI.prototype.bind_ = function() {
     
    // this.kendoTreeView_.bind("select", this.d(this.onSelect_))
 };
@@ -59,7 +59,7 @@ lgb.view.ViewPointGUIView.prototype.bind_ = function() {
  * @private
  * @param {lgb.events.MouseClick} event The Event.
  */
-lgb.view.ViewPointGUIView.prototype.onMouseClick_ = function(event) {
+lgb.view.ViewPointGUI.prototype.onMouseClick_ = function(event) {
 
   var idx = event.target.ds.data;
   var node = this.dataModel.viewPointNodeList[idx];
@@ -69,7 +69,7 @@ lgb.view.ViewPointGUIView.prototype.onMouseClick_ = function(event) {
 };
 
 
-lgb.view.ViewPointGUIView.prototype.onSelect_ = function(event) {
+lgb.view.ViewPointGUI.prototype.onSelect_ = function(event) {
 
   //var e = event;
   // var selectedNode = this.kendoTreeView_ .select();
@@ -95,7 +95,7 @@ lgb.view.ViewPointGUIView.prototype.onSelect_ = function(event) {
  * @override
  * @param {lgb.events.DataModelChanged} event The Event.
  */
-lgb.view.ViewPointGUIView.prototype.onChange = function(event) {
+lgb.view.ViewPointGUI.prototype.onChange = function(event) {
 
     var whatIsDirty = event.payload;
     
@@ -154,7 +154,7 @@ lgb.view.ViewPointGUIView.prototype.onChange = function(event) {
 /**
  * injects the html into the DOM
  */
-lgb.view.ViewPointGUIView.prototype.injectHtml = function() {
+lgb.view.ViewPointGUI.prototype.injectHtml = function() {
 
 
 /*

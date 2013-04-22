@@ -22,11 +22,11 @@ lgb.view.InputView.prototype.init = function() {
  
 
   var dataSource = new lgb.component.TabStripDataSource
-        ('TabStripTitle', this.parentHtmlID, 'tabStrip-viewpoints');
+        ('TabStripTitle', this.parentHtmlID, 'leftpanel-tabStrip');
         
        
-  dataSource.addTab('VIEWS', '<br />', 1);
-  dataSource.addTab('FAULTS', 'parent content 2 <br />', 2);
+  dataSource.addTab('Viewpoints', '<br />', 1);
+  dataSource.addTab('Airflow', 'parent content 2 <br />', 2);
 
   
   this.tabStrip1 = new lgb.component.TabStrip(dataSource);

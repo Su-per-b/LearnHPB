@@ -13,7 +13,7 @@ goog.require('lgb.model.ViewPointModel');
 
 goog.require('lgb.view.ViewPointAdminView');
 goog.require('lgb.view.ViewPointView');
-goog.require('lgb.view.ViewPointGUIView');
+goog.require('lgb.view.ViewPointGUI');
 goog.require('lgb.model.ViewPointCollection');
 
 goog.require('lgb.events.CamerasLoaded');
@@ -49,10 +49,8 @@ lgb.controller.ViewPointController.prototype.init_ = function() {
   
   this.view = new lgb.view.ViewPointView(this.dataModel);
   this.view.init();
-  
-  //this.adminView = new lgb.view.ViewPointAdminView (this.dataModel, 'adminView');
 
-  this.guiView = new lgb.view.ViewPointGUIView (this.dataModel, 'tabStrip-viewpoints-1');
+  this.guiView = new lgb.view.ViewPointGUI (this.dataModel, 'leftpanel-tabStrip-1');
   this.guiView.init();
   
   this.bind_();
@@ -114,16 +112,9 @@ lgb.controller.ViewPointController.prototype.bind_ = function() {
 
 lgb.controller.ViewPointController.prototype.onViewPointCollectionLoaded_ =
   function(event) {
-    
+ 
       this.dataModel.addViewPointCollection(event.payload);
       
-      // this.viewpointGroupsLoaded_++;
-      
-/*
-      if (this.viewpointGroupsLoaded_ > 1) {
-        this.adminView.init();
-      }     */
-
 };
 
 

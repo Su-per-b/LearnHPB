@@ -75,7 +75,12 @@ lgb.view.DuctworkView.prototype.onSceneLoaded_ = function(result) {
   
     this.sceneY_ = this.masterGroup_.position.y;
     this.setY_();
-
+    
+    var viewPointNodeCollection = new lgb.model.ViewPointCollection(
+        "DuctworkView", this.masterGroup_.children);
+        
+    var event = new lgb.events.ViewPointCollectionLoaded(viewPointNodeCollection);
+    this.dispatchLocal(event);
 };
 
 

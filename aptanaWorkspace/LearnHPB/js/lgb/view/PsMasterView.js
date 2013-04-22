@@ -3,7 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.view.PsViewMaster');
+goog.provide('lgb.view.PsMasterView');
 
 goog.require('lgb.view.ViewBase');
 goog.require('lgb.model.BuildingHeightModel');
@@ -13,21 +13,21 @@ goog.require('lgb.model.BuildingHeightModel');
  * @extends {lgb.view.ViewBase}
  * @param {lgb.model.LightingModel} dataModel The model to display.
  */
-lgb.view.PsViewMaster = function(dataModel) {
+lgb.view.PsMasterView = function(dataModel) {
   lgb.view.ViewBase.call(this, dataModel);
 
   this.dataModel = dataModel;
-  this._NAME = 'lgb.view.PsViewMaster';
+  this._NAME = 'lgb.view.PsMasterView';
   
   this.buildingHeightModel_ = null;
   this.sceneY_ = null;
   this.psControllers_ = [];
   this.bind_();
 };
-goog.inherits(lgb.view.PsViewMaster, lgb.view.ViewBase);
+goog.inherits(lgb.view.PsMasterView, lgb.view.ViewBase);
 
 
-lgb.view.PsViewMaster.prototype.init = function() {
+lgb.view.PsMasterView.prototype.init = function() {
 
   this.masterGroup_ = this.dataModel.masterGroup_;
 
@@ -48,7 +48,7 @@ lgb.view.PsViewMaster.prototype.init = function() {
 
 
 
-lgb.view.PsViewMaster.prototype.bind_ = function() {
+lgb.view.PsMasterView.prototype.bind_ = function() {
   
   this.listenTo(this.dataModel,
     lgb.events.DataModelInitialized.TYPE,
@@ -58,20 +58,20 @@ lgb.view.PsViewMaster.prototype.bind_ = function() {
 
 
 
-lgb.view.PsViewMaster.prototype.onDataModelInitialized_ = function(event) {
+lgb.view.PsMasterView.prototype.onDataModelInitialized_ = function(event) {
    
   this.init();
 };
     
     
-lgb.view.PsViewMaster.prototype.setBuildingHeight = function(buildingHeightModel) {
+lgb.view.PsMasterView.prototype.setBuildingHeight = function(buildingHeightModel) {
    
   this.buildingHeightModel_ = buildingHeightModel;
   this.setY_();
 };
 
 
-lgb.view.PsViewMaster.prototype.setY_ = function() {
+lgb.view.PsMasterView.prototype.setY_ = function() {
     
   if (null != this.buildingHeightModel_ && null != this.sceneY_) {
       this.masterGroup_.position.y = this.buildingHeightModel_.topFloorMaxY + this.sceneY_;
@@ -86,7 +86,7 @@ lgb.view.PsViewMaster.prototype.setY_ = function() {
  * @param {Object} result The result from the THREE.js lib.
  * @private
  */
-lgb.view.PsViewMaster.prototype.onSceneLoaded_ = function() {
+lgb.view.PsMasterView.prototype.onSceneLoaded_ = function() {
   
 
 

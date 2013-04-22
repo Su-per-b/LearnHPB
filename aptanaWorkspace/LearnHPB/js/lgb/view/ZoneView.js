@@ -97,7 +97,7 @@ lgb.view.ZoneView.prototype.addCube_ = function(zoneNumber, zoneShapeModel) {
     1, 1, 1);
 
     var cubeMesh = new THREE.Mesh(cubeGeom, this.material);
-    cubeMesh.name = this._NAME + '-zone-' + zoneNumber.toString();
+    cubeMesh.name = 'Zone ' + zoneNumber.toString();
     cubeMesh.visible = false;
 
     var x = -1 * floorWidth / 2;
@@ -144,15 +144,12 @@ lgb.view.ZoneView.prototype.onChange = function(event) {
   }
 
     if (!this.isInitialized_) {
-        // var nodeList = lgb.model.ViewPointNode.makeArray(this.masterGroup_.children);
-        // var event = new lgb.events.ViewPointCollectionLoaded(nodeList);
-        // this.dispatchLocal(event);
-        
-      //  var viewPointNodeCollection = new lgb.model.ViewPointCollection(
-           // "Thermal Zones", this.masterGroup_.children); 
 
-        //var event = new lgb.events.ViewPointCollectionLoaded(viewPointNodeCollection);
-       // this.dispatchLocal(event);
+        var viewPointNodeCollection = new lgb.model.ViewPointCollection(
+            "Zones", this.masterGroup_.children);
+            
+        var event = new lgb.events.ViewPointCollectionLoaded(viewPointNodeCollection);
+        this.dispatchLocal(event);
     
     }
 

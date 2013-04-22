@@ -15,7 +15,7 @@ goog.require('lgb.model.PsModel');
 goog.require('lgb.model.PsModelMaster');
 goog.require('lgb.view.ParticleSystemAdminView');
 goog.require('lgb.view.PsView');
-goog.require('lgb.view.PsViewMaster');
+goog.require('lgb.view.PsMasterView');
 
 
 
@@ -35,12 +35,11 @@ goog.inherits(lgb.controller.PsControllerMaster, lgb.controller.ControllerBase);
 lgb.controller.PsControllerMaster.prototype.init = function() {
     
   this.psDataModelMaster = new lgb.model.PsModelMaster();
-  this.psViewMaster = new lgb.view.PsViewMaster(this.psDataModelMaster);
+  this.psViewMaster = new lgb.view.PsMasterView(this.psDataModelMaster);
   
   this.bind_();
   
- // this.psViewMaster.init();
-   this.psDataModelMaster.load();
+  this.psDataModelMaster.load();
 };
 
 
