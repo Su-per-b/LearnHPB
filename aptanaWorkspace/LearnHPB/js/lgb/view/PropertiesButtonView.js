@@ -13,10 +13,10 @@ goog.require('lgb.view.component.ToggleButtonA');
  * @extends {lgb.view.ViewBase}
  */
 lgb.view.PropertiesButtonView = function() {
-  lgb.view.ViewBase.call(this);
-  this.htmlID = 'propertiesButton';
-  this.parentHtmlID = lgb.Config.HUD_CONTAINER_STR
-  
+    
+  this._NAME = 'lgb.view.PropertiesButtonView';
+  lgb.view.ViewBase.call(this, null, 'propertiesButton', lgb.Config.HUD_CONTAINER_STR);
+
 };
 goog.inherits(lgb.view.PropertiesButtonView, lgb.view.ViewBase);
 

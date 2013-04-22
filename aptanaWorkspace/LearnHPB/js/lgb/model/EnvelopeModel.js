@@ -16,6 +16,8 @@ goog.require('lgb.model.ModelBase');
 lgb.model.EnvelopeModel = function() {
   /**@const */
   this._NAME = 'lgb.model.EnvelopeModel';
+  lgb.model.ModelBase.call(this);
+  
   this.init_();
 };
 goog.inherits(lgb.model.EnvelopeModel, lgb.model.ModelBase);

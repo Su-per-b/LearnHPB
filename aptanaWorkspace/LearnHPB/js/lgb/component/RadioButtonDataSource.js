@@ -15,6 +15,7 @@ goog.require('lgb.component.DataSourceBase');
  * @param {string} subID The second part of the CSS ID for this element.
  */
 lgb.component.RadioButtonDataSource = function(title, parentHtmlID, subID) {
+  this._NAME = 'lgb.component.RadioButtonDataSource'; 
   lgb.component.DataSourceBase.call(this);
 
   this.title = title;
@@ -22,7 +23,6 @@ lgb.component.RadioButtonDataSource = function(title, parentHtmlID, subID) {
   this.htmlID = parentHtmlID + '-' + subID;
   this.selectionItems = [];
   this.theSelectedOne = null;
-  this._NAME = 'lgb.component.RadioButtonDataSource';
 };
 goog.inherits(
   lgb.component.RadioButtonDataSource,

@@ -18,10 +18,12 @@ goog.require('lgb.model.ViewPointCollection');
  * @param {lgb.model.FurnitureModel} dataModel The model to display.
  */
 lgb.view.FurnitureView = function(dataModel) {
-  lgb.view.ViewBase.call(this, dataModel);
-
+    
   this._NAME = 'lgb.view.FurnitureView';
   this._ASSETS_FOLDER = 'furniture';
+  
+  lgb.view.ViewBase.call(this, dataModel);
+
   this.topFloorMinY_ = null;
   this.sceneY_ = null;
   

@@ -17,11 +17,13 @@ goog.require('lgb.view.component.CheckBox');
  * @param {string} parentHtmlID The CSS ID of the parent in the DOM.
  */
 lgb.view.ParticleSystemAdminView = function(dataModel, parentHtmlID) {
-  lgb.view.ViewBase.call(this, dataModel);
-
-  this.parentHtmlID = parentHtmlID;
+    
   this._NAME = 'lgb.view.ParticleSystemAdminView';
-  this.htmlID = 'adminSubpanel-' + dataModel.getCssID() + '-' + dataModel.id;
+  var htmlID = 'adminSubpanel-' + dataModel.getCssID() + '-' + dataModel.id;
+    
+  lgb.view.ViewBase.call(this, dataModel, htmlID, parentHtmlID);
+
+
 };
 goog.inherits(lgb.view.ParticleSystemAdminView, lgb.view.ViewBase);
 

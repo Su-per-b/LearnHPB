@@ -14,7 +14,7 @@ goog.require('goog.events.Event');
  * @extends {goog.events.Event}
  */
 lgb.events.BuildingHeightChanged = function( buildingHeightModel ) {
-
+    
   goog.events.Event.call(this, lgb.events.BuildingHeightChanged.TYPE);
 
   /**

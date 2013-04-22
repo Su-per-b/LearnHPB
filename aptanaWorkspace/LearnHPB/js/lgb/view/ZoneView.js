@@ -22,12 +22,11 @@ goog.require('lgb.events.ViewPointCollectionLoaded');
  * @param {lgb.model.ZoneModel} dataModel The Data Model.
  */
 lgb.view.ZoneView = function(dataModel) {
+    
+  this._NAME = 'lgb.view.ZoneView';
   lgb.view.ViewBase.call(this, dataModel);
 
-
-  this._NAME = 'lgb.view.ZoneView';
   this.zoneVisibleIdx = -1;
-  
   this.buildingHeightModel_ = null;
   this.sceneY_ = null;
   this.isInitialized_ = false;

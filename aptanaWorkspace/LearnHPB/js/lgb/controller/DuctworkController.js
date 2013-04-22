@@ -20,7 +20,7 @@ goog.require('lgb.model.BuildingHeightModel');
  * @extends lgb.controller.ControllerBase
  */
 lgb.controller.DuctworkController = function() {
-
+  this._NAME = 'lgb.controller.DuctworkController';
   lgb.controller.ControllerBase.call(this);
   this.init_();
 };

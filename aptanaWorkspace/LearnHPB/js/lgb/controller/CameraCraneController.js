@@ -17,6 +17,7 @@ goog.require('lgb.controller.ControllerBase');
  * @extends lgb.controller.ControllerBase
  */
 lgb.controller.CameraCraneController = function() {
+  this._NAME = 'lgb.controller.CameraCraneController';
   lgb.controller.ControllerBase.call(this);
   this.debugMode = false;
   

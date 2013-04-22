@@ -22,13 +22,10 @@ goog.require('lgb.view.ViewBase');
  * @param {string} parentHtmlID the CSS id of the parent to inject into the DOM.
  * @extends {lgb.view.ViewBase}
  */
-lgb.view.ViewPointGUI = function(dataModel, parentHtmlID) {
+lgb.view.ViewPointGUI = function(dataModel) {
 
-  this.parentHtmlID = parentHtmlID;
   this._NAME = 'lgb.view.ViewPointGUI';
-  this.htmlID = 'ViewPointGUI';
-  
-  lgb.view.ViewBase.call(this, dataModel);
+  lgb.view.ViewBase.call(this, dataModel,'ViewPointGUI', 'leftpanel-tabStrip-1');
 };
 goog.inherits(lgb.view.ViewPointGUI, lgb.view.ViewBase);
 
@@ -50,32 +47,15 @@ lgb.view.ViewPointGUI.prototype.init = function() {
  */
 lgb.view.ViewPointGUI.prototype.bind_ = function() {
     
-   // this.kendoTreeView_.bind("select", this.d(this.onSelect_))
+    this.kendoTreeView_.bind("select", this.d(this.onSelect_))
 };
 
 
-/**
- * event handler
- * @private
- * @param {lgb.events.MouseClick} event The Event.
- */
-lgb.view.ViewPointGUI.prototype.onMouseClick_ = function(event) {
-
-  var idx = event.target.ds.data;
-  var node = this.dataModel.viewPointNodeList[idx];
-
-  this.dispatchLocal(new lgb.events.RequestGoToViewPoint(node));
-
-};
 
 
 lgb.view.ViewPointGUI.prototype.onSelect_ = function(event) {
 
-  //var e = event;
-  // var selectedNode = this.kendoTreeView_ .select();
   var selectedNode = event.node;
- // var textContent = event.node.textContent;
- 
   var dataItem = this.kendoTreeView_.dataItem(selectedNode);
   var viewPointNode = this.dataModel.getViewPoint(dataItem.value);
   
@@ -97,54 +77,6 @@ lgb.view.ViewPointGUI.prototype.onSelect_ = function(event) {
  */
 lgb.view.ViewPointGUI.prototype.onChange = function(event) {
 
-    var whatIsDirty = event.payload;
-    
-    if (whatIsDirty.viewPointCollection) {
-       // var d = whatIsDirty.viewPointCollection.getTreeData();
-       
-       // this.ds.add(d);
-    }
-    
-
-    return;
-/*
-    
-    var d = this.ds.data();
-    
-
-    
-    if (whatIsDirty.viewPointNodeList) {
-        
-        var k = this.kendoTreeView_;
-        
-        var newData = {
-            data: [
-                { text: "ffff", items: [
-                    { text: "tttt & Chairs" },
-                    { text: "Sofas" },
-                    { text: "Occasional Furniture" }
-                ] },
-                { text: "Decor", items: [
-                    { text: "Bed Linen" },
-                    { text: "Curtains & Blinds" },
-                    { text: "Carpets" }
-                ] }
-            ]
-        };
-        
-        
-         var d2 = { text: "ffff", items: [
-                    { text: "tttt & Chairs" },
-                    { text: "Sofas" },
-                    { text: "Occasional Furniture" }
-                ] };
-                
-               
-        
-       this.ds.add(d2);
-        
-    }*/
-
 
     
 };
@@ -157,37 +89,12 @@ lgb.view.ViewPointGUI.prototype.onChange = function(event) {
 lgb.view.ViewPointGUI.prototype.injectHtml = function() {
 
 
-/*
-
-        var newData = {
-            data: [
-                { text: "Heading 1", items: [
-                    { text: "tttt & Chairs" },
-                    { text: "Sofas" },
-                    { text: "Occasional Furniture" }
-                ] }
-            ]
-        };
-        
-        */
-
-        
-   // this.ds = {};
-
-
-    //this.ds = new kendo.data.HierarchicalDataSource({});
-
     var mainDiv = this.makeMainDiv();
     this.append(mainDiv);
     
     this.kendoTreeView_ =        
         mainDiv.kendoTreeView({
             dataSource: this.dataModel.kendoDS,
-            
-            select: this.d(this.onSelect_),
         }).data("kendoTreeView");
-        
-     
-        
-        
+    
 };

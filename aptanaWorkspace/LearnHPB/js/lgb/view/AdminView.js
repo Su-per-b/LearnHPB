@@ -12,6 +12,7 @@ goog.require('lgb.view.DialogView');
  * @extends {lgb.view.DialogView}
  */
 lgb.view.AdminView = function() {
+  this._NAME = 'lgb.view.AdminView';
   lgb.view.DialogView.call(this, null);
 
   this.htmlID = 'adminView';
@@ -19,7 +20,7 @@ lgb.view.AdminView = function() {
   this.injectHtml_();
   this.bind_();
   this.useSlideEffect = false;
-  this._NAME = 'lgb.view.AdminView';
+
 };
 goog.inherits(lgb.view.AdminView, lgb.view.DialogView);
 

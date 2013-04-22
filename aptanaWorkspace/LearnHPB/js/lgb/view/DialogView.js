@@ -13,11 +13,13 @@ goog.require('lgb.view.ViewBase');
  * @param {lgb.model.ModelBase=} dataModel The data model to display.
  * @extends {lgb.view.ViewBase}
  */
-lgb.view.DialogView = function(dataModel) {
-  lgb.view.ViewBase.call(this, dataModel);
-  this.subPanels = [];
-    this.useSlideEffect = false;
+lgb.view.DialogView = function(dataModel, htmlID, parentHtmlID) {
+    
   this._NAME = 'lgb.view.DialogView';
+  lgb.view.ViewBase.call(this, dataModel, htmlID, parentHtmlID);
+  this.subPanels = [];
+  this.useSlideEffect = false;
+
 };
 goog.inherits(lgb.view.DialogView, lgb.view.ViewBase);
 

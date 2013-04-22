@@ -25,11 +25,10 @@ goog.require('lgb.view.ViewBase');
  * @extends {lgb.view.ViewBase}
  */
 lgb.view.LightingAdminView = function(dataModel, parentHtmlID) {
-  lgb.view.ViewBase.call(this, dataModel);
-
-  this.parentHtmlID = parentHtmlID;
+    
   this._NAME = 'lgb.view.LightingAdminView';
-  this.htmlID = 'LightingAdminView';
+  lgb.view.ViewBase.call(this, dataModel, 'LightingAdminView', parentHtmlID);
+
   this.init_();
 };
 goog.inherits(lgb.view.LightingAdminView, lgb.view.ViewBase);

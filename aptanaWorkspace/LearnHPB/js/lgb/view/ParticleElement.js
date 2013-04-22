@@ -16,15 +16,17 @@ goog.require('lgb.view.ViewBase');
  * @param {THREE.ParticleBasicMaterial} pMaterial the material to use.
  */
 lgb.view.ParticleElement = function(pMaterial) {
+    
+  this._NAME = 'lgb.view.ParticleElement';
+  
   lgb.view.ViewBase.call(this);
 
   this.pMaterial = pMaterial;
-
   this.threeParticle = new THREE.Particle(pMaterial);
 
   this.currentFrameNumber = 0;
-    this.isFinished = false;
-  this._NAME = 'lgb.view.ParticleElement';
+  this.isFinished = false;
+
 };
 goog.inherits(lgb.view.ParticleElement, lgb.view.ViewBase);
 

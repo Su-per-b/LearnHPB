@@ -19,11 +19,10 @@ goog.require('lgb.view.ViewBase');
  * @param {lgb.model.RoofTopModel} dataModel The data model to display.
  */
 lgb.view.RoofTopView = function(dataModel) {
-  lgb.view.ViewBase.call(this, dataModel);
-
-  this.dataModel = dataModel;
+    
   this._NAME = 'lgb.view.RoofTopView';
   this._ASSETS_FOLDER = 'rooftop';
+  lgb.view.ViewBase.call(this, dataModel);
 
 };
 goog.inherits(lgb.view.RoofTopView, lgb.view.ViewBase);

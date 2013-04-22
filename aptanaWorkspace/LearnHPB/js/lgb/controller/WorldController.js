@@ -28,6 +28,7 @@ goog.require('lgb.events.LayoutChange');
  * when we render 3D.
  */
 lgb.controller.WorldController = function() {
+  this._NAME = 'lgb.controller.WorldController';
   lgb.controller.ControllerBase.call(this);
   this.parentHtmlID = lgb.Config.HUD_CONTAINER_STR;
 };

@@ -9,19 +9,18 @@ goog.require('lgb.view.ViewBase');
 goog.require('lgb.view.component.ToggleButtonA');
 
 
-
 /**
  * @constructor
  * @extends {lgb.view.ViewBase}
  */
 lgb.view.AdminButtonView = function() {
-  lgb.view.ViewBase.call(this);
-  this.parentHtmlID = lgb.Config.HUD_CONTAINER_STR;
-  
-  this.htmlID = 'adminButton';
+
   this._NAME = 'lgb.view.AdminButtonView';
+    
+  lgb.view.ViewBase.call(this, null, 'adminButton', lgb.Config.HUD_CONTAINER_STR);
 };
 goog.inherits(lgb.view.AdminButtonView, lgb.view.ViewBase);
+
 
 /**
  * Initializes the view.

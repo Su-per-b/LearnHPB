@@ -16,8 +16,10 @@ goog.require('lgb.view.ViewBase');
  * @param {Node} domElement Needed to create the camera.
  */
 lgb.view.CameraView = function(domElement) {
-  lgb.view.ViewBase.call(this);
+    
   this._NAME = 'lgb.view.CameraView';
+  lgb.view.ViewBase.call(this);
+
   this.domElement_ = domElement;
   
   this.offset_ = new THREE.Vector3(0,2,5);

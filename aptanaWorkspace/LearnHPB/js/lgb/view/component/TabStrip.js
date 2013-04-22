@@ -15,12 +15,11 @@ goog.require('lgb.component.TabStripDataSource');
  * for this component.
  */
 lgb.component.TabStrip = function(ds) {
-  lgb.view.ViewBase.call(this);
-  this.ds = ds;
-  
+    
   this._NAME = 'lgb.component.TabStrip';
-  this.setIds_(this.ds.htmlID, this.ds.parentHtmlID);
-  
+  lgb.view.ViewBase.call(this, null, ds.htmlID, ds.parentHtmlID);
+  this.ds = ds;
+
   this.makeElement_();
 };
 goog.inherits(lgb.component.TabStrip, lgb.view.ViewBase);
@@ -61,7 +60,6 @@ lgb.component.TabStrip.prototype.setOptions = function(options) {
         this.element_.css( 'width', this.options.width )
     }
 
- 
 };
 
 
@@ -90,8 +88,6 @@ lgb.component.TabStrip.prototype.injectCss = function() {
         var cssStr = "<style type='text/css'>{0}</style>".format(cssInner);
         $(cssStr).appendTo('head');
     }
-    
-
     
 }
 

@@ -18,11 +18,13 @@ goog.require('lgb.model.BuildingHeightModel');
  * @param {lgb.model.EnvelopeModel} dataModel The model to display.
  */
 lgb.view.ViewPointView = function(dataModel) {
-  lgb.view.ViewBase.call(this, dataModel);
-
+    
   /**@const */
   this._NAME = 'lgb.view.ViewPointView';
   this._ASSETS_FOLDER = 'viewpoints';
+  
+  lgb.view.ViewBase.call(this, dataModel);
+
   this.topFloorMinY_ = null;
   this.sceneY_ = null;
   

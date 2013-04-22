@@ -22,7 +22,7 @@ goog.require('lgb.model.BuildingHeightModel');
  * @extends lgb.controller.ControllerBase
  */
 lgb.controller.FurnitureController = function() {
-
+  this._NAME = 'lgb.controller.FurnitureController';
   lgb.controller.ControllerBase.call(this);
   this.init_();
 };

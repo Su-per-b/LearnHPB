@@ -14,11 +14,12 @@ goog.require('lgb.model.BuildingHeightModel');
  * @param {lgb.model.DuctworkModel} dataModel The model to display.
  */
 lgb.view.DuctworkView = function(dataModel) {
-  lgb.view.ViewBase.call(this, dataModel);
-
-  this.dataModel = dataModel;
+    
   this._NAME = 'lgb.view.DuctworkView';
   this._ASSETS_FOLDER = 'hvac';
+  
+  lgb.view.ViewBase.call(this, dataModel);
+
   this.buildingHeightModel_ = null;
   this.sceneY_ = null;
   

@@ -14,6 +14,8 @@ goog.require('lgb.view.ViewBase');
  * @extends {lgb.view.ViewBase}
  */
 lgb.view.component.ToggleButtonA = function(options) {
+    
+  this._NAME = 'lgb.view.component.ToggleButtonA';
   lgb.view.ViewBase.call(this);
 
   this.options = $.extend({ // Default values
@@ -27,7 +29,7 @@ lgb.view.component.ToggleButtonA = function(options) {
   this.htmlID = options.htmlID;
   this.isSelected = false;
 
-  this._NAME = 'lgb.view.component.ToggleButtonA';
+
 };
 goog.inherits(lgb.view.component.ToggleButtonA, lgb.view.ViewBase);
 

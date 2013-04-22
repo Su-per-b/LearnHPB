@@ -16,7 +16,7 @@ goog.require('lgb.view.RoofTopView');
  * @extends lgb.controller.ControllerBase
  */
 lgb.controller.RoofTopController = function() {
-
+  this._NAME = 'lgb.controller.RoofTopController';
   lgb.controller.ControllerBase.call(this);
   this.init_();
 };

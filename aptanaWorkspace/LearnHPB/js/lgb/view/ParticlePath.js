@@ -16,6 +16,8 @@ goog.require('lgb.view.ViewBase');
  * @param {number} frameCount The number of animation frames.
  */
 lgb.view.ParticlePath = function(curve, frameCount) {
+    
+  this._NAME = 'lgb.view.ParticlePath';
   lgb.view.ViewBase.call(this);
 
   this.curve = curve;
@@ -27,7 +29,7 @@ lgb.view.ParticlePath = function(curve, frameCount) {
   this.frameCount = frameCount;
   this.calculateAnimationFrames();
 
-  this._NAME = 'lgb.view.ParticlePath';
+
 };
 goog.inherits(lgb.view.ParticlePath, lgb.view.ViewBase);
 

@@ -18,14 +18,13 @@ goog.require('lgb.view.ViewBase');
  * @param {Element} domElement The div to use as a touch pad.
  */
 lgb.view.TrackBallView = function( camera) {
+    
   /**@constant **/
   this._NAME = 'lgb.view.TrackBallView';
   /**@constant **/
   this._SENSITIVITY = -0.4;
   
-  lgb.view.ViewBase.call(this);
-  this.parentHtmlID = lgb.Config.HUD_CONTAINER_STR;
-  
+  lgb.view.ViewBase.call(this, null, null, lgb.Config.HUD_CONTAINER_STR);
 
   var p = this.jqParent();
   this.domElement_ = p.get(0);

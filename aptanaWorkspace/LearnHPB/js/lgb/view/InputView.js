@@ -6,11 +6,11 @@ goog.require('lgb.component.TabStripDataSource');
 
 
 lgb.view.InputView = function(dataModel, htmlID, parentHtmlID) {
-  lgb.view.ViewBase.call(this, dataModel);
-
+    
   this._NAME = 'lgb.view.InputView';
-  this.setIds_(htmlID, parentHtmlID);
   
+  lgb.view.ViewBase.call(this, dataModel, htmlID, parentHtmlID);
+
 };
 goog.inherits(lgb.view.InputView, lgb.view.ViewBase);
 
@@ -36,7 +36,6 @@ lgb.view.InputView.prototype.init = function() {
           width : "100%"
       }
   );
-  
   
   this.injectHtml();
   this.injectCss();

@@ -25,6 +25,7 @@ goog.require('lgb.simulation.model.voNative.SimStateNative');
  * @extends lgb.controller.ControllerBase
  */
 lgb.controller.MainController = function() {
+  this._NAME = 'lgb.controller.MainController';
   lgb.controller.ControllerBase.call(this);
   lgb.globalEventBus = new lgb.events.EventBus();
 

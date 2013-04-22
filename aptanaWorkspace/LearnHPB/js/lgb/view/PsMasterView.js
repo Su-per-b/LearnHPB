@@ -14,15 +14,15 @@ goog.require('lgb.model.BuildingHeightModel');
  * @param {lgb.model.LightingModel} dataModel The model to display.
  */
 lgb.view.PsMasterView = function(dataModel) {
-  lgb.view.ViewBase.call(this, dataModel);
-
-  this.dataModel = dataModel;
+    
   this._NAME = 'lgb.view.PsMasterView';
+  lgb.view.ViewBase.call(this, dataModel);
   
   this.buildingHeightModel_ = null;
   this.sceneY_ = null;
   this.psControllers_ = [];
   this.bind_();
+  
 };
 goog.inherits(lgb.view.PsMasterView, lgb.view.ViewBase);
 

@@ -18,11 +18,12 @@ lgb.model.BuildingHeightModel = function(topFloorMaxY,topFloorMinY) {
   this._NAME = 'lgb.model.BuildingHeightModel';
   /**@const */
   this._TITLE = 'Building';
+  lgb.model.ModelBase.call(this);
   
   this.topFloorMaxY = topFloorMaxY;
   this.topFloorMinY = topFloorMinY;
 
-  lgb.model.ModelBase.call(this);
+
 
 };
 goog.inherits(lgb.model.BuildingHeightModel, lgb.model.ModelBase);

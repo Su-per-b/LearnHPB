@@ -15,9 +15,10 @@ goog.require('lgb.view.component.InputWidget');
  */
 lgb.view.PropertiesView = function(dataModel) {
 
-  lgb.view.DialogView.call(this, dataModel);
+  this._NAME = 'lgb.view.PropertiesView';
+  lgb.view.DialogView.call(this, dataModel, 'propertiesView');
+  
   this.currentSelectionIdx = -1;
-  this.htmlID = 'propertiesView';
   this.title = 'Properties';
 
   /** @type {*} */
@@ -30,7 +31,6 @@ lgb.view.PropertiesView = function(dataModel) {
   this.showNode(this.dataModel.selectedSystemNode);
   this.setDropDownSelection(this.dataModel.selectedSystemNode);
 
-  this._NAME = 'lgb.view.PropertiesView';
 };
 goog.inherits(lgb.view.PropertiesView, lgb.view.DialogView);
 

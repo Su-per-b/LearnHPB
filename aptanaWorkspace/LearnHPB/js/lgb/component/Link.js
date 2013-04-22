@@ -18,11 +18,11 @@ goog.require('lgb.events.MouseOver');
  * for this component.
  */
 lgb.component.Link = function(ds) {
-  lgb.view.ViewBase.call(this);
-  this.ds = ds;
+  this._NAME = 'lgb.component.Link';
   
-  this.htmlID = this.ds.htmlID;
-  //this.selector_ = '#{0}'.format(this.ds.htmlID);
+  lgb.view.ViewBase.call(this, null, ds.htmlID);
+  this.ds = ds;
+
 };
 goog.inherits(lgb.component.Link, lgb.view.ViewBase);
 

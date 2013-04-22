@@ -30,7 +30,7 @@ goog.require('lgb.events.BuildingHeightChanged');
  * @extends lgb.controller.ControllerBase
  */
 lgb.controller.ViewPointController = function( ) {
-    
+  this._NAME = 'lgb.controller.ViewPointController';
   lgb.controller.ControllerBase.call(this);
   
   this.viewpointGroupsLoaded_ = 0;
@@ -50,7 +50,7 @@ lgb.controller.ViewPointController.prototype.init_ = function() {
   this.view = new lgb.view.ViewPointView(this.dataModel);
   this.view.init();
 
-  this.guiView = new lgb.view.ViewPointGUI (this.dataModel, 'leftpanel-tabStrip-1');
+  this.guiView = new lgb.view.ViewPointGUI (this.dataModel);
   this.guiView.init();
   
   this.bind_();

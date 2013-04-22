@@ -14,7 +14,7 @@ goog.require('lgb.view.LeftNavView');
  * @extends lgb.controller.ControllerBase
  */
 lgb.controller.LeftNavController = function() {
-
+  this._NAME = 'lgb.controller.LeftNavController';
   lgb.controller.ControllerBase.call(this);
   this.init_();
 

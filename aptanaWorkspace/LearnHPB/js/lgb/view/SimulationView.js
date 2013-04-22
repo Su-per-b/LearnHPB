@@ -18,11 +18,9 @@ goog.require('lgb.simulation.events.SimStateNativeRequest');
  * @extends {lgb.view.DialogView}
  */
 lgb.view.SimulationView = function(dataModel) {
-    lgb.view.DialogView.call(this, dataModel);
+    
+    lgb.view.DialogView.call(this, dataModel, 'simulationView');
 
-    this.dataModel = dataModel;
-
-    this.htmlID = 'simulationView';
     this.title = 'Simulation View';
 
     this.useSlideEffect = false;

@@ -15,7 +15,7 @@ goog.require('lgb.events.LayoutChange');
  * @extends lgb.controller.ControllerBase
  */
 lgb.controller.AdminController = function() {
-
+  this._NAME = 'lgb.controller.AdminController';
   lgb.controller.ControllerBase.call(this);
   this.init_();
 };

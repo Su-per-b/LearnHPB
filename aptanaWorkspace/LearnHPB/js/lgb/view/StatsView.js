@@ -39,10 +39,11 @@ goog.require('lgb.view.ViewBase');
  * @param {Element} containerDiv The DOM element to append to.
  */
 lgb.view.StatsView = function(containerDiv) {
+  this._NAME = 'lgb.view.StatsView';
   lgb.view.ViewBase.call(this);
 
   this.init(containerDiv);
-  this._NAME = 'lgb.view.StatsView';
+
 };
 goog.inherits(lgb.view.StatsView, lgb.view.ViewBase);
 

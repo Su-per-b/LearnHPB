@@ -15,12 +15,12 @@ goog.require('lgb.model.BuildingHeightModel');
  * @param {lgb.model.LightingModel} dataModel The model to display.
  */
 lgb.view.LightingView = function(dataModel) {
-  lgb.view.ViewBase.call(this, dataModel);
-
-  this.dataModel = dataModel;
+    
   this._NAME = 'lgb.view.LightingView';
   this._ASSETS_FOLDER = 'lighting';
   
+  lgb.view.ViewBase.call(this, dataModel);
+
   this.pendantGeom  = null;
   this.recessedGeom = null;
   

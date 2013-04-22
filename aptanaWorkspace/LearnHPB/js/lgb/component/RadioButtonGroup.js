@@ -15,6 +15,7 @@ goog.require('lgb.component.RadioButtonDataSource');
  * for this component.
  */
 lgb.component.RadioButtonGroup = function(ds) {
+  this._NAME = 'lgb.component.RadioButtonGroup'; 
   lgb.view.ViewBase.call(this);
   this.ds = ds;
 };

@@ -24,6 +24,7 @@ goog.require('lgb.view.PsMasterView');
  * @extends lgb.controller.ControllerBase
  */
 lgb.controller.PsControllerMaster = function() {
+  this._NAME = 'lgb.controller.PsControllerMaster';
   lgb.controller.ControllerBase.call(this);
   this.init();
 };

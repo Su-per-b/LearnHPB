@@ -11,6 +11,7 @@ goog.require('lgb.events.DataModelChanged');
 goog.require('lgb.events.RequestDataModelChange');
 goog.require('lgb.model.PsModel');
 goog.require('lgb.view.PsView');
+goog.require('lgb.view.PsMasterGUI');
 
 
 /**
@@ -19,6 +20,7 @@ goog.require('lgb.view.PsView');
  * @param {lgb.model.PsModel} dataModel The model.
  */
 lgb.controller.PsController = function(dataModel, parentMasterGroup) {
+  this._NAME = 'lgb.controller.PsController';
   lgb.controller.ControllerBase.call(this);
   this.dataModel = dataModel;
   this.parentMasterGroup_ = parentMasterGroup;
@@ -37,8 +39,11 @@ lgb.controller.PsController.prototype.init_ = function() {
   this.adminView = new
     lgb.view.ParticleSystemAdminView(this.dataModel, 'adminView');
 
+  this.psMasterGUI = new lgb.view.PsMasterGUI( this.dataModel, 'leftpanel-tabStrip-2' );
+
   this.bind_();
 
+  this.psMasterGUI.init();
   this.view.init();
   this.adminView.init();
 };

@@ -14,18 +14,23 @@ goog.require('lgb.view.ViewBase');
  * @extends {lgb.view.ViewBase}
  */
 lgb.view.component.InputWidget = function(dataModel) {
-  lgb.view.ViewBase.call(this, dataModel);
-
-  /**
-   * @const
-   * @type {string}
-   */
-  this.htmlID = 'component-InputWidget-' + dataModel.name;
+    
   /**
    * @const
    * @type {string}
    */
   this._NAME = 'lgb.view.component.InputWidget';
+  
+  /**
+   * @const
+   * @type {string}
+   */
+  var htmlID = 'component-InputWidget-' + dataModel.name;
+  
+  lgb.view.ViewBase.call(this, dataModel, htmlID);
+
+
+
 };
 goog.inherits(lgb.view.component.InputWidget, lgb.view.ViewBase);
 

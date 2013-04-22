@@ -20,15 +20,16 @@ goog.require('lgb.view.ViewBase');
  * @extends {lgb.view.ViewBase}
  */
 lgb.view.component.CheckBox = function(parentHtmlID, subID, title) {
-  lgb.view.ViewBase.call(this);
+    
+  var htmlID = parentHtmlID + '-' + subID;
+    
+  this._NAME = 'lgb.view.component.CheckBox';
+  lgb.view.ViewBase.call(this, null, htmlID, parentHtmlID);
 
-  /** @const */
-  this.htmlID = parentHtmlID + '-' + subID;
-  this.parentHtmlID = parentHtmlID;
   this.title = title;
   this.isChecked = false;
   this.hasBeenInjected = false;
-  this._NAME = 'lgb.view.component.CheckBox';
+
 };
 goog.inherits(lgb.view.component.CheckBox, lgb.view.ViewBase);
 

@@ -14,6 +14,7 @@ goog.require('lgb.events.DataSourceChanged');
  * @extends lgb.BaseClass
  */
 lgb.component.DataSourceBase = function() {
+
   lgb.BaseClass.call(this);
   if (this._NAME === undefined) {
     this._NAME = 'lgb.component.DataSourceBase';

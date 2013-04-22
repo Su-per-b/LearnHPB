@@ -15,19 +15,18 @@ goog.require('lgb.utils');
  * @extends {lgb.BaseClass}
  * @param {lgb.model.ModelBase=} dataModel that the view with display.
  */
-lgb.view.ViewBase = function(dataModel) {
+lgb.view.ViewBase = function(dataModel, htmlID, parentHtmlID) {
   lgb.BaseClass.call(this);
 
   if (null !== dataModel && undefined !== dataModel) {
     this.dataModel = dataModel;
     this.listenForChange_();
   }
-
-  this.parentHtmlID = this.parentHtmlID || 'theBody';
-  this.htmlID = this.htmlID || '';
+ 
+  this.setIds_(htmlID, parentHtmlID);
+  
   this.filename = this.filename || 'scene.json';
     
-  
   this.parentElement_ = undefined;
   this.mainElement_ = undefined;
     
@@ -72,10 +71,9 @@ lgb.view.ViewBase.prototype.makeMainDiv = function() {
 
 lgb.view.ViewBase.prototype.setIds_ = function(htmlID, parentHtmlID) {
     
-  if (this._NAME === undefined  ) {
-    throw ("You must define this._NAME")
-  }
+
   
+/*
   if (undefined === htmlID || '' === htmlID) {
       
       var ary=this._NAME.split(".");
@@ -85,17 +83,29 @@ lgb.view.ViewBase.prototype.setIds_ = function(htmlID, parentHtmlID) {
   } else {
       this.htmlID = htmlID;
   }
+  */
+
+  this.htmlID = htmlID || this.generateHtmlID();
+  this.parentHtmlID = parentHtmlID || 'theBody';
   
-  
+/*
   if (parentHtmlID !== undefined && 
       parentHtmlID !== null &&
       parentHtmlID !== ''
       ) {
     this.parentHtmlID = parentHtmlID;
-  }
-  
+  }*/
+
 };
 
+lgb.view.ViewBase.prototype.generateHtmlID = function() {
+    
+      var ary=this._NAME.split(".");
+      var len = ary.length;
+      var id = ary[len-1];
+      
+      return id;
+}
 
 /**
  * converts and id into a Jquery element

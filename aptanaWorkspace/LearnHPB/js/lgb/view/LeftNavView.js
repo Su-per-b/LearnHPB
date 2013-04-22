@@ -16,11 +16,9 @@ goog.require('lgb.view.component.ToggleButtonA');
  * @extends {lgb.view.ViewBase}
  */
 lgb.view.LeftNavView = function() {
-  lgb.view.ViewBase.call(this);
-
-  /**@const */
-  this.htmlID = 'leftNav';
-  this.dataModels = [];
+    
+  this._NAME = 'lgb.view.LeftNavView';
+  lgb.view.ViewBase.call(this, null, 'leftNav');
 
   this.init_();
   this.injectCss_();
@@ -29,7 +27,7 @@ lgb.view.LeftNavView = function() {
   this.bind_();
 
   this.buttonGeneral.setSelected(true);
-  this._NAME = 'lgb.view.LeftNavView';
+
 };
 goog.inherits(lgb.view.LeftNavView, lgb.view.ViewBase);
 

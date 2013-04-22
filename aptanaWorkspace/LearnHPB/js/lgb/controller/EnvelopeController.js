@@ -21,7 +21,7 @@ goog.require('lgb.events.TopFloorLoaded');
  * @extends lgb.controller.ControllerBase
  */
 lgb.controller.EnvelopeController = function() {
-
+  this._NAME = 'lgb.controller.EnvelopeController';
   lgb.controller.ControllerBase.call(this);
   this.init_();
 };

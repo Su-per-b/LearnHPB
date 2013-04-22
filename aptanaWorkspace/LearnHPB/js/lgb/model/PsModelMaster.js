@@ -25,7 +25,17 @@ lgb.model.PsModelMaster = function() {
   this._TITLE = 'Mutiple Particle System';
 
   lgb.model.ModelBase.call(this);
+  this.init_();
+  
+};
+goog.inherits(lgb.model.PsModelMaster, lgb.model.ModelBase);
 
+
+/**
+ * @private
+ */
+lgb.model.PsModelMaster.prototype.init_ = function() {
+    
   this.xml = null;
   this.xpathResult = null;
   this.currentNode = null;
@@ -35,9 +45,12 @@ lgb.model.PsModelMaster = function() {
   this.configs = {};
   this.systems = {};
   this.psModelList = [];
-
+  
+  this.masterViewPointList_ = [];
+  this.kendoDS = new kendo.data.HierarchicalDataSource({});
+  
 };
-goog.inherits(lgb.model.PsModelMaster, lgb.model.ModelBase);
+
 
 /**
  * The Particle system data is located in remotes files.

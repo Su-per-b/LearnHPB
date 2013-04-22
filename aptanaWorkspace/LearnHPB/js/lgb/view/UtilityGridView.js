@@ -12,9 +12,10 @@ goog.require('lgb.view.ViewBase');
  * @extends {lgb.view.ViewBase}
  */
 lgb.view.UtilityGridView = function() {
+    
+  this._NAME = 'lgb.view.UtilityGridView';
   lgb.view.ViewBase.call(this);
 
-  this._NAME = 'lgb.view.UtilityGridView';
   this.width_ = 120;
   
 };

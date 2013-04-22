@@ -20,6 +20,13 @@ lgb.init = function() {
   lgb.console = new goog.debug.Console();
 };
 
+lgb.assert = function(obj) {
+    
+  if (obj === undefined  ) {
+    throw ("Assert Failed")
+  }
+};
+
 
 /**
  * @param {string} msg The message that you want to appear in the console.

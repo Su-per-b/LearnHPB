@@ -20,11 +20,13 @@ goog.require('lgb.view.ViewBase');
  * @param {THREE.Camera} camera The camera needed to identify collisions.
  */
 lgb.view.SelectionView = function(dataModel, containerDiv, camera) {
-  lgb.view.ViewBase.call(this, dataModel);
+    
+  this._NAME = 'lgb.view.SelectionView';
+  lgb.view.ViewBase.call(this, dataModel, null, lgb.Config.HUD_CONTAINER_STR);
+  
   this.containerDiv_ = containerDiv;
   this.camera_ = camera;
-  this.parentHtmlID = lgb.Config.HUD_CONTAINER_STR;
-  this._NAME = 'lgb.view.SelectionView';
+  
 };
 goog.inherits(lgb.view.SelectionView, lgb.view.ViewBase);
 

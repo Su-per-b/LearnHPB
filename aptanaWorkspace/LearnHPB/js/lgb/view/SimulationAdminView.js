@@ -26,12 +26,10 @@ goog.require('lgb.view.ViewBase');
  * @param {string} parentHtmlID The CSS id of the DOM parent.
  */
 lgb.view.SimulationAdminView = function(dataModel, parentHtmlID) {
-  lgb.view.ViewBase.call(this, dataModel);
-
-  this.parentHtmlID = parentHtmlID;
+    
   this._NAME = 'lgb.view.SimulationAdminView';
-  this.htmlID = 'simulationAdminView';
-  
+  lgb.view.ViewBase.call(this, dataModel, 'simulationAdminView',parentHtmlID);
+
   var ds = new lgb.component.LinkDataSource('Open',this.htmlID, 'open')
   this.openLink_ = new lgb.component.Link(ds);
   

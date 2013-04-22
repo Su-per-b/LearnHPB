@@ -12,10 +12,11 @@ goog.require('lgb.view.ViewBase');
  * @param {lgb.model.FurnitureModel} dataModel The model to display.
  */
 lgb.view.UtilityAxisView = function() {
-  lgb.view.ViewBase.call(this, null);
-
+    
   this._NAME = 'lgb.view.UtilityAxisView';
   this._ASSETS_FOLDER = 'utility/axis';
+  lgb.view.ViewBase.call(this, null);
+
   this.filename = 'axis_flipped.json';
 };
 goog.inherits(lgb.view.UtilityAxisView, lgb.view.ViewBase);

@@ -22,7 +22,7 @@ goog.require('lgb.events.BuildingHeightChanged');
  * @extends lgb.controller.ControllerBase
  */
 lgb.controller.BuildingController = function() {
-
+  this._NAME = 'lgb.controller.BuildingController';
   lgb.controller.ControllerBase.call(this);
   this.init_();
 };

@@ -21,11 +21,12 @@ goog.require('lgb.events.BuildingHeightChanged');
  * @param {lgb.model.EnvelopeModel} dataModel The model to display.
  */
 lgb.view.EnvelopeView = function(dataModel) {
-  lgb.view.ViewBase.call(this, dataModel);
-
+    
   /**@const */
   this._NAME = 'lgb.view.EnvelopeView';
   this._ASSETS_FOLDER = 'envelope';
+  
+  lgb.view.ViewBase.call(this, dataModel);
 
   this.floorMeshHash_ = [];
   this.floorOffset_= [];  
@@ -38,15 +39,11 @@ lgb.view.EnvelopeView = function(dataModel) {
   this.lowerFloorContainer_ = new THREE.Object3D();
   this.lowerFloorContainer_.name = this._NAME + "-lowerFloorContainer";
   
-  
   this.topFloorMesh_ = null;
   
   this.init();
 };
 goog.inherits(lgb.view.EnvelopeView, lgb.view.ViewBase);
-
-
-
 
 
 

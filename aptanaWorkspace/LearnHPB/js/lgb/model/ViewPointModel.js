@@ -20,16 +20,6 @@ lgb.model.ViewPointModel = function() {
   lgb.model.ModelBase.call(this);
   this.init_();
   
-  //this.viewPointNodeList = [];
-  this.viewPointNodeMap = {};
-  this.masterViewPointList = [];
-  
-  //this.kendoDataSource = {};
-  
- // this.cameras = [];
-  //this.camMap = {};
-   this.kendoDS = new kendo.data.HierarchicalDataSource({});
-   
 };
 goog.inherits(lgb.model.ViewPointModel, lgb.model.ModelBase);
 
@@ -38,61 +28,37 @@ goog.inherits(lgb.model.ViewPointModel, lgb.model.ModelBase);
  * @private
  */
 lgb.model.ViewPointModel.prototype.init_ = function() {
-
+    
+  this.masterViewPointList_ = [];
+  this.kendoDS = new kendo.data.HierarchicalDataSource({});
+  
 };
 
 /**
  * @param {string} name The camera name.
  */
+/*
 lgb.model.ViewPointModel.prototype.getCameraByName = function(name) {
 
   return this.viewPointNodeMap[name];
   
 };
-
-
-
-
-
-/*
-
-lgb.model.ViewPointModel.prototype.getTreeData = function() {
-    
-    
-    
-    
-    var items = [];
-    var len = this.viewPointNodeList.length;
-    
-  for (var i = 0; i < len; i++) {
-      var item = {
-          text: this.viewPointNodeList[i].name
-      };
-      
-    items.push(item);
-  }
-    
-    return items;
-};
-
 */
+
 
 
 lgb.model.ViewPointModel.prototype.addViewPointCollection = function(viewPointCollection) {
 
-
-   // this.viewPointNodeMap[viewPointCollection.name] = viewPointCollection;
-   
    var list = viewPointCollection.getNodeList();
    var len = list.length;
    
-   var idx  = this.masterViewPointList.length;
+   var idx  = this.masterViewPointList_.length;
     
     for (var i = 0; i < len; i++) {
         var viewPointNode = list[i];
         viewPointNode.value = idx;
         
-        this.masterViewPointList[idx] = viewPointNode;
+        this.masterViewPointList_[idx] = viewPointNode;
         
         idx++
     }
@@ -114,7 +80,7 @@ lgb.model.ViewPointModel.prototype.addViewPointCollection = function(viewPointCo
 
 lgb.model.ViewPointModel.prototype.getViewPoint = function(idx) {
     
-    return this.masterViewPointList[idx];
+    return this.masterViewPointList_[idx];
 
 };
 
@@ -122,6 +88,7 @@ lgb.model.ViewPointModel.prototype.getViewPoint = function(idx) {
 /**
  * @param {Array.<THREE.Camera>} cameras An array of camera objects.
  */
+/*
 lgb.model.ViewPointModel.prototype.addCameras = function(cameras) {
 
   for (var camName in cameras) {
@@ -139,3 +106,4 @@ lgb.model.ViewPointModel.prototype.addCameras = function(cameras) {
   }
 
 };
+*/

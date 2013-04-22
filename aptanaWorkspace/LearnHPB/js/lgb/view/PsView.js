@@ -17,9 +17,10 @@ goog.require('lgb.model.BuildingHeightModel');
  * @param {lgb.model.PsModel} dataModel The data model to display.
  */
 lgb.view.PsView = function(dataModel, parentMasterGroup) {
+    
+  this._NAME = 'lgb.view.PsView';
   lgb.view.ViewBase.call(this, dataModel);
 
-  this._NAME = 'lgb.view.PsView';
   this.title = dataModel.title;
   
   this.topFloorMaxY_ = null;

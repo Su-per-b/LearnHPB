@@ -16,6 +16,7 @@ goog.require('lgb.model.scenario.Base');
  * @extends lgb.controller.ControllerBase
  */
 lgb.controller.ScenarioController = function() {
+  this._NAME = 'lgb.controller.ScenarioController';
   lgb.controller.ControllerBase.call(this);
 
   this.dataModel = new lgb.model.scenario.Base();

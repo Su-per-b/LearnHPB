@@ -16,10 +16,12 @@ goog.require('lgb.view.ViewBase');
  * @extends {lgb.view.ViewBase}
  */
 lgb.view.StatsHelper = function(containerDiv) {
+    
+  this._NAME = 'lgb.view.StatsHelper';
   lgb.view.ViewBase.call(this);
 
   this.init_(containerDiv);
-  this._NAME = 'lgb.view.StatsHelper';
+
 };
 goog.inherits(lgb.view.StatsHelper, lgb.view.ViewBase);
 

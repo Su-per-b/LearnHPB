@@ -13,7 +13,7 @@ goog.require('goog.events.Event');
  * @extends {goog.events.Event}
  */
 lgb.events.CamerasLoaded = function(camera) {
-
+ 
   goog.events.Event.call(this, lgb.events.CamerasLoaded.TYPE);
 
 

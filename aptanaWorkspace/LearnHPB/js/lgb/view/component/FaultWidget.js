@@ -18,11 +18,13 @@ goog.require('lgb.view.ViewBase');
  * @extends {lgb.view.ViewBase}
  */
 lgb.view.component.FaultWidget = function(dataModel) {
-  lgb.view.ViewBase.call(this, dataModel);
-
-  /** @const */
-  this.htmlID = 'component-FaultWidget-' + dataModel.name;
+    
   this._NAME = 'lgb.view.component.FaultWidget';
+  var htmlID = 'component-FaultWidget-' + dataModel.name;
+ 
+  lgb.view.ViewBase.call(this, dataModel, htmlID);
+
+
 };
 goog.inherits(lgb.view.component.FaultWidget, lgb.view.ViewBase);
 

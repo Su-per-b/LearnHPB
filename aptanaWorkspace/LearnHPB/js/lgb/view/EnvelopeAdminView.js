@@ -20,11 +20,10 @@ goog.require('lgb.view.ViewBase');
  * @param {string} parentHtmlID The CSS id of the DOM parent.
  */
 lgb.view.EnvelopeAdminView = function(dataModel, parentHtmlID) {
-  lgb.view.ViewBase.call(this, dataModel);
-
-  this.parentHtmlID = parentHtmlID;
+    
   this._NAME = 'lgb.view.EnvelopeAdminView';
-  this.htmlID = 'envelopeAdminView';
+  lgb.view.ViewBase.call(this, dataModel, 'envelopeAdminView', parentHtmlID);
+
   this.init_();
 
 };

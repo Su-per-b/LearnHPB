@@ -15,12 +15,12 @@ goog.require('lgb.view.ViewBase');
  * @extends {lgb.view.ViewBase}
  */
 lgb.view.LayoutView = function() {
-  lgb.view.ViewBase.call(this);
-  
+    
   /**@const */
   this._NAME = 'lgb.view.LayoutView';
-  /**@const */
-  this.htmlID = 'layoutView';
+  
+  lgb.view.ViewBase.call(this, null, 'layoutView');
+
 
 };
 goog.inherits(lgb.view.LayoutView, lgb.view.ViewBase);
