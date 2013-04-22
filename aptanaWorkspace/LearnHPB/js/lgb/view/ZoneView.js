@@ -11,8 +11,8 @@ goog.provide('lgb.view.ZoneView');
 goog.require('lgb.view.ViewBase');
 goog.require('lgb.model.BuildingHeightModel');
 goog.require('lgb.model.ZoneShapeModel');
-goog.require('lgb.model.ViewPointNode');
-goog.require('lgb.events.ViewPointListLoaded');
+goog.require('lgb.model.ViewPointCollection');
+goog.require('lgb.events.ViewPointCollectionLoaded');
 
 
 /**
@@ -144,9 +144,16 @@ lgb.view.ZoneView.prototype.onChange = function(event) {
   }
 
     if (!this.isInitialized_) {
-        var nodeList = lgb.model.ViewPointNode.makeArray(this.masterGroup_.children);
-        var event = new lgb.events.ViewPointListLoaded(nodeList);
-        this.dispatchLocal(event);
+        // var nodeList = lgb.model.ViewPointNode.makeArray(this.masterGroup_.children);
+        // var event = new lgb.events.ViewPointCollectionLoaded(nodeList);
+        // this.dispatchLocal(event);
+        
+      //  var viewPointNodeCollection = new lgb.model.ViewPointCollection(
+           // "Thermal Zones", this.masterGroup_.children); 
+
+        //var event = new lgb.events.ViewPointCollectionLoaded(viewPointNodeCollection);
+       // this.dispatchLocal(event);
+    
     }
 
     

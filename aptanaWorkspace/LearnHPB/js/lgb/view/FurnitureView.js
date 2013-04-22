@@ -7,9 +7,10 @@ goog.require('lgb.view.ViewBase');
 goog.require('lgb.model.GridModel');
 goog.require('lgb.ThreeUtils');
 goog.require('lgb.model.BuildingHeightModel');
-goog.require('lgb.events.ViewPointLoaded');
-goog.require('lgb.events.ViewPointListLoaded');
+goog.require('lgb.events.ViewPointCollectionLoaded');
 goog.require('lgb.model.ViewPointNode');
+goog.require('lgb.model.ViewPointCollection');
+
 
 /**
  * @constructor
@@ -50,9 +51,11 @@ lgb.view.FurnitureView.prototype.onSceneLoaded_ = function() {
     this.sceneY_ = this.masterGroup_.position.y;
     this.setY_();
   
-    var nodeList = lgb.model.ViewPointNode.makeArray(this.masterGroup_.children);
+    var viewPointNodeCollection = new lgb.model.ViewPointCollection(
+        "Furniture", this.masterGroup_.children);
+
     
-    var event = new lgb.events.ViewPointListLoaded(nodeList);
+    var event = new lgb.events.ViewPointCollectionLoaded(viewPointNodeCollection);
     this.dispatchLocal(event);
     
 };

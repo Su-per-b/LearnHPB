@@ -27,6 +27,10 @@ lgb.view.ViewBase = function(dataModel) {
   this.htmlID = this.htmlID || '';
   this.filename = this.filename || 'scene.json';
     
+  
+  this.parentElement_ = undefined;
+  this.mainElement_ = undefined;
+    
   this.masterGroup_ = new THREE.Object3D();
   this.masterGroup_.name = this._NAME;
   
@@ -53,26 +57,59 @@ lgb.view.ViewBase.prototype.makeID = function(id) {
 };
 
 
+lgb.view.ViewBase.prototype.makeMainDiv = function() {
+    
+    var mainDiv = $("<div>")
+                        .attr("id", this.htmlID);
+                        
+    this.jqParent().append(mainDiv);
+    
+    return mainDiv;
+
+};
+
+
+
+lgb.view.ViewBase.prototype.setIds_ = function(htmlID, parentHtmlID) {
+    
+  if (this._NAME === undefined  ) {
+    throw ("You must define this._NAME")
+  }
+  
+  if (undefined === htmlID || '' === htmlID) {
+      
+      var ary=this._NAME.split(".");
+      var len = ary.length;
+      this.htmlID = ary[len-1];
+      
+  } else {
+      this.htmlID = htmlID;
+  }
+  
+  
+  if (parentHtmlID !== undefined && 
+      parentHtmlID !== null &&
+      parentHtmlID !== ''
+      ) {
+    this.parentHtmlID = parentHtmlID;
+  }
+  
+};
 
 
 /**
- * converts and id into a Jquery object
+ * converts and id into a Jquery element
  * @param {string=} id The css id.
- * @return {jQuery} Object.
+ * @return {jQuery} Element.
  */
 lgb.view.ViewBase.prototype.jq = function(id) {
 
-  var str = '';
-  if (undefined === id) {
-    str = this.htmlID;
-  } else {
-    str = id;
-  }
-
-  var selector = '#{0}'.format(str);
-
-  var jq = $(selector);
-  return jq;
+  var cssID = id || this.htmlID;
+  var selector = '#{0}'.format(cssID);
+ 
+  var jqElement = $(selector);
+  
+  return jqElement;
 };
 
 /**
@@ -81,8 +118,12 @@ lgb.view.ViewBase.prototype.jq = function(id) {
  * @return {jQuery} Jquery object.
  */
 lgb.view.ViewBase.prototype.jqParent = function() {
-  var selector = $('#{0}'.format(this.parentHtmlID));
-  return selector;
+    
+  if (undefined == this.parentElement_) {
+    this.parentElement_ = $('#{0}'.format(this.parentHtmlID));
+  }
+  
+  return this.parentElement_;
 };
 
 /**
@@ -203,7 +244,7 @@ lgb.view.ViewBase.prototype.placeOneContainer_ = function(containerName, contain
  * @protected
  */
 lgb.view.ViewBase.prototype.onChange = function(event) {
-  throw ('this should be overriden Class name: ' + this._NAME);
+  throw ('ViewBase.onChange() should be overriden for Class: ' + this._NAME);
 };
 
 
@@ -213,7 +254,6 @@ lgb.view.ViewBase.prototype.cloneGroupToObject3D_ = function(obj3D, groupName) {
 
   
 };
-
 
 
 /**
@@ -228,10 +268,6 @@ lgb.view.ViewBase.prototype.moveGroupToObject3D_ = function(groupName) {
   
   return obj3D;
 };
-
-
-
-
 
 
 

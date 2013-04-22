@@ -8,6 +8,7 @@ goog.provide('lgb.model.ViewPointNode');
 goog.require('lgb.model.ModelBase');
 
 
+
 /**
  * @constructor
  * @extends lgb.model.ModelBase
@@ -24,11 +25,10 @@ lgb.model.ViewPointNode = function(object3D) {
   this.targetPosition = null;
   
   this.threeObject = null;
+  this.url =null;
   
   this.init_(object3D);
 };
-
-
 goog.inherits(lgb.model.ViewPointNode, lgb.model.ModelBase);
 
 
@@ -68,19 +68,4 @@ lgb.model.ViewPointNode.prototype.getTargetPosition = function() {
 };
 
 
-
-
-lgb.model.ViewPointNode.makeArray = function(object3DAry) {
-    
-    var nodeList = [];
-    var len = object3DAry.length;
-    
-    for (var i = 0; i < len; i++) {
-        var node = new lgb.model.ViewPointNode(object3DAry[i]);
-        nodeList.push(node);
-    }
-    
-    return nodeList;
-      
-};
 

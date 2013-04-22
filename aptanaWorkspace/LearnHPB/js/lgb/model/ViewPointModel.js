@@ -20,12 +20,16 @@ lgb.model.ViewPointModel = function() {
   lgb.model.ModelBase.call(this);
   this.init_();
   
-  this.viewPointNodeList = [];
+  //this.viewPointNodeList = [];
   this.viewPointNodeMap = {};
+  this.masterViewPointList = [];
+  
+  //this.kendoDataSource = {};
   
  // this.cameras = [];
   //this.camMap = {};
-  
+   this.kendoDS = new kendo.data.HierarchicalDataSource({});
+   
 };
 goog.inherits(lgb.model.ViewPointModel, lgb.model.ModelBase);
 
@@ -48,43 +52,71 @@ lgb.model.ViewPointModel.prototype.getCameraByName = function(name) {
 
 
 
-lgb.model.ViewPointModel.prototype.addViewPoint = function(viewPointNode) {
 
 
-    this.viewPointNodeList.push(viewPointNode);
-    this.viewPointNodeMap[viewPointNode.name] = viewPointNode;
+/*
+
+lgb.model.ViewPointModel.prototype.getTreeData = function() {
     
-    /*
-   var camera = new THREE.PerspectiveCamera(30, 1.333, 1, 1000);
-   camera.name = object3D.name;
-   
-   var target =  object3D.position.clone();
-   var position = target.clone();
-   position.y += 2.0;
-   position.z += 2.0;
-   
-    camera.target = target;
-    camera.position = position;
     
-    this.camMap[object3D.name] = camera;
-    this.cameras.push(camera);
     
-    */
-   
+    
+    var items = [];
+    var len = this.viewPointNodeList.length;
+    
+  for (var i = 0; i < len; i++) {
+      var item = {
+          text: this.viewPointNodeList[i].name
+      };
+      
+    items.push(item);
+  }
+    
+    return items;
 };
 
-lgb.model.ViewPointModel.prototype.addViewPointList = function(viewPointList) {
+*/
 
 
-    var len = viewPointList.length;
+lgb.model.ViewPointModel.prototype.addViewPointCollection = function(viewPointCollection) {
+
+
+   // this.viewPointNodeMap[viewPointCollection.name] = viewPointCollection;
+   
+   var list = viewPointCollection.getNodeList();
+   var len = list.length;
+   
+   var idx  = this.masterViewPointList.length;
     
-      for (var i = 0; i < len; i++) {
-        var node = viewPointList[i];
-        this.addViewPoint(node);
-      }
+    for (var i = 0; i < len; i++) {
+        var viewPointNode = list[i];
+        viewPointNode.value = idx;
+        
+        this.masterViewPointList[idx] = viewPointNode;
+        
+        idx++
+    }
+   
+   
+   
+    var d = viewPointCollection.getTreeData();
+       
+    this.kendoDS.add(d);
+    
+  
+      this.dispatchChange(
+          {
+            viewPointCollection: viewPointCollection
+          }
+      );
   
 };
 
+lgb.model.ViewPointModel.prototype.getViewPoint = function(idx) {
+    
+    return this.masterViewPointList[idx];
+
+};
 
 
 /**

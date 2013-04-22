@@ -15,7 +15,7 @@ goog.require('lgb.view.ZoneAdminView');
 goog.require('lgb.view.ZoneView');
 goog.require('lgb.events.BuildingHeightChanged');
 goog.require('lgb.model.BuildingHeightModel');
-goog.require('lgb.events.ViewPointListLoaded');
+goog.require('lgb.events.ViewPointCollectionLoaded');
 
 
 /**
@@ -81,8 +81,8 @@ lgb.controller.ZoneController.prototype.bind_ = function() {
     
   this.listenTo(
     this.view,
-    lgb.events.ViewPointListLoaded.TYPE,
-    this.onViewPointListLoaded_
+    lgb.events.ViewPointCollectionLoaded.TYPE,
+    this.onViewPointCollectionLoaded_
     );
      
      
@@ -90,7 +90,7 @@ lgb.controller.ZoneController.prototype.bind_ = function() {
 
 };
 
-lgb.controller.ZoneController.prototype.onViewPointListLoaded_ =
+lgb.controller.ZoneController.prototype.onViewPointCollectionLoaded_ =
   function(event) {
 
   this.dispatch(event);

@@ -140,10 +140,12 @@ lgb.view.ViewPointAdminView.prototype.injectHtmlXXX = function() {
  */
 lgb.view.ViewPointAdminView.prototype.injectHtml = function() {
 
+    return;
   this.links = [];
 
   var linkHtml = '';
   var len = this.dataModel.viewPointNodeList.length;
+  
   for (var i = 0; i < len; i++) {
 
     var node = this.dataModel.viewPointNodeList[i];

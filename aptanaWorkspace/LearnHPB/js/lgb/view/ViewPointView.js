@@ -60,24 +60,8 @@ lgb.view.ViewPointView.prototype.setY_ = function() {
 };
 
 
-lgb.view.LightingView.prototype.onChange = function(event) {
+lgb.view.ViewPointView.prototype.onChange = function(event) {
   
-  var whatIsDirty = event.payload;
-  
-  if (whatIsDirty) {
-    
-    if (whatIsDirty.lightingType) {
-      this.buildGrid_();
-      this.updateVisible_();
-    }
-    if (whatIsDirty.isVisible) {
-      this.updateVisible_();
-    }
-    
-  } else {
-    
-    this.updateVisible_();
-  }
 
 };
 

@@ -56,7 +56,6 @@ lgb.controller.LayoutController.prototype.bind_ = function() {
  */
 lgb.controller.LayoutController.prototype.onWindowResize_ = function(event) {
     this.view.calculateLayout();
-   // this.view.triggerSplitter1Resize_();
 };
 
 lgb.controller.LayoutController.prototype.onLayoutChange_ = function(event) {

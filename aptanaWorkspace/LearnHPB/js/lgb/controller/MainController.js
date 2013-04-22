@@ -69,8 +69,7 @@ lgb.controller.MainController.prototype.init = function() {
 
   this.worldController_.init();
     
-
-
+  
   $(window).resize(this.d(this.onWindowResize_));
   
    
