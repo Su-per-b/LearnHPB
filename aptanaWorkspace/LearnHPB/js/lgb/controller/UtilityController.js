@@ -13,14 +13,14 @@ goog.require('lgb.Config');
 /**
  * MVC controller for the UtilityController
  * @constructor
- * @extends lgb.controller.ControllerBase
+ * @extends lgb.controller.BaseController
  */
 lgb.controller.UtilityController = function() {
   this._NAME = 'lgb.controller.UtilityController';
-  lgb.controller.ControllerBase.call(this);
+  lgb.controller.BaseController.call(this);
   this.init_();
 };
-goog.inherits(lgb.controller.UtilityController, lgb.controller.ControllerBase);
+goog.inherits(lgb.controller.UtilityController, lgb.controller.BaseController);
 
 /**
  * initializes the controller

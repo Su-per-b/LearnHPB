@@ -6,12 +6,12 @@
 goog.provide('lgb.model.DuctworkModel');
 
 goog.require('lgb.model.BuildingModel.Group');
-goog.require('lgb.model.ModelBase');
+goog.require('lgb.model.BaseModel');
 
 
 /**
  * @constructor
- * @extends lgb.model.ModelBase
+ * @extends lgb.model.BaseModel
  */
 lgb.model.DuctworkModel = function() {
 
@@ -20,7 +20,7 @@ lgb.model.DuctworkModel = function() {
   this._NAME = 'lgb.model.DuctworkModel';
   /**@const */
   this._TITLE = 'Ductwork';
-  lgb.model.ModelBase.call(this);
+  lgb.model.BaseModel.call(this);
 
   this.groupMembership = {};
   this.groupMembership[lgb.model.BuildingModel.Group.ALL] = true;
@@ -29,7 +29,7 @@ lgb.model.DuctworkModel = function() {
 
   this.isVisible = true;
 };
-goog.inherits(lgb.model.DuctworkModel, lgb.model.ModelBase);
+goog.inherits(lgb.model.DuctworkModel, lgb.model.BaseModel);
 
 
 /**

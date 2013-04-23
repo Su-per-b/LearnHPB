@@ -5,7 +5,7 @@ goog.require('sim.model.ModelBase');
 
 /**
  * @constructor
- * @extends lgb.model.ModelBase
+ * @extends lgb.model.BaseModel
  */
 sim.model.TabStripModel = function(tabModelArray) {
 

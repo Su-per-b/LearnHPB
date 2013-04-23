@@ -8,13 +8,13 @@ goog.provide('lgb.model.PsModelMaster');
 goog.require('goog.array');
 goog.require('lgb.Config');
 goog.require('lgb.events.DataModelChanged');
-goog.require('lgb.model.ModelBase');
+goog.require('lgb.model.BaseModel');
 goog.require('lgb.model.PsModel');
 goog.require('lgb.utils.XmlParser');
 
 /**
  * @constructor
- * @extends lgb.model.ModelBase
+ * @extends lgb.model.BaseModel
  */
 lgb.model.PsModelMaster = function() {
 
@@ -24,11 +24,11 @@ lgb.model.PsModelMaster = function() {
   /**@const */
   this._TITLE = 'Mutiple Particle System';
 
-  lgb.model.ModelBase.call(this);
+  lgb.model.BaseModel.call(this);
   this.init_();
   
 };
-goog.inherits(lgb.model.PsModelMaster, lgb.model.ModelBase);
+goog.inherits(lgb.model.PsModelMaster, lgb.model.BaseModel);
 
 
 /**

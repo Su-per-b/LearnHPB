@@ -4,11 +4,11 @@
  */
  
 goog.provide('lgb.model.scenario.SysVar');
-goog.require('lgb.model.ModelBase');
+goog.require('lgb.model.BaseModel');
 
 /**
  * @constructor
- * @extends lgb.model.ModelBase
+ * @extends lgb.model.BaseModel
  * @param {Node} node  Used to construct this object.
  */
 lgb.model.scenario.SysVar = function(node) {
@@ -16,7 +16,7 @@ lgb.model.scenario.SysVar = function(node) {
    /**@const */
   this._NAME = 'lgb.model.scenario.SysVar';
 
-  lgb.model.ModelBase.call(this);
+  lgb.model.BaseModel.call(this);
   this.name = '';
   this.displayName = '';
   this.description = '';
@@ -46,7 +46,7 @@ lgb.model.scenario.SysVar = function(node) {
 
 
 };
-goog.inherits(lgb.model.scenario.SysVar, lgb.model.ModelBase);
+goog.inherits(lgb.model.scenario.SysVar, lgb.model.BaseModel);
 
 
 /**

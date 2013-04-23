@@ -5,13 +5,13 @@
  
 goog.provide('lgb.model.ViewPointCollection');
 
-goog.require('lgb.model.ModelBase');
+goog.require('lgb.model.BaseModel');
 goog.require('lgb.model.ViewPointNode');
 
 
 /**
  * @constructor
- * @extends lgb.model.ModelBase
+ * @extends lgb.model.BaseModel
  */
 lgb.model.ViewPointCollection = function(name, object3Dlist) {
     
@@ -20,7 +20,7 @@ lgb.model.ViewPointCollection = function(name, object3Dlist) {
   
   /**@const */
   this._TITLE = 'ViewPointCollection';
-  lgb.model.ModelBase.call(this);
+  lgb.model.BaseModel.call(this);
   
   this.name = name;
   //this.url = name;
@@ -28,7 +28,7 @@ lgb.model.ViewPointCollection = function(name, object3Dlist) {
 
   this.init_(object3Dlist);
 };
-goog.inherits(lgb.model.ViewPointCollection, lgb.model.ModelBase);
+goog.inherits(lgb.model.ViewPointCollection, lgb.model.BaseModel);
 
 
 

@@ -5,16 +5,16 @@
  
 goog.provide('lgb.controller.TrackBallController');
 
-goog.require('lgb.controller.ControllerBase');
+goog.require('lgb.controller.BaseController');
 goog.require('lgb.view.TrackBallView');
 
 /**
  * @constructor
- * @extends lgb.controller.ControllerBase
+ * @extends lgb.controller.BaseController
  */
 lgb.controller.TrackBallController = function( camera ) {
   this._NAME = 'lgb.controller.TrackBallController';
-  lgb.controller.ControllerBase.call(this);
+  lgb.controller.BaseController.call(this);
   
   this.bind_();
   this.camera_= camera;
@@ -23,7 +23,7 @@ lgb.controller.TrackBallController = function( camera ) {
   
 };
 
-goog.inherits(lgb.controller.TrackBallController, lgb.controller.ControllerBase);
+goog.inherits(lgb.controller.TrackBallController, lgb.controller.BaseController);
 
 /**
  * Binds specific event types to functions which handle the events.

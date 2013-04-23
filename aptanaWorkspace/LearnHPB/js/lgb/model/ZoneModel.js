@@ -6,13 +6,13 @@
 goog.provide('lgb.model.ZoneModel');
 
 goog.require('lgb.model.BuildingModel.Group');
-goog.require('lgb.model.ModelBase');
+goog.require('lgb.model.BaseModel');
 goog.require('lgb.model.ZoneShapeModel');
 goog.require('lgb.model.ViewPointCollection');
 
 /**
  * @constructor
- * @extends lgb.model.ModelBase
+ * @extends lgb.model.BaseModel
  */
 lgb.model.ZoneModel = function() {
   /**
@@ -25,7 +25,7 @@ lgb.model.ZoneModel = function() {
   this.zoneIdxVisible = -1;
 
 };
-goog.inherits(lgb.model.ZoneModel, lgb.model.ModelBase);
+goog.inherits(lgb.model.ZoneModel, lgb.model.BaseModel);
 
 
 /**

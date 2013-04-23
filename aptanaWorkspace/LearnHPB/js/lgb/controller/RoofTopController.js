@@ -5,7 +5,7 @@
  
 goog.provide('lgb.controller.RoofTopController');
 
-goog.require('lgb.controller.ControllerBase');
+goog.require('lgb.controller.BaseController');
 goog.require('lgb.model.RoofTopModel');
 goog.require('lgb.view.RoofTopView');
 
@@ -13,14 +13,14 @@ goog.require('lgb.view.RoofTopView');
 /**
  * MVC controller for the RoofTopController
  * @constructor
- * @extends lgb.controller.ControllerBase
+ * @extends lgb.controller.BaseController
  */
 lgb.controller.RoofTopController = function() {
   this._NAME = 'lgb.controller.RoofTopController';
-  lgb.controller.ControllerBase.call(this);
+  lgb.controller.BaseController.call(this);
   this.init_();
 };
-goog.inherits(lgb.controller.RoofTopController, lgb.controller.ControllerBase);
+goog.inherits(lgb.controller.RoofTopController, lgb.controller.BaseController);
 
 /**
  * @private

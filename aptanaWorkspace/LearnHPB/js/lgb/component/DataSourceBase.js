@@ -3,7 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.component.DataSourceBase');
+goog.provide('lgb.component.BaseDataSource');
 
 goog.require('lgb.BaseClass');
 goog.require('lgb.events.DataSourceChanged');
@@ -13,14 +13,14 @@ goog.require('lgb.events.DataSourceChanged');
  * @constructor
  * @extends lgb.BaseClass
  */
-lgb.component.DataSourceBase = function() {
+lgb.component.BaseDataSource = function() {
 
   lgb.BaseClass.call(this);
   if (this._NAME === undefined) {
-    this._NAME = 'lgb.component.DataSourceBase';
+    this._NAME = 'lgb.component.BaseDataSource';
   }
 };
-goog.inherits(lgb.component.DataSourceBase, lgb.BaseClass);
+goog.inherits(lgb.component.BaseDataSource, lgb.BaseClass);
 
 
 
@@ -29,7 +29,7 @@ goog.inherits(lgb.component.DataSourceBase, lgb.BaseClass);
  * used to notify the view
  * @protected
  */
-lgb.component.DataSourceBase.prototype.dispatchChange = function() {
+lgb.component.BaseDataSource.prototype.dispatchChange = function() {
   this.dispatchLocal(new lgb.events.DataSourceChanged(this));
 };
 
@@ -39,7 +39,7 @@ lgb.component.DataSourceBase.prototype.dispatchChange = function() {
  * @protected
  * @return {string} The CSS ID.
  */
-lgb.component.DataSourceBase.prototype.getCssID = function() {
+lgb.component.BaseDataSource.prototype.getCssID = function() {
   if (this._NAME === undefined) {
     throw ('this._NAME === undefined');
   } else {

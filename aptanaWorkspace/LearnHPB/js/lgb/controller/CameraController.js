@@ -5,22 +5,22 @@
  
 goog.provide('lgb.controller.CameraController');
 
-goog.require('lgb.controller.ControllerBase');
+goog.require('lgb.controller.BaseController');
 goog.require('lgb.view.CameraView');
 goog.require('lgb.events.RequestGoToViewPoint');
 
 /**
  * @constructor
- * @extends lgb.controller.ControllerBase
+ * @extends lgb.controller.BaseController
  */
 lgb.controller.CameraController = function(domElement) {
   this._NAME = 'lgb.controller.CameraController';
-  lgb.controller.ControllerBase.call(this);
+  lgb.controller.BaseController.call(this);
   
   this.domElement_ = domElement;
   this.init_();
 };
-goog.inherits(lgb.controller.CameraController, lgb.controller.ControllerBase);
+goog.inherits(lgb.controller.CameraController, lgb.controller.BaseController);
 
 
 /**

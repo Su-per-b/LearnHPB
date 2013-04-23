@@ -5,23 +5,23 @@
  
 goog.provide('lgb.model.ViewPointModel');
 
-goog.require('lgb.model.ModelBase');
+goog.require('lgb.model.BaseModel');
 goog.require('lgb.model.ViewPointNode');
 
 /**
  * @constructor
- * @extends lgb.model.ModelBase
+ * @extends lgb.model.BaseModel
  */
 lgb.model.ViewPointModel = function() {
   /**@const */
   this._NAME = 'lgb.model.ViewPointModel';
   /**@const */
   this._TITLE = 'ViewPoints';
-  lgb.model.ModelBase.call(this);
+  lgb.model.BaseModel.call(this);
   this.init_();
   
 };
-goog.inherits(lgb.model.ViewPointModel, lgb.model.ModelBase);
+goog.inherits(lgb.model.ViewPointModel, lgb.model.BaseModel);
 
 
 /**

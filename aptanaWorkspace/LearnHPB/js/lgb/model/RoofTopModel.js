@@ -6,13 +6,13 @@
 goog.provide('lgb.model.RoofTopModel');
 
 goog.require('lgb.model.BuildingModel.Group');
-goog.require('lgb.model.ModelBase');
+goog.require('lgb.model.BaseModel');
 
 
 
 /**
  * @constructor
- * @extends lgb.model.ModelBase
+ * @extends lgb.model.BaseModel
  */
 lgb.model.RoofTopModel = function() {
   /**@const */
@@ -21,12 +21,12 @@ lgb.model.RoofTopModel = function() {
   /**@const */
   this._TITLE = 'Roof-top Unit';
 
-  lgb.model.ModelBase.call(this);
+  lgb.model.BaseModel.call(this);
 
   this.init_();
 
 };
-goog.inherits(lgb.model.RoofTopModel, lgb.model.ModelBase);
+goog.inherits(lgb.model.RoofTopModel, lgb.model.BaseModel);
 
 
 /**

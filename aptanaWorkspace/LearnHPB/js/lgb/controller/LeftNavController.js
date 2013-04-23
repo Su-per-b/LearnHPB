@@ -11,15 +11,15 @@ goog.require('lgb.view.LeftNavView');
 
 /**
  * @constructor
- * @extends lgb.controller.ControllerBase
+ * @extends lgb.controller.BaseController
  */
 lgb.controller.LeftNavController = function() {
   this._NAME = 'lgb.controller.LeftNavController';
-  lgb.controller.ControllerBase.call(this);
+  lgb.controller.BaseController.call(this);
   this.init_();
 
 };
-goog.inherits(lgb.controller.LeftNavController, lgb.controller.ControllerBase);
+goog.inherits(lgb.controller.LeftNavController, lgb.controller.BaseController);
 
 
 /**

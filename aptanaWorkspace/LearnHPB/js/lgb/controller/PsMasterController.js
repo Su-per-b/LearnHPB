@@ -3,9 +3,9 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.controller.PsControllerMaster');
+goog.provide('lgb.controller.PsMasterController');
 
-goog.require('lgb.controller.ControllerBase');
+goog.require('lgb.controller.BaseController');
 goog.require('lgb.controller.PsController');
 goog.require('lgb.events.DataModelChanged');
 goog.require('lgb.events.DataModelInitialized');
@@ -21,20 +21,20 @@ goog.require('lgb.view.PsMasterView');
 
 /**
  * @constructor
- * @extends lgb.controller.ControllerBase
+ * @extends lgb.controller.BaseController
  */
-lgb.controller.PsControllerMaster = function() {
-  this._NAME = 'lgb.controller.PsControllerMaster';
-  lgb.controller.ControllerBase.call(this);
+lgb.controller.PsMasterController = function() {
+  this._NAME = 'lgb.controller.PsMasterController';
+  lgb.controller.BaseController.call(this);
   this.init();
 };
-goog.inherits(lgb.controller.PsControllerMaster, lgb.controller.ControllerBase);
+goog.inherits(lgb.controller.PsMasterController, lgb.controller.BaseController);
 
 
 /**
  * Initialized the controller.
  */
-lgb.controller.PsControllerMaster.prototype.init = function() {
+lgb.controller.PsMasterController.prototype.init = function() {
     
   this.psDataModelMaster = new lgb.model.PsModelMaster();
   this.psViewMaster = new lgb.view.PsMasterView(this.psDataModelMaster);
@@ -51,7 +51,7 @@ lgb.controller.PsControllerMaster.prototype.init = function() {
  * event bus.
  * @private
  */
-lgb.controller.PsControllerMaster.prototype.bind_ = function() {
+lgb.controller.PsMasterController.prototype.bind_ = function() {
   
   this.makeAddToWorldRequestGlobal(this.psViewMaster);
 
@@ -64,7 +64,7 @@ lgb.controller.PsControllerMaster.prototype.bind_ = function() {
 
 
 
-lgb.controller.PsControllerMaster.prototype.onBuildingHeightChanged_ =
+lgb.controller.PsMasterController.prototype.onBuildingHeightChanged_ =
   function(event) {
 
   this.psViewMaster.setBuildingHeight(event.payload);

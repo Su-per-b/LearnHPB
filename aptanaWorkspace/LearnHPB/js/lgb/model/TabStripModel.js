@@ -1,11 +1,11 @@
 goog.provide('lgb.model.TabStripModel');
 
-goog.require('lgb.model.ModelBase');
+goog.require('lgb.model.BaseModel');
 
 
 /**
  * @constructor
- * @extends lgb.model.ModelBase
+ * @extends lgb.model.BaseModel
  */
 lgb.model.TabStripModel = function(tabModelArray) {
 
@@ -53,4 +53,4 @@ lgb.model.TabStripModel = function(tabModelArray) {
 
   
 };
-goog.inherits(lgb.model.TabStripModel, lgb.model.ModelBase);
+goog.inherits(lgb.model.TabStripModel, lgb.model.BaseModel);

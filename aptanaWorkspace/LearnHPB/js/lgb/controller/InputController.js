@@ -1,6 +1,6 @@
 goog.provide('lgb.controller.InputController');
 
-goog.require('lgb.controller.ControllerBase');
+goog.require('lgb.controller.BaseController');
 goog.require('goog.debug.Logger');
 goog.require('lgb.model.TabStripModel');
 goog.require('lgb.model.TabModel');
@@ -10,11 +10,11 @@ goog.require('lgb.model.InputModel');
 
 lgb.controller.InputController = function() {
   this._NAME = 'lgb.controller.InputController';
-  lgb.controller.ControllerBase.call(this);
+  lgb.controller.BaseController.call(this);
   
   this.init_();
 };
-goog.inherits(lgb.controller.InputController, lgb.controller.ControllerBase);
+goog.inherits(lgb.controller.InputController, lgb.controller.BaseController);
 
 
 /**

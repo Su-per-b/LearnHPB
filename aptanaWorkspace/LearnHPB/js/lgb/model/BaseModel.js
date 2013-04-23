@@ -3,7 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.model.ModelBase');
+goog.provide('lgb.model.BaseModel');
 
 goog.require('lgb.BaseClass');
 goog.require('lgb.events.DataModelChanged');
@@ -12,10 +12,10 @@ goog.require('lgb.events.DataModelChanged');
  * @constructor
  * @extends lgb.BaseClass
  */
-lgb.model.ModelBase = function() {
+lgb.model.BaseModel = function() {
   lgb.BaseClass.call(this);
 };
-goog.inherits(lgb.model.ModelBase, lgb.BaseClass);
+goog.inherits(lgb.model.BaseModel, lgb.BaseClass);
 
 
 /**
@@ -23,7 +23,7 @@ goog.inherits(lgb.model.ModelBase, lgb.BaseClass);
  * what has changed in the data model.
  * @protected
  */
-lgb.model.ModelBase.prototype.dispatchChange = function(whatIsDirty) {
+lgb.model.BaseModel.prototype.dispatchChange = function(whatIsDirty) {
     this.dispatchLocal(new lgb.events.DataModelChanged(whatIsDirty));
 };
 
@@ -33,7 +33,7 @@ lgb.model.ModelBase.prototype.dispatchChange = function(whatIsDirty) {
  * @protected
  * @return {string} The CSS ID.
  */
-lgb.model.ModelBase.prototype.getCssID = function() {
+lgb.model.BaseModel.prototype.getCssID = function() {
   if (this._NAME === undefined) {
     throw ('this._NAME === undefined');
   } else {

@@ -5,7 +5,7 @@
  
 goog.provide('lgb.controller.WorldSelectionController');
 
-goog.require('lgb.controller.ControllerBase');
+goog.require('lgb.controller.BaseController');
 goog.require('lgb.events.Object3DSelected');
 goog.require('lgb.events.SelectableLoaded');
 goog.require('lgb.events.WorldSelectionChanged');
@@ -16,19 +16,19 @@ goog.require('goog.array');
 
 /**
  * @constructor
- * @extends lgb.controller.ControllerBase
+ * @extends lgb.controller.BaseController
  * @param {Element} containerDiv The DIV to use.
  * @param {THREE.Camera} camera We need a reference to this to pass to the view.
  */
 lgb.controller.WorldSelectionController = function( camera) {
   this._NAME = 'lgb.controller.WorldSelectionController';
-  lgb.controller.ControllerBase.call(this);
+  lgb.controller.BaseController.call(this);
   this.camera_ = camera;
   this.init_();
 
 };
 goog.inherits(lgb.controller.WorldSelectionController,
-  lgb.controller.ControllerBase);
+  lgb.controller.BaseController);
 
 
 /**

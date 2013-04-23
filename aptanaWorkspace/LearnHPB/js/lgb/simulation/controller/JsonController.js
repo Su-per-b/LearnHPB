@@ -16,7 +16,7 @@ lgb.simulation.controller.JsonController = function() {
 
   this.init_();
 };
-goog.inherits(lgb.simulation.controller.JsonController, lgb.controller.ControllerBase);
+goog.inherits(lgb.simulation.controller.JsonController, lgb.controller.BaseController);
 
 
 /**

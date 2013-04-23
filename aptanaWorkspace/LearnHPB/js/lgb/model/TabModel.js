@@ -1,11 +1,11 @@
 goog.provide('lgb.model.TabModel');
 
-goog.require('lgb.model.ModelBase');
+goog.require('lgb.model.BaseModel');
 
 
 /**
  * @constructor
- * @extends lgb.model.ModelBase
+ * @extends lgb.model.BaseModel
  */
 lgb.model.TabModel = function(title, content, cssClass) {
 
@@ -40,7 +40,7 @@ lgb.model.TabModel = function(title, content, cssClass) {
   
 
 };
-goog.inherits(lgb.model.TabModel, lgb.model.ModelBase);
+goog.inherits(lgb.model.TabModel, lgb.model.BaseModel);
 
 
 

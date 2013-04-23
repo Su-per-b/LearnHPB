@@ -5,22 +5,22 @@
  
 goog.provide('lgb.model.SelectableModel');
 
-goog.require('lgb.model.ModelBase');
+goog.require('lgb.model.BaseModel');
 goog.require('goog.array');
 
 /**
  * @constructor
- * @extends lgb.model.ModelBase
+ * @extends lgb.model.BaseModel
  */
 lgb.model.SelectableModel = function() {
   /**@const */
   this._NAME = 'lgb.model.SelectableModel';
 
-  lgb.model.ModelBase.call(this);
+  lgb.model.BaseModel.call(this);
   this.init_();
 
 };
-goog.inherits(lgb.model.SelectableModel, lgb.model.ModelBase);
+goog.inherits(lgb.model.SelectableModel, lgb.model.BaseModel);
 
 /**
  * sets default properties.

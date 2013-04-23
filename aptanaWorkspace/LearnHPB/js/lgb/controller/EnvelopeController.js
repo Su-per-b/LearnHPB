@@ -5,7 +5,7 @@
  
 goog.provide('lgb.controller.EnvelopeController');
 
-goog.require('lgb.controller.ControllerBase');
+goog.require('lgb.controller.BaseController');
 goog.require('lgb.events.CamerasLoaded');
 goog.require('lgb.events.RequestVisibilityChange');
 goog.require('lgb.events.ViewInitialized');
@@ -18,14 +18,14 @@ goog.require('lgb.events.TopFloorLoaded');
 
 /**
  * @constructor
- * @extends lgb.controller.ControllerBase
+ * @extends lgb.controller.BaseController
  */
 lgb.controller.EnvelopeController = function() {
   this._NAME = 'lgb.controller.EnvelopeController';
-  lgb.controller.ControllerBase.call(this);
+  lgb.controller.BaseController.call(this);
   this.init_();
 };
-goog.inherits(lgb.controller.EnvelopeController, lgb.controller.ControllerBase);
+goog.inherits(lgb.controller.EnvelopeController, lgb.controller.BaseController);
 
 
 /**

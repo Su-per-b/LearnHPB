@@ -6,7 +6,7 @@
 goog.provide('lgb.controller.GuiController');
 
 goog.require('lgb.controller.AdminController');
-goog.require('lgb.controller.ControllerBase');
+goog.require('lgb.controller.BaseController');
 goog.require('lgb.controller.LeftNavController');
 goog.require('lgb.controller.PropertiesController');
 goog.require('lgb.controller.InputController');
@@ -20,15 +20,15 @@ goog.require('lgb.events.LayoutChange');
 
 /**
  * @constructor
- * @extends lgb.controller.ControllerBase
+ * @extends lgb.controller.BaseController
  */
 lgb.controller.GuiController = function() {
   this._NAME = 'lgb.controller.GuiController';
-  lgb.controller.ControllerBase.call(this);
+  lgb.controller.BaseController.call(this);
   
   this.init_();
 };
-goog.inherits(lgb.controller.GuiController, lgb.controller.ControllerBase);
+goog.inherits(lgb.controller.GuiController, lgb.controller.BaseController);
 
 
 /**

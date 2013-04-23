@@ -5,7 +5,7 @@
  
 goog.provide('lgb.controller.DuctworkController');
 
-goog.require('lgb.controller.ControllerBase');
+goog.require('lgb.controller.BaseController');
 goog.require('lgb.events.RequestVisibilityChange');
 goog.require('lgb.events.SelectableLoaded');
 goog.require('lgb.model.DuctworkModel');
@@ -17,14 +17,14 @@ goog.require('lgb.model.BuildingHeightModel');
 /**
  * MVC controller for the Ductwork
  * @constructor
- * @extends lgb.controller.ControllerBase
+ * @extends lgb.controller.BaseController
  */
 lgb.controller.DuctworkController = function() {
   this._NAME = 'lgb.controller.DuctworkController';
-  lgb.controller.ControllerBase.call(this);
+  lgb.controller.BaseController.call(this);
   this.init_();
 };
-goog.inherits(lgb.controller.DuctworkController, lgb.controller.ControllerBase);
+goog.inherits(lgb.controller.DuctworkController, lgb.controller.BaseController);
 
 /**
  * initializes the controller

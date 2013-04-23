@@ -5,7 +5,7 @@
  
 goog.provide('lgb.controller.BuildingController');
 
-goog.require('lgb.controller.ControllerBase');
+goog.require('lgb.controller.BaseController');
 goog.require('lgb.controller.DuctworkController');
 goog.require('lgb.controller.LightingController');
 goog.require('lgb.controller.EnvelopeController');
@@ -19,14 +19,14 @@ goog.require('lgb.events.BuildingHeightChanged');
 /**
  * MVC controller for the BuildingController
  * @constructor
- * @extends lgb.controller.ControllerBase
+ * @extends lgb.controller.BaseController
  */
 lgb.controller.BuildingController = function() {
   this._NAME = 'lgb.controller.BuildingController';
-  lgb.controller.ControllerBase.call(this);
+  lgb.controller.BaseController.call(this);
   this.init_();
 };
-goog.inherits(lgb.controller.BuildingController, lgb.controller.ControllerBase);
+goog.inherits(lgb.controller.BuildingController, lgb.controller.BaseController);
 
 
 /**

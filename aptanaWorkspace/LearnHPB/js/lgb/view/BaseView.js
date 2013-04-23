@@ -13,7 +13,7 @@ goog.require('lgb.utils');
  * MVC View base class
  * @constructor
  * @extends {lgb.BaseClass}
- * @param {lgb.model.ModelBase=} dataModel that the view with display.
+ * @param {lgb.model.BaseModel=} dataModel that the view with display.
  */
 lgb.view.BaseView = function(dataModel, htmlID, parentHtmlID) {
   lgb.BaseClass.call(this);
@@ -72,30 +72,9 @@ lgb.view.BaseView.prototype.makeMainDiv = function() {
 lgb.view.BaseView.prototype.setIds_ = function(htmlID, parentHtmlID) {
     
 
-  
-/*
-  if (undefined === htmlID || '' === htmlID) {
-      
-      var ary=this._NAME.split(".");
-      var len = ary.length;
-      this.htmlID = ary[len-1];
-      
-  } else {
-      this.htmlID = htmlID;
-  }
-  */
-
   this.htmlID = htmlID || this.generateHtmlID();
   this.parentHtmlID = parentHtmlID || 'theBody';
   
-/*
-  if (parentHtmlID !== undefined && 
-      parentHtmlID !== null &&
-      parentHtmlID !== ''
-      ) {
-    this.parentHtmlID = parentHtmlID;
-  }*/
-
 };
 
 lgb.view.BaseView.prototype.generateHtmlID = function() {
@@ -254,7 +233,7 @@ lgb.view.BaseView.prototype.placeOneContainer_ = function(containerName, contain
  * @protected
  */
 lgb.view.BaseView.prototype.onChange = function(event) {
-  throw ('ViewBase.onChange() should be overriden for Class: ' + this._NAME);
+  //throw ('ViewBase.onChange() should be overriden for Class: ' + this._NAME);
 };
 
 

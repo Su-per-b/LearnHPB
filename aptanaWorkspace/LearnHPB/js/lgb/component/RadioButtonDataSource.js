@@ -4,19 +4,19 @@
  */
  
 goog.provide('lgb.component.RadioButtonDataSource');
-goog.require('lgb.component.DataSourceBase');
+goog.require('lgb.component.BaseDataSource');
 
 
 /**
  * @constructor
- * @extends lgb.component.DataSourceBase
+ * @extends lgb.component.BaseDataSource
  * @param {string} title The HTML title in the Link.
  * @param {string} parentHtmlID The CSS ID of the parent in the DOM.
  * @param {string} subID The second part of the CSS ID for this element.
  */
 lgb.component.RadioButtonDataSource = function(title, parentHtmlID, subID) {
   this._NAME = 'lgb.component.RadioButtonDataSource'; 
-  lgb.component.DataSourceBase.call(this);
+  lgb.component.BaseDataSource.call(this);
 
   this.title = title;
   this.parentHtmlID = parentHtmlID;
@@ -26,7 +26,7 @@ lgb.component.RadioButtonDataSource = function(title, parentHtmlID, subID) {
 };
 goog.inherits(
   lgb.component.RadioButtonDataSource,
-  lgb.component.DataSourceBase
+  lgb.component.BaseDataSource
   );
 
 

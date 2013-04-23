@@ -9,7 +9,7 @@ goog.provide('lgb.model.GridModel');
 
 /**
  * @constructor
- * @extends lgb.model.ModelBase
+ * @extends lgb.model.BaseModel
  */
 lgb.model.GridModel = function(jsonObject, geometryDimensions) {
 

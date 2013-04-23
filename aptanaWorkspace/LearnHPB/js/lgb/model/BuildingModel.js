@@ -6,13 +6,13 @@
 goog.provide('lgb.model.BuildingModel');
 goog.provide('lgb.model.BuildingModel.Group');
 
-goog.require('lgb.model.ModelBase');
+goog.require('lgb.model.BaseModel');
 
 
 
 /**
  * @constructor
- * @extends lgb.model.ModelBase
+ * @extends lgb.model.BaseModel
  */
 lgb.model.BuildingModel = function() {
   /**@const */
@@ -20,10 +20,10 @@ lgb.model.BuildingModel = function() {
   /**@const */
   this._TITLE = 'Building';
 
-  lgb.model.ModelBase.call(this);
+  lgb.model.BaseModel.call(this);
 
 };
-goog.inherits(lgb.model.BuildingModel, lgb.model.ModelBase);
+goog.inherits(lgb.model.BuildingModel, lgb.model.BaseModel);
 
 
 /**

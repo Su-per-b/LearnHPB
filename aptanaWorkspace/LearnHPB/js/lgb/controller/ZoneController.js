@@ -5,7 +5,7 @@
  
 goog.provide('lgb.controller.ZoneController');
 
-goog.require('lgb.controller.ControllerBase');
+goog.require('lgb.controller.BaseController');
 goog.require('lgb.events.EnvelopeModelChanged');
 goog.require('lgb.events.RequestGoToViewPoint');
 goog.require('lgb.events.RequestZoneVisiblityChange');
@@ -21,14 +21,14 @@ goog.require('lgb.events.ViewPointCollectionLoaded');
 /**
  * MVC controller for the Zones
  * @constructor
- * @extends lgb.controller.ControllerBase
+ * @extends lgb.controller.BaseController
  */
 lgb.controller.ZoneController = function() {
   this._NAME = 'lgb.controller.ZoneController';
-  lgb.controller.ControllerBase.call(this);
+  lgb.controller.BaseController.call(this);
   this.init_();
 };
-goog.inherits(lgb.controller.ZoneController, lgb.controller.ControllerBase);
+goog.inherits(lgb.controller.ZoneController, lgb.controller.BaseController);
 
 
 /**

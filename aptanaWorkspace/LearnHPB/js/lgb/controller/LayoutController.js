@@ -5,7 +5,7 @@
  
 goog.provide('lgb.controller.LayoutController');
 
-goog.require('lgb.controller.ControllerBase');
+goog.require('lgb.controller.BaseController');
 goog.require('goog.debug.Logger');
 goog.require('lgb.Config');
 goog.require('lgb.view.LayoutView');
@@ -15,14 +15,14 @@ goog.require('lgb.events.LayoutChange');
 /**
  * MVC controller for the App
  * @constructor
- * @extends lgb.controller.ControllerBase
+ * @extends lgb.controller.BaseController
  */
 lgb.controller.LayoutController = function() {
   this._NAME = 'lgb.controller.LayoutController';
-  lgb.controller.ControllerBase.call(this);
+  lgb.controller.BaseController.call(this);
 
 };
-goog.inherits(lgb.controller.LayoutController, lgb.controller.ControllerBase);
+goog.inherits(lgb.controller.LayoutController, lgb.controller.BaseController);
 
 
 

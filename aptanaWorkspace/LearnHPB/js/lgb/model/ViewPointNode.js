@@ -5,20 +5,20 @@
  
 goog.provide('lgb.model.ViewPointNode');
 
-goog.require('lgb.model.ModelBase');
+goog.require('lgb.model.BaseModel');
 
 
 
 /**
  * @constructor
- * @extends lgb.model.ModelBase
+ * @extends lgb.model.BaseModel
  */
 lgb.model.ViewPointNode = function(object3D) {
   /**@const */
   this._NAME = 'lgb.model.ViewPointNode';
   /**@const */
   this._TITLE = 'ViewPointNode';
-  lgb.model.ModelBase.call(this);
+  lgb.model.BaseModel.call(this);
   
   this.targetBoundingBox = null;
   this.name = null;
@@ -29,7 +29,7 @@ lgb.model.ViewPointNode = function(object3D) {
   
   this.init_(object3D);
 };
-goog.inherits(lgb.model.ViewPointNode, lgb.model.ModelBase);
+goog.inherits(lgb.model.ViewPointNode, lgb.model.BaseModel);
 
 
 /**

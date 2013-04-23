@@ -4,7 +4,7 @@
  */
  
 goog.provide('lgb.controller.AdminController');
-goog.require('lgb.controller.ControllerBase');
+goog.require('lgb.controller.BaseController');
 goog.require('lgb.view.AdminButtonView');
 goog.require('lgb.view.AdminView');
 goog.require('lgb.events.WindowResize');
@@ -12,14 +12,14 @@ goog.require('lgb.events.LayoutChange');
 
 /**
  * @constructor
- * @extends lgb.controller.ControllerBase
+ * @extends lgb.controller.BaseController
  */
 lgb.controller.AdminController = function() {
   this._NAME = 'lgb.controller.AdminController';
-  lgb.controller.ControllerBase.call(this);
+  lgb.controller.BaseController.call(this);
   this.init_();
 };
-goog.inherits(lgb.controller.AdminController, lgb.controller.ControllerBase);
+goog.inherits(lgb.controller.AdminController, lgb.controller.BaseController);
 
 
 /**

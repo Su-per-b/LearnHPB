@@ -8,12 +8,12 @@ goog.provide('lgb.model.LightingModel.State');
 
 
 goog.require('lgb.model.BuildingModel.Group');
-goog.require('lgb.model.ModelBase');
+goog.require('lgb.model.BaseModel');
 
 
 /**
  * @constructor
- * @extends lgb.model.ModelBase
+ * @extends lgb.model.BaseModel
  */
 lgb.model.LightingModel = function() {
 
@@ -23,7 +23,7 @@ lgb.model.LightingModel = function() {
   
   /**@const */
   this._TITLE = 'Lighting';
-  lgb.model.ModelBase.call(this);
+  lgb.model.BaseModel.call(this);
 
   this.lightingType = lgb.model.LightingModel.State.RECESSED;
 
@@ -35,7 +35,7 @@ lgb.model.LightingModel = function() {
   
   
 };
-goog.inherits(lgb.model.LightingModel, lgb.model.ModelBase);
+goog.inherits(lgb.model.LightingModel, lgb.model.BaseModel);
 
 
 /**

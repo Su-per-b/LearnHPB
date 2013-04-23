@@ -5,7 +5,7 @@
  
 goog.provide('lgb.controller.PropertiesController');
 
-goog.require('lgb.controller.ControllerBase');
+goog.require('lgb.controller.BaseController');
 goog.require('lgb.events.RequestActivateView');
 goog.require('lgb.events.RequestWorldSelectionChange');
 goog.require('lgb.events.ScenarioParsed');
@@ -18,16 +18,16 @@ goog.require('lgb.events.LayoutChange');
 
 /**
  * @constructor
- * @extends lgb.controller.ControllerBase
+ * @extends lgb.controller.BaseController
  */
 lgb.controller.PropertiesController = function() {
   this._NAME = 'lgb.controller.PropertiesController';
-  lgb.controller.ControllerBase.call(this);
+  lgb.controller.BaseController.call(this);
     this.init_();
 };
 goog.inherits(
   lgb.controller.PropertiesController,
-  lgb.controller.ControllerBase);
+  lgb.controller.BaseController);
 
 
 lgb.controller.PropertiesController.prototype.init_ = function() {

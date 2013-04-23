@@ -6,21 +6,21 @@
 goog.provide('lgb.model.EnvelopeModel');
 
 goog.require('lgb.model.BuildingModel.Group');
-goog.require('lgb.model.ModelBase');
+goog.require('lgb.model.BaseModel');
 
 
 /**
  * @constructor
- * @extends lgb.model.ModelBase
+ * @extends lgb.model.BaseModel
  */
 lgb.model.EnvelopeModel = function() {
   /**@const */
   this._NAME = 'lgb.model.EnvelopeModel';
-  lgb.model.ModelBase.call(this);
+  lgb.model.BaseModel.call(this);
   
   this.init_();
 };
-goog.inherits(lgb.model.EnvelopeModel, lgb.model.ModelBase);
+goog.inherits(lgb.model.EnvelopeModel, lgb.model.BaseModel);
 
 
 /**
@@ -32,7 +32,7 @@ lgb.model.EnvelopeModel.prototype.init_ = function() {
   /**@const */
   this._TITLE = 'Envelope Model';
 
-  lgb.model.ModelBase.call(this);
+  lgb.model.BaseModel.call(this);
 
   this.floorCount = 5;
   this.floorHeight = 11;

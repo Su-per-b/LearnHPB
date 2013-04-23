@@ -7,19 +7,19 @@ goog.provide('lgb.model.scenario.Base');
 
 goog.require('lgb.events.DataModelChanged');
 goog.require('lgb.events.DataModelInitialized');
-goog.require('lgb.model.ModelBase');
+goog.require('lgb.model.BaseModel');
 goog.require('lgb.model.scenario.SystemNode');
 goog.require('lgb.utils.XmlParser');
 
 /**
  * @constructor
- * @extends lgb.model.ModelBase
+ * @extends lgb.model.BaseModel
  */
 lgb.model.scenario.Base = function() {
   /**@const */
   this._NAME = 'lgb.model.scenario.Base';
 
-  lgb.model.ModelBase.call(this);
+  lgb.model.BaseModel.call(this);
 
   this.xml = null;
   this.systemNodeArray = [];
@@ -29,7 +29,7 @@ lgb.model.scenario.Base = function() {
 
 
 };
-goog.inherits(lgb.model.scenario.Base, lgb.model.ModelBase);
+goog.inherits(lgb.model.scenario.Base, lgb.model.BaseModel);
 
 
 /**

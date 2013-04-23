@@ -5,13 +5,13 @@
  
 goog.provide('lgb.model.SimulationModel');
 
-goog.require('lgb.model.ModelBase');
+goog.require('lgb.model.BaseModel');
 goog.require('lgb.model.SimulationModelState');
 
 
 /**
  * @constructor
- * @extends lgb.model.ModelBase
+ * @extends lgb.model.BaseModel
  */
 lgb.model.SimulationModel = function() {
   /**@const */
@@ -33,14 +33,14 @@ lgb.model.SimulationModel = function() {
   console.log('hostname2: '+ hostname2);
   this.socketServerURL = "ws://" + hostname2 + ":8081/";
   
-  lgb.model.ModelBase.call(this);
+  lgb.model.BaseModel.call(this);
   
   
   this.results = [];
   this.lastResult;
 
 };
-goog.inherits(lgb.model.SimulationModel, lgb.model.ModelBase);
+goog.inherits(lgb.model.SimulationModel, lgb.model.BaseModel);
 
 
 

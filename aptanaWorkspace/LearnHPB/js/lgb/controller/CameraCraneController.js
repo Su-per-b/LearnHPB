@@ -5,7 +5,7 @@
  
 goog.provide('lgb.controller.CameraCraneController');
 
-goog.require('lgb.controller.ControllerBase');
+goog.require('lgb.controller.BaseController');
 
 
 /**
@@ -14,11 +14,11 @@ goog.require('lgb.controller.ControllerBase');
  * I need to ride my Super Techno Crane!
  * http://www.youtube.com/watch?v=Rb6NqHHOR4M
  * @constructor
- * @extends lgb.controller.ControllerBase
+ * @extends lgb.controller.BaseController
  */
 lgb.controller.CameraCraneController = function() {
   this._NAME = 'lgb.controller.CameraCraneController';
-  lgb.controller.ControllerBase.call(this);
+  lgb.controller.BaseController.call(this);
   this.debugMode = false;
   
   this.moveDuration = 5 * 1000; // milliseconds
@@ -34,7 +34,7 @@ lgb.controller.CameraCraneController = function() {
 // var x = 0;
   
 };
-goog.inherits(lgb.controller.CameraCraneController, lgb.controller.ControllerBase);
+goog.inherits(lgb.controller.CameraCraneController, lgb.controller.BaseController);
 
 
 /**

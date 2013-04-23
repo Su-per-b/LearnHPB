@@ -5,7 +5,7 @@
  
 goog.provide('lgb.controller.SimulationController');
 
-goog.require('lgb.controller.ControllerBase');
+goog.require('lgb.controller.BaseController');
 goog.require('lgb.view.SimulationAdminView');
 goog.require('lgb.view.SimulationView');
 goog.require('lgb.simulation.controller.MainController');
@@ -21,11 +21,11 @@ goog.require('lgb.simulation.model.WebSocketConnectionState');
 
 /**
  * @constructor
- * @extends lgb.controller.ControllerBase
+ * @extends lgb.controller.BaseController
  */
 lgb.controller.SimulationController = function() {
   this._NAME = 'lgb.controller.SimulationController';
-  lgb.controller.ControllerBase.call(this);
+  lgb.controller.BaseController.call(this);
     
     
   this.simulationMainController_ = new lgb.simulation.controller.MainController();
@@ -42,7 +42,7 @@ lgb.controller.SimulationController = function() {
   this.simulationMainController_.connect();
   
 };
-goog.inherits(lgb.controller.SimulationController, lgb.controller.ControllerBase);
+goog.inherits(lgb.controller.SimulationController, lgb.controller.BaseController);
 
 
 lgb.controller.SimulationController.prototype.bind_ = function() {

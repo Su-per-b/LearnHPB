@@ -5,7 +5,7 @@
  
 goog.provide('lgb.controller.FurnitureController');
 
-goog.require('lgb.controller.ControllerBase');
+goog.require('lgb.controller.BaseController');
 goog.require('lgb.events.RequestVisibilityChange');
 goog.require('lgb.events.ViewInitialized');
 goog.require('lgb.model.FurnitureModel');
@@ -19,14 +19,14 @@ goog.require('lgb.model.BuildingHeightModel');
 /**
  * MVC controller for the Ductwork
  * @constructor
- * @extends lgb.controller.ControllerBase
+ * @extends lgb.controller.BaseController
  */
 lgb.controller.FurnitureController = function() {
   this._NAME = 'lgb.controller.FurnitureController';
-  lgb.controller.ControllerBase.call(this);
+  lgb.controller.BaseController.call(this);
   this.init_();
 };
-goog.inherits(lgb.controller.FurnitureController, lgb.controller.ControllerBase);
+goog.inherits(lgb.controller.FurnitureController, lgb.controller.BaseController);
 
 /**
  * initializes the controller

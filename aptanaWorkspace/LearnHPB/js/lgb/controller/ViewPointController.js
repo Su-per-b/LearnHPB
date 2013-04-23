@@ -5,7 +5,7 @@
  
 goog.provide('lgb.controller.ViewPointController');
 
-goog.require('lgb.controller.ControllerBase');
+goog.require('lgb.controller.BaseController');
 
 goog.require('lgb.model.ViewPointNode');
 goog.require('lgb.model.BuildingHeightModel');
@@ -27,17 +27,17 @@ goog.require('lgb.events.BuildingHeightChanged');
 
 /**
  * @constructor
- * @extends lgb.controller.ControllerBase
+ * @extends lgb.controller.BaseController
  */
 lgb.controller.ViewPointController = function( ) {
   this._NAME = 'lgb.controller.ViewPointController';
-  lgb.controller.ControllerBase.call(this);
+  lgb.controller.BaseController.call(this);
   
   this.viewpointGroupsLoaded_ = 0;
   this.init_();
   
 };
-goog.inherits(lgb.controller.ViewPointController, lgb.controller.ControllerBase);
+goog.inherits(lgb.controller.ViewPointController, lgb.controller.BaseController);
 
 
 /**

@@ -7,8 +7,8 @@ goog.provide('lgb.controller.WorldController');
 
 goog.require('lgb.controller.BuildingController');
 goog.require('lgb.controller.CameraController');
-goog.require('lgb.controller.ControllerBase');
-goog.require('lgb.controller.PsControllerMaster');
+goog.require('lgb.controller.BaseController');
+goog.require('lgb.controller.PsMasterController');
 goog.require('lgb.controller.TrackBallController');
 goog.require('lgb.controller.UtilityController');
 goog.require('lgb.controller.ViewPointController');
@@ -23,16 +23,16 @@ goog.require('lgb.events.LayoutChange');
 /**
  * MVC controller for the App
  * @constructor
- * @extends lgb.controller.ControllerBase
+ * @extends lgb.controller.BaseController
  * @param {Element} containerDiv The DIV to use
  * when we render 3D.
  */
 lgb.controller.WorldController = function() {
   this._NAME = 'lgb.controller.WorldController';
-  lgb.controller.ControllerBase.call(this);
+  lgb.controller.BaseController.call(this);
   this.parentHtmlID = lgb.Config.HUD_CONTAINER_STR;
 };
-goog.inherits(lgb.controller.WorldController, lgb.controller.ControllerBase);
+goog.inherits(lgb.controller.WorldController, lgb.controller.BaseController);
 
 
 /**
@@ -91,8 +91,8 @@ lgb.controller.WorldController.prototype.init = function() {
   */
   this.utilityController_ = new lgb.controller.UtilityController();
 
-  /**@type {lgb.controller.PsControllerMaster} */
-  this.PsControllerMaster_ = new lgb.controller.PsControllerMaster();
+  /**@type {lgb.controller.PsMasterController} */
+  this.PsControllerMaster_ = new lgb.controller.PsMasterController();
 
   /**@type {lgb.controller.WorldSelectionController} */
   this.selectionController_ =

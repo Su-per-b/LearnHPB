@@ -5,14 +5,14 @@
  
 goog.provide('lgb.simulation.model.MainModel');
 
-goog.require('lgb.model.ModelBase');
+goog.require('lgb.model.BaseModel');
 goog.require('lgb.simulation.model.voNative.SimStateNative');
 goog.require('lgb.simulation.model.WebSocketConnectionState');
 
 
 /**
  * @constructor
- * @extends lgb.model.ModelBase
+ * @extends lgb.model.BaseModel
  */
 lgb.simulation.model.MainModel = function() {
 
@@ -22,7 +22,7 @@ lgb.simulation.model.MainModel = function() {
   
   /**@const */
   this._TITLE = 'MainModel';
-  lgb.model.ModelBase.call(this);
+  lgb.model.BaseModel.call(this);
 
   this.simStateNative = lgb.simulation.model.voNative.SimStateNative.simStateNative_unknown;
   this.webSocketConnectionState = lgb.simulation.model.WebSocketConnectionState.uninitialized;
@@ -34,7 +34,7 @@ lgb.simulation.model.MainModel = function() {
   this.init_();
 
 };
-goog.inherits(lgb.simulation.model.MainModel, lgb.model.ModelBase);
+goog.inherits(lgb.simulation.model.MainModel, lgb.model.BaseModel);
 
 
 /**

@@ -9,7 +9,7 @@ goog.require('goog.events.Event');
 
 /**
  * @constructor
- * @param {!lgb.component.DataSourceBase} ds The datasource which has changed.
+ * @param {!lgb.component.BaseDataSource} ds The datasource which has changed.
  * what has changed in the data model.
  * @extends {goog.events.Event}
  */
@@ -19,7 +19,7 @@ lgb.events.DataSourceChanged = function(ds) {
 
   /**
    * The event payload
-   * @type {!lgb.component.DataSourceBase}
+   * @type {!lgb.component.BaseDataSource}
    */
   this.payload = ds;
 };

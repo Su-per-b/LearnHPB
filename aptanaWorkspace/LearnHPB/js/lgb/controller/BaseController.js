@@ -3,7 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.controller.ControllerBase');
+goog.provide('lgb.controller.BaseController');
 
 goog.require('goog.events.Event');
 goog.require('lgb.BaseClass');
@@ -13,10 +13,10 @@ goog.require('lgb.BaseClass');
  * @constructor
  * @extends lgb.BaseClass
  */
-lgb.controller.ControllerBase = function() {
+lgb.controller.BaseController = function() {
   lgb.BaseClass.call(this);
 };
-goog.inherits(lgb.controller.ControllerBase, lgb.BaseClass);
+goog.inherits(lgb.controller.BaseController, lgb.BaseClass);
 
 
 /**
@@ -24,7 +24,7 @@ goog.inherits(lgb.controller.ControllerBase, lgb.BaseClass);
  * lgb.globalEventBus is the event target
  * @param {goog.events.Event} event The event object to dispatch.
  */
-lgb.controller.ControllerBase.prototype.dispatch = function(event) {
+lgb.controller.BaseController.prototype.dispatch = function(event) {
   goog.events.dispatchEvent(lgb.globalEventBus, event);
 };
 
@@ -32,7 +32,7 @@ lgb.controller.ControllerBase.prototype.dispatch = function(event) {
 /**
  * @protected
  */
-lgb.controller.ControllerBase.prototype.makeAddToWorldRequestGlobal =
+lgb.controller.BaseController.prototype.makeAddToWorldRequestGlobal =
   function(viewObject) {
   
   
@@ -51,6 +51,6 @@ lgb.controller.ControllerBase.prototype.makeAddToWorldRequestGlobal =
  * @private
  * @param {lgb.events.Object3DLoaded} event Fired from the v.
  */
-lgb.controller.ControllerBase.prototype.onObject3DLoaded_ = function(event) {
+lgb.controller.BaseController.prototype.onObject3DLoaded_ = function(event) {
   this.dispatch(event);
 };

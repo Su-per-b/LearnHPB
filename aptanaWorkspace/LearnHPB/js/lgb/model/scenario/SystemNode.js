@@ -4,14 +4,14 @@
  */
  
 goog.provide('lgb.model.scenario.SystemNode');
-goog.require('lgb.model.ModelBase');
+goog.require('lgb.model.BaseModel');
 goog.require('lgb.model.scenario.SysVar');
 goog.require('lgb.utils.XmlParser');
 
 /**
  * Primarily a container object for Sysvars
  * @constructor
- * @extends lgb.model.ModelBase
+ * @extends lgb.model.BaseModel
  * @param {!lgb.utils.XmlParser} xmlParser The parse used
  * to populate the object, contains an xml document.
  */
@@ -20,7 +20,7 @@ lgb.model.scenario.SystemNode = function(xmlParser) {
   /**@const */
   this._NAME = 'lgb.model.scenario.SystemNode';
 
-  lgb.model.ModelBase.call(this);
+  lgb.model.BaseModel.call(this);
 
   /** @type {Array.<lgb.model.scenario.SysVar>} **/
   this.sysVarArray = [];
@@ -31,7 +31,7 @@ lgb.model.scenario.SystemNode = function(xmlParser) {
 
 
 };
-goog.inherits(lgb.model.scenario.SystemNode, lgb.model.ModelBase);
+goog.inherits(lgb.model.scenario.SystemNode, lgb.model.BaseModel);
 
 
 /**

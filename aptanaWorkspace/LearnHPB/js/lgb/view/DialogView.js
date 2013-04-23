@@ -10,7 +10,7 @@ goog.require('lgb.view.BaseView');
 
 /**
  * @constructor
- * @param {lgb.model.ModelBase=} dataModel The data model to display.
+ * @param {lgb.model.BaseModel=} dataModel The data model to display.
  * @extends {lgb.view.BaseView}
  */
 lgb.view.DialogView = function(dataModel, htmlID, parentHtmlID) {

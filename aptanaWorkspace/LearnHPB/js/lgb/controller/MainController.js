@@ -8,7 +8,7 @@ goog.provide('lgb.controller.MainController');
 goog.require('goog.debug.Logger');
 goog.require('lgb.Config');
 goog.require('lgb.controller.AdminController');
-goog.require('lgb.controller.ControllerBase');
+goog.require('lgb.controller.BaseController');
 goog.require('lgb.controller.GuiController');
 goog.require('lgb.controller.ScenarioController');
 goog.require('lgb.controller.WorldController');
@@ -22,17 +22,17 @@ goog.require('lgb.simulation.model.voNative.SimStateNative');
 /**
  * MVC controller for the App
  * @constructor
- * @extends lgb.controller.ControllerBase
+ * @extends lgb.controller.BaseController
  */
 lgb.controller.MainController = function() {
   this._NAME = 'lgb.controller.MainController';
-  lgb.controller.ControllerBase.call(this);
+  lgb.controller.BaseController.call(this);
   lgb.globalEventBus = new lgb.events.EventBus();
 
   var delegate = jQuery.proxy(this.init, this);
   jQuery(document).ready(delegate);
 };
-goog.inherits(lgb.controller.MainController, lgb.controller.ControllerBase);
+goog.inherits(lgb.controller.MainController, lgb.controller.BaseController);
 
 
 

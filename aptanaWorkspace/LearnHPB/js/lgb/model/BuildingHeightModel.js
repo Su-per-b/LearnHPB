@@ -5,20 +5,20 @@
  
 goog.provide('lgb.model.BuildingHeightModel');
 
-goog.require('lgb.model.ModelBase');
+goog.require('lgb.model.BaseModel');
 
 
 
 /**
  * @constructor
- * @extends lgb.model.ModelBase
+ * @extends lgb.model.BaseModel
  */
 lgb.model.BuildingHeightModel = function(topFloorMaxY,topFloorMinY) {
   /**@const */
   this._NAME = 'lgb.model.BuildingHeightModel';
   /**@const */
   this._TITLE = 'Building';
-  lgb.model.ModelBase.call(this);
+  lgb.model.BaseModel.call(this);
   
   this.topFloorMaxY = topFloorMaxY;
   this.topFloorMinY = topFloorMinY;
@@ -26,5 +26,5 @@ lgb.model.BuildingHeightModel = function(topFloorMaxY,topFloorMinY) {
 
 
 };
-goog.inherits(lgb.model.BuildingHeightModel, lgb.model.ModelBase);
+goog.inherits(lgb.model.BuildingHeightModel, lgb.model.BaseModel);
 

@@ -5,7 +5,7 @@
  
 goog.provide('lgb.controller.PsController');
 
-goog.require('lgb.controller.ControllerBase');
+goog.require('lgb.controller.BaseController');
 
 goog.require('lgb.events.DataModelChanged');
 goog.require('lgb.events.RequestDataModelChange');
@@ -16,17 +16,17 @@ goog.require('lgb.view.PsMasterGUI');
 
 /**
  * @constructor
- * @extends lgb.controller.ControllerBase
+ * @extends lgb.controller.BaseController
  * @param {lgb.model.PsModel} dataModel The model.
  */
 lgb.controller.PsController = function(dataModel, parentMasterGroup) {
   this._NAME = 'lgb.controller.PsController';
-  lgb.controller.ControllerBase.call(this);
+  lgb.controller.BaseController.call(this);
   this.dataModel = dataModel;
   this.parentMasterGroup_ = parentMasterGroup;
   this.init_();
 };
-goog.inherits(lgb.controller.PsController, lgb.controller.ControllerBase);
+goog.inherits(lgb.controller.PsController, lgb.controller.BaseController);
 
 
 /**

@@ -7,12 +7,12 @@ goog.provide('lgb.model.FurnitureModel');
 
 
 goog.require('lgb.model.BuildingModel.Group');
-goog.require('lgb.model.ModelBase');
+goog.require('lgb.model.BaseModel');
 
 
 /**
  * @constructor
- * @extends lgb.model.ModelBase
+ * @extends lgb.model.BaseModel
  */
 lgb.model.FurnitureModel = function() {
 
@@ -22,7 +22,7 @@ lgb.model.FurnitureModel = function() {
   
   /**@const */
   this._TITLE = 'Furniture';
-  lgb.model.ModelBase.call(this);
+  lgb.model.BaseModel.call(this);
 
 
   this.groupMembership = {};
@@ -33,7 +33,7 @@ lgb.model.FurnitureModel = function() {
   
   
 };
-goog.inherits(lgb.model.FurnitureModel, lgb.model.ModelBase);
+goog.inherits(lgb.model.FurnitureModel, lgb.model.BaseModel);
 
 
 /**
