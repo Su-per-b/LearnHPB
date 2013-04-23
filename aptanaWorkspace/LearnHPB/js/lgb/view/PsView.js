@@ -8,18 +8,18 @@ goog.provide('lgb.view.PsView');
 goog.require('lgb.events.Object3DLoaded');
 goog.require('lgb.view.ParticleElement');
 goog.require('lgb.view.ParticlePath');
-goog.require('lgb.view.ViewBase');
+goog.require('lgb.view.BaseView');
 goog.require('lgb.model.BuildingHeightModel');
 
 /**
  * @constructor
- * @extends {lgb.view.ViewBase}
+ * @extends {lgb.view.BaseView}
  * @param {lgb.model.PsModel} dataModel The data model to display.
  */
 lgb.view.PsView = function(dataModel, parentMasterGroup) {
     
   this._NAME = 'lgb.view.PsView';
-  lgb.view.ViewBase.call(this, dataModel);
+  lgb.view.BaseView.call(this, dataModel);
 
   this.title = dataModel.title;
   
@@ -28,7 +28,7 @@ lgb.view.PsView = function(dataModel, parentMasterGroup) {
   this.parentMasterGroup_ = parentMasterGroup;
 
 };
-goog.inherits(lgb.view.PsView, lgb.view.ViewBase);
+goog.inherits(lgb.view.PsView, lgb.view.BaseView);
 
 /**
  * Event Handler.

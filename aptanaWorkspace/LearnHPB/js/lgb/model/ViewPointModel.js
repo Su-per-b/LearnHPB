@@ -52,15 +52,15 @@ lgb.model.ViewPointModel.prototype.addViewPointCollection = function(viewPointCo
    var list = viewPointCollection.getNodeList();
    var len = list.length;
    
-   var idx  = this.masterViewPointList_.length;
+  // var idx  = this.masterViewPointList_.length;
     
     for (var i = 0; i < len; i++) {
         var viewPointNode = list[i];
-        viewPointNode.value = idx;
+        //viewPointNode.value = idx;
         
-        this.masterViewPointList_[idx] = viewPointNode;
+        this.masterViewPointList_[viewPointNode.value] = viewPointNode;
         
-        idx++
+       // idx++
     }
    
    
@@ -78,9 +78,9 @@ lgb.model.ViewPointModel.prototype.addViewPointCollection = function(viewPointCo
   
 };
 
-lgb.model.ViewPointModel.prototype.getViewPoint = function(idx) {
+lgb.model.ViewPointModel.prototype.getViewPoint = function(key) {
     
-    return this.masterViewPointList_[idx];
+    return this.masterViewPointList_[key];
 
 };
 
@@ -106,4 +106,14 @@ lgb.model.ViewPointModel.prototype.addCameras = function(cameras) {
   }
 
 };
+
+lgb.model.ViewPointModel.makeCollection = function() {
+    
+    return this.nodeList;
+    
+};
+
+
+
+lgb.model.ViewPointModel.IDX = 0;
 */

@@ -6,13 +6,13 @@
 goog.provide('lgb.view.ParticleSystemAdminView');
 
 goog.require('lgb.events.RequestDataModelChange');
-goog.require('lgb.view.ViewBase');
+goog.require('lgb.view.BaseView');
 goog.require('lgb.view.component.CheckBox');
 
 
 /**
  * @constructor
- * @extends {lgb.view.ViewBase}
+ * @extends {lgb.view.BaseView}
  * @param {lgb.model.PsModel} dataModel The model to display a GUI for.
  * @param {string} parentHtmlID The CSS ID of the parent in the DOM.
  */
@@ -21,11 +21,11 @@ lgb.view.ParticleSystemAdminView = function(dataModel, parentHtmlID) {
   this._NAME = 'lgb.view.ParticleSystemAdminView';
   var htmlID = 'adminSubpanel-' + dataModel.getCssID() + '-' + dataModel.id;
     
-  lgb.view.ViewBase.call(this, dataModel, htmlID, parentHtmlID);
+  lgb.view.BaseView.call(this, dataModel, htmlID, parentHtmlID);
 
 
 };
-goog.inherits(lgb.view.ParticleSystemAdminView, lgb.view.ViewBase);
+goog.inherits(lgb.view.ParticleSystemAdminView, lgb.view.BaseView);
 
 
 /**

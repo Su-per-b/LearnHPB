@@ -30,6 +30,7 @@ lgb.controller.PsControllerMaster = function() {
 };
 goog.inherits(lgb.controller.PsControllerMaster, lgb.controller.ControllerBase);
 
+
 /**
  * Initialized the controller.
  */
@@ -53,8 +54,6 @@ lgb.controller.PsControllerMaster.prototype.init = function() {
 lgb.controller.PsControllerMaster.prototype.bind_ = function() {
   
   this.makeAddToWorldRequestGlobal(this.psViewMaster);
-
-
 
   this.listen(
     lgb.events.BuildingHeightChanged.TYPE,

@@ -13,21 +13,21 @@ goog.require('lgb.events.MouseOver');
 goog.require('lgb.events.RequestGoToViewPoint');
 
 goog.require('lgb.model.ViewPointModel');
-goog.require('lgb.view.ViewBase');
+goog.require('lgb.view.BaseView');
 
 
 /**
  * @constructor
  * @param {lgb.model.ViewPointModel} dataModel The data model to display.
  * @param {string} parentHtmlID the CSS id of the parent to inject into the DOM.
- * @extends {lgb.view.ViewBase}
+ * @extends {lgb.view.BaseView}
  */
 lgb.view.ViewPointGUI = function(dataModel) {
 
   this._NAME = 'lgb.view.ViewPointGUI';
-  lgb.view.ViewBase.call(this, dataModel,'ViewPointGUI', 'leftpanel-tabStrip-1');
+  lgb.view.BaseView.call(this, dataModel,'ViewPointGUI', 'leftpanel-tabStrip-1');
 };
-goog.inherits(lgb.view.ViewPointGUI, lgb.view.ViewBase);
+goog.inherits(lgb.view.ViewPointGUI, lgb.view.BaseView);
 
 
 /**
@@ -78,7 +78,7 @@ lgb.view.ViewPointGUI.prototype.onSelect_ = function(event) {
 lgb.view.ViewPointGUI.prototype.onChange = function(event) {
 
 
-    
+    var x = 0;
 };
 
 

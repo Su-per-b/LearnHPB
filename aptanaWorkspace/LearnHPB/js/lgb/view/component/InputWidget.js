@@ -4,14 +4,14 @@
  */
  
 goog.provide('lgb.view.component.InputWidget');
-goog.require('lgb.view.ViewBase');
+goog.require('lgb.view.BaseView');
 
 
 /**
  * Html component that contains a slider
  * @param {lgb.model.scenario.SysVar} dataModel Tells us what to display.
  * @constructor
- * @extends {lgb.view.ViewBase}
+ * @extends {lgb.view.BaseView}
  */
 lgb.view.component.InputWidget = function(dataModel) {
     
@@ -27,12 +27,12 @@ lgb.view.component.InputWidget = function(dataModel) {
    */
   var htmlID = 'component-InputWidget-' + dataModel.name;
   
-  lgb.view.ViewBase.call(this, dataModel, htmlID);
+  lgb.view.BaseView.call(this, dataModel, htmlID);
 
 
 
 };
-goog.inherits(lgb.view.component.InputWidget, lgb.view.ViewBase);
+goog.inherits(lgb.view.component.InputWidget, lgb.view.BaseView);
 
 
 

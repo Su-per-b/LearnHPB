@@ -6,22 +6,22 @@
 goog.provide('lgb.view.DialogView');
 
 goog.require('lgb.events.ViewClosed');
-goog.require('lgb.view.ViewBase');
+goog.require('lgb.view.BaseView');
 
 /**
  * @constructor
  * @param {lgb.model.ModelBase=} dataModel The data model to display.
- * @extends {lgb.view.ViewBase}
+ * @extends {lgb.view.BaseView}
  */
 lgb.view.DialogView = function(dataModel, htmlID, parentHtmlID) {
     
   this._NAME = 'lgb.view.DialogView';
-  lgb.view.ViewBase.call(this, dataModel, htmlID, parentHtmlID);
+  lgb.view.BaseView.call(this, dataModel, htmlID, parentHtmlID);
   this.subPanels = [];
   this.useSlideEffect = false;
 
 };
-goog.inherits(lgb.view.DialogView, lgb.view.ViewBase);
+goog.inherits(lgb.view.DialogView, lgb.view.BaseView);
 
 
 /**

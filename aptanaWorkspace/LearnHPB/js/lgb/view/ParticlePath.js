@@ -5,20 +5,20 @@
  
 goog.provide('lgb.view.ParticlePath');
 
-goog.require('lgb.view.ViewBase');
+goog.require('lgb.view.BaseView');
 
 
 /**
  * MVC View
  * @constructor
- * @extends lgb.view.ViewBase
+ * @extends lgb.view.BaseView
  * @param {THREE.SplineCurve3} curve The path for a particle to travel.
  * @param {number} frameCount The number of animation frames.
  */
 lgb.view.ParticlePath = function(curve, frameCount) {
     
   this._NAME = 'lgb.view.ParticlePath';
-  lgb.view.ViewBase.call(this);
+  lgb.view.BaseView.call(this);
 
   this.curve = curve;
 
@@ -31,7 +31,7 @@ lgb.view.ParticlePath = function(curve, frameCount) {
 
 
 };
-goog.inherits(lgb.view.ParticlePath, lgb.view.ViewBase);
+goog.inherits(lgb.view.ParticlePath, lgb.view.BaseView);
 
 /**
  * chop the path up into a series of pionts.

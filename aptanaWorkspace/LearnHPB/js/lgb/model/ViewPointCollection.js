@@ -41,11 +41,18 @@ lgb.model.ViewPointCollection.prototype.init_ = function(object3Dlist) {
     
     for (var i = 0; i < len; i++) {
         var node = new lgb.model.ViewPointNode(object3Dlist[i]);
-       // node.url = '#' + this.name + '-' + node.name;
         node.value = this.name + '-' + i;
         
         this.nodeList.push(node);
     }
+    
+};
+
+
+
+lgb.model.ViewPointCollection.prototype.getNode = function(idx) {
+    
+    return this.nodeList[idx];
     
 };
 

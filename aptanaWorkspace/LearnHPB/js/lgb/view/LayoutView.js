@@ -7,23 +7,23 @@ goog.provide('lgb.view.LayoutView');
 
 goog.require('lgb.events.LayoutChange');
 goog.require('lgb.events.WindowResize');
-goog.require('lgb.view.ViewBase');
+goog.require('lgb.view.BaseView');
 
 
 /**
  * @constructor
- * @extends {lgb.view.ViewBase}
+ * @extends {lgb.view.BaseView}
  */
 lgb.view.LayoutView = function() {
     
   /**@const */
   this._NAME = 'lgb.view.LayoutView';
   
-  lgb.view.ViewBase.call(this, null, 'layoutView');
+  lgb.view.BaseView.call(this, null, 'layoutView');
 
 
 };
-goog.inherits(lgb.view.LayoutView, lgb.view.ViewBase);
+goog.inherits(lgb.view.LayoutView, lgb.view.BaseView);
 
 
 

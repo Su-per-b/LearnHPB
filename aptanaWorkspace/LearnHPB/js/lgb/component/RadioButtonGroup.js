@@ -10,16 +10,16 @@ goog.require('lgb.component.RadioButtonDataSource');
 /**
  * Html radio button group that will be inserted into the DOM
  * @constructor
- * @extends {lgb.view.ViewBase}
+ * @extends {lgb.view.BaseView}
  * @param {lgb.component.RadioButtonDataSource} ds the datasource
  * for this component.
  */
 lgb.component.RadioButtonGroup = function(ds) {
   this._NAME = 'lgb.component.RadioButtonGroup'; 
-  lgb.view.ViewBase.call(this);
+  lgb.view.BaseView.call(this);
   this.ds = ds;
 };
-goog.inherits(lgb.component.RadioButtonGroup, lgb.view.ViewBase);
+goog.inherits(lgb.component.RadioButtonGroup, lgb.view.BaseView);
 
 /**
  * @return {string} The html string.

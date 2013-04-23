@@ -16,25 +16,25 @@ goog.require('lgb.events.RequestDataModelChange');
 goog.require('lgb.events.RequestSimulationStateChange');
 goog.require('lgb.model.SimulationModelState');
 
-goog.require('lgb.view.ViewBase');
+goog.require('lgb.view.BaseView');
 
 
 /**
  * @constructor
- * @extends {lgb.view.ViewBase}
+ * @extends {lgb.view.BaseView}
  * @param {lgb.model.EnvelopeModel} dataModel the model to display.
  * @param {string} parentHtmlID The CSS id of the DOM parent.
  */
 lgb.view.SimulationAdminView = function(dataModel, parentHtmlID) {
     
   this._NAME = 'lgb.view.SimulationAdminView';
-  lgb.view.ViewBase.call(this, dataModel, 'simulationAdminView',parentHtmlID);
+  lgb.view.BaseView.call(this, dataModel, 'simulationAdminView',parentHtmlID);
 
   var ds = new lgb.component.LinkDataSource('Open',this.htmlID, 'open')
   this.openLink_ = new lgb.component.Link(ds);
   
 };
-goog.inherits(lgb.view.SimulationAdminView, lgb.view.ViewBase);
+goog.inherits(lgb.view.SimulationAdminView, lgb.view.BaseView);
 
 
 /**

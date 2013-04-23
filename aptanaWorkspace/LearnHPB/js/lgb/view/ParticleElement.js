@@ -5,21 +5,21 @@
  
 goog.provide('lgb.view.ParticleElement');
 
-goog.require('lgb.view.ViewBase');
+goog.require('lgb.view.BaseView');
 
 
 
 
 /**
  * @constructor
- * @extends {lgb.view.ViewBase}
+ * @extends {lgb.view.BaseView}
  * @param {THREE.ParticleBasicMaterial} pMaterial the material to use.
  */
 lgb.view.ParticleElement = function(pMaterial) {
     
   this._NAME = 'lgb.view.ParticleElement';
   
-  lgb.view.ViewBase.call(this);
+  lgb.view.BaseView.call(this);
 
   this.pMaterial = pMaterial;
   this.threeParticle = new THREE.Particle(pMaterial);
@@ -28,7 +28,7 @@ lgb.view.ParticleElement = function(pMaterial) {
   this.isFinished = false;
 
 };
-goog.inherits(lgb.view.ParticleElement, lgb.view.ViewBase);
+goog.inherits(lgb.view.ParticleElement, lgb.view.BaseView);
 
 
 /**

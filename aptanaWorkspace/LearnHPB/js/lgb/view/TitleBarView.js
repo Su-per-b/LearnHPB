@@ -4,24 +4,24 @@
  */
  
 goog.provide('lgb.view.TitleBarView');
-goog.require('lgb.view.ViewBase');
+goog.require('lgb.view.BaseView');
 
 
 
 /**
  * @constructor
- * @extends {lgb.view.ViewBase}
+ * @extends {lgb.view.BaseView}
  */
 lgb.view.TitleBarView = function() {
     
   this._NAME = 'lgb.view.TitleBarView';
   
-  lgb.view.ViewBase.call(this, null, 'titleBar', lgb.Config.HUD_CONTAINER_STR);
+  lgb.view.BaseView.call(this, null, 'titleBar', lgb.Config.HUD_CONTAINER_STR);
 
   this.injectHtml_();
 
 };
-goog.inherits(lgb.view.TitleBarView, lgb.view.ViewBase);
+goog.inherits(lgb.view.TitleBarView, lgb.view.BaseView);
 
 
 /**

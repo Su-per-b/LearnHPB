@@ -7,7 +7,7 @@ goog.provide('lgb.controller.ZoneController');
 
 goog.require('lgb.controller.ControllerBase');
 goog.require('lgb.events.EnvelopeModelChanged');
-goog.require('lgb.events.RequestGoToViewPointName');
+goog.require('lgb.events.RequestGoToViewPoint');
 goog.require('lgb.events.RequestZoneVisiblityChange');
 goog.require('lgb.model.EnvelopeModel');
 goog.require('lgb.model.ZoneModel');
@@ -39,6 +39,7 @@ lgb.controller.ZoneController.prototype.init_ = function() {
   this.dataModel = new lgb.model.ZoneModel();
   this.view = new lgb.view.ZoneView(this.dataModel);
   this.adminview = new lgb.view.ZoneAdminView(this.dataModel, 'adminView');
+  
   this.bind_();
 
   this.view.init();
@@ -69,8 +70,8 @@ lgb.controller.ZoneController.prototype.bind_ = function() {
 
   this.listenTo(
     this.adminview,
-    lgb.events.RequestGoToViewPointName.TYPE,
-    this.onRequestGoToViewPointName_
+    lgb.events.RequestGoToViewPoint.TYPE,
+    this.onRequestGoToViewPoint_
     );
 
 
@@ -93,6 +94,7 @@ lgb.controller.ZoneController.prototype.bind_ = function() {
 lgb.controller.ZoneController.prototype.onViewPointCollectionLoaded_ =
   function(event) {
 
+  this.dataModel.setViewPointCollection(event.payload);
   this.dispatch(event);
 
 };
@@ -127,9 +129,10 @@ lgb.controller.ZoneController.prototype.onRequestZoneVisiblityChange_ =
  * @param {lgb.events.RequestGoToViewPointName} event Fired by one of
  * the views.
  */
-lgb.controller.ZoneController.prototype.onRequestGoToViewPointName_ =
+lgb.controller.ZoneController.prototype.onRequestGoToViewPoint_ =
   function(event) {
 
+  
   this.dispatch(event);
 
 };

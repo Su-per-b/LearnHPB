@@ -10,19 +10,19 @@ goog.require('lgb.component.TabStripDataSource');
 /**
  * Html radio button group that will be inserted into the DOM
  * @constructor
- * @extends {lgb.view.ViewBase}
+ * @extends {lgb.view.BaseView}
  * @param {lgb.component.TabStripDataSource} ds the datasource
  * for this component.
  */
 lgb.component.TabStrip = function(ds) {
     
   this._NAME = 'lgb.component.TabStrip';
-  lgb.view.ViewBase.call(this, null, ds.htmlID, ds.parentHtmlID);
+  lgb.view.BaseView.call(this, null, ds.htmlID, ds.parentHtmlID);
   this.ds = ds;
 
   this.makeElement_();
 };
-goog.inherits(lgb.component.TabStrip, lgb.view.ViewBase);
+goog.inherits(lgb.component.TabStrip, lgb.view.BaseView);
 
 
 

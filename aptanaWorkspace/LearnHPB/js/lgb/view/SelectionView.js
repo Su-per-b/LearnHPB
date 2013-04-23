@@ -9,12 +9,12 @@ goog.require('lgb.events.DataModelChanged');
 goog.require('lgb.events.Object3DSelected');
 goog.require('lgb.events.Render');
 goog.require('lgb.model.SelectableModel');
-goog.require('lgb.view.ViewBase');
+goog.require('lgb.view.BaseView');
 
 
 /**
  * @constructor
- * @extends {lgb.view.ViewBase}
+ * @extends {lgb.view.BaseView}
  * @param {lgb.model.SelectableModel} dataModel The MVC data Model.
  * @param {Element} containerDiv The DOM element.
  * @param {THREE.Camera} camera The camera needed to identify collisions.
@@ -22,13 +22,13 @@ goog.require('lgb.view.ViewBase');
 lgb.view.SelectionView = function(dataModel, containerDiv, camera) {
     
   this._NAME = 'lgb.view.SelectionView';
-  lgb.view.ViewBase.call(this, dataModel, null, lgb.Config.HUD_CONTAINER_STR);
+  lgb.view.BaseView.call(this, dataModel, null, lgb.Config.HUD_CONTAINER_STR);
   
   this.containerDiv_ = containerDiv;
   this.camera_ = camera;
   
 };
-goog.inherits(lgb.view.SelectionView, lgb.view.ViewBase);
+goog.inherits(lgb.view.SelectionView, lgb.view.BaseView);
 
 
 

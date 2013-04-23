@@ -17,7 +17,7 @@ goog.require('goog.events.EventTarget');
  */
 lgb.BaseClass = function() {
     
-  //lgb.assert (this._NAME);
+  lgb.assert (this._NAME);
   goog.events.EventTarget.call(this);
   
   this.delegateIdx = {};

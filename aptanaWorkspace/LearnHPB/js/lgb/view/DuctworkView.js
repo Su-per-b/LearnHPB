@@ -5,12 +5,12 @@
  
 goog.provide('lgb.view.DuctworkView');
 
-goog.require('lgb.view.ViewBase');
+goog.require('lgb.view.BaseView');
 goog.require('lgb.model.BuildingHeightModel');
 
 /**
  * @constructor
- * @extends {lgb.view.ViewBase}
+ * @extends {lgb.view.BaseView}
  * @param {lgb.model.DuctworkModel} dataModel The model to display.
  */
 lgb.view.DuctworkView = function(dataModel) {
@@ -18,13 +18,13 @@ lgb.view.DuctworkView = function(dataModel) {
   this._NAME = 'lgb.view.DuctworkView';
   this._ASSETS_FOLDER = 'hvac';
   
-  lgb.view.ViewBase.call(this, dataModel);
+  lgb.view.BaseView.call(this, dataModel);
 
   this.buildingHeightModel_ = null;
   this.sceneY_ = null;
   
 };
-goog.inherits(lgb.view.DuctworkView, lgb.view.ViewBase);
+goog.inherits(lgb.view.DuctworkView, lgb.view.BaseView);
 
 
 

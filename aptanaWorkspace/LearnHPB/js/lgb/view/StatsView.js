@@ -28,24 +28,24 @@
 goog.provide('lgb.view.StatsView');
 
 goog.require('lgb.view.StatsHelper');
-goog.require('lgb.view.ViewBase');
+goog.require('lgb.view.BaseView');
 
 
 
 /**
  * MVC View
  * @constructor
- * @extends {lgb.view.ViewBase}
+ * @extends {lgb.view.BaseView}
  * @param {Element} containerDiv The DOM element to append to.
  */
 lgb.view.StatsView = function(containerDiv) {
   this._NAME = 'lgb.view.StatsView';
-  lgb.view.ViewBase.call(this);
+  lgb.view.BaseView.call(this);
 
   this.init(containerDiv);
 
 };
-goog.inherits(lgb.view.StatsView, lgb.view.ViewBase);
+goog.inherits(lgb.view.StatsView, lgb.view.BaseView);
 
 
 

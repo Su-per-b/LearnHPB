@@ -5,21 +5,21 @@
  
 goog.provide('lgb.view.PsMasterGUI');
 
-goog.require('lgb.view.ViewBase');
+goog.require('lgb.view.BaseView');
 goog.require('lgb.model.BuildingHeightModel');
 
 /**
  * @constructor
- * @extends {lgb.view.ViewBase}
+ * @extends {lgb.view.BaseView}
  * @param {lgb.model.LightingModel} dataModel The model to display.
  */
 lgb.view.PsMasterGUI = function(dataModel) {
 
   this._NAME = 'lgb.view.ViewPointGUI';
   
-  lgb.view.ViewBase.call(this, dataModel, 'ViewPointGUI');
+  lgb.view.BaseView.call(this, dataModel, 'ViewPointGUI');
 };
-goog.inherits(lgb.view.PsMasterGUI, lgb.view.ViewBase);
+goog.inherits(lgb.view.PsMasterGUI, lgb.view.BaseView);
 
 
 

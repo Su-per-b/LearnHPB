@@ -17,21 +17,21 @@ goog.require('lgb.events.MouseOver');
 goog.require('lgb.events.RequestGoToViewPointName');
 goog.require('lgb.events.RequestZoneVisiblityChange');
 goog.require('lgb.model.ZoneModel');
-goog.require('lgb.view.ViewBase');
+goog.require('lgb.view.BaseView');
 
 /**
  * @constructor
  * @param {lgb.model.ZoneModel} dataModel The data model to display.
  * @param {string} parentHtmlID the CSS id of the parent to inject into the DOM.
- * @extends {lgb.view.ViewBase}
+ * @extends {lgb.view.BaseView}
  */
 lgb.view.ZoneAdminView = function(dataModel, parentHtmlID) {
     
   this._NAME = 'lgb.view.ZoneAdminView';
-  lgb.view.ViewBase.call(this, dataModel, 'ZoneAdminView', parentHtmlID);
+  lgb.view.BaseView.call(this, dataModel, 'ZoneAdminView', parentHtmlID);
 
 };
-goog.inherits(lgb.view.ZoneAdminView, lgb.view.ViewBase);
+goog.inherits(lgb.view.ZoneAdminView, lgb.view.BaseView);
 
 
 /**
@@ -85,12 +85,15 @@ lgb.view.ZoneAdminView.prototype.bind_ = function() {
  */
 lgb.view.ZoneAdminView.prototype.onMouseClick_ = function(event) {
 
-  var zoneIdx = event.target.ds.data;
-  var name = 'lgb.view.ZoneView-zone-' + (zoneIdx + 1).toString();
+  var zoneIdx = event.target.ds.data ;
+  var vp = this.dataModel.viewPointCollection_.getNode(zoneIdx);
+  
+ // var name = 'lgb.view.ZoneView-zone-' + (zoneIdx + 1).toString();
 
+  //var p = event.payload;
+  
 
-
-  this.dispatchLocal(new lgb.events.RequestGoToViewPointName(name));
+  this.dispatchLocal(new lgb.events.RequestGoToViewPoint(vp));
 
 
 };

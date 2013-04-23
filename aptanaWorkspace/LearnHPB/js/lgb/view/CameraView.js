@@ -7,24 +7,24 @@ goog.provide('lgb.view.CameraView');
 
 goog.require('lgb.controller.CameraCraneController');
 goog.require('lgb.events.WindowResize');
-goog.require('lgb.view.ViewBase');
+goog.require('lgb.view.BaseView');
 
 
 /**
  * @constructor
- * @extends {lgb.view.ViewBase}
+ * @extends {lgb.view.BaseView}
  * @param {Node} domElement Needed to create the camera.
  */
 lgb.view.CameraView = function(domElement) {
     
   this._NAME = 'lgb.view.CameraView';
-  lgb.view.ViewBase.call(this);
+  lgb.view.BaseView.call(this);
 
   this.domElement_ = domElement;
   
   this.offset_ = new THREE.Vector3(0,2,5);
 };
-goog.inherits(lgb.view.CameraView, lgb.view.ViewBase);
+goog.inherits(lgb.view.CameraView, lgb.view.BaseView);
 
 
 

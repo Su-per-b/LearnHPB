@@ -13,22 +13,22 @@ goog.require('lgb.events.MouseOver');
 goog.require('lgb.events.RequestGoToViewPoint');
 
 goog.require('lgb.model.ViewPointModel');
-goog.require('lgb.view.ViewBase');
+goog.require('lgb.view.BaseView');
 
 
 /**
  * @constructor
  * @param {lgb.model.ViewPointModel} dataModel The data model to display.
  * @param {string} parentHtmlID the CSS id of the parent to inject into the DOM.
- * @extends {lgb.view.ViewBase}
+ * @extends {lgb.view.BaseView}
  */
 lgb.view.ViewPointAdminView = function(dataModel, parentHtmlID) {
     
   this._NAME = 'lgb.view.ViewPointAdminView';
-  lgb.view.ViewBase.call(this, dataModel, 'ViewPointAdminView', parentHtmlID);
+  lgb.view.BaseView.call(this, dataModel, 'ViewPointAdminView', parentHtmlID);
 
 };
-goog.inherits(lgb.view.ViewPointAdminView, lgb.view.ViewBase);
+goog.inherits(lgb.view.ViewPointAdminView, lgb.view.BaseView);
 
 
 /**

@@ -4,19 +4,19 @@
  */
  
 goog.provide('lgb.view.component.ToggleButtonA');
-goog.require('lgb.view.ViewBase');
+goog.require('lgb.view.BaseView');
 
 
 /**
  * Html button type object made with a <div> that will be instered into the DOM
  * @param {Object} options Use this to set things like the title and id.
  * @constructor
- * @extends {lgb.view.ViewBase}
+ * @extends {lgb.view.BaseView}
  */
 lgb.view.component.ToggleButtonA = function(options) {
     
   this._NAME = 'lgb.view.component.ToggleButtonA';
-  lgb.view.ViewBase.call(this);
+  lgb.view.BaseView.call(this);
 
   this.options = $.extend({ // Default values
     htmlID: 'IDnotSet',
@@ -31,7 +31,7 @@ lgb.view.component.ToggleButtonA = function(options) {
 
 
 };
-goog.inherits(lgb.view.component.ToggleButtonA, lgb.view.ViewBase);
+goog.inherits(lgb.view.component.ToggleButtonA, lgb.view.BaseView);
 
 
 /**

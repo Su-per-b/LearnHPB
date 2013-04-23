@@ -3,7 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
 
-goog.provide('lgb.view.ViewBase');
+goog.provide('lgb.view.BaseView');
 
 goog.require('lgb.BaseClass');
 goog.require('lgb.events.DataModelChanged');
@@ -15,7 +15,7 @@ goog.require('lgb.utils');
  * @extends {lgb.BaseClass}
  * @param {lgb.model.ModelBase=} dataModel that the view with display.
  */
-lgb.view.ViewBase = function(dataModel, htmlID, parentHtmlID) {
+lgb.view.BaseView = function(dataModel, htmlID, parentHtmlID) {
   lgb.BaseClass.call(this);
 
   if (null !== dataModel && undefined !== dataModel) {
@@ -34,14 +34,14 @@ lgb.view.ViewBase = function(dataModel, htmlID, parentHtmlID) {
   this.masterGroup_.name = this._NAME;
   
 };
-goog.inherits(lgb.view.ViewBase, lgb.BaseClass);
+goog.inherits(lgb.view.BaseView, lgb.BaseClass);
 
 /**
  * injects html into the DOM
  * @param {string} html the HTML string to append.
  * @protected
  */
-lgb.view.ViewBase.prototype.append = function(html) {
+lgb.view.BaseView.prototype.append = function(html) {
   this.jqParent().append(html);
 };
 
@@ -50,13 +50,13 @@ lgb.view.ViewBase.prototype.append = function(html) {
  * @param {!string} id The last part of the CSS ID.
  * @return {string} The generated ID.
  */
-lgb.view.ViewBase.prototype.makeID = function(id) {
+lgb.view.BaseView.prototype.makeID = function(id) {
   var newID = '{0}-{1}'.format(this.htmlID, id);
   return newID;
 };
 
 
-lgb.view.ViewBase.prototype.makeMainDiv = function() {
+lgb.view.BaseView.prototype.makeMainDiv = function() {
     
     var mainDiv = $("<div>")
                         .attr("id", this.htmlID);
@@ -69,7 +69,7 @@ lgb.view.ViewBase.prototype.makeMainDiv = function() {
 
 
 
-lgb.view.ViewBase.prototype.setIds_ = function(htmlID, parentHtmlID) {
+lgb.view.BaseView.prototype.setIds_ = function(htmlID, parentHtmlID) {
     
 
   
@@ -98,7 +98,7 @@ lgb.view.ViewBase.prototype.setIds_ = function(htmlID, parentHtmlID) {
 
 };
 
-lgb.view.ViewBase.prototype.generateHtmlID = function() {
+lgb.view.BaseView.prototype.generateHtmlID = function() {
     
       var ary=this._NAME.split(".");
       var len = ary.length;
@@ -112,7 +112,7 @@ lgb.view.ViewBase.prototype.generateHtmlID = function() {
  * @param {string=} id The css id.
  * @return {jQuery} Element.
  */
-lgb.view.ViewBase.prototype.jq = function(id) {
+lgb.view.BaseView.prototype.jq = function(id) {
 
   var cssID = id || this.htmlID;
   var selector = '#{0}'.format(cssID);
@@ -127,7 +127,7 @@ lgb.view.ViewBase.prototype.jq = function(id) {
  * refers to the parent in the DOM
  * @return {jQuery} Jquery object.
  */
-lgb.view.ViewBase.prototype.jqParent = function() {
+lgb.view.BaseView.prototype.jqParent = function() {
     
   if (undefined == this.parentElement_) {
     this.parentElement_ = $('#{0}'.format(this.parentHtmlID));
@@ -141,7 +141,7 @@ lgb.view.ViewBase.prototype.jqParent = function() {
  * and loads the meshes from remote files
  * @protected
  */
-lgb.view.ViewBase.prototype.init = function() {
+lgb.view.BaseView.prototype.init = function() {
 
   if (undefined === this._ASSETS_FOLDER) {
     throw ("You must define this._ASSETS_FOLDER")
@@ -155,7 +155,7 @@ lgb.view.ViewBase.prototype.init = function() {
  * @param {string} the folder name form which to load the 'scene.json' file
  * @protected
  */
-lgb.view.ViewBase.prototype.loadSceneFromFolder_ = function(folderName) {
+lgb.view.BaseView.prototype.loadSceneFromFolder_ = function(folderName) {
 
   var path = lgb.Config.ASSETS_BASE_PATH + folderName + '/' + this.filename;
   this.loader_ = new THREE.SceneLoaderEx();
@@ -168,7 +168,7 @@ lgb.view.ViewBase.prototype.loadSceneFromFolder_ = function(folderName) {
  * @param {Object} result From the THREE.js lib.
  * @private
  */
-lgb.view.ViewBase.prototype.onSceneLoadedBase_ = function(result) {
+lgb.view.BaseView.prototype.onSceneLoadedBase_ = function(result) {
 
   this.scene_ = result['scene'];
   this.groups_ = result['groups'];
@@ -198,7 +198,7 @@ lgb.view.ViewBase.prototype.onSceneLoadedBase_ = function(result) {
 
 
 
-lgb.view.ViewBase.prototype.placeContainers_ = function() {
+lgb.view.BaseView.prototype.placeContainers_ = function() {
     
 
     var count = 0;
@@ -212,7 +212,7 @@ lgb.view.ViewBase.prototype.placeContainers_ = function() {
 };
 
 
-lgb.view.ViewBase.prototype.placeOneContainer_ = function(containerName, containerObject) {
+lgb.view.BaseView.prototype.placeOneContainer_ = function(containerName, containerObject) {
     
     if (containerObject.type == "group") {
         
@@ -253,13 +253,13 @@ lgb.view.ViewBase.prototype.placeOneContainer_ = function(containerName, contain
  * @param {lgb.events.DataModelChanged} event The event.
  * @protected
  */
-lgb.view.ViewBase.prototype.onChange = function(event) {
+lgb.view.BaseView.prototype.onChange = function(event) {
   throw ('ViewBase.onChange() should be overriden for Class: ' + this._NAME);
 };
 
 
 
-lgb.view.ViewBase.prototype.cloneGroupToObject3D_ = function(obj3D, groupName) {
+lgb.view.BaseView.prototype.cloneGroupToObject3D_ = function(obj3D, groupName) {
   
 
   
@@ -269,7 +269,7 @@ lgb.view.ViewBase.prototype.cloneGroupToObject3D_ = function(obj3D, groupName) {
 /**
  * @protected
  */
-lgb.view.ViewBase.prototype.moveGroupToObject3D_ = function(groupName) {
+lgb.view.BaseView.prototype.moveGroupToObject3D_ = function(groupName) {
   
   var obj3D = new THREE.Object3D();
   
@@ -286,7 +286,7 @@ lgb.view.ViewBase.prototype.moveGroupToObject3D_ = function(groupName) {
  * Binds an event listener to handle when the MVC data model changes.
  * @protected
  */
-lgb.view.ViewBase.prototype.listenForChange_ = function() {
+lgb.view.BaseView.prototype.listenForChange_ = function() {
 
   this.listenHelper_(this.dataModel, lgb.events.DataModelChanged.TYPE, this, this.onChange);
 
@@ -297,7 +297,7 @@ lgb.view.ViewBase.prototype.listenForChange_ = function() {
  * added to the world.
  * @protected
  */
-lgb.view.ViewBase.prototype.requestAddToWorld = function(object3D) {
+lgb.view.BaseView.prototype.requestAddToWorld = function(object3D) {
 
   if (undefined === object3D.name || "" == object3D.name ) {
     object3D.name = this._NAME;

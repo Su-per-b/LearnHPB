@@ -15,12 +15,14 @@ goog.require('lgb.component.DataSourceBase');
  * @param {string} subID The second part of the CSS ID for this element.
  */
 lgb.component.TabStripDataSource = function(title, parentHtmlID, htmlID) {
+    
+  this._NAME = 'lgb.component.TabStripDataSource';
   lgb.component.DataSourceBase.call(this);
 
   this.title = title;
   this.parentHtmlID = parentHtmlID;
   this.htmlID = htmlID;
-  this._NAME = 'lgb.component.TabStripDataSource';
+
   this.isEnabled = true;
   
   this.showIcon = false;

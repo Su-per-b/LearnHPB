@@ -1,6 +1,6 @@
 goog.provide('lgb.view.InputView');
 
-goog.require('lgb.view.ViewBase');
+goog.require('lgb.view.BaseView');
 goog.require('lgb.component.TabStrip');
 goog.require('lgb.component.TabStripDataSource');
 
@@ -9,10 +9,10 @@ lgb.view.InputView = function(dataModel, htmlID, parentHtmlID) {
     
   this._NAME = 'lgb.view.InputView';
   
-  lgb.view.ViewBase.call(this, dataModel, htmlID, parentHtmlID);
+  lgb.view.BaseView.call(this, dataModel, htmlID, parentHtmlID);
 
 };
-goog.inherits(lgb.view.InputView, lgb.view.ViewBase);
+goog.inherits(lgb.view.InputView, lgb.view.BaseView);
 
 
 /**
