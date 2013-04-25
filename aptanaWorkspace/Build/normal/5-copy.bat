@@ -15,6 +15,7 @@ xcopy %SRC%\css\Silver %DEST%\css\Silver /y /i /s
 copy %SRC%\css\lgb.min.css %DEST%\css\lgb.min.css
 copy %SRC%\css\kendo.common.css %DEST%\css\kendo.common.css
 copy %SRC%\css\kendo.silver.css %DEST%\css\kendo.silver.css
-copy temp\three.min.js %DEST%\three.min.js
+copy %SRC%\css\highlight.png %DEST%\css\highlight.png
+copy ..\temp\three.min.js %DEST%\three.min.js
 copy temp\lgb.js %DEST%\lgb.js
 copy temp\kendo.min.js %DEST%\kendo.min.js
