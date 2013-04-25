@@ -44,7 +44,7 @@ lgb.simulation.events.BaseEvent.prototype.fromJson = function(deserializedObj) {
     return typedObj;
     
     
-    return deserializedObj;
+    //return deserializedObj;
 };
 
 /**

@@ -31,10 +31,11 @@ lgb.model.ViewPointModel.prototype.init_ = function() {
     
   this.masterViewPointList_ = [];
   this.kendoDS = new kendo.data.HierarchicalDataSource({});
+
   
 };
 
-/**
+/**kendoDS
  * @param {string} name The camera name.
  */
 /*
@@ -51,25 +52,17 @@ lgb.model.ViewPointModel.prototype.addViewPointCollection = function(viewPointCo
 
    var list = viewPointCollection.getNodeList();
    var len = list.length;
-   
-  // var idx  = this.masterViewPointList_.length;
     
     for (var i = 0; i < len; i++) {
         var viewPointNode = list[i];
-        //viewPointNode.value = idx;
-        
         this.masterViewPointList_[viewPointNode.value] = viewPointNode;
-        
-       // idx++
     }
-   
-   
    
     var d = viewPointCollection.getTreeData();
        
     this.kendoDS.add(d);
     
-  
+ 
       this.dispatchChange(
           {
             viewPointCollection: viewPointCollection

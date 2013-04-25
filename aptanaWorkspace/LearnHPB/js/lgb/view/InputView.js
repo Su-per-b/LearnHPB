@@ -26,7 +26,7 @@ lgb.view.InputView.prototype.init = function() {
         
        
   dataSource.addTab('Viewpoints', '<br />', 1);
-  dataSource.addTab('Airflow', 'parent content 2 <br />', 2);
+  dataSource.addTab('Airflow', '<br />', 2);
 
   
   this.tabStrip1 = new lgb.component.TabStrip(dataSource);

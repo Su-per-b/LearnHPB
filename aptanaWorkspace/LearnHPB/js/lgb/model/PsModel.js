@@ -47,6 +47,22 @@ goog.inherits(lgb.model.PsModel, lgb.model.BaseModel);
 
 
 
+lgb.model.PsModel.prototype.getTreeData = function() {
+    
+
+        
+    var item = {
+        text: this.title,
+        value: this.id,
+        hasChildren:false
+    }
+        
+        
+    return item;
+    
+};
+
+
 /**
  * @param {Object} stateObject Contains information about what to change.
  */

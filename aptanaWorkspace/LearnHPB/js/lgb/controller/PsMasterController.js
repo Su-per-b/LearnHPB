@@ -7,16 +7,20 @@ goog.provide('lgb.controller.PsMasterController');
 
 goog.require('lgb.controller.BaseController');
 goog.require('lgb.controller.PsController');
+
 goog.require('lgb.events.DataModelChanged');
 goog.require('lgb.events.DataModelInitialized');
 goog.require('lgb.events.BuildingHeightChanged');
 goog.require('lgb.events.WorldCreated');
+goog.require('lgb.events.RequestDataModelChange');
+
 goog.require('lgb.model.PsModel');
 goog.require('lgb.model.PsModelMaster');
+
 goog.require('lgb.view.ParticleSystemAdminView');
 goog.require('lgb.view.PsView');
 goog.require('lgb.view.PsMasterView');
-
+goog.require('lgb.view.PsMasterGUI');
 
 
 /**
@@ -36,12 +40,15 @@ goog.inherits(lgb.controller.PsMasterController, lgb.controller.BaseController);
  */
 lgb.controller.PsMasterController.prototype.init = function() {
     
-  this.psDataModelMaster = new lgb.model.PsModelMaster();
-  this.psViewMaster = new lgb.view.PsMasterView(this.psDataModelMaster);
+  this.psMasterDataModel = new lgb.model.PsModelMaster();
+  this.psMasterView = new lgb.view.PsMasterView(this.psMasterDataModel);
   
+  this.psMasterGUI = new lgb.view.PsMasterGUI(this.psMasterDataModel);
+
   this.bind_();
   
-  this.psDataModelMaster.load();
+  this.psMasterGUI.init();
+  this.psMasterDataModel.load();
 };
 
 
@@ -53,12 +60,25 @@ lgb.controller.PsMasterController.prototype.init = function() {
  */
 lgb.controller.PsMasterController.prototype.bind_ = function() {
   
-  this.makeAddToWorldRequestGlobal(this.psViewMaster);
+  this.makeAddToWorldRequestGlobal(this.psMasterView);
 
   this.listen(
     lgb.events.BuildingHeightChanged.TYPE,
     this.onBuildingHeightChanged_
    );
+   
+   
+   
+   
+  this.listenTo(
+    this.psMasterGUI,
+    lgb.events.RequestDataModelChange.TYPE,
+    this.onRequestDataModelChange_
+   );
+
+   
+   
+   
     
 };
 
@@ -67,7 +87,16 @@ lgb.controller.PsMasterController.prototype.bind_ = function() {
 lgb.controller.PsMasterController.prototype.onBuildingHeightChanged_ =
   function(event) {
 
-  this.psViewMaster.setBuildingHeight(event.payload);
+  this.psMasterView.setBuildingHeight(event.payload);
+};
+
+
+
+lgb.controller.PsMasterController.prototype.onRequestDataModelChange_ =
+  function(event) {
+
+  this.psMasterDataModel.requestChange(event.payload);
+  
 };
 
 

@@ -37,6 +37,7 @@ goog.inherits(lgb.view.RoofTopView, lgb.view.BaseView);
 lgb.view.RoofTopView.prototype.onSceneLoaded_ = function() {
     
   return;
+/*
   for (var i = this.scene_.children.length - 1; i >= 0; i--) {
     
       var mesh = this.scene_.children.pop();
@@ -45,7 +46,8 @@ lgb.view.RoofTopView.prototype.onSceneLoaded_ = function() {
       //TODO:(Raj) make the selectable loaded event work with an array
       var event = new lgb.events.SelectableLoaded(mesh);
       this.dispatchLocal(event);
-  }
+  }*/
+
 
 };
 

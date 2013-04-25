@@ -112,8 +112,8 @@ lgb.view.SelectionView.prototype.updateSelected_ = function() {
  * that is marked for collision detection.
  */
 lgb.view.SelectionView.prototype.checkCollision = function() {
-  return;
-  
+/*
+
   
   var vector = new THREE.Vector3(this.mouse.x, this.mouse.y, 0.5);
   this.projector_.unprojectVector(vector, this.camera_);
@@ -122,7 +122,7 @@ lgb.view.SelectionView.prototype.checkCollision = function() {
     this.camera_.position,
     vector.subSelf(this.camera_.position).normalize());
 
-  /**@type {THREE.CollisionSystem} */
+
   //var intersect = THREE.Collisions.rayCastNearest(ray);
   
     //var intersects = ray.intersectScene(scene);  //ERROR
@@ -141,6 +141,9 @@ var intersects = false;
       var e = new lgb.events.Object3DSelected(intersect);
       this.dispatchLocal(e);
     }
+    
+    */
+
 };
 
 

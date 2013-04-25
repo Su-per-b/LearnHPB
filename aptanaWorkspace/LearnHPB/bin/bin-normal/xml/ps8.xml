@@ -1,6 +1,71 @@
 <particleSystems translate="0,0,0" rotate="0,0,0">
 	
+
+	
 	<system id="1">
+		<title>Particles - Zone 1</title>
+		<particleCount>25</particleCount>
+		<lifeSpanInSeconds>3</lifeSpanInSeconds>
+		<particleSize>0.7</particleSize>
+		<meshGroupNames>ps01-diffuser</meshGroupNames>
+		<launchDelayBetweenParticles>3</launchDelayBetweenParticles>
+	</system>
+	
+	<system id="2">
+		<title>Particles - Zone 2</title>
+		<particleCount>25</particleCount>
+		<lifeSpanInSeconds>3</lifeSpanInSeconds>
+		<particleSize>0.7</particleSize>
+		<meshGroupNames>ps02-diffuser</meshGroupNames>
+		<launchDelayBetweenParticles>3</launchDelayBetweenParticles>
+	</system>
+	
+	<system id="3">
+		<title>Particles - Zone 3</title>
+		<particleCount>25</particleCount>
+		<lifeSpanInSeconds>3</lifeSpanInSeconds>
+		<particleSize>0.7</particleSize>
+		<meshGroupNames>ps03-diffuser</meshGroupNames>
+		<launchDelayBetweenParticles>3</launchDelayBetweenParticles>
+	</system>
+	
+	<system id="4">
+		<title>Particles - Zone 4</title>
+		<particleCount>25</particleCount>
+		<lifeSpanInSeconds>3</lifeSpanInSeconds>
+		<particleSize>0.7</particleSize>
+		<meshGroupNames>ps04-diffuser</meshGroupNames>
+		<launchDelayBetweenParticles>3</launchDelayBetweenParticles>
+	</system>
+	
+	<system id="5">
+		<title>Particles - Zone 5</title>
+		<particleCount>25</particleCount>
+		<lifeSpanInSeconds>12</lifeSpanInSeconds>
+		<particleSize>0.7</particleSize>
+		<meshGroupNames>ps05</meshGroupNames>
+		<launchDelayBetweenParticles>3</launchDelayBetweenParticles>
+	</system>
+	
+	<system id="6">
+		<title>Particles - Zone 6</title>
+		<particleCount>25</particleCount>
+		<lifeSpanInSeconds>3</lifeSpanInSeconds>
+		<particleSize>0.7</particleSize>
+		<meshGroupNames>ps06-diffuser</meshGroupNames>
+		<launchDelayBetweenParticles>3</launchDelayBetweenParticles>
+	</system>
+	
+	<system id="7">
+		<title>Particles - Zone 7</title>
+		<particleCount>25</particleCount>
+		<lifeSpanInSeconds>3</lifeSpanInSeconds>
+		<particleSize>0.7</particleSize>
+		<meshGroupNames>ps07-diffuser</meshGroupNames>
+		<launchDelayBetweenParticles>3</launchDelayBetweenParticles>
+	</system>
+	
+	<system id="8">
 		<title>Particles - Zone 8</title>
 		<particleCount>25</particleCount>
 		<lifeSpanInSeconds>3</lifeSpanInSeconds>
@@ -8,5 +73,15 @@
 		<meshGroupNames>ps08-diffuser</meshGroupNames>
 		<launchDelayBetweenParticles>3</launchDelayBetweenParticles>
 	</system>
+	
+	<system id="9">
+		<title>Particles - Zone 9</title>
+		<particleCount>25</particleCount>
+		<lifeSpanInSeconds>3</lifeSpanInSeconds>
+		<particleSize>0.7</particleSize>
+		<meshGroupNames>ps09-diffuser</meshGroupNames>
+		<launchDelayBetweenParticles>3</launchDelayBetweenParticles>
+	</system>
+	
 	
 </particleSystems>

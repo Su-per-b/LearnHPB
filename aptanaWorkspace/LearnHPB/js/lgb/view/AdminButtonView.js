@@ -32,7 +32,7 @@ lgb.view.AdminButtonView.prototype.init = function() {
       htmlID: 'adminButtonLink',
       buttonHeight: 33,
       xPosition: 66,
-      title: 'Show / Hide Admin panel',
+      title: 'Show / Hide Admin panel'
     });
 
     this.injectCss_();

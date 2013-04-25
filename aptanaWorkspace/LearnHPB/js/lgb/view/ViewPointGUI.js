@@ -94,7 +94,7 @@ lgb.view.ViewPointGUI.prototype.injectHtml = function() {
     
     this.kendoTreeView_ =        
         mainDiv.kendoTreeView({
-            dataSource: this.dataModel.kendoDS,
+            dataSource: this.dataModel.kendoDS
         }).data("kendoTreeView");
     
 };

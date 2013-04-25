@@ -84,7 +84,7 @@ lgb.view.LayoutView.prototype.injectHtml_ = function() {
       {
         panes: [
             { collapsible: true, size: "190px" },
-            { collapsible: false },
+            { collapsible: false }
         ]
     });
     
@@ -141,7 +141,7 @@ lgb.view.LayoutView.prototype.calculateLayout = function() {
   var leftPanelWidth = this.leftPanel_.width();
   
   this.leftPanel_.css({
-      height: h,
+      height: h
       });
   
   var webGLcanvasWidth = w - leftPanelWidth - this.splitterBarWidth_;

@@ -47,9 +47,131 @@ lgb.model.PsModelMaster.prototype.init_ = function() {
   this.psModelList = [];
   
   this.masterViewPointList_ = [];
-  this.kendoDS = new kendo.data.HierarchicalDataSource({});
-  
+  this.kendoDSactive = new kendo.data.HierarchicalDataSource({});
+  this.kendoDSboxes = new kendo.data.HierarchicalDataSource({});
+  this.kendoDScurves = new kendo.data.HierarchicalDataSource({});
 };
+
+
+
+
+
+lgb.model.PsModelMaster.prototype.requestChange = function(stateObject) {
+    
+    var requestedRunningArray = stateObject.isRunningArray;
+    if(requestedRunningArray) {
+        this.requestChangeIsRunning(requestedRunningArray);
+    }
+
+    var requestedShowBoxesArray = stateObject.showBoxesArray;
+    if(requestedShowBoxesArray) {
+        this.requestChangeShowBoxes(requestedShowBoxesArray);
+    }
+    
+    var requestedShowCurvesArray = stateObject.showCurvesArray;
+    if(requestedShowCurvesArray) {
+        this.requestChangeShowCurves(requestedShowCurvesArray);
+    }
+    
+}
+
+
+lgb.model.PsModelMaster.prototype.requestChangeShowCurves = function(requestedShowCurvesArray) {
+   
+    var len2 =  this.psModelList.length;
+    var isAry = [len2];
+    var newAry = [len2];
+    
+    for (var i = 0; i < len2; i++) {
+        isAry[i] = this.psModelList[i].showCurves;
+        newAry[i] = false;
+    }
+   
+    var len1 =  requestedShowCurvesArray.length;
+    for (var j = 0; j < len1; j++) {
+        var idx = requestedShowCurvesArray[j] -1;
+        newAry[idx] = true;
+    }
+    
+    for (var k = 0; k < len2; k++) {
+        if (this.psModelList[k].showCurves != newAry[k]) {
+            var stateObject = {
+                showCurves:newAry[k]
+            };
+            
+            this.psModelList[k].change(stateObject);
+        }
+    }
+}
+
+
+lgb.model.PsModelMaster.prototype.requestChangeShowBoxes = function(requestedShowBoxesArray) {
+   
+    var len2 =  this.psModelList.length;
+    var isAry = [len2];
+    var newAry = [len2];
+    
+    for (var i = 0; i < len2; i++) {
+        isAry[i] = this.psModelList[i].showBoxes;
+        newAry[i] = false;
+    }
+   
+    var len1 =  requestedShowBoxesArray.length;
+    for (var j = 0; j < len1; j++) {
+        var idx = requestedShowBoxesArray[j] -1;
+        newAry[idx] = true;
+    }
+    
+    for (var k = 0; k < len2; k++) {
+        if (this.psModelList[k].showBoxes != newAry[k]) {
+            var stateObject = {
+                showBoxes:newAry[k]
+            };
+            
+            this.psModelList[k].change(stateObject);
+        }
+    }
+}
+
+
+lgb.model.PsModelMaster.prototype.requestChangeIsRunning = function(requestedRunningArray) {
+   
+    var len2 =  this.psModelList.length;
+    
+    
+    var isRunningAry = [len2];
+    var newIsRunningAry = [len2];
+    
+    for (var i = 0; i < len2; i++) {
+        isRunningAry[i] = this.psModelList[i].isRunning;
+        newIsRunningAry[i] = false;
+    }
+    
+
+    
+    var len1 =  requestedRunningArray.length;
+    for (var j = 0; j < len1; j++) {
+        
+        var idx = requestedRunningArray[j] -1;
+        newIsRunningAry[idx] = true;
+        
+    }
+    
+    for (var k = 0; k < len2; k++) {
+
+        if (this.psModelList[k].isRunning != newIsRunningAry[k]) {
+            
+            var stateObject = {
+                isRunning:newIsRunningAry[k]
+            };
+            
+            this.psModelList[k].change(stateObject);
+            
+        }
+        
+    }
+}
+
 
 
 /**
@@ -129,6 +251,8 @@ lgb.model.PsModelMaster.prototype.checkForInitComplete_ = function() {
  */
 lgb.model.PsModelMaster.prototype.startFactory_ = function() {
 
+  var items = [];
+  
   for (var key in this.systems) {
 
     var sys = this.systems[key];
@@ -145,7 +269,33 @@ lgb.model.PsModelMaster.prototype.startFactory_ = function() {
 
     var onePS = new lgb.model.PsModel(sys);
     this.psModelList.push(onePS);
+    
+    var d = onePS.getTreeData();
+    items.push(d);
+
+    
   }
+  
+    var active = { 
+        text: "Active Zones" ,
+        items: items
+        }; 
+    this.kendoDSactive.add(active);
+    
+    
+    var boxes = { 
+        text: "Show Boxes" ,
+        items: items
+        };
+    this.kendoDSboxes.add(boxes);
+  
+    
+    var curves = { 
+        text: "Show Paths" ,
+        items: items
+        };
+    this.kendoDScurves.add(curves);
+  
 };
 
 /**

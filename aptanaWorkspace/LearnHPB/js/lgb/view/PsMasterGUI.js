@@ -7,6 +7,7 @@ goog.provide('lgb.view.PsMasterGUI');
 
 goog.require('lgb.view.BaseView');
 goog.require('lgb.model.BuildingHeightModel');
+goog.require('lgb.events.RequestDataModelChange');
 
 /**
  * @constructor
@@ -15,9 +16,9 @@ goog.require('lgb.model.BuildingHeightModel');
  */
 lgb.view.PsMasterGUI = function(dataModel) {
 
-  this._NAME = 'lgb.view.ViewPointGUI';
+  this._NAME = 'lgb.view.PsMasterGUI';
   
-  lgb.view.BaseView.call(this, dataModel, 'ViewPointGUI');
+  lgb.view.BaseView.call(this, dataModel, 'PsMasterGUI', 'leftpanel-tabStrip-2');
 };
 goog.inherits(lgb.view.PsMasterGUI, lgb.view.BaseView);
 
@@ -41,15 +42,104 @@ lgb.view.PsMasterGUI.prototype.init = function() {
  */
 lgb.view.PsMasterGUI.prototype.bind_ = function() {
     
-    this.kendoTreeView_.bind("select", this.d(this.onSelect_))
+    this.kendoTreeViewActive_.bind("select", this.d(this.onSelect_));
+    
+    this.kendoTreeViewActive_.dataSource.bind("change", this.d(this.onChangeActive_));
+    this.kendoTreeViewBoxes_.dataSource.bind("change", this.d(this.onChangeBoxes_));
+    this.kendoTreeViewCurves_.dataSource.bind("change", this.d(this.onChangeCurves_));
+    
+    
+};
+
+
+lgb.view.PsMasterGUI.prototype.onChangeActive_ = function(event) {
+    
+    var checkedNodes = [];
+    var v = this.kendoTreeViewActive_.dataSource.view();
+    this.checkedNodeValues_(v, checkedNodes );
+    
+    
+
+      var e = new lgb.events.RequestDataModelChange({
+        isRunningArray: checkedNodes
+      });
+
+   this.dispatchLocal(e);
+   
+};
+
+
+lgb.view.PsMasterGUI.prototype.onChangeBoxes_ = function(event) {
+    
+    var checkedNodes = [];
+    var v = this.kendoTreeViewBoxes_.dataSource.view();
+    this.checkedNodeValues_(v, checkedNodes );
+    
+    
+
+  var e = new lgb.events.RequestDataModelChange({
+    showBoxesArray: checkedNodes
+  });
+
+   this.dispatchLocal(e);
+   
+};
+
+
+lgb.view.PsMasterGUI.prototype.onChangeCurves_ = function(event) {
+    
+    var checkedNodes = [];
+    var v = this.kendoTreeViewCurves_.dataSource.view();
+    this.checkedNodeValues_(v, checkedNodes );
+    
+
+  var e = new lgb.events.RequestDataModelChange({
+    showCurvesArray: checkedNodes
+  });
+
+   this.dispatchLocal(e);
+   
 };
 
 
 
+
+lgb.view.PsMasterGUI.prototype.checkedNodeValues_ = function(nodes, checkedNodes) {
+    
+    for (var i = 0; i < nodes.length; i++) {
+        if (nodes[i].checked) {
+            checkedNodes.push(nodes[i].value);
+        }
+
+        if (nodes[i].hasChildren) {
+            this.checkedNodeValues_(nodes[i].children.view(), checkedNodes);
+        }
+    }
+}
+/*
+
+lgb.view.PsMasterGUI.prototype.checkedNodeIds_ = function(nodes, checkedNodes) {
+    
+    for (var i = 0; i < nodes.length; i++) {
+        if (nodes[i].checked) {
+            checkedNodes.push(nodes[i].id);
+        }
+
+        if (nodes[i].hasChildren) {
+            this.checkedNodeIds_(nodes[i].children.view(), checkedNodes);
+        }
+    }
+}
+*/
+
+
+        
 lgb.view.PsMasterGUI.prototype.onSelect_ = function(event) {
 
-  var selectedNode = event.node;
-  var dataItem = this.kendoTreeView_.dataItem(selectedNode);
+ // var selectedNode = event.node;
+ // var dataItem = this.kendoTreeViewActive_.dataItem(selectedNode);
+  
+
   
   
 /*
@@ -57,13 +147,23 @@ lgb.view.PsMasterGUI.prototype.onSelect_ = function(event) {
   
   if (null != viewPointNode) {
     this.dispatchLocal(new lgb.events.RequestGoToViewPoint(viewPointNode));
-  }*/
+  }
+  
+  
+  var e = new lgb.events.RequestDataModelChange({
+    isRunning: event.currentTarget.checked
+  });
+
+  this.dispatchLocal(e);
+  * 
+  * 
+  * */
 
 
 };
 
 
-
+ 
 /**
  * injects the html into the DOM
  */
@@ -73,12 +173,53 @@ lgb.view.PsMasterGUI.prototype.injectHtml = function() {
     var mainDiv = this.makeMainDiv();
     this.append(mainDiv);
     
-    this.kendoTreeView_ =        
-        mainDiv.kendoTreeView({
-            dataSource: this.dataModel.kendoDS,
+    var div1 = $('<div>');
+    mainDiv.append(div1);
+    
+    this.kendoTreeViewActive_ =        
+        div1.kendoTreeView({
+           checkboxes: {
+                        checkChildren: true
+                },
+            dataSource: this.dataModel.kendoDSactive
             
-            select: this.d(this.onSelect_),
         }).data("kendoTreeView");
+        
+
+        
+
+    var div2 = $('<div>');
+    mainDiv.append(div2);
+    
+    this.kendoTreeViewBoxes_ =        
+        div2.kendoTreeView({
+           checkboxes: {
+                        checkChildren: true
+                },
+            dataSource: this.dataModel.kendoDSboxes
+            
+        }).data("kendoTreeView");
+        
+    this.append(div2);
+        
+
+    var div3 = $('<div>');
+    mainDiv.append(div3);
+    
+    this.kendoTreeViewCurves_ =        
+        div3.kendoTreeView({
+           checkboxes: {
+                        checkChildren: true
+                },
+            dataSource: this.dataModel.kendoDScurves
+            
+        }).data("kendoTreeView");
+        
+    this.append(div3);
+
+       
+       
+
 
 };
 

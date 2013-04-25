@@ -149,7 +149,7 @@ span.k-numeric-wrap.k-state-active,
 .k-state-selected,
 .k-state-focused,
 .k-tabstrip-items .k-item {
-  background-image: url("textures/highlight.png");
+  background-image: url("highlight.png");
 }
 .k-header,
 .k-grid-header,
