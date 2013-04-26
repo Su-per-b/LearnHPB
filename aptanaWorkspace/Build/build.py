@@ -9,19 +9,26 @@ import compiler
 
 rootFolder = '../LearnHPB/bin/bin-normal'
 tempFolder = 'temp'
+tempSrc = 'temp/src'
+tempMin= 'temp/min'
+
 cssFolder = rootFolder + "/css"
 xmlFolder = rootFolder + "/xml"
 
 def main(argv=None):
-	
+
+		
 	clean()
+	compileCSS()
+	return;
+	
 	compileThreeJS()
 	compileKendo()
 
 	path = "normal"
 	result = os.chdir(path)
 	
-	compileCSS()
+
 	compile()
 	copy()
 	
@@ -31,6 +38,8 @@ def clean():
 	printBanner('Clean')
 	recreateFolder(rootFolder)
 	recreateFolder(tempFolder)
+	recreateFolder(tempSrc)
+	recreateFolder(tempMin)
 	recreateFolder(cssFolder)
 	recreateFolder(xmlFolder)
 	
@@ -44,7 +53,7 @@ def compileKendo():
 	
 def compileCSS():
 	printBanner('compileCSS')
-	os.system('2-css.bat')
+	compiler.buildCSS()
 	
 def compile():
 	printBanner('compile')

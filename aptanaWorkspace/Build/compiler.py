@@ -12,6 +12,8 @@ includesFolder = 'includes'
 compilerPath = r'closure-compiler\compiler.jar'
 yuiCompilerPath = r'yuicompressor-2.4.2.jar'
 
+tempSrc = 'temp/src'
+tempMin= 'temp/min'
 
 def buildThree():
 	
@@ -31,7 +33,14 @@ def buildKendo():
 	includeList = [r'kendo\minimal.json']
 	externCommand = r''
 	sourceFolder = r'../LearnHPB/js/kendo'
-	compileYUIHelper(outputFileBase, includeList, externCommand, sourceFolder)
+	compileYUIHelper(outputFileBase, includeList, externCommand, sourceFolder, 'js')
+		
+def buildCSS():
+	outputFileBase = r'lgb'
+	includeList = [r'css\minimal.json']
+	externCommand = r''
+	sourceFolder = r'../LearnHPB/css'
+	compileYUIHelper(outputFileBase, includeList, externCommand, sourceFolder, 'css')
 	
 	
 def compileHelper(outputFile, includeList, externCommand, sourceFolder):
@@ -71,15 +80,13 @@ def compileHelper(outputFile, includeList, externCommand, sourceFolder):
 	os.close(fd)
 	os.remove(tempFilePath)
 
-def compileYUIHelper(outputFileBase, includeList, externCommand, sourceFolder):
+def compileYUIHelper(outputFileBase, includeList, externCommand, sourceFolder, fileType):
 	
+	concatinatedSource = tempSrc + '\\' + outputFileBase + '.src.' + fileType
+	outputFile = tempMin + '\\' + outputFileBase + '.min.'+ fileType
 
-	outputFile = 'temp/' + outputFileBase + '.min.js'
-	concatinatedSource = 'temp/' + outputFileBase + '.src.js'
+	print(' * Concatinating included file to:  ' + concatinatedSource)
 	
-	print(' * Building ' + outputFile)
-	
-	#fd, concatinatedSource = tempfile.mkstemp(".js", "compile_")
 	open(concatinatedSource, 'a').close()
 	outputFileHandle = open(outputFile, 'a+')
 	
@@ -94,10 +101,10 @@ def compileYUIHelper(outputFileBase, includeList, externCommand, sourceFolder):
 			with open(sourceFolder + '/' + filename, 'r') as f: tmp.write(f.read())
 
 	tmp.close()
-
-
-		
-	cmd = 'java -jar %s --charset utf-8 --type js %s' % (yuiCompilerPath, concatinatedSource)
+	
+	print ' * Compiling concatinated source file: %s > %s' % (concatinatedSource, outputFile)
+	
+	cmd = 'java -jar %s --charset utf-8 --type %s %s' % (yuiCompilerPath, fileType, concatinatedSource)
 	print 'compiling using command: '+ cmd
 	
 	p = subprocess.Popen(cmd, shell=True, stdout=outputFileHandle, stderr=subprocess.PIPE)
