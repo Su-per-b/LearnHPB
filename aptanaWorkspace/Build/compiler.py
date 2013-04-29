@@ -8,32 +8,30 @@ import tempfile
 import subprocess
 
 tempFolder = 'temp/'
-includesFolder = 'includes'
-compilerPath = r'closure-compiler\compiler.jar'
-yuiCompilerPath = r'yuicompressor-2.4.2.jar'
+includesFolder = 'build-config\\includes'
+externsFolder = r'externs'
+compilerPath = r'compilers\compiler.jar'
+yuiCompilerPath = r'compilers\yuicompressor-2.4.2.jar'
 
-tempSrc = 'temp/src'
-tempMin= 'temp/min'
+tempSrc = r'temp\src'
+tempMin= r'temp\min'
 
 def buildThree():
 	
-	outputFile = r'temp\three.min.js'
-	includeList = [r'three\common.json', r'three/extras.json']
-	externCommand = r'--externs  three-externs\common.js'
-	sourceFolder = r'../LearnHPB/js/three'
+	outputFileBase = r'three'
+	includeList = [r'three\common.json', r'three\extras.json']
+	externCommand = r'--externs ' + externsFolder + r'\three\common.js'
+	sourceFolder = r'..\LearnHPB\js\three'
+	compileHelper(outputFileBase, includeList, externCommand, sourceFolder)
+
 	
-	compileHelper(outputFile, includeList, externCommand, sourceFolder)
-
-	with open(outputFile,'r') as f: text = f.read()
-	with open(outputFile,'w') as f: f.write(("// %s - http://github.com/mrdoob/three.js\n" % os.path.basename(outputFile)) + text)
-
-		
 def buildKendo():
 	outputFileBase = r'kendo'
 	includeList = [r'kendo\minimal.json']
 	externCommand = r''
 	sourceFolder = r'../LearnHPB/js/kendo'
 	compileYUIHelper(outputFileBase, includeList, externCommand, sourceFolder, 'js')
+		
 		
 def buildCSS():
 	outputFileBase = r'lgb'
@@ -42,26 +40,42 @@ def buildCSS():
 	sourceFolder = r'../LearnHPB/css'
 	compileYUIHelper(outputFileBase, includeList, externCommand, sourceFolder, 'css')
 	
+def buildMain():
+	os.system('compile-main.bat')
 	
-def compileHelper(outputFile, includeList, externCommand, sourceFolder):
 	
-
+def compileHelper(outputFileBase, includeList, externCommand, sourceFolder):
+	
+	fileType = 'js'
+	concatinatedSource = tempSrc + '\\' + outputFileBase + '.src.' + fileType
+	outputFile = tempMin + '\\' + outputFileBase + '.min.'+ fileType
+	
 	print(' * Building ' + outputFile)
+	print(' * Concatinating included files to:  ' + concatinatedSource)
 	
-	fd, tempFilePath = tempfile.mkstemp(".js", "compile_")
-	tmp = open(tempFilePath, 'w')
+	open(concatinatedSource, 'a').close()
+	outputFileHandle = open(outputFile, 'a+')
+	
+	#fd, tempFilePath = tempfile.mkstemp(".js", "compile_")
+	#tmp = open(tempFilePath, 'w')
+	
+	concatinatedSourceHandle = open(concatinatedSource, 'w')
 	
 	print 'Output File Path: ' + outputFile
-	print 'Temp File: ' + tmp.name
+	print 'Temp File: ' + concatinatedSourceHandle.name
+
 	
 	for include in includeList:
 		with open(includesFolder + '\\' + include ,'r') as f: files = json.load(f)
 		for filename in files:
-			with open(sourceFolder + '/' + filename, 'r') as f: tmp.write(f.read())
+			with open(sourceFolder + '/' + filename, 'r') as f: concatinatedSourceHandle.write(f.read())
 
-	tmp.close()
+	concatinatedSourceHandle.close()
+	
+	print ' * Compiling concatinated source file: %s > %s' % (concatinatedSource, outputFile)
+	
 
-	cmd = 'java -jar %s  --version --warning_level=VERBOSE --jscomp_off=globalThis %s --jscomp_off=checkTypes --jscomp_off=internetExplorerChecks --js %s --js_output_file %s' % (compilerPath, externCommand, tempFilePath, outputFile)
+	cmd = 'java -jar %s  --version --warning_level=VERBOSE --jscomp_off=globalThis %s --jscomp_off=checkTypes --jscomp_off=internetExplorerChecks --js %s --js_output_file %s' % (compilerPath, externCommand, concatinatedSource, outputFile)
 	print 'compiling using command: '+ cmd
 	
 	p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -77,15 +91,14 @@ def compileHelper(outputFile, includeList, externCommand, sourceFolder):
 		print msg
 		raise (msg)
 
-	os.close(fd)
-	os.remove(tempFilePath)
+
 
 def compileYUIHelper(outputFileBase, includeList, externCommand, sourceFolder, fileType):
 	
 	concatinatedSource = tempSrc + '\\' + outputFileBase + '.src.' + fileType
 	outputFile = tempMin + '\\' + outputFileBase + '.min.'+ fileType
 
-	print(' * Concatinating included file to:  ' + concatinatedSource)
+	print(' * Concatinating included files to:  ' + concatinatedSource)
 	
 	open(concatinatedSource, 'a').close()
 	outputFileHandle = open(outputFile, 'a+')

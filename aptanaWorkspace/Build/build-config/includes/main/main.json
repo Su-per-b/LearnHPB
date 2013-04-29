@@ -1,0 +1,24 @@
+[
+-i %SRC%\inc.js ^
+-i %SRC%\main.src.js ^
+-i %SRC%\js\lib\jquery-plugins.js ^
+-i %SRC%\js\lib\jquery.checkbox.src.js ^
+-i %SRC%\js\kendo\kendo.core.js ^
+-i %SRC%\js\kendo\kendo.window.js ^
+-i %SRC%\js\kendo\kendo.popup.js ^
+-i %SRC%\js\kendo\kendo.data.js ^
+-i %SRC%\js\kendo\kendo.list.js ^
+-i %SRC%\js\kendo\kendo.dropdownlist.js ^
+-i %SRC%\js\kendo\kendo.fx.js ^
+-i %SRC%\js\kendo\kendo.tabstrip.js ^
+-i %SRC%\js\kendo\kendo.grid.js ^
+-i %SRC%\js\kendo\kendo.slider.js ^
+-i %SRC%\js\kendo\kendo.splitter.js ^
+-i %SRC%\js\kendo\kendo.userevents.js ^
+-i %SRC%\js\kendo\kendo.draganddrop.js ^
+-i %SRC%\js\kendo\kendo.resizable.js ^
+-i %SRC%\js\kendo\kendo.treeview.js ^
+-i %SRC%\js\lib\tipped.js ^
+-i %SRC%\js\lib\tweenjs\Tween.js ^
+-i %SRC%\js\lib\tweenjs\Ease.js ^
+]

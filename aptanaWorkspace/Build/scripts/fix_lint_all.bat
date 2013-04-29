@@ -1,0 +1,1 @@
+C:\python\Python3.3.0x64\Lib\site-packages\closure_linter-2.3.7-py3.3.egg\closure_linter\fixjsstyle.py -r E:\LGBpublic\eclipseworkspace\demo\js\lgb
