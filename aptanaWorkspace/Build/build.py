@@ -7,26 +7,29 @@ import os
 import shutil
 import compiler
 
-rootFolder = '../LearnHPB/bin/bin-normal'
+rootFolder = '../LearnHPB/bin/normal'
 tempFolder = 'temp'
 tempSrc = 'temp/src'
 tempMin= 'temp/min'
 
 cssFolder = rootFolder + "/css"
 xmlFolder = rootFolder + "/xml"
+jsFolder = rootFolder + "/js"
 
 def main(argv=None):
+	
 
-		
+
 	clean()
-	compileCSS()
-	return;
+
 	
 	compileThreeJS()
 	compileKendo()
+	compileCSS()
 
 	path = "normal"
 	result = os.chdir(path)
+	copy()
 	
 
 	compile()
@@ -42,6 +45,7 @@ def clean():
 	recreateFolder(tempMin)
 	recreateFolder(cssFolder)
 	recreateFolder(xmlFolder)
+	recreateFolder(jsFolder)
 	
 def compileThreeJS():
 	printBanner('Compile three.js')
@@ -63,8 +67,6 @@ def copy():
 	printBanner('copy')
 	os.system('5-copy.bat')
 	
-	
-		
 		
 def printBanner(title):
 	print '=============================================================='

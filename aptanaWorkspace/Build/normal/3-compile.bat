@@ -2,7 +2,7 @@
 echo 3-compile.bat
 
 set "SRC=..\..\LearnHPB"
-set "DEST=..\..\LearnHPB\bin\bin-normal"
+set "DEST=..\..\LearnHPB\bin\normal"
 
 copy /Y lgb_license.txt temp\lgb.js  
 

@@ -1,7 +1,7 @@
 @echo off
 echo 5-copy.bat
 
-set "DEST=..\..\LearnHPB\bin\bin-normal"
+set "DEST=..\..\LearnHPB\bin\normal"
 set "SRC=..\..\LearnHPB"
 
 xcopy %SRC%\3d-assets %DEST%\3d-assets /y /i /s
@@ -16,6 +16,6 @@ copy %SRC%\css\lgb.min.css %DEST%\css\lgb.min.css
 copy %SRC%\css\kendo.common.css %DEST%\css\kendo.common.css
 copy %SRC%\css\kendo.silver.css %DEST%\css\kendo.silver.css
 copy %SRC%\css\highlight.png %DEST%\css\highlight.png
-copy ..\temp\three.min.js %DEST%\three.min.js
-copy temp\lgb.js %DEST%\lgb.js
-copy temp\kendo.min.js %DEST%\kendo.min.js
+copy ..\temp\three.min.js %DEST%\js\three.min.js
+copy ..\normal\temp\lgb.js %DEST%\js\lgb.js
+copy ..\temp\min\kendo.min.js %DEST%\js\kendo.min.js
