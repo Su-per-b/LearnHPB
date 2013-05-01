@@ -1,81 +1,79 @@
 #!/usr/bin/env python
 
-import argparse
+
 import json
-import os
-import shutil
-import tempfile
 import subprocess
 
-tempFolder = 'temp/'
-includesFolder = 'build-config\\includes'
-externsFolder = r'externs'
-compilerPath = r'compilers\compiler.jar'
+closureCompilerPath = r'compilers\closure-compiler.jar'
 yuiCompilerPath = r'compilers\yuicompressor-2.4.2.jar'
 
-tempSrc = r'temp\src'
-tempMin= r'temp\min'
 
-def buildThree():
+class JsonConfig:
 	
-	outputFileBase = r'three'
-	includeList = [r'three\common.json', r'three\extras.json']
-	externCommand = r'--externs ' + externsFolder + r'\three\common.js'
-	sourceFolder = r'..\LearnHPB\js\three'
-	compileHelper(outputFileBase, includeList, externCommand, sourceFolder)
+	def __init__(self, jsonFile):
+		with open(jsonFile,'r') as f: self.root = json.load(f)
 
-	
-def buildKendo():
-	outputFileBase = r'kendo'
-	includeList = [r'kendo\minimal.json']
-	externCommand = r''
-	sourceFolder = r'../LearnHPB/js/kendo'
-	compileYUIHelper(outputFileBase, includeList, externCommand, sourceFolder, 'js')
+	def getFileList(self, nodeName):
+		node = self.root[nodeName]
+		
+		fileList = node['fileList']
+		rootPath = node['rootPath']
+    	
+		outputAry = fileList[:]
+		self.prepend(outputAry, rootPath)
+		return outputAry
 		
 		
-def buildCSS():
-	outputFileBase = r'lgb'
-	includeList = [r'css\minimal.json']
-	externCommand = r''
-	sourceFolder = r'../LearnHPB/css'
-	compileYUIHelper(outputFileBase, includeList, externCommand, sourceFolder, 'css')
+	def getCommandClause(self, nodeName, prefix):
+		
+		outputAry = self.getFileList(nodeName)
+						
+		self.prepend(outputAry, prefix)
+		outputStr = ' '.join(outputAry)
+		
+		return str(outputStr)
 	
-def buildMain():
-	os.system('compile-main.bat')
 	
+	def prepend(self, ary, prefix):
+		
+		for idx,item in enumerate(ary):
+			ary[idx]= str(prefix + item)
+    	
+		return ary
 	
-def compileHelper(outputFileBase, includeList, externCommand, sourceFolder):
+	def getMinifiedOutputFile(self):
+		node = self.root['config']
+		outputFileNameBase = node['outputFileNameBase']
+		outputFileExtension = node['outputFileExtension']
+		
+		fileName = "temp\\min\\%s.min.%s" % (outputFileNameBase,outputFileExtension)
+		return str(fileName)
 	
-	fileType = 'js'
-	concatinatedSource = tempSrc + '\\' + outputFileBase + '.src.' + fileType
-	outputFile = tempMin + '\\' + outputFileBase + '.min.'+ fileType
-	
-	print(' * Building ' + outputFile)
-	print(' * Concatinating included files to:  ' + concatinatedSource)
-	
-	open(concatinatedSource, 'a').close()
-	outputFileHandle = open(outputFile, 'a+')
-	
-	#fd, tempFilePath = tempfile.mkstemp(".js", "compile_")
-	#tmp = open(tempFilePath, 'w')
-	
-	concatinatedSourceHandle = open(concatinatedSource, 'w')
-	
-	print 'Output File Path: ' + outputFile
-	print 'Temp File: ' + concatinatedSourceHandle.name
-
-	
-	for include in includeList:
-		with open(includesFolder + '\\' + include ,'r') as f: files = json.load(f)
-		for filename in files:
-			with open(sourceFolder + '/' + filename, 'r') as f: concatinatedSourceHandle.write(f.read())
-
-	concatinatedSourceHandle.close()
-	
-	print ' * Compiling concatinated source file: %s > %s' % (concatinatedSource, outputFile)
+	def getConcatinatedOutputFile(self):
+		node = self.root['config']
+		outputFileNameBase = node['outputFileNameBase']
+		outputFileExtension = node['outputFileExtension']
+		
+		fileName = "temp\\src\\%s.src.%s" % (outputFileNameBase,outputFileExtension)
+		return str(fileName)
 	
 
-	cmd = 'java -jar %s  --version --warning_level=VERBOSE --jscomp_off=globalThis %s --jscomp_off=checkTypes --jscomp_off=internetExplorerChecks --js %s --js_output_file %s' % (compilerPath, externCommand, concatinatedSource, outputFile)
+def buildThreeJs():
+	jsonConfig = JsonConfig(r'build-config\three.json')
+	concatinatedOutputFile = jsonConfig.getConcatinatedOutputFile()
+	minifiedOutputFile = jsonConfig.getMinifiedOutputFile()
+	includesFileList = jsonConfig.getFileList('includes')
+	
+	concatinateFiles(includesFileList, concatinatedOutputFile);
+	
+	externsStr = jsonConfig.getCommandClause('externs' , '--externs ')
+	
+	cmd = 'java -jar %s  --version --warning_level=VERBOSE --jscomp_off=globalThis %s ' + \
+	'--jscomp_off=checkTypes --jscomp_off=internetExplorerChecks --js %s ' + \
+	'--js_output_file %s'     
+	
+	cmd = cmd % (closureCompilerPath, externsStr, concatinatedOutputFile, minifiedOutputFile)
+	
 	print 'compiling using command: '+ cmd
 	
 	p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -87,40 +85,31 @@ def compileHelper(outputFileBase, includeList, externCommand, sourceFolder):
 		print 'SUCCESS: ' + out
 	else:
 		print 'FAILED: ' + out
-		msg =  'Compiling %s failed %s' % (outputFile, error)
+		msg =  'Compiling %s failed %s' % (minifiedOutputFile, error)
 		print msg
-		raise (msg)
-
-
-
-def compileYUIHelper(outputFileBase, includeList, externCommand, sourceFolder, fileType):
+		raise Exception(msg)
 	
-	concatinatedSource = tempSrc + '\\' + outputFileBase + '.src.' + fileType
-	outputFile = tempMin + '\\' + outputFileBase + '.min.'+ fileType
-
-	print(' * Concatinating included files to:  ' + concatinatedSource)
 	
-	open(concatinatedSource, 'a').close()
-	outputFileHandle = open(outputFile, 'a+')
+		
+		
+def buildCSS():
+	outputFileBase = r'lgb'
+	#includeList = [r'css\minimal.json']
 	
-	tmp = open(concatinatedSource, 'w')
+	jsonConfig = JsonConfig(r'build-config\css.json')
+	includesFileList = jsonConfig.getFileList('includes')
+	concatinatedOutputFile = jsonConfig.getConcatinatedOutputFile()
+	minifiedOutputFile = jsonConfig.getMinifiedOutputFile()
 	
-	print 'Output File Path: ' + outputFile
-	print 'Temp File: ' + tmp.name
+	concatinateFiles(includesFileList, concatinatedOutputFile);
 	
-	for include in includeList:
-		with open(includesFolder + '\\' + include ,'r') as f: files = json.load(f)
-		for filename in files:
-			with open(sourceFolder + '/' + filename, 'r') as f: tmp.write(f.read())
-
-	tmp.close()
+	print ' * Compiling concatinated source file: %s > %s' % (concatinatedOutputFile, minifiedOutputFile)
 	
-	print ' * Compiling concatinated source file: %s > %s' % (concatinatedSource, outputFile)
-	
-	cmd = 'java -jar %s --charset utf-8 --type %s %s' % (yuiCompilerPath, fileType, concatinatedSource)
+	cmd = 'java -jar %s --charset utf-8 --type %s %s' % (yuiCompilerPath, 'css', concatinatedOutputFile)
 	print 'compiling using command: '+ cmd
 	
-	p = subprocess.Popen(cmd, shell=True, stdout=outputFileHandle, stderr=subprocess.PIPE)
+	minifiedOutputFileH = open(minifiedOutputFile, 'a+')
+	p = subprocess.Popen(cmd, shell=True, stdout=minifiedOutputFileH, stderr=subprocess.PIPE)
 	out, error = p.communicate()
 	
 	print 'return code: '+ str(p.returncode)
@@ -129,9 +118,50 @@ def compileYUIHelper(outputFileBase, includeList, externCommand, sourceFolder, f
 		print 'SUCCESS: '
 	else:
 		print 'FAILED: '
-		msg =  'Compiling %s failed %s' % (outputFile, error)
+		msg =  'Compiling %s failed %s' % (minifiedOutputFile, error)
 		print msg
 		raise (msg)
 	
-		#os.close(fd)
-		#os.remove(concatinatedSource)
+	
+def buildLgb():
+	
+	jsonConfig = JsonConfig(r'build-config\lgb.json')
+	
+	includeStr = jsonConfig.getCommandClause('includes' , '-i ')
+	pathStr = jsonConfig.getCommandClause('paths' , '-p ')
+	externsStr = jsonConfig.getCommandClause('externs' , '--compiler_flag=--externs=')
+	
+	minifiedOutputFile = jsonConfig.getMinifiedOutputFile()
+	
+	compilerFile = r'compilers\closure-compiler.jar'
+	
+	cmd = 'compilers\calcdeps.py %s %s %s ' + \
+	'--output_mode compiled ' + \
+	'--compiler_jar %s ' + \
+	'--output_file %s'
+	
+	cmd = cmd % (includeStr, pathStr, externsStr, compilerFile, minifiedOutputFile)
+	
+	print 'compiling using command: '+ cmd
+	
+	p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+	out, error = p.communicate()
+	
+	print 'return code: '+ str(p.returncode)
+	print 'out: '+ out
+	
+
+
+def concatinateFiles(fileList, outputFile):
+	
+	print ' * Concatinating files to %s' % (outputFile)
+	
+	outputFileH = open(outputFile, 'w')
+	
+	for file in fileList:
+		with open(file, 'r') as f: outputFileH.write(f.read())
+		
+	outputFileH.close()
+			
+	
+

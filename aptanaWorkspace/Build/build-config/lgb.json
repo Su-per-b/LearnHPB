@@ -1,0 +1,71 @@
+{
+    "includes": {
+      "rootPath": "../LearnHPB/",
+      "fileList":   [
+        "inc.js",
+        "main.src.js",
+        "js/lib/jquery-plugins.js",
+        "js/lib/jquery.checkbox.src.js",
+        "js/kendo/kendo.core.js",
+        "js/kendo/kendo.window.js",
+        "js/kendo/kendo.popup.js",
+        "js/kendo/kendo.data.js",
+        "js/kendo/kendo.list.js",
+        "js/kendo/kendo.dropdownlist.js",
+        "js/kendo/kendo.fx.js",
+        "js/kendo/kendo.tabstrip.js",
+        "js/kendo/kendo.grid.js",
+        "js/kendo/kendo.slider.js",
+        "js/kendo/kendo.splitter.js",
+        "js/kendo/kendo.userevents.js",
+        "js/kendo/kendo.draganddrop.js",
+        "js/kendo/kendo.resizable.js",
+        "js/kendo/kendo.treeview.js",
+        "js/lib/tipped.js",
+        "js/lib/tweenjs/Tween.js",
+        "js/lib/tweenjs/Ease.js"
+      ]
+    },
+    "paths": {
+      "rootPath": "../LearnHPB/js/",
+      "fileList":   [
+        "closure",
+        "lgb"
+      ]
+    },
+    "externs": {
+      "rootPath": "./externs/lgb/",
+      "fileList":   [
+        "browser.js ",
+        "jquery1.6.js ",
+        "jquery-ui.js ",
+        "jquery-plugins.js ",
+        "tipped.js ",
+        "kendo.core.js ",
+        "kendo.data.js ",
+        "three.cameras.js ",
+        "three.core.js ",
+        "three.extras.animation.js ",
+        "three.extras.controls.js ",
+        "three.extras.geometries.js ",
+        "three.extras.io.loaders.js ",
+        "three.extras.physics.js ",
+        "three.extras.js ",
+        "three.lights.js ",
+        "three.materials.js ",
+        "three.objects.js ",
+        "three.renderers.js ",
+        "three.scenes.js ",
+        "jquery-ui-raj.js ",
+        "tween.js "
+      ]
+    },
+    "config":{
+      "outputFileNameBase" : "lgb",
+      "outputFileExtension" : "js"
+    }
+ }
+    
+    
+    
+

@@ -17,21 +17,29 @@ xmlFolder = rootFolder + os.sep + "xml"
 jsFolder = rootFolder + os.sep + "js"
 
 def main(argv=None):
-
-
+	
 	clean()
-
-	compileThreeJS()
-	#compileKendo()
-	compileCSS()
-
-	compileMain()
+	
+	printBanner('Compile three.js')
+	compiler.buildThreeJs()
+	
+	printBanner('Compile CSS')
+	compiler.buildCSS()
+	
+	printBanner('Compile LGB')
+	compiler.buildLgb()
+	
 	addLicenses()
+	#copy3Dassets()
 	copy()
 
 	
 	return
 
+
+#def copy3Dassets():
+	
+	
 def clean():
 	printBanner('Clean')
 	recreateFolder(rootFolder)
@@ -56,22 +64,14 @@ def addLicensesHelper(licenceTemplateFile, codeFile):
 	with open(codeFile,'w') as f: f.write("%s %s" % ( licenseText, codeText))
 	
 	
-def compileThreeJS():
-	printBanner('Compile three.js')
-	compiler.buildThree()
 
-def compileKendo():
-	printBanner('Compile Kendo')
-	compiler.buildKendo()
-	
-def compileCSS():
-	printBanner('Compile CSS')
-	compiler.buildCSS()
-	
-def compileMain():
-	printBanner('Compile Main')
-	compiler.buildMain()
 
+#def compileKendo():
+#	printBanner('Compile Kendo')
+#	compiler.buildKendo()
+	
+
+	
 	
 def printBanner(title):
 	print '=============================================================='
