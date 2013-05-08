@@ -12,3 +12,4 @@
 /downloads
 /aptanaWorkspace/LearnHPB/bin
 /aptanaWorkspace/Build/temp
+*.pyc
