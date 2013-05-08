@@ -10,12 +10,11 @@ import scene_mod
 from json_mod import JsonConfig
 from hpb.parser import HTMLblockParser
 
-##rootDeploy = '..' + os.sep + 'LearnHPB' + os.sep + 'bin' + os.sep + 'normal'
-indexSourceFile = r'../LearnHPB/index.src.html'
+INDEX_SOURCE_FILE = r'../LearnHPB/index.src.html'
 
-rootMin = "temp\\min\\"
-rootSrc = "temp\\src\\"
-rootOrig = "..\\LearnHPB\\"
+ROOT_MIN = "temp\\min\\"
+ROOT_SRC = "temp\\src\\"
+ROOT_ORIG = "..\\LearnHPB\\"
 
     
 allFolders = {}
@@ -26,7 +25,6 @@ def main(argv=None):
     copy1()
     
     blockMap = parseIndexSourceFile()
-
 
     printBanner('Compile LGB')
     lgbIncludes = blockMap['LGB']
@@ -60,7 +58,7 @@ def parseIndexSourceFile():
     p = HTMLblockParser()
     fileList = []
 
-    with open(indexSourceFile, 'r') as f:
+    with open(INDEX_SOURCE_FILE, 'r') as f:
         str = f.read()
         p.parse(str)
         blockMap = p.getBlockMap()
@@ -94,17 +92,13 @@ def clean():
     jsonFolderList = allFolders[folderListName]
     recreateJsonFolder(jsonFolderList)
     
-
-
     
 def recreateJsonFolder(jsonFolderList):
-
     rootPath = str(jsonFolderList['rootPath'])
     recreateFolder(rootPath)
 
     folderList = jsonFolderList['folderList']
     recreateFolderList(rootPath, folderList)
-
 
 
 def addLicenses():
@@ -126,16 +120,16 @@ def printBanner(title):
 def copy1():
     printBanner('Copy 1')
     
-    shutil.copyfile("templates\\min\\index.html", rootMin + 'index.html')
-    shutil.copyfile("templates\\htaccess.txt", rootMin + '.htaccess')
+    shutil.copyfile("templates\\min\\index.html", ROOT_MIN + 'index.html')
+    shutil.copyfile("templates\\htaccess.txt", ROOT_MIN + '.htaccess')
     
-    shutil.copytree(rootOrig + 'images', rootMin + 'images')
-    shutil.copytree(rootOrig + 'css\\Silver', rootMin + 'css\\Silver')
+    shutil.copytree(ROOT_ORIG + 'images', ROOT_MIN + 'images')
+    shutil.copytree(ROOT_ORIG + 'css\\Silver', ROOT_MIN + 'css\\Silver')
     
-    shutil.copytree(rootOrig + '3d-assets\\textures', rootMin + '3d-assets\\textures')
+    shutil.copytree(ROOT_ORIG + '3d-assets\\textures', ROOT_MIN + '3d-assets\\textures')
     
-    shutil.copyfile(rootOrig + 'xml\\scene.xml', rootMin + 'xml\\scene.xml')
-    shutil.copyfile(rootOrig + 'xml\\DefaultScenario.xml', rootMin + 'xml\\DefaultScenario.xml')
+    shutil.copyfile(ROOT_ORIG + 'xml\\scene.xml', ROOT_MIN + 'xml\\scene.xml')
+    shutil.copyfile(ROOT_ORIG + 'xml\\DefaultScenario.xml', ROOT_MIN + 'xml\\DefaultScenario.xml')
     
     
 def deployMin():
@@ -147,7 +141,7 @@ def deployMin():
     rootDeployMin = str(jsonFolderList['rootPath'])
     
     deleteFolder(rootDeployMin)
-    shutil.copytree(rootMin, rootDeployMin)
+    shutil.copytree(ROOT_MIN, rootDeployMin)
     
 
 def deleteFolder(folder):

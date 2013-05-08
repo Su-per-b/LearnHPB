@@ -3,28 +3,9 @@
 
 from json_mod import JsonConfig
 import subprocess
-import os
-import sys
-
-
-try:
-    from Queue import Queue, Empty
-except ImportError:
-    from queue import Queue, Empty  # python 3.x
-    
-from subprocess import PIPE, Popen
-from threading  import Thread
 
 CLOSURE_COMPILER_FILE = r'compilers\closure-compiler.jar'
-yuiCompilerPath = r'compilers\yuicompressor-2.4.2.jar'
-
-
-ON_POSIX = 'posix' in sys.builtin_module_names
-
-#-- This is how long you're willing to wait before you 
-#-- consider your  process to be brain-dead.
-MAX_WAIT_TIME = 30.0  #-- we'll wait 5 minutes (300 seconds)
-
+YUI_COMPILER_FILE = r'compilers\yuicompressor-2.4.2.jar'
 
 
 def printFileList(title, fileList):
@@ -95,7 +76,7 @@ def buildCSS():
 
     print ' * Compiling concatinated source file: %s > %s' % (concatinatedOutputFile, minifiedOutputFile)
 
-    cmd = 'java -jar %s --charset utf-8 --type %s %s' % (yuiCompilerPath, 'css', concatinatedOutputFile)
+    cmd = 'java -jar %s --charset utf-8 --type %s %s' % (YUI_COMPILER_FILE, 'css', concatinatedOutputFile)
     print 'compiling using command: '+ cmd
 
     minifiedOutputFileH = open(minifiedOutputFile, 'a+')
@@ -137,7 +118,6 @@ def getCommandAry(fileList, prefix):
     return ary
 
 
-
     
 def buildLgb(includesFileList=None):
 
@@ -147,27 +127,16 @@ def buildLgb(includesFileList=None):
     minifiedOutputFile = jsonConfig.getMinifiedOutputFile()
     
     includesFileList = jsonConfig.getFileList('includes')
-    includeStr = getCommandClause(includesFileList , '-i ')
     includeAry = getCommandAry(includesFileList , '-i')
-    
-    assert includeStr == jsonConfig.getCommandClause('includes' , '-i ')
     printFileList('Processing includes for LGB', includesFileList)
     
-
     pathList = jsonConfig.getFileList('paths')
-    pathStr = jsonConfig.getCommandClause('paths' , '-p ')
     pathAry = getCommandAry(pathList , '-p')
-    
-    assert pathStr == jsonConfig.getCommandClause('paths' , '-p ')
     printFileList('Processing paths for LGB', pathList)
     
     
     externFileList = jsonConfig.getFileList('externs')
-    externsStr = getCommandClause(externFileList , '--compiler_flag=--externs=')
-    
-    assert externsStr == jsonConfig.getCommandClause('externs' , '--compiler_flag=--externs=')
     printFileList('Processing externs for LGB', externFileList)
-
 
     cmdAry1 = []
     
@@ -184,8 +153,7 @@ def buildLgb(includesFileList=None):
     print 'out: '+ out
     print 'error: '+ error
     
-    
-    
+
     cmdAry2 = []
     
     cmdAry2 += [r'C:\python\Python2.7\python.exe', r'compilers\calcdeps.py']
