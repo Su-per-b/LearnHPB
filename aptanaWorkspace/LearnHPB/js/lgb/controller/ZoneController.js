@@ -9,9 +9,10 @@ goog.require('lgb.controller.BaseController');
 goog.require('lgb.events.EnvelopeModelChanged');
 goog.require('lgb.events.RequestGoToViewPoint');
 goog.require('lgb.events.RequestZoneVisiblityChange');
+goog.require('lgb.events.RequestShowViewPoint');
+
 goog.require('lgb.model.EnvelopeModel');
 goog.require('lgb.model.ZoneModel');
-goog.require('lgb.view.ZoneAdminView');
 goog.require('lgb.view.ZoneView');
 goog.require('lgb.events.BuildingHeightChanged');
 goog.require('lgb.model.BuildingHeightModel');
@@ -38,12 +39,10 @@ lgb.controller.ZoneController.prototype.init_ = function() {
     
   this.dataModel = new lgb.model.ZoneModel();
   this.view = new lgb.view.ZoneView(this.dataModel);
-  this.adminview = new lgb.view.ZoneAdminView(this.dataModel, 'adminView');
   
   this.bind_();
 
   this.view.init();
-  this.adminview.init();
 };
 
 
@@ -62,18 +61,10 @@ lgb.controller.ZoneController.prototype.bind_ = function() {
 
   this.makeAddToWorldRequestGlobal();
 
-  this.listenTo(
-    this.adminview,
-    lgb.events.RequestZoneVisiblityChange.TYPE,
-    this.onRequestZoneVisiblityChange_
+  this.listen(
+    lgb.events.RequestShowViewPoint.TYPE,
+    this.onRequestShowViewPoint_
     );
-
-  this.listenTo(
-    this.adminview,
-    lgb.events.RequestGoToViewPoint.TYPE,
-    this.onRequestGoToViewPoint_
-    );
-
 
   this.listen(
     lgb.events.BuildingHeightChanged.TYPE,
@@ -108,34 +99,21 @@ lgb.controller.ZoneController.prototype.onBuildingHeightChanged_ =
 };
 
 
-/**
- * @private
- * @param {lgb.events.RequestZoneVisiblityChange} event Fired by one of
- * the views.
- */
-lgb.controller.ZoneController.prototype.onRequestZoneVisiblityChange_ =
-  function(event) {
 
-  this.dataModel.setVisible(
-    event.payload.zoneNumber,
-    event.payload.makeVisible
-  );
-
-};
-
-
-/**
- * @private
- * @param {lgb.events.RequestGoToViewPointName} event Fired by one of
- * the views.
- */
-lgb.controller.ZoneController.prototype.onRequestGoToViewPoint_ =
+lgb.controller.ZoneController.prototype.onRequestShowViewPoint_ =
   function(event) {
 
   
-  this.dispatch(event);
+  //this.view.setVisible(event.payload.idx, event.payload.isVisible);
 
+  this.dataModel.setVisible(
+    event.payload.idx,
+    event.payload.isVisible
+  );
+  
 };
+
+
 
 
 /**

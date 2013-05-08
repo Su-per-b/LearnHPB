@@ -14,7 +14,7 @@ goog.require('lgb.view.BaseView');
 lgb.view.UtilityAxisView = function() {
     
   this._NAME = 'lgb.view.UtilityAxisView';
-  this._ASSETS_FOLDER = 'utility/axis';
+  this._ASSETS_FOLDER = 'utility';
   lgb.view.BaseView.call(this, null);
 
   this.filename = 'axis_flipped.json';

@@ -134,6 +134,7 @@ kendo_module({
     }
 
     TreeView = Widget.extend({
+        _NAME_INT : 'Kendo.TreeView-int',
         init: function (element, options) {
             var that = this,
                 dataInit,

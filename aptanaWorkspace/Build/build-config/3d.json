@@ -1,0 +1,25 @@
+{
+    "sceneFolders": {
+      "rootPath": "../LearnHPB/3d-assets/",
+      "folderList":   [
+        "envelope",
+        "furniture",
+        "hvac",
+        "lighting",
+        "rooftop",
+        "viewpoints",
+        "utility",
+        "particle-systems"
+      ]
+    },
+    "otherFolders": {
+      "rootPath": "../LearnHPB/3d-assets/",
+      "folderList":   [
+        "textures"
+       ]
+    }
+ }
+    
+    
+    
+

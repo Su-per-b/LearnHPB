@@ -62,12 +62,6 @@ lgb.simulation.controller.JsonController.prototype.bind_ = function() {
     this.onRequestZoneVisiblityChange_
     );
 
-  this.listenTo(
-    this.adminview,
-    lgb.events.RequestGoToViewPointName.TYPE,
-    this.onRequestGoToViewPointName_
-    );
-
 
 
 

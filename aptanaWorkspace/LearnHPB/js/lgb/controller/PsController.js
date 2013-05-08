@@ -58,6 +58,13 @@ lgb.controller.PsController.prototype.bind_ = function() {
     lgb.events.RequestDataModelChange.TYPE,
     this.onRequestDataModelChange_);
     
+    
+  this.listenTo(
+    this.view,
+    lgb.events.RequestDataModelChange.TYPE,
+    this.onRequestDataModelChange_
+   );
+    
 };
 
 

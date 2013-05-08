@@ -96,47 +96,6 @@ lgb.view.ViewPointAdminView.prototype.onChange = function(event) {
 /**
  * injects the html into the DOM
  */
-lgb.view.ViewPointAdminView.prototype.injectHtmlXXX = function() {
-
-  this.links = [];
-
-  var linkHtml = '';
-  var len = this.dataModel.cameras.length;
-  for (var i = 0; i < len; i++) {
-
-    var theCam = this.dataModel.cameras[i];
-
-    var ds = new lgb.component.LinkDataSource(
-      theCam.name,
-      this.htmlID,
-      '-' + i.toString()
-      );
-    ds.data = i;
-
-    var link = new lgb.component.Link(ds);
-
-    this.links.push(link);
-
-    linkHtml += link.getHTML();
-  }
-
-  var divHtml = '<div id="{0}" class="adminSubPanel">' +
-          '<h3>{1}</h3>' +
-          linkHtml +
-        '</div>';
-
-  divHtml = divHtml.format(
-    this.htmlID,
-    this.dataModel._TITLE
-    );
-
-  this.append(divHtml);
-
-};
-
-/**
- * injects the html into the DOM
- */
 lgb.view.ViewPointAdminView.prototype.injectHtml = function() {
 
     return;

@@ -44,7 +44,7 @@ lgb.Config.APP_TITLE = 'Learn High Performance Buildings';
  * @const
  * @type {string}
  */
-lgb.Config.APP_VERSION = 'Demo 12.0';
+lgb.Config.APP_VERSION = 'Demo 12.1';
 
 /**
  * Will show status in the upper left if set to true.
@@ -63,7 +63,7 @@ lgb.Config.HUD_CONTAINER_STR = "webGLcanvas";
  * @type {string}
  */
 lgb.Config.PARTICLE_SYSTEM_SCENE = lgb.Config.ASSETS_BASE_PATH +
-'particle-systems/ps8.json';
+'particle-systems/scene.json';
 
 
 /**
@@ -72,7 +72,7 @@ lgb.Config.PARTICLE_SYSTEM_SCENE = lgb.Config.ASSETS_BASE_PATH +
  * @type {string}
  */
 lgb.Config.PARTICLE_SYSTEM_XML = lgb.Config.XML_BASE_PATH +
-'ps8.xml';
+'scene.xml';
 
 /**
  * @return {string} The string used to inject into the <title>

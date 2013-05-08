@@ -19,7 +19,7 @@ lgb.model.ViewPointModel = function() {
   this._TITLE = 'ViewPoints';
   lgb.model.BaseModel.call(this);
   this.init_();
-  
+  this.name = "";
 };
 goog.inherits(lgb.model.ViewPointModel, lgb.model.BaseModel);
 
@@ -35,17 +35,6 @@ lgb.model.ViewPointModel.prototype.init_ = function() {
   
 };
 
-/**kendoDS
- * @param {string} name The camera name.
- */
-/*
-lgb.model.ViewPointModel.prototype.getCameraByName = function(name) {
-
-  return this.viewPointNodeMap[name];
-  
-};
-*/
-
 
 
 lgb.model.ViewPointModel.prototype.addViewPointCollection = function(viewPointCollection) {
@@ -58,16 +47,17 @@ lgb.model.ViewPointModel.prototype.addViewPointCollection = function(viewPointCo
         this.masterViewPointList_[viewPointNode.value] = viewPointNode;
     }
    
-    var d = viewPointCollection.getTreeData();
+
+   var d = viewPointCollection.getTreeData();
        
     this.kendoDS.add(d);
     
  
-      this.dispatchChange(
-          {
-            viewPointCollection: viewPointCollection
-          }
-      );
+    this.dispatchChange(
+        {
+          viewPointCollection: viewPointCollection
+        }
+    );
   
 };
 

@@ -151,7 +151,7 @@ lgb.view.ZoneView.prototype.onChange = function(event) {
 
         
         var viewPointNodeCollection = new lgb.model.ViewPointCollection(
-            "Zones", this.masterGroup_.children);
+            "Zones", this.masterGroup_.children, true);
 
         
         var event = new lgb.events.ViewPointCollectionLoaded(viewPointNodeCollection);

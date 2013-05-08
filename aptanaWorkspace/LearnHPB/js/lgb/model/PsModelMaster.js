@@ -58,6 +58,16 @@ lgb.model.PsModelMaster.prototype.init_ = function() {
 
 lgb.model.PsModelMaster.prototype.requestChange = function(stateObject) {
     
+    
+    
+    
+    var requestedIsStartedArray = stateObject.isStartedArray;
+    
+    if(requestedIsStartedArray) {
+        this.requestChangeIsStartedArray(requestedIsStartedArray);
+    }
+    
+    
     var requestedRunningArray = stateObject.isRunningArray;
     if(requestedRunningArray) {
         this.requestChangeIsRunning(requestedRunningArray);
@@ -73,8 +83,46 @@ lgb.model.PsModelMaster.prototype.requestChange = function(stateObject) {
         this.requestChangeShowCurves(requestedShowCurvesArray);
     }
     
-}
+};
 
+
+lgb.model.PsModelMaster.prototype.requestChangeIsStartedArray = function(requestedStartedArray) {
+  
+    var len2 =  this.psModelList.length;
+    
+    
+    var isStartedAry = [len2];
+    var newIsStartedAry = [len2];
+    
+    for (var i = 0; i < len2; i++) {
+        isStartedAry[i] = this.psModelList[i].isStarted;
+        newIsStartedAry[i] = false;
+    }
+    
+
+    
+    var len1 =  requestedStartedArray.length;
+    for (var j = 0; j < len1; j++) {
+        
+        var idx = requestedStartedArray[j] -1;
+        newIsStartedAry[idx] = true;
+        
+    }
+    
+    for (var k = 0; k < len2; k++) {
+
+        if (this.psModelList[k].isStarted != newIsStartedAry[k]) {
+            
+            var stateObject = {
+                isStarted:newIsStartedAry[k]
+            };
+            
+            this.psModelList[k].change(stateObject);
+            
+        }
+        
+    }
+};
 
 lgb.model.PsModelMaster.prototype.requestChangeShowCurves = function(requestedShowCurvesArray) {
    
@@ -102,7 +150,7 @@ lgb.model.PsModelMaster.prototype.requestChangeShowCurves = function(requestedSh
             this.psModelList[k].change(stateObject);
         }
     }
-}
+};
 
 
 lgb.model.PsModelMaster.prototype.requestChangeShowBoxes = function(requestedShowBoxesArray) {
@@ -133,6 +181,43 @@ lgb.model.PsModelMaster.prototype.requestChangeShowBoxes = function(requestedSho
     }
 }
 
+lgb.model.PsModelMaster.prototype.requestChangeIsEmitting = function(requestedEmittingArray) {
+   
+    var len2 =  this.psModelList.length;
+    
+    
+    var isEmittingAry = [len2];
+    var newIsEmittingAry = [len2];
+    
+    for (var i = 0; i < len2; i++) {
+        isEmittingAry[i] = this.psModelList[i].isEmitting;
+        newIsEmittingAry[i] = false;
+    }
+    
+
+    
+    var len1 =  requestedEmittingArray.length;
+    for (var j = 0; j < len1; j++) {
+        
+        var idx = requestedEmittingArray[j] -1;
+        newIsEmittingAry[idx] = true;
+        
+    }
+    
+    for (var k = 0; k < len2; k++) {
+
+        if (this.psModelList[k].isEmitting != newIsEmittingAry[k]) {
+            
+            var stateObject = {
+                isEmitting:newIsEmittingAry[k]
+            };
+            
+            this.psModelList[k].change(stateObject);
+            
+        }
+        
+    }
+}
 
 lgb.model.PsModelMaster.prototype.requestChangeIsRunning = function(requestedRunningArray) {
    

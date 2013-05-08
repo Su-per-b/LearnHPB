@@ -5,6 +5,7 @@
  
 goog.provide('lgb.controller.PsMasterController');
 
+goog.require('lgb.view.PsMasterGUI');
 goog.require('lgb.controller.BaseController');
 goog.require('lgb.controller.PsController');
 
@@ -20,7 +21,7 @@ goog.require('lgb.model.PsModelMaster');
 goog.require('lgb.view.ParticleSystemAdminView');
 goog.require('lgb.view.PsView');
 goog.require('lgb.view.PsMasterView');
-goog.require('lgb.view.PsMasterGUI');
+
 
 
 /**
@@ -68,18 +69,14 @@ lgb.controller.PsMasterController.prototype.bind_ = function() {
    );
    
    
-   
-   
   this.listenTo(
     this.psMasterGUI,
     lgb.events.RequestDataModelChange.TYPE,
     this.onRequestDataModelChange_
    );
+   
 
-   
-   
-   
-    
+
 };
 
 

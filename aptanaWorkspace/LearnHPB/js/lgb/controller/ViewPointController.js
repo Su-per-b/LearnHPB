@@ -18,7 +18,7 @@ goog.require('lgb.model.ViewPointCollection');
 
 goog.require('lgb.events.CamerasLoaded');
 goog.require('lgb.events.RequestGoToViewPoint');
-goog.require('lgb.events.RequestGoToViewPointName');
+goog.require('lgb.events.RequestShowViewPoint');
 goog.require('lgb.events.ViewInitialized');
 goog.require('lgb.events.ViewPointCollectionLoaded');
 goog.require('lgb.events.BuildingHeightChanged');
@@ -91,11 +91,13 @@ lgb.controller.ViewPointController.prototype.bind_ = function() {
     lgb.events.RequestGoToViewPoint.TYPE,
     this.onRequestGoToViewPoint_
   );
+  
+  this.listenTo(
+    this.guiView,
+    lgb.events.RequestShowViewPoint.TYPE,
+    this.onRequestShowViewPoint_
+  );
 
-  this.listen(
-    lgb.events.RequestGoToViewPointName.TYPE,
-    this.onRequestGoToViewPointName_
-    );
     
   this.listen(
     lgb.events.ViewPointCollectionLoaded.TYPE,
@@ -135,7 +137,7 @@ lgb.controller.ViewPointController.prototype.onViewInitialized_ =
 
 /**
  * @private
- * @param {lgb.events.CamerasLoaded} event Fired by the view.
+ * @param {lgb.events.RequestGoToViewPoint} event Fired by the view.
  */
 lgb.controller.ViewPointController.prototype.onRequestGoToViewPoint_ =
   function(event) {
@@ -146,17 +148,15 @@ lgb.controller.ViewPointController.prototype.onRequestGoToViewPoint_ =
 
 /**
  * @private
- * @param {lgb.events.RequestGoToViewPointName} event Fired by one of
- * the views.
+ * @param {lgb.events.RequestShowViewPoint event Fired by the view.
  */
-lgb.controller.ViewPointController.prototype.onRequestGoToViewPointName_ =
+lgb.controller.ViewPointController.prototype.onRequestShowViewPoint_ =
   function(event) {
-
-  var camera = this.dataModel.getCameraByName(event.payload);
-  
-  this.dispatch(new lgb.events.RequestGoToViewPoint(camera));
+    
+  this.dispatch(event);
 
 };
+
 
 /**
  * @private

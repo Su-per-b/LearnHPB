@@ -30,6 +30,7 @@ lgb.model.PsModel = function(systemConfig) {
   lgb.model.BaseModel.call(this);
 
   this.isRunning = false;
+  this.isStarted = false;
   this.showBoxes = true;
   this.showCurves = false;
   this.isEmitting = true;
@@ -53,8 +54,9 @@ lgb.model.PsModel.prototype.getTreeData = function() {
         
     var item = {
         text: this.title,
-        value: this.id,
-        hasChildren:false
+        value: true,
+        hasChildren:false,
+        id: this.id
     }
         
         
@@ -86,6 +88,32 @@ lgb.model.PsModel.prototype.change = function(stateObject) {
     whatIsDirty.showBoxes = true;
     isAnythingDirty = true;
   }
+  
+  if (stateObject.isStarted != null &&
+    stateObject.isStarted != this.isStarted) {
+
+    this.isStarted = stateObject.isStarted;
+    
+    if (this.isStarted) {
+      if (!this.isRunning) {
+        this.isRunning = true;
+        whatIsDirty.isRunning = true;
+      }
+      if (!this.isEmitting) {
+        this.isEmitting = true;
+        whatIsDirty.isEmitting = true;
+      }
+    } else {
+      if (this.isEmitting) {
+        this.isEmitting = false;
+        whatIsDirty.isEmitting = true;
+      }
+    }
+    
+    whatIsDirty.isStarted = true;
+    isAnythingDirty = true;
+  }
+
 
   if (stateObject.showCurves != null &&
     stateObject.showCurves != this.showCurves) {

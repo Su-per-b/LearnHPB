@@ -32,7 +32,7 @@
 	"colorAmbient" : [0.0, 0.0, 0.0],
 	"colorDiffuse" : [0.8, 0.8, 0.8],
 	"colorSpecular" : [0.0, 0.0, 0.0],
-	"mapDiffuse" : "MetalBase0123_S.jpg",
+	"mapDiffuse" : "images/MetalBase0123_S.jpg",
 	"illumination" : 2,
 	"opticalDensity" : 1.0,
 	"specularCoef" : 398.039216,

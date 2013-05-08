@@ -6,6 +6,8 @@
 goog.provide('lgb.view.PsView');
 
 goog.require('lgb.events.Object3DLoaded');
+goog.require('lgb.events.RequestDataModelChange');
+
 goog.require('lgb.view.ParticleElement');
 goog.require('lgb.view.ParticlePath');
 goog.require('lgb.view.BaseView');
@@ -41,6 +43,12 @@ lgb.view.PsView.prototype.onChange = function(event) {
   if (whatIsDirty.isRunning) {
     this.updateIsRunning_();
   }
+  
+  //if (whatIsDirty.isEmitting) {
+   // this.updateIsRunning_();
+//  }
+  
+
 
   if (whatIsDirty.showBoxes) {
     this.showBoxes(this.dataModel.showBoxes);
@@ -333,6 +341,25 @@ lgb.view.PsView.prototype.onRender = function(event) {
     this.inActiveParticles.push(finishedParticle);
   }
   
+
+
+  if (!this.dataModel.isEmitting) {
+    if (this.activeParticles.length < 1) {
+      if (this.dataModel.isRunning) {
+
+        var e = new lgb.events.RequestDataModelChange({
+          isRunning : false
+        });
+
+        this.dispatchLocal(e);
+
+      }
+
+    }
+
+  }
+
+
 
   this.threePS.geometry.verticesNeedUpdate = true;
 };
