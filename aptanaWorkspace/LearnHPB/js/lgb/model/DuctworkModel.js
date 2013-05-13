@@ -32,27 +32,13 @@ lgb.model.DuctworkModel = function() {
 goog.inherits(lgb.model.DuctworkModel, lgb.model.BaseModel);
 
 
-/**
- * @param {boolean} makeVisible Used to change the visibility.
- */
-lgb.model.DuctworkModel.prototype.setVisible = function(makeVisible) {
 
-  if (this.isVisible != makeVisible) {
-    this.isVisible = makeVisible;
 
-    this.dispatchChange();
-  }
-};
-
-/**
- * @param {lgb.model.BuildingModel.Group} group The group name
- * to set as visible.
- */
 lgb.model.DuctworkModel.prototype.setVisiblityGroup = function(group) {
 
   if (this.groupMembership[group]) {
-    this.setVisible(true);
+    this.changeProperty('isVisible', true);
   } else {
-    this.setVisible(false);
+    this.changeProperty('isVisible', false);
   }
 };

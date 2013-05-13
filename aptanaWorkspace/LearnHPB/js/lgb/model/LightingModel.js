@@ -38,17 +38,6 @@ lgb.model.LightingModel = function() {
 goog.inherits(lgb.model.LightingModel, lgb.model.BaseModel);
 
 
-/**
- * @param {boolean} makeVisible Used to change the visibility.
- */
-lgb.model.LightingModel.prototype.setVisible = function(makeVisible) {
-
-  if (this.isVisible != makeVisible) {
-    this.isVisible = makeVisible;
-    
-    this.dispatchChange({isVisible : true});
-  }
-};
 
 
 /**
@@ -72,18 +61,16 @@ lgb.model.LightingModel.prototype.change = function(stateObject) {
   }
 };
 
-/**
- * @param {lgb.model.BuildingModel.Group} group The group name
- * to set as visible.
- */
+
 lgb.model.LightingModel.prototype.setVisiblityGroup = function(group) {
 
   if (this.groupMembership[group]) {
-    this.setVisible(true);
+    this.changeProperty('isVisible', true);
   } else {
-    this.setVisible(false);
+    this.changeProperty('isVisible', false);
   }
 };
+
 
 
 /**

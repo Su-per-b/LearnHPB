@@ -41,7 +41,7 @@ lgb.model.BaseModel.prototype.changeProperty = function(propertyName, propertyVa
 
     if (this[propertyName] != propertyValue) {
         this[propertyName] = propertyValue;
-        this.dispatchChangedProperty(propertyValue);
+        this.dispatchChangedProperty(propertyName);
     }
 };
 

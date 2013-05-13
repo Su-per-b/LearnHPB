@@ -59,49 +59,6 @@ lgb.model.EnvelopeModel.prototype.init_ = function() {
 };
 
 
-/**
- * @param {Object} stateObject Contains information about what to change.
- */
-lgb.model.EnvelopeModel.prototype.change = function(stateObject) {
-
-  var isAnythingDirty = false;
-  var whatIsDirty = {};
-
-  if (stateObject.floorHeight != null &&
-    stateObject.floorHeight != this.floorHeight) {
-
-    this.floorHeight = stateObject.floorHeight;
-    whatIsDirty.floorHeight = true;
-    isAnythingDirty = true;
-  }
-
-  if (stateObject.floorCount != null &&
-    stateObject.floorCount != this.floorCount) {
-
-    this.floorCount = stateObject.floorCount;
-    whatIsDirty.floorCount = true;
-    isAnythingDirty = true;
-  }
-
-  if (isAnythingDirty) {
-     this.dispatchChange(whatIsDirty);
-  }
-};
-
-
-/**
- * @param {boolean} makeVisible Used to change the visibility.
- */
-lgb.model.EnvelopeModel.prototype.setVisible = function(makeVisible) {
-     
-  if (this.isVisible != makeVisible) {
-    this.isVisible = makeVisible;
-    
-    this.dispatchChange({isVisible : true});
-  }
-  
-  
-};
 
 /**
  * @param {lgb.model.BuildingModel.Group} group The group name
@@ -110,8 +67,8 @@ lgb.model.EnvelopeModel.prototype.setVisible = function(makeVisible) {
 lgb.model.EnvelopeModel.prototype.setVisiblityGroup = function(group) {
 
   if (this.groupMembership[group]) {
-    this.setVisible(true);
+    this.changeProperty('isVisible', true);
   } else {
-    this.setVisible(false);
+    this.changeProperty('isVisible', false);
   }
 };

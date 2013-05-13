@@ -11,10 +11,12 @@ goog.provide('lgb.view.LightingAdminView');
 
 goog.require('lgb.component.Link');
 goog.require('lgb.component.LinkDataSource');
+
 goog.require('lgb.events.MouseClick');
 goog.require('lgb.events.MouseOut');
 goog.require('lgb.events.MouseOver');
 goog.require('lgb.events.RequestLightingChange');
+
 goog.require('lgb.model.LightingModel');
 goog.require('lgb.view.BaseView');
 
@@ -72,26 +74,11 @@ lgb.view.LightingAdminView.prototype.bind_ = function() {
  */
 lgb.view.LightingAdminView.prototype.onLightingTypeChanged_ = function(event) {
 
-  var e = new lgb.events.RequestDataModelChange(
-    {lightingType: this.dataSourceLightingType.theSelectedOne.value}
-  );
-
-  this.dispatchLocal(e);
+  this.requestDataModelChange('lightingType', this.dataSourceLightingType.theSelectedOne.value);
+  
 };
 
 
-
-
-/**
- * event handler
- * @protected
- * @override
- * @param {lgb.events.DataModelChanged} event The Event.
- */
-lgb.view.LightingAdminView.prototype.onChange = function(event) {
-
-
-};
 
 
 /**

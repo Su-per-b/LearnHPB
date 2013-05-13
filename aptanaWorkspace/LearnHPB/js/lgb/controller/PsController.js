@@ -79,6 +79,5 @@ lgb.controller.PsController.prototype.onObject3DLoaded_ =
 lgb.controller.PsController.prototype.onRequestDataModelChange_ =
   function(event) {
 
-  var stateObject = event.payload;
-  this.dataModel.change(stateObject);
+  this.dataModel.changeProperty(event.payload.name, event.payload.value);
 };

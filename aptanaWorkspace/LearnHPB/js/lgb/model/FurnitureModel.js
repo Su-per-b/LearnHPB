@@ -56,27 +56,8 @@ lgb.model.FurnitureModel.prototype.update = function(envelopeModel) {
 };
 
 
-/**
- * @param {boolean} makeVisible Used to change the visibility.
- */
-lgb.model.FurnitureModel.prototype.setVisible = function(makeVisible) {
-
-  if (this.isVisible != makeVisible) {
-    this.isVisible = makeVisible;
-    
-    this.dispatchChange({isVisible : true});
-  }
-  
-};
 
 
-/**
- * @param {Object} stateObject Contains information about what to change.
- */
-lgb.model.FurnitureModel.prototype.change = function(stateObject) {
-
-
-};
 
 /**
  * @param {lgb.model.BuildingModel.Group} group The group name
@@ -85,9 +66,9 @@ lgb.model.FurnitureModel.prototype.change = function(stateObject) {
 lgb.model.FurnitureModel.prototype.setVisiblityGroup = function(group) {
 
   if (this.groupMembership[group]) {
-    this.setVisible(true);
+    this.changeProperty('isVisible', true);
   } else {
-    this.setVisible(false);
+    this.changeProperty('isVisible', false);
   }
 };
 

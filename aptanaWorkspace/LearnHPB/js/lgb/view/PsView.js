@@ -345,17 +345,9 @@ lgb.view.PsView.prototype.onRender = function(event) {
   if (!this.dataModel.isEmitting) {
     if (this.activeParticles.length < 1) {
       if (this.dataModel.isRunning) {
-
-        var e = new lgb.events.RequestDataModelChange({
-          isRunning : false
-        });
-
-        this.dispatchLocal(e);
-
+        this.requestDataModelChange('isRunning', false);
       }
-
     }
-
   }
 
 

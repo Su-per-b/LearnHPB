@@ -19,7 +19,6 @@ goog.require('lgb.events.Object3DLoaded');
 goog.require('lgb.model.PsModel');
 goog.require('lgb.model.PsModelMaster');
 
-goog.require('lgb.view.ParticleSystemAdminView');
 goog.require('lgb.view.PsView');
 goog.require('lgb.view.PsMasterView');
 

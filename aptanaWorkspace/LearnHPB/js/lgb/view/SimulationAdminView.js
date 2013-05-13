@@ -11,7 +11,6 @@ goog.require('lgb.component.LinkDataSource');
 
 goog.require('lgb.events.DataModelChanged');
 goog.require('lgb.events.DataSourceChanged');
-goog.require('lgb.events.RequestDataModelChange');
 
 goog.require('lgb.events.RequestSimulationStateChange');
 goog.require('lgb.model.SimulationModelState');

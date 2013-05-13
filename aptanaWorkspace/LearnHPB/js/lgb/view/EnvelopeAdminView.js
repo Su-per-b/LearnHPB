@@ -63,15 +63,6 @@ lgb.view.EnvelopeAdminView.prototype.bind_ = function() {
 };
 
 
-/**
- * Event Handler that fires when the data model changes
- * @param {lgb.events.DataModelChanged} event The event.
- * @protected
- */
-lgb.view.EnvelopeAdminView.prototype.onChange = function(event) {
-  //needed to prevent exception.
-};
-
 
 /**
  * event handler
@@ -80,11 +71,8 @@ lgb.view.EnvelopeAdminView.prototype.onChange = function(event) {
  */
 lgb.view.EnvelopeAdminView.prototype.onFloorCountChanged_ = function(event) {
 
-  var e = new lgb.events.RequestDataModelChange(
-    {floorCount: this.dataSourceFloorCount.theSelectedOne.value}
-  );
+  this.requestDataModelChange('floorCount', this.dataSourceFloorCount.theSelectedOne.value);
 
-  this.dispatchLocal(e);
 };
 
 
@@ -95,11 +83,8 @@ lgb.view.EnvelopeAdminView.prototype.onFloorCountChanged_ = function(event) {
  */
 lgb.view.EnvelopeAdminView.prototype.onFloorHeightChanged_ = function(event) {
 
-  var e = new lgb.events.RequestDataModelChange(
-    {floorHeight: this.dataSourceFloorHeight.theSelectedOne.value}
-  );
+  this.requestDataModelChange('floorHeight', this.dataSourceFloorHeight.theSelectedOne.value);
 
-  this.dispatchLocal(e);
 };
 
 

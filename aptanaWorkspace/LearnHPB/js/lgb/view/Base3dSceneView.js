@@ -7,6 +7,7 @@ goog.provide('lgb.view.Base3dSceneView');
 
 goog.require('lgb.BaseClass');
 goog.require('lgb.events.DataModelChanged');
+goog.require('lgb.events.RequestDataModelChange');
 goog.require('lgb.utils');
 
 /**
@@ -159,6 +160,16 @@ lgb.view.Base3dSceneView.prototype.onChange = function(event) {
 
 
 
+lgb.view.Base3dSceneView.prototype.requestDataModelChange = function(propertyName, propertyValue) {
+  
+  var e = new lgb.events.RequestDataModelChange(
+    {name:propertyName, value:propertyValue}
+  );
+
+  this.dispatchLocal(e);
+  
+};
+
 
 /**
  * @protected
@@ -172,7 +183,6 @@ lgb.view.Base3dSceneView.prototype.moveGroupToObject3D_ = function(groupName) {
   
   return obj3D;
 };
-
 
 
 

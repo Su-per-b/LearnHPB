@@ -32,7 +32,7 @@ lgb.model.PsModel = function(systemConfig, idx) {
 
   this.isRunning = false;
   this.isStarted = false;
-  this.showBoxes = true;
+  this.showBoxes = false;
   this.showCurves = false;
   this.isEmitting = true;
   this.particleCount = systemConfig.particleCount;
@@ -85,7 +85,7 @@ lgb.model.PsModel.prototype.changeProperty = function(propertyName, propertyValu
         
       } else {
         
-       goog.base(this, 'changeProperty', [propertyName, propertyValue]);
+       goog.base(this, 'changeProperty', propertyName, propertyValue);
        
       }
     }
