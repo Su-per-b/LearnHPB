@@ -1,9 +1,4 @@
-/**
- * @author Raj Dye - raj@rajdye.com
- * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
- */
-
-goog.provide('lgb.view.Base3dSceneView');
+goog.provide('lgb.view.BaseViewGUI');
 
 goog.require('lgb.BaseClass');
 goog.require('lgb.events.DataModelChanged');
@@ -16,33 +11,113 @@ goog.require('lgb.utils');
  * @extends {lgb.BaseClass}
  * @param {lgb.model.BaseModel=} dataModel that the view with display.
  */
-lgb.view.Base3dSceneView = function(dataModel) {
+lgb.view.BaseViewGUI = function(dataModel, htmlID, parentHtmlID) {
   lgb.BaseClass.call(this);
 
-
-  this.dataModel = dataModel || null;
-  
-  if(this.dataModel) {
+  if (null !== dataModel && undefined !== dataModel) {
+    this.dataModel = dataModel;
     this.listenForChange_();
   }
+ 
+  this.setIds_(htmlID, parentHtmlID);
   
-  this.masterGroup_ = new THREE.Object3D();
-  this.masterGroup_.name = this._NAME;
+    
+  this.parentElement_ = undefined;
+  this.mainElement_ = undefined;
+    
   
-  this.filename = this.filename || 'scene.json';
+};
+goog.inherits(lgb.view.BaseViewGUI, lgb.BaseClass);
+
+
+
+/**
+ * injects html into the DOM
+ * @param {string} html the HTML string to append.
+ * @protected
+ */
+lgb.view.BaseViewGUI.prototype.append = function(html) {
+  this.jqParent().append(html);
+};
+
+
+
+/**
+ * makes a unique css ID for a child element
+ * @param {!string} id The last part of the CSS ID.
+ * @return {string} The generated ID.
+ */
+lgb.view.BaseViewGUI.prototype.makeID = function(id) {
+  var newID = '{0}-{1}'.format(this.htmlID, id);
+  return newID;
+};
+
+
+lgb.view.BaseViewGUI.prototype.makeMainDiv = function() {
+    
+    var mainDiv = $("<div>")
+                        .attr("id", this.htmlID);
+                        
+    this.jqParent().append(mainDiv);
+    
+    return mainDiv;
 
 };
-goog.inherits(lgb.view.Base3dSceneView, lgb.BaseClass);
 
 
 
+lgb.view.BaseView.prototype.setIds_ = function(htmlID, parentHtmlID) {
+    
+
+  this.htmlID = htmlID || this.generateHtmlID();
+  this.parentHtmlID = parentHtmlID || 'theBody';
+  
+};
+
+lgb.view.BaseViewGUI.prototype.generateHtmlID = function() {
+    
+      var ary=this._NAME.split(".");
+      var len = ary.length;
+      var id = ary[len-1];
+      
+      return id;
+}
+
+/**
+ * converts and id into a Jquery element
+ * @param {string=} id The css id.
+ * @return {jQuery} Element.
+ */
+lgb.view.BaseViewGUI.prototype.jq = function(id) {
+
+  var cssID = id || this.htmlID;
+  var selector = '#{0}'.format(cssID);
+ 
+  var jqElement = $(selector);
+  
+  return jqElement;
+};
+
+/**
+ * converts an id into a Jquery object
+ * refers to the parent in the DOM
+ * @return {jQuery} Jquery object.
+ */
+lgb.view.BaseViewGUI.prototype.jqParent = function() {
+    
+  if (undefined == this.parentElement_) {
+    this.parentElement_ = $('#{0}'.format(this.parentHtmlID));
+  }
+  
+  return this.parentElement_;
+};
 
 /**
  * Initializes the View
  * and loads the meshes from remote files
  * @protected
  */
-lgb.view.Base3dSceneView.prototype.init = function() {
+lgb.view.BaseViewGUI.prototype.init = function() {
 
   if (undefined === this._ASSETS_FOLDER) {
     throw ("You must define this._ASSETS_FOLDER")
@@ -56,7 +131,7 @@ lgb.view.Base3dSceneView.prototype.init = function() {
  * @param {string} the folder name form which to load the 'scene.json' file
  * @protected
  */
-lgb.view.Base3dSceneView.prototype.loadSceneFromFolder_ = function(folderName) {
+lgb.view.BaseViewGUI.prototype.loadSceneFromFolder_ = function(folderName) {
 
   var path = lgb.Config.ASSETS_BASE_PATH + folderName + '/' + this.filename;
   this.loader_ = new THREE.SceneLoaderEx();
@@ -69,7 +144,7 @@ lgb.view.Base3dSceneView.prototype.loadSceneFromFolder_ = function(folderName) {
  * @param {Object} result From the THREE.js lib.
  * @private
  */
-lgb.view.Base3dSceneView.prototype.onSceneLoadedBase_ = function(result) {
+lgb.view.BaseViewGUI.prototype.onSceneLoadedBase_ = function(result) {
 
   this.scene_ = result['scene'];
   this.groups_ = result['groups'];
@@ -99,7 +174,7 @@ lgb.view.Base3dSceneView.prototype.onSceneLoadedBase_ = function(result) {
 
 
 
-lgb.view.Base3dSceneView.prototype.placeContainers_ = function() {
+lgb.view.BaseViewGUI.prototype.placeContainers_ = function() {
     
 
     var count = 0;
@@ -113,7 +188,7 @@ lgb.view.Base3dSceneView.prototype.placeContainers_ = function() {
 };
 
 
-lgb.view.Base3dSceneView.prototype.placeOneContainer_ = function(containerName, containerObject) {
+lgb.view.BaseViewGUI.prototype.placeOneContainer_ = function(containerName, containerObject) {
     
     if (containerObject.type == "group") {
         
@@ -154,13 +229,13 @@ lgb.view.Base3dSceneView.prototype.placeOneContainer_ = function(containerName, 
  * @param {lgb.events.DataModelChanged} event The event.
  * @protected
  */
-lgb.view.Base3dSceneView.prototype.onChange = function(event) {
-  //throw ('ViewBase.onChange() should be overridden for Class: ' + this._NAME);
+lgb.view.BaseViewGUI.prototype.onChange = function(event) {
+  //throw ('ViewBase.onChange() should be overriden for Class: ' + this._NAME);
 };
 
 
 
-lgb.view.Base3dSceneView.prototype.requestDataModelChange = function(propertyName, propertyValue) {
+lgb.view.BaseViewGUI.prototype.requestDataModelChange = function(propertyName, propertyValue) {
   
   var e = new lgb.events.RequestDataModelChange(
     {name:propertyName, value:propertyValue}
@@ -171,10 +246,12 @@ lgb.view.Base3dSceneView.prototype.requestDataModelChange = function(propertyNam
 };
 
 
+
+
 /**
  * @protected
  */
-lgb.view.Base3dSceneView.prototype.moveGroupToObject3D_ = function(groupName) {
+lgb.view.BaseViewGUI.prototype.moveGroupToObject3D_ = function(groupName) {
   
   var obj3D = new THREE.Object3D();
   
@@ -186,11 +263,12 @@ lgb.view.Base3dSceneView.prototype.moveGroupToObject3D_ = function(groupName) {
 
 
 
+
 /**
  * Binds an event listener to handle when the MVC data model changes.
  * @protected
  */
-lgb.view.Base3dSceneView.prototype.listenForChange_ = function() {
+lgb.view.BaseViewGUI.prototype.listenForChange_ = function() {
 
   this.listenHelper_(this.dataModel, lgb.events.DataModelChanged.TYPE, this, this.onChange);
 
@@ -201,12 +279,12 @@ lgb.view.Base3dSceneView.prototype.listenForChange_ = function() {
  * added to the world.
  * @protected
  */
-lgb.view.Base3dSceneView.prototype.requestAddToWorld = function(object3D) {
+lgb.view.BaseViewGUI.prototype.requestAddToWorld = function(object3D) {
 
-
-  object3D.name = object3D.name || this._NAME;
+  if (undefined === object3D.name || "" == object3D.name ) {
+    object3D.name = this._NAME;
+  }
 
   var event = new lgb.events.Object3DLoaded(object3D);
   this.dispatchLocal(event);
 };
-

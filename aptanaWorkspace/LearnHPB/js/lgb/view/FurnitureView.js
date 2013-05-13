@@ -3,7 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
 goog.provide('lgb.view.FurnitureView');
-goog.require('lgb.view.BaseView');
+goog.require('lgb.view.BaseView3d');
 goog.require('lgb.model.GridModel');
 goog.require('lgb.ThreeUtils');
 goog.require('lgb.model.BuildingHeightModel');
@@ -14,7 +14,7 @@ goog.require('lgb.model.ViewPointCollection');
 
 /**
  * @constructor
- * @extends {lgb.view.BaseView}
+ * @extends {lgb.view.BaseView3d}
  * @param {lgb.model.FurnitureModel} dataModel The model to display.
  */
 lgb.view.FurnitureView = function(dataModel) {
@@ -22,13 +22,13 @@ lgb.view.FurnitureView = function(dataModel) {
   this._NAME = 'lgb.view.FurnitureView';
   this._ASSETS_FOLDER = 'furniture';
   
-  lgb.view.BaseView.call(this, dataModel);
+  lgb.view.BaseView3d.call(this, dataModel);
 
   this.topFloorMinY_ = null;
   this.sceneY_ = null;
   
 };
-goog.inherits(lgb.view.FurnitureView, lgb.view.BaseView);
+goog.inherits(lgb.view.FurnitureView, lgb.view.BaseView3d);
 
 
 

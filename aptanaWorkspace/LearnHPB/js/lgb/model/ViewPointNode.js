@@ -31,11 +31,30 @@ lgb.model.ViewPointNode = function(object3D, parent, idx) {
   
   this.value =  this.parent.name + '-' + idx;
   this.isVisible = false;
-  this.init_(object3D);
   
+  if (object3D._NAME == 'THREE.PerspectiveCamera') {
+    this.initFromCamera_(object3D);
+  } else {
+    this.init_(object3D);
+  }
+    
 };
 goog.inherits(lgb.model.ViewPointNode, lgb.model.BaseModel);
 
+
+
+lgb.model.ViewPointNode.prototype.initFromCamera_ = function(threeObject) {
+ 
+    
+/*
+    this.targetBoundingBox = boundingBox.clone();
+        
+    this.targetPosition = threeObject.position.clone();
+    this.name = threeObject.name;
+    
+    this.threeObject = threeObject;*/
+
+}
 
 /**
  * @private
@@ -49,7 +68,9 @@ lgb.model.ViewPointNode.prototype.init_ = function(threeObject) {
 
     } else if (threeObject._NAME == 'THREE.Mesh') {
         boundingBox = threeObject.getBoundingBox();
-    }
+    } 
+
+    
     
     this.targetBoundingBox = boundingBox.clone();
         

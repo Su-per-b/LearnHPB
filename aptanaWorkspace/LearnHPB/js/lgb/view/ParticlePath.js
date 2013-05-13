@@ -29,7 +29,6 @@ lgb.view.ParticlePath = function(curve, frameCount) {
   this.frameCount = frameCount;
   this.calculateAnimationFrames();
 
-
 };
 goog.inherits(lgb.view.ParticlePath, lgb.view.BaseView);
 

@@ -5,12 +5,13 @@
  
 goog.provide('lgb.view.ViewPointView');
 
-goog.require('goog.userAgent');
-goog.require('lgb.ThreeUtils');
-goog.require('lgb.events.CamerasLoaded');
-goog.require('lgb.events.ViewInitialized');
+;
+goog.require('lgb.events.ViewPointCollectionLoaded');
+
 goog.require('lgb.view.BaseView');
 goog.require('lgb.model.BuildingHeightModel');
+goog.require('lgb.model.ViewPointCollection');
+
 
 /**
  * @constructor
@@ -62,25 +63,20 @@ lgb.view.ViewPointView.prototype.setY_ = function() {
 };
 
 
-lgb.view.ViewPointView.prototype.onChange = function(event) {
-  
-
-};
-
 
 /**
  * Event handler called by the base class when the scene is loaded
  * @private
  */
 lgb.view.ViewPointView.prototype.onSceneLoaded_ = function(result) {
-  
-  
+
+
   return;
-  
-  
+   
   var scene = result['scene'];
   var cameras = result['cameras'];
-  var camMap = {};
+  
+  var camList = [];
   
   for (var camName in cameras) {
     
@@ -92,19 +88,24 @@ lgb.view.ViewPointView.prototype.onSceneLoaded_ = function(result) {
         theCamera.target.addSelf(scene.position);
         
         theCamera.name = camName;
-        camMap[camName] = theCamera;
+
+        camList.push(theCamera);
     }
-
   }
   
-
-  if (cameras !== undefined) {
-    var e = new lgb.events.CamerasLoaded( cameras);
-    this.dispatchLocal(e);
-  }
   
-  delete this.loader_;
-  this.dispatchLocal(new lgb.events.ViewInitialized());
+  
+    var viewPointNodeCollection = new lgb.model.ViewPointCollection("Custom", camList);
+        
+    var event = new lgb.events.ViewPointCollectionLoaded(viewPointNodeCollection);
+    this.dispatchLocal(event);
+    
+    
+  
+   return;
+  
+  
+
   
 };
 

@@ -115,28 +115,10 @@ lgb.view.LayoutView.prototype.calculateLayout = function() {
     
   var w = window.innerWidth;
   var h = window.innerHeight;
-  
   var k = this.kendoSplitter1_;
   
   
-  
-/*
 
-  this.splitter1_.css({
-      height: h,
-      });
-      
-*/
-
-  
-/*
-   this.pageContainer_.css({
-      width: w,
-      height: h,
-      });
-      */
-
-    
   //make the page container the full size of the browser window.
   var leftPanelWidth = this.leftPanel_.width();
   

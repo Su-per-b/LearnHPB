@@ -6,7 +6,6 @@
 goog.provide('lgb.controller.EnvelopeController');
 
 goog.require('lgb.controller.BaseController');
-goog.require('lgb.events.CamerasLoaded');
 goog.require('lgb.events.RequestVisibilityChange');
 goog.require('lgb.events.ViewInitialized');
 goog.require('lgb.model.BuildingModel.Group');
@@ -77,16 +76,6 @@ lgb.controller.EnvelopeController.prototype.getTopFloor =
 };
 
 
-
-
-/**
- * @private
- * @param {lgb.events.CamerasLoaded} event Fired by the view.
- */
-lgb.controller.EnvelopeController.prototype.onCamerasLoaded_ =
-  function(event) {
-  this.dispatch(event);
-};
 
 
 /**

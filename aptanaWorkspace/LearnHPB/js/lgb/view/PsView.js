@@ -10,7 +10,7 @@ goog.require('lgb.events.RequestDataModelChange');
 
 goog.require('lgb.view.ParticleElement');
 goog.require('lgb.view.ParticlePath');
-goog.require('lgb.view.Base3dSceneView');
+goog.require('lgb.view.BaseView3d');
 goog.require('lgb.model.BuildingHeightModel');
 
 
@@ -23,14 +23,14 @@ goog.require('lgb.model.BuildingHeightModel');
 lgb.view.PsView = function(dataModel) {
     
   this._NAME = 'lgb.view.PsView';
-  lgb.view.Base3dSceneView.call(this, dataModel);
+  lgb.view.BaseView3d.call(this, dataModel);
 
   this.title = dataModel.title;
  
   this.topFloorMaxY_ = null;
   this.sceneY_ = null;
 };
-goog.inherits(lgb.view.PsView, lgb.view.Base3dSceneView);
+goog.inherits(lgb.view.PsView, lgb.view.BaseView3d);
 
 
 

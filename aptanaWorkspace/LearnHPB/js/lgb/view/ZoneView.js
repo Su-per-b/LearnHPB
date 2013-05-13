@@ -144,22 +144,14 @@ lgb.view.ZoneView.prototype.onChange = function(event) {
 
     if (!this.isInitialized_) {
 
-
-
-       // var viewPointNodeCollection = lgb.model.ViewPointCollection.make("Zones", this.masterGroup_.children);
-        
-
-        
         var viewPointNodeCollection = new lgb.model.ViewPointCollection(
             "Zones", this.masterGroup_.children, true);
 
-        
         var event = new lgb.events.ViewPointCollectionLoaded(viewPointNodeCollection);
         this.dispatchLocal(event);
     
     }
 
-    
     this.isInitialized_ = true;
 
 };

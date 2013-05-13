@@ -23,7 +23,6 @@ lgb.model.ViewPointCollection = function(name, object3Dlist, showViewPoints) {
   lgb.model.BaseModel.call(this);
   
   this.name = name;
-  //this.url = name;
   this.nodeList = [];
   this.showViewPoints = showViewPoints || false;
   this.init_(object3Dlist);
@@ -40,9 +39,10 @@ lgb.model.ViewPointCollection.prototype.init_ = function(object3Dlist) {
     var len = object3Dlist.length;
     
     for (var i = 0; i < len; i++) {
-        var node = new lgb.model.ViewPointNode(object3Dlist[i], this, i);
-
-        
+      
+        var object3d = object3Dlist[i];
+       
+        var node = new lgb.model.ViewPointNode(object3d, this, i);
         this.nodeList.push(node);
     }
     
