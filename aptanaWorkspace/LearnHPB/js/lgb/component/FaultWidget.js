@@ -7,7 +7,7 @@
  * @author Raj Dye - raj@rajdye.com
 */
 
-goog.provide('lgb.view.component.FaultWidget');
+goog.provide('lgb.component.FaultWidget');
 goog.require('lgb.view.BaseView');
 
 
@@ -17,16 +17,16 @@ goog.require('lgb.view.BaseView');
  * @constructor
  * @extends {lgb.view.BaseView}
  */
-lgb.view.component.FaultWidget = function(dataModel) {
+lgb.component.FaultWidget = function(dataModel) {
     
-  this._NAME = 'lgb.view.component.FaultWidget';
+  this._NAME = 'lgb.component.FaultWidget';
   var htmlID = 'component-FaultWidget-' + dataModel.name;
  
   lgb.view.BaseView.call(this, dataModel, htmlID);
 
 
 };
-goog.inherits(lgb.view.component.FaultWidget, lgb.view.BaseView);
+goog.inherits(lgb.component.FaultWidget, lgb.view.BaseView);
 
 
 
@@ -36,7 +36,7 @@ goog.inherits(lgb.view.component.FaultWidget, lgb.view.BaseView);
  * then injected into the DOM.
  * @return {jQuery|string} the kendoSlider jQuery object.
  */
-lgb.view.component.FaultWidget.prototype.getHtml = function() {
+lgb.component.FaultWidget.prototype.getHtml = function() {
 
   if (this.dataModel.faultWidgetType != 'SLIDER') {
     throw Error('unknown faultWidgetType');
@@ -63,7 +63,7 @@ lgb.view.component.FaultWidget.prototype.getHtml = function() {
  * parent in the DOM.
  * @param {number} idx This is used to alternate the background color.
  */
-lgb.view.component.FaultWidget.prototype.injectHtml =
+lgb.component.FaultWidget.prototype.injectHtml =
   function(parentSelector, idx) {
 
   if (this.dataModel.faultWidgetType != 'SLIDER') {

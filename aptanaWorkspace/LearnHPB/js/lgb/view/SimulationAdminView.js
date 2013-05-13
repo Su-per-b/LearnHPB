@@ -45,7 +45,7 @@ lgb.view.SimulationAdminView.prototype.init = function() {
   
   /*
   this.button =
-    new lgb.view.component.ToggleButtonA({
+    new lgb.component.ToggleButtonA({
       htmlID: 'simulationButtonLink',
       buttonHeight: 33,
       xPosition: 66,

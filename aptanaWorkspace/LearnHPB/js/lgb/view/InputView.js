@@ -27,6 +27,7 @@ lgb.view.InputView.prototype.init = function() {
        
   dataSource.addTab('Viewpoints', '<br />', 1);
   dataSource.addTab('Airflow', '<br />', 2);
+  dataSource.addTab('Visible', '<br />', 3);
 
   
   this.tabStrip1 = new lgb.component.TabStrip(dataSource);
@@ -43,25 +44,6 @@ lgb.view.InputView.prototype.init = function() {
   return;
 };
 
-
-
-/**
- * @return {string} The Css to be injected into the DOM.
- */
-lgb.view.InputView.prototype.getCss = function() {
-
-  var css = this.tabStripViewParent.getCss();
-    
-  return css;
-};
-
-
-lgb.view.InputView.prototype.getHtml = function() {
-    
-  var el = this.getElement();
-  return el[0].outerHTML;
-  
-};
 
 
 
@@ -82,7 +64,6 @@ lgb.view.InputView.prototype.injectCss = function() {
 
   this.tabStrip1.injectCss();
 
-  
 };
 
 

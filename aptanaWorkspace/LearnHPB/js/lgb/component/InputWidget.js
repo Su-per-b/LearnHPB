@@ -3,7 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.view.component.InputWidget');
+goog.provide('lgb.component.InputWidget');
 goog.require('lgb.view.BaseView');
 
 
@@ -13,13 +13,13 @@ goog.require('lgb.view.BaseView');
  * @constructor
  * @extends {lgb.view.BaseView}
  */
-lgb.view.component.InputWidget = function(dataModel) {
+lgb.component.InputWidget = function(dataModel) {
     
   /**
    * @const
    * @type {string}
    */
-  this._NAME = 'lgb.view.component.InputWidget';
+  this._NAME = 'lgb.component.InputWidget';
   
   /**
    * @const
@@ -32,7 +32,7 @@ lgb.view.component.InputWidget = function(dataModel) {
 
 
 };
-goog.inherits(lgb.view.component.InputWidget, lgb.view.BaseView);
+goog.inherits(lgb.component.InputWidget, lgb.view.BaseView);
 
 
 
@@ -42,7 +42,7 @@ goog.inherits(lgb.view.component.InputWidget, lgb.view.BaseView);
  * parent in the DOM.
  * @param {number} idx This is used to alternate the background color.
  */
-lgb.view.component.InputWidget.prototype.injectHtml =
+lgb.component.InputWidget.prototype.injectHtml =
   function(parentSelector, idx) {
 
     var cl = idx % 2 ? '' : ' greyBackground';

@@ -5,8 +5,8 @@
  
 goog.provide('lgb.view.PropertiesView');
 goog.require('lgb.view.DialogView');
-goog.require('lgb.view.component.FaultWidget');
-goog.require('lgb.view.component.InputWidget');
+goog.require('lgb.component.FaultWidget');
+goog.require('lgb.component.InputWidget');
 
 /**
  * @constructor
@@ -199,7 +199,7 @@ lgb.view.PropertiesView.prototype.showNode = function(systemNode) {
 
   while (j--) {
       var sysVar = inputs[j];
-    var widget = new lgb.view.component.InputWidget(sysVar);
+    var widget = new lgb.component.InputWidget(sysVar);
       widget.injectHtml('#tabstrip-1', j);
   }
 
@@ -215,7 +215,7 @@ lgb.view.PropertiesView.prototype.showNode = function(systemNode) {
 
 
     } else {
-    var f = new lgb.view.component.FaultWidget(sysVar);
+    var f = new lgb.component.FaultWidget(sysVar);
       f.injectHtml('#tabstrip-2', i);
     }
 

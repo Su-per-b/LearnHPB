@@ -3,7 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.view.component.ToggleButtonA');
+goog.provide('lgb.component.ToggleButtonA');
 goog.require('lgb.view.BaseView');
 
 
@@ -13,9 +13,9 @@ goog.require('lgb.view.BaseView');
  * @constructor
  * @extends {lgb.view.BaseView}
  */
-lgb.view.component.ToggleButtonA = function(options) {
+lgb.component.ToggleButtonA = function(options) {
     
-  this._NAME = 'lgb.view.component.ToggleButtonA';
+  this._NAME = 'lgb.component.ToggleButtonA';
   lgb.view.BaseView.call(this);
 
   this.options = $.extend({ // Default values
@@ -31,13 +31,13 @@ lgb.view.component.ToggleButtonA = function(options) {
 
 
 };
-goog.inherits(lgb.view.component.ToggleButtonA, lgb.view.BaseView);
+goog.inherits(lgb.component.ToggleButtonA, lgb.view.BaseView);
 
 
 /**
  * @return {string} The Css to be injected into the DOM.
  */
-lgb.view.component.ToggleButtonA.prototype.getCss = function() {
+lgb.component.ToggleButtonA.prototype.getCss = function() {
 
   var cssInner = this.makeBackgroundPosition('', 0);
   cssInner += this.makeBackgroundPosition(':hover', 1);
@@ -54,7 +54,7 @@ lgb.view.component.ToggleButtonA.prototype.getCss = function() {
  * @param {boolean} makeSelected Should the 'selected' class be
  * injected into the tag.
  */
-lgb.view.component.ToggleButtonA.prototype.setSelected =
+lgb.component.ToggleButtonA.prototype.setSelected =
   function(makeSelected) {
 
   if (this.isSelected != makeSelected) {
@@ -72,7 +72,7 @@ lgb.view.component.ToggleButtonA.prototype.setSelected =
 /**
  * @return {string} the HTML.
  */
-lgb.view.component.ToggleButtonA.prototype.getHtml = function() {
+lgb.component.ToggleButtonA.prototype.getHtml = function() {
 
     var cssClass = '';
     if (this.options.cssClass) {
@@ -93,7 +93,7 @@ lgb.view.component.ToggleButtonA.prototype.getHtml = function() {
  * @param {number} yPosition Used to calculate the pixel shift.
  * @return {string} the Css.
  */
-lgb.view.component.ToggleButtonA.prototype.makeBackgroundPosition =
+lgb.component.ToggleButtonA.prototype.makeBackgroundPosition =
   function(appendToSelector, yPosition) {
 
   var pixelShift = this.options.buttonHeight * yPosition * -1;

@@ -8,7 +8,7 @@ goog.provide('lgb.view.LeftNavView');
 goog.require('lgb.events.RequestVisibilityChange');
 goog.require('lgb.model.BuildingModel.Group');
 goog.require('lgb.view.BaseView');
-goog.require('lgb.view.component.ToggleButtonA');
+goog.require('lgb.component.ToggleButtonA');
 
 
 /**
@@ -78,28 +78,28 @@ lgb.view.LeftNavView.prototype.injectCss_ = function() {
  */
 lgb.view.LeftNavView.prototype.init_ = function() {
   this.buttonGeneral =
-    new lgb.view.component.ToggleButtonA({
+    new lgb.component.ToggleButtonA({
       htmlID: 'leftNavButton_1',
       xPosition: -42,
       title: 'General'
     });
 
   this.buttonHvac =
-    new lgb.view.component.ToggleButtonA({
+    new lgb.component.ToggleButtonA({
       htmlID: 'leftNavButton_2',
       xPosition: -84,
       title: 'HVAC'
     });
 
   this.buttonEnvelope =
-    new lgb.view.component.ToggleButtonA({
+    new lgb.component.ToggleButtonA({
       htmlID: 'leftNavButton_3',
       xPosition: -168,
       title: 'External Envelope'
     });
     
   this.buttonLighting =
-    new lgb.view.component.ToggleButtonA({
+    new lgb.component.ToggleButtonA({
       htmlID: 'leftNavButton_4',
       xPosition: -126,
       title: 'Lighting'

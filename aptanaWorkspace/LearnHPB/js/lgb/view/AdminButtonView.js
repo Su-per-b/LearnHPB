@@ -6,7 +6,7 @@
 goog.provide('lgb.view.AdminButtonView');
 goog.require('lgb.events.RequestActivateView');
 goog.require('lgb.view.BaseView');
-goog.require('lgb.view.component.ToggleButtonA');
+goog.require('lgb.component.ToggleButtonA');
 
 
 /**
@@ -28,7 +28,7 @@ goog.inherits(lgb.view.AdminButtonView, lgb.view.BaseView);
 lgb.view.AdminButtonView.prototype.init = function() {
 
   this.button =
-    new lgb.view.component.ToggleButtonA({
+    new lgb.component.ToggleButtonA({
       htmlID: 'adminButtonLink',
       buttonHeight: 33,
       xPosition: 66,

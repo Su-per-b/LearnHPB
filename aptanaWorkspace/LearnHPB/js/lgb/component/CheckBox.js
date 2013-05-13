@@ -7,7 +7,7 @@
  * @author Raj Dye - raj@rajdye.com
 */
 
-goog.provide('lgb.view.component.CheckBox');
+goog.provide('lgb.component.CheckBox');
 goog.require('lgb.view.BaseView');
 
 
@@ -19,11 +19,11 @@ goog.require('lgb.view.BaseView');
  * @constructor
  * @extends {lgb.view.BaseView}
  */
-lgb.view.component.CheckBox = function(parentHtmlID, subID, title) {
+lgb.component.CheckBox = function(parentHtmlID, subID, title) {
     
   var htmlID = parentHtmlID + '-' + subID;
     
-  this._NAME = 'lgb.view.component.CheckBox';
+  this._NAME = 'lgb.component.CheckBox';
   lgb.view.BaseView.call(this, null, htmlID, parentHtmlID);
 
   this.title = title;
@@ -31,14 +31,14 @@ lgb.view.component.CheckBox = function(parentHtmlID, subID, title) {
   this.hasBeenInjected = false;
 
 };
-goog.inherits(lgb.view.component.CheckBox, lgb.view.BaseView);
+goog.inherits(lgb.component.CheckBox, lgb.view.BaseView);
 
 
 
 /**
  * @return {string} The HTML taht will be injected into the DOM.
  */
-lgb.view.component.CheckBox.prototype.getHTML = function() {
+lgb.component.CheckBox.prototype.getHTML = function() {
 
   var html = '<p><label><input id={0} type="checkbox" {1}>' +
           ' {2}</label></p>';
@@ -61,7 +61,7 @@ lgb.view.component.CheckBox.prototype.getHTML = function() {
  * can be used before or after injection into the DOM
  * @param {boolean} checkedFlag Sets the checked state.
  */
-lgb.view.component.CheckBox.prototype.setChecked = function(checkedFlag) {
+lgb.component.CheckBox.prototype.setChecked = function(checkedFlag) {
 
   if (this.isChecked == checkedFlag) return;
   this.isChecked = checkedFlag;
@@ -80,7 +80,7 @@ lgb.view.component.CheckBox.prototype.setChecked = function(checkedFlag) {
 /**
  * @return {boolean} The state of the checkbox.
  */
-lgb.view.component.CheckBox.prototype.isCheckedInDom = function() {
+lgb.component.CheckBox.prototype.isCheckedInDom = function() {
 
   var checkedTxt = this.jq(this.htmlID).attr('checked');
 
@@ -98,7 +98,7 @@ lgb.view.component.CheckBox.prototype.isCheckedInDom = function() {
 /**
  * injects the particle system control panel into the DOM
  */
-lgb.view.component.CheckBox.prototype.injectHtml = function() {
+lgb.component.CheckBox.prototype.injectHtml = function() {
   var html = this.getHTML();
 
   this.append(html);

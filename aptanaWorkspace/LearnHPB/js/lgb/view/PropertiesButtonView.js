@@ -6,7 +6,7 @@
 goog.provide('lgb.view.PropertiesButtonView');
 goog.require('lgb.events.RequestActivateView');
 goog.require('lgb.view.BaseView');
-goog.require('lgb.view.component.ToggleButtonA');
+goog.require('lgb.component.ToggleButtonA');
 
 /**
  * @constructor
@@ -26,7 +26,7 @@ goog.inherits(lgb.view.PropertiesButtonView, lgb.view.BaseView);
 lgb.view.PropertiesButtonView.prototype.init = function() {
   this._NAME = 'lgb.view.PropertiesView';
   this.button =
-    new lgb.view.component.ToggleButtonA({
+    new lgb.component.ToggleButtonA({
       htmlID: 'propertiesButtonLink',
       buttonHeight: 33,
       xPosition: 33,
