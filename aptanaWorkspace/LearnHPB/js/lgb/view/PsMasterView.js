@@ -20,26 +20,14 @@ lgb.view.PsMasterView = function(dataModel) {
   
   this.buildingHeightModel_ = null;
   this.sceneY_ = null;
-  this.psControllers_ = [];
-  this.bind_();
   
 };
 goog.inherits(lgb.view.PsMasterView, lgb.view.BaseView);
 
 
+
 lgb.view.PsMasterView.prototype.init = function() {
 
-  this.masterGroup_ = this.dataModel.masterGroup_;
-
-  var len = this.dataModel.psModelList.length;
-  for (var i = 0; i < len; i++) {
-
-    var dataModel = this.dataModel.psModelList[i];
-    var controller = new lgb.controller.PsController(dataModel, this.masterGroup_);
-    
-    this.psControllers_.push(controller);
-  }
-  
   this.sceneY_ = this.masterGroup_.position.y;
   this.setY_();
    
@@ -48,21 +36,13 @@ lgb.view.PsMasterView.prototype.init = function() {
 
 
 
-lgb.view.PsMasterView.prototype.bind_ = function() {
-  
-  this.listenTo(this.dataModel,
-    lgb.events.DataModelInitialized.TYPE,
-    this.onDataModelInitialized_);
-
-};
-
-
-
-lgb.view.PsMasterView.prototype.onDataModelInitialized_ = function(event) {
+lgb.view.PsMasterView.prototype.addChild = function(child) {
    
-  this.init();
+   this.masterGroup_.add(child);
+   return;
 };
     
+
     
 lgb.view.PsMasterView.prototype.setBuildingHeight = function(buildingHeightModel) {
    
@@ -78,20 +58,5 @@ lgb.view.PsMasterView.prototype.setY_ = function() {
   }
 };
 
-
-
-/**
- * Event handler called when the scene file is loaded
- * and all needed assets are loaded too.
- * @param {Object} result The result from the THREE.js lib.
- * @private
- */
-lgb.view.PsMasterView.prototype.onSceneLoaded_ = function() {
-  
-
-
-
-
-};
 
 

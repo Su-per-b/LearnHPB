@@ -7,7 +7,15 @@ goog.provide('lgb.view.PsMasterGUI');
 
 goog.require('lgb.view.BaseView');
 goog.require('lgb.model.BuildingHeightModel');
+goog.require('lgb.model.PsModelMaster');
+
 goog.require('lgb.events.RequestDataModelChange');
+goog.require('lgb.events.DataModelInitialized');
+goog.require('lgb.events.DataSourceChanged');
+
+goog.require('lgb.component.Tree');
+goog.require('lgb.component.TreeDataSource');
+
 
 /**
  * @constructor
@@ -26,9 +34,28 @@ goog.inherits(lgb.view.PsMasterGUI, lgb.view.BaseView);
  * Initializes the View
  */
 lgb.view.PsMasterGUI.prototype.init = function() {
-  this.injectHtml();
-  this.bind_();
+  
+  
+    var list = this.dataModel.getPsModelList();
+    
+    this.treeActiveDS = new lgb.component.TreeDataSource(list,'isStarted',
+      'Active Systems',  this.htmlID, 'active-systems');
+      
+      
+    this.treeBoxesDS = new lgb.component.TreeDataSource(list,'showBoxes',
+      'Show Boxes',  this.htmlID, 'show-boxes');
+      
+      
+    this.treeCurvesDS = new lgb.component.TreeDataSource(list,'showCurves',
+      'Show Curves',  this.htmlID, 'show-curves');
+      
+      
+    this.bind_();
+    
+    this.injectHtml();
+
 };
+
 
 /**
  * Binds specific event types to functions which handle the events.
@@ -38,182 +65,47 @@ lgb.view.PsMasterGUI.prototype.init = function() {
  */
 lgb.view.PsMasterGUI.prototype.bind_ = function() {
 
-  this.kendoTreeViewActive_.dataSource.bind("change", this.d(this.onChangeActive_));
-  this.kendoTreeViewBoxes_.dataSource.bind("change", this.d(this.onChangeBoxes_));
-  this.kendoTreeViewCurves_.dataSource.bind("change", this.d(this.onChangeCurves_));
 
+  this.listenTo(this.treeActiveDS,
+    lgb.events.DataSourceChanged.TYPE,
+    this.onChangeDataSource_);  
+    
+  this.listenTo(this.treeBoxesDS,
+    lgb.events.DataSourceChanged.TYPE,
+    this.onChangeDataSource_);
+    
+  this.listenTo(this.treeCurvesDS,
+    lgb.events.DataSourceChanged.TYPE,
+    this.onChangeDataSource_);
+    
 };
 
-lgb.view.PsMasterGUI.prototype.onChangeActive_ = function(event) {
 
-  if (event.field == "checked") {
-
-    checkedNodes = this.checkedNodeIds_(event);
-    
-    var e = new lgb.events.RequestDataModelChange({
-      isStartedArray : checkedNodes
-    });
-
+lgb.view.PsMasterGUI.prototype.onChangeDataSource_ = function(event) {
+    var e = new lgb.events.RequestDataModelChange(event.payload);
     this.dispatchLocal(e);
-
-  }
-
 };
 
 
-lgb.view.PsMasterGUI.prototype.getCheckedNodeIds_ = function(event) {
-
-
-    var checkedNodes = [];
-    
-    //if the tree is unexpanded
-    if (event.node) {
-
-      console.log("parent", event.node.text);
-      var node = event.node;
-
-      for (var i = 0; i < node.items.length; i++) {
-
-        var theItem = node.items[i];
-
-        if (theItem.checked) {
-          var idx = parseInt (theItem.id);
-
-          checkedNodes.push(idx);
-        }
-      }
-    //if the tree is expanded
-    } else {
-      var topNode = event.items[0];
-      var items = topNode.children.options.data.items;
-      var len = items.length;
-      for (var i = 0; i < len; i++) {
-
-        var theItem = items[i];
-
-        if (topNode.checked) {
-          var idx = parseInt (theItem.id);
-          checkedNodes.push(idx);
-        }
-      }
-    }
-
-    return checkedNodes;
-};
-
-lgb.view.PsMasterGUI.prototype.checkedNodeValues_ = function(nodes, checkedNodes) {
-
-  for (var i = 0; i < nodes.length; i++) {
-
-    var theNode = nodes[i];
-
-    if (theNode.checked) {
-      checkedNodes.push(nodes[i].value);
-    }
-
-    if (theNode.hasChildren) {
-      var v = theNode.children.view();
-      //var kk = this.kendoTreeViewActive_.checkboxes(theNode);
-
-      if (v == null) {
-        //theNode.
-      }
-      this.checkedNodeValues_(v, checkedNodes);
-    }
-  }
-};
-
-lgb.view.PsMasterGUI.prototype.checkedNodeIds_ = function(nodes, checkedNodes) {
-
-  for (var i = 0; i < nodes.length; i++) {
-    if (nodes[i].checked) {
-      checkedNodes.push(nodes[i].id);
-    }
-
-    if (nodes[i].hasChildren) {
-      this.checkedNodeIds_(nodes[i].children.view(), checkedNodes);
-    }
-  }
-};
-
-lgb.view.PsMasterGUI.prototype.onChangeBoxes_ = function(event) {
-
-  var checkedNodes = [];
-  var v = this.kendoTreeViewBoxes_.dataSource.view();
-  this.checkedNodeValues_(v, checkedNodes);
-
-  var e = new lgb.events.RequestDataModelChange({
-    showBoxesArray : checkedNodes
-  });
-
-  this.dispatchLocal(e);
-
-};
-
-lgb.view.PsMasterGUI.prototype.onChangeCurves_ = function(event) {
-
-  var checkedNodes = [];
-  var v = this.kendoTreeViewCurves_.dataSource.view();
-  this.checkedNodeValues_(v, checkedNodes);
-
-  var e = new lgb.events.RequestDataModelChange({
-    showCurvesArray : checkedNodes
-  });
-
-  this.dispatchLocal(e);
-
-};
 
 /**
  * injects the html into the DOM
  */
 lgb.view.PsMasterGUI.prototype.injectHtml = function() {
 
-  var mainDiv = this.makeMainDiv();
-  this.append(mainDiv);
+  this.mainDiv_ = this.makeMainDiv();
+  
+  this.treeActive = new lgb.component.Tree(this.treeActiveDS);
+  var element = this.treeActive.makeElement();
+  this.append(element);
 
-  var div1 = $('<div>');
-  mainDiv.append(div1);
+  this.treeBoxes = new lgb.component.Tree(this.treeBoxesDS);
+  var element = this.treeBoxes.makeElement();
+  this.append(element);
 
-  this.kendoTreeViewActive_ = div1.kendoTreeView({
-    expanded : true,
-    checkboxes : {
-      checkChildren : true
-    },
-    dataSource : this.dataModel.kendoDSactive
-
-  }).data("kendoTreeView");
-
-
- this.kendoTreeViewActive_._NAME_EXT='kendo.TreeView-ext';
-
-
-
-  var div2 = $('<div>');
-  mainDiv.append(div2);
-
-  this.kendoTreeViewBoxes_ = div2.kendoTreeView({
-    checkboxes : {
-      checkChildren : true
-    },
-    dataSource : this.dataModel.kendoDSboxes
-
-  }).data("kendoTreeView");
-
-  this.append(div2);
-
-  var div3 = $('<div>');
-  mainDiv.append(div3);
-
-  this.kendoTreeViewCurves_ = div3.kendoTreeView({
-    checkboxes : {
-      checkChildren : true
-    },
-    dataSource : this.dataModel.kendoDScurves
-
-  }).data("kendoTreeView");
-
-  this.append(div3);
+  this.treeCurves = new lgb.component.Tree(this.treeCurvesDS);
+  var element = this.treeCurves.makeElement();
+  this.append(element);
 
 };
 

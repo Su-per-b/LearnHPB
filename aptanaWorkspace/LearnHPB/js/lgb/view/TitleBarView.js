@@ -59,13 +59,7 @@ lgb.view.TitleBarView.prototype.show = function() {
  * @return {number} the position x.
  */
 lgb.view.TitleBarView.prototype.getXpos_ = function() {
-    
-  // var w = window.innerWidth;
- // var h = window.innerHeight;
-  
-  // var x = w - this.jqParent().width() + 20;
-  
-  
+
   return 6;
 };
 
@@ -103,33 +97,4 @@ lgb.view.TitleBarView.prototype.tweenToPosition = function() {
 
 };
 
-
-
-/**
- * showe the title bar.
-
-lgb.view.TitleBarView.prototype.show = function() {
-
-    this.jq().animate({
-      top: '0',
-      easing: 'easeInOutSine'
-    }, 500);
-};
-
-
-/**
- * event handler.
-lgb.view.TitleBarView.prototype.tweenToPosition = function() {
-
-    var jq = this.jq();
-
-    jq.center({
-      vertical: false,
-      duration: 500,
-      easing: 'easeInOutSine',
-      inside:this.jqParent()
-    });
-};
-
-*/
 

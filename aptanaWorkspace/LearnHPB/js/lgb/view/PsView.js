@@ -10,27 +10,31 @@ goog.require('lgb.events.RequestDataModelChange');
 
 goog.require('lgb.view.ParticleElement');
 goog.require('lgb.view.ParticlePath');
-goog.require('lgb.view.BaseView');
+goog.require('lgb.view.Base3dSceneView');
 goog.require('lgb.model.BuildingHeightModel');
+
+
 
 /**
  * @constructor
  * @extends {lgb.view.BaseView}
  * @param {lgb.model.PsModel} dataModel The data model to display.
  */
-lgb.view.PsView = function(dataModel, parentMasterGroup) {
+lgb.view.PsView = function(dataModel) {
     
   this._NAME = 'lgb.view.PsView';
-  lgb.view.BaseView.call(this, dataModel);
+  lgb.view.Base3dSceneView.call(this, dataModel);
 
   this.title = dataModel.title;
-  
+ 
   this.topFloorMaxY_ = null;
   this.sceneY_ = null;
-  this.parentMasterGroup_ = parentMasterGroup;
-
 };
-goog.inherits(lgb.view.PsView, lgb.view.BaseView);
+goog.inherits(lgb.view.PsView, lgb.view.Base3dSceneView);
+
+
+
+
 
 /**
  * Event Handler.
@@ -43,12 +47,6 @@ lgb.view.PsView.prototype.onChange = function(event) {
   if (whatIsDirty.isRunning) {
     this.updateIsRunning_();
   }
-  
-  //if (whatIsDirty.isEmitting) {
-   // this.updateIsRunning_();
-//  }
-  
-
 
   if (whatIsDirty.showBoxes) {
     this.showBoxes(this.dataModel.showBoxes);
@@ -57,6 +55,8 @@ lgb.view.PsView.prototype.onChange = function(event) {
     this.showCurves(this.dataModel.showCurves);
   }
 };
+
+
 
 /**
  * Updates the running state from the dataModel.
@@ -104,10 +104,8 @@ lgb.view.PsView.prototype.init = function() {
 
   this.updateIsRunning_();
   this.currentFrameNumber = this.launchDelayBetweenParticles + 1;
-
-  this.parentMasterGroup_.add(this.masterGroup_);
+  this.requestAddToWorld(this.masterGroup_);                                      
   
-
 };
 
 /**
@@ -288,6 +286,7 @@ lgb.view.PsView.prototype.setBuildingHeight = function(buildingHeightModel) {
   this.topFloorMaxY_ = buildingHeightModel.topFloorMaxY;
   this.setY_();
 };
+
 
 lgb.view.PsView.prototype.setY_ = function() {
     

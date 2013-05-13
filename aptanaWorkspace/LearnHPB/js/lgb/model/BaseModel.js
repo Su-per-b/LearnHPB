@@ -27,6 +27,24 @@ lgb.model.BaseModel.prototype.dispatchChange = function(whatIsDirty) {
     this.dispatchLocal(new lgb.events.DataModelChanged(whatIsDirty));
 };
 
+lgb.model.BaseModel.prototype.dispatchChangedProperty = function(propertyName) {
+   
+   var whatIsDirty = {};
+   whatIsDirty[propertyName] = true;
+   
+   this.dispatchChange(whatIsDirty);
+};
+
+
+
+lgb.model.BaseModel.prototype.changeProperty = function(propertyName, propertyValue) {
+
+    if (this[propertyName] != propertyValue) {
+        this[propertyName] = propertyValue;
+        this.dispatchChangedProperty(propertyValue);
+    }
+};
+
 
 /**
  * returns a CSS id based on the fullname of the class

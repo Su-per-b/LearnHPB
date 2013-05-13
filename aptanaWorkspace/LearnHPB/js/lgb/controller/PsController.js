@@ -19,12 +19,12 @@ goog.require('lgb.view.PsView');
  * @extends lgb.controller.BaseController
  * @param {lgb.model.PsModel} dataModel The model.
  */
-lgb.controller.PsController = function(dataModel, parentMasterGroup) {
+lgb.controller.PsController = function(dataModel) {
   this._NAME = 'lgb.controller.PsController';
   lgb.controller.BaseController.call(this);
+
   this.dataModel = dataModel;
-  this.parentMasterGroup_ = parentMasterGroup;
-  this.init_();
+
 };
 goog.inherits(lgb.controller.PsController, lgb.controller.BaseController);
 
@@ -32,17 +32,12 @@ goog.inherits(lgb.controller.PsController, lgb.controller.BaseController);
 /**
  * @private
  */
-lgb.controller.PsController.prototype.init_ = function() {
+lgb.controller.PsController.prototype.init = function() {
 
-  this.view = new lgb.view.PsView(this.dataModel, this.parentMasterGroup_ );
-  
-  this.adminView = new
-    lgb.view.ParticleSystemAdminView(this.dataModel, 'adminView');
-
+  this.view = new lgb.view.PsView( this.dataModel );
   this.bind_();
-
   this.view.init();
-  this.adminView.init();
+
 };
 
 
@@ -53,21 +48,28 @@ lgb.controller.PsController.prototype.init_ = function() {
  * @private
  */
 lgb.controller.PsController.prototype.bind_ = function() {
-  
-  this.listenTo(this.adminView,
-    lgb.events.RequestDataModelChange.TYPE,
-    this.onRequestDataModelChange_);
-    
-    
+
   this.listenTo(
     this.view,
     lgb.events.RequestDataModelChange.TYPE,
     this.onRequestDataModelChange_
    );
     
+  this.listenToOnce(
+    this.view,
+    lgb.events.Object3DLoaded.TYPE,
+    this.onObject3DLoaded_
+   );
+    
 };
 
 
+lgb.controller.PsController.prototype.onObject3DLoaded_ =
+  function(event) {
+
+  this.dispatchLocal(event);
+
+};
 
 
 /**

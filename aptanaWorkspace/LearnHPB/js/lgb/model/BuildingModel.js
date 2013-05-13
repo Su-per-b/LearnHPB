@@ -38,17 +38,3 @@ lgb.model.BuildingModel.Group = {
   LIGHTING: 5
 };
 
-/*
-  lgb.model.VisibilityTag.ALL = 'ALL';
-  lgb.model.VisibilityTag.HVAC = 'HVAC';
-  lgb.model.VisibilityTag.ENVELOPE = 'ENVELOPE';
-  lgb.model.VisibilityTag.ROOFTOP = 'ROOFTOP';
-  lgb.model.VisibilityTag.FILTER = 'FILTER';
-  lgb.model.VisibilityTag.HEATING_COIL = 'HEATING_COIL';
-  lgb.model.VisibilityTag.COOLING_COIL = 'COOLING_COIL';
-  lgb.model.VisibilityTag.FAN = 'FAN';
-  lgb.model.VisibilityTag.DAMPERS = 'DAMPERS';
-  lgb.model.VisibilityTag.DUCTWORK = 'DUCTWORK';
-  lgb.model.VisibilityTag.CROSS_SECTION = 'CROSS_SECTION';
-
-*/

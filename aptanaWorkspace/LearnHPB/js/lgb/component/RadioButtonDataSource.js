@@ -24,10 +24,7 @@ lgb.component.RadioButtonDataSource = function(title, parentHtmlID, subID) {
   this.selectionItems = [];
   this.theSelectedOne = null;
 };
-goog.inherits(
-  lgb.component.RadioButtonDataSource,
-  lgb.component.BaseDataSource
-  );
+goog.inherits(lgb.component.RadioButtonDataSource,lgb.component.BaseDataSource);
 
 
 /**

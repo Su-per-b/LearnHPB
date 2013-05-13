@@ -8,6 +8,7 @@ goog.provide('lgb.model.PsModelMaster');
 goog.require('goog.array');
 goog.require('lgb.Config');
 goog.require('lgb.events.DataModelChanged');
+goog.require('lgb.events.DataModelInitialized');
 goog.require('lgb.model.BaseModel');
 goog.require('lgb.model.PsModel');
 goog.require('lgb.utils.XmlParser');
@@ -26,16 +27,18 @@ lgb.model.PsModelMaster = function() {
 
   lgb.model.BaseModel.call(this);
   this.init_();
-  
+
 };
 goog.inherits(lgb.model.PsModelMaster, lgb.model.BaseModel);
+
+
 
 
 /**
  * @private
  */
 lgb.model.PsModelMaster.prototype.init_ = function() {
-    
+
   this.xml = null;
   this.xpathResult = null;
   this.currentNode = null;
@@ -45,216 +48,29 @@ lgb.model.PsModelMaster.prototype.init_ = function() {
   this.configs = {};
   this.systems = {};
   this.psModelList = [];
+
+};
+
+
+
+lgb.model.PsModelMaster.prototype.getPsModelList = function() {
+
+  return this.psModelList;
+};
+
+
+
+lgb.model.PsModelMaster.prototype.requestChangeAry = function(changeRequestAry) {
+
+  var changeRequest = changeRequestAry[0];
+  var propertyName = changeRequestAry.propertyName;
   
-  this.masterViewPointList_ = [];
-  this.kendoDSactive = new kendo.data.HierarchicalDataSource({});
-  this.kendoDSboxes = new kendo.data.HierarchicalDataSource({});
-  this.kendoDScurves = new kendo.data.HierarchicalDataSource({});
-};
-
-
-
-
-
-lgb.model.PsModelMaster.prototype.requestChange = function(stateObject) {
-    
-    
-    
-    
-    var requestedIsStartedArray = stateObject.isStartedArray;
-    
-    if(requestedIsStartedArray) {
-        this.requestChangeIsStartedArray(requestedIsStartedArray);
-    }
-    
-    
-    var requestedRunningArray = stateObject.isRunningArray;
-    if(requestedRunningArray) {
-        this.requestChangeIsRunning(requestedRunningArray);
-    }
-
-    var requestedShowBoxesArray = stateObject.showBoxesArray;
-    if(requestedShowBoxesArray) {
-        this.requestChangeShowBoxes(requestedShowBoxesArray);
-    }
-    
-    var requestedShowCurvesArray = stateObject.showCurvesArray;
-    if(requestedShowCurvesArray) {
-        this.requestChangeShowCurves(requestedShowCurvesArray);
-    }
-    
-};
-
-
-lgb.model.PsModelMaster.prototype.requestChangeIsStartedArray = function(requestedStartedArray) {
+  if (changeRequest.idx in this.psModelList) {
+     var psModel = this.psModelList[changeRequest.idx];
+     psModel.changeProperty(propertyName, changeRequest.isChecked);
+  }
   
-    var len2 =  this.psModelList.length;
-    
-    
-    var isStartedAry = [len2];
-    var newIsStartedAry = [len2];
-    
-    for (var i = 0; i < len2; i++) {
-        isStartedAry[i] = this.psModelList[i].isStarted;
-        newIsStartedAry[i] = false;
-    }
-    
-
-    
-    var len1 =  requestedStartedArray.length;
-    for (var j = 0; j < len1; j++) {
-        
-        var idx = requestedStartedArray[j] -1;
-        newIsStartedAry[idx] = true;
-        
-    }
-    
-    for (var k = 0; k < len2; k++) {
-
-        if (this.psModelList[k].isStarted != newIsStartedAry[k]) {
-            
-            var stateObject = {
-                isStarted:newIsStartedAry[k]
-            };
-            
-            this.psModelList[k].change(stateObject);
-            
-        }
-        
-    }
-};
-
-lgb.model.PsModelMaster.prototype.requestChangeShowCurves = function(requestedShowCurvesArray) {
-   
-    var len2 =  this.psModelList.length;
-    var isAry = [len2];
-    var newAry = [len2];
-    
-    for (var i = 0; i < len2; i++) {
-        isAry[i] = this.psModelList[i].showCurves;
-        newAry[i] = false;
-    }
-   
-    var len1 =  requestedShowCurvesArray.length;
-    for (var j = 0; j < len1; j++) {
-        var idx = requestedShowCurvesArray[j] -1;
-        newAry[idx] = true;
-    }
-    
-    for (var k = 0; k < len2; k++) {
-        if (this.psModelList[k].showCurves != newAry[k]) {
-            var stateObject = {
-                showCurves:newAry[k]
-            };
-            
-            this.psModelList[k].change(stateObject);
-        }
-    }
-};
-
-
-lgb.model.PsModelMaster.prototype.requestChangeShowBoxes = function(requestedShowBoxesArray) {
-   
-    var len2 =  this.psModelList.length;
-    var isAry = [len2];
-    var newAry = [len2];
-    
-    for (var i = 0; i < len2; i++) {
-        isAry[i] = this.psModelList[i].showBoxes;
-        newAry[i] = false;
-    }
-   
-    var len1 =  requestedShowBoxesArray.length;
-    for (var j = 0; j < len1; j++) {
-        var idx = requestedShowBoxesArray[j] -1;
-        newAry[idx] = true;
-    }
-    
-    for (var k = 0; k < len2; k++) {
-        if (this.psModelList[k].showBoxes != newAry[k]) {
-            var stateObject = {
-                showBoxes:newAry[k]
-            };
-            
-            this.psModelList[k].change(stateObject);
-        }
-    }
-}
-
-lgb.model.PsModelMaster.prototype.requestChangeIsEmitting = function(requestedEmittingArray) {
-   
-    var len2 =  this.psModelList.length;
-    
-    
-    var isEmittingAry = [len2];
-    var newIsEmittingAry = [len2];
-    
-    for (var i = 0; i < len2; i++) {
-        isEmittingAry[i] = this.psModelList[i].isEmitting;
-        newIsEmittingAry[i] = false;
-    }
-    
-
-    
-    var len1 =  requestedEmittingArray.length;
-    for (var j = 0; j < len1; j++) {
-        
-        var idx = requestedEmittingArray[j] -1;
-        newIsEmittingAry[idx] = true;
-        
-    }
-    
-    for (var k = 0; k < len2; k++) {
-
-        if (this.psModelList[k].isEmitting != newIsEmittingAry[k]) {
-            
-            var stateObject = {
-                isEmitting:newIsEmittingAry[k]
-            };
-            
-            this.psModelList[k].change(stateObject);
-            
-        }
-        
-    }
-}
-
-lgb.model.PsModelMaster.prototype.requestChangeIsRunning = function(requestedRunningArray) {
-   
-    var len2 =  this.psModelList.length;
-    
-    
-    var isRunningAry = [len2];
-    var newIsRunningAry = [len2];
-    
-    for (var i = 0; i < len2; i++) {
-        isRunningAry[i] = this.psModelList[i].isRunning;
-        newIsRunningAry[i] = false;
-    }
-    
-
-    
-    var len1 =  requestedRunningArray.length;
-    for (var j = 0; j < len1; j++) {
-        
-        var idx = requestedRunningArray[j] -1;
-        newIsRunningAry[idx] = true;
-        
-    }
-    
-    for (var k = 0; k < len2; k++) {
-
-        if (this.psModelList[k].isRunning != newIsRunningAry[k]) {
-            
-            var stateObject = {
-                isRunning:newIsRunningAry[k]
-            };
-            
-            this.psModelList[k].change(stateObject);
-            
-        }
-        
-    }
+  return;
 }
 
 
@@ -284,24 +100,17 @@ lgb.model.PsModelMaster.prototype.onSceneLoadedSync_ = function(result) {
   this.groups_ = result['groups'];
   this.cameras_ = result['cameras'];
 
-  this.masterGroup_ = new THREE.Object3D();
-  this.masterGroup_.name = this._NAME;
-  this.masterGroup_.position = this.scene_.position;
-  this.masterGroup_.rotation = this.scene_.rotation;
-  this.masterGroup_.scale = this.scene_.scale;
 
   var i = this.scene_.children.length;
   while (i--) {
     var mesh = this.scene_.children.shift();
     if (null != mesh.geometry) {
-      mesh.bakeTransformsIntoGeometry();
       
-    //  mesh.position = this.scene_.position;
-    //  mesh.rotation = this.scene_.rotation;
-      //mesh.scale = this.scene_.scale;
-      
-      //mesh.bakeTransformsIntoGeometry();
-      //this.masterGroup_.add(mesh);
+        mesh.bakeTransformsIntoGeometry();
+        mesh.position = this.scene_.position;
+        mesh.rotation = this.scene_.rotation;
+        mesh.scale = this.scene_.scale;
+        mesh.bakeTransformsIntoGeometry();
     }
   }
 
@@ -314,21 +123,22 @@ lgb.model.PsModelMaster.prototype.onSceneLoadedSync_ = function(result) {
 
 };
 
-
-
 /**
  * used to determine if both the XML file and the JS file are
  * loaded.
  * @private
  */
 lgb.model.PsModelMaster.prototype.checkForInitComplete_ = function() {
-  
+
   if (this.isXMLloaded && this.isSceneLoaded) {
+
     this.startFactory_();
     this.dispatchLocal(new lgb.events.DataModelInitialized());
   }
-  
+
 };
+
+
 
 /**
  * affter all needed data files are loaded, creates the data models.
@@ -337,7 +147,7 @@ lgb.model.PsModelMaster.prototype.checkForInitComplete_ = function() {
 lgb.model.PsModelMaster.prototype.startFactory_ = function() {
 
   var items = [];
-  
+
   for (var key in this.systems) {
 
     var sys = this.systems[key];
@@ -352,36 +162,15 @@ lgb.model.PsModelMaster.prototype.startFactory_ = function() {
     sys.translate = this.translate;
     sys.rotate = this.rotate;
 
-    var onePS = new lgb.model.PsModel(sys);
-    this.psModelList.push(onePS);
-    
-    var d = onePS.getTreeData();
-    items.push(d);
+    var psModel = new lgb.model.PsModel(sys, this.psModelList.length);
+    this.psModelList.push(psModel);
 
     
   }
-  
-    var active = { 
-        text: "Active Zones" ,
-        items: items
-        }; 
-    this.kendoDSactive.add(active);
-    
-    
-    var boxes = { 
-        text: "Show Boxes" ,
-        items: items
-        };
-    this.kendoDSboxes.add(boxes);
-  
-    
-    var curves = { 
-        text: "Show Paths" ,
-        items: items
-        };
-    this.kendoDScurves.add(curves);
-  
+
 };
+
+
 
 /**
  * uses AJAX to download the remote XML files.
@@ -397,6 +186,8 @@ lgb.model.PsModelMaster.prototype.loadXML_ = function() {
   });
 
 };
+
+
 
 /**
  * after the XML files is loaded it must be parsed.

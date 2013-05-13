@@ -29,8 +29,16 @@ goog.inherits(lgb.component.BaseDataSource, lgb.BaseClass);
  * used to notify the view
  * @protected
  */
-lgb.component.BaseDataSource.prototype.dispatchChange = function() {
-  this.dispatchLocal(new lgb.events.DataSourceChanged(this));
+lgb.component.BaseDataSource.prototype.dispatchChange = function(payload) {
+  
+  
+  if (undefined == payload) {
+    payload = this;
+  }
+  
+  this.dispatchLocal(new lgb.events.DataSourceChanged(payload));
+  
+
 };
 
 

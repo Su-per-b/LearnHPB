@@ -344,7 +344,9 @@ kendo_module({
     function eventHandler(context, type, field, prefix) {
         return function(e) {
             var event = {}, key;
-
+            
+            event._NAME = 'kendo.event.' + type;
+            
             for (key in e) {
                 event[key] = e[key];
             }

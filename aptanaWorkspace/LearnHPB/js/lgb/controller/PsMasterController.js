@@ -14,6 +14,7 @@ goog.require('lgb.events.DataModelInitialized');
 goog.require('lgb.events.BuildingHeightChanged');
 goog.require('lgb.events.WorldCreated');
 goog.require('lgb.events.RequestDataModelChange');
+goog.require('lgb.events.Object3DLoaded');
 
 goog.require('lgb.model.PsModel');
 goog.require('lgb.model.PsModelMaster');
@@ -31,7 +32,7 @@ goog.require('lgb.view.PsMasterView');
 lgb.controller.PsMasterController = function() {
   this._NAME = 'lgb.controller.PsMasterController';
   lgb.controller.BaseController.call(this);
-  this.init();
+  this.init_();
 };
 goog.inherits(lgb.controller.PsMasterController, lgb.controller.BaseController);
 
@@ -39,46 +40,90 @@ goog.inherits(lgb.controller.PsMasterController, lgb.controller.BaseController);
 /**
  * Initialized the controller.
  */
-lgb.controller.PsMasterController.prototype.init = function() {
-    
+lgb.controller.PsMasterController.prototype.init_ = function() {
+  
   this.psMasterDataModel = new lgb.model.PsModelMaster();
+  this.psMasterGUI = new lgb.view.PsMasterGUI(this.psMasterDataModel);
   this.psMasterView = new lgb.view.PsMasterView(this.psMasterDataModel);
   
-  this.psMasterGUI = new lgb.view.PsMasterGUI(this.psMasterDataModel);
-
-  this.bind_();
-  
-  this.psMasterGUI.init();
+  this.bind1_();
   this.psMasterDataModel.load();
+  
 };
 
 
-/**
- * Binds specific event types to functions which handle the events.
- * If no event target is specified then the listener is set  on the global
- * event bus.
- * @private
- */
-lgb.controller.PsMasterController.prototype.bind_ = function() {
+lgb.controller.PsMasterController.prototype.bind1_ = function() {
   
-  this.makeAddToWorldRequestGlobal(this.psMasterView);
-
-  this.listen(
-    lgb.events.BuildingHeightChanged.TYPE,
-    this.onBuildingHeightChanged_
+  this.listenToOnce(
+    this.psMasterDataModel,
+    lgb.events.DataModelInitialized.TYPE,
+    this.onDataModelInitialized_
    );
    
-   
-  this.listenTo(
+  this.listenTo (
     this.psMasterGUI,
     lgb.events.RequestDataModelChange.TYPE,
     this.onRequestDataModelChange_
    );
    
+  this.listen(
+    lgb.events.BuildingHeightChanged.TYPE,
+    this.onBuildingHeightChanged_
+   );
 
+  this.makeAddToWorldRequestGlobal (this.psMasterView);
+  
+};
+
+lgb.controller.PsMasterController.prototype.onDataModelInitialized_ =
+  function(event) {
+
+  this.init2_();
+ 
+};
+
+
+
+lgb.controller.PsMasterController.prototype.init2_ = function() {
+  
+  this.childControllers_ = [];
+
+  var list = this.psMasterDataModel.getPsModelList();
+  list.forEach(this.d(this.makeChildController_));
+  
+  this.psMasterView.init();
+  this.psMasterGUI.init();
+
+  
+};
+
+
+
+
+lgb.controller.PsMasterController.prototype.makeChildController_ = function(psModel) {
+  
+  var psController = new lgb.controller.PsController(psModel);
+  
+  this.listenToOnce(
+    psController,
+    lgb.events.Object3DLoaded.TYPE,
+    this.onChildSystemLoaded_
+   );
+   
+   psController.init();
+   this.childControllers_.push(psController);
 
 };
 
+
+
+
+lgb.controller.PsMasterController.prototype.onChildSystemLoaded_ =
+  function(event) {
+
+  this.psMasterView.addChild(event.payload);
+  
+};
 
 
 lgb.controller.PsMasterController.prototype.onBuildingHeightChanged_ =
@@ -89,10 +134,11 @@ lgb.controller.PsMasterController.prototype.onBuildingHeightChanged_ =
 
 
 
+
 lgb.controller.PsMasterController.prototype.onRequestDataModelChange_ =
   function(event) {
 
-  this.psMasterDataModel.requestChange(event.payload);
+  this.psMasterDataModel.requestChangeAry(event.payload);
   
 };
 

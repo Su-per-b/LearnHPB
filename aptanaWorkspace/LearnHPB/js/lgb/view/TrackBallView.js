@@ -28,11 +28,11 @@ lgb.view.TrackBallView = function( camera) {
 
   var p = this.jqParent();
   this.domElement_ = p.get(0);
+  lgb.assert(this.domElement_);
+  
   this.camera_ = camera;
 
   /**@type {THREE.TrackballControlsEx} */
- // this.trackballControls;
-
   this.trackballControls = new THREE.TrackballControlsEx(camera, this.domElement_);
   this.init_();
 };
@@ -70,7 +70,8 @@ lgb.view.TrackBallView.prototype.bind_ = function() {
 
   this.mouseWheelHander = new goog.events.MouseWheelHandler(this.domElement_);
 
-  this.listenKey_ = this.listenTo(this.mouseWheelHander,
+  this.listenKey_ = this.listenTo(
+    this.mouseWheelHander,
     goog.events.MouseWheelHandler.EventType.MOUSEWHEEL,
     this.d(this.onMouseWheel_)
   );
@@ -82,15 +83,11 @@ lgb.view.TrackBallView.prototype.bind_ = function() {
  */
 lgb.view.TrackBallView.prototype.setCameraTarget = function(target) {
 
-
- //mainController.worldController_.scene_.update(undefined, true, this.camera_);
-
   if (undefined === target) {
      this.trackballControls.target = new THREE.Vector3(0, 0, 0);
   } else {
     this.trackballControls.target = target;
   }
-
 
 };
 
