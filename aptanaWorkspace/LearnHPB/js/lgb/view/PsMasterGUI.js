@@ -5,7 +5,7 @@
 
 goog.provide('lgb.view.PsMasterGUI');
 
-goog.require('lgb.view.BaseView');
+goog.require('lgb.view.BaseViewGUI');
 goog.require('lgb.model.BuildingHeightModel');
 goog.require('lgb.model.PsModelMaster');
 
@@ -19,16 +19,16 @@ goog.require('lgb.component.TreeDataSource');
 
 /**
  * @constructor
- * @extends {lgb.view.BaseView}
+ * @extends {lgb.view.BaseViewGUI}
  * @param {lgb.model.LightingModel} dataModel The model to display.
  */
 lgb.view.PsMasterGUI = function(dataModel) {
 
   this._NAME = 'lgb.view.PsMasterGUI';
 
-  lgb.view.BaseView.call(this, dataModel, 'PsMasterGUI', 'leftpanel-tabStrip-2');
+  lgb.view.BaseViewGUI.call(this, dataModel, 'PsMasterGUI', 'leftpanel-tabStrip-2');
 };
-goog.inherits(lgb.view.PsMasterGUI, lgb.view.BaseView);
+goog.inherits(lgb.view.PsMasterGUI, lgb.view.BaseViewGUI);
 
 /**
  * Initializes the View

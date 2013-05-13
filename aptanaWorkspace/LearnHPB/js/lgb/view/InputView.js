@@ -1,6 +1,6 @@
 goog.provide('lgb.view.InputView');
 
-goog.require('lgb.view.BaseView');
+goog.require('lgb.view.BaseViewGUI');
 goog.require('lgb.component.TabStrip');
 goog.require('lgb.component.TabStripDataSource');
 
@@ -9,10 +9,10 @@ lgb.view.InputView = function(dataModel, htmlID, parentHtmlID) {
     
   this._NAME = 'lgb.view.InputView';
   
-  lgb.view.BaseView.call(this, dataModel, htmlID, parentHtmlID);
+  lgb.view.BaseViewGUI.call(this, dataModel, htmlID, parentHtmlID);
 
 };
-goog.inherits(lgb.view.InputView, lgb.view.BaseView);
+goog.inherits(lgb.view.InputView, lgb.view.BaseViewGUI);
 
 
 /**
@@ -27,7 +27,7 @@ lgb.view.InputView.prototype.init = function() {
        
   dataSource.addTab('Viewpoints', '<br />', 1);
   dataSource.addTab('Airflow', '<br />', 2);
-  dataSource.addTab('Visible', '<br />', 3);
+  dataSource.addTab('Settings', '<br />', 3);
 
   
   this.tabStrip1 = new lgb.component.TabStrip(dataSource);

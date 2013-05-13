@@ -8,7 +8,7 @@
 */
 goog.provide('lgb.view.ZoneView');
 
-goog.require('lgb.view.BaseView');
+goog.require('BaseView3dScene');
 goog.require('lgb.model.BuildingHeightModel');
 goog.require('lgb.model.ZoneShapeModel');
 goog.require('lgb.model.ViewPointCollection');
@@ -18,20 +18,20 @@ goog.require('lgb.events.ViewPointCollectionLoaded');
 /**
  * MVC View
  * @constructor
- * @extends lgb.view.BaseView
+ * @extends BaseView3dScene
  * @param {lgb.model.ZoneModel} dataModel The Data Model.
  */
 lgb.view.ZoneView = function(dataModel) {
     
   this._NAME = 'lgb.view.ZoneView';
-  lgb.view.BaseView.call(this, dataModel);
+  BaseView3dScene.call(this, dataModel);
 
   this.zoneVisibleIdx = -1;
   this.buildingHeightModel_ = null;
   this.sceneY_ = null;
   this.isInitialized_ = false;
 };
-goog.inherits(lgb.view.ZoneView, lgb.view.BaseView);
+goog.inherits(lgb.view.ZoneView, BaseView3dScene);
 
 
 

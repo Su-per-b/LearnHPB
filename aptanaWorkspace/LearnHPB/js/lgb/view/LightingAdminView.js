@@ -18,22 +18,22 @@ goog.require('lgb.events.MouseOver');
 goog.require('lgb.events.RequestLightingChange');
 
 goog.require('lgb.model.LightingModel');
-goog.require('lgb.view.BaseView');
+goog.require('lgb.view.BaseViewGUI');
 
 /**
  * @constructor
  * @param {lgb.model.LightingModel} dataModel The data model to display.
  * @param {string} parentHtmlID the CSS id of the parent to inject into the DOM.
- * @extends {lgb.view.BaseView}
+ * @extends {lgb.view.BaseViewGUI}
  */
 lgb.view.LightingAdminView = function(dataModel, parentHtmlID) {
     
   this._NAME = 'lgb.view.LightingAdminView';
-  lgb.view.BaseView.call(this, dataModel, 'LightingAdminView', parentHtmlID);
+  lgb.view.BaseViewGUI.call(this, dataModel, 'LightingAdminView', parentHtmlID);
 
   this.init_();
 };
-goog.inherits(lgb.view.LightingAdminView, lgb.view.BaseView);
+goog.inherits(lgb.view.LightingAdminView, lgb.view.BaseViewGUI);
 
 
 /**

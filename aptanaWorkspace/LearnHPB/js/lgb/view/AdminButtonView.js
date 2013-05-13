@@ -5,21 +5,21 @@
  
 goog.provide('lgb.view.AdminButtonView');
 goog.require('lgb.events.RequestActivateView');
-goog.require('lgb.view.BaseView');
+goog.require('lgb.view.BaseViewGUI');
 goog.require('lgb.component.ToggleButtonA');
 
 
 /**
  * @constructor
- * @extends {lgb.view.BaseView}
+ * @extends {lgb.view.BaseViewGUI}
  */
 lgb.view.AdminButtonView = function() {
 
   this._NAME = 'lgb.view.AdminButtonView';
     
-  lgb.view.BaseView.call(this, null, 'adminButton', lgb.Config.HUD_CONTAINER_STR);
+  lgb.view.BaseViewGUI.call(this, null, 'adminButton', lgb.Config.HUD_CONTAINER_STR);
 };
-goog.inherits(lgb.view.AdminButtonView, lgb.view.BaseView);
+goog.inherits(lgb.view.AdminButtonView, lgb.view.BaseViewGUI);
 
 
 /**

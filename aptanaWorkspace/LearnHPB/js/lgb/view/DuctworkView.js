@@ -5,7 +5,7 @@
  
 goog.provide('lgb.view.DuctworkView');
 
-goog.require('lgb.view.BaseView3d');
+goog.require('BaseView3dScene');
 goog.require('lgb.view.BaseView');
 goog.require('lgb.model.BuildingHeightModel');
 
@@ -21,13 +21,13 @@ lgb.view.DuctworkView = function(dataModel) {
   this._NAME = 'lgb.view.DuctworkView';
   this._ASSETS_FOLDER = 'hvac';
   
-  lgb.view.BaseView3d.call(this, dataModel);
+  BaseView3dScene.call(this, dataModel);
 
   this.buildingHeightModel_ = null;
   this.sceneY_ = null;
   
 };
-goog.inherits(lgb.view.DuctworkView, lgb.view.BaseView3d);
+goog.inherits(lgb.view.DuctworkView, BaseView3dScene);
 
 
 

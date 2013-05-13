@@ -3,9 +3,9 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
 
-goog.provide('lgb.view.BaseView3d');
+goog.provide('BaseView3dScene');
 
-goog.require('lgb.BaseClass');
+goog.require('lgb.view.BaseV');
 goog.require('lgb.events.DataModelChanged');
 goog.require('lgb.events.RequestDataModelChange');
 goog.require('lgb.utils');
@@ -13,11 +13,11 @@ goog.require('lgb.utils');
 /**
  * MVC View base class
  * @constructor
- * @extends {lgb.BaseClass}
+ * @extends {lgb.view.BaseV}
  * @param {lgb.model.BaseModel=} dataModel that the view with display.
  */
-lgb.view.BaseView3d = function(dataModel) {
-  lgb.BaseClass.call(this);
+BaseView3dScene = function(dataModel) {
+  lgb.view.BaseV.call(this);
 
 
   this.dataModel = dataModel || null;
@@ -32,7 +32,7 @@ lgb.view.BaseView3d = function(dataModel) {
   this.filename = this.filename || 'scene.json';
 
 };
-goog.inherits(lgb.view.BaseView3d, lgb.BaseClass);
+goog.inherits(BaseView3dScene, lgb.view.BaseV);
 
 
 
@@ -42,7 +42,7 @@ goog.inherits(lgb.view.BaseView3d, lgb.BaseClass);
  * and loads the meshes from remote files
  * @protected
  */
-lgb.view.BaseView3d.prototype.init = function() {
+BaseView3dScene.prototype.init = function() {
 
   if (undefined === this._ASSETS_FOLDER) {
     throw ("You must define this._ASSETS_FOLDER")
@@ -56,7 +56,7 @@ lgb.view.BaseView3d.prototype.init = function() {
  * @param {string} the folder name form which to load the 'scene.json' file
  * @protected
  */
-lgb.view.BaseView3d.prototype.loadSceneFromFolder_ = function(folderName) {
+BaseView3dScene.prototype.loadSceneFromFolder_ = function(folderName) {
 
   var path = lgb.Config.ASSETS_BASE_PATH + folderName + '/' + this.filename;
   this.loader_ = new THREE.SceneLoaderEx();
@@ -69,7 +69,7 @@ lgb.view.BaseView3d.prototype.loadSceneFromFolder_ = function(folderName) {
  * @param {Object} result From the THREE.js lib.
  * @private
  */
-lgb.view.BaseView3d.prototype.onSceneLoadedBase_ = function(result) {
+BaseView3dScene.prototype.onSceneLoadedBase_ = function(result) {
 
   this.scene_ = result['scene'];
   this.groups_ = result['groups'];
@@ -99,7 +99,7 @@ lgb.view.BaseView3d.prototype.onSceneLoadedBase_ = function(result) {
 
 
 
-lgb.view.BaseView3d.prototype.placeContainers_ = function() {
+BaseView3dScene.prototype.placeContainers_ = function() {
     
 
     var count = 0;
@@ -113,7 +113,7 @@ lgb.view.BaseView3d.prototype.placeContainers_ = function() {
 };
 
 
-lgb.view.BaseView3d.prototype.placeOneContainer_ = function(containerName, containerObject) {
+BaseView3dScene.prototype.placeOneContainer_ = function(containerName, containerObject) {
     
     if (containerObject.type == "group") {
         
@@ -154,13 +154,13 @@ lgb.view.BaseView3d.prototype.placeOneContainer_ = function(containerName, conta
  * @param {lgb.events.DataModelChanged} event The event.
  * @protected
  */
-lgb.view.BaseView3d.prototype.onChange = function(event) {
+BaseView3dScene.prototype.onChange = function(event) {
   //throw ('ViewBase.onChange() should be overridden for Class: ' + this._NAME);
 };
 
 
 
-lgb.view.BaseView3d.prototype.requestDataModelChange = function(propertyName, propertyValue) {
+BaseView3dScene.prototype.requestDataModelChange = function(propertyName, propertyValue) {
   
   var e = new lgb.events.RequestDataModelChange(
     {name:propertyName, value:propertyValue}
@@ -174,7 +174,7 @@ lgb.view.BaseView3d.prototype.requestDataModelChange = function(propertyName, pr
 /**
  * @protected
  */
-lgb.view.BaseView3d.prototype.moveGroupToObject3D_ = function(groupName) {
+BaseView3dScene.prototype.moveGroupToObject3D_ = function(groupName) {
   
   var obj3D = new THREE.Object3D();
   
@@ -190,7 +190,7 @@ lgb.view.BaseView3d.prototype.moveGroupToObject3D_ = function(groupName) {
  * Binds an event listener to handle when the MVC data model changes.
  * @protected
  */
-lgb.view.BaseView3d.prototype.listenForChange_ = function() {
+BaseView3dScene.prototype.listenForChange_ = function() {
 
   this.listenHelper_(this.dataModel, lgb.events.DataModelChanged.TYPE, this, this.onChange);
 
@@ -201,7 +201,7 @@ lgb.view.BaseView3d.prototype.listenForChange_ = function() {
  * added to the world.
  * @protected
  */
-lgb.view.BaseView3d.prototype.requestAddToWorld = function(object3D) {
+BaseView3dScene.prototype.requestAddToWorld = function(object3D) {
 
 
   object3D.name = object3D.name || this._NAME;

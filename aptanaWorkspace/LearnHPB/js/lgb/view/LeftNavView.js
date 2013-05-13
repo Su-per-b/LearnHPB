@@ -7,18 +7,18 @@ goog.provide('lgb.view.LeftNavView');
 
 goog.require('lgb.events.RequestVisibilityChange');
 goog.require('lgb.model.BuildingModel.Group');
-goog.require('lgb.view.BaseView');
+goog.require('lgb.view.BaseViewGUI');
 goog.require('lgb.component.ToggleButtonA');
 
 
 /**
  * @constructor
- * @extends {lgb.view.BaseView}
+ * @extends {lgb.view.BaseViewGUI}
  */
 lgb.view.LeftNavView = function() {
     
   this._NAME = 'lgb.view.LeftNavView';
-  lgb.view.BaseView.call(this, null, 'leftNav');
+  lgb.view.BaseViewGUI.call(this, null, 'leftNav');
 
   this.init_();
   this.injectCss_();
@@ -29,7 +29,7 @@ lgb.view.LeftNavView = function() {
   this.buttonGeneral.setSelected(true);
 
 };
-goog.inherits(lgb.view.LeftNavView, lgb.view.BaseView);
+goog.inherits(lgb.view.LeftNavView, lgb.view.BaseViewGUI);
 
 
 /**

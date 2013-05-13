@@ -5,7 +5,7 @@
  
 goog.provide('lgb.view.StatsHelper');
 
-goog.require('lgb.view.BaseView');
+goog.require('lgb.view.BaseViewGUI');
 
 
 
@@ -13,17 +13,17 @@ goog.require('lgb.view.BaseView');
 /**
  * @constructor
  * @param {Element} containerDiv The DOM element to append to.
- * @extends {lgb.view.BaseView}
+ * @extends {lgb.view.BaseViewGUI}
  */
 lgb.view.StatsHelper = function(containerDiv) {
     
   this._NAME = 'lgb.view.StatsHelper';
-  lgb.view.BaseView.call(this);
+  lgb.view.BaseViewGUI.call(this);
 
   this.init_(containerDiv);
 
 };
-goog.inherits(lgb.view.StatsHelper, lgb.view.BaseView);
+goog.inherits(lgb.view.StatsHelper, lgb.view.BaseViewGUI);
 
 
 

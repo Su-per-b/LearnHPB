@@ -5,30 +5,25 @@
  
 goog.provide('lgb.view.ViewPointGUI');
 
-goog.require('lgb.component.Link');
-goog.require('lgb.component.LinkDataSource');
-goog.require('lgb.events.MouseClick');
-goog.require('lgb.events.MouseOut');
-goog.require('lgb.events.MouseOver');
 goog.require('lgb.events.RequestGoToViewPoint');
 goog.require('lgb.events.RequestShowViewPoint');
 
 goog.require('lgb.model.ViewPointModel');
-goog.require('lgb.view.BaseView');
+goog.require('lgb.view.BaseViewGUI');
 
 
 /**
  * @constructor
  * @param {lgb.model.ViewPointModel} dataModel The data model to display.
  * @param {string} parentHtmlID the CSS id of the parent to inject into the DOM.
- * @extends {lgb.view.BaseView}
+ * @extends {lgb.view.BaseViewGUI}
  */
 lgb.view.ViewPointGUI = function(dataModel) {
 
   this._NAME = 'lgb.view.ViewPointGUI';
-  lgb.view.BaseView.call(this, dataModel,'ViewPointGUI', 'leftpanel-tabStrip-1');
+  lgb.view.BaseViewGUI.call(this, dataModel,'ViewPointGUI', 'leftpanel-tabStrip-1');
 };
-goog.inherits(lgb.view.ViewPointGUI, lgb.view.BaseView);
+goog.inherits(lgb.view.ViewPointGUI, lgb.view.BaseViewGUI);
 
 
 /**
@@ -37,17 +32,11 @@ goog.inherits(lgb.view.ViewPointGUI, lgb.view.BaseView);
 lgb.view.ViewPointGUI.prototype.init = function() {
   this.injectHtml();
   
-    //this.kendoTreeView_.bind("dataBound", this.d(this.onDataBound_));
   this.kendoTreeView_.setDataSource(this.dataModel.kendoDS);
   this.bind_();
 };
 
 
-
-lgb.view.ViewPointGUI.prototype.onDataBound_ = function(event) {
-  this.bind_();
-  
-}
 
 /**
  * Binds specific event types to functions which handle the events.
@@ -56,7 +45,6 @@ lgb.view.ViewPointGUI.prototype.onDataBound_ = function(event) {
  * @private
  */
 lgb.view.ViewPointGUI.prototype.bind_ = function() {
-    
     
     
   this.kendoTreeView_.bind("select", this.d(this.onSelect_));
@@ -125,19 +113,6 @@ lgb.view.ViewPointGUI.prototype.onSelect_ = function(event) {
 
 
 
-/**
- * event handler
- * @protected
- * @override
- * @param {lgb.events.DataModelChanged} event The Event.
- */
-lgb.view.ViewPointGUI.prototype.onChange = function(event) {
-
-
-    var x = 0;
-};
-
-
 
 /**
  * injects the html into the DOM
@@ -146,18 +121,10 @@ lgb.view.ViewPointGUI.prototype.injectHtml = function() {
 
 
     var mainDiv = this.makeMainDiv();
-    this.append(mainDiv);
+    //this.append(mainDiv);
     
     this.kendoTreeView_ =        
         mainDiv.kendoTreeView().data("kendoTreeView");
         
 
-    
-/*
-    this.kendoTreeView_ =        
-        mainDiv.kendoTreeView({
-            dataSource: this.dataModel.kendoDS
-        }).data("kendoTreeView");
-    */
-  return;
 };

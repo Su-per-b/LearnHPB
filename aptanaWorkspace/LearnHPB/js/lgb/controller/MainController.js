@@ -45,6 +45,7 @@ lgb.controller.MainController.prototype.init = function() {
   this.injectErrorWindow_();
   this.injectSimulationWindow_();
 
+/*
 
   window.onerror = function(errorMsg, url, lineNumber) {
     
@@ -56,6 +57,7 @@ lgb.controller.MainController.prototype.init = function() {
      //debugger;
   };
 
+*/
 
   this.layoutController_ = new lgb.controller.LayoutController();
   this.layoutController_.init();

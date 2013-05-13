@@ -5,20 +5,20 @@
  
 goog.provide('lgb.view.PropertiesButtonView');
 goog.require('lgb.events.RequestActivateView');
-goog.require('lgb.view.BaseView');
+goog.require('lgb.view.BaseViewGUI');
 goog.require('lgb.component.ToggleButtonA');
 
 /**
  * @constructor
- * @extends {lgb.view.BaseView}
+ * @extends {lgb.view.BaseViewGUI}
  */
 lgb.view.PropertiesButtonView = function() {
     
   this._NAME = 'lgb.view.PropertiesButtonView';
-  lgb.view.BaseView.call(this, null, 'propertiesButton', lgb.Config.HUD_CONTAINER_STR);
+  lgb.view.BaseViewGUI.call(this, null, 'propertiesButton', lgb.Config.HUD_CONTAINER_STR);
 
 };
-goog.inherits(lgb.view.PropertiesButtonView, lgb.view.BaseView);
+goog.inherits(lgb.view.PropertiesButtonView, lgb.view.BaseViewGUI);
 
 /**
  * Initializes the view.

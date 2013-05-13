@@ -5,13 +5,13 @@
  
 goog.provide('lgb.view.LightingView');
 
-goog.require('lgb.view.BaseView3d');
+goog.require('BaseView3dScene');
 goog.require('lgb.model.GridModel');
 goog.require('lgb.model.BuildingHeightModel');
 
 /**
  * @constructor
- * @extends {lgb.view.BaseView3d}
+ * @extends {BaseView3dScene}
  * @param {lgb.model.LightingModel} dataModel The model to display.
  */
 lgb.view.LightingView = function(dataModel) {
@@ -19,7 +19,7 @@ lgb.view.LightingView = function(dataModel) {
   this._NAME = 'lgb.view.LightingView';
   this._ASSETS_FOLDER = 'lighting';
   
-  lgb.view.BaseView3d.call(this, dataModel);
+  BaseView3dScene.call(this, dataModel);
 
   this.pendantGeom  = null;
   this.recessedGeom = null;
@@ -27,7 +27,7 @@ lgb.view.LightingView = function(dataModel) {
   this.buildingHeightModel_ = null;
   this.sceneY_ = null;
 };
-goog.inherits(lgb.view.LightingView, lgb.view.BaseView3d);
+goog.inherits(lgb.view.LightingView, BaseView3dScene);
 
 
 

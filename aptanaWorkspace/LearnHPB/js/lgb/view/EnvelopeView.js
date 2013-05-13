@@ -8,7 +8,7 @@ goog.provide('lgb.view.EnvelopeView');
 goog.require('goog.userAgent');
 goog.require('lgb.ThreeUtils');
 goog.require('lgb.events.ViewInitialized');
-goog.require('lgb.view.BaseView3d');
+goog.require('BaseView3dScene');
 
 goog.require('lgb.model.BuildingHeightModel');
 goog.require('lgb.events.BuildingHeightChanged');
@@ -16,7 +16,7 @@ goog.require('lgb.events.BuildingHeightChanged');
 
 /**
  * @constructor
- * @extends {lgb.view.BaseView3d}
+ * @extends {BaseView3dScene}
  * @param {lgb.model.EnvelopeModel} dataModel The model to display.
  */
 lgb.view.EnvelopeView = function(dataModel) {
@@ -25,7 +25,7 @@ lgb.view.EnvelopeView = function(dataModel) {
   this._NAME = 'lgb.view.EnvelopeView';
   this._ASSETS_FOLDER = 'envelope';
   
-  lgb.view.BaseView3d.call(this, dataModel);
+  BaseView3dScene.call(this, dataModel);
 
   this.floorMeshHash_ = [];
   this.floorOffset_= [];  
@@ -42,7 +42,7 @@ lgb.view.EnvelopeView = function(dataModel) {
   
   this.init();
 };
-goog.inherits(lgb.view.EnvelopeView, lgb.view.BaseView3d);
+goog.inherits(lgb.view.EnvelopeView, BaseView3dScene);
 
 
 

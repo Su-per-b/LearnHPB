@@ -8,14 +8,14 @@ goog.provide('lgb.view.ViewPointView');
 ;
 goog.require('lgb.events.ViewPointCollectionLoaded');
 
-goog.require('lgb.view.BaseView');
+goog.require('BaseView3dScene');
 goog.require('lgb.model.BuildingHeightModel');
 goog.require('lgb.model.ViewPointCollection');
 
 
 /**
  * @constructor
- * @extends {lgb.view.BaseView}
+ * @extends {BaseView3dScene}
  * @param {lgb.model.EnvelopeModel} dataModel The model to display.
  */
 lgb.view.ViewPointView = function(dataModel) {
@@ -24,13 +24,13 @@ lgb.view.ViewPointView = function(dataModel) {
   this._NAME = 'lgb.view.ViewPointView';
   this._ASSETS_FOLDER = 'viewpoints';
   
-  lgb.view.BaseView.call(this, dataModel);
+  BaseView3dScene.call(this, dataModel);
 
   this.topFloorMinY_ = null;
   this.sceneY_ = null;
   
 };
-goog.inherits(lgb.view.ViewPointView, lgb.view.BaseView);
+goog.inherits(lgb.view.ViewPointView, BaseView3dScene);
 
 
 

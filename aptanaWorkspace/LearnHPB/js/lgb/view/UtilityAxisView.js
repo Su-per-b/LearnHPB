@@ -3,23 +3,23 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
 goog.provide('lgb.view.UtilityAxisView');
-goog.require('lgb.view.BaseView');
+goog.require('BaseView3dScene');
 
 
 /**
  * @constructor
- * @extends {lgb.view.BaseView}
+ * @extends {BaseView3dScene}
  * @param {lgb.model.FurnitureModel} dataModel The model to display.
  */
 lgb.view.UtilityAxisView = function() {
     
   this._NAME = 'lgb.view.UtilityAxisView';
   this._ASSETS_FOLDER = 'utility';
-  lgb.view.BaseView.call(this, null);
+  BaseView3dScene.call(this, null);
 
   this.filename = 'axis_flipped.json';
 };
-goog.inherits(lgb.view.UtilityAxisView, lgb.view.BaseView);
+goog.inherits(lgb.view.UtilityAxisView, BaseView3dScene);
 
 
 

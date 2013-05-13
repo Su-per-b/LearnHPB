@@ -8,24 +8,24 @@ goog.provide('lgb.view.RoofTopView');
 
 goog.require('lgb.events.Object3DLoaded');
 goog.require('lgb.events.Object3DLoaded');
-goog.require('lgb.view.BaseView3d');
+goog.require('BaseView3dScene');
 
 
 
 /**
  * MVC View for the RoofTop Unit
  * @constructor
- * @extends lgb.view.BaseView3d
+ * @extends BaseView3dScene
  * @param {lgb.model.RoofTopModel} dataModel The data model to display.
  */
 lgb.view.RoofTopView = function(dataModel) {
     
   this._NAME = 'lgb.view.RoofTopView';
   this._ASSETS_FOLDER = 'rooftop';
-  lgb.view.BaseView3d.call(this, dataModel);
+  BaseView3dScene.call(this, dataModel);
 
 };
-goog.inherits(lgb.view.RoofTopView, lgb.view.BaseView3d);
+goog.inherits(lgb.view.RoofTopView, BaseView3dScene);
 
 
 

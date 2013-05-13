@@ -1,4 +1,4 @@
-goog.provide('lgb.view.BaseView');
+goog.provide('lgb.view.BaseV');
 
 goog.require('lgb.BaseClass');
 goog.require('lgb.events.DataModelChanged');
@@ -11,12 +11,16 @@ goog.require('lgb.utils');
  * @extends {lgb.BaseClass}
  * @param {lgb.model.BaseModel=} dataModel that the view with display.
  */
-lgb.view.BaseView = function(dataModel, htmlID, parentHtmlID) {
+lgb.view.BaseV = function(dataModel, htmlID, parentHtmlID) {
   lgb.BaseClass.call(this);
 
   if (null !== dataModel && undefined !== dataModel) {
     this.dataModel = dataModel;
-    this.listenForChange_();
+    
+    if (this.onChange) {
+      this.listenForChange_();
+    }
+
   }
  
   this.setIds_(htmlID, parentHtmlID);
@@ -24,14 +28,14 @@ lgb.view.BaseView = function(dataModel, htmlID, parentHtmlID) {
   this.parentElement_ = undefined;
   this.mainElement_ = undefined;
 };
-goog.inherits(lgb.view.BaseView, lgb.BaseClass);
+goog.inherits(lgb.view.BaseV, lgb.BaseClass);
 
 /**
  * injects html into the DOM
  * @param {string} html the HTML string to append.
  * @protected
  */
-lgb.view.BaseView.prototype.append = function(html) {
+lgb.view.BaseV.prototype.append = function(html) {
   this.jqParent().append(html);
 };
 
@@ -40,13 +44,13 @@ lgb.view.BaseView.prototype.append = function(html) {
  * @param {!string} id The last part of the CSS ID.
  * @return {string} The generated ID.
  */
-lgb.view.BaseView.prototype.makeID = function(id) {
+lgb.view.BaseV.prototype.makeID = function(id) {
   var newID = '{0}-{1}'.format(this.htmlID, id);
   return newID;
 };
 
 
-lgb.view.BaseView.prototype.makeMainDiv = function() {
+lgb.view.BaseV.prototype.makeMainDiv = function() {
     
     var mainDiv = $("<div>")
                         .attr("id", this.htmlID);
@@ -59,7 +63,7 @@ lgb.view.BaseView.prototype.makeMainDiv = function() {
 
 
 
-lgb.view.BaseView.prototype.setIds_ = function(htmlID, parentHtmlID) {
+lgb.view.BaseV.prototype.setIds_ = function(htmlID, parentHtmlID) {
     
 
   this.htmlID = htmlID || this.generateHtmlID();
@@ -67,7 +71,7 @@ lgb.view.BaseView.prototype.setIds_ = function(htmlID, parentHtmlID) {
   
 };
 
-lgb.view.BaseView.prototype.generateHtmlID = function() {
+lgb.view.BaseV.prototype.generateHtmlID = function() {
     
       var ary=this._NAME.split(".");
       var len = ary.length;
@@ -81,34 +85,22 @@ lgb.view.BaseView.prototype.generateHtmlID = function() {
  * @param {string=} id The css id.
  * @return {jQuery} Element.
  */
-lgb.view.BaseView.prototype.jq = function(id) {
+lgb.view.BaseV.prototype.jq = function(id) {
 
   var cssID = id || this.htmlID;
-  
   var selector = '#{0}'.format(cssID);
+ 
   var jqElement = $(selector);
-
+  
   return jqElement;
 };
-
-
-lgb.view.BaseView.prototype.jqMain = function() {
-  
-  if (undefined == this.mainElement_) {
-    this.mainElement_ = $('#{0}'.format(this.mainElement_));
-  }
-  
-  return this.mainElement_;
-  
-};
-
 
 /**
  * converts an id into a Jquery object
  * refers to the parent in the DOM
  * @return {jQuery} Jquery object.
  */
-lgb.view.BaseView.prototype.jqParent = function() {
+lgb.view.BaseV.prototype.jqParent = function() {
     
   if (undefined == this.parentElement_) {
     this.parentElement_ = $('#{0}'.format(this.parentHtmlID));
@@ -120,7 +112,9 @@ lgb.view.BaseView.prototype.jqParent = function() {
 
 
 
-lgb.view.BaseView.prototype.requestDataModelChange = function(propertyName, propertyValue) {
+
+
+lgb.view.BaseV.prototype.requestDataModelChange = function(propertyName, propertyValue) {
   
   var e = new lgb.events.RequestDataModelChange(
     {name:propertyName, value:propertyValue}
@@ -136,7 +130,7 @@ lgb.view.BaseView.prototype.requestDataModelChange = function(propertyName, prop
  * Binds an event listener to handle when the MVC data model changes.
  * @protected
  */
-lgb.view.BaseView.prototype.listenForChange_ = function() {
+lgb.view.BaseV.prototype.listenForChange_ = function() {
 
   this.listenHelper_(this.dataModel, lgb.events.DataModelChanged.TYPE, this, this.onChange);
 
