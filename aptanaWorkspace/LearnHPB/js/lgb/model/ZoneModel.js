@@ -15,11 +15,7 @@ goog.require('lgb.model.ViewPointCollection');
  * @extends lgb.model.BaseModel
  */
 lgb.model.ZoneModel = function() {
-  /**
-   * @const
-   * @type {string}
-   */
- // this._NAME = 'lgb.model.ZoneModel';
+
   this._TITLE = 'Zones';
   this.init_();
   this.zoneIdxVisible = -1;

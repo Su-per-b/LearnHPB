@@ -18,7 +18,6 @@ sim.component.TabStrip = function(ds) {
   sim.view.ViewBase.call(this);
   this.ds = ds;
   
-  this._NAME = 'sim.component.TabStrip';
   this.setIds_(this.ds.htmlID, this.ds.parentHtmlID);
   
   this.makeElement_();

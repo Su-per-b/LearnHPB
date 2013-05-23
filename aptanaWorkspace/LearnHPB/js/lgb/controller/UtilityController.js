@@ -16,7 +16,7 @@ goog.require('lgb.Config');
  * @extends lgb.controller.BaseController
  */
 lgb.controller.UtilityController = function() {
-  this._NAME = 'lgb.controller.UtilityController';
+
   lgb.controller.BaseController.call(this);
   this.init_();
 };

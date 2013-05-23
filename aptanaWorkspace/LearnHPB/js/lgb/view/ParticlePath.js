@@ -17,7 +17,7 @@ goog.require('lgb.view.BaseView');
  */
 lgb.view.ParticlePath = function(curve, frameCount) {
     
-  this._NAME = 'lgb.view.ParticlePath';
+
   lgb.view.BaseView.call(this);
 
   this.curve = curve;

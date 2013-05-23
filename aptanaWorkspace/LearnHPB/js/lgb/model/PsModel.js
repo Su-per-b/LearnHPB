@@ -18,11 +18,7 @@ goog.require('lgb.utils.XmlParser');
  */
 lgb.model.PsModel = function(systemConfig, idx) {
 
-  /**
-   * @const
-   * @type {string}
-   */
-  //this._NAME = 'lgb.model.PsModel';
+
   this.idx = idx;
 
   /**@type {string} */

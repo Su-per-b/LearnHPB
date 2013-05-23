@@ -21,7 +21,7 @@ goog.require('lgb.view.VisibilityView');
  * @extends lgb.controller.BaseController
  */
 lgb.controller.VisibilityController = function() {
-  this._NAME = 'lgb.controller.VisibilityController';
+
   lgb.controller.BaseController.call(this);
   this.init_();
 };

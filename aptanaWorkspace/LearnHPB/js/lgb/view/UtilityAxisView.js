@@ -13,7 +13,7 @@ goog.require('lgb.view.BaseView3dScene');
  */
 lgb.view.UtilityAxisView = function() {
     
-  this._NAME = 'lgb.view.UtilityAxisView';
+
   this._ASSETS_FOLDER = 'utility';
  lgb.view.BaseView3dScene.call(this, null);
 

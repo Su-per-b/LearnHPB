@@ -20,7 +20,7 @@ goog.require('lgb.model.BuildingHeightModel');
  * @extends lgb.controller.BaseController
  */
 lgb.controller.LightingController = function() {
-  this._NAME = 'lgb.controller.LightingController';
+
   lgb.controller.BaseController.call(this);
   this.init_();
 };

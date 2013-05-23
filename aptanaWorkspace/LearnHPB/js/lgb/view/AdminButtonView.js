@@ -15,7 +15,6 @@ goog.require('lgb.component.ToggleButtonA');
  */
 lgb.view.AdminButtonView = function() {
 
-  this._NAME = 'lgb.view.AdminButtonView';
     
   lgb.view.BaseViewGUI.call(this, null, 'adminButton', lgb.Config.HUD_CONTAINER_STR);
 };

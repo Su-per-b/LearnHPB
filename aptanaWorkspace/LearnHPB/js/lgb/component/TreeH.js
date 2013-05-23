@@ -21,7 +21,6 @@ goog.require('lgb.events.DataSourceChanged');
  */
 lgb.component.TreeH = function(ds) {
     
-  this._NAME = 'lgb.component.TreeH'; 
   lgb.view.BaseV.call(this);
   
   lgb.assert (ds);

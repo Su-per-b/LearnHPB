@@ -24,7 +24,7 @@ goog.require('lgb.events.ViewPointCollectionLoaded');
  */
 lgb.view.DuctworkView = function(dataModel) {
     
-  this._NAME = 'lgb.view.DuctworkView';
+
   this._ASSETS_FOLDER = 'hvac';
   
  lgb.view.BaseView3dScene.call(this, dataModel);

@@ -23,7 +23,6 @@ lgb.component.CheckBox = function(parentHtmlID, subID, title) {
     
   var htmlID = parentHtmlID + '-' + subID;
     
-  this._NAME = 'lgb.component.CheckBox';
   lgb.view.BaseV.call(this, null, htmlID, parentHtmlID);
 
   this.title = title;

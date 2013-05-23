@@ -20,7 +20,6 @@ goog.require('lgb.view.PsView');
  * @param {lgb.model.PsModel} dataModel The model.
  */
 lgb.controller.PsController = function(dataModel) {
-  this._NAME = 'lgb.controller.PsController';
   lgb.controller.BaseController.call(this);
 
   this.dataModel = dataModel;

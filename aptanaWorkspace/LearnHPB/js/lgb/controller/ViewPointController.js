@@ -28,7 +28,7 @@ goog.require('lgb.events.BuildingHeightChanged');
  * @extends lgb.controller.BaseController
  */
 lgb.controller.ViewPointController = function( ) {
-  this._NAME = 'lgb.controller.ViewPointController';
+
   lgb.controller.BaseController.call(this);
   
   this.viewpointGroupsLoaded_ = 0;

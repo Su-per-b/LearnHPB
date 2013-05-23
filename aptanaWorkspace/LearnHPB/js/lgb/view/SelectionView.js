@@ -21,8 +21,7 @@ goog.require('lgb.view.BaseView');
  */
 lgb.view.SelectionView = function(dataModel, containerDiv, camera) {
     
-  this._NAME = 'lgb.view.SelectionView';
-  lgb.view.BaseView.call(this, dataModel, null, lgb.Config.HUD_CONTAINER_STR);
+  lgb.view.BaseView.call(this, dataModel, "SelectionView", lgb.Config.HUD_CONTAINER_STR);
   
   this.containerDiv_ = containerDiv;
   this.camera_ = camera;
@@ -56,7 +55,7 @@ lgb.view.SelectionView.prototype.init = function() {
   this.savedMaterials = {};
 
   //this.masterGroup_ = new THREE.Object3D();
-  //this.masterGroup_.name = this._NAME;
+
 
  // var event = new lgb.events.Object3DLoaded(this.masterGroup_);
   //this.dispatchLocal(event);

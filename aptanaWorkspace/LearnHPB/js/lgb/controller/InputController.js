@@ -9,7 +9,7 @@ goog.require('lgb.view.InputView');
 goog.require('lgb.model.InputModel');
 
 lgb.controller.InputController = function() {
-  this._NAME = 'lgb.controller.InputController';
+
   lgb.controller.BaseController.call(this);
   
   this.init_();

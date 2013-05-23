@@ -17,8 +17,6 @@ goog.require('lgb.simulation.model.WebSocketConnectionState');
 lgb.simulation.model.MainModel = function() {
 
 
-  /**@const */
-  this._NAME = 'lgb.simulation.model.MainModel';
   
   /**@const */
   this._TITLE = 'MainModel';

@@ -17,8 +17,7 @@ goog.require('lgb.view.BaseView');
  */
 lgb.view.ParticleElement = function(pMaterial) {
     
-  this._NAME = 'lgb.view.ParticleElement';
-  
+
   lgb.view.BaseView.call(this);
 
   this.pMaterial = pMaterial;

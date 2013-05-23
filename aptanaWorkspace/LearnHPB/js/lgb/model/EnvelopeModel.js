@@ -14,8 +14,7 @@ goog.require('lgb.model.BaseModel');
  * @extends lgb.model.BaseModel
  */
 lgb.model.EnvelopeModel = function() {
-  /**@const */
-  //this._NAME = 'lgb.model.EnvelopeModel';
+
   lgb.model.BaseModel.call(this);
   
   this.init_();

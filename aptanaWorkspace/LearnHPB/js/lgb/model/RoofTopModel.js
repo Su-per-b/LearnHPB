@@ -15,8 +15,6 @@ goog.require('lgb.model.BaseModel');
  * @extends lgb.model.BaseModel
  */
 lgb.model.RoofTopModel = function() {
-  /**@const */
-  //this._NAME = 'lgb.model.RoofTopModel';
 
   /**@const */
   this._TITLE = 'Roof-top Unit';

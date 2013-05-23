@@ -26,7 +26,6 @@ goog.require('lgb.view.BaseViewGUI');
  */
 lgb.view.SimulationAdminView = function(dataModel, parentHtmlID) {
     
-  this._NAME = 'lgb.view.SimulationAdminView';
   lgb.view.BaseViewGUI.call(this, dataModel, 'simulationAdminView',parentHtmlID);
 
   var ds = new lgb.component.LinkDataSource('Open',this.htmlID, 'open')

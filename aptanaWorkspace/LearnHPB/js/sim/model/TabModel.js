@@ -9,8 +9,7 @@ goog.require('sim.model.ModelBase');
  */
 sim.model.TabModel = function(title, content, cssClass) {
 
-  /**@const */
-  this._NAME = 'sim.model.TabModel';
+
   
   /**@const */
   this._TITLE = 'TabModel';

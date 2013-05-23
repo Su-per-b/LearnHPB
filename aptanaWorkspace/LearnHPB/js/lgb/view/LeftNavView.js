@@ -16,8 +16,7 @@ goog.require('lgb.component.ToggleButtonA');
  * @extends {lgb.view.BaseViewGUI}
  */
 lgb.view.LeftNavView = function() {
-    
-  this._NAME = 'lgb.view.LeftNavView';
+
   lgb.view.BaseViewGUI.call(this, null, 'leftNav');
 
   this.init_();

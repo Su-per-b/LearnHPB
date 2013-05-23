@@ -1,6 +1,5 @@
 
 
-THREE.Object3D.prototype._NAME = 'THREE.Object3D';
 
 
 

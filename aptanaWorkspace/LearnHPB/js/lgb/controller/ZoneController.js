@@ -25,7 +25,6 @@ goog.require('lgb.events.ViewPointCollectionLoaded');
  * @extends lgb.controller.BaseController
  */
 lgb.controller.ZoneController = function() {
-  this._NAME = 'lgb.controller.ZoneController';
   lgb.controller.BaseController.call(this);
   this.init_();
 };

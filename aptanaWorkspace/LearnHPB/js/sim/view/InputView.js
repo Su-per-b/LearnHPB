@@ -7,7 +7,6 @@ goog.require('sim.view.ViewBase');
 sim.view.InputView = function(dataModel, htmlID, parentHtmlID) {
   sim.view.ViewBase.call(this, dataModel);
 
-  this._NAME = 'sim.view.InputView';
   this.setIds_(htmlID, parentHtmlID);
   
 };

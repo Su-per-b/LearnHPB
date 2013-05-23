@@ -13,8 +13,7 @@ goog.require('lgb.model.BaseModel');
  * @extends lgb.model.BaseModel
  */
 lgb.model.InputModel = function() {
-  /**@const */
-  //this._NAME = 'lgb.model.InputModel';
+
   /**@const */
   this._TITLE = 'InputModel';
 

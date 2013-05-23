@@ -19,12 +19,11 @@ goog.require('lgb.view.BaseView');
  */
 lgb.view.TrackBallView = function( camera) {
     
-  /**@constant **/
-  this._NAME = 'lgb.view.TrackBallView';
+
   /**@constant **/
   this._SENSITIVITY = -0.4;
   
-  lgb.view.BaseView.call(this, null, null, lgb.Config.HUD_CONTAINER_STR);
+  lgb.view.BaseView.call(this, null, "TrackBallView",  lgb.Config.HUD_CONTAINER_STR);
 
   var p = this.jqParent();
   this.domElement_ = p.get(0);

@@ -16,8 +16,7 @@ goog.require('lgb.utils.XmlParser');
  * @extends lgb.model.BaseModel
  */
 lgb.model.scenario.Base = function() {
-  /**@const */
-  //this._NAME = 'lgb.model.scenario.Base';
+
 
   lgb.model.BaseModel.call(this);
 

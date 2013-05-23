@@ -21,7 +21,7 @@ goog.require('goog.array');
  * @param {THREE.Camera} camera We need a reference to this to pass to the view.
  */
 lgb.controller.WorldSelectionController = function( camera) {
-  this._NAME = 'lgb.controller.WorldSelectionController';
+
   lgb.controller.BaseController.call(this);
   this.camera_ = camera;
   this.init_();

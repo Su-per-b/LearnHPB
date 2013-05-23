@@ -156,8 +156,6 @@
             if (events) {
                 e = e || {};
                 
-                e._NAME = 'kendo.event.' + eventName;
-                
                 e.sender = that;
 
                 e._defaultPrevented = false;
@@ -2578,9 +2576,6 @@ function pad(number, digits, end) {
                 }
 
                 var instance = value.data(name);
-                if (instance != undefined) {
-                  instance._NAME = name;
-                }
 
                 
                 return value;

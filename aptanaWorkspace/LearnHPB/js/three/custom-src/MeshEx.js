@@ -1,7 +1,6 @@
 //@author Raj Dye raj@pcdigi.com
 
 
-THREE.Mesh.prototype._NAME = 'THREE.Mesh';
 
 THREE.Mesh.prototype.bakeTransformsIntoGeometry = function() {
 

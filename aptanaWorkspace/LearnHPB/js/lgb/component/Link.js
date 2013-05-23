@@ -18,7 +18,7 @@ goog.require('lgb.events.MouseOver');
  * for this component.
  */
 lgb.component.Link = function(ds) {
-  this._NAME = 'lgb.component.Link';
+
   
   lgb.view.BaseV.call(this, null, ds.htmlID);
   this.ds = ds;

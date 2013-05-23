@@ -18,7 +18,7 @@ goog.require('lgb.events.LayoutChange');
  * @extends lgb.controller.BaseController
  */
 lgb.controller.LayoutController = function() {
-  this._NAME = 'lgb.controller.LayoutController';
+
   lgb.controller.BaseController.call(this);
 
 };

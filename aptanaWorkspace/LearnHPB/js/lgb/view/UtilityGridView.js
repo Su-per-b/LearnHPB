@@ -13,7 +13,6 @@ goog.require('lgb.view.BaseView3dScene');
  */
 lgb.view.UtilityGridView = function() {
     
-  this._NAME = 'lgb.view.UtilityGridView';
  lgb.view.BaseView3dScene.call(this);
 
   this.width_ = 120;
@@ -164,7 +163,7 @@ lgb.view.UtilityGridView.prototype.init = function() {
     planeXY.name = 'planeXY';
     
     this.masterGroup_ = new THREE.Object3D();
-    this.masterGroup_.name = this._NAME;
+    this.masterGroup_.name = 'UtilityGridView';
     
     this.masterGroup_.add(lineXpositive);
     this.masterGroup_.add(lineXnegative);

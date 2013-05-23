@@ -21,8 +21,7 @@ goog.require('lgb.events.BuildingHeightChanged');
  */
 lgb.view.EnvelopeView = function(dataModel) {
     
-  /**@const */
-  this._NAME = 'lgb.view.EnvelopeView';
+
   this._ASSETS_FOLDER = 'envelope';
   
  lgb.view.BaseView3dScene.call(this, dataModel);
@@ -33,10 +32,10 @@ lgb.view.EnvelopeView = function(dataModel) {
   this.floorDimensions_ = null;
   
   this.topFloorContainer_ = new THREE.Object3D();
-  this.topFloorContainer_.name = this._NAME + "-topFloorContainer";
+  this.topFloorContainer_.name = this._ASSETS_FOLDER + "-topFloorContainer";
   
   this.lowerFloorContainer_ = new THREE.Object3D();
-  this.lowerFloorContainer_.name = this._NAME + "-lowerFloorContainer";
+  this.lowerFloorContainer_.name = this._ASSETS_FOLDER + "-lowerFloorContainer";
   
   this.topFloorMesh_ = null;
   
@@ -150,7 +149,7 @@ lgb.view.EnvelopeView.prototype.makeFloors_ = function() {
 
   for (var j = 0; j < floorCount-1; j++) {
     var newFloor = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial());
-    newFloor.name = this._NAME + "-floor-" + (j + 1);
+    newFloor.name = this._ASSETS_FOLDER + "-floor-" + (j + 1);
     newFloor.position.y += j * this.floorDimensions_.y + mesh.position.y;
     this.lowerFloorContainer_.add(newFloor);
   }
@@ -163,7 +162,7 @@ lgb.view.EnvelopeView.prototype.makeFloors_ = function() {
   }
   
   this.topFloorMesh_ = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial());
-  this.topFloorMesh_.name = this._NAME + "-floor-" + (j + 1);
+  this.topFloorMesh_.name = this._ASSETS_FOLDER + "-floor-" + (j + 1);
   this.topFloorContainer_.position.y = topFloorY;
   this.topFloorContainer_.add(this.topFloorMesh_);
   

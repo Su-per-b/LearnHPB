@@ -16,11 +16,6 @@ goog.provide('lgb.model.ZoneShapeModel');
  * @param {number} zz The z position.
  */
 lgb.model.ZoneShapeModel = function(x, y, z) {
-  /**
-   * @const
-   * @type {string}
-   */
- // this._NAME = 'lgb.model.ZoneShapeModel';
 
   this.dimensions = new THREE.Vector3(x, y, z);
   this.position = null;

@@ -24,7 +24,6 @@ goog.require('lgb.component.TreeDataSource');
  */
 lgb.view.PsMasterGUI = function(dataModel) {
 
-  this._NAME = 'lgb.view.PsMasterGUI';
 
   lgb.view.BaseViewGUI.call(this, dataModel, 'PsMasterGUI', 'leftpanel-tabStrip-2');
 };

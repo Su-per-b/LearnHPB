@@ -17,7 +17,6 @@ goog.require('lgb.view.BaseViewGUI');
  */
 lgb.view.StatsHelper = function(containerDiv) {
     
-  this._NAME = 'lgb.view.StatsHelper';
   lgb.view.BaseViewGUI.call(this);
 
   this.init_(containerDiv);

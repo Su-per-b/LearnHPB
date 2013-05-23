@@ -16,9 +16,6 @@ goog.require('lgb.model.ViewPointNode');
 lgb.model.ViewPointCollection = function(name, object3Dlist, showViewPoints) {
     
   /**@const */
-  //this._NAME = 'lgb.model.ViewPointCollection';
-  
-  /**@const */
   this._TITLE = 'ViewPointCollection';
   lgb.model.BaseModel.call(this);
   

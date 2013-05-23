@@ -4,12 +4,7 @@ goog.provide('lgb.simulation.model.voManaged.XMLparsedInfo');
 
 lgb.simulation.model.voManaged.XMLparsedInfo = function() {
 
-  /**
-   * @const
-   * @type {string}
-   */
-  this._NAME = 'lgb.simulation.model.voManaged.XMLparsedInfo';
-  
+
   this.scalarVariablesAll_ = null;
 
   

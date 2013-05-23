@@ -9,8 +9,6 @@ goog.require('sim.model.ModelBase');
  */
 sim.model.TabStripModel = function(tabModelArray) {
 
-  /**@const */
-  this._NAME = 'sim.model.TabStripModel';
   
   /**@const */
   this._TITLE = 'TabStripModel';

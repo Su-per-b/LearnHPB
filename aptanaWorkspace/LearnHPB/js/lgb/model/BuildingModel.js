@@ -15,8 +15,7 @@ goog.require('lgb.model.BaseModel');
  * @extends lgb.model.BaseModel
  */
 lgb.model.BuildingModel = function() {
-  /**@const */
- // this._NAME = 'lgb.model.BuildingModel';
+
   /**@const */
   this._TITLE = 'Building';
 

@@ -28,7 +28,7 @@ goog.require('lgb.view.BaseViewGUI');
  */
 lgb.view.LightingAdminView = function(dataModel, parentHtmlID) {
     
-  this._NAME = 'lgb.view.LightingAdminView';
+
   lgb.view.BaseViewGUI.call(this, dataModel, 'LightingAdminView', parentHtmlID);
 
   this.init_();

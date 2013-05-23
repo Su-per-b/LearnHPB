@@ -14,8 +14,7 @@ goog.require('lgb.model.SimulationModelState');
  * @extends lgb.model.BaseModel
  */
 lgb.model.SimulationModel = function() {
-  /**@const */
-  //this._NAME = 'lgb.model.SimulationModel';
+
   
   /**@const */
   this._TITLE = 'Simulation';

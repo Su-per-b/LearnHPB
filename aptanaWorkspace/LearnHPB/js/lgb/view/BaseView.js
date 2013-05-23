@@ -62,19 +62,12 @@ lgb.view.BaseView.prototype.makeMainDiv = function() {
 lgb.view.BaseView.prototype.setIds_ = function(htmlID, parentHtmlID) {
     
 
-  this.htmlID = htmlID || this.generateHtmlID();
+  this.htmlID = htmlID || 'undefined-BaseView'
   this.parentHtmlID = parentHtmlID || 'theBody';
   
 };
 
-lgb.view.BaseView.prototype.generateHtmlID = function() {
-    
-      var ary=this._NAME.split(".");
-      var len = ary.length;
-      var id = ary[len-1];
-      
-      return id;
-}
+
 
 /**
  * converts and id into a Jquery element

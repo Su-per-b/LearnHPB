@@ -16,7 +16,6 @@ goog.require('lgb.component.BaseDataSource');
  */
 lgb.component.TabStripDataSource = function(title, parentHtmlID, htmlID) {
     
-  this._NAME = 'lgb.component.TabStripDataSource';
   lgb.component.BaseDataSource.call(this);
 
   this.title = title;

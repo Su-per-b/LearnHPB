@@ -24,7 +24,6 @@ lgb.view.SimulationView = function(dataModel) {
     this.title = 'Simulation View';
 
     this.useSlideEffect = false;
-    this._NAME = 'lgb.view.SimulationView';
 
 };
 goog.inherits(lgb.view.SimulationView, lgb.view.DialogView);

@@ -18,7 +18,6 @@ goog.require('lgb.controller.VisibilityController');
 goog.require('lgb.events.Object3DLoaded');
 goog.require('lgb.events.Render');
 goog.require('lgb.view.StatsView');
-goog.require('lgb.events.WorldCreated');
 goog.require('lgb.events.LayoutChange');
 
 /**
@@ -29,7 +28,6 @@ goog.require('lgb.events.LayoutChange');
  * when we render 3D.
  */
 lgb.controller.WorldController = function() {
-  this._NAME = 'lgb.controller.WorldController';
   lgb.controller.BaseController.call(this);
   this.parentHtmlID = lgb.Config.HUD_CONTAINER_STR;
 };
@@ -117,9 +115,6 @@ lgb.controller.WorldController.prototype.init = function() {
   
   this.containerDiv_.append(this.renderer_.domElement);
   
-
-  var e = new lgb.events.WorldCreated();
-  this.dispatch(e);
 
 };
 

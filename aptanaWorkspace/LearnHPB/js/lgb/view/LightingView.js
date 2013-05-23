@@ -16,7 +16,7 @@ goog.require('lgb.model.BuildingHeightModel');
  */
 lgb.view.LightingView = function(dataModel) {
     
-  this._NAME = 'lgb.view.LightingView';
+
   this._ASSETS_FOLDER = 'lighting';
   
  lgb.view.BaseView3dScene.call(this, dataModel);

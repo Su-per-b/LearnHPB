@@ -4,13 +4,6 @@ goog.provide('lgb.simulation.model.voManaged.ScalarValueResults');
 
 lgb.simulation.model.voManaged.ScalarValueResults = function() {
 
-  /**
-   * @const
-   * @type {string}
-   */
-  this._NAME = 'lgb.simulation.model.voManaged.ScalarValueResults';
-  
-
 
 };
 

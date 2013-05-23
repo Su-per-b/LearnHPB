@@ -39,9 +39,8 @@ goog.require('lgb.view.BaseViewGUI');
  * @param {Element} containerDiv The DOM element to append to.
  */
 lgb.view.StatsView = function(containerDiv) {
-  this._NAME = 'lgb.view.StatsView';
-  lgb.view.BaseViewGUI.call(this);
 
+  lgb.view.BaseViewGUI.call(this);
   this.init(containerDiv);
 
 };

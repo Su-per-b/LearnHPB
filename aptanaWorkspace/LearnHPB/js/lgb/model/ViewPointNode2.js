@@ -14,8 +14,7 @@ goog.require('lgb.model.BaseModel');
  * @extends lgb.model.BaseModel
  */
 lgb.model.ViewPointNode = function(object3D, parent, idx) {
-  /**@const */
-  //this._NAME = 'lgb.model.ViewPointNode';
+
   /**@const */
   this._TITLE = 'ViewPointNode';
   lgb.model.BaseModel.call(this);

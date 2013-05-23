@@ -14,8 +14,6 @@ goog.require('lgb.view.BaseViewGUI');
  */
 lgb.view.TitleBarView = function() {
     
-  this._NAME = 'lgb.view.TitleBarView';
-  
   lgb.view.BaseViewGUI.call(this, null, 'titleBar', lgb.Config.HUD_CONTAINER_STR);
 
   this.injectHtml_();

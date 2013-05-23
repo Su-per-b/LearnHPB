@@ -13,7 +13,7 @@ goog.require('lgb.view.TrackBallView');
  * @extends lgb.controller.BaseController
  */
 lgb.controller.TrackBallController = function( camera ) {
-  this._NAME = 'lgb.controller.TrackBallController';
+
   lgb.controller.BaseController.call(this);
   
   this.bind_();

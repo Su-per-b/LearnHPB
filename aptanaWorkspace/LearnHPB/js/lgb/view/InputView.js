@@ -7,7 +7,6 @@ goog.require('lgb.component.TabStripDataSource');
 
 lgb.view.InputView = function(dataModel, htmlID, parentHtmlID) {
     
-  this._NAME = 'lgb.view.InputView';
   
   lgb.view.BaseViewGUI.call(this, dataModel, htmlID, parentHtmlID);
 

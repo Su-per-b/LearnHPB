@@ -12,7 +12,7 @@ goog.require('lgb.view.DialogView');
  * @extends {lgb.view.DialogView}
  */
 lgb.view.AdminView = function() {
-  this._NAME = 'lgb.view.AdminView';
+
   lgb.view.DialogView.call(this, null, 'adminView');
 
   this.title = 'Admin';

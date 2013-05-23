@@ -20,7 +20,6 @@ goog.require('lgb.model.BuildingHeightModel');
  */
 lgb.view.PsView = function(dataModel) {
 
-  this._NAME = 'lgb.view.PsView';
   lgb.view.BaseView3dScene.call(this, dataModel);
 
   this.title = dataModel.title;

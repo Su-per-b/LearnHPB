@@ -16,7 +16,6 @@ goog.require('lgb.events.DataModelInitialized');
 
 lgb.component.TreeDataSource = function(objectList, propertyName, title, parentHtmlID, subID) {
 
-  this._NAME = 'lgb.component.TreeDataSource';
   
   this.title_ = title;
   this.propertyName_ = propertyName;

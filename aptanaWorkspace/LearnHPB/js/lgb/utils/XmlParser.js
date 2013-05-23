@@ -12,8 +12,7 @@ goog.provide('lgb.utils.XmlParser');
  */
 lgb.utils.XmlParser = function(xml) {
 
-  /**@const */
-  this._NAME = 'lgb.utils.XmlParser';
+
   lgb.BaseClass.call(this);
 
  /** @type {Document}  */

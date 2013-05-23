@@ -13,8 +13,6 @@ goog.require('goog.array');
  * @extends lgb.model.BaseModel
  */
 lgb.model.SelectableModel = function() {
-  /**@const */
- // this._NAME = 'lgb.model.SelectableModel';
 
   lgb.model.BaseModel.call(this);
   this.init_();

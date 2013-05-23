@@ -20,9 +20,6 @@ goog.require('lgb.utils.XmlParser');
 lgb.model.PsModelMaster = function() {
 
   /**@const */
-  this._NAME = 'lgb.model.PsModelMaster';
-
-  /**@const */
   this._TITLE = 'Mutiple Particle System';
 
   lgb.model.BaseModel.call(this);

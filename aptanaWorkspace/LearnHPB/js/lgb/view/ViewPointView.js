@@ -20,8 +20,7 @@ goog.require('lgb.model.ViewPointCollection');
  */
 lgb.view.ViewPointView = function(dataModel) {
     
-  /**@const */
-  this._NAME = 'lgb.view.ViewPointView';
+
   this._ASSETS_FOLDER = 'viewpoints';
   
  lgb.view.BaseView3dScene.call(this, dataModel);

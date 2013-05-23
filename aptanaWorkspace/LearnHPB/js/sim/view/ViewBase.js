@@ -35,15 +35,7 @@ goog.inherits(sim.view.ViewBase, sim.BaseClass);
 
 sim.view.ViewBase.prototype.setIds_ = function(htmlID, parentHtmlID) {
     
-  if (undefined === htmlID || '' === htmlID) {
-      
-      var ary=this._NAME.split(".");
-      var len = ary.length;
-      this.htmlID = ary[len-1];
-      
-  } else {
-      this.htmlID = htmlID;
-  }
+  this.htmlID = htmlID || 'undefined-ViewBase';
   
   
   if (parentHtmlID !== undefined && 
@@ -182,7 +174,7 @@ sim.view.ViewBase.prototype.moveGroupToObject3D_ = function(groupName) {
   
   var obj3D = new THREE.Object3D();
   
-  obj3D.name = this._NAME + "_GROUP_" + groupName;
+  obj3D.name = this._TITLE + "_GROUP_" + groupName;
   obj3D.addArray(this.groups_[groupName]);
   
   return obj3D;

@@ -20,7 +20,6 @@ sim.component.TabStripDataSource = function(title, parentHtmlID, htmlID) {
   this.title = title;
   this.parentHtmlID = parentHtmlID;
   this.htmlID = htmlID;
-  this._NAME = 'sim.component.TabStripDataSource';
   this.isEnabled = true;
   
   this.showIcon = false;

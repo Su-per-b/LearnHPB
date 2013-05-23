@@ -20,7 +20,6 @@ goog.require('lgb.view.BaseView3dScene');
  */
 lgb.view.RoofTopView = function(dataModel) {
     
-  this._NAME = 'lgb.view.RoofTopView';
   this._ASSETS_FOLDER = 'rooftop';
  lgb.view.BaseView3dScene.call(this, dataModel);
 

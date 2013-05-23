@@ -19,7 +19,6 @@ goog.require('lgb.view.BaseV');
  */
 lgb.component.FaultWidget = function(dataModel) {
     
-  this._NAME = 'lgb.component.FaultWidget';
   var htmlID = 'component-FaultWidget-' + dataModel.name;
  
   lgb.view.BaseV.call(this, dataModel, htmlID);

@@ -23,8 +23,7 @@ goog.require('lgb.events.ViewPointCollectionLoaded');
  */
 lgb.view.ZoneView = function(dataModel) {
     
-  this._NAME = 'lgb.view.ZoneView';
- lgb.view.BaseView3dScene.call(this, dataModel);
+  lgb.view.BaseView3dScene.call(this, dataModel);
 
   this.zoneVisibleIdx = -1;
   this.buildingHeightModel_ = null;

@@ -23,7 +23,7 @@ options = {};
     cssClass: false
   }, options);
   
-  this._NAME = 'sim.view.TabStrip';
+
   
 };
 goog.inherits(sim.view.TabStripView, sim.view.ViewBase);

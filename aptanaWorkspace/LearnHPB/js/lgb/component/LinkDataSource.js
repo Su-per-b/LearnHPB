@@ -15,7 +15,7 @@ goog.require('lgb.component.BaseDataSource');
  * @param {string} subID The second part of the CSS ID for this element.
  */
 lgb.component.LinkDataSource = function(title, parentHtmlID, subID) {
-  this._NAME = 'lgb.component.LinkDataSource';
+
   lgb.component.BaseDataSource.call(this);
 
   this.title = title;

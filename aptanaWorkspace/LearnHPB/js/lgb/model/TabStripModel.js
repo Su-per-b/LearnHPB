@@ -9,8 +9,6 @@ goog.require('lgb.model.BaseModel');
  */
 lgb.model.TabStripModel = function(tabModelArray) {
 
-  /**@const */
-  //this._NAME = 'lgb.model.TabStripModel';
   
   /**@const */
   this._TITLE = 'TabStripModel';

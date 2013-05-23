@@ -87,16 +87,6 @@ lgb.view.BaseV.prototype.setIds_ = function(htmlID, parentHtmlID) {
   
 };
 
-lgb.view.BaseV.prototype.generateHtmlID = function() {
-    
-      
-      
-      var ary=this._NAME.split(".");
-      var len = ary.length;
-      var id = ary[len-1];
-      
-      return id;
-}
 
 
 

@@ -15,11 +15,7 @@ goog.require('lgb.view.BaseV');
  */
 lgb.component.InputWidget = function(dataModel) {
     
-  /**
-   * @const
-   * @type {string}
-   */
-  this._NAME = 'lgb.component.InputWidget';
+
   
   /**
    * @const

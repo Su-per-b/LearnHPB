@@ -29,9 +29,7 @@ lgb.controller.CameraCraneController = function() {
   this.degreesPerSecondFOV = 4;
   
   this.easing = createjs.Ease.quadInOut;
-  
-// var x = 0;
-  
+   
 };
 goog.inherits(lgb.controller.CameraCraneController, lgb.controller.BaseController);
 

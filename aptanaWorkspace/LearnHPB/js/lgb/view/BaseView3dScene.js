@@ -22,8 +22,12 @@ lgb.view.BaseView3dScene = function(dataModel) {
 
   this.dataModel = dataModel;
   
-  if(this.dataModel) {
-    this.listenForChange_();
+  if(this.dataModel && this.onChange) {
+    
+    this.listenHelper_(this.dataModel, 
+      lgb.events.DataModelChanged.TYPE, 
+      this, this.onChange);
+      
   }
   
   this.masterGroup_ = new THREE.Object3D();
@@ -153,11 +157,11 @@ lgb.view.BaseView3dScene.prototype.placeOneContainer_ = function(containerName, 
  * Event Handler that fires when the data model changes
  * @param {lgb.events.DataModelChanged} event The event.
  * @protected
- */
-lgb.view.BaseView3dScene.prototype.onChange = function(event) {
-  //throw ('ViewBase.onChange() should be overridden for Class: ' + this._NAME);
-};
 
+lgb.view.BaseView3dScene.prototype.onChange = function(event) {
+  
+};
+ */
 
 
 lgb.view.BaseView3dScene.prototype.requestDataModelChange = function(propertyName, propertyValue) {
@@ -186,15 +190,6 @@ lgb.view.BaseView3dScene.prototype.moveGroupToObject3D_ = function(groupName) {
 
 
 
-/**
- * Binds an event listener to handle when the MVC data model changes.
- * @protected
- */
-lgb.view.BaseView3dScene.prototype.listenForChange_ = function() {
-
-  this.listenHelper_(this.dataModel, lgb.events.DataModelChanged.TYPE, this, this.onChange);
-
-};
 
 /**
  * @param {THREE.Object3D|THREE.Mesh} object3D the object we would like

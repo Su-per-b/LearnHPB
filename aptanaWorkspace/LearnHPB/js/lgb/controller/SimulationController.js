@@ -24,7 +24,7 @@ goog.require('lgb.simulation.model.WebSocketConnectionState');
  * @extends lgb.controller.BaseController
  */
 lgb.controller.SimulationController = function() {
-  this._NAME = 'lgb.controller.SimulationController';
+
   lgb.controller.BaseController.call(this);
     
     

@@ -18,9 +18,7 @@ goog.require('lgb.model.BaseModel');
 lgb.model.LightingModel = function() {
 
 
-  /**@const */
-  //this._NAME = 'lgb.model.LightingModel';
-  
+
   /**@const */
   this._TITLE = 'Lighting';
   lgb.model.BaseModel.call(this);

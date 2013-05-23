@@ -21,7 +21,7 @@ goog.require('lgb.view.BaseViewGUI');
  */
 lgb.view.EnvelopeAdminView = function(dataModel, parentHtmlID) {
     
-  this._NAME = 'lgb.view.EnvelopeAdminView';
+
   lgb.view.BaseViewGUI.call(this, dataModel, 'envelopeAdminView', parentHtmlID);
 
   this.init_();
