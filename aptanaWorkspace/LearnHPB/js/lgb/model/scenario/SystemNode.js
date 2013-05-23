@@ -18,7 +18,7 @@ goog.require('lgb.utils.XmlParser');
 lgb.model.scenario.SystemNode = function(xmlParser) {
 
   /**@const */
-  this._NAME = 'lgb.model.scenario.SystemNode';
+  //this._NAME = 'lgb.model.scenario.SystemNode';
 
   lgb.model.BaseModel.call(this);
 

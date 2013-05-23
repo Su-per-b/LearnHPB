@@ -8,25 +8,25 @@
 */
 
 goog.provide('lgb.component.FaultWidget');
-goog.require('lgb.view.BaseView');
+goog.require('lgb.view.BaseV');
 
 
 /**
  * Html component that contains a slider
  * @param {lgb.model.scenario.SysVar} dataModel Tells us what to display.
  * @constructor
- * @extends {lgb.view.BaseView}
+ * @extends {lgb.view.BaseV}
  */
 lgb.component.FaultWidget = function(dataModel) {
     
   this._NAME = 'lgb.component.FaultWidget';
   var htmlID = 'component-FaultWidget-' + dataModel.name;
  
-  lgb.view.BaseView.call(this, dataModel, htmlID);
+  lgb.view.BaseV.call(this, dataModel, htmlID);
 
 
 };
-goog.inherits(lgb.component.FaultWidget, lgb.view.BaseView);
+goog.inherits(lgb.component.FaultWidget, lgb.view.BaseV);
 
 
 

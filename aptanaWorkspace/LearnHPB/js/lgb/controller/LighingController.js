@@ -40,7 +40,6 @@ lgb.controller.LightingController.prototype.init_ = function() {
   this.bind_();
   
   this.view.init();
-  //this.dispatch(new lgb.events.EnvelopeModelChanged(this.dataModel));
 };
 
 
@@ -74,10 +73,25 @@ lgb.controller.LightingController.prototype.bind_ = function() {
     lgb.events.BuildingHeightChanged.TYPE,
     this.onBuildingHeightChanged_
     );
-     
+    
+    
+    
+  this.listenTo(
+    this.view,
+    lgb.events.VisibilityNodesLoaded.TYPE,
+    this.onVisibilityNodesLoaded_
+    );
+    
 };
 
 
+
+lgb.controller.LightingController.prototype.onVisibilityNodesLoaded_ =
+  function(event) {
+
+  this.dispatch(event);
+  
+};
 
 /**
  * Event handler.

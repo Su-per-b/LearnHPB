@@ -11,23 +11,49 @@ goog.provide('lgb');
 goog.require('goog.debug.Console');
 goog.require('goog.debug.LogRecord');
 goog.require('goog.debug.Logger.Level');
+goog.require('lgb.DebugLGB');
+
 
 /**
+ *
  * You need to call this before you can use the logging
  * functions
  */
 lgb.init = function() {
   lgb.console = new goog.debug.Console();
+  
+
+  if ( !COMPILED ) {
+    var debug = new lgb.DebugLGB();
+    debug.init();
+  }
+  
+  return;
 };
 
 lgb.assert = function(obj) {
     
   if (obj === undefined  ) {
-    throw ("Assert Failed")
+    throw "Assert Failed"
+    debugger;
+  }
+};
+
+lgb.selectNone = function(msg, loggerName) {
+  
+  if (window.getSelection) {
+    if (window.getSelection().empty) {  // Chrome
+      window.getSelection().empty();
+    } else if (window.getSelection().removeAllRanges) {  // Firefox
+      window.getSelection().removeAllRanges();
+    }
   }
 };
 
 
+
+  
+  
 /**
  * @param {string} msg The message that you want to appear in the console.
  * @param {string=} loggerName This will display as a kind of label.

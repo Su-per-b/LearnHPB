@@ -20,7 +20,6 @@ goog.require('lgb.view.BaseViewGUI');
  */
 lgb.view.ViewPointGUI = function(dataModel) {
 
-  this._NAME = 'lgb.view.ViewPointGUI';
   lgb.view.BaseViewGUI.call(this, dataModel,'ViewPointGUI', 'leftpanel-tabStrip-1');
 };
 goog.inherits(lgb.view.ViewPointGUI, lgb.view.BaseViewGUI);
@@ -82,8 +81,6 @@ lgb.view.ViewPointGUI.prototype.onMouseLeave_ = function(event) {
 
 lgb.view.ViewPointGUI.prototype.fireShowViewPoint = function(viewPointNode, isVisible) {
 
-
-
   
   if (null != viewPointNode) {
     
@@ -120,11 +117,10 @@ lgb.view.ViewPointGUI.prototype.onSelect_ = function(event) {
 lgb.view.ViewPointGUI.prototype.injectHtml = function() {
 
 
-    var mainDiv = this.makeMainDiv();
-    //this.append(mainDiv);
+    this.makeMainElement_();
     
     this.kendoTreeView_ =        
-        mainDiv.kendoTreeView().data("kendoTreeView");
+        this.mainElement_.kendoTreeView().data("kendoTreeView");
         
 
 };

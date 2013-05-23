@@ -18,7 +18,7 @@ lgb.model.FurnitureModel = function() {
 
 
   /**@const */
-  this._NAME = 'lgb.model.FurnitureModel';
+  //this._NAME = 'lgb.model.FurnitureModel';
   
   /**@const */
   this._TITLE = 'Furniture';

@@ -20,7 +20,6 @@ goog.require('lgb.events.TopFloorLoaded');
  * @extends lgb.controller.BaseController
  */
 lgb.controller.EnvelopeController = function() {
-  this._NAME = 'lgb.controller.EnvelopeController';
   lgb.controller.BaseController.call(this);
   this.init_();
 };
@@ -34,7 +33,10 @@ lgb.controller.EnvelopeController.prototype.init_ = function() {
 
   this.dataModel = new lgb.model.EnvelopeModel();
   this.view = new lgb.view.EnvelopeView(this.dataModel);
+  
   this.bind_();
+  
+  this.view.init();
   
   this.dispatch(new lgb.events.EnvelopeModelChanged(this.dataModel));
 };
@@ -62,9 +64,24 @@ lgb.controller.EnvelopeController.prototype.bind_ = function() {
     lgb.events.BuildingHeightChanged.TYPE,
     this.onBuildingHeightChanged_);
     
+    
+    
+  this.listenTo(
+    this.view,
+    lgb.events.VisibilityNodesLoaded.TYPE,
+    this.onVisibilityNodesLoaded_
+    );
+    
 };
 
 
+
+lgb.controller.EnvelopeController.prototype.onVisibilityNodesLoaded_ =
+  function(event) {
+
+  this.dispatch(event);
+  
+};
 
 
 

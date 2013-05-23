@@ -22,7 +22,6 @@ goog.require('lgb.events.BuildingHeightChanged');
  * @extends lgb.controller.BaseController
  */
 lgb.controller.BuildingController = function() {
-  this._NAME = 'lgb.controller.BuildingController';
   lgb.controller.BaseController.call(this);
   this.init_();
 };
@@ -36,8 +35,9 @@ goog.inherits(lgb.controller.BuildingController, lgb.controller.BaseController);
 lgb.controller.BuildingController.prototype.init_ = function() {
     
 
+
   this.zoneController_ = new lgb.controller.ZoneController();
-  this.roofTopController_ = new lgb.controller.RoofTopController();
+ // this.roofTopController_ = new lgb.controller.RoofTopController();
   this.ductworkController_ = new lgb.controller.DuctworkController();
   this.lightingController = new lgb.controller.LightingController();
   this.furnitureController = new lgb.controller.FurnitureController();
@@ -95,9 +95,20 @@ lgb.controller.BuildingController.prototype.onRequestVisibilityChange_ =
   var group = event.payload;
 
   this.envelopeController_.setVisiblityGroup(group);
-  this.roofTopController_.setVisiblityGroup(group);
-  this.ductworkController_.setVisiblityGroup(group);
-  this.lightingController.setVisiblityGroup(group);
+  
+  if (this.roofTopController_) {
+    this.roofTopController_.setVisiblityGroup(group);
+  }
+  
+  if (this.ductworkController_) {
+    this.ductworkController_.setVisiblityGroup(group);
+  }
+  
+  if (this.lightingController) {
+    this.lightingController.setVisiblityGroup(group);
+  }
+
+  
 
   this.dispatch(new lgb.events.VisibilityChanged(group));
 };

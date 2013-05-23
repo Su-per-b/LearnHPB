@@ -5,7 +5,7 @@
 
 goog.provide('lgb.view.UtilityGridView');
 
-goog.require('BaseView3dScene');
+goog.require('lgb.view.BaseView3dScene');
 
 /**
  * @constructor
@@ -14,12 +14,12 @@ goog.require('BaseView3dScene');
 lgb.view.UtilityGridView = function() {
     
   this._NAME = 'lgb.view.UtilityGridView';
-  BaseView3dScene.call(this);
+ lgb.view.BaseView3dScene.call(this);
 
   this.width_ = 120;
   
 };
-goog.inherits(lgb.view.UtilityGridView, BaseView3dScene);
+goog.inherits(lgb.view.UtilityGridView,lgb.view.BaseView3dScene);
 
 /**
  * Initializes the View

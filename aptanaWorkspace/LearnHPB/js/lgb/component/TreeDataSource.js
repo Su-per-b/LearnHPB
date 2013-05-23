@@ -25,26 +25,27 @@ lgb.component.TreeDataSource = function(objectList, propertyName, title, parentH
 
   this.parentHtmlID = parentHtmlID;
   this.htmlID = parentHtmlID + '-' + subID;
-  
-  this.build_(objectList, propertyName);
-  this.rootNode = this.kendoDS.data()[0];
-
-  this.bind_();
   this.changedItems_ = [];
+  
+  if(objectList) {
+    this.build_(objectList);
+  }
+
 };
 goog.inherits(lgb.component.TreeDataSource, lgb.component.BaseDataSource);
 
 
 
-lgb.component.TreeDataSource.prototype.build_ = function(stateList, propertyName) {
+lgb.component.TreeDataSource.prototype.build_ = function(objectList) {
 
   var items = [];
   
-  stateList.forEach( function(val, idx) {
+  objectList.forEach( function(val, idx) {
     items.push(
       { text:val.title,
-        checked:val[propertyName],
-        idx:val.idx
+        checked:val[this.propertyName_ ],
+        idx:val.idx,
+        hasChildren : false
        }
     )
   });
@@ -65,9 +66,10 @@ lgb.component.TreeDataSource.prototype.build_ = function(stateList, propertyName
   this.kendoDS = new kendo.data.HierarchicalDataSource(options);
   this.kendoDS.read();
 
-  var rootNode = this.kendoDS.get(0);
-  rootNode.load();
+  this.rootNode  = this.kendoDS.get(0);
+  this.rootNode .load();
 
+  this.bind_();
 };
 
 

@@ -8,7 +8,7 @@ goog.provide('lgb.view.ViewPointView');
 ;
 goog.require('lgb.events.ViewPointCollectionLoaded');
 
-goog.require('BaseView3dScene');
+goog.require('lgb.view.BaseView3dScene');
 goog.require('lgb.model.BuildingHeightModel');
 goog.require('lgb.model.ViewPointCollection');
 
@@ -24,27 +24,17 @@ lgb.view.ViewPointView = function(dataModel) {
   this._NAME = 'lgb.view.ViewPointView';
   this._ASSETS_FOLDER = 'viewpoints';
   
-  BaseView3dScene.call(this, dataModel);
+ lgb.view.BaseView3dScene.call(this, dataModel);
 
   this.topFloorMinY_ = null;
   this.sceneY_ = null;
   
 };
-goog.inherits(lgb.view.ViewPointView, BaseView3dScene);
+goog.inherits(lgb.view.ViewPointView,lgb.view.BaseView3dScene);
 
 
 
-/**
- * Initiates the loading of the scene
- * @param {string} the folder name form which to load the 'scene.json' file
- * @protected
- */
-lgb.view.ViewPointView.prototype.loadSceneFromFolder_ = function(folderName) {
 
-  var path = lgb.Config.ASSETS_BASE_PATH + folderName + '/' + this.filename;
-  this.loader_ = new THREE.SceneLoaderEx();
-  this.loader_.load(path, this.d(this.onSceneLoaded_));
-};
 
 
 lgb.view.ViewPointView.prototype.setBuildingHeight = function(buildingHeightModel) {

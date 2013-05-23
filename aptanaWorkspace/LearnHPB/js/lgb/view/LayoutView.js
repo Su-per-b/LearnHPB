@@ -42,14 +42,42 @@ lgb.view.LayoutView.prototype.init = function() {
 
 lgb.view.LayoutView.prototype.bind_ = function(event) {
 
-    var k = this.kendoSplitter1_;
-    var func = this.d(this.onSplitter1Resize_);
+
     
-    k.bind('resize', func);
+    this.kendoSplitter1_.bind(
+      'resize', 
+      this.d(this.onSplitter1Resize_));
+      
+      
+    this.kendoSplitter1_.bind(
+      'click', 
+      this.d(this.onSplitter1Click_));
     
+    
+    this.kendoSplitter1_.bind(
+      'mouseleave', 
+      this.d(this.onSplitter1Click_));
+    
+    
+    
+    this.kendoSplitter1_.bind(
+      'mousedown', 
+      this.d(this.onSplitter1Click_));
+    
+    
+    
+    this.kendoSplitter1_.bind(
+      'mouseup', 
+      this.d(this.onSplitter1Click_));
+    
+    
+
 };
 
-
+lgb.view.LayoutView.prototype.onSplitter1Click_ = function(event) {
+  
+      lgb.selectNone();
+}
 
 
 lgb.view.LayoutView.prototype.injectHtml_ = function() {
@@ -77,19 +105,29 @@ lgb.view.LayoutView.prototype.injectHtml_ = function() {
         $('<div>').attr('id', "pageContainer")
                 .append(this.horizontal_);
         
+        
+        
+
+
+
+        
   $('body').append(this.pageContainer_);
   
   
   this.horizontal_ = $("#horizontal").kendoSplitter(
       {
         panes: [
-            { collapsible: true, size: "190px" },
+            { collapsible: false, size: "250px" },
             { collapsible: false }
         ]
     });
     
     
     this.kendoSplitter1_ = this.horizontal_.data("kendoSplitter");
+    
+
+    
+    
 
 };
 
@@ -98,17 +136,12 @@ lgb.view.LayoutView.prototype.onSplitter1Resize_ = function(event) {
     
     //this.calculateLayout();
     
-    var event = new lgb.events.LayoutChange();
-    this.dispatchLocal(event);
+
+    
+    var e = new lgb.events.LayoutChange();
+    this.dispatchLocal(e);
 };
 
-
-lgb.view.LayoutView.prototype.triggerSplitter1Resize_ = function(event) {
-    
-    this.kendoSplitter1_.trigger("resize");
-    
-
-};
 
 
 lgb.view.LayoutView.prototype.calculateLayout = function() {

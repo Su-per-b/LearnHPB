@@ -126,7 +126,10 @@ def buildLgb(includesFileList=None):
     concatinatedOutputFile = jsonConfig.getConcatinatedOutputFile()
     minifiedOutputFile = jsonConfig.getMinifiedOutputFile()
     
-    includesFileList = jsonConfig.getFileList('includes')
+    if(includesFileList == None):
+        includesFileList = jsonConfig.getFileList('includes')
+    
+    
     includeAry = getCommandAry(includesFileList , '-i')
     printFileList('Processing includes for LGB', includesFileList)
     

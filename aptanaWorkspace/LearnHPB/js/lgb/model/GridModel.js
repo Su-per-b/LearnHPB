@@ -14,7 +14,7 @@ goog.provide('lgb.model.GridModel');
 lgb.model.GridModel = function(jsonObject, geometryDimensions) {
 
   /**@const */
-  this._NAME = 'lgb.model.GridModel';
+  //this._NAME = 'lgb.model.GridModel';
   
   /**@const */
   this._TITLE = 'GridModel';

@@ -17,7 +17,7 @@ goog.require('goog.events.EventTarget');
  */
 lgb.BaseClass = function() {
     
-  lgb.assert (this._NAME);
+  //lgb.assert (this._NAME);
   goog.events.EventTarget.call(this);
   
   this.delegateIdx = {};
@@ -161,6 +161,39 @@ lgb.BaseClass.prototype.listenOnceHelper_ = function(
     delegate);
 };
 
+/**
+ * loop though the array and
+ * supply each element as an argument
+ *  to the handler
+ * @param {Array} ary The array to loop though.
+ * @param {Function} handler The handler to call.
+ * @param aditional argument to pass along for all function calls
+ * @param aditional argument to pass along for all function calls
+ * @param aditional argument to pass along for all function calls
+ * @protected
+ */
+lgb.BaseClass.prototype.each = function(ary, handler) {
+  var additionalArgs = null;
+  var allArguments = Array.prototype.slice.call(arguments);
+  var len = allArguments.length;
+  if (len > 2) {
+    additionalArgs = allArguments.slice(2, len);
+  }
+  
+  var l = ary.length;
+  for (var i = 0; i < l; i++) {
+    var arrayElement = ary[i];
+    
+    var argList = [arrayElement];
+    
+    if(additionalArgs) {
+      argList = argList.concat(additionalArgs);
+    }
+    
+    handler.apply(this, argList);
+  }
+};
+
 
 /**
  * loop though the array and
@@ -168,15 +201,37 @@ lgb.BaseClass.prototype.listenOnceHelper_ = function(
  *  to the handler
  * @param {Array} ary The array to loop though.
  * @param {Function} handler The handler to call.
+ * @param aditional argument to pass along for all function calls
+ * @param aditional argument to pass along for all function calls
+ * @param aditional argument to pass along for all function calls
  * @protected
  */
-lgb.BaseClass.prototype.each = function(ary, handler) {
+lgb.BaseClass.prototype.eachIdx = function(ary, handler) {
+  var additionalArgs = null;
+  var allArguments = Array.prototype.slice.call(arguments);
+  var len = allArguments.length;
+  if (len > 2) {
+    additionalArgs = allArguments.slice(2, len);
+  }
+  
   var l = ary.length;
   for (var i = 0; i < l; i++) {
-    var arg = ary[i];
-    handler.apply(this, [arg]);
+    var arrayElement = ary[i];
+    
+    var argList = [arrayElement];
+    
+    if (useIdx) {
+      argList.push(i);
+    }
+    
+    if(additionalArgs) {
+      argList = argList.concat(additionalArgs);
+    }
+    
+    handler.apply(this, argList);
   }
 };
+
 
 
 /**
@@ -184,8 +239,9 @@ lgb.BaseClass.prototype.each = function(ary, handler) {
  * @param {!number} key The key for the event handler.
  */
 lgb.BaseClass.prototype.unlisten = function(key) {
-  goog.events.unlistenByKey(key);
+  
+  if(key) {
+    goog.events.unlistenByKey(key);
+  }
+
 };
-
-
-

@@ -16,7 +16,7 @@ goog.require('lgb.model.ViewPointNode');
 lgb.model.ViewPointCollection = function(name, object3Dlist, showViewPoints) {
     
   /**@const */
-  this._NAME = 'lgb.model.ViewPointCollection';
+  //this._NAME = 'lgb.model.ViewPointCollection';
   
   /**@const */
   this._TITLE = 'ViewPointCollection';
@@ -66,12 +66,12 @@ lgb.model.ViewPointCollection.prototype.getNodeList = function() {
 
 lgb.model.ViewPointCollection.prototype.getTreeData = function() {
                
-    var it = [];         
+    var items = [];         
     var len = this.nodeList.length;
     
     for (var i = 0; i < len; i++) {
         var node = this.nodeList[i];
-        it.push({ 
+        items.push({ 
             text: node.name,
             id : this.name + '-' + node.name,
             value: node.value,
@@ -84,7 +84,7 @@ lgb.model.ViewPointCollection.prototype.getTreeData = function() {
         url: '#' + this.url,
         value: this.name,
         id: 'root',
-        items: it
+        items: items
         };
         
         

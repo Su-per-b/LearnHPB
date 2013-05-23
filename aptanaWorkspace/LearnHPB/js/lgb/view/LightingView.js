@@ -5,7 +5,7 @@
  
 goog.provide('lgb.view.LightingView');
 
-goog.require('BaseView3dScene');
+goog.require('lgb.view.BaseView3dScene');
 goog.require('lgb.model.GridModel');
 goog.require('lgb.model.BuildingHeightModel');
 
@@ -19,7 +19,7 @@ lgb.view.LightingView = function(dataModel) {
   this._NAME = 'lgb.view.LightingView';
   this._ASSETS_FOLDER = 'lighting';
   
-  BaseView3dScene.call(this, dataModel);
+ lgb.view.BaseView3dScene.call(this, dataModel);
 
   this.pendantGeom  = null;
   this.recessedGeom = null;
@@ -27,7 +27,7 @@ lgb.view.LightingView = function(dataModel) {
   this.buildingHeightModel_ = null;
   this.sceneY_ = null;
 };
-goog.inherits(lgb.view.LightingView, BaseView3dScene);
+goog.inherits(lgb.view.LightingView,lgb.view.BaseView3dScene);
 
 
 
@@ -88,11 +88,23 @@ lgb.view.LightingView.prototype.onSceneLoaded_ = function() {
   this.requestAddToWorld(this.masterGroup_);
   this.updateAllFromModel_();
   
+  this.dispatchVisibilityNodes_();
+  
   //this.sceneY_ = this.masterGroup_.position.y;
 
 
 };
 
+lgb.view.LightingView.prototype.dispatchVisibilityNodes_ = function() {
+
+
+  var node = new lgb.model.vo.VisibilityNode('Lighting', this.masterGroup_, 0 );
+  
+  var event = new lgb.events.VisibilityNodesLoaded(node);
+  this.dispatchLocal(event);
+ 
+  return;
+}
 
 /**
  * @override
@@ -107,10 +119,10 @@ lgb.view.LightingView.prototype.onChange = function(event) {
     
     if (whatIsDirty.lightingType) {
       this.buildGrid_();
-      this.updateVisible_();
+      //this.updateVisible_();
     }
     if (whatIsDirty.isVisible) {
-      this.updateVisible_();
+      //this.updateVisible_();
     }
     
   } else {

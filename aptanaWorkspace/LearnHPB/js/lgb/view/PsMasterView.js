@@ -5,7 +5,7 @@
  
 goog.provide('lgb.view.PsMasterView');
 
-goog.require('BaseView3dScene');
+goog.require('lgb.view.BaseView3dScene');
 goog.require('lgb.model.BuildingHeightModel');
 
 /**
@@ -16,13 +16,13 @@ goog.require('lgb.model.BuildingHeightModel');
 lgb.view.PsMasterView = function(dataModel) {
     
   this._NAME = 'lgb.view.PsMasterView';
-  BaseView3dScene.call(this, dataModel);
+ lgb.view.BaseView3dScene.call(this, dataModel);
   
   this.buildingHeightModel_ = null;
   this.sceneY_ = null;
   
 };
-goog.inherits(lgb.view.PsMasterView, BaseView3dScene);
+goog.inherits(lgb.view.PsMasterView,lgb.view.BaseView3dScene);
 
 
 

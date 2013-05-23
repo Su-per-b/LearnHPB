@@ -45,17 +45,3 @@ lgb.model.BaseModel.prototype.changeProperty = function(propertyName, propertyVa
     }
 };
 
-
-/**
- * returns a CSS id based on the fullname of the class
- * @protected
- * @return {string} The CSS ID.
- */
-lgb.model.BaseModel.prototype.getCssID = function() {
-  if (this._NAME === undefined) {
-    throw ('this._NAME === undefined');
-  } else {
-    var id = this._NAME.split('.').join('-');
-    return id;
-  }
-};

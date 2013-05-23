@@ -22,7 +22,7 @@ goog.require('lgb.model.BuildingHeightModel');
  * @extends lgb.controller.BaseController
  */
 lgb.controller.FurnitureController = function() {
-  this._NAME = 'lgb.controller.FurnitureController';
+
   lgb.controller.BaseController.call(this);
   this.init_();
 };
@@ -74,10 +74,24 @@ lgb.controller.FurnitureController.prototype.bind_ = function() {
     );
     
     
+  this.listenTo(
+    this.view,
+    lgb.events.VisibilityNodesLoaded.TYPE,
+    this.onVisibilityNodesLoaded_
+    );
+    
+    
 };
 
 
 lgb.controller.FurnitureController.prototype.onViewPointCollectionLoaded_ =
+  function(event) {
+
+  this.dispatch(event);
+  
+};
+
+lgb.controller.FurnitureController.prototype.onVisibilityNodesLoaded_ =
   function(event) {
 
   this.dispatch(event);

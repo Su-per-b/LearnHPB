@@ -10,7 +10,7 @@ goog.require('lgb.model.BaseModel');
 lgb.model.TabModel = function(title, content, cssClass) {
 
   /**@const */
-  this._NAME = 'lgb.model.TabModel';
+  //this._NAME = 'lgb.model.TabModel';
   
   /**@const */
   this._TITLE = 'TabModel';

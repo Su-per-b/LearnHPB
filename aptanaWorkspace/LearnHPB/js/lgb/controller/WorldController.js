@@ -13,9 +13,10 @@ goog.require('lgb.controller.TrackBallController');
 goog.require('lgb.controller.UtilityController');
 goog.require('lgb.controller.ViewPointController');
 goog.require('lgb.controller.WorldSelectionController');
+goog.require('lgb.controller.VisibilityController');
+
 goog.require('lgb.events.Object3DLoaded');
 goog.require('lgb.events.Render');
-goog.require('lgb.events.WindowResize');
 goog.require('lgb.view.StatsView');
 goog.require('lgb.events.WorldCreated');
 goog.require('lgb.events.LayoutChange');
@@ -42,6 +43,9 @@ lgb.controller.WorldController.prototype.init = function() {
   this.timestamp = 0;
   this.containerDiv_ = $('#' + this.parentHtmlID);
     
+  this.containerDiv_.attr('unselectable','on').css('UserSelect','none').css('MozUserSelect','none');
+  $('body').attr('unselectable','on').css('UserSelect','none').css('MozUserSelect','none');
+  
   /**
    * The top-level this.containerDiv_ object in the THREE.js world
    * contains lights, camera and objects
@@ -76,7 +80,9 @@ lgb.controller.WorldController.prototype.init = function() {
   }
 
   this.viewpointController_ = new lgb.controller.ViewPointController();
-
+  
+  this.visibilityController_ = new lgb.controller.VisibilityController();
+  
   /**
     * @type {lgb.controller.BuildingController}
     * @private
@@ -94,6 +100,9 @@ lgb.controller.WorldController.prototype.init = function() {
   /**@type {lgb.controller.PsMasterController} */
   this.PsControllerMaster_ = new lgb.controller.PsMasterController();
 
+  
+
+
   /**@type {lgb.controller.WorldSelectionController} */
   this.selectionController_ =
     new lgb.controller.WorldSelectionController(
@@ -104,13 +113,14 @@ lgb.controller.WorldController.prototype.init = function() {
   this.trackController_ = new lgb.controller.TrackBallController(
     this.camera_
   );
-  
 
   
   this.containerDiv_.append(this.renderer_.domElement);
   
+
   var e = new lgb.events.WorldCreated();
   this.dispatch(e);
+
 };
 
 /**
@@ -154,6 +164,7 @@ lgb.controller.WorldController.prototype.initRenderer_ = function() {
    */
   this.renderer_ = new THREE.WebGLRenderer({ antialias: false });
   this.renderer_.domElement.id='wbGLrenderer';
+  $(this.renderer_.domElement).attr('unselectable','on').css('UserSelect','none').css('MozUserSelect','none');
 
 /*
   this.renderer_.shadowCameraNear = 3;
@@ -196,7 +207,6 @@ lgb.controller.WorldController.prototype.initRenderer_ = function() {
  */
 lgb.controller.WorldController.prototype.bind_ = function() {
   this.listen(lgb.events.Object3DLoaded.TYPE, this.onObject3DLoaded_);
-  this.listen(lgb.events.WindowResize.TYPE, this.onWindowResize_);
     
   this.listen(
       lgb.events.LayoutChange.TYPE, 
@@ -224,18 +234,6 @@ lgb.controller.WorldController.prototype.onObject3DLoaded_ = function(event) {
   }
 
   this.scene_.add(obj);
-};
-
-
-/**
- * Handles an event fired by the browser when the user resizes the window
- * @private
- * @param {lgb.events.WindowResize} event the event.
- */
-lgb.controller.WorldController.prototype.onWindowResize_ =
-  function(event) {
-
-  this.calculateSize_();
 };
 
 

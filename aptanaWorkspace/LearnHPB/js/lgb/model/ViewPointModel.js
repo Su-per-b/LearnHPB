@@ -14,7 +14,7 @@ goog.require('lgb.model.ViewPointNode');
  */
 lgb.model.ViewPointModel = function() {
   /**@const */
-  this._NAME = 'lgb.model.ViewPointModel';
+  //this._NAME = 'lgb.model.ViewPointModel';
   /**@const */
   this._TITLE = 'ViewPoints';
   lgb.model.BaseModel.call(this);

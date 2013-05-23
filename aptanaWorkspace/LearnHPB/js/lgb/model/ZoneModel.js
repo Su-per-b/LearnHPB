@@ -19,7 +19,7 @@ lgb.model.ZoneModel = function() {
    * @const
    * @type {string}
    */
-  this._NAME = 'lgb.model.ZoneModel';
+ // this._NAME = 'lgb.model.ZoneModel';
   this._TITLE = 'Zones';
   this.init_();
   this.zoneIdxVisible = -1;

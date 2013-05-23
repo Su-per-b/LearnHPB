@@ -12,9 +12,7 @@ goog.require('lgb.controller.PropertiesController');
 goog.require('lgb.controller.InputController');
 
 goog.require('lgb.events.RequestVisibilityChange');
-goog.require('lgb.events.WorldCreated');
 goog.require('lgb.view.TitleBarView');
-goog.require('lgb.events.WindowResize');
 goog.require('lgb.events.LayoutChange');
 
 
@@ -37,7 +35,7 @@ goog.inherits(lgb.controller.GuiController, lgb.controller.BaseController);
 lgb.controller.GuiController.prototype.init_ = function() {
 
   this.adminController = new lgb.controller.AdminController();
-  this.leftNavController = new lgb.controller.LeftNavController();
+ // this.leftNavController = new lgb.controller.LeftNavController();
   this.propertiesController = new lgb.controller.PropertiesController();
   
   
@@ -53,15 +51,8 @@ lgb.controller.GuiController.prototype.init_ = function() {
 
 lgb.controller.GuiController.prototype.bind_ = function() {
 
-  this.listen(lgb.events.WindowResize.TYPE, this.onWindowResize_);
   this.listen(lgb.events.LayoutChange.TYPE, this.onLayoutChange_);
 
-};
-
-
-lgb.controller.GuiController.prototype.onWindowResize_ = function(event) {
-
-    this.titleBarView.tweenToPosition();
 };
 
 

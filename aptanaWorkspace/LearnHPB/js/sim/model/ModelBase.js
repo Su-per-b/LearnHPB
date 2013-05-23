@@ -27,17 +27,3 @@ sim.model.ModelBase.prototype.dispatchChange = function(whatIsDirty) {
     this.dispatchLocal(new sim.events.DataModelChanged(whatIsDirty));
 };
 
-
-/**
- * returns a CSS id based on the fullname of the class
- * @protected
- * @return {string} The CSS ID.
- */
-sim.model.ModelBase.prototype.getCssID = function() {
-  if (this._NAME === undefined) {
-    throw ('this._NAME === undefined');
-  } else {
-    var id = this._NAME.split('.').join('-');
-    return id;
-  }
-};

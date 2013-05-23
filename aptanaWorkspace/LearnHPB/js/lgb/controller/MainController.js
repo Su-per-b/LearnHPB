@@ -25,10 +25,13 @@ goog.require('lgb.simulation.model.voNative.SimStateNative');
  * @extends lgb.controller.BaseController
  */
 lgb.controller.MainController = function() {
-  this._NAME = 'lgb.controller.MainController';
+  //this._NAME = 'lgb.controller.MainController';
+  
   lgb.controller.BaseController.call(this);
   lgb.globalEventBus = new lgb.events.EventBus();
 
+  console.log('lgb.controller.MainController');
+  
   var delegate = jQuery.proxy(this.init, this);
   jQuery(document).ready(delegate);
 };
@@ -42,20 +45,22 @@ goog.inherits(lgb.controller.MainController, lgb.controller.BaseController);
 lgb.controller.MainController.prototype.init = function() {
 
 
+  console.log('lgb.controller.MainController.init');
   this.injectErrorWindow_();
   this.injectSimulationWindow_();
-
+  
+  
 /*
-
   window.onerror = function(errorMsg, url, lineNumber) {
-    
-    
     var w = $('#errorWindow').data('kendoWindow');
      w.content(errorMsg + '<br />url:' + url + '<br />line:' + lineNumber);
        w.open();
-       
-     //debugger;
-  };
+     debugger;
+  };*/
+
+  
+/*
+
 
 */
 
@@ -125,7 +130,7 @@ lgb.controller.MainController.prototype.onWindowResize_ =
  * @private
  */
 lgb.controller.MainController.prototype.injectSimulationWindow_ = function() {
-  $('<p>')
+  var container = $('<p>')
     .attr('id', 'simulationWindow')
     .appendTo('body');
 
@@ -141,6 +146,10 @@ lgb.controller.MainController.prototype.injectSimulationWindow_ = function() {
    }).data('kendoWindow');
 
    w.center();
+   
+   
+   container.attr('unselectable','on').css('UserSelect','none').css('MozUserSelect','none');
+   
 };
 
 
@@ -151,7 +160,7 @@ lgb.controller.MainController.prototype.injectSimulationWindow_ = function() {
  * @private
  */
 lgb.controller.MainController.prototype.injectErrorWindow_ = function() {
-  $('<p>')
+  var container = $('<p>')
     .attr('id', 'errorWindow')
     .appendTo('body');
 
@@ -167,6 +176,9 @@ lgb.controller.MainController.prototype.injectErrorWindow_ = function() {
    }).data('kendoWindow');
 
    w.center();
+   
+   container.attr('unselectable','on').css('UserSelect','none').css('MozUserSelect','none');
+   
 };
 
 

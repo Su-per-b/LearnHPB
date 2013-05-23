@@ -7,7 +7,6 @@ goog.provide('lgb.controller.AdminController');
 goog.require('lgb.controller.BaseController');
 goog.require('lgb.view.AdminButtonView');
 goog.require('lgb.view.AdminView');
-goog.require('lgb.events.WindowResize');
 goog.require('lgb.events.LayoutChange');
 
 /**
@@ -15,7 +14,6 @@ goog.require('lgb.events.LayoutChange');
  * @extends lgb.controller.BaseController
  */
 lgb.controller.AdminController = function() {
-  this._NAME = 'lgb.controller.AdminController';
   lgb.controller.BaseController.call(this);
   this.init_();
 };
@@ -38,7 +36,6 @@ lgb.controller.AdminController.prototype.init_ = function() {
 
 lgb.controller.AdminController.prototype.bind_ = function() {
     
-  this.listen(lgb.events.WindowResize.TYPE, this.onWindowResize_);
   this.listen(lgb.events.LayoutChange.TYPE, this.onLayoutChange_);
   this.listen(lgb.events.ScenarioParsed.TYPE, this.onScenarioParsed_);
 };
@@ -46,11 +43,6 @@ lgb.controller.AdminController.prototype.bind_ = function() {
 
 
 lgb.controller.AdminController.prototype.onLayoutChange_ = function(event) {
-    this.buttonView.tweenToPosition();
-};
-
-
-lgb.controller.AdminController.prototype.onWindowResize_ = function(event) {
     this.buttonView.tweenToPosition();
 };
 

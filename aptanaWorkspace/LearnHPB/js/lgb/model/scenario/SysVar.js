@@ -14,7 +14,7 @@ goog.require('lgb.model.BaseModel');
 lgb.model.scenario.SysVar = function(node) {
 
    /**@const */
-  this._NAME = 'lgb.model.scenario.SysVar';
+  //this._NAME = 'lgb.model.scenario.SysVar';
 
   lgb.model.BaseModel.call(this);
   this.name = '';

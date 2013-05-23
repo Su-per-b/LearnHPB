@@ -8,7 +8,7 @@ goog.provide('lgb.view.EnvelopeView');
 goog.require('goog.userAgent');
 goog.require('lgb.ThreeUtils');
 goog.require('lgb.events.ViewInitialized');
-goog.require('BaseView3dScene');
+goog.require('lgb.view.BaseView3dScene');
 
 goog.require('lgb.model.BuildingHeightModel');
 goog.require('lgb.events.BuildingHeightChanged');
@@ -25,7 +25,7 @@ lgb.view.EnvelopeView = function(dataModel) {
   this._NAME = 'lgb.view.EnvelopeView';
   this._ASSETS_FOLDER = 'envelope';
   
-  BaseView3dScene.call(this, dataModel);
+ lgb.view.BaseView3dScene.call(this, dataModel);
 
   this.floorMeshHash_ = [];
   this.floorOffset_= [];  
@@ -40,9 +40,9 @@ lgb.view.EnvelopeView = function(dataModel) {
   
   this.topFloorMesh_ = null;
   
-  this.init();
+
 };
-goog.inherits(lgb.view.EnvelopeView, BaseView3dScene);
+goog.inherits(lgb.view.EnvelopeView,lgb.view.BaseView3dScene);
 
 
 
@@ -82,8 +82,21 @@ lgb.view.EnvelopeView.prototype.onSceneLoaded_ = function() {
   this.requestAddToWorld(this.masterGroup_);
     
   this.makeFloors_();
-
+  
+  this.dispatchVisibilityNodes_();
 };
+
+
+lgb.view.EnvelopeView.prototype.dispatchVisibilityNodes_ = function() {
+
+
+  var node = new lgb.model.vo.VisibilityNode('Envelope', this.masterGroup_, 1 );
+  
+  var event = new lgb.events.VisibilityNodesLoaded(node);
+  this.dispatchLocal(event);
+ 
+  return;
+}
 
 
 /**

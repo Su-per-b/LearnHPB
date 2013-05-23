@@ -8,7 +8,7 @@
 */
 
 goog.provide('lgb.component.CheckBox');
-goog.require('lgb.view.BaseView');
+goog.require('lgb.view.BaseV');
 
 
 /**
@@ -17,21 +17,21 @@ goog.require('lgb.view.BaseView');
  * @param {string} subID The second  part fo the CSS id.
  * @param {string} title Ysed fro the label of the component.
  * @constructor
- * @extends {lgb.view.BaseView}
+ * @extends {lgb.view.BaseV}
  */
 lgb.component.CheckBox = function(parentHtmlID, subID, title) {
     
   var htmlID = parentHtmlID + '-' + subID;
     
   this._NAME = 'lgb.component.CheckBox';
-  lgb.view.BaseView.call(this, null, htmlID, parentHtmlID);
+  lgb.view.BaseV.call(this, null, htmlID, parentHtmlID);
 
   this.title = title;
   this.isChecked = false;
   this.hasBeenInjected = false;
 
 };
-goog.inherits(lgb.component.CheckBox, lgb.view.BaseView);
+goog.inherits(lgb.component.CheckBox, lgb.view.BaseV);
 
 
 

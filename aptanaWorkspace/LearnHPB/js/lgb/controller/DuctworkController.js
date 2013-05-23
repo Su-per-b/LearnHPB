@@ -14,13 +14,16 @@ goog.require('lgb.events.BuildingHeightChanged');
 goog.require('lgb.events.ViewPointCollectionLoaded');
 goog.require('lgb.model.BuildingHeightModel');
 
+goog.require('lgb.model.vo.VisibilityNode');
+goog.require('lgb.events.VisibilityNodesLoaded');
+
+
 /**
  * MVC controller for the Ductwork
  * @constructor
  * @extends lgb.controller.BaseController
  */
 lgb.controller.DuctworkController = function() {
-  this._NAME = 'lgb.controller.DuctworkController';
   lgb.controller.BaseController.call(this);
   this.init_();
 };
@@ -64,7 +67,20 @@ lgb.controller.DuctworkController.prototype.bind_ = function() {
     this.viewPointCollectionLoaded_
     );
     
-     
+    
+  this.listenTo(
+    this.view,
+    lgb.events.VisibilityNodesLoaded.TYPE,
+    this.onVisibilityNodesLoaded_
+    );
+};
+
+
+lgb.controller.DuctworkController.prototype.onVisibilityNodesLoaded_ =
+  function(event) {
+
+  this.dispatch(event);
+  
 };
 
 

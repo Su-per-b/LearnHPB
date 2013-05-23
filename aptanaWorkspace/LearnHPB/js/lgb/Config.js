@@ -44,7 +44,7 @@ lgb.Config.APP_TITLE = 'Learn High Performance Buildings';
  * @const
  * @type {string}
  */
-lgb.Config.APP_VERSION = 'Demo 12.1';
+lgb.Config.APP_VERSION = 'Demo 12.2';
 
 /**
  * Will show status in the upper left if set to true.

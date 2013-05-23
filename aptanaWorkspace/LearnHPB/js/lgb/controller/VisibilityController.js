@@ -5,9 +5,15 @@
 
 goog.provide('lgb.controller.VisibilityController');
 
+goog.require('lgb.controller.BaseController');
+
+goog.require('lgb.events.RequestDataModelChange');
+goog.require('lgb.events.RequestVisibilityChange');
+goog.require('lgb.events.VisibilityNodesLoaded');
+
 goog.require('lgb.view.VisibilityGUI');
-
-
+goog.require('lgb.model.VisibilityModel');
+goog.require('lgb.view.VisibilityView');
 
 /**
  * MVC controller for the VisibilityController
@@ -29,12 +35,64 @@ goog.inherits(lgb.controller.VisibilityController, lgb.controller.BaseController
  */
 lgb.controller.VisibilityController.prototype.init_ = function() {
 
-
-
-  this.guiView = new lgb.view.VisibilityGUI (this.dataModel);
-  this.guiView.init();
+  this.dataModel = new lgb.model.VisibilityModel();
   
+  this.guiView = new lgb.view.VisibilityGUI ( this.dataModel );
+  this.view = new lgb.view.VisibilityView ( this.dataModel );
+  
+  this.bind_();
+  
+  this.guiView.init();
 
+};
+
+/**
+ * Binds specific event types to functions which handle the events.
+ * If no event target is specified then the listener is set  on the global
+ * event bus.
+ * @private
+ */
+lgb.controller.VisibilityController.prototype.bind_ = function() {
+
+  this.listenTo(
+    this.guiView,
+    lgb.events.RequestDataModelChange.TYPE,
+    this.onRequestDataModelChange_
+   );
+    
+    
+  this.listen(
+    lgb.events.VisibilityNodesLoaded.TYPE,
+    this.onVisibilityNodesLoaded_
+    );
+    
+};
+
+
+/**
+ * @private
+ * @param {lgb.events.RequestDataModelChange} event Fired by a view.
+ */
+lgb.controller.VisibilityController.prototype.onVisibilityNodesLoaded_ =
+  function(event) {
+
+  this.dataModel.addNode(event.payload);
   
 };
+
+
+
+/**
+ * @private
+ * @param {lgb.events.RequestDataModelChange} event Fired by a view.
+ */
+lgb.controller.VisibilityController.prototype.onRequestDataModelChange_ =
+  function(event) {
+
+  this.dataModel.changeAry(event.payload);
+  
+};
+
+
+
 

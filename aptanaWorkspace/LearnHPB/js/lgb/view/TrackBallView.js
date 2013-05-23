@@ -97,8 +97,13 @@ lgb.view.TrackBallView.prototype.setCameraTarget = function(target) {
  * experimental
  */
 lgb.view.TrackBallView.prototype.disposeInternal = function() {
-  this.unlisten(this.listenKey_);
-  delete this.listenKey_;
+  
+  if (this.listenKey_) {
+    this.unlisten(this.listenKey_);
+    delete this.listenKey_;
+  }
+  
+
 };
 
 

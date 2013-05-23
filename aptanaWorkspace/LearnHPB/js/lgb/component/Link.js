@@ -13,18 +13,18 @@ goog.require('lgb.events.MouseOver');
 /**
  * Html radio button group that will be inserted into the DOM
  * @constructor
- * @extends {lgb.view.BaseView}
+ * @extends {lgb.view.BaseV}
  * @param {lgb.component.LinkDataSource} ds the datasource
  * for this component.
  */
 lgb.component.Link = function(ds) {
   this._NAME = 'lgb.component.Link';
   
-  lgb.view.BaseView.call(this, null, ds.htmlID);
+  lgb.view.BaseV.call(this, null, ds.htmlID);
   this.ds = ds;
 
 };
-goog.inherits(lgb.component.Link, lgb.view.BaseView);
+goog.inherits(lgb.component.Link, lgb.view.BaseV);
 
 
 /**

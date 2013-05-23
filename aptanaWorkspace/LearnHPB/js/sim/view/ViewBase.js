@@ -35,10 +35,6 @@ goog.inherits(sim.view.ViewBase, sim.BaseClass);
 
 sim.view.ViewBase.prototype.setIds_ = function(htmlID, parentHtmlID) {
     
-  if (this._NAME === undefined  ) {
-    throw ("You must define this._NAME")
-  }
-  
   if (undefined === htmlID || '' === htmlID) {
       
       var ary=this._NAME.split(".");

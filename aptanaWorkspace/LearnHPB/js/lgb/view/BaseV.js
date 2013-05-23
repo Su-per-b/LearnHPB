@@ -5,6 +5,8 @@ goog.require('lgb.events.DataModelChanged');
 goog.require('lgb.events.RequestDataModelChange');
 goog.require('lgb.utils');
 
+
+
 /**
  * MVC View base class
  * @constructor
@@ -17,8 +19,12 @@ lgb.view.BaseV = function(dataModel, htmlID, parentHtmlID) {
   if (null !== dataModel && undefined !== dataModel) {
     this.dataModel = dataModel;
     
-    if (this.onChange) {
-      this.listenForChange_();
+    if (this.onChange && this.dataModel) {
+      this.listenHelper_(
+        this.dataModel, 
+        lgb.events.DataModelChanged.TYPE, 
+        this,
+        this.onChange);
     }
 
   }
@@ -36,7 +42,17 @@ goog.inherits(lgb.view.BaseV, lgb.BaseClass);
  * @protected
  */
 lgb.view.BaseV.prototype.append = function(html) {
-  this.jqParent().append(html);
+  
+  if (undefined == this.mainElement_) {
+    this.mainElement_ = $("<div>").attr("id", this.htmlID);
+    this.mainElement_.append(html);
+    this.jqParent().append( this.mainElement_);
+  } else {
+    
+    this.mainElement_.append(html);
+  }
+  
+
 };
 
 /**
@@ -45,20 +61,19 @@ lgb.view.BaseV.prototype.append = function(html) {
  * @return {string} The generated ID.
  */
 lgb.view.BaseV.prototype.makeID = function(id) {
+  lgb.assert(this.htmlID);
   var newID = '{0}-{1}'.format(this.htmlID, id);
   return newID;
 };
 
 
-lgb.view.BaseV.prototype.makeMainDiv = function() {
+lgb.view.BaseV.prototype.makeMainElement_ = function() {
+  
+    lgb.assert(this.htmlID);
     
-    var mainDiv = $("<div>")
-                        .attr("id", this.htmlID);
-                        
-    this.jqParent().append(mainDiv);
+    this.mainElement_ = $("<div>").attr("id", this.htmlID);
+    this.jqParent().append(this.mainElement_);
     
-    return mainDiv;
-
 };
 
 
@@ -66,13 +81,16 @@ lgb.view.BaseV.prototype.makeMainDiv = function() {
 lgb.view.BaseV.prototype.setIds_ = function(htmlID, parentHtmlID) {
     
 
-  this.htmlID = htmlID || this.generateHtmlID();
+  this.htmlID = htmlID;
+  
   this.parentHtmlID = parentHtmlID || 'theBody';
   
 };
 
 lgb.view.BaseV.prototype.generateHtmlID = function() {
     
+      
+      
       var ary=this._NAME.split(".");
       var len = ary.length;
       var id = ary[len-1];
@@ -80,14 +98,22 @@ lgb.view.BaseV.prototype.generateHtmlID = function() {
       return id;
 }
 
+
+
 /**
  * converts and id into a Jquery element
  * @param {string=} id The css id.
  * @return {jQuery} Element.
  */
 lgb.view.BaseV.prototype.jq = function(id) {
+  
+  if (undefined == id) {
+    lgb.assert(this.htmlID);
+    id = this.htmlID;
+  }
 
-  var cssID = id || this.htmlID;
+  
+  var cssID = id;
   var selector = '#{0}'.format(cssID);
  
   var jqElement = $(selector);
@@ -125,14 +151,4 @@ lgb.view.BaseV.prototype.requestDataModelChange = function(propertyName, propert
 };
 
 
-
-/**
- * Binds an event listener to handle when the MVC data model changes.
- * @protected
- */
-lgb.view.BaseV.prototype.listenForChange_ = function() {
-
-  this.listenHelper_(this.dataModel, lgb.events.DataModelChanged.TYPE, this, this.onChange);
-
-};
 

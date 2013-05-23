@@ -12,7 +12,6 @@ goog.require('lgb.controller.PsController');
 goog.require('lgb.events.DataModelChanged');
 goog.require('lgb.events.DataModelInitialized');
 goog.require('lgb.events.BuildingHeightChanged');
-goog.require('lgb.events.WorldCreated');
 goog.require('lgb.events.RequestDataModelChange');
 goog.require('lgb.events.Object3DLoaded');
 
@@ -137,7 +136,7 @@ lgb.controller.PsMasterController.prototype.onBuildingHeightChanged_ =
 lgb.controller.PsMasterController.prototype.onRequestDataModelChange_ =
   function(event) {
 
-  this.psMasterDataModel.requestChangeAry(event.payload);
+  this.psMasterDataModel.changeAry(event.payload);
   
 };
 

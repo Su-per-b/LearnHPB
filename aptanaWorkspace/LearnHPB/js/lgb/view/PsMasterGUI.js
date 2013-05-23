@@ -93,7 +93,7 @@ lgb.view.PsMasterGUI.prototype.onChangeDataSource_ = function(event) {
  */
 lgb.view.PsMasterGUI.prototype.injectHtml = function() {
 
-  this.mainDiv_ = this.makeMainDiv();
+  this.makeMainElement_();
   
   this.treeActive = new lgb.component.Tree(this.treeActiveDS);
   var element = this.treeActive.makeElement();

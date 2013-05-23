@@ -128,13 +128,22 @@ kendo_module({
             that.element
                 .find(splitbarDraggableSelector)
                     .on("keydown" + NS, $.proxy(that._keydown, that))
-                    .on("mousedown" + NS, function(e) { e.currentTarget.focus(); })
+                    .on("mousedown" + NS, function(e) { 
+                      e.currentTarget.focus(); 
+
+                      })
                     .on("focus" + NS, function(e) { $(e.currentTarget).addClass(FOCUSED);  })
                     .on("blur" + NS, function(e) { $(e.currentTarget).removeClass(FOCUSED); that.resizing.end(); })
                     .on(MOUSEENTER + NS, function() { $(this).addClass("k-splitbar-" + that.orientation + "-hover"); })
                     .on(MOUSELEAVE + NS, function() { $(this).removeClass("k-splitbar-" + that.orientation + "-hover"); })
-                    .on("mousedown" + NS, function() { that._panes().append("<div class='k-splitter-overlay k-overlay' />"); })
-                    .on("mouseup" + NS, function() { that._panes().children(".k-splitter-overlay").remove(); })
+                    .on("mousedown" + NS, function() { 
+                     // that._panes().append("<div class='k-splitter-overlay k-overlay' />"); 
+                      
+                      })
+                    .on("mouseup" + NS, function() { 
+                      //that._panes().children(".k-splitter-overlay").remove(); 
+
+                      })
                 .end()
                 .on(CLICK + NS, ".k-splitbar .k-collapse-next, .k-splitbar .k-collapse-prev", that._arrowClick(COLLAPSE))
                 .on(CLICK + NS, ".k-splitbar .k-expand-next, .k-splitbar .k-expand-prev", that._arrowClick(EXPAND))

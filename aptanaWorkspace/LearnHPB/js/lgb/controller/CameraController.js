@@ -14,7 +14,6 @@ goog.require('lgb.events.RequestGoToViewPoint');
  * @extends lgb.controller.BaseController
  */
 lgb.controller.CameraController = function(domElement) {
-  this._NAME = 'lgb.controller.CameraController';
   lgb.controller.BaseController.call(this);
   
   this.domElement_ = domElement;

@@ -8,7 +8,7 @@
 */
 
 goog.provide('lgb.component.Tree');
-goog.require('lgb.view.BaseView');
+goog.require('lgb.view.BaseV');
 goog.require('lgb.events.DataSourceChanged');
 
 /**
@@ -17,19 +17,18 @@ goog.require('lgb.events.DataSourceChanged');
  * @param {string} subID The second  part fo the CSS id.
  * @param {string} title Ysed for the label of the component.
  * @constructor
- * @extends {lgb.BaseView}
+ * @extends {lgb.BaseV}
  */
 lgb.component.Tree = function(ds) {
     
-  this._NAME = 'lgb.component.Tree'; 
-  lgb.view.BaseView.call(this);
+  lgb.view.BaseV.call(this);
   
   lgb.assert (ds);
   this.ds = ds;
   
   this.nodeStatusList_ = [];
 };
-goog.inherits(lgb.component.Tree, lgb.view.BaseView);
+goog.inherits(lgb.component.Tree, lgb.view.BaseV);
 
 
 

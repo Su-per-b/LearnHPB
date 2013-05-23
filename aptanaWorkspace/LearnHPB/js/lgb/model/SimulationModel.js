@@ -15,7 +15,7 @@ goog.require('lgb.model.SimulationModelState');
  */
 lgb.model.SimulationModel = function() {
   /**@const */
-  this._NAME = 'lgb.model.SimulationModel';
+  //this._NAME = 'lgb.model.SimulationModel';
   
   /**@const */
   this._TITLE = 'Simulation';

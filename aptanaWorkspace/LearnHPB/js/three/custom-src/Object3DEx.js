@@ -2,6 +2,8 @@
 
 THREE.Object3D.prototype._NAME = 'THREE.Object3D';
 
+
+
 THREE.Object3D.prototype.removeAllChildren = function() {
 
     var len = this.children.length;
@@ -19,7 +21,55 @@ THREE.Object3D.prototype.removeAllChildren = function() {
     };
 };
 
+THREE.Object3D.prototype.setVisible = function( isVisible) {
+  
+  if (this.isVisibleHelper_ != isVisible) {
+    
+    this.isVisibleHelper_ = isVisible
+    
+    if (isVisible) {
+      this.position.z = this.zz;
+    } else {
+      
+      this.zz = this.position.z;
+      this.position.z = -10000;
+    }
 
+  }
+
+}
+
+THREE.Object3D.prototype.setProperty = function(propertyName, propertyValue, includeDecendants) {
+  
+  if (this[propertyName] != propertyValue) {
+    this[propertyName] = propertyValue;
+  }
+
+  if (includeDecendants && (this instanceof THREE.Mesh) == false) {
+    this.setDescendantsProperty(propertyName, propertyValue);
+  }
+}
+
+THREE.Object3D.prototype.setDescendantsProperty = function(propertyName, propertyValue) {
+    
+   var decendants = this.children;
+   var len = decendants.length;
+
+   for (var i=0; i < len; i++) {
+     
+     var child = decendants[i];
+     
+     if ( child instanceof THREE.Mesh  ) {
+       child.setProperty(propertyName, propertyValue, false);
+     } else {
+       child.setProperty(propertyName, propertyValue, true);
+     }
+     
+   };
+   
+   return decendants;
+                              
+};
 
 
 THREE.Object3D.prototype.getDescendantsBoundingBox = function() {
@@ -35,7 +85,7 @@ THREE.Object3D.prototype.getDescendantsBoundingBox = function() {
      
      var child = decendants[i];
      
-     if ( "THREE.Mesh" == child._NAME ) {
+     if ( child instanceof THREE.Mesh ) {
        var boundingBoxObject = child.getBoundingBox();
        
        boundingBoxObject.addSelf(child.position);

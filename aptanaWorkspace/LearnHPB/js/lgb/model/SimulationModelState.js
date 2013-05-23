@@ -6,7 +6,6 @@
 goog.provide('lgb.model.SimulationModelState');
 
 
-
 /**
  * @enum {number}
  */

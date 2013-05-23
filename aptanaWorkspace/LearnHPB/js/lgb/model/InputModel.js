@@ -14,7 +14,7 @@ goog.require('lgb.model.BaseModel');
  */
 lgb.model.InputModel = function() {
   /**@const */
-  this._NAME = 'lgb.model.InputModel';
+  //this._NAME = 'lgb.model.InputModel';
   /**@const */
   this._TITLE = 'InputModel';
 

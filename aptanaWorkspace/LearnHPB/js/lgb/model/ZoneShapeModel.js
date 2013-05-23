@@ -20,7 +20,7 @@ lgb.model.ZoneShapeModel = function(x, y, z) {
    * @const
    * @type {string}
    */
-  this._NAME = 'lgb.model.ZoneShapeModel';
+ // this._NAME = 'lgb.model.ZoneShapeModel';
 
   this.dimensions = new THREE.Vector3(x, y, z);
   this.position = null;

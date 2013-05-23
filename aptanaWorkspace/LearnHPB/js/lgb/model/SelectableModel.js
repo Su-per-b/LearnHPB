@@ -14,7 +14,7 @@ goog.require('goog.array');
  */
 lgb.model.SelectableModel = function() {
   /**@const */
-  this._NAME = 'lgb.model.SelectableModel';
+ // this._NAME = 'lgb.model.SelectableModel';
 
   lgb.model.BaseModel.call(this);
   this.init_();

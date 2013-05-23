@@ -17,7 +17,6 @@ goog.require('lgb.controller.BaseController');
  * @extends lgb.controller.BaseController
  */
 lgb.controller.CameraCraneController = function() {
-  this._NAME = 'lgb.controller.CameraCraneController';
   lgb.controller.BaseController.call(this);
   this.debugMode = false;
   
@@ -46,7 +45,7 @@ lgb.controller.CameraCraneController.prototype.init =
 
   
   this.cameraOnCrane_ = cameraOnCrane;
-  this.lookAtTarget = new THREE.Vector3(0,0,0);
+  this.lookAtTarget = new THREE.Vector3(0,20,0);
   
   if (this.debugMode) {
     

@@ -17,7 +17,7 @@ lgb.model.DuctworkModel = function() {
 
 
   /**@const */
-  this._NAME = 'lgb.model.DuctworkModel';
+  //this._NAME = 'lgb.model.DuctworkModel';
   /**@const */
   this._TITLE = 'Ductwork';
   lgb.model.BaseModel.call(this);

@@ -46,7 +46,7 @@ lgb.controller.ViewPointController.prototype.init_ = function() {
   this.dataModel = new lgb.model.ViewPointModel();
   
   this.view = new lgb.view.ViewPointView(this.dataModel);
-  this.view.init();
+  //this.view.init();
 
   this.guiView = new lgb.view.ViewPointGUI (this.dataModel);
   this.guiView.init();
@@ -77,7 +77,7 @@ lgb.controller.ViewPointController.prototype.bind_ = function() {
   this.makeAddToWorldRequestGlobal();
   
 
-  this.listenTo(this.view,
+  this.listen(
     lgb.events.ViewPointCollectionLoaded.TYPE,
     this.onViewPointCollectionLoaded_);
     
@@ -93,9 +93,6 @@ lgb.controller.ViewPointController.prototype.bind_ = function() {
     this.onRequestShowViewPoint_
   );
 
-  this.listen(
-    lgb.events.ViewPointCollectionLoaded.TYPE,
-    this.onViewPointCollectionLoaded_); 
     
   this.listen(
     lgb.events.BuildingHeightChanged.TYPE,

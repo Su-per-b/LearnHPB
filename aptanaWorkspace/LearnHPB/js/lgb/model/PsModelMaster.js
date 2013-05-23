@@ -60,7 +60,7 @@ lgb.model.PsModelMaster.prototype.getPsModelList = function() {
 
 
 
-lgb.model.PsModelMaster.prototype.requestChangeAry = function(changeRequestAry) {
+lgb.model.PsModelMaster.prototype.changeAry = function(changeRequestAry) {
 
   var changeRequest = changeRequestAry[0];
   var propertyName = changeRequestAry.propertyName;

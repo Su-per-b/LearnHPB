@@ -12,7 +12,6 @@ goog.require('lgb.events.ScenarioParsed');
 goog.require('lgb.events.WorldSelectionChanged');
 goog.require('lgb.view.PropertiesButtonView');
 goog.require('lgb.view.PropertiesView');
-goog.require('lgb.events.WindowResize');
 goog.require('lgb.events.LayoutChange');
 
 
@@ -72,20 +71,20 @@ lgb.controller.PropertiesController.prototype.onScenarioParsed_ =
 lgb.controller.PropertiesController.prototype.bind_ = function() {
     
   this.listen(lgb.events.ScenarioParsed.TYPE, this.onScenarioParsed_);
-  this.listen(lgb.events.WindowResize.TYPE, this.onWindowResize_);
   this.listen(lgb.events.LayoutChange.TYPE, this.onLayoutChange_);
 };
 
 
 
 lgb.controller.PropertiesController.prototype.onLayoutChange_ = function(event) {
+  
+  if(this.buttonView) {
     this.buttonView.tweenToPosition();
+  }
+
 };
 
 
-lgb.controller.PropertiesController.prototype.onWindowResize_ = function(event) {
-    this.buttonView.tweenToPosition();
-};
 
 
 /**

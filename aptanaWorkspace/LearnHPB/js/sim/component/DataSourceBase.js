@@ -15,10 +15,6 @@ goog.require('sim.events.DataSourceChanged');
  */
 sim.component.DataSourceBase = function() {
   sim.BaseClass.call(this);
-  
-  if (this._NAME === undefined) {
-    this._NAME = 'sim.component.DataSourceBase';
-  }
 };
 goog.inherits(sim.component.DataSourceBase, sim.BaseClass);
 
@@ -33,17 +29,3 @@ sim.component.DataSourceBase.prototype.dispatchChange = function() {
   this.dispatchLocal(new sim.events.DataSourceChanged(this));
 };
 
-
-/**
- * returns a CSS id based on the fullname of the class
- * @protected
- * @return {string} The CSS ID.
- */
-sim.component.DataSourceBase.prototype.getCssID = function() {
-  if (this._NAME === undefined) {
-    throw ('this._NAME === undefined');
-  } else {
-    var id = this._NAME.split('.').join('-');
-    return id;
-  }
-};

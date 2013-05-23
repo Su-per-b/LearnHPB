@@ -10,10 +10,8 @@ goog.require('lgb.events.RequestDataModelChange');
 
 goog.require('lgb.view.ParticleElement');
 goog.require('lgb.view.ParticlePath');
-goog.require('BaseView3dScene');
+goog.require('lgb.view.BaseView3dScene');
 goog.require('lgb.model.BuildingHeightModel');
-
-
 
 /**
  * @constructor
@@ -21,20 +19,16 @@ goog.require('lgb.model.BuildingHeightModel');
  * @param {lgb.model.PsModel} dataModel The data model to display.
  */
 lgb.view.PsView = function(dataModel) {
-    
+
   this._NAME = 'lgb.view.PsView';
-  BaseView3dScene.call(this, dataModel);
+  lgb.view.BaseView3dScene.call(this, dataModel);
 
   this.title = dataModel.title;
- 
+
   this.topFloorMaxY_ = null;
   this.sceneY_ = null;
 };
-goog.inherits(lgb.view.PsView, BaseView3dScene);
-
-
-
-
+goog.inherits(lgb.view.PsView, lgb.view.BaseView3dScene);
 
 /**
  * Event Handler.
@@ -56,8 +50,6 @@ lgb.view.PsView.prototype.onChange = function(event) {
   }
 };
 
-
-
 /**
  * Updates the running state from the dataModel.
  * @private
@@ -67,7 +59,10 @@ lgb.view.PsView.prototype.updateIsRunning_ = function() {
   if (this.dataModel.isRunning) {
     this.renderListenerKey = this.listen(lgb.events.Render.TYPE, this.onRender);
   } else {
-    this.unlisten(this.renderListenerKey);
+    if (this.renderListenerKey) {
+      this.unlisten(this.renderListenerKey);
+    }
+
   }
 };
 
@@ -81,7 +76,7 @@ lgb.view.PsView.prototype.init = function() {
 
   /**@type THREE.Object3D */
   this.masterGroup_ = new THREE.Object3D();
-  this.masterGroup_.name = 'PsView-masterGroup-'+ this.dataModel.title;
+  this.masterGroup_.name = 'PsView-masterGroup-' + this.dataModel.title;
 
   this.parseConfig();
 
@@ -104,8 +99,8 @@ lgb.view.PsView.prototype.init = function() {
 
   this.updateIsRunning_();
   this.currentFrameNumber = this.launchDelayBetweenParticles + 1;
-  this.requestAddToWorld(this.masterGroup_);                                      
-  
+  this.requestAddToWorld(this.masterGroup_);
+
 };
 
 /**
@@ -131,7 +126,7 @@ lgb.view.PsView.prototype.parseConfig = function() {
  * create the particle system.
  */
 lgb.view.PsView.prototype.createSystem = function() {
-  
+
   var cicle = THREE.ImageUtils.loadTexture('3d-assets/textures/circle.png');
 
   this.pMaterial = new THREE.ParticleBasicMaterial({
@@ -169,23 +164,22 @@ lgb.view.PsView.prototype.createSystem = function() {
 
   this.activeParticles = [];
   this.threePS = new THREE.ParticleSystem(this.particlesGeometry, this.pMaterial);
-  this.threePS.name = 'PsView-ParticleSystem-'+ this.dataModel.title;
-  
+  this.threePS.name = 'PsView-ParticleSystem-' + this.dataModel.title;
+
   this.threePS.sortParticles = true;
   this.threePS.dynamic = true;
   this.masterGroup_.add(this.threePS);
 };
-
 
 /**
  * creates the THREE.js lines.
  * @private
  */
 lgb.view.PsView.prototype.makeVisibleLines_ = function() {
-    
+
   this.visibleLineGroup = new THREE.Object3D();
-  this.visibleLineGroup.name = 'PsView-visibleLineGroup-'+ this.dataModel.title;
-  
+  this.visibleLineGroup.name = 'PsView-visibleLineGroup-' + this.dataModel.title;
+
   var j = this.particlePaths.length;
   while (j--) {
     var onePath = this.particlePaths[j];
@@ -245,11 +239,10 @@ lgb.view.PsView.prototype.showCurves = function(isVisible) {
     this.masterGroup_.add(this.visibleLineGroup);
 
   } else {
-    
+
     if (undefined !== this.visibleLineGroup && this.visibleLineGroup !== null) {
       this.masterGroup_.remove(this.visibleLineGroup);
     }
-    
 
   }
 };
@@ -263,7 +256,7 @@ lgb.view.PsView.prototype.showBoxes = function(isVisible) {
 
     this.boxGroup_ = new THREE.Object3D();
     this.boxGroup_.name = this.title + '-BoxGroup';
-    
+
     var len = this.dataModel.meshes.length;
 
     for (var i = 0; i < len; i++) {
@@ -278,25 +271,19 @@ lgb.view.PsView.prototype.showBoxes = function(isVisible) {
   }
 };
 
-
-
-
 lgb.view.PsView.prototype.setBuildingHeight = function(buildingHeightModel) {
-   
+
   this.topFloorMaxY_ = buildingHeightModel.topFloorMaxY;
   this.setY_();
 };
 
-
 lgb.view.PsView.prototype.setY_ = function() {
-    
+
   if (null != this.topFloorMaxY_ && null != this.sceneY_) {
-      this.masterGroup_.position.y = this.topFloorMaxY_ + this.sceneY_;
+    this.masterGroup_.position.y = this.topFloorMaxY_ + this.sceneY_;
   }
-  
+
 };
-
-
 
 /**
  * event Handler
@@ -329,7 +316,7 @@ lgb.view.PsView.prototype.onRender = function(event) {
     }
 
     p.render();
-      
+
     if (p.isFinished) {
       popIdxList.push(i);
     }
@@ -339,8 +326,6 @@ lgb.view.PsView.prototype.onRender = function(event) {
     var finishedParticle = this.activeParticles.splice(popIdxList[0], 1)[0];
     this.inActiveParticles.push(finishedParticle);
   }
-  
-
 
   if (!this.dataModel.isEmitting) {
     if (this.activeParticles.length < 1) {
@@ -349,8 +334,6 @@ lgb.view.PsView.prototype.onRender = function(event) {
       }
     }
   }
-
-
 
   this.threePS.geometry.verticesNeedUpdate = true;
 };

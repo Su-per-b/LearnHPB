@@ -15,7 +15,6 @@ goog.require('lgb.view.BaseViewGUI');
  */
 lgb.view.DialogView = function(dataModel, htmlID, parentHtmlID) {
     
-  this._NAME = 'lgb.view.DialogView';
   lgb.view.BaseViewGUI.call(this, dataModel, htmlID, parentHtmlID);
   this.subPanels = [];
   this.useSlideEffect = false;

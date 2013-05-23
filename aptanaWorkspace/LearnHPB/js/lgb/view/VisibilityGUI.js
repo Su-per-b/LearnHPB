@@ -5,19 +5,14 @@
  
 goog.provide('lgb.view.VisibilityGUI');
 
-goog.require('lgb.component.Link');
-goog.require('lgb.component.LinkDataSource');
-
-goog.require('lgb.events.MouseClick');
-goog.require('lgb.events.MouseOut');
-goog.require('lgb.events.MouseOver');
-
 goog.require('lgb.events.RequestVisibilityChange');
-
 
 goog.require('lgb.model.VisibilityModel');
 goog.require('lgb.view.BaseViewGUI');
 
+goog.require('lgb.view.BaseViewGUI');
+goog.require('lgb.component.TreeH');
+goog.require('lgb.component.TreeDataSourceH');
 
 /**
  * @constructor
@@ -27,8 +22,10 @@ goog.require('lgb.view.BaseViewGUI');
  */
 lgb.view.VisibilityGUI = function(dataModel) {
 
-  this._NAME = 'lgb.view.VisibilityGUI';
+
   lgb.view.BaseViewGUI.call(this, dataModel,'VisibilityGUI', 'leftpanel-tabStrip-3');
+
+  
 };
 goog.inherits(lgb.view.VisibilityGUI, lgb.view.BaseViewGUI);
 
@@ -37,78 +34,73 @@ goog.inherits(lgb.view.VisibilityGUI, lgb.view.BaseViewGUI);
  * Initializes the View
  */
 lgb.view.VisibilityGUI.prototype.init = function() {
+  
+  this.treeComponent_ = null;
+  this.treeDS_ = null;
+  
+  this.treeDSlist_ = [];
   this.injectHtml();
   
 
-    var list = this.dataModel.getPsModelList();
-    
-    this.treeDS_ = new lgb.component.TreeDataSource(list,'isStarted',
-      'Active Systems',  this.htmlID, 'active-systems');
-      
-      
-
-  this.kendoTreeView_.setDataSource(this.dataModel.kendoDS);
-  this.bind_();
 };
 
-
-
-lgb.view.VisibilityGUI.prototype.onDataBound_ = function(event) {
-  this.bind_();
+lgb.view.VisibilityGUI.prototype.init2_ = function(lgbNode) {
   
+  this.treeDS_ = new lgb.component.TreeDataSourceH(lgbNode,'isVisible',this.htmlID,  'tree');
+    
+  this.listenTo(this.treeDS_,
+    lgb.events.DataSourceChanged.TYPE,
+    this.onChangeDataSource_);  
+    
+  this.treeComponent_ = new lgb.component.Tree(this.treeDS_);
+    var element = this.treeComponent_.makeElement();
+    this.append(element);   
+    
 }
 
-
-
-
-lgb.view.VisibilityGUI.prototype.onMouseEnter_ = function(event) {
-
-  var liElement = event.currentTarget.parentElement.parentElement;
-  var dataItem = this.kendoTreeView_.dataItem(liElement);
-  var VisibilityNode = this.dataModel.getVisibility(dataItem.value);
-  this.fireShowVisibility(VisibilityNode, true);
-
-};
-
-lgb.view.VisibilityGUI.prototype.onMouseLeave_ = function(event) {
-
-  var liElement = event.currentTarget.parentElement.parentElement;
-  var dataItem = this.kendoTreeView_.dataItem(liElement);
-  var VisibilityNode = this.dataModel.getVisibility(dataItem.value);
-  this.fireShowVisibility(VisibilityNode, false);
-
-};
-
-lgb.view.VisibilityGUI.prototype.fireShowVisibility = function(VisibilityNode, isVisible) {
-
-
-
+lgb.view.VisibilityGUI.prototype.onChange = function(event) {
   
-  if (null != VisibilityNode) {
+  var lgbNode = event.payload;
+  
+  if (this.treeDS_ == null) {
+    this.init2_(lgbNode);
+  } else {
     
-    if (VisibilityNode.parent.name =="Zones") {
-      
-      VisibilityNode.isVisible = isVisible;
-      this.dispatchLocal(new lgb.events.RequestShowVisibility(VisibilityNode));
-      
-    }
-  }
-
-};
-
-
-lgb.view.VisibilityGUI.prototype.onSelect_ = function(event) {
-
-  var selectedNode = event.node;
-  var dataItem = this.kendoTreeView_.dataItem(selectedNode);
-  var VisibilityNode = this.dataModel.getVisibility(dataItem.value);
-                
-  if (null != VisibilityNode) {
-    this.dispatchLocal(new lgb.events.RequestGoToVisibility(VisibilityNode));
+    this.treeDS_.update(lgbNode);
   }
 
 
+  return;
+    
 };
+
+
+
+
+lgb.view.VisibilityGUI.prototype.onChangeDataSource_ = function(event) {
+    
+   // var deferred = $.Deferred();
+    
+    
+    
+    
+    var e = new lgb.events.RequestDataModelChange(event.payload);
+    this.dispatchLocal(e);
+    
+    
+    //deferred.notify(e);
+  
+  
+  
+    
+    
+  //  return;
+    
+
+
+    
+};
+
 
 
 
@@ -116,11 +108,9 @@ lgb.view.VisibilityGUI.prototype.onSelect_ = function(event) {
  * injects the html into the DOM
  */
 lgb.view.VisibilityGUI.prototype.injectHtml = function() {
-
-  this.mainDiv_ = this.makeMainDiv();
   
-  this.treeActive = new lgb.component.Tree(this.treeDS_);
-  var element = this.treeActive.makeElement();
-  this.append(element);
+  this.mainDiv_ = this.makeMainElement_();
+  
+
 
 };

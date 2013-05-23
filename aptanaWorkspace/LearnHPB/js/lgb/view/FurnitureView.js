@@ -3,14 +3,17 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
 goog.provide('lgb.view.FurnitureView');
-goog.require('BaseView3dScene');
+goog.require('lgb.view.BaseView3dScene');
 goog.require('lgb.model.GridModel');
 goog.require('lgb.ThreeUtils');
-goog.require('lgb.model.BuildingHeightModel');
+
 goog.require('lgb.events.ViewPointCollectionLoaded');
+goog.require('lgb.events.VisibilityNodesLoaded');
+
+goog.require('lgb.model.BuildingHeightModel');
 goog.require('lgb.model.ViewPointNode');
 goog.require('lgb.model.ViewPointCollection');
-
+goog.require('lgb.model.vo.VisibilityNode');
 
 /**
  * @constructor
@@ -18,49 +21,62 @@ goog.require('lgb.model.ViewPointCollection');
  * @param {lgb.model.FurnitureModel} dataModel The model to display.
  */
 lgb.view.FurnitureView = function(dataModel) {
-    
-  this._NAME = 'lgb.view.FurnitureView';
+
   this._ASSETS_FOLDER = 'furniture';
-  
-  BaseView3dScene.call(this, dataModel);
+  this._TITLE = 'Furniture';
+
+ lgb.view.BaseView3dScene.call(this, dataModel);
 
   this.topFloorMinY_ = null;
   this.sceneY_ = null;
-  
+
 };
-goog.inherits(lgb.view.FurnitureView, BaseView3dScene);
+goog.inherits(lgb.view.FurnitureView,lgb.view.BaseView3dScene);
 
 
 
 lgb.view.FurnitureView.prototype.setBuildingHeight = function(buildingHeightModel) {
-   
+
   this.topFloorMinY_ = buildingHeightModel.topFloorMinY;
   this.setY_();
 };
 
 lgb.view.FurnitureView.prototype.setY_ = function() {
-    
+
   if (null != this.topFloorMinY_ && null != this.sceneY_) {
-      this.masterGroup_.position.y = this.topFloorMinY_ + this.sceneY_;
+    this.masterGroup_.position.y = this.topFloorMinY_ + this.sceneY_;
   }
-  
+
 };
-
-
 
 lgb.view.FurnitureView.prototype.onSceneLoaded_ = function() {
-    
-    this.sceneY_ = this.masterGroup_.position.y;
-    this.setY_();
-  
-    var viewPointNodeCollection = new lgb.model.ViewPointCollection(
-        "Furniture", this.masterGroup_.children);
-        
-    var event = new lgb.events.ViewPointCollectionLoaded(viewPointNodeCollection);
-    this.dispatchLocal(event);
-    
+
+  this.sceneY_ = this.masterGroup_.position.y;
+  this.setY_();
+
+  this.dispatchViewpoints_();
+  this.dispatchVisibilityNodes_();
+
 };
 
+lgb.view.FurnitureView.prototype.dispatchVisibilityNodes_ = function() {
+
+
+  var node = new lgb.model.vo.VisibilityNode('Funiture', this.masterGroup_, 1 );
+  
+  var event = new lgb.events.VisibilityNodesLoaded(node);
+  this.dispatchLocal(event);
+ 
+  return;
+}
+
+lgb.view.FurnitureView.prototype.dispatchViewpoints_ = function() {
+
+  var viewPointNodeCollection = new lgb.model.ViewPointCollection(this._TITLE, this.masterGroup_.children);
+
+  var event = new lgb.events.ViewPointCollectionLoaded(viewPointNodeCollection);
+  this.dispatchLocal(event);
+}
 
 /**
  * Updates this view to reflect the changes in the visibility
@@ -74,7 +90,4 @@ lgb.view.FurnitureView.prototype.updateVisible_ = function() {
     this.masterGroup_.children[i].visible = this.dataModel.isVisible;
   }
 };
-
-
-
 
