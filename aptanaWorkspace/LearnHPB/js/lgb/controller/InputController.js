@@ -10,6 +10,7 @@ goog.require('lgb.Config');
 goog.require('lgb.view.InputGUI');
 goog.require('lgb.model.InputModel');
 
+
 lgb.controller.InputController = function() {
 
   lgb.controller.BaseController.call(this);
@@ -25,26 +26,17 @@ lgb.controller.InputController.prototype.init_ = function() {
 
   this.dataModel = new lgb.model.InputModel();
 
-  this.view = new lgb.view.InputGUI(this.dataModel, 'InputGUI', 'leftPanel');
-  this.view.init();
-
-  this.visibilityController_ = new lgb.controller.VisibilityController();
-  this.viewpointController_ = new lgb.controller.ViewPointController();
-  this.psMasterController_ = new lgb.controller.PsMasterController();
-
+  this.guiView = new lgb.view.InputGUI(this.dataModel, 'InputGUI', 'leftPanel');
   this.bind_();
-
-  this.visibilityController_.init();
-  this.viewpointController_.init();
-  this.psMasterController_.init();
+  
+  this.guiView.init();
 
   return;
 };
 
 lgb.controller.InputController.prototype.bind_ = function() {
 
-  this.listenTo(
-    [this.visibilityController_, this.viewpointController_, this.psMasterController_], 
+  this.listen(
     e.RequestAddToGUI, 
     this.onRequestAddToGUI_);
 
@@ -52,7 +44,7 @@ lgb.controller.InputController.prototype.bind_ = function() {
 
 lgb.controller.InputController.prototype.onRequestAddToGUI_ = function(event) {
 
-  this.view.addGUIview(event.payload);
+  this.guiView.add(event.payload);
 
   return;
 }
@@ -63,7 +55,7 @@ lgb.controller.InputController.prototype.injectCss_ = function() {
 
   var cssInner = '';
 
-  cssInner += this.view.getCss();
+  cssInner += this.guiView.getCss();
   var cssStr = "\n<style type='text/css'>{0}</style>".format(cssInner);
 
   $('head').append(cssStr);

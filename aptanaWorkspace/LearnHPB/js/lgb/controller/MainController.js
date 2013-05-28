@@ -7,7 +7,6 @@ goog.provide('lgb.controller.MainController');
 
 goog.require('goog.debug.Logger');
 goog.require('lgb.Config');
-goog.require('lgb.controller.AdminController');
 goog.require('lgb.controller.BaseController');
 goog.require('lgb.controller.GuiController');
 goog.require('lgb.controller.ScenarioController');

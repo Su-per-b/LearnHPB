@@ -77,7 +77,7 @@ lgb.controller.VisibilityController.prototype.bind_ = function() {
     this.onRequestDataModelChange_
    );
 
-  this.relayLocal(
+  this.relay(
     this.guiView,
     e.RequestAddToGUI
     );

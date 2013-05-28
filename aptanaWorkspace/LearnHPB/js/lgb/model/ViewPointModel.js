@@ -31,7 +31,6 @@ lgb.model.ViewPointModel.prototype.init_ = function() {
   this.masterViewPointList_ = [];
   this.kendoDS = new kendo.data.HierarchicalDataSource({});
 
-  
 };
 
 

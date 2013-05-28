@@ -12,6 +12,7 @@ goog.require('lgb.model.BuildingModel.Group');
 goog.require('lgb.model.EnvelopeModel');
 goog.require('lgb.view.EnvelopeAdminView');
 goog.require('lgb.view.EnvelopeView');
+goog.require('lgb.view.EnvelopeGUI');
 goog.require('lgb.events.TopFloorLoaded');
 
 
@@ -33,10 +34,12 @@ lgb.controller.EnvelopeController.prototype.init_ = function() {
 
   this.dataModel = new lgb.model.EnvelopeModel();
   this.view = new lgb.view.EnvelopeView(this.dataModel);
+  this.guiView = new lgb.view.EnvelopeGUI(this.dataModel);
   
   this.bind_();
   
   this.view.init();
+  this.guiView.init();
   
   this.dispatch(new lgb.events.EnvelopeModelChanged(this.dataModel));
 };
@@ -64,13 +67,18 @@ lgb.controller.EnvelopeController.prototype.bind_ = function() {
     lgb.events.BuildingHeightChanged.TYPE,
     this.onBuildingHeightChanged_);
     
-    
+  this.relay(
+    this.guiView,
+    e.RequestAddToGUI
+    );
     
   this.listenTo(
     this.view,
     lgb.events.VisibilityNodesLoaded.TYPE,
     this.onVisibilityNodesLoaded_
     );
+    
+
     
 };
 
@@ -125,11 +133,12 @@ lgb.controller.EnvelopeController.prototype.onBuildingHeightChanged_ =
 lgb.controller.EnvelopeController.prototype.onViewInitialized_ =
   function(event) {
 
-  this.adminView = new lgb.view.EnvelopeAdminView(this.dataModel, 'adminView');
-
-  this.listenTo(this.adminView,
+    
+  this.listenTo(
+    this.guiView,
     lgb.events.RequestDataModelChange.TYPE,
-    this.onRequestDataModelChange_);
+    this.onRequestDataModelChange_
+    );
     
     var topFloorContainer = this.view.getTopFloorContainer();
     

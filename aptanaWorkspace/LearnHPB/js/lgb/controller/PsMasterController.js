@@ -40,13 +40,13 @@ goog.inherits(lgb.controller.PsMasterController, lgb.controller.BaseController);
  */
 lgb.controller.PsMasterController.prototype.init = function() {
   
-  this.psMasterDataModel = new lgb.model.PsModelMaster();
+  this.dataModel = new lgb.model.PsModelMaster();
   
-  this.guiView = new lgb.view.PsMasterGUI(this.psMasterDataModel);
-  this.view = new lgb.view.PsMasterView(this.psMasterDataModel);
+  this.guiView = new lgb.view.PsMasterGUI(this.dataModel);
+  this.view = new lgb.view.PsMasterView(this.dataModel);
   
   this.bind_();
-  this.psMasterDataModel.load();
+  this.dataModel.load();
 
 };
 
@@ -54,7 +54,7 @@ lgb.controller.PsMasterController.prototype.init = function() {
 lgb.controller.PsMasterController.prototype.bind_ = function() {
   
   this.listenToOnce(
-    this.psMasterDataModel,
+    this.dataModel,
     lgb.events.DataModelInitialized.TYPE,
     this.onDataModelInitialized_
    );
@@ -70,10 +70,12 @@ lgb.controller.PsMasterController.prototype.bind_ = function() {
     this.onBuildingHeightChanged_
    );
 
-  this.relayLocal(
+
+  this.relay(
     this.guiView,
     e.RequestAddToGUI
     );
+    
     
   this.makeAddToWorldRequestGlobal (this.view);
   
@@ -92,7 +94,7 @@ lgb.controller.PsMasterController.prototype.init2_ = function() {
   
   this.childControllers_ = [];
 
-  var list = this.psMasterDataModel.getPsModelList();
+  var list = this.dataModel.getPsModelList();
   list.forEach(this.d(this.makeChildController_));
   
   this.view.init();
@@ -142,7 +144,7 @@ lgb.controller.PsMasterController.prototype.onBuildingHeightChanged_ =
 lgb.controller.PsMasterController.prototype.onRequestDataModelChange_ =
   function(event) {
 
-  this.psMasterDataModel.changeAry(event.payload);
+  this.dataModel.changeAry(event.payload);
   
 };
 

@@ -15,7 +15,6 @@ goog.require('lgb.events.LayoutChange');
  */
 lgb.controller.AdminController = function() {
   lgb.controller.BaseController.call(this);
-  this.init_();
 };
 goog.inherits(lgb.controller.AdminController, lgb.controller.BaseController);
 
@@ -23,7 +22,7 @@ goog.inherits(lgb.controller.AdminController, lgb.controller.BaseController);
 /**
  * @private
  */
-lgb.controller.AdminController.prototype.init_ = function() {
+lgb.controller.AdminController.prototype.init = function() {
   this.view = new lgb.view.AdminView();
 
   this.buttonView = new lgb.view.AdminButtonView();

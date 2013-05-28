@@ -32,18 +32,23 @@ goog.inherits(lgb.controller.GuiController, lgb.controller.BaseController);
  */
 lgb.controller.GuiController.prototype.init_ = function() {
 
-  this.adminController = new lgb.controller.AdminController();
+ // this.adminController_ = new lgb.controller.AdminController();
 
   this.propertiesController = new lgb.controller.PropertiesController();
-  
   this.inputController_ = new lgb.controller.InputController();
   
-  
+  this.visibilityController_ = new lgb.controller.VisibilityController();
+  this.viewpointController_ = new lgb.controller.ViewPointController();
+ 
+  this.visibilityController_.init();
+  this.viewpointController_.init();
   
   this.titleBarView = new lgb.view.TitleBarView();
   this.titleBarView.show();
 
   this.bind_();
+  
+  //this.adminController_.init();
 };
 
 lgb.controller.GuiController.prototype.bind_ = function() {

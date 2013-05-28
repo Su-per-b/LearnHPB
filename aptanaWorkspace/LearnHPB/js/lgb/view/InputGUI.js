@@ -27,16 +27,29 @@ lgb.view.InputGUI.prototype.init = function() {
   this.injectHtml();
   this.injectCss();
 
+  this.tabTitleMap_ = {};
   return;
 };
 
-lgb.view.InputGUI.prototype.addGUIview = function(gui) {
+lgb.view.InputGUI.prototype.add = function(gui) {
 
   var title = gui.getTitle();
 
-  var contentElement = this.tabStrip1.addTab(title);
+  var contentElement;
+  
+  if (this.tabTitleMap_[title]) {
+    
+    contentElement = this.tabTitleMap_[title]
+    
+  } else {
+    contentElement = this.tabStrip1.addTab(title);
+    this.tabTitleMap_[title] = contentElement;
+  }
+  
+  
   gui.injectMainElement(contentElement);
-
+  
+  
 }
 /**
  * @public

@@ -49,14 +49,9 @@ lgb.view.VisibilityGUI.prototype.init2_ = function(lgbNode) {
     lgb.events.DataSourceChanged.TYPE,
     this.onChangeDataSource_);  
     
-    
   this.treeComponent_ = new lgb.component.TreeH(this.treeDS_);
-  
-
   var treeElement = this.treeComponent_.getHtml();
-  
   this.append(treeElement);
-
   this.triggerLocal(e.RequestAddToGUI, this);
    
    return;
@@ -81,7 +76,6 @@ lgb.view.VisibilityGUI.prototype.onChange = function(event) {
 
 
 
-
 lgb.view.VisibilityGUI.prototype.onChangeDataSource_ = function(event) {
 
     var e = new lgb.events.RequestDataModelChange(event.payload);
@@ -90,22 +84,4 @@ lgb.view.VisibilityGUI.prototype.onChangeDataSource_ = function(event) {
 };
 
 
-
-
-
-/**
- * injects the html into the DOM
-
-lgb.view.VisibilityGUI.prototype.injectHtml = function(parentElement) {
-  
-
-  this.treeComponent_ = new lgb.component.TreeH(this.treeDS_);
-  
-  var element = this.treeComponent_.injectHtml();
-  this.append(element);
-    
-  this.injectMainElement();
-};
- 
-*/
 

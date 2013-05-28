@@ -31,6 +31,8 @@ lgb.model.LightingModel = function() {
 
   this.isVisible = true;
   
+
+  
   
 };
 goog.inherits(lgb.model.LightingModel, lgb.model.BaseModel);

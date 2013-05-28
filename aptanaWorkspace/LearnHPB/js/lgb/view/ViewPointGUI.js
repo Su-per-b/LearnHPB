@@ -121,7 +121,7 @@ lgb.view.ViewPointGUI.prototype.onSelect_ = function(event) {
 
 /**
  * injects the html into the DOM
- */
+
 lgb.view.ViewPointGUI.prototype.injectHtml = function() {
 
 
@@ -132,3 +132,4 @@ lgb.view.ViewPointGUI.prototype.injectHtml = function() {
         
 
 };
+ */

@@ -92,8 +92,8 @@ lgb.controller.WorldController.prototype.init = function() {
   this.utilityController_ = new lgb.controller.UtilityController();
 
 
-
-  
+  this.psMasterController_ = new lgb.controller.PsMasterController();
+  this.psMasterController_.init();
 
 
   /**@type {lgb.controller.WorldSelectionController} */

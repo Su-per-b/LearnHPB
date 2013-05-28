@@ -50,6 +50,7 @@ lgb.view.AdminView.prototype.onCloseButtonClicked = function(event) {
  */
 lgb.view.AdminView.prototype.injectHtml_ = function() {
   this.makeDialog_();
+  this.injectMainElement();
 };
 
 

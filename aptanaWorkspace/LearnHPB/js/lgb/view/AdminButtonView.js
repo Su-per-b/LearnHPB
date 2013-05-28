@@ -100,6 +100,8 @@ lgb.view.AdminButtonView.prototype.injectHtml_ = function() {
 
 
    this.append(html);
+   
+   this.injectMainElement();
 };
 
 

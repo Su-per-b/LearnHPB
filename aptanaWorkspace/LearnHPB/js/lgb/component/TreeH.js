@@ -36,7 +36,7 @@ goog.inherits(lgb.component.TreeH, lgb.view.BaseV);
 
 lgb.component.TreeH.prototype.getHtml = function() {
 
-  var el = $('<div>'); //this.mainDiv_= $('<div>');
+  var el = $('<div>'); 
   this.setMainElement(el);
   
   
@@ -54,28 +54,4 @@ lgb.component.TreeH.prototype.getHtml = function() {
   
   return el;
 };
-
-
-
-lgb.component.TreeH.prototype.injectHtml = function() {
-
-  this.mainDiv_= $('<div>');
-  
-  this.kendoTreeView_ = this.mainDiv_.kendoTreeView(
-    {
-    expanded : true,
-    loadOnDemand : false,
-    checkboxes : {
-      checkChildren : true
-    },
-    dataSource : this.ds.kendoDS
-
-  }).data("kendoTreeView");
-  
-  
-  return this.mainDiv_;
-};
-
-
-
 

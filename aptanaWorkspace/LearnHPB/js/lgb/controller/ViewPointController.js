@@ -101,7 +101,7 @@ lgb.controller.ViewPointController.prototype.bind_ = function() {
     );
     
 
-  this.relayLocal(
+  this.relay(
     this.guiView,
     e.RequestAddToGUI
     );
