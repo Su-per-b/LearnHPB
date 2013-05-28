@@ -30,7 +30,7 @@ goog.require('lgb.view.PsMasterView');
 lgb.controller.PsMasterController = function() {
 
   lgb.controller.BaseController.call(this);
-  this.init_();
+
 };
 goog.inherits(lgb.controller.PsMasterController, lgb.controller.BaseController);
 
@@ -38,19 +38,20 @@ goog.inherits(lgb.controller.PsMasterController, lgb.controller.BaseController);
 /**
  * Initialized the controller.
  */
-lgb.controller.PsMasterController.prototype.init_ = function() {
+lgb.controller.PsMasterController.prototype.init = function() {
   
   this.psMasterDataModel = new lgb.model.PsModelMaster();
-  this.psMasterGUI = new lgb.view.PsMasterGUI(this.psMasterDataModel);
-  this.psMasterView = new lgb.view.PsMasterView(this.psMasterDataModel);
   
-  this.bind1_();
+  this.guiView = new lgb.view.PsMasterGUI(this.psMasterDataModel);
+  this.view = new lgb.view.PsMasterView(this.psMasterDataModel);
+  
+  this.bind_();
   this.psMasterDataModel.load();
-  
+
 };
 
 
-lgb.controller.PsMasterController.prototype.bind1_ = function() {
+lgb.controller.PsMasterController.prototype.bind_ = function() {
   
   this.listenToOnce(
     this.psMasterDataModel,
@@ -59,7 +60,7 @@ lgb.controller.PsMasterController.prototype.bind1_ = function() {
    );
    
   this.listenTo (
-    this.psMasterGUI,
+    this.guiView,
     lgb.events.RequestDataModelChange.TYPE,
     this.onRequestDataModelChange_
    );
@@ -69,7 +70,12 @@ lgb.controller.PsMasterController.prototype.bind1_ = function() {
     this.onBuildingHeightChanged_
    );
 
-  this.makeAddToWorldRequestGlobal (this.psMasterView);
+  this.relayLocal(
+    this.guiView,
+    e.RequestAddToGUI
+    );
+    
+  this.makeAddToWorldRequestGlobal (this.view);
   
 };
 
@@ -89,8 +95,8 @@ lgb.controller.PsMasterController.prototype.init2_ = function() {
   var list = this.psMasterDataModel.getPsModelList();
   list.forEach(this.d(this.makeChildController_));
   
-  this.psMasterView.init();
-  this.psMasterGUI.init();
+  this.view.init();
+  this.guiView.init();
 
   
 };
@@ -119,7 +125,7 @@ lgb.controller.PsMasterController.prototype.makeChildController_ = function(psMo
 lgb.controller.PsMasterController.prototype.onChildSystemLoaded_ =
   function(event) {
 
-  this.psMasterView.addChild(event.payload);
+  this.view.addChild(event.payload);
   
 };
 
@@ -127,7 +133,7 @@ lgb.controller.PsMasterController.prototype.onChildSystemLoaded_ =
 lgb.controller.PsMasterController.prototype.onBuildingHeightChanged_ =
   function(event) {
 
-  this.psMasterView.setBuildingHeight(event.payload);
+  this.view.setBuildingHeight(event.payload);
 };
 
 

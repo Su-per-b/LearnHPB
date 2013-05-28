@@ -7,7 +7,6 @@ goog.provide('lgb.controller.GuiController');
 
 goog.require('lgb.controller.AdminController');
 goog.require('lgb.controller.BaseController');
-goog.require('lgb.controller.LeftNavController');
 goog.require('lgb.controller.PropertiesController');
 goog.require('lgb.controller.InputController');
 
@@ -34,9 +33,8 @@ goog.inherits(lgb.controller.GuiController, lgb.controller.BaseController);
 lgb.controller.GuiController.prototype.init_ = function() {
 
   this.adminController = new lgb.controller.AdminController();
- // this.leftNavController = new lgb.controller.LeftNavController();
+
   this.propertiesController = new lgb.controller.PropertiesController();
-  
   
   this.inputController_ = new lgb.controller.InputController();
   

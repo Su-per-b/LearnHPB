@@ -32,7 +32,6 @@ lgb.controller.ViewPointController = function( ) {
   lgb.controller.BaseController.call(this);
   
   this.viewpointGroupsLoaded_ = 0;
-  this.init_();
   
 };
 goog.inherits(lgb.controller.ViewPointController, lgb.controller.BaseController);
@@ -41,7 +40,7 @@ goog.inherits(lgb.controller.ViewPointController, lgb.controller.BaseController)
 /**
  * Initialized the controller.
  */
-lgb.controller.ViewPointController.prototype.init_ = function() {
+lgb.controller.ViewPointController.prototype.init = function() {
   
   this.dataModel = new lgb.model.ViewPointModel();
   
@@ -49,9 +48,11 @@ lgb.controller.ViewPointController.prototype.init_ = function() {
   //this.view.init();
 
   this.guiView = new lgb.view.ViewPointGUI (this.dataModel);
+  this.bind_();
+  
   this.guiView.init();
   
-  this.bind_();
+
   
 };
 
@@ -99,8 +100,13 @@ lgb.controller.ViewPointController.prototype.bind_ = function() {
     this.onBuildingHeightChanged_
     );
     
+
+  this.relayLocal(
+    this.guiView,
+    e.RequestAddToGUI
+    );
     
-      
+       
 };
 
 

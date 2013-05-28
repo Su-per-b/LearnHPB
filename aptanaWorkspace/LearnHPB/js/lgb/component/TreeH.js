@@ -34,12 +34,13 @@ goog.inherits(lgb.component.TreeH, lgb.view.BaseV);
 
 
 
+lgb.component.TreeH.prototype.getHtml = function() {
 
-lgb.component.TreeH.prototype.makeElement = function() {
-
-  this.mainDiv_= $('<div>');
+  var el = $('<div>'); //this.mainDiv_= $('<div>');
+  this.setMainElement(el);
   
-  this.kendoTreeHView_ = this.mainDiv_.kendoTreeHView(
+  
+  this.kendoTreeView_ = el.kendoTreeView(
     {
     expanded : true,
     loadOnDemand : false,
@@ -48,7 +49,28 @@ lgb.component.TreeH.prototype.makeElement = function() {
     },
     dataSource : this.ds.kendoDS
 
-  }).data("kendoTreeHView");
+  }).data("kendoTreeView");
+  
+  
+  return el;
+};
+
+
+
+lgb.component.TreeH.prototype.injectHtml = function() {
+
+  this.mainDiv_= $('<div>');
+  
+  this.kendoTreeView_ = this.mainDiv_.kendoTreeView(
+    {
+    expanded : true,
+    loadOnDemand : false,
+    checkboxes : {
+      checkChildren : true
+    },
+    dataSource : this.ds.kendoDS
+
+  }).data("kendoTreeView");
   
   
   return this.mainDiv_;

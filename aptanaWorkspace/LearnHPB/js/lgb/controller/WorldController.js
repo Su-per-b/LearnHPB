@@ -13,7 +13,6 @@ goog.require('lgb.controller.TrackBallController');
 goog.require('lgb.controller.UtilityController');
 goog.require('lgb.controller.ViewPointController');
 goog.require('lgb.controller.WorldSelectionController');
-goog.require('lgb.controller.VisibilityController');
 
 goog.require('lgb.events.Object3DLoaded');
 goog.require('lgb.events.Render');
@@ -77,9 +76,6 @@ lgb.controller.WorldController.prototype.init = function() {
     this.statsView_ = null;
   }
 
-  this.viewpointController_ = new lgb.controller.ViewPointController();
-  
-  this.visibilityController_ = new lgb.controller.VisibilityController();
   
   /**
     * @type {lgb.controller.BuildingController}
@@ -95,8 +91,7 @@ lgb.controller.WorldController.prototype.init = function() {
   */
   this.utilityController_ = new lgb.controller.UtilityController();
 
-  /**@type {lgb.controller.PsMasterController} */
-  this.PsControllerMaster_ = new lgb.controller.PsMasterController();
+
 
   
 

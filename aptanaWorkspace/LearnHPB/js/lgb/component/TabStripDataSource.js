@@ -2,10 +2,9 @@
  * @author Raj Dye - raj@rajdye.com
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
- 
+
 goog.provide('lgb.component.TabStripDataSource');
 goog.require('lgb.component.BaseDataSource');
-
 
 /**
  * @constructor
@@ -15,7 +14,7 @@ goog.require('lgb.component.BaseDataSource');
  * @param {string} subID The second part of the CSS ID for this element.
  */
 lgb.component.TabStripDataSource = function(title, parentHtmlID, htmlID) {
-    
+
   lgb.component.BaseDataSource.call(this);
 
   this.title = title;
@@ -23,43 +22,57 @@ lgb.component.TabStripDataSource = function(title, parentHtmlID, htmlID) {
   this.htmlID = htmlID;
 
   this.isEnabled = true;
-  
+
   this.showIcon = false;
   this.tabCollection = [];
-  
+
 };
 goog.inherits(lgb.component.TabStripDataSource, lgb.component.BaseDataSource);
 
-
-
-
 lgb.component.TabStripDataSource.prototype.setIcon = function(imageUrl, iconHeight, iconWidth) {
-    
+
   this.imageUrl = imageUrl;
   this.iconHeight = iconHeight;
   this.iconWidth = iconWidth;
   this.showIcon = true;
-  
+
 };
+
+lgb.component.TabStripDataSource.prototype.getTabCount = function() {
+  return this.tabCollection.length;
+}
+
+
 
 
 
 
 lgb.component.TabStripDataSource.prototype.addTab = function(title, content, xPosition) {
-    
-    
-    var cssClassName = 'tab' + (xPosition);
-    
-    
-    var tab = {
-        title: title,
-        content: content,
-        cssClass : cssClassName, 
-        xPosition : xPosition
-    }
-    
-  this.tabCollection.push(tab);
- 
-};
 
+  if (null == xPosition) { 
+    xPosition = this.tabCollection.length
+  };
+
+  if (null == content) { 
+    content = '<br />';
+  };
+
+
+  var cssClassName = 'tab' + (xPosition);
+
+  var tab = {
+    title : title,
+    content : content,
+    cssClass : cssClassName,
+    xPosition : xPosition
+  }
+
+  this.tabCollection.push(tab);
+  
+  if (this.kendoDS) {
+    this.kendoDS.add(tab);
+  }
+  
+  this.dispatchChange(tab);
+};
 

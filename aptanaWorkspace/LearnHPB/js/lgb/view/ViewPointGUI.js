@@ -19,8 +19,9 @@ goog.require('lgb.view.BaseViewGUI');
  * @extends {lgb.view.BaseViewGUI}
  */
 lgb.view.ViewPointGUI = function(dataModel) {
-
-  lgb.view.BaseViewGUI.call(this, dataModel,'ViewPointGUI', 'leftpanel-tabStrip-1');
+  
+  this._TITLE = "Viewpoints";
+  lgb.view.BaseViewGUI.call(this, dataModel, 'ViewPointGUI');
 };
 goog.inherits(lgb.view.ViewPointGUI, lgb.view.BaseViewGUI);
 
@@ -29,10 +30,17 @@ goog.inherits(lgb.view.ViewPointGUI, lgb.view.BaseViewGUI);
  * Initializes the View
  */
 lgb.view.ViewPointGUI.prototype.init = function() {
-  this.injectHtml();
+  
+  var el = this.getMainElement();
+  
+  this.kendoTreeView_ =        
+      el.kendoTreeView().data("kendoTreeView");
+        
   
   this.kendoTreeView_.setDataSource(this.dataModel.kendoDS);
   this.bind_();
+  
+  this.triggerLocal(e.RequestAddToGUI, this);
 };
 
 

@@ -27,8 +27,9 @@ goog.inherits(lgb.view.TitleBarView, lgb.view.BaseViewGUI);
  */
 lgb.view.TitleBarView.prototype.injectHtml_ = function() {
     
-    var element = $('<div>')
-    .attr('id', this.htmlID)
+    var el = this.getMainElement();
+    
+    el.attr('id', this.htmlID)
     .css({
         top: '-69px',
         width: '237px',
@@ -40,8 +41,7 @@ lgb.view.TitleBarView.prototype.injectHtml_ = function() {
       vertical: false
     });
     
-    this.append(element);
-
+    this.injectMainElement();
 
 };
 

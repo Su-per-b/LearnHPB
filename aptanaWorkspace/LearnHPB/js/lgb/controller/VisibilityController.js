@@ -15,6 +15,8 @@ goog.require('lgb.view.VisibilityGUI');
 goog.require('lgb.model.VisibilityModel');
 goog.require('lgb.view.VisibilityView');
 
+
+
 /**
  * MVC controller for the VisibilityController
  * @constructor
@@ -23,7 +25,7 @@ goog.require('lgb.view.VisibilityView');
 lgb.controller.VisibilityController = function() {
 
   lgb.controller.BaseController.call(this);
-  this.init_();
+
 };
 goog.inherits(lgb.controller.VisibilityController, lgb.controller.BaseController);
 
@@ -33,7 +35,7 @@ goog.inherits(lgb.controller.VisibilityController, lgb.controller.BaseController
  * initializes the controller
  * @private
  */
-lgb.controller.VisibilityController.prototype.init_ = function() {
+lgb.controller.VisibilityController.prototype.init = function() {
 
   this.dataModel = new lgb.model.VisibilityModel();
   
@@ -43,8 +45,17 @@ lgb.controller.VisibilityController.prototype.init_ = function() {
   this.bind_();
   
   this.guiView.init();
-
+  
 };
+
+
+lgb.controller.VisibilityController.prototype.getGui = function() {
+  
+  return this.guiView;
+  
+};
+
+
 
 /**
  * Binds specific event types to functions which handle the events.
@@ -54,19 +65,25 @@ lgb.controller.VisibilityController.prototype.init_ = function() {
  */
 lgb.controller.VisibilityController.prototype.bind_ = function() {
 
+
+  this.listen(
+    lgb.events.VisibilityNodesLoaded.TYPE,
+    this.onVisibilityNodesLoaded_
+   );
+    
   this.listenTo(
     this.guiView,
     lgb.events.RequestDataModelChange.TYPE,
     this.onRequestDataModelChange_
    );
-    
-    
-  this.listen(
-    lgb.events.VisibilityNodesLoaded.TYPE,
-    this.onVisibilityNodesLoaded_
+
+  this.relayLocal(
+    this.guiView,
+    e.RequestAddToGUI
     );
     
 };
+
 
 
 /**

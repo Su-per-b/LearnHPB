@@ -19,12 +19,19 @@ lgb.DebugLGB.prototype.init = function(packageName) {
   
   this.tagClasses(['lgb','model']);
   this.tagClasses(['lgb','model', 'scenario']);
+  this.tagClasses(['lgb','model', 'vo']);
+  
   this.tagClasses(['lgb','events']);
   this.tagClasses(['lgb','controller']);
   this.tagClasses(['lgb','view']);
-  this.tagClasses(['lgb','component']);
-  this.tagClasses(['lgb','utils']);
   
+  this.tagClasses(['lgb','simulation','controller']);
+  this.tagClasses(['lgb','simulation','events']);
+  this.tagClasses(['lgb','simulation','model']);
+  this.tagClasses(['lgb','simulation','model','voManaged']);
+  this.tagClasses(['lgb','simulation','model','voNative']);
+  
+  this.tagClasses(['lgb','utils']);
   
 }
 
@@ -39,7 +46,6 @@ lgb.DebugLGB.prototype.tagClasses = function(packageAry) {
   var thePackageString = packageAry.join('.');
   var thePackage = eval(thePackageString);
 
- // var functionList = [];
 
   for (var className in thePackage) {
 

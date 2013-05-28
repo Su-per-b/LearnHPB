@@ -29,6 +29,29 @@ lgb.controller.BaseController.prototype.dispatch = function(event) {
 };
 
 
+lgb.controller.BaseController.prototype.trigger = function(type, payload) {
+  var event = new lgb.events.Event(type, payload);
+  goog.events.dispatchEvent(lgb.globalEventBus, event);
+};
+
+
+lgb.BaseClass.prototype.relayLocal = function(eventTarget, eventType) {
+  this.listenTo(eventTarget, eventType, this.onRelayLocal_);
+};
+
+lgb.BaseClass.prototype.onRelayLocal_ = function(event) {
+  this.dispatchLocal(event);
+};
+
+lgb.BaseClass.prototype.relay = function(eventTarget, eventType, handler) {
+  this.listenTo(eventTarget, eventType, this.onRelay_);
+};
+
+lgb.BaseClass.prototype.onRelay_ = function(event) {
+  this.dispatch(event);
+};
+
+
 /**
  * @protected
  */

@@ -13,10 +13,14 @@ goog.require('lgb.component.BaseDataSource');
 goog.require('lgb.events.DataModelInitialized');
 
 
-lgb.component.TreeDataSourceH = function(lgbNode, propertyName, parentHtmlID, subID) {
+lgb.component.TreeDataSourceH = function(lgbNode, propertyName, parentHtmlID, subID, title) {
   
   //this.rootNode = rootNode;
-  this.title_ = lgbNode.title;
+  
+  if(title) {
+    this.title_ = title;
+  }
+  
   this.propertyName_ = propertyName;
   
   lgb.component.BaseDataSource.call(this);
@@ -28,6 +32,10 @@ lgb.component.TreeDataSourceH = function(lgbNode, propertyName, parentHtmlID, su
   
   if(lgbNode) {
     this.build_(lgbNode);
+    
+    if (!this.title_) {
+        this.title_ = lgbNode.title;
+    }
   }
 
 };
@@ -45,40 +53,23 @@ lgb.component.TreeDataSourceH.prototype.generateHTMLid_ = function(node) {
 
 lgb.component.TreeDataSourceH.prototype.update = function(lgbNode) {
 
-  var n = this.makeKendoNodes_(lgbNode);
-  
-  //var options = {
- //   data : [this.rootKendoNode]
- // };
+  if (this.rootNode) {
+    
+    var n = this.makeKendoNodes_(lgbNode);
+    this.kendoDS.add(n);
+    
+  } else {
+    
+    this.build_(lgbNode);
+    
+  }
 
- // this.kendoDS.init(options);
-
-  
-
-  
-  this.kendoDS.add(n);
-  //this.kendoDS.read();
-  
-  //this.rootNode.load();
-
-  
-  //this.kendoDS.load();
-  
-  //n.load();
- 
-  //this.rootNode.load();
-  
-  //this.kendoDS.read();
-  //this.rootKendoNode.load();
-
- // this.bind_();
 };
 
 lgb.component.TreeDataSourceH.prototype.build_ = function(lgbNode) {
 
 
   this.rootKendoNode = this.makeKendoNodes_(lgbNode);
-  
   
   var options = {
     data : [this.rootKendoNode]

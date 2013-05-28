@@ -24,8 +24,8 @@ goog.require('lgb.component.TreeDataSource');
  */
 lgb.view.PsMasterGUI = function(dataModel) {
 
-
-  lgb.view.BaseViewGUI.call(this, dataModel, 'PsMasterGUI', 'leftpanel-tabStrip-2');
+  this._TITLE = 'Airflow';
+  lgb.view.BaseViewGUI.call(this, dataModel, 'PsMasterGUI');
 };
 goog.inherits(lgb.view.PsMasterGUI, lgb.view.BaseViewGUI);
 
@@ -52,7 +52,9 @@ lgb.view.PsMasterGUI.prototype.init = function() {
     this.bind_();
     
     this.injectHtml();
-
+    
+    this.triggerLocal(e.RequestAddToGUI, this);
+  
 };
 
 
@@ -92,8 +94,7 @@ lgb.view.PsMasterGUI.prototype.onChangeDataSource_ = function(event) {
  */
 lgb.view.PsMasterGUI.prototype.injectHtml = function() {
 
-  this.makeMainElement_();
-  
+
   this.treeActive = new lgb.component.Tree(this.treeActiveDS);
   var element = this.treeActive.makeElement();
   this.append(element);

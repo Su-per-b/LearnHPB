@@ -19,7 +19,7 @@ goog.require('lgb.view.BaseV');
  */
 lgb.view.VisibilityView = function(dataModel) {
 
-  lgb.view.BaseV.call(this, dataModel, null, null);
+  lgb.view.BaseV.call(this, dataModel, "VisibilityView", null);
 };
 goog.inherits(lgb.view.VisibilityView, lgb.view.BaseV);
 

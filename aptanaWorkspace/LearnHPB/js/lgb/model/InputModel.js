@@ -17,6 +17,18 @@ lgb.model.InputModel = function() {
   /**@const */
   this._TITLE = 'InputModel';
 
+/*
+
+  this.categories = [
+    {
+      title:"Viewpoints",
+      idx:0
+    }
+  ];
+  */
+
+  this.categories = ["Viewpoints", "Airflow", "Settings"];
+
   lgb.model.BaseModel.call(this);
 
 };

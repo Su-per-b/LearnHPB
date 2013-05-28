@@ -9,6 +9,7 @@ goog.provide('lgb.BaseClass');
 goog.require('goog.events');
 goog.require('goog.events.EventTarget');
 
+goog.require('lgb.events.Event');
 
 /**
  * MVC base class
@@ -57,6 +58,12 @@ lgb.BaseClass.prototype.dispatchLocal = function(event) {
 };
 
 
+lgb.BaseClass.prototype.triggerLocal = function(type, payload) {
+  var event = new lgb.events.Event(type, payload);
+  goog.events.dispatchEvent(this, event);
+};
+
+
 /**
  * binds a listener to an event
  * listens to the lgb global event bus
@@ -77,7 +84,14 @@ lgb.BaseClass.prototype.listen = function(eventType, handler) {
  * @return {?number} the event handler key.
  */
 lgb.BaseClass.prototype.listenTo = function(eventTarget, eventType, handler) {
-  return this.listenHelper_(eventTarget, eventType, this, handler);
+  
+  if (isArray (eventTarget)) {
+    this.each(eventTarget, this.listenHelper_, eventType, this, handler)  
+  } else {
+    return this.listenHelper_(eventTarget, eventType, this, handler);
+  }
+  
+
 };
 
 
@@ -219,9 +233,9 @@ lgb.BaseClass.prototype.eachIdx = function(ary, handler) {
     
     var argList = [arrayElement];
     
-    if (useIdx) {
-      argList.push(i);
-    }
+
+    argList.push(i);
+    
     
     if(additionalArgs) {
       argList = argList.concat(additionalArgs);

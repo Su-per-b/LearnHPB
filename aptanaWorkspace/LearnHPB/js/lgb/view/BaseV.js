@@ -5,8 +5,6 @@ goog.require('lgb.events.DataModelChanged');
 goog.require('lgb.events.RequestDataModelChange');
 goog.require('lgb.utils');
 
-
-
 /**
  * MVC View base class
  * @constructor
@@ -18,42 +16,62 @@ lgb.view.BaseV = function(dataModel, htmlID, parentHtmlID) {
 
   if (null !== dataModel && undefined !== dataModel) {
     this.dataModel = dataModel;
-    
+
     if (this.onChange && this.dataModel) {
-      this.listenHelper_(
-        this.dataModel, 
-        lgb.events.DataModelChanged.TYPE, 
-        this,
-        this.onChange);
+      this.listenHelper_(this.dataModel, lgb.events.DataModelChanged.TYPE, this, this.onChange);
     }
 
   }
- 
-  this.setIds_(htmlID, parentHtmlID);
-    
-  this.parentElement_ = undefined;
-  this.mainElement_ = undefined;
+  
+ // if (htmlID || parentHtmlID) {
+    this.setIds_(htmlID, parentHtmlID);
+ // }
+
+
+
 };
 goog.inherits(lgb.view.BaseV, lgb.BaseClass);
 
 /**
- * injects html into the DOM
+ * appends html to the main element
  * @param {string} html the HTML string to append.
  * @protected
  */
 lgb.view.BaseV.prototype.append = function(html) {
-  
-  if (undefined == this.mainElement_) {
-    this.mainElement_ = $("<div>").attr("id", this.htmlID);
-    this.mainElement_.append(html);
-    this.jqParent().append( this.mainElement_);
-  } else {
-    
-    this.mainElement_.append(html);
+
+  var el = this.getMainElement();
+
+  if (!el) {
+
+    return;
   }
-  
+  el.append(html);
 
 };
+
+lgb.view.BaseV.prototype.injectMainElement = function(parentElement) {
+
+  var el = this.getMainElement();
+
+
+  if (null != parentElement) {
+    this.parentElement_ = parentElement;
+  }
+
+
+  this.jqParent().append(el);
+
+};
+
+/*
+lgb.view.BaseV.prototype.injectElement = function(element) {
+
+var el = this.getMainElement();
+
+var parent = this.jqParent();
+parent.append( el) );
+
+}*/
 
 /**
  * makes a unique css ID for a child element
@@ -66,29 +84,36 @@ lgb.view.BaseV.prototype.makeID = function(id) {
   return newID;
 };
 
+lgb.view.BaseV.prototype.setMainElement = function(el) {
 
-lgb.view.BaseV.prototype.makeMainElement_ = function() {
-  
-    lgb.assert(this.htmlID);
-    
-    this.mainElement_ = $("<div>").attr("id", this.htmlID);
-    this.jqParent().append(this.mainElement_);
-    
+  this.mainElement_ = el;
+
+  return;
 };
 
+lgb.view.BaseV.prototype.getMainElement = function() {
 
+  lgb.assert(this.htmlID);
+
+  if (undefined == this.mainElement_) {
+    this.mainElement_ = $("<div>").attr("id", this.htmlID);
+  }
+
+  return this.mainElement_;
+};
 
 lgb.view.BaseV.prototype.setIds_ = function(htmlID, parentHtmlID) {
-    
 
-  this.htmlID = htmlID;
-  
   this.parentHtmlID = parentHtmlID || 'theBody';
-  
+
+  if (this._TITLE) {
+    this.htmlID = htmlID || this._TITLE;
+
+  } else {
+    this.htmlID = htmlID;
+  }
+
 };
-
-
-
 
 /**
  * converts and id into a Jquery element
@@ -96,18 +121,16 @@ lgb.view.BaseV.prototype.setIds_ = function(htmlID, parentHtmlID) {
  * @return {jQuery} Element.
  */
 lgb.view.BaseV.prototype.jq = function(id) {
-  
+
   if (undefined == id) {
     lgb.assert(this.htmlID);
     id = this.htmlID;
   }
 
-  
   var cssID = id;
   var selector = '#{0}'.format(cssID);
- 
   var jqElement = $(selector);
-  
+
   return jqElement;
 };
 
@@ -117,28 +140,28 @@ lgb.view.BaseV.prototype.jq = function(id) {
  * @return {jQuery} Jquery object.
  */
 lgb.view.BaseV.prototype.jqParent = function() {
-    
+
   if (undefined == this.parentElement_) {
     this.parentElement_ = $('#{0}'.format(this.parentHtmlID));
   }
-  
+
   return this.parentElement_;
 };
 
-
-
-
-
-
 lgb.view.BaseV.prototype.requestDataModelChange = function(propertyName, propertyValue) {
-  
-  var e = new lgb.events.RequestDataModelChange(
-    {name:propertyName, value:propertyValue}
-  );
+
+  var e = new lgb.events.RequestDataModelChange({
+    name : propertyName,
+    value : propertyValue
+  });
 
   this.dispatchLocal(e);
-  
+
 };
 
+lgb.view.BaseV.prototype.getTitle = function() {
 
+  return this._TITLE;
+
+};
 

@@ -22,10 +22,9 @@ goog.require('lgb.component.TreeDataSourceH');
  */
 lgb.view.VisibilityGUI = function(dataModel) {
 
+  this._TITLE = "Visibility";
+  lgb.view.BaseViewGUI.call(this, dataModel);
 
-  lgb.view.BaseViewGUI.call(this, dataModel,'VisibilityGUI', 'leftpanel-tabStrip-3');
-
-  
 };
 goog.inherits(lgb.view.VisibilityGUI, lgb.view.BaseViewGUI);
 
@@ -39,24 +38,30 @@ lgb.view.VisibilityGUI.prototype.init = function() {
   this.treeDS_ = null;
   
   this.treeDSlist_ = [];
-  this.injectHtml();
-  
 
 };
 
 lgb.view.VisibilityGUI.prototype.init2_ = function(lgbNode) {
   
-  this.treeDS_ = new lgb.component.TreeDataSourceH(lgbNode,'isVisible',this.htmlID,  'tree');
-    
+  this.treeDS_ = new lgb.component.TreeDataSourceH(lgbNode,'isVisible',this.htmlID,  'tree', 'Visibility');
+  
   this.listenTo(this.treeDS_,
     lgb.events.DataSourceChanged.TYPE,
     this.onChangeDataSource_);  
     
-  this.treeComponent_ = new lgb.component.Tree(this.treeDS_);
-    var element = this.treeComponent_.makeElement();
-    this.append(element);   
     
-}
+  this.treeComponent_ = new lgb.component.TreeH(this.treeDS_);
+  
+
+  var treeElement = this.treeComponent_.getHtml();
+  
+  this.append(treeElement);
+
+  this.triggerLocal(e.RequestAddToGUI, this);
+   
+   return;
+};
+
 
 lgb.view.VisibilityGUI.prototype.onChange = function(event) {
   
@@ -78,39 +83,29 @@ lgb.view.VisibilityGUI.prototype.onChange = function(event) {
 
 
 lgb.view.VisibilityGUI.prototype.onChangeDataSource_ = function(event) {
-    
-   // var deferred = $.Deferred();
-    
-    
-    
-    
+
     var e = new lgb.events.RequestDataModelChange(event.payload);
     this.dispatchLocal(e);
-    
-    
-    //deferred.notify(e);
-  
-  
-  
-    
-    
-  //  return;
-    
 
-
-    
 };
+
 
 
 
 
 /**
  * injects the html into the DOM
- */
-lgb.view.VisibilityGUI.prototype.injectHtml = function() {
-  
-  this.mainDiv_ = this.makeMainElement_();
+
+lgb.view.VisibilityGUI.prototype.injectHtml = function(parentElement) {
   
 
-
+  this.treeComponent_ = new lgb.component.TreeH(this.treeDS_);
+  
+  var element = this.treeComponent_.injectHtml();
+  this.append(element);
+    
+  this.injectMainElement();
 };
+ 
+*/
+
