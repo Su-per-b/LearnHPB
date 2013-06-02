@@ -78,10 +78,7 @@ lgb.view.PropertiesView.prototype.inject = function(parentElement) {
 lgb.view.PropertiesView.prototype.makeDialog_ = function() {
 
     var el = this.getMainElement();
-    
-    
     el.direction = 'left';
-
 
     this.dialog = el.dialog({
       title: this.title,

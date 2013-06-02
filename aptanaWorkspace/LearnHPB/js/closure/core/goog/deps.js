@@ -755,7 +755,6 @@ goog.addDependency("../../../lgb/DebugLGB.js", ['lgb.DebugLGB'], []);
 goog.addDependency("../../../lgb/Global.js", ['lgb.Global'], []);
 goog.addDependency("../../../lgb/ThreeUtils.js", ['lgb.ThreeUtils'], ['goog.structs.Map']);
 goog.addDependency("../../../lgb/component/BaseDataSource.js", ['lgb.component.BaseDataSource'], ['lgb.BaseClass', 'lgb.events.DataSourceChanged']);
-goog.addDependency("../../../lgb/component/CheckBox.js", ['lgb.component.CheckBox'], ['lgb.view.BaseV']);
 goog.addDependency("../../../lgb/component/FaultWidget.js", ['lgb.component.FaultWidget'], ['lgb.view.BaseV']);
 goog.addDependency("../../../lgb/component/InputWidget.js", ['lgb.component.InputWidget'], ['lgb.view.BaseV']);
 goog.addDependency("../../../lgb/component/Link.js", ['lgb.component.Link'], ['lgb.component.LinkDataSource', 'lgb.events.MouseClick', 'lgb.events.MouseOut', 'lgb.events.MouseOver']);

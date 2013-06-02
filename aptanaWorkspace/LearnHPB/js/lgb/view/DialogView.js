@@ -41,9 +41,9 @@ lgb.view.DialogView.prototype.isOpen = function() {
 lgb.view.DialogView.prototype.show = function(arg) {
   
   
-  var makeVisible = arg || true;
+  var showFlag = arg || true;
   
-  if(makeVisible) {
+  if(showFlag) {
     this.show_();
   } else {
     this.hide_();
