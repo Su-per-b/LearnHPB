@@ -30,7 +30,7 @@ goog.inherits(lgb.view.PsView, lgb.view.BaseView3dScene);
 
 /**
  * Event Handler.
- * @param {lgb.events.DataModelChanged} event The event.
+ * @param {lgb.events.Event} event The event.
  */
 lgb.view.PsView.prototype.onChange = function(event) {
 

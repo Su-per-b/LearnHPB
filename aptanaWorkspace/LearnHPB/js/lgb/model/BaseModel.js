@@ -6,7 +6,7 @@
 goog.provide('lgb.model.BaseModel');
 
 goog.require('lgb.BaseClass');
-goog.require('lgb.events.DataModelChanged');
+
 
 /**
  * @constructor
@@ -24,7 +24,8 @@ goog.inherits(lgb.model.BaseModel, lgb.BaseClass);
  * @protected
  */
 lgb.model.BaseModel.prototype.dispatchChange = function(whatIsDirty) {
-    this.dispatchLocal(new lgb.events.DataModelChanged(whatIsDirty));
+  
+    this.triggerLocal(e.DataModelChanged, whatIsDirty);
 };
 
 lgb.model.BaseModel.prototype.dispatchChangedProperty = function(propertyName) {

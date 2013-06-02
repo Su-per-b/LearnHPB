@@ -16,7 +16,7 @@ goog.require('lgb.view.ViewPointGUI');
 goog.require('lgb.model.ViewPointCollection');
 
 
-goog.require('lgb.events.BuildingHeightChanged');
+
 
 
 
@@ -69,7 +69,7 @@ lgb.controller.ViewPointController.prototype.bind_ = function() {
     
     
   this.listen(
-    lgb.events.BuildingHeightChanged.TYPE,
+    e.BuildingHeightChanged,
     this.onBuildingHeightChanged_
     );
     

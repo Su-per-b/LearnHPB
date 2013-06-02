@@ -108,7 +108,7 @@ lgb.view.LightingView.prototype.dispatchVisibilityNodes_ = function() {
 
 /**
  * @override
- * @param {lgb.events.DataModelChanged } event The event.
+ * @param {lgb.events.Event} event The event.
  * @protected
  */
 lgb.view.LightingView.prototype.onChange = function(event) {

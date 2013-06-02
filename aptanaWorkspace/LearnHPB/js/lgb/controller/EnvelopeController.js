@@ -61,36 +61,29 @@ lgb.controller.EnvelopeController.prototype.bind_ = function() {
     this.onViewInitialized_);
 
   this.listenTo(this.dataModel,
-    lgb.events.DataModelChanged.TYPE,
+    e.DataModelChanged,
     this.onDataModelChanged_);
     
-  this.listenTo(this.view,
-    lgb.events.BuildingHeightChanged.TYPE,
-    this.onBuildingHeightChanged_);
+  this.relay(
+    this.view,
+    e.BuildingHeightChanged
+  );
     
   this.relay(
     this.guiView,
     e.RequestAddToGUI
     );
     
-  this.listenTo(
+  this.relay(
     this.view,
-    e.VisibilityNodesLoaded,
-    this.onVisibilityNodesLoaded_
+    e.VisibilityNodesLoaded
     );
     
 
+
     
 };
 
-
-
-lgb.controller.EnvelopeController.prototype.onVisibilityNodesLoaded_ =
-  function(event) {
-
-  this.dispatch(event);
-  
-};
 
 
 
@@ -109,7 +102,7 @@ lgb.controller.EnvelopeController.prototype.getTopFloor =
  * repeats the event on the global event bus. This is used
  * so that the zones can be rebuilt when the floor size changes.
  * @private
- * @param {lgb.events.DataModelChanged} event Fired by the data model.
+ * @param {lgb.events.Event} event Fired by the data model.
  */
 lgb.controller.EnvelopeController.prototype.onDataModelChanged_ =
   function(event) {
@@ -117,14 +110,6 @@ lgb.controller.EnvelopeController.prototype.onDataModelChanged_ =
   this.trigger(e.EnvelopeModelChanged, this.dataModel);
 };
 
-
-
-lgb.controller.EnvelopeController.prototype.onBuildingHeightChanged_ =
-  function(event) {
-      
-  this.dispatch(event);
-  
-};
 
 
 

@@ -54,7 +54,7 @@ lgb.view.LightingAdminView.prototype.bind_ = function() {
 
 
   this.listenTo(this.dataSourceLightingType,
-    lgb.events.DataSourceChanged.TYPE,
+    e.DataSourceChanged,
     this.onLightingTypeChanged_
     );
     
@@ -62,11 +62,7 @@ lgb.view.LightingAdminView.prototype.bind_ = function() {
 
 };
 
-/**
- * event handler
- * @private
- * @param {lgb.events.DataSourceChanged} event The Event.
- */
+
 lgb.view.LightingAdminView.prototype.onLightingTypeChanged_ = function(event) {
 
   this.requestDataModelChange('lightingType', this.dataSourceLightingType.theSelectedOne.value);

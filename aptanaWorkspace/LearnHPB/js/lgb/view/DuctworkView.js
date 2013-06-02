@@ -113,11 +113,7 @@ lgb.view.DuctworkView.prototype.dispatchVisibilityNodes_ = function() {
 }
 
 
-/**
- * @override
- * @param {lgb.events.DataModelChanged } event The event.
- * @protected
- */
+
 lgb.view.DuctworkView.prototype.onChange = function(event) {
   this.updateAllFromModel_();
 };

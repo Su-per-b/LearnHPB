@@ -6,8 +6,8 @@ goog.require('lgb.controller.BaseController');
 goog.require('lgb.view.PropertiesView');
 goog.require('lgb.view.PropertiesButtonView');
 
-goog.require('lgb.events.DataModelChanged');
-goog.require('lgb.events.ScenarioParsed');
+
+
 
 
 
@@ -29,10 +29,7 @@ lgb.controller.PropertiesController.prototype.init_ = function() {
 };
 
 
-/**
- * @param {lgb.events.ScenarioParsed} event The event fired when the XML
- * is parsed.
- */
+
 lgb.controller.PropertiesController.prototype.onScenarioParsed_ =
   function(event) {
 
@@ -47,7 +44,7 @@ lgb.controller.PropertiesController.prototype.onScenarioParsed_ =
     this.onClosedPanel);
 
   this.listenTo(this.dataModel,
-    lgb.events.DataModelChanged.TYPE,
+    e.DataModelChanged,
     this.onDataModelChanged_);
 
   this.listenTo(this.buttonView,
@@ -66,7 +63,7 @@ lgb.controller.PropertiesController.prototype.onScenarioParsed_ =
 
 lgb.controller.PropertiesController.prototype.bind_ = function() {
     
-  this.listen(lgb.events.ScenarioParsed.TYPE, this.onScenarioParsed_);
+  this.listen(e.ScenarioParsed, this.onScenarioParsed_);
 };
 
 
@@ -101,10 +98,7 @@ lgb.controller.PropertiesController.prototype.onWorldSelectionChanged =
 };
 
 
-/**
- * @private
- * @param {lgb.events.DataModelChanged} event The event.
- */
+
 lgb.controller.PropertiesController.prototype.onDataModelChanged_ =
   function(event) {
 

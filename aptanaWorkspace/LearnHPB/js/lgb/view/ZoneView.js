@@ -115,7 +115,7 @@ lgb.view.ZoneView.prototype.addCube_ = function(zoneNumber, zoneShapeModel) {
 
 /**
  * event handler.
- * @param {lgb.events.DataModelChanged} event The event.
+ * @param {lgb.events.Event} event The event.
  */
 lgb.view.ZoneView.prototype.onChange = function(event) {
 

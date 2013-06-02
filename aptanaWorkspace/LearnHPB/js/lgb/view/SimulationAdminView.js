@@ -9,8 +9,8 @@ goog.require('lgb.component.RadioButtonDataSource');
 goog.require('lgb.component.RadioButtonGroup');
 goog.require('lgb.component.LinkDataSource');
 
-goog.require('lgb.events.DataModelChanged');
-goog.require('lgb.events.DataSourceChanged');
+
+
 
 goog.require('lgb.events.RequestSimulationStateChange');
 goog.require('lgb.model.SimulationModelState');
@@ -100,15 +100,6 @@ lgb.view.SimulationAdminView.prototype.onMouseClick_ = function(event) {
       
 };
 
-
-/**
- * Event Handler that fires when the data model changes
- * @param {lgb.events.DataModelChanged} event The event.
- * @protected
- */
-lgb.view.SimulationAdminView.prototype.onChange = function(event) {
-  //needed to prevent exception.
-};
 
 
 

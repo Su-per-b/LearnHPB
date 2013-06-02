@@ -53,7 +53,7 @@ lgb.view.RoofTopView.prototype.onSceneLoaded_ = function() {
 
 /**
  * @override
- * @param {lgb.events.DataModelChanged} event The event
+ * @param {lgb.events.Event} event The event
  * notifying us of a change.
  * @protected
  */

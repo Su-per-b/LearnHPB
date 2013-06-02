@@ -9,7 +9,7 @@
 
 goog.provide('lgb.component.Tree');
 goog.require('lgb.view.BaseV');
-goog.require('lgb.events.DataSourceChanged');
+
 
 /**
  * Html component that contains a cusmtom Tree

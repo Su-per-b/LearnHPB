@@ -7,7 +7,7 @@ goog.provide('lgb.model.PsModelMaster');
 
 goog.require('goog.array');
 goog.require('lgb.Config');
-goog.require('lgb.events.DataModelChanged');
+
 goog.require('lgb.model.BaseModel');
 goog.require('lgb.model.PsModel');
 goog.require('lgb.utils.XmlParser');

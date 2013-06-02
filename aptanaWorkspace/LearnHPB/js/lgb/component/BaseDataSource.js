@@ -6,7 +6,7 @@
 goog.provide('lgb.component.BaseDataSource');
 
 goog.require('lgb.BaseClass');
-goog.require('lgb.events.DataSourceChanged');
+
 
 
 /**
@@ -29,13 +29,7 @@ goog.inherits(lgb.component.BaseDataSource, lgb.BaseClass);
  */
 lgb.component.BaseDataSource.prototype.dispatchChange = function(payload) {
   
+  this.triggerLocal(e.DataSourceChanged, payload);
   
-  if (undefined == payload) {
-    payload = this;
-  }
-  
-  this.dispatchLocal(new lgb.events.DataSourceChanged(payload));
-  
-
 };
 

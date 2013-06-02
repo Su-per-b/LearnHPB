@@ -9,7 +9,7 @@ goog.require('lgb.controller.BaseController');
 
 goog.require('lgb.model.FurnitureModel');
 goog.require('lgb.view.FurnitureView');
-goog.require('lgb.events.BuildingHeightChanged');
+
 
 goog.require('lgb.model.BuildingHeightModel');
 
@@ -57,7 +57,7 @@ lgb.controller.FurnitureController.prototype.bind_ = function() {
   this.relay(this.view,e.VisibilityNodesLoaded);
   
   this.listen(
-    lgb.events.BuildingHeightChanged.TYPE,
+    e.BuildingHeightChanged,
     this.onBuildingHeightChanged_
     );
 

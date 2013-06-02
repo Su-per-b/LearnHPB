@@ -51,4 +51,8 @@ e.WindowResize = 'e.WindowResize';
 e.ViewPointCollectionLoaded = 'e.ViewPointCollectionLoaded';
 e.EnvelopeModelChanged = 'e.EnvelopeModelChanged';
 e.RequestDataModelChange = 'e.RequestDataModelChange';
+e.ScenarioParsed = 'e.ScenarioParsed';
+e.DataSourceChanged = 'e.DataSourceChanged';
+e.DataModelChanged = 'e.DataModelChanged';
+e.BuildingHeightChanged = 'e.BuildingHeightChanged';
 

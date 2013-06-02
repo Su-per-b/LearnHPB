@@ -48,7 +48,7 @@ lgb.view.VisibilityGUI.prototype.init2_ = function(lgbNode) {
   this.treeDS_ = new lgb.component.TreeDataSourceH(lgbNode,'isVisible',this.htmlID,  'tree', 'Visibility');
   
   this.listenTo(this.treeDS_,
-    lgb.events.DataSourceChanged.TYPE,
+    e.DataSourceChanged,
     this.onChangeDataSource_);  
     
   this.treeComponent_ = new lgb.component.TreeH(this.treeDS_);

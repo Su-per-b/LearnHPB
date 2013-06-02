@@ -5,7 +5,7 @@
  
 goog.provide('lgb.model.scenario.Base');
 
-goog.require('lgb.events.DataModelChanged');
+
 goog.require('lgb.model.BaseModel');
 goog.require('lgb.model.scenario.SystemNode');
 goog.require('lgb.utils.XmlParser');
@@ -54,8 +54,9 @@ lgb.model.scenario.Base.prototype.load = function() {
 lgb.model.scenario.Base.prototype.selectId = function(id) {
 
   this.selectedSystemNode = this.idxToNodeMap[id];
-  var e = new lgb.events.DataModelChanged();
-  this.dispatchLocal(e);
+  
+  this.triggerLocal(e.DataModelChanged);
+  
 };
 
 

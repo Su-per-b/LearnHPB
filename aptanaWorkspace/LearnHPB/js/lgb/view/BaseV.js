@@ -1,7 +1,7 @@
 goog.provide('lgb.view.BaseV');
 
 goog.require('lgb.BaseClass');
-goog.require('lgb.events.DataModelChanged');
+
 
 goog.require('lgb.utils');
 
@@ -18,7 +18,7 @@ lgb.view.BaseV = function(dataModel, htmlID, parentHtmlID) {
     this.dataModel = dataModel;
 
     if (this.onChange && this.dataModel) {
-      this.listenHelper_(this.dataModel, lgb.events.DataModelChanged.TYPE, this, this.onChange);
+      this.listenHelper_(this.dataModel, e.DataModelChanged, this, this.onChange);
     }
 
   }

@@ -12,7 +12,7 @@ goog.require('lgb.controller.EnvelopeController');
 goog.require('lgb.controller.RoofTopController');
 goog.require('lgb.controller.FurnitureController');
 goog.require('lgb.controller.ZoneController');
-goog.require('lgb.events.BuildingHeightChanged');
+
 
 
 /**
@@ -56,7 +56,7 @@ lgb.controller.BuildingController.prototype.bind_ = function() {
 
     
   this.listen(
-    lgb.events.BuildingHeightChanged.TYPE,
+    e.BuildingHeightChanged,
     this.onBuildingHeightChanged_
     );
     

@@ -5,7 +5,7 @@
  
 goog.provide('lgb.view.SelectionView');
 
-goog.require('lgb.events.DataModelChanged');
+
 goog.require('lgb.events.Object3DSelected');
 goog.require('lgb.model.SelectableModel');
 goog.require('lgb.view.BaseView');
@@ -74,7 +74,7 @@ lgb.view.SelectionView.prototype.onClick_ = function(event) {
 
 /**
  * @protected
- * @param {lgb.events.DataModelChanged} event Fired when the DM changes.
+ * @param {lgb.events.Event} event Fired when the DM changes.
  */
 lgb.view.SelectionView.prototype.onChange = function(event) {
   this.updateSelected_();

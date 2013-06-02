@@ -30,9 +30,10 @@ lgb.controller.RoofTopController.prototype.init_ = function() {
   this.dataModel = new lgb.model.RoofTopModel();
   this.view = new lgb.view.RoofTopView(this.dataModel);
 
-  this.listenTo(this.view,
-    lgb.events.SelectableLoaded.TYPE,
-    this.onSelectableLoaded);
+  this.relay(
+    this.view,
+    lgb.events.SelectableLoaded.TYPE
+    );
 
   this.view.init();
 
@@ -40,15 +41,6 @@ lgb.controller.RoofTopController.prototype.init_ = function() {
 };
 
 
-/**
- * @param {lgb.events.SelectableLoaded} event the event telling
- * about a new seletable 3D Object.
- */
-lgb.controller.RoofTopController.prototype.onSelectableLoaded =
-  function(event) {
-
-  this.dispatch(event);
-};
 
 
 /**

@@ -10,7 +10,7 @@ goog.require('lgb.ThreeUtils');
 goog.require('lgb.view.BaseView3dScene');
 
 goog.require('lgb.model.BuildingHeightModel');
-goog.require('lgb.events.BuildingHeightChanged');
+
 
 
 /**
@@ -98,7 +98,7 @@ lgb.view.EnvelopeView.prototype.dispatchVisibilityNodes_ = function() {
 
 /**
  * @override
- * @param {lgb.events.DataModelChanged} event The event.
+ * @param {lgb.events.Event} event The event.
  * @protected
  */
 lgb.view.EnvelopeView.prototype.onChange = function(event) {
@@ -174,8 +174,11 @@ lgb.view.EnvelopeView.prototype.makeFloors_ = function() {
   var topFloorMinY = topFloorY + bb.min.y;
   
   var payload = new lgb.model.BuildingHeightModel(topFloorMaxY,topFloorMinY);
-  var event = new lgb.events.BuildingHeightChanged(payload);
-  this.dispatchLocal(event);
+  
+  
+  
+  this.triggerLocal(e.BuildingHeightChanged, payload);
+  
   
 };
 

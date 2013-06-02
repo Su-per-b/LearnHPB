@@ -9,7 +9,7 @@
 
 goog.provide('lgb.component.SplitPanel');
 goog.require('lgb.view.BaseV');
-goog.require('lgb.events.DataSourceChanged');
+
 
 /**
  * Html component that contains a cusmtom SplitPanel

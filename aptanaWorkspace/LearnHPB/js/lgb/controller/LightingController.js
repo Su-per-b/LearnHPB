@@ -11,7 +11,7 @@ goog.require('lgb.model.LightingModel');
 goog.require('lgb.view.LightingView');
 goog.require('lgb.view.LightingGUI');
 goog.require('lgb.view.LightingAdminView');
-goog.require('lgb.events.BuildingHeightChanged');
+
 goog.require('lgb.model.BuildingHeightModel');
 
 /**
@@ -60,7 +60,7 @@ lgb.controller.LightingController.prototype.bind_ = function() {
   this.relay(this.view, e.AddToWorldRequest);
 
   this.listen(
-    lgb.events.BuildingHeightChanged.TYPE,
+    e.BuildingHeightChanged,
     this.onBuildingHeightChanged_
     );
     

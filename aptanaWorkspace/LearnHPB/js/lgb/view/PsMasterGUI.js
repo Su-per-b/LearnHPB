@@ -10,7 +10,7 @@ goog.require('lgb.model.BuildingHeightModel');
 goog.require('lgb.model.PsModelMaster');
 
 
-goog.require('lgb.events.DataSourceChanged');
+
 
 goog.require('lgb.component.Tree');
 goog.require('lgb.component.TreeDataSource');
@@ -70,15 +70,15 @@ lgb.view.PsMasterGUI.prototype.bind_ = function() {
 
 
   this.listenTo(this.treeActiveDS,
-    lgb.events.DataSourceChanged.TYPE,
+    e.DataSourceChanged,
     this.onChangeDataSource_);  
     
   this.listenTo(this.treeBoxesDS,
-    lgb.events.DataSourceChanged.TYPE,
+    e.DataSourceChanged,
     this.onChangeDataSource_);
     
   this.listenTo(this.treeCurvesDS,
-    lgb.events.DataSourceChanged.TYPE,
+    e.DataSourceChanged,
     this.onChangeDataSource_);
     
 };

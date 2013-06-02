@@ -7,8 +7,8 @@ goog.provide('lgb.view.EnvelopeAdminView');
 
 goog.require('lgb.component.RadioButtonDataSource');
 goog.require('lgb.component.RadioButtonGroup');
-goog.require('lgb.events.DataModelChanged');
-goog.require('lgb.events.DataSourceChanged');
+
+
 
 goog.require('lgb.view.BaseViewGUI');
 
@@ -52,23 +52,19 @@ lgb.view.EnvelopeAdminView.prototype.bind_ = function() {
   this.rbGroupStories.bind();
 
   this.listenTo(this.dataSourceFloorHeight,
-    lgb.events.DataSourceChanged.TYPE,
+    e.DataSourceChanged,
     this.onFloorHeightChanged_
     );
 
   this.listenTo(this.dataSourceFloorCount,
-    lgb.events.DataSourceChanged.TYPE,
+    e.DataSourceChanged,
     this.onFloorCountChanged_
     );
 };
 
 
 
-/**
- * event handler
- * @private
- * @param {lgb.events.DataSourceChanged} event The Event.
- */
+
 lgb.view.EnvelopeAdminView.prototype.onFloorCountChanged_ = function(event) {
 
   this.requestDataModelChange('floorCount', this.dataSourceFloorCount.theSelectedOne.value);
@@ -76,11 +72,7 @@ lgb.view.EnvelopeAdminView.prototype.onFloorCountChanged_ = function(event) {
 };
 
 
-/**
- * event handler
- * @private
- * @param {lgb.events.DataSourceChanged} event The Event.
- */
+
 lgb.view.EnvelopeAdminView.prototype.onFloorHeightChanged_ = function(event) {
 
   this.requestDataModelChange('floorHeight', this.dataSourceFloorHeight.theSelectedOne.value);

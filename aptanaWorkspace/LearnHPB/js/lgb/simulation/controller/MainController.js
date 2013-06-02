@@ -96,14 +96,6 @@ lgb.simulation.controller.MainController.prototype.serializeAndSend = function(e
 
 
 /**
- lgb.simulation.controller.MainController.prototype.setState_ = function(state) {
-
- this.state_ = state;
- var event = new lgb.simulation.events.WebSocketConnectionStateEvent(state);
- this.dispatch(event);
-
- };
-
  * Handler used for websocket communication
  * @private
  */

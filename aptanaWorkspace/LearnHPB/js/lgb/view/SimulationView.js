@@ -29,7 +29,7 @@ goog.inherits(lgb.view.SimulationView, lgb.view.DialogView);
 
 /**
  * @protected
- * @param {lgb.events.DataModelChanged} event Fired when the DM changes.
+ * @param {lgb.events.Event} event Fired when the DM changes.
  */
 lgb.view.SimulationView.prototype.onChange = function(event) {
 
@@ -213,7 +213,7 @@ lgb.view.SimulationView.prototype.onClickSimStateNativeRequest_ = function(event
 lgb.view.SimulationView.prototype.bind_ = function() {
 
     //data model changed
-    //this.listenTo(this.dataModel, lgb.events.DataModelChanged.TYPE, this.onChange);
+    //this.listenTo(this.dataModel, e.DataModelChanged, this.onChange);
 
     var len = this.topPanelButtons_.length;
     for (var i = 0; i < len - 1; i++) {

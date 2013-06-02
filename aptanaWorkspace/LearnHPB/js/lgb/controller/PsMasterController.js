@@ -9,8 +9,8 @@ goog.require('lgb.view.PsMasterGUI');
 goog.require('lgb.controller.BaseController');
 goog.require('lgb.controller.PsController');
 
-goog.require('lgb.events.DataModelChanged');
-goog.require('lgb.events.BuildingHeightChanged');
+
+
 
 
 
@@ -65,7 +65,7 @@ lgb.controller.PsMasterController.prototype.bind_ = function() {
    );
    
   this.listen(
-    lgb.events.BuildingHeightChanged.TYPE,
+    e.BuildingHeightChanged,
     this.onBuildingHeightChanged_
    );
 

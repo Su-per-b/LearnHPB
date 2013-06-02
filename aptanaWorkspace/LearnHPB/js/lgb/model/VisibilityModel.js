@@ -8,7 +8,7 @@ goog.provide('lgb.model.VisibilityModel');
 goog.require('lgb.model.BaseModel');
 goog.require('lgb.model.vo.VisibilityNode');
 
-goog.require('lgb.events.DataModelChanged');
+
 
 
 lgb.model.VisibilityModel = function() {
@@ -92,7 +92,7 @@ lgb.model.VisibilityModel.prototype.makeNode_ = function(title, idx) {
   var node = new lgb.model.vo.VisibilityNode(title, true, idx);
   
   this.listenTo(node,
-    lgb.events.DataModelChanged.TYPE,
+    e.DataModelChanged,
     this.onDataModelChanged_
     )
   

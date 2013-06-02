@@ -6,7 +6,7 @@
 goog.provide('lgb.view.BaseView3dScene');
 
 goog.require('lgb.BaseClass');
-goog.require('lgb.events.DataModelChanged');
+
 
 goog.require('lgb.utils');
 
@@ -25,7 +25,7 @@ lgb.view.BaseView3dScene = function(dataModel) {
   if(this.dataModel && this.onChange) {
     
     this.listenHelper_(this.dataModel, 
-      lgb.events.DataModelChanged.TYPE, 
+      e.DataModelChanged, 
       this, this.onChange);
       
   }
@@ -155,16 +155,6 @@ lgb.view.BaseView3dScene.prototype.placeOneContainer_ = function(containerName, 
   
 };
 
-
-/**
- * Event Handler that fires when the data model changes
- * @param {lgb.events.DataModelChanged} event The event.
- * @protected
-
-lgb.view.BaseView3dScene.prototype.onChange = function(event) {
-  
-};
- */
 
 
 lgb.view.BaseView3dScene.prototype.requestDataModelChange = function(propertyName, propertyValue) {

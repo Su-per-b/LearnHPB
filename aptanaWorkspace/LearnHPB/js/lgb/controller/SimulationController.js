@@ -16,7 +16,7 @@ goog.require('lgb.simulation.events.ConfigChangeNotify');
 goog.require('lgb.simulation.events.XMLparsedEvent');
 goog.require('lgb.simulation.events.MessageEvent');
 
-goog.require('lgb.events.DataModelChanged');
+
 goog.require('lgb.simulation.model.WebSocketConnectionState');
 
 /**
@@ -56,7 +56,7 @@ lgb.controller.SimulationController.prototype.bind_ = function() {
     /*
     this.listenTo (
         this.dataModel,
-        lgb.events.DataModelChanged.TYPE,
+        e.DataModelChanged,
         this.onDataModelChanged_
     );
     */

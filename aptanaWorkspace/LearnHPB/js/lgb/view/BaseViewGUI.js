@@ -1,7 +1,7 @@
 goog.provide('lgb.view.BaseViewGUI');
 
 goog.require('lgb.view.BaseV');
-goog.require('lgb.events.DataModelChanged');
+
 
 goog.require('lgb.utils');
 

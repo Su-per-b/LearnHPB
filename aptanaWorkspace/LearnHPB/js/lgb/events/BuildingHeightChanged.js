@@ -15,7 +15,7 @@ goog.require('goog.events.Event');
  */
 lgb.events.BuildingHeightChanged = function( buildingHeightModel ) {
     
-  goog.events.Event.call(this, lgb.events.BuildingHeightChanged.TYPE);
+  goog.events.Event.call(this, e.BuildingHeightChanged);
 
   /**
    * The event payload
@@ -30,4 +30,4 @@ goog.inherits(lgb.events.BuildingHeightChanged, goog.events.Event);
  * @const
  * @type {string}
  */
-lgb.events.BuildingHeightChanged.TYPE = 'lgb.events.BuildingHeightChanged';
+e.BuildingHeightChanged = 'lgb.events.BuildingHeightChanged';

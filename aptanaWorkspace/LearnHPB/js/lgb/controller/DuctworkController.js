@@ -10,7 +10,7 @@ goog.require('lgb.controller.BaseController');
 goog.require('lgb.events.SelectableLoaded');
 goog.require('lgb.model.DuctworkModel');
 goog.require('lgb.view.DuctworkView');
-goog.require('lgb.events.BuildingHeightChanged');
+
 
 goog.require('lgb.model.BuildingHeightModel');
 
@@ -54,33 +54,26 @@ lgb.controller.DuctworkController.prototype.bind_ = function() {
   
   this.relay(this.view, e.AddToWorldRequest);
   
-  this.listenTo(this.view,
-    lgb.events.SelectableLoaded.TYPE,
-    this.onSelectableLoaded);
+
     
   this.listen(
-    lgb.events.BuildingHeightChanged.TYPE,
+    e.BuildingHeightChanged,
     this.onBuildingHeightChanged_
     );
     
 
     
   this.relay(this.view,e.ViewPointCollectionLoaded);
+  this.relay(this.view,e.VisibilityNodesLoaded);
+  this.relay(this.view,lgb.events.SelectableLoaded.TYPE);
   
-  this.listenTo(
-    this.view,
-    e.VisibilityNodesLoaded,
-    this.onVisibilityNodesLoaded_
-    );
+  
+  
+
 };
 
 
-lgb.controller.DuctworkController.prototype.onVisibilityNodesLoaded_ =
-  function(event) {
 
-  this.dispatch(event);
-  
-};
 
 
 lgb.controller.DuctworkController.prototype.onBuildingHeightChanged_ =
@@ -93,14 +86,6 @@ lgb.controller.DuctworkController.prototype.onBuildingHeightChanged_ =
 
 
 
-/**
- * @param {lgb.events.SelectableLoaded} event the event telling
- * about a new 3d Object which has loaded.
- */
-lgb.controller.DuctworkController.prototype.onSelectableLoaded =
-  function(event) {
-  this.dispatch(event);
-};
 
 /**
  * @param {lgb.model.BuildingModel.Group} group The group

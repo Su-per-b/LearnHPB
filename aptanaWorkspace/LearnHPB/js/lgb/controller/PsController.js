@@ -7,7 +7,7 @@ goog.provide('lgb.controller.PsController');
 
 goog.require('lgb.controller.BaseController');
 
-goog.require('lgb.events.DataModelChanged');
+
 
 goog.require('lgb.model.PsModel');
 goog.require('lgb.view.PsView');
