@@ -247,37 +247,7 @@ a.admin-link:hover {
 	overflow:scroll;
 }
 
-#leftPanel {
 
-	position: absolute;
-	height:100%;
-	overflow:hidden;
-
-}
-
-#pageContainer {
-	top:0px;
-	left:0px;
-	position: absolute;
-	width:100%;
-	height:100%;
-
-}
-
-#webGLcanvas {
-	position: absolute;
-}
-
-
-#horizontal
-{
-	width:100%;
-	height:100%;
-}
-
-#webGLcanvas {
-	overflow:hidden;
-}
 
 #wbGLrenderer {
 	top:0px;
@@ -337,12 +307,6 @@ a.admin-link:hover {
 
 
 
-/* background color when clicked */
-li.k-item  {
-
-}
-	
-
 /* this is for square corners */
 li.k-item.k-state-default {
   -moz-border-radius: 0;
@@ -371,9 +335,19 @@ li.k-item.k-state-default {
 	margin:0px;
 }
 
-#leftpanel-tabStrip div {
 
+
+#pageContainer {
+  top:0px;
+  left:0px;
+  position: absolute;
+  width:100%;
+  height:100%;
 }
 
 
+
+#webGLcanvas {
+  overflow:hidden;
+}
 

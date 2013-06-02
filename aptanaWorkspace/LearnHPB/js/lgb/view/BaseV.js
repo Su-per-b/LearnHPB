@@ -49,7 +49,8 @@ lgb.view.BaseV.prototype.append = function(html) {
 
 };
 
-lgb.view.BaseV.prototype.injectMainElement = function(parentElement) {
+
+lgb.view.BaseV.prototype.inject = function(parentElement) {
 
   var el = this.getMainElement();
 
@@ -73,6 +74,17 @@ parent.append( el) );
 
 }*/
 
+lgb.view.BaseV.prototype.makeDiv = function(id) {
+  
+  var div = $('<div>');
+  
+  if (id) {
+    div.attr('id', id);
+  }
+
+  return div;
+};
+
 /**
  * makes a unique css ID for a child element
  * @param {!string} id The last part of the CSS ID.
@@ -93,9 +105,8 @@ lgb.view.BaseV.prototype.setMainElement = function(el) {
 
 lgb.view.BaseV.prototype.getMainElement = function() {
 
-  lgb.assert(this.htmlID);
-
   if (undefined == this.mainElement_) {
+    lgb.assert(this.htmlID);
     this.mainElement_ = $("<div>").attr("id", this.htmlID);
   }
 

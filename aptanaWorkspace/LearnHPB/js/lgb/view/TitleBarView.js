@@ -5,7 +5,7 @@
  
 goog.provide('lgb.view.TitleBarView');
 goog.require('lgb.view.BaseViewGUI');
-
+goog.require('lgb.Config');
 
 
 /**
@@ -14,24 +14,26 @@ goog.require('lgb.view.BaseViewGUI');
  */
 lgb.view.TitleBarView = function() {
     
-  lgb.view.BaseViewGUI.call(this, null, 'titleBar', lgb.Config.HUD_CONTAINER_STR);
-
-  this.injectHtml_();
+    
+  this._TITLE='TitleBar';
+  
+  this.layoutID = lgb.Config.LAYOUT_ID.TitleBar;
+  
+  lgb.view.BaseViewGUI.call(this);
+  
+  this.init_();
 
 };
 goog.inherits(lgb.view.TitleBarView, lgb.view.BaseViewGUI);
 
 
-/**
- * @private
- */
-lgb.view.TitleBarView.prototype.injectHtml_ = function() {
+
+lgb.view.TitleBarView.prototype.init_ = function() {
     
     var el = this.getMainElement();
     
-    el.attr('id', this.htmlID)
-    .css({
-        top: '-69px',
+    el.css({
+        top: '0px',
         width: '237px',
         height: '69px',
         'z-index': '101',
@@ -41,58 +43,8 @@ lgb.view.TitleBarView.prototype.injectHtml_ = function() {
       vertical: false
     });
     
-    this.injectMainElement();
-
 };
 
 
-
-lgb.view.TitleBarView.prototype.show = function() {
-  this.jumpToPosition();
-};
-
-
-/**
- * used to calculation the position of the element.
- * @return {number} the position x.
- */
-lgb.view.TitleBarView.prototype.getXpos_ = function() {
-
-  return 6;
-};
-
-
-/**
- * Compute the location of the window.
- */
-lgb.view.TitleBarView.prototype.jumpToPosition = function() {
-
-  var x = this.getXpos_();
-
-  var props = {
-    left: x + 'px',
-    top: 0
-  };
-  
-  
-  this.jq().css(props);
-};
-
-lgb.view.TitleBarView.prototype.tweenToPosition = function() {
-
-   var x = this.getXpos_();
-
-   var options = {
-      duration: 500,
-      easing: 'easeInOutSine'
-  };
-  var props = {left: x + 'px'};
-
-  this.jq().animate(
-      props,
-      options
-  );
-
-};
 
 

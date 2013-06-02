@@ -102,7 +102,7 @@ lgb.component.TabStrip.prototype.injectHtml = function() {
   this.kendoTabStrip_.select(0);
   this.ds.kendoDS = this.kendoTabStrip_.dataSource;
 
-  this.injectMainElement();
+  this.inject();
 
 };
 

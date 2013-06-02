@@ -97,7 +97,9 @@ lgb.view.BaseView3dScene.prototype.onSceneLoadedBase_ = function(result) {
 
   this.requestAddToWorld(this.masterGroup_);
   delete this.loader_;
-  this.dispatchLocal(new lgb.events.ViewInitialized());
+  
+  this.triggerLocal(e.ViewInitialized);
+
 
 };
 

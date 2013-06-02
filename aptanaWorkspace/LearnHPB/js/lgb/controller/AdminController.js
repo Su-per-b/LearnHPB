@@ -5,9 +5,8 @@
  
 goog.provide('lgb.controller.AdminController');
 goog.require('lgb.controller.BaseController');
-goog.require('lgb.view.AdminButtonView');
 goog.require('lgb.view.AdminView');
-goog.require('lgb.events.LayoutChange');
+
 
 /**
  * @constructor
@@ -23,19 +22,20 @@ goog.inherits(lgb.controller.AdminController, lgb.controller.BaseController);
  * @private
  */
 lgb.controller.AdminController.prototype.init = function() {
-  this.view = new lgb.view.AdminView();
+  //this.view = new lgb.view.AdminView();
 
-  this.buttonView = new lgb.view.AdminButtonView();
-  this.buttonView.init();
+  //this.buttonView = new lgb.view.AdminButtonView();
+ // this.buttonView.init();
   
-  this.bind_();
+  //this.bind_();
 
 };
 
 
 lgb.controller.AdminController.prototype.bind_ = function() {
     
-  this.listen(lgb.events.LayoutChange.TYPE, this.onLayoutChange_);
+  this.listen(e.LayoutChange, this.onLayoutChange_);
+  
   this.listen(lgb.events.ScenarioParsed.TYPE, this.onScenarioParsed_);
 };
 

@@ -55,9 +55,9 @@ lgb.view.LightingGUI.prototype.onComboBoxSelect_ = function(event) {
 
 
 
-lgb.view.LightingGUI.prototype.injectMainElement = function(parentElement) {
+lgb.view.LightingGUI.prototype.inject = function(parentElement) {
   
-  goog.base(this,  'injectMainElement', parentElement);
+  goog.base(this,  'inject', parentElement);
   
   
    var items = [

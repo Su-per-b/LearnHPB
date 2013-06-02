@@ -44,7 +44,7 @@ lgb.Config.APP_TITLE = 'Learn High Performance Buildings';
  * @const
  * @type {string}
  */
-lgb.Config.APP_VERSION = 'Demo 12.2';
+lgb.Config.APP_VERSION = 'Demo 12.36';
 
 /**
  * Will show status in the upper left if set to true.
@@ -95,6 +95,16 @@ lgb.Config.UTILITY_SHOW_GRID = true;
  * are logged in lgb.events.EventBus.
  */
 lgb.Config.UTILITY_SHOW_AXIS = false;
+
+
+lgb.Config.LAYOUT_ID = function() {};
+
+lgb.Config.LAYOUT_ID.TitleBar = 0;
+lgb.Config.LAYOUT_ID.TopMenu = 1;
+lgb.Config.LAYOUT_ID.ViewPoints = 2;
+lgb.Config.LAYOUT_ID.Visibility = 3;
+lgb.Config.LAYOUT_ID.Airflow = 4;
+lgb.Config.LAYOUT_ID.PropertiesButton = 5;
 
 
 

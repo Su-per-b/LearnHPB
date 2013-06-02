@@ -36,6 +36,7 @@ lgb.model.ViewPointModel.prototype.init_ = function() {
 
 
 lgb.model.ViewPointModel.prototype.addViewPointCollection = function(viewPointCollection) {
+ 
 
    var list = viewPointCollection.getNodeList();
    var len = list.length;

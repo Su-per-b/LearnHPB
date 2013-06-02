@@ -59,6 +59,10 @@ lgb.BaseClass.prototype.dispatchLocal = function(event) {
 
 
 lgb.BaseClass.prototype.triggerLocal = function(type, payload) {
+  
+  if (null == payload) {
+    payload = this;
+  }
   var event = new lgb.events.Event(type, payload);
   goog.events.dispatchEvent(this, event);
 };

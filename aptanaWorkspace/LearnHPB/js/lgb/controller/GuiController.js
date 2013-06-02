@@ -9,10 +9,11 @@ goog.require('lgb.controller.AdminController');
 goog.require('lgb.controller.BaseController');
 goog.require('lgb.controller.PropertiesController');
 goog.require('lgb.controller.InputController');
+goog.require('lgb.controller.TopMenuController');
 
 goog.require('lgb.events.RequestVisibilityChange');
 goog.require('lgb.view.TitleBarView');
-goog.require('lgb.events.LayoutChange');
+
 
 
 /**
@@ -32,7 +33,7 @@ goog.inherits(lgb.controller.GuiController, lgb.controller.BaseController);
  */
 lgb.controller.GuiController.prototype.init_ = function() {
 
- // this.adminController_ = new lgb.controller.AdminController();
+  this.topMenuController = new lgb.controller.TopMenuController();
 
   this.propertiesController = new lgb.controller.PropertiesController();
   this.inputController_ = new lgb.controller.InputController();
@@ -44,23 +45,11 @@ lgb.controller.GuiController.prototype.init_ = function() {
   this.viewpointController_.init();
   
   this.titleBarView = new lgb.view.TitleBarView();
-  this.titleBarView.show();
-
-  this.bind_();
   
-  //this.adminController_.init();
-};
+  this.trigger(e.RequestAddToLayout, this.titleBarView);
 
-lgb.controller.GuiController.prototype.bind_ = function() {
 
-  this.listen(lgb.events.LayoutChange.TYPE, this.onLayoutChange_);
 
 };
 
-
-lgb.controller.GuiController.prototype.onLayoutChange_ = function(event) {
-
-    this.titleBarView.tweenToPosition();
-
-};
 

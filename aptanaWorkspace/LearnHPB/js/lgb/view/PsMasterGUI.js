@@ -15,6 +15,7 @@ goog.require('lgb.events.DataSourceChanged');
 
 goog.require('lgb.component.Tree');
 goog.require('lgb.component.TreeDataSource');
+goog.require('lgb.Config');
 
 
 /**
@@ -25,6 +26,8 @@ goog.require('lgb.component.TreeDataSource');
 lgb.view.PsMasterGUI = function(dataModel) {
 
   this._TITLE = 'Airflow';
+  this.layoutID = lgb.Config.LAYOUT_ID.Airflow;
+  
   lgb.view.BaseViewGUI.call(this, dataModel, 'PsMasterGUI');
 };
 goog.inherits(lgb.view.PsMasterGUI, lgb.view.BaseViewGUI);

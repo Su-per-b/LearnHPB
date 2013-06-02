@@ -43,8 +43,24 @@ lgb.BaseClass.prototype.onRelayLocal_ = function(event) {
   this.dispatchLocal(event);
 };
 
-lgb.BaseClass.prototype.relay = function(eventTarget, eventType, handler) {
-  this.listenTo(eventTarget, eventType, this.onRelay_);
+lgb.BaseClass.prototype.relay = function(eventTarget, eventType) {
+  
+  if (isArray(eventType)) {
+    
+    var that = this;
+    eventType.forEach(
+      function(oneEventType, idx, ary) {
+        
+        that.listenTo(eventTarget, oneEventType, that.onRelay_);
+        
+      }
+      
+    );
+    
+  } else {
+    this.listenTo(eventTarget, eventType, this.onRelay_);
+  }
+
 };
 
 lgb.BaseClass.prototype.onRelay_ = function(event) {

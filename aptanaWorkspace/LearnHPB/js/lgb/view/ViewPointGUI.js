@@ -10,6 +10,7 @@ goog.require('lgb.events.RequestShowViewPoint');
 
 goog.require('lgb.model.ViewPointModel');
 goog.require('lgb.view.BaseViewGUI');
+goog.require('lgb.Config');
 
 
 /**
@@ -21,6 +22,8 @@ goog.require('lgb.view.BaseViewGUI');
 lgb.view.ViewPointGUI = function(dataModel) {
   
   this._TITLE = "Viewpoints";
+  this.layoutID = lgb.Config.LAYOUT_ID.ViewPoints;
+  
   lgb.view.BaseViewGUI.call(this, dataModel, 'ViewPointGUI');
 };
 goog.inherits(lgb.view.ViewPointGUI, lgb.view.BaseViewGUI);
@@ -117,19 +120,3 @@ lgb.view.ViewPointGUI.prototype.onSelect_ = function(event) {
 };
 
 
-
-
-/**
- * injects the html into the DOM
-
-lgb.view.ViewPointGUI.prototype.injectHtml = function() {
-
-
-    this.makeMainElement_();
-    
-    this.kendoTreeView_ =        
-        this.mainElement_.kendoTreeView().data("kendoTreeView");
-        
-
-};
- */

@@ -6,7 +6,6 @@
 goog.provide('lgb.view.CameraView');
 
 goog.require('lgb.controller.CameraCraneController');
-goog.require('lgb.events.LayoutChange');
 goog.require('lgb.view.BaseView3dScene');
 
 /**
@@ -61,7 +60,7 @@ lgb.view.CameraView.prototype.bind_ = function() {
       );
       */
 
-  this.listen(lgb.events.LayoutChange.TYPE, this.onLayoutChange_);
+  this.listen(e.LayoutChange, this.onLayoutChange_);
       
 }
 

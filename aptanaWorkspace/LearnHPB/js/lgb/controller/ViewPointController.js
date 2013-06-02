@@ -17,7 +17,6 @@ goog.require('lgb.model.ViewPointCollection');
 
 goog.require('lgb.events.RequestGoToViewPoint');
 goog.require('lgb.events.RequestShowViewPoint');
-goog.require('lgb.events.ViewInitialized');
 goog.require('lgb.events.ViewPointCollectionLoaded');
 goog.require('lgb.events.BuildingHeightChanged');
 
@@ -45,23 +44,11 @@ lgb.controller.ViewPointController.prototype.init = function() {
   this.dataModel = new lgb.model.ViewPointModel();
   
   this.view = new lgb.view.ViewPointView(this.dataModel);
-  //this.view.init();
 
   this.guiView = new lgb.view.ViewPointGUI (this.dataModel);
   this.bind_();
   
   this.guiView.init();
-  
-
-  
-};
-
-
-
-lgb.controller.ViewPointController.prototype.onBuildingHeightChanged_ =
-  function(event) {
-
-  this.view.setBuildingHeight(event.payload);
   
 };
 
@@ -82,18 +69,6 @@ lgb.controller.ViewPointController.prototype.bind_ = function() {
     lgb.events.ViewPointCollectionLoaded.TYPE,
     this.onViewPointCollectionLoaded_);
     
-  this.listenTo(
-    this.guiView,
-    lgb.events.RequestGoToViewPoint.TYPE,
-    this.onRequestGoToViewPoint_
-  );
-  
-  this.listenTo(
-    this.guiView,
-    lgb.events.RequestShowViewPoint.TYPE,
-    this.onRequestShowViewPoint_
-  );
-
     
   this.listen(
     lgb.events.BuildingHeightChanged.TYPE,
@@ -103,10 +78,14 @@ lgb.controller.ViewPointController.prototype.bind_ = function() {
 
   this.relay(
     this.guiView,
-    e.RequestAddToGUI
+    [
+      e.RequestAddToGUI, 
+      lgb.events.RequestShowViewPoint.TYPE,
+      lgb.events.RequestGoToViewPoint.TYPE
+    ]
     );
-    
-       
+
+
 };
 
 
@@ -121,39 +100,12 @@ lgb.controller.ViewPointController.prototype.onViewPointCollectionLoaded_ =
 
 
 
-/**
- * Event handler.
- * @private
- * @param {lgb.events.ViewInitialized} event Fired by the view.
- */
-lgb.controller.ViewPointController.prototype.onViewInitialized_ =
+lgb.controller.ViewPointController.prototype.onBuildingHeightChanged_ =
   function(event) {
-      
- // this.dataModel.addViewPoint(event.payload);
-      
-};
 
-
-/**
- * @private
- * @param {lgb.events.RequestGoToViewPoint} event Fired by the view.
- */
-lgb.controller.ViewPointController.prototype.onRequestGoToViewPoint_ =
-  function(event) {
+  this.view.setBuildingHeight(event.payload);
   
-  this.dispatch(event);
-
 };
 
-/**
- * @private
- * @param {lgb.events.RequestShowViewPoint event Fired by the view.
- */
-lgb.controller.ViewPointController.prototype.onRequestShowViewPoint_ =
-  function(event) {
-    
-  this.dispatch(event);
-
-};
 
 

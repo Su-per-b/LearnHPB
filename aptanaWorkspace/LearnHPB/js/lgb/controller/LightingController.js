@@ -7,7 +7,6 @@ goog.provide('lgb.controller.LightingController');
 
 goog.require('lgb.controller.BaseController');
 goog.require('lgb.events.RequestVisibilityChange');
-goog.require('lgb.events.ViewInitialized');
 goog.require('lgb.model.LightingModel');
 goog.require('lgb.view.LightingView');
 goog.require('lgb.view.LightingGUI');

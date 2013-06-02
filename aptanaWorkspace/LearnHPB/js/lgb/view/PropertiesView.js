@@ -16,7 +16,7 @@ goog.require('lgb.component.InputWidget');
 lgb.view.PropertiesView = function(dataModel) {
 
 
-  lgb.view.DialogView.call(this, dataModel, 'propertiesView');
+  lgb.view.DialogView.call(this, dataModel, 'propertiesView', lgb.Config.HUD_CONTAINER_STR);
   
   this.currentSelectionIdx = -1;
   this.title = 'Properties';

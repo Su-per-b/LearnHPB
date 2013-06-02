@@ -13,6 +13,7 @@ goog.require('lgb.view.BaseViewGUI');
 goog.require('lgb.view.BaseViewGUI');
 goog.require('lgb.component.TreeH');
 goog.require('lgb.component.TreeDataSourceH');
+goog.require('lgb.Config');
 
 /**
  * @constructor
@@ -23,6 +24,7 @@ goog.require('lgb.component.TreeDataSourceH');
 lgb.view.VisibilityGUI = function(dataModel) {
 
   this._TITLE = "Visibility";
+    this.layoutID = lgb.Config.LAYOUT_ID.Visibility;
   lgb.view.BaseViewGUI.call(this, dataModel);
 
 };

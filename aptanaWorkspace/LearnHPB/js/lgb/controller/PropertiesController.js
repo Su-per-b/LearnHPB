@@ -1,23 +1,19 @@
-/**
- * @author Raj Dye - raj@rajdye.com
- * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
- */
- 
+
 goog.provide('lgb.controller.PropertiesController');
 
+
 goog.require('lgb.controller.BaseController');
-goog.require('lgb.events.RequestActivateView');
-goog.require('lgb.events.RequestWorldSelectionChange');
-goog.require('lgb.events.ScenarioParsed');
-goog.require('lgb.events.WorldSelectionChanged');
-goog.require('lgb.view.PropertiesButtonView');
 goog.require('lgb.view.PropertiesView');
-goog.require('lgb.events.LayoutChange');
+goog.require('lgb.view.PropertiesButtonView');
+
+goog.require('lgb.events.DataModelChanged');
+goog.require('lgb.events.RequestActivateView');
+goog.require('lgb.events.ScenarioParsed');
 
 
-/**
- * @constructor
- * @extends lgb.controller.BaseController
+
+
+/**qfw1* @extends lgb.controller.BaseController
  */
 lgb.controller.PropertiesController = function() {
 
@@ -44,10 +40,9 @@ lgb.controller.PropertiesController.prototype.onScenarioParsed_ =
   this.buttonView = new lgb.view.PropertiesButtonView();
   this.buttonView.init();
 
+  
   this.dataModel = event.payload;
   this.view = new lgb.view.PropertiesView(this.dataModel);
-
-  this.buttonView.show();
 
   this.listenTo(this.view,
     lgb.events.ViewClosed.TYPE,
@@ -63,6 +58,8 @@ lgb.controller.PropertiesController.prototype.onScenarioParsed_ =
 
   this.listen(lgb.events.WorldSelectionChanged.TYPE,
     this.onWorldSelectionChanged);
+    
+  this.trigger(e.RequestAddToLayout, this.buttonView);
 
 };
 
@@ -71,19 +68,7 @@ lgb.controller.PropertiesController.prototype.onScenarioParsed_ =
 lgb.controller.PropertiesController.prototype.bind_ = function() {
     
   this.listen(lgb.events.ScenarioParsed.TYPE, this.onScenarioParsed_);
-  this.listen(lgb.events.LayoutChange.TYPE, this.onLayoutChange_);
 };
-
-
-
-lgb.controller.PropertiesController.prototype.onLayoutChange_ = function(event) {
-  
-  if(this.buttonView) {
-    this.buttonView.tweenToPosition();
-  }
-
-};
-
 
 
 

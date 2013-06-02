@@ -14,10 +14,13 @@ goog.require('lgb.controller.UtilityController');
 goog.require('lgb.controller.ViewPointController');
 goog.require('lgb.controller.WorldSelectionController');
 
+goog.require('lgb.model.WorldModel');
+goog.require('lgb.view.WorldView');
+
 goog.require('lgb.events.Object3DLoaded');
 goog.require('lgb.events.Render');
 goog.require('lgb.view.StatsView');
-goog.require('lgb.events.LayoutChange');
+
 
 /**
  * MVC controller for the App
@@ -38,8 +41,18 @@ goog.inherits(lgb.controller.WorldController, lgb.controller.BaseController);
  */
 lgb.controller.WorldController.prototype.init = function() {
   this.timestamp = 0;
+  
+  this.dataModel = new lgb.model.WorldModel();
+  this.view = new lgb.view.WorldView(this.dataModel);
+  
+  
   this.containerDiv_ = $('#' + this.parentHtmlID);
-    
+  
+  //this.containerDiv_ = this.makeDiv();
+  
+  //this.trigger(e.RequestAddToLayout);
+  
+  
   this.containerDiv_.attr('unselectable','on').css('UserSelect','none').css('MozUserSelect','none');
   $('body').attr('unselectable','on').css('UserSelect','none').css('MozUserSelect','none');
   
@@ -199,7 +212,7 @@ lgb.controller.WorldController.prototype.bind_ = function() {
   this.listen(lgb.events.Object3DLoaded.TYPE, this.onObject3DLoaded_);
     
   this.listen(
-      lgb.events.LayoutChange.TYPE, 
+      e.LayoutChange, 
       this.onLayoutChange_);
 };
 
@@ -233,7 +246,7 @@ lgb.controller.WorldController.prototype.onObject3DLoaded_ = function(event) {
  */
 lgb.controller.WorldController.prototype.calculateSize_ = function() {
     
-    var container = $(lgb.Config.HUD_CONTAINER);
+   // var container = $(lgb.Config.HUD_CONTAINER);
     
     var w = this.containerDiv_.width();
     var h = this.containerDiv_.height();

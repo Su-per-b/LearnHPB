@@ -81,9 +81,13 @@ lgb.controller.WorldSelectionController.prototype.bind_ = function() {
     lgb.events.Object3DSelected.TYPE,
     this.Object3DSelected_
     );
+    
+    
+/*
 
   this.listen(lgb.events.RequestWorldSelectionChange.TYPE,
-    this.onRequestWorldSelectionChange_);
+    this.onRequestWorldSelectionChange_);*/
+
 };
 
 

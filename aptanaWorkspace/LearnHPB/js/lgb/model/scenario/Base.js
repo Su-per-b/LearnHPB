@@ -25,10 +25,9 @@ lgb.model.scenario.Base = function() {
   this.idxToNodeMap = {};
   this.selectedSystemNode = null;
 
-
-
 };
 goog.inherits(lgb.model.scenario.Base, lgb.model.BaseModel);
+
 
 
 /**
@@ -37,12 +36,16 @@ goog.inherits(lgb.model.scenario.Base, lgb.model.BaseModel);
 lgb.model.scenario.Base.prototype.load = function() {
    var url = lgb.Config.XML_BASE_PATH + 'DefaultScenario.xml';
 
+  var delegate = this.d(this.parse);
+  
     $.ajax({
       type: 'GET',
       url: url,
       dataType: 'xml',
-      success: this.d(this.parse)
+      success: delegate
     });
+    
+    
 };
 
 

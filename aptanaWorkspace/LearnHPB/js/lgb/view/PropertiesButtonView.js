@@ -16,6 +16,7 @@ lgb.view.PropertiesButtonView = function() {
     
 
   lgb.view.BaseViewGUI.call(this, null, 'propertiesButton', lgb.Config.HUD_CONTAINER_STR);
+  this.layoutID = lgb.Config.LAYOUT_ID.PropertiesButton;
 
 };
 goog.inherits(lgb.view.PropertiesButtonView, lgb.view.BaseViewGUI);
@@ -34,75 +35,13 @@ lgb.view.PropertiesButtonView.prototype.init = function() {
     });
 
   this.injectCss_();
-  this.injectHtml_();
-  this.bind_();
-
-
-};
-
-/**
- * show the button.
- */
-lgb.view.PropertiesButtonView.prototype.show = function() {
-  this.jumpToPosition();
-};
-
-/**
- * Set the position.
- */
-lgb.view.PropertiesButtonView.prototype.jumpToPosition = function() {
-
-  var x = this.getXpos_();
-
-  var props = {left: x + 'px'};
-    this.jq().css(props);
-
-};
-
-
-/**
- * Event handler for when the window is resized.
- * @param {lgb.events.WindowResize} event The resize event.
- */
-lgb.view.PropertiesButtonView.prototype.tweenToPosition = function(event) {
-
-    var x = this.getXpos_();
-
-    var options = {
-      duration: 500,
-      easing: 'easeInOutSine'
-  };
-  var props = {left: x + 'px'};
-
-  this.jq().animate(
-      props,
-      options
-  );
-};
-
-/**
- * Get the Xposition for the button.
- * @return {number} The X.
- */
-lgb.view.PropertiesButtonView.prototype.getXpos_ = function() {
-
-  var x = this.jqParent().width();
-  x = x - 33 -4 - 33 -4;
-    
-  return x;
-
-};
-
-
-/**
- * Injects the HTML into the DOM.
- */
-lgb.view.PropertiesButtonView.prototype.injectHtml_ = function() {
+  
+  
   var html = '<div id="propertiesButton">' + this.button.getHtml() +
         '</div>';
 
-
-   this.append(html);
+  this.append(html);
+  this.bind_();
 };
 
 
@@ -110,9 +49,12 @@ lgb.view.PropertiesButtonView.prototype.injectHtml_ = function() {
  * Injects the CSS into the DOM.
  */
 lgb.view.PropertiesButtonView.prototype.injectCss_ = function() {
+  
     var cssInner = this.button.getCss();
     var cssStr = "<style type='text/css'>{0}</style>".format(cssInner);
     $(cssStr).appendTo('head');
+    
+    
 };
 
 
@@ -163,20 +105,4 @@ lgb.view.PropertiesButtonView.prototype.bind_ = function() {
 lgb.view.PropertiesButtonView.prototype.onClick_ = function(event) {
   this.dispatchLocal(new lgb.events.RequestActivateView(!this.isSelected));
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

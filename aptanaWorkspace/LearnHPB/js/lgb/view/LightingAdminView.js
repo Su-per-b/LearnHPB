@@ -114,5 +114,5 @@ lgb.view.LightingAdminView.prototype.injectHtml = function() {
 
 
   this.append(divHtml);
-     this.injectMainElement();
+     this.inject();
 };

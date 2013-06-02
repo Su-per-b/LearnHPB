@@ -7,7 +7,6 @@ goog.provide('lgb.view.EnvelopeView');
 
 goog.require('goog.userAgent');
 goog.require('lgb.ThreeUtils');
-goog.require('lgb.events.ViewInitialized');
 goog.require('lgb.view.BaseView3dScene');
 
 goog.require('lgb.model.BuildingHeightModel');

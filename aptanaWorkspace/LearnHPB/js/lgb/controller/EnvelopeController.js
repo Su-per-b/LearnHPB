@@ -7,7 +7,6 @@ goog.provide('lgb.controller.EnvelopeController');
 
 goog.require('lgb.controller.BaseController');
 goog.require('lgb.events.RequestVisibilityChange');
-goog.require('lgb.events.ViewInitialized');
 goog.require('lgb.model.BuildingModel.Group');
 goog.require('lgb.model.EnvelopeModel');
 goog.require('lgb.view.EnvelopeAdminView');
@@ -56,7 +55,7 @@ lgb.controller.EnvelopeController.prototype.bind_ = function() {
   this.makeAddToWorldRequestGlobal();
 
   this.listenTo(this.view,
-    lgb.events.ViewInitialized.TYPE,
+    e.ViewInitialized,
     this.onViewInitialized_);
 
   this.listenTo(this.dataModel,

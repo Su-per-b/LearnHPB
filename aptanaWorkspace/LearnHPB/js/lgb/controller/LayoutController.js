@@ -10,7 +10,7 @@ goog.require('goog.debug.Logger');
 goog.require('lgb.Config');
 goog.require('lgb.view.LayoutView');
 goog.require('lgb.events.WindowResize');
-goog.require('lgb.events.LayoutChange');
+
 
 /**
  * MVC controller for the App
@@ -32,6 +32,7 @@ goog.inherits(lgb.controller.LayoutController, lgb.controller.BaseController);
 lgb.controller.LayoutController.prototype.init = function() {
 
     this.view  = new lgb.view.LayoutView();
+    
     this.bind_();
     this.view.init();
 };
@@ -44,10 +45,22 @@ lgb.controller.LayoutController.prototype.bind_ = function() {
     
   this.listen(lgb.events.WindowResize.TYPE, this.onWindowResize_);
   
+  this.listen(e.RequestAddToLayout, this.onRequestAddToLayout_);
+  
+  
+  
   this.listenTo(
       this.view, 
-      lgb.events.LayoutChange.TYPE, 
+      e.LayoutChange, 
       this.onLayoutChange_);
+      
+
+};
+
+lgb.controller.LayoutController.prototype.onRequestAddToLayout_ = function(event) {
+  
+    this.view.add(event.payload);
+    
 };
 
 
@@ -66,4 +79,8 @@ lgb.controller.LayoutController.prototype.onLayoutChange_ = function(event) {
     this.dispatch(event);
     
 };
+
+
+
+
 

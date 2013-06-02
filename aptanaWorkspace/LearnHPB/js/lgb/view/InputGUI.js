@@ -47,7 +47,7 @@ lgb.view.InputGUI.prototype.add = function(gui) {
   }
   
   
-  gui.injectMainElement(contentElement);
+  gui.inject(contentElement);
   
   
 }

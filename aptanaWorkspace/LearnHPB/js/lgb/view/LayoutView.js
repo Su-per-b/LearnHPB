@@ -5,9 +5,16 @@
 
 goog.provide('lgb.view.LayoutView');
 
-goog.require('lgb.events.LayoutChange');
 goog.require('lgb.events.WindowResize');
 goog.require('lgb.view.BaseViewGUI');
+goog.require('lgb.component.SplitPanel');
+goog.require('lgb.component.SplitPanelDataSource');
+goog.require('lgb.view.LayoutUtil');
+goog.require('lgb.Config');
+
+
+
+
 
 /**
  * @constructor
@@ -15,9 +22,11 @@ goog.require('lgb.view.BaseViewGUI');
  */
 lgb.view.LayoutView = function() {
 
+  lgb.view.BaseViewGUI.call(this, null, 'pageContainer', 'theBody');
 
-  lgb.view.BaseViewGUI.call(this, null, 'layoutView');
-
+  this.parentMap = [];
+  this.layoutUtils_ = [];
+  
 };
 goog.inherits(lgb.view.LayoutView, lgb.view.BaseViewGUI);
 
@@ -26,80 +35,152 @@ goog.inherits(lgb.view.LayoutView, lgb.view.BaseViewGUI);
  */
 lgb.view.LayoutView.prototype.init = function() {
 
-  this.splitterBarWidth_ = 10;
-  this.injectHtml_();
-
+  this.splitPanelDS_ = new lgb.component.SplitPanelDataSource();
+  this.splitPanelDS_.splitLocation = 250;
+  
+  this.splitPanel_ = new lgb.component.SplitPanel(this.splitPanelDS_);
+  
   this.bind_();
-  this.calculateLayout();
+  
+  this.inject();
+
 
 };
 
-lgb.view.LayoutView.prototype.bind_ = function(event) {
 
-  this.kendoSplitter1_.bind('resize', this.d(this.onSplitter1Resize_));
-
+lgb.view.LayoutView.prototype.bind_ = function(guiView) {
+  
+  this.listenTo(this.splitPanel_, e.Resize, this.onSplitter1Resize_);
+  
 };
 
-lgb.view.LayoutView.prototype.injectHtml_ = function() {
 
-  var w = window.innerWidth;
-  var h = window.innerHeight;
 
-  this.webGLcanvas_ = $('<div>').attr('id', "webGLcanvas");
+lgb.view.LayoutView.prototype.add = function(guiView) {
+  
+  var parent;
+  var LAYOUT_ID = lgb.Config.LAYOUT_ID;
+    
+  if (null == guiView.layoutID) {
+    debugger;
+  } else {
+    parent = this.parentMap[guiView.layoutID];
+  }
 
-  this.leftPanel_ = $('<div>').attr('id', "leftPanel").css({
-    width : w
-  });
+  
+  switch(guiView.layoutID )
+  {
+  case LAYOUT_ID.TopMenu:
+      var el = guiView.getMainElement();
+      
+      el.css("z-index",100); 
+      el.css("position","absolute"); 
+      guiView.inject(parent);
+      
+      //this.layoutUtilTitle_ = new lgb.view.LayoutUtil(guiView);
+      
+     // this.layoutUtils_
+      
+      //this.layoutUtilTitle_.alignHorizontal(lgb.view.LayoutUtil.ALIGN.Right, 60);
+      break;
+      
+  case LAYOUT_ID.PropertiesButton:
+      this.propertiesButton_ = guiView;
+      
+      guiView.inject(parent);
+      
+      //this.layoutUtilProp_ = new lgb.view.LayoutUtil(guiView);
+    //  this.layoutUtilProp_.alignHorizontal(lgb.view.LayoutUtil.ALIGN.Right, 6);
+      
+      var util = new lgb.view.LayoutUtil(guiView);
+      util.alignHorizontal(lgb.view.LayoutUtil.ALIGN.Right, 6);
+      
+      
+      util.show();
+      
+      this.layoutUtils_.push(util);
+      
+      break;
+  case LAYOUT_ID.TitleBar:
 
-  this.horizontal_ = $('<div>').attr('id', "horizontal").append(this.leftPanel_).append(this.webGLcanvas_);
-
-  this.pageContainer_ = $('<div>').attr('id', "pageContainer").append(this.horizontal_);
-
-  $('body').append(this.pageContainer_);
-
-  this.horizontal_ = $("#horizontal").kendoSplitter({
-    panes : [{
-      collapsible : false,
-      size : "250px"
-    }, {
-      collapsible : false
-    }]
-  });
-
-  this.kendoSplitter1_ = this.horizontal_.data("kendoSplitter");
-
+      
+      guiView.inject(parent);
+      
+      var util = new lgb.view.LayoutUtil(guiView);
+      util.alignHorizontal(lgb.view.LayoutUtil.ALIGN.Right, 60);
+      util.show();
+      
+      this.layoutUtils_.push(util);
+      
+      break;
+    
+  default:
+      guiView.inject(parent);
+  }
+  
 };
+
+
 
 
 lgb.view.LayoutView.prototype.onSplitter1Resize_ = function(event) {
-  var e = new lgb.events.LayoutChange();
-  this.dispatchLocal(e);
+  
+  this.triggerLocal(e.LayoutChange);
 };
 
-lgb.view.LayoutView.prototype.calculateLayout = function() {
+lgb.view.LayoutView.prototype.calculateLayout = function(event) {
+  
+  this.each(this.layoutUtils_, this.calculateOneLayout);
+   
+};
 
-  var w = window.innerWidth;
-  var h = window.innerHeight;
-  var k = this.kendoSplitter1_;
+lgb.view.LayoutView.prototype.calculateOneLayout = function(layoutUtil) {
+  
+  layoutUtil.tweenToPosition();
+   
+};
 
-  //make the page container the full size of the browser window.
-  var leftPanelWidth = this.leftPanel_.width();
 
-  this.leftPanel_.css({
-    height : h
-  });
+lgb.view.LayoutView.prototype.inject = function() {
 
-  var webGLcanvasWidth = w - leftPanelWidth - this.splitterBarWidth_;
-  var webGLcanvasXposition = leftPanelWidth + this.splitterBarWidth_;
 
+  
+  goog.base(this,'inject');
+
+  this.splitPanel_.inject(this.getMainElement());
+  
+  this.leftPanel_ = this.splitPanel_.getPane(0);
+  this.rightPanel_ = this.splitPanel_.getPane(1);
+  
+  
+  this.webGLcanvas_ = this.makeDiv('webGLcanvas');
+  
+  this.rightPanel_.append(this.webGLcanvas_);
+  
+  var ID = lgb.Config.LAYOUT_ID;
+  
+  this.parentMap[ID.TitleBar] = this.webGLcanvas_;
+  this.parentMap[ID.TopMenu] = this.webGLcanvas_;
+ // this.parentMap[ID.ViewPoints] = this.leftPanel_;
+ // this.parentMap[ID.Visibility] = this.leftPanel_;
+  //this.parentMap[ID.Airflow] = this.leftPanel_;
+  this.parentMap[ID.PropertiesButton] = this.webGLcanvas_;
+
+  
+  
   this.webGLcanvas_.css({
-    width : webGLcanvasWidth,
-    height : h,
-    top : 0,
-    left : webGLcanvasXposition
+    width : "100%",
+    height : "100%"
   });
+  
 
+  
   return;
-
+  
 };
+
+
+
+
+
 

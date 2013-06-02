@@ -7,7 +7,6 @@ goog.provide('lgb.controller.FurnitureController');
 
 goog.require('lgb.controller.BaseController');
 goog.require('lgb.events.RequestVisibilityChange');
-goog.require('lgb.events.ViewInitialized');
 goog.require('lgb.model.FurnitureModel');
 goog.require('lgb.view.FurnitureView');
 goog.require('lgb.events.TopFloorLoaded');
@@ -57,7 +56,7 @@ lgb.controller.FurnitureController.prototype.bind_ = function() {
   this.makeAddToWorldRequestGlobal();
 
   this.listenTo(this.view,
-    lgb.events.ViewInitialized.TYPE,
+    e.ViewInitialized,
     this.onViewInitialized_);
    
     

@@ -34,8 +34,9 @@ lgb.init = function() {
 lgb.assert = function(obj) {
     
   if (obj === undefined  ) {
-    throw "Assert Failed"
     debugger;
+    throw "lgb.assert Failed"
+
   }
 };
 
@@ -149,4 +150,7 @@ lgb.testDebug = function() {
 lgb.convertFeetToMeters = function(feet) {
   return feet / 3.2808399;
 };
+
+
+
 
