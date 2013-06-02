@@ -8,7 +8,7 @@ goog.require('lgb.model.GridModel');
 goog.require('lgb.ThreeUtils');
 
 goog.require('lgb.events.ViewPointCollectionLoaded');
-goog.require('lgb.events.VisibilityNodesLoaded');
+
 
 goog.require('lgb.model.BuildingHeightModel');
 goog.require('lgb.model.ViewPointNode');
@@ -63,10 +63,9 @@ lgb.view.FurnitureView.prototype.dispatchVisibilityNodes_ = function() {
 
 
   var node = new lgb.model.vo.VisibilityNode('Funiture', this.masterGroup_, 1 );
+
+  this.triggerLocal(e.VisibilityNodesLoaded, node);
   
-  var event = new lgb.events.VisibilityNodesLoaded(node);
-  this.dispatchLocal(event);
- 
   return;
 }
 

@@ -147,7 +147,7 @@ lgb.controller.SimulationController.prototype.onDataModelChanged_ = function(eve
 
 /**
  * @private
- * @param {lgb.events.RequestGoToViewPoint} event Fired.
+ * @param {lgb.events.Event} event Fired.
  */
 lgb.controller.SimulationController.prototype.onSimStateNativeRequest_ = function(event) {
   

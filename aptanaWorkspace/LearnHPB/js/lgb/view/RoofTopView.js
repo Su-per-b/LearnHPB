@@ -6,8 +6,6 @@
 goog.provide('lgb.view.RoofTopView');
 
 
-goog.require('lgb.events.Object3DLoaded');
-goog.require('lgb.events.Object3DLoaded');
 goog.require('lgb.view.BaseView3dScene');
 
 

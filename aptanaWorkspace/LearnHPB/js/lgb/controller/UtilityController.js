@@ -30,13 +30,18 @@ lgb.controller.UtilityController.prototype.init_ = function() {
 
   if (lgb.Config.UTILITY_SHOW_GRID) {
     this.gridView = new lgb.view.UtilityGridView();
-    this.makeAddToWorldRequestGlobal(this.gridView);
+    
+    
+    this.relay(this.gridView, e.AddToWorldRequest);
+    
     this.gridView.init();
   }
 
   if (lgb.Config.UTILITY_SHOW_AXIS) {
     this.axisView = new lgb.view.UtilityAxisView();
-    this.makeAddToWorldRequestGlobal(this.axisView);
+    
+    this.relay(this.axisView, e.AddToWorldRequest);
+    
     this.axisView.init();
   }
 };

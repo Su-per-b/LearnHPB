@@ -7,7 +7,7 @@ goog.provide('lgb.controller.CameraController');
 
 goog.require('lgb.controller.BaseController');
 goog.require('lgb.view.CameraView');
-goog.require('lgb.events.RequestGoToViewPoint');
+
 
 /**
  * @constructor
@@ -46,10 +46,9 @@ lgb.controller.CameraController.prototype.getCamera = function() {
  */
 lgb.controller.CameraController.prototype.bind_ = function() {
 
- // this.makeAddToWorldRequestGlobal();
-  
+
   this.listen(
-    lgb.events.RequestGoToViewPoint.TYPE,
+    e.RequestGoToViewPoint,
     this.onRequestGoToViewPoint_
   );
   
@@ -57,7 +56,7 @@ lgb.controller.CameraController.prototype.bind_ = function() {
 
 /**
  * @private
- * @param {lgb.events.RequestGoToViewPoint} event Fired.
+ * @param {lgb.events.Event} event Fired.
  */
 lgb.controller.CameraController.prototype.onRequestGoToViewPoint_ =
   function(event) {

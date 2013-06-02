@@ -5,9 +5,6 @@
  
 goog.provide('lgb.view.ViewPointGUI');
 
-goog.require('lgb.events.RequestGoToViewPoint');
-goog.require('lgb.events.RequestShowViewPoint');
-
 goog.require('lgb.model.ViewPointModel');
 goog.require('lgb.view.BaseViewGUI');
 goog.require('lgb.Config');
@@ -98,7 +95,8 @@ lgb.view.ViewPointGUI.prototype.fireShowViewPoint = function(viewPointNode, isVi
     if (viewPointNode.parent.name =="Zones") {
       
       viewPointNode.isVisible = isVisible;
-      this.dispatchLocal(new lgb.events.RequestShowViewPoint(viewPointNode));
+      
+      this.triggerLocal(e.RequestShowViewPoint, viewPointNode);
       
     }
   }
@@ -113,7 +111,7 @@ lgb.view.ViewPointGUI.prototype.onSelect_ = function(event) {
   var viewPointNode = this.dataModel.getViewPoint(dataItem.value);
                 
   if (null != viewPointNode) {
-    this.dispatchLocal(new lgb.events.RequestGoToViewPoint(viewPointNode));
+    this.triggerLocal(e.RequestGoToViewPoint, viewPointNode);
   }
 
 

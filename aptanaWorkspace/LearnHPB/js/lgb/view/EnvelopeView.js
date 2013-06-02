@@ -89,10 +89,9 @@ lgb.view.EnvelopeView.prototype.dispatchVisibilityNodes_ = function() {
 
 
   var node = new lgb.model.vo.VisibilityNode('Envelope', this.masterGroup_, 1 );
-  
-  var event = new lgb.events.VisibilityNodesLoaded(node);
-  this.dispatchLocal(event);
  
+  this.triggerLocal(e.VisibilityNodesLoaded, node);
+  
   return;
 }
 

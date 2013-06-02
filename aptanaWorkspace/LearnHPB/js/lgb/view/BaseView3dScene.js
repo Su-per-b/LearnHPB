@@ -96,6 +96,7 @@ lgb.view.BaseView3dScene.prototype.onSceneLoadedBase_ = function(result) {
   
 
   this.requestAddToWorld(this.masterGroup_);
+  
   delete this.loader_;
   
   this.triggerLocal(e.ViewInitialized);
@@ -203,7 +204,7 @@ lgb.view.BaseView3dScene.prototype.requestAddToWorld = function(object3D) {
 
   object3D.name = object3D.name || this._NAME;
 
-  var event = new lgb.events.Object3DLoaded(object3D);
-  this.dispatchLocal(event);
+
+  this.triggerLocal(e.AddToWorldRequest, object3D);
 };
 

@@ -17,8 +17,6 @@ goog.require('lgb.controller.WorldSelectionController');
 goog.require('lgb.model.WorldModel');
 goog.require('lgb.view.WorldView');
 
-goog.require('lgb.events.Object3DLoaded');
-goog.require('lgb.events.Render');
 goog.require('lgb.view.StatsView');
 
 
@@ -181,7 +179,7 @@ lgb.controller.WorldController.prototype.initRenderer_ = function() {
   this.renderer_.shadowMapSoft = false;
 */
 
-  this.renderEvent = new lgb.events.Render();
+  this.renderEvent_ = new lgb.events.Event (e.RenderNotify);
 
   if (window.webkitRequestAnimationFrame) {
     this.renderDelegate = this.d(this.onRenderWebkit_);
@@ -209,7 +207,10 @@ lgb.controller.WorldController.prototype.initRenderer_ = function() {
  * @private
  */
 lgb.controller.WorldController.prototype.bind_ = function() {
-  this.listen(lgb.events.Object3DLoaded.TYPE, this.onObject3DLoaded_);
+  
+
+  this.listen(e.AddToWorldRequest, this.onAddToWorldRequest_);
+  
     
   this.listen(
       e.LayoutChange, 
@@ -223,10 +224,10 @@ lgb.controller.WorldController.prototype.onLayoutChange_ = function(event) {
 /**
  * Handles an event fired by View classes
  * @private
- * @param {lgb.events.Object3DLoaded} event The event that tells us
+ * @param {lgb.events.Event} event The event that tells us
  * the Object3D that the event target would like to load.
  */
-lgb.controller.WorldController.prototype.onObject3DLoaded_ = function(event) {
+lgb.controller.WorldController.prototype.onAddToWorldRequest_ = function(event) {
   var obj = event.payload;
 
   if ('' == obj.name) {
@@ -327,9 +328,9 @@ lgb.controller.WorldController.prototype.renderHelper = function(timestamp) {
   
 
   //THREE.AnimationHandler.update( 1/60 );
-  this.renderEvent.payload = timestamp;
+  this.renderEvent_.payload = timestamp;
 
-  goog.events.dispatchEvent(lgb.globalEventBus, this.renderEvent);
+  goog.events.dispatchEvent(lgb.globalEventBus, this.renderEvent_);
   this.renderer_.render(this.scene_, this.camera_);
 
 };

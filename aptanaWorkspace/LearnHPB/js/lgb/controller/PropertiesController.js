@@ -7,7 +7,6 @@ goog.require('lgb.view.PropertiesView');
 goog.require('lgb.view.PropertiesButtonView');
 
 goog.require('lgb.events.DataModelChanged');
-goog.require('lgb.events.RequestActivateView');
 goog.require('lgb.events.ScenarioParsed');
 
 
@@ -39,13 +38,12 @@ lgb.controller.PropertiesController.prototype.onScenarioParsed_ =
 
   this.buttonView = new lgb.view.PropertiesButtonView();
   this.buttonView.init();
-
   
   this.dataModel = event.payload;
   this.view = new lgb.view.PropertiesView(this.dataModel);
 
   this.listenTo(this.view,
-    lgb.events.ViewClosed.TYPE,
+    e.ViewClosed,
     this.onClosedPanel);
 
   this.listenTo(this.dataModel,
@@ -53,8 +51,8 @@ lgb.controller.PropertiesController.prototype.onScenarioParsed_ =
     this.onDataModelChanged_);
 
   this.listenTo(this.buttonView,
-    lgb.events.RequestActivateView.TYPE,
-    this.onRequestActivateView);
+    e.RequestActivateView,
+    this.onRequestActivateView_);
 
   this.listen(lgb.events.WorldSelectionChanged.TYPE,
     this.onWorldSelectionChanged);
@@ -74,9 +72,9 @@ lgb.controller.PropertiesController.prototype.bind_ = function() {
 
 
 /**
- * @param {lgb.events.RequestActivateView} event The event.
+ * @param {lgb.events.Event} event The event.
  */
-lgb.controller.PropertiesController.prototype.onRequestActivateView =
+lgb.controller.PropertiesController.prototype.onRequestActivateView_ =
   function(event) {
     
   var showFlag = event.payload;
@@ -92,6 +90,7 @@ lgb.controller.PropertiesController.prototype.onRequestActivateView =
  */
 lgb.controller.PropertiesController.prototype.onWorldSelectionChanged =
   function(event) {
+    
   var id = event.payload;
   if (id == 'NONE') {
     //TODO (Raj) deslect all
@@ -117,9 +116,11 @@ lgb.controller.PropertiesController.prototype.onDataModelChanged_ =
 
 
 /**
- * @param {lgb.events.ViewClosed} event The event.
+ * @param {lgb.events.Event} event The event.
  */
 lgb.controller.PropertiesController.prototype.onClosedPanel =
   function(event) {
+    
   this.buttonView.setSelected(false);
+  
 };

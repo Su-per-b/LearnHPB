@@ -56,9 +56,8 @@ lgb.controller.LightingController.prototype.init_ = function() {
  * @private
  */
 lgb.controller.LightingController.prototype.bind_ = function() {
-  this.makeAddToWorldRequestGlobal();
 
-
+  this.relay(this.view, e.AddToWorldRequest);
 
   this.listen(
     lgb.events.BuildingHeightChanged.TYPE,
@@ -68,7 +67,7 @@ lgb.controller.LightingController.prototype.bind_ = function() {
     
   this.relay(
     this.view,
-    lgb.events.VisibilityNodesLoaded.TYPE
+    e.VisibilityNodesLoaded
     );
     
 

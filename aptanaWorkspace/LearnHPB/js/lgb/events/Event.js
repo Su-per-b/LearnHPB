@@ -47,5 +47,14 @@ e.Resize = 'e.Resize';
 e.LayoutChange = 'e.LayoutChange';
 e.ViewInitialized = 'e.ViewInitialized';
 e.DataModelInitialized = 'e.DataModelInitialized';
-
+e.RenderNotify = 'e.RenderNotify';
+e.MouseClick = 'e.MouseClick';
+e.MouseOut = 'e.MouseOut';
+e.MouseOver = 'e.MouseOver';
+e.AddToWorldRequest = 'e.AddToWorldRequest';
+e.RequestActivateView = 'e.RequestActivateView';
+e.RequestShowViewPoint = 'e.RequestShowViewPoint';
+e.RequestGoToViewPoint = 'e.RequestGoToViewPoint';
+e.VisibilityNodesLoaded = 'e.VisibilityNodesLoaded';
+e.ViewClosed = 'e.ViewClosed';
 

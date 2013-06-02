@@ -7,9 +7,6 @@ goog.provide('lgb.controller.ZoneController');
 
 goog.require('lgb.controller.BaseController');
 goog.require('lgb.events.EnvelopeModelChanged');
-goog.require('lgb.events.RequestGoToViewPoint');
-goog.require('lgb.events.RequestZoneVisiblityChange');
-goog.require('lgb.events.RequestShowViewPoint');
 
 goog.require('lgb.model.EnvelopeModel');
 goog.require('lgb.model.ZoneModel');
@@ -58,10 +55,10 @@ lgb.controller.ZoneController.prototype.bind_ = function() {
     this.onEnvelopeModelChanged_
     );
 
-  this.makeAddToWorldRequestGlobal();
+  this.relay(this.view, e.AddToWorldRequest);
 
   this.listen(
-    lgb.events.RequestShowViewPoint.TYPE,
+    e.RequestShowViewPoint,
     this.onRequestShowViewPoint_
     );
 
@@ -101,9 +98,6 @@ lgb.controller.ZoneController.prototype.onBuildingHeightChanged_ =
 
 lgb.controller.ZoneController.prototype.onRequestShowViewPoint_ =
   function(event) {
-
-  
-  //this.view.setVisible(event.payload.idx, event.payload.isVisible);
 
   this.dataModel.setVisible(
     event.payload.idx,

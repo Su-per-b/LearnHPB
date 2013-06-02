@@ -34,7 +34,7 @@ goog.inherits(lgb.controller.TrackBallController, lgb.controller.BaseController)
 lgb.controller.TrackBallController.prototype.bind_ = function() {
 
   this.listen(
-    lgb.events.RequestGoToViewPoint.TYPE,
+    e.RequestGoToViewPoint,
     this.onRequestGoToViewPoint_
   );
   
@@ -42,7 +42,7 @@ lgb.controller.TrackBallController.prototype.bind_ = function() {
 
 /**
  * @private
- * @param {lgb.events.RequestGoToViewPoint} event Fired.
+ * @param {lgb.events.Event} event Fired.
  */
 lgb.controller.TrackBallController.prototype.onRequestGoToViewPoint_ =
   function(event) {

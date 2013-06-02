@@ -52,9 +52,9 @@ lgb.controller.FurnitureController.prototype.init_ = function() {
  * @private
  */
 lgb.controller.FurnitureController.prototype.bind_ = function() {
-  
-  this.makeAddToWorldRequestGlobal();
 
+  this.relay(this.view, e.AddToWorldRequest);
+  
   this.listenTo(this.view,
     e.ViewInitialized,
     this.onViewInitialized_);
@@ -75,7 +75,7 @@ lgb.controller.FurnitureController.prototype.bind_ = function() {
     
   this.listenTo(
     this.view,
-    lgb.events.VisibilityNodesLoaded.TYPE,
+    e.VisibilityNodesLoaded,
     this.onVisibilityNodesLoaded_
     );
     

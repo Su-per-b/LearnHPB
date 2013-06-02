@@ -7,7 +7,6 @@ goog.provide('lgb.view.TrackBallView');
 
 goog.require('goog.events.MouseWheelEvent');
 goog.require('goog.events.MouseWheelHandler');
-goog.require('lgb.events.Render');
 goog.require('lgb.view.BaseView');
 
 
@@ -65,7 +64,7 @@ lgb.view.TrackBallView.prototype.init_ = function() {
  */
 lgb.view.TrackBallView.prototype.bind_ = function() {
 
-  this.listen(lgb.events.Render.TYPE, this.d(this.onRender));
+  this.listen(e.RenderNotify, this.d(this.onRender));
 
   this.mouseWheelHander = new goog.events.MouseWheelHandler(this.domElement_);
 
@@ -101,8 +100,6 @@ lgb.view.TrackBallView.prototype.disposeInternal = function() {
     this.unlisten(this.listenKey_);
     delete this.listenKey_;
   }
-  
-
 };
 
 
@@ -123,7 +120,7 @@ lgb.view.TrackBallView.prototype.onMouseWheel_ = function(event) {
 
 /**
  * Event handler for when the scene is rendered.
- * @param {lgb.events.Render} event The event fired by the
+ * @param {e.RenderNotify} event The event fired by the
  * worldController.
  */
 lgb.view.TrackBallView.prototype.onRender = function(event) {

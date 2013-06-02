@@ -49,7 +49,8 @@ lgb.view.PropertiesView.prototype.onChange = function(event) {
  * @param {goog.events.Event} event The event received.
  */
 lgb.view.PropertiesView.prototype.onCloseButtonClicked = function(event) {
-  this.dispatchLocal(new lgb.events.ViewClosed());
+  
+  this.triggerLocal(e.ViewClosed);
 };
 
 /**

@@ -15,7 +15,7 @@ goog.require('lgb.events.ViewPointCollectionLoaded');
 goog.require('lgb.model.BuildingHeightModel');
 
 goog.require('lgb.model.vo.VisibilityNode');
-goog.require('lgb.events.VisibilityNodesLoaded');
+
 
 
 /**
@@ -50,8 +50,10 @@ lgb.controller.DuctworkController.prototype.init_ = function() {
  * @private
  */
 lgb.controller.DuctworkController.prototype.bind_ = function() {
-  this.makeAddToWorldRequestGlobal();
-
+  
+  
+  this.relay(this.view, e.AddToWorldRequest);
+  
   this.listenTo(this.view,
     lgb.events.SelectableLoaded.TYPE,
     this.onSelectableLoaded);
@@ -70,7 +72,7 @@ lgb.controller.DuctworkController.prototype.bind_ = function() {
     
   this.listenTo(
     this.view,
-    lgb.events.VisibilityNodesLoaded.TYPE,
+    e.VisibilityNodesLoaded,
     this.onVisibilityNodesLoaded_
     );
 };

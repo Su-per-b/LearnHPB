@@ -12,7 +12,7 @@ goog.require('lgb.model.BuildingHeightModel');
 goog.require('lgb.model.vo.VisibilityNode');
 goog.require('lgb.model.ViewPointCollection');
 
-goog.require('lgb.events.VisibilityNodesLoaded');
+
 goog.require('lgb.events.ViewPointCollectionLoaded');
 
 
@@ -107,23 +107,12 @@ lgb.view.DuctworkView.prototype.dispatchVisibilityNodes_ = function() {
 
   var node = new lgb.model.vo.VisibilityNode('HVAC', this.masterGroup_, 1 );
   
-  var event = new lgb.events.VisibilityNodesLoaded(node);
-  this.dispatchLocal(event);
  
-  return;
-}
-
-/*
-lgb.view.DuctworkView.prototype.dispatchVisibilityNodes_ = function() {
-
-  var node = new lgb.model.vo.VisibilityNode(this.masterGroup_, 2, null, 'Ductwork');
+  this.triggerLocal(e.VisibilityNodesLoaded, node);
   
-  var event = new lgb.events.VisibilityNodesLoaded(node);
-  this.dispatchLocal(event);
- 
   return;
 }
-*/
+
 
 /**
  * @override

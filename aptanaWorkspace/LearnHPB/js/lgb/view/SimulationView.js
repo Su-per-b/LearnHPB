@@ -10,7 +10,6 @@ goog.require('lgb.simulation.model.voNative.SimStateNative');
 goog.require('lgb.component.LinkDataSource');
 goog.require('lgb.component.Link');
 goog.require('lgb.view.DialogView');
-goog.require('lgb.events.MouseClick');
 goog.require('lgb.simulation.events.SimStateNativeRequest');
 
 /**
@@ -192,14 +191,14 @@ lgb.view.SimulationView.prototype.injectHtml_ = function() {
 /**
  * event handler
  * @private
- * @param {lgb.events.MouseClick} event The Event.
+ * @param {lgb.events.Event} event The Event.
  */
 lgb.view.SimulationView.prototype.onClickSimStateNativeRequest_ = function(event) {
 
     var simState = event.target.data;
 
-    var event = new lgb.simulation.events.SimStateNativeRequest(simState);
-    this.dispatchLocal(event);
+    var e = new lgb.simulation.events.SimStateNativeRequest(simState);
+    this.dispatchLocal(e);
 
 };
 
@@ -222,7 +221,7 @@ lgb.view.SimulationView.prototype.bind_ = function() {
         var button = this.topPanelButtons_[i];
 
         button.bind();
-        this.listenTo(button, lgb.events.MouseClick.TYPE, this.onClickSimStateNativeRequest_);
+        this.listenTo(button, e.MouseClick, this.onClickSimStateNativeRequest_);
 
     };
 
@@ -236,7 +235,8 @@ lgb.view.SimulationView.prototype.bind_ = function() {
  * @param {goog.events.Event} event The event received.
  */
 lgb.view.SimulationView.prototype.onCloseButtonClicked = function(event) {
-    // this.dispatchLocal(new lgb.events.ViewClosed());
+
+    this.triggerLocal(e.ViewClosed);
 
 };
 

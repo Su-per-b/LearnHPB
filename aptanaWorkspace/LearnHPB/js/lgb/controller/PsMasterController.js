@@ -12,7 +12,7 @@ goog.require('lgb.controller.PsController');
 goog.require('lgb.events.DataModelChanged');
 goog.require('lgb.events.BuildingHeightChanged');
 goog.require('lgb.events.RequestDataModelChange');
-goog.require('lgb.events.Object3DLoaded');
+
 
 goog.require('lgb.model.PsModel');
 goog.require('lgb.model.PsModelMaster');
@@ -76,8 +76,7 @@ lgb.controller.PsMasterController.prototype.bind_ = function() {
     );
     
     
-  this.makeAddToWorldRequestGlobal (this.view);
-  
+  this.relay(this.view, e.AddToWorldRequest);
 };
 
 lgb.controller.PsMasterController.prototype.onDataModelInitialized_ =
@@ -111,7 +110,7 @@ lgb.controller.PsMasterController.prototype.makeChildController_ = function(psMo
   
   this.listenToOnce(
     psController,
-    lgb.events.Object3DLoaded.TYPE,
+    e.AddToWorldRequest,
     this.onChildSystemLoaded_
    );
    

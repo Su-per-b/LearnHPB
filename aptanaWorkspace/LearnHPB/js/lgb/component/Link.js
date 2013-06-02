@@ -6,9 +6,7 @@
 goog.provide('lgb.component.Link');
 goog.require('lgb.component.LinkDataSource');
 
-goog.require('lgb.events.MouseClick');
-goog.require('lgb.events.MouseOut');
-goog.require('lgb.events.MouseOver');
+
 
 /**
  * Html radio button group that will be inserted into the DOM
@@ -108,7 +106,7 @@ lgb.component.Link.prototype.setEnabled = function(isEnabled) {
 lgb.component.Link.prototype.onMouseClick_ = function(event) {
     
     if(this.ds.isEnabled ) {
-        this.dispatchLocal(new lgb.events.MouseClick());
+        this.triggerLocal(e.MouseClick);
     }
 
 };
@@ -122,7 +120,7 @@ lgb.component.Link.prototype.onMouseClick_ = function(event) {
 lgb.component.Link.prototype.onMouseOver_ = function(event) {
     
     if(this.ds.isEnabled ) {
-        this.dispatchLocal(new lgb.events.MouseOver());
+        this.triggerLocal(e.MouseOver);
     }
 
 };
@@ -136,7 +134,7 @@ lgb.component.Link.prototype.onMouseOver_ = function(event) {
 lgb.component.Link.prototype.onMouseOut_ = function(event) {
     
     if(this.ds.isEnabled ) {
-        this.dispatchLocal(new lgb.events.MouseOut());
+        this.triggerLocal(e.MouseOut);
     }
 
 };

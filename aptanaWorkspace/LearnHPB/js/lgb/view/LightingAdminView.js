@@ -12,9 +12,6 @@ goog.provide('lgb.view.LightingAdminView');
 goog.require('lgb.component.Link');
 goog.require('lgb.component.LinkDataSource');
 
-goog.require('lgb.events.MouseClick');
-goog.require('lgb.events.MouseOut');
-goog.require('lgb.events.MouseOver');
 goog.require('lgb.events.RequestLightingChange');
 
 goog.require('lgb.model.LightingModel');

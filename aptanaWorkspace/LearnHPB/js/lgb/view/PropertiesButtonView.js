@@ -4,7 +4,6 @@
  */
  
 goog.provide('lgb.view.PropertiesButtonView');
-goog.require('lgb.events.RequestActivateView');
 goog.require('lgb.view.BaseViewGUI');
 goog.require('lgb.component.ToggleButtonA');
 
@@ -113,6 +112,8 @@ lgb.view.PropertiesButtonView.prototype.bind_ = function() {
  * @param {jQuery.event} event The click event.
  */
 lgb.view.PropertiesButtonView.prototype.onClick_ = function(event) {
-  this.dispatchLocal(new lgb.events.RequestActivateView(!this.isSelected));
+  
+  this.triggerLocal(e.RequestActivateView, !this.isSelected);
+
 };
 

@@ -5,7 +5,6 @@
  
 goog.provide('lgb.view.DialogView');
 
-goog.require('lgb.events.ViewClosed');
 goog.require('lgb.view.BaseViewGUI');
 
 /**
@@ -38,10 +37,8 @@ lgb.view.DialogView.prototype.isOpen = function() {
 /**
  * shows the Dialog.
  */
-lgb.view.DialogView.prototype.show = function(arg) {
-  
-  
-  var showFlag = arg || true;
+lgb.view.DialogView.prototype.show = function(showFlag) {
+
   
   if(showFlag) {
     this.show_();

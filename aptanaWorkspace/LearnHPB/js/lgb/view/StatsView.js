@@ -57,13 +57,13 @@ lgb.view.StatsView.prototype.init = function(containerDiv) {
   this.stats_ = new lgb.view.StatsHelper(containerDiv);
   containerDiv.appendChild(this.stats_.domElement);
 
-  this.listen(lgb.events.Render.TYPE, this.d(this.onRender));
+  this.listen(e.RenderNotify, this.d(this.onRender));
 };
 
 
 /**
  * Event handler.
- * @param {lgb.events.Render} event Fired by the Worldcontroller.
+ * @param {e.RenderNotify} event Fired by the Worldcontroller.
  */
 lgb.view.StatsView.prototype.onRender = function(event) {
   this.stats_.update();

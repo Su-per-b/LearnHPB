@@ -54,14 +54,9 @@ lgb.simulation.controller.JsonController.prototype.bind_ = function() {
     this.onEnvelopeModelChanged_
     );
 
-  this.makeAddToWorldRequestGlobal();
-
-  this.listenTo(
-    this.adminview,
-    lgb.events.RequestZoneVisiblityChange.TYPE,
-    this.onRequestZoneVisiblityChange_
-    );
-
+  
+  this.relay(this.view, e.AddToWorldRequest);
+  
 
 
 

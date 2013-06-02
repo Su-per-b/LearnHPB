@@ -15,8 +15,6 @@ goog.require('lgb.view.ViewPointView');
 goog.require('lgb.view.ViewPointGUI');
 goog.require('lgb.model.ViewPointCollection');
 
-goog.require('lgb.events.RequestGoToViewPoint');
-goog.require('lgb.events.RequestShowViewPoint');
 goog.require('lgb.events.ViewPointCollectionLoaded');
 goog.require('lgb.events.BuildingHeightChanged');
 
@@ -62,7 +60,7 @@ lgb.controller.ViewPointController.prototype.init = function() {
  */
 lgb.controller.ViewPointController.prototype.bind_ = function() {
   
-  this.makeAddToWorldRequestGlobal();
+  this.relay(this.view, e.AddToWorldRequest);
   
 
   this.listen(
@@ -80,8 +78,8 @@ lgb.controller.ViewPointController.prototype.bind_ = function() {
     this.guiView,
     [
       e.RequestAddToGUI, 
-      lgb.events.RequestShowViewPoint.TYPE,
-      lgb.events.RequestGoToViewPoint.TYPE
+      e.RequestShowViewPoint,
+      e.RequestGoToViewPoint
     ]
     );
 

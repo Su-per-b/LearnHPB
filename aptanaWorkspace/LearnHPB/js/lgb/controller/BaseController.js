@@ -68,28 +68,4 @@ lgb.BaseClass.prototype.onRelay_ = function(event) {
 };
 
 
-/**
- * @protected
- */
-lgb.controller.BaseController.prototype.makeAddToWorldRequestGlobal =
-  function(viewObject) {
-  
-  
-  if ( undefined === viewObject) {
-    viewObject = this.view;
-  }
-  
-  this.listenTo(
-    viewObject,
-    lgb.events.Object3DLoaded.TYPE,
-    this.onObject3DLoaded_);
-};
 
-
-/**
- * @private
- * @param {lgb.events.Object3DLoaded} event Fired from the v.
- */
-lgb.controller.BaseController.prototype.onObject3DLoaded_ = function(event) {
-  this.dispatch(event);
-};

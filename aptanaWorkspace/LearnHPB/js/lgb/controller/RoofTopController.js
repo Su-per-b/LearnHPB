@@ -36,7 +36,7 @@ lgb.controller.RoofTopController.prototype.init_ = function() {
 
   this.view.init();
 
-  this.makeAddToWorldRequestGlobal();
+  this.relay(this.view, e.AddToWorldRequest);
 };
 
 

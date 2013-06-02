@@ -71,7 +71,8 @@ lgb.controller.WorldSelectionController.prototype.init_ = function() {
  * @private
  */
 lgb.controller.WorldSelectionController.prototype.bind_ = function() {
-  this.makeAddToWorldRequestGlobal();
+  
+  this.relay(this.view, e.AddToWorldRequest);
 
   this.listen(
     lgb.events.SelectableLoaded.TYPE,

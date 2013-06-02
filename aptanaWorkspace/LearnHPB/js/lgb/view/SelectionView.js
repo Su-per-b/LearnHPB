@@ -7,7 +7,6 @@ goog.provide('lgb.view.SelectionView');
 
 goog.require('lgb.events.DataModelChanged');
 goog.require('lgb.events.Object3DSelected');
-goog.require('lgb.events.Render');
 goog.require('lgb.model.SelectableModel');
 goog.require('lgb.view.BaseView');
 
@@ -57,8 +56,6 @@ lgb.view.SelectionView.prototype.init = function() {
   //this.masterGroup_ = new THREE.Object3D();
 
 
- // var event = new lgb.events.Object3DLoaded(this.masterGroup_);
-  //this.dispatchLocal(event);
 };
 
 
@@ -71,7 +68,7 @@ lgb.view.SelectionView.prototype.onClick_ = function(event) {
   this.mouse.y = - (event['clientY'] / window.innerHeight) * 2 + 1;
   this.mouseMoveDirty = true;
 
-  this.renderListenerKey = this.listen(lgb.events.Render.TYPE, this.onRender);
+  this.renderListenerKey = this.listen(e.RenderNotify, this.onRender);
 };
 
 
@@ -148,7 +145,7 @@ var intersects = false;
 
 /**
  * event handler.
- * @param {lgb.events.Render} event Fired by the World Controller.
+ * @param {e.RenderNotify} event Fired by the World Controller.
  */
 lgb.view.SelectionView.prototype.onRender = function(event) {
   this.checkCollision();

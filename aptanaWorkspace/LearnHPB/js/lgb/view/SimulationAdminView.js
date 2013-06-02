@@ -72,7 +72,7 @@ lgb.view.SimulationAdminView.prototype.bind_ = function() {
 
   this.listenTo(
     this.openLink_,
-    lgb.events.MouseClick.TYPE,
+    e.MouseClick,
     this.onMouseClick_
     );
 
@@ -88,15 +88,11 @@ lgb.view.SimulationAdminView.prototype.bind_ = function() {
 /**
  * event handler
  * @private
- * @param {lgb.events.MouseClick} event The Event.
+ * @param {e.MouseClick} event The Event.
  */
 lgb.view.SimulationAdminView.prototype.onMouseClick_ = function(event) {
 
-    //var w = $('#simulationWindow').data('kendoWindow');
-    
-   // w.content("output " );
-   // w.open();
-    
+
     var stateObject = {state: lgb.model.SimulationModelState.PLAYING};
     
     var event = new lgb.events.RequestSimulationStateChange(stateObject);

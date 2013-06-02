@@ -5,7 +5,6 @@
 
 goog.provide('lgb.view.PsView');
 
-goog.require('lgb.events.Object3DLoaded');
 goog.require('lgb.events.RequestDataModelChange');
 
 goog.require('lgb.view.ParticleElement');
@@ -56,7 +55,7 @@ lgb.view.PsView.prototype.onChange = function(event) {
 lgb.view.PsView.prototype.updateIsRunning_ = function() {
 
   if (this.dataModel.isRunning) {
-    this.renderListenerKey = this.listen(lgb.events.Render.TYPE, this.onRender);
+    this.renderListenerKey = this.listen(e.RenderNotify, this.onRender);
   } else {
     if (this.renderListenerKey) {
       this.unlisten(this.renderListenerKey);
@@ -286,7 +285,7 @@ lgb.view.PsView.prototype.setY_ = function() {
 
 /**
  * event Handler
- * @param {lgb.events.Render} event The event.
+ * @param {e.RenderNotify} event The event.
  */
 lgb.view.PsView.prototype.onRender = function(event) {
   //first remove any particles at the end

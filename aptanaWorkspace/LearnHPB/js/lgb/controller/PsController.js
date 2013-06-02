@@ -54,21 +54,11 @@ lgb.controller.PsController.prototype.bind_ = function() {
     this.onRequestDataModelChange_
    );
     
-  this.listenToOnce(
-    this.view,
-    lgb.events.Object3DLoaded.TYPE,
-    this.onObject3DLoaded_
-   );
+   this.relayLocal(this.view, e.AddToWorldRequest); 
     
 };
 
 
-lgb.controller.PsController.prototype.onObject3DLoaded_ =
-  function(event) {
-
-  this.dispatchLocal(event);
-
-};
 
 
 /**

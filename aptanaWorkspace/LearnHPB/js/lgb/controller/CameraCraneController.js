@@ -58,11 +58,11 @@ lgb.controller.CameraCraneController.prototype.init =
     this.masterGroup_.add(this.debugObject);
     this.masterGroup_.add(this.debugPath);
     
-    var event = new lgb.events.Object3DLoaded(this.masterGroup_);
-    this.dispatch(event);
+    
+    this.trigger(e.AddToWorldRequest, this.masterGroup_);
   };
 
-  this.onRenderKey = this.listen(lgb.events.Render.TYPE, this.onRender_);
+  this.onRenderKey = this.listen(e.RenderNotify, this.onRender_);
     
 };
 
