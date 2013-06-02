@@ -6,7 +6,7 @@
 goog.provide('lgb.controller.LightingController');
 
 goog.require('lgb.controller.BaseController');
-goog.require('lgb.events.RequestVisibilityChange');
+
 goog.require('lgb.model.LightingModel');
 goog.require('lgb.view.LightingView');
 goog.require('lgb.view.LightingGUI');
@@ -87,16 +87,6 @@ lgb.controller.LightingController.prototype.onBuildingHeightChanged_ =
 };
 
 
-/**
- * @private
- * @param {lgb.events.RequestDataModelChange} event The event.
- */
-lgb.controller.LightingController.prototype.onRequestDataModelChange_ =
-  function(event) {
-    
-  this.dataModel.changeProperty(event.payload.name, event.payload.value);
-  
-};
 
 
 

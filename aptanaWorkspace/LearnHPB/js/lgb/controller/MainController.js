@@ -14,7 +14,6 @@ goog.require('lgb.controller.WorldController');
 goog.require('lgb.controller.SimulationController');
 goog.require('lgb.controller.LayoutController');
 
-goog.require('lgb.events.WindowResize');
 goog.require('lgb.simulation.model.voNative.SimStateNative');
 
 
@@ -76,7 +75,7 @@ lgb.controller.MainController.prototype.init = function() {
   this.worldController_.init();
     
   
-  $(window).resize(this.d(this.onWindowResize_));
+  $(window).resize(this.d(this.onNativeWindowResize_));
   
    
   //this.simulationController_ = new lgb.controller.SimulationController();
@@ -105,20 +104,18 @@ lgb.controller.MainController.prototype.init = function() {
  * @private
  * @param {Event} event The browser's event.
  */
-lgb.controller.MainController.prototype.onWindowResize_ =
+lgb.controller.MainController.prototype.onNativeWindowResize_ =
   function(event) {
 
-  var w = window.innerWidth;
-  var h = window.innerHeight;
+
   
-   this.dispatch(
-     new lgb.events.WindowResize(
-       w,
-       h
-     )
-   );
+  var payload = {
+    w:window.innerWidth,
+    h:window.innerHeight
+    };
   
-  return;
+  this.trigger(e.WindowResize, payload)
+  
 
 };
 

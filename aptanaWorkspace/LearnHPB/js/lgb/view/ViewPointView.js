@@ -6,7 +6,7 @@
 goog.provide('lgb.view.ViewPointView');
 
 ;
-goog.require('lgb.events.ViewPointCollectionLoaded');
+
 
 goog.require('lgb.view.BaseView3dScene');
 goog.require('lgb.model.BuildingHeightModel');
@@ -86,10 +86,8 @@ lgb.view.ViewPointView.prototype.onSceneLoaded_ = function(result) {
   
     var viewPointNodeCollection = new lgb.model.ViewPointCollection("Custom", camList);
         
-    var event = new lgb.events.ViewPointCollectionLoaded(viewPointNodeCollection);
-    this.dispatchLocal(event);
-    
-    
+
+    this.triggerLocal(e.ViewPointCollectionLoaded, viewPointNodeCollection);
   
    return;
   

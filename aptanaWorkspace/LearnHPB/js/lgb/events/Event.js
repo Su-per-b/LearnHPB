@@ -10,8 +10,8 @@ goog.require('goog.events.Event');
 
 /**
  * @constructor
- * @param {number} zoneNumber 0-9.
- * @param {boolean} makeVisible Tells weather to show the red zone cube.
+ * @param {string} type of event
+ * @param {Object} payload
  * @extends {goog.events.Event}
  */
 lgb.events.Event = function(type, payload) {
@@ -28,16 +28,6 @@ lgb.events.Event = function(type, payload) {
 goog.inherits(lgb.events.Event, goog.events.Event);
 
 
-
-
-/*
-lgb.events.RequestAddToGUI = function(payload) {
-  goog.events.Event.call(this, lgb.events.RequestAddToGUI.TYPE);
-  this.payload = payload;
-};
-goog.inherits(lgb.events.RequestAddToGUI, goog.events.Event);
-
-*/
 
 e.Event = function() {};
 
@@ -57,4 +47,8 @@ e.RequestShowViewPoint = 'e.RequestShowViewPoint';
 e.RequestGoToViewPoint = 'e.RequestGoToViewPoint';
 e.VisibilityNodesLoaded = 'e.VisibilityNodesLoaded';
 e.ViewClosed = 'e.ViewClosed';
+e.WindowResize = 'e.WindowResize';
+e.ViewPointCollectionLoaded = 'e.ViewPointCollectionLoaded';
+e.EnvelopeModelChanged = 'e.EnvelopeModelChanged';
+e.RequestDataModelChange = 'e.RequestDataModelChange';
 

@@ -9,7 +9,7 @@ goog.require('lgb.controller.BaseController');
 goog.require('goog.debug.Logger');
 goog.require('lgb.Config');
 goog.require('lgb.view.LayoutView');
-goog.require('lgb.events.WindowResize');
+
 
 
 /**
@@ -43,7 +43,7 @@ lgb.controller.LayoutController.prototype.init = function() {
 
 lgb.controller.LayoutController.prototype.bind_ = function() {
     
-  this.listen(lgb.events.WindowResize.TYPE, this.onWindowResize_);
+  this.listen(e.WindowResize, this.onWindowResize_);
   
   this.listen(e.RequestAddToLayout, this.onRequestAddToLayout_);
   
@@ -75,7 +75,6 @@ lgb.controller.LayoutController.prototype.onWindowResize_ = function(event) {
 lgb.controller.LayoutController.prototype.onLayoutChange_ = function(event) {
     
     this.view.calculateLayout();
-    
     this.dispatch(event);
     
 };

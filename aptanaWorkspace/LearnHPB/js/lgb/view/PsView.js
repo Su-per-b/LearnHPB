@@ -5,7 +5,7 @@
 
 goog.provide('lgb.view.PsView');
 
-goog.require('lgb.events.RequestDataModelChange');
+
 
 goog.require('lgb.view.ParticleElement');
 goog.require('lgb.view.ParticlePath');

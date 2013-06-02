@@ -9,7 +9,7 @@ goog.require('lgb.component.RadioButtonDataSource');
 goog.require('lgb.component.RadioButtonGroup');
 goog.require('lgb.events.DataModelChanged');
 goog.require('lgb.events.DataSourceChanged');
-goog.require('lgb.events.RequestDataModelChange');
+
 goog.require('lgb.view.BaseViewGUI');
 
 

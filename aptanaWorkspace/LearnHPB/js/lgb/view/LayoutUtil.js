@@ -55,10 +55,7 @@ lgb.view.LayoutUtil.prototype.jumpToPosition = function() {
 };
 
 
-/**
- * Event handler for when the window is resized.
- * @param {lgb.events.WindowResize} event The resize event.
- */
+
 lgb.view.LayoutUtil.prototype.tweenToPosition = function(event) {
 
     var x = this.getXpos_();

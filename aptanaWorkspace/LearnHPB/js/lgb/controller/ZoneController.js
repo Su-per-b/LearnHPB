@@ -6,14 +6,13 @@
 goog.provide('lgb.controller.ZoneController');
 
 goog.require('lgb.controller.BaseController');
-goog.require('lgb.events.EnvelopeModelChanged');
 
 goog.require('lgb.model.EnvelopeModel');
 goog.require('lgb.model.ZoneModel');
 goog.require('lgb.view.ZoneView');
 goog.require('lgb.events.BuildingHeightChanged');
 goog.require('lgb.model.BuildingHeightModel');
-goog.require('lgb.events.ViewPointCollectionLoaded');
+
 
 
 /**
@@ -51,7 +50,7 @@ lgb.controller.ZoneController.prototype.init_ = function() {
 lgb.controller.ZoneController.prototype.bind_ = function() {
 
   this.listen(
-    lgb.events.EnvelopeModelChanged.TYPE,
+    e.EnvelopeModelChanged,
     this.onEnvelopeModelChanged_
     );
 
@@ -69,7 +68,7 @@ lgb.controller.ZoneController.prototype.bind_ = function() {
     
   this.listenTo(
     this.view,
-    lgb.events.ViewPointCollectionLoaded.TYPE,
+    e.ViewPointCollectionLoaded,
     this.onViewPointCollectionLoaded_
     );
      
@@ -111,7 +110,7 @@ lgb.controller.ZoneController.prototype.onRequestShowViewPoint_ =
 
 /**
  * @private
- * @param {lgb.events.EnvelopeModelChanged} event The event telling
+ * @param {lgb.events.Event} event The event telling
  * about a change in the Building Envelope.
  */
 lgb.controller.ZoneController.prototype.onEnvelopeModelChanged_ =

@@ -15,7 +15,7 @@ goog.require('lgb.view.ViewPointView');
 goog.require('lgb.view.ViewPointGUI');
 goog.require('lgb.model.ViewPointCollection');
 
-goog.require('lgb.events.ViewPointCollectionLoaded');
+
 goog.require('lgb.events.BuildingHeightChanged');
 
 
@@ -64,7 +64,7 @@ lgb.controller.ViewPointController.prototype.bind_ = function() {
   
 
   this.listen(
-    lgb.events.ViewPointCollectionLoaded.TYPE,
+    e.ViewPointCollectionLoaded,
     this.onViewPointCollectionLoaded_);
     
     

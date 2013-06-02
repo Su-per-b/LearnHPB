@@ -5,7 +5,6 @@
 
 goog.provide('lgb.view.LayoutView');
 
-goog.require('lgb.events.WindowResize');
 goog.require('lgb.view.BaseViewGUI');
 goog.require('lgb.component.SplitPanel');
 goog.require('lgb.component.SplitPanelDataSource');

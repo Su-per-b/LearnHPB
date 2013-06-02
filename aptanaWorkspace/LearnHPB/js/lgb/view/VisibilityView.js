@@ -5,7 +5,7 @@
  
 goog.provide('lgb.view.VisibilityView');
 
-goog.require('lgb.events.RequestVisibilityChange');
+
 
 goog.require('lgb.model.VisibilityModel');
 goog.require('lgb.view.BaseV');
@@ -43,11 +43,3 @@ lgb.view.VisibilityView.prototype.init = function() {
 };
 
 
-
-lgb.view.VisibilityView.prototype.onChange = function(event) {
- 
- // var e = new lgb.events.RequestVisibilityChange(1);
-  //this.dispatchLocal(e);
-  
-  return;
-}

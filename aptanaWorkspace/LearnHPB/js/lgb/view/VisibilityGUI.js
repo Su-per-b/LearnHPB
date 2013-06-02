@@ -5,7 +5,7 @@
  
 goog.provide('lgb.view.VisibilityGUI');
 
-goog.require('lgb.events.RequestVisibilityChange');
+
 
 goog.require('lgb.model.VisibilityModel');
 goog.require('lgb.view.BaseViewGUI');
@@ -80,9 +80,7 @@ lgb.view.VisibilityGUI.prototype.onChange = function(event) {
 
 lgb.view.VisibilityGUI.prototype.onChangeDataSource_ = function(event) {
 
-    var e = new lgb.events.RequestDataModelChange(event.payload);
-    this.dispatchLocal(e);
-
+    this.triggerLocal(e.RequestDataModelChange, event.payload);
 };
 
 

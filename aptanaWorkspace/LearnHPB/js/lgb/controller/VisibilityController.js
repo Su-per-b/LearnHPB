@@ -7,8 +7,8 @@ goog.provide('lgb.controller.VisibilityController');
 
 goog.require('lgb.controller.BaseController');
 
-goog.require('lgb.events.RequestDataModelChange');
-goog.require('lgb.events.RequestVisibilityChange');
+
+
 
 
 goog.require('lgb.view.VisibilityGUI');
@@ -73,7 +73,7 @@ lgb.controller.VisibilityController.prototype.bind_ = function() {
     
   this.listenTo(
     this.guiView,
-    lgb.events.RequestDataModelChange.TYPE,
+    e.RequestDataModelChange,
     this.onRequestDataModelChange_
    );
 
@@ -86,10 +86,7 @@ lgb.controller.VisibilityController.prototype.bind_ = function() {
 
 
 
-/**
- * @private
- * @param {lgb.events.RequestDataModelChange} event Fired by a view.
- */
+
 lgb.controller.VisibilityController.prototype.onVisibilityNodesLoaded_ =
   function(event) {
 
@@ -99,10 +96,7 @@ lgb.controller.VisibilityController.prototype.onVisibilityNodesLoaded_ =
 
 
 
-/**
- * @private
- * @param {lgb.events.RequestDataModelChange} event Fired by a view.
- */
+
 lgb.controller.VisibilityController.prototype.onRequestDataModelChange_ =
   function(event) {
 

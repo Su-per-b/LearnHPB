@@ -2,7 +2,7 @@ goog.provide('lgb.view.BaseV');
 
 goog.require('lgb.BaseClass');
 goog.require('lgb.events.DataModelChanged');
-goog.require('lgb.events.RequestDataModelChange');
+
 goog.require('lgb.utils');
 
 /**
@@ -161,13 +161,8 @@ lgb.view.BaseV.prototype.jqParent = function() {
 
 lgb.view.BaseV.prototype.requestDataModelChange = function(propertyName, propertyValue) {
 
-  var e = new lgb.events.RequestDataModelChange({
-    name : propertyName,
-    value : propertyValue
-  });
-
-  this.dispatchLocal(e);
-
+  var payload = {name:propertyName, value:propertyValue};
+  this.triggerLocal(e.RequestDataModelChange, payload);
 };
 
 lgb.view.BaseV.prototype.getTitle = function() {

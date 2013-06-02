@@ -41,26 +41,7 @@ lgb.simulation.controller.JsonController.prototype.init_ = function() {
 };
 
 
-/**
- * Binds specific event types to functions which handle the events.
- * If no event target is specified then the listener is set  on the global
- * event bus.
- * @private
- */
-lgb.simulation.controller.JsonController.prototype.bind_ = function() {
 
-  this.listen(
-    lgb.events.EnvelopeModelChanged.TYPE,
-    this.onEnvelopeModelChanged_
-    );
-
-  
-  this.relay(this.view, e.AddToWorldRequest);
-  
-
-
-
-};
 
 lgb.simulation.controller.JsonController.prototype.deSerialize = function(jsonString) {
 

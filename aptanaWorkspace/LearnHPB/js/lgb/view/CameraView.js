@@ -53,12 +53,6 @@ lgb.view.CameraView.prototype.init = function() {
 
 lgb.view.CameraView.prototype.bind_ = function() {
   
-/*
-    this.listen(
-      lgb.events.WindowResize.TYPE, 
-      this.onWindowResize
-      );
-      */
 
   this.listen(e.LayoutChange, this.onLayoutChange_);
       
@@ -119,14 +113,3 @@ lgb.view.CameraView.prototype.onLayoutChange_ = function(event) {
 
 
 
-
-/**
- * Event handler for the browser window resize
- * @param {goog.events.Event} event The event.
- */
-/*
-lgb.view.CameraView.prototype.onWindowResize = function(event) {
-  this.camera.aspect = window.innerWidth / window.innerHeight;
-  this.camera.updateProjectionMatrix();
-};
-*/

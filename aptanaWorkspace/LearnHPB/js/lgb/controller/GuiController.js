@@ -10,7 +10,7 @@ goog.require('lgb.controller.PropertiesController');
 goog.require('lgb.controller.InputController');
 goog.require('lgb.controller.TopMenuController');
 
-goog.require('lgb.events.RequestVisibilityChange');
+
 goog.require('lgb.view.TitleBarView');
 
 

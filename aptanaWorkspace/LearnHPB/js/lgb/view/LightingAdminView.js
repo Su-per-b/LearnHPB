@@ -12,8 +12,6 @@ goog.provide('lgb.view.LightingAdminView');
 goog.require('lgb.component.Link');
 goog.require('lgb.component.LinkDataSource');
 
-goog.require('lgb.events.RequestLightingChange');
-
 goog.require('lgb.model.LightingModel');
 goog.require('lgb.view.BaseViewGUI');
 

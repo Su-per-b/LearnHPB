@@ -8,7 +8,7 @@ goog.provide('lgb.controller.PsController');
 goog.require('lgb.controller.BaseController');
 
 goog.require('lgb.events.DataModelChanged');
-goog.require('lgb.events.RequestDataModelChange');
+
 goog.require('lgb.model.PsModel');
 goog.require('lgb.view.PsView');
 
@@ -50,7 +50,7 @@ lgb.controller.PsController.prototype.bind_ = function() {
 
   this.listenTo(
     this.view,
-    lgb.events.RequestDataModelChange.TYPE,
+    e.RequestDataModelChange,
     this.onRequestDataModelChange_
    );
     
@@ -61,10 +61,6 @@ lgb.controller.PsController.prototype.bind_ = function() {
 
 
 
-/**
- * @private
- * @param {lgb.events.RequestDataModelChange} event Fired by a view.
- */
 lgb.controller.PsController.prototype.onRequestDataModelChange_ =
   function(event) {
 

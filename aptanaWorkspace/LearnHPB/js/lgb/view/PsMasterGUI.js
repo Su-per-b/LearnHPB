@@ -9,7 +9,7 @@ goog.require('lgb.view.BaseViewGUI');
 goog.require('lgb.model.BuildingHeightModel');
 goog.require('lgb.model.PsModelMaster');
 
-goog.require('lgb.events.RequestDataModelChange');
+
 goog.require('lgb.events.DataSourceChanged');
 
 goog.require('lgb.component.Tree');
@@ -85,8 +85,8 @@ lgb.view.PsMasterGUI.prototype.bind_ = function() {
 
 
 lgb.view.PsMasterGUI.prototype.onChangeDataSource_ = function(event) {
-    var e = new lgb.events.RequestDataModelChange(event.payload);
-    this.dispatchLocal(e);
+
+    this.triggerLocal(e.RequestDataModelChange, event.payload);
 };
 
 

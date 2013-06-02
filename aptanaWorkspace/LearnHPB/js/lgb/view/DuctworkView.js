@@ -13,7 +13,7 @@ goog.require('lgb.model.vo.VisibilityNode');
 goog.require('lgb.model.ViewPointCollection');
 
 
-goog.require('lgb.events.ViewPointCollectionLoaded');
+
 
 
 
@@ -96,10 +96,9 @@ lgb.view.DuctworkView.prototype.dispatchViewPointNodes_ = function() {
     var viewPointNodeCollection = new lgb.model.ViewPointCollection(
         "DuctworkView", this.masterGroup_.children);
         
-    var event = new lgb.events.ViewPointCollectionLoaded(viewPointNodeCollection);
-    this.dispatchLocal(event);
- 
-  return;
+  
+    this.triggerLocal(e.ViewPointCollectionLoaded, viewPointNodeCollection);
+
 }
 
 lgb.view.DuctworkView.prototype.dispatchVisibilityNodes_ = function() {
