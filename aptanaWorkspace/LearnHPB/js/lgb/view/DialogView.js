@@ -28,21 +28,44 @@ goog.inherits(lgb.view.DialogView, lgb.view.BaseViewGUI);
  * @return {jQuery|jQuery.widget|null} The dialog.
  */
 lgb.view.DialogView.prototype.isOpen = function() {
-  return this.jq().dialog('isOpen');
+  
+  var el = this.getMainElement();
+  
+  return el.dialog('isOpen');
 };
 
 
 /**
  * shows the Dialog.
  */
-lgb.view.DialogView.prototype.show = function() {
-  var selector = this.jq();
+lgb.view.DialogView.prototype.show = function(arg) {
+  
+  
+  var makeVisible = arg || true;
+  
+  if(makeVisible) {
+    this.show_();
+  } else {
+    this.hide_();
+  }
 
-  if (!this.isOpen()) {
-    selector.dialog('open');
+
+};
+
+/**
+ * hide the dialog.
+ */
+lgb.view.DialogView.prototype.show_ = function() {
+  
+  var el = this.getMainElement();
+
+  var isOpen = this.isOpen();
+  
+  if (!isOpen) {
+    el.dialog('open');
 
     if (this.useSlideEffect) {
-      var widget = selector.dialog('widget');
+      var widget = el.dialog('widget');
 
       var result = widget.show('slide', {
         direction: 'right',
@@ -56,6 +79,9 @@ lgb.view.DialogView.prototype.show = function() {
 /**
  * hide the dialog.
  */
-lgb.view.DialogView.prototype.hide = function() {
-  this.jq().dialog('close');
+lgb.view.DialogView.prototype.hide_ = function() {
+  
+  var el = this.getMainElement();
+
+  el.dialog('close');
 };

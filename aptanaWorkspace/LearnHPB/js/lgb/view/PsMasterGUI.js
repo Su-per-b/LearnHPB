@@ -10,7 +10,6 @@ goog.require('lgb.model.BuildingHeightModel');
 goog.require('lgb.model.PsModelMaster');
 
 goog.require('lgb.events.RequestDataModelChange');
-goog.require('lgb.events.DataModelInitialized');
 goog.require('lgb.events.DataSourceChanged');
 
 goog.require('lgb.component.Tree');

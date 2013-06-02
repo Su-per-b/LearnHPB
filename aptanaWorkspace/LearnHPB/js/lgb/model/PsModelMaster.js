@@ -8,7 +8,6 @@ goog.provide('lgb.model.PsModelMaster');
 goog.require('goog.array');
 goog.require('lgb.Config');
 goog.require('lgb.events.DataModelChanged');
-goog.require('lgb.events.DataModelInitialized');
 goog.require('lgb.model.BaseModel');
 goog.require('lgb.model.PsModel');
 goog.require('lgb.utils.XmlParser');
@@ -130,7 +129,8 @@ lgb.model.PsModelMaster.prototype.checkForInitComplete_ = function() {
   if (this.isXMLloaded && this.isSceneLoaded) {
 
     this.startFactory_();
-    this.dispatchLocal(new lgb.events.DataModelInitialized());
+    this.triggerLocal(e.DataModelInitialized);
+
   }
 
 };

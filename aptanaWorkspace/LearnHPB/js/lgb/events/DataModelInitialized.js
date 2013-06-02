@@ -12,7 +12,7 @@ goog.require('goog.events.Event');
  * @extends {goog.events.Event}
  */
 lgb.events.DataModelInitialized = function() {
-  goog.events.Event.call(this, lgb.events.DataModelInitialized.TYPE);
+  goog.events.Event.call(this, e.DataModelInitialized);
 };
 goog.inherits(lgb.events.DataModelInitialized, goog.events.Event);
 
@@ -22,4 +22,4 @@ goog.inherits(lgb.events.DataModelInitialized, goog.events.Event);
  * @const
  * @type {string}
  */
-lgb.events.DataModelInitialized.TYPE = 'lgb.events.DataModelInitialized';
+e.DataModelInitialized = 'lgb.events.DataModelInitialized';

@@ -10,7 +10,7 @@
 goog.provide('lgb.component.TreeDataSourceH');
 
 goog.require('lgb.component.BaseDataSource');
-goog.require('lgb.events.DataModelInitialized');
+
 
 
 lgb.component.TreeDataSourceH = function(lgbNode, propertyName, parentHtmlID, subID, title) {

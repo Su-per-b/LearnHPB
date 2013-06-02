@@ -77,11 +77,7 @@ lgb.view.LayoutView.prototype.add = function(guiView) {
       el.css("position","absolute"); 
       guiView.inject(parent);
       
-      //this.layoutUtilTitle_ = new lgb.view.LayoutUtil(guiView);
-      
-     // this.layoutUtils_
-      
-      //this.layoutUtilTitle_.alignHorizontal(lgb.view.LayoutUtil.ALIGN.Right, 60);
+
       break;
       
   case LAYOUT_ID.PropertiesButton:
@@ -89,13 +85,10 @@ lgb.view.LayoutView.prototype.add = function(guiView) {
       
       guiView.inject(parent);
       
-      //this.layoutUtilProp_ = new lgb.view.LayoutUtil(guiView);
-    //  this.layoutUtilProp_.alignHorizontal(lgb.view.LayoutUtil.ALIGN.Right, 6);
-      
+
       var util = new lgb.view.LayoutUtil(guiView);
+      
       util.alignHorizontal(lgb.view.LayoutUtil.ALIGN.Right, 6);
-      
-      
       util.show();
       
       this.layoutUtils_.push(util);
@@ -103,7 +96,6 @@ lgb.view.LayoutView.prototype.add = function(guiView) {
       break;
   case LAYOUT_ID.TitleBar:
 
-      
       guiView.inject(parent);
       
       var util = new lgb.view.LayoutUtil(guiView);
@@ -111,6 +103,14 @@ lgb.view.LayoutView.prototype.add = function(guiView) {
       util.show();
       
       this.layoutUtils_.push(util);
+      
+      break;
+  case LAYOUT_ID.PropertiesView:
+
+      var el = guiView.getMainElement();
+      
+      el.css("z-index",100); 
+      guiView.inject(parent);
       
       break;
     
@@ -165,6 +165,7 @@ lgb.view.LayoutView.prototype.inject = function() {
  // this.parentMap[ID.Visibility] = this.leftPanel_;
   //this.parentMap[ID.Airflow] = this.leftPanel_;
   this.parentMap[ID.PropertiesButton] = this.webGLcanvas_;
+  this.parentMap[ID.PropertiesView] = this.webGLcanvas_;
 
   
   

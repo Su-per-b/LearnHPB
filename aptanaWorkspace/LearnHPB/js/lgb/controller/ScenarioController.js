@@ -6,7 +6,6 @@
 goog.provide('lgb.controller.ScenarioController');
 
 goog.require('lgb.controller.BaseController');
-goog.require('lgb.events.DataModelInitialized');
 goog.require('lgb.events.ScenarioParsed');
 goog.require('lgb.model.scenario.Base');
 
@@ -22,7 +21,7 @@ lgb.controller.ScenarioController = function() {
   this.dataModel = new lgb.model.scenario.Base();
 
   this.listenTo(this.dataModel,
-     lgb.events.DataModelInitialized.TYPE,
+     e.DataModelInitialized,
       this.onDataModelInitialized_);
 
   this.dataModel.load();
@@ -30,11 +29,7 @@ lgb.controller.ScenarioController = function() {
 goog.inherits(lgb.controller.ScenarioController, lgb.controller.BaseController);
 
 
-/**
- * @private
- * @param {lgb.events.DataModelInitialized} event Fired by the
- * data model when it is ready.
- */
+
 lgb.controller.ScenarioController.prototype.onDataModelInitialized_ =
   function(event) {
 

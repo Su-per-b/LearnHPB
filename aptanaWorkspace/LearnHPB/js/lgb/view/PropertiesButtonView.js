@@ -33,15 +33,37 @@ lgb.view.PropertiesButtonView.prototype.init = function() {
       xPosition: 33,
       title: 'Show / Hide Properties panel'
     });
-
-  this.injectCss_();
-  
   
   var html = '<div id="propertiesButton">' + this.button.getHtml() +
         '</div>';
 
   this.append(html);
+
+};
+
+
+lgb.view.PropertiesButtonView.prototype.inject = function(parentElement) {
+  
+  this.injectCss_();
+  
+  goog.base(this, 'inject', parentElement);
+  
+  this.propertiesButtonLink_ = $('#propertiesButtonLink');
+    
+  var toolTipConfig = {
+    skin: 'light',
+    hook: {
+      target: 'leftmiddle',
+      tooltip: 'rightmiddle'
+    },
+    background: { color: '#fff', opacity: .85 },
+    closeButton: false
+  };
+
+  Tipped.create('#propertiesButtonLink', toolTipConfig);
+  
   this.bind_();
+    
 };
 
 
@@ -54,7 +76,6 @@ lgb.view.PropertiesButtonView.prototype.injectCss_ = function() {
     var cssStr = "<style type='text/css'>{0}</style>".format(cssInner);
     $(cssStr).appendTo('head');
     
-    
 };
 
 
@@ -66,9 +87,9 @@ lgb.view.PropertiesButtonView.prototype.setSelected = function(isSelected) {
   this.isSelected = isSelected;
 
   if (this.isSelected) {
-    $('#propertiesButtonLink').addClass('selected');
+    this.propertiesButtonLink_.addClass('selected');
   } else {
-    $('#propertiesButtonLink').removeClass('selected');
+    this.propertiesButtonLink_.removeClass('selected');
   }
 
 };
@@ -82,19 +103,8 @@ lgb.view.PropertiesButtonView.prototype.setSelected = function(isSelected) {
  */
 lgb.view.PropertiesButtonView.prototype.bind_ = function() {
 
-  $('#propertiesButtonLink').click(this.d(this.onClick_));
+  this.propertiesButtonLink_.click(this.d(this.onClick_));
 
-  var toolTipConfig = {
-    skin: 'light',
-    hook: {
-      target: 'leftmiddle',
-      tooltip: 'rightmiddle'
-    },
-    background: { color: '#fff', opacity: .85 },
-    closeButton: false
-  };
-
-  Tipped.create('#propertiesButtonLink', toolTipConfig);
 };
 
 /**

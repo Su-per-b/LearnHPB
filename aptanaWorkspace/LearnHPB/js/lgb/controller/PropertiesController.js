@@ -60,6 +60,7 @@ lgb.controller.PropertiesController.prototype.onScenarioParsed_ =
     this.onWorldSelectionChanged);
     
   this.trigger(e.RequestAddToLayout, this.buttonView);
+  this.trigger(e.RequestAddToLayout, this.view);
 
 };
 
@@ -77,15 +78,11 @@ lgb.controller.PropertiesController.prototype.bind_ = function() {
  */
 lgb.controller.PropertiesController.prototype.onRequestActivateView =
   function(event) {
-  var makeActiveFlag = event.payload;
+    
+  var showFlag = event.payload;
 
-  this.buttonView.setSelected(makeActiveFlag);
-
-  if (makeActiveFlag) {
-    this.view.show(false);
-  } else {
-    this.view.hide();
-  }
+  this.buttonView.setSelected(showFlag);
+  this.view.show(showFlag);
 
 };
 

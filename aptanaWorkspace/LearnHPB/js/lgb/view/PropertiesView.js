@@ -15,7 +15,9 @@ goog.require('lgb.component.InputWidget');
  */
 lgb.view.PropertiesView = function(dataModel) {
 
-
+  
+  this.layoutID = lgb.Config.LAYOUT_ID.PropertiesView;
+   
   lgb.view.DialogView.call(this, dataModel, 'propertiesView', lgb.Config.HUD_CONTAINER_STR);
   
   this.currentSelectionIdx = -1;
@@ -25,11 +27,9 @@ lgb.view.PropertiesView = function(dataModel) {
   this.kendoDropDownList = null;
 
   /** @type {*} */
-  this.kendoTabStrip = null;
+  this.kendoTabStrip_ = null;
 
-  this.injectHtml_();
-  this.showNode(this.dataModel.selectedSystemNode);
-  this.setDropDownSelection(this.dataModel.selectedSystemNode);
+
 
 };
 goog.inherits(lgb.view.PropertiesView, lgb.view.DialogView);
@@ -56,55 +56,34 @@ lgb.view.PropertiesView.prototype.onCloseButtonClicked = function(event) {
  * injects HTML into the DOM
  * @private
  */
-lgb.view.PropertiesView.prototype.injectHtml_ = function() {
+lgb.view.PropertiesView.prototype.inject = function(parentElement) {
+  
+  goog.base(this, 'inject', parentElement);
+  
   this.makeDialog_();
   this.makeListBox_();
   this.makeTabs_();
+  
+  this.showNode(this.dataModel.selectedSystemNode);
+  this.setDropDownSelection(this.dataModel.selectedSystemNode);
 };
 
 
-/**
- * injects the tabs into the DOM
- * @private
- */
-lgb.view.PropertiesView.prototype.makeTabs_ = function() {
-  var htmlTabs =
-  '<div id="tabstripContent" class="k-content">' +
-    '<div id="tabstrip" />' +
-  '</div>';
-
-  this.jq().append(htmlTabs);
-  this.kendoTabStrip = $('#tabstrip').kendoTabStrip(
-    {animation: false}
-  ).data('kendoTabStrip');
-
-  this.kendoTabStrip.append(
-      [
-        {text: 'Input'},
-        {text: 'Faults'},
-        {text: 'I2'},
-        {text: 'F2'}
-      ]
-  );
-
-  this.kendoTabStrip.select(this.kendoTabStrip.tabGroup[0].children[0]);
-};
-
 
 /**
+ *
  * injects the dialog panel into the DOM
  * @private
  */
 lgb.view.PropertiesView.prototype.makeDialog_ = function() {
 
-    var jq = $('<div>')
-    .attr('id', this.htmlID);
-    jq.direction = 'left';
-    jq.bind('dialogclose', this.d(this.onCloseButtonClicked));
+    var el = this.getMainElement();
+    
+    
+    el.direction = 'left';
 
-    jq.appendTo(lgb.Config.HUD_CONTAINER);
 
-    this.dialog = jq.dialog({
+    this.dialog = el.dialog({
       title: this.title,
       dialogClass: this.htmlID + '-dialog',
       hide: 'fade',
@@ -113,7 +92,43 @@ lgb.view.PropertiesView.prototype.makeDialog_ = function() {
       position: ['right', 'bottom'],
       autoOpen: false
     });
+    
+    el.bind('dialogclose', this.d(this.onCloseButtonClicked));
 };
+
+
+
+/**
+ * injects the tabs into the DOM
+ * @private
+ */
+lgb.view.PropertiesView.prototype.makeTabs_ = function() {
+  
+  var htmlTabs =
+  '<div id="tabstripContent" class="k-content">' +
+    '<div id="tabstrip" />' +
+  '</div>';
+
+  var el = this.getMainElement();
+
+  el.append(htmlTabs);
+  
+  this.kendoTabStrip_ = $('#tabstrip').kendoTabStrip(
+    {animation: false}
+  ).data('kendoTabStrip');
+
+  this.kendoTabStrip_.append(
+      [
+        {text: 'Input'},
+        {text: 'Faults'},
+        {text: 'I2'},
+        {text: 'F2'}
+      ]
+  );
+
+  this.kendoTabStrip_.select(this.kendoTabStrip_.tabGroup[0].children[0]);
+};
+
 
 /**
  * injects the dropdown list box into the DOM

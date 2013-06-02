@@ -105,6 +105,7 @@ lgb.Config.LAYOUT_ID.ViewPoints = 2;
 lgb.Config.LAYOUT_ID.Visibility = 3;
 lgb.Config.LAYOUT_ID.Airflow = 4;
 lgb.Config.LAYOUT_ID.PropertiesButton = 5;
+lgb.Config.LAYOUT_ID.PropertiesView = 6;
 
 
 

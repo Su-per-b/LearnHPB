@@ -5,7 +5,6 @@
  
 goog.provide('lgb.controller.GuiController');
 
-goog.require('lgb.controller.AdminController');
 goog.require('lgb.controller.BaseController');
 goog.require('lgb.controller.PropertiesController');
 goog.require('lgb.controller.InputController');

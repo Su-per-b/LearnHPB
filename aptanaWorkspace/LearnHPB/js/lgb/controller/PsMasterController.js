@@ -10,7 +10,6 @@ goog.require('lgb.controller.BaseController');
 goog.require('lgb.controller.PsController');
 
 goog.require('lgb.events.DataModelChanged');
-goog.require('lgb.events.DataModelInitialized');
 goog.require('lgb.events.BuildingHeightChanged');
 goog.require('lgb.events.RequestDataModelChange');
 goog.require('lgb.events.Object3DLoaded');
@@ -55,7 +54,7 @@ lgb.controller.PsMasterController.prototype.bind_ = function() {
   
   this.listenToOnce(
     this.dataModel,
-    lgb.events.DataModelInitialized.TYPE,
+    e.DataModelInitialized,
     this.onDataModelInitialized_
    );
    

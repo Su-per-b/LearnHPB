@@ -15,9 +15,7 @@ goog.require('lgb.view.BaseV');
  */
 lgb.component.ToggleButtonA = function(options) {
     
-  //this.htmlID = options.htmlID;
 
-  
   lgb.view.BaseV.call(this, null, options.htmlID);
 
   this.options = $.extend({ // Default values

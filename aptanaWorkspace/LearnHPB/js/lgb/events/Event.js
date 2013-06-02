@@ -46,5 +46,6 @@ e.RequestAddToLayout = 'e.RequestAddToLayout';
 e.Resize = 'e.Resize';
 e.LayoutChange = 'e.LayoutChange';
 e.ViewInitialized = 'e.ViewInitialized';
+e.DataModelInitialized = 'e.DataModelInitialized';
 
 
