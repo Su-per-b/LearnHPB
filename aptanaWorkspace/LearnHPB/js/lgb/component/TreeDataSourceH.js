@@ -128,8 +128,7 @@ lgb.component.TreeDataSourceH.prototype.makeKendoNodes_ = function(lgbNode, pare
 lgb.component.TreeDataSourceH.prototype.bind_ = function() {
 
   this.kendoDS.bind("change", this.d(this.onChangeDS_));
- // this.kendoDS.bind("update", this.d(this.onUpdate_));
-//  this.kendoDS.bind("sync", this.d(this.onSync_));
+
 
 };
 

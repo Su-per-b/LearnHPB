@@ -31,8 +31,10 @@ goog.inherits(lgb.events.Event, goog.events.Event);
 
 e.Event = function() {};
 
-e.RequestAddToGUI = 'e.RequestAddToGUI';
+
+e.RequestAddToBasicInput = 'e.RequestAddToBasicInput';
 e.RequestAddToLayout = 'e.RequestAddToLayout';
+e.RequestRemoveFromLayout = 'e.RequestRemoveFromLayout';
 e.Resize = 'e.Resize';
 e.LayoutChange = 'e.LayoutChange';
 e.ViewInitialized = 'e.ViewInitialized';

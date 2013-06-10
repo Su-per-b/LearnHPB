@@ -31,8 +31,7 @@ goog.inherits(lgb.view.TopMenuGUI, lgb.view.BaseViewGUI);
  */
 lgb.view.TopMenuGUI.prototype.init = function() {
 
-                    
-                    
+
   var el = this.getMainElement();
   
   this.kendoMenu_ =        

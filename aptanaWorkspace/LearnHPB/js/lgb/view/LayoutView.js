@@ -43,14 +43,11 @@ lgb.view.LayoutView.prototype.init = function() {
   
   this.inject();
 
-
 };
 
 
 lgb.view.LayoutView.prototype.bind_ = function(guiView) {
-  
   this.listenTo(this.splitPanel_, e.Resize, this.onSplitter1Resize_);
-  
 };
 
 
@@ -83,8 +80,6 @@ lgb.view.LayoutView.prototype.add = function(guiView) {
       this.propertiesButton_ = guiView;
       
       guiView.inject(parent);
-      
-
       var util = new lgb.view.LayoutUtil(guiView);
       
       util.alignHorizontal(lgb.view.LayoutUtil.ALIGN.Right, 6);
@@ -105,14 +100,9 @@ lgb.view.LayoutView.prototype.add = function(guiView) {
       
       break;
   case LAYOUT_ID.PropertiesView:
-
-      var el = guiView.getMainElement();
-      
-      el.css("z-index",100); 
+  
       guiView.inject(parent);
-      
       break;
-    
   default:
       guiView.inject(parent);
   }
@@ -120,30 +110,21 @@ lgb.view.LayoutView.prototype.add = function(guiView) {
 };
 
 
-
-
 lgb.view.LayoutView.prototype.onSplitter1Resize_ = function(event) {
-  
   this.triggerLocal(e.LayoutChange);
 };
 
 lgb.view.LayoutView.prototype.calculateLayout = function(event) {
-  
   this.each(this.layoutUtils_, this.calculateOneLayout);
-   
 };
 
 lgb.view.LayoutView.prototype.calculateOneLayout = function(layoutUtil) {
-  
   layoutUtil.tweenToPosition();
-   
 };
 
 
 lgb.view.LayoutView.prototype.inject = function() {
 
-
-  
   goog.base(this,'inject');
 
   this.splitPanel_.inject(this.getMainElement());
@@ -158,24 +139,18 @@ lgb.view.LayoutView.prototype.inject = function() {
   
   var ID = lgb.Config.LAYOUT_ID;
   
+  this.parentMap[ID.BasicInputGUI] = this.leftPanel_;
+  
   this.parentMap[ID.TitleBar] = this.webGLcanvas_;
   this.parentMap[ID.TopMenu] = this.webGLcanvas_;
- // this.parentMap[ID.ViewPoints] = this.leftPanel_;
- // this.parentMap[ID.Visibility] = this.leftPanel_;
-  //this.parentMap[ID.Airflow] = this.leftPanel_;
   this.parentMap[ID.PropertiesButton] = this.webGLcanvas_;
   this.parentMap[ID.PropertiesView] = this.webGLcanvas_;
 
-  
-  
   this.webGLcanvas_.css({
     width : "100%",
     height : "100%"
   });
-  
 
-  
-  return;
   
 };
 

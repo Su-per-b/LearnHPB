@@ -46,8 +46,9 @@ lgb.controller.LayoutController.prototype.bind_ = function() {
   this.listen(e.WindowResize, this.onWindowResize_);
   
   this.listen(e.RequestAddToLayout, this.onRequestAddToLayout_);
+  //this.listen(e.RequestRemoveFromLayout, this.onRequestRemoveFromLayout_);
   
-  
+
   
   this.listenTo(
       this.view, 

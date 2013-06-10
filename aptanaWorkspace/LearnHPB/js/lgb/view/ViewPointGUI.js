@@ -40,7 +40,7 @@ lgb.view.ViewPointGUI.prototype.init = function() {
   this.kendoTreeView_.setDataSource(this.dataModel.kendoDS);
   this.bind_();
   
-  this.triggerLocal(e.RequestAddToGUI, this);
+  this.triggerLocal(e.RequestAddToBasicInput, this);
 };
 
 

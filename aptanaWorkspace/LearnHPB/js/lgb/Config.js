@@ -44,7 +44,7 @@ lgb.Config.APP_TITLE = 'Learn High Performance Buildings';
  * @const
  * @type {string}
  */
-lgb.Config.APP_VERSION = 'Demo 12.36';
+lgb.Config.APP_VERSION = 'Demo 12.37';
 
 /**
  * Will show status in the upper left if set to true.
@@ -106,6 +106,7 @@ lgb.Config.LAYOUT_ID.Visibility = 3;
 lgb.Config.LAYOUT_ID.Airflow = 4;
 lgb.Config.LAYOUT_ID.PropertiesButton = 5;
 lgb.Config.LAYOUT_ID.PropertiesView = 6;
+lgb.Config.LAYOUT_ID.BasicInputGUI = 7;
 
 
 

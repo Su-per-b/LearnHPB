@@ -38,15 +38,20 @@ lgb.model.TopMenuModel.prototype.init_ = function() {
                             text: "View",
                             encoded: false,
                             items: [
-                                { text: "Sub Item 1" },
-                                { text: "Sub Item 2" },
-                                { text: "Sub Item 3" },
-                                { text: "Sub Item 4" }
+                                { text: "Title Bar" },
+                                { text: "Properties Button" },
+                                { text: "Left Panel" }
                             ]
                         }
                     ];
                     
                     
-                    
+         
 };
+
+lgb.model.TopMenuModel.prototype.add = function() {
+    
+ 
+  
+}
 

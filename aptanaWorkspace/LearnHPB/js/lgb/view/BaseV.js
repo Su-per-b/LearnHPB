@@ -1,9 +1,8 @@
 goog.provide('lgb.view.BaseV');
 
 goog.require('lgb.BaseClass');
-
-
 goog.require('lgb.utils');
+
 
 /**
  * MVC View base class
@@ -32,6 +31,7 @@ lgb.view.BaseV = function(dataModel, htmlID, parentHtmlID) {
 };
 goog.inherits(lgb.view.BaseV, lgb.BaseClass);
 
+
 /**
  * appends html to the main element
  * @param {string} html the HTML string to append.
@@ -59,20 +59,9 @@ lgb.view.BaseV.prototype.inject = function(parentElement) {
     this.parentElement_ = parentElement;
   }
 
-
   this.jqParent().append(el);
-
 };
 
-/*
-lgb.view.BaseV.prototype.injectElement = function(element) {
-
-var el = this.getMainElement();
-
-var parent = this.jqParent();
-parent.append( el) );
-
-}*/
 
 lgb.view.BaseV.prototype.makeDiv = function(id) {
   
@@ -85,6 +74,7 @@ lgb.view.BaseV.prototype.makeDiv = function(id) {
   return div;
 };
 
+
 /**
  * makes a unique css ID for a child element
  * @param {!string} id The last part of the CSS ID.
@@ -96,6 +86,7 @@ lgb.view.BaseV.prototype.makeID = function(id) {
   return newID;
 };
 
+
 lgb.view.BaseV.prototype.setMainElement = function(el) {
 
   this.mainElement_ = el;
@@ -103,15 +94,16 @@ lgb.view.BaseV.prototype.setMainElement = function(el) {
   return;
 };
 
+
 lgb.view.BaseV.prototype.getMainElement = function() {
 
   if (undefined == this.mainElement_) {
-    lgb.assert(this.htmlID);
-    this.mainElement_ = $("<div>").attr("id", this.htmlID);
+    this.mainElement_ = this.makeDiv(this.htmlID);
   }
 
   return this.mainElement_;
 };
+
 
 lgb.view.BaseV.prototype.setIds_ = function(htmlID, parentHtmlID) {
 
@@ -125,6 +117,7 @@ lgb.view.BaseV.prototype.setIds_ = function(htmlID, parentHtmlID) {
   }
 
 };
+
 
 /**
  * converts and id into a Jquery element
@@ -145,6 +138,7 @@ lgb.view.BaseV.prototype.jq = function(id) {
   return jqElement;
 };
 
+
 /**
  * converts an id into a Jquery object
  * refers to the parent in the DOM
@@ -159,15 +153,14 @@ lgb.view.BaseV.prototype.jqParent = function() {
   return this.parentElement_;
 };
 
-lgb.view.BaseV.prototype.requestDataModelChange = function(propertyName, propertyValue) {
 
+lgb.view.BaseV.prototype.requestDataModelChange = function(propertyName, propertyValue) {
   var payload = {name:propertyName, value:propertyValue};
   this.triggerLocal(e.RequestDataModelChange, payload);
 };
 
+
 lgb.view.BaseV.prototype.getTitle = function() {
-
   return this._TITLE;
-
 };
 

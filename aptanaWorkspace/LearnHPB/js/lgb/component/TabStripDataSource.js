@@ -13,7 +13,7 @@ goog.require('lgb.component.BaseDataSource');
  * @param {string} parentHtmlID The CSS ID of the parent in the DOM.
  * @param {string} subID The second part of the CSS ID for this element.
  */
-lgb.component.TabStripDataSource = function(title, parentHtmlID, htmlID) {
+lgb.component.TabStripDataSource = function(title, htmlID, parentHtmlID) {
 
   lgb.component.BaseDataSource.call(this);
 
@@ -41,8 +41,6 @@ lgb.component.TabStripDataSource.prototype.setIcon = function(imageUrl, iconHeig
 lgb.component.TabStripDataSource.prototype.getTabCount = function() {
   return this.tabCollection.length;
 }
-
-
 
 
 

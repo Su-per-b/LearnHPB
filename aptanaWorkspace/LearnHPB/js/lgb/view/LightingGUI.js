@@ -29,7 +29,7 @@ goog.inherits(lgb.view.LightingGUI, lgb.view.BaseViewGUI);
  */
 lgb.view.LightingGUI.prototype.init = function() {
 
-  this.triggerLocal(e.RequestAddToGUI, this);
+  this.triggerLocal(e.RequestAddToBasicInput, this);
   
 };
 

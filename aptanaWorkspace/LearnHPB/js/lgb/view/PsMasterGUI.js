@@ -55,7 +55,7 @@ lgb.view.PsMasterGUI.prototype.init = function() {
     
     this.injectHtml();
     
-    this.triggerLocal(e.RequestAddToGUI, this);
+    this.triggerLocal(e.RequestAddToBasicInput, this);
   
 };
 

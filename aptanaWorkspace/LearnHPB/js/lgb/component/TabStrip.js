@@ -7,6 +7,7 @@ goog.provide('lgb.component.TabStrip');
 goog.require('lgb.component.TabStripDataSource');
 goog.require('lgb.view.BaseV');
 
+
 /**
  * Html radio button group that will be inserted into the DOM
  * @constructor
@@ -22,6 +23,8 @@ lgb.component.TabStrip = function(ds) {
 };
 goog.inherits(lgb.component.TabStrip, lgb.view.BaseV);
 
+
+
 lgb.component.TabStrip.prototype.addTab = function(title) {
 
   this.ds.addTab(title);
@@ -33,6 +36,7 @@ lgb.component.TabStrip.prototype.addTab = function(title) {
   return $(contentElement);
 };
 
+
 lgb.component.TabStrip.prototype.setOptions = function(options) {
 
   this.options = options;
@@ -42,6 +46,7 @@ lgb.component.TabStrip.prototype.setOptions = function(options) {
   }
 
 };
+
 
 lgb.component.TabStrip.prototype.injectCss = function() {
 
@@ -69,6 +74,8 @@ lgb.component.TabStrip.prototype.injectCss = function() {
   }
 
 }
+
+
 /**
  * @param {string} appendToSelector The second part of the
  * jQuery selector string.
@@ -88,7 +95,7 @@ lgb.component.TabStrip.prototype.makeBackgroundPosition = function(appendToSelec
 /**
  * @public
  */
-lgb.component.TabStrip.prototype.injectHtml = function() {
+lgb.component.TabStrip.prototype.inject = function(parentElement) {
 
   var el = this.getMainElement();
 
@@ -102,7 +109,7 @@ lgb.component.TabStrip.prototype.injectHtml = function() {
   this.kendoTabStrip_.select(0);
   this.ds.kendoDS = this.kendoTabStrip_.dataSource;
 
-  this.inject();
+  goog.base(this,'inject', parentElement);
 
 };
 

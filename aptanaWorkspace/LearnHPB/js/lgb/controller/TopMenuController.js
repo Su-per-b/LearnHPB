@@ -2,8 +2,6 @@ goog.provide('lgb.controller.TopMenuController');
 
 goog.require('lgb.controller.BaseController');
 
-
-
 goog.require('lgb.model.TopMenuModel');
 goog.require('lgb.view.TopMenuGUI');
 
@@ -22,7 +20,7 @@ goog.inherits(lgb.controller.TopMenuController, lgb.controller.BaseController);
 lgb.controller.TopMenuController.prototype.init_ = function() {
 
   this.dataModel = new lgb.model.TopMenuModel();
-  this.guiView = new lgb.view.TopMenuGUI(this.dataModel, 'TopMenuGUI', 'theBody');
+  this.guiView = new lgb.view.TopMenuGUI(this.dataModel);
   
   this.bind_();
   this.guiView.init();
@@ -35,19 +33,20 @@ lgb.controller.TopMenuController.prototype.init_ = function() {
 lgb.controller.TopMenuController.prototype.bind_ = function() {
 
 
-  this.relay(
+  this.relay (
     this.guiView,
     e.RequestAddToLayout);
 
+  this.listen(e.RequestAddToLayout, this.onRequestAddToLayout_);
+    
 
 };
 
 
-lgb.controller.TopMenuController.prototype.onRequestAddToGUI_ = function(event) {
 
- //this.guiView.add(event.payload);
+lgb.controller.TopMenuController.prototype.onRequestAddToLayout_ = function(event) {
+  
+    this.dataModel.add(event.payload);
 
-  return;
-}
-
-
+    
+};
