@@ -30,14 +30,9 @@ lgb.controller.RoofTopController.prototype.init_ = function() {
   this.dataModel = new lgb.model.RoofTopModel();
   this.view = new lgb.view.RoofTopView(this.dataModel);
 
-  this.relay(
-    this.view,
-    lgb.events.SelectableLoaded.TYPE
-    );
-
   this.view.init();
 
-  this.relay(this.view, e.AddToWorldRequest);
+  this.bind_();
 };
 
 
@@ -53,3 +48,27 @@ lgb.controller.RoofTopController.prototype.setVisiblityGroup =
   this.dataModel.setVisiblityGroup(group);
 };
 
+
+
+
+lgb.controller.RoofTopController.prototype.bind_ = function() {
+
+
+  this.relay(this.view, lgb.events.SelectableLoaded.TYPE);
+  this.relay(this.view, e.AddToWorldRequest);
+  this.relay(this.view,e.ViewPointCollectionLoaded);
+  this.relay(this.view,e.VisibilityNodesLoaded);
+  
+  this.listen(e.BuildingHeightChanged,this.onBuildingHeightChanged_);
+
+};
+
+
+
+
+lgb.controller.RoofTopController.prototype.onBuildingHeightChanged_ =
+  function(event) {
+
+  this.view.setBuildingHeight(event.payload);
+  
+};

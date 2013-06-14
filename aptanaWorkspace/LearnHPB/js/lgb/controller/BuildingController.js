@@ -36,7 +36,7 @@ lgb.controller.BuildingController.prototype.init_ = function() {
 
 
   this.zoneController_ = new lgb.controller.ZoneController();
- // this.roofTopController_ = new lgb.controller.RoofTopController();
+  this.roofTopController_ = new lgb.controller.RoofTopController();
   this.ductworkController_ = new lgb.controller.DuctworkController();
   this.lightingController = new lgb.controller.LightingController();
   this.furnitureController = new lgb.controller.FurnitureController();
@@ -55,10 +55,7 @@ lgb.controller.BuildingController.prototype.init_ = function() {
 lgb.controller.BuildingController.prototype.bind_ = function() {
 
     
-  this.listen(
-    e.BuildingHeightChanged,
-    this.onBuildingHeightChanged_
-    );
+  this.listen(e.BuildingHeightChanged,this.onBuildingHeightChanged_);
     
     
 };

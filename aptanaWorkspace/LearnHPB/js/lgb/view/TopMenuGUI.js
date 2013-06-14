@@ -46,7 +46,6 @@ lgb.view.TopMenuGUI.prototype.init = function() {
   
   
   this.bind_();
-  
   this.triggerLocal(e.RequestAddToLayout, this);
   
 };
@@ -54,4 +53,44 @@ lgb.view.TopMenuGUI.prototype.init = function() {
 
 lgb.view.TopMenuGUI.prototype.bind_ = function() {
   
-}
+    this.kendoMenu_.bind('select', this.d(this.onSelect_));
+  
+};
+
+
+
+lgb.view.TopMenuGUI.prototype.onSelect_ = function(event) {
+  
+  
+    var item = event.item;
+    var title = item.textContent;
+
+   
+   if (title != "TopMenu") {
+   
+      var guiView = this.dataModel.getGuiView(title);
+      
+      this.dataModel.toggleCheck(title);
+      
+      this.triggerLocal(e.RequestLayoutVisibilityChange, guiView);
+     
+   }
+
+  
+};
+
+
+lgb.view.TopMenuGUI.prototype.onChange = function(event) {
+  
+  
+  this.kendoMenu_.setOptions(
+    {
+      dataSource:this.dataModel.ds
+    }
+  );
+  
+  
+};
+
+
+

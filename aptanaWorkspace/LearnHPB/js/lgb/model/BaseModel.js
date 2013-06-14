@@ -25,7 +25,11 @@ goog.inherits(lgb.model.BaseModel, lgb.BaseClass);
  */
 lgb.model.BaseModel.prototype.dispatchChange = function(whatIsDirty) {
   
-    this.triggerLocal(e.DataModelChanged, whatIsDirty);
+  if (whatIsDirty == null) {
+    whatIsDirty = this;
+  }
+  
+  this.triggerLocal(e.DataModelChanged, whatIsDirty);
 };
 
 lgb.model.BaseModel.prototype.dispatchChangedProperty = function(propertyName) {

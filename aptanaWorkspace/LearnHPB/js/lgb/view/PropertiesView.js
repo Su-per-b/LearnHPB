@@ -22,6 +22,8 @@ lgb.view.PropertiesView = function(dataModel) {
   
   this.currentSelectionIdx = -1;
   this.title = 'Properties';
+  this._TITLE = 'Properties';
+  
 
   /** @type {*} */
   this.kendoDropDownList = null;

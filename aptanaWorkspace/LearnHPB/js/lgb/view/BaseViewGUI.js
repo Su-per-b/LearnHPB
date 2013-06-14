@@ -14,7 +14,7 @@ goog.require('lgb.utils');
 lgb.view.BaseViewGUI = function(dataModel, htmlID, parentHtmlID) {
   
   lgb.view.BaseV.call(this, dataModel, htmlID, parentHtmlID);
-
+  this.isVisible_ = true;
 
 };
 goog.inherits(lgb.view.BaseViewGUI, lgb.view.BaseV);

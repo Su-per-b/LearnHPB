@@ -6,6 +6,8 @@ goog.require('lgb.component.TabStripDataSource');
 
 lgb.view.BasicInputGUI = function(dataModel) {
 
+  this._TITLE = 'Left Panel';
+  
   lgb.view.BaseViewGUI.call(this, dataModel);
 
 };
@@ -59,4 +61,5 @@ lgb.view.BasicInputGUI.prototype.inject = function(parentElement) {
   this.tabTitleMap_ = {};
   
 };
+
 

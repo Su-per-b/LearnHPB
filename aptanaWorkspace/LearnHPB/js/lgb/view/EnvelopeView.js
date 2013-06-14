@@ -173,7 +173,10 @@ lgb.view.EnvelopeView.prototype.makeFloors_ = function() {
   var topFloorMaxY = topFloorY + bb.max.y;
   var topFloorMinY = topFloorY + bb.min.y;
   
-  var payload = new lgb.model.BuildingHeightModel(topFloorMaxY,topFloorMinY);
+
+  
+  var payload = new lgb.model.BuildingHeightModel(topFloorMaxY,topFloorMinY
+    );
   
   
   

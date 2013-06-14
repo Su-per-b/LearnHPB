@@ -32,7 +32,6 @@ goog.inherits(lgb.controller.LayoutController, lgb.controller.BaseController);
 lgb.controller.LayoutController.prototype.init = function() {
 
     this.view  = new lgb.view.LayoutView();
-    
     this.bind_();
     this.view.init();
 };
@@ -43,24 +42,26 @@ lgb.controller.LayoutController.prototype.init = function() {
 
 lgb.controller.LayoutController.prototype.bind_ = function() {
     
+  this.listenTo(this.view, e.LayoutChange, this.onLayoutChange_);
+  
   this.listen(e.WindowResize, this.onWindowResize_);
-  
   this.listen(e.RequestAddToLayout, this.onRequestAddToLayout_);
-  //this.listen(e.RequestRemoveFromLayout, this.onRequestRemoveFromLayout_);
+  this.listen(e.RequestLayoutVisibilityChange, this.onRequestLayoutVisibilityChange_);
   
 
-  
-  this.listenTo(
-      this.view, 
-      e.LayoutChange, 
-      this.onLayoutChange_);
       
-
 };
 
 lgb.controller.LayoutController.prototype.onRequestAddToLayout_ = function(event) {
   
     this.view.add(event.payload);
+    
+};
+
+
+lgb.controller.LayoutController.prototype.onRequestLayoutVisibilityChange_ = function(event) {
+  
+    this.view.toggleVisibility(event.payload);
     
 };
 

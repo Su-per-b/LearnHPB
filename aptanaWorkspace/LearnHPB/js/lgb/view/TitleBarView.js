@@ -21,6 +21,8 @@ lgb.view.TitleBarView = function() {
   
   lgb.view.BaseViewGUI.call(this);
   
+  
+  
   this.init_();
 
 };
@@ -43,8 +45,26 @@ lgb.view.TitleBarView.prototype.init_ = function() {
       vertical: false
     });
     
+    
+    this.isVisible_ = true;
 };
 
 
 
 
+/*
+lgb.view.TitleBarView.prototype.show = function(makeVisible) {
+    
+  
+    if (this.isVisible_ != makeVisible) {
+      
+      var el = this.getMainElement();
+      this.isVisible_ = makeVisible;
+      
+      el.css( 'display', 'none' );
+      
+      
+    }
+
+};
+*/

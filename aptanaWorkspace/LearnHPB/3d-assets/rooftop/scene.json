@@ -1,58 +1,91 @@
 {
-
+"containers":{
+    "AirHandler2":{
+      "type":"group",
+      "groupName":"AirHandlerGroup",
+      "position":[
+        0,
+        0,
+        -7
+      ],
+      "rotation":[
+        0,
+        0,
+        0
+      ]
+    },
+    "AirHandler3":{
+      "type":"group",
+      "groupName":"AirHandlerGroup",
+      "position":[
+        0,
+        0,
+        7
+      ],
+      "rotation":[
+        0,
+        0,
+        0
+      ]
+    }
+    
+    
+   },
+   
+    
 	"objects": {
-		"Ducting": {
-			"geometry": "geo_Ducting",
-			"position": [0.56972,2.49828,-0.59295 ]
-		},
+
+    "Ducting2": {
+      "geometry": "geo_Ducting2",
+      "position": [0,0,0 ],
+      "rotation": [0,1.57075,0],
+      "groups":["AirHandlerGroup"]
+    },
 	    "CenterDamper" : {
 	        "geometry"  : "geo_Damper",
-	        "position"  : [ -2.82897,1.78750,-0.43100]
+	        "position"  : [ -2.82897,1.78750,-0.43100],
+	        "groups":["AirHandlerGroup"]
 	    },
 	    "LeftDamper" : {
 	        "geometry"  : "geo_Damper",
-	        "position"  : [ -5.50500,1.78750,-0.43100]
+	        "position"  : [ -7.15, 1.78750,-0.43100],
+          "groups":["AirHandlerGroup"]
 	    },
 	    "TopDamper" : {
 	        "geometry"  : "geo_Damper",
-	        "position"  : [ -1.37100,3.06600,-0.43100],
-	        "rotation"  : [ 0,0,-1.5708 ]
+	        "position"  : [ -1.37100,2.6,-0.43100],
+	        "rotation"  : [ 0,0,-1.5708 ],
+          "groups":["AirHandlerGroup"]
 	    },
 		
 	    "Filter" : {
 	        "geometry"  : "geo_Filter",
-        	"position"  : [ 0.0489604, 1.82656, -0.563846]
+        	"position"  : [ 0.0489604, 1.82656, -0.563846],
+          "groups":["AirHandlerGroup"]
 	    },
 	    
 	    "HeatingCoil" : {
 	        "geometry"  : "geo_HeatingCoil",
-        "position"  : [ 1.40462, 1.54171 , -0.552678 ]
+        "position"  : [ 1.40462, 1.54171 , -0.552678 ],
+          "groups":["AirHandlerGroup"]
 	    },
 	    
 	    "CoolingCoil" : {
 	        "geometry"  : "geo_CoolingCoil",
-        	"position"  : [ 2.9867, 1.53703 , -0.554558]
+        	"position"  : [ 2.9867, 1.53703 , -0.554558],
+          "groups":["AirHandlerGroup"]
 	    },
 	    
 	    "Fan" : {
 	        "geometry"  : "geo_Fan",
-        	"position"  : [ 4.81478, 1.71910 , -0.74870]
+        	"position"  : [ 4.81478, 1.71910 , -0.74870],
+          "groups":["AirHandlerGroup"]
 	    },
-	    "Boiler" : {
-	        "geometry"  : "geo_Boiler",
-        	"position"  : [ 4.81478, 1.6 , -3.74870],
-        	"scale" : [0.4, 0.4,0.4],
-        	"side" : "double"
-	    },
-	    "Cooler" : {
-	        "geometry"  : "geo_Cooler",
-        	"position"  : [ -1, 1.71910 , -4.5],
-        	"scale" : [0.4, 0.4,0.4]
-	    },
-	    "Chiller" : {
-	        "geometry"  : "geo_Chiller",
-        	"position"  : [ -7, 2.0 , -6],
-        	"scale" : [0.3, 0.3,0.3]
+	    
+	    "Fan2" : {
+	        "geometry"  : "geo_Fan",
+        	"position"  : [ -4.1, 1.71910 , -0.74870],
+          "groups":["AirHandlerGroup"]
 	    }
 	},
 
@@ -62,6 +95,10 @@
 		"geo_Ducting": {
 			"type": "binary",
 			"url": "Ducting.obj.json"
+		},
+		"geo_Ducting2": {
+			"type": "binary",
+			"url": "rooftopLowpoly_raj11e.obj.json"
 		},
 		"geo_Damper": {
 			"type": "binary",
@@ -99,7 +136,7 @@
 	
 	"transform" :
 	{
-	    "position"  : [ -0.45, 2.0, -0.2 ]
+	    "position"  : [ -0.45, 0.0, -0.2 ]
 	}
 
 

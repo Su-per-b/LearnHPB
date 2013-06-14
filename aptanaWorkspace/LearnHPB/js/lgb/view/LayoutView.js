@@ -50,6 +50,31 @@ lgb.view.LayoutView.prototype.bind_ = function(guiView) {
   this.listenTo(this.splitPanel_, e.Resize, this.onSplitter1Resize_);
 };
 
+lgb.view.LayoutView.prototype.toggleVisibility = function(guiView) {
+  
+  
+  guiView.toggleVisibility();
+  
+};
+
+
+
+
+
+
+lgb.view.LayoutView.prototype.toggleVisibility = function(guiView) {
+  
+  guiView.isVisible_ = !guiView.isVisible_;
+  var el = guiView.getMainElement();
+  
+  
+  el.toggle();
+  
+  return;
+
+  
+  
+};
 
 
 lgb.view.LayoutView.prototype.add = function(guiView) {

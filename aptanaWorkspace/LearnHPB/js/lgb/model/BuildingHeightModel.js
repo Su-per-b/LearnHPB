@@ -22,7 +22,11 @@ lgb.model.BuildingHeightModel = function(topFloorMaxY,topFloorMinY) {
   this.topFloorMaxY = topFloorMaxY;
   this.topFloorMinY = topFloorMinY;
 
-
+  this.floorToCeilingHeight = topFloorMaxY - topFloorMinY;
+  
+  this.activeFloorMaxY = this.topFloorMaxY - this.floorToCeilingHeight;
+  this.activeFloorMinY = this.topFloorMinY - this.floorToCeilingHeight;
+  
 
 };
 goog.inherits(lgb.model.BuildingHeightModel, lgb.model.BaseModel);

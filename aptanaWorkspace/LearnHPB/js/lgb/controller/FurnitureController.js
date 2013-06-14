@@ -62,8 +62,6 @@ lgb.controller.FurnitureController.prototype.bind_ = function() {
     );
 
 
-
-    
 };
 
 

@@ -37,16 +37,15 @@ goog.inherits(lgb.view.FurnitureView,lgb.view.BaseView3dScene);
 
 lgb.view.FurnitureView.prototype.setBuildingHeight = function(buildingHeightModel) {
 
-  this.topFloorMinY_ = buildingHeightModel.topFloorMinY;
+  this.activeFloorMinY_ = buildingHeightModel.activeFloorMinY;
   this.setY_();
 };
 
 lgb.view.FurnitureView.prototype.setY_ = function() {
 
-  if (null != this.topFloorMinY_ && null != this.sceneY_) {
-    this.masterGroup_.position.y = this.topFloorMinY_ + this.sceneY_;
+  if (null != this.activeFloorMinY_ && null != this.sceneY_) {
+    this.masterGroup_.position.y = this.activeFloorMinY_ + this.sceneY_;
   }
-
 };
 
 lgb.view.FurnitureView.prototype.onSceneLoaded_ = function() {

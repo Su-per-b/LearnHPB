@@ -25,21 +25,17 @@ lgb.controller.TopMenuController.prototype.init_ = function() {
   this.bind_();
   this.guiView.init();
 
-  
-  
   return;
 };
 
 lgb.controller.TopMenuController.prototype.bind_ = function() {
 
 
-  this.relay (
-    this.guiView,
-    e.RequestAddToLayout);
+  this.relay (this.guiView, e.RequestLayoutVisibilityChange );
+  this.relay (this.guiView, e.RequestAddToLayout );
 
   this.listen(e.RequestAddToLayout, this.onRequestAddToLayout_);
-    
-
+  
 };
 
 
@@ -47,6 +43,10 @@ lgb.controller.TopMenuController.prototype.bind_ = function() {
 lgb.controller.TopMenuController.prototype.onRequestAddToLayout_ = function(event) {
   
     this.dataModel.add(event.payload);
-
     
 };
+
+
+
+
+
