@@ -1,33 +1,44 @@
 {
 "containers":{
+
+    "AirHandler1":{
+      "type":"group",
+      "groupName":"AirHandlerGroup",
+      "position":[3.5,0,-7.5],
+      "scale":[0.7,0.7,0.7],
+      "rotation": [0,0,0 ]
+    },
+    
     "AirHandler2":{
       "type":"group",
       "groupName":"AirHandlerGroup",
-      "position":[
-        0,
-        0,
-        -7
-      ],
-      "rotation":[
-        0,
-        0,
-        0
-      ]
+      "position":[3.5,0,-2.8],
+      "scale":[0.7,0.7,0.7],
+      "rotation": [0,0,0 ]
     },
+    
     "AirHandler3":{
       "type":"group",
       "groupName":"AirHandlerGroup",
-      "position":[
-        0,
-        0,
-        7
-      ],
-      "rotation":[
-        0,
-        0,
-        0
-      ]
+      "position":[3.5,0,1.2],
+      "scale":[0.7,0.7,0.7],
+      "rotation": [0,0,0 ]
+    },
+    
+    "Pipeing":{
+      "type":"group",
+      "groupName":"PipeingGroup",
+      "position":[0,-1.8,-3],
+      "rotation": [0,0,0 ]
+    },
+    
+    "Units":{
+      "type":"group",
+      "groupName":"UnitGroup",
+        "position": [0,0,0],
+      "rotation": [0,0,0 ]
     }
+ 
     
     
    },
@@ -35,12 +46,43 @@
     
 	"objects": {
 
-    "Ducting2": {
-      "geometry": "geo_Ducting2",
-      "position": [0,0,0 ],
-      "rotation": [0,1.57075,0],
-      "groups":["AirHandlerGroup"]
-    },
+      "Cooler": {
+        "geometry": "geo_Cooler",
+        "position": [-9.0, 1.1, -2.4],
+        "rotation": [0,0,0],
+        "groups":["UnitGroup"]
+      },
+      "Chiller": {
+        "geometry": "geo_Chiller",
+        "position": [-5.0, 1.1, -2.4],
+        "rotation": [0,0,0],
+        "groups":["UnitGroup"]
+      },
+      "Boiler": {
+        "geometry": "geo_Boiler",
+        "position": [-6.0, 1.0, -6.2],
+        "rotation": [0,0,0],
+        "groups":["UnitGroup"]
+      },
+
+      "Pipeing": {
+        "geometry": "geo_Pipeing",
+        "position": [0,0,0],
+        "rotation": [0,1.57075,0],
+        "groups":["PipeingGroup"]
+      },
+      "PipeingConnectors": {
+        "geometry": "geo_PipeingConnectors",
+        "position": [-6,3.6,0 ],
+        "rotation": [0,1.57075,0],
+        "groups":["PipeingGroup"]
+      },
+      "Ducting2": {
+        "geometry": "geo_Ducting2",
+        "position": [0,0,0 ],
+        "rotation": [0,1.57075,0],
+        "groups":["AirHandlerGroup"]
+      },
 	    "CenterDamper" : {
 	        "geometry"  : "geo_Damper",
 	        "position"  : [ -2.82897,1.78750,-0.43100],
@@ -92,6 +134,28 @@
 
 
 	"geometries": {
+	
+		"geo_Cooler": {
+			"type": "binary",
+			"url": "Cooler.obj.json"
+		},
+	
+		"geo_Chiller": {
+			"type": "binary",
+			"url": "Chiller.obj.json"
+		},
+		"geo_Boiler": {
+			"type": "binary",
+			"url": "Boiler.obj.json"
+		},
+		"geo_Pipeing": {
+			"type": "binary",
+			"url": "RooftopPipeing.obj.json"
+		},
+		"geo_PipeingConnectors": {
+			"type": "binary",
+			"url": "RooftopPipeingConnectors.obj.json"
+		},
 		"geo_Ducting": {
 			"type": "binary",
 			"url": "Ducting.obj.json"
@@ -119,24 +183,12 @@
 		"geo_Fan": {
 			"type": "binary",
 			"url": "Fan.obj.json"
-		},
-		"geo_Boiler": {
-			"type": "binary",
-			"url": "Boiler.obj.json"
-		},
-		"geo_Cooler": {
-			"type": "binary",
-			"url": "test3.obj.json"
-		},
-		"geo_Chiller": {
-			"type": "binary",
-			"url": "test3.obj.json"
 		}
 	},
 	
 	"transform" :
 	{
-	    "position"  : [ -0.45, 0.0, -0.2 ]
+	    "position"  : [ -1.5, 0.0, 2.4]
 	}
 
 

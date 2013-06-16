@@ -148,6 +148,14 @@ lgb.view.BaseView3dScene.prototype.placeOneContainer_ = function(containerName, 
             );
         }
         
+        if (containerObject.scale != null) {
+            obj3D.scale = new THREE.Vector3(
+                containerObject.scale[0],
+                containerObject.scale[1],
+                containerObject.scale[2]
+            );
+        }
+        
         
         this.masterGroup_.add(obj3D);
         

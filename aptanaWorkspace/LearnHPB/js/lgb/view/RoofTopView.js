@@ -34,15 +34,15 @@ goog.inherits(lgb.view.RoofTopView,lgb.view.BaseView3dScene);
 lgb.view.RoofTopView.prototype.onSceneLoaded_ = function(result) {
     
 
-  for (var i = this.scene_.children.length - 1; i >= 0; i--) {
+  //for (var i = this.scene_.children.length - 1; i >= 0; i--) {
     
-      var mesh = this.scene_.children.pop();
-      this.masterGroup_.add(mesh);
+     // var mesh = this.scene_.children.pop();
+      //this.masterGroup_.add(mesh);
       
       //TODO:(Raj) make the selectable loaded event work with an array
-      var event = new lgb.events.SelectableLoaded(mesh);
-      this.dispatchLocal(event);
-  }
+     // var event = new lgb.events.SelectableLoaded(mesh);
+     // this.dispatchLocal(event);
+  //}
 
   this.sceneY_ = this.masterGroup_.position.y;
   this.setY_();

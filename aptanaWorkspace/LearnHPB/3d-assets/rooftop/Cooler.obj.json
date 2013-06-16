@@ -3,10 +3,10 @@
     "metadata" :
     {
         "formatVersion" : 3.1,
-        "sourceFile"    : "Boiler.obj",
+        "sourceFile"    : "Cooler.obj",
         "generatedBy"   : "OBJConverter",
-        "vertices"      : 1358,
-        "faces"         : 1168,
+        "vertices"      : 336,
+        "faces"         : 204,
         "normals"       : 0,
         "uvs"           : 0,
         "materials"     : 2
@@ -15,7 +15,7 @@
     "materials": [	{
 	"DbgColor" : 15658734,
 	"DbgIndex" : 0,
-	"DbgName" : "outer",
+	"DbgName" : "Default_1",
 	"colorAmbient" : [0.0, 0.0, 0.0],
 	"colorDiffuse" : [0.627451, 0.627451, 0.627451],
 	"colorSpecular" : [0.5, 0.5, 0.5],
@@ -28,7 +28,7 @@
 	{
 	"DbgColor" : 15597568,
 	"DbgIndex" : 1,
-	"DbgName" : "Default_1",
+	"DbgName" : "outer",
 	"colorAmbient" : [0.0, 0.0, 0.0],
 	"colorDiffuse" : [0.627451, 0.627451, 0.627451],
 	"colorSpecular" : [0.5, 0.5, 0.5],
@@ -38,6 +38,6 @@
 	"transparency" : 1.0
 	}],
 
-    "buffers": "Boiler.obj.bin"
+    "buffers": "Cooler.obj.bin"
 
 }
