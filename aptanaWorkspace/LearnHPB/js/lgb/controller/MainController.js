@@ -64,7 +64,8 @@ lgb.controller.MainController.prototype.init = function() {
   this.layoutController_ = new lgb.controller.LayoutController();
   this.layoutController_.init();
   
-   $('title').html(lgb.Config.getTitle());
+  var theTitle = lgb.Config.getTitle();
+   $('title').html(theTitle);
    
   this.guiController = new lgb.controller.GuiController();
   this.scenarioController = new lgb.controller.ScenarioController();

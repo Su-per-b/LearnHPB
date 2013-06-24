@@ -19,6 +19,7 @@ goog.require('lgb.view.BaseView3dScene');
 lgb.view.RoofTopView = function(dataModel) {
     
   this._ASSETS_FOLDER = 'rooftop';
+  this._TITLE = 'RoofTop';
  lgb.view.BaseView3dScene.call(this, dataModel);
 
 };
@@ -44,14 +45,29 @@ lgb.view.RoofTopView.prototype.onSceneLoaded_ = function(result) {
      // this.dispatchLocal(event);
   //}
 
-  this.sceneY_ = this.masterGroup_.position.y;
-  this.setY_();
+   this.sceneY_ = this.masterGroup_.position.y;
+   this.setY_();
   
-   // this.dispatchViewpoints_();
- // this.dispatchVisibilityNodes_();
+   this.dispatchViewpoints_();
+   this.dispatchVisibilityNodes_();
 };
 
 
+
+lgb.view.RoofTopView.prototype.dispatchVisibilityNodes_ = function() {
+
+  var node = new lgb.model.vo.VisibilityNode(this._TITLE, this.masterGroup_, 2 );
+  this.triggerLocal(e.VisibilityNodesLoaded, node);
+  
+  return;
+}
+
+
+lgb.view.RoofTopView.prototype.dispatchViewpoints_ = function() {
+
+  var viewPointNodeCollection = new lgb.model.ViewPointCollection(this._TITLE, this.masterGroup_.children);
+  this.triggerLocal(e.ViewPointCollectionLoaded, viewPointNodeCollection);
+}
 
 
 /**

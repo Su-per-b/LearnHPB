@@ -37,14 +37,14 @@ lgb.Config.XML_BASE_PATH = 'xml/';
  * @const
  * @type {string}
  */
-lgb.Config.APP_TITLE = 'Learn High Performance Buildings';
+lgb.Config.APP_TITLE = 'LearnHPB Demo';
 
 /**
  * The application verison, will appear in the <title>
  * @const
  * @type {string}
  */
-lgb.Config.APP_VERSION = 'Demo 12.37';
+lgb.Config.APP_VERSION = '12.42';
 
 /**
  * Will show status in the upper left if set to true.
@@ -79,7 +79,7 @@ lgb.Config.PARTICLE_SYSTEM_XML = lgb.Config.XML_BASE_PATH +
  * tag in the DOM.
  */
 lgb.Config.getTitle = function() {
-  var str = '{0} - v{1}'.format(lgb.Config.APP_TITLE, lgb.Config.APP_VERSION);
+  var str = '{0} - version {1}'.format(lgb.Config.APP_TITLE, lgb.Config.APP_VERSION);
   return str;
 };
 

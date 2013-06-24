@@ -6,7 +6,7 @@
 goog.provide('lgb.model.ViewPointModel');
 
 goog.require('lgb.model.BaseModel');
-goog.require('lgb.model.ViewPointNode');
+
 
 /**
  * @constructor
@@ -67,35 +67,3 @@ lgb.model.ViewPointModel.prototype.getViewPoint = function(key) {
 };
 
 
-/**
- * @param {Array.<THREE.Camera>} cameras An array of camera objects.
- */
-/*
-lgb.model.ViewPointModel.prototype.addCameras = function(cameras) {
-
-  for (var camName in cameras) {
-    
-    if (undefined !== camName) {
-      
-        var theCamera = cameras[camName];
-        theCamera.name = camName;
-    
-        this.camMap[camName] = theCamera;
-        this.cameras.push(theCamera);
-
-    }
-
-  }
-
-};
-
-lgb.model.ViewPointModel.makeCollection = function() {
-    
-    return this.nodeList;
-    
-};
-
-
-
-lgb.model.ViewPointModel.IDX = 0;
-*/

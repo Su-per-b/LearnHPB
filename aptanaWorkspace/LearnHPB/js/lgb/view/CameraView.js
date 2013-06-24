@@ -43,10 +43,6 @@ lgb.view.CameraView.prototype.init = function() {
   this.cameraCraneController_.debugMode = false;
   this.cameraCraneController_.init(this.camera);
   
-  
-  //var node = new lgb.model.ViewPointNode(object3d, this, i);
-  
-  
 
 };
 
@@ -58,24 +54,6 @@ lgb.view.CameraView.prototype.bind_ = function() {
       
 }
 
-lgb.view.CameraView.prototype.goToViewPointNode2 = function(node) {
-
-  var startPosition = this.camera.position.clone();
-  
-
-
-  var deltaCamera = new THREE.PerspectiveCamera(this.camera.fov, this.camera.aspect, this.camera.near, this.camera.far);
-
-  var moveToPosition =  node.moveToPosition.clone();
-  moveToPosition.addSelf(this.offset_);
-
-  deltaCamera.position = moveToPosition;
-  deltaCamera.target = node.targetPosition;
-  deltaCamera.lookAt(node.targetPosition);
-
-  this.cameraCraneController_.moveToPosition(deltaCamera);
-
-};
 
 
 /**

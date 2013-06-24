@@ -126,39 +126,7 @@ lgb.model.vo.VisibilityNode.prototype.add = function(childNode) {
 };
 
 
-/*
 
-lgb.model.vo.VisibilityNode.idx = 0;
-lgb.model.vo.VisibilityNode.blockIdx = false;
-lgb.model.vo.VisibilityNode.THREAD_BLOCKING_TIMEOUT = 500;
-lgb.model.vo.VisibilityNode.THREAD_BLOCKING_SLEEP = 1;
-lgb.model.vo.VisibilityNode.nodeList =[];
-
-
-lgb.model.vo.VisibilityNode.getIdx = function() {
-  
-  if(lgb.model.vo.VisibilityNode.blockIdx) {
-    var count = 0;
-    while(lgb.model.ViewPointNode.blockIdx) {
-        sleep(lgb.model.vo.VisibilityNode.THREAD_BLOCKING_SLEEP);
-        count += lgb.model.vo.VisibilityNode.THREAD_BLOCKING_SLEEP;
-        if (count > lgb.model.vo.VisibilityNode.THREAD_BLOCKING_TIMEOUT) {
-          throw ("Threadblocking timeout expired");
-        }
-    }
-  }
-  
-  lgb.model.vo.VisibilityNode.blockIdx = true;
-  
-  var idx = lgb.model.vo.VisibilityNode.idx;
-  lgb.model.vo.VisibilityNode.idx++;
-  lgb.model.vo.VisibilityNode.blockIdx = false;
-  
-  return idx;
-  
-};
-
-*/
 lgb.model.vo.VisibilityNode.getNodeByIdx = function(idx) {
   
   var theNode = null;

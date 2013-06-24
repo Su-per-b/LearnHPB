@@ -61,17 +61,23 @@ lgb.view.TopMenuGUI.prototype.bind_ = function() {
 
 lgb.view.TopMenuGUI.prototype.onSelect_ = function(event) {
   
-  
+
+    
+    
+    
     var item = event.item;
     var title = item.textContent;
 
-   
-   if (title != "TopMenu") {
+
+    var i = item.attributes.item();
+    
+        
+   if (title != "TopMenu" &&
+       title != "Profiles"
+    ) {
    
       var guiView = this.dataModel.getGuiView(title);
-      
       this.dataModel.toggleCheck(title);
-      
       this.triggerLocal(e.RequestLayoutVisibilityChange, guiView);
      
    }

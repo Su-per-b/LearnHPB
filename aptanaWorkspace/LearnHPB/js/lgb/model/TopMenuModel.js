@@ -64,8 +64,7 @@ lgb.model.TopMenuModel.prototype.getGuiView = function(title) {
 
 lgb.model.TopMenuModel.prototype.toggleCheck = function(title) {
     
-    
-    if (title == "TopMenu") return;
+
     
     this.viewTitleToEnabledMap_[title] = !this.viewTitleToEnabledMap_[title];
     

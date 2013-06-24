@@ -11,7 +11,6 @@ goog.require('lgb.ThreeUtils');
 
 
 goog.require('lgb.model.BuildingHeightModel');
-goog.require('lgb.model.ViewPointNode');
 goog.require('lgb.model.ViewPointCollection');
 goog.require('lgb.model.vo.VisibilityNode');
 
@@ -62,7 +61,6 @@ lgb.view.FurnitureView.prototype.dispatchVisibilityNodes_ = function() {
 
 
   var node = new lgb.model.vo.VisibilityNode('Funiture', this.masterGroup_, 1 );
-
   this.triggerLocal(e.VisibilityNodesLoaded, node);
   
   return;
