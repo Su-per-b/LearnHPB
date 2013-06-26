@@ -55,13 +55,34 @@ lgb.view.CameraView.prototype.bind_ = function() {
 }
 
 
+lgb.view.CameraView.prototype.goToViewPointNode = function(node) {
+
+  //var startPosition = this.camera.position.clone();
+  var lookAtPosition = node.getLookAtPosition();
+  var lookAtPosition2 = lookAtPosition.clone();
+    
+  var moveToPosition = node.getCameraPosition();
+  
+  //var targetBoundingBox = node.targetBoundingBox;
+
+  var camera = new THREE.PerspectiveCamera(this.camera.fov, this.camera.aspect, this.camera.near, this.camera.far);
+
+
+  camera.position = moveToPosition.clone();
+ // camera.target = targetPosition;
+  camera.lookAt(lookAtPosition2);
+  camera.lookAtPosition = lookAtPosition2;
+  
+  this.cameraCraneController_.moveToPosition(camera);
+
+};
 
 /**
  * @param {THREE.Camera} camera The viewpoint to go to.
  */
 lgb.view.CameraView.prototype.goToViewPoint = function(node) {
 
-  var startPosition = this.camera.position.clone();
+  //var startPosition = this.camera.position.clone();
   var targetPosition = node.getTargetPosition();
 
   var targetBoundingBox = node.targetBoundingBox;
@@ -74,7 +95,9 @@ lgb.view.CameraView.prototype.goToViewPoint = function(node) {
   camera.position = moveToPosition;
   camera.target = targetPosition;
   camera.lookAt(targetPosition);
-
+  
+  camera.lookAtPosition = targetPosition;
+  
   this.cameraCraneController_.moveToPosition(camera);
 
 };

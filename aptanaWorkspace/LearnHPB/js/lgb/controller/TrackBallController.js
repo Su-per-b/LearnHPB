@@ -38,6 +38,11 @@ lgb.controller.TrackBallController.prototype.bind_ = function() {
     this.onRequestGoToViewPoint_
   );
   
+  this.listen(
+    e.RequestGoToViewPointNode,
+    this.onRequestGoToViewPointNode_
+  );
+  
 };
 
 /**
@@ -48,5 +53,11 @@ lgb.controller.TrackBallController.prototype.onRequestGoToViewPoint_ =
   function(event) {
   
   this.view.setCameraTarget(event.payload.getTargetPosition());
+
+};
+lgb.controller.TrackBallController.prototype.onRequestGoToViewPointNode_ =
+  function(event) {
+  
+  this.view.setCameraTarget(event.payload.getLookAtPosition());
 
 };

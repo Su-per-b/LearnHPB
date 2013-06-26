@@ -3,7 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.model.ViewPointNode');
+goog.provide('lgb.model.ViewPointCollectionNode');
 
 goog.require('lgb.model.BaseModel');
 
@@ -13,7 +13,7 @@ goog.require('lgb.model.BaseModel');
  * @constructor
  * @extends lgb.model.BaseModel
  */
-lgb.model.ViewPointNode = function(object3D, parent, idx) {
+lgb.model.ViewPointCollectionNode = function(object3D, parent, idx) {
 
   /**@const */
   this._TITLE = 'ViewPointNode';
@@ -38,11 +38,11 @@ lgb.model.ViewPointNode = function(object3D, parent, idx) {
   }
     
 };
-goog.inherits(lgb.model.ViewPointNode, lgb.model.BaseModel);
+goog.inherits(lgb.model.ViewPointCollectionNode, lgb.model.BaseModel);
 
 
 
-lgb.model.ViewPointNode.prototype.initFromCamera_ = function(threeObject) {
+lgb.model.ViewPointCollectionNode.prototype.initFromCamera_ = function(threeObject) {
  
     
 /*
@@ -58,7 +58,7 @@ lgb.model.ViewPointNode.prototype.initFromCamera_ = function(threeObject) {
 /**
  * @private
  */
-lgb.model.ViewPointNode.prototype.init_ = function(threeObject) {
+lgb.model.ViewPointCollectionNode.prototype.init_ = function(threeObject) {
     
     var boundingBox;
     
@@ -81,7 +81,7 @@ lgb.model.ViewPointNode.prototype.init_ = function(threeObject) {
 
 
 
-lgb.model.ViewPointNode.prototype.getTargetPosition = function() {
+lgb.model.ViewPointCollectionNode.prototype.getTargetPosition = function() {
 
     var worldPosition = new THREE.Vector3();
     this.threeObject.localToWorld(worldPosition);

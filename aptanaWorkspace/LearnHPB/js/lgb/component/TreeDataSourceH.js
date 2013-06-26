@@ -37,10 +37,19 @@ lgb.component.TreeDataSourceH = function(lgbNode, propertyName, parentHtmlID, su
         this.title_ = lgbNode.title;
     }
   }
+  
+  this.selectedKNode = null;
 
 };
 goog.inherits(lgb.component.TreeDataSourceH, lgb.component.BaseDataSource);
 
+
+lgb.component.TreeDataSourceH.prototype.select = function(uid) {
+
+    var knode = this.kendoDS.getByUid(uid);
+    this.changeProperty('selectedKNode', knode);
+    
+};
 
 lgb.component.TreeDataSourceH.prototype.generateHTMLid_ = function(node) {
   
@@ -93,11 +102,15 @@ lgb.component.TreeDataSourceH.prototype.makeOneKendoNode_ = function(lgbNode) {
   
   var knode = {
     text : lgbNode.title,
-    checked : lgbNode[this.propertyName_],
     hasChildren : lgbNode.hasChildren,
     id :lgbNode.idx,
     idx : lgbNode.idx
   };
+  
+  
+  if (this.propertyName_ != null) {
+    knode.checked = lgbNode[this.propertyName_]
+  }
   
   return knode;
   

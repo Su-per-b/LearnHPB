@@ -47,15 +47,11 @@ lgb.controller.LayoutController.prototype.bind_ = function() {
   this.listen(e.WindowResize, this.onWindowResize_);
   this.listen(e.RequestAddToLayout, this.onRequestAddToLayout_);
   this.listen(e.RequestLayoutVisibilityChange, this.onRequestLayoutVisibilityChange_);
-  
-
-      
+   
 };
 
 lgb.controller.LayoutController.prototype.onRequestAddToLayout_ = function(event) {
-  
     this.view.add(event.payload);
-    
 };
 
 

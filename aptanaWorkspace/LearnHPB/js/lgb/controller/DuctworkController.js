@@ -52,23 +52,21 @@ lgb.controller.DuctworkController.prototype.init_ = function() {
 lgb.controller.DuctworkController.prototype.bind_ = function() {
   
   
-  this.relay(this.view, e.AddToWorldRequest);
+  this.relay(
+    this.view, 
+      [
+        e.AddToWorldRequest,
+        e.ViewPointCollectionLoaded,
+        e.VisibilityNodesLoaded,
+        lgb.events.SelectableLoaded.TYPE
+      ]
+    );
   
 
-    
   this.listen(
     e.BuildingHeightChanged,
     this.onBuildingHeightChanged_
     );
-    
-
-    
-  this.relay(this.view,e.ViewPointCollectionLoaded);
-  this.relay(this.view,e.VisibilityNodesLoaded);
-  this.relay(this.view,lgb.events.SelectableLoaded.TYPE);
-  
-  
-  
 
 };
 
@@ -86,12 +84,3 @@ lgb.controller.DuctworkController.prototype.onBuildingHeightChanged_ =
 
 
 
-
-/**
- * @param {lgb.model.BuildingModel.Group} group The group
- * to make visible.
- */
-lgb.controller.DuctworkController.prototype.setVisiblityGroup =
-  function(group) {
-  this.dataModel.setVisiblityGroup(group);
-};

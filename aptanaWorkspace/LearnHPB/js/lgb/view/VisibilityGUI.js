@@ -24,7 +24,7 @@ goog.require('lgb.Config');
 lgb.view.VisibilityGUI = function(dataModel) {
 
   this._TITLE = "Visibility";
-    this.layoutID = lgb.Config.LAYOUT_ID.Visibility;
+  this.layoutID = lgb.Config.LAYOUT_ID.Visibility;
   lgb.view.BaseViewGUI.call(this, dataModel);
 
 };

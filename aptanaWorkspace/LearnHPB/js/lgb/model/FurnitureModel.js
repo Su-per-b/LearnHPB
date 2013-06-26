@@ -58,20 +58,5 @@ lgb.model.FurnitureModel.prototype.update = function(envelopeModel) {
 
 
 
-/**
- * @param {lgb.model.BuildingModel.Group} group The group name
- * to set as visible.
- */
-lgb.model.FurnitureModel.prototype.setVisiblityGroup = function(group) {
-
-  if (this.groupMembership[group]) {
-    this.changeProperty('isVisible', true);
-  } else {
-    this.changeProperty('isVisible', false);
-  }
-};
-
-
-
 
 

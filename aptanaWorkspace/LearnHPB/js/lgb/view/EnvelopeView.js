@@ -77,6 +77,7 @@ lgb.view.EnvelopeView.prototype.onSceneLoaded_ = function() {
 
   this.masterGroup_.add(this.topFloorContainer_);
   this.masterGroup_.add(this.lowerFloorContainer_);
+  
   this.requestAddToWorld(this.masterGroup_);
     
   this.makeFloors_();
@@ -87,9 +88,15 @@ lgb.view.EnvelopeView.prototype.onSceneLoaded_ = function() {
 
 lgb.view.EnvelopeView.prototype.dispatchVisibilityNodes_ = function() {
 
-
+  var lowClone = this.lowerFloorContainer_.children.slice(0);
+  var topClone = this.topFloorContainer_.children.slice(0);
+  
+  var allFloors = lowClone.concat(topClone); 
+  allFloors.reverse();
+  
+  //var node = new lgb.model.vo.VisibilityNode('Envelope', allFloors, 1 );
   var node = new lgb.model.vo.VisibilityNode('Envelope', this.masterGroup_, 1 );
- 
+  
   this.triggerLocal(e.VisibilityNodesLoaded, node);
   
   return;

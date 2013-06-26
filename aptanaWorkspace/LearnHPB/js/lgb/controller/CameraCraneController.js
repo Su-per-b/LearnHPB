@@ -107,8 +107,8 @@ lgb.controller.CameraCraneController.prototype.moveToPosition =
   this.setDuration();
   
   var p = this.cameraDestination_.position;
-  var r = this.cameraDestination_.rotation;
-  var t = this.cameraDestination_.target;
+ // var r = this.cameraDestination_.rotation;
+  var t = this.cameraDestination_.lookAtPosition;
   
   console.log("CameraCraneController.moveToPosition() " + 
   "x: " + p.x + 
@@ -123,17 +123,17 @@ lgb.controller.CameraCraneController.prototype.moveToPosition =
     override : true
   };
   
-  var rotationTween = {
-    x: r.x,
-    y: r.y,
-    z: r.z
-  }
+  // var rotationTween = {
+    // x: r.x,
+    // y: r.y,
+    // z: r.z
+  // }
   
-  new createjs.Tween(this.cameraOnCrane_.rotation, props).to( 
-    rotationTween,
-    this.moveDuration-100,
-    this.easing 
-    );
+  // new createjs.Tween(this.cameraOnCrane_.rotation, props).to( 
+    // rotationTween,
+    // this.moveDuration-100,
+    // this.easing 
+    // );
   
   if (undefined !== t) {
     

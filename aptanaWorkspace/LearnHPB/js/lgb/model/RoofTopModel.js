@@ -32,26 +32,8 @@ goog.inherits(lgb.model.RoofTopModel, lgb.model.BaseModel);
  * @private
  */
 lgb.model.RoofTopModel.prototype.init_ = function() {
-  this.groupMembership = {};
-  this.groupMembership[lgb.model.BuildingModel.Group.ALL] = true;
-  this.groupMembership[lgb.model.BuildingModel.Group.ROOFTOP] = true;
-  this.groupMembership[lgb.model.BuildingModel.Group.HVAC] = true;
-  this.isVisible = true;
-};
 
 
-
-/**
- * @param {lgb.model.BuildingModel.Group} group The group name
- * to set as visible.
- */
-lgb.model.RoofTopModel.prototype.setVisiblityGroup = function(group) {
-
-  if (this.groupMembership[group]) {
-    this.changeProperty('isVisible', true);
-  } else {
-    this.changeProperty('isVisible', false);
-  }
 };
 
 

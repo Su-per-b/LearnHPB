@@ -51,23 +51,8 @@ lgb.model.EnvelopeModel.prototype.init_ = function() {
   
   this.isVisible = true;
 
-  this.groupMembership = {};
-  this.groupMembership[lgb.model.BuildingModel.Group.ALL] = true;
-  this.groupMembership[lgb.model.BuildingModel.Group.ENVELOPE] = true;
+
 
 };
 
 
-
-/**
- * @param {lgb.model.BuildingModel.Group} group The group name
- * to set as visible.
- */
-lgb.model.EnvelopeModel.prototype.setVisiblityGroup = function(group) {
-
-  if (this.groupMembership[group]) {
-    this.changeProperty('isVisible', true);
-  } else {
-    this.changeProperty('isVisible', false);
-  }
-};

@@ -25,15 +25,7 @@ lgb.model.LightingModel = function() {
 
   this.lightingType = lgb.model.LightingModel.State.RECESSED;
 
-  this.groupMembership = {};
-  this.groupMembership[lgb.model.BuildingModel.Group.ALL] = true;
-  this.groupMembership[lgb.model.BuildingModel.Group.LIGHTING] = true;
 
-  this.isVisible = true;
-  
-
-  
-  
 };
 goog.inherits(lgb.model.LightingModel, lgb.model.BaseModel);
 
@@ -58,16 +50,6 @@ lgb.model.LightingModel.prototype.change = function(stateObject) {
 
   if (isAnythingDirty) {
     this.dispatchChange(whatIsDirty)
-  }
-};
-
-
-lgb.model.LightingModel.prototype.setVisiblityGroup = function(group) {
-
-  if (this.groupMembership[group]) {
-    this.changeProperty('isVisible', true);
-  } else {
-    this.changeProperty('isVisible', false);
   }
 };
 

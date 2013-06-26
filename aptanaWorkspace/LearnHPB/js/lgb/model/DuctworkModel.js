@@ -5,7 +5,6 @@
  
 goog.provide('lgb.model.DuctworkModel');
 
-goog.require('lgb.model.BuildingModel.Group');
 goog.require('lgb.model.BaseModel');
 
 
@@ -20,23 +19,8 @@ lgb.model.DuctworkModel = function() {
   this._TITLE = 'Ductwork';
   lgb.model.BaseModel.call(this);
 
-  this.groupMembership = {};
-  this.groupMembership[lgb.model.BuildingModel.Group.ALL] = true;
-  this.groupMembership[lgb.model.BuildingModel.Group.HVAC] = true;
-  this.groupMembership[lgb.model.BuildingModel.Group.DUCTWORK] = true;
-
-  this.isVisible = true;
 };
 goog.inherits(lgb.model.DuctworkModel, lgb.model.BaseModel);
 
 
 
-
-lgb.model.DuctworkModel.prototype.setVisiblityGroup = function(group) {
-
-  if (this.groupMembership[group]) {
-    this.changeProperty('isVisible', true);
-  } else {
-    this.changeProperty('isVisible', false);
-  }
-};

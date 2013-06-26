@@ -1,7 +1,7 @@
 {
 "containers":{
 
-    "AirHandler1":{
+    "AirHandler - Back":{
       "type":"group",
       "groupName":"AirHandlerGroup",
       "position":[3.5,0,-7.5],
@@ -9,7 +9,7 @@
       "rotation": [0,0,0 ]
     },
     
-    "AirHandler2":{
+    "AirHandler - Center":{
       "type":"group",
       "groupName":"AirHandlerGroup",
       "position":[3.5,0,-2.8],
@@ -17,7 +17,7 @@
       "rotation": [0,0,0 ]
     },
     
-    "AirHandler3":{
+    "AirHandler - Front":{
       "type":"group",
       "groupName":"AirHandlerGroup",
       "position":[3.5,0,1.2],
@@ -32,18 +32,15 @@
       "rotation": [0,0,0 ]
     },
     
-    "Units":{
+    "Other":{
       "type":"group",
       "groupName":"UnitGroup",
         "position": [0,0,0],
       "rotation": [0,0,0 ]
     }
- 
-    
-    
    },
    
-    
+
 	"objects": {
 
       "Cooler": {
@@ -64,36 +61,35 @@
         "rotation": [0,0,0],
         "groups":["UnitGroup"]
       },
-
       "Pipeing": {
         "geometry": "geo_Pipeing",
         "position": [0,0,0],
         "rotation": [0,1.57075,0],
         "groups":["PipeingGroup"]
       },
-      "PipeingConnectors": {
+      "Pipeing Connectors": {
         "geometry": "geo_PipeingConnectors",
         "position": [-6,3.6,0 ],
         "rotation": [0,1.57075,0],
         "groups":["PipeingGroup"]
       },
-      "Ducting2": {
-        "geometry": "geo_Ducting2",
+      "Ducting": {
+        "geometry": "geo_Ducting",
         "position": [0,0,0 ],
         "rotation": [0,1.57075,0],
         "groups":["AirHandlerGroup"]
       },
-	    "CenterDamper" : {
+	    "Damper - Center" : {
 	        "geometry"  : "geo_Damper",
 	        "position"  : [ -2.82897,1.78750,-0.43100],
 	        "groups":["AirHandlerGroup"]
 	    },
-	    "LeftDamper" : {
+	    "Damper - Left" : {
 	        "geometry"  : "geo_Damper",
 	        "position"  : [ -7.15, 1.78750,-0.43100],
           "groups":["AirHandlerGroup"]
 	    },
-	    "TopDamper" : {
+	    "Damper - Top" : {
 	        "geometry"  : "geo_Damper",
 	        "position"  : [ -1.37100,2.6,-0.43100],
 	        "rotation"  : [ 0,0,-1.5708 ],
@@ -106,25 +102,25 @@
           "groups":["AirHandlerGroup"]
 	    },
 	    
-	    "HeatingCoil" : {
+	    "Heating Coil" : {
 	        "geometry"  : "geo_HeatingCoil",
         "position"  : [ 1.40462, 1.54171 , -0.552678 ],
           "groups":["AirHandlerGroup"]
 	    },
 	    
-	    "CoolingCoil" : {
+	    "Cooling Coil" : {
 	        "geometry"  : "geo_CoolingCoil",
         	"position"  : [ 2.9867, 1.53703 , -0.554558],
           "groups":["AirHandlerGroup"]
 	    },
 	    
-	    "Fan" : {
+	    "Fan - Right" : {
 	        "geometry"  : "geo_Fan",
         	"position"  : [ 4.81478, 1.71910 , -0.74870],
           "groups":["AirHandlerGroup"]
 	    },
 	    
-	    "Fan2" : {
+	    "Fan - Left" : {
 	        "geometry"  : "geo_Fan",
         	"position"  : [ -4.1, 1.71910 , -0.74870],
           "groups":["AirHandlerGroup"]
@@ -139,7 +135,6 @@
 			"type": "binary",
 			"url": "Cooler.obj.json"
 		},
-	
 		"geo_Chiller": {
 			"type": "binary",
 			"url": "Chiller.obj.json"
@@ -158,11 +153,7 @@
 		},
 		"geo_Ducting": {
 			"type": "binary",
-			"url": "Ducting.obj.json"
-		},
-		"geo_Ducting2": {
-			"type": "binary",
-			"url": "rooftopLowpoly_raj11e.obj.json"
+      "url": "rooftopLowpoly_raj11e.obj.json"
 		},
 		"geo_Damper": {
 			"type": "binary",

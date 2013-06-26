@@ -18,11 +18,12 @@ lgb.model.vo.VisibilityNode = function(title, object3d, recurseDepth) {
   this.children = undefined;
   this.hasChildren = false;
   this.parent = undefined;
-
+  this.children = [];
+      
   if (object3d && object3d instanceof THREE.Object3D) {
     this.init_(object3d,recurseDepth)
   } else if (object3d && object3d instanceof Array) {
-    this.initArray_(object3d);
+    this.initArray_(object3d, recurseDepth);
   }
   
 
@@ -30,9 +31,10 @@ lgb.model.vo.VisibilityNode = function(title, object3d, recurseDepth) {
 goog.inherits(lgb.model.vo.VisibilityNode, lgb.model.vo.BaseVo);
 
 
-lgb.model.vo.VisibilityNode.prototype.initArray_ = function(ary) {
-  
-    //this.each(object3d.children, this.initOneChild_, recurseDepth);
+lgb.model.vo.VisibilityNode.prototype.initArray_ = function(ary, recurseDepth) {
+    
+    this.hasChildren = true;
+    this.each(ary, this.initOneChild_, recurseDepth);
     return;
     
 };
@@ -45,7 +47,7 @@ lgb.model.vo.VisibilityNode.prototype.init_ = function(object3d, recurseDepth) {
 
     if (object3d.children.length > 0 && recurseDepth > 0) {
       this.hasChildren = true;
-      this.children = [];
+
       
       this.each(object3d.children, this.initOneChild_, recurseDepth);
     }
@@ -55,36 +57,9 @@ lgb.model.vo.VisibilityNode.prototype.init_ = function(object3d, recurseDepth) {
 };
 
 lgb.model.vo.VisibilityNode.prototype.isRoot = function() {
-  
-  
   return (undefined == this.parent);
 };
 
-
-
-
-
-/*
-lgb.model.vo.VisibilityNode.prototype.generateIdx = function() {
-  
-  this.nextIdx_ = 1;
-  this.allNodes = [this];
-  
-  this.each(this.children, this.generateOneIdx_);
-};*/
-
-
-
-lgb.model.vo.VisibilityNode.prototype.generateOneIdx_ = function(node) {
-  
-  node.idx = this.nextIdx_;
-  this.allNodes[node.idx] = node;
-  this.nextIdx_++;
-  
-  if (node.hasChildren) {
-    this.each(node.children, this.generateOneIdx_);
-  }
-}
 
 
 
@@ -130,9 +105,7 @@ lgb.model.vo.VisibilityNode.prototype.add = function(childNode) {
 lgb.model.vo.VisibilityNode.getNodeByIdx = function(idx) {
   
   var theNode = null;
-  
   var allNodes = lgb.model.vo.VisibilityNode.allNodes;
-  
   
   if(allNodes && allNodes.length > idx ) {
     theNode = allNodes[idx];

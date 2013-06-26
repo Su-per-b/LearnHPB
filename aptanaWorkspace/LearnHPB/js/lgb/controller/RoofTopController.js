@@ -53,12 +53,16 @@ lgb.controller.RoofTopController.prototype.setVisiblityGroup =
 
 lgb.controller.RoofTopController.prototype.bind_ = function() {
 
+  this.relay(this.view, 
+      [
+        lgb.events.SelectableLoaded.TYPE,
+        e.AddToWorldRequest,
+        e.ViewPointCollectionLoaded,
+        e.VisibilityNodesLoaded,
+        e.ViewPointNodesLoaded
+      ]
+    );
 
-  this.relay(this.view, lgb.events.SelectableLoaded.TYPE);
-  this.relay(this.view, e.AddToWorldRequest);
-  this.relay(this.view,e.ViewPointCollectionLoaded);
-  this.relay(this.view,e.VisibilityNodesLoaded);
-  
   this.listen(e.BuildingHeightChanged,this.onBuildingHeightChanged_);
 
 };

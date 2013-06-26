@@ -22,14 +22,31 @@ goog.inherits(lgb.component.BaseDataSource, lgb.BaseClass);
 
 
 
-/**
- * dispatches a local DataModelChanged Event
- * used to notify the view
- * @protected
- */
-lgb.component.BaseDataSource.prototype.dispatchChange = function(payload) {
+
+lgb.component.BaseDataSource.prototype.dispatchChange = function(whatIsDirty) {
   
-  this.triggerLocal(e.DataSourceChanged, payload);
+  if (whatIsDirty == null) {
+    whatIsDirty = this;
+  }
   
+  this.triggerLocal(e.DataModelChanged, whatIsDirty);
+};
+
+lgb.component.BaseDataSource.prototype.dispatchChangedProperty = function(propertyName) {
+   
+   var whatIsDirty = {};
+   whatIsDirty[propertyName] = true;
+   
+   this.dispatchChange(whatIsDirty);
+};
+
+
+
+lgb.component.BaseDataSource.prototype.changeProperty = function(propertyName, propertyValue) {
+
+    if (this[propertyName] != propertyValue) {
+        this[propertyName] = propertyValue;
+        this.dispatchChangedProperty(propertyName);
+    }
 };
 

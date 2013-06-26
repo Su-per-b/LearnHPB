@@ -6,7 +6,7 @@
 goog.provide('lgb.model.ViewPointCollection');
 
 goog.require('lgb.model.BaseModel');
-goog.require('lgb.model.ViewPointNode');
+goog.require('lgb.model.ViewPointCollectionNode');
 
 
 /**
@@ -28,6 +28,7 @@ goog.inherits(lgb.model.ViewPointCollection, lgb.model.BaseModel);
 
 
 
+
 /**
  * @private
  */
@@ -39,7 +40,7 @@ lgb.model.ViewPointCollection.prototype.init_ = function(object3Dlist) {
       
         var object3d = object3Dlist[i];
        
-        var node = new lgb.model.ViewPointNode(object3d, this, i);
+        var node = new lgb.model.ViewPointCollectionNode(object3d, this, i);
         this.nodeList.push(node);
     }
     
