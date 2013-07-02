@@ -9,7 +9,7 @@ goog.require('lgb.model.vo.BaseVo');
 
 
 
-lgb.model.vo.ViewPointNode = function(title, object3d, recurseDepth) {
+lgb.model.vo.ViewPointNode = function(title, object, recurseDepth) {
   
   this.idx = lgb.model.vo.ViewPointNode.idx++;
   lgb.model.vo.ViewPointNode.allNodes[this.idx] = this;
@@ -20,10 +20,10 @@ lgb.model.vo.ViewPointNode = function(title, object3d, recurseDepth) {
   this.hasChildren = false;
   this.parent = undefined;
 
-  if (object3d && object3d instanceof THREE.Object3D) {
-    this.init_(object3d,recurseDepth)
-  } else if (object3d && object3d instanceof Array) {
-    this.initArray_(object3d);
+  if (object && object instanceof THREE.Object3D) {
+    this.init_(object,recurseDepth)
+  } else if (object && object instanceof Array) {
+    this.initArray_(object);
   }
   
   this.offset_ = new THREE.Vector3(0, 2, 5);
@@ -43,16 +43,16 @@ lgb.model.vo.ViewPointNode.prototype.initArray_ = function(ary, recurseDepth) {
     
 };
 
-lgb.model.vo.ViewPointNode.prototype.init_ = function(object3d, recurseDepth) {
+lgb.model.vo.ViewPointNode.prototype.init_ = function(object, recurseDepth) {
 
     
-    this.object3d = object3d;
+    this.object3d = object;
 
-    if (object3d.children.length > 0 && recurseDepth > 0) {
+    if (this.object3d.children.length > 0 && recurseDepth > 0) {
       this.hasChildren = true;
       this.children = [];
 
-      this.each(object3d.children, this.initOneChild_, recurseDepth);
+      this.each(this.object3d.children, this.initOneChild_, recurseDepth);
     }
     
     return;

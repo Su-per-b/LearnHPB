@@ -241,9 +241,10 @@ a.admin-link:hover {
 	font-size:10pt;
 
 }
+
 #simulationView-tabstrip{
 	text-align: left;	
-	width: 10000px;
+	width: auto;
 	overflow:scroll;
 }
 

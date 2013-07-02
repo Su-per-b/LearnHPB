@@ -50,6 +50,7 @@ lgb.controller.ViewPointController.prototype.init = function() {
   
   this.guiView.init();
   this.guiView2.init();
+  this.view.init();
   
 };
 
@@ -93,9 +94,22 @@ lgb.controller.ViewPointController.prototype.bind_ = function() {
     this.guiView2,
     [
       e.RequestAddToBasicInput, 
-      e.RequestGoToViewPointNode,
+      e.RequestGoToViewPointNode
     ]
     );
+    
+  this.relay(
+    this.view,
+    e.ViewPointCollectionLoaded
+    );
+
+
+  this.relay(
+    this.view,
+    e.VisibilityNodesLoaded
+    );
+
+
 
 
 };

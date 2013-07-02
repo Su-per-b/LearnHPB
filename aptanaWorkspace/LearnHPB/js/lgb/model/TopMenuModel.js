@@ -72,6 +72,7 @@ lgb.model.TopMenuModel.prototype.toggleCheck = function(title) {
     var idx = this.viewTitleToIdxMap_[title];
     
 
+    
     if (isCheckeded) {
       this.viewItems_[idx].imageUrl = "images/check.png";
     } else {

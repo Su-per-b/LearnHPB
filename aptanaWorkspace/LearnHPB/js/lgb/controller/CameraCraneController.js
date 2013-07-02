@@ -43,7 +43,7 @@ lgb.controller.CameraCraneController.prototype.init =
 
   
   this.cameraOnCrane_ = cameraOnCrane;
-  this.lookAtTarget = new THREE.Vector3(0,20,0);
+  this.lookAtTarget = cameraOnCrane.lookAtTarget;
   
   if (this.debugMode) {
     

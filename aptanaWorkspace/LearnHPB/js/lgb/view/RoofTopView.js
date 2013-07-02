@@ -65,10 +65,10 @@ lgb.view.RoofTopView.prototype.dispatchVisibilityNodes_ = function() {
 
 lgb.view.RoofTopView.prototype.dispatchViewpoints_ = function() {
 
-  var viewPointNodeCollection = new lgb.model.ViewPointCollection(this._TITLE+ '1', this.masterGroup_.children);
-  this.triggerLocal(e.ViewPointCollectionLoaded, viewPointNodeCollection);
+  // var viewPointNodeCollection = new lgb.model.ViewPointCollection(this._TITLE+ '1', this.masterGroup_.children);
+  // this.triggerLocal(e.ViewPointCollectionLoaded, viewPointNodeCollection);
   
-  var node = new lgb.model.vo.ViewPointNode(this._TITLE + '2', this.masterGroup_, 2 );
+  var node = new lgb.model.vo.ViewPointNode(this._TITLE, this.masterGroup_, 2 );
   this.triggerLocal(e.ViewPointNodesLoaded, node);
 }
 

@@ -29,17 +29,9 @@ goog.inherits(lgb.view.VisibilityView, lgb.view.BaseV);
  */
 lgb.view.VisibilityView.prototype.init = function() {
 
-  var list = this.dataModel.getVisibilityGroupList();
-  
-  //make the data source for the component
-  
-  this.treeDS_ = new lgb.component.TreeDataSource(list,'isVisible',
-    'Visibility',  this.htmlID, 'visibility');
-      
-  
-  this.bind_();
-  
 
+  
+  return;
 };
 
 

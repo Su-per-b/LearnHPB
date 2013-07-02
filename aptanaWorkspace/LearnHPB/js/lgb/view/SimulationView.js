@@ -63,17 +63,14 @@ lgb.view.SimulationView.prototype.onChange = function(event) {
                 break;
 
         }
-
     }
 
     if (whatIsDirty.messageStruct) {
-
         var messageStruct = this.dataModel.messageStruct;
         this.messageBox_.append(messageStruct.msgText + '<br />' + "\n");
     }
 
     if (whatIsDirty.xmlParsedInfo) {
-
         var xmlParsedInfo = this.dataModel.xmlParsedInfo;
         this.showXMLparsedInfo(xmlParsedInfo);
     }
@@ -96,20 +93,18 @@ lgb.view.SimulationView.prototype.showScalarValueResults = function(scalarValueR
         newRow[columnHeader] = realVarList[i-1].value_;
     };
     
-    this.resultLogDataSource_.insert(0,newRow);
     
+    var model = new kendo.data.Model(newRow);
+    this.resultLogDataSource_.insert(0,model);
     
-    
-    return;
-
 }
 
 
 lgb.view.SimulationView.prototype.showXMLparsedInfo = function(xmlParsedInfo) {
 
-
+    var dataItem = {};
     var fields = {time:  { type: "number" , width: "100px" } };
-
+    dataItem.time = 0;
     
     this.scalarVariablesAll_ = xmlParsedInfo.scalarVariablesAll_;
     this.columnHeaders_ = ['time'];
@@ -130,12 +125,18 @@ lgb.view.SimulationView.prototype.showXMLparsedInfo = function(xmlParsedInfo) {
         fields[propertyName] = { type: "number" , width: "150px" };
         
         this.columnHeaders_ .push(propertyName);
+        
+        dataItem[propertyName] = 1;
     };
     
 
+    var dataAry = [dataItem];
 
+    
+    
+    
     this.resultLogDataSource_ = new kendo.data.DataSource( {
-
+      data: dataAry,
       schema: {
            model: {
                fields: fields
@@ -145,20 +146,20 @@ lgb.view.SimulationView.prototype.showXMLparsedInfo = function(xmlParsedInfo) {
        }
     );
     
-    this.resultsLogBox_.kendoGrid({
+    this.resultsLogGrid_ = $('<div>');
+    this.resultsLogBox_.append( this.resultsLogGrid_ );
+    
+    this.resultsLogGrid_.kendoGrid({
         dataSource : this.resultLogDataSource_,
         autoBind: true,
         height:700,
         scrollable: true,
-        filterable: true,
-        sortable: true,
         groupable: false,
         pageable: false
     });
     
-    this.resultsLogGrid_ = this.outputBox_.data("kendoGrid");
-    
-    
+
+    this.resultsLogGrid_.css('width', "12000px");
 
 };
 
@@ -338,37 +339,36 @@ lgb.view.SimulationView.prototype.makeBottomPanel_ = function() {
     htmlTabs = htmlTabs.format(tabsID, tabStripID);
 
     this.mainPanel_.append(htmlTabs);
+    
+    this.tabStripContainer_ = $('#' + tabStripID);
+    this.mainPanel_.append(this.tabStripContainer_);
+    
 
-    this.kendoTabStrip = $('#' + tabStripID).kendoTabStrip({
+    this.kendoTabStrip = this.tabStripContainer_.kendoTabStrip({
         animation : false
     }).data('kendoTabStrip');
 
     this.kendoTabStrip.append([{
-        text : 'Console'
+        text : 'Console',
+        content: "<br> Console"
     }, {
-        text : 'Input'
+        text : 'Input',
+        content: "<br> Input"
     }, {
-        text : 'Output'
+        text : 'Output',
+        content: "<br> Output"
     }, {
-        text : 'Results Log'
+        text : 'Results Log',
+        content: "<br> Results"
     }]);
 
     this.kendoTabStrip.select(this.kendoTabStrip.tabGroup[0].children[0]);
-
-    this.messageBox_ = $('<div>').attr('id', "simulationViewMessageBox");
-    $('#' + tabStripID + '-1').append(this.messageBox_);
-
-    this.inputBox_ = $('<div>').attr('id', "simulationViewInputBox");
-    $('#' + tabStripID + '-2').append(this.inputBox_);
-
-    //  this.outputBox_ = $('<div>').attr('id', "simulationViewOutputBox");
-
-    this.outputBox_ = $('#' + tabStripID + '-3');
     
-    this.resultsLogBox_ = $('#' + tabStripID + '-4');
-    
-    //this.resultsLogBox_ = $('<div>').attr('id', "simulationViewResultsLogBox");
-   // $('#' + tabStripID + '-4').append(this.resultsLogBox_);
+    this.messageBox_ = $(this.kendoTabStrip.contentElements[0]);
+    this.inputBox_ = $(this.kendoTabStrip.contentElements[1]);
+    this.outputBox_ = $(this.kendoTabStrip.contentElements[2]);
+    this.resultsLogBox_ = $(this.kendoTabStrip.contentElements[3]);
+
 
 };
 
@@ -390,7 +390,7 @@ lgb.view.SimulationView.prototype.makeDialog_ = function() {
         width : 800,
         height : 900,
         position : ['center', 'center'],
-        autoOpen : false
+        autoOpen : true
     });
 };
 

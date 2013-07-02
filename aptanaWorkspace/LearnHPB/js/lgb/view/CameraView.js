@@ -29,12 +29,16 @@ lgb.view.CameraView.prototype.init = function() {
   this.camera = new THREE.PerspectiveCamera(40, this.domElement_.width / this.domElement_.height, 1, 10000);
 
   // this.camera.position.z = 500;
-  this.orbitRadius = 65;
+  this.orbitRadius = 75;
   this.camera.position.x = 0;
-  this.camera.position.y = 20;
+  this.camera.position.y = 12;
   this.camera.position.z = this.orbitRadius;
 
-  this.camera.lookAt(new THREE.Vector3(0, 20, 0));
+
+  this.camera.lookAtTarget = new THREE.Vector3(0, 12, 0);
+  
+  this.camera.lookAt(this.camera.lookAtTarget);
+  
   this.camera.name = 'ActiveCamera';
 
   this.bind_();
@@ -43,7 +47,7 @@ lgb.view.CameraView.prototype.init = function() {
   this.cameraCraneController_.debugMode = false;
   this.cameraCraneController_.init(this.camera);
   
-
+  this.cameraCraneController_.moveToPosition(this.camera);
 };
 
 

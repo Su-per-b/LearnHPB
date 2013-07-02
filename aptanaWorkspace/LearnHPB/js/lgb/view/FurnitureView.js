@@ -68,7 +68,7 @@ lgb.view.FurnitureView.prototype.dispatchVisibilityNodes_ = function() {
 
 lgb.view.FurnitureView.prototype.dispatchViewpoints_ = function() {
 
-  var viewPointNodeCollection = new lgb.model.ViewPointCollection(this._TITLE, this.masterGroup_.children);
+    var viewPointNodeCollection = new lgb.model.ViewPointCollection(this._TITLE, this.masterGroup_.children);
 
     this.triggerLocal(e.ViewPointCollectionLoaded, viewPointNodeCollection);
 }

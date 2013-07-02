@@ -45,7 +45,7 @@ lgb.controller.VisibilityController.prototype.init = function() {
   this.bind_();
   
   this.guiView.init();
-  
+  //this.view.init();
 };
 
 

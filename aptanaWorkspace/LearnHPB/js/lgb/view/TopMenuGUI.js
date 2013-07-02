@@ -62,14 +62,10 @@ lgb.view.TopMenuGUI.prototype.bind_ = function() {
 lgb.view.TopMenuGUI.prototype.onSelect_ = function(event) {
   
 
-    
-    
-    
     var item = event.item;
     var title = item.textContent;
 
-
-    var i = item.attributes.item();
+    //var i = item.attributes.item();
     
         
    if (title != "TopMenu" &&
@@ -77,6 +73,12 @@ lgb.view.TopMenuGUI.prototype.onSelect_ = function(event) {
     ) {
    
       var guiView = this.dataModel.getGuiView(title);
+      
+      if(guiView == null) {
+        return;
+      }
+
+      
       this.dataModel.toggleCheck(title);
       this.triggerLocal(e.RequestLayoutVisibilityChange, guiView);
      

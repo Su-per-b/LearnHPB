@@ -79,7 +79,7 @@ lgb.controller.MainController.prototype.init = function() {
   $(window).resize(this.d(this.onNativeWindowResize_));
   
    
-  //this.simulationController_ = new lgb.controller.SimulationController();
+  this.simulationController_ = new lgb.controller.SimulationController();
 
  
 
