@@ -39,12 +39,8 @@ lgb.view.LayoutView.prototype.init = function() {
   
   this.splitPanel_ = new lgb.component.SplitPanel(this.splitPanelDS_);
   
-
   this.bind_();
   this.inject();
-  
-
-  
 };
 
 
@@ -83,8 +79,6 @@ lgb.view.LayoutView.prototype.toggleVisibility = function(guiView) {
   var el = guiView.getMainElement();
   
   el.toggle();
-  
-  return;
 
 };
 
@@ -128,6 +122,18 @@ lgb.view.LayoutView.prototype.add = function(guiView) {
       this.layoutUtils_.push(util);
       
       break;
+  case LAYOUT_ID.SimulationButton:
+      this.simulationButton_ = guiView;
+      
+      guiView.inject(parent);
+      var util = new lgb.view.LayoutUtil(guiView);
+      
+      util.alignHorizontal(lgb.view.LayoutUtil.ALIGN.Right, 43);
+      util.show();
+      
+      this.layoutUtils_.push(util);
+      
+      break;
   case LAYOUT_ID.TitleBar:
 
       guiView.inject(parent);
@@ -140,7 +146,9 @@ lgb.view.LayoutView.prototype.add = function(guiView) {
       
       break;
   case LAYOUT_ID.PropertiesView:
-  
+      guiView.inject(parent);
+      break;
+  case LAYOUT_ID.SimulationView:
       guiView.inject(parent);
       break;
   default:
@@ -185,6 +193,7 @@ lgb.view.LayoutView.prototype.inject = function() {
   this.parentMap[ID.TopMenu] = this.webGLcanvas_;
   this.parentMap[ID.PropertiesButton] = this.webGLcanvas_;
   this.parentMap[ID.PropertiesView] = this.webGLcanvas_;
+  this.parentMap[ID.SimulationView] = this.getMainElement();
 
   this.webGLcanvas_.css({
     width : "100%",

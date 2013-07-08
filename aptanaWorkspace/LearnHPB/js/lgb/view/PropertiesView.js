@@ -144,7 +144,6 @@ lgb.view.PropertiesView.prototype.makeListBox_ = function() {
     .attr('value', '1')
     .appendTo(this.jq());
 
-
     this.kendoDropDownList = $('#' + this.comboBoxId)
       .kendoDropDownList({
         dataSource: this.dataModel.systemNodeArray,
@@ -183,6 +182,7 @@ lgb.view.PropertiesView.prototype.setDropDownSelection = function(systemNode) {
   }
 };
 
+
 /**
  * Displays the details of  the systemNode
  * @param {!lgb.model.scenario.SystemNode} systemNode Used to
@@ -218,8 +218,6 @@ lgb.view.PropertiesView.prototype.showNode = function(systemNode) {
       widget.injectHtml('#tabstrip-1', j);
   }
 
-
-
   var faults = systemNode.getFaults();
   var i = faults.length;
 
@@ -235,7 +233,5 @@ lgb.view.PropertiesView.prototype.showNode = function(systemNode) {
     }
 
   }
-
-
 
 };

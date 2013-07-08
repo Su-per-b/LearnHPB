@@ -7,12 +7,7 @@ goog.require('lgb.view.PropertiesView');
 goog.require('lgb.view.PropertiesButtonView');
 
 
-
-
-
-
-
-/**qfw1* @extends lgb.controller.BaseController
+/**@extends lgb.controller.BaseController
  */
 lgb.controller.PropertiesController = function() {
 

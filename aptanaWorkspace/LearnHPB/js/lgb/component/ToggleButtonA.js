@@ -21,7 +21,7 @@ lgb.component.ToggleButtonA = function(options) {
   this.options = $.extend({ // Default values
     htmlID: 'IDnotSet',
     xPosition: 0,
-    buttonHeight: 42, // millisecond, transition time
+    buttonHeight: 42, 
     title: 'link title not set',
     cssClass: false
   }, options);

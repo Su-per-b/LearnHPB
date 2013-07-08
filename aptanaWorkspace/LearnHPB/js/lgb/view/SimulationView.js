@@ -17,11 +17,11 @@ goog.require('lgb.simulation.events.SimStateNativeRequest');
  * @extends {lgb.view.DialogView}
  */
 lgb.view.SimulationView = function(dataModel) {
+  
+    this.layoutID = lgb.Config.LAYOUT_ID.SimulationView;
     
     lgb.view.DialogView.call(this, dataModel, 'simulationView');
-
     this.title = 'Simulation View';
-
     this.useSlideEffect = false;
 
 };
@@ -170,23 +170,21 @@ lgb.view.SimulationView.prototype.showXMLparsedInfo = function(xmlParsedInfo) {
 lgb.view.SimulationView.prototype.init = function() {
 
 
-    this.injectHtml_();
-    this.bind_();
 };
 
 
-/**
- * injects HTML into the DOM
- * @private
- */
-lgb.view.SimulationView.prototype.injectHtml_ = function() {
 
+
+lgb.view.SimulationView.prototype.inject = function(parentElement) {
+  
+    goog.base(this, 'inject', parentElement);
+  
     this.makeDialog_();
     this.makeTopPanel_();
     this.makeBottomPanel_();
-    this.show();
+    
+    this.bind2_();
 };
-
 
 
 /**
@@ -211,7 +209,7 @@ lgb.view.SimulationView.prototype.onClickSimStateNativeRequest_ = function(event
  * event bus.
  * @private
  */
-lgb.view.SimulationView.prototype.bind_ = function() {
+lgb.view.SimulationView.prototype.bind2_ = function() {
 
     //data model changed
     //this.listenTo(this.dataModel, e.DataModelChanged, this.onChange);
@@ -372,10 +370,31 @@ lgb.view.SimulationView.prototype.makeBottomPanel_ = function() {
 
 };
 
+
+lgb.view.SimulationView.prototype.makeDialog_ = function() {
+
+    var el = this.getMainElement();
+    el.direction = 'left';
+
+    this.dialog = el.dialog({
+      title: this.title,
+      dialogClass: this.htmlID + '-dialog',
+      hide: 'fade',
+        width : 800,
+        height : 900,
+        position : ['center', 'center'],
+      autoOpen: false
+    });
+    
+    el.bind('dialogclose', this.d(this.onCloseButtonClicked));
+};
+
+
+
 /**
  * injects the dialog panel into the DOM
  * @private
- */
+
 lgb.view.SimulationView.prototype.makeDialog_ = function() {
     var jq = $('<div>').attr('id', this.htmlID);
     jq.direction = 'left';
@@ -390,7 +409,7 @@ lgb.view.SimulationView.prototype.makeDialog_ = function() {
         width : 800,
         height : 900,
         position : ['center', 'center'],
-        autoOpen : true
+        autoOpen : false
     });
 };
-
+ */

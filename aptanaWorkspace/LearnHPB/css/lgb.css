@@ -100,7 +100,7 @@ img {
   font-size: 14px;
 }
 
-#adminButton, #propertiesButton{
+#adminButton, #propertiesButton, #simulationButton {
 	position:absolute;
 	width:33px;
 	height:33px;
@@ -111,7 +111,7 @@ img {
     background-repeat:no-repeat;
 }
 
-#adminButtonLink, #propertiesButtonLink {
+#adminButtonLink, #propertiesButtonLink, #simulationButtonLink  {
 	width:33px;
 	height:33px;
 	display:block;
@@ -136,7 +136,7 @@ img {
 }
 
 .propertiesView-dialog div.ui-dialog-titlebar {
-	background-image:url("../images/properties_21px.png");
+	background-image:url("../images/admin_21px.png");
 }
 .adminView-dialog div.ui-dialog-titlebar {
 	background-image:url("../images/admin_21px.png");

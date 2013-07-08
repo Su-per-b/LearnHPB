@@ -107,6 +107,8 @@ lgb.Config.LAYOUT_ID.Airflow = 4;
 lgb.Config.LAYOUT_ID.PropertiesButton = 5;
 lgb.Config.LAYOUT_ID.PropertiesView = 6;
 lgb.Config.LAYOUT_ID.BasicInputGUI = 7;
+lgb.Config.LAYOUT_ID.SimulationButton = 8;
+lgb.Config.LAYOUT_ID.SimulationView = 9;
 
 
 

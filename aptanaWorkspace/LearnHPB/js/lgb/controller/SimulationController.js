@@ -6,8 +6,9 @@
 goog.provide('lgb.controller.SimulationController');
 
 goog.require('lgb.controller.BaseController');
-goog.require('lgb.view.SimulationAdminView');
 goog.require('lgb.view.SimulationView');
+goog.require('lgb.view.SimulationButtonView');
+
 goog.require('lgb.simulation.controller.MainController');
 goog.require('lgb.simulation.model.MainModel');
 
@@ -32,13 +33,18 @@ lgb.controller.SimulationController = function() {
   this.dataModel = this.simulationMainController_.getDataModel();
   
   this.view = new lgb.view.SimulationView(this.dataModel);
-  this.adminView = new lgb.view.SimulationAdminView(this.dataModel, 'adminView');
-
-  this.view.init();
-  this.adminView.init();
   
-  this.bind_();
+  
+  this.buttonView = new lgb.view.SimulationButtonView();
 
+  this.bind_();
+  
+  this.buttonView.init();
+  this.view.init();
+  
+  this.trigger(e.RequestAddToLayout, this.buttonView);
+  this.trigger(e.RequestAddToLayout, this.view);
+    
   this.simulationMainController_.connect();
   
 };
@@ -99,10 +105,30 @@ lgb.controller.SimulationController.prototype.bind_ = function() {
     );
     
     
+  this.listenTo(this.buttonView,
+    e.RequestActivateView,
+    this.onRequestActivateView_);
     
+  this.listenTo(this.view,
+    e.ViewClosed,
+    this.onClosedPanel);
     
     
 }
+
+
+/**
+ * @param {lgb.events.Event} event The event.
+ */
+lgb.controller.SimulationController.prototype.onRequestActivateView_ =
+  function(event) {
+    
+  var showFlag = event.payload;
+
+  this.buttonView.setSelected(showFlag);
+  this.view.show(showFlag);
+
+};
 
 
 lgb.controller.SimulationController.prototype.onResultEvent_ = function(event) {
@@ -157,7 +183,15 @@ lgb.controller.SimulationController.prototype.onSimStateNativeRequest_ = functio
 };
 
 
-
+/**
+ * @param {lgb.events.Event} event The event.
+ */
+lgb.controller.SimulationController.prototype.onClosedPanel =
+  function(event) {
+    
+  this.buttonView.setSelected(false);
+  
+};
 
 
 

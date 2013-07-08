@@ -3,7 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.view.PropertiesButtonView');
+goog.provide('lgb.view.SimulationButtonView');
 goog.require('lgb.view.BaseViewGUI');
 goog.require('lgb.component.ToggleButtonA');
 
@@ -11,29 +11,29 @@ goog.require('lgb.component.ToggleButtonA');
  * @constructor
  * @extends {lgb.view.BaseViewGUI}
  */
-lgb.view.PropertiesButtonView = function() {
+lgb.view.SimulationButtonView = function() {
     
-  this._TITLE = "PropertiesButton";
-  lgb.view.BaseViewGUI.call(this, null, 'propertiesButton', lgb.Config.HUD_CONTAINER_STR);
-  this.layoutID = lgb.Config.LAYOUT_ID.PropertiesButton;
+  this._TITLE = "SimulationButton";
+  lgb.view.BaseViewGUI.call(this, null, 'simulationButton', lgb.Config.HUD_CONTAINER_STR);
+  this.layoutID = lgb.Config.LAYOUT_ID.SimulationButton;
 
 };
-goog.inherits(lgb.view.PropertiesButtonView, lgb.view.BaseViewGUI);
+goog.inherits(lgb.view.SimulationButtonView, lgb.view.BaseViewGUI);
 
 /**
  * Initializes the view.
  */
-lgb.view.PropertiesButtonView.prototype.init = function() {
+lgb.view.SimulationButtonView.prototype.init = function() {
 
   this.button =
     new lgb.component.ToggleButtonA({
-      htmlID: 'propertiesButtonLink',
+      htmlID: 'simulationButtonLink',
       buttonHeight: 33,
-      xPosition: 0,
-      title: 'Show / Hide Properties panel'
+      xPosition: 33,
+      title: 'Show / Hide Simulation panel'
     });
   
-  var html = '<div id="propertiesButton">' + this.button.getHtml() +
+  var html = '<div id="simulationButton">' + this.button.getHtml() +
         '</div>';
 
   this.append(html);
@@ -41,13 +41,13 @@ lgb.view.PropertiesButtonView.prototype.init = function() {
 };
 
 
-lgb.view.PropertiesButtonView.prototype.inject = function(parentElement) {
+lgb.view.SimulationButtonView.prototype.inject = function(parentElement) {
   
   this.injectCss_();
   
   goog.base(this, 'inject', parentElement);
   
-  this.propertiesButtonLink_ = $('#propertiesButtonLink');
+  this.simulationButtonLink_ = $('#simulationButtonLink');
     
   var toolTipConfig = {
     skin: 'light',
@@ -59,7 +59,7 @@ lgb.view.PropertiesButtonView.prototype.inject = function(parentElement) {
     closeButton: false
   };
 
-  Tipped.create('#propertiesButtonLink', toolTipConfig);
+  Tipped.create('#simulationButtonLink', toolTipConfig);
   
   this.bind_();
     
@@ -69,7 +69,7 @@ lgb.view.PropertiesButtonView.prototype.inject = function(parentElement) {
 /**
  * Injects the CSS into the DOM.
  */
-lgb.view.PropertiesButtonView.prototype.injectCss_ = function() {
+lgb.view.SimulationButtonView.prototype.injectCss_ = function() {
   
     var cssInner = this.button.getCss();
     var cssStr = "<style type='text/css'>{0}</style>".format(cssInner);
@@ -82,13 +82,13 @@ lgb.view.PropertiesButtonView.prototype.injectCss_ = function() {
  * Adds or removes the 'selected' CSS class.
  * @param {boolean} isSelected If true adds the class.
  */
-lgb.view.PropertiesButtonView.prototype.setSelected = function(isSelected) {
+lgb.view.SimulationButtonView.prototype.setSelected = function(isSelected) {
   this.isSelected = isSelected;
 
   if (this.isSelected) {
-    this.propertiesButtonLink_.addClass('selected');
+    this.simulationButtonLink_.addClass('selected');
   } else {
-    this.propertiesButtonLink_.removeClass('selected');
+    this.simulationButtonLink_.removeClass('selected');
   }
 
 };
@@ -100,9 +100,9 @@ lgb.view.PropertiesButtonView.prototype.setSelected = function(isSelected) {
  * event bus.
  * @private
  */
-lgb.view.PropertiesButtonView.prototype.bind_ = function() {
+lgb.view.SimulationButtonView.prototype.bind_ = function() {
 
-  this.propertiesButtonLink_.click(this.d(this.onClick_));
+  this.simulationButtonLink_.click(this.d(this.onClick_));
 
 };
 
@@ -111,7 +111,7 @@ lgb.view.PropertiesButtonView.prototype.bind_ = function() {
  * @private
  * @param {jQuery.event} event The click event.
  */
-lgb.view.PropertiesButtonView.prototype.onClick_ = function(event) {
+lgb.view.SimulationButtonView.prototype.onClick_ = function(event) {
   
   this.triggerLocal(e.RequestActivateView, !this.isSelected);
 
