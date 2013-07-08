@@ -9,7 +9,7 @@ goog.require('lgb.controller.BaseController');
 goog.require('goog.debug.Logger');
 goog.require('lgb.Config');
 goog.require('lgb.view.LayoutView');
-
+goog.require('lgb.model.LayoutModel');
 
 
 /**
@@ -30,8 +30,9 @@ goog.inherits(lgb.controller.LayoutController, lgb.controller.BaseController);
  * Initializes the Main Controller after the document is ready
  */
 lgb.controller.LayoutController.prototype.init = function() {
-
-    this.view  = new lgb.view.LayoutView();
+    
+    this.dataModel = new lgb.model.LayoutModel();
+    this.view  = new lgb.view.LayoutView(this.dataModel);
     this.bind_();
     this.view.init();
 };
@@ -51,7 +52,10 @@ lgb.controller.LayoutController.prototype.bind_ = function() {
 };
 
 lgb.controller.LayoutController.prototype.onRequestAddToLayout_ = function(event) {
-    this.view.add(event.payload);
+    
+    
+    this.dataModel.add(event.payload);
+    //this.view.add(event.payload);
 };
 
 

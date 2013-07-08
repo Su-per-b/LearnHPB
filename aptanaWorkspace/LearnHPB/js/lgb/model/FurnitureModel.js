@@ -6,7 +6,6 @@
 goog.provide('lgb.model.FurnitureModel');
 
 
-goog.require('lgb.model.BuildingModel.Group');
 goog.require('lgb.model.BaseModel');
 
 
@@ -24,9 +23,6 @@ lgb.model.FurnitureModel = function() {
   lgb.model.BaseModel.call(this);
 
 
-  this.groupMembership = {};
-  this.groupMembership[lgb.model.BuildingModel.Group.ALL] = true;
-  this.groupMembership[lgb.model.BuildingModel.Group.LIGHTING] = true;
 
   this.isVisible = true;
   

@@ -5,7 +5,6 @@
  
 goog.provide('lgb.model.EnvelopeModel');
 
-goog.require('lgb.model.BuildingModel.Group');
 goog.require('lgb.model.BaseModel');
 
 

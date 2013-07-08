@@ -15,7 +15,9 @@ lgb.view.BaseV = function(dataModel, htmlID, parentHtmlID) {
 
   if (null !== dataModel && undefined !== dataModel) {
     this.dataModel = dataModel;
-
+    
+    //this.changeMap_ = {};
+      
     if (this.onChange && this.dataModel) {
       this.listenHelper_(this.dataModel, e.DataModelChanged, this, this.onChange);
     }
@@ -30,6 +32,62 @@ lgb.view.BaseV = function(dataModel, htmlID, parentHtmlID) {
 
 };
 goog.inherits(lgb.view.BaseV, lgb.BaseClass);
+
+
+
+
+
+lgb.view.BaseV.prototype.listenForChange_ = function(changedPropertyString) {
+    
+    
+    if (this.changeMap_ === undefined) {
+      this.changeMap_ = {};
+      this.listenHelper_(this.dataModel, e.DataModelChangedEx, this, this.onChangeEx_);
+    }
+
+    this.listenForOneChange_(changedPropertyString);
+};
+
+
+lgb.view.BaseV.prototype.listenForOneChange_ = function(changedPropertyString) {
+  
+    var handlerName = 'onChange_' + changedPropertyString + '_';
+    var func = this[handlerName];
+
+    if (func && func instanceof Function) {
+      var delegate = this.d(func);
+      this.changeMap_[changedPropertyString] = delegate;
+    } else {
+      debugger;
+    }
+};
+
+
+lgb.view.BaseV.prototype.onChangeEx_ = function(event) {
+  
+   var whatIsDirty = event.payload;
+  
+    //loop through all the dirty properties and fire their event listeners
+   for (var prop in whatIsDirty) {
+      
+      if(prop !== undefined || prop !== null) {
+        
+        if(whatIsDirty.hasOwnProperty(prop)){
+          
+          var delegate = this.changeMap_[prop];
+          var arg = whatIsDirty[prop];
+          
+          if (delegate) {
+            delegate(arg);
+          }
+        }
+      }
+   }
+}
+
+
+
+
 
 
 /**

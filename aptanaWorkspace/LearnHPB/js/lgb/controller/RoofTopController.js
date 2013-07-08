@@ -38,18 +38,6 @@ lgb.controller.RoofTopController.prototype.init_ = function() {
 
 
 
-/**
- * @param {lgb.model.BuildingModel.Group} group The group to make
- * visible.
- */
-lgb.controller.RoofTopController.prototype.setVisiblityGroup =
-  function(group) {
-
-  this.dataModel.setVisiblityGroup(group);
-};
-
-
-
 
 lgb.controller.RoofTopController.prototype.bind_ = function() {
 

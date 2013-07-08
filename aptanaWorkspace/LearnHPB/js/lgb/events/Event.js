@@ -62,4 +62,5 @@ e.ScenarioParsed = 'e.ScenarioParsed';
 e.DataSourceChanged = 'e.DataSourceChanged';
 e.DataModelChanged = 'e.DataModelChanged';
 e.BuildingHeightChanged = 'e.BuildingHeightChanged';
+e.DataModelChangedEx = 'e.DataModelChangedEx';
 

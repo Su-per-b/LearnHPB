@@ -9,7 +9,7 @@ lgb.view.BasicInputGUI = function(dataModel) {
   this._TITLE = 'Left Panel';
   
   lgb.view.BaseViewGUI.call(this, dataModel);
-
+  
 };
 goog.inherits(lgb.view.BasicInputGUI, lgb.view.BaseViewGUI);
 
@@ -28,11 +28,15 @@ lgb.view.BasicInputGUI.prototype.init = function() {
     width : "100%"
   });
 
+  this.tabTitleMap_ = {};
+
+  //this.inject();
 
 };
 
 
 lgb.view.BasicInputGUI.prototype.add = function(gui) {
+
 
   var title = gui.getTitle();
 
@@ -41,6 +45,7 @@ lgb.view.BasicInputGUI.prototype.add = function(gui) {
   if (this.tabTitleMap_[title]) {
     contentElement = this.tabTitleMap_[title]
   } else {
+    
     contentElement = this.tabStrip1.addTab(title);
     this.tabTitleMap_[title] = contentElement;
   }
@@ -58,7 +63,7 @@ lgb.view.BasicInputGUI.prototype.inject = function(parentElement) {
   this.tabStrip1.inject(parentElement);
   this.tabStrip1.injectCss();
 
-  this.tabTitleMap_ = {};
+
   
 };
 

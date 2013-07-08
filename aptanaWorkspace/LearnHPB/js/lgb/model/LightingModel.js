@@ -7,7 +7,6 @@ goog.provide('lgb.model.LightingModel');
 goog.provide('lgb.model.LightingModel.State');
 
 
-goog.require('lgb.model.BuildingModel.Group');
 goog.require('lgb.model.BaseModel');
 
 

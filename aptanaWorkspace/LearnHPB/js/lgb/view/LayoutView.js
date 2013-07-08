@@ -10,7 +10,7 @@ goog.require('lgb.component.SplitPanel');
 goog.require('lgb.component.SplitPanelDataSource');
 goog.require('lgb.view.LayoutUtil');
 goog.require('lgb.Config');
-
+goog.require('lgb.model.LayoutModel');
 
 
 
@@ -19,9 +19,9 @@ goog.require('lgb.Config');
  * @constructor
  * @extends {lgb.view.BaseViewGUI}
  */
-lgb.view.LayoutView = function() {
+lgb.view.LayoutView = function(dataModel) {
 
-  lgb.view.BaseViewGUI.call(this, null, 'pageContainer', 'theBody');
+  lgb.view.BaseViewGUI.call(this, dataModel, 'pageContainer', 'theBody');
 
   this.parentMap = [];
   this.layoutUtils_ = [];
@@ -39,16 +39,34 @@ lgb.view.LayoutView.prototype.init = function() {
   
   this.splitPanel_ = new lgb.component.SplitPanel(this.splitPanelDS_);
   
-  this.bind_();
-  
-  this.inject();
 
+  this.bind_();
+  this.inject();
+  
+
+  
 };
 
 
 lgb.view.LayoutView.prototype.bind_ = function(guiView) {
+  
   this.listenTo(this.splitPanel_, e.Resize, this.onSplitter1Resize_);
+  this.listenForChange_('add');
+  
 };
+
+
+
+
+lgb.view.LayoutView.prototype.onChange_add_ = function(value) {
+  
+  this.add(value);
+  return;
+}
+
+
+
+
 
 lgb.view.LayoutView.prototype.toggleVisibility = function(guiView) {
   
@@ -59,22 +77,20 @@ lgb.view.LayoutView.prototype.toggleVisibility = function(guiView) {
 
 
 
-
-
-
 lgb.view.LayoutView.prototype.toggleVisibility = function(guiView) {
   
   guiView.isVisible_ = !guiView.isVisible_;
   var el = guiView.getMainElement();
   
-  
   el.toggle();
   
   return;
 
-  
-  
 };
+
+
+
+
 
 
 lgb.view.LayoutView.prototype.add = function(guiView) {
@@ -98,7 +114,6 @@ lgb.view.LayoutView.prototype.add = function(guiView) {
       el.css("position","absolute"); 
       guiView.inject(parent);
       
-
       break;
       
   case LAYOUT_ID.PropertiesButton:

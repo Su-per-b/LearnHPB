@@ -5,7 +5,6 @@
  
 goog.provide('lgb.model.ZoneModel');
 
-goog.require('lgb.model.BuildingModel.Group');
 goog.require('lgb.model.BaseModel');
 goog.require('lgb.model.ZoneShapeModel');
 goog.require('lgb.model.ViewPointCollection');

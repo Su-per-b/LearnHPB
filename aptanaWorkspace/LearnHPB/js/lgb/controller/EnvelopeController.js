@@ -7,7 +7,6 @@ goog.provide('lgb.controller.EnvelopeController');
 
 goog.require('lgb.controller.BaseController');
 
-goog.require('lgb.model.BuildingModel.Group');
 goog.require('lgb.model.EnvelopeModel');
 goog.require('lgb.view.EnvelopeAdminView');
 goog.require('lgb.view.EnvelopeView');
@@ -136,10 +135,4 @@ lgb.controller.EnvelopeController.prototype.onRequestDataModelChange_ =
 };
 
 
-/**
- * @param {lgb.model.BuildingModel.Group} group The group.
- */
-lgb.controller.EnvelopeController.prototype.setVisiblityGroup =
-  function(group) {
-  this.dataModel.setVisiblityGroup(group);
-};
+

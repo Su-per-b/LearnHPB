@@ -5,7 +5,6 @@
  
 goog.provide('lgb.model.RoofTopModel');
 
-goog.require('lgb.model.BuildingModel.Group');
 goog.require('lgb.model.BaseModel');
 
 

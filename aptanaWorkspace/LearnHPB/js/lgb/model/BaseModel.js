@@ -40,6 +40,15 @@ lgb.model.BaseModel.prototype.dispatchChangedProperty = function(propertyName) {
    this.dispatchChange(whatIsDirty);
 };
 
+lgb.model.BaseModel.prototype.dispatchChangedEx = function(propertyName, payload) {
+   
+   var whatIsDirty = {};
+   
+   whatIsDirty[propertyName] = payload;
+   
+   this.triggerLocal(e.DataModelChangedEx, whatIsDirty);
+  
+};
 
 
 lgb.model.BaseModel.prototype.changeProperty = function(propertyName, propertyValue) {

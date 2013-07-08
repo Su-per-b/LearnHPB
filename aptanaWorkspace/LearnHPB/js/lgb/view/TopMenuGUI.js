@@ -10,12 +10,7 @@ goog.require('lgb.view.BaseViewGUI');
 goog.require('lgb.Config');
 
 
-/**
- * @constructor
- * @param {lgb.model.VisibilityModel} dataModel The data model to display.
- * @param {string} parentHtmlID the CSS id of the parent to inject into the DOM.
- * @extends {lgb.view.BaseViewGUI}
- */
+
 lgb.view.TopMenuGUI = function(dataModel) {
 
   this._TITLE = "TopMenu";

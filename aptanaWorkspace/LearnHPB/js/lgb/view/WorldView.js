@@ -13,7 +13,6 @@ goog.require('lgb.view.BaseV');
 /**
  * @constructor
  * @param {lgb.model.WorldModel} dataModel The data model to display.
- * @param {string} parentHtmlID the CSS id of the parent to inject into the DOM.
  * @extends {lgb.view.BaseV}
  */
 lgb.view.WorldView = function(dataModel) {
