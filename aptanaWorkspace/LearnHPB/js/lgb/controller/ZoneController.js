@@ -54,7 +54,9 @@ lgb.controller.ZoneController.prototype.bind_ = function() {
     this.onEnvelopeModelChanged_
     );
 
+
   this.relay(this.view, e.AddToWorldRequest);
+
 
   this.listen(
     e.RequestShowViewPoint,
@@ -66,16 +68,34 @@ lgb.controller.ZoneController.prototype.bind_ = function() {
     this.onBuildingHeightChanged_
     );
     
+    
   this.listenTo(
     this.view,
     e.ViewPointCollectionLoaded,
     this.onViewPointCollectionLoaded_
     );
      
+  this.listenTo(
+    this.view,
+    e.ViewPointNodesLoaded,
+    this.onViewPointNodesLoaded_
+    );
+     
      
      
 
 };
+
+
+lgb.controller.ZoneController.prototype.onViewPointNodesLoaded_ =
+  function(event) {
+
+  this.dataModel.setViewPointCollection(event.payload);
+  this.dispatch(event);
+
+};
+
+
 
 lgb.controller.ZoneController.prototype.onViewPointCollectionLoaded_ =
   function(event) {

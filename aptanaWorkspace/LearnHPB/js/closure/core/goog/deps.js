@@ -791,7 +791,7 @@ goog.addDependency("../../../lgb/controller/SimulationController.js", ['lgb.cont
 goog.addDependency("../../../lgb/controller/TopMenuController.js", ['lgb.controller.TopMenuController'], ['lgb.controller.BaseController', 'lgb.model.TopMenuModel', 'lgb.view.TopMenuGUI']);
 goog.addDependency("../../../lgb/controller/TrackBallController.js", ['lgb.controller.TrackBallController'], ['lgb.controller.BaseController', 'lgb.view.TrackBallView']);
 goog.addDependency("../../../lgb/controller/UtilityController.js", ['lgb.controller.UtilityController'], ['lgb.view.UtilityAxisView', 'lgb.view.UtilityGridView', 'lgb.Config']);
-goog.addDependency("../../../lgb/controller/ViewPointController.js", ['lgb.controller.ViewPointController'], ['lgb.controller.BaseController', 'lgb.model.ViewPointCollectionNode', 'lgb.model.BuildingHeightModel', 'lgb.model.ViewPointModel', 'lgb.view.ViewPointView', 'lgb.view.ViewPointGUI', 'lgb.model.ViewPointCollection', 'lgb.model.ViewPointModel2', 'lgb.view.ViewPointGUI2']);
+goog.addDependency("../../../lgb/controller/ViewPointController.js", ['lgb.controller.ViewPointController'], ['lgb.controller.BaseController', 'lgb.model.ViewPointCollectionNode', 'lgb.model.BuildingHeightModel', 'lgb.view.ViewPointView', 'lgb.model.ViewPointModel2', 'lgb.view.ViewPointGUI2']);
 goog.addDependency("../../../lgb/controller/VisibilityController.js", ['lgb.controller.VisibilityController'], ['lgb.controller.BaseController', 'lgb.view.VisibilityGUI', 'lgb.model.VisibilityModel', 'lgb.view.VisibilityView']);
 goog.addDependency("../../../lgb/controller/WorldController.js", ['lgb.controller.WorldController'], ['lgb.controller.BuildingController', 'lgb.controller.CameraController', 'lgb.controller.BaseController', 'lgb.controller.PsMasterController', 'lgb.controller.TrackBallController', 'lgb.controller.UtilityController', 'lgb.controller.ViewPointController', 'lgb.controller.WorldSelectionController', 'lgb.model.WorldModel', 'lgb.view.WorldView', 'lgb.view.StatsView']);
 goog.addDependency("../../../lgb/controller/WorldSelectionController.js", ['lgb.controller.WorldSelectionController'], ['lgb.controller.BaseController', 'lgb.events.Object3DSelected', 'lgb.events.SelectableLoaded', 'lgb.events.WorldSelectionChanged', 'lgb.model.SelectableModel', 'lgb.view.SelectionView', 'goog.array']);
@@ -864,11 +864,11 @@ goog.addDependency("../../../lgb/view/BaseViewGUI.js", ['lgb.view.BaseViewGUI'],
 goog.addDependency("../../../lgb/view/BasicInputGUI.js", ['lgb.view.BasicInputGUI'], ['lgb.view.BaseViewGUI', 'lgb.component.TabStrip', 'lgb.component.TabStripDataSource']);
 goog.addDependency("../../../lgb/view/CameraView.js", ['lgb.view.CameraView'], ['lgb.controller.CameraCraneController', 'lgb.view.BaseView3dScene']);
 goog.addDependency("../../../lgb/view/DialogView.js", ['lgb.view.DialogView'], ['lgb.view.BaseViewGUI']);
-goog.addDependency("../../../lgb/view/DuctworkView.js", ['lgb.view.DuctworkView'], ['lgb.view.BaseView3dScene', 'lgb.view.BaseView', 'lgb.model.BuildingHeightModel', 'lgb.model.vo.VisibilityNode', 'lgb.model.ViewPointCollection']);
+goog.addDependency("../../../lgb/view/DuctworkView.js", ['lgb.view.DuctworkView'], ['lgb.view.BaseView3dScene', 'lgb.view.BaseView', 'lgb.model.BuildingHeightModel', 'lgb.model.vo.VisibilityNode', 'lgb.model.vo.ViewPointNode']);
 goog.addDependency("../../../lgb/view/EnvelopeAdminView.js", ['lgb.view.EnvelopeAdminView'], ['lgb.component.RadioButtonDataSource', 'lgb.component.RadioButtonGroup', 'lgb.view.BaseViewGUI']);
 goog.addDependency("../../../lgb/view/EnvelopeGUI.js", ['lgb.view.EnvelopeGUI'], ['lgb.model.LightingModel', 'lgb.view.BaseViewGUI']);
 goog.addDependency("../../../lgb/view/EnvelopeView.js", ['lgb.view.EnvelopeView'], ['goog.userAgent', 'lgb.ThreeUtils', 'lgb.view.BaseView3dScene', 'lgb.model.BuildingHeightModel']);
-goog.addDependency("../../../lgb/view/FurnitureView.js", ['lgb.view.FurnitureView'], ['lgb.view.BaseView3dScene', 'lgb.model.GridModel', 'lgb.ThreeUtils', 'lgb.model.BuildingHeightModel', 'lgb.model.ViewPointCollection', 'lgb.model.vo.VisibilityNode']);
+goog.addDependency("../../../lgb/view/FurnitureView.js", ['lgb.view.FurnitureView'], ['lgb.view.BaseView3dScene', 'lgb.model.GridModel', 'lgb.ThreeUtils', 'lgb.model.BuildingHeightModel', 'lgb.model.vo.VisibilityNode']);
 goog.addDependency("../../../lgb/view/LayoutUtil.js", ['lgb.view.LayoutUtil'], ['lgb.view.BaseViewGUI']);
 goog.addDependency("../../../lgb/view/LayoutView.js", ['lgb.view.LayoutView'], ['lgb.view.BaseViewGUI', 'lgb.component.SplitPanel', 'lgb.component.SplitPanelDataSource', 'lgb.view.LayoutUtil', 'lgb.Config', 'lgb.model.LayoutModel']);
 goog.addDependency("../../../lgb/view/LightingAdminView.js", ['lgb.view.LightingAdminView'], ['lgb.component.Link', 'lgb.component.LinkDataSource', 'lgb.model.LightingModel', 'lgb.view.BaseViewGUI']);
@@ -899,7 +899,7 @@ goog.addDependency("../../../lgb/view/ViewPointView.js", ['lgb.view.ViewPointVie
 goog.addDependency("../../../lgb/view/VisibilityGUI.js", ['lgb.view.VisibilityGUI'], ['lgb.model.VisibilityModel', 'lgb.view.BaseViewGUI', 'lgb.view.BaseViewGUI', 'lgb.component.TreeH', 'lgb.component.TreeDataSourceH', 'lgb.Config']);
 goog.addDependency("../../../lgb/view/VisibilityView.js", ['lgb.view.VisibilityView'], ['lgb.model.VisibilityModel', 'lgb.view.BaseV']);
 goog.addDependency("../../../lgb/view/WorldView.js", ['lgb.view.WorldView'], ['lgb.model.WorldModel', 'lgb.view.BaseV']);
-goog.addDependency("../../../lgb/view/ZoneView.js", ['lgb.view.ZoneView'], ['lgb.view.BaseView3dScene', 'lgb.model.BuildingHeightModel', 'lgb.model.ZoneShapeModel', 'lgb.model.ViewPointCollection']);
+goog.addDependency("../../../lgb/view/ZoneView.js", ['lgb.view.ZoneView'], ['lgb.view.BaseView3dScene', 'lgb.model.BuildingHeightModel', 'lgb.model.ZoneShapeModel', 'lgb.model.ViewPointCollection', 'lgb.model.vo.ViewPointNode']);
 goog.addDependency("../../../test/example_01.js", [], []);
 goog.addDependency("../../../test/inc.js", [], ['test.TestSimulationController', 'test.TestSerializationController', 'lgb.events.EventBus', 'lgb.Global', 'lgb']);
 goog.addDependency("../../../test/jQuery.js", [], []);

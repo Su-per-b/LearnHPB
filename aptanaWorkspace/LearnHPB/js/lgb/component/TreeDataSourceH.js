@@ -39,6 +39,8 @@ lgb.component.TreeDataSourceH = function(lgbNode, propertyName, parentHtmlID, su
   }
   
   this.selectedKNode = null;
+  this.showKNode = null;
+  this.hideKNode = null;
 
 };
 goog.inherits(lgb.component.TreeDataSourceH, lgb.component.BaseDataSource);
@@ -48,6 +50,20 @@ lgb.component.TreeDataSourceH.prototype.select = function(uid) {
 
     var knode = this.kendoDS.getByUid(uid);
     this.changeProperty('selectedKNode', knode);
+    
+};
+
+lgb.component.TreeDataSourceH.prototype.setFocus = function(uid) {
+
+    var knode = this.kendoDS.getByUid(uid);
+    this.changeProperty('showKNode', knode);
+    
+};
+
+lgb.component.TreeDataSourceH.prototype.removeFocus = function(uid) {
+
+    var knode = this.kendoDS.getByUid(uid);
+    this.changeProperty('hideKNode', knode);
     
 };
 
@@ -139,10 +155,9 @@ lgb.component.TreeDataSourceH.prototype.makeKendoNodes_ = function(lgbNode, pare
 
   
 lgb.component.TreeDataSourceH.prototype.bind_ = function() {
-
+  
   this.kendoDS.bind("change", this.d(this.onChangeDS_));
-
-
+  
 };
 
 

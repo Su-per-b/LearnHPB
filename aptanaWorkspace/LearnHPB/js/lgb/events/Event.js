@@ -63,4 +63,7 @@ e.DataSourceChanged = 'e.DataSourceChanged';
 e.DataModelChanged = 'e.DataModelChanged';
 e.BuildingHeightChanged = 'e.BuildingHeightChanged';
 e.DataModelChangedEx = 'e.DataModelChangedEx';
+e.DataModelChangedEx = 'e.DataModelChangedEx';
 
+e.SetFocus = 'e.SetFocus';
+e.RemoveFocus = 'e.RemoveFocus';

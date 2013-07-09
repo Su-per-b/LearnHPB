@@ -9,13 +9,9 @@ goog.require('lgb.controller.BaseController');
 
 goog.require('lgb.model.ViewPointCollectionNode');
 goog.require('lgb.model.BuildingHeightModel');
-goog.require('lgb.model.ViewPointModel');
 
 goog.require('lgb.view.ViewPointView');
-goog.require('lgb.view.ViewPointGUI');
-goog.require('lgb.model.ViewPointCollection');
 goog.require('lgb.model.ViewPointModel2');
-
 goog.require('lgb.view.ViewPointGUI2');
 
 /**
@@ -37,18 +33,15 @@ goog.inherits(lgb.controller.ViewPointController, lgb.controller.BaseController)
  */
 lgb.controller.ViewPointController.prototype.init = function() {
   
-  this.dataModel = new lgb.model.ViewPointModel();
   this.dataModel2 = new lgb.model.ViewPointModel2();
   
   this.view = new lgb.view.ViewPointView(this.dataModel);
 
-  this.guiView = new lgb.view.ViewPointGUI (this.dataModel);
   this.guiView2 = new lgb.view.ViewPointGUI2 (this.dataModel2);
-  this.guiView2._TITLE = "Viewpoints2";
+  this.guiView2._TITLE = "Viewpoints";
   
   this.bind_();
   
-  this.guiView.init();
   this.guiView2.init();
   this.view.init();
   
@@ -67,9 +60,6 @@ lgb.controller.ViewPointController.prototype.bind_ = function() {
   this.relay(this.view, e.AddToWorldRequest);
   
 
-  this.listen(
-    e.ViewPointCollectionLoaded,
-    this.onViewPointCollectionLoaded_);
     
     
   this.listen(
@@ -81,19 +71,12 @@ lgb.controller.ViewPointController.prototype.bind_ = function() {
     e.ViewPointNodesLoaded,
     this.onViewPointNodesLoaded_);
     
-  this.relay(
-    this.guiView,
-    [
-      e.RequestAddToBasicInput, 
-      e.RequestShowViewPoint,
-      e.RequestGoToViewPoint
-    ]
-    );
     
   this.relay(
     this.guiView2,
     [
-      e.RequestAddToBasicInput, 
+      e.RequestAddToBasicInput,
+      e.RequestShowViewPoint,
       e.RequestGoToViewPointNode
     ]
     );
@@ -110,25 +93,16 @@ lgb.controller.ViewPointController.prototype.bind_ = function() {
     );
 
 
-
-
 };
 
 
 lgb.controller.ViewPointController.prototype.onViewPointNodesLoaded_ =
   function(event) {
+    
+  var viewPointNode = event.payload;
 
-  this.dataModel2.addNode(event.payload);
+  this.dataModel2.addNode(viewPointNode);
   
-};
-
-
-
-lgb.controller.ViewPointController.prototype.onViewPointCollectionLoaded_ =
-  function(event) {
- 
-  this.dataModel.addViewPointCollection(event.payload);
-      
 };
 
 

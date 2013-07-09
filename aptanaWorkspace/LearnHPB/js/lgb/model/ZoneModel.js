@@ -93,7 +93,12 @@ lgb.model.ZoneModel.prototype.update = function(envelopeModel) {
  */
 lgb.model.ZoneModel.prototype.setVisible = function(zoneIdx, makeVisible) {
 
-  var theZone = this.z[zoneIdx];
+  var theZone = this.z[zoneIdx-1];
+  
+  if (undefined == theZone) {
+    debugger;
+  }
+  
   if (theZone.isVisible != makeVisible) {
 
     theZone.isVisible = makeVisible;

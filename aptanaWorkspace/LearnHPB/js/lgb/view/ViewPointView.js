@@ -76,7 +76,6 @@ lgb.view.ViewPointView.prototype.onSceneLoaded_ = function(result) {
         
         theCamera.name = camName;
 
-
         var node = new lgb.model.vo.ViewPointNode(camName, theCamera, 0 );
         
         camList.push(theCamera);

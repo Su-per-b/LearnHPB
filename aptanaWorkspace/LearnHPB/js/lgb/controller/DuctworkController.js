@@ -56,7 +56,7 @@ lgb.controller.DuctworkController.prototype.bind_ = function() {
     this.view, 
       [
         e.AddToWorldRequest,
-        e.ViewPointCollectionLoaded,
+        e.ViewPointNodesLoaded,
         e.VisibilityNodesLoaded,
         lgb.events.SelectableLoaded.TYPE
       ]

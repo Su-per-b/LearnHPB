@@ -53,9 +53,9 @@ lgb.controller.FurnitureController.prototype.init_ = function() {
 lgb.controller.FurnitureController.prototype.bind_ = function() {
 
   this.relay(this.view, e.AddToWorldRequest);
-  this.relay(this.view,e.ViewPointCollectionLoaded);
   this.relay(this.view,e.VisibilityNodesLoaded);
-  
+  this.relay(this.view, e.ViewPointNodesLoaded);
+    
   this.listen(
     e.BuildingHeightChanged,
     this.onBuildingHeightChanged_

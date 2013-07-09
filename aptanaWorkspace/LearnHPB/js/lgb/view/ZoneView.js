@@ -12,7 +12,7 @@ goog.require('lgb.view.BaseView3dScene');
 goog.require('lgb.model.BuildingHeightModel');
 goog.require('lgb.model.ZoneShapeModel');
 goog.require('lgb.model.ViewPointCollection');
-
+goog.require('lgb.model.vo.ViewPointNode');
 
 
 /**
@@ -23,6 +23,7 @@ goog.require('lgb.model.ViewPointCollection');
  */
 lgb.view.ZoneView = function(dataModel) {
     
+  this._TITLE = 'Zones';
   lgb.view.BaseView3dScene.call(this, dataModel);
 
   this.zoneVisibleIdx = -1;
@@ -137,7 +138,7 @@ lgb.view.ZoneView.prototype.onChange = function(event) {
 
   if (event.payload.isVisible) {
     var idx = event.payload.zoneIdx;
-    var isVisible = this.dataModel.z[idx].isVisible;
+    var isVisible = this.dataModel.z[idx-1].isVisible;
     this.setVisible(idx, isVisible);
   }
 
@@ -147,6 +148,11 @@ lgb.view.ZoneView.prototype.onChange = function(event) {
             "Zones", this.masterGroup_.children, true);
 
         this.triggerLocal(e.ViewPointCollectionLoaded, viewPointNodeCollection);
+        
+        
+        var node = new lgb.model.vo.ViewPointNode(this._TITLE, this.masterGroup_, 2 );
+        this.triggerLocal(e.ViewPointNodesLoaded, node);
+        
     }
 
     this.isInitialized_ = true;
@@ -164,7 +170,7 @@ lgb.view.ZoneView.prototype.setVisible = function(zoneIdx, makeVisible) {
     makeVisible = true;
   }
 
-  var zoneCube = this.masterGroup_.children[zoneIdx];
+  var zoneCube = this.masterGroup_.children[zoneIdx-1];
 
   if (zoneCube.visible != makeVisible) {
     zoneCube.visible = makeVisible;

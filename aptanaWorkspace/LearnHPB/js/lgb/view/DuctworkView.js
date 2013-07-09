@@ -8,13 +8,8 @@ goog.provide('lgb.view.DuctworkView');
 goog.require('lgb.view.BaseView3dScene');
 goog.require('lgb.view.BaseView');
 goog.require('lgb.model.BuildingHeightModel');
-
 goog.require('lgb.model.vo.VisibilityNode');
-goog.require('lgb.model.ViewPointCollection');
-
-
-
-
+goog.require('lgb.model.vo.ViewPointNode');
 
 
 /**
@@ -24,7 +19,7 @@ goog.require('lgb.model.ViewPointCollection');
  */
 lgb.view.DuctworkView = function(dataModel) {
     
-
+  this._TITLE = 'HVAC';
   this._ASSETS_FOLDER = 'hvac';
   
  lgb.view.BaseView3dScene.call(this, dataModel);
@@ -86,30 +81,23 @@ lgb.view.DuctworkView.prototype.onSceneLoaded_ = function(result) {
     this.sceneY_ = this.masterGroup_.position.y;
     this.setY_();
     
-
-    
     this.dispatchVisibilityNodes_();
+    this.dispatchViewPointNodes_();
+    
 };
+
 
 lgb.view.DuctworkView.prototype.dispatchViewPointNodes_ = function() {
 
-    var viewPointNodeCollection = new lgb.model.ViewPointCollection(
-        "DuctworkView", this.masterGroup_.children);
-        
-  
-    this.triggerLocal(e.ViewPointCollectionLoaded, viewPointNodeCollection);
-
+  var node = new lgb.model.vo.ViewPointNode(this._TITLE, this.masterGroup_, 1 );
+  this.triggerLocal(e.ViewPointNodesLoaded, node);
 }
 
+
 lgb.view.DuctworkView.prototype.dispatchVisibilityNodes_ = function() {
-
-
+  
   var node = new lgb.model.vo.VisibilityNode('HVAC', this.masterGroup_, 1 );
-  
- 
   this.triggerLocal(e.VisibilityNodesLoaded, node);
-  
-  return;
 }
 
 

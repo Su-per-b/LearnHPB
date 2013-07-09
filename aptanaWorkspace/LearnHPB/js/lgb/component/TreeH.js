@@ -40,18 +40,68 @@ lgb.component.TreeH.prototype.bind_ = function() {
     );
     
     this.kendoTreeView_.bind("select", this.d(this.onSelect_));
+    
+  
+  this.kendoTreeView_.wrapper.on
+      ( "mouseenter.kendoTreeView", ".k-in", this.d(this.onMouseEnter_));
+  
+  
+  this.kendoTreeView_.wrapper.on
+      ( "mouseleave.kendoTreeView", ".k-in", this.d(this.onMouseLeave_));
+    
 }
+
+lgb.component.TreeH.prototype.onSelect_ = function(event) {
+
+  var uid = event.node.dataset.uid;
+  this.ds.select(uid);
+
+}
+
+
+lgb.component.TreeH.prototype.onMouseEnter_ = function(event) {
+  
+  
+  var liElement = event.currentTarget.parentElement.parentElement;
+  var dataItem = this.kendoTreeView_.dataItem(liElement);
+  
+  this.ds.setFocus(dataItem.uid);
+
+}
+
+
+lgb.component.TreeH.prototype.onMouseLeave_ = function(event) {
+  
+  
+  var liElement = event.currentTarget.parentElement.parentElement;
+  var dataItem = this.kendoTreeView_.dataItem(liElement);
+  
+  this.ds.removeFocus(dataItem.uid);
+
+
+}
+
+
 
 
 lgb.component.TreeH.prototype.onDataModelChanged_ = function(event) {
   
- // var whatIsDirty = event.payload;
+  var whatIsDirty = event.payload;
   
- // if (whatIsDirty.selectedKNode) {
-   // this.triggerLocal(e.Select, this.ds.selectedKNode);
- // }
+  if (whatIsDirty.selectedKNode) {
+    this.triggerLocal(e.Select, this.ds.selectedKNode);
+  } else if (whatIsDirty.showKNode) {
+    
+    this.triggerLocal(e.SetFocus, whatIsDirty.showKNode);
+    
+  } else if (whatIsDirty.hideKNode) {
+    
+    this.triggerLocal(e.RemoveFocus, whatIsDirty.hideKNode);
+  }
   
-  this.triggerLocal(e.Select, this.ds.selectedKNode);
+  
+  
+
 };
 
 
@@ -79,11 +129,6 @@ lgb.component.TreeH.prototype.getHtml = function() {
   return el;
 };
 
-lgb.component.TreeH.prototype.onSelect_ = function(event) {
 
-  var uid = event.node.dataset.uid;
-  this.ds.select(uid);
-
-}
 
 

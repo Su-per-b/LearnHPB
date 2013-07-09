@@ -11,7 +11,6 @@ goog.require('lgb.ThreeUtils');
 
 
 goog.require('lgb.model.BuildingHeightModel');
-goog.require('lgb.model.ViewPointCollection');
 goog.require('lgb.model.vo.VisibilityNode');
 
 /**
@@ -52,26 +51,23 @@ lgb.view.FurnitureView.prototype.onSceneLoaded_ = function() {
   this.sceneY_ = this.masterGroup_.position.y;
   this.setY_();
 
-  this.dispatchViewpoints_();
+  this.dispatchViewPointNodes_();
   this.dispatchVisibilityNodes_();
 
 };
 
+
 lgb.view.FurnitureView.prototype.dispatchVisibilityNodes_ = function() {
-
-
   var node = new lgb.model.vo.VisibilityNode('Funiture', this.masterGroup_, 1 );
   this.triggerLocal(e.VisibilityNodesLoaded, node);
-  
-  return;
 }
 
-lgb.view.FurnitureView.prototype.dispatchViewpoints_ = function() {
-
-    var viewPointNodeCollection = new lgb.model.ViewPointCollection(this._TITLE, this.masterGroup_.children);
-
-    this.triggerLocal(e.ViewPointCollectionLoaded, viewPointNodeCollection);
+lgb.view.FurnitureView.prototype.dispatchViewPointNodes_ = function() {
+  var node = new lgb.model.vo.ViewPointNode(this._TITLE, this.masterGroup_, 2 );
+  this.triggerLocal(e.ViewPointNodesLoaded, node);
 }
+
+
 
 /**
  * Updates this view to reflect the changes in the visibility

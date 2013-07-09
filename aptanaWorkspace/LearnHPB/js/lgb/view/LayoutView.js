@@ -139,7 +139,7 @@ lgb.view.LayoutView.prototype.add = function(guiView) {
       guiView.inject(parent);
       
       var util = new lgb.view.LayoutUtil(guiView);
-      util.alignHorizontal(lgb.view.LayoutUtil.ALIGN.Right, 60);
+      util.alignHorizontal(lgb.view.LayoutUtil.ALIGN.Right, 85);
       util.show();
       
       this.layoutUtils_.push(util);

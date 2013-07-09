@@ -35,7 +35,7 @@ lgb.component.BaseDataSource.prototype.dispatchChange = function(whatIsDirty) {
 lgb.component.BaseDataSource.prototype.dispatchChangedProperty = function(propertyName) {
    
    var whatIsDirty = {};
-   whatIsDirty[propertyName] = true;
+   whatIsDirty[propertyName] = this[propertyName];
    
    this.dispatchChange(whatIsDirty);
 };

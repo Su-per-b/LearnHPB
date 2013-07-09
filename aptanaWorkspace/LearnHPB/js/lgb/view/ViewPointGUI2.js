@@ -35,6 +35,9 @@ lgb.view.ViewPointGUI2.prototype.init = function() {
   this.treeDS_ = null;
   
   this.treeDSlist_ = [];
+  
+
+    
 };
 
 
@@ -48,8 +51,45 @@ lgb.view.ViewPointGUI2.prototype.bind_ = function() {
     this.onSelect_
   );
   
+  this.listenTo(
+    this.treeComponent_,
+    e.SetFocus,
+    this.onSetFocus_
+  );  
+  
+  this.listenTo(
+    this.treeComponent_,
+    e.RemoveFocus,
+    this.onRemoveFocus_
+  );  
+  
+  
+
+      
 }
 
+lgb.view.ViewPointGUI2.prototype.onSetFocus_ = function(event) {
+
+  var kNode = event.payload;
+  var viewPointNode = this.dataModel.getViewPoint(kNode);
+                
+  if (null != viewPointNode) {
+    
+     this.fireShowViewPoint(viewPointNode, true);
+    
+  }
+}
+
+
+lgb.view.ViewPointGUI2.prototype.onRemoveFocus_ = function(event) {
+
+  var kNode = event.payload;
+  var viewPointNode = this.dataModel.getViewPoint(kNode);
+                
+  if (null != viewPointNode) {
+     this.fireShowViewPoint(viewPointNode, false);
+  }
+}
 
 
 
@@ -61,7 +101,6 @@ lgb.view.ViewPointGUI2.prototype.onSelect_ = function(event) {
   if (null != viewPointNode) {
     this.triggerLocal(e.RequestGoToViewPointNode, viewPointNode);
   }
-
 
 };
 
@@ -79,7 +118,7 @@ lgb.view.ViewPointGUI2.prototype.init2_ = function(lgbNode) {
   
   this.triggerLocal(e.RequestAddToBasicInput, this);
    
-   return;
+  
 };
 
 
@@ -109,3 +148,18 @@ lgb.view.ViewPointGUI2.prototype.onChangeDataSource_ = function(event) {
 
 
 
+lgb.view.ViewPointGUI2.prototype.fireShowViewPoint = function(viewPointNode, isVisible) {
+
+  
+  if (null != viewPointNode && null != viewPointNode.parent) {
+    
+    if (viewPointNode.parent.title =="Zones") {
+      
+      viewPointNode.isVisible = isVisible;
+      
+      this.triggerLocal(e.RequestShowViewPoint, viewPointNode);
+      
+    }
+  }
+
+};

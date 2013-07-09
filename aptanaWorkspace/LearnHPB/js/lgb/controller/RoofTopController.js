@@ -45,7 +45,6 @@ lgb.controller.RoofTopController.prototype.bind_ = function() {
       [
         lgb.events.SelectableLoaded.TYPE,
         e.AddToWorldRequest,
-        e.ViewPointCollectionLoaded,
         e.VisibilityNodesLoaded,
         e.ViewPointNodesLoaded
       ]
