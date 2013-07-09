@@ -54,7 +54,6 @@ e.RequestGoToViewPointNode = 'e.RequestGoToViewPointNode';
 e.VisibilityNodesLoaded = 'e.VisibilityNodesLoaded';
 e.ViewClosed = 'e.ViewClosed';
 e.WindowResize = 'e.WindowResize';
-e.ViewPointCollectionLoaded = 'e.ViewPointCollectionLoaded';
 e.ViewPointNodesLoaded = 'e.ViewPointNodesLoaded';
 e.EnvelopeModelChanged = 'e.EnvelopeModelChanged';
 e.RequestDataModelChange = 'e.RequestDataModelChange';

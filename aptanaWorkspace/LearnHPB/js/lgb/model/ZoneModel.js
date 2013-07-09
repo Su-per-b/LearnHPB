@@ -7,7 +7,6 @@ goog.provide('lgb.model.ZoneModel');
 
 goog.require('lgb.model.BaseModel');
 goog.require('lgb.model.ZoneShapeModel');
-goog.require('lgb.model.ViewPointCollection');
 
 /**
  * @constructor
@@ -115,9 +114,9 @@ lgb.model.ZoneModel.prototype.setVisible = function(zoneIdx, makeVisible) {
 };
 
 
-lgb.model.ZoneModel.prototype.setViewPointCollection = function(viewPointCollection) {
+lgb.model.ZoneModel.prototype.setViewPointNode = function(viewPointNode) {
 
-    this.viewPointCollection_ = viewPointCollection;
+    this.viewPointNode_ = viewPointNode;
     
 };
 

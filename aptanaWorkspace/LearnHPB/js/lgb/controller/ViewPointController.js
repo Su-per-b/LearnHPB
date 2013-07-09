@@ -7,7 +7,6 @@ goog.provide('lgb.controller.ViewPointController');
 
 goog.require('lgb.controller.BaseController');
 
-goog.require('lgb.model.ViewPointCollectionNode');
 goog.require('lgb.model.BuildingHeightModel');
 
 goog.require('lgb.view.ViewPointView');
@@ -81,10 +80,6 @@ lgb.controller.ViewPointController.prototype.bind_ = function() {
     ]
     );
     
-  this.relay(
-    this.view,
-    e.ViewPointCollectionLoaded
-    );
 
 
   this.relay(

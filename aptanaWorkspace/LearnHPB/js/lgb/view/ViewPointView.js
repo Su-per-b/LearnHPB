@@ -10,7 +10,6 @@ goog.provide('lgb.view.ViewPointView');
 
 goog.require('lgb.view.BaseView3dScene');
 goog.require('lgb.model.BuildingHeightModel');
-goog.require('lgb.model.ViewPointCollection');
 goog.require('lgb.model.vo.ViewPointNode');
 
 
@@ -83,24 +82,6 @@ lgb.view.ViewPointView.prototype.onSceneLoaded_ = function(result) {
     }
   }
   
-  
-  
-  
-  
-  //var node = new lgb.model.vo.ViewPointNode(this._TITLE, nodeList, 0 );
- // this.triggerLocal(e.ViewPointNodesLoaded, node);
-  
-  
-   //var node = new lgb.model.ViewPointCollection("Custom", camList);
-        
-    
-    
-  // this.triggerLocal(e.ViewPointCollectionLoaded, viewPointNodeCollection);
-  
-   return;
-  
-  
-
   
 };
 

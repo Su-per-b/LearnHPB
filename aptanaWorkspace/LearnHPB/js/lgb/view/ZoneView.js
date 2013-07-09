@@ -11,7 +11,6 @@ goog.provide('lgb.view.ZoneView');
 goog.require('lgb.view.BaseView3dScene');
 goog.require('lgb.model.BuildingHeightModel');
 goog.require('lgb.model.ZoneShapeModel');
-goog.require('lgb.model.ViewPointCollection');
 goog.require('lgb.model.vo.ViewPointNode');
 
 
@@ -144,10 +143,6 @@ lgb.view.ZoneView.prototype.onChange = function(event) {
 
     if (!this.isInitialized_) {
 
-        var viewPointNodeCollection = new lgb.model.ViewPointCollection (
-            "Zones", this.masterGroup_.children, true);
-
-        this.triggerLocal(e.ViewPointCollectionLoaded, viewPointNodeCollection);
         
         
         var node = new lgb.model.vo.ViewPointNode(this._TITLE, this.masterGroup_, 2 );

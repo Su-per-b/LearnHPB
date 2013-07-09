@@ -5,14 +5,14 @@
  
 goog.provide('lgb.view.ViewPointGUI2');
 
-goog.require('lgb.model.ViewPointModel');
+goog.require('lgb.model.ViewPointModel2');
 goog.require('lgb.view.BaseViewGUI');
 goog.require('lgb.Config');
 
 
 /**
  * @constructor
- * @param {lgb.model.ViewPointModel} dataModel The data model to display.
+ * @param {lgb.model.ViewPointModel2} dataModel The data model to display.
  * @param {string} parentHtmlID the CSS id of the parent to inject into the DOM.
  * @extends {lgb.view.BaseViewGUI}
  */
