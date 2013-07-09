@@ -791,7 +791,7 @@ goog.addDependency("../../../lgb/controller/SimulationController.js", ['lgb.cont
 goog.addDependency("../../../lgb/controller/TopMenuController.js", ['lgb.controller.TopMenuController'], ['lgb.controller.BaseController', 'lgb.model.TopMenuModel', 'lgb.view.TopMenuGUI']);
 goog.addDependency("../../../lgb/controller/TrackBallController.js", ['lgb.controller.TrackBallController'], ['lgb.controller.BaseController', 'lgb.view.TrackBallView']);
 goog.addDependency("../../../lgb/controller/UtilityController.js", ['lgb.controller.UtilityController'], ['lgb.view.UtilityAxisView', 'lgb.view.UtilityGridView', 'lgb.Config']);
-goog.addDependency("../../../lgb/controller/ViewPointController.js", ['lgb.controller.ViewPointController'], ['lgb.controller.BaseController', 'lgb.model.BuildingHeightModel', 'lgb.view.ViewPointView', 'lgb.model.ViewPointModel2', 'lgb.view.ViewPointGUI2']);
+goog.addDependency("../../../lgb/controller/ViewPointController.js", ['lgb.controller.ViewPointController'], ['lgb.controller.BaseController', 'lgb.model.BuildingHeightModel', 'lgb.view.ViewPointView', 'lgb.model.ViewPointModel', 'lgb.view.ViewPointGUI']);
 goog.addDependency("../../../lgb/controller/VisibilityController.js", ['lgb.controller.VisibilityController'], ['lgb.controller.BaseController', 'lgb.view.VisibilityGUI', 'lgb.model.VisibilityModel', 'lgb.view.VisibilityView']);
 goog.addDependency("../../../lgb/controller/WorldController.js", ['lgb.controller.WorldController'], ['lgb.controller.BuildingController', 'lgb.controller.CameraController', 'lgb.controller.BaseController', 'lgb.controller.PsMasterController', 'lgb.controller.TrackBallController', 'lgb.controller.UtilityController', 'lgb.controller.ViewPointController', 'lgb.controller.WorldSelectionController', 'lgb.model.WorldModel', 'lgb.view.WorldView', 'lgb.view.StatsView']);
 goog.addDependency("../../../lgb/controller/WorldSelectionController.js", ['lgb.controller.WorldSelectionController'], ['lgb.controller.BaseController', 'lgb.events.Object3DSelected', 'lgb.events.SelectableLoaded', 'lgb.events.WorldSelectionChanged', 'lgb.model.SelectableModel', 'lgb.view.SelectionView', 'goog.array']);
@@ -824,7 +824,7 @@ goog.addDependency("../../../lgb/model/SimulationModelState.js", ['lgb.model.Sim
 goog.addDependency("../../../lgb/model/TabModel.js", ['lgb.model.TabModel'], ['lgb.model.BaseModel']);
 goog.addDependency("../../../lgb/model/TabStripModel.js", ['lgb.model.TabStripModel'], ['lgb.model.BaseModel']);
 goog.addDependency("../../../lgb/model/TopMenuModel.js", ['lgb.model.TopMenuModel'], ['lgb.model.BaseModel']);
-goog.addDependency("../../../lgb/model/ViewPointModel2.js", ['lgb.model.ViewPointModel2'], ['lgb.model.BaseModel', 'lgb.model.vo.ViewPointNode']);
+goog.addDependency("../../../lgb/model/ViewPointModel.js", ['lgb.model.ViewPointModel'], ['lgb.model.BaseModel', 'lgb.model.vo.ViewPointNode']);
 goog.addDependency("../../../lgb/model/VisibilityModel.js", ['lgb.model.VisibilityModel'], ['lgb.model.BaseModel', 'lgb.model.vo.VisibilityNode']);
 goog.addDependency("../../../lgb/model/WorldModel.js", ['lgb.model.WorldModel'], ['lgb.model.BaseModel']);
 goog.addDependency("../../../lgb/model/ZoneModel.js", ['lgb.model.ZoneModel'], ['lgb.model.BaseModel', 'lgb.model.ZoneShapeModel']);
@@ -890,7 +890,7 @@ goog.addDependency("../../../lgb/view/TopMenuGUI.js", ['lgb.view.TopMenuGUI'], [
 goog.addDependency("../../../lgb/view/TrackBallView.js", ['lgb.view.TrackBallView'], ['goog.events.MouseWheelEvent', 'goog.events.MouseWheelHandler', 'lgb.view.BaseView']);
 goog.addDependency("../../../lgb/view/UtilityAxisView.js", ['lgb.view.UtilityAxisView'], ['lgb.view.BaseView3dScene']);
 goog.addDependency("../../../lgb/view/UtilityGridView.js", ['lgb.view.UtilityGridView'], ['lgb.view.BaseView3dScene']);
-goog.addDependency("../../../lgb/view/ViewPointGUI2.js", ['lgb.view.ViewPointGUI2'], ['lgb.model.ViewPointModel2', 'lgb.view.BaseViewGUI', 'lgb.Config']);
+goog.addDependency("../../../lgb/view/ViewPointGUI.js", ['lgb.view.ViewPointGUI'], ['lgb.model.ViewPointModel', 'lgb.view.BaseViewGUI', 'lgb.Config']);
 goog.addDependency("../../../lgb/view/ViewPointView.js", ['lgb.view.ViewPointView'], ['lgb.view.BaseView3dScene', 'lgb.model.BuildingHeightModel', 'lgb.model.vo.ViewPointNode']);
 goog.addDependency("../../../lgb/view/VisibilityGUI.js", ['lgb.view.VisibilityGUI'], ['lgb.model.VisibilityModel', 'lgb.view.BaseViewGUI', 'lgb.view.BaseViewGUI', 'lgb.component.TreeH', 'lgb.component.TreeDataSourceH', 'lgb.Config']);
 goog.addDependency("../../../lgb/view/VisibilityView.js", ['lgb.view.VisibilityView'], ['lgb.model.VisibilityModel', 'lgb.view.BaseV']);

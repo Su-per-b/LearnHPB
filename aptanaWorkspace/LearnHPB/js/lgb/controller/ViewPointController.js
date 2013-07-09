@@ -10,8 +10,8 @@ goog.require('lgb.controller.BaseController');
 goog.require('lgb.model.BuildingHeightModel');
 
 goog.require('lgb.view.ViewPointView');
-goog.require('lgb.model.ViewPointModel2');
-goog.require('lgb.view.ViewPointGUI2');
+goog.require('lgb.model.ViewPointModel');
+goog.require('lgb.view.ViewPointGUI');
 
 /**
  * @constructor
@@ -32,11 +32,11 @@ goog.inherits(lgb.controller.ViewPointController, lgb.controller.BaseController)
  */
 lgb.controller.ViewPointController.prototype.init = function() {
   
-  this.dataModel2 = new lgb.model.ViewPointModel2();
+  this.dataModel2 = new lgb.model.ViewPointModel();
   
   this.view = new lgb.view.ViewPointView(this.dataModel);
 
-  this.guiView2 = new lgb.view.ViewPointGUI2 (this.dataModel2);
+  this.guiView2 = new lgb.view.ViewPointGUI (this.dataModel2);
   this.guiView2._TITLE = "Viewpoints";
   
   this.bind_();

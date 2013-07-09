@@ -3,7 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.model.ViewPointModel2');
+goog.provide('lgb.model.ViewPointModel');
 
 goog.require('lgb.model.BaseModel');
 goog.require('lgb.model.vo.ViewPointNode');
@@ -13,7 +13,7 @@ goog.require('lgb.model.vo.ViewPointNode');
  * @constructor
  * @extends lgb.model.BaseModel
  */
-lgb.model.ViewPointModel2 = function() {
+lgb.model.ViewPointModel = function() {
 
   /**@const */
   this._TITLE = 'ViewPointModel2';
@@ -21,11 +21,11 @@ lgb.model.ViewPointModel2 = function() {
   this.init_();
   this.name = "";
 };
-goog.inherits(lgb.model.ViewPointModel2, lgb.model.BaseModel);
+goog.inherits(lgb.model.ViewPointModel, lgb.model.BaseModel);
 
 
 
-lgb.model.ViewPointModel2.prototype.init_ = function() {
+lgb.model.ViewPointModel.prototype.init_ = function() {
  
   this.nodeList_= [];
   
@@ -33,7 +33,7 @@ lgb.model.ViewPointModel2.prototype.init_ = function() {
 };
  
  
-lgb.model.ViewPointModel2.prototype.addNode = function(visibilityNode) {
+lgb.model.ViewPointModel.prototype.addNode = function(visibilityNode) {
  
   this.nodeList_.push(visibilityNode);
   this.dispatchChange(visibilityNode);
@@ -44,7 +44,7 @@ lgb.model.ViewPointModel2.prototype.addNode = function(visibilityNode) {
 
 
 
-lgb.model.ViewPointModel2.prototype.getViewPoint = function(kNode) {
+lgb.model.ViewPointModel.prototype.getViewPoint = function(kNode) {
   
    var idx = kNode.idx;
    var viewPointNode = lgb.model.vo.ViewPointNode.getNodeByIdx(idx);

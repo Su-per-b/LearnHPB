@@ -3,33 +3,33 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.view.ViewPointGUI2');
+goog.provide('lgb.view.ViewPointGUI');
 
-goog.require('lgb.model.ViewPointModel2');
+goog.require('lgb.model.ViewPointModel');
 goog.require('lgb.view.BaseViewGUI');
 goog.require('lgb.Config');
 
 
 /**
  * @constructor
- * @param {lgb.model.ViewPointModel2} dataModel The data model to display.
+ * @param {lgb.model.ViewPointModel} dataModel The data model to display.
  * @param {string} parentHtmlID the CSS id of the parent to inject into the DOM.
  * @extends {lgb.view.BaseViewGUI}
  */
-lgb.view.ViewPointGUI2 = function(dataModel) {
+lgb.view.ViewPointGUI = function(dataModel) {
   
   this._TITLE = "Viewpoints";
   this.layoutID = lgb.Config.LAYOUT_ID.ViewPoints;
   
   lgb.view.BaseViewGUI.call(this, dataModel, 'ViewPointGUI2');
 };
-goog.inherits(lgb.view.ViewPointGUI2, lgb.view.BaseViewGUI);
+goog.inherits(lgb.view.ViewPointGUI, lgb.view.BaseViewGUI);
 
 
 /**
  * Initializes the View
  */
-lgb.view.ViewPointGUI2.prototype.init = function() {
+lgb.view.ViewPointGUI.prototype.init = function() {
   
   this.treeComponent_ = null;
   this.treeDS_ = null;
@@ -43,7 +43,7 @@ lgb.view.ViewPointGUI2.prototype.init = function() {
 
 
 
-lgb.view.ViewPointGUI2.prototype.bind_ = function() {
+lgb.view.ViewPointGUI.prototype.bind_ = function() {
   
   this.listenTo(
     this.treeComponent_,
@@ -68,7 +68,7 @@ lgb.view.ViewPointGUI2.prototype.bind_ = function() {
       
 }
 
-lgb.view.ViewPointGUI2.prototype.onSetFocus_ = function(event) {
+lgb.view.ViewPointGUI.prototype.onSetFocus_ = function(event) {
 
   var kNode = event.payload;
   var viewPointNode = this.dataModel.getViewPoint(kNode);
@@ -81,7 +81,7 @@ lgb.view.ViewPointGUI2.prototype.onSetFocus_ = function(event) {
 }
 
 
-lgb.view.ViewPointGUI2.prototype.onRemoveFocus_ = function(event) {
+lgb.view.ViewPointGUI.prototype.onRemoveFocus_ = function(event) {
 
   var kNode = event.payload;
   var viewPointNode = this.dataModel.getViewPoint(kNode);
@@ -93,7 +93,7 @@ lgb.view.ViewPointGUI2.prototype.onRemoveFocus_ = function(event) {
 
 
 
-lgb.view.ViewPointGUI2.prototype.onSelect_ = function(event) {
+lgb.view.ViewPointGUI.prototype.onSelect_ = function(event) {
 
   var kNode = event.payload;
   var viewPointNode = this.dataModel.getViewPoint(kNode);
@@ -104,7 +104,7 @@ lgb.view.ViewPointGUI2.prototype.onSelect_ = function(event) {
 
 };
 
-lgb.view.ViewPointGUI2.prototype.init2_ = function(lgbNode) {
+lgb.view.ViewPointGUI.prototype.init2_ = function(lgbNode) {
   
   this.treeDS_ = new lgb.component.TreeDataSourceH(lgbNode, null, this.htmlID,  'tree', 'ViewPointGUI2');
   
@@ -124,7 +124,7 @@ lgb.view.ViewPointGUI2.prototype.init2_ = function(lgbNode) {
 
 
 
-lgb.view.ViewPointGUI2.prototype.onChange = function(event) {
+lgb.view.ViewPointGUI.prototype.onChange = function(event) {
   
   var lgbNode = event.payload;
   
@@ -141,14 +141,14 @@ lgb.view.ViewPointGUI2.prototype.onChange = function(event) {
 
 
 
-lgb.view.ViewPointGUI2.prototype.onChangeDataSource_ = function(event) {
+lgb.view.ViewPointGUI.prototype.onChangeDataSource_ = function(event) {
 
     this.triggerLocal(e.RequestDataModelChange, event.payload);
 };
 
 
 
-lgb.view.ViewPointGUI2.prototype.fireShowViewPoint = function(viewPointNode, isVisible) {
+lgb.view.ViewPointGUI.prototype.fireShowViewPoint = function(viewPointNode, isVisible) {
 
   
   if (null != viewPointNode && null != viewPointNode.parent) {
