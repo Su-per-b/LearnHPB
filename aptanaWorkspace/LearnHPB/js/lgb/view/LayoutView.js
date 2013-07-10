@@ -145,13 +145,8 @@ lgb.view.LayoutView.prototype.add = function(guiView) {
       this.layoutUtils_.push(util);
       
       break;
-  case LAYOUT_ID.PropertiesView:
-      guiView.inject(parent);
-      break;
-  case LAYOUT_ID.SimulationView:
-      guiView.inject(parent);
-      break;
-  default:
+
+  default: //LAYOUT_ID.PropertiesView, LAYOUT_ID.SimulationView
       guiView.inject(parent);
   }
   
@@ -187,7 +182,7 @@ lgb.view.LayoutView.prototype.inject = function() {
   
   var ID = lgb.Config.LAYOUT_ID;
   
-  this.parentMap[ID.BasicInputGUI] = this.leftPanel_;
+  this.parentMap[ID.TestingInputGUI] = this.leftPanel_;
   
   this.parentMap[ID.TitleBar] = this.webGLcanvas_;
   this.parentMap[ID.TopMenu] = this.webGLcanvas_;

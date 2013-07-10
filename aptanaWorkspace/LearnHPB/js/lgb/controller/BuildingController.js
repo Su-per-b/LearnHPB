@@ -14,7 +14,6 @@ goog.require('lgb.controller.FurnitureController');
 goog.require('lgb.controller.ZoneController');
 
 
-
 /**
  * MVC controller for the BuildingController
  * @constructor
@@ -33,8 +32,6 @@ goog.inherits(lgb.controller.BuildingController, lgb.controller.BaseController);
  */
 lgb.controller.BuildingController.prototype.init_ = function() {
     
-
-
   this.zoneController_ = new lgb.controller.ZoneController();
   this.roofTopController_ = new lgb.controller.RoofTopController();
   this.ductworkController_ = new lgb.controller.DuctworkController();
@@ -54,9 +51,7 @@ lgb.controller.BuildingController.prototype.init_ = function() {
  */
 lgb.controller.BuildingController.prototype.bind_ = function() {
 
-    
   this.listen(e.BuildingHeightChanged,this.onBuildingHeightChanged_);
-    
     
 };
 
@@ -69,7 +64,6 @@ lgb.controller.BuildingController.prototype.bind_ = function() {
  */
 lgb.controller.BuildingController.prototype.onBuildingHeightChanged_ =
   function(event) {
-
 
    var model = event.payload;
    

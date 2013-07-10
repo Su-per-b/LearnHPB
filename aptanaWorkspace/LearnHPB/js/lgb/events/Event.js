@@ -32,9 +32,7 @@ goog.inherits(lgb.events.Event, goog.events.Event);
 e.Event = function() {};
 
 
-e.RequestAddToBasicInput = 'e.RequestAddToBasicInput';
-e.RequestAddToLayout = 'e.RequestAddToLayout';
-e.RequestRemoveFromLayout = 'e.RequestRemoveFromLayout';
+
 e.RequestLayoutVisibilityChange = 'e.RequestLayoutVisibilityChange';
 e.Resize = 'e.Resize';
 e.LayoutChange = 'e.LayoutChange';
@@ -66,3 +64,9 @@ e.DataModelChangedEx = 'e.DataModelChangedEx';
 
 e.SetFocus = 'e.SetFocus';
 e.RemoveFocus = 'e.RemoveFocus';
+
+e.RequestAddToMainInput = 'e.RequestAddToMainInput';
+e.RequestAddToBasicInput = 'e.RequestAddToBasicInput';
+e.RequestAddToLayout = 'e.RequestAddToLayout';
+e.RequestRemoveFromLayout = 'e.RequestRemoveFromLayout';
+e.RequestAddToParentGUI = 'e.RequestAddToParentGUI';

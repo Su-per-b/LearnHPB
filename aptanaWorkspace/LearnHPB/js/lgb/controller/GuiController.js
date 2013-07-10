@@ -7,7 +7,8 @@ goog.provide('lgb.controller.GuiController');
 
 goog.require('lgb.controller.BaseController');
 goog.require('lgb.controller.PropertiesController');
-goog.require('lgb.controller.BasicInputController');
+goog.require('lgb.controller.TestingInputController');
+goog.require('lgb.controller.MainInputController');
 goog.require('lgb.controller.TopMenuController');
 goog.require('lgb.controller.VisibilityController');
 goog.require('lgb.controller.ViewPointController');
@@ -37,7 +38,10 @@ lgb.controller.GuiController.prototype.init_ = function() {
   this.topMenuController = new lgb.controller.TopMenuController();
 
   this.propertiesController = new lgb.controller.PropertiesController();
-  this.inputController_ = new lgb.controller.BasicInputController();
+  
+  
+  this.mainInputController_ = new lgb.controller.MainInputController();
+
   
   this.visibilityController_ = new lgb.controller.VisibilityController();
   this.viewpointController_ = new lgb.controller.ViewPointController();

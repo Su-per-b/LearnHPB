@@ -1,25 +1,25 @@
-goog.provide('lgb.view.BasicInputGUI');
+goog.provide('lgb.view.TestingInputGUI');
 
 goog.require('lgb.view.BaseViewGUI');
 goog.require('lgb.component.TabStrip');
 goog.require('lgb.component.TabStripDataSource');
 
-lgb.view.BasicInputGUI = function(dataModel) {
+lgb.view.TestingInputGUI = function(dataModel) {
 
-  this._TITLE = 'Left Panel';
+  this._TITLE = 'Testing';
   
   lgb.view.BaseViewGUI.call(this, dataModel);
   
 };
-goog.inherits(lgb.view.BasicInputGUI, lgb.view.BaseViewGUI);
+goog.inherits(lgb.view.TestingInputGUI, lgb.view.BaseViewGUI);
 
 
 /**
  * @public
  */
-lgb.view.BasicInputGUI.prototype.init = function() {
+lgb.view.TestingInputGUI.prototype.init = function() {
 
-  this.layoutID = lgb.Config.LAYOUT_ID.BasicInputGUI;
+  this.layoutID = lgb.Config.LAYOUT_ID.TestingInputGUI;
     
   this.dataSource = new lgb.component.TabStripDataSource('TabStripTitle');
   this.tabStrip1 = new lgb.component.TabStrip(this.dataSource);
@@ -30,12 +30,10 @@ lgb.view.BasicInputGUI.prototype.init = function() {
 
   this.tabTitleMap_ = {};
 
-  //this.inject();
-
 };
 
 
-lgb.view.BasicInputGUI.prototype.add = function(gui) {
+lgb.view.TestingInputGUI.prototype.add = function(gui) {
 
 
   var title = gui.getTitle();
@@ -58,7 +56,7 @@ lgb.view.BasicInputGUI.prototype.add = function(gui) {
 /**
  * @public
  */
-lgb.view.BasicInputGUI.prototype.inject = function(parentElement) {
+lgb.view.TestingInputGUI.prototype.inject = function(parentElement) {
   
   this.tabStrip1.inject(parentElement);
   this.tabStrip1.injectCss();

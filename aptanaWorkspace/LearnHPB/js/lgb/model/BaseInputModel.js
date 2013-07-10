@@ -3,7 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.model.BasicInputModel');
+goog.provide('lgb.model.BaseInputModel');
 goog.require('lgb.model.BaseModel');
 
 
@@ -12,16 +12,15 @@ goog.require('lgb.model.BaseModel');
  * @constructor
  * @extends lgb.model.BaseModel
  */
-lgb.model.BasicInputModel = function() {
+lgb.model.BaseInputModel = function() {
 
   /**@const */
-  this._TITLE = 'BasicInputModel';
+  this._TITLE = 'BaseInputModel';
 
-  this.categories = ["Viewpoints", "Airflow", "Settings"];
 
   lgb.model.BaseModel.call(this);
 
 };
-goog.inherits(lgb.model.BasicInputModel, lgb.model.BaseModel);
+goog.inherits(lgb.model.BaseInputModel, lgb.model.BaseModel);
 
 
