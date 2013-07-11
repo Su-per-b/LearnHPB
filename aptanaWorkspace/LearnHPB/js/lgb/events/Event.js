@@ -66,7 +66,7 @@ e.SetFocus = 'e.SetFocus';
 e.RemoveFocus = 'e.RemoveFocus';
 
 e.RequestAddToMainInput = 'e.RequestAddToMainInput';
-e.RequestAddToBasicInput = 'e.RequestAddToBasicInput';
+e.RequestAddToTestingInput = 'e.RequestAddToTestingInput';
 e.RequestAddToLayout = 'e.RequestAddToLayout';
 e.RequestRemoveFromLayout = 'e.RequestRemoveFromLayout';
 e.RequestAddToParentGUI = 'e.RequestAddToParentGUI';

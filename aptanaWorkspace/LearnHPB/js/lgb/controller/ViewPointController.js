@@ -74,7 +74,7 @@ lgb.controller.ViewPointController.prototype.bind_ = function() {
   this.relay(
     this.guiView2,
     [
-      e.RequestAddToBasicInput,
+      e.RequestAddToTestingInput,
       e.RequestShowViewPoint,
       e.RequestGoToViewPointNode
     ]

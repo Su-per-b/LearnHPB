@@ -21,7 +21,7 @@ lgb.view.ViewPointGUI = function(dataModel) {
   this._TITLE = "Viewpoints";
   this.layoutID = lgb.Config.LAYOUT_ID.ViewPoints;
   
-  lgb.view.BaseViewGUI.call(this, dataModel, 'ViewPointGUI2');
+  lgb.view.BaseViewGUI.call(this, dataModel, 'ViewPointGUI');
 };
 goog.inherits(lgb.view.ViewPointGUI, lgb.view.BaseViewGUI);
 
@@ -116,7 +116,7 @@ lgb.view.ViewPointGUI.prototype.init2_ = function(lgbNode) {
   
   this.bind_();
   
-  this.triggerLocal(e.RequestAddToBasicInput, this);
+  this.triggerLocal(e.RequestAddToTestingInput, this);
    
   
 };

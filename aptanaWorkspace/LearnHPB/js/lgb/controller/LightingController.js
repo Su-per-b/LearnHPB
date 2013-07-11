@@ -73,7 +73,7 @@ lgb.controller.LightingController.prototype.bind_ = function() {
 
   this.relay(
     this.guiView,
-    e.RequestAddToBasicInput
+    e.RequestAddToTestingInput
     );
     
 };

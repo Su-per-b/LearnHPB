@@ -139,7 +139,7 @@ lgb.view.LayoutView.prototype.add = function(guiView) {
       guiView.inject(parent);
       
       var util = new lgb.view.LayoutUtil(guiView);
-      util.alignHorizontal(lgb.view.LayoutUtil.ALIGN.Right, 85);
+      util.alignHorizontal(lgb.view.LayoutUtil.ALIGN.Left, 5);
       util.show();
       
       this.layoutUtils_.push(util);
@@ -183,8 +183,9 @@ lgb.view.LayoutView.prototype.inject = function() {
   var ID = lgb.Config.LAYOUT_ID;
   
   this.parentMap[ID.TestingInputGUI] = this.leftPanel_;
+  this.parentMap[ID.MainInputGUI] = this.leftPanel_;
   
-  this.parentMap[ID.TitleBar] = this.webGLcanvas_;
+  this.parentMap[ID.TitleBar] = this.leftPanel_;
   this.parentMap[ID.TopMenu] = this.webGLcanvas_;
   this.parentMap[ID.PropertiesButton] = this.webGLcanvas_;
   this.parentMap[ID.PropertiesView] = this.webGLcanvas_;

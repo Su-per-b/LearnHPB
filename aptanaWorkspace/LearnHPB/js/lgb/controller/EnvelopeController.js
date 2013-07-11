@@ -70,7 +70,7 @@ lgb.controller.EnvelopeController.prototype.bind_ = function() {
     
   this.relay(
     this.guiView,
-    e.RequestAddToBasicInput
+    e.RequestAddToTestingInput
     );
     
   this.relay(

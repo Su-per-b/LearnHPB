@@ -23,19 +23,18 @@ lgb.controller.TestingInputController.prototype.init = function() {
   this.bind_();
   this.guiView.init();
   
-  
-  this.triggerLocal(e.RequestAddToParentGUI, this.guiView);
-  
-
-
 };
 
 
 lgb.controller.TestingInputController.prototype.bind_ = function() {
 
   this.listen(
-    e.RequestAddToBasicInput, 
+    e.RequestAddToTestingInput, 
     this.onRequestAddToGUI_);
+    
+  this.relayLocal(
+    this.guiView,
+    e.RequestAddToParentGUI);
 
 };
 

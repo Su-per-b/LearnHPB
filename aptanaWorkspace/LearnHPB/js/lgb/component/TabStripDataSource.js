@@ -16,10 +16,18 @@ goog.require('lgb.component.BaseDataSource');
 lgb.component.TabStripDataSource = function(title, htmlID, parentHtmlID) {
 
   lgb.component.BaseDataSource.call(this);
-
+  
   this.title = title;
   this.parentHtmlID = parentHtmlID;
-  this.htmlID = htmlID;
+  
+  if (undefined === htmlID) {
+    this.htmlID = title;
+    //debugger;
+  } else {
+    this.htmlID = htmlID;
+  }
+  
+
 
   this.isEnabled = true;
 

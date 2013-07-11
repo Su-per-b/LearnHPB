@@ -21,7 +21,7 @@ lgb.view.TestingInputGUI.prototype.init = function() {
 
   this.layoutID = lgb.Config.LAYOUT_ID.TestingInputGUI;
     
-  this.dataSource = new lgb.component.TabStripDataSource('TabStripTitle');
+  this.dataSource = new lgb.component.TabStripDataSource('testingInputGUI-tabStrip');
   this.tabStrip1 = new lgb.component.TabStrip(this.dataSource);
 
   this.tabStrip1.setOptions({
@@ -29,7 +29,8 @@ lgb.view.TestingInputGUI.prototype.init = function() {
   });
 
   this.tabTitleMap_ = {};
-
+  
+  this.triggerLocal(e.RequestAddToParentGUI);
 };
 
 

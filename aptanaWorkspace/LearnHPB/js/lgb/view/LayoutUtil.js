@@ -87,6 +87,8 @@ lgb.view.LayoutUtil.prototype.getXpos_ = function() {
     
     x = parentWidth - this.offsetHorizontal_ - selfWidth;
   
+  } else if (this.alignHorizontal_ == lgb.view.LayoutUtil.ALIGN.Left) {
+    x = this.offsetHorizontal_;
   }
 
     

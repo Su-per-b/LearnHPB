@@ -30,9 +30,15 @@ lgb.component.TabStrip.prototype.addTab = function(title) {
   this.ds.addTab(title);
   this.kendoTabStrip_.select(0);
 
+  return this.getContentElement();
+};
+
+
+lgb.component.TabStrip.prototype.getContentElement = function() {
+  
   var len = this.kendoTabStrip_.contentElements.length;
   var contentElement = this.kendoTabStrip_.contentElements[len - 1];
-
+  
   return $(contentElement);
 };
 

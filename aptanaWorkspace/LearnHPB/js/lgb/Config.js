@@ -110,6 +110,8 @@ lgb.Config.LAYOUT_ID.TestingInputGUI = 7;
 lgb.Config.LAYOUT_ID.SimulationButton = 8;
 lgb.Config.LAYOUT_ID.SimulationView = 9;
 lgb.Config.LAYOUT_ID.BuildingInputGUI = 10;
+lgb.Config.LAYOUT_ID.BaseGUI = 11;
+lgb.Config.LAYOUT_ID.MainInputGUI = 12;
 
 
 

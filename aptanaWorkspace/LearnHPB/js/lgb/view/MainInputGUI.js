@@ -6,7 +6,7 @@ goog.require('lgb.component.TabStripDataSource');
 
 lgb.view.MainInputGUI = function(dataModel) {
 
-  this._TITLE = 'Left Panel 2';
+  this._TITLE = 'Testing';
   
   lgb.view.BaseViewGUI.call(this, dataModel);
   
@@ -21,7 +21,7 @@ lgb.view.MainInputGUI.prototype.init = function() {
 
   this.layoutID = lgb.Config.LAYOUT_ID.MainInputGUI;
     
-  this.dataSource = new lgb.component.TabStripDataSource('TabStripTitle');
+  this.dataSource = new lgb.component.TabStripDataSource('mainInputGUI-tabStrip');
   this.tabStrip1 = new lgb.component.TabStrip(this.dataSource);
 
   this.tabStrip1.setOptions({
@@ -29,7 +29,8 @@ lgb.view.MainInputGUI.prototype.init = function() {
   });
 
   this.tabTitleMap_ = {};
-
+  
+  this.triggerLocal(e.RequestAddToParentGUI);
 };
 
 
@@ -60,9 +61,10 @@ lgb.view.MainInputGUI.prototype.inject = function(parentElement) {
   
   this.tabStrip1.inject(parentElement);
   this.tabStrip1.injectCss();
-
-
   
+  var el = this.tabStrip1.getMainElement();
+  el.css("padding-top","68px");
+
 };
 
 

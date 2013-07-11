@@ -23,8 +23,11 @@ lgb.DebugLGB.prototype.init = function(packageName) {
   
   this.tagClasses(['lgb','events']);
   this.tagClasses(['lgb','controller']);
-  this.tagClasses(['lgb','view']);
+  this.tagClasses(['lgb','controller','input']);
   
+  this.tagClasses(['lgb','view']);
+    this.tagClasses(['lgb','view','input']);
+    
   this.tagClasses(['lgb','simulation','controller']);
   this.tagClasses(['lgb','simulation','events']);
   this.tagClasses(['lgb','simulation','model']);

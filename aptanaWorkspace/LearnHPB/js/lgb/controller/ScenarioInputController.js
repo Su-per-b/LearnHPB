@@ -23,16 +23,16 @@ lgb.controller.ScenarioInputController.prototype.init = function() {
   this.bind_();
   this.guiView.init();
   
-  
-  this.triggerLocal(e.RequestAddToParentGUI, this.guiView);
-  
 
+  
 };
 
 
 lgb.controller.ScenarioInputController.prototype.bind_ = function() {
 
-
+  this.relayLocal(
+    this.guiView,
+    e.RequestAddToParentGUI);
 
 };
 

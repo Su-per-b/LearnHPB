@@ -29,8 +29,8 @@ goog.inherits(lgb.view.EnvelopeGUI, lgb.view.BaseViewGUI);
  */
 lgb.view.EnvelopeGUI.prototype.init = function() {
 
-  this.triggerLocal(e.RequestAddToBasicInput, this);
-  
+  this.triggerLocal(e.RequestAddToTestingInput, this);
+  //this.triggerLocal(e.RequestAddToParentGUI , this);
 };
 
 lgb.view.EnvelopeGUI.prototype.bind_ = function() {

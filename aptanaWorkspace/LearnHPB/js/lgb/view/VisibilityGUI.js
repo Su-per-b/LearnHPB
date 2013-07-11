@@ -53,7 +53,7 @@ lgb.view.VisibilityGUI.prototype.init2_ = function(lgbNode) {
   this.treeComponent_ = new lgb.component.TreeH(this.treeDS_);
   var treeElement = this.treeComponent_.getHtml();
   this.append(treeElement);
-  this.triggerLocal(e.RequestAddToBasicInput, this);
+  this.triggerLocal(e.RequestAddToTestingInput, this);
    
    return;
 };
