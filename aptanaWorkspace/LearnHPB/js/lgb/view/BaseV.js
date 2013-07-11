@@ -21,6 +21,10 @@ lgb.view.BaseV = function(dataModel, htmlID, parentHtmlID) {
     if (this.onChange && this.dataModel) {
       this.listenHelper_(this.dataModel, e.DataModelChanged, this, this.onChange);
     }
+    
+    if (this.onDataModelChanged && this.dataModel) {
+      this.listenHelper_(this.dataModel, e.DataModelChanged, this, this.onDataModelChanged);
+    }
 
   }
   

@@ -56,7 +56,7 @@ lgb.component.TabStripDataSource.prototype.getTabCount = function() {
 lgb.component.TabStripDataSource.prototype.addTab = function(title, content, xPosition) {
 
   if (null == xPosition) { 
-    xPosition = this.tabCollection.length
+    xPosition = this.tabCollection.length + 1
   };
 
   if (null == content) { 
@@ -79,6 +79,7 @@ lgb.component.TabStripDataSource.prototype.addTab = function(title, content, xPo
     this.kendoDS.add(tab);
   }
   
-  this.dispatchChange(tab);
+  var whatIsDirty = {tab:tab};
+  this.dispatchChange(whatIsDirty);
 };
 

@@ -17,7 +17,7 @@ goog.require('lgb.view.BaseV');
  */
 lgb.component.TabStrip = function(ds) {
 
-  lgb.view.BaseV.call(this, null, ds.htmlID, ds.parentHtmlID);
+  lgb.view.BaseV.call(this, ds, ds.htmlID, ds.parentHtmlID);
   this.ds = ds;
 
 };
@@ -79,7 +79,37 @@ lgb.component.TabStrip.prototype.injectCss = function() {
     $(cssStr).appendTo('head');
   }
 
-}
+};
+
+
+lgb.component.TabStrip.prototype.injectOneCss = function() {
+  
+  var el = this.getMainElement();
+
+};
+
+
+
+lgb.component.TabStrip.prototype.onDataModelChanged = function(event) {
+  
+  
+    if (this.ds.showIcon) {
+      
+      var items = this.kendoTabStrip_.items();
+      var idx = items.length-1;
+
+      var sel = '.tab' + (idx + 1).toString();
+    
+      var cssInner = this.makeBackgroundPosition(' ' + sel, idx, 1);
+      cssInner += this.makeBackgroundPosition(' .k-state-active ' + sel, idx, 0);
+      cssInner += this.makeBackgroundPosition(' .k-state-hover ' + sel, idx, 2);
+
+      var cssStr = "<style type='text/css'>{0}</style>".format(cssInner);
+      $(cssStr).appendTo('head');
+    }
+
+
+};
 
 
 /**

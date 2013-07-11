@@ -10,16 +10,8 @@ lgb.view.BuildingInputGUI = function(dataModel) {
   
   lgb.view.BaseViewGUI.call(this, dataModel);
   
-};
-goog.inherits(lgb.view.BuildingInputGUI, lgb.view.BaseViewGUI);
-
-
-
-/**
- * @public
- */
-lgb.view.BuildingInputGUI.prototype.init = function() {
-
+  this.tabTitleMap_ = {};
+  
   this.layoutID = lgb.Config.LAYOUT_ID.BuildingInputGUI;
     
   this.dataSource = new lgb.component.TabStripDataSource('buildingInputGUI-tabStrip');
@@ -28,11 +20,22 @@ lgb.view.BuildingInputGUI.prototype.init = function() {
   
   this.tabStrip1 = new lgb.component.TabStrip(this.dataSource);
 
+};
+goog.inherits(lgb.view.BuildingInputGUI, lgb.view.BaseViewGUI);
+
+
+
+
+
+/**
+ * @public
+ */
+lgb.view.BuildingInputGUI.prototype.init = function() {
+  
+
   this.tabStrip1.setOptions({
     width : "100%"
   });
-
-  this.tabTitleMap_ = {};
   
   this.triggerLocal(e.RequestAddToParentGUI);
 };
@@ -59,6 +62,8 @@ lgb.view.BuildingInputGUI.prototype.add = function(gui) {
     this.tabTitleMap_[title] = contentElement;
   }
   
+  //this.tabStrip1.injectOneCss();
+  
   gui.inject(contentElement);
   
 };
@@ -72,4 +77,14 @@ lgb.view.BuildingInputGUI.prototype.inject = function(parentElement) {
   this.tabStrip1.inject(parentElement);
   this.tabStrip1.injectCss();
 
+};
+
+
+lgb.view.BuildingInputGUI.prototype.onDataModelChanged = function(tab) {
+  
+
+
+
+  return;
+    
 };

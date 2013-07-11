@@ -772,7 +772,7 @@ goog.addDependency("../../../lgb/component/TreeDataSourceH.js", ['lgb.component.
 goog.addDependency("../../../lgb/component/TreeH.js", ['lgb.component.TreeH'], ['lgb.view.BaseV']);
 goog.addDependency("../../../lgb/controller/BaseController.js", ['lgb.controller.BaseController'], ['goog.events.Event', 'lgb.BaseClass']);
 goog.addDependency("../../../lgb/controller/BuildingController.js", ['lgb.controller.BuildingController'], ['lgb.controller.BaseController', 'lgb.controller.DuctworkController', 'lgb.controller.LightingController', 'lgb.controller.EnvelopeController', 'lgb.controller.RoofTopController', 'lgb.controller.FurnitureController', 'lgb.controller.ZoneController']);
-goog.addDependency("../../../lgb/controller/BuildingInputController.js", ['lgb.controller.BuildingInputController'], ['lgb.controller.BaseController', 'lgb.view.BuildingInputGUI', 'lgb.model.BaseInputModel', 'lgb.controller.input.BuildingGeneralInputController']);
+goog.addDependency("../../../lgb/controller/BuildingInputController.js", ['lgb.controller.BuildingInputController'], ['lgb.controller.BaseController', 'lgb.view.BuildingInputGUI', 'lgb.model.BaseInputModel', 'lgb.controller.input.BuildingGeneralInputController', 'lgb.controller.input.LightingInputController', 'lgb.controller.input.DayLightingInputController', 'lgb.controller.input.EnvelopeInputController', 'lgb.controller.input.HvacInputController']);
 goog.addDependency("../../../lgb/controller/CameraController.js", ['lgb.controller.CameraController'], ['lgb.controller.BaseController', 'lgb.view.CameraView']);
 goog.addDependency("../../../lgb/controller/CameraCraneController.js", ['lgb.controller.CameraCraneController'], ['lgb.controller.BaseController']);
 goog.addDependency("../../../lgb/controller/DuctworkController.js", ['lgb.controller.DuctworkController'], ['lgb.controller.BaseController', 'lgb.events.SelectableLoaded', 'lgb.model.DuctworkModel', 'lgb.view.DuctworkView', 'lgb.model.BuildingHeightModel', 'lgb.model.vo.VisibilityNode']);
@@ -800,6 +800,10 @@ goog.addDependency("../../../lgb/controller/WorldController.js", ['lgb.controlle
 goog.addDependency("../../../lgb/controller/WorldSelectionController.js", ['lgb.controller.WorldSelectionController'], ['lgb.controller.BaseController', 'lgb.events.Object3DSelected', 'lgb.events.SelectableLoaded', 'lgb.events.WorldSelectionChanged', 'lgb.model.SelectableModel', 'lgb.view.SelectionView', 'goog.array']);
 goog.addDependency("../../../lgb/controller/ZoneController.js", ['lgb.controller.ZoneController'], ['lgb.controller.BaseController', 'lgb.model.EnvelopeModel', 'lgb.model.ZoneModel', 'lgb.view.ZoneView', 'lgb.model.BuildingHeightModel']);
 goog.addDependency("../../../lgb/controller/input/BuildingGeneralInputController.js", ['lgb.controller.input.BuildingGeneralInputController'], ['lgb.controller.BaseController', 'lgb.model.BaseInputModel', 'lgb.view.input.BuildingGeneralInputGUI']);
+goog.addDependency("../../../lgb/controller/input/DayLightingInputController.js", ['lgb.controller.input.DayLightingInputController'], ['lgb.controller.BaseController', 'lgb.model.BaseInputModel', 'lgb.view.input.DayLightingInputGUI']);
+goog.addDependency("../../../lgb/controller/input/EnvelopeInputController.js", ['lgb.controller.input.EnvelopeInputController'], ['lgb.controller.BaseController', 'lgb.model.BaseInputModel', 'lgb.view.input.EnvelopeInputGUI']);
+goog.addDependency("../../../lgb/controller/input/HvacInputController.js", ['lgb.controller.input.HvacInputController'], ['lgb.controller.BaseController', 'lgb.model.BaseInputModel', 'lgb.view.input.HvacInputGUI']);
+goog.addDependency("../../../lgb/controller/input/LightingInputController.js", ['lgb.controller.input.LightingInputController'], ['lgb.controller.BaseController', 'lgb.model.BaseInputModel', 'lgb.view.input.LightingInputGUI']);
 goog.addDependency("../../../lgb/events/BaseEvent.js", ['lgb.events.BaseEvent'], ['goog.events.Event']);
 goog.addDependency("../../../lgb/events/BuildingHeightChanged.js", ['lgb.events.BuildingHeightChanged'], ['goog.events.Event']);
 goog.addDependency("../../../lgb/events/Event.js", ['lgb.events.Event', 'e.Event'], ['goog.events.Event']);
@@ -905,6 +909,10 @@ goog.addDependency("../../../lgb/view/VisibilityView.js", ['lgb.view.VisibilityV
 goog.addDependency("../../../lgb/view/WorldView.js", ['lgb.view.WorldView'], ['lgb.model.WorldModel', 'lgb.view.BaseV']);
 goog.addDependency("../../../lgb/view/ZoneView.js", ['lgb.view.ZoneView'], ['lgb.view.BaseView3dScene', 'lgb.model.BuildingHeightModel', 'lgb.model.ZoneShapeModel', 'lgb.model.vo.ViewPointNode']);
 goog.addDependency("../../../lgb/view/input/BuildingGeneralInputGUI.js", ['lgb.view.input.BuildingGeneralInputGUI'], ['lgb.model.ViewPointModel', 'lgb.view.BaseViewGUI', 'lgb.Config']);
+goog.addDependency("../../../lgb/view/input/DayLightingInputGUI.js", ['lgb.view.input.DayLightingInputGUI'], ['lgb.view.BaseViewGUI']);
+goog.addDependency("../../../lgb/view/input/EnvelopeInputGUI.js", ['lgb.view.input.EnvelopeInputGUI'], ['lgb.view.BaseViewGUI', 'lgb.Config']);
+goog.addDependency("../../../lgb/view/input/HvacInputGUI.js", ['lgb.view.input.HvacInputGUI'], ['lgb.view.BaseViewGUI', 'lgb.Config']);
+goog.addDependency("../../../lgb/view/input/LightingInputGUI.js", ['lgb.view.input.LightingInputGUI'], ['lgb.view.BaseViewGUI', 'lgb.Config']);
 goog.addDependency("../../../test/example_01.js", [], []);
 goog.addDependency("../../../test/inc.js", [], ['test.TestSimulationController', 'test.TestSerializationController', 'lgb.events.EventBus', 'lgb.Global', 'lgb']);
 goog.addDependency("../../../test/jQuery.js", [], []);
