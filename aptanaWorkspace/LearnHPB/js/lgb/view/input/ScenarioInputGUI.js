@@ -1,23 +1,23 @@
-goog.provide('lgb.view.ScenarioInputGUI');
+goog.provide('lgb.view.input.ScenarioInputGUI');
 
 goog.require('lgb.view.BaseViewGUI');
 goog.require('lgb.component.TabStrip');
 goog.require('lgb.component.TabStripDataSource');
 
-lgb.view.ScenarioInputGUI = function(dataModel) {
+lgb.view.input.ScenarioInputGUI = function(dataModel) {
 
   this._TITLE = 'Scenario';
   
   lgb.view.BaseViewGUI.call(this, dataModel);
   
 };
-goog.inherits(lgb.view.ScenarioInputGUI, lgb.view.BaseViewGUI);
+goog.inherits(lgb.view.input.ScenarioInputGUI, lgb.view.BaseViewGUI);
 
 
 /**
  * @public
  */
-lgb.view.ScenarioInputGUI.prototype.init = function() {
+lgb.view.input.ScenarioInputGUI.prototype.init = function() {
 
   this.layoutID = lgb.Config.LAYOUT_ID.ScenarioInputGUI;
     
@@ -34,7 +34,7 @@ lgb.view.ScenarioInputGUI.prototype.init = function() {
 };
 
 
-lgb.view.ScenarioInputGUI.prototype.add = function(gui) {
+lgb.view.input.ScenarioInputGUI.prototype.add = function(gui) {
 
 
   var title = gui.getTitle();
@@ -57,7 +57,7 @@ lgb.view.ScenarioInputGUI.prototype.add = function(gui) {
 /**
  * @public
  */
-lgb.view.ScenarioInputGUI.prototype.inject = function(parentElement) {
+lgb.view.input.ScenarioInputGUI.prototype.inject = function(parentElement) {
   
 
   goog.base(this,  'inject', parentElement);

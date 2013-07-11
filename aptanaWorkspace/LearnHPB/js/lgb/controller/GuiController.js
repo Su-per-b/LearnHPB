@@ -7,11 +7,11 @@ goog.provide('lgb.controller.GuiController');
 
 goog.require('lgb.controller.BaseController');
 goog.require('lgb.controller.PropertiesController');
-goog.require('lgb.controller.TestingInputController');
-goog.require('lgb.controller.MainInputController');
+goog.require('lgb.controller.input.TestingInputController');
+goog.require('lgb.controller.input.MainInputController');
 goog.require('lgb.controller.TopMenuController');
 goog.require('lgb.controller.VisibilityController');
-goog.require('lgb.controller.ViewPointController');
+goog.require('lgb.controller.input.ViewPointController');
 
 
 goog.require('lgb.view.TitleBarView');
@@ -38,13 +38,10 @@ lgb.controller.GuiController.prototype.init_ = function() {
   this.topMenuController = new lgb.controller.TopMenuController();
 
   this.propertiesController = new lgb.controller.PropertiesController();
-  
-  
-  this.mainInputController_ = new lgb.controller.MainInputController();
+  this.mainInputController_ = new lgb.controller.input.MainInputController();
 
-  
   this.visibilityController_ = new lgb.controller.VisibilityController();
-  this.viewpointController_ = new lgb.controller.ViewPointController();
+  this.viewpointController_ = new lgb.controller.input.ViewPointController();
  
   this.visibilityController_.init();
   this.viewpointController_.init();
@@ -52,8 +49,6 @@ lgb.controller.GuiController.prototype.init_ = function() {
   this.titleBarView = new lgb.view.TitleBarView();
   
   this.trigger(e.RequestAddToLayout, this.titleBarView);
-
-
 
 };
 

@@ -11,7 +11,7 @@ goog.require('lgb.controller.BaseController');
 goog.require('lgb.controller.PsMasterController');
 goog.require('lgb.controller.TrackBallController');
 goog.require('lgb.controller.UtilityController');
-goog.require('lgb.controller.ViewPointController');
+goog.require('lgb.controller.input.ViewPointController');
 goog.require('lgb.controller.WorldSelectionController');
 
 goog.require('lgb.model.WorldModel');

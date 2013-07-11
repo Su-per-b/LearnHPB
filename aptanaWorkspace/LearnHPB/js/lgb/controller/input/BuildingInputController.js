@@ -1,7 +1,7 @@
-goog.provide('lgb.controller.BuildingInputController');
+goog.provide('lgb.controller.input.BuildingInputController');
 
 goog.require('lgb.controller.BaseController');
-goog.require('lgb.view.BuildingInputGUI');
+goog.require('lgb.view.input.BuildingInputGUI');
 goog.require('lgb.model.BaseInputModel');
 
 goog.require('lgb.controller.input.BuildingGeneralInputController');
@@ -11,21 +11,21 @@ goog.require('lgb.controller.input.EnvelopeInputController');
 goog.require('lgb.controller.input.HvacInputController');
 
 
-lgb.controller.BuildingInputController = function() {
+lgb.controller.input.BuildingInputController = function() {
 
   lgb.controller.BaseController.call(this);
 };
-goog.inherits(lgb.controller.BuildingInputController, lgb.controller.BaseController);
+goog.inherits(lgb.controller.input.BuildingInputController, lgb.controller.BaseController);
 
 
 /**
  * Initializes the Main Controller after the document is ready
  */
-lgb.controller.BuildingInputController.prototype.init = function() {
+lgb.controller.input.BuildingInputController.prototype.init = function() {
 
   this.dataModel = new lgb.model.BaseInputModel();
 
-  this.guiView = new lgb.view.BuildingInputGUI(this.dataModel);
+  this.guiView = new lgb.view.input.BuildingInputGUI(this.dataModel);
   
   this.buildingGeneralInputController_ = new lgb.controller.input.BuildingGeneralInputController();
   this.lightingInputController_ = new lgb.controller.input.LightingInputController();
@@ -46,7 +46,7 @@ lgb.controller.BuildingInputController.prototype.init = function() {
 };
 
 
-lgb.controller.BuildingInputController.prototype.bind_ = function() {
+lgb.controller.input.BuildingInputController.prototype.bind_ = function() {
 
     this.listenTo(
       this.buildingGeneralInputController_,
@@ -81,7 +81,7 @@ lgb.controller.BuildingInputController.prototype.bind_ = function() {
 
 
 
-lgb.controller.BuildingInputController.prototype.onRequestAddToParentGUI_ = function(event) {
+lgb.controller.input.BuildingInputController.prototype.onRequestAddToParentGUI_ = function(event) {
 
   this.guiView.add(event.payload);
 
@@ -91,7 +91,7 @@ lgb.controller.BuildingInputController.prototype.onRequestAddToParentGUI_ = func
 /**
  * @private
  */
-lgb.controller.BuildingInputController.prototype.injectCss_ = function() {
+lgb.controller.input.BuildingInputController.prototype.injectCss_ = function() {
 
   var cssInner = '';
 

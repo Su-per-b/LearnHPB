@@ -3,9 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.view.VisibilityGUI');
-
-
+goog.provide('lgb.view.input.VisibilityGUI');
 
 goog.require('lgb.model.VisibilityModel');
 goog.require('lgb.view.BaseViewGUI');
@@ -20,20 +18,20 @@ goog.require('lgb.Config');
  * @param {lgb.model.VisibilityModel} dataModel The data model to display.
  * @extends {lgb.view.BaseViewGUI}
  */
-lgb.view.VisibilityGUI = function(dataModel) {
+lgb.view.input.VisibilityGUI = function(dataModel) {
 
   this._TITLE = "Visibility";
   this.layoutID = lgb.Config.LAYOUT_ID.Visibility;
   lgb.view.BaseViewGUI.call(this, dataModel);
 
 };
-goog.inherits(lgb.view.VisibilityGUI, lgb.view.BaseViewGUI);
+goog.inherits(lgb.view.input.VisibilityGUI, lgb.view.BaseViewGUI);
 
 
 /**
  * Initializes the View
  */
-lgb.view.VisibilityGUI.prototype.init = function() {
+lgb.view.input.VisibilityGUI.prototype.init = function() {
   
   this.treeComponent_ = null;
   this.treeDS_ = null;
@@ -42,7 +40,7 @@ lgb.view.VisibilityGUI.prototype.init = function() {
 
 };
 
-lgb.view.VisibilityGUI.prototype.init2_ = function(lgbNode) {
+lgb.view.input.VisibilityGUI.prototype.init2_ = function(lgbNode) {
   
   this.treeDS_ = new lgb.component.TreeDataSourceH(lgbNode,'isVisible',this.htmlID,  'tree', 'Visibility');
   
@@ -59,7 +57,7 @@ lgb.view.VisibilityGUI.prototype.init2_ = function(lgbNode) {
 };
 
 
-lgb.view.VisibilityGUI.prototype.onChange = function(event) {
+lgb.view.input.VisibilityGUI.prototype.onChange = function(event) {
   
   var lgbNode = event.payload;
   
@@ -70,14 +68,11 @@ lgb.view.VisibilityGUI.prototype.onChange = function(event) {
     this.treeDS_.update(lgbNode);
   }
 
-
-  return;
-    
 };
 
 
 
-lgb.view.VisibilityGUI.prototype.onChangeDataSource_ = function(event) {
+lgb.view.input.VisibilityGUI.prototype.onChangeDataSource_ = function(event) {
 
     this.triggerLocal(e.RequestDataModelChange, event.payload);
 };

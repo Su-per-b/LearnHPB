@@ -13,6 +13,7 @@ goog.require('lgb.controller.ScenarioController');
 goog.require('lgb.controller.WorldController');
 goog.require('lgb.controller.SimulationController');
 goog.require('lgb.controller.LayoutController');
+goog.require('lgb.controller.GuiController');
 
 goog.require('lgb.simulation.model.voNative.SimStateNative');
 

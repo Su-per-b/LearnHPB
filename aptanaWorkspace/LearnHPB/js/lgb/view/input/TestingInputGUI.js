@@ -1,27 +1,27 @@
-goog.provide('lgb.view.MainInputGUI');
+goog.provide('lgb.view.input.TestingInputGUI');
 
 goog.require('lgb.view.BaseViewGUI');
 goog.require('lgb.component.TabStrip');
 goog.require('lgb.component.TabStripDataSource');
 
-lgb.view.MainInputGUI = function(dataModel) {
+lgb.view.input.TestingInputGUI = function(dataModel) {
 
   this._TITLE = 'Testing';
   
   lgb.view.BaseViewGUI.call(this, dataModel);
   
 };
-goog.inherits(lgb.view.MainInputGUI, lgb.view.BaseViewGUI);
+goog.inherits(lgb.view.input.TestingInputGUI, lgb.view.BaseViewGUI);
 
 
 /**
  * @public
  */
-lgb.view.MainInputGUI.prototype.init = function() {
+lgb.view.input.TestingInputGUI.prototype.init = function() {
 
-  this.layoutID = lgb.Config.LAYOUT_ID.MainInputGUI;
+  this.layoutID = lgb.Config.LAYOUT_ID.TestingInputGUI;
     
-  this.dataSource = new lgb.component.TabStripDataSource('mainInputGUI-tabStrip');
+  this.dataSource = new lgb.component.TabStripDataSource('testingInputGUI-tabStrip');
   this.tabStrip1 = new lgb.component.TabStrip(this.dataSource);
 
   this.tabStrip1.setOptions({
@@ -34,7 +34,7 @@ lgb.view.MainInputGUI.prototype.init = function() {
 };
 
 
-lgb.view.MainInputGUI.prototype.add = function(gui) {
+lgb.view.input.TestingInputGUI.prototype.add = function(gui) {
 
 
   var title = gui.getTitle();
@@ -57,14 +57,13 @@ lgb.view.MainInputGUI.prototype.add = function(gui) {
 /**
  * @public
  */
-lgb.view.MainInputGUI.prototype.inject = function(parentElement) {
+lgb.view.input.TestingInputGUI.prototype.inject = function(parentElement) {
   
   this.tabStrip1.inject(parentElement);
   this.tabStrip1.injectCss();
-  
-  var el = this.tabStrip1.getMainElement();
-  el.css("padding-top","68px");
 
+
+  
 };
 
 

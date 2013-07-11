@@ -11,7 +11,7 @@ goog.require('lgb.controller.BaseController');
 
 
 
-goog.require('lgb.view.VisibilityGUI');
+goog.require('lgb.view.input.VisibilityGUI');
 goog.require('lgb.model.VisibilityModel');
 goog.require('lgb.view.VisibilityView');
 
@@ -39,7 +39,7 @@ lgb.controller.VisibilityController.prototype.init = function() {
 
   this.dataModel = new lgb.model.VisibilityModel();
   
-  this.guiView = new lgb.view.VisibilityGUI ( this.dataModel );
+  this.guiView = new lgb.view.input.VisibilityGUI ( this.dataModel );
   this.view = new lgb.view.VisibilityView ( this.dataModel );
   
   this.bind_();

@@ -3,7 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.controller.ViewPointController');
+goog.provide('lgb.controller.input.ViewPointController');
 
 goog.require('lgb.controller.BaseController');
 
@@ -11,37 +11,37 @@ goog.require('lgb.model.BuildingHeightModel');
 
 goog.require('lgb.view.ViewPointView');
 goog.require('lgb.model.ViewPointModel');
-goog.require('lgb.view.ViewPointGUI');
+goog.require('lgb.view.input.ViewPointGUI');
 
 /**
  * @constructor
  * @extends lgb.controller.BaseController
  */
-lgb.controller.ViewPointController = function( ) {
+lgb.controller.input.ViewPointController = function( ) {
 
   lgb.controller.BaseController.call(this);
   
   this.viewpointGroupsLoaded_ = 0;
   
 };
-goog.inherits(lgb.controller.ViewPointController, lgb.controller.BaseController);
+goog.inherits(lgb.controller.input.ViewPointController, lgb.controller.BaseController);
 
 
 /**
  * Initialized the controller.
  */
-lgb.controller.ViewPointController.prototype.init = function() {
+lgb.controller.input.ViewPointController.prototype.init = function() {
   
   this.dataModel2 = new lgb.model.ViewPointModel();
   
   this.view = new lgb.view.ViewPointView(this.dataModel);
 
-  this.guiView2 = new lgb.view.ViewPointGUI (this.dataModel2);
-  this.guiView2._TITLE = "Viewpoints";
+  this.guiView = new lgb.view.input.ViewPointGUI (this.dataModel2);
+  this.guiView._TITLE = "Viewpoints";
   
   this.bind_();
   
-  this.guiView2.init();
+  this.guiView.init();
   this.view.init();
   
 };
@@ -54,7 +54,7 @@ lgb.controller.ViewPointController.prototype.init = function() {
  * event bus.
  * @private
  */
-lgb.controller.ViewPointController.prototype.bind_ = function() {
+lgb.controller.input.ViewPointController.prototype.bind_ = function() {
   
   this.relay(this.view, e.AddToWorldRequest);
   
@@ -72,7 +72,7 @@ lgb.controller.ViewPointController.prototype.bind_ = function() {
     
     
   this.relay(
-    this.guiView2,
+    this.guiView,
     [
       e.RequestAddToTestingInput,
       e.RequestShowViewPoint,
@@ -91,7 +91,7 @@ lgb.controller.ViewPointController.prototype.bind_ = function() {
 };
 
 
-lgb.controller.ViewPointController.prototype.onViewPointNodesLoaded_ =
+lgb.controller.input.ViewPointController.prototype.onViewPointNodesLoaded_ =
   function(event) {
     
   var viewPointNode = event.payload;
@@ -103,7 +103,7 @@ lgb.controller.ViewPointController.prototype.onViewPointNodesLoaded_ =
 
 
 
-lgb.controller.ViewPointController.prototype.onBuildingHeightChanged_ =
+lgb.controller.input.ViewPointController.prototype.onBuildingHeightChanged_ =
   function(event) {
 
   this.view.setBuildingHeight(event.payload);
