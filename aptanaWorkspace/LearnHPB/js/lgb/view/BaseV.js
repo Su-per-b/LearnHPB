@@ -104,7 +104,7 @@ lgb.view.BaseV.prototype.append = function(html) {
   var el = this.getMainElement();
 
   if (!el) {
-
+    debugger;
     return;
   }
   el.append(html);

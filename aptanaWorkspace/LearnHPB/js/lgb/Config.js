@@ -44,7 +44,7 @@ lgb.Config.APP_TITLE = 'LearnHPB Demo';
  * @const
  * @type {string}
  */
-lgb.Config.APP_VERSION = '12.45';
+lgb.Config.APP_VERSION = '12.46';
 
 /**
  * Will show status in the upper left if set to true.
@@ -112,6 +112,7 @@ lgb.Config.LAYOUT_ID.SimulationView = 9;
 lgb.Config.LAYOUT_ID.BuildingInputGUI = 10;
 lgb.Config.LAYOUT_ID.BaseGUI = 11;
 lgb.Config.LAYOUT_ID.MainInputGUI = 12;
+lgb.Config.LAYOUT_ID.RightTopInputGUI = 13;
 
 
 

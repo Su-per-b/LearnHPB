@@ -57,7 +57,6 @@ lgb.view.LayoutView.prototype.bind_ = function(guiView) {
 lgb.view.LayoutView.prototype.onChange_add_ = function(value) {
   
   this.add(value);
-  return;
 }
 
 
@@ -65,7 +64,6 @@ lgb.view.LayoutView.prototype.onChange_add_ = function(value) {
 
 
 lgb.view.LayoutView.prototype.toggleVisibility = function(guiView) {
-  
   
   guiView.toggleVisibility();
   
@@ -177,7 +175,10 @@ lgb.view.LayoutView.prototype.inject = function() {
   
   
   this.webGLcanvas_ = this.makeDiv('webGLcanvas');
+  this.rightPanelTop_ = this.makeDiv('rightPanelTop');
   
+  
+  this.rightPanel_.append(this.rightPanelTop_);
   this.rightPanel_.append(this.webGLcanvas_);
   
   var ID = lgb.Config.LAYOUT_ID;
@@ -186,15 +187,27 @@ lgb.view.LayoutView.prototype.inject = function() {
   this.parentMap[ID.MainInputGUI] = this.leftPanel_;
   
   this.parentMap[ID.TitleBar] = this.leftPanel_;
-  this.parentMap[ID.TopMenu] = this.webGLcanvas_;
+  this.parentMap[ID.TopMenu] = this.rightPanel_;
   this.parentMap[ID.PropertiesButton] = this.webGLcanvas_;
   this.parentMap[ID.PropertiesView] = this.webGLcanvas_;
   this.parentMap[ID.SimulationView] = this.getMainElement();
+  this.parentMap[ID.RightTopInputGUI] = this.getMainElement();
 
   this.webGLcanvas_.css({
     width : "100%",
     height : "100%"
   });
+  
+
+  this.rightPanelTop_.css({
+    width : "100%",
+    height : "32px",
+    background:"#fafafa"
+  });
+  
+  
+  
+  
 
   
 };

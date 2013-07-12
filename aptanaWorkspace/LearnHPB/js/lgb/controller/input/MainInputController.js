@@ -4,6 +4,7 @@ goog.require('lgb.controller.BaseController');
 goog.require('lgb.controller.input.TestingInputController');
 goog.require('lgb.controller.input.ScenarioInputController');
 goog.require('lgb.controller.input.BuildingInputController');
+goog.require('lgb.controller.input.SimulationInputController');
 
 goog.require('lgb.view.input.MainInputGUI');
 goog.require('lgb.model.BaseInputModel');
@@ -26,19 +27,21 @@ lgb.controller.input.MainInputController.prototype.init_ = function() {
   this.dataModel = new lgb.model.BaseInputModel();
   this.guiView = new lgb.view.input.MainInputGUI(this.dataModel);
   
-  this.testingInputController_ = new lgb.controller.input.TestingInputController();
+  
   this.scenarioInputController_ = new lgb.controller.input.ScenarioInputController();
   this.buildingInputController_ = new lgb.controller.input.BuildingInputController();
-
+  this.simulationInputController_ = new lgb.controller.input.SimulationInputController();
+  this.testingInputController_ = new lgb.controller.input.TestingInputController();
     
   this.bind_();
   
   this.guiView.init();
   this.trigger(e.RequestAddToLayout, this.guiView);
   
-  this.testingInputController_.init();
   this.scenarioInputController_.init();
+  this.simulationInputController_.init();
   this.buildingInputController_.init();
+  this.testingInputController_.init();
 
   
 };
@@ -55,6 +58,10 @@ lgb.controller.input.MainInputController.prototype.bind_ = function() {
     this.onRequestAddToParentGUI_);
     
   this.listenTo(this.buildingInputController_,
+    e.RequestAddToParentGUI, 
+    this.onRequestAddToParentGUI_);
+    
+  this.listenTo(this.simulationInputController_,
     e.RequestAddToParentGUI, 
     this.onRequestAddToParentGUI_);
 

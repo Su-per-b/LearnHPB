@@ -7,7 +7,7 @@ goog.provide('lgb.controller.BuildingController');
 
 goog.require('lgb.controller.BaseController');
 goog.require('lgb.controller.DuctworkController');
-goog.require('lgb.controller.input.LightingController');
+goog.require('lgb.controller.input.TestLightingController');
 goog.require('lgb.controller.EnvelopeController');
 goog.require('lgb.controller.RoofTopController');
 goog.require('lgb.controller.FurnitureController');
@@ -35,7 +35,7 @@ lgb.controller.BuildingController.prototype.init_ = function() {
   this.zoneController_ = new lgb.controller.ZoneController();
   this.roofTopController_ = new lgb.controller.RoofTopController();
   this.ductworkController_ = new lgb.controller.DuctworkController();
-  this.lightingController = new lgb.controller.input.LightingController();
+  this.lightingController = new lgb.controller.input.TestLightingController();
   this.furnitureController = new lgb.controller.FurnitureController();
   this.envelopeController_ = new lgb.controller.EnvelopeController();
   

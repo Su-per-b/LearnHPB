@@ -52,10 +52,8 @@ lgb.controller.LayoutController.prototype.bind_ = function() {
 };
 
 lgb.controller.LayoutController.prototype.onRequestAddToLayout_ = function(event) {
-    
-    
+
     this.dataModel.add(event.payload);
-    //this.view.add(event.payload);
 };
 
 

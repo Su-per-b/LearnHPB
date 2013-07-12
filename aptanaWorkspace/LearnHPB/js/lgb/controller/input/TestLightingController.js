@@ -3,13 +3,13 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.controller.input.LightingController');
+goog.provide('lgb.controller.input.TestLightingController');
 
 goog.require('lgb.controller.BaseController');
 
 goog.require('lgb.model.LightingModel');
 goog.require('lgb.view.LightingView');
-goog.require('lgb.view.input.LightingGUI');
+goog.require('lgb.view.input.TestLightingGUI');
 goog.require('lgb.view.LightingAdminView');
 
 goog.require('lgb.model.BuildingHeightModel');
@@ -19,23 +19,23 @@ goog.require('lgb.model.BuildingHeightModel');
  * @constructor
  * @extends lgb.controller.BaseController
  */
-lgb.controller.input.LightingController = function() {
+lgb.controller.input.TestLightingController = function() {
 
   lgb.controller.BaseController.call(this);
   this.init_();
 };
-goog.inherits(lgb.controller.input.LightingController, lgb.controller.BaseController);
+goog.inherits(lgb.controller.input.TestLightingController, lgb.controller.BaseController);
 
 /**
  * initializes the controller
  * @private
  */
-lgb.controller.input.LightingController.prototype.init_ = function() {
+lgb.controller.input.TestLightingController.prototype.init_ = function() {
  
   
   this.dataModel = new lgb.model.LightingModel();
   
-  this.guiView = new lgb.view.input.LightingGUI(this.dataModel);
+  this.guiView = new lgb.view.input.TestLightingGUI(this.dataModel);
   this.view = new lgb.view.LightingView(this.dataModel);
 
   this.bind_();
@@ -55,7 +55,7 @@ lgb.controller.input.LightingController.prototype.init_ = function() {
  * event bus.
  * @private
  */
-lgb.controller.input.LightingController.prototype.bind_ = function() {
+lgb.controller.input.TestLightingController.prototype.bind_ = function() {
 
   this.relay(this.view, e.AddToWorldRequest);
 
@@ -79,7 +79,7 @@ lgb.controller.input.LightingController.prototype.bind_ = function() {
 };
 
 
-lgb.controller.input.LightingController.prototype.onBuildingHeightChanged_ =
+lgb.controller.input.TestLightingController.prototype.onBuildingHeightChanged_ =
   function(event) {
 
   this.view.setBuildingHeight(event.payload);
