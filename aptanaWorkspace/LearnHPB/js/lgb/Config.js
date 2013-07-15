@@ -44,7 +44,7 @@ lgb.Config.APP_TITLE = 'LearnHPB Demo';
  * @const
  * @type {string}
  */
-lgb.Config.APP_VERSION = '12.46';
+lgb.Config.APP_VERSION = '12.47';
 
 /**
  * Will show status in the upper left if set to true.
