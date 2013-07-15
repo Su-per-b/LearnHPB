@@ -16,6 +16,7 @@ goog.require('lgb.view.input.RightTopInputGUI');
 lgb.controller.input.RightTopInputController = function( ) {
 
   lgb.controller.BaseController.call(this);
+  this.init_();
   
 };
 goog.inherits(lgb.controller.input.RightTopInputController, lgb.controller.BaseController);
@@ -24,7 +25,7 @@ goog.inherits(lgb.controller.input.RightTopInputController, lgb.controller.BaseC
 /**
  * Initialized the controller.
  */
-lgb.controller.input.RightTopInputController.prototype.init = function() {
+lgb.controller.input.RightTopInputController.prototype.init_ = function() {
   
   this.dataModel = new lgb.model.BaseInputModel();
   this.guiView = new lgb.view.input.RightTopInputGUI (this.dataModel);
@@ -37,7 +38,7 @@ lgb.controller.input.RightTopInputController.prototype.init = function() {
 
 lgb.controller.input.RightTopInputController.prototype.bind_ = function() {
   
-  this.relayLocal(
+  this.relay (
     this.guiView,
     e.RequestAddToLayout);
 

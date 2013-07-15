@@ -7,6 +7,8 @@ goog.provide('lgb.view.input.RightTopInputGUI');
 
 goog.require('lgb.view.BaseViewGUI');
 goog.require('lgb.Config');
+goog.require('lgb.component.TabStripDataSource');
+goog.require('lgb.component.TabStrip');
 
 
 /**
@@ -30,7 +32,29 @@ goog.inherits(lgb.view.input.RightTopInputGUI, lgb.view.BaseViewGUI);
  */
 lgb.view.input.RightTopInputGUI.prototype.init = function() {
   
-  this.trigger(e.RequestAddToLayout, this);
+  this.dataSource1 = new lgb.component.TabStripDataSource('RightTopInputGUI-tabStrip');
+  this.dataSource1.setIcon("images/tabs/optionsBtn_grid_25.png", 25, 25);
+  this.dataSource1.addTab('', '', 1);
+  this.dataSource1.addTab('', '', 2);
+  this.dataSource1.addTab('', '', 3);
+  this.dataSource1.addTab('', '', 4);
+  this.dataSource1.addTab('', '', 5);
+  
+  this.tabStrip1 = new lgb.component.TabStrip(this.dataSource1);
+  
+
+  this.dataSource2 = new lgb.component.TabStripDataSource('RightTopInputGUI2-tabStrip');
+  this.dataSource2.setIcon("images/tabs/viewBtn_grid_25.png", 25, 25);
+  this.dataSource2.addTab('', '', 1);
+  this.dataSource2.addTab('', '', 2);
+  this.dataSource2.addTab('', '', 3);
+  this.dataSource2.addTab('', '', 4);
+  this.dataSource2.addTab('', '', 5);
+  
+  this.tabStrip2 = new lgb.component.TabStrip(this.dataSource2);
+  
+  
+  this.triggerLocal(e.RequestAddToLayout, this);
 };
 
 
@@ -48,34 +72,17 @@ lgb.view.input.RightTopInputGUI.prototype.inject = function(parentElement) {
   
   goog.base(this,  'inject', parentElement);
   
-  var el = this.getMainElement();
-  var titleDiv = el.append('<h4>RightTop Stuff</h4>');
+
   
+
+  this.tabStrip1.inject(parentElement);
+  this.tabStrip1.injectCss();
   
-  var dataSource3 = new sim.component.TabStripDataSource
-        ('TabStripTitle', '', 'tabStrip3');
-     
-  dataSource3.setIcon("images/tabs/viewBtn_grid_25.png", 25, 25);
-      
-  dataSource3.addTab('', 'content 1 <br />', 1);
-  dataSource3.addTab('', 'content 2 <br />', 2);
-  dataSource3.addTab('', 'content 3 <br />', 3);
-  dataSource3.addTab('', 'content 4 <br />', 4);
-  dataSource3.addTab('', 'content 5 <br />', 5);
-  dataSource3.addTab('', 'content 6 <br />', 6);
-  dataSource3.addTab('', 'content 7 <br />', 7);
-  dataSource3.addTab('', 'content 8 <br />', 8);
-  dataSource3.addTab('', 'content 9 <br />', 9);
+  this.tabStrip2.inject(parentElement);
+  this.tabStrip2.injectCss();
   
-  this.tabStrip3 = new sim.component.TabStrip(dataSource3);
+ // el.append(this.tabStrip1);
   
-  this.tabStrip3.setOptions(
-      {
-          width : 500
-          
-      }
-  );
-  
-  el.append(this.tabStrip3);
+  return;
 };
 

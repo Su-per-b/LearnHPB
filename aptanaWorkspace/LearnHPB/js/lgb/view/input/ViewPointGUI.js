@@ -35,9 +35,7 @@ lgb.view.input.ViewPointGUI.prototype.init = function() {
   this.treeDS_ = null;
   
   this.treeDSlist_ = [];
-  
 
-    
 };
 
 

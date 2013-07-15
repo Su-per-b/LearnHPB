@@ -352,8 +352,17 @@ li.k-item.k-state-default {
   padding:4px 4px 8px 0;
   float:left;
 }
-.inputComboBox {
 
+#RightTopInputGUI-tabStrip {
+  float:left;
+}
+#RightTopInputGUI2-tabStrip {
+  float:right;
+  padding:0 78px 0 0;
 }
 
-
+#TopMenu {
+    margin:0 0 0 178px;
+  
+}
+}
