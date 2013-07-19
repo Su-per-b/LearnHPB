@@ -44,7 +44,7 @@ lgb.Config.APP_TITLE = 'LearnHPB Demo';
  * @const
  * @type {string}
  */
-lgb.Config.APP_VERSION = '12.47';
+lgb.Config.APP_VERSION = '12.50';
 
 /**
  * Will show status in the upper left if set to true.
@@ -95,6 +95,16 @@ lgb.Config.UTILITY_SHOW_GRID = true;
  * are logged in lgb.events.EventBus.
  */
 lgb.Config.UTILITY_SHOW_AXIS = false;
+
+lgb.Config.SOCKET_SERVER = function() {};
+lgb.Config.SOCKET_SERVER.AutoConfig = 0;
+lgb.Config.SOCKET_SERVER.Pfalco = 1;
+lgb.Config.SOCKET_SERVER.PfalcoLocal = 2;
+
+lgb.Config.SOCKET_SERVER_HOST = lgb.Config.SOCKET_SERVER.Pfalco;
+
+
+
 
 
 lgb.Config.LAYOUT_ID = function() {};

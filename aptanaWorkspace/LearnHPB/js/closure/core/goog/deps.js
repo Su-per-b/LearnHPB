@@ -856,7 +856,7 @@ goog.addDependency("../../../lgb/simulation/events/SimStateNativeNotify.js", ['l
 goog.addDependency("../../../lgb/simulation/events/SimStateNativeRequest.js", ['lgb.simulation.events.SimStateNativeRequest'], ['lgb.simulation.events.BaseEvent', 'lgb.simulation.model.voNative.SimStateNative']);
 goog.addDependency("../../../lgb/simulation/events/WebSocketConnectionStateEvent.js", ['lgb.simulation.events.WebSocketConnectionStateEvent'], ['lgb.simulation.events.BaseEvent', 'lgb.simulation.model.WebSocketConnectionState']);
 goog.addDependency("../../../lgb/simulation/events/XMLparsedEvent.js", ['lgb.simulation.events.XMLparsedEvent'], ['lgb.simulation.events.BaseEvent', 'lgb.simulation.model.voManaged.XMLparsedInfo']);
-goog.addDependency("../../../lgb/simulation/model/MainModel.js", ['lgb.simulation.model.MainModel'], ['lgb.model.BaseModel', 'lgb.simulation.model.voNative.SimStateNative', 'lgb.simulation.model.WebSocketConnectionState']);
+goog.addDependency("../../../lgb/simulation/model/MainModel.js", ['lgb.simulation.model.MainModel'], ['lgb.model.BaseModel', 'lgb.Config', 'lgb.simulation.model.voNative.SimStateNative', 'lgb.simulation.model.WebSocketConnectionState']);
 goog.addDependency("../../../lgb/simulation/model/WebSocketConnectionState.js", ['lgb.simulation.model.WebSocketConnectionState'], []);
 goog.addDependency("../../../lgb/simulation/model/voManaged/ScalarValueResults.js", ['lgb.simulation.model.voManaged.ScalarValueResults'], []);
 goog.addDependency("../../../lgb/simulation/model/voManaged/XMLparsedInfo.js", ['lgb.simulation.model.voManaged.XMLparsedInfo'], []);
@@ -910,7 +910,7 @@ goog.addDependency("../../../lgb/view/input/EnvelopeInputGUI.js", ['lgb.view.inp
 goog.addDependency("../../../lgb/view/input/HvacInputGUI.js", ['lgb.view.input.HvacInputGUI'], ['lgb.view.BaseViewGUI', 'lgb.Config']);
 goog.addDependency("../../../lgb/view/input/LightingInputGUI.js", ['lgb.view.input.LightingInputGUI'], ['lgb.view.BaseViewGUI', 'lgb.Config']);
 goog.addDependency("../../../lgb/view/input/MainInputGUI.js", ['lgb.view.input.MainInputGUI'], ['lgb.view.BaseViewGUI', 'lgb.component.TabStrip', 'lgb.component.TabStripDataSource']);
-goog.addDependency("../../../lgb/view/input/RightTopInputGUI.js", ['lgb.view.input.RightTopInputGUI'], ['lgb.view.BaseViewGUI', 'lgb.Config']);
+goog.addDependency("../../../lgb/view/input/RightTopInputGUI.js", ['lgb.view.input.RightTopInputGUI'], ['lgb.view.BaseViewGUI', 'lgb.Config', 'lgb.component.TabStripDataSource', 'lgb.component.TabStrip']);
 goog.addDependency("../../../lgb/view/input/ScenarioInputGUI.js", ['lgb.view.input.ScenarioInputGUI'], ['lgb.view.BaseViewGUI', 'lgb.component.TabStrip', 'lgb.component.TabStripDataSource']);
 goog.addDependency("../../../lgb/view/input/SimulationInputGUI.js", ['lgb.view.input.SimulationInputGUI'], ['lgb.view.BaseViewGUI', 'lgb.component.TabStrip', 'lgb.component.TabStripDataSource']);
 goog.addDependency("../../../lgb/view/input/TestingInputGUI.js", ['lgb.view.input.TestingInputGUI'], ['lgb.view.BaseViewGUI', 'lgb.component.TabStrip', 'lgb.component.TabStripDataSource']);
