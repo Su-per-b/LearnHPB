@@ -70,7 +70,6 @@ lgb.simulation.controller.MainController.prototype.connect = function(event) {
     this.ws_.onmessage = this.d(this.onMessage_);
     this.ws_.onclose = this.d(this.onClose_);
     this.ws_.onerror = this.d(this.onError_);
-
 };
 
 lgb.simulation.controller.MainController.prototype.serializeAndSend = function(event) {

@@ -829,8 +829,6 @@ goog.addDependency("../../../lgb/model/RoofTopModel.js", ['lgb.model.RoofTopMode
 goog.addDependency("../../../lgb/model/SelectableModel.js", ['lgb.model.SelectableModel'], ['lgb.model.BaseModel', 'goog.array']);
 goog.addDependency("../../../lgb/model/SimulationModel.js", ['lgb.model.SimulationModel'], ['lgb.model.BaseModel', 'lgb.model.SimulationModelState']);
 goog.addDependency("../../../lgb/model/SimulationModelState.js", ['lgb.model.SimulationModelState'], []);
-goog.addDependency("../../../lgb/model/TabModel.js", ['lgb.model.TabModel'], ['lgb.model.BaseModel']);
-goog.addDependency("../../../lgb/model/TabStripModel.js", ['lgb.model.TabStripModel'], ['lgb.model.BaseModel']);
 goog.addDependency("../../../lgb/model/ViewPointModel.js", ['lgb.model.ViewPointModel'], ['lgb.model.BaseModel', 'lgb.model.vo.ViewPointNode']);
 goog.addDependency("../../../lgb/model/VisibilityModel.js", ['lgb.model.VisibilityModel'], ['lgb.model.BaseModel', 'lgb.model.vo.VisibilityNode']);
 goog.addDependency("../../../lgb/model/WorldModel.js", ['lgb.model.WorldModel'], ['lgb.model.BaseModel']);

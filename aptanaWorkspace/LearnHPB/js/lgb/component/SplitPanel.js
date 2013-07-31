@@ -100,7 +100,7 @@ lgb.component.SplitPanel.prototype.inject = function(parentElement) {
     bottom : "0",
     left : "0",
     "overflow-y":"scroll",
-    "overflow-x":"hidden",
+    "overflow-x":"hidden"
   });
   
   

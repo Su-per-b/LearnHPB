@@ -45,7 +45,7 @@ lgb.controller.SimulationController = function() {
   this.trigger(e.RequestAddToLayout, this.buttonView);
   this.trigger(e.RequestAddToLayout, this.view);
     
-  this.simulationMainController_.connect();
+  //this.simulationMainController_.connect();
   
 };
 goog.inherits(lgb.controller.SimulationController, lgb.controller.BaseController);
