@@ -6,7 +6,7 @@
 goog.provide('lgb.controller.input.HvacInputController');
 
 goog.require('lgb.controller.BaseController');
-goog.require('lgb.model.BaseInputModel');
+goog.require('lgb.model.input.BaseInputModel');
 goog.require('lgb.view.input.HvacInputGUI');
 
 /**
@@ -26,7 +26,7 @@ goog.inherits(lgb.controller.input.HvacInputController, lgb.controller.BaseContr
  */
 lgb.controller.input.HvacInputController.prototype.init = function() {
   
-  this.dataModel = new lgb.model.BaseInputModel();
+  this.dataModel = new lgb.model.input.BaseInputModel();
   this.guiView = new lgb.view.input.HvacInputGUI (this.dataModel);
 
   this.bind_();

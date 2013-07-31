@@ -6,7 +6,7 @@
 goog.provide('lgb.controller.input.DayLightingInputController');
 
 goog.require('lgb.controller.BaseController');
-goog.require('lgb.model.BaseInputModel');
+goog.require('lgb.model.input.BaseInputModel');
 goog.require('lgb.view.input.DayLightingInputGUI');
 
 /**
@@ -26,7 +26,7 @@ goog.inherits(lgb.controller.input.DayLightingInputController, lgb.controller.Ba
  */
 lgb.controller.input.DayLightingInputController.prototype.init = function() {
   
-  this.dataModel = new lgb.model.BaseInputModel();
+  this.dataModel = new lgb.model.input.BaseInputModel();
   this.guiView = new lgb.view.input.DayLightingInputGUI (this.dataModel);
 
   this.bind_();

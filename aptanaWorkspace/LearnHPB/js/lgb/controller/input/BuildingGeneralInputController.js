@@ -6,7 +6,7 @@
 goog.provide('lgb.controller.input.BuildingGeneralInputController');
 
 goog.require('lgb.controller.BaseController');
-goog.require('lgb.model.BaseInputModel');
+goog.require('lgb.model.input.BaseInputModel');
 goog.require('lgb.view.input.BuildingGeneralInputGUI');
 
 
@@ -27,7 +27,7 @@ goog.inherits(lgb.controller.input.BuildingGeneralInputController, lgb.controlle
  */
 lgb.controller.input.BuildingGeneralInputController.prototype.init = function() {
   
-  this.dataModel = new lgb.model.BaseInputModel();
+  this.dataModel = new lgb.model.input.BaseInputModel();
   this.guiView = new lgb.view.input.BuildingGeneralInputGUI (this.dataModel);
 
   this.bind_();

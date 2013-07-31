@@ -8,12 +8,12 @@ goog.provide('lgb.controller.MainController');
 goog.require('goog.debug.Logger');
 goog.require('lgb.Config');
 goog.require('lgb.controller.BaseController');
-goog.require('lgb.controller.GuiController');
+goog.require('lgb.controller.input.GuiController');
 goog.require('lgb.controller.ScenarioController');
 goog.require('lgb.controller.WorldController');
 goog.require('lgb.controller.SimulationController');
 goog.require('lgb.controller.LayoutController');
-goog.require('lgb.controller.GuiController');
+goog.require('lgb.controller.input.GuiController');
 
 goog.require('lgb.simulation.model.voNative.SimStateNative');
 
@@ -68,7 +68,7 @@ lgb.controller.MainController.prototype.init = function() {
   var theTitle = lgb.Config.getTitle();
    $('title').html(theTitle);
    
-  this.guiController = new lgb.controller.GuiController();
+  this.guiController = new lgb.controller.input.GuiController();
   this.scenarioController = new lgb.controller.ScenarioController();
    
   this.worldController_ = new

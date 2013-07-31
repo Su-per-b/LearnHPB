@@ -2,7 +2,7 @@ goog.provide('lgb.controller.input.ScenarioInputController');
 
 goog.require('lgb.controller.BaseController');
 goog.require('lgb.view.input.ScenarioInputGUI');
-goog.require('lgb.model.BaseInputModel');
+goog.require('lgb.model.input.BaseInputModel');
 
 
 lgb.controller.input.ScenarioInputController = function() {
@@ -17,7 +17,7 @@ goog.inherits(lgb.controller.input.ScenarioInputController, lgb.controller.BaseC
  */
 lgb.controller.input.ScenarioInputController.prototype.init = function() {
 
-  this.dataModel = new lgb.model.BaseInputModel();
+  this.dataModel = new lgb.model.input.BaseInputModel();
 
   this.guiView = new lgb.view.input.ScenarioInputGUI(this.dataModel);
   this.bind_();

@@ -6,7 +6,7 @@
 goog.provide('lgb.controller.input.EnvelopeInputController');
 
 goog.require('lgb.controller.BaseController');
-goog.require('lgb.model.BaseInputModel');
+goog.require('lgb.model.input.BaseInputModel');
 goog.require('lgb.view.input.EnvelopeInputGUI');
 
 /**
@@ -26,7 +26,7 @@ goog.inherits(lgb.controller.input.EnvelopeInputController, lgb.controller.BaseC
  */
 lgb.controller.input.EnvelopeInputController.prototype.init = function() {
   
-  this.dataModel = new lgb.model.BaseInputModel();
+  this.dataModel = new lgb.model.input.BaseInputModel();
   this.guiView = new lgb.view.input.EnvelopeInputGUI (this.dataModel);
 
   this.bind_();

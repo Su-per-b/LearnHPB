@@ -3,28 +3,28 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.view.TopMenuGUI');
+goog.provide('lgb.view.input.TopMenuGUI');
 
 
-goog.require('lgb.view.BaseViewGUI');
+goog.require('lgb.view.input.BaseViewGUI');
 goog.require('lgb.Config');
 
 
 
-lgb.view.TopMenuGUI = function(dataModel) {
+lgb.view.input.TopMenuGUI = function(dataModel) {
 
   this._TITLE = "TopMenu";
   this.layoutID = lgb.Config.LAYOUT_ID.TopMenu;
-  lgb.view.BaseViewGUI.call(this, dataModel);
+  lgb.view.input.BaseViewGUI.call(this, dataModel);
 
 };
-goog.inherits(lgb.view.TopMenuGUI, lgb.view.BaseViewGUI);
+goog.inherits(lgb.view.input.TopMenuGUI, lgb.view.input.BaseViewGUI);
 
 
 /**
  * Initializes the View
  */
-lgb.view.TopMenuGUI.prototype.init = function() {
+lgb.view.input.TopMenuGUI.prototype.init = function() {
 
 
   var el = this.getMainElement();
@@ -46,7 +46,7 @@ lgb.view.TopMenuGUI.prototype.init = function() {
 };
 
 
-lgb.view.TopMenuGUI.prototype.bind_ = function() {
+lgb.view.input.TopMenuGUI.prototype.bind_ = function() {
   
     this.kendoMenu_.bind('select', this.d(this.onSelect_));
   
@@ -54,7 +54,7 @@ lgb.view.TopMenuGUI.prototype.bind_ = function() {
 
 
 
-lgb.view.TopMenuGUI.prototype.onSelect_ = function(event) {
+lgb.view.input.TopMenuGUI.prototype.onSelect_ = function(event) {
   
 
     var item = event.item;
@@ -83,7 +83,7 @@ lgb.view.TopMenuGUI.prototype.onSelect_ = function(event) {
 };
 
 
-lgb.view.TopMenuGUI.prototype.onChange = function(event) {
+lgb.view.input.TopMenuGUI.prototype.onChange = function(event) {
   
   
   this.kendoMenu_.setOptions(

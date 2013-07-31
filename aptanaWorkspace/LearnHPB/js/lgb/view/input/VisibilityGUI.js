@@ -6,9 +6,9 @@
 goog.provide('lgb.view.input.VisibilityGUI');
 
 goog.require('lgb.model.VisibilityModel');
-goog.require('lgb.view.BaseViewGUI');
+goog.require('lgb.view.input.BaseViewGUI');
 
-goog.require('lgb.view.BaseViewGUI');
+goog.require('lgb.view.input.BaseViewGUI');
 goog.require('lgb.component.TreeH');
 goog.require('lgb.component.TreeDataSourceH');
 goog.require('lgb.Config');
@@ -16,16 +16,16 @@ goog.require('lgb.Config');
 /**
  * @constructor
  * @param {lgb.model.VisibilityModel} dataModel The data model to display.
- * @extends {lgb.view.BaseViewGUI}
+ * @extends {lgb.view.input.BaseViewGUI}
  */
 lgb.view.input.VisibilityGUI = function(dataModel) {
 
   this._TITLE = "Visibility";
   this.layoutID = lgb.Config.LAYOUT_ID.Visibility;
-  lgb.view.BaseViewGUI.call(this, dataModel);
+  lgb.view.input.BaseViewGUI.call(this, dataModel);
 
 };
-goog.inherits(lgb.view.input.VisibilityGUI, lgb.view.BaseViewGUI);
+goog.inherits(lgb.view.input.VisibilityGUI, lgb.view.input.BaseViewGUI);
 
 
 /**

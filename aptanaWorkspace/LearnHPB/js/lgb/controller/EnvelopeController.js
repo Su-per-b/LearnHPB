@@ -8,9 +8,8 @@ goog.provide('lgb.controller.EnvelopeController');
 goog.require('lgb.controller.BaseController');
 
 goog.require('lgb.model.EnvelopeModel');
-goog.require('lgb.view.EnvelopeAdminView');
 goog.require('lgb.view.EnvelopeView');
-goog.require('lgb.view.EnvelopeGUI');
+goog.require('lgb.view.input.EnvelopeGUI');
 
 
 
@@ -32,7 +31,7 @@ lgb.controller.EnvelopeController.prototype.init_ = function() {
 
   this.dataModel = new lgb.model.EnvelopeModel();
   this.view = new lgb.view.EnvelopeView(this.dataModel);
-  this.guiView = new lgb.view.EnvelopeGUI(this.dataModel);
+  this.guiView = new lgb.view.input.EnvelopeGUI(this.dataModel);
   
   this.bind_();
   

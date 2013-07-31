@@ -3,7 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.model.TopMenuModel');
+goog.provide('lgb.model.input.TopMenuModel');
 
 goog.require('lgb.model.BaseModel');
 
@@ -12,7 +12,7 @@ goog.require('lgb.model.BaseModel');
  * @constructor
  * @extends lgb.model.BaseModel
  */
-lgb.model.TopMenuModel = function() {
+lgb.model.input.TopMenuModel = function() {
 
   this._TITLE = 'TopMenu';
   this.init_();
@@ -22,14 +22,14 @@ lgb.model.TopMenuModel = function() {
   this.viewTitleToGuiMap_ = {};
   
 };
-goog.inherits(lgb.model.TopMenuModel, lgb.model.BaseModel);
+goog.inherits(lgb.model.input.TopMenuModel, lgb.model.BaseModel);
 
 
 /**
  * Sets default properties.
  * @private
  */
-lgb.model.TopMenuModel.prototype.init_ = function() {
+lgb.model.input.TopMenuModel.prototype.init_ = function() {
 
   this.viewItems_ = [];
                    
@@ -54,7 +54,7 @@ lgb.model.TopMenuModel.prototype.init_ = function() {
 
 
 
-lgb.model.TopMenuModel.prototype.getGuiView = function(title) {
+lgb.model.input.TopMenuModel.prototype.getGuiView = function(title) {
   
     var guiView = this.viewTitleToGuiMap_[title];
     
@@ -62,7 +62,7 @@ lgb.model.TopMenuModel.prototype.getGuiView = function(title) {
     
 };
 
-lgb.model.TopMenuModel.prototype.toggleCheck = function(title) {
+lgb.model.input.TopMenuModel.prototype.toggleCheck = function(title) {
     
 
     
@@ -86,7 +86,7 @@ lgb.model.TopMenuModel.prototype.toggleCheck = function(title) {
 };
 
 
-lgb.model.TopMenuModel.prototype.add = function(guiView) {
+lgb.model.input.TopMenuModel.prototype.add = function(guiView) {
     
   var title = guiView.getTitle();
   

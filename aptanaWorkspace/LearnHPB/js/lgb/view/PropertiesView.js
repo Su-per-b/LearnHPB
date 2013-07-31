@@ -4,21 +4,21 @@
  */
  
 goog.provide('lgb.view.PropertiesView');
-goog.require('lgb.view.DialogView');
+goog.require('lgb.view.input.DialogView');
 goog.require('lgb.component.FaultWidget');
 goog.require('lgb.component.InputWidget');
 
 /**
  * @constructor
  * @param {lgb.model.scenario.Base} dataModel The data model to display.
- * @extends {lgb.view.DialogView}
+ * @extends {lgb.view.input.DialogView}
  */
 lgb.view.PropertiesView = function(dataModel) {
 
   
   this.layoutID = lgb.Config.LAYOUT_ID.PropertiesView;
    
-  lgb.view.DialogView.call(this, dataModel, 'propertiesView', lgb.Config.HUD_CONTAINER_STR);
+  lgb.view.input.DialogView.call(this, dataModel, 'propertiesView', lgb.Config.HUD_CONTAINER_STR);
   
   this.currentSelectionIdx = -1;
   this.title = 'Properties';
@@ -34,7 +34,7 @@ lgb.view.PropertiesView = function(dataModel) {
 
 
 };
-goog.inherits(lgb.view.PropertiesView, lgb.view.DialogView);
+goog.inherits(lgb.view.PropertiesView, lgb.view.input.DialogView);
 
 /**
  * Event handler triggered when the dataModel changes

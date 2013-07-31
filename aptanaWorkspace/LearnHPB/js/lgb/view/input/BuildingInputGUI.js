@@ -1,6 +1,6 @@
 goog.provide('lgb.view.input.BuildingInputGUI');
 
-goog.require('lgb.view.BaseViewGUI');
+goog.require('lgb.view.input.BaseViewGUI');
 goog.require('lgb.component.TabStrip');
 goog.require('lgb.component.TabStripDataSource');
 
@@ -8,7 +8,7 @@ lgb.view.input.BuildingInputGUI = function(dataModel) {
 
   this._TITLE = 'Building';
   
-  lgb.view.BaseViewGUI.call(this, dataModel);
+  lgb.view.input.BaseViewGUI.call(this, dataModel);
   
   this.tabTitleMap_ = {};
   
@@ -21,7 +21,7 @@ lgb.view.input.BuildingInputGUI = function(dataModel) {
   this.tabStrip1 = new lgb.component.TabStrip(this.dataSource);
 
 };
-goog.inherits(lgb.view.input.BuildingInputGUI, lgb.view.BaseViewGUI);
+goog.inherits(lgb.view.input.BuildingInputGUI, lgb.view.input.BaseViewGUI);
 
 
 

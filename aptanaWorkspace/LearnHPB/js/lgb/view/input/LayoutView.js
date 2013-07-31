@@ -3,36 +3,36 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
 
-goog.provide('lgb.view.LayoutView');
+goog.provide('lgb.view.input.LayoutView');
 
-goog.require('lgb.view.BaseViewGUI');
+goog.require('lgb.view.input.BaseViewGUI');
 goog.require('lgb.component.SplitPanel');
 goog.require('lgb.component.SplitPanelDataSource');
 goog.require('lgb.view.LayoutUtil');
 goog.require('lgb.Config');
-goog.require('lgb.model.LayoutModel');
+goog.require('lgb.model.input.LayoutModel');
 
 
 
 
 /**
  * @constructor
- * @extends {lgb.view.BaseViewGUI}
+ * @extends {lgb.view.input.BaseViewGUI}
  */
-lgb.view.LayoutView = function(dataModel) {
+lgb.view.input.LayoutView = function(dataModel) {
 
-  lgb.view.BaseViewGUI.call(this, dataModel, 'pageContainer', 'theBody');
+  lgb.view.input.BaseViewGUI.call(this, dataModel, 'pageContainer', 'theBody');
 
   this.parentMap = [];
   this.layoutUtils_ = [];
   
 };
-goog.inherits(lgb.view.LayoutView, lgb.view.BaseViewGUI);
+goog.inherits(lgb.view.input.LayoutView, lgb.view.input.BaseViewGUI);
 
 /**
  * @private
  */
-lgb.view.LayoutView.prototype.init = function() {
+lgb.view.input.LayoutView.prototype.init = function() {
 
   this.splitPanelDS_ = new lgb.component.SplitPanelDataSource();
   this.splitPanelDS_.splitLocation = 380;
@@ -44,7 +44,7 @@ lgb.view.LayoutView.prototype.init = function() {
 };
 
 
-lgb.view.LayoutView.prototype.bind_ = function(guiView) {
+lgb.view.input.LayoutView.prototype.bind_ = function(guiView) {
   
   this.listenTo(this.splitPanel_, e.Resize, this.onSplitter1Resize_);
   this.listenForChange_('add');
@@ -54,7 +54,7 @@ lgb.view.LayoutView.prototype.bind_ = function(guiView) {
 
 
 
-lgb.view.LayoutView.prototype.onChange_add_ = function(value) {
+lgb.view.input.LayoutView.prototype.onChange_add_ = function(value) {
   
   this.add(value);
 }
@@ -63,7 +63,7 @@ lgb.view.LayoutView.prototype.onChange_add_ = function(value) {
 
 
 
-lgb.view.LayoutView.prototype.toggleVisibility = function(guiView) {
+lgb.view.input.LayoutView.prototype.toggleVisibility = function(guiView) {
   
   guiView.toggleVisibility();
   
@@ -71,7 +71,7 @@ lgb.view.LayoutView.prototype.toggleVisibility = function(guiView) {
 
 
 
-lgb.view.LayoutView.prototype.toggleVisibility = function(guiView) {
+lgb.view.input.LayoutView.prototype.toggleVisibility = function(guiView) {
   
   guiView.isVisible_ = !guiView.isVisible_;
   var el = guiView.getMainElement();
@@ -85,7 +85,7 @@ lgb.view.LayoutView.prototype.toggleVisibility = function(guiView) {
 
 
 
-lgb.view.LayoutView.prototype.add = function(guiView) {
+lgb.view.input.LayoutView.prototype.add = function(guiView) {
   
   var parent;
   var LAYOUT_ID = lgb.Config.LAYOUT_ID;
@@ -154,11 +154,11 @@ lgb.view.LayoutView.prototype.add = function(guiView) {
 };
 
 
-lgb.view.LayoutView.prototype.onSplitter1Resize_ = function(event) {
+lgb.view.input.LayoutView.prototype.onSplitter1Resize_ = function(event) {
   this.triggerLocal(e.LayoutChange);
 };
 
-lgb.view.LayoutView.prototype.calculateLayout = function(windowDimensions) {
+lgb.view.input.LayoutView.prototype.calculateLayout = function(windowDimensions) {
   
  // if (null != windowDimensions) {
     
@@ -174,12 +174,12 @@ lgb.view.LayoutView.prototype.calculateLayout = function(windowDimensions) {
   this.each(this.layoutUtils_, this.calculateOneLayout);
 };
 
-lgb.view.LayoutView.prototype.calculateOneLayout = function(layoutUtil) {
+lgb.view.input.LayoutView.prototype.calculateOneLayout = function(layoutUtil) {
   layoutUtil.tweenToPosition();
 };
 
 
-lgb.view.LayoutView.prototype.inject = function() {
+lgb.view.input.LayoutView.prototype.inject = function() {
 
   goog.base(this,'inject');
 

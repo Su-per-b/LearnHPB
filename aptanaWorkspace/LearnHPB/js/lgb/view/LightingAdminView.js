@@ -13,22 +13,22 @@ goog.require('lgb.component.Link');
 goog.require('lgb.component.LinkDataSource');
 
 goog.require('lgb.model.LightingModel');
-goog.require('lgb.view.BaseViewGUI');
+goog.require('lgb.view.input.BaseViewGUI');
 
 /**
  * @constructor
  * @param {lgb.model.LightingModel} dataModel The data model to display.
  * @param {string} parentHtmlID the CSS id of the parent to inject into the DOM.
- * @extends {lgb.view.BaseViewGUI}
+ * @extends {lgb.view.input.BaseViewGUI}
  */
 lgb.view.LightingAdminView = function(dataModel, parentHtmlID) {
     
 
-  lgb.view.BaseViewGUI.call(this, dataModel, 'LightingAdminView', parentHtmlID);
+  lgb.view.input.BaseViewGUI.call(this, dataModel, 'LightingAdminView', parentHtmlID);
 
   this.init_();
 };
-goog.inherits(lgb.view.LightingAdminView, lgb.view.BaseViewGUI);
+goog.inherits(lgb.view.LightingAdminView, lgb.view.input.BaseViewGUI);
 
 
 /**

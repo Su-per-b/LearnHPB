@@ -5,7 +5,7 @@
  
 goog.provide('lgb.view.input.EnvelopeInputGUI');
 
-goog.require('lgb.view.BaseViewGUI');
+goog.require('lgb.view.input.BaseViewGUI');
 goog.require('lgb.Config');
 
 
@@ -13,16 +13,16 @@ goog.require('lgb.Config');
  * @constructor
  * @param {lgb.model.ViewPointModel} dataModel The data model to display.
  * @param {string} parentHtmlID the CSS id of the parent to inject into the DOM.
- * @extends {lgb.view.BaseViewGUI}
+ * @extends {lgb.view.input.BaseViewGUI}
  */
 lgb.view.input.EnvelopeInputGUI = function(dataModel) {
   
   this._TITLE = "Envelope";
   this.layoutID = lgb.Config.LAYOUT_ID.BaseGUI;
   
-  lgb.view.BaseViewGUI.call(this, dataModel, 'EnvelopeInputGUI');
+  lgb.view.input.BaseViewGUI.call(this, dataModel, 'EnvelopeInputGUI');
 };
-goog.inherits(lgb.view.input.EnvelopeInputGUI, lgb.view.BaseViewGUI);
+goog.inherits(lgb.view.input.EnvelopeInputGUI, lgb.view.input.BaseViewGUI);
 
 
 /**

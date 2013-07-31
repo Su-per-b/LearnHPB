@@ -6,7 +6,7 @@
 goog.provide('lgb.view.input.ViewPointGUI');
 
 goog.require('lgb.model.ViewPointModel');
-goog.require('lgb.view.BaseViewGUI');
+goog.require('lgb.view.input.BaseViewGUI');
 goog.require('lgb.Config');
 
 
@@ -14,16 +14,16 @@ goog.require('lgb.Config');
  * @constructor
  * @param {lgb.model.ViewPointModel} dataModel The data model to display.
  * @param {string} parentHtmlID the CSS id of the parent to inject into the DOM.
- * @extends {lgb.view.BaseViewGUI}
+ * @extends {lgb.view.input.BaseViewGUI}
  */
 lgb.view.input.ViewPointGUI = function(dataModel) {
   
   this._TITLE = "Viewpoints";
   this.layoutID = lgb.Config.LAYOUT_ID.ViewPoints;
   
-  lgb.view.BaseViewGUI.call(this, dataModel, 'ViewPointGUI');
+  lgb.view.input.BaseViewGUI.call(this, dataModel, 'ViewPointGUI');
 };
-goog.inherits(lgb.view.input.ViewPointGUI, lgb.view.BaseViewGUI);
+goog.inherits(lgb.view.input.ViewPointGUI, lgb.view.input.BaseViewGUI);
 
 
 /**

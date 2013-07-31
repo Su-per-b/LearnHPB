@@ -8,8 +8,8 @@ goog.provide('lgb.controller.LayoutController');
 goog.require('lgb.controller.BaseController');
 goog.require('goog.debug.Logger');
 goog.require('lgb.Config');
-goog.require('lgb.view.LayoutView');
-goog.require('lgb.model.LayoutModel');
+goog.require('lgb.view.input.LayoutView');
+goog.require('lgb.model.input.LayoutModel');
 
 
 /**
@@ -31,8 +31,8 @@ goog.inherits(lgb.controller.LayoutController, lgb.controller.BaseController);
  */
 lgb.controller.LayoutController.prototype.init = function() {
     
-    this.dataModel = new lgb.model.LayoutModel();
-    this.view  = new lgb.view.LayoutView(this.dataModel);
+    this.dataModel = new lgb.model.input.LayoutModel();
+    this.view  = new lgb.view.input.LayoutView(this.dataModel);
     this.bind_();
     this.view.init();
 };

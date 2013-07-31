@@ -3,37 +3,37 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.view.EnvelopeGUI');
+goog.provide('lgb.view.input.EnvelopeGUI');
 
 goog.require('lgb.model.LightingModel');
-goog.require('lgb.view.BaseViewGUI');
+goog.require('lgb.view.input.BaseViewGUI');
 
 
 /**
  * @constructor
  * @param {lgb.model.VisibilityModel} dataModel The data model to display.
  * @param {string} parentHtmlID the CSS id of the parent to inject into the DOM.
- * @extends {lgb.view.BaseViewGUI}
+ * @extends {lgb.view.input.BaseViewGUI}
  */
-lgb.view.EnvelopeGUI = function(dataModel) {
+lgb.view.input.EnvelopeGUI = function(dataModel) {
 
   this._TITLE = "Settings";
-  lgb.view.BaseViewGUI.call(this, dataModel);
+  lgb.view.input.BaseViewGUI.call(this, dataModel);
 
 };
-goog.inherits(lgb.view.EnvelopeGUI, lgb.view.BaseViewGUI);
+goog.inherits(lgb.view.input.EnvelopeGUI, lgb.view.input.BaseViewGUI);
 
 
 /**
  * Initializes the View
  */
-lgb.view.EnvelopeGUI.prototype.init = function() {
+lgb.view.input.EnvelopeGUI.prototype.init = function() {
 
   this.triggerLocal(e.RequestAddToTestingInput, this);
   //this.triggerLocal(e.RequestAddToParentGUI , this);
 };
 
-lgb.view.EnvelopeGUI.prototype.bind_ = function() {
+lgb.view.input.EnvelopeGUI.prototype.bind_ = function() {
   
   this.kendoListBoxFloorHeight_.bind('select', this.d(this.onFloorHeightSelect_));
   this.kendoListFloorCount_.bind('select', this.d(this.onFloorCountSelect_));
@@ -41,7 +41,7 @@ lgb.view.EnvelopeGUI.prototype.bind_ = function() {
 };
 
 
-lgb.view.EnvelopeGUI.prototype.onFloorCountSelect_ = function(event) {
+lgb.view.input.EnvelopeGUI.prototype.onFloorCountSelect_ = function(event) {
   
   var idx = event.item.index();
   var dataItem = this.kendoListFloorCount_.dataItem(idx);
@@ -55,7 +55,7 @@ lgb.view.EnvelopeGUI.prototype.onFloorCountSelect_ = function(event) {
 };
 
 
-lgb.view.EnvelopeGUI.prototype.onFloorHeightSelect_ = function(event) {
+lgb.view.input.EnvelopeGUI.prototype.onFloorHeightSelect_ = function(event) {
   
   var idx = event.item.index();
   var dataItem = this.kendoListBoxFloorHeight_.dataItem(idx);
@@ -69,7 +69,7 @@ lgb.view.EnvelopeGUI.prototype.onFloorHeightSelect_ = function(event) {
 
 
 
-lgb.view.EnvelopeGUI.prototype.inject = function(parentElement) {
+lgb.view.input.EnvelopeGUI.prototype.inject = function(parentElement) {
   
   goog.base(this,  'inject', parentElement);
   

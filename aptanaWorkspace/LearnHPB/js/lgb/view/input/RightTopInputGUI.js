@@ -5,7 +5,7 @@
  
 goog.provide('lgb.view.input.RightTopInputGUI');
 
-goog.require('lgb.view.BaseViewGUI');
+goog.require('lgb.view.input.BaseViewGUI');
 goog.require('lgb.Config');
 goog.require('lgb.component.TabStripDataSource');
 goog.require('lgb.component.TabStrip');
@@ -15,16 +15,16 @@ goog.require('lgb.component.TabStrip');
  * @constructor
  * @param {lgb.model.ViewPointModel} dataModel The data model to display.
  * @param {string} parentHtmlID the CSS id of the parent to inject into the DOM.
- * @extends {lgb.view.BaseViewGUI}
+ * @extends {lgb.view.input.BaseViewGUI}
  */
 lgb.view.input.RightTopInputGUI = function(dataModel) {
   
   this._TITLE = "RightTop";
   this.layoutID = lgb.Config.LAYOUT_ID.RightTopInputGUI;
   
-  lgb.view.BaseViewGUI.call(this, dataModel, 'RightTopInputGUI');
+  lgb.view.input.BaseViewGUI.call(this, dataModel, 'RightTopInputGUI');
 };
-goog.inherits(lgb.view.input.RightTopInputGUI, lgb.view.BaseViewGUI);
+goog.inherits(lgb.view.input.RightTopInputGUI, lgb.view.input.BaseViewGUI);
 
 
 /**

@@ -4,21 +4,21 @@
  */
  
 goog.provide('lgb.view.SimulationButtonView');
-goog.require('lgb.view.BaseViewGUI');
+goog.require('lgb.view.input.BaseViewGUI');
 goog.require('lgb.component.ToggleButtonA');
 
 /**
  * @constructor
- * @extends {lgb.view.BaseViewGUI}
+ * @extends {lgb.view.input.BaseViewGUI}
  */
 lgb.view.SimulationButtonView = function() {
     
   this._TITLE = "SimulationButton";
-  lgb.view.BaseViewGUI.call(this, null, 'simulationButton', lgb.Config.HUD_CONTAINER_STR);
+  lgb.view.input.BaseViewGUI.call(this, null, 'simulationButton', lgb.Config.HUD_CONTAINER_STR);
   this.layoutID = lgb.Config.LAYOUT_ID.SimulationButton;
 
 };
-goog.inherits(lgb.view.SimulationButtonView, lgb.view.BaseViewGUI);
+goog.inherits(lgb.view.SimulationButtonView, lgb.view.input.BaseViewGUI);
 
 /**
  * Initializes the view.

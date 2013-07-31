@@ -6,22 +6,22 @@
 goog.provide('lgb.view.input.TestLightingGUI');
 
 goog.require('lgb.model.LightingModel');
-goog.require('lgb.view.BaseViewGUI');
+goog.require('lgb.view.input.BaseViewGUI');
 
 
 /**
  * @constructor
  * @param {lgb.model.VisibilityModel} dataModel The data model to display.
  * @param {string} parentHtmlID the CSS id of the parent to inject into the DOM.
- * @extends {lgb.view.BaseViewGUI}
+ * @extends {lgb.view.input.BaseViewGUI}
  */
 lgb.view.input.TestLightingGUI = function(dataModel) {
 
   this._TITLE = "Settings";
-  lgb.view.BaseViewGUI.call(this, dataModel);
+  lgb.view.input.BaseViewGUI.call(this, dataModel);
 
 };
-goog.inherits(lgb.view.input.TestLightingGUI, lgb.view.BaseViewGUI);
+goog.inherits(lgb.view.input.TestLightingGUI, lgb.view.input.BaseViewGUI);
 
 
 /**

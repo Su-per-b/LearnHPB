@@ -4,13 +4,13 @@
  */
  
 goog.provide('lgb.view.TitleBarView');
-goog.require('lgb.view.BaseViewGUI');
+goog.require('lgb.view.input.BaseViewGUI');
 goog.require('lgb.Config');
 
 
 /**
  * @constructor
- * @extends {lgb.view.BaseViewGUI}
+ * @extends {lgb.view.input.BaseViewGUI}
  */
 lgb.view.TitleBarView = function() {
     
@@ -19,14 +19,14 @@ lgb.view.TitleBarView = function() {
   
   this.layoutID = lgb.Config.LAYOUT_ID.TitleBar;
   
-  lgb.view.BaseViewGUI.call(this);
+  lgb.view.input.BaseViewGUI.call(this);
   
   
   
   this.init_();
 
 };
-goog.inherits(lgb.view.TitleBarView, lgb.view.BaseViewGUI);
+goog.inherits(lgb.view.TitleBarView, lgb.view.input.BaseViewGUI);
 
 
 

@@ -10,24 +10,24 @@ goog.require('lgb.component.RadioButtonGroup');
 
 
 
-goog.require('lgb.view.BaseViewGUI');
+goog.require('lgb.view.input.BaseViewGUI');
 
 
 /**
  * @constructor
- * @extends {lgb.view.BaseViewGUI}
+ * @extends {lgb.view.input.BaseViewGUI}
  * @param {lgb.model.EnvelopeModel} dataModel the model to display.
  * @param {string} parentHtmlID The CSS id of the DOM parent.
  */
 lgb.view.EnvelopeAdminView = function(dataModel, parentHtmlID) {
     
 
-  lgb.view.BaseViewGUI.call(this, dataModel, 'envelopeAdminView', parentHtmlID);
+  lgb.view.input.BaseViewGUI.call(this, dataModel, 'envelopeAdminView', parentHtmlID);
 
   this.init_();
 
 };
-goog.inherits(lgb.view.EnvelopeAdminView, lgb.view.BaseViewGUI);
+goog.inherits(lgb.view.EnvelopeAdminView, lgb.view.input.BaseViewGUI);
 
 
 /**

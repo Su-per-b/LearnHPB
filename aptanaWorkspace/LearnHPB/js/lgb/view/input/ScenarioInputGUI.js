@@ -1,6 +1,6 @@
 goog.provide('lgb.view.input.ScenarioInputGUI');
 
-goog.require('lgb.view.BaseViewGUI');
+goog.require('lgb.view.input.BaseViewGUI');
 goog.require('lgb.component.TabStrip');
 goog.require('lgb.component.TabStripDataSource');
 
@@ -8,10 +8,10 @@ lgb.view.input.ScenarioInputGUI = function(dataModel) {
 
   this._TITLE = 'Scenario';
   
-  lgb.view.BaseViewGUI.call(this, dataModel);
+  lgb.view.input.BaseViewGUI.call(this, dataModel);
   
 };
-goog.inherits(lgb.view.input.ScenarioInputGUI, lgb.view.BaseViewGUI);
+goog.inherits(lgb.view.input.ScenarioInputGUI, lgb.view.input.BaseViewGUI);
 
 
 /**

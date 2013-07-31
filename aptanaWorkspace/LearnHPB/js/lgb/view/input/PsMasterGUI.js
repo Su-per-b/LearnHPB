@@ -3,14 +3,11 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
 
-goog.provide('lgb.view.PsMasterGUI');
+goog.provide('lgb.view.input.PsMasterGUI');
 
-goog.require('lgb.view.BaseViewGUI');
+goog.require('lgb.view.input.BaseViewGUI');
 goog.require('lgb.model.BuildingHeightModel');
 goog.require('lgb.model.PsModelMaster');
-
-
-
 
 goog.require('lgb.component.Tree');
 goog.require('lgb.component.TreeDataSource');
@@ -19,22 +16,22 @@ goog.require('lgb.Config');
 
 /**
  * @constructor
- * @extends {lgb.view.BaseViewGUI}
+ * @extends {lgb.view.input.BaseViewGUI}
  * @param {lgb.model.LightingModel} dataModel The model to display.
  */
-lgb.view.PsMasterGUI = function(dataModel) {
+lgb.view.input.PsMasterGUI = function(dataModel) {
 
   this._TITLE = 'Airflow';
   this.layoutID = lgb.Config.LAYOUT_ID.Airflow;
   
-  lgb.view.BaseViewGUI.call(this, dataModel, 'PsMasterGUI');
+  lgb.view.input.BaseViewGUI.call(this, dataModel, 'PsMasterGUI');
 };
-goog.inherits(lgb.view.PsMasterGUI, lgb.view.BaseViewGUI);
+goog.inherits(lgb.view.input.PsMasterGUI, lgb.view.input.BaseViewGUI);
 
 /**
  * Initializes the View
  */
-lgb.view.PsMasterGUI.prototype.init = function() {
+lgb.view.input.PsMasterGUI.prototype.init = function() {
   
   
     var list = this.dataModel.getPsModelList();
@@ -66,7 +63,7 @@ lgb.view.PsMasterGUI.prototype.init = function() {
  * event bus.
  * @private
  */
-lgb.view.PsMasterGUI.prototype.bind_ = function() {
+lgb.view.input.PsMasterGUI.prototype.bind_ = function() {
 
 
   this.listenTo(this.treeActiveDS,
@@ -84,7 +81,7 @@ lgb.view.PsMasterGUI.prototype.bind_ = function() {
 };
 
 
-lgb.view.PsMasterGUI.prototype.onDataModelChanged_ = function(event) {
+lgb.view.input.PsMasterGUI.prototype.onDataModelChanged_ = function(event) {
 
     this.triggerLocal(e.RequestDataModelChange, event.payload);
 };
@@ -94,7 +91,7 @@ lgb.view.PsMasterGUI.prototype.onDataModelChanged_ = function(event) {
 /**
  * injects the html into the DOM
  */
-lgb.view.PsMasterGUI.prototype.injectHtml = function() {
+lgb.view.input.PsMasterGUI.prototype.injectHtml = function() {
 
 
   this.treeActive = new lgb.component.Tree(this.treeActiveDS);
