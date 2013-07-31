@@ -35,7 +35,7 @@ goog.inherits(lgb.view.LayoutView, lgb.view.BaseViewGUI);
 lgb.view.LayoutView.prototype.init = function() {
 
   this.splitPanelDS_ = new lgb.component.SplitPanelDataSource();
-  this.splitPanelDS_.splitLocation = 250;
+  this.splitPanelDS_.splitLocation = 380;
   
   this.splitPanel_ = new lgb.component.SplitPanel(this.splitPanelDS_);
   
@@ -158,7 +158,19 @@ lgb.view.LayoutView.prototype.onSplitter1Resize_ = function(event) {
   this.triggerLocal(e.LayoutChange);
 };
 
-lgb.view.LayoutView.prototype.calculateLayout = function(event) {
+lgb.view.LayoutView.prototype.calculateLayout = function(windowDimensions) {
+  
+ // if (null != windowDimensions) {
+    
+    // var heightCss = "{0}px".format(window.innerHeight-100);
+//     
+    // this.leftPanel_.css({
+      // height : heightCss,
+      // background:"#ff0000"
+    // });
+    
+  //}
+  
   this.each(this.layoutUtils_, this.calculateOneLayout);
 };
 
@@ -196,6 +208,8 @@ lgb.view.LayoutView.prototype.inject = function() {
   this.parentMap[ID.SimulationView] = this.getMainElement();
   this.parentMap[ID.RightTopInputGUI] = this.rightPanelTop_;
 
+
+
   this.webGLcanvas_.css({
     width : "100%",
     height : "95%"
@@ -208,11 +222,10 @@ lgb.view.LayoutView.prototype.inject = function() {
     background:"#fafafa"
   });
   
-  
-  
-  
 
   
+  
+ 
 };
 
 

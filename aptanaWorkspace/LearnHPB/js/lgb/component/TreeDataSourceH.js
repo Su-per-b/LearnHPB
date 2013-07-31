@@ -14,8 +14,7 @@ goog.require('lgb.component.BaseDataSource');
 
 
 lgb.component.TreeDataSourceH = function(lgbNode, propertyName, parentHtmlID, subID, title) {
-  
-  //this.rootNode = rootNode;
+
   
   if(title) {
     this.title_ = title;
@@ -41,16 +40,28 @@ lgb.component.TreeDataSourceH = function(lgbNode, propertyName, parentHtmlID, su
   this.selectedKNode = null;
   this.showKNode = null;
   this.hideKNode = null;
+  
+  
+  this.options =  (
+    {
+      events : {mouseOver:false}
+    }
+  );
 
 };
 goog.inherits(lgb.component.TreeDataSourceH, lgb.component.BaseDataSource);
 
 
-lgb.component.TreeDataSourceH.prototype.select = function(uid) {
+lgb.component.TreeDataSourceH.prototype.setOptions = function(options) {
 
+  this.options = options;
+
+};
+
+
+lgb.component.TreeDataSourceH.prototype.select = function(uid) {
     var knode = this.kendoDS.getByUid(uid);
     this.changeProperty('selectedKNode', knode);
-    
 };
 
 lgb.component.TreeDataSourceH.prototype.setFocus = function(uid) {

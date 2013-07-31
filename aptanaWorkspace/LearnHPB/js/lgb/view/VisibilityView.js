@@ -23,14 +23,3 @@ lgb.view.VisibilityView = function(dataModel) {
 goog.inherits(lgb.view.VisibilityView, lgb.view.BaseV);
 
 
-/**
- * Initializes the View
- */
-lgb.view.VisibilityView.prototype.init = function() {
-
-
-  
-  return;
-};
-
-

@@ -476,6 +476,40 @@
         "OuterOfficeGroup"
       ]
     },
+    
+    "ConcreteBlock":{
+      "geometry":"geo_ConcreteBlock",
+      "position":[
+        0,
+        2.0,
+        -2
+      ],
+      "rotation":[
+        0,
+        0,
+        0
+      ],
+      "groups":[
+        "ConfTableGroup"
+      ]
+    },
+    "BrickVeneer":{
+      "geometry":"geo_BrickVeneer",
+      "position":[
+        0,
+        2.0,
+        -2
+      ],
+      "rotation":[
+        0,
+        0,
+        0
+      ],
+      "groups":[
+        "ConfTableGroup"
+      ]
+    },
+    
     "ConfTable":{
       "geometry":"geo_ConfTable",
       "position":[
@@ -897,6 +931,14 @@
     "geo_DualDesk":{
       "type":"binary",
       "url":"DualDesk.obj.json"
+    },
+    "geo_ConcreteBlock":{
+      "type":"binary",
+      "url":"ConcreteBlock.obj.json"
+    },
+    "geo_BrickVeneer":{
+      "type":"binary",
+      "url":"BrickVeneer.obj.json"
     },
     "geo_ConfTable":{
       "type":"binary",

@@ -49,7 +49,7 @@ lgb.view.input.LightingInputGUI.prototype.inject = function(parentElement) {
   goog.base(this,  'inject', parentElement);
   
   var el = this.getMainElement();
-  var titleDiv = el.append('<h5>Lighting</h5>');
+  var titleDiv = el.append('<h3>Lighting</h3>');
   
   el.append('<h4>General</h4>');
   

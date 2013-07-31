@@ -1,16 +1,27 @@
 {
 
-
+    "metadata" :
+    {
+        "formatVersion" : 3.1,
+        "sourceFile"    : "DualDesk.obj",
+        "generatedBy"   : "OBJConverter",
+        "vertices"      : 1387,
+        "faces"         : 499,
+        "normals"       : 0,
+        "uvs"           : 0,
+        "materials"     : 1
+    },
 
     "materials": [	{
 	"DbgColor" : 15658734,
 	"DbgIndex" : 0,
-	"DbgName" : "Default",
-	"colorAmbient" : [0.784314, 0.784314, 0.784314],
-	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"DbgName" : "Default_1.001",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [0.627451, 0.627451, 0.627451],
 	"colorSpecular" : [0.5, 0.5, 0.5],
+	"illumination" : 2,
 	"opticalDensity" : 1.0,
-	"specularCoef" : 400.0,
+	"specularCoef" : 96.078431,
 	"transparency" : 1.0
 	}],
 

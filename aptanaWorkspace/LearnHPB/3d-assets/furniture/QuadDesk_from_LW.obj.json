@@ -1,16 +1,6 @@
 {
 
-    "metadata" :
-    {
-        "formatVersion" : 3.1,
-        "sourceFile"    : "QuadDesk_from_LW.obj",
-        "generatedBy"   : "OBJConverter",
-        "vertices"      : 2994,
-        "faces"         : 1714,
-        "normals"       : 6268,
-        "uvs"           : 3676,
-        "materials"     : 5
-    },
+
 
     "materials": [	{
 	"DbgColor" : 15658734,

@@ -40,7 +40,6 @@ lgb.controller.input.HvacInputController.prototype.bind_ = function() {
   this.relayLocal(
     this.guiView,
     e.RequestAddToParentGUI);
-
+    
 };
-
 

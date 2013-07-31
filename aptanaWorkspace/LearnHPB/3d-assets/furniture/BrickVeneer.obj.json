@@ -1,0 +1,29 @@
+{
+
+    "metadata" :
+    {
+        "formatVersion" : 3.1,
+        "sourceFile"    : "BrickVeneer.obj",
+        "generatedBy"   : "OBJConverter",
+        "vertices"      : 40,
+        "faces"         : 38,
+        "normals"       : 152,
+        "uvs"           : 0,
+        "materials"     : 1
+    },
+
+    "materials": [	{
+	"DbgColor" : 15658734,
+	"DbgIndex" : 0,
+	"DbgName" : "Brick",
+	"colorAmbient" : [0.363311, 0.0765428, 0.0860775],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	}],
+
+    "buffers": "BrickVeneer.obj.bin"
+
+}

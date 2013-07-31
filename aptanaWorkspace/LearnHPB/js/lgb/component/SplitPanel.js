@@ -72,22 +72,37 @@ lgb.component.SplitPanel.prototype.inject = function(parentElement) {
   this.panes_.push(this.leftPane_);
   this.panes_.push(this.rightPane_);
   
-
   this.splitterBarContainer_ = this.makeDiv();
   
   this.splitterBarContainer_.css({
     width : "100%",
-    height : "100%"
+    height : "100%",
+    overflow:"hidden"
   });
   
-  this.rightPane_.css({
-    width : "100%",
-    height : "100%"
-  });
+//   
+  // this.rightPane_.css({
+    // width : "100%",
+    // height : "100%"
+  // });
+//   
+  // this.leftPane_.css({
+    // overflow : "visible",
+    // height : "auto"
+  // });
+  
   
   this.leftPane_.css({
-    overflow : "hidden"
+    position : "fixed !important",
+    position : "absolute",
+    top : "0",
+    right : "0",
+    bottom : "0",
+    left : "0",
+    "overflow-y":"scroll",
+    "overflow-x":"hidden",
   });
+  
   
   this.splitterBarContainer_.append(this.leftPane_).append(this.rightPane_);
   this.setMainElement(this.splitterBarContainer_);

@@ -50,7 +50,7 @@ lgb.view.input.BuildingGeneralInputGUI.prototype.inject = function(parentElement
   goog.base(this,  'inject', parentElement);
   
   var el = this.getMainElement();
-  var titleDiv = el.append('<h4>General Building Stuff</h4>');
+  var titleDiv = el.append('<h3>General Building Stuff</h3>');
   
 };
 

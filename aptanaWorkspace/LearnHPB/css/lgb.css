@@ -1,18 +1,17 @@
 body {
 
-	color:#303030;
-	font-family:  Verdana, Lucida Console,  Geneva, Arial, Helvetica, sans-serif;
-	font-size:11px;
-	font-weight:500;
-	margin:0;
-	padding:0;
-	background-color: #B2CCFF;
-	overflow:hidden;
+  color:#303030;
+  font-family:  Verdana, "Lucida Console",  Geneva, Arial, Helvetica, sans-serif;
+  font-size:11px;
+  font-weight:500;
+  margin:0;
+  padding:0;
+  background-color: #B2CCFF;
+  overflow:hidden;
 }
 
 
 h1, h2, h4 {
-	font-family: Verdana, Lucida Console, Verdana, Geneva, Arial, Helvetica, sans-serif;
 	font-weight:bold;
 }
 
@@ -20,13 +19,29 @@ h3 {
 	font-size:14pt;
 	height:26px;
 	margin:1px 0 12px 0;
-	padding:7px 0 0 0;
+	padding:5px 0 0 7px;
 	text-align:center;
 	font-weight:normal;
 	border-width:1px 1px 1px 1px;
-	border-color:#b9da92;
+	border-color:#b9b9b9;
 	border-style:solid;
 }
+
+
+h4 {
+  font-size:11pt;
+  margin:3px 0 6px 0;
+  padding:0px;
+  font-weight:700;
+}
+
+h5 {
+  font-size:11pt;
+  margin:9px 0 6px 0;
+  font-weight:normal;
+}
+
+
 
 a {
 	color:#505050;
@@ -38,24 +53,6 @@ p {
 	margin:0 0 15px;
 }
 
-h3 {
-	font-size:14pt;
-	height:26px;
-	margin:1px 0 12px 0;
-	padding:7px 0 0 0;
-	text-align:center;
-	font-weight:normal;
-	border-width:1px 1px 1px 1px;
-	border-color:#b9da92;
-	border-style:solid;
-}
-
-h5 {
-	font-size:12pt;
-	margin:3px 0 6px 0;
-	padding:0px;
-	font-weight:normal;
-}
 
 
 
@@ -174,7 +171,8 @@ img {
 	padding:8px 3px 8px 3px;
 }
 
-label { cursor: hand; cursor: pointer;}
+
+
 
 .radioButtonGroup {
 	margin-bottom:10px;
@@ -255,7 +253,6 @@ a.admin-link:hover {
 
 .k-sprite {
   display: inline-block;
-  overflow: hidden;
   background-repeat: no-repeat;
   font-size: 0;
   line-height: 0;
@@ -337,6 +334,7 @@ li.k-item.k-state-default {
   position: absolute;
   width:100%;
   height:100%;
+  overflow:"hidden"
 }
 
 
@@ -365,4 +363,7 @@ li.k-item.k-state-default {
     margin:0 0 0 178px;
   
 }
-}
+
+
+
+

@@ -69,7 +69,7 @@ lgb.controller.LayoutController.prototype.onRequestLayoutVisibilityChange_ = fun
  * @param {goog.events.Event} event The Event.
  */
 lgb.controller.LayoutController.prototype.onWindowResize_ = function(event) {
-    this.view.calculateLayout();
+    this.view.calculateLayout(event.payload);
 };
 
 lgb.controller.LayoutController.prototype.onLayoutChange_ = function(event) {

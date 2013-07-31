@@ -40,12 +40,11 @@ lgb.controller.VisibilityController.prototype.init = function() {
   this.dataModel = new lgb.model.VisibilityModel();
   
   this.guiView = new lgb.view.input.VisibilityGUI ( this.dataModel );
-  this.view = new lgb.view.VisibilityView ( this.dataModel );
+  //this.view = new lgb.view.VisibilityView ( this.dataModel );
   
   this.bind_();
-  
   this.guiView.init();
-  //this.view.init();
+
 };
 
 

@@ -49,7 +49,7 @@ lgb.view.input.EnvelopeInputGUI.prototype.inject = function(parentElement) {
   goog.base(this,  'inject', parentElement);
   
   var el = this.getMainElement();
-  var titleDiv = el.append('<h4>Envelope Stuff</h4>');
+  var titleDiv = el.append('<h3>Envelope Stuff</h3>');
   
 };
 

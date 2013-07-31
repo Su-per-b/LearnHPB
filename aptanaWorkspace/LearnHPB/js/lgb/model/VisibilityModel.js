@@ -39,15 +39,24 @@ lgb.model.VisibilityModel.prototype.addNode = function(visibilityNode) {
 
 
 lgb.model.VisibilityModel.prototype.changeAry = function(changeRequestAry) {
-
-  var changeRequest = changeRequestAry[0];
-  var propertyName = changeRequestAry.propertyName;
-
-  var node = lgb.model.vo.VisibilityNode.getNodeByIdx(changeRequest.idx);
   
+    var propertyName = changeRequestAry.propertyName;
+    
+  if ("isVisible" == propertyName) {
+    
+    var changeRequest = changeRequestAry[0];
+    var node = lgb.model.vo.VisibilityNode.getNodeByIdx(changeRequest.idx);
+         
+     if (node) {
+       node.setVisible(changeRequest.newValue);
+     } else {
+       debugger;
+     }
+  } else {
+    debugger;
+  }
   
-   if (node) {
-     node.setVisible(changeRequest.newValue);
-   }
+
+
 
 }
