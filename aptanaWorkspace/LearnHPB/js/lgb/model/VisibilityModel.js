@@ -19,11 +19,7 @@ goog.inherits(lgb.model.VisibilityModel, lgb.model.BaseModel);
 
 
 lgb.model.VisibilityModel.prototype.init_ = function() {
- 
-  
   this.nodeList_= [];
-  
-  return;
 };
  
  
@@ -32,8 +28,6 @@ lgb.model.VisibilityModel.prototype.addNode = function(visibilityNode) {
  
   this.nodeList_.push(visibilityNode);
   this.dispatchChange(visibilityNode);
-  
-  return;
 };
  
 
@@ -55,8 +49,5 @@ lgb.model.VisibilityModel.prototype.changeAry = function(changeRequestAry) {
   } else {
     debugger;
   }
-  
 
-
-
-}
+};

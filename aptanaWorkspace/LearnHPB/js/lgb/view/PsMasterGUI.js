@@ -70,21 +70,21 @@ lgb.view.PsMasterGUI.prototype.bind_ = function() {
 
 
   this.listenTo(this.treeActiveDS,
-    e.DataSourceChanged,
-    this.onChangeDataSource_);  
+    e.DataModelChanged,
+    this.onDataModelChanged_);  
     
   this.listenTo(this.treeBoxesDS,
-    e.DataSourceChanged,
-    this.onChangeDataSource_);
+    e.DataModelChanged,
+    this.onDataModelChanged_);
     
   this.listenTo(this.treeCurvesDS,
-    e.DataSourceChanged,
-    this.onChangeDataSource_);
+    e.DataModelChanged,
+    this.onDataModelChanged_);
     
 };
 
 
-lgb.view.PsMasterGUI.prototype.onChangeDataSource_ = function(event) {
+lgb.view.PsMasterGUI.prototype.onDataModelChanged_ = function(event) {
 
     this.triggerLocal(e.RequestDataModelChange, event.payload);
 };

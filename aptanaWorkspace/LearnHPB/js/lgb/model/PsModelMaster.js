@@ -61,12 +61,18 @@ lgb.model.PsModelMaster.prototype.changeAry = function(changeRequestAry) {
   var changeRequest = changeRequestAry[0];
   var propertyName = changeRequestAry.propertyName;
   
-  if (changeRequest.idx in this.psModelList) {
-     var psModel = this.psModelList[changeRequest.idx];
-     psModel.changeProperty(propertyName, changeRequest.isChecked);
-  }
   
-  return;
+ // if ("isStarted" == propertyName) {
+      
+    if (changeRequest.idx in this.psModelList) {
+       var psModel = this.psModelList[changeRequest.idx];
+       psModel.changeProperty(propertyName, changeRequest.isChecked);
+    }
+ // } else {
+  //  debugger;
+  //}
+  
+
 }
 
 
