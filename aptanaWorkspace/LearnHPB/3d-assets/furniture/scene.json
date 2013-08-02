@@ -230,7 +230,8 @@
         0,
         0,
         0
-      ]
+      ],
+      "viewpoint":"officeGroup"
     },
     "122":{
       "type":"group",
@@ -244,7 +245,8 @@
         0,
         0,
         0
-      ]
+      ],
+      "viewpoint":"officeGroup"
     },
     "123":{
       "type":"group",
@@ -258,7 +260,8 @@
         0,
         0,
         0
-      ]
+      ],
+      "viewpoint":"officeGroup"
     },
     "120":{
       "type":"group",
@@ -272,7 +275,8 @@
         0,
         0,
         0
-      ]
+      ],
+      "viewpoint":"officeGroup"
     },
     "129":{
       "type":"group",
@@ -314,7 +318,8 @@
         0,
         0,
         0
-      ]
+      ],
+      "viewpoint":"officeGroup"
     },
     "119":{
       "type":"group",
@@ -328,7 +333,8 @@
         0,
         0,
         0
-      ]
+      ],
+      "viewpoint":"officeGroup"
     },
     "125":{
       "type":"group",
@@ -342,7 +348,8 @@
         0,
         0,
         0
-      ]
+      ],
+      "viewpoint":"officeGroup"
     },
     "118":{
       "type":"group",
@@ -356,7 +363,8 @@
         0,
         0,
         0
-      ]
+      ],
+      "viewpoint":"officeGroup"
     },
     "128":{
       "type":"group",
@@ -398,7 +406,8 @@
         0,
         0,
         0
-      ]
+      ],
+      "viewpoint":"officeGroup"
     },
     "117":{
       "type":"group",
@@ -412,7 +421,8 @@
         0,
         0,
         0
-      ]
+      ],
+      "viewpoint":"officeGroup"
     },
     "116":{
       "type":"group",
@@ -426,7 +436,8 @@
         0,
         0,
         0
-      ]
+      ],
+      "viewpoint":"officeGroup"
     },
     "115":{
       "type":"group",
@@ -440,7 +451,8 @@
         0,
         0,
         0
-      ]
+      ],
+      "viewpoint":"officeGroup"
     },
     "C100SE":{
       "type":"group",
@@ -682,6 +694,7 @@
         -1.570758,
         0
       ],
+      "viewpoint": "officeChair1",
       "groups":[
         "DualOfficeGroup"
       ]
@@ -698,6 +711,7 @@
         1.570758,
         0
       ],
+      "viewpoint": "officeChair2",
       "groups":[
         "DualOfficeGroup"
       ]
@@ -714,6 +728,7 @@
         0,
         0
       ],
+      "viewpoint": "officeGroup",
       "groups":[
         "QuadOfficeGroup"
       ]
@@ -730,6 +745,7 @@
         -1.570758,
         0
       ],
+      "viewpoint": "officeChair1",
       "groups":[
         "QuadOfficeGroup"
       ]
@@ -746,6 +762,7 @@
         -1.570758,
         0
       ],
+      "viewpoint": "officeChair2",
       "groups":[
         "QuadOfficeGroup"
       ]
@@ -762,6 +779,7 @@
         1.570758,
         0
       ],
+      "viewpoint": "officeChair3",
       "groups":[
         "QuadOfficeGroup"
       ]
@@ -778,6 +796,7 @@
         1.570758,
         0
       ],
+      "viewpoint": "officeChair4",
       "groups":[
         "QuadOfficeGroup"
       ]
@@ -794,6 +813,7 @@
         0,
         0
       ],
+      "viewpoint": "officeComputer1",
       "groups":[
         "QuadOfficeGroup"
       ]
@@ -810,6 +830,7 @@
         3.1416,
         0
       ],
+      "viewpoint": "officeComputer2",
       "groups":[
         "QuadOfficeGroup"
       ]
@@ -826,6 +847,7 @@
         0,
         0
       ],
+      "viewpoint": "officeComputer3",
       "groups":[
         "QuadOfficeGroup"
       ]
@@ -842,6 +864,7 @@
         3.1416,
         0
       ],
+      "viewpoint": "officeComputer4",
       "groups":[
         "QuadOfficeGroup"
       ]
@@ -858,6 +881,7 @@
         0.179768913,
         0
       ],
+      "viewpoint": "officeTaskLight1",
       "groups":[
         "QuadOfficeGroup"
       ]
@@ -874,6 +898,7 @@
         1.78547182,
         0
       ],
+      "viewpoint": "officeTaskLight2",
       "groups":[
         "QuadOfficeGroup"
       ]
@@ -890,6 +915,7 @@
         4.96022573,
         0
       ],
+      "viewpoint": "officeTaskLight3",
       "groups":[
         "QuadOfficeGroup"
       ]
@@ -906,6 +932,7 @@
         3.55349036,
         0
       ],
+      "viewpoint": "officeTaskLight4",
       "groups":[
         "QuadOfficeGroup"
       ]

@@ -51,7 +51,7 @@ lgb.model.ViewPointModel.prototype.getViewPoint = function(kNode) {
     
     
     
-    var cam = viewPointNode.generateCamera();
+    viewPointNode.generateCamera();
     
     return viewPointNode;
 

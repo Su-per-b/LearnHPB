@@ -70,7 +70,7 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
   var urlBase = THREE.Loader.prototype.extractUrlBase(url);
 
   var dg, dm, dl, dc, df, dt, g, m, l, d, p, r, q, s, c, t, f, tt, pp, u, geometry, material, camera, fog, texture, images, light, counter_models, counter_textures, total_models, total_textures, result;
-
+  var vp; //viewpoint
   var data = json;
 
 
@@ -102,6 +102,8 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
     groups : {},
     appData : {},
     containers : null
+    
+    
   };
 
   if (data.transform) {
@@ -198,6 +200,7 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
             r = (o.rotation === undefined ) ? [0, 0, 0] : o.rotation;
             q = (o.quaternion === undefined ) ? [1, 0, 0, 0] : o.quaternion;
             s = (o.scale === undefined ) ? [1, 1, 1] : o.scale;
+            vp = (o.viewpoint === undefined ) ? "default" : o.viewpoint;
 
             m = o.matrix;
 
@@ -244,7 +247,13 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
             }
 
             object.name = dd;
-
+            object.viewpoint = vp;
+            
+            
+            if (dd == "Chiller") {
+              //debugger; 
+            }
+            
             if (m) {
 
               object.matrixAutoUpdate = false;
@@ -302,7 +311,7 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
           r = (o.rotation === undefined ) ? [0, 0, 0] : o.rotation;
           q = (o.quaternion === undefined ) ? [1, 0, 0, 0] : o.quaternion;
           s = (o.scale === undefined ) ? [1, 1, 1] : o.scale;
-
+          vp = (o.viewpoint === undefined ) ? "default" : o.viewpoint;
           // turn off quaternions, for the moment
 
           q = 0;
@@ -310,6 +319,8 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
           object = new THREE.Object3D();
           object.name = dd;
           object.position.set(p[0], p[1], p[2]);
+          
+          object.viewpoint = vp;
 
           if (q) {
 

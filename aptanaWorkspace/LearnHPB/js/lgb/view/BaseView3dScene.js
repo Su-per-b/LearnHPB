@@ -84,6 +84,7 @@ lgb.view.BaseView3dScene.prototype.onSceneLoadedBase_ = function(result) {
   this.masterGroup_.position = this.scene_.position;
   this.masterGroup_.rotation = this.scene_.rotation;
   this.masterGroup_.scale = this.scene_.scale;
+  this.masterGroup_.viewpoint = "defaultScene";
 
   var c = this.containers_; 
   if (this.containers_ != null) {
@@ -154,6 +155,12 @@ lgb.view.BaseView3dScene.prototype.placeOneContainer_ = function(containerName, 
                 containerObject.scale[1],
                 containerObject.scale[2]
             );
+        }
+        
+        if (containerObject.viewpoint == null) {
+           obj3D.viewpoint = "default";
+        } else {
+           obj3D.viewpoint = containerObject.viewpoint;
         }
         
         

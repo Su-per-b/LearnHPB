@@ -2,7 +2,6 @@
 
 
 
-
 THREE.Object3D.prototype.removeAllChildren = function() {
 
     var len = this.children.length;
@@ -150,6 +149,8 @@ THREE.Object3D.prototype.cloneBuilder_ = function(theClone) {
   theClone.frustumCulled = this.frustumCulled;
   
   theClone._vector = this._vector.clone();
+  
+  theClone.viewpoint = this.viewpoint;
   
   
   /*

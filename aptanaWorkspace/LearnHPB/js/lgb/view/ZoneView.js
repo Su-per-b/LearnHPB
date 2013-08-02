@@ -64,6 +64,7 @@ lgb.view.ZoneView.prototype.init = function() {
   var cubeGeom = new THREE.CubeGeometry(5, 5, 5, 1, 1, 1);
   this.cubeMesh = new THREE.Mesh(cubeGeom, this.material);
 
+  this.masterGroup_.viewpoint = "ZonesScene";
   this.requestAddToWorld(this.masterGroup_);
 };
 
@@ -97,7 +98,8 @@ lgb.view.ZoneView.prototype.addCube_ = function(zoneNumber, zoneShapeModel) {
     var cubeMesh = new THREE.Mesh(cubeGeom, this.material);
     cubeMesh.name = 'Zone ' + zoneNumber.toString();
     cubeMesh.visible = false;
-
+    cubeMesh.viewpoint = "defaultZone";
+    
     var x = -1 * floorWidth / 2;
     x += posx + (width / 2);
 

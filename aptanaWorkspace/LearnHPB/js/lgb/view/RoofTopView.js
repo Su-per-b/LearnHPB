@@ -44,7 +44,8 @@ lgb.view.RoofTopView.prototype.onSceneLoaded_ = function(result) {
      // var event = new lgb.events.SelectableLoaded(mesh);
      // this.dispatchLocal(event);
   //}
-
+  this.masterGroup_.viewpoint = "RoofTopScene";
+  
    this.sceneY_ = this.masterGroup_.position.y;
    this.setY_();
   
@@ -60,14 +61,14 @@ lgb.view.RoofTopView.prototype.dispatchVisibilityNodes_ = function() {
   this.triggerLocal(e.VisibilityNodesLoaded, node);
   
   return;
-}
+};
 
 
 lgb.view.RoofTopView.prototype.dispatchViewPointNodes_ = function() {
 
   var node = new lgb.model.vo.ViewPointNode(this._TITLE, this.masterGroup_, 2 );
   this.triggerLocal(e.ViewPointNodesLoaded, node);
-}
+};
 
 
 /**

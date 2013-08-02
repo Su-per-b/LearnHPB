@@ -1,12 +1,28 @@
 {
-"containers":{
+
+
+  "cameras": {
+    "vp1": {
+      "type": "perspective",
+      "fov": 30.000000,
+      "aspect": 1.333000,
+      "near": 1.000000,
+      "far": 10000.000000,
+      "position": [0,0,0],
+      "target": [0,0,0]
+    }
+   },
+
+    
+"containers": {
 
     "AirHandler - Back":{
       "type":"group",
       "groupName":"AirHandlerGroup",
       "position":[3.5,0,-7.5],
       "scale":[1,1,1],
-      "rotation": [0,0,0 ]
+      "rotation": [0,0,0 ],
+      "viewpoint":"vpRootop"
     },
     
     "AirHandler - Center":{
@@ -14,7 +30,8 @@
       "groupName":"AirHandlerGroup",
       "position":[3.5,0,-2.8],
       "scale":[1,1,1],
-      "rotation": [0,0,0 ]
+      "rotation": [0,0,0 ],
+      "viewpoint":"vpRootop"
     },
     
     "AirHandler - Front":{
@@ -22,22 +39,27 @@
       "groupName":"AirHandlerGroup",
       "position":[3.5,0,1.2],
       "scale":[1,1,1],
-      "rotation": [0,0,0 ]
+      "rotation": [0,0,0 ],
+      "viewpoint":"vpRootop"
     },
     
     "Pipeing":{
       "type":"group",
       "groupName":"PipeingGroup",
       "position":[0,-1.8,-3],
-      "rotation": [0,0,0 ]
+      "rotation": [0,0,0 ],
+      "viewpoint":"vpRootop"
     },
     
-    "Other":{
+    "Other": {
       "type":"group",
       "groupName":"UnitGroup",
       "position": [0,0,0],
-      "rotation": [0,0,0 ]
+      "rotation": [0,0,0 ],
+      "viewpoint":"vpRootop"
     }
+    
+    
    },
    
 
@@ -47,13 +69,15 @@
         "geometry": "geo_Cooler",
         "position": [-9.0, 1.1, -2.4],
         "rotation": [0,0,0],
-        "groups":["UnitGroup"]
+        "groups":["UnitGroup"],
+        "viewpoint":"vp2"
       },
       "Chiller": {
         "geometry": "geo_Chiller",
         "position": [-5.0, 1.1, -2.4],
         "rotation": [0,0,0],
-        "groups":["UnitGroup"]
+        "groups":["UnitGroup"],
+        "viewpoint":"vp1"
       },
       "Boiler": {
         "geometry": "geo_Boiler",
@@ -77,7 +101,8 @@
         "geometry": "geo_Ducting",
         "position": [0,0,0 ],
         "rotation": [0,1.57075,0],
-        "groups":["AirHandlerGroup"]
+        "groups":["AirHandlerGroup"],
+        "viewpoint":"vp3"
       },
 	    "Damper - Center" : {
 	        "geometry"  : "geo_Damper",
