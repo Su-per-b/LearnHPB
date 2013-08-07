@@ -16,7 +16,7 @@ lgb.model.EnvelopeModel = function() {
 
   lgb.model.BaseModel.call(this);
   
-  this.init_();
+  this.init();
 };
 goog.inherits(lgb.model.EnvelopeModel, lgb.model.BaseModel);
 
@@ -25,7 +25,7 @@ goog.inherits(lgb.model.EnvelopeModel, lgb.model.BaseModel);
  * Initializes the MVC Model setting default properties.
  * @private
  */
-lgb.model.EnvelopeModel.prototype.init_ = function() {
+lgb.model.EnvelopeModel.prototype.init = function() {
 
   /**@const */
   this._TITLE = 'Envelope Model';
@@ -49,7 +49,6 @@ lgb.model.EnvelopeModel.prototype.init_ = function() {
   4.8768000602722168];
   
   this.isVisible = true;
-
 
 
 };

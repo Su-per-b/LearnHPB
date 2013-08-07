@@ -119,7 +119,6 @@ lgb.view.ZoneView.prototype.onChange = function(event) {
   }
   
 
-
  }
 
   if (event.payload.isVisible) {

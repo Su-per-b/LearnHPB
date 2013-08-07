@@ -12,7 +12,7 @@ goog.require('lgb.view.BaseView3dScene');
 /**
  * @constructor
  * @extends {lgb.view.BaseView}
- * @param {lgb.model.DuctworkModel} dataModel The model to display.
+ * @param {lgb.model.HvacModel} dataModel The model to display.
  */
 lgb.view.BuildingView = function(dataModel) {
     

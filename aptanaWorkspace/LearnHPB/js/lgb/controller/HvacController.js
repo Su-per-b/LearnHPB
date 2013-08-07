@@ -3,13 +3,13 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.controller.DuctworkController');
+goog.provide('lgb.controller.HvacController');
 
 goog.require('lgb.controller.BaseController');
 
 goog.require('lgb.events.SelectableLoaded');
-goog.require('lgb.model.DuctworkModel');
-goog.require('lgb.view.DuctworkView');
+goog.require('lgb.model.HvacModel');
+goog.require('lgb.view.HvacView');
 
 
 goog.require('lgb.model.BuildingHeightModel');
@@ -23,18 +23,18 @@ goog.require('lgb.model.vo.VisibilityNode');
  * @constructor
  * @extends lgb.controller.BaseController
  */
-lgb.controller.DuctworkController = function() {
+lgb.controller.HvacController = function() {
   lgb.controller.BaseController.call(this);
 };
-goog.inherits(lgb.controller.DuctworkController, lgb.controller.BaseController);
+goog.inherits(lgb.controller.HvacController, lgb.controller.BaseController);
 
 /**
  * initializes the controller
  * @private
  */
-lgb.controller.DuctworkController.prototype.init = function() {
-  this.dataModel = new lgb.model.DuctworkModel();
-  this.view = new lgb.view.DuctworkView(this.dataModel);
+lgb.controller.HvacController.prototype.init = function() {
+  this.dataModel = new lgb.model.HvacModel();
+  this.view = new lgb.view.HvacView(this.dataModel);
   this.bind_();
   this.view.init();
 };
@@ -48,7 +48,7 @@ lgb.controller.DuctworkController.prototype.init = function() {
  * event bus.
  * @private
  */
-lgb.controller.DuctworkController.prototype.bind_ = function() {
+lgb.controller.HvacController.prototype.bind_ = function() {
   
   
   this.relay(

@@ -3,7 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.model.DuctworkModel');
+goog.provide('lgb.model.HvacModel');
 
 goog.require('lgb.model.BaseModel');
 
@@ -12,7 +12,7 @@ goog.require('lgb.model.BaseModel');
  * @constructor
  * @extends lgb.model.BaseModel
  */
-lgb.model.DuctworkModel = function() {
+lgb.model.HvacModel = function() {
 
 
 
@@ -20,7 +20,7 @@ lgb.model.DuctworkModel = function() {
   lgb.model.BaseModel.call(this);
 
 };
-goog.inherits(lgb.model.DuctworkModel, lgb.model.BaseModel);
+goog.inherits(lgb.model.HvacModel, lgb.model.BaseModel);
 
 
 

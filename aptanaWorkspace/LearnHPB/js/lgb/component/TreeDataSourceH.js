@@ -68,13 +68,14 @@ lgb.component.TreeDataSourceH.prototype.setFocus = function(uid) {
 
     var knode = this.kendoDS.getByUid(uid);
     this.changeProperty('showKNode', knode);
-    
+    this.hideKNode = null;
 };
 
 lgb.component.TreeDataSourceH.prototype.removeFocus = function(uid) {
 
     var knode = this.kendoDS.getByUid(uid);
     this.changeProperty('hideKNode', knode);
+    this.showKNode = null;
     
 };
 

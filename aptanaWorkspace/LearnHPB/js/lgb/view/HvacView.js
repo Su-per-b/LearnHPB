@@ -3,7 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.view.DuctworkView');
+goog.provide('lgb.view.HvacView');
 
 goog.require('lgb.view.BaseView3dScene');
 goog.require('lgb.view.BaseView');
@@ -15,9 +15,9 @@ goog.require('lgb.model.vo.ViewPointNode');
 /**
  * @constructor
  * @extends {lgb.view.BaseView}
- * @param {lgb.model.DuctworkModel} dataModel The model to display.
+ * @param {lgb.model.HvacModel} dataModel The model to display.
  */
-lgb.view.DuctworkView = function(dataModel) {
+lgb.view.HvacView = function(dataModel) {
     
   this._TITLE = 'HVAC';
   this._ASSETS_FOLDER = 'hvac';
@@ -25,7 +25,7 @@ lgb.view.DuctworkView = function(dataModel) {
  lgb.view.BaseView3dScene.call(this, dataModel);
 
 };
-goog.inherits(lgb.view.DuctworkView,lgb.view.BaseView3dScene);
+goog.inherits(lgb.view.HvacView,lgb.view.BaseView3dScene);
 
 
 
@@ -36,7 +36,7 @@ goog.inherits(lgb.view.DuctworkView,lgb.view.BaseView3dScene);
  * @param {Object} result The result from the THREE.js lib.
  * @private
  */
-lgb.view.DuctworkView.prototype.onSceneLoaded_ = function(result) {
+lgb.view.HvacView.prototype.onSceneLoaded_ = function(result) {
 
   var len = this.scene_.children.length;
   for (var i = 0; i < len; i++) {
@@ -66,14 +66,14 @@ lgb.view.DuctworkView.prototype.onSceneLoaded_ = function(result) {
 };
 
 
-lgb.view.DuctworkView.prototype.dispatchViewPointNodes_ = function() {
+lgb.view.HvacView.prototype.dispatchViewPointNodes_ = function() {
 
   var node = new lgb.model.vo.ViewPointNode(this._TITLE, this.masterGroup_, 1 );
   this.triggerLocal(e.ViewPointNodesLoaded, node);
 }
 
 
-lgb.view.DuctworkView.prototype.dispatchVisibilityNodes_ = function() {
+lgb.view.HvacView.prototype.dispatchVisibilityNodes_ = function() {
   
   var node = new lgb.model.vo.VisibilityNode('HVAC', this.masterGroup_, 1 );
   this.triggerLocal(e.VisibilityNodesLoaded, node);
@@ -81,7 +81,7 @@ lgb.view.DuctworkView.prototype.dispatchVisibilityNodes_ = function() {
 
 
 
-lgb.view.DuctworkView.prototype.onChange = function(event) {
+lgb.view.HvacView.prototype.onChange = function(event) {
   this.updateAllFromModel_();
 };
 
@@ -90,7 +90,7 @@ lgb.view.DuctworkView.prototype.onChange = function(event) {
  * Updates the view here to reflect any changes in the MVC data model.
  * @private
  */
-lgb.view.DuctworkView.prototype.updateAllFromModel_ = function() {
+lgb.view.HvacView.prototype.updateAllFromModel_ = function() {
   this.updateVisible_();
 };
 
@@ -100,7 +100,7 @@ lgb.view.DuctworkView.prototype.updateAllFromModel_ = function() {
  * state of the MVC model.
  * @private
  */
-lgb.view.DuctworkView.prototype.updateVisible_ = function() {
+lgb.view.HvacView.prototype.updateVisible_ = function() {
   var m = this.masterGroup_.children.length;
 
   for (var i = 0; i < m; i++) {

@@ -6,7 +6,7 @@
 goog.provide('lgb.controller.BuildingController');
 
 goog.require('lgb.controller.BaseController');
-goog.require('lgb.controller.DuctworkController');
+goog.require('lgb.controller.HvacController');
 goog.require('lgb.controller.input.TestLightingController');
 goog.require('lgb.controller.EnvelopeController');
 goog.require('lgb.controller.RoofTopController');
@@ -45,7 +45,7 @@ lgb.controller.BuildingController.prototype.init_ = function() {
   
   this.zoneController_ = new lgb.controller.ZoneController();
   this.roofTopController_ = new lgb.controller.RoofTopController();
-  this.ductworkController_ = new lgb.controller.DuctworkController();
+  this.hvacController_ = new lgb.controller.HvacController();
   this.lightingController_ = new lgb.controller.input.TestLightingController();
   this.furnitureController_ = new lgb.controller.FurnitureController();
   this.envelopeController_ = new lgb.controller.EnvelopeController();
@@ -55,7 +55,7 @@ lgb.controller.BuildingController.prototype.init_ = function() {
   
   this.zoneController_.init();
   this.roofTopController_.init();
-  this.ductworkController_.init();
+  this.hvacController_.init();
   this.lightingController_.init();
   this.furnitureController_.init();
   this.envelopeController_.init();
@@ -98,9 +98,8 @@ lgb.controller.BuildingController.prototype.bind2_ = function() {
     this.onAddToRoof_
     );
     
-    
   this.listenTo(
-    this.ductworkController_,
+    this.hvacController_,
     e.AddToWorldRequest,
     this.onAddToCeiling_
     );
@@ -153,16 +152,12 @@ lgb.controller.BuildingController.prototype.onAddToRoof_ =
 
 
 
-/**
- * @private
- * @param {lgb.events.EnvelopeModelChanged} event The event telling
- * about a change in the Building Envelope.
- */
+
 lgb.controller.BuildingController.prototype.onBuildingHeightChanged_ =
   function(event) {
 
    this.view.setBuildingHeight(event.payload);
-
+  
 };
 
 

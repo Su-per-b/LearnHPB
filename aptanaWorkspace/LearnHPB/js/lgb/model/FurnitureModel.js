@@ -22,8 +22,6 @@ lgb.model.FurnitureModel = function() {
   this._TITLE = 'Furniture';
   lgb.model.BaseModel.call(this);
 
-
-
   this.isVisible = true;
   
   
@@ -31,24 +29,6 @@ lgb.model.FurnitureModel = function() {
 goog.inherits(lgb.model.FurnitureModel, lgb.model.BaseModel);
 
 
-/**
- * updates the geometry and location of the furniture
- * @param {lgb.model.EnvelopeModel} envelopeModel The data model to
- * use in the computation.
- */
-lgb.model.FurnitureModel.prototype.update = function(envelopeModel) {
-
-  this.floorHeight = envelopeModel.floorHeight;
-  this.envelopeModel = envelopeModel;
-
-
-  this.dispatchChange(
-      {
-        config: true
-      }
-  );
-
-};
 
 
 

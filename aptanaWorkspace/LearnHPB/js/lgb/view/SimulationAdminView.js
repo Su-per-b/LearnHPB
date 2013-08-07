@@ -18,12 +18,7 @@ goog.require('lgb.model.SimulationModelState');
 goog.require('lgb.view.input.BaseViewGUI');
 
 
-/**
- * @constructor
- * @extends {lgb.view.input.BaseViewGUI}
- * @param {lgb.model.EnvelopeModel} dataModel the model to display.
- * @param {string} parentHtmlID The CSS id of the DOM parent.
- */
+
 lgb.view.SimulationAdminView = function(dataModel, parentHtmlID) {
     
   lgb.view.input.BaseViewGUI.call(this, dataModel, 'simulationAdminView',parentHtmlID);

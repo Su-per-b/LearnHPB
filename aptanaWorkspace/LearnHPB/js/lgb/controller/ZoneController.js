@@ -35,7 +35,6 @@ lgb.controller.ZoneController.prototype.init = function() {
   this.view = new lgb.view.ZoneView(this.dataModel);
   
   this.bind_();
-
   this.view.init();
 };
 
@@ -48,10 +47,6 @@ lgb.controller.ZoneController.prototype.init = function() {
  */
 lgb.controller.ZoneController.prototype.bind_ = function() {
 
-  this.listen(
-    e.EnvelopeModelChanged,
-    this.onEnvelopeModelChanged_
-    );
 
   this.relayLocal(this.view, e.AddToWorldRequest);
 
@@ -60,12 +55,15 @@ lgb.controller.ZoneController.prototype.bind_ = function() {
     this.onRequestShowViewPoint_
     );
 
-
-    
   this.listenTo(
     this.view,
     e.ViewPointNodesLoaded,
     this.onViewPointNodesLoaded_
+    );
+    
+  this.listen(
+    e.EnvelopeModelChanged,
+    this.onEnvelopeModelChanged_
     );
 
 };
@@ -85,8 +83,12 @@ lgb.controller.ZoneController.prototype.onViewPointNodesLoaded_ =
 lgb.controller.ZoneController.prototype.onRequestShowViewPoint_ =
   function(event) {
 
+  var viewPointNode = event.payload;
+  
+  var idx = viewPointNode.idx - viewPointNode.parent.idx;
+
   this.dataModel.setVisible(
-    event.payload.idx,
+    idx,
     event.payload.isVisible
   );
   
@@ -94,13 +96,12 @@ lgb.controller.ZoneController.prototype.onRequestShowViewPoint_ =
 
 
 
-/**
- * @private
- * @param {lgb.events.Event} event The event telling
- * about a change in the Building Envelope.
- */
 lgb.controller.ZoneController.prototype.onEnvelopeModelChanged_ =
   function(event) {
 
-  this.dataModel.update(event.payload);
+  this.dataModel.setEnvelopeModel(event.payload);
+  
 };
+
+
+

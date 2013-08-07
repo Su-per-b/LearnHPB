@@ -13,11 +13,7 @@ goog.require('lgb.model.BuildingHeightModel');
 goog.require('lgb.model.vo.ViewPointNode');
 
 
-/**
- * @constructor
- * @extends {BaseView3dScene}
- * @param {lgb.model.EnvelopeModel} dataModel The model to display.
- */
+
 lgb.view.ViewPointView = function(dataModel) {
     
 

@@ -37,7 +37,7 @@ lgb.simulation.controller.MainController.prototype.init_ = function(event) {
 
     // this.dataModel.setSimStateNative(lgb.simulation.model.WebSocketConnectionState.uninitialized);
 
-    // this.view = new lgb.view.DuctworkView(this.dataModel);
+    // this.view = new lgb.view.HvacView(this.dataModel);
     // this.bind_();
     //this.view.init();
 

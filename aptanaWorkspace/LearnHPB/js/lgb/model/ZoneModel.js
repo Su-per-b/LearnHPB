@@ -72,9 +72,8 @@ lgb.model.ZoneModel.prototype.init_ = function() {
  * @param {lgb.model.EnvelopeModel} envelopeModel The data model to
  * use in the computation.
  */
-lgb.model.ZoneModel.prototype.update = function(envelopeModel) {
+lgb.model.ZoneModel.prototype.setEnvelopeModel = function(envelopeModel) {
 
-  this.floorHeight = envelopeModel.floorHeight;
   this.envelopeModel = envelopeModel;
 
   this.dispatchChange(
@@ -101,7 +100,6 @@ lgb.model.ZoneModel.prototype.setVisible = function(zoneIdx, makeVisible) {
   if (theZone.isVisible != makeVisible) {
 
     theZone.isVisible = makeVisible;
-
 
     this.dispatchChange(
       {
