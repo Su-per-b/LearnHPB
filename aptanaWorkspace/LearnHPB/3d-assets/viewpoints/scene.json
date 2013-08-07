@@ -1,114 +1,113 @@
 {
 	"cameras": {
 
-		"front.001": {
+		"Front 01": {
 			"type": "perspective",
-			"fov": 30.000000,
-			"aspect": 1.333000,
-			"near": 1.000000,
-			"far": 10000.000000,
-			"position": [2.4295818068273727, 16, 127.75784731173314],
+      "fov": 30,
+      "aspect": 1.6,
+      "near": 1,
+      "far": 10000,
+      "position": [0, 1.0, 70],
+      "target": [0, 1.4, 0]
+		},
+		"Front 02": {
+			"type": "perspective",
+      "fov": 30,
+      "aspect": 1.6,
+      "near": 1,
+      "far": 10000,
+      "position": [0, 1.0, 35],
+      "target": [0, 1.4, 0]
+		},
+		"Top": {
+			"type": "perspective",
+      "fov": 30,
+      "aspect": 1.6,
+      "near": 1,
+      "far": 10000,
+			"position": [0, 65, 0],
 			"target": [0, 0, 0]
 		},
-		"front.002": {
+		"Eye Level 01": {
 			"type": "perspective",
-			"fov": 30.000000,
-			"aspect": 1.333000,
-			"near": 1.000000,
-			"far": 10000.000000,
-			"position": [2.4295818068273727, 12.170129621205593, 55],
-			"target": [0, 0, 0]
+      "fov": 30,
+      "aspect": 1.6,
+      "near": 1,
+      "far": 10000,
+			"position": [-14.23, 1.6, -12.43],
+			"target": [-14.23, 1.4, 9.2]
 		},
-		"top": {
+		"Eye Level 02": {
 			"type": "perspective",
-			"fov": 30.000000,
-			"aspect": 1.333000,
-			"near": 1.000000,
-			"far": 10000.000000,
-			"position": [0, 71, 1] ,
-			"rotation": [0, 0, 0] ,
-			"target": [0, 0, 0]
+			"fov": 30,
+			"aspect": 1.6,
+			"near": 1,
+			"far": 10000,
+			"position": [0.5, 1.6, -12.43],
+			"target": [0.5, 1.4, 9.2]
 		},
-		"Eye Level.001": {
+		"Eye Level 03": {
 			"type": "perspective",
-			"fov": 30.000000,
-			"aspect": 1.333000,
-			"near": 1.000000,
-			"far": 10000.000000,
-			"position": [-14.233769507746628, -1.2, -12.432009181431404],
-			"target": [-14.23104401762826, -2, 9.2]
+      "fov": 30,
+      "aspect": 1.6,
+      "near": 1,
+      "far": 10000,
+			"position": [10, 1.6, -12.43],
+			"target": [10, 1.4, 9.2]
 		},
-		"Eye Level.002": {
+		"Eye Level 04": {
 			"type": "perspective",
-			"fov": 30.000000,
-			"aspect": 1.333000,
-			"near": 1.000000,
-			"far": 10000.000000,
-			"position": [0.5, -1.2, -12.432009181431404],
-			"target": [0.5, -2, 9.2]
+      "fov": 30,
+      "aspect": 1.6,
+      "near": 1,
+      "far": 10000,
+			"position": [-19.4, 1.6, 0],
+			"target": [0, 1.4, 0]
 		},
-		"Eye Level.003": {
+		"Eye Level 05": {
 			"type": "perspective",
-			"fov": 30.000000,
-			"aspect": 1.333000,
-			"near": 1.000000,
-			"far": 10000.000000,
-			"position": [10, -1.2, -12.432009181431404],
-			"target": [10, -2, 9.2]
+      "fov": 30,
+      "aspect": 1.6,
+      "near": 1,
+      "far": 10000,
+			"position": [0.5, 1.6, 9.4],
+			"target": [0.5, 1.4, -9.2]
 		},
-		"Eye Level.004": {
+		"Eye Level 06": {
 			"type": "perspective",
-			"fov": 30.000000,
-			"aspect": 1.333000,
-			"near": 1.000000,
-			"far": 10000.000000,
-			"position": [-19.4, -1.2, 0],
-			"target": [0, -2, 0]
+      "fov": 30,
+      "aspect": 1.6,
+      "near": 1,
+      "far": 10000,
+			"position": [18, 1.6, 0],
+			"target": [0, 1.4, 0]
 		},
-		"Eye Level.005": {
+		"Eye Level 07": {
 			"type": "perspective",
-			"fov": 30.000000,
-			"aspect": 1.333000,
-			"near": 1.000000,
-			"far": 10000.000000,
-			"position": [0.5, -1.2, 9.4],
-			"target": [0.5, -2, -9.2]
+      "fov": 30,
+      "aspect": 1.6,
+      "near": 1,
+      "far": 10000,
+			"position": [-14, 1.6, 0],
+			"target": [-14, 1.4, 12.4]
 		},
-		"Eye Level.006": {
+		"Eye Level 08": {
 			"type": "perspective",
-			"fov": 30.000000,
-			"aspect": 1.333000,
-			"near": 1.000000,
-			"far": 10000.000000,
-			"position": [18, -1.2, 0],
-			"target": [0, -2, 0]
+      "fov": 30,
+      "aspect": 1.6,
+      "near": 1,
+      "far": 10000,
+			"position": [0.5, 1.6, 0],
+			"target": [0.5, 1.4, 12.4]
 		},
-		"Eye Level.007": {
+		"Eye Level 09": {
 			"type": "perspective",
-			"fov": 30.000000,
-			"aspect": 1.333000,
-			"near": 1.000000,
-			"far": 10000.000000,
-			"position": [-14, -1.2, 0],
-			"target": [-14, -2, 12.4]
-		},
-		"Eye Level.008": {
-			"type": "perspective",
-			"fov": 30.000000,
-			"aspect": 1.333000,
-			"near": 1.000000,
-			"far": 10000.000000,
-			"position": [0.5, -1.2, 0],
-			"target": [0.5, -2, 12.4]
-		},
-		"Eye Level.009": {
-			"type": "perspective",
-			"fov": 30.000000,
-			"aspect": 1.333000,
-			"near": 1.000000,
-			"far": 10000.000000,
-			"position": [14, -1.2, 0],
-			"target": [14, -2, 12.4]
+      "fov": 30,
+      "aspect": 1.6,
+      "near": 1,
+      "far": 10000,
+			"position": [14, 1.6, 0],
+			"target": [14, 1.4, 12.4]
 		}
 	},
 	

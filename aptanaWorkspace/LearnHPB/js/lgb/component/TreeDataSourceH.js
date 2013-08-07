@@ -86,7 +86,7 @@ lgb.component.TreeDataSourceH.prototype.generateHTMLid_ = function(node) {
     
     this.htmlID = this.parentHtmlID + '-' + str;
     
-}
+};
 
 lgb.component.TreeDataSourceH.prototype.update = function(lgbNode) {
 
@@ -120,8 +120,6 @@ lgb.component.TreeDataSourceH.prototype.build_ = function(lgbNode) {
 
   this.bind_();
   
-  return;
-
 };
   
 

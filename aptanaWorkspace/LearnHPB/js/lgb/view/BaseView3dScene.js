@@ -31,7 +31,9 @@ lgb.view.BaseView3dScene = function(dataModel) {
   }
   
   this.masterGroup_ = new THREE.Object3D();
-  this.masterGroup_.name = this._ASSETS_FOLDER;
+  
+  this.masterGroup_.name = this._TITLE;
+  this.masterGroup_.name = this.masterGroup_.name || this._ASSETS_FOLDER;
 
   this.filename = this.filename || 'scene.json';
 
@@ -200,7 +202,11 @@ lgb.view.BaseView3dScene.prototype.moveGroupToObject3D_ = function(groupName) {
  */
 lgb.view.BaseView3dScene.prototype.requestAddToWorld = function(object3D) {
 
+  object3D.name = object3D.name || this._TITLE;
   object3D.name = object3D.name || this._NAME;
+
+  
+  
   this.triggerLocal(e.AddToWorldRequest, object3D);
 };
 

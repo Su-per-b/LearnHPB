@@ -46,12 +46,6 @@ lgb.controller.CameraController.prototype.getCamera = function() {
  */
 lgb.controller.CameraController.prototype.bind_ = function() {
 
-
-  this.listen(
-    e.RequestGoToViewPoint,
-    this.onRequestGoToViewPoint_
-  );
-  
   this.listen(
     e.RequestGoToViewPointNode,
     this.onRequestGoToViewPointNode_
@@ -59,16 +53,6 @@ lgb.controller.CameraController.prototype.bind_ = function() {
   
 };
 
-/**
- * @private
- * @param {lgb.events.Event} event Fired.
- */
-lgb.controller.CameraController.prototype.onRequestGoToViewPoint_ =
-  function(event) {
-  
-  this.view.goToViewPoint(event.payload);
-
-};
 
 
 lgb.controller.CameraController.prototype.onRequestGoToViewPointNode_ =

@@ -28,8 +28,7 @@ goog.inherits(lgb.model.ViewPointModel, lgb.model.BaseModel);
 lgb.model.ViewPointModel.prototype.init_ = function() {
  
   this.nodeList_= [];
-  
-  return;
+
 };
  
  
@@ -37,8 +36,7 @@ lgb.model.ViewPointModel.prototype.addNode = function(visibilityNode) {
  
   this.nodeList_.push(visibilityNode);
   this.dispatchChange(visibilityNode);
-  
-  return;
+
 };
  
 
@@ -48,11 +46,7 @@ lgb.model.ViewPointModel.prototype.getViewPoint = function(kNode) {
   
    var idx = kNode.idx;
    var viewPointNode = lgb.model.vo.ViewPointNode.getNodeByIdx(idx);
-    
-    
-    
-    viewPointNode.generateCamera();
-    
-    return viewPointNode;
+
+   return viewPointNode;
 
 };

@@ -31,9 +31,13 @@ lgb.view.BuildingView = function(dataModel) {
   this.roofGroup_ = new THREE.Object3D();
   this.roofGroup_.name = this._TITLE + "_roof";
   
+  this.groundGroup_ = new THREE.Object3D();
+  this.groundGroup_.name = this._TITLE + "_ground";
+  
   this.masterGroup_.add(this.floorGroup_);
   this.masterGroup_.add(this.ceilingGroup_);
   this.masterGroup_.add(this.roofGroup_);
+  this.masterGroup_.add(this.groundGroup_);
   
 };
 goog.inherits(lgb.view.BuildingView, lgb.BaseClass);
@@ -59,6 +63,12 @@ lgb.view.BuildingView.prototype.addToCeiling= function(object3D) {
 lgb.view.BuildingView.prototype.addToRoof= function(object3D) {
 
   this.roofGroup_.add(object3D);
+};
+
+
+lgb.view.BuildingView.prototype.addToGround_= function(object3D) {
+
+  this.groundGroup_.add(object3D);
 };
 
 

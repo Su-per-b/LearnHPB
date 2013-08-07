@@ -22,8 +22,6 @@ lgb.view.ViewPointView = function(dataModel) {
   
   lgb.view.BaseView3dScene.call(this, dataModel);
 
-  this.topFloorMinY_ = null;
-  this.sceneY_ = null;
   
 };
 goog.inherits(lgb.view.ViewPointView,lgb.view.BaseView3dScene);
@@ -31,22 +29,6 @@ goog.inherits(lgb.view.ViewPointView,lgb.view.BaseView3dScene);
 
 
 
-
-
-lgb.view.ViewPointView.prototype.setBuildingHeight = function(buildingHeightModel) {
-   
-  this.topFloorMinY_ = buildingHeightModel.topFloorMinY;
-  this.setY_();
-};
-
-
-lgb.view.ViewPointView.prototype.setY_ = function() {
-    
-  if (null != this.topFloorMinY_ && null != this.sceneY_ ) {
-      this.masterGroup_.position.y = this.topFloorMinY_ + this.sceneY_;
-  }
-  
-};
 
 
 
@@ -69,19 +51,19 @@ lgb.view.ViewPointView.prototype.onSceneLoaded_ = function(result) {
         theCamera.target.addSelf(this.scene_.position);
         
         theCamera.name = camName;
-
-        var node = new lgb.model.vo.ViewPointNode(camName, theCamera, 0 );
         
         camList.push(theCamera);
+        this.masterGroup_.add(theCamera);
         nodeList.push(node);
     }
   }
   
+    this.requestAddToWorld(this.masterGroup_);
   
-    var node = new lgb.model.vo.ViewPointNode(this._TITLE, this.masterGroup_, 2 );
+    var node = new lgb.model.vo.ViewPointNode(this._TITLE, this.masterGroup_, 1 );
     this.triggerLocal(e.ViewPointNodesLoaded, node);
   
-    return;
+
 };
 
 

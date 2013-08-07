@@ -19,11 +19,14 @@ lgb.model.vo.ViewPointNode = function(title, object, recurseDepth) {
   this.children = undefined;
   this.hasChildren = false;
   this.parent = undefined;
+  this.camera_ = undefined;
 
-  if (object && object instanceof THREE.Object3D) {
+  if (object && object instanceof THREE.Camera) {
+    this.initCamera_(object)
+  } else if  (object && object instanceof THREE.Object3D) {
     this.init_(object,recurseDepth)
   } else if (object && object instanceof Array) {
-    this.initArray_(object);
+    this.initArray_(object, recurseDepth);
   }
 
 
@@ -47,7 +50,6 @@ lgb.model.vo.ViewPointNode.prototype.getCameraOffset = function() {
     
 
     var offsetAry = lgb.model.vo.ViewPointNode.offsetMap_[vpName];
-    
     var offsetVector3 = new THREE.Vector3(offsetAry[0], offsetAry[1], offsetAry[2]);
     
     return offsetVector3;
@@ -55,12 +57,19 @@ lgb.model.vo.ViewPointNode.prototype.getCameraOffset = function() {
 
 
 lgb.model.vo.ViewPointNode.prototype.initArray_ = function(ary, recurseDepth) {
-    return;    
+  
     this.hasChildren = true;
     this.children = [];
     
     this.each(ary, this.initOneChild_, recurseDepth);
     
+    
+};
+
+lgb.model.vo.ViewPointNode.prototype.initCamera_ = function(camera) {
+
+    this.camera_ = camera;
+    this.hasChildren = false;
     
 };
 
@@ -80,9 +89,9 @@ lgb.model.vo.ViewPointNode.prototype.init_ = function(object, recurseDepth) {
 };
 
 
-lgb.model.vo.ViewPointNode.prototype.initOneChild_ = function(object3dChild, recurseDepth) {
+lgb.model.vo.ViewPointNode.prototype.initOneChild_ = function(object, recurseDepth) {
   
-    var childNode = new lgb.model.vo.ViewPointNode(object3dChild.name, object3dChild, recurseDepth-1);
+    var childNode = new lgb.model.vo.ViewPointNode(object.name, object, recurseDepth-1);
     
     childNode.parent = this;
     this.children.push(childNode);
@@ -103,47 +112,68 @@ lgb.model.vo.ViewPointNode.getNodeByIdx = function(idx) {
 };
 
 
-lgb.model.vo.ViewPointNode.prototype.generateCamera = function() {
-    
-    var boundingBox;
-    
-    if (this.object3d && this.object3d instanceof THREE.Mesh) {
-        boundingBox = this.object3d.getBoundingBox();
-    } else if (this.object3d && this.object3d instanceof THREE.Object3D) {
-        boundingBox = this.object3d.getDescendantsBoundingBox();
-    } 
-
-    
-    this.targetBoundingBox = boundingBox;
-    this.targetPosition = this.object3d.position;
-    
-    this.name = this.object3d.name;
-    
-    
-};
-
-
-
 
 
 lgb.model.vo.ViewPointNode.prototype.getLookAtPosition = function() {
+  
+   var worldPosition = new THREE.Vector3();
 
-    var worldPosition = new THREE.Vector3();
+    
+  if (this.camera_) {
+    
+    var cameraPositionWorld = new THREE.Vector3();
+    var cameraPositionLocal = this.camera_.position.clone();
+    this.camera_.localToWorld(cameraPositionWorld);
+    
+    var cameraPositionDelta = cameraPositionWorld.clone();
+    cameraPositionDelta.subSelf(cameraPositionLocal);
+    
+    
+    
+    var cameraTargetLocal = this.camera_.target.clone();
+    var cameraTargetWorld = this.camera_.target.clone();
+
+    cameraTargetWorld.addSelf(cameraPositionDelta);
+
+    return  cameraTargetWorld;
+    
+  } else if (this.object3d) {
+    
+
     this.object3d.localToWorld(worldPosition);
     
     return worldPosition;
+  }
+
   
 };
 
 
 lgb.model.vo.ViewPointNode.prototype.getCameraPosition = function() {
 
+  if (this.camera_) {
+    
+    var cameraPosition = new THREE.Vector3();
+    this.camera_.localToWorld(cameraPosition);
+    return cameraPosition;
+    
+  } else if (this.object3d) {
+    
+    return this.generateCameraPosition();
+  }
+  
+};
+
+
+
+
+lgb.model.vo.ViewPointNode.prototype.generateCameraPosition = function() {
+
     
     var cameraPosition = new THREE.Vector3();
     this.object3d.localToWorld(cameraPosition);
     
     var offset = this.getCameraOffset();
-    
     cameraPosition.addSelf(offset);
     
     return cameraPosition;
@@ -152,7 +182,7 @@ lgb.model.vo.ViewPointNode.prototype.getCameraPosition = function() {
 
 
 
-
+  
 
 lgb.model.vo.ViewPointNode.idx = 0;
 lgb.model.vo.ViewPointNode.allNodes = [];

@@ -49,7 +49,7 @@ lgb.controller.EnvelopeController.prototype.init = function() {
 lgb.controller.EnvelopeController.prototype.bind_ = function() {
 
   
-  this.relay(this.view, e.AddToWorldRequest);
+  this.relayLocal(this.view, e.AddToWorldRequest);
   
   this.listenTo(this.view,
     e.ViewInitialized,

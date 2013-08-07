@@ -13,6 +13,7 @@ goog.require('lgb.controller.RoofTopController');
 goog.require('lgb.controller.FurnitureController');
 goog.require('lgb.controller.ZoneController');
 goog.require('lgb.controller.PsMasterController');
+goog.require('lgb.controller.input.ViewPointController');
 
 goog.require('lgb.model.BuildingModel');
 goog.require('lgb.view.BuildingView');
@@ -50,7 +51,8 @@ lgb.controller.BuildingController.prototype.init_ = function() {
   this.furnitureController_ = new lgb.controller.FurnitureController();
   this.envelopeController_ = new lgb.controller.EnvelopeController();
   this.psMasterController_ = new lgb.controller.PsMasterController();
-
+  this.viewpointController_ = new lgb.controller.input.ViewPointController();
+  
   this.bind2_();
   
   this.zoneController_.init();
@@ -60,6 +62,7 @@ lgb.controller.BuildingController.prototype.init_ = function() {
   this.furnitureController_.init();
   this.envelopeController_.init();
   this.psMasterController_.init();
+  this.viewpointController_.init();
   
 };
 
@@ -116,12 +119,25 @@ lgb.controller.BuildingController.prototype.bind2_ = function() {
     this.onAddToFloor_
     );
     
+    
+  this.listenTo(
+    this.envelopeController_,
+    e.AddToWorldRequest,
+    this.onAddToGround_
+    );
+    
+
   this.listenTo(
     this.psMasterController_,
     e.AddToWorldRequest,
     this.onAddToCeiling_
     );
     
+  this.listenTo(
+    this.viewpointController_,
+    e.AddToWorldRequest,
+    this.onAddToFloor_
+    );
     
 };
 
@@ -147,6 +163,13 @@ lgb.controller.BuildingController.prototype.onAddToRoof_ =
   function(event) {
 
    this.view.addToRoof(event.payload);
+};
+
+
+lgb.controller.BuildingController.prototype.onAddToGround_ =
+  function(event) {
+
+   this.view.addToGround_(event.payload);
 };
 
 

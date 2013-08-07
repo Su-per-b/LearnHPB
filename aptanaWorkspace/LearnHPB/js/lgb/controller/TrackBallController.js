@@ -33,11 +33,7 @@ goog.inherits(lgb.controller.TrackBallController, lgb.controller.BaseController)
  */
 lgb.controller.TrackBallController.prototype.bind_ = function() {
 
-  this.listen(
-    e.RequestGoToViewPoint,
-    this.onRequestGoToViewPoint_
-  );
-  
+
   this.listen(
     e.RequestGoToViewPointNode,
     this.onRequestGoToViewPointNode_
@@ -45,16 +41,7 @@ lgb.controller.TrackBallController.prototype.bind_ = function() {
   
 };
 
-/**
- * @private
- * @param {lgb.events.Event} event Fired.
- */
-lgb.controller.TrackBallController.prototype.onRequestGoToViewPoint_ =
-  function(event) {
-  
-  this.view.setCameraTarget(event.payload.getTargetPosition());
 
-};
 lgb.controller.TrackBallController.prototype.onRequestGoToViewPointNode_ =
   function(event) {
   

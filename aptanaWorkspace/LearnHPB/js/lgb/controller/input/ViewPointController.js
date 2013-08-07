@@ -32,11 +32,11 @@ goog.inherits(lgb.controller.input.ViewPointController, lgb.controller.BaseContr
  */
 lgb.controller.input.ViewPointController.prototype.init = function() {
   
-  this.dataModel2 = new lgb.model.ViewPointModel();
+  this.dataModel = new lgb.model.ViewPointModel();
   
   this.view = new lgb.view.ViewPointView(this.dataModel);
 
-  this.guiView = new lgb.view.input.ViewPointGUI (this.dataModel2);
+  this.guiView = new lgb.view.input.ViewPointGUI (this.dataModel);
   this.guiView._TITLE = "Viewpoints";
   
   this.bind_();
@@ -56,14 +56,8 @@ lgb.controller.input.ViewPointController.prototype.init = function() {
  */
 lgb.controller.input.ViewPointController.prototype.bind_ = function() {
   
-  this.relay(this.view, e.AddToWorldRequest);
+  this.relayLocal(this.view, e.AddToWorldRequest);
   
-  
-  this.listen(
-    e.BuildingHeightChanged,
-    this.onBuildingHeightChanged_
-    );
-    
   this.listen(
     e.ViewPointNodesLoaded,
     this.onViewPointNodesLoaded_);
@@ -80,7 +74,7 @@ lgb.controller.input.ViewPointController.prototype.bind_ = function() {
     
   this.relay(
     this.view,
-    e.VisibilityNodesLoaded
+    e.ViewPointNodesLoaded
     );
 
 
@@ -92,19 +86,10 @@ lgb.controller.input.ViewPointController.prototype.onViewPointNodesLoaded_ =
     
   var viewPointNode = event.payload;
 
-  this.dataModel2.addNode(viewPointNode);
+  this.dataModel.addNode(viewPointNode);
   
 };
 
-
-
-
-lgb.controller.input.ViewPointController.prototype.onBuildingHeightChanged_ =
-  function(event) {
-
-  this.view.setBuildingHeight(event.payload);
-  
-};
 
 
 

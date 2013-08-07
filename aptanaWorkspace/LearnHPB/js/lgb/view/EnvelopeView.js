@@ -22,8 +22,9 @@ lgb.view.EnvelopeView = function(dataModel) {
     
 
   this._ASSETS_FOLDER = 'envelope';
+  this._TITLE = 'Envelope';
   
- lgb.view.BaseView3dScene.call(this, dataModel);
+  lgb.view.BaseView3dScene.call(this, dataModel);
 
   this.floorMeshHash_ = [];
   this.floorOffset_= [];  

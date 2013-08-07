@@ -42,7 +42,7 @@ e.Select = 'e.Select';
 e.AddToWorldRequest = 'e.AddToWorldRequest';
 e.RequestActivateView = 'e.RequestActivateView';
 e.RequestShowViewPoint = 'e.RequestShowViewPoint';
-e.RequestGoToViewPoint = 'e.RequestGoToViewPoint';
+
 e.RequestGoToViewPointNode = 'e.RequestGoToViewPointNode';
 
 e.VisibilityNodesLoaded = 'e.VisibilityNodesLoaded';
