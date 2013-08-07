@@ -8,8 +8,6 @@ goog.require('lgb.model.GridModel');
 goog.require('lgb.ThreeUtils');
 
 
-
-
 goog.require('lgb.model.BuildingHeightModel');
 goog.require('lgb.model.vo.VisibilityNode');
 
@@ -23,33 +21,16 @@ lgb.view.FurnitureView = function(dataModel) {
   this._ASSETS_FOLDER = 'furniture';
   this._TITLE = 'Furniture';
 
- lgb.view.BaseView3dScene.call(this, dataModel);
+  lgb.view.BaseView3dScene.call(this, dataModel);
 
-  this.topFloorMinY_ = null;
-  this.sceneY_ = null;
 
 };
 goog.inherits(lgb.view.FurnitureView,lgb.view.BaseView3dScene);
 
 
 
-lgb.view.FurnitureView.prototype.setBuildingHeight = function(buildingHeightModel) {
-
-  this.activeFloorMinY_ = buildingHeightModel.activeFloorMinY;
-  this.setY_();
-};
-
-lgb.view.FurnitureView.prototype.setY_ = function() {
-
-  if (null != this.activeFloorMinY_ && null != this.sceneY_) {
-    this.masterGroup_.position.y = this.activeFloorMinY_ + this.sceneY_;
-  }
-};
 
 lgb.view.FurnitureView.prototype.onSceneLoaded_ = function() {
-
-  this.sceneY_ = this.masterGroup_.position.y;
-  this.setY_();
 
   this.dispatchViewPointNodes_();
   this.dispatchVisibilityNodes_();

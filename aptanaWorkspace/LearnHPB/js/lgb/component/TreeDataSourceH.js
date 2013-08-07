@@ -114,7 +114,7 @@ lgb.component.TreeDataSourceH.prototype.build_ = function(lgbNode) {
   this.kendoDS = new kendo.data.HierarchicalDataSource(options);
   this.kendoDS.read();
 
-  this.rootNode = this.kendoDS.get(0);
+  this.rootNode = this.kendoDS.get(this.rootKendoNode.id);
   this.rootNode.load();
 
   this.bind_();

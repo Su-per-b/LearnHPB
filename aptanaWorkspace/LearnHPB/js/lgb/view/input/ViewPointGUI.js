@@ -104,16 +104,21 @@ lgb.view.input.ViewPointGUI.prototype.onSelect_ = function(event) {
 
 lgb.view.input.ViewPointGUI.prototype.init2_ = function(lgbNode) {
   
-  this.treeDS_ = new lgb.component.TreeDataSourceH(lgbNode, null, this.htmlID,  'tree', 'ViewPointGUI2');
+  this.treeDS_ = new lgb.component.TreeDataSourceH(lgbNode, null, this.htmlID,  'tree', 'ViewPointTreeDataSourceH');
   
-    
+  var options =  (
+    {
+      events : {mouseOver:true}
+    }
+  );
+  
+  this.treeDS_.setOptions(options);
   this.treeComponent_ = new lgb.component.TreeH(this.treeDS_);
   
   var treeElement = this.treeComponent_.getHtml();
   this.append(treeElement);
   
   this.bind_();
-  
   this.triggerLocal(e.RequestAddToTestingInput, this);
    
   

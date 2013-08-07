@@ -22,7 +22,6 @@ goog.require('lgb.model.BuildingHeightModel');
 lgb.controller.input.TestLightingController = function() {
 
   lgb.controller.BaseController.call(this);
-  this.init_();
 };
 goog.inherits(lgb.controller.input.TestLightingController, lgb.controller.BaseController);
 
@@ -30,7 +29,7 @@ goog.inherits(lgb.controller.input.TestLightingController, lgb.controller.BaseCo
  * initializes the controller
  * @private
  */
-lgb.controller.input.TestLightingController.prototype.init_ = function() {
+lgb.controller.input.TestLightingController.prototype.init = function() {
  
   
   this.dataModel = new lgb.model.LightingModel();
@@ -57,14 +56,9 @@ lgb.controller.input.TestLightingController.prototype.init_ = function() {
  */
 lgb.controller.input.TestLightingController.prototype.bind_ = function() {
 
-  this.relay(this.view, e.AddToWorldRequest);
 
-  this.listen(
-    e.BuildingHeightChanged,
-    this.onBuildingHeightChanged_
-    );
-    
-    
+  this.relayLocal(this.view, e.AddToWorldRequest);
+
   this.relay(
     this.view,
     e.VisibilityNodesLoaded
@@ -78,13 +72,6 @@ lgb.controller.input.TestLightingController.prototype.bind_ = function() {
     
 };
 
-
-lgb.controller.input.TestLightingController.prototype.onBuildingHeightChanged_ =
-  function(event) {
-
-  this.view.setBuildingHeight(event.payload);
-  
-};
 
 
 

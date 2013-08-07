@@ -27,7 +27,6 @@ goog.inherits(lgb.view.RoofTopView,lgb.view.BaseView3dScene);
 
 
 
-
 /**
  * Event handler called by the base class when the scene is loaded
  * @private
@@ -44,10 +43,8 @@ lgb.view.RoofTopView.prototype.onSceneLoaded_ = function(result) {
      // var event = new lgb.events.SelectableLoaded(mesh);
      // this.dispatchLocal(event);
   //}
-  this.masterGroup_.viewpoint = "RoofTopScene";
   
-   this.sceneY_ = this.masterGroup_.position.y;
-   this.setY_();
+   this.masterGroup_.viewpoint = "RoofTopScene";
   
    this.dispatchViewPointNodes_();
    this.dispatchVisibilityNodes_();
@@ -60,7 +57,6 @@ lgb.view.RoofTopView.prototype.dispatchVisibilityNodes_ = function() {
   var node = new lgb.model.vo.VisibilityNode(this._TITLE, this.masterGroup_, 2 );
   this.triggerLocal(e.VisibilityNodesLoaded, node);
   
-  return;
 };
 
 
@@ -91,12 +87,6 @@ lgb.view.RoofTopView.prototype.updateAllFromModel_ = function() {
 };
 
 
-lgb.view.RoofTopView.prototype.setBuildingHeight = function(buildingHeightModel) {
-
-  this.topFloorMaxY_ = buildingHeightModel.topFloorMaxY;
-  this.setY_();
-};
-
 
 /**
  * Updates this view to reflect the changes in the visibility
@@ -115,11 +105,3 @@ lgb.view.RoofTopView.prototype.updateVisible_ = function() {
 
 };
 
-
-lgb.view.RoofTopView.prototype.setY_ = function() {
-
-  if (null != this.topFloorMaxY_ && null != this.sceneY_) {
-    this.masterGroup_.position.y = this.topFloorMaxY_ + this.sceneY_;
-  }
-
-};

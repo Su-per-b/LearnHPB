@@ -59,7 +59,6 @@ lgb.view.ViewPointView.prototype.setY_ = function() {
  * @private
  */
 lgb.view.ViewPointView.prototype.onSceneLoaded_ = function(result) {
-  return;
 
   var camList = [];
   var nodeList = [];
@@ -83,6 +82,10 @@ lgb.view.ViewPointView.prototype.onSceneLoaded_ = function(result) {
   }
   
   
+    var node = new lgb.model.vo.ViewPointNode(this._TITLE, this.masterGroup_, 2 );
+    this.triggerLocal(e.ViewPointNodesLoaded, node);
+  
+    return;
 };
 
 

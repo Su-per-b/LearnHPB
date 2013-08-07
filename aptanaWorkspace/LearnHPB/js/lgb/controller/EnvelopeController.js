@@ -6,11 +6,9 @@
 goog.provide('lgb.controller.EnvelopeController');
 
 goog.require('lgb.controller.BaseController');
-
 goog.require('lgb.model.EnvelopeModel');
 goog.require('lgb.view.EnvelopeView');
 goog.require('lgb.view.input.EnvelopeGUI');
-
 
 
 /**
@@ -19,7 +17,6 @@ goog.require('lgb.view.input.EnvelopeGUI');
  */
 lgb.controller.EnvelopeController = function() {
   lgb.controller.BaseController.call(this);
-  this.init_();
 };
 goog.inherits(lgb.controller.EnvelopeController, lgb.controller.BaseController);
 
@@ -27,7 +24,7 @@ goog.inherits(lgb.controller.EnvelopeController, lgb.controller.BaseController);
 /**
  * @private
  */
-lgb.controller.EnvelopeController.prototype.init_ = function() {
+lgb.controller.EnvelopeController.prototype.init = function() {
 
   this.dataModel = new lgb.model.EnvelopeModel();
   this.view = new lgb.view.EnvelopeView(this.dataModel);
@@ -76,8 +73,6 @@ lgb.controller.EnvelopeController.prototype.bind_ = function() {
     this.view,
     e.VisibilityNodesLoaded
     );
-    
-
 
     
 };

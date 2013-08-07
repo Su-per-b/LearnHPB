@@ -23,28 +23,9 @@ lgb.view.LightingView = function(dataModel) {
 
   this.pendantGeom  = null;
   this.recessedGeom = null;
-  
-  this.buildingHeightModel_ = null;
-  this.sceneY_ = null;
 };
 goog.inherits(lgb.view.LightingView,lgb.view.BaseView3dScene);
 
-
-
-lgb.view.LightingView.prototype.setBuildingHeight = function(buildingHeightModel) {
-   
-  this.buildingHeightModel_ = buildingHeightModel;
-  this.setY_();
-};
-
-
-lgb.view.LightingView.prototype.setY_ = function() {
-    
-  if (null != this.buildingHeightModel_ && null != this.sceneY_) {
-      this.masterGroup_.position.y = this.buildingHeightModel_.activeFloorMaxY + this.sceneY_;
-  }
-  
-};
 
 
 
@@ -90,7 +71,6 @@ lgb.view.LightingView.prototype.onSceneLoaded_ = function() {
   
   this.dispatchVisibilityNodes_();
   
-  //this.sceneY_ = this.masterGroup_.position.y;
 
 
 };
@@ -178,7 +158,7 @@ lgb.view.LightingView.prototype.buildGrid_ = function() {
   }
   
   this.buildGridHelper_( gridModel, geometry );
-  this.setY_();
+
 
 };
 
@@ -207,9 +187,9 @@ lgb.view.LightingView.prototype.buildGridHelper_ = function(gridModel,geometry) 
   
   this.masterGroup_.position.x = gridModel.centeredPosition.x;
   this.masterGroup_.position.z = gridModel.centeredPosition.z;
-  this.sceneY_ = gridModel.centeredPosition.y;
+  this.masterGroup_.position.y = gridModel.centeredPosition.y;
   
-}
+};
 
 
 

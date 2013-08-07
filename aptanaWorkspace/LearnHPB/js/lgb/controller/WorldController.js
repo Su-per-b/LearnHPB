@@ -8,7 +8,6 @@ goog.provide('lgb.controller.WorldController');
 goog.require('lgb.controller.BuildingController');
 goog.require('lgb.controller.CameraController');
 goog.require('lgb.controller.BaseController');
-goog.require('lgb.controller.PsMasterController');
 goog.require('lgb.controller.TrackBallController');
 goog.require('lgb.controller.UtilityController');
 goog.require('lgb.controller.input.ViewPointController');
@@ -103,8 +102,7 @@ lgb.controller.WorldController.prototype.init = function() {
   this.utilityController_ = new lgb.controller.UtilityController();
 
 
-  this.psMasterController_ = new lgb.controller.PsMasterController();
-  this.psMasterController_.init();
+
 
 
   /**@type {lgb.controller.WorldSelectionController} */

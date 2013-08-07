@@ -58,9 +58,7 @@ lgb.controller.input.ViewPointController.prototype.bind_ = function() {
   
   this.relay(this.view, e.AddToWorldRequest);
   
-
-    
-    
+  
   this.listen(
     e.BuildingHeightChanged,
     this.onBuildingHeightChanged_
@@ -80,8 +78,6 @@ lgb.controller.input.ViewPointController.prototype.bind_ = function() {
     ]
     );
     
-
-
   this.relay(
     this.view,
     e.VisibilityNodesLoaded

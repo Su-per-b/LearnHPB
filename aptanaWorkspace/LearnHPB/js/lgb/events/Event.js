@@ -27,11 +27,7 @@ lgb.events.Event = function(type, payload) {
 };
 goog.inherits(lgb.events.Event, goog.events.Event);
 
-
-
 e.Event = function() {};
-
-
 
 e.RequestLayoutVisibilityChange = 'e.RequestLayoutVisibilityChange';
 e.Resize = 'e.Resize';

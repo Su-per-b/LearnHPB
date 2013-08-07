@@ -95,13 +95,10 @@ lgb.view.BaseView3dScene.prototype.onSceneLoadedBase_ = function(result) {
     this.onSceneLoaded_();
   }
   
-
   this.requestAddToWorld(this.masterGroup_);
-  
   delete this.loader_;
   
   this.triggerLocal(e.ViewInitialized);
-
 
 };
 
@@ -203,10 +200,10 @@ lgb.view.BaseView3dScene.prototype.moveGroupToObject3D_ = function(groupName) {
  */
 lgb.view.BaseView3dScene.prototype.requestAddToWorld = function(object3D) {
 
-
   object3D.name = object3D.name || this._NAME;
-
-
   this.triggerLocal(e.AddToWorldRequest, object3D);
 };
+
+
+
 

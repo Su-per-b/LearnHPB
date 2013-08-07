@@ -24,28 +24,9 @@ lgb.view.DuctworkView = function(dataModel) {
   
  lgb.view.BaseView3dScene.call(this, dataModel);
 
-  this.buildingHeightModel_ = null;
-  this.sceneY_ = null;
-  
 };
 goog.inherits(lgb.view.DuctworkView,lgb.view.BaseView3dScene);
 
-
-
-lgb.view.DuctworkView.prototype.setBuildingHeight = function(buildingHeightModel) {
-   
-  this.buildingHeightModel_ = buildingHeightModel;
-  this.setY_();
-};
-
-
-lgb.view.DuctworkView.prototype.setY_ = function() {
-    
-  if (null != this.buildingHeightModel_ && null != this.sceneY_) {
-      this.masterGroup_.position.y = this.buildingHeightModel_.topFloorMaxY + this.sceneY_;
-  }
-  
-};
 
 
 
@@ -78,9 +59,7 @@ lgb.view.DuctworkView.prototype.onSceneLoaded_ = function(result) {
       }
   }
   
-    this.sceneY_ = this.masterGroup_.position.y;
-    this.setY_();
-    
+
     this.dispatchVisibilityNodes_();
     this.dispatchViewPointNodes_();
     

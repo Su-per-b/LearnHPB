@@ -27,27 +27,12 @@ lgb.view.ZoneView = function(dataModel) {
 
   this.zoneVisibleIdx = -1;
   this.buildingHeightModel_ = null;
-  this.sceneY_ = null;
   this.isInitialized_ = false;
 };
 goog.inherits(lgb.view.ZoneView,lgb.view.BaseView3dScene);
 
 
 
-lgb.view.ZoneView.prototype.setBuildingHeight = function(buildingHeightModel) {
-   
-  this.buildingHeightModel_ = buildingHeightModel;
-  this.setY_();
-};
-
-
-lgb.view.ZoneView.prototype.setY_ = function() {
-    
-  if (null != this.buildingHeightModel_ && null != this.sceneY_ ) {
-      this.masterGroup_.position.y = this.buildingHeightModel_.topFloorMinY + this.sceneY_;
-  }
-  
-};
 
 
 /**
@@ -133,8 +118,8 @@ lgb.view.ZoneView.prototype.onChange = function(event) {
     this.addCube_(i + 1, zoneShapeModel);
   }
   
-    this.sceneY_ = 0;
-    this.setY_();
+
+
  }
 
   if (event.payload.isVisible) {
@@ -144,12 +129,8 @@ lgb.view.ZoneView.prototype.onChange = function(event) {
   }
 
     if (!this.isInitialized_) {
-
-        
-        
         var node = new lgb.model.vo.ViewPointNode(this._TITLE, this.masterGroup_, 2 );
         this.triggerLocal(e.ViewPointNodesLoaded, node);
-        
     }
 
     this.isInitialized_ = true;
@@ -171,7 +152,6 @@ lgb.view.ZoneView.prototype.setVisible = function(zoneIdx, makeVisible) {
 
   if (zoneCube.visible != makeVisible) {
     zoneCube.visible = makeVisible;
-
   }
 
 };

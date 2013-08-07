@@ -22,7 +22,6 @@ goog.require('lgb.model.BuildingHeightModel');
  */
 lgb.controller.ZoneController = function() {
   lgb.controller.BaseController.call(this);
-  this.init_();
 };
 goog.inherits(lgb.controller.ZoneController, lgb.controller.BaseController);
 
@@ -30,7 +29,7 @@ goog.inherits(lgb.controller.ZoneController, lgb.controller.BaseController);
 /**
  * @private
  */
-lgb.controller.ZoneController.prototype.init_ = function() {
+lgb.controller.ZoneController.prototype.init = function() {
     
   this.dataModel = new lgb.model.ZoneModel();
   this.view = new lgb.view.ZoneView(this.dataModel);
@@ -54,30 +53,20 @@ lgb.controller.ZoneController.prototype.bind_ = function() {
     this.onEnvelopeModelChanged_
     );
 
-
-  this.relay(this.view, e.AddToWorldRequest);
-
+  this.relayLocal(this.view, e.AddToWorldRequest);
 
   this.listen(
     e.RequestShowViewPoint,
     this.onRequestShowViewPoint_
     );
 
-  this.listen(
-    e.BuildingHeightChanged,
-    this.onBuildingHeightChanged_
-    );
-    
-    
 
+    
   this.listenTo(
     this.view,
     e.ViewPointNodesLoaded,
     this.onViewPointNodesLoaded_
     );
-     
-     
-     
 
 };
 
@@ -93,15 +82,6 @@ lgb.controller.ZoneController.prototype.onViewPointNodesLoaded_ =
 
 
 
-lgb.controller.ZoneController.prototype.onBuildingHeightChanged_ =
-  function(event) {
-
-  this.view.setBuildingHeight(event.payload);
-  
-};
-
-
-
 lgb.controller.ZoneController.prototype.onRequestShowViewPoint_ =
   function(event) {
 
@@ -111,7 +91,6 @@ lgb.controller.ZoneController.prototype.onRequestShowViewPoint_ =
   );
   
 };
-
 
 
 

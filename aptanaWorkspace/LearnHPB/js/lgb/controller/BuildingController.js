@@ -12,6 +12,10 @@ goog.require('lgb.controller.EnvelopeController');
 goog.require('lgb.controller.RoofTopController');
 goog.require('lgb.controller.FurnitureController');
 goog.require('lgb.controller.ZoneController');
+goog.require('lgb.controller.PsMasterController');
+
+goog.require('lgb.model.BuildingModel');
+goog.require('lgb.view.BuildingView');
 
 
 /**
@@ -32,14 +36,31 @@ goog.inherits(lgb.controller.BuildingController, lgb.controller.BaseController);
  */
 lgb.controller.BuildingController.prototype.init_ = function() {
     
+  this.dataModel = new lgb.model.BuildingModel();
+  this.view = new lgb.view.BuildingView(this.dataModel);
+  
+  this.bind1_();
+  
+  this.view.init();
+  
   this.zoneController_ = new lgb.controller.ZoneController();
   this.roofTopController_ = new lgb.controller.RoofTopController();
   this.ductworkController_ = new lgb.controller.DuctworkController();
-  this.lightingController = new lgb.controller.input.TestLightingController();
-  this.furnitureController = new lgb.controller.FurnitureController();
+  this.lightingController_ = new lgb.controller.input.TestLightingController();
+  this.furnitureController_ = new lgb.controller.FurnitureController();
   this.envelopeController_ = new lgb.controller.EnvelopeController();
+  this.psMasterController_ = new lgb.controller.PsMasterController();
+
+  this.bind2_();
   
-  this.bind_();
+  this.zoneController_.init();
+  this.roofTopController_.init();
+  this.ductworkController_.init();
+  this.lightingController_.init();
+  this.furnitureController_.init();
+  this.envelopeController_.init();
+  this.psMasterController_.init();
+  
 };
 
 
@@ -49,11 +70,86 @@ lgb.controller.BuildingController.prototype.init_ = function() {
  * event bus.
  * @private
  */
-lgb.controller.BuildingController.prototype.bind_ = function() {
+lgb.controller.BuildingController.prototype.bind1_ = function() {
 
-  this.listen(e.BuildingHeightChanged,this.onBuildingHeightChanged_);
+  this.listen(
+    e.BuildingHeightChanged,
+    this.onBuildingHeightChanged_);
+
+  this.relay(
+    this.view,
+    e.AddToWorldRequest);
+  
+};
+
+
+lgb.controller.BuildingController.prototype.bind2_ = function() {
+
+
+  this.listenTo(
+    this.zoneController_,
+    e.AddToWorldRequest,
+    this.onAddToFloor_
+    );
+    
+  this.listenTo(
+    this.roofTopController_,
+    e.AddToWorldRequest,
+    this.onAddToRoof_
+    );
+    
+    
+  this.listenTo(
+    this.ductworkController_,
+    e.AddToWorldRequest,
+    this.onAddToCeiling_
+    );
+    
+  this.listenTo(
+    this.lightingController_,
+    e.AddToWorldRequest,
+    this.onAddToCeiling_
+    );
+    
+  this.listenTo(
+    this.furnitureController_,
+    e.AddToWorldRequest,
+    this.onAddToFloor_
+    );
+    
+  this.listenTo(
+    this.psMasterController_,
+    e.AddToWorldRequest,
+    this.onAddToCeiling_
+    );
+    
     
 };
+
+
+
+
+lgb.controller.BuildingController.prototype.onAddToCeiling_ =
+  function(event) {
+
+   this.view.addToCeiling(event.payload);
+};
+
+
+
+lgb.controller.BuildingController.prototype.onAddToFloor_ =
+  function(event) {
+
+   this.view.addToFloor(event.payload);
+};
+
+
+lgb.controller.BuildingController.prototype.onAddToRoof_ =
+  function(event) {
+
+   this.view.addToRoof(event.payload);
+};
+
 
 
 
@@ -65,9 +161,8 @@ lgb.controller.BuildingController.prototype.bind_ = function() {
 lgb.controller.BuildingController.prototype.onBuildingHeightChanged_ =
   function(event) {
 
-   var model = event.payload;
-   
-  //this.dataModel.update(event.payload);
+   this.view.setBuildingHeight(event.payload);
+
 };
 
 

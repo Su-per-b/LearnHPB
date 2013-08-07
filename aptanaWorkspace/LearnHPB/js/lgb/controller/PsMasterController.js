@@ -56,11 +56,6 @@ lgb.controller.PsMasterController.prototype.bind_ = function() {
     this.onRequestDataModelChange_
    );
    
-  this.listen(
-    e.BuildingHeightChanged,
-    this.onBuildingHeightChanged_
-   );
-
 
   this.relay(
     this.guiView,
@@ -68,7 +63,7 @@ lgb.controller.PsMasterController.prototype.bind_ = function() {
     );
     
     
-  this.relay(this.view, e.AddToWorldRequest);
+  this.relayLocal(this.view, e.AddToWorldRequest);
 };
 
 lgb.controller.PsMasterController.prototype.onDataModelInitialized_ =
@@ -121,12 +116,6 @@ lgb.controller.PsMasterController.prototype.onChildSystemLoaded_ =
   
 };
 
-
-lgb.controller.PsMasterController.prototype.onBuildingHeightChanged_ =
-  function(event) {
-
-  this.view.setBuildingHeight(event.payload);
-};
 
 
 

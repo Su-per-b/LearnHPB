@@ -22,7 +22,7 @@ goog.require('lgb.model.BuildingHeightModel');
 lgb.controller.FurnitureController = function() {
 
   lgb.controller.BaseController.call(this);
-  this.init_();
+
 };
 goog.inherits(lgb.controller.FurnitureController, lgb.controller.BaseController);
 
@@ -30,7 +30,7 @@ goog.inherits(lgb.controller.FurnitureController, lgb.controller.BaseController)
  * initializes the controller
  * @private
  */
-lgb.controller.FurnitureController.prototype.init_ = function() {
+lgb.controller.FurnitureController.prototype.init = function() {
  
   
   this.dataModel = new lgb.model.FurnitureModel();
@@ -52,26 +52,11 @@ lgb.controller.FurnitureController.prototype.init_ = function() {
  */
 lgb.controller.FurnitureController.prototype.bind_ = function() {
 
-  this.relay(this.view, e.AddToWorldRequest);
+  this.relayLocal(this.view, e.AddToWorldRequest);
+  
   this.relay(this.view,e.VisibilityNodesLoaded);
   this.relay(this.view, e.ViewPointNodesLoaded);
     
-  this.listen(
-    e.BuildingHeightChanged,
-    this.onBuildingHeightChanged_
-    );
-
-
-};
-
-
-
-
-lgb.controller.FurnitureController.prototype.onBuildingHeightChanged_ =
-  function(event) {
-
-  this.view.setBuildingHeight(event.payload);
-  
 };
 
 

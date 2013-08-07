@@ -38,7 +38,6 @@ lgb.view.EnvelopeView = function(dataModel) {
   
   this.topFloorMesh_ = null;
   
-
 };
 goog.inherits(lgb.view.EnvelopeView,lgb.view.BaseView3dScene);
 
@@ -180,13 +179,7 @@ lgb.view.EnvelopeView.prototype.makeFloors_ = function() {
   var topFloorMaxY = topFloorY + bb.max.y;
   var topFloorMinY = topFloorY + bb.min.y;
   
-
-  
-  var payload = new lgb.model.BuildingHeightModel(topFloorMaxY,topFloorMinY
-    );
-  
-  
-  
+  var payload = new lgb.model.BuildingHeightModel(topFloorMaxY,topFloorMinY);
   this.triggerLocal(e.BuildingHeightChanged, payload);
   
   

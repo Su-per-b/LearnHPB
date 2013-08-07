@@ -25,7 +25,6 @@ goog.require('lgb.model.vo.VisibilityNode');
  */
 lgb.controller.DuctworkController = function() {
   lgb.controller.BaseController.call(this);
-  this.init_();
 };
 goog.inherits(lgb.controller.DuctworkController, lgb.controller.BaseController);
 
@@ -33,7 +32,7 @@ goog.inherits(lgb.controller.DuctworkController, lgb.controller.BaseController);
  * initializes the controller
  * @private
  */
-lgb.controller.DuctworkController.prototype.init_ = function() {
+lgb.controller.DuctworkController.prototype.init = function() {
   this.dataModel = new lgb.model.DuctworkModel();
   this.view = new lgb.view.DuctworkView(this.dataModel);
   this.bind_();
@@ -55,18 +54,13 @@ lgb.controller.DuctworkController.prototype.bind_ = function() {
   this.relay(
     this.view, 
       [
-        e.AddToWorldRequest,
         e.ViewPointNodesLoaded,
         e.VisibilityNodesLoaded,
         lgb.events.SelectableLoaded.TYPE
       ]
     );
   
-
-  this.listen(
-    e.BuildingHeightChanged,
-    this.onBuildingHeightChanged_
-    );
+  this.relayLocal(this.view, e.AddToWorldRequest);
 
 };
 
@@ -74,12 +68,6 @@ lgb.controller.DuctworkController.prototype.bind_ = function() {
 
 
 
-lgb.controller.DuctworkController.prototype.onBuildingHeightChanged_ =
-  function(event) {
-
-  this.view.setBuildingHeight(event.payload);
-  
-};
 
 
 

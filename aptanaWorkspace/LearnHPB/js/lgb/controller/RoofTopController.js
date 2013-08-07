@@ -18,20 +18,18 @@ goog.require('lgb.view.RoofTopView');
 lgb.controller.RoofTopController = function() {
 
   lgb.controller.BaseController.call(this);
-  this.init_();
 };
 goog.inherits(lgb.controller.RoofTopController, lgb.controller.BaseController);
 
 /**
  * @private
  */
-lgb.controller.RoofTopController.prototype.init_ = function() {
+lgb.controller.RoofTopController.prototype.init = function() {
 
   this.dataModel = new lgb.model.RoofTopModel();
   this.view = new lgb.view.RoofTopView(this.dataModel);
 
   this.view.init();
-
   this.bind_();
 };
 
@@ -44,22 +42,12 @@ lgb.controller.RoofTopController.prototype.bind_ = function() {
   this.relay(this.view, 
       [
         lgb.events.SelectableLoaded.TYPE,
-        e.AddToWorldRequest,
         e.VisibilityNodesLoaded,
         e.ViewPointNodesLoaded
       ]
     );
 
-  this.listen(e.BuildingHeightChanged,this.onBuildingHeightChanged_);
-
-};
-
-
-
-
-lgb.controller.RoofTopController.prototype.onBuildingHeightChanged_ =
-  function(event) {
-
-  this.view.setBuildingHeight(event.payload);
+  this.relayLocal(this.view, e.AddToWorldRequest);
   
 };
+
