@@ -35,43 +35,42 @@ goog.inherits(lgb.component.TreeH, lgb.view.BaseV);
 lgb.component.TreeH.prototype.bind_ = function() {
 
   this.listenTo(this.ds, e.DataModelChanged, this.onDataModelChanged_);
-
   this.kendoTreeView_.bind("select", this.d(this.onSelect_));
-
 
   if (true == this.ds.options.events.mouseOver ) {
     this.kendoTreeView_.wrapper.on("mouseenter.kendoTreeView", ".k-in", this.d(this.onMouseEnter_));
-  
     this.kendoTreeView_.wrapper.on("mouseleave.kendoTreeView", ".k-in", this.d(this.onMouseLeave_));
   }
 
-
-}
+};
 
 lgb.component.TreeH.prototype.onSelect_ = function(event) {
 
   var uid = event.node.dataset.uid;
   this.ds.select(uid);
 
-}
+};
 
 lgb.component.TreeH.prototype.onMouseEnter_ = function(event) {
 
   var liElement = event.currentTarget.parentElement.parentElement;
   var dataItem = this.kendoTreeView_.dataItem(liElement);
 
-  this.ds.setFocus(dataItem.uid);
+  if (dataItem.focusEvent) {
+    this.ds.setFocus(dataItem.uid);
+  }
 
-}
+};
 
 lgb.component.TreeH.prototype.onMouseLeave_ = function(event) {
 
   var liElement = event.currentTarget.parentElement.parentElement;
   var dataItem = this.kendoTreeView_.dataItem(liElement);
 
-  this.ds.removeFocus(dataItem.uid);
-
-}
+  if (dataItem.focusEvent) {
+    this.ds.removeFocus(dataItem.uid);
+  }
+};
 
 lgb.component.TreeH.prototype.onDataModelChanged_ = function(event) {
 

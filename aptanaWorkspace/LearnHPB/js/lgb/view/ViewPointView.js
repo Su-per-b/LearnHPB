@@ -30,6 +30,34 @@ goog.inherits(lgb.view.ViewPointView,lgb.view.BaseView3dScene);
 
 
 
+lgb.view.ViewPointView.prototype.onSceneLoadedBase_ = function(result) {
+
+  this.scene_ = result['scene'];
+  this.groups_ = result['groups'];
+  this.cameras_ = result['cameras'];
+  this.appData_ = result['appData'];
+  this.containers_ = result['containers'];
+  
+  this.masterGroup_.position = this.scene_.position;
+  this.masterGroup_.rotation = this.scene_.rotation;
+  this.masterGroup_.scale = this.scene_.scale;
+  this.masterGroup_.viewpoint = "defaultScene";
+
+  var c = this.containers_; 
+  if (this.containers_ != null) {
+    this.placeContainers_();
+  }
+  
+
+  this.onSceneLoaded_();
+
+  
+  delete this.loader_;
+  
+  this.triggerLocal(e.ViewInitialized);
+
+};
+
 
 
 /**
@@ -40,6 +68,7 @@ lgb.view.ViewPointView.prototype.onSceneLoaded_ = function(result) {
 
   var camList = [];
   var nodeList = [];
+  var nodeListCeiling = [];
   
   for (var camName in this.cameras_) {
     
@@ -53,15 +82,16 @@ lgb.view.ViewPointView.prototype.onSceneLoaded_ = function(result) {
         theCamera.name = camName;
         
         camList.push(theCamera);
-        this.masterGroup_.add(theCamera);
+        
+        var node = new lgb.model.vo.ViewPointNode.makeFromCamera(theCamera);
+        
         nodeList.push(node);
+
     }
   }
   
-    this.requestAddToWorld(this.masterGroup_);
-  
-    var node = new lgb.model.vo.ViewPointNode(this._TITLE, this.masterGroup_, 1 );
-    this.triggerLocal(e.ViewPointNodesLoaded, node);
+    var node1 = new lgb.model.vo.ViewPointNode.makeFromArray (this._TITLE, nodeList, 1 );
+    this.triggerLocal(e.ViewPointNodesLoaded, node1);
   
 
 };

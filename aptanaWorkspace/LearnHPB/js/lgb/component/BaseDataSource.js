@@ -44,9 +44,9 @@ lgb.component.BaseDataSource.prototype.dispatchChangedProperty = function(proper
 
 lgb.component.BaseDataSource.prototype.changeProperty = function(propertyName, propertyValue) {
 
-    if (this[propertyName] != propertyValue) {
+    //if (this[propertyName] != propertyValue) {
         this[propertyName] = propertyValue;
         this.dispatchChangedProperty(propertyName);
-    }
+    //}
 };
 

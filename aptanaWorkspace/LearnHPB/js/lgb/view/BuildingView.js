@@ -6,6 +6,7 @@
 goog.provide('lgb.view.BuildingView');
 
 goog.require('lgb.view.BaseView3dScene');
+goog.require('lgb.model.vo.ViewPointNode');
 
 
 
@@ -38,6 +39,20 @@ lgb.view.BuildingView = function(dataModel) {
   this.masterGroup_.add(this.ceilingGroup_);
   this.masterGroup_.add(this.roofGroup_);
   this.masterGroup_.add(this.groundGroup_);
+  
+  this.anchors = {
+    "floor": this.floorGroup_,
+    "ceiling": this.ceilingGroup_,
+    "roof": this.roofGroup_,
+    "ground": this.groundGroup_,
+  }
+  
+  lgb.model.vo.ViewPointNode.anchors = {
+    "floor": this.floorGroup_,
+    "ceiling": this.ceilingGroup_,
+    "roof": this.roofGroup_,
+    "ground": this.groundGroup_,
+  }
   
 };
 goog.inherits(lgb.view.BuildingView, lgb.BaseClass);

@@ -128,13 +128,20 @@ lgb.view.ZoneView.prototype.onChange = function(event) {
   }
 
     if (!this.isInitialized_) {
-        var node = new lgb.model.vo.ViewPointNode(this._TITLE, this.masterGroup_, 2 );
+        var node = new lgb.model.vo.ViewPointNode.makeFromObject3D( this.masterGroup_, 2 );
+        
+        var len = node.children.length;
+        for (var i=0; i < len; i++) {
+          node.children[i].focusEvent = true;
+        };
         this.triggerLocal(e.ViewPointNodesLoaded, node);
     }
 
     this.isInitialized_ = true;
 
 };
+
+
 
 
 /**

@@ -22,6 +22,7 @@ lgb.controller.input.ViewPointController = function( ) {
   lgb.controller.BaseController.call(this);
   
   this.viewpointGroupsLoaded_ = 0;
+  this.dataModel = new lgb.model.ViewPointModel();
   
 };
 goog.inherits(lgb.controller.input.ViewPointController, lgb.controller.BaseController);
@@ -32,8 +33,7 @@ goog.inherits(lgb.controller.input.ViewPointController, lgb.controller.BaseContr
  */
 lgb.controller.input.ViewPointController.prototype.init = function() {
   
-  this.dataModel = new lgb.model.ViewPointModel();
-  
+
   this.view = new lgb.view.ViewPointView(this.dataModel);
 
   this.guiView = new lgb.view.input.ViewPointGUI (this.dataModel);
@@ -56,11 +56,9 @@ lgb.controller.input.ViewPointController.prototype.init = function() {
  */
 lgb.controller.input.ViewPointController.prototype.bind_ = function() {
   
-  this.relayLocal(this.view, e.AddToWorldRequest);
+  // this.relayLocal(this.view, e.AddToWorldRequest);
   
-  this.listen(
-    e.ViewPointNodesLoaded,
-    this.onViewPointNodesLoaded_);
+ // this.listen(e.ViewPointNodesLoaded, this.onViewPointNodesLoaded_);
     
     
   this.relay(
@@ -72,12 +70,24 @@ lgb.controller.input.ViewPointController.prototype.bind_ = function() {
     ]
     );
     
-  this.relay(
-    this.view,
-    e.ViewPointNodesLoaded
-    );
+  this.relay(this.view,e.ViewPointNodesLoaded);
 
 
+};
+
+
+lgb.controller.input.ViewPointController.prototype.setAnchors =
+  function(anchors) {
+    
+  this.dataModel.setAnchors(anchors);
+  
+};
+
+lgb.controller.input.ViewPointController.prototype.loadViewpoint =
+  function(viewPointNode) {
+    
+  this.dataModel.addNode(viewPointNode);
+  
 };
 
 
@@ -85,10 +95,11 @@ lgb.controller.input.ViewPointController.prototype.onViewPointNodesLoaded_ =
   function(event) {
     
   var viewPointNode = event.payload;
-
   this.dataModel.addNode(viewPointNode);
   
+  
 };
+
 
 
 

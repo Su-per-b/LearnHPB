@@ -218,7 +218,16 @@ THREE.TrackballControlsEx = function ( object, domElement ) {
 		}
 
 	};
+	
+	
+  this.traceInfo = function() {
+    
+    var msg = this.object.getInfo();
+    lgb.logInfo(msg);
 
+  };
+  
+  
 	this.update = function() {
     
     if (!this.isDirty) {
@@ -361,10 +370,14 @@ THREE.TrackballControlsEx = function ( object, domElement ) {
     this.isDirty = true;
 		event.preventDefault();
 		//event.stopPropagation();
-
+      
 		_state = this.STATE.NONE;
+		
+		this.traceInfo();
 
 	};
+
+
 
 	function bind( scope, fn ) {
 

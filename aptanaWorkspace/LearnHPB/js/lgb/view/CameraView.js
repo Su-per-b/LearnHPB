@@ -28,6 +28,8 @@ lgb.view.CameraView.prototype.init = function() {
 
   this.camera = new THREE.PerspectiveCamera(40, this.domElement_.width / this.domElement_.height, 1, 10000);
 
+  
+
   // this.camera.position.z = 500;
   this.orbitRadius = 75;
   this.camera.position.x = 0;
@@ -59,16 +61,19 @@ lgb.view.CameraView.prototype.bind_ = function() {
 }
 
 
-lgb.view.CameraView.prototype.goToViewPointNode = function(node) {
+lgb.view.CameraView.prototype.goToViewPointNode = function(viewpointNode) {
 
   //var startPosition = this.camera.position.clone();
-  var lookAtPosition = node.getLookAtPosition();
-  var lookAtPosition2 = lookAtPosition.clone();
-    
-  var moveToPosition = node.getCameraPosition();
   
-  //var targetBoundingBox = node.targetBoundingBox;
-
+  var camera = viewpointNode.generateCamera( this.camera );
+  this.cameraCraneController_.moveToPosition(camera);
+  
+  return;
+  
+  var lookAtPosition = viewpointNode.getLookAtPosition();
+  var lookAtPosition2 = lookAtPosition.clone();
+  var moveToPosition = viewpointNode.getCameraPosition();
+  
   var camera = new THREE.PerspectiveCamera(this.camera.fov, this.camera.aspect, this.camera.near, this.camera.far);
 
 
@@ -77,8 +82,7 @@ lgb.view.CameraView.prototype.goToViewPointNode = function(node) {
   camera.lookAt(lookAtPosition2);
   camera.lookAtPosition = lookAtPosition2;
   
-  this.cameraCraneController_.moveToPosition(camera);
-
+  
 };
 
 /**

@@ -29,3 +29,6 @@ THREE.Camera.prototype.lookAt = function ( vector ) {
 	}
 
 };
+
+
+

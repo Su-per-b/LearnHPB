@@ -44,7 +44,8 @@ lgb.view.FurnitureView.prototype.dispatchVisibilityNodes_ = function() {
 }
 
 lgb.view.FurnitureView.prototype.dispatchViewPointNodes_ = function() {
-  var node = new lgb.model.vo.ViewPointNode(this._TITLE, this.masterGroup_, 2 );
+
+  var node = new lgb.model.vo.ViewPointNode.makeFromObject3D( this.masterGroup_, 2 );
   this.triggerLocal(e.ViewPointNodesLoaded, node);
 }
 

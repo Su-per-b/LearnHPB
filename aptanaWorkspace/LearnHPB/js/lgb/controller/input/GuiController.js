@@ -43,11 +43,8 @@ lgb.controller.input.GuiController.prototype.init_ = function() {
   this.rightTopInputController_ = new lgb.controller.input.RightTopInputController();
 
   this.visibilityController_ = new lgb.controller.VisibilityController();
-
- 
   this.visibilityController_.init();
 
-  
   this.titleBarView = new lgb.view.TitleBarView();
 
   this.trigger(e.RequestAddToLayout, this.titleBarView);

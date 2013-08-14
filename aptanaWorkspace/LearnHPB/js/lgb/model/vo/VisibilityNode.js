@@ -19,7 +19,8 @@ lgb.model.vo.VisibilityNode = function(title, object3d, recurseDepth) {
   this.hasChildren = false;
   this.parent = undefined;
   this.children = [];
-      
+  this.focusEvent = false;
+  
   if (object3d && object3d instanceof THREE.Object3D) {
     this.init_(object3d,recurseDepth)
   } else if (object3d && object3d instanceof Array) {

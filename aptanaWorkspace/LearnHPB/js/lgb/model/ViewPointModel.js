@@ -32,13 +32,22 @@ lgb.model.ViewPointModel.prototype.init_ = function() {
 };
  
  
-lgb.model.ViewPointModel.prototype.addNode = function(visibilityNode) {
+lgb.model.ViewPointModel.prototype.addNode = function(viewpointNode) {
  
-  this.nodeList_.push(visibilityNode);
-  this.dispatchChange(visibilityNode);
+  this.nodeList_.push(viewpointNode);
+  this.dispatchChangedEx("viewpointNode", viewpointNode);
 
 };
  
+ 
+lgb.model.ViewPointModel.prototype.setAnchors = function(anchors) {
+ 
+  this.anchors_ = anchors;
+
+};
+ 
+
+
 
 
 

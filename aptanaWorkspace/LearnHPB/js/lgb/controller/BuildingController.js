@@ -51,10 +51,13 @@ lgb.controller.BuildingController.prototype.init_ = function() {
   this.furnitureController_ = new lgb.controller.FurnitureController();
   this.envelopeController_ = new lgb.controller.EnvelopeController();
   this.psMasterController_ = new lgb.controller.PsMasterController();
+  
   this.viewpointController_ = new lgb.controller.input.ViewPointController();
+  this.viewpointController_.setAnchors(this.view.anchors);
   
   this.bind2_();
   
+  this.viewpointController_.init();
   this.zoneController_.init();
   this.roofTopController_.init();
   this.hvacController_.init();
@@ -62,7 +65,7 @@ lgb.controller.BuildingController.prototype.init_ = function() {
   this.furnitureController_.init();
   this.envelopeController_.init();
   this.psMasterController_.init();
-  this.viewpointController_.init();
+
   
 };
 
@@ -119,6 +122,7 @@ lgb.controller.BuildingController.prototype.bind2_ = function() {
     this.onAddToFloor_
     );
     
+
     
   this.listenTo(
     this.envelopeController_,
@@ -133,12 +137,45 @@ lgb.controller.BuildingController.prototype.bind2_ = function() {
     this.onAddToCeiling_
     );
     
-  this.listenTo(
-    this.viewpointController_,
-    e.AddToWorldRequest,
-    this.onAddToFloor_
+  
+  //var controllers =     [this.furnitureController_,this.roofTopController_];
+
+  this.listen(
+    e.ViewPointNodesLoaded,
+    this.onViewPointNodesLoaded_
     );
     
+    
+};
+
+
+
+
+lgb.controller.BuildingController.prototype.onViewPointNodesLoaded_ =
+  function(event) {
+
+
+    this.viewpointController_.loadViewpoint(event.payload);
+    
+    
+};
+
+
+
+
+lgb.controller.BuildingController.prototype.onAddToAnchor_ =
+  function(event) {
+  
+   var node = event.payload;
+   
+   if (node.anchor && node.anchor == "ceiling") {
+      this.view.addToCeiling(node);
+   } else {
+      this.view.addToFloor(node);
+   }
+
+
+
 };
 
 

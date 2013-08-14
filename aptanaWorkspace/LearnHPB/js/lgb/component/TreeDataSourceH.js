@@ -130,7 +130,8 @@ lgb.component.TreeDataSourceH.prototype.makeOneKendoNode_ = function(lgbNode) {
     text : lgbNode.title,
     hasChildren : lgbNode.hasChildren,
     id :lgbNode.idx,
-    idx : lgbNode.idx
+    idx : lgbNode.idx,
+    focusEvent : lgbNode.focusEvent
   };
   
   

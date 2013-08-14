@@ -71,19 +71,15 @@ lgb.controller.MainController.prototype.init = function() {
   this.guiController = new lgb.controller.input.GuiController();
   this.scenarioController = new lgb.controller.ScenarioController();
    
-  this.worldController_ = new
-    lgb.controller.WorldController();
-
+  this.worldController_ = new lgb.controller.WorldController();
   this.worldController_.init();
     
-  
   $(window).resize(this.d(this.onNativeWindowResize_));
   
    
   this.simulationController_ = new lgb.controller.SimulationController();
 
  
-
   /**
   * The logger used by this object.
   * @type {goog.debug.Logger}

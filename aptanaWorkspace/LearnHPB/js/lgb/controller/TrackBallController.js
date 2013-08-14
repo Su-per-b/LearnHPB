@@ -45,6 +45,8 @@ lgb.controller.TrackBallController.prototype.bind_ = function() {
 lgb.controller.TrackBallController.prototype.onRequestGoToViewPointNode_ =
   function(event) {
   
-  this.view.setCameraTarget(event.payload.getLookAtPosition());
+  var camera = event.payload.generateCamera();
+  
+  this.view.setCameraTarget(camera.lookAtPosition);
 
 };

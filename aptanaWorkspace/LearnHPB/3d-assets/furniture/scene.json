@@ -1,6 +1,25 @@
 {
   "type":"scene",
   "containers":{
+  
+  
+  
+  
+    "CrossSection":{
+      "type":"group",
+      "groupName":"CrossSectionGroup",
+      "position":[
+        -16.2,
+        1.5,
+        -9.6
+      ],
+      "viewpoint": "crosssection",
+      "rotation":[
+        0,
+        0,
+        0
+      ]
+    },
     "107":{
       "type":"group",
       "groupName":"OuterOfficeGroup",
@@ -493,8 +512,8 @@
       "geometry":"geo_ConcreteBlock",
       "position":[
         0,
-        2.0,
-        -2
+        0,
+        0
       ],
       "rotation":[
         0,
@@ -502,26 +521,10 @@
         0
       ],
       "groups":[
-        "ConfTableGroup"
+        "CrossSectionGroup"
       ]
     },
-    "BrickVeneer":{
-      "geometry":"geo_BrickVeneer",
-      "position":[
-        0,
-        2.0,
-        -2
-      ],
-      "rotation":[
-        0,
-        0,
-        0
-      ],
-      "groups":[
-        "ConfTableGroup"
-      ]
-    },
-    
+
     "ConfTable":{
       "geometry":"geo_ConfTable",
       "position":[

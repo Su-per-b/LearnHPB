@@ -468,11 +468,15 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
     t = c.target;
     u = c.up;
 
+
     camera.position.set(p[0], p[1], p[2]);
     camera.target = new THREE.Vector3(t[0], t[1], t[2]);
     if (u)
       camera.up.set(u[0], u[1], u[2]);
-
+      
+    if (c.anchor)
+      camera.setAnchor(c.anchor);
+      
     result.cameras[dc] = camera;
 
   }
