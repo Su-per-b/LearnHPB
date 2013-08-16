@@ -253,9 +253,7 @@ THREE.TrackballControlsEx = function ( object, domElement ) {
 		}
 
 		this.object.position.add( this.target, _eye );
-
 		this.checkDistances();
-
 		this.object.lookAt( this.target );
 
 	};

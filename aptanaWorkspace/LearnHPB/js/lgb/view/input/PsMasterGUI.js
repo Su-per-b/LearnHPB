@@ -11,6 +11,10 @@ goog.require('lgb.model.PsModelMaster');
 
 goog.require('lgb.component.Tree');
 goog.require('lgb.component.TreeDataSource');
+
+goog.require('lgb.component.TreeH');
+goog.require('lgb.component.TreeDataSourceH');
+
 goog.require('lgb.Config');
 
 
@@ -36,9 +40,14 @@ lgb.view.input.PsMasterGUI.prototype.init = function() {
   
     var list = this.dataModel.getPsModelList();
     
+    
+    
+    
+  //  this.treeActiveDS = new lgb.component.TreeDataSourceH(list,'isStarted',
+     // 'Active Systems',  this.htmlID, 'active-systems');
+      
     this.treeActiveDS = new lgb.component.TreeDataSource(list,'isStarted',
       'Active Systems',  this.htmlID, 'active-systems');
-      
       
     this.treeBoxesDS = new lgb.component.TreeDataSource(list,'showBoxes',
       'Show Boxes',  this.htmlID, 'show-boxes');
@@ -49,7 +58,6 @@ lgb.view.input.PsMasterGUI.prototype.init = function() {
       
       
     this.bind_();
-    
     this.injectHtml();
     
     this.triggerLocal(e.RequestAddToTestingInput, this);

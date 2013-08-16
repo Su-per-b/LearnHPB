@@ -32,10 +32,10 @@ lgb.model.ViewPointModel.prototype.init_ = function() {
 };
  
  
-lgb.model.ViewPointModel.prototype.addNode = function(viewpointNode) {
+lgb.model.ViewPointModel.prototype.addNode = function(viewPointNode) {
  
-  this.nodeList_.push(viewpointNode);
-  this.dispatchChangedEx("viewpointNode", viewpointNode);
+  this.nodeList_.push(viewPointNode);
+  this.dispatchChangedEx("viewPointNode", viewPointNode);
 
 };
  
@@ -53,8 +53,8 @@ lgb.model.ViewPointModel.prototype.setAnchors = function(anchors) {
 
 lgb.model.ViewPointModel.prototype.getViewPoint = function(kNode) {
   
-   var idx = kNode.idx;
-   var viewPointNode = lgb.model.vo.ViewPointNode.getNodeByIdx(idx);
+   var id = kNode.id;
+   var viewPointNode = lgb.model.vo.ViewPointNode.getNodeByIdx(id);
 
    return viewPointNode;
 

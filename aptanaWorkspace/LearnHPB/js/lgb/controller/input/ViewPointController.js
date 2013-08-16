@@ -21,7 +21,7 @@ lgb.controller.input.ViewPointController = function( ) {
 
   lgb.controller.BaseController.call(this);
   
-  this.viewpointGroupsLoaded_ = 0;
+  this.viewPointGroupsLoaded_ = 0;
   this.dataModel = new lgb.model.ViewPointModel();
   
 };
@@ -56,11 +56,7 @@ lgb.controller.input.ViewPointController.prototype.init = function() {
  */
 lgb.controller.input.ViewPointController.prototype.bind_ = function() {
   
-  // this.relayLocal(this.view, e.AddToWorldRequest);
-  
- // this.listen(e.ViewPointNodesLoaded, this.onViewPointNodesLoaded_);
-    
-    
+
   this.relay(
     this.guiView,
     [
@@ -70,7 +66,10 @@ lgb.controller.input.ViewPointController.prototype.bind_ = function() {
     ]
     );
     
-  this.relay(this.view,e.ViewPointNodesLoaded);
+  this.relay(
+    this.view,
+    [e.ViewPointNodesLoaded, e.RequestGoToViewPointNode]
+    );
 
 
 };

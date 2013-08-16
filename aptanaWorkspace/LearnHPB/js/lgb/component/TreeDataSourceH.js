@@ -8,9 +8,7 @@
  */
 
 goog.provide('lgb.component.TreeDataSourceH');
-
 goog.require('lgb.component.BaseDataSource');
-
 
 
 lgb.component.TreeDataSourceH = function(lgbNode, propertyName, parentHtmlID, subID, title) {
@@ -130,7 +128,6 @@ lgb.component.TreeDataSourceH.prototype.makeOneKendoNode_ = function(lgbNode) {
     text : lgbNode.title,
     hasChildren : lgbNode.hasChildren,
     id :lgbNode.idx,
-    idx : lgbNode.idx,
     focusEvent : lgbNode.focusEvent
   };
   
@@ -215,10 +212,10 @@ lgb.component.TreeDataSourceH.prototype.onChangeDS_ = function(event) {
 lgb.component.TreeDataSourceH.prototype.processOneItem = function(node, idx, that) {
 
 
-  if (node.idx > -1) {
+  if (node.id > -1) {
     
     var statusItem = {
-      idx : node.idx,
+      id : node.id,
       newValue : node.checked,
       text : node.text
     };

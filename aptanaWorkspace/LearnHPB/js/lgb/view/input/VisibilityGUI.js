@@ -40,9 +40,9 @@ lgb.view.input.VisibilityGUI.prototype.init = function() {
 
 };
 
-lgb.view.input.VisibilityGUI.prototype.init2_ = function(lgbNode) {
+lgb.view.input.VisibilityGUI.prototype.init2_ = function(visibilityNode) {
   
-  this.treeDS_ = new lgb.component.TreeDataSourceH(lgbNode,'isVisible',this.htmlID,  'tree', 'Visibility');
+  this.treeDS_ = new lgb.component.TreeDataSourceH(visibilityNode,'isVisible',this.htmlID,  'tree', 'Visibility');
 
   this.treeDS_.setOptions (
     {
@@ -50,14 +50,11 @@ lgb.view.input.VisibilityGUI.prototype.init2_ = function(lgbNode) {
     }
   );
   
-  
-  
   this.listenTo(this.treeDS_,
     e.DataModelChanged,
-    this.onDataModelChanged_);  
+    this.onDataModelChanged_);
     
   this.treeComponent_ = new lgb.component.TreeH(this.treeDS_);
-  
   
   var treeElement = this.treeComponent_.getHtml();
   this.append(treeElement);

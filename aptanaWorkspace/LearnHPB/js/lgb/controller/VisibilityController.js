@@ -35,7 +35,6 @@ goog.inherits(lgb.controller.VisibilityController, lgb.controller.BaseController
 lgb.controller.VisibilityController.prototype.init = function() {
 
   this.dataModel = new lgb.model.VisibilityModel();
-  
   this.guiView = new lgb.view.input.VisibilityGUI ( this.dataModel );
 
   this.bind_();

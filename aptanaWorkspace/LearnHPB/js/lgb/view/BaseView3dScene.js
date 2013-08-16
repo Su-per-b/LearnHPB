@@ -43,6 +43,55 @@ goog.inherits(lgb.view.BaseView3dScene, lgb.BaseClass);
 
 
 
+lgb.view.BaseView3dScene.prototype.listenForChange_ = function(changedPropertyString) {
+    
+    
+    if (this.changeMap_ === undefined) {
+      this.changeMap_ = {};
+      this.listenHelper_(this.dataModel, e.DataModelChangedEx, this, this.onChangeEx_);
+    }
+
+    this.listenForOneChange_(changedPropertyString);
+};
+
+
+lgb.view.BaseView3dScene.prototype.listenForOneChange_ = function(changedPropertyString) {
+  
+    var handlerName = 'onChange_' + changedPropertyString + '_';
+    var func = this[handlerName];
+
+    if (func && func instanceof Function) {
+      var delegate = this.d(func);
+      this.changeMap_[changedPropertyString] = delegate;
+    } else {
+      debugger;
+    }
+};
+
+
+lgb.view.BaseView3dScene.prototype.onChangeEx_ = function(event) {
+  
+   var whatIsDirty = event.payload;
+  
+    //loop through all the dirty properties and fire their event listeners
+   for (var prop in whatIsDirty) {
+      
+      if(prop !== undefined || prop !== null) {
+        
+        if(whatIsDirty.hasOwnProperty(prop)){
+          
+          var delegate = this.changeMap_[prop];
+          var arg = whatIsDirty[prop];
+          
+          if (delegate) {
+            delegate(arg);
+          }
+        }
+      }
+   }
+};
+
+
 /**
  * Initializes the View
  * and loads the meshes from remote files
@@ -86,7 +135,7 @@ lgb.view.BaseView3dScene.prototype.onSceneLoadedBase_ = function(result) {
   this.masterGroup_.position = this.scene_.position;
   this.masterGroup_.rotation = this.scene_.rotation;
   this.masterGroup_.scale = this.scene_.scale;
-  this.masterGroup_.viewpoint = "defaultScene";
+  this.masterGroup_.viewPoint = "defaultScene";
 
   var c = this.containers_; 
   if (this.containers_ != null) {
@@ -156,10 +205,10 @@ lgb.view.BaseView3dScene.prototype.placeOneContainer_ = function(containerName, 
             );
         }
         
-        if (containerObject.viewpoint == null) {
-           obj3D.viewpoint = "default";
+        if (containerObject.viewPoint == null) {
+           obj3D.viewPoint = "default";
         } else {
-           obj3D.viewpoint = containerObject.viewpoint;
+           obj3D.viewPoint = containerObject.viewPoint;
         }
         
         

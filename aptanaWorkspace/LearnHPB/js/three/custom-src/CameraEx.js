@@ -20,9 +20,7 @@ THREE.Camera.prototype.lookAt = function ( vector ) {
   this.matrix.lookAt( this.position, vector, this.up );
 
   if ( this.rotationAutoUpdate === true ) {
-
     this.rotation.setEulerFromRotationMatrix( this.matrix, this.eulerOrder );
-
   }
   
   this.lookAtPosition = vector;
@@ -40,7 +38,6 @@ THREE.Camera.prototype.getInfo = function ( vector ) {
        
     var msg = "Camera Pos: [x,y,z] [{0},{1},{2}]".format(px, py, pz);
     
-    
     var t = this.lookAtPosition;  
 
     if (t) {
@@ -54,11 +51,7 @@ THREE.Camera.prototype.getInfo = function ( vector ) {
     
     }
 
-    
-    
     return msg;
-    
-    
 
 };
 

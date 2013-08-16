@@ -21,15 +21,6 @@ lgb.model.vo.ViewPointNode = function(title) {
   this.camera_ = undefined;
   this.focusEvent = false;
 
-/*
-  if (object && object instanceof THREE.Camera) {
-    this.initCamera_(object)
-  } else if  (object && object instanceof THREE.Object3D) {
-    this.init_(object,recurseDepth)
-  } else if (object && object instanceof Array) {
-    this.initArray_(object, recurseDepth);
-  }
-*/
 
 };
 goog.inherits(lgb.model.vo.ViewPointNode, lgb.model.vo.BaseVo);
@@ -39,12 +30,12 @@ goog.inherits(lgb.model.vo.ViewPointNode, lgb.model.vo.BaseVo);
 
 lgb.model.vo.ViewPointNode.prototype.getCameraOffset = function() {
 
-    var vpName = this.object3d.viewpoint;
+    var vpName = this.object3d.viewPoint;
     
     if (vpName == "default" || vpName == "") {
       
-      if (this.object3d.geometry && this.object3d.geometry.viewpoint) {
-        vpName = this.object3d.geometry.viewpoint;
+      if (this.object3d.geometry && this.object3d.geometry.viewPoint) {
+        vpName = this.object3d.geometry.viewPoint;
       }
       
     }

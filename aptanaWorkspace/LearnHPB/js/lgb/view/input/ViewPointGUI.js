@@ -37,8 +37,7 @@ lgb.view.input.ViewPointGUI.prototype.init = function() {
   this.treeDS_ = null;
   
   this.treeDSlist_ = [];
-  
-  this.listenForChange_('viewpointNode');
+  this.listenForChange_('viewPointNode');
 };
 
 
@@ -69,12 +68,12 @@ lgb.view.input.ViewPointGUI.prototype.bind_ = function() {
 
 
 
-lgb.view.input.ViewPointGUI.prototype.onChange_viewpointNode_ = function(viewpointNode) {
+lgb.view.input.ViewPointGUI.prototype.onChange_viewPointNode_ = function(viewPointNode) {
   
   if (this.treeDS_ == null) {
-    this.init2_(viewpointNode);
+    this.init2_(viewPointNode);
   } else {
-    this.treeDS_.update(viewpointNode);
+    this.treeDS_.update(viewPointNode);
   }
 
 };
@@ -111,17 +110,26 @@ lgb.view.input.ViewPointGUI.prototype.onSelect_ = function(event) {
   var kNode = event.payload;
   var viewPointNode = this.dataModel.getViewPoint(kNode);
   
-  viewPointNode.updateWorldPositions();
-                
-  if (null != viewPointNode) {
-    this.triggerLocal(e.RequestGoToViewPointNode, viewPointNode);
+  if (null == viewPointNode) {
+    
+    debugger;
+    
+  } else {
+    
+    viewPointNode.updateWorldPositions();
+                  
+    if (null != viewPointNode) {
+      this.triggerLocal(e.RequestGoToViewPointNode, viewPointNode);
+    }
   }
+  
+
 
 };
 
-lgb.view.input.ViewPointGUI.prototype.init2_ = function(viewpointNode) {
+lgb.view.input.ViewPointGUI.prototype.init2_ = function(viewPointNode) {
   
-  this.treeDS_ = new lgb.component.TreeDataSourceH(viewpointNode, null, this.htmlID,  'tree', 'ViewPointTreeDataSourceH');
+  this.treeDS_ = new lgb.component.TreeDataSourceH(viewPointNode, null, this.htmlID,  'tree', 'ViewPointTreeDataSourceH');
   
   var options =  (
     {
@@ -141,14 +149,6 @@ lgb.view.input.ViewPointGUI.prototype.init2_ = function(viewpointNode) {
   
 };
 
-
-
-
-
-lgb.view.input.ViewPointGUI.prototype.onChangeDataSource_ = function(event) {
-
-    this.triggerLocal(e.RequestDataModelChange, event.payload);
-};
 
 
 

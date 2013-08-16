@@ -87,7 +87,7 @@ lgb.view.BaseV.prototype.onChangeEx_ = function(event) {
         }
       }
    }
-}
+};
 
 
 

@@ -32,6 +32,7 @@ lgb.view.TrackBallView = function( camera) {
 
   /**@type {THREE.TrackballControlsEx} */
   this.trackballControls = new THREE.TrackballControlsEx(camera, this.domElement_);
+  
   this.init_();
 };
 goog.inherits(lgb.view.TrackBallView, lgb.view.BaseView);

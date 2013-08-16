@@ -39,15 +39,32 @@ lgb.view.EnvelopeView = function(dataModel) {
   
   this.topFloorMesh_ = null;
   
+
 };
 goog.inherits(lgb.view.EnvelopeView,lgb.view.BaseView3dScene);
 
 
+lgb.view.EnvelopeView.prototype.bind_ = function() {
+  
+  this.listenForChange_('isVisible');
+  this.listenForChange_('floorHeight');
+  this.listenForChange_('floorCount');
+  
+}
+
+lgb.view.EnvelopeView.prototype.onChange_isVisible_ = function(isVisible) {
+  this.updateVisible_();
+};
+lgb.view.EnvelopeView.prototype.onChange_floorHeight_ = function(floorHeight) {
+  this.makeFloors_();
+};
+lgb.view.EnvelopeView.prototype.onChange_floorCount_ = function(floorCount) {
+  this.makeFloors_();
+};
+
 
 lgb.view.EnvelopeView.prototype.getTopFloorContainer = function() {
-
   return this.topFloorContainer_;
-
 };
 
 
@@ -83,6 +100,8 @@ lgb.view.EnvelopeView.prototype.onSceneLoaded_ = function() {
   this.makeFloors_();
   
   this.dispatchVisibilityNodes_();
+  
+  this.bind_();
 };
 
 
@@ -107,7 +126,7 @@ lgb.view.EnvelopeView.prototype.dispatchVisibilityNodes_ = function() {
  * @override
  * @param {lgb.events.Event} event The event.
  * @protected
- */
+
 lgb.view.EnvelopeView.prototype.onChange = function(event) {
     
     var whatIsDirty = event.payload;
@@ -123,6 +142,7 @@ lgb.view.EnvelopeView.prototype.onChange = function(event) {
     }
     
 };
+ */
 
 
 /**

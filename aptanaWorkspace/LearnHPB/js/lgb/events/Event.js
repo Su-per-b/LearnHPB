@@ -29,7 +29,7 @@ goog.inherits(lgb.events.Event, goog.events.Event);
 
 e.Event = function() {};
 
-e.RequestLayoutVisibilityChange = 'e.RequestLayoutVisibilityChange';
+
 e.Resize = 'e.Resize';
 e.LayoutChange = 'e.LayoutChange';
 e.ViewInitialized = 'e.ViewInitialized';
@@ -40,29 +40,33 @@ e.MouseOut = 'e.MouseOut';
 e.MouseOver = 'e.MouseOver';
 e.Select = 'e.Select';
 e.AddToWorldRequest = 'e.AddToWorldRequest';
-e.RequestActivateView = 'e.RequestActivateView';
-e.RequestShowViewPoint = 'e.RequestShowViewPoint';
 
-e.RequestGoToViewPointNode = 'e.RequestGoToViewPointNode';
-
-e.VisibilityNodesLoaded = 'e.VisibilityNodesLoaded';
 e.ViewClosed = 'e.ViewClosed';
 e.WindowResize = 'e.WindowResize';
+
+e.VisibilityNodesLoaded = 'e.VisibilityNodesLoaded';
 e.ViewPointNodesLoaded = 'e.ViewPointNodesLoaded';
-e.RequestDataModelChange = 'e.RequestDataModelChange';
 e.ScenarioParsed = 'e.ScenarioParsed';
 e.DataSourceChanged = 'e.DataSourceChanged';
 e.DataModelChanged = 'e.DataModelChanged';
 e.BuildingHeightChanged = 'e.BuildingHeightChanged';
 e.DataModelChangedEx = 'e.DataModelChangedEx';
 
-
 e.SetFocus = 'e.SetFocus';
 e.RemoveFocus = 'e.RemoveFocus';
+e.EnvelopeModelChanged = 'e.EnvelopeModelChanged';
 
+e.RequestLayoutVisibilityChange = 'e.RequestLayoutVisibilityChange';
 e.RequestAddToMainInput = 'e.RequestAddToMainInput';
 e.RequestAddToTestingInput = 'e.RequestAddToTestingInput';
 e.RequestAddToLayout = 'e.RequestAddToLayout';
 e.RequestRemoveFromLayout = 'e.RequestRemoveFromLayout';
+
 e.RequestAddToParentGUI = 'e.RequestAddToParentGUI';
-e.EnvelopeModelChanged = 'e.EnvelopeModelChanged';
+
+e.RequestChangeVisibility = 'e.RequestChangeVisibility';
+e.RequestGoToViewPointNode = 'e.RequestGoToViewPointNode';
+e.RequestShowViewPoint = 'e.RequestShowViewPoint';
+
+e.RequestActivateView = 'e.RequestActivateView';
+e.RequestDataModelChange = 'e.RequestDataModelChange';

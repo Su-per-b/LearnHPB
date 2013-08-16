@@ -26,7 +26,6 @@ lgb.model.vo.VisibilityNode = function(title, object3d, recurseDepth) {
   } else if (object3d && object3d instanceof Array) {
     this.initArray_(object3d, recurseDepth);
   }
-  
 
 };
 goog.inherits(lgb.model.vo.VisibilityNode, lgb.model.vo.BaseVo);
@@ -35,9 +34,7 @@ goog.inherits(lgb.model.vo.VisibilityNode, lgb.model.vo.BaseVo);
 lgb.model.vo.VisibilityNode.prototype.initArray_ = function(ary, recurseDepth) {
     
     this.hasChildren = true;
-    this.each(ary, this.initOneChild_, recurseDepth);
-    return;
-    
+    this.each(ary, this.initOneChild_, recurseDepth); 
 };
 
 

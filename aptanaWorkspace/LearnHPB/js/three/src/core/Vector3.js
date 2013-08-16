@@ -95,7 +95,11 @@ THREE.Vector3.prototype = {
 	},
 
 	sub: function ( a, b ) {
-
+    
+    if (undefined ==  b) {
+      debugger;
+    }
+    
 		this.x = a.x - b.x;
 		this.y = a.y - b.y;
 		this.z = a.z - b.z;

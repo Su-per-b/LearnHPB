@@ -28,19 +28,15 @@ lgb.view.CameraView.prototype.init = function() {
 
   this.camera = new THREE.PerspectiveCamera(40, this.domElement_.width / this.domElement_.height, 1, 10000);
 
+  this.orbitRadius = 69;
   
-
-  // this.camera.position.z = 500;
-  this.orbitRadius = 75;
-  this.camera.position.x = 0;
-  this.camera.position.y = 12;
-  this.camera.position.z = this.orbitRadius;
+  this.camera.position.x = 0.6694;
+  this.camera.position.y = 31.08;
+  this.camera.position.z = 68.00;
 
 
-  this.camera.lookAtTarget = new THREE.Vector3(0, 12, 0);
-  
-  this.camera.lookAt(this.camera.lookAtTarget);
-  
+  var lookat = new THREE.Vector3(0.9247, 5.451, 0);
+  this.camera.lookAt(lookat);
   this.camera.name = 'ActiveCamera';
 
   this.bind_();
@@ -49,44 +45,22 @@ lgb.view.CameraView.prototype.init = function() {
   this.cameraCraneController_.debugMode = false;
   this.cameraCraneController_.init(this.camera);
   
-  this.cameraCraneController_.moveToPosition(this.camera);
 };
 
 
 lgb.view.CameraView.prototype.bind_ = function() {
-  
-
   this.listen(e.LayoutChange, this.onLayoutChange_);
-      
 }
 
 
-lgb.view.CameraView.prototype.goToViewPointNode = function(viewpointNode) {
+lgb.view.CameraView.prototype.goToViewPointNode = function(viewPointNode) {
 
-  //var startPosition = this.camera.position.clone();
-  
-  var camera = viewpointNode.generateCamera( this.camera );
-  this.cameraCraneController_.moveToPosition(camera);
-  
-  return;
-  
-  var lookAtPosition = viewpointNode.getLookAtPosition();
-  var lookAtPosition2 = lookAtPosition.clone();
-  var moveToPosition = viewpointNode.getCameraPosition();
-  
-  var camera = new THREE.PerspectiveCamera(this.camera.fov, this.camera.aspect, this.camera.near, this.camera.far);
-
-
-  camera.position = moveToPosition.clone();
- // camera.target = targetPosition;
-  camera.lookAt(lookAtPosition2);
-  camera.lookAtPosition = lookAtPosition2;
-  
+  this.cameraCraneController_.moveToViewpoint(viewPointNode);
   
 };
 
 /**
- * @param {THREE.Camera} camera The viewpoint to go to.
+ * @param {THREE.Camera} camera The viewPoint to go to.
  */
 lgb.view.CameraView.prototype.goToViewPoint = function(node) {
 

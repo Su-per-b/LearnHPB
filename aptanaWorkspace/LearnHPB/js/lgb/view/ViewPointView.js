@@ -41,7 +41,7 @@ lgb.view.ViewPointView.prototype.onSceneLoadedBase_ = function(result) {
   this.masterGroup_.position = this.scene_.position;
   this.masterGroup_.rotation = this.scene_.rotation;
   this.masterGroup_.scale = this.scene_.scale;
-  this.masterGroup_.viewpoint = "defaultScene";
+  this.masterGroup_.viewPoint = "defaultScene";
 
   var c = this.containers_; 
   if (this.containers_ != null) {
@@ -50,8 +50,6 @@ lgb.view.ViewPointView.prototype.onSceneLoadedBase_ = function(result) {
   
 
   this.onSceneLoaded_();
-
-  
   delete this.loader_;
   
   this.triggerLocal(e.ViewInitialized);
@@ -80,20 +78,20 @@ lgb.view.ViewPointView.prototype.onSceneLoaded_ = function(result) {
         theCamera.target.addSelf(this.scene_.position);
         
         theCamera.name = camName;
-        
         camList.push(theCamera);
         
         var node = new lgb.model.vo.ViewPointNode.makeFromCamera(theCamera);
-        
         nodeList.push(node);
 
     }
   }
   
-    var node1 = new lgb.model.vo.ViewPointNode.makeFromArray (this._TITLE, nodeList, 1 );
-    this.triggerLocal(e.ViewPointNodesLoaded, node1);
+    var viewPointNode = new lgb.model.vo.ViewPointNode.makeFromArray (this._TITLE, nodeList, 1 );
+    this.triggerLocal(e.ViewPointNodesLoaded, viewPointNode);
   
-
+    var defaultNode = nodeList[0];
+    defaultNode.updateWorldPositions();
+    this.triggerLocal(e.RequestGoToViewPointNode, defaultNode);
 };
 
 

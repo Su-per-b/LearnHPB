@@ -39,7 +39,7 @@ lgb.model.VisibilityModel.prototype.changeAry = function(changeRequestAry) {
   if ("isVisible" == propertyName) {
     
     var changeRequest = changeRequestAry[0];
-    var node = lgb.model.vo.VisibilityNode.getNodeByIdx(changeRequest.idx);
+    var node = lgb.model.vo.VisibilityNode.getNodeByIdx(changeRequest.id);
          
      if (node) {
        node.setVisible(changeRequest.newValue);

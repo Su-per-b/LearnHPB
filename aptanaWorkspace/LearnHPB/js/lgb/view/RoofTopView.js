@@ -44,7 +44,7 @@ lgb.view.RoofTopView.prototype.onSceneLoaded_ = function(result) {
      // this.dispatchLocal(event);
   //}
   
-   this.masterGroup_.viewpoint = "RoofTopScene";
+   this.masterGroup_.viewPoint = "RoofTopScene";
   
    this.dispatchViewPointNodes_();
    this.dispatchVisibilityNodes_();

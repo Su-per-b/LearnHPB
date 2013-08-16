@@ -43,11 +43,11 @@ lgb.controller.CameraCraneController.prototype.init =
 
   
   this.cameraOnCrane_ = cameraOnCrane;
-  this.lookAtTarget = cameraOnCrane.lookAtTarget;
+  this.lookAtPosition = cameraOnCrane.lookAtPosition;
   
   if (this.debugMode) {
     
-    this.debugPath = this.makeLine(this.cameraOnCrane_, this.cameraDestination_);
+    this.debugPath = this.makeLine(this.cameraOnCrane_, this.destinationCamera_);
 
     this.masterGroup_= new THREE.Object3D();
       
@@ -57,7 +57,6 @@ lgb.controller.CameraCraneController.prototype.init =
     this.debugObject = new THREE.Mesh(dummyGeo, blueMaterial);
     this.masterGroup_.add(this.debugObject);
     this.masterGroup_.add(this.debugPath);
-    
     
     this.trigger(e.AddToWorldRequest, this.masterGroup_);
   };
@@ -69,17 +68,11 @@ lgb.controller.CameraCraneController.prototype.init =
 lgb.controller.CameraCraneController.prototype.setDuration =
   function() {
     
-  //  var xDelta = Math.abs(this.cameraDestination_.position.x -
-  //   this.cameraOnCrane_.position.x);
-    
-    var positionDistance = this.cameraOnCrane_.
-      position.distanceTo(this.cameraDestination_.position);
-    
-   // var rotationDistance = this.lookAtTarget.
-    //  rotation.distanceTo(this.cameraDestination_.rotation);
-    
+    var pos1 = this.cameraOnCrane_.position;
+    var pos2 = this.destinationCamera_.position;
+         
+    var positionDistance = pos1.distanceTo(pos2);
     var durationPosition = positionDistance /this.metersPerSecondPostion;
-  //  var durationRotation = rotationDistance /this.metersPerSecondRotation;
     
     this.moveDuration = durationPosition * 1000;
     this.lookAtDuration = this.moveDuration * 0.6;
@@ -94,80 +87,56 @@ lgb.controller.CameraCraneController.prototype.setDuration =
       this.lookAtDuration = 3000;
     }
 
-    
-
-    
 }
 
-lgb.controller.CameraCraneController.prototype.moveToPosition =
-  function(cameraDestination) {
-    
-  this.cameraDestination_ = cameraDestination;
+lgb.controller.CameraCraneController.prototype.moveToViewpoint =
+  function(viewPointNode) {
+
+  var destinationCamera = viewPointNode.generateCamera( this.cameraOnCrane_ );
+
+  
+  this.destinationCamera_ = destinationCamera;
   
   this.setDuration();
-  
-  var p = this.cameraDestination_.position;
- // var r = this.cameraDestination_.rotation;
-  var t = this.cameraDestination_.lookAtPosition;
-  
-  console.log("CameraCraneController.moveToPosition() " + 
-  "x: " + p.x + 
-  "y: " + p.y + 
-  "z: " + p.z );
-  
-  
-  
   this.listenForRender = true;
   
+
   var props = {
     override : true
   };
   
-  // var rotationTween = {
-    // x: r.x,
-    // y: r.y,
-    // z: r.z
-  // }
+  //position tween
   
-  // new createjs.Tween(this.cameraOnCrane_.rotation, props).to( 
-    // rotationTween,
-    // this.moveDuration-100,
-    // this.easing 
-    // );
-  
-  if (undefined !== t) {
-    
-    var lookAtTween = {
-      x: t.x,
-      y: t.y,
-      z: t.z
-    }
-    new createjs.Tween(this.lookAtTarget, props).to(
-      lookAtTween,
-      this.lookAtDuration,
-      this.easing 
-      );
-  }
-
-  
-  var positionTween = {
-    x: p.x,
-    y: p.y,
-    z: p.z
-  }
-  createjs.Tween.get(this.cameraOnCrane_.position, props)
+  var tweenPosition = createjs.Tween.get(this.cameraOnCrane_.position, props)
     .to(
-      positionTween,
-      this.moveDuration +10,
+      this.destinationCamera_.position,
+      this.moveDuration,
       this.easing 
       )
     .call(this.d(this.onTweenComplete));
     
     
+  //tween target
+  if (undefined !== this.destinationCamera_.lookAtPosition) {
+    
+   // this.lookAtPosition = this.destinationCamera_.lookAtPosition;
+    
+    var tweenTarget = new createjs.Tween(this.lookAtPosition, props);
+    
+    tweenTarget.to (
+      this.destinationCamera_.lookAtPosition,
+      this.lookAtDuration,
+      this.easing 
+      );
+  } else {
+    debugger;
+  }
+
+  //camera up tween
   var upTween = {
-    x: this.cameraDestination_.up.x,
-    y: this.cameraDestination_.up.y,
-    z: this.cameraDestination_.up.z
+    x: this.destinationCamera_.up.x,
+    y: this.destinationCamera_.up.y,
+    z: this.destinationCamera_.up.z
   }
   new createjs.Tween(this.cameraOnCrane_.up, props).to(
     upTween,
@@ -176,6 +145,7 @@ lgb.controller.CameraCraneController.prototype.moveToPosition =
     );
   
 };
+
 
 
 /**
@@ -213,7 +183,7 @@ lgb.controller.CameraCraneController.prototype.makeLine = function(startObject, 
 lgb.controller.CameraCraneController.prototype.onRender_ = function(event) {
   
   if (this.listenForRender) {
-    this.cameraOnCrane_.lookAt(this.lookAtTarget);
+    this.cameraOnCrane_.lookAt(this.lookAtPosition);
   }
 }
 
@@ -222,7 +192,7 @@ lgb.controller.CameraCraneController.prototype.onRender_ = function(event) {
  */
 lgb.controller.CameraCraneController.prototype.onTweenComplete = function(event) {
   
-  this.cameraOnCrane_.lookAt(this.lookAtTarget);
+  this.cameraOnCrane_.lookAt(this.lookAtPosition);
   this.listenForRender = false;
 }
 

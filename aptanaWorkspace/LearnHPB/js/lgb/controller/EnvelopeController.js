@@ -110,7 +110,7 @@ lgb.controller.EnvelopeController.prototype.onViewInitialized_ =
 lgb.controller.EnvelopeController.prototype.onRequestDataModelChange_ =
   function(event) {
     
-  this.dataModel.changeProperty(event.payload.name, event.payload.value);
+  this.dataModel.changePropertyEx(event.payload.name, event.payload.value);
 };
 
 

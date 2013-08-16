@@ -52,12 +52,12 @@ lgb.controller.BuildingController.prototype.init_ = function() {
   this.envelopeController_ = new lgb.controller.EnvelopeController();
   this.psMasterController_ = new lgb.controller.PsMasterController();
   
-  this.viewpointController_ = new lgb.controller.input.ViewPointController();
-  this.viewpointController_.setAnchors(this.view.anchors);
+  this.viewPointController_ = new lgb.controller.input.ViewPointController();
+  this.viewPointController_.setAnchors(this.view.anchors);
   
   this.bind2_();
   
-  this.viewpointController_.init();
+  this.viewPointController_.init();
   this.zoneController_.init();
   this.roofTopController_.init();
   this.hvacController_.init();
@@ -155,7 +155,7 @@ lgb.controller.BuildingController.prototype.onViewPointNodesLoaded_ =
   function(event) {
 
 
-    this.viewpointController_.loadViewpoint(event.payload);
+    this.viewPointController_.loadViewpoint(event.payload);
     
     
 };
