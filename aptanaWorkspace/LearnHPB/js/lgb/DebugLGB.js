@@ -17,6 +17,8 @@ lgb.DebugLGB = function() {
 
 lgb.DebugLGB.prototype.init = function(packageName) {
   
+  this.tagClasses(['lgb','component']);
+  
   this.tagClasses(['lgb','model']);
   this.tagClasses(['lgb','model', 'scenario']);
   this.tagClasses(['lgb','model', 'vo']);

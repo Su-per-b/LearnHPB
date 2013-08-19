@@ -149,15 +149,33 @@ lgb.view.BaseView3dScene.prototype.onSceneLoadedBase_ = function(result) {
 lgb.view.BaseView3dScene.prototype.placeContainers_ = function() {
     
 
-    var count = 0;
+  //  var count = 0;
     for(var containerName in this.containers_) {
       var containerObject = this.containers_[containerName];
       this.placeOneContainer_(containerName, containerObject);
       
-      count++;
+     // count++;
     }
 
 };
+
+
+
+lgb.view.BaseView3dScene.prototype.chromeBlinkingFix_ = function(mesh) {
+  
+    mesh.material.opacity = 1;
+    
+    if (mesh.geometry && mesh.geometry.materials) {
+      var l = mesh.geometry.materials.length;
+
+      for (var i = 0; i < l; i++) {
+        mesh.geometry.materials[i].opacity = 1;
+      }
+
+    }
+    
+    
+}
 
 
 lgb.view.BaseView3dScene.prototype.placeOneContainer_ = function(containerName, containerObject) {
@@ -169,7 +187,14 @@ lgb.view.BaseView3dScene.prototype.placeOneContainer_ = function(containerName, 
         obj3D.name = containerName;
         
         var ary = this.groups_[groupName];
+        
+        if (goog.userAgent.WEBKIT) {
+          this.each(ary, this.chromeBlinkingFix_);
+        }
+        
         obj3D.cloneArray(ary);
+          
+          
           
   
         if (containerObject.position != null) {

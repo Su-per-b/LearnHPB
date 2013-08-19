@@ -63,27 +63,6 @@ lgb.model.PsModelMaster.prototype.changePropertyEx = function(property, newValue
 };
 
 
-/*
-lgb.model.PsModelMaster.prototype.changeAry = function(changeRequestAry) {
-
-  var changeRequest = changeRequestAry[0];
-  var propertyName = changeRequestAry.propertyName;
-  
-  
-  if ("isStarted" == propertyName) {
-      
-    if (changeRequest.idx in this.psModelList) {
-       var psModel = this.psModelList[changeRequest.idx];
-       psModel.changePropertyEx(propertyName, changeRequest.isChecked);
-    }
-  } else {
-    debugger;
-  }
-  
-
-}
-
-*/
 
 
 /**
@@ -94,7 +73,6 @@ lgb.model.PsModelMaster.prototype.load = function() {
 
   /**@type {THREE.SceneLoaderEx} */
   this.loader_ = new THREE.SceneLoaderEx();
-  //  this.loader_.callbackSync = this.d(this.onSceneLoadedSync_);
   this.loader_.load(lgb.Config.PARTICLE_SYSTEM_SCENE, this.d(this.onSceneLoadedSync_));
 
   this.loadXML_();

@@ -76,4 +76,4 @@ e.RequestDataModelChange = 'e.RequestDataModelChange';
 e.SelectableLoaded = 'e.SelectableLoaded';
 e.Object3DSelected = 'e.Object3DSelected';
 
-
+e.RequestSelectSystemNode = 'e.RequestSelectSystemNode';

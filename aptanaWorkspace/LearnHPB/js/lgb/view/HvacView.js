@@ -56,7 +56,7 @@ lgb.view.HvacView.prototype.onSceneLoaded_ = function(result) {
   }
 
 
-  this.dispatchSelectableLoaded_(selectableList);
+  //this.dispatchSelectableLoaded_(selectableList);
   this.dispatchVisibilityNodes_();
   this.dispatchViewpointNodes_();
 

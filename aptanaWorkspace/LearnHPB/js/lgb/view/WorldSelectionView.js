@@ -3,20 +3,20 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.view.SelectionView');
+goog.provide('lgb.view.WorldSelectionView');
 
-goog.require('lgb.model.SelectableModel');
+goog.require('lgb.model.WorldSelectionModel');
 goog.require('lgb.view.BaseV');
 
 
 /**
  * @constructor
  * @extends {lgb.view.BaseV}
- * @param {lgb.model.SelectableModel} dataModel The MVC data Model.
+ * @param {lgb.model.WorldSelectionModel} dataModel The MVC data Model.
  * @param {Element} containerDiv The DOM element.
  * @param {THREE.Camera} camera The camera needed to identify collisions.
  */
-lgb.view.SelectionView = function(dataModel, containerDiv, camera, scene) {
+lgb.view.WorldSelectionView = function(dataModel, containerDiv, camera, scene) {
     
   lgb.view.BaseV.call(this, dataModel, "SelectionView", lgb.Config.HUD_CONTAINER_STR);
   
@@ -25,14 +25,14 @@ lgb.view.SelectionView = function(dataModel, containerDiv, camera, scene) {
   this.scene_ = scene;
 
 };
-goog.inherits(lgb.view.SelectionView, lgb.view.BaseV);
+goog.inherits(lgb.view.WorldSelectionView, lgb.view.BaseV);
 
 
 
 /**
  * Initializes the View
  */
-lgb.view.SelectionView.prototype.init = function() {
+lgb.view.WorldSelectionView.prototype.init = function() {
 
   this.projector_ = new THREE.Projector();
   this.mouse = { x: 0, y: 0 };
@@ -43,37 +43,34 @@ lgb.view.SelectionView.prototype.init = function() {
   this.selectedMaterial = new THREE.MeshLambertMaterial({ color: 0xbb0000 });
   this.savedMaterials = {};
 
-  this.listenForChange_('selected');
+  this.listenForChange_('selectedMeshList');
 
 };
 
 
 
-lgb.view.SelectionView.prototype.onChange_selected_ = function(selected) {
- 
-
-  //deselect
-  var l = this.dataModel.deselected.length;
-  for (var i = 0; i < l; i++) {
-    var mesh = this.dataModel.deselected[i];
-    mesh.material = new THREE.MeshFaceMaterial();
-  }
-
-  //select
-  var m = this.dataModel.selected.length;
-  for (var j = 0; j < m; j++) {
-    var mesh2 = this.dataModel.selected[j];
-    mesh2.material = this.selectedMaterial;
-  }
-
+lgb.view.WorldSelectionView.prototype.onChange_selectedMeshList_ = function(selectedMeshList) {
+  
+  this.each(this.dataModel.deselected, this.changeMaterial_, false);
+  this.each(selectedMeshList, this.changeMaterial_, true);
 };
+
+
+lgb.view.WorldSelectionView.prototype.changeMaterial_ = function(mesh, makeRed) {
+  
+  if(makeRed) {
+      mesh.material = this.selectedMaterial;
+  } else {
+      mesh.material = new THREE.MeshFaceMaterial();
+  }
+}
 
 
 /**
  * @private
  * @param {jQuery.event} event The event fired when a user clicks.
  */
-lgb.view.SelectionView.prototype.onClick_ = function(event) {
+lgb.view.WorldSelectionView.prototype.onClick_ = function(event) {
   
   //check for left mouse button
   if (0 == event.button) {
@@ -94,7 +91,7 @@ lgb.view.SelectionView.prototype.onClick_ = function(event) {
  * that is marked for collision detection.
  */
 
-lgb.view.SelectionView.prototype.checkCollision = function() {
+lgb.view.WorldSelectionView.prototype.checkCollision = function() {
 
 
   var vector = new THREE.Vector3(this.mouse.x, this.mouse.y, 0.5);
@@ -116,7 +113,6 @@ lgb.view.SelectionView.prototype.checkCollision = function() {
     if (intersectList.length > 0) {
       
       var intersect = intersectList[0];
-      
       this.triggerLocal(e.Object3DSelected, intersect);
       
     }
@@ -128,11 +124,9 @@ lgb.view.SelectionView.prototype.checkCollision = function() {
  * event handler.
  * @param {e.RenderNotify} event Fired by the World Controller.
  */
-lgb.view.SelectionView.prototype.onRender = function(event) {
-  
+lgb.view.WorldSelectionView.prototype.onRender = function(event) {
   this.unlisten(this.renderListenerKey); 
   this.checkCollision();
-
 };
 
 

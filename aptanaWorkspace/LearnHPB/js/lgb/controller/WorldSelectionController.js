@@ -6,9 +6,8 @@
 goog.provide('lgb.controller.WorldSelectionController');
 
 goog.require('lgb.controller.BaseController');
-goog.require('lgb.events.WorldSelectionChanged');
-goog.require('lgb.model.SelectableModel');
-goog.require('lgb.view.SelectionView');
+goog.require('lgb.model.WorldSelectionModel');
+goog.require('lgb.view.WorldSelectionView');
 goog.require('goog.array');
 
 
@@ -35,27 +34,9 @@ goog.inherits(lgb.controller.WorldSelectionController,
  */
 lgb.controller.WorldSelectionController.prototype.init_ = function() {
 
-  this.meshToSystemNodeMap = {
-    TopDamper: 'MX',
-    CenterDamper: 'MX',
-    LeftDamper: 'MX',
-    Fan: 'FAN',
-    CoolingCoil: 'CC',
-    HeatingCoil: 'HC',
-    Filter: 'FLT'
-  };
+  this.dataModel = new lgb.model.WorldSelectionModel();
 
-  this.systemNodeToMeshMap = {
-    MX: ['TopDamper', 'CenterDamper', 'LeftDamper'],
-    FAN: ['Fan'],
-    CC: ['CoolingCoil'],
-    HC: ['HeatingCoil'],
-    FLT: ['Filter']
-  };
-
-  this.dataModel = new lgb.model.SelectableModel();
-
-  this.view = new lgb.view.SelectionView(this.dataModel,
+  this.view = new lgb.view.WorldSelectionView(this.dataModel,
     this.containerDiv_,
     this.camera_,
     this.scene_);
@@ -78,33 +59,27 @@ lgb.controller.WorldSelectionController.prototype.bind_ = function() {
     e.Object3DSelected,
     this.onObject3DSelected_
     );
-    
+
+
   this.listen(
     e.SelectableLoaded,
     this.onSelectableLoaded_);
     
+  this.listen(
+    e.RequestSelectSystemNode,
+    this.onRequestSelectSystemNode_);
+    
 };
 
 
-/**
- * @private
- * @param {lgb.events.RequestWorldSelectionChange} event Requesting
- * that the selction in the 3D world be changed.
- * Comes from the Properties Controller.
- */
-lgb.controller.WorldSelectionController.prototype.
-  onRequestWorldSelectionChange_ = function(event) {
 
-  /**@type {string} */
-  var id = event.payload;
+lgb.controller.WorldSelectionController.prototype.onRequestSelectSystemNode_ =
+  function(event) {
 
-  /**@type {Array.<string>} */
-  var meshNames = this.systemNodeToMeshMap[id];
-  if (null != meshNames) {
-    this.dataModel.selectMeshList(meshNames);
-  }
+  this.dataModel.selectSystemNode(event.payload);
 
 };
+
 
 
 
@@ -112,21 +87,11 @@ lgb.controller.WorldSelectionController.prototype.
 lgb.controller.WorldSelectionController.prototype.onObject3DSelected_ =
   function(event) {
 
-  /**@type {THREE.CollisionSystem} **/
-  var mc = event.payload;
-  this.dataModel.select(mc);
-
-  var meshName = this.dataModel.getOneSelected();
-
-
-  var id = this.meshToSystemNodeMap[meshName];
-
-  if (id == null) {
-    id = 'NONE';
-  }
-
-  //var e = new lgb.events.WorldSelectionChanged(id);
-  //this.dispatch(e);
+  var intersect = event.payload;
+  
+  var systemNodeID = this.dataModel.selectIntersect(intersect);
+  this.trigger(e.RequestSelectSystemNode, systemNodeID);
+  
 };
 
 
@@ -135,5 +100,5 @@ lgb.controller.WorldSelectionController.prototype.onSelectableLoaded_ =
   function(event) {
 
   this.dataModel.addMeshAry(event.payload);
-  
+  return;
 };

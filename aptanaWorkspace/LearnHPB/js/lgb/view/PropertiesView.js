@@ -7,6 +7,8 @@ goog.provide('lgb.view.PropertiesView');
 goog.require('lgb.view.input.DialogView');
 goog.require('lgb.component.FaultWidget');
 goog.require('lgb.component.InputWidget');
+goog.require('lgb.component.TabStrip');
+goog.require('lgb.component.TabStripDataSource');
 
 /**
  * @constructor
@@ -32,18 +34,19 @@ lgb.view.PropertiesView = function(dataModel) {
   this.kendoTabStrip_ = null;
 
 
-
+  this.listenForChange_('selectedSystemNode');
 };
 goog.inherits(lgb.view.PropertiesView, lgb.view.input.DialogView);
 
-/**
- * Event handler triggered when the dataModel changes
- * @param {goog.events.Event} event The event received.
- */
-lgb.view.PropertiesView.prototype.onChange = function(event) {
-   this.setDropDownSelection(this.dataModel.selectedSystemNode);
-   this.showNode(this.dataModel.selectedSystemNode);
+
+
+
+lgb.view.PropertiesView.prototype.onChange_selectedSystemNode_ = function(selectedSystemNode) {
+   this.setDropDownSelection(selectedSystemNode);
+   this.showNode(selectedSystemNode);
 };
+
+
 
 /**
  * Event handler triggered when the user clicks the
@@ -104,29 +107,26 @@ lgb.view.PropertiesView.prototype.makeDialog_ = function() {
  */
 lgb.view.PropertiesView.prototype.makeTabs_ = function() {
   
-  var htmlTabs =
-  '<div id="tabstripContent" class="k-content">' +
-    '<div id="tabstrip" />' +
-  '</div>';
-
-  var el = this.getMainElement();
-
-  el.append(htmlTabs);
   
-  this.kendoTabStrip_ = $('#tabstrip').kendoTabStrip(
-    {animation: false}
-  ).data('kendoTabStrip');
+  this.dataSource = new lgb.component.TabStripDataSource('PropertiesView-tabStrip');
+  this.tabStrip1 = new lgb.component.TabStrip(this.dataSource);
 
-  this.kendoTabStrip_.append(
-      [
-        {text: 'Input'},
-        {text: 'Faults'},
-        {text: 'I2'},
-        {text: 'F2'}
-      ]
-  );
+  this.tabStrip1.setOptions({
+    width : "100%"
+  });
+  
+  var el = this.getMainElement();
+  this.tabStrip1.inject(el);
+  this.tabStrip1.injectCss();
+  
+  
+  this.contentElementList_ = [];
+  
+  this.contentElementList_[0] = this.tabStrip1.addTab('Input!');
+  this.contentElementList_[1] = this.tabStrip1.addTab('Faults');
+  this.contentElementList_[2] = this.tabStrip1.addTab('I2');
+  this.contentElementList_[3] = this.tabStrip1.addTab('F2');
 
-  this.kendoTabStrip_.select(this.kendoTabStrip_.tabGroup[0].children[0]);
 };
 
 
@@ -164,8 +164,8 @@ lgb.view.PropertiesView.prototype.onDropDownChange = function(event) {
   var jq = $('#' + this.comboBoxId);
   var id = jq[0].value;
 
-  this.dataModel.selectId(id);
-
+  this.triggerLocal(e.RequestSelectSystemNode, id);
+  
 };
 
 
@@ -189,33 +189,35 @@ lgb.view.PropertiesView.prototype.setDropDownSelection = function(systemNode) {
  * populate the tabs.
  */
 lgb.view.PropertiesView.prototype.showNode = function(systemNode) {
-  $('#tabstrip-1').empty();
-  $('#tabstrip-2').empty();
-  $('#tabstrip-3').empty();
-  $('#tabstrip-4').empty();
+  
 
+  this.contentElementList_[0].empty();
+  this.contentElementList_[1].empty();
+  this.contentElementList_[2].empty();
+  this.contentElementList_[3].empty();
+  
   var dataSources = systemNode.getDataSources();
 
-  $('#tabstrip-3').kendoGrid({
+  this.contentElementList_[2].kendoGrid({
        dataSource: dataSources.inputs,
      scrollable: false,
      sortable: false
    });
 
-  $('#tabstrip-4').kendoGrid({
+  this.contentElementList_[3].kendoGrid({
        dataSource: dataSources.faults,
      scrollable: false,
      sortable: false
    });
 
-  //$('#tabstrip-3').text(systemNode.idx.toString());
   var inputs = systemNode.getInputs();
   var j = inputs.length;
 
   while (j--) {
-      var sysVar = inputs[j];
+    var sysVar = inputs[j];
     var widget = new lgb.component.InputWidget(sysVar);
-      widget.injectHtml('#tabstrip-1', j);
+    
+    widget.inject(this.contentElementList_[0], j);
   }
 
   var faults = systemNode.getFaults();
@@ -229,7 +231,7 @@ lgb.view.PropertiesView.prototype.showNode = function(systemNode) {
 
     } else {
     var f = new lgb.component.FaultWidget(sysVar);
-      f.injectHtml('#tabstrip-2', i);
+      f.inject(this.contentElementList_[1], i);
     }
 
   }

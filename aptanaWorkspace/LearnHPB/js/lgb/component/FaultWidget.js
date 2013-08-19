@@ -56,52 +56,48 @@ lgb.component.FaultWidget.prototype.getHtml = function() {
   return sl;
 };
 
-/**
- * Injects the HTML for the component into the DOM.
- * @param {string} parentSelector This is the jQuery selctor for the component's
- * parent in the DOM.
- * @param {number} idx This is used to alternate the background color.
- */
-lgb.component.FaultWidget.prototype.injectHtml =
-  function(parentSelector, idx) {
+
+lgb.component.FaultWidget.prototype.inject =
+  function(parentElement, idx) {
+
+  goog.base(this, 'inject', parentElement);
 
   if (this.dataModel.faultWidgetType != 'SLIDER') {
     throw Error('unknown faultWidgetType');
   }
 
-   var id = this.htmlID + '-slider';
+  var id = this.htmlID + '-slider';
+  var cl = idx % 2 ? '' : ' greyBackground'; 
 
-
-
-    var cl = idx % 2 ? '' : ' greyBackground';
-
-
-    var html = '<div class="faultWidget{0}">'.format(cl) +
-      '<div>' +
-      '<div>' +
-         this.dataModel.displayName +
-        '</div>' +
-          '<input id="{0}" />'.format(id) +
+  var html = '<div class="faultWidget{0}">'.format(cl) +
+    '<div>' +
+    '<div>' +
+       this.dataModel.displayName +
       '</div>' +
-    '</div>';
+        '<input id="{0}" />'.format(id) +
+    '</div>' +
+  '</div>';
 
-    $(parentSelector).append(html);
-
-    this.kendoSlider = $('#' + id).kendoSlider({
-       min: this.dataModel.lowValue,
-       max: this.dataModel.highValue,
-       smallStep: 1,
-       largeStep: 20,
-       showButtons: false
-         }).data('kendoSlider');
-
-
+   
+  this.append(html);
+  
+  var sld = $('#' + id);
+   
+  var options = {
+    min : this.dataModel.lowValue,
+    max : this.dataModel.highValue,
+    smallStep : 1,
+    largeStep : 20,
+    showButtons : false
+  };
+  
+  this.kendoSlider = sld.kendoSlider(options).data('kendoSlider');
+  
+  
+  
 
 
 };
-
-
-
 
 
 

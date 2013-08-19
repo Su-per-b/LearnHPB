@@ -82,6 +82,13 @@ lgb.view.EnvelopeView.prototype.onSceneLoaded_ = function() {
     hashKeyArray.push(hashKey);
     
    var mesh = this.floorMeshHash_[hashKey];
+   
+    if (goog.userAgent.WEBKIT) {
+      this.chromeBlinkingFix_(mesh);
+    }
+        
+
+   
    var dim = mesh.geometry.getDimensions();
    this.floorMeshHash_[hashKey].position.setY(dim.y/2);
   }

@@ -32,14 +32,8 @@ goog.inherits(lgb.component.InputWidget, lgb.view.BaseV);
 
 
 
-/**
- * Injects the HTML for the component into the DOM.
- * @param {string} parentSelector This is the jQuery selctor for the component's
- * parent in the DOM.
- * @param {number} idx This is used to alternate the background color.
- */
-lgb.component.InputWidget.prototype.injectHtml =
-  function(parentSelector, idx) {
+lgb.component.InputWidget.prototype.inject =
+  function(parentElement, idx) {
 
     var cl = idx % 2 ? '' : ' greyBackground';
 
@@ -52,12 +46,14 @@ lgb.component.InputWidget.prototype.injectHtml =
           '<input id="{0}" />'.format(this.htmlID) +
       '</div>' +
     '</div>';
+    
+    
 
-    $(parentSelector).append(html);
+  this.append(html);
+  goog.base(this, 'inject', parentElement);
+    
 
 };
-
-
 
 
 

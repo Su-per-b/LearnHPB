@@ -54,9 +54,7 @@ lgb.model.scenario.Base.prototype.load = function() {
 lgb.model.scenario.Base.prototype.selectId = function(id) {
 
   this.selectedSystemNode = this.idxToNodeMap[id];
-  
-  this.triggerLocal(e.DataModelChanged);
-  
+  this.dispatchChangedEx('selectedSystemNode', this.selectedSystemNode);
 };
 
 

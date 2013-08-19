@@ -24,6 +24,8 @@ lgb.controller.ScenarioController = function() {
       this.onDataModelInitialized_);
 
   this.dataModel.load();
+  
+  
 };
 goog.inherits(lgb.controller.ScenarioController, lgb.controller.BaseController);
 
