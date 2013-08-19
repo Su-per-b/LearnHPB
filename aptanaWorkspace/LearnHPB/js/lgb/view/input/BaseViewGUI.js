@@ -3,8 +3,6 @@ goog.provide('lgb.view.input.BaseViewGUI');
 goog.require('lgb.view.BaseV');
 
 
-goog.require('lgb.utils');
-
 /**
  * MVC View base class
  * @constructor

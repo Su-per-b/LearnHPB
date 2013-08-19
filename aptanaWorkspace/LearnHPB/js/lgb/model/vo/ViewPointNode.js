@@ -3,16 +3,16 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.model.vo.ViewPointNode');
+goog.provide('lgb.model.vo.ViewpointNode');
 
 goog.require('lgb.model.vo.BaseVo');
 
 
 
-lgb.model.vo.ViewPointNode = function(title) {
+lgb.model.vo.ViewpointNode = function(title) {
   
-  this.idx = lgb.model.vo.ViewPointNode.idx++;
-  lgb.model.vo.ViewPointNode.allNodes[this.idx] = this;
+  this.idx = lgb.model.vo.ViewpointNode.idx++;
+  lgb.model.vo.ViewpointNode.allNodes[this.idx] = this;
   
   this.title = title;
   this.children = undefined;
@@ -23,61 +23,34 @@ lgb.model.vo.ViewPointNode = function(title) {
 
 
 };
-goog.inherits(lgb.model.vo.ViewPointNode, lgb.model.vo.BaseVo);
+goog.inherits(lgb.model.vo.ViewpointNode, lgb.model.vo.BaseVo);
 
 
 
 
-lgb.model.vo.ViewPointNode.prototype.getCameraOffset = function() {
+lgb.model.vo.ViewpointNode.prototype.getCameraOffset = function() {
 
-    var vpName = this.object3d.viewPoint;
+    var vpName = this.object3d.viewpoint;
     
     if (vpName == "default" || vpName == "") {
       
-      if (this.object3d.geometry && this.object3d.geometry.viewPoint) {
-        vpName = this.object3d.geometry.viewPoint;
+      if (this.object3d.geometry && this.object3d.geometry.viewpoint) {
+        vpName = this.object3d.geometry.viewpoint;
       }
       
     }
     
-
-    var offsetAry = lgb.model.vo.ViewPointNode.offsetMap_[vpName];
+    var offsetAry = lgb.model.vo.ViewpointNode.offsetMap_[vpName];
     var offsetVector3 = new THREE.Vector3(offsetAry[0], offsetAry[1], offsetAry[2]);
     
     return offsetVector3;
 };
 
 
-
-
-
-
-/*
-
-lgb.model.vo.ViewPointNode.prototype.init_ = function(object, recurseDepth) {
-
-    
-    this.object3d = object;
-
-    if (this.object3d.children.length > 0 && recurseDepth > 0) {
-      this.hasChildren = true;
-      this.children = [];
-
-      this.each(this.object3d.children, this.initOneChild, recurseDepth);
-    }
-    
-    return;
-};
-
-
-*/
-
-
-
-lgb.model.vo.ViewPointNode.getNodeByIdx = function(idx) {
+lgb.model.vo.ViewpointNode.getNodeByIdx = function(idx) {
   
   var theNode = null;
-  var allNodes = lgb.model.vo.ViewPointNode.allNodes;
+  var allNodes = lgb.model.vo.ViewpointNode.allNodes;
   
   if(allNodes && allNodes.length > idx ) {
     theNode = allNodes[idx];
@@ -89,15 +62,13 @@ lgb.model.vo.ViewPointNode.getNodeByIdx = function(idx) {
 
 
 
-lgb.model.vo.ViewPointNode.prototype.getTargetPosition = function(cameraPositionWorld) {
+lgb.model.vo.ViewpointNode.prototype.getTargetPosition = function(cameraPositionWorld) {
   
    var worldPosition = new THREE.Vector3();
 
     
   if (this.camera_) {
     
-
-    //var cameraPositionWorld = new THREE.Vector3();
     var cameraPositionLocal = this.camera_.position.clone();
     this.camera_.localToWorld(cameraPositionWorld);
     
@@ -123,7 +94,7 @@ lgb.model.vo.ViewPointNode.prototype.getTargetPosition = function(cameraPosition
 };
 
 
-lgb.model.vo.ViewPointNode.prototype.getCameraPosition = function() {
+lgb.model.vo.ViewpointNode.prototype.getCameraPosition = function() {
 
   if (this.camera_) {
     
@@ -151,33 +122,33 @@ lgb.model.vo.ViewPointNode.prototype.getCameraPosition = function() {
 
 
 
-lgb.model.vo.ViewPointNode.prototype.updateWorldPositions = function() {
+lgb.model.vo.ViewpointNode.prototype.updateWorldPositions = function() {
   
   var  cameraTemplate = new THREE.PerspectiveCamera(40, 16/9, 1, 10000);
   
   var position = this.getCameraPosition();
   var targetPosition = this.getTargetPosition(position);
   
-  this.viewPointCamera_ = new THREE.PerspectiveCamera(
+  this.viewpointCamera_ = new THREE.PerspectiveCamera(
     cameraTemplate.fov, 
     cameraTemplate.aspect, 
     cameraTemplate.near, 
     cameraTemplate.far
   );
 
-  this.viewPointCamera_.position = position;
-  this.viewPointCamera_.lookAt(targetPosition);
+  this.viewpointCamera_.position = position;
+  this.viewpointCamera_.lookAt(targetPosition);
   
 };
 
 
 
-lgb.model.vo.ViewPointNode.prototype.getAnchorObj = function() {
+lgb.model.vo.ViewpointNode.prototype.getAnchorObj = function() {
     
     if (this.anchorObj_) return this.anchorObj_;
       
     if (this.anchor) {
-      this.anchorObj_ = lgb.model.vo.ViewPointNode.anchors[this.anchor];
+      this.anchorObj_ = lgb.model.vo.ViewpointNode.anchors[this.anchor];
       
       if (null == this.anchorObj_) {
         debugger;
@@ -193,23 +164,20 @@ lgb.model.vo.ViewPointNode.prototype.getAnchorObj = function() {
 
 
 
-lgb.model.vo.ViewPointNode.prototype.generateCameraPosition = function() {
+lgb.model.vo.ViewpointNode.prototype.generateCameraPosition = function() {
 
-    
     var cameraPosition = new THREE.Vector3();
     this.object3d.localToWorld(cameraPosition);
     
     var offset = this.getCameraOffset();
     cameraPosition.addSelf(offset);
-    
-    
-    
+
     return cameraPosition;
   
 };
 
 
-lgb.model.vo.ViewPointNode.prototype.initObject3D = function(object, recurseDepth) {
+lgb.model.vo.ViewpointNode.prototype.initObject3D = function(object, recurseDepth) {
 
     
     this.object3d = object;
@@ -224,9 +192,9 @@ lgb.model.vo.ViewPointNode.prototype.initObject3D = function(object, recurseDept
 };
 
 
-lgb.model.vo.ViewPointNode.prototype.initOneChild = function(object, recurseDepth) {
+lgb.model.vo.ViewpointNode.prototype.initOneChild = function(object, recurseDepth) {
   
-    var childNode = new lgb.model.vo.ViewPointNode.make(object, recurseDepth-1);
+    var childNode = new lgb.model.vo.ViewpointNode.make(object, recurseDepth-1);
     
     childNode.parent = this;
     this.children.push(childNode);
@@ -234,7 +202,7 @@ lgb.model.vo.ViewPointNode.prototype.initOneChild = function(object, recurseDept
 
 
 
-lgb.model.vo.ViewPointNode.prototype.initFromArray = function(ary, recurseDepth) {
+lgb.model.vo.ViewpointNode.prototype.initFromArray = function(ary, recurseDepth) {
 
     this.hasChildren = true;
     this.children = [];
@@ -243,53 +211,52 @@ lgb.model.vo.ViewPointNode.prototype.initFromArray = function(ary, recurseDepth)
 
 };
 
-lgb.model.vo.ViewPointNode.prototype.generateCamera = function(cameraTemplate) {
+lgb.model.vo.ViewpointNode.prototype.generateCamera = function(cameraTemplate) {
 
-  return this.viewPointCamera_;
+  return this.viewpointCamera_;
 };
 
 
 
 
+lgb.model.vo.ViewpointNode.idx = 0;
+lgb.model.vo.ViewpointNode.allNodes = [];
 
-lgb.model.vo.ViewPointNode.idx = 0;
-lgb.model.vo.ViewPointNode.allNodes = [];
-
-lgb.model.vo.ViewPointNode.offsetMap_ = [];
-lgb.model.vo.ViewPointNode.offsetMap_["default"] = [0, 2, 5];
-lgb.model.vo.ViewPointNode.offsetMap_["vp1"] = [0, 2, 7];
-lgb.model.vo.ViewPointNode.offsetMap_["vp2"] = [0, 2, 9];
-lgb.model.vo.ViewPointNode.offsetMap_["vp3"] = [0, 2, 30];
-lgb.model.vo.ViewPointNode.offsetMap_["vpRootop"] = [0, 30, 15];
-lgb.model.vo.ViewPointNode.offsetMap_["defaultScene"] = [0, 10, 30];
-lgb.model.vo.ViewPointNode.offsetMap_["defaultZone"] = [0, 2, 5];
-lgb.model.vo.ViewPointNode.offsetMap_["ZonesScene"] = [0, 50, 3];
-lgb.model.vo.ViewPointNode.offsetMap_["RoofTopScene"] = [0, 25, 20];
-lgb.model.vo.ViewPointNode.offsetMap_["officeGroup"] = [0, 3, 6];
-lgb.model.vo.ViewPointNode.offsetMap_["officeChair1"] = [1.1, 1.2, -1.8];
-lgb.model.vo.ViewPointNode.offsetMap_["officeChair2"] = [0, 1.2, 1.5];
-lgb.model.vo.ViewPointNode.offsetMap_["officeChair3"] = [1.1, 1.2, -1.8];
-lgb.model.vo.ViewPointNode.offsetMap_["officeChair4"] = [0, 1.2, 1.5];
-lgb.model.vo.ViewPointNode.offsetMap_["officeTaskLight1"] = [1.1, 1.2, -1.8];
-lgb.model.vo.ViewPointNode.offsetMap_["officeTaskLight2"] = [1.1, 1.2, -1.8];
-lgb.model.vo.ViewPointNode.offsetMap_["officeTaskLight3"] = [0, 1.2, 1.5];
-lgb.model.vo.ViewPointNode.offsetMap_["officeTaskLight4"] = [0, 1.2, 1.5];
-lgb.model.vo.ViewPointNode.offsetMap_["officeComputer1"] = [1.2, 0.5, -1.0];
-lgb.model.vo.ViewPointNode.offsetMap_["officeComputer2"] = [-1.2, 0.5, -1.0];
-lgb.model.vo.ViewPointNode.offsetMap_["officeComputer3"] = [1.2, 0.5, -1.0];
-lgb.model.vo.ViewPointNode.offsetMap_["officeComputer4"] = [-1.2, 0.5, -1.0];
-lgb.model.vo.ViewPointNode.offsetMap_["crosssection"] = [-0.5, 1.2, 0.5];
+lgb.model.vo.ViewpointNode.offsetMap_ = [];
+lgb.model.vo.ViewpointNode.offsetMap_["default"] = [0, 2, 5];
+lgb.model.vo.ViewpointNode.offsetMap_["vp1"] = [0, 2, 7];
+lgb.model.vo.ViewpointNode.offsetMap_["vp2"] = [0, 2, 9];
+lgb.model.vo.ViewpointNode.offsetMap_["vp3"] = [0, 2, 30];
+lgb.model.vo.ViewpointNode.offsetMap_["vpRootop"] = [0, 30, 15];
+lgb.model.vo.ViewpointNode.offsetMap_["defaultScene"] = [0, 10, 30];
+lgb.model.vo.ViewpointNode.offsetMap_["defaultZone"] = [0, 2, 5];
+lgb.model.vo.ViewpointNode.offsetMap_["ZonesScene"] = [0, 50, 3];
+lgb.model.vo.ViewpointNode.offsetMap_["RoofTopScene"] = [0, 25, 20];
+lgb.model.vo.ViewpointNode.offsetMap_["officeGroup"] = [0, 3, 6];
+lgb.model.vo.ViewpointNode.offsetMap_["officeChair1"] = [1.1, 1.2, -1.8];
+lgb.model.vo.ViewpointNode.offsetMap_["officeChair2"] = [0, 1.2, 1.5];
+lgb.model.vo.ViewpointNode.offsetMap_["officeChair3"] = [1.1, 1.2, -1.8];
+lgb.model.vo.ViewpointNode.offsetMap_["officeChair4"] = [0, 1.2, 1.5];
+lgb.model.vo.ViewpointNode.offsetMap_["officeTaskLight1"] = [1.1, 1.2, -1.8];
+lgb.model.vo.ViewpointNode.offsetMap_["officeTaskLight2"] = [1.1, 1.2, -1.8];
+lgb.model.vo.ViewpointNode.offsetMap_["officeTaskLight3"] = [0, 1.2, 1.5];
+lgb.model.vo.ViewpointNode.offsetMap_["officeTaskLight4"] = [0, 1.2, 1.5];
+lgb.model.vo.ViewpointNode.offsetMap_["officeComputer1"] = [1.2, 0.5, -1.0];
+lgb.model.vo.ViewpointNode.offsetMap_["officeComputer2"] = [-1.2, 0.5, -1.0];
+lgb.model.vo.ViewpointNode.offsetMap_["officeComputer3"] = [1.2, 0.5, -1.0];
+lgb.model.vo.ViewpointNode.offsetMap_["officeComputer4"] = [-1.2, 0.5, -1.0];
+lgb.model.vo.ViewpointNode.offsetMap_["crosssection"] = [-0.5, 1.2, 0.5];
 
 
-lgb.model.vo.ViewPointNode.make= function(object, recurseDepth) {
+lgb.model.vo.ViewpointNode.make= function(object, recurseDepth) {
 
   if (object && object instanceof THREE.Camera) {
-    return new lgb.model.vo.ViewPointNode.makeFromCamera(object, recurseDepth);
+    return new lgb.model.vo.ViewpointNode.makeFromCamera(object, recurseDepth);
   } else if  (object && object instanceof THREE.Object3D) {
-    return new lgb.model.vo.ViewPointNode.makeFromObject3D(object, recurseDepth);
+    return new lgb.model.vo.ViewpointNode.makeFromObject3D(object, recurseDepth);
   } else if (object && object instanceof Array) {
-    return new lgb.model.vo.ViewPointNode.makeFromArray(object, recurseDepth);
-  } else if  (object && object instanceof lgb.model.vo.ViewPointNode){
+    return new lgb.model.vo.ViewpointNode.makeFromArray(object, recurseDepth);
+  } else if  (object && object instanceof lgb.model.vo.ViewpointNode){
     return object;
   }
   
@@ -297,9 +264,9 @@ lgb.model.vo.ViewPointNode.make= function(object, recurseDepth) {
 
 
 
-lgb.model.vo.ViewPointNode.makeFromCamera= function(camera, recurseDepth) {
+lgb.model.vo.ViewpointNode.makeFromCamera= function(camera, recurseDepth) {
 
-  var node = new lgb.model.vo.ViewPointNode(camera.name);
+  var node = new lgb.model.vo.ViewpointNode(camera.name);
   
   node.camera_ = camera;
   node.hasChildren = false;
@@ -312,21 +279,18 @@ lgb.model.vo.ViewPointNode.makeFromCamera= function(camera, recurseDepth) {
 
 
 
-lgb.model.vo.ViewPointNode.makeFromObject3D= function(object3D, recurseDepth) {
+lgb.model.vo.ViewpointNode.makeFromObject3D= function(object3D, recurseDepth) {
 
-  var node = new lgb.model.vo.ViewPointNode(object3D.name);
+  var node = new lgb.model.vo.ViewpointNode(object3D.name);
   node.initObject3D(object3D, recurseDepth);
   return node;
 };
 
 
 
+lgb.model.vo.ViewpointNode.makeFromArray= function(title, ary, recurseDepth) {
 
-
-
-lgb.model.vo.ViewPointNode.makeFromArray= function(title, ary, recurseDepth) {
-
-    var node = new lgb.model.vo.ViewPointNode(title);
+    var node = new lgb.model.vo.ViewpointNode(title);
     node.initFromArray(ary,  recurseDepth);
     
     return node;

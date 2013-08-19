@@ -10,8 +10,6 @@ goog.require('lgb.controller.BaseController');
 goog.require('lgb.model.LightingModel');
 goog.require('lgb.view.LightingView');
 goog.require('lgb.view.input.TestLightingGUI');
-goog.require('lgb.view.LightingAdminView');
-
 goog.require('lgb.model.BuildingHeightModel');
 
 /**
@@ -42,7 +40,6 @@ lgb.controller.input.TestLightingController.prototype.init = function() {
   this.view.init();
   this.guiView.init();
   
-
 };
 
 

@@ -60,8 +60,6 @@ lgb.model.GridModel.prototype.calculatePosition_ = function() {
     zPos
   );
   
-  //this.centeredPosition = newPosition;
-  //return newPosition;
 };
  
  

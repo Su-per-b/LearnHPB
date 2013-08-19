@@ -79,10 +79,9 @@ lgb.model.input.TopMenuModel.prototype.toggleCheck = function(title) {
       this.viewItems_[idx].imageUrl = null;
     }
     
-    this.dispatchChange();
+    this.dispatchChangedEx('ds', this.ds);
     
-    return;
-    
+
 };
 
 
@@ -97,7 +96,7 @@ lgb.model.input.TopMenuModel.prototype.add = function(guiView) {
     
     if ( this.viewTitleToEnabledMap_.hasOwnProperty(title) ) {
       
-      this.viewTitleToEnabledMap_[title] != this.viewTitleToEnabledMap_[title];
+      debugger;
   
     } else {
       
@@ -113,11 +112,10 @@ lgb.model.input.TopMenuModel.prototype.add = function(guiView) {
       
     }
     
-  
-    this.dispatchChange();
-    
+    this.dispatchChangedEx('ds', this.ds);
   }
 
-  
 }
+
+
 

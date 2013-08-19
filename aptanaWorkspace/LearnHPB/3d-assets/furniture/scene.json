@@ -3,15 +3,13 @@
   "containers":{
   
   
-  
-  
     "CrossSection":{
       "type":"group",
       "groupName":"CrossSectionGroup",
       "position":[
-        -16.2,
-        1.5,
-        -9.6
+        -2.0,
+        1.4,
+        -12.0
       ],
       "viewpoint": "crosssection",
       "rotation":[
@@ -514,6 +512,22 @@
         0,
         0,
         0
+      ],
+      "rotation":[
+        0,
+        0,
+        0
+      ],
+      "groups":[
+        "CrossSectionGroup"
+      ]
+    },
+    "BrickVeneer":{
+      "geometry":"geo_BrickVeneer",
+      "position":[
+        0,
+        0,
+        0.35
       ],
       "rotation":[
         0,

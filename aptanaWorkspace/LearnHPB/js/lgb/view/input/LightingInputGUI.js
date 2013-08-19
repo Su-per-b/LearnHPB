@@ -11,7 +11,7 @@ goog.require('lgb.Config');
 
 /**
  * @constructor
- * @param {lgb.model.ViewPointModel} dataModel The data model to display.
+ * @param {lgb.model.ViewpointModel} dataModel The data model to display.
  * @param {string} parentHtmlID the CSS id of the parent to inject into the DOM.
  * @extends {lgb.view.input.BaseViewGUI}
  */
@@ -35,13 +35,6 @@ lgb.view.input.LightingInputGUI.prototype.init = function() {
 
 
 
-
-lgb.view.input.LightingInputGUI.prototype.bind_ = function() {
-  
-
-
-      
-}
 
 
 lgb.view.input.LightingInputGUI.prototype.inject = function(parentElement) {

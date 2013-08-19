@@ -38,7 +38,7 @@ lgb.component.RadioButtonDataSource.prototype.selectIdx = function(idx) {
     idx != this.theSelectedOne.idx)
   {
     this.theSelectedOne = this.selectionItems[idx];
-    this.dispatchChange();
+    //this.dispatchChange();
   }
 };
 

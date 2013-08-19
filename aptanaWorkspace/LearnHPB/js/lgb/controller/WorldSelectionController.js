@@ -6,8 +6,6 @@
 goog.provide('lgb.controller.WorldSelectionController');
 
 goog.require('lgb.controller.BaseController');
-goog.require('lgb.events.Object3DSelected');
-goog.require('lgb.events.SelectableLoaded');
 goog.require('lgb.events.WorldSelectionChanged');
 goog.require('lgb.model.SelectableModel');
 goog.require('lgb.view.SelectionView');
@@ -20,10 +18,11 @@ goog.require('goog.array');
  * @param {Element} containerDiv The DIV to use.
  * @param {THREE.Camera} camera We need a reference to this to pass to the view.
  */
-lgb.controller.WorldSelectionController = function( camera) {
+lgb.controller.WorldSelectionController = function( camera, scene) {
 
   lgb.controller.BaseController.call(this);
   this.camera_ = camera;
+  this.scene_ = scene;
   this.init_();
 
 };
@@ -58,7 +57,8 @@ lgb.controller.WorldSelectionController.prototype.init_ = function() {
 
   this.view = new lgb.view.SelectionView(this.dataModel,
     this.containerDiv_,
-    this.camera_);
+    this.camera_,
+    this.scene_);
 
   this.bind_();
   this.view.init();
@@ -74,21 +74,15 @@ lgb.controller.WorldSelectionController.prototype.bind_ = function() {
   
   this.relay(this.view, e.AddToWorldRequest);
 
-  this.listen(
-    lgb.events.SelectableLoaded.TYPE,
-    this.onSelectableLoaded_);
-    
   this.listenTo(this.view,
-    lgb.events.Object3DSelected.TYPE,
-    this.Object3DSelected_
+    e.Object3DSelected,
+    this.onObject3DSelected_
     );
     
+  this.listen(
+    e.SelectableLoaded,
+    this.onSelectableLoaded_);
     
-/*
-
-  this.listen(lgb.events.RequestWorldSelectionChange.TYPE,
-    this.onRequestWorldSelectionChange_);*/
-
 };
 
 
@@ -114,12 +108,8 @@ lgb.controller.WorldSelectionController.prototype.
 
 
 
-/**
- * @private
- * @param {lgb.events.Object3DSelected} event The event telling that
- * a selection change has been made in the view.
- */
-lgb.controller.WorldSelectionController.prototype.Object3DSelected_ =
+
+lgb.controller.WorldSelectionController.prototype.onObject3DSelected_ =
   function(event) {
 
   /**@type {THREE.CollisionSystem} **/
@@ -135,19 +125,15 @@ lgb.controller.WorldSelectionController.prototype.Object3DSelected_ =
     id = 'NONE';
   }
 
-  var e = new lgb.events.WorldSelectionChanged(id);
-  this.dispatch(e);
+  //var e = new lgb.events.WorldSelectionChanged(id);
+  //this.dispatch(e);
 };
 
 
-/**
- * @private
- * @param {lgb.events.SelectableLoaded} event the event telling
- * about a new 3d Object which has loaded.
- */
+
 lgb.controller.WorldSelectionController.prototype.onSelectableLoaded_ =
   function(event) {
 
-  this.dataModel.addMesh(event.payload);
+  this.dataModel.addMeshAry(event.payload);
   
 };

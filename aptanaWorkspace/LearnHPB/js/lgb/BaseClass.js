@@ -99,6 +99,21 @@ lgb.BaseClass.prototype.listenTo = function(eventTarget, eventType, handler) {
 };
 
 
+lgb.BaseClass.prototype.hasListener = function(eventTarget, eventType, handler) {
+  
+  
+ var result = goog.events.hasListener(
+    eventTarget,
+    eventType,
+    handler);
+
+  return result;
+  
+};
+
+
+
+
 /**
  * binds a listener to an event
  * @private

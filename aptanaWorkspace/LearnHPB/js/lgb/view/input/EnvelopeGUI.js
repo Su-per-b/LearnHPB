@@ -28,9 +28,7 @@ goog.inherits(lgb.view.input.EnvelopeGUI, lgb.view.input.BaseViewGUI);
  * Initializes the View
  */
 lgb.view.input.EnvelopeGUI.prototype.init = function() {
-
   this.triggerLocal(e.RequestAddToTestingInput, this);
-  //this.triggerLocal(e.RequestAddToParentGUI , this);
 };
 
 lgb.view.input.EnvelopeGUI.prototype.bind_ = function() {
@@ -47,11 +45,8 @@ lgb.view.input.EnvelopeGUI.prototype.onFloorCountSelect_ = function(event) {
   var dataItem = this.kendoListFloorCount_.dataItem(idx);
   
   var v = parseInt(dataItem.value);
-  
-  
   this.requestDataModelChange('floorCount', v);
-    
-  return;
+
 };
 
 
@@ -64,7 +59,6 @@ lgb.view.input.EnvelopeGUI.prototype.onFloorHeightSelect_ = function(event) {
   
   this.requestDataModelChange('floorHeight', v);
     
-  return;
 };
 
 
@@ -125,8 +119,6 @@ lgb.view.input.EnvelopeGUI.prototype.inject = function(parentElement) {
       
       
       this.kendoListFloorCount_.select(1);
-      
-      
       
       
       this.bind_();

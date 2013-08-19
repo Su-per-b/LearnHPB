@@ -14,7 +14,7 @@ goog.require('lgb.model.BuildingHeightModel');
 
 /**
  * @constructor
- * @extends {lgb.view.BaseView}
+ * @extends {lgb.view.BaseView3dScene}
  * @param {lgb.model.PsModel} dataModel The data model to display.
  */
 lgb.view.PsView = function(dataModel) {
@@ -25,28 +25,29 @@ lgb.view.PsView = function(dataModel) {
 
   this.topFloorMaxY_ = null;
   this.sceneY_ = null;
+  this.listenForChange_('isRunning');
+  this.listenForChange_('showBoxes');
+  this.listenForChange_('showCurves');
+
+    
 };
 goog.inherits(lgb.view.PsView, lgb.view.BaseView3dScene);
 
-/**
- * Event Handler.
- * @param {lgb.events.Event} event The event.
- */
-lgb.view.PsView.prototype.onChange = function(event) {
 
-  var whatIsDirty = event.payload;
-
-  if (whatIsDirty.isRunning) {
+lgb.view.PsView.prototype.onChange_isRunning_ = function(isRunning) {
     this.updateIsRunning_();
-  }
-
-  if (whatIsDirty.showBoxes) {
-    this.showBoxes(this.dataModel.showBoxes);
-  }
-  if (whatIsDirty.showCurves) {
-    this.showCurves(this.dataModel.showCurves);
-  }
 };
+
+lgb.view.PsView.prototype.onChange_showBoxes_ = function(showBoxes) {
+    this.showBoxes(showBoxes);
+};
+
+lgb.view.PsView.prototype.onChange_showCurves_ = function(showCurves) {
+    this.showCurves(showCurves);
+};
+
+
+
 
 /**
  * Updates the running state from the dataModel.
@@ -55,12 +56,11 @@ lgb.view.PsView.prototype.onChange = function(event) {
 lgb.view.PsView.prototype.updateIsRunning_ = function() {
 
   if (this.dataModel.isRunning) {
-    this.renderListenerKey = this.listen(e.RenderNotify, this.onRender);
+    this.renderListenerKey_ = this.listen(e.RenderNotify, this.onRender);
   } else {
-    if (this.renderListenerKey) {
-      this.unlisten(this.renderListenerKey);
+    if (this.renderListenerKey_) {
+      this.unlisten(this.renderListenerKey_);
     }
-
   }
 };
 
@@ -299,9 +299,8 @@ lgb.view.PsView.prototype.onRender = function(event) {
       var p = this.inActiveParticles.pop();
       p.reset();
       this.activeParticles.push(p);
-    } //else if (this.dataModel.isEmitting) {
-    //var p = this.makeParticleElement();
-    //}
+    }
+    
   }
 
   var i = this.activeParticles.length;

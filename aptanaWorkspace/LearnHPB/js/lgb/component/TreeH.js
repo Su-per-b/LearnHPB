@@ -34,7 +34,6 @@ goog.inherits(lgb.component.TreeH, lgb.view.BaseV);
 
 lgb.component.TreeH.prototype.bind_ = function() {
 
-  this.listenTo(this.ds, e.DataModelChanged, this.onDataModelChanged_);
   this.kendoTreeView_.bind("select", this.d(this.onSelect_));
 
   if (true == this.ds.options.events.mouseOver ) {
@@ -43,6 +42,15 @@ lgb.component.TreeH.prototype.bind_ = function() {
   }
 
 };
+
+
+lgb.component.TreeH.prototype.onChange_showKNode_ = function(knode) {
+
+  var uid = event.node.dataset.uid;
+  this.ds.select(uid);
+
+};
+
 
 lgb.component.TreeH.prototype.onSelect_ = function(event) {
 
@@ -72,22 +80,8 @@ lgb.component.TreeH.prototype.onMouseLeave_ = function(event) {
   }
 };
 
-lgb.component.TreeH.prototype.onDataModelChanged_ = function(event) {
 
-  var whatIsDirty = event.payload;
 
-  if (whatIsDirty.selectedKNode) {
-    this.triggerLocal(e.Select, this.ds.selectedKNode);
-  } else if (whatIsDirty.showKNode) {
-
-    this.triggerLocal(e.SetFocus, whatIsDirty.showKNode);
-
-  } else if (whatIsDirty.hideKNode) {
-
-    this.triggerLocal(e.RemoveFocus, whatIsDirty.hideKNode);
-  }
-
-};
 
 lgb.component.TreeH.prototype.getHtml = function() {
 

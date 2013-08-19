@@ -6,16 +6,10 @@
 goog.provide('lgb.controller.HvacController');
 
 goog.require('lgb.controller.BaseController');
-
-goog.require('lgb.events.SelectableLoaded');
 goog.require('lgb.model.HvacModel');
 goog.require('lgb.view.HvacView');
-
-
 goog.require('lgb.model.BuildingHeightModel');
-
 goog.require('lgb.model.vo.VisibilityNode');
-
 
 
 /**
@@ -54,18 +48,15 @@ lgb.controller.HvacController.prototype.bind_ = function() {
   this.relay(
     this.view, 
       [
-        e.ViewPointNodesLoaded,
+        e.ViewpointNodesLoaded,
         e.VisibilityNodesLoaded,
-        lgb.events.SelectableLoaded.TYPE
+        e.SelectableLoaded
       ]
     );
   
   this.relayLocal(this.view, e.AddToWorldRequest);
 
 };
-
-
-
 
 
 

@@ -90,9 +90,9 @@ lgb.controller.CameraCraneController.prototype.setDuration =
 }
 
 lgb.controller.CameraCraneController.prototype.moveToViewpoint =
-  function(viewPointNode) {
+  function(viewpointNode) {
 
-  var destinationCamera = viewPointNode.generateCamera( this.cameraOnCrane_ );
+  var destinationCamera = viewpointNode.generateCamera( this.cameraOnCrane_ );
 
   
   this.destinationCamera_ = destinationCamera;

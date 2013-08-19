@@ -11,7 +11,7 @@ goog.provide('lgb.view.ZoneView');
 goog.require('lgb.view.BaseView3dScene');
 goog.require('lgb.model.BuildingHeightModel');
 goog.require('lgb.model.ZoneShapeModel');
-goog.require('lgb.model.vo.ViewPointNode');
+goog.require('lgb.model.vo.ViewpointNode');
 
 
 /**
@@ -28,10 +28,64 @@ lgb.view.ZoneView = function(dataModel) {
   this.zoneVisibleIdx = -1;
   this.buildingHeightModel_ = null;
   this.isInitialized_ = false;
+  
+  this.listenForChange_('isVisible');
+  this.listenForChange_('envelopeModel');
 };
 goog.inherits(lgb.view.ZoneView,lgb.view.BaseView3dScene);
 
 
+
+
+lgb.view.ZoneView.prototype.onChange_isVisible_ = function(statusObject) {
+    this.setVisible(statusObject.zoneIdx, statusObject.isVisible);
+};
+
+lgb.view.ZoneView.prototype.onChange_envelopeModel_ = function(envelopeModel) {
+  
+  this.masterGroup_.removeAllChildren();
+  
+  var len = this.dataModel.z.length;
+  for (var i = 0; i < len; i++) {
+      
+    var zoneShapeModel = this.dataModel.z[i];
+    
+    this.addCube_(i + 1, zoneShapeModel);
+  }
+  
+    if (!this.isInitialized_) {
+        var node = new lgb.model.vo.ViewpointNode.makeFromObject3D( this.masterGroup_, 2 );
+        
+        var len = node.children.length;
+        for (var i=0; i < len; i++) {
+          node.children[i].focusEvent = true;
+        };
+        this.triggerLocal(e.ViewpointNodesLoaded, node);
+    }
+
+    this.isInitialized_ = true;
+    
+};
+
+
+
+/**
+ * @param {number} zoneIdx The idx used to locate the zone in the array.
+ * @param {boolean} makeVisible If true show the zone.
+ */
+lgb.view.ZoneView.prototype.setVisible = function(zoneIdx, makeVisible) {
+
+  if (null == makeVisible) {
+    makeVisible = true;
+  }
+
+  var zoneCube = this.masterGroup_.children[zoneIdx-1];
+
+  if (zoneCube.visible != makeVisible) {
+    zoneCube.visible = makeVisible;
+  }
+
+};
 
 
 
@@ -49,7 +103,7 @@ lgb.view.ZoneView.prototype.init = function() {
   var cubeGeom = new THREE.CubeGeometry(5, 5, 5, 1, 1, 1);
   this.cubeMesh = new THREE.Mesh(cubeGeom, this.material);
 
-  this.masterGroup_.viewPoint = "ZonesScene";
+  this.masterGroup_.viewpoint = "ZonesScene";
   this.requestAddToWorld(this.masterGroup_);
 };
 
@@ -83,7 +137,7 @@ lgb.view.ZoneView.prototype.addCube_ = function(zoneNumber, zoneShapeModel) {
     var cubeMesh = new THREE.Mesh(cubeGeom, this.material);
     cubeMesh.name = 'Zone ' + zoneNumber.toString();
     cubeMesh.visible = false;
-    cubeMesh.viewPoint = "defaultZone";
+    cubeMesh.viewpoint = "defaultZone";
     
     var x = -1 * floorWidth / 2;
     x += posx + (width / 2);
@@ -99,68 +153,6 @@ lgb.view.ZoneView.prototype.addCube_ = function(zoneNumber, zoneShapeModel) {
     this.masterGroup_.add(cubeMesh);
 };
 
-
-/**
- * event handler.
- * @param {lgb.events.Event} event The event.
- */
-lgb.view.ZoneView.prototype.onChange = function(event) {
-
- if (event.payload.config) {
-   
-  this.masterGroup_.removeAllChildren();
-  
-  var len = this.dataModel.z.length;
-  for (var i = 0; i < len; i++) {
-      
-    var zoneShapeModel = this.dataModel.z[i];
-    
-    this.addCube_(i + 1, zoneShapeModel);
-  }
-  
-
- }
-
-  if (event.payload.isVisible) {
-    var idx = event.payload.zoneIdx;
-    var isVisible = this.dataModel.z[idx-1].isVisible;
-    this.setVisible(idx, isVisible);
-  }
-
-    if (!this.isInitialized_) {
-        var node = new lgb.model.vo.ViewPointNode.makeFromObject3D( this.masterGroup_, 2 );
-        
-        var len = node.children.length;
-        for (var i=0; i < len; i++) {
-          node.children[i].focusEvent = true;
-        };
-        this.triggerLocal(e.ViewPointNodesLoaded, node);
-    }
-
-    this.isInitialized_ = true;
-
-};
-
-
-
-
-/**
- * @param {number} zoneIdx The idx used to locate the zone in the array.
- * @param {boolean} makeVisible If true show the zone.
- */
-lgb.view.ZoneView.prototype.setVisible = function(zoneIdx, makeVisible) {
-
-  if (null == makeVisible) {
-    makeVisible = true;
-  }
-
-  var zoneCube = this.masterGroup_.children[zoneIdx-1];
-
-  if (zoneCube.visible != makeVisible) {
-    zoneCube.visible = makeVisible;
-  }
-
-};
 
 
 

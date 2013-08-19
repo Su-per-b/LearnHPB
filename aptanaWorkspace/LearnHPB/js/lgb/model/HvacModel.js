@@ -13,9 +13,6 @@ goog.require('lgb.model.BaseModel');
  * @extends lgb.model.BaseModel
  */
 lgb.model.HvacModel = function() {
-
-
-
   this._TITLE = 'Ductwork';
   lgb.model.BaseModel.call(this);
 

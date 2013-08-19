@@ -27,27 +27,27 @@ lgb.model.VisibilityModel.prototype.init_ = function() {
 lgb.model.VisibilityModel.prototype.addNode = function(visibilityNode) {
  
   this.nodeList_.push(visibilityNode);
-  this.dispatchChange(visibilityNode);
-};
- 
-
-
-lgb.model.VisibilityModel.prototype.changeAry = function(changeRequestAry) {
   
-    var propertyName = changeRequestAry.propertyName;
-    
-  if ("isVisible" == propertyName) {
-    
-    var changeRequest = changeRequestAry[0];
-    var node = lgb.model.vo.VisibilityNode.getNodeByIdx(changeRequest.id);
-         
-     if (node) {
-       node.setVisible(changeRequest.newValue);
-     } else {
-       debugger;
-     }
+  if (this.nodeList_.length == 1) {
+    this.dispatchChangedEx('init', visibilityNode);
   } else {
-    debugger;
+    this.dispatchChangedEx('addNode', visibilityNode);
   }
 
 };
+
+
+lgb.model.VisibilityModel.prototype.changeVisibility = function(changeRequestAry) {
+  
+    var changeRequest = changeRequestAry[0];
+    var visibilityNode = lgb.model.vo.VisibilityNode.getNodeByIdx(changeRequest.id);
+         
+     if (visibilityNode) {
+       visibilityNode.setVisible(changeRequest.newValue);
+     } else {
+       debugger;
+     }
+}
+
+
+

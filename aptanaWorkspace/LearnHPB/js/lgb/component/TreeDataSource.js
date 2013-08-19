@@ -72,10 +72,6 @@ lgb.component.TreeDataSource.prototype.build_ = function(objectList) {
 };
 
 
-
-
-  
-  
   
 lgb.component.TreeDataSource.prototype.bind_ = function() {
 
@@ -102,7 +98,7 @@ lgb.component.TreeDataSource.prototype.onChangeDS_ = function(event) {
     if (this.changedItems_.length > 0) {
       
       this.changedItems_.propertyName = this.propertyName_;
-      this.dispatchChange(this.changedItems_);
+      this.dispatchChangedEx('changedItems', this.changedItems_);
     }
 
   }

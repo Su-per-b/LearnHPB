@@ -71,17 +71,9 @@ lgb.simulation.model.MainModel.prototype.init_ = function(event) {
   }
   
 
-  
   this.socketServerURL = "ws://" + hostname2 + ":8081/";
   
 }
-
-lgb.simulation.model.MainModel.prototype.setScalarValueResults = function(scalarValueResults) {
-    
-    this.scalarValueResults = scalarValueResults;
-    this.dispatchChange({scalarValueResults:true});
-    
-};
 
 
 
@@ -104,26 +96,6 @@ lgb.simulation.model.MainModel.prototype.getWebSocketConnectionState = function(
 
 
 
-lgb.simulation.model.MainModel.prototype.setSimStateNative = function(simStateNative) {
-
-    if (this.simStateNative != simStateNative) {
-        this.simStateNative = simStateNative;
-     
-        this.dispatchChange({simStateNative:true});
-    }
- 
-};
-
-
-lgb.simulation.model.MainModel.prototype.setXMLparsedInfo = function(xmlParsedInfo) {
-
-        this.xmlParsedInfo = xmlParsedInfo;
-        
-        this.dispatchChange({xmlParsedInfo:true});
-    
- 
-};
-
 
 lgb.simulation.model.MainModel.prototype.getSimStateNative = function() {
 
@@ -131,32 +103,6 @@ lgb.simulation.model.MainModel.prototype.getSimStateNative = function() {
 };
 
 
-
-
-/**
- * @param {String} text
- */
-lgb.simulation.model.MainModel.prototype.addResult = function(text) {
-  var whatIsDirty = {};
-  
-  //this.results.push(text);
-  this.lastResult = text;
-  
-  whatIsDirty.lastResult = true;
-  this.dispatchChange(whatIsDirty);
-  
-  
-};
-
-/**
- * @param {String} text
- */
-lgb.simulation.model.MainModel.prototype.setMessage = function(messageStruct) {
-  
-  this.messageStruct = messageStruct;
-  this.dispatchChange({messageStruct:true});
-  
-};
 
 
 

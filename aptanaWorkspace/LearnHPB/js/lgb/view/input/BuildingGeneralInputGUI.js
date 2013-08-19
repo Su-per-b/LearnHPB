@@ -5,14 +5,14 @@
  
 goog.provide('lgb.view.input.BuildingGeneralInputGUI');
 
-goog.require('lgb.model.ViewPointModel');
+goog.require('lgb.model.ViewpointModel');
 goog.require('lgb.view.input.BaseViewGUI');
 goog.require('lgb.Config');
 
 
 /**
  * @constructor
- * @param {lgb.model.ViewPointModel} dataModel The data model to display.
+ * @param {lgb.model.ViewpointModel} dataModel The data model to display.
  * @param {string} parentHtmlID the CSS id of the parent to inject into the DOM.
  * @extends {lgb.view.input.BaseViewGUI}
  */

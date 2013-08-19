@@ -55,7 +55,7 @@ lgb.controller.FurnitureController.prototype.bind_ = function() {
   this.relayLocal(this.view, e.AddToWorldRequest);
   
   this.relay(this.view,e.VisibilityNodesLoaded);
-  this.relay(this.view, e.ViewPointNodesLoaded);
+  this.relay(this.view, e.ViewpointNodesLoaded);
     
 };
 

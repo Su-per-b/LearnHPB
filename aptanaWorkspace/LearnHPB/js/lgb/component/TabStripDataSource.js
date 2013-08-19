@@ -79,7 +79,6 @@ lgb.component.TabStripDataSource.prototype.addTab = function(title, content, xPo
     this.kendoDS.add(tab);
   }
   
-  var whatIsDirty = {tab:tab};
-  this.dispatchChange(whatIsDirty);
+  this.dispatchChangedEx('addTab', tab);
 };
 

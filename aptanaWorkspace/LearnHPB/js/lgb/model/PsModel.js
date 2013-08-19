@@ -48,41 +48,36 @@ goog.inherits(lgb.model.PsModel, lgb.model.BaseModel);
 
 lgb.model.PsModel.prototype.changeProperty_isStarted = function( newValue) {
   
-    var whatIsDirty = {};
-    
     this.isStarted = newValue;
     
     if (this.isStarted) {
       if (!this.isRunning) {
         this.isRunning = true;
-        whatIsDirty.isRunning = true;
       }
       if (!this.isEmitting) {
         this.isEmitting = true;
-        whatIsDirty.isEmitting = true;
       }
     } else {
       if (this.isEmitting) {
         this.isEmitting = false;
-        whatIsDirty.isEmitting = true;
       }
     }
     
-    this.dispatchChange(whatIsDirty);
-}
+   
+   this.dispatchChangedEx('isRunning', this.isRunning);
+    
+};
 
 
-lgb.model.PsModel.prototype.changeProperty = function(propertyName, propertyValue) {
+lgb.model.PsModel.prototype.changePropertyEx = function(name, newValue) {
 
-    if (this[propertyName] != propertyValue) {
-      if (propertyName == 'isStarted') {
-        
-        this.changeProperty_isStarted(propertyValue);
-        
+    if (this[name] != newValue) {
+      if (name == 'isStarted') {
+        this.changeProperty_isStarted(newValue);
       } else {
         
-       goog.base(this, 'changeProperty', propertyName, propertyValue);
-       
+        goog.base(this, 'changePropertyEx', name, newValue);
+
       }
     }
 }

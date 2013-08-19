@@ -53,16 +53,16 @@ lgb.view.CameraView.prototype.bind_ = function() {
 }
 
 
-lgb.view.CameraView.prototype.goToViewPointNode = function(viewPointNode) {
+lgb.view.CameraView.prototype.goToViewpointNode = function(viewpointNode) {
 
-  this.cameraCraneController_.moveToViewpoint(viewPointNode);
+  this.cameraCraneController_.moveToViewpoint(viewpointNode);
   
 };
 
 /**
- * @param {THREE.Camera} camera The viewPoint to go to.
+ * @param {THREE.Camera} camera The viewpoint to go to.
  */
-lgb.view.CameraView.prototype.goToViewPoint = function(node) {
+lgb.view.CameraView.prototype.goToViewpoint = function(node) {
 
   //var startPosition = this.camera.position.clone();
   var targetPosition = node.getTargetPosition();

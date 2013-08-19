@@ -214,7 +214,7 @@ lgb.view.StatsHelper.prototype.init_ = function(containerDiv) {
 lgb.view.StatsHelper.prototype.swapMode = function() {
 
   this._mode++;
-  this._mode == this._modesCount ? this._mode = 0 : this._mode;
+  this._mode = this._modesCount ? this._mode = 0 : this._mode;
 
   this._fpsDiv.style.display = 'none';
   this._msDiv.style.display = 'none';

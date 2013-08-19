@@ -51,31 +51,27 @@ goog.inherits(lgb.component.TreeDataSourceH, lgb.component.BaseDataSource);
 
 
 lgb.component.TreeDataSourceH.prototype.setOptions = function(options) {
-
   this.options = options;
-
 };
 
 
 lgb.component.TreeDataSourceH.prototype.select = function(uid) {
     var knode = this.kendoDS.getByUid(uid);
-    this.changeProperty('selectedKNode', knode);
+    this.changePropertyEx('selectedKNode', knode);
 };
 
 lgb.component.TreeDataSourceH.prototype.setFocus = function(uid) {
-
     var knode = this.kendoDS.getByUid(uid);
-    this.changeProperty('showKNode', knode);
+    this.changePropertyEx('showKNode', knode);
     this.hideKNode = null;
 };
 
 lgb.component.TreeDataSourceH.prototype.removeFocus = function(uid) {
-
     var knode = this.kendoDS.getByUid(uid);
-    this.changeProperty('hideKNode', knode);
+    this.changePropertyEx('hideKNode', knode);
     this.showKNode = null;
-    
 };
+
 
 lgb.component.TreeDataSourceH.prototype.generateHTMLid_ = function(node) {
   
@@ -89,14 +85,10 @@ lgb.component.TreeDataSourceH.prototype.generateHTMLid_ = function(node) {
 lgb.component.TreeDataSourceH.prototype.update = function(lgbNode) {
 
   if (this.rootNode) {
-    
     var n = this.makeKendoNodes_(lgbNode);
     this.kendoDS.add(n);
-    
   } else {
-    
     this.build_(lgbNode);
-    
   }
 
 };
@@ -169,28 +161,8 @@ lgb.component.TreeDataSourceH.prototype.bind_ = function() {
 };
 
 
-lgb.component.TreeDataSourceH.prototype.onSync_ = function(event) {
- 
- return; 
-};
-
-
-lgb.component.TreeDataSourceH.prototype.onUpdate_ = function(event) {
- 
- return; 
-};
-
-
-lgb.component.TreeDataSourceH.prototype.getChangedItems = function() {
-
-  return this.changedItems_;
-  
-};
-
 
 lgb.component.TreeDataSourceH.prototype.onChangeDS_ = function(event) {
-
-
 
   if (event.field == "checked") {
 
@@ -200,9 +172,7 @@ lgb.component.TreeDataSourceH.prototype.onChangeDS_ = function(event) {
     event.items.forEach(this.d(this.processOneItem));
     
     if (this.changedItems_.length > 0) {
-      
-      this.changedItems_.propertyName = this.propertyName_;
-      this.dispatchChange(this.changedItems_);
+      this.dispatchChangedEx('changedItems', this.changedItems_);
     }
 
   }

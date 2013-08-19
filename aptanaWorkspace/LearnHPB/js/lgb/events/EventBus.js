@@ -23,8 +23,5 @@ goog.inherits(lgb.events.EventBus, goog.events.EventTarget);
  * @param {goog.events.Event} event Could be any event.
  */
 lgb.events.EventBus.prototype.dispatch = function(event) {
-
-
-
   goog.events.dispatchEvent(this, event);
 };

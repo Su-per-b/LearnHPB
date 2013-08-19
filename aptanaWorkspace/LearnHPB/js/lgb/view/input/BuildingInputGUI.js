@@ -79,12 +79,3 @@ lgb.view.input.BuildingInputGUI.prototype.inject = function(parentElement) {
 
 };
 
-
-lgb.view.input.BuildingInputGUI.prototype.onDataModelChanged = function(tab) {
-  
-
-
-
-  return;
-    
-};

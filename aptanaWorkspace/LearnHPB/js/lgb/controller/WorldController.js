@@ -16,7 +16,7 @@ goog.require('lgb.model.WorldModel');
 goog.require('lgb.view.WorldView');
 
 goog.require('lgb.view.StatsView');
-
+goog.require('lgb');
 
 /**
  * MVC controller for the App
@@ -102,14 +102,13 @@ lgb.controller.WorldController.prototype.init = function() {
   this.utilityController_ = new lgb.controller.UtilityController();
 
 
-
-
-
   /**@type {lgb.controller.WorldSelectionController} */
   this.selectionController_ =
     new lgb.controller.WorldSelectionController(
-      this.camera_
+      this.camera_,
+      this.scene_
   );
+
 
   /** @type {lgb.controller.TrackBallController} */
   this.trackController_ = new lgb.controller.TrackBallController(

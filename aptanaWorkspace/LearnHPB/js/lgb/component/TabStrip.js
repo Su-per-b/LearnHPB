@@ -19,10 +19,45 @@ lgb.component.TabStrip = function(ds) {
 
   lgb.view.BaseV.call(this, ds, ds.htmlID, ds.parentHtmlID);
   this.ds = ds;
-
+  
+  this.listenForChange_('addTab');
 };
 goog.inherits(lgb.component.TabStrip, lgb.view.BaseV);
 
+
+lgb.component.TabStrip.prototype.onChange_addTab_ = function(tab) {
+  
+
+    if (this.ds.showIcon) {
+      
+      var idx = tab.xPosition-1;
+
+      var cssInner = this.makeBackgroundPosition(' .' + tab.cssClass, idx, 1);
+      cssInner += this.makeBackgroundPosition(' .k-state-active .' + tab.cssClass, idx, 0);
+      cssInner += this.makeBackgroundPosition(' .k-state-hover .' + tab.cssClass, idx, 2);
+
+      var cssStr = "<style type='text/css'>{0}</style>".format(cssInner);
+      $(cssStr).appendTo('head');
+    }
+    
+};
+
+
+/**
+ * @param {string} appendToSelector The second part of the
+ * jQuery selector string.
+ * @param {number} yPosition Used to calculate the pixel shift.
+ * @return {string} the Css.
+ */
+lgb.component.TabStrip.prototype.makeBackgroundPosition = function(appendToSelector, xPosition, yPosition) {
+
+  var pixelShiftY = this.ds.iconHeight * yPosition * -1;
+  var pixelShiftX = this.ds.iconWidth * xPosition * -1;
+
+  var cssStr = '#{0}{1}{background-position: {2}px {3}px;}'.format(this.htmlID, appendToSelector, pixelShiftX.toString(), pixelShiftY.toString());
+
+  return cssStr;
+};
 
 
 lgb.component.TabStrip.prototype.addTab = function(title) {
@@ -81,52 +116,6 @@ lgb.component.TabStrip.prototype.injectCss = function() {
 
 };
 
-
-lgb.component.TabStrip.prototype.injectOneCss = function() {
-  
-  var el = this.getMainElement();
-
-};
-
-
-
-lgb.component.TabStrip.prototype.onDataModelChanged = function(event) {
-  
-  
-    if (this.ds.showIcon) {
-      
-      var items = this.kendoTabStrip_.items();
-      var idx = items.length-1;
-
-      var sel = '.tab' + (idx + 1).toString();
-    
-      var cssInner = this.makeBackgroundPosition(' ' + sel, idx, 1);
-      cssInner += this.makeBackgroundPosition(' .k-state-active ' + sel, idx, 0);
-      cssInner += this.makeBackgroundPosition(' .k-state-hover ' + sel, idx, 2);
-
-      var cssStr = "<style type='text/css'>{0}</style>".format(cssInner);
-      $(cssStr).appendTo('head');
-    }
-
-
-};
-
-
-/**
- * @param {string} appendToSelector The second part of the
- * jQuery selector string.
- * @param {number} yPosition Used to calculate the pixel shift.
- * @return {string} the Css.
- */
-lgb.component.TabStrip.prototype.makeBackgroundPosition = function(appendToSelector, xPosition, yPosition) {
-
-  var pixelShiftY = this.ds.iconHeight * yPosition * -1;
-  var pixelShiftX = this.ds.iconWidth * xPosition * -1;
-
-  var cssStr = '#{0}{1}{background-position: {2}px {3}px;}'.format(this.htmlID, appendToSelector, pixelShiftX.toString(), pixelShiftY.toString());
-
-  return cssStr;
-};
 
 /**
  * @public

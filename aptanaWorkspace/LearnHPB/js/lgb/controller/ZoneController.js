@@ -51,16 +51,16 @@ lgb.controller.ZoneController.prototype.bind_ = function() {
   this.relayLocal(this.view, e.AddToWorldRequest);
 
   this.listen(
-    e.RequestShowViewPoint,
-    this.onRequestShowViewPoint_
+    e.RequestShowViewpoint,
+    this.onRequestShowViewpoint_
     );
 
-  this.listenTo(
+
+  this.relay(
     this.view,
-    e.ViewPointNodesLoaded,
-    this.onViewPointNodesLoaded_
-    );
-    
+    e.ViewpointNodesLoaded
+  );
+  
   this.listen(
     e.EnvelopeModelChanged,
     this.onEnvelopeModelChanged_
@@ -68,29 +68,32 @@ lgb.controller.ZoneController.prototype.bind_ = function() {
 
 };
 
+/*
 
-lgb.controller.ZoneController.prototype.onViewPointNodesLoaded_ =
+lgb.controller.ZoneController.prototype.onViewpointNodesLoaded_ =
   function(event) {
 
-  this.dataModel.setViewPointNode(event.payload);
+  //this.dataModel.setViewpointNode(event.payload);
   this.dispatch(event);
 
 };
 
+*/
 
 
 
-lgb.controller.ZoneController.prototype.onRequestShowViewPoint_ =
+lgb.controller.ZoneController.prototype.onRequestShowViewpoint_ =
   function(event) {
 
-  var viewPointNode = event.payload;
-  
-  var idx = viewPointNode.idx - viewPointNode.parent.idx;
+  var viewpointNode = event.payload;
+  var idx = viewpointNode.idx - viewpointNode.parent.idx;
 
   this.dataModel.setVisible(
     idx,
     event.payload.isVisible
   );
+  
+
   
 };
 

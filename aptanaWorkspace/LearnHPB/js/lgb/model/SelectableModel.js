@@ -7,7 +7,7 @@ goog.provide('lgb.model.SelectableModel');
 
 goog.require('lgb.model.BaseModel');
 goog.require('goog.array');
-
+goog.require('lgb');
 /**
  * @constructor
  * @extends lgb.model.BaseModel
@@ -27,12 +27,12 @@ goog.inherits(lgb.model.SelectableModel, lgb.model.BaseModel);
 lgb.model.SelectableModel.prototype.init_ = function() {
   this.selectable = {
     Filter: true,
-    HeatingCoil: true,
-    CoolingCoil: true,
+    "Heating Coil": true,
+    "Cooling Coil": true,
     Fan: true,
-    LeftDamper: true,
-    CenterDamper: true,
-    TopDamper: true,
+    "Left Damper": true,
+    "Center Damper": true,
+    "Top Damper": true,
     Diffuser01: true,
     Diffuser02: true,
     Diffuser03: true,
@@ -43,7 +43,10 @@ lgb.model.SelectableModel.prototype.init_ = function() {
     Diffuser08: true,
     Diffuser09: true
   };
+  
   this.selectableMeshes = {};
+  this.selectableMeshesAry = [];
+  
   this.selected = [];
   this.deselected = [];
 };
@@ -114,18 +117,20 @@ lgb.model.SelectableModel.prototype.select = function(intersect) {
 
   if (intersect != null) {
 
-    if (intersect.mesh == null) {
-      throw ('intersect.mesh == null');
+    if (intersect.object == null) {
+      throw ('intersect.object == null');
     }
-    if (intersect.mesh.name == null || intersect.mesh.name == '') {
+    
+    if (intersect.object.name == null || intersect.object.name == '') {
       throw ('intersect.mesh.name  == null or ""');
     }
-    if (this.selectableMeshes[intersect.mesh.name]) {
-      this.selected.push(this.selectableMeshes[intersect.mesh.name]);
-    }
+    
+    this.selected.push(intersect.object);
+
+    
   }
 
-  this.dispatchChange();
+  this.dispatchChangedEx('selected', this.selected);
 };
 
 
@@ -137,14 +142,26 @@ lgb.model.SelectableModel.prototype.addMesh = function(mesh) {
 
   if (true == this.selectable[mesh.name]) {
     
-    
-    
   //  var mc = THREE.CollisionUtils.MeshColliderWBox(mesh);
    // THREE.Collisions.colliders.push(mc);
 
     this.selectableMeshes[mesh.name] = mesh;
+    this.selectableMeshesAry.push(mesh);
+    
     //this.selectableMeshes.push(mesh);
   }
 };
+
+
+lgb.model.SelectableModel.prototype.addMeshAry = function(meshAry) {
+  
+  this.selectableMeshesAry = this.selectableMeshesAry.concat(meshAry);
+
+};
+
+
+
+
+
 
 

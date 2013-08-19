@@ -94,14 +94,11 @@ lgb.controller.EnvelopeController.prototype.getTopFloor =
 lgb.controller.EnvelopeController.prototype.onViewInitialized_ =
   function(event) {
 
-    
   this.listenTo(
     this.guiView,
     e.RequestDataModelChange,
     this.onRequestDataModelChange_
     );
-    
-
     
 };
 
@@ -110,7 +107,7 @@ lgb.controller.EnvelopeController.prototype.onViewInitialized_ =
 lgb.controller.EnvelopeController.prototype.onRequestDataModelChange_ =
   function(event) {
     
-  this.dataModel.changePropertyEx(event.payload.name, event.payload.value);
+  this.dataModel.changePropertyEx(event.payload.property, event.payload.newValue);
 };
 
 

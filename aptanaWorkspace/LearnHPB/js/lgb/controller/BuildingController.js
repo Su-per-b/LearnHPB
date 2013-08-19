@@ -13,7 +13,7 @@ goog.require('lgb.controller.RoofTopController');
 goog.require('lgb.controller.FurnitureController');
 goog.require('lgb.controller.ZoneController');
 goog.require('lgb.controller.PsMasterController');
-goog.require('lgb.controller.input.ViewPointController');
+goog.require('lgb.controller.input.ViewpointController');
 
 goog.require('lgb.model.BuildingModel');
 goog.require('lgb.view.BuildingView');
@@ -52,12 +52,12 @@ lgb.controller.BuildingController.prototype.init_ = function() {
   this.envelopeController_ = new lgb.controller.EnvelopeController();
   this.psMasterController_ = new lgb.controller.PsMasterController();
   
-  this.viewPointController_ = new lgb.controller.input.ViewPointController();
-  this.viewPointController_.setAnchors(this.view.anchors);
+  this.viewpointController_ = new lgb.controller.input.ViewpointController();
+  this.viewpointController_.setAnchors(this.view.anchors);
   
   this.bind2_();
   
-  this.viewPointController_.init();
+  this.viewpointController_.init();
   this.zoneController_.init();
   this.roofTopController_.init();
   this.hvacController_.init();
@@ -141,8 +141,8 @@ lgb.controller.BuildingController.prototype.bind2_ = function() {
   //var controllers =     [this.furnitureController_,this.roofTopController_];
 
   this.listen(
-    e.ViewPointNodesLoaded,
-    this.onViewPointNodesLoaded_
+    e.ViewpointNodesLoaded,
+    this.onViewpointNodesLoaded_
     );
     
     
@@ -151,11 +151,11 @@ lgb.controller.BuildingController.prototype.bind2_ = function() {
 
 
 
-lgb.controller.BuildingController.prototype.onViewPointNodesLoaded_ =
+lgb.controller.BuildingController.prototype.onViewpointNodesLoaded_ =
   function(event) {
 
 
-    this.viewPointController_.loadViewpoint(event.payload);
+    this.viewpointController_.loadViewpoint(event.payload);
     
     
 };

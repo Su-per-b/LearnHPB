@@ -54,6 +54,8 @@ lgb.controller.PsController.prototype.bind_ = function() {
     this.onRequestDataModelChange_
    );
     
+    
+    
    this.relayLocal(this.view, e.AddToWorldRequest); 
     
 };
@@ -64,5 +66,5 @@ lgb.controller.PsController.prototype.bind_ = function() {
 lgb.controller.PsController.prototype.onRequestDataModelChange_ =
   function(event) {
 
-  this.dataModel.changeProperty(event.payload.name, event.payload.value);
+  this.dataModel.changePropertyEx(event.payload.property, event.payload.newValue);
 };

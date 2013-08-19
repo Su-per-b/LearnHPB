@@ -35,14 +35,14 @@ lgb.controller.TrackBallController.prototype.bind_ = function() {
 
 
   this.listen(
-    e.RequestGoToViewPointNode,
-    this.onRequestGoToViewPointNode_
+    e.RequestGoToViewpointNode,
+    this.onRequestGoToViewpointNode_
   );
   
 };
 
 
-lgb.controller.TrackBallController.prototype.onRequestGoToViewPointNode_ =
+lgb.controller.TrackBallController.prototype.onRequestGoToViewpointNode_ =
   function(event) {
   
   var camera = event.payload.generateCamera();

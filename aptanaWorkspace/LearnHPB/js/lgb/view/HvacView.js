@@ -2,33 +2,28 @@
  * @author Raj Dye - raj@rajdye.com
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
- 
+
 goog.provide('lgb.view.HvacView');
 
 goog.require('lgb.view.BaseView3dScene');
-goog.require('lgb.view.BaseView');
 goog.require('lgb.model.BuildingHeightModel');
 goog.require('lgb.model.vo.VisibilityNode');
-goog.require('lgb.model.vo.ViewPointNode');
-
+goog.require('lgb.model.vo.ViewpointNode');
 
 /**
  * @constructor
- * @extends {lgb.view.BaseView}
+ * @extends {lgb.view.BaseView3dScene}
  * @param {lgb.model.HvacModel} dataModel The model to display.
  */
 lgb.view.HvacView = function(dataModel) {
-    
+
   this._TITLE = 'HVAC';
   this._ASSETS_FOLDER = 'hvac';
-  
- lgb.view.BaseView3dScene.call(this, dataModel);
+
+  lgb.view.BaseView3dScene.call(this, dataModel);
 
 };
-goog.inherits(lgb.view.HvacView,lgb.view.BaseView3dScene);
-
-
-
+goog.inherits(lgb.view.HvacView, lgb.view.BaseView3dScene);
 
 /**
  * Event handler called when the scene file is loaded
@@ -38,73 +33,51 @@ goog.inherits(lgb.view.HvacView,lgb.view.BaseView3dScene);
  */
 lgb.view.HvacView.prototype.onSceneLoaded_ = function(result) {
 
+  var selectableList = [];
   var len = this.scene_.children.length;
-  for (var i = 0; i < len; i++) {
-    
-      var mesh = this.scene_.children.pop();
-    
-      if (mesh != null) {
-        
-        //TODO:RAJ target selectable meshes with "groups"
-        if (mesh.name != 'ductingObject') {
-          var event = new lgb.events.SelectableLoaded(mesh);
-          this.dispatchLocal(event);
-        }
-        
-        this.masterGroup_.add(mesh);
-      } else {
-        
-        //console.log ("test");
-        throw ('Mesh is null');
-      }
-  }
   
+  for (var i = 0; i < len; i++) {
 
-    this.dispatchVisibilityNodes_();
-    this.dispatchViewPointNodes_();
-    
+    var mesh = this.scene_.children.pop();
+    if (mesh != null) {
+
+      //TODO:RAJ target selectable meshes with "groups"
+      if (mesh.name != 'ductingObject') {
+        
+        selectableList.push(mesh);
+      }
+
+      this.masterGroup_.add(mesh);
+    } else {
+
+      //console.log ("test");
+      throw ('Mesh is null');
+    }
+  }
+
+
+  this.dispatchSelectableLoaded_(selectableList);
+  this.dispatchVisibilityNodes_();
+  this.dispatchViewpointNodes_();
+
 };
 
-
-lgb.view.HvacView.prototype.dispatchViewPointNodes_ = function() {
-
-  // var node = new lgb.model.vo.ViewPointNode(this._TITLE, this.masterGroup_, 1 );
-  var node = new lgb.model.vo.ViewPointNode.makeFromObject3D( this.masterGroup_, 1 );
-  this.triggerLocal(e.ViewPointNodesLoaded, node);
+lgb.view.HvacView.prototype.dispatchSelectableLoaded_ = function(selectableList) {
+  
+  if (selectableList.length > 0) {
+     this.triggerLocal(e.SelectableLoaded, selectableList);
+  }
+  
 }
 
 
+lgb.view.HvacView.prototype.dispatchViewpointNodes_ = function() {
+  var node = new lgb.model.vo.ViewpointNode.makeFromObject3D(this.masterGroup_, 1);
+  this.triggerLocal(e.ViewpointNodesLoaded, node);
+}
+
 lgb.view.HvacView.prototype.dispatchVisibilityNodes_ = function() {
-  
-  var node = new lgb.model.vo.VisibilityNode('HVAC', this.masterGroup_, 1 );
+  var node = new lgb.model.vo.VisibilityNode('HVAC', this.masterGroup_, 1);
   this.triggerLocal(e.VisibilityNodesLoaded, node);
 }
 
-
-
-lgb.view.HvacView.prototype.onChange = function(event) {
-  this.updateAllFromModel_();
-};
-
-
-/**
- * Updates the view here to reflect any changes in the MVC data model.
- * @private
- */
-lgb.view.HvacView.prototype.updateAllFromModel_ = function() {
-  this.updateVisible_();
-};
-
-
-/**
- * Updates this view to reflect the changes in the visibility
- * state of the MVC model.
- * @private
- */
-lgb.view.HvacView.prototype.updateVisible_ = function() {
-  var m = this.masterGroup_.children.length;
-
-  for (var i = 0; i < m; i++) {
-    this.masterGroup_.children[i].visible = this.dataModel.isVisible;
-  }
-};

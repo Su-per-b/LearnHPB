@@ -45,12 +45,14 @@ e.ViewClosed = 'e.ViewClosed';
 e.WindowResize = 'e.WindowResize';
 
 e.VisibilityNodesLoaded = 'e.VisibilityNodesLoaded';
-e.ViewPointNodesLoaded = 'e.ViewPointNodesLoaded';
+e.ViewpointNodesLoaded = 'e.ViewpointNodesLoaded';
 e.ScenarioParsed = 'e.ScenarioParsed';
-e.DataSourceChanged = 'e.DataSourceChanged';
+
 e.DataModelChanged = 'e.DataModelChanged';
-e.BuildingHeightChanged = 'e.BuildingHeightChanged';
 e.DataModelChangedEx = 'e.DataModelChangedEx';
+
+e.BuildingHeightChanged = 'e.BuildingHeightChanged';
+
 
 e.SetFocus = 'e.SetFocus';
 e.RemoveFocus = 'e.RemoveFocus';
@@ -65,8 +67,13 @@ e.RequestRemoveFromLayout = 'e.RequestRemoveFromLayout';
 e.RequestAddToParentGUI = 'e.RequestAddToParentGUI';
 
 e.RequestChangeVisibility = 'e.RequestChangeVisibility';
-e.RequestGoToViewPointNode = 'e.RequestGoToViewPointNode';
-e.RequestShowViewPoint = 'e.RequestShowViewPoint';
+e.RequestGoToViewpointNode = 'e.RequestGoToViewpointNode';
+e.RequestShowViewpoint = 'e.RequestShowViewpoint';
 
 e.RequestActivateView = 'e.RequestActivateView';
 e.RequestDataModelChange = 'e.RequestDataModelChange';
+
+e.SelectableLoaded = 'e.SelectableLoaded';
+e.Object3DSelected = 'e.Object3DSelected';
+
+

@@ -12,7 +12,6 @@ goog.require('lgb.view.BaseView3dScene');
 goog.require('lgb.model.BuildingHeightModel');
 
 
-
 /**
  * @constructor
  * @extends {BaseView3dScene}
@@ -45,16 +44,11 @@ goog.inherits(lgb.view.EnvelopeView,lgb.view.BaseView3dScene);
 
 
 lgb.view.EnvelopeView.prototype.bind_ = function() {
-  
-  this.listenForChange_('isVisible');
   this.listenForChange_('floorHeight');
   this.listenForChange_('floorCount');
-  
 }
 
-lgb.view.EnvelopeView.prototype.onChange_isVisible_ = function(isVisible) {
-  this.updateVisible_();
-};
+
 lgb.view.EnvelopeView.prototype.onChange_floorHeight_ = function(floorHeight) {
   this.makeFloors_();
 };
@@ -96,9 +90,7 @@ lgb.view.EnvelopeView.prototype.onSceneLoaded_ = function() {
   this.masterGroup_.add(this.lowerFloorContainer_);
   
   this.requestAddToWorld(this.masterGroup_);
-    
   this.makeFloors_();
-  
   this.dispatchVisibilityNodes_();
   
   this.bind_();
@@ -113,47 +105,11 @@ lgb.view.EnvelopeView.prototype.dispatchVisibilityNodes_ = function() {
   var allFloors = lowClone.concat(topClone); 
   allFloors.reverse();
   
-  //var node = new lgb.model.vo.VisibilityNode('Envelope', allFloors, 1 );
-  var node = new lgb.model.vo.VisibilityNode('Envelope', this.masterGroup_, 1 );
-  
-  this.triggerLocal(e.VisibilityNodesLoaded, node);
-  
-  return;
-}
+  var visibilityNode = new lgb.model.vo.VisibilityNode('Envelope', this.masterGroup_, 1 );
+  this.triggerLocal(e.VisibilityNodesLoaded, visibilityNode);
 
-
-/**
- * @override
- * @param {lgb.events.Event} event The event.
- * @protected
-
-lgb.view.EnvelopeView.prototype.onChange = function(event) {
-    
-    var whatIsDirty = event.payload;
-    
-    if (whatIsDirty.isVisible) {
-        this.updateVisible_()
-    }
-     
-    if (whatIsDirty.floorHeight ||
-        whatIsDirty.floorCount) {
-            
-        this.makeFloors_()
-    }
-    
 };
- */
 
-
-/**
- * Updates the view here to reflect any changes in the MVC data model.
- * @private
- */
-lgb.view.EnvelopeView.prototype.updateAllFromModel_ = function() {
-
-  this.makeFloors_();
-  this.updateVisible_();
-};
 
 
 /**
@@ -191,8 +147,6 @@ lgb.view.EnvelopeView.prototype.makeFloors_ = function() {
   this.topFloorContainer_.position.y = topFloorY;
   this.topFloorContainer_.add(this.topFloorMesh_);
   
-  
-  
   this.topFloorMesh_.geometry.computeBoundingBox();
   
   var bb = this.topFloorMesh_.geometry.boundingBox;
@@ -205,36 +159,6 @@ lgb.view.EnvelopeView.prototype.makeFloors_ = function() {
   
   
 };
-
-
-
-
-
-/**
- * Updates this view to reflect the changes in the visibility
- * state of the MVC model.
- * @private
- */
-
-lgb.view.EnvelopeView.prototype.updateVisible_ = function() {
-    
-    
-  var m = this.lowerFloorContainer_.children.length;
-
-  for (var i = 0; i < m; i++) {
-    this.lowerFloorContainer_.children[i].visible = this.dataModel.isVisible;
-  }
-  
-
-  this.topFloorMesh_.visible = this.dataModel.isVisible;
-
-
-};
-
-
-
-
-
 
 
 

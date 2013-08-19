@@ -122,8 +122,8 @@ lgb.controller.PsMasterController.prototype.onChildSystemLoaded_ =
 
 lgb.controller.PsMasterController.prototype.onRequestDataModelChange_ =
   function(event) {
-
-  this.dataModel.changeAry(event.payload);
+  
+  this.dataModel.changePropertyEx(event.payload.property, event.payload.newValue);
   
 };
 

@@ -6,13 +6,12 @@
 goog.provide('lgb.view.BuildingView');
 
 goog.require('lgb.view.BaseView3dScene');
-goog.require('lgb.model.vo.ViewPointNode');
-
+goog.require('lgb.model.vo.ViewpointNode');
 
 
 /**
  * @constructor
- * @extends {lgb.view.BaseView}
+ * @extends {lgb.view.BaseClass}
  * @param {lgb.model.HvacModel} dataModel The model to display.
  */
 lgb.view.BuildingView = function(dataModel) {
@@ -44,18 +43,18 @@ lgb.view.BuildingView = function(dataModel) {
     "floor": this.floorGroup_,
     "ceiling": this.ceilingGroup_,
     "roof": this.roofGroup_,
-    "ground": this.groundGroup_,
+    "ground": this.groundGroup_
   }
   
-  lgb.model.vo.ViewPointNode.anchors = {
+  lgb.model.vo.ViewpointNode.anchors = {
     "floor": this.floorGroup_,
     "ceiling": this.ceilingGroup_,
     "roof": this.roofGroup_,
-    "ground": this.groundGroup_,
+    "ground": this.groundGroup_
   }
   
 };
-goog.inherits(lgb.view.BuildingView, lgb.BaseClass);
+goog.inherits(lgb.view.BuildingView, lgb.view.BaseView3dScene);
 
 
 lgb.view.BuildingView.prototype.init = function() {

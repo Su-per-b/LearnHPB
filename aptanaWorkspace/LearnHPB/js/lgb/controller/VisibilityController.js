@@ -38,7 +38,6 @@ lgb.controller.VisibilityController.prototype.init = function() {
   this.guiView = new lgb.view.input.VisibilityGUI ( this.dataModel );
 
   this.bind_();
-  this.guiView.init();
 
 };
 
@@ -94,7 +93,18 @@ lgb.controller.VisibilityController.prototype.onVisibilityNodesLoaded_ =
 lgb.controller.VisibilityController.prototype.onRequestDataModelChange_ =
   function(event) {
 
-  this.dataModel.changeAry(event.payload);
+  var changeRequest = event.payload;
+
+  if ("changeVisibility" == changeRequest.property) {
+    
+     this.dataModel.changeVisibility(changeRequest.newValue);
+  
+  } else {
+    debugger;
+  }
+  
+
+
   
 };
 

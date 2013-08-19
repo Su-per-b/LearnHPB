@@ -16,9 +16,25 @@ lgb.view.input.TopMenuGUI = function(dataModel) {
   this._TITLE = "TopMenu";
   this.layoutID = lgb.Config.LAYOUT_ID.TopMenu;
   lgb.view.input.BaseViewGUI.call(this, dataModel);
+  
+  this.listenForChange_('ds');
 
 };
 goog.inherits(lgb.view.input.TopMenuGUI, lgb.view.input.BaseViewGUI);
+
+
+
+
+lgb.view.input.TopMenuGUI.prototype.onChange_ds_ = function(ds) {
+ 
+  this.kendoMenu_.setOptions(
+    {
+      dataSource:ds
+    }
+  );
+  
+};
+
 
 
 /**
@@ -83,6 +99,8 @@ lgb.view.input.TopMenuGUI.prototype.onSelect_ = function(event) {
 };
 
 
+/*
+
 lgb.view.input.TopMenuGUI.prototype.onChange = function(event) {
   
   
@@ -94,6 +112,7 @@ lgb.view.input.TopMenuGUI.prototype.onChange = function(event) {
   
   
 };
+*/
 
 
 

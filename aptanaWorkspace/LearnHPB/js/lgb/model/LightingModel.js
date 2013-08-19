@@ -4,7 +4,7 @@
  */
  
 goog.provide('lgb.model.LightingModel');
-goog.provide('lgb.model.LightingModel.State');
+goog.provide('lgb.model.LightingModel.Type');
 
 
 goog.require('lgb.model.BaseModel');
@@ -17,13 +17,11 @@ goog.require('lgb.model.BaseModel');
 lgb.model.LightingModel = function() {
 
 
-
   /**@const */
   this._TITLE = 'Lighting';
   lgb.model.BaseModel.call(this);
 
-  this.lightingType = lgb.model.LightingModel.State.RECESSED;
-
+  this.lightingType = lgb.model.LightingModel.Type.RECESSED;
 
 };
 goog.inherits(lgb.model.LightingModel, lgb.model.BaseModel);
@@ -32,32 +30,9 @@ goog.inherits(lgb.model.LightingModel, lgb.model.BaseModel);
 
 
 /**
- * @param {Object} stateObject Contains information about what to change.
- */
-lgb.model.LightingModel.prototype.change = function(stateObject) {
-
-  var isAnythingDirty = false;
-  var whatIsDirty = {};
-
-  if (stateObject.lightingType != null &&
-    stateObject.lightingType != this.lightingType) {
-
-    this.lightingType = stateObject.lightingType;
-    whatIsDirty.lightingType = true;
-    isAnythingDirty = true;
-  }
-
-  if (isAnythingDirty) {
-    this.dispatchChange(whatIsDirty)
-  }
-};
-
-
-
-/**
  * @enum {number}
  */
-lgb.model.LightingModel.State = {
+lgb.model.LightingModel.Type = {
   PENDANT: 0,
   RECESSED: 1
 };

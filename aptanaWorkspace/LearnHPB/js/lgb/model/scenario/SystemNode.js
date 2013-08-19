@@ -7,6 +7,7 @@ goog.provide('lgb.model.scenario.SystemNode');
 goog.require('lgb.model.BaseModel');
 goog.require('lgb.model.scenario.SysVar');
 goog.require('lgb.utils.XmlParser');
+goog.require('lgb');
 
 /**
  * Primarily a container object for Sysvars

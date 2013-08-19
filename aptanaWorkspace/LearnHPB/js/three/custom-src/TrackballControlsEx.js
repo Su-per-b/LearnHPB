@@ -152,8 +152,7 @@ THREE.TrackballControlsEx = function ( object, domElement ) {
 		var factor = 1.0 + delta * this.zoomSpeed;
 
 		if ( factor !== 1.0 && factor > 0.0 ) {
-			//lgb.logInfo(delta, 'delta');
-			//lgb.logInfo(factor, 'factor');
+
 			
 			_eye.multiplyScalar( factor );
 
@@ -223,8 +222,8 @@ THREE.TrackballControlsEx = function ( object, domElement ) {
   this.traceInfo = function() {
     
     var msg = this.object.getInfo();
-    lgb.logInfo(msg);
-
+   // lgb.logInfo(msg);
+    
   };
   
   

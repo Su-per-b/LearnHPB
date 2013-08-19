@@ -47,18 +47,18 @@ lgb.controller.CameraController.prototype.getCamera = function() {
 lgb.controller.CameraController.prototype.bind_ = function() {
 
   this.listen(
-    e.RequestGoToViewPointNode,
-    this.onRequestGoToViewPointNode_
+    e.RequestGoToViewpointNode,
+    this.onRequestGoToViewpointNode_
   );
   
 };
 
 
 
-lgb.controller.CameraController.prototype.onRequestGoToViewPointNode_ =
+lgb.controller.CameraController.prototype.onRequestGoToViewpointNode_ =
   function(event) {
   
-  this.view.goToViewPointNode(event.payload);
+  this.view.goToViewpointNode(event.payload);
 
 };
 

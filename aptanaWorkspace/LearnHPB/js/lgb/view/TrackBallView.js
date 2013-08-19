@@ -7,12 +7,12 @@ goog.provide('lgb.view.TrackBallView');
 
 goog.require('goog.events.MouseWheelEvent');
 goog.require('goog.events.MouseWheelHandler');
-goog.require('lgb.view.BaseView');
+goog.require('lgb.view.BaseV');
 
 
 /**
  * @constructor
- * @extends lgb.view.BaseView
+ * @extends lgb.view.BaseV
  * @param {Object} camera The object to use usually the camera.
  * @param {Element} domElement The div to use as a touch pad.
  */
@@ -22,7 +22,7 @@ lgb.view.TrackBallView = function( camera) {
   /**@constant **/
   this._SENSITIVITY = -0.4;
   
-  lgb.view.BaseView.call(this, null, "TrackBallView",  lgb.Config.HUD_CONTAINER_STR);
+  lgb.view.BaseV.call(this, null, "TrackBallView",  lgb.Config.HUD_CONTAINER_STR);
 
   var p = this.jqParent();
   this.domElement_ = p.get(0);
@@ -35,7 +35,7 @@ lgb.view.TrackBallView = function( camera) {
   
   this.init_();
 };
-goog.inherits(lgb.view.TrackBallView, lgb.view.BaseView);
+goog.inherits(lgb.view.TrackBallView, lgb.view.BaseV);
 
 
 /**

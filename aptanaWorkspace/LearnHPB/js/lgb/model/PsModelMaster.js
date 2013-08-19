@@ -55,26 +55,35 @@ lgb.model.PsModelMaster.prototype.getPsModelList = function() {
 };
 
 
+lgb.model.PsModelMaster.prototype.changePropertyEx = function(property, newValue) {
+  
+    var psModel = this.psModelList[property.idx];
+    psModel.changePropertyEx(property.name, newValue);
+       
+};
 
+
+/*
 lgb.model.PsModelMaster.prototype.changeAry = function(changeRequestAry) {
 
   var changeRequest = changeRequestAry[0];
   var propertyName = changeRequestAry.propertyName;
   
   
- // if ("isStarted" == propertyName) {
+  if ("isStarted" == propertyName) {
       
     if (changeRequest.idx in this.psModelList) {
        var psModel = this.psModelList[changeRequest.idx];
-       psModel.changeProperty(propertyName, changeRequest.isChecked);
+       psModel.changePropertyEx(propertyName, changeRequest.isChecked);
     }
- // } else {
-  //  debugger;
-  //}
+  } else {
+    debugger;
+  }
   
 
 }
 
+*/
 
 
 /**

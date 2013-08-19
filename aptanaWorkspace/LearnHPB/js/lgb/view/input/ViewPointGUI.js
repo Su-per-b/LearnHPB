@@ -3,140 +3,54 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.view.input.ViewPointGUI');
+goog.provide('lgb.view.input.ViewpointGUI');
 
-goog.require('lgb.model.ViewPointModel');
+goog.require('lgb.model.ViewpointModel');
 goog.require('lgb.view.input.BaseViewGUI');
 goog.require('lgb.Config');
+goog.require('lgb.component.TreeDataSourceH');
 
 
 /**
  * @constructor
- * @param {lgb.model.ViewPointModel} dataModel The data model to display.
+ * @param {lgb.model.ViewpointModel} dataModel The data model to display.
  * @param {string} parentHtmlID the CSS id of the parent to inject into the DOM.
  * @extends {lgb.view.input.BaseViewGUI}
  */
-lgb.view.input.ViewPointGUI = function(dataModel) {
+lgb.view.input.ViewpointGUI = function(dataModel) {
   
   this._TITLE = "Viewpoints";
-  this.layoutID = lgb.Config.LAYOUT_ID.ViewPoints;
+  this.layoutID = lgb.Config.LAYOUT_ID.Viewpoints;
   
-  lgb.view.input.BaseViewGUI.call(this, dataModel, 'ViewPointGUI');
+  lgb.view.input.BaseViewGUI.call(this, dataModel, 'ViewpointGUI');
   
-
+  this.listenForChange_('viewpointNode');
 };
-goog.inherits(lgb.view.input.ViewPointGUI, lgb.view.input.BaseViewGUI);
+goog.inherits(lgb.view.input.ViewpointGUI, lgb.view.input.BaseViewGUI);
 
 
 /**
  * Initializes the View
  */
-lgb.view.input.ViewPointGUI.prototype.init = function() {
+lgb.view.input.ViewpointGUI.prototype.init = function() {
   
   this.treeComponent_ = null;
   this.treeDS_ = null;
   
   this.treeDSlist_ = [];
-  this.listenForChange_('viewPointNode');
-};
-
-
-
-lgb.view.input.ViewPointGUI.prototype.bind_ = function() {
-  
-  this.listenTo(
-    this.treeComponent_,
-    e.Select,
-    this.onSelect_
-  );
-  
-  this.listenTo(
-    this.treeComponent_,
-    e.SetFocus,
-    this.onSetFocus_
-  );  
-  
-  this.listenTo(
-    this.treeComponent_,
-    e.RemoveFocus,
-    this.onRemoveFocus_
-  );  
-  
 
 };
 
-
-
-
-lgb.view.input.ViewPointGUI.prototype.onChange_viewPointNode_ = function(viewPointNode) {
+lgb.view.input.ViewpointGUI.prototype.init2_ = function(viewpointNode) {
   
-  if (this.treeDS_ == null) {
-    this.init2_(viewPointNode);
-  } else {
-    this.treeDS_.update(viewPointNode);
-  }
-
-};
-
-
-
-lgb.view.input.ViewPointGUI.prototype.onSetFocus_ = function(event) {
-
-  var kNode = event.payload;
-  var viewPointNode = this.dataModel.getViewPoint(kNode);
-                
-  if (null != viewPointNode) {
-    
-     this.fireShowViewPoint(viewPointNode, true);
-    
-  }
-};
-
-
-lgb.view.input.ViewPointGUI.prototype.onRemoveFocus_ = function(event) {
-
-  var kNode = event.payload;
-  var viewPointNode = this.dataModel.getViewPoint(kNode);
-                
-  if (null != viewPointNode) {
-     this.fireShowViewPoint(viewPointNode, false);
-  }
-};
-
-
-
-lgb.view.input.ViewPointGUI.prototype.onSelect_ = function(event) {
-
-  var kNode = event.payload;
-  var viewPointNode = this.dataModel.getViewPoint(kNode);
-  
-  if (null == viewPointNode) {
-    
-    debugger;
-    
-  } else {
-    
-    viewPointNode.updateWorldPositions();
-                  
-    if (null != viewPointNode) {
-      this.triggerLocal(e.RequestGoToViewPointNode, viewPointNode);
-    }
-  }
-  
-
-
-};
-
-lgb.view.input.ViewPointGUI.prototype.init2_ = function(viewPointNode) {
-  
-  this.treeDS_ = new lgb.component.TreeDataSourceH(viewPointNode, null, this.htmlID,  'tree', 'ViewPointTreeDataSourceH');
+  this.treeDS_ = new lgb.component.TreeDataSourceH(viewpointNode, null, this.htmlID,  'tree', 'ViewpointTreeDataSourceH');
   
   var options =  (
     {
       events : {mouseOver:true}
     }
   );
-  
+
   this.treeDS_.setOptions(options);
   this.treeComponent_ = new lgb.component.TreeH(this.treeDS_);
   
@@ -146,24 +60,79 @@ lgb.view.input.ViewPointGUI.prototype.init2_ = function(viewPointNode) {
   this.bind_();
   this.triggerLocal(e.RequestAddToTestingInput, this);
    
-  
 };
 
 
 
 
-lgb.view.input.ViewPointGUI.prototype.fireShowViewPoint = function(viewPointNode, isVisible) {
 
+lgb.view.input.ViewpointGUI.prototype.bind_ = function() {
   
-  if (null != viewPointNode && null != viewPointNode.parent) {
+  this.listenForChangeTargetInit_(this.treeDS_);
+  this.listenForChange_('showKNode', this.treeDS_);
+  this.listenForChange_('hideKNode', this.treeDS_);
+  this.listenForChange_('selectedKNode', this.treeDS_);
+
+};
+
+
+lgb.view.input.ViewpointGUI.prototype.onChange_selectedKNode_ = function(kNode) {
+  
+
+  var viewpointNode = this.dataModel.getViewpoint(kNode);
+  
+  if (null == viewpointNode) {
+    debugger;
+  } else {
     
-    if (viewPointNode.parent.title =="Zones") {
-      
-      viewPointNode.isVisible = isVisible;
-      
-      this.triggerLocal(e.RequestShowViewPoint, viewPointNode);
-      
+    viewpointNode.updateWorldPositions();
+                  
+    if (null != viewpointNode) {
+      this.triggerLocal(e.RequestGoToViewpointNode, viewpointNode);
+    }
+  }
+};
+
+
+lgb.view.input.ViewpointGUI.prototype.onChange_hideKNode_ = function(kNode) {
+  this.triggerRequestShowViewpoint_(kNode, false);
+};
+
+
+lgb.view.input.ViewpointGUI.prototype.onChange_showKNode_ = function(kNode) {
+  this.triggerRequestShowViewpoint_(kNode, true);
+};
+
+
+lgb.view.input.ViewpointGUI.prototype.onChange_viewpointNode_ = function(viewpointNode) {
+  
+  if (this.treeDS_ == null) {
+    this.init2_(viewpointNode);
+  } else {
+    this.treeDS_.update(viewpointNode);
+  }
+
+};
+
+
+lgb.view.input.ViewpointGUI.prototype.triggerRequestShowViewpoint_= function(kNode, isVisible) {
+
+  var viewpointNode = this.dataModel.getViewpoint(kNode);
+  if (null == viewpointNode) {
+    debugger;
+  } 
+  
+  if (null != viewpointNode && null != viewpointNode.parent) {
+    
+    if (viewpointNode.parent.title =="Zones") {
+      viewpointNode.isVisible = isVisible;
+      this.triggerLocal(e.RequestShowViewpoint, viewpointNode);
     }
   }
 
 };
+
+
+
+
+

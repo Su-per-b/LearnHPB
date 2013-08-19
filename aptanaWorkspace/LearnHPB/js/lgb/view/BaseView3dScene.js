@@ -22,16 +22,7 @@ lgb.view.BaseView3dScene = function(dataModel) {
 
   this.dataModel = dataModel;
   
-  if(this.dataModel && this.onChange) {
-    
-    this.listenHelper_(this.dataModel, 
-      e.DataModelChanged, 
-      this, this.onChange);
-      
-  }
-  
   this.masterGroup_ = new THREE.Object3D();
-  
   this.masterGroup_.name = this._TITLE;
   this.masterGroup_.name = this.masterGroup_.name || this._ASSETS_FOLDER;
 
@@ -135,7 +126,7 @@ lgb.view.BaseView3dScene.prototype.onSceneLoadedBase_ = function(result) {
   this.masterGroup_.position = this.scene_.position;
   this.masterGroup_.rotation = this.scene_.rotation;
   this.masterGroup_.scale = this.scene_.scale;
-  this.masterGroup_.viewPoint = "defaultScene";
+  this.masterGroup_.viewpoint = "defaultScene";
 
   var c = this.containers_; 
   if (this.containers_ != null) {
@@ -205,10 +196,10 @@ lgb.view.BaseView3dScene.prototype.placeOneContainer_ = function(containerName, 
             );
         }
         
-        if (containerObject.viewPoint == null) {
-           obj3D.viewPoint = "default";
+        if (containerObject.viewpoint == null) {
+           obj3D.viewpoint = "default";
         } else {
-           obj3D.viewPoint = containerObject.viewPoint;
+           obj3D.viewpoint = containerObject.viewpoint;
         }
         
         
@@ -254,8 +245,6 @@ lgb.view.BaseView3dScene.prototype.requestAddToWorld = function(object3D) {
   object3D.name = object3D.name || this._TITLE;
   object3D.name = object3D.name || this._NAME;
 
-  
-  
   this.triggerLocal(e.AddToWorldRequest, object3D);
 };
 

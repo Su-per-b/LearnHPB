@@ -41,9 +41,9 @@ lgb.controller.RoofTopController.prototype.bind_ = function() {
 
   this.relay(this.view, 
       [
-        lgb.events.SelectableLoaded.TYPE,
         e.VisibilityNodesLoaded,
-        e.ViewPointNodesLoaded
+        e.ViewpointNodesLoaded,
+        e.SelectableLoaded
       ]
     );
 

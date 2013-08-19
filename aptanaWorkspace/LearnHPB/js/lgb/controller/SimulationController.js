@@ -45,7 +45,7 @@ lgb.controller.SimulationController = function() {
   this.trigger(e.RequestAddToLayout, this.buttonView);
   this.trigger(e.RequestAddToLayout, this.view);
     
-  //this.simulationMainController_.connect();
+  this.simulationMainController_.connect();
   
 };
 goog.inherits(lgb.controller.SimulationController, lgb.controller.BaseController);
@@ -59,14 +59,6 @@ lgb.controller.SimulationController.prototype.bind_ = function() {
         this.onSimStateNativeRequest_
     );
     
-    /*
-    this.listenTo (
-        this.dataModel,
-        e.DataModelChanged,
-        this.onDataModelChanged_
-    );
-    */
-   
     
     this.listenTo (
         this.simulationMainController_,
@@ -132,43 +124,28 @@ lgb.controller.SimulationController.prototype.onRequestActivateView_ =
 
 
 lgb.controller.SimulationController.prototype.onResultEvent_ = function(event) {
-      this.dataModel.setScalarValueResults(event.getPayload());
+
+  this.dataModel.changePropertyEx('scalarValueResults', event.getPayload());
 };
 
 lgb.controller.SimulationController.prototype.onXMLparsedEvent_ = function(event) {
-      this.dataModel.setXMLparsedInfo(event.getPayload());
+
+  this.dataModel.changePropertyEx('xmlParsedInfo', event.getPayload());
 };
 
 lgb.controller.SimulationController.prototype.onConfigChangeNotify_ = function(event) {
-      //this.dataModel.setMessage(event.getPayload());
+  //this.dataModel.setMessage(event.getPayload());
 };
 
 lgb.controller.SimulationController.prototype.onMessageEvent_ = function(event) {
-      this.dataModel.setMessage(event.getPayload());
-};
 
+  this.dataModel.changePropertyEx('messageStruct', event.getPayload());
+};
 
 lgb.controller.SimulationController.prototype.onSimStateNativeNotify_ = function(event) {
-      this.dataModel.setSimStateNative(event.getPayload());
+  this.dataModel.changePropertyEx('simStateNative', event.getPayload());
 };
 
-
-/*
-lgb.controller.SimulationController.prototype.onDataModelChanged_ = function(event) {
-  
-  var whatIsDirty = event.payload;
-  
-  
-  if (whatIsDirty.simStateNative) {
-      
-        var state = this.dataModel.getSimStateNative();
-        var event = new lgb.simulation.events.SimStateNativeRequest(state);
-
-  }
-
-    
-};
-*/
 
 
 /**
@@ -176,11 +153,11 @@ lgb.controller.SimulationController.prototype.onDataModelChanged_ = function(eve
  * @param {lgb.events.Event} event Fired.
  */
 lgb.controller.SimulationController.prototype.onSimStateNativeRequest_ = function(event) {
-  
-    this.dataModel.setSimStateNative(event.getPayload());
-    this.simulationMainController_.serializeAndSend(event);
-    
-};
+
+  this.dataModel.changePropertyEx('simStateNative', event.getPayload());
+  this.simulationMainController_.serializeAndSend(event);
+
+}; 
 
 
 /**

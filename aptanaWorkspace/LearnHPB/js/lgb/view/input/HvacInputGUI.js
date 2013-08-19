@@ -11,7 +11,7 @@ goog.require('lgb.Config');
 
 /**
  * @constructor
- * @param {lgb.model.ViewPointModel} dataModel The data model to display.
+ * @param {lgb.model.ViewpointModel} dataModel The data model to display.
  * @param {string} parentHtmlID the CSS id of the parent to inject into the DOM.
  * @extends {lgb.view.input.BaseViewGUI}
  */

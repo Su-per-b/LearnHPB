@@ -45,12 +45,9 @@ lgb.view.input.TestLightingGUI.prototype.onComboBoxSelect_ = function(event) {
   var idx = event.item.index();
   var dataItem = this.kendoComboBox_.dataItem(idx);
   
-  var v = parseInt(dataItem.value);
+  var value = parseInt(dataItem.value);
   
-  var stateObject = {lightingType : v};
-  this.dataModel.change(stateObject);
-  
-  return;
+  this.dataModel.changePropertyEx('lightingType', value);
 };
 
 
@@ -86,7 +83,6 @@ lgb.view.input.TestLightingGUI.prototype.inject = function(parentElement) {
       
       
       this.kendoComboBox_.select(0);
-      
       this.bind_();
       
 

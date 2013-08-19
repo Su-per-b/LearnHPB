@@ -23,30 +23,22 @@ goog.inherits(lgb.component.BaseDataSource, lgb.BaseClass);
 
 
 
-lgb.component.BaseDataSource.prototype.dispatchChange = function(whatIsDirty) {
-  
-  if (whatIsDirty == null) {
-    whatIsDirty = this;
-  }
-  
-  this.triggerLocal(e.DataModelChanged, whatIsDirty);
+lgb.component.BaseDataSource.prototype.changePropertyEx = function(propertyName, propertyValue) {
+
+   // if (this[propertyName] != propertyValue) {
+        this[propertyName] = propertyValue;
+        this.dispatchChangedEx(propertyName, propertyValue);
+   // }
 };
 
-lgb.component.BaseDataSource.prototype.dispatchChangedProperty = function(propertyName) {
+
+
+
+lgb.component.BaseDataSource.prototype.dispatchChangedEx = function(propertyName, payload) {
    
    var whatIsDirty = {};
-   whatIsDirty[propertyName] = this[propertyName];
+   whatIsDirty[propertyName] = payload;
    
-   this.dispatchChange(whatIsDirty);
+   this.triggerLocal(e.DataModelChangedEx, whatIsDirty);
+  
 };
-
-
-
-lgb.component.BaseDataSource.prototype.changeProperty = function(propertyName, propertyValue) {
-
-    //if (this[propertyName] != propertyValue) {
-        this[propertyName] = propertyValue;
-        this.dispatchChangedProperty(propertyName);
-    //}
-};
-

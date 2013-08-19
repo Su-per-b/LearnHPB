@@ -39,11 +39,8 @@ lgb.model.ZoneModel.prototype.init_ = function() {
   this.z[7] = new lgb.model.ZoneShapeModel(28.524599075317383, 0, 4.7540998458862305);
   this.z[8] = new lgb.model.ZoneShapeModel(4.7540998458862305, 0, 4.7540998458862305);
   
-
-  
   var currentX = 0;
   var currentZ = 0;
-  
   var len = 3;
   
   for (var j = 0; j < 3; j++) {
@@ -75,13 +72,8 @@ lgb.model.ZoneModel.prototype.init_ = function() {
 lgb.model.ZoneModel.prototype.setEnvelopeModel = function(envelopeModel) {
 
   this.envelopeModel = envelopeModel;
-
-  this.dispatchChange(
-      {
-        config: true
-      }
-  );
-
+  this.dispatchChangedEx('envelopeModel', envelopeModel);
+   
 };
 
 
@@ -101,21 +93,16 @@ lgb.model.ZoneModel.prototype.setVisible = function(zoneIdx, makeVisible) {
 
     theZone.isVisible = makeVisible;
 
-    this.dispatchChange(
-      {
-        isVisible: true,
-        zoneIdx: zoneIdx,
-        config: false
-      }
-    );
-  }
-};
-
-
-lgb.model.ZoneModel.prototype.setViewPointNode = function(viewPointNode) {
-
-    this.viewPointNode_ = viewPointNode;
+     var statusObject = {   
+         isVisible: makeVisible,
+         zoneIdx: zoneIdx
+     };
     
+    this.dispatchChangedEx('isVisible', statusObject);
+    
+  }
+  
+  
 };
 
 

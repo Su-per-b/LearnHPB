@@ -63,7 +63,6 @@ THREE.Mesh.prototype.clone = function() {
 THREE.Mesh.prototype.getBoundingBox = function() {
     
     var boundingBox;
-       
     if (undefined != this.geometry) {
         boundingBox = this.geometry.getBoundingBoxObject();
     }

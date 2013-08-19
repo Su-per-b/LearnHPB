@@ -39,21 +39,34 @@ goog.inherits(lgb.view.BaseV, lgb.BaseClass);
 
 
 
+lgb.view.BaseV.prototype.listenForChangeTargetInit_ = function(eventTarget) {
+    this.listenHelper_(eventTarget, e.DataModelChangedEx, this, this.onChangeEx_);
+};
 
 
-lgb.view.BaseV.prototype.listenForChange_ = function(changedPropertyString) {
-    
+lgb.view.BaseV.prototype.listenForChange_ = function(changedPropertyString, eventTargetArg) {
     
     if (this.changeMap_ === undefined) {
       this.changeMap_ = {};
-      this.listenHelper_(this.dataModel, e.DataModelChangedEx, this, this.onChangeEx_);
+      this.listenerMap_ = {};
+      this.listenForChangeTargetInit_(this.dataModel);
     }
-
+    
+    var eventTarget;
+    
+    if (null == eventTargetArg) {
+       eventTarget = this.dataModel;
+    } else {
+       eventTarget = eventTargetArg;
+    }
+    
     this.listenForOneChange_(changedPropertyString);
 };
 
 
-lgb.view.BaseV.prototype.listenForOneChange_ = function(changedPropertyString) {
+
+
+lgb.view.BaseV.prototype.listenForOneChange_ = function(changedPropertyString, eventTarget) {
   
     var handlerName = 'onChange_' + changedPropertyString + '_';
     var func = this[handlerName];
@@ -216,10 +229,12 @@ lgb.view.BaseV.prototype.jqParent = function() {
 };
 
 
-lgb.view.BaseV.prototype.requestDataModelChange = function(propertyName, propertyValue) {
-  var payload = {name:propertyName, value:propertyValue};
+lgb.view.BaseV.prototype.requestDataModelChange = function(property, newValue) {
+  var payload = {property:property, newValue:newValue};
   this.triggerLocal(e.RequestDataModelChange, payload);
 };
+
+
 
 
 lgb.view.BaseV.prototype.getTitle = function() {

@@ -40,8 +40,7 @@ lgb.view.input.PsMasterGUI.prototype.init = function() {
   
     var list = this.dataModel.getPsModelList();
     
-    
-    
+
     
   //  this.treeActiveDS = new lgb.component.TreeDataSourceH(list,'isStarted',
      // 'Active Systems',  this.htmlID, 'active-systems');
@@ -74,24 +73,35 @@ lgb.view.input.PsMasterGUI.prototype.init = function() {
 lgb.view.input.PsMasterGUI.prototype.bind_ = function() {
 
 
+    
   this.listenTo(this.treeActiveDS,
-    e.DataModelChanged,
-    this.onDataModelChanged_);  
+    e.DataModelChangedEx,
+    this.onDataModelChangedEx_);  
     
   this.listenTo(this.treeBoxesDS,
-    e.DataModelChanged,
-    this.onDataModelChanged_);
+    e.DataModelChangedEx,
+    this.onDataModelChangedEx_);
     
   this.listenTo(this.treeCurvesDS,
-    e.DataModelChanged,
-    this.onDataModelChanged_);
+    e.DataModelChangedEx,
+    this.onDataModelChangedEx_);
     
 };
 
 
-lgb.view.input.PsMasterGUI.prototype.onDataModelChanged_ = function(event) {
-
-    this.triggerLocal(e.RequestDataModelChange, event.payload);
+lgb.view.input.PsMasterGUI.prototype.onDataModelChangedEx_ = function(event) {
+  
+    var propertyName = event.payload.changedItems.propertyName;
+    var changedItem = event.payload.changedItems[0];
+    
+    var property = {
+      idx: changedItem.idx,
+      name: propertyName
+    }
+    
+    var newValue = changedItem.isChecked;
+    
+    this.requestDataModelChange(property, newValue);
 };
 
 

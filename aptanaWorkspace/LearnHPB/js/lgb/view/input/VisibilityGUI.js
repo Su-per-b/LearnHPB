@@ -23,24 +23,35 @@ lgb.view.input.VisibilityGUI = function(dataModel) {
   this._TITLE = "Visibility";
   this.layoutID = lgb.Config.LAYOUT_ID.Visibility;
   lgb.view.input.BaseViewGUI.call(this, dataModel);
-
+  
+  this.listenForChange_('addNode');
+  this.listenForChange_('init');
+  this.listenForChange_('changedItems');
+  
+  
 };
 goog.inherits(lgb.view.input.VisibilityGUI, lgb.view.input.BaseViewGUI);
+
+
+
+lgb.view.input.VisibilityGUI.prototype.onChange_addNode_ = function(visibilityNode) {
+    this.treeDS_.update(visibilityNode);
+};
+
+lgb.view.input.VisibilityGUI.prototype.onChange_init_ = function(visibilityNode) {
+  this.init_(visibilityNode);
+};
+
+lgb.view.input.VisibilityGUI.prototype.onChange_changedItems_ = function(changedItems) {
+  this.requestDataModelChange("changedItems", changedItems);
+};
 
 
 /**
  * Initializes the View
  */
-lgb.view.input.VisibilityGUI.prototype.init = function() {
-  
-  this.treeComponent_ = null;
-  this.treeDS_ = null;
-  
-  this.treeDSlist_ = [];
 
-};
-
-lgb.view.input.VisibilityGUI.prototype.init2_ = function(visibilityNode) {
+lgb.view.input.VisibilityGUI.prototype.init_ = function(visibilityNode) {
   
   this.treeDS_ = new lgb.component.TreeDataSourceH(visibilityNode,'isVisible',this.htmlID,  'tree', 'Visibility');
 
@@ -50,45 +61,30 @@ lgb.view.input.VisibilityGUI.prototype.init2_ = function(visibilityNode) {
     }
   );
   
-  this.listenTo(this.treeDS_,
-    e.DataModelChanged,
-    this.onDataModelChanged_);
+  this.listenTo(
+    this.treeDS_,
+    e.DataModelChangedEx,
+    this.onTreeDS_DataModelChangedEx_);
+    
     
   this.treeComponent_ = new lgb.component.TreeH(this.treeDS_);
   
   var treeElement = this.treeComponent_.getHtml();
   this.append(treeElement);
+  
   this.triggerLocal(e.RequestAddToTestingInput, this);
    
-
-};
-
-
-lgb.view.input.VisibilityGUI.prototype.onChange = function(event) {
-  
-  var lgbNode = event.payload;
-  
-  if (this.treeDS_ == null) {
-    this.init2_(lgbNode);
-  } else {
-    this.treeDS_.update(lgbNode);
-  }
-
 };
 
 
 
-lgb.view.input.VisibilityGUI.prototype.onDataModelChanged_ = function(event) {
-
-    this.triggerLocal(e.RequestDataModelChange, event.payload);
+lgb.view.input.VisibilityGUI.prototype.onTreeDS_DataModelChangedEx_ = function(event) {
+ 
+   this.requestDataModelChange("changeVisibility", event.payload.changedItems);
 };
-
-
-
 
 
 lgb.view.input.VisibilityGUI.prototype.onChangeDataSource_ = function(event) {
-
     this.triggerLocal(e.RequestDataModelChange, event.payload);
 };
 

@@ -16,7 +16,7 @@ goog.require('lgb.controller.LayoutController');
 goog.require('lgb.controller.input.GuiController');
 
 goog.require('lgb.simulation.model.voNative.SimStateNative');
-
+goog.require('lgb');
 
 /**
  * MVC controller for the App
