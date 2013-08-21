@@ -45,7 +45,7 @@ lgb.view.RoofTopView.prototype.onSceneLoaded_ = function(result) {
 
 lgb.view.RoofTopView.prototype.dispatchSelectableLoaded_ = function() {
   
-  var selectableMap = {
+  this.selectableMap_ = {
     "Damper - Center" : true,
     "Damper - Left": true,
     "Damper - Top": true,
@@ -54,13 +54,22 @@ lgb.view.RoofTopView.prototype.dispatchSelectableLoaded_ = function() {
     "Ducting": false,
     "Cooling Coil": true,
     "Heating Coil": true,
-    "Filter": true
+    "Filter": true,
+    "Boiler": true,
+    "Chiller": true,
+    "Cooler": true,
+    "Pipeing Connectors": false
   };
   
-  var airHandlerCenterList = this.masterGroup_.children[1].children
+  var airHandlerCenterList = this.masterGroup_.children[1].children;
+  var otherList = this.masterGroup_.children[4].children;
   
-  var selectableList = [];
+  this.selectableList_ = [];
   
+  this.each(airHandlerCenterList, this.addSelectable);
+  this.each(otherList, this.addSelectable);
+  
+/*
   var len = airHandlerCenterList.length;
   
   for (var i = 0; i < len; i++) {
@@ -70,12 +79,32 @@ lgb.view.RoofTopView.prototype.dispatchSelectableLoaded_ = function() {
     }
   }
   
-  if (selectableList.length > 0) {
-     this.triggerLocal(e.SelectableLoaded, selectableList);
+  var len2 = airHandlerCenterList.length;
+  
+  for (var j = 0; i < len; i++) {
+    var mesh = airHandlerCenterList[i];
+    if (true == selectableMap[mesh.name]) {
+      selectableList.push(mesh);
+    }
+  }
+  
+  */
+
+  
+  if (this.selectableList_.length > 0) {
+     this.triggerLocal(e.SelectableLoaded, this.selectableList_);
   }
   
 
 };
+
+
+lgb.view.RoofTopView.prototype.addSelectable = function(mesh) {
+    if (true == this.selectableMap_[mesh.name]) {
+      this.selectableList_.push(mesh);
+    }
+};
+
 
 lgb.view.RoofTopView.prototype.dispatchVisibilityNodes_ = function() {
   var node = new lgb.model.vo.VisibilityNode(this._TITLE, this.masterGroup_, 2 );

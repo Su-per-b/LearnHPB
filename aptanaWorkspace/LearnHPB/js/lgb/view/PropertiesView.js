@@ -26,14 +26,8 @@ lgb.view.PropertiesView = function(dataModel) {
   this.title = 'Properties';
   this._TITLE = 'Properties';
   
-
-  /** @type {*} */
   this.kendoDropDownList = null;
-
-  /** @type {*} */
   this.kendoTabStrip_ = null;
-
-
   this.listenForChange_('selectedSystemNode');
 };
 goog.inherits(lgb.view.PropertiesView, lgb.view.input.DialogView);
@@ -122,7 +116,7 @@ lgb.view.PropertiesView.prototype.makeTabs_ = function() {
   
   this.contentElementList_ = [];
   
-  this.contentElementList_[0] = this.tabStrip1.addTab('Input!');
+  this.contentElementList_[0] = this.tabStrip1.addTab('Inputs');
   this.contentElementList_[1] = this.tabStrip1.addTab('Faults');
   this.contentElementList_[2] = this.tabStrip1.addTab('I2');
   this.contentElementList_[3] = this.tabStrip1.addTab('F2');

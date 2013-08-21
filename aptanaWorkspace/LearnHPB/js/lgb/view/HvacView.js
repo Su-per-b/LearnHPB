@@ -42,7 +42,7 @@ lgb.view.HvacView.prototype.onSceneLoaded_ = function(result) {
     if (mesh != null) {
 
       //TODO:RAJ target selectable meshes with "groups"
-      if (mesh.name != 'ductingObject') {
+      if (mesh.name != 'DuctWork') {
         
         selectableList.push(mesh);
       }
@@ -56,7 +56,7 @@ lgb.view.HvacView.prototype.onSceneLoaded_ = function(result) {
   }
 
 
-  //this.dispatchSelectableLoaded_(selectableList);
+  this.dispatchSelectableLoaded_(selectableList);
   this.dispatchVisibilityNodes_();
   this.dispatchViewpointNodes_();
 

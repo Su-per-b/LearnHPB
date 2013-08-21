@@ -8,7 +8,6 @@ goog.provide('lgb.controller.WorldSelectionController');
 goog.require('lgb.controller.BaseController');
 goog.require('lgb.model.WorldSelectionModel');
 goog.require('lgb.view.WorldSelectionView');
-goog.require('goog.array');
 
 
 /**
@@ -17,11 +16,12 @@ goog.require('goog.array');
  * @param {Element} containerDiv The DIV to use.
  * @param {THREE.Camera} camera We need a reference to this to pass to the view.
  */
-lgb.controller.WorldSelectionController = function( camera, scene) {
+lgb.controller.WorldSelectionController = function( camera, scene, containerDiv) {
 
   lgb.controller.BaseController.call(this);
   this.camera_ = camera;
   this.scene_ = scene;
+  this.containerDiv_ = containerDiv;
   this.init_();
 
 };
@@ -45,6 +45,7 @@ lgb.controller.WorldSelectionController.prototype.init_ = function() {
   this.view.init();
 };
 
+
 /**
  * Binds specific event types to functions which handle the events.
  * If no event target is specified then the listener is set  on the global
@@ -59,7 +60,6 @@ lgb.controller.WorldSelectionController.prototype.bind_ = function() {
     e.Object3DSelected,
     this.onObject3DSelected_
     );
-
 
   this.listen(
     e.SelectableLoaded,
@@ -81,14 +81,10 @@ lgb.controller.WorldSelectionController.prototype.onRequestSelectSystemNode_ =
 };
 
 
-
-
-
 lgb.controller.WorldSelectionController.prototype.onObject3DSelected_ =
   function(event) {
 
   var intersect = event.payload;
-  
   var systemNodeID = this.dataModel.selectIntersect(intersect);
   this.trigger(e.RequestSelectSystemNode, systemNodeID);
   
@@ -100,5 +96,4 @@ lgb.controller.WorldSelectionController.prototype.onSelectableLoaded_ =
   function(event) {
 
   this.dataModel.addMeshAry(event.payload);
-  return;
 };

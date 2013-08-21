@@ -34,51 +34,29 @@ lgb.model.WorldSelectionModel.prototype.init_ = function() {
     "Fan - Right": 'FAN',
     "Cooling Coil": 'CC',
     "Heating Coil": 'HC',
-    "Filter" : 'FLT'
+    "Filter" : 'FLT',
+    "Boiler" : 'BOI',
+    "Chiller" : 'CHL',
+    "Cooler" : 'CTW',
+    "Diffuser01" : "DIF",
+    "Diffuser02" : "DIF",
+    "Diffuser03" : "DIF",
+    "Diffuser04" : "DIF",
+    "Diffuser05" : "DIF",
+    "Diffuser06" : "DIF",
+    "Diffuser07" : "DIF",
+    "Diffuser08" : "DIF",
+    "Diffuser09" : "DIF"
   };
-
-
-/*
-  this.systemNodeToMeshNameMap = {
-    MX: ["Damper - Top", "Damper - Center",  "Damper - Left"],
-    FAN: ['Fan'],
-    CC: ["Cooling Coil"],
-    HC: ["Heating Coil"],
-    FLT: ['Filter']
-  };
-  */
 
   this.systemNodeToMeshRefMap = {};
-  
-  
-/*
-  this.selectable = {
-    Filter: true,
-    "Heating Coil": true,
-    "Cooling Coil": true,
-    Fan: true,
-    "Left Damper": true,
-    "Center Damper": true,
-    "Top Damper": true,
-    Diffuser01: true,
-    Diffuser02: true,
-    Diffuser03: true,
-    Diffuser04: true,
-    Diffuser05: true,
-    Diffuser06: true,
-    Diffuser07: true,
-    Diffuser08: true,
-    Diffuser09: true
-  };
-  */
-
   this.selectableMeshes = {};
   this.selectableMeshesAry = [];
   
   this.selectedMeshList = [];
   this.deselected = [];
   
-  this.systemNodeSelected = null;
+  // this.systemNodeSelected = null;
 };
 
 
@@ -133,30 +111,12 @@ lgb.model.WorldSelectionModel.prototype.selectIntersect = function(intersect) {
     var systemNodeSelected = this.meshToSystemNodeIDMap[intersect.object.name];
     if (!systemNodeSelected) {
       
-     // var meshList = this.systemNodeToMeshNameMap[this.systemNodeSelected];
-      //this.selectMeshList(meshList);
-      
-    //} else {
-     // debugger;
      systemNodeSelected = "NONE";
     }
         
-    /*
-        if (this.systemNodeSelected) {
-          
-          var meshList = this.systemNodeToMeshNameMap[this.systemNodeSelected];
-          this.selectMeshList(meshList);
-          
-        } else {
-          debugger;
-        }
-        
-    */
 
-    //this.selectedMeshList.push(intersect.object);
   }
 
-  //this.dispatchChangedEx('systemNodeSelected', this.systemNodeSelected);
   return systemNodeSelected;
 };
 
@@ -175,7 +135,6 @@ lgb.model.WorldSelectionModel.prototype.addMesh_ = function(mesh) {
     }
     
     this.systemNodeToMeshRefMap[systemNodeID].push(mesh);
-    
     
   } else {
     debugger;

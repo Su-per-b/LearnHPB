@@ -106,7 +106,8 @@ lgb.controller.WorldController.prototype.init = function() {
   this.selectionController_ =
     new lgb.controller.WorldSelectionController(
       this.camera_,
-      this.scene_
+      this.scene_,
+      this.containerDiv_
   );
 
 
