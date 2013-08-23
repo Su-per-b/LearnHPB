@@ -33,8 +33,6 @@ lgb.controller.SimulationController = function() {
   this.dataModel = this.simulationMainController_.getDataModel();
   
   this.view = new lgb.view.SimulationView(this.dataModel);
-  
-  
   this.buttonView = new lgb.view.SimulationButtonView();
 
   this.bind_();
@@ -44,11 +42,13 @@ lgb.controller.SimulationController = function() {
   
   this.trigger(e.RequestAddToLayout, this.buttonView);
   this.trigger(e.RequestAddToLayout, this.view);
+   
+
+
     
-  this.simulationMainController_.connect();
-  
 };
 goog.inherits(lgb.controller.SimulationController, lgb.controller.BaseController);
+
 
 
 lgb.controller.SimulationController.prototype.bind_ = function() {
@@ -97,6 +97,7 @@ lgb.controller.SimulationController.prototype.bind_ = function() {
     );
     
     
+    
   this.listenTo(this.buttonView,
     e.RequestActivateView,
     this.onRequestActivateView_);
@@ -109,6 +110,9 @@ lgb.controller.SimulationController.prototype.bind_ = function() {
 }
 
 
+
+
+
 /**
  * @param {lgb.events.Event} event The event.
  */
@@ -119,7 +123,8 @@ lgb.controller.SimulationController.prototype.onRequestActivateView_ =
 
   this.buttonView.setSelected(showFlag);
   this.view.show(showFlag);
-
+ 
+  this.simulationMainController_.connect(true);
 };
 
 
@@ -167,6 +172,8 @@ lgb.controller.SimulationController.prototype.onClosedPanel =
   function(event) {
     
   this.buttonView.setSelected(false);
+  
+  this.simulationMainController_.connect(false);
   
 };
 

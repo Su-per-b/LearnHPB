@@ -277,3 +277,15 @@ lgb.BaseClass.prototype.unlisten = function(key) {
   }
 
 };
+
+
+lgb.BaseClass.prototype.getClassName = function() {
+  
+  var fullClassName = this.getFullClassName();
+  var ary = fullClassName.split('.');
+  
+  var len = ary.length;
+  var className = ary[len-1];
+  
+  return className;
+};

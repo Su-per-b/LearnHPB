@@ -1,8 +1,15 @@
 goog.provide('lgb.controller.input.ScenarioInputController');
 
 goog.require('lgb.controller.BaseController');
-goog.require('lgb.view.input.ScenarioInputGUI');
+
 goog.require('lgb.model.input.BaseInputModel');
+goog.require('lgb.model.scenario.Bs2');
+goog.require('lgb.model.scenario.SystemList');
+
+goog.require('lgb.view.input.ScenarioInputGUI');
+goog.require('lgb.view.scenario.SystemList');
+
+goog.require('lgb.model.scenario.SystemList');
 
 
 lgb.controller.input.ScenarioInputController = function() {
@@ -23,16 +30,20 @@ lgb.controller.input.ScenarioInputController.prototype.init = function() {
   this.bind_();
   this.guiView.init();
   
-
-  
 };
 
 
 lgb.controller.input.ScenarioInputController.prototype.bind_ = function() {
 
+  this.listen(
+    e.ScenarioParsed2,
+    this.onScenarioParsed2_
+  );
+
   this.relayLocal(
     this.guiView,
     e.RequestAddToParentGUI);
+
 
 };
 
@@ -56,5 +67,19 @@ lgb.controller.input.ScenarioInputController.prototype.injectCss_ = function() {
 
   $('head').append(cssStr);
 
+};
+
+
+
+lgb.controller.input.ScenarioInputController.prototype.onScenarioParsed2_ = function(event) {
+  
+
+  var systemListDataModel = event.payload;
+  var systemListView = new lgb.view.scenario.SystemList (systemListDataModel);
+  
+  this.guiView.add(systemListView);
+
+
+  
 };
 

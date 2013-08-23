@@ -47,12 +47,12 @@ e.WindowResize = 'e.WindowResize';
 e.VisibilityNodesLoaded = 'e.VisibilityNodesLoaded';
 e.ViewpointNodesLoaded = 'e.ViewpointNodesLoaded';
 e.ScenarioParsed = 'e.ScenarioParsed';
+e.ScenarioParsed2 = 'e.ScenarioParsed2';
 
 e.DataModelChanged = 'e.DataModelChanged';
 e.DataModelChangedEx = 'e.DataModelChangedEx';
 
 e.BuildingHeightChanged = 'e.BuildingHeightChanged';
-
 
 e.SetFocus = 'e.SetFocus';
 e.RemoveFocus = 'e.RemoveFocus';
@@ -77,3 +77,4 @@ e.SelectableLoaded = 'e.SelectableLoaded';
 e.Object3DSelected = 'e.Object3DSelected';
 
 e.RequestSelectSystemNode = 'e.RequestSelectSystemNode';
+

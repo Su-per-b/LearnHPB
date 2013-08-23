@@ -101,7 +101,7 @@ lgb.Config.SOCKET_SERVER.AutoConfig = 0;
 lgb.Config.SOCKET_SERVER.Pfalco = 1;
 lgb.Config.SOCKET_SERVER.PfalcoLocal = 2;
 
-lgb.Config.SOCKET_SERVER_HOST = lgb.Config.SOCKET_SERVER.PfalcoLocal;
+lgb.Config.SOCKET_SERVER_HOST = lgb.Config.SOCKET_SERVER.Pfalco;
 
 
 

@@ -28,12 +28,14 @@ lgb.controller.input.BuildingInputController.prototype.init = function() {
   this.guiView = new lgb.view.input.BuildingInputGUI(this.dataModel);
   
   this.buildingGeneralInputController_ = new lgb.controller.input.BuildingGeneralInputController();
+  
   this.lightingInputController_ = new lgb.controller.input.LightingInputController();
   this.dayLightingInputController_ = new lgb.controller.input.DayLightingInputController();
   this.envelopeInputController_ = new lgb.controller.input.EnvelopeInputController();
   this.hvacInputController_ = new lgb.controller.input.HvacInputController();
     
   this.bind_();
+
   this.guiView.init();
 
   this.buildingGeneralInputController_.init();
@@ -41,9 +43,16 @@ lgb.controller.input.BuildingInputController.prototype.init = function() {
   this.dayLightingInputController_.init();
   this.envelopeInputController_.init();
   this.hvacInputController_.init();
-   
+  
+};
+
+
+
+lgb.controller.input.BuildingInputController.prototype.init2_ = function(bs2) {
+  
 
 };
+
 
 
 lgb.controller.input.BuildingInputController.prototype.bind_ = function() {
@@ -73,11 +82,16 @@ lgb.controller.input.BuildingInputController.prototype.bind_ = function() {
       e.RequestAddToParentGUI, 
       this.onRequestAddToParentGUI_);
     
-  this.relayLocal(
-    this.guiView,
-    e.RequestAddToParentGUI);
+    this.relayLocal(
+      this.guiView,
+      e.RequestAddToParentGUI);
+    
+
     
 };
+
+
+
 
 
 

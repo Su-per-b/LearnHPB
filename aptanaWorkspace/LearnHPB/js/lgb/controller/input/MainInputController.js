@@ -31,6 +31,7 @@ lgb.controller.input.MainInputController.prototype.init_ = function() {
   this.scenarioInputController_ = new lgb.controller.input.ScenarioInputController();
   this.buildingInputController_ = new lgb.controller.input.BuildingInputController();
   this.simulationInputController_ = new lgb.controller.input.SimulationInputController();
+  
   this.testingInputController_ = new lgb.controller.input.TestingInputController();
     
   this.bind_();

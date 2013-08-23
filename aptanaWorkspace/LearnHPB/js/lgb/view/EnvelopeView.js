@@ -124,7 +124,6 @@ lgb.view.EnvelopeView.prototype.dispatchVisibilityNodes_ = function() {
  */
 lgb.view.EnvelopeView.prototype.makeFloors_ = function() {
   
-  
   var hashKey = this.dataModel.floorHeight + 'ft';
   
   var mesh = this.floorMeshHash_[hashKey];

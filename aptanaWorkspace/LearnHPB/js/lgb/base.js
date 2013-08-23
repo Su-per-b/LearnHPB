@@ -22,11 +22,13 @@ goog.require('lgb.DebugLGB');
 lgb.init = function() {
   lgb.console = new goog.debug.Console();
   
-
+  var debug = new lgb.DebugLGB();
+    
   if ( !COMPILED ) {
-    var debug = new lgb.DebugLGB();
-    debug.init();
+    debug.tag();
   }
+  
+  debug.tagEx();
   
   return;
 };

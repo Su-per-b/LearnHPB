@@ -36,22 +36,11 @@ lgb.view.input.ScenarioInputGUI.prototype.init = function() {
 
 lgb.view.input.ScenarioInputGUI.prototype.add = function(gui) {
 
-
-  var title = gui.getTitle();
-
-  var contentElement;
-  
-  if (this.tabTitleMap_[title]) {
-    contentElement = this.tabTitleMap_[title]
-  } else {
-    
-    contentElement = this.tabStrip1.addTab(title);
-    this.tabTitleMap_[title] = contentElement;
-  }
-  
-  gui.inject(contentElement);
+  var el = this.getMainElement();
+  gui.appendTo(el, true);
   
 };
+
 
 
 /**
@@ -65,34 +54,33 @@ lgb.view.input.ScenarioInputGUI.prototype.inject = function(parentElement) {
   
    var items = [
           {text: "Scenario 1", value:"1"},
-          {text: "Scenario 2", value:"2"},
-          {text: "Scenario 3", value:"3"},
-          {text: "Scenario 4", value:"4"}
+          {text: "Scenario 2", value:"2"}
           ];
           
           
   var el = this.getMainElement();
   
 
-  var titleDiv = el.append('<h4>Select Scenario</h4>')
+  var titleDiv = el.append('<h5>Select Scenario</h5>')
     
   var cb = $('<div>');
   el.append(cb);
-  
-  
+
   this.kendoComboBox_ = 
       cb.kendoDropDownList( 
         {
           dataTextField: "text",
           dataValueField: "value",
-          dataSource: items
+          dataSource: items,
+          enable: false
         }
       ).data("kendoDropDownList");
       
       
       this.kendoComboBox_.select(0);
 
-
+  el.append('<br />');
+  el.append('<br />');
   
 };
 

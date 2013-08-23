@@ -18,10 +18,7 @@ lgb.view.TitleBarView = function() {
   this._TITLE='TitleBar';
   
   this.layoutID = lgb.Config.LAYOUT_ID.TitleBar;
-  
   lgb.view.input.BaseViewGUI.call(this);
-  
-  
   
   this.init_();
 
@@ -52,19 +49,3 @@ lgb.view.TitleBarView.prototype.init_ = function() {
 
 
 
-/*
-lgb.view.TitleBarView.prototype.show = function(makeVisible) {
-    
-  
-    if (this.isVisible_ != makeVisible) {
-      
-      var el = this.getMainElement();
-      this.isVisible_ = makeVisible;
-      
-      el.css( 'display', 'none' );
-      
-      
-    }
-
-};
-*/

@@ -24,3 +24,5 @@ lgb.model.input.BaseInputModel = function() {
 goog.inherits(lgb.model.input.BaseInputModel, lgb.model.BaseModel);
 
 
+
+

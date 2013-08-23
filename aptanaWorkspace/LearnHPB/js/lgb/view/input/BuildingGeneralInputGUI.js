@@ -30,27 +30,19 @@ goog.inherits(lgb.view.input.BuildingGeneralInputGUI, lgb.view.input.BaseViewGUI
  * Initializes the View
  */
 lgb.view.input.BuildingGeneralInputGUI.prototype.init = function() {
-  
-    this.triggerLocal(e.RequestAddToParentGUI);
+  this.triggerLocal(e.RequestAddToParentGUI);
 };
 
 
-
-
-lgb.view.input.BuildingGeneralInputGUI.prototype.bind_ = function() {
-  
-
-
-      
-}
+lgb.view.input.BuildingGeneralInputGUI.prototype.add = function(gui) {
+  var el = this.getMainElement();
+  gui.appendTo(el, false);
+};
 
 
 lgb.view.input.BuildingGeneralInputGUI.prototype.inject = function(parentElement) {
-  
   goog.base(this,  'inject', parentElement);
-  
-  var el = this.getMainElement();
-  var titleDiv = el.append('<h3>General Building Stuff</h3>');
-  
+  var el = this.getMainElement();    
+  el.append('<br />');
 };
 

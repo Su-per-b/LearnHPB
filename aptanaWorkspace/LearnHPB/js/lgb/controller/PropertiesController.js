@@ -23,7 +23,7 @@ lgb.controller.PropertiesController.prototype.init_ = function() {
 
 
 lgb.controller.PropertiesController.prototype.bind1_ = function() {
-    this.listen(e.ScenarioParsed, this.onScenarioParsed_);
+    this.listenOnce(e.ScenarioParsed, this.onScenarioParsed_);
 };
 
 lgb.controller.PropertiesController.prototype.bind2_ = function() {
@@ -93,7 +93,9 @@ lgb.controller.PropertiesController.prototype.onRequestActivateView_ =
 
   this.buttonView.setSelected(showFlag);
   this.view.show(showFlag);
+  
 
+  
 };
 
 

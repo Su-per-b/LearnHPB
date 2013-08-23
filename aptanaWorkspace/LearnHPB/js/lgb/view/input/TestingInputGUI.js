@@ -62,8 +62,7 @@ lgb.view.input.TestingInputGUI.prototype.inject = function(parentElement) {
   this.tabStrip1.inject(parentElement);
   this.tabStrip1.injectCss();
 
-
-  
+ 
 };
 
 

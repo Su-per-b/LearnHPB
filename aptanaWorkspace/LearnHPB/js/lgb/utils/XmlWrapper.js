@@ -3,14 +3,14 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.utils.XmlParser');
+goog.provide('lgb.utils.XmlWrapper');
 
 /**
  * @constructor
  * @param {Document} xml The xml document that we will parse.
  * @extends {lgb.BaseClass}
  */
-lgb.utils.XmlParser = function(xml) {
+lgb.utils.XmlWrapper = function(xml) {
 
 
   lgb.BaseClass.call(this);
@@ -22,7 +22,7 @@ lgb.utils.XmlParser = function(xml) {
   /** @type {Node} A Node Object */
   this.currentNode = null;
 };
-goog.inherits(lgb.utils.XmlParser, lgb.BaseClass);
+goog.inherits(lgb.utils.XmlWrapper, lgb.BaseClass);
 
 
 /**
@@ -32,7 +32,7 @@ goog.inherits(lgb.utils.XmlParser, lgb.BaseClass);
  * it is like a SQL query performed against an XML document.
  * @return {Node} In case caller wants this.
  */
-lgb.utils.XmlParser.prototype.makeRootNode = function(xpath) {
+lgb.utils.XmlWrapper.prototype.makeRootNode = function(xpath) {
 
   this.xpathResult = this.evaluate_(xpath, this.xml);
   this.currentNode = this.xpathResult.iterateNext();
@@ -50,7 +50,7 @@ lgb.utils.XmlParser.prototype.makeRootNode = function(xpath) {
  * @return {XPathResult} the result
  * see https://developer.mozilla.org/en/XPathResult.
  */
-lgb.utils.XmlParser.prototype.evaluate_ = function(xpath, searchNode) {
+lgb.utils.XmlWrapper.prototype.evaluate_ = function(xpath, searchNode) {
   try {
     var result = this.xml.evaluate(
       xpath,
@@ -61,25 +61,18 @@ lgb.utils.XmlParser.prototype.evaluate_ = function(xpath, searchNode) {
       );
   }
   catch (e) {
-    jQuery.error('lgb.utils.XmlParser.evaluate_(){0}'.format(e));
+    jQuery.error('lgb.utils.XmlWrapper.evaluate_(){0}'.format(e));
   }
 
   return result;
 };
 
-/**
- * returns the attribute 'id' from xml.
- * @return {string} The id.
- */
-lgb.utils.XmlParser.prototype.getId = function() {
-  return this.getNodeValue('@id', this.currentNode);
-};
 
 
 /**
  * changes the current node to the next in the result set.
  */
-lgb.utils.XmlParser.prototype.next = function() {
+lgb.utils.XmlWrapper.prototype.next = function() {
   this.currentNode = this.xpathResult.iterateNext();
 };
 
@@ -88,7 +81,7 @@ lgb.utils.XmlParser.prototype.next = function() {
  * @param {Node} searchNode The xml node to search.
  * @return {string} The string value.
  */
-lgb.utils.XmlParser.prototype.getNodeValue = function(xpath, searchNode) {
+lgb.utils.XmlWrapper.prototype.getNodeValue = function(xpath, searchNode) {
   if (searchNode == null) {
     searchNode = this.currentNode;
   }
@@ -102,7 +95,7 @@ lgb.utils.XmlParser.prototype.getNodeValue = function(xpath, searchNode) {
  * @param {string} xpath An Xpath selector.
  * @return {string} The string content of the XML node.
  */
-lgb.utils.XmlParser.prototype.getContent = function(xpath) {
+lgb.utils.XmlWrapper.prototype.getContent = function(xpath) {
 
   var xpathResult = this.evaluate_(xpath, this.currentNode);
   var resultNode = xpathResult.iterateNext();
@@ -114,7 +107,7 @@ lgb.utils.XmlParser.prototype.getContent = function(xpath) {
  * @param {string} xpath An Xpath selector.
  * @return {number} The content of the XML node.
  */
-lgb.utils.XmlParser.prototype.getContentAsFloat = function(xpath) {
+lgb.utils.XmlWrapper.prototype.getContentAsFloat = function(xpath) {
     var str = this.getContent(xpath);
     return parseFloat(str);
 };
@@ -125,7 +118,7 @@ lgb.utils.XmlParser.prototype.getContentAsFloat = function(xpath) {
  * @param {string=} xpath An Xpath selector.
  * @return {Array.<number>} The content of the XML node.
  */
-lgb.utils.XmlParser.prototype.getFloatArray = function(xpath) {
+lgb.utils.XmlWrapper.prototype.getFloatArray = function(xpath) {
   var txtAry = this.getTextArray(xpath);
   var len = txtAry.length;
 
@@ -143,7 +136,7 @@ lgb.utils.XmlParser.prototype.getFloatArray = function(xpath) {
  * @param {string=} xpath An Xpath selector.
  * @return {Array.<string>} The content of the XML node.
  */
-lgb.utils.XmlParser.prototype.getTextArray = function(xpath) {
+lgb.utils.XmlWrapper.prototype.getTextArray = function(xpath) {
   var searchNode;
   if (xpath == null) {
     searchNode = this.currentNode;
@@ -162,10 +155,26 @@ lgb.utils.XmlParser.prototype.getTextArray = function(xpath) {
 /**
  * @return {string} the name atribute of the current node.
  */
-lgb.utils.XmlParser.prototype.getName = function() {
+lgb.utils.XmlWrapper.prototype.getName = function() {
   return this.getNodeValue('@name', this.currentNode);
 };
 
+lgb.utils.XmlWrapper.prototype.getAbbr = function() {
+  return this.getNodeValue('@abbr', this.currentNode);
+};
+
+/**
+ * returns the attribute 'id' from xml.
+ * @return {string} The id.
+ */
+lgb.utils.XmlWrapper.prototype.getId = function() {
+  return this.getNodeValue('@id', this.currentNode);
+};
+
+lgb.utils.XmlWrapper.prototype.getAttribute = function(attributeName) {
+  
+  return this.getNodeValue('@'+ attributeName, this.currentNode);
+};
 
 
 

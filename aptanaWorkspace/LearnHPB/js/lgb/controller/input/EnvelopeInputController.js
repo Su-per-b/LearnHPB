@@ -17,6 +17,11 @@ lgb.controller.input.EnvelopeInputController = function( ) {
 
   lgb.controller.BaseController.call(this);
   
+  this.listen(
+    e.ScenarioParsed2,
+    this.onScenarioParsed2_
+  );
+  
 };
 goog.inherits(lgb.controller.input.EnvelopeInputController, lgb.controller.BaseController);
 
@@ -35,6 +40,7 @@ lgb.controller.input.EnvelopeInputController.prototype.init = function() {
 };
 
 
+
 lgb.controller.input.EnvelopeInputController.prototype.bind_ = function() {
   
   this.relayLocal(
@@ -43,4 +49,15 @@ lgb.controller.input.EnvelopeInputController.prototype.bind_ = function() {
 
 };
 
+
+lgb.controller.input.EnvelopeInputController.prototype.onScenarioParsed2_ = function(event) {
+  
+
+  var systemList = event.payload;
+  var system = systemList.getSystem('Envelope');
+  
+  var systemView = new lgb.view.scenario.System (system);
+  
+  this.guiView.add(systemView);
+};
 

@@ -25,8 +25,6 @@ goog.inherits(lgb.view.input.BuildingInputGUI, lgb.view.input.BaseViewGUI);
 
 
 
-
-
 /**
  * @public
  */

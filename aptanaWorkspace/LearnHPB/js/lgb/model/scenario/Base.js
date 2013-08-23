@@ -8,7 +8,7 @@ goog.provide('lgb.model.scenario.Base');
 
 goog.require('lgb.model.BaseModel');
 goog.require('lgb.model.scenario.SystemNode');
-goog.require('lgb.utils.XmlParser');
+goog.require('lgb.utils.XmlWrapper');
 
 /**
  * @constructor
@@ -66,19 +66,19 @@ lgb.model.scenario.Base.prototype.parse = function(xml) {
 
   this.xml = xml;
 
-  var parser = new lgb.utils.XmlParser(xml);
-  parser.makeRootNode('/scenario/sysVars/systemNode');
+  var xmlWrapper = new lgb.utils.XmlWrapper(xml);
+  xmlWrapper.makeRootNode('/scenario/sysVars/systemNode');
 
   var idx = 0;
-  while (parser.currentNode) {
-    var systemNode = new lgb.model.scenario.SystemNode(parser);
+  while (xmlWrapper.currentNode) {
+    var systemNode = new lgb.model.scenario.SystemNode(xmlWrapper);
     systemNode.idx = idx;
 
     this.idxToNodeMap[systemNode.id] = systemNode;
     this.systemNodeArray.push(systemNode);
 
     idx++;
-    parser.next();
+    xmlWrapper.next();
    }
 
     this.selectedSystemNode = this.systemNodeArray[0];

@@ -53,23 +53,31 @@ lgb.simulation.controller.MainController.prototype.getDataModel = function() {
     return this.dataModel;
 }
 
-lgb.simulation.controller.MainController.prototype.connect = function(event) {
+lgb.simulation.controller.MainController.prototype.connect = function(connectFlag) {
 
-    this.dataModel.setWebSocketConnectionState(lgb.simulation.model.WebSocketConnectionState.open_requested);
 
-    if (window.MozWebSocket) {
-        this.ws_ = new MozWebSocket(this.dataModel.socketServerURL);
-    } else if (window.WebSocket) {
-        this.ws_ = new WebSocket(this.dataModel.socketServerURL);
+    if (connectFlag) {
+      
+      this.dataModel.setWebSocketConnectionState(lgb.simulation.model.WebSocketConnectionState.open_requested);
+  
+      if (window.MozWebSocket) {
+          this.ws_ = new MozWebSocket(this.dataModel.socketServerURL);
+      } else if (window.WebSocket) {
+          this.ws_ = new WebSocket(this.dataModel.socketServerURL);
+      } else {
+          // this.ws_ = new MozWebSocket(this.dataModel.socketServerURL);
+          alert("This web Browser does not support Web Sockets");
+      }
+  
+      this.ws_.onopen = this.d(this.onOpen_);
+      this.ws_.onmessage = this.d(this.onMessage_);
+      this.ws_.onclose = this.d(this.onClose_);
+      this.ws_.onerror = this.d(this.onError_);
     } else {
-        // this.ws_ = new MozWebSocket(this.dataModel.socketServerURL);
-        alert("This web Browser does not support Web Sockets");
+      
+      
     }
 
-    this.ws_.onopen = this.d(this.onOpen_);
-    this.ws_.onmessage = this.d(this.onMessage_);
-    this.ws_.onclose = this.d(this.onClose_);
-    this.ws_.onerror = this.d(this.onError_);
 };
 
 lgb.simulation.controller.MainController.prototype.serializeAndSend = function(event) {

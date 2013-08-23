@@ -51,7 +51,7 @@ lgb.controller.EnvelopeController.prototype.bind_ = function() {
   
   this.relayLocal(this.view, e.AddToWorldRequest);
   
-  this.listenTo(this.view,
+  this.listenToOnce(this.view,
     e.ViewInitialized,
     this.onViewInitialized_);
 

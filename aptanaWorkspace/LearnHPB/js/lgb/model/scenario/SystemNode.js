@@ -6,24 +6,24 @@
 goog.provide('lgb.model.scenario.SystemNode');
 goog.require('lgb.model.BaseModel');
 goog.require('lgb.model.scenario.SysVar');
-goog.require('lgb.utils.XmlParser');
+goog.require('lgb.utils.XmlWrapper');
 goog.require('lgb');
 
 /**
  * Primarily a container object for Sysvars
  * @constructor
  * @extends lgb.model.BaseModel
- * @param {!lgb.utils.XmlParser} xmlParser The parse used
+ * @param {!lgb.utils.XmlWrapper} xmlWrapper The parse used
  * to populate the object, contains an xml document.
  */
-lgb.model.scenario.SystemNode = function(xmlParser) {
+lgb.model.scenario.SystemNode = function(xmlWrapper) {
 
 
   lgb.model.BaseModel.call(this);
 
   /** @type {Array.<lgb.model.scenario.SysVar>} **/
   this.sysVarArray = [];
-  this.parse(xmlParser);
+  this.parse(xmlWrapper);
    /** @type {number} */
   this.idx = 0;
 
@@ -35,31 +35,31 @@ goog.inherits(lgb.model.scenario.SystemNode, lgb.model.BaseModel);
 
 /**
  * parses the xml for a given SystemNode
- * @param {!lgb.utils.XmlParser} xmlParser The xmlParser
+ * @param {!lgb.utils.XmlWrapper} xmlWrapper The xmlWrapper
  * object that contains the xml.
  */
-lgb.model.scenario.SystemNode.prototype.parse = function(xmlParser) {
+lgb.model.scenario.SystemNode.prototype.parse = function(xmlWrapper) {
 
 
-  if (undefined === xmlParser) {
-    throw Error('xmlParser == undefined)');
+  if (undefined === xmlWrapper) {
+    throw Error('xmlWrapper == undefined)');
   }
 
-  if (xmlParser.currentNode === undefined) {
-    throw Error('xmlParser.currentNode == undefined)');
+  if (xmlWrapper.currentNode === undefined) {
+    throw Error('xmlWrapper.currentNode == undefined)');
   }
-  if (xmlParser.currentNode.childNodes === undefined) {
-    throw Error('xmlParser.currentNodes.childNodes == undefined)');
+  if (xmlWrapper.currentNode.childNodes === undefined) {
+    throw Error('xmlWrapper.currentNodes.childNodes == undefined)');
   }
 
 
     /** @type {string} **/
-    this.name = xmlParser.getName();
+    this.name = xmlWrapper.getName();
     /** @type {string} **/
-    this.id = xmlParser.getId();
+    this.id = xmlWrapper.getId();
 
     /** @type {NodeList} **/
-    var childNodes = xmlParser.currentNode.childNodes;
+    var childNodes = xmlWrapper.currentNode.childNodes;
 
     /** @type {number} **/
     var l = childNodes.length;

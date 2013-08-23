@@ -27,12 +27,8 @@ lgb.view.BaseV = function(dataModel, htmlID, parentHtmlID) {
     }
 
   }
-  
- // if (htmlID || parentHtmlID) {
-    this.setIds_(htmlID, parentHtmlID);
- // }
 
-
+  this.setIds_(htmlID, parentHtmlID);
 
 };
 goog.inherits(lgb.view.BaseV, lgb.BaseClass);
@@ -183,14 +179,47 @@ lgb.view.BaseV.prototype.getMainElement = function() {
 lgb.view.BaseV.prototype.setIds_ = function(htmlID, parentHtmlID) {
 
   this.parentHtmlID = parentHtmlID || 'theBody';
-
-  if (this._TITLE) {
-    this.htmlID = htmlID || this._TITLE;
-
+  
+  if (null == htmlID) {
+    this.generateHTMLid_();
   } else {
+    
+    if (lgb.view.BaseV.HTML_IDS.hasOwnProperty(htmlID)) {
+      debugger;
+    } else {
+      
+      lgb.view.BaseV.HTML_IDS[htmlID] = true;
+      
+      if (lgb.view.BaseV.HTML_IDS_COUNT.hasOwnProperty(htmlID)) {
+        debugger;
+      } else {
+        lgb.view.BaseV.HTML_IDS_COUNT[htmlID] = 0;
+      }
+    }
+    
     this.htmlID = htmlID;
   }
+  
 
+
+};
+
+
+lgb.view.BaseV.prototype.generateHTMLid_ = function(id) {
+  
+    var fullName = this.getFullClassName();
+    var fullNameDashes = name.split('.').join('-');
+    
+    if (lgb.view.BaseV.HTML_IDS_COUNT.hasOwnProperty(fullNameDashes)) {
+      lgb.view.BaseV.HTML_IDS_COUNT[fullNameDashes]++;
+    } else {
+      lgb.view.BaseV.HTML_IDS_COUNT[fullNameDashes] = 0;
+    }
+    
+    var count = lgb.view.BaseV.HTML_IDS_COUNT[fullNameDashes];
+    
+    this.htmlID = fullNameDashes + '-' + String(count);  
+    
 };
 
 
@@ -238,6 +267,14 @@ lgb.view.BaseV.prototype.requestDataModelChange = function(property, newValue) {
 
 
 lgb.view.BaseV.prototype.getTitle = function() {
-  return this._TITLE;
+  
+  var title = this._TITLE || this.getClassName();
+  
+  return title;
 };
+
+
+lgb.view.BaseV.HTML_IDS_COUNT = {};
+
+lgb.view.BaseV.HTML_IDS = {};
 

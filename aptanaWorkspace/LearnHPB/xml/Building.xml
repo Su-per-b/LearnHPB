@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2013 sp1 (x64) (http://www.altova.com) by RD (pcd) -->
-<SystemList xmlns="http://www.learnhpb.org/schemas/hpb" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.learnhpb.org/schemas/hpb Building.xsd">
+<SystemList name="Scenario 1">
 	<System name="General" abbr="GN">
 		<SubSystem name="Site" abbr="Sit">
 			<Category name="Day of Year" abbr="DoY">
@@ -8,6 +8,7 @@
 					<Integer min="1" max="365" default="1"/>
 				</Variable>
 			</Category>
+			
 			<Category name="Time of Day" abbr="Tm">
 				<Variable name="Hours" abbr="Hr" scope="gui" phase="1a" variability="parameter" unit="Hour">
 					<Integer min="0" max="23" default="0"/>
@@ -19,6 +20,7 @@
 					<Integer min="0" max="59" default="0"/>
 				</Variable>
 			</Category>
+			
 			<Category name="Location" abbr="Loc">
 				<Variable name="City" abbr="" scope="gui" phase="1a" variability="parameter" unit="latlong">
 					<OptionList>
@@ -296,7 +298,7 @@
 		<SubSystem name="Intersections" abbr="Int">
 		
 			<Category name="Infiltration" abbr="Inf">
-				<Variable name="Infiltrationat zone 1" abbr="ZN1Lvl" scope="gui" variability="parameter" phase="1a">
+				<Variable name="Infiltration at zone 1" abbr="ZN1Lvl" scope="gui" variability="parameter" phase="1a">
 					<OptionList>
 						<Option name="loose" disabled="true"/>
 						<Option name="traditional" default="true"/>
@@ -304,7 +306,7 @@
 						<Option name="adv barrier" disabled="true"/>
 					</OptionList>
 				</Variable>
-				<Variable name="Infiltrationat zone 2" abbr="ZN2Lvl" scope="gui" variability="parameter" phase="1a">
+				<Variable name="Infiltration at zone 2" abbr="ZN2Lvl" scope="gui" variability="parameter" phase="1a">
 					<OptionList>
 						<Option name="loose" disabled="true"/>
 						<Option name="traditional" default="true"/>
@@ -312,7 +314,7 @@
 						<Option name="adv barrier" disabled="true"/>
 					</OptionList>
 				</Variable>
-				<Variable name="Infiltrationat zone 3" abbr="ZN3Lvl" scope="gui" variability="parameter" phase="1a">
+				<Variable name="Infiltration at zone 3" abbr="ZN3Lvl" scope="gui" variability="parameter" phase="1a">
 					<OptionList>
 						<Option name="loose" disabled="true"/>
 						<Option name="traditional" default="true"/>
@@ -320,7 +322,7 @@
 						<Option name="adv barrier" disabled="true"/>
 					</OptionList>
 				</Variable>
-				<Variable name="Infiltrationat zone 4" abbr="ZN4Lvl" scope="gui" variability="parameter" phase="1a">
+				<Variable name="Infiltration at zone 4" abbr="ZN4Lvl" scope="gui" variability="parameter" phase="1a">
 					<OptionList>
 						<Option name="loose" disabled="true"/>
 						<Option name="traditional" default="true"/>
@@ -328,7 +330,7 @@
 						<Option name="adv barrier" disabled="true"/>
 					</OptionList>
 				</Variable>
-				<Variable name="Infiltrationat zone 5" abbr="ZN5Lvl" scope="gui" variability="parameter" phase="1a">
+				<Variable name="Infiltration at zone 5" abbr="ZN5Lvl" scope="gui" variability="parameter" phase="1a">
 					<OptionList>
 						<Option name="loose" disabled="true"/>
 						<Option name="traditional" default="true"/>
@@ -336,7 +338,7 @@
 						<Option name="adv barrier" disabled="true"/>
 					</OptionList>
 				</Variable>
-				<Variable name="Infiltrationat zone 6" abbr="ZN6Lvl" scope="gui" variability="parameter" phase="1a">
+				<Variable name="Infiltration at zone 6" abbr="ZN6Lvl" scope="gui" variability="parameter" phase="1a">
 					<OptionList>
 						<Option name="loose" disabled="true"/>
 						<Option name="traditional" default="true"/>
@@ -344,7 +346,7 @@
 						<Option name="adv barrier" disabled="true"/>
 					</OptionList>
 				</Variable>
-				<Variable name="Infiltrationat zone 7" abbr="ZN7Lvl" scope="gui" variability="parameter" phase="1a">
+				<Variable name="Infiltration at zone 7" abbr="ZN7Lvl" scope="gui" variability="parameter" phase="1a">
 					<OptionList>
 						<Option name="loose" disabled="true"/>
 						<Option name="traditional" default="true"/>
@@ -352,7 +354,7 @@
 						<Option name="adv barrier" disabled="true"/>
 					</OptionList>
 				</Variable>
-				<Variable name="Infiltrationat zone 8" abbr="ZN8Lvl" scope="gui" variability="parameter" phase="1a">
+				<Variable name="Infiltration at zone 8" abbr="ZN8Lvl" scope="gui" variability="parameter" phase="1a">
 					<OptionList>
 						<Option name="loose" disabled="true"/>
 						<Option name="traditional" default="true"/>

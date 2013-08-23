@@ -86,6 +86,7 @@ lgb.controller.WorldSelectionController.prototype.onObject3DSelected_ =
 
   var intersect = event.payload;
   var systemNodeID = this.dataModel.selectIntersect(intersect);
+  
   this.trigger(e.RequestSelectSystemNode, systemNodeID);
   
 };

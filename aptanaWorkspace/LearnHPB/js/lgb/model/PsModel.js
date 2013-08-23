@@ -7,7 +7,7 @@ goog.provide('lgb.model.PsModel');
 
 
 goog.require('lgb.model.BaseModel');
-goog.require('lgb.utils.XmlParser');
+goog.require('lgb.utils.XmlWrapper');
 
 
 /**

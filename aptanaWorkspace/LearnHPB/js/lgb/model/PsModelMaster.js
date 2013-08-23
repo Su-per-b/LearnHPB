@@ -10,7 +10,7 @@ goog.require('lgb.Config');
 
 goog.require('lgb.model.BaseModel');
 goog.require('lgb.model.PsModel');
-goog.require('lgb.utils.XmlParser');
+goog.require('lgb.utils.XmlWrapper');
 
 /**
  * @constructor
@@ -186,7 +186,7 @@ lgb.model.PsModelMaster.prototype.loadXML_ = function() {
  */
 lgb.model.PsModelMaster.prototype.parse_ = function(xml) {
 
-  var parser = new lgb.utils.XmlParser(xml);
+  var parser = new lgb.utils.XmlWrapper(xml);
 
   parser.makeRootNode('/particleSystems/@translate');
   this.translate = parser.getFloatArray();
