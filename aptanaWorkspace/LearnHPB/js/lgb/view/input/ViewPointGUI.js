@@ -20,7 +20,6 @@ goog.require('lgb.component.TreeDataSourceH');
 lgb.view.input.ViewpointGUI = function(dataModel) {
   
   this._TITLE = "Viewpoints";
-  this.layoutID = lgb.Config.LAYOUT_ID.Viewpoints;
   
   lgb.view.input.BaseViewGUI.call(this, dataModel, 'ViewpointGUI');
   

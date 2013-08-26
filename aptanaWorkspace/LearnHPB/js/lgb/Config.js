@@ -44,7 +44,7 @@ lgb.Config.APP_TITLE = 'LearnHPB Demo';
  * @const
  * @type {string}
  */
-lgb.Config.APP_VERSION = '12.70';
+lgb.Config.APP_VERSION = '12.81';
 
 /**
  * Will show status in the upper left if set to true.
@@ -101,28 +101,7 @@ lgb.Config.SOCKET_SERVER.AutoConfig = 0;
 lgb.Config.SOCKET_SERVER.Pfalco = 1;
 lgb.Config.SOCKET_SERVER.PfalcoLocal = 2;
 
-lgb.Config.SOCKET_SERVER_HOST = lgb.Config.SOCKET_SERVER.Pfalco;
-
-
-
-
-
-lgb.Config.LAYOUT_ID = function() {};
-
-lgb.Config.LAYOUT_ID.TitleBar = 0;
-lgb.Config.LAYOUT_ID.TopMenu = 1;
-lgb.Config.LAYOUT_ID.Viewpoints = 2;
-lgb.Config.LAYOUT_ID.Visibility = 3;
-lgb.Config.LAYOUT_ID.Airflow = 4;
-lgb.Config.LAYOUT_ID.PropertiesButton = 5;
-lgb.Config.LAYOUT_ID.PropertiesView = 6;
-lgb.Config.LAYOUT_ID.TestingInputGUI = 7;
-lgb.Config.LAYOUT_ID.SimulationButton = 8;
-lgb.Config.LAYOUT_ID.SimulationView = 9;
-lgb.Config.LAYOUT_ID.BuildingInputGUI = 10;
-lgb.Config.LAYOUT_ID.BaseGUI = 11;
-lgb.Config.LAYOUT_ID.MainInputGUI = 12;
-lgb.Config.LAYOUT_ID.RightTopInputGUI = 13;
+lgb.Config.SOCKET_SERVER_HOST = lgb.Config.SOCKET_SERVER.PfalcoLocal;
 
 
 

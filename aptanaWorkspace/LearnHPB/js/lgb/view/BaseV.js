@@ -127,20 +127,29 @@ lgb.view.BaseV.prototype.append = function(content) {
 
 
 lgb.view.BaseV.prototype.injectTo = function(parentElement) {
-  this.inject(parentElement);
+  
+  if (null == parentElement) {
+    debugger;
+  } else {
+    this.parentElement_ = parentElement;
+  }
+  
+  this.inject();
 }
 
 
-lgb.view.BaseV.prototype.inject = function(parentElement) {
+
+lgb.view.BaseV.prototype.inject = function() {
 
   var el = this.getMainElement();
-
-
-  if (null != parentElement) {
-    this.parentElement_ = parentElement;
+  
+  var parentElement = this.getParentElement();
+  
+  if (null == parentElement) {
+    debugger;
   }
-
-  this.jqParent().append(el);
+  
+  parentElement.append(el);
 };
 
 
@@ -169,34 +178,11 @@ lgb.view.BaseV.prototype.makeID = function(id) {
 
 
 lgb.view.BaseV.prototype.setMainElement = function(el) {
-
   this.mainElement_ = el;
-
 };
-
 
 lgb.view.BaseV.prototype.setParentElement = function(parentElement) {
-
   this.parentElement_ = parentElement;
-
-};
-
-
-lgb.view.BaseV.prototype.getMainElement = function() {
-
-  if (undefined == this.mainElement_) {
-    this.mainElement_ = $('<div>');
-    
-    if (undefined != this.htmlID) {
-      this.mainElement_.attr('id', this.htmlID);
-    }
-    
-    if (undefined != this.cssClassName_) {
-      this.mainElement_.addClass(this.cssClassName_);
-    }
-  }
-
-  return this.mainElement_;
 };
 
 
@@ -210,7 +196,6 @@ lgb.view.BaseV.prototype.setIds_ = function(htmlID, parentHtmlID) {
   }  else {
     id = htmlID;
   }
-  
   
   if (lgb.view.BaseV.HTML_IDS.hasOwnProperty(id)) {
     debugger;
@@ -246,23 +231,23 @@ lgb.view.BaseV.prototype.generateHTMLid_ = function(id) {
 };
 
 
-/**
- * converts and id into a Jquery element
- * @param {string=} id The css id.
- * @return {jQuery} Element.
- */
-lgb.view.BaseV.prototype.jq = function(id) {
 
-  if (undefined == id) {
-    lgb.assert(this.htmlID);
-    id = this.htmlID;
+
+lgb.view.BaseV.prototype.getMainElement = function() {
+
+  if (undefined == this.mainElement_) {
+    this.mainElement_ = $('<div>');
+    
+    if (undefined != this.htmlID) {
+      this.mainElement_.attr('id', this.htmlID);
+    }
+    
+    if (undefined != this.cssClassName_) {
+      this.mainElement_.addClass(this.cssClassName_);
+    }
   }
 
-  var cssID = id;
-  var selector = '#{0}'.format(cssID);
-  var jqElement = $(selector);
-
-  return jqElement;
+  return this.mainElement_;
 };
 
 
@@ -271,7 +256,7 @@ lgb.view.BaseV.prototype.jq = function(id) {
  * refers to the parent in the DOM
  * @return {jQuery} Jquery object.
  */
-lgb.view.BaseV.prototype.jqParent = function() {
+lgb.view.BaseV.prototype.getParentElement = function() {
 
   if (undefined == this.parentElement_) {
     this.parentElement_ = $('#{0}'.format(this.parentHtmlID));

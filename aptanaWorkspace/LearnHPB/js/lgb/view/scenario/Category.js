@@ -21,7 +21,7 @@ goog.inherits(lgb.view.scenario.Category, lgb.view.scenario.BaseViewGUI);
 
 lgb.view.scenario.Category.prototype.appendTo = function(parentElement) {
   
-  this.inject(parentElement);  
+  this.injectTo(parentElement);  
   this.append(this.dataModel.name + '<br />');
   this.makeChildren_(parentElement);
   

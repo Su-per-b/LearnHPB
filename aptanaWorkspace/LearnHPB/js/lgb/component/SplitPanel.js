@@ -61,7 +61,7 @@ lgb.component.SplitPanel.prototype.onResize_ = function(event) {
 };
 
 
-lgb.component.SplitPanel.prototype.inject = function(parentElement) {
+lgb.component.SplitPanel.prototype.injectTo = function(parentElement) {
 
   var w = window.innerWidth;
   var h = window.innerHeight;
@@ -107,7 +107,7 @@ lgb.component.SplitPanel.prototype.inject = function(parentElement) {
   this.splitterBarContainer_.append(this.leftPane_).append(this.rightPane_);
   this.setMainElement(this.splitterBarContainer_);
   
-  goog.base(this, 'inject', parentElement);
+  goog.base(this, 'injectTo', parentElement);
   
   var px = String (this.ds.splitLocation) + 'px';
   
@@ -120,8 +120,6 @@ lgb.component.SplitPanel.prototype.inject = function(parentElement) {
     }]
   });
   
-
-
 
   this.kendoSplitter1_ = this.splitterBarContainer_.data("kendoSplitter");
   this.kendoSplitter1_.bind('resize', this.d(this.onResize_));

@@ -39,7 +39,10 @@ lgb.view.input.GUI.prototype.add = function(gui) {
 };
 
 
-lgb.view.input.GUI.prototype.inject = function(parentElement) {
-  goog.base(this,  'inject', parentElement);
+/*
+
+lgb.view.input.GUI.prototype.injectTo = function(parentElement) {
+  goog.base(this,  'injectTo', parentElement);
 };
 
+*/

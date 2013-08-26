@@ -11,8 +11,6 @@ lgb.view.input.BuildingInputGUI = function(dataModel) {
   lgb.view.input.BaseViewGUI.call(this, dataModel);
   this.tabTitleMap_ = {};
   
-  this.layoutID = lgb.Config.LAYOUT_ID.BuildingInputGUI;
-    
   this.dataSource = new lgb.component.TabStripDataSource('buildingInputGUI-tabStrip');
   this.dataSource.setIcon("images/tabs/systemBtn_grid_25.png", 25, 25);
   
@@ -60,7 +58,7 @@ lgb.view.input.BuildingInputGUI.prototype.add = function(gui) {
   
   //this.tabStrip1.injectOneCss();
   
-  gui.inject(contentElement);
+  gui.injectTo(contentElement);
   
 };
 
@@ -68,9 +66,9 @@ lgb.view.input.BuildingInputGUI.prototype.add = function(gui) {
 /**
  * @public
  */
-lgb.view.input.BuildingInputGUI.prototype.inject = function(parentElement) {
+lgb.view.input.BuildingInputGUI.prototype.injectTo = function(parentElement) {
   
-  this.tabStrip1.inject(parentElement);
+  this.tabStrip1.injectTo(parentElement);
   this.tabStrip1.injectCss();
 
 };

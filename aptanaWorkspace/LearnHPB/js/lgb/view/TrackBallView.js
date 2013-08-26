@@ -24,7 +24,7 @@ lgb.view.TrackBallView = function( camera) {
   
   lgb.view.BaseV.call(this, null, "TrackBallView",  lgb.Config.HUD_CONTAINER_STR);
 
-  var p = this.jqParent();
+  var p = this.getParentElement();
   this.domElement_ = p.get(0);
   lgb.assert(this.domElement_);
   

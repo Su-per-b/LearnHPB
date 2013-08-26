@@ -82,7 +82,7 @@ lgb.view.LayoutUtil.prototype.getXpos_ = function() {
 
   if (this.alignHorizontal_ == lgb.view.LayoutUtil.ALIGN.Right) {
     
-    var parentWidth = this.guiView_.jqParent().width();
+    var parentWidth = this.guiView_.getParentElement().width();
     var selfWidth = this.guiView_.getMainElement().width();
     
     x = parentWidth - this.offsetHorizontal_ - selfWidth;

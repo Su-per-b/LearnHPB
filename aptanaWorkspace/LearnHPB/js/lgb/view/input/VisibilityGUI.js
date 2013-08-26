@@ -21,7 +21,6 @@ goog.require('lgb.Config');
 lgb.view.input.VisibilityGUI = function(dataModel) {
 
   this._TITLE = "Visibility";
-  this.layoutID = lgb.Config.LAYOUT_ID.Visibility;
   lgb.view.input.BaseViewGUI.call(this, dataModel);
   
   this.listenForChange_('addNode');

@@ -67,8 +67,10 @@ lgb.component.Link.prototype.bind = function() {
   var delegateOut = this.d(this.onMouseOut_);
 
 
-  this.jq().click(delegateClick);
-  this.jq().hover(delegateOver, delegateOut);
+  var el = $('#' + this.ds.htmlID);
+
+  el.click(delegateClick);
+  el.hover(delegateOver, delegateOut);
 
 };
 
@@ -82,16 +84,17 @@ lgb.component.Link.prototype.setEnabled = function(isEnabled) {
         this.ds.isEnabled = isEnabled;
 
 
-        var element = this.jq();
+        var el = $('#' + this.ds.htmlID);
         
+        this.ds.htmlID
         
         if(isEnabled) {
-            element.removeClass('admin-link-disabled');
-            element.addClass('admin-link');
+            el.removeClass('admin-link-disabled');
+            el.addClass('admin-link');
             
         } else {
-            element.removeClass('admin-link');
-            element.addClass('admin-link-disabled');
+            el.removeClass('admin-link');
+            el.addClass('admin-link-disabled');
         }
    
     }

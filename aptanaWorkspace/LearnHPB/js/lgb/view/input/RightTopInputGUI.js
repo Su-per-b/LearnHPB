@@ -20,8 +20,6 @@ goog.require('lgb.component.TabStrip');
 lgb.view.input.RightTopInputGUI = function(dataModel) {
   
   this._TITLE = "RightTop";
-  this.layoutID = lgb.Config.LAYOUT_ID.RightTopInputGUI;
-  
   lgb.view.input.BaseViewGUI.call(this, dataModel, 'RightTopInputGUI');
 };
 goog.inherits(lgb.view.input.RightTopInputGUI, lgb.view.input.BaseViewGUI);
@@ -60,25 +58,16 @@ lgb.view.input.RightTopInputGUI.prototype.init = function() {
 
 
 
-lgb.view.input.RightTopInputGUI.prototype.bind_ = function() {
+
+lgb.view.input.RightTopInputGUI.prototype.injectTo = function(parentElement) {
+  
+  goog.base(this,  'injectTo', parentElement);
   
 
-
-      
-}
-
-
-lgb.view.input.RightTopInputGUI.prototype.inject = function(parentElement) {
-  
-  goog.base(this,  'inject', parentElement);
-  
-
-  
-
-  this.tabStrip1.inject(parentElement);
+  this.tabStrip1.injectTo(parentElement);
   this.tabStrip1.injectCss();
   
-  this.tabStrip2.inject(parentElement);
+  this.tabStrip2.injectTo(parentElement);
   this.tabStrip2.injectCss();
   
  // el.append(this.tabStrip1);

@@ -19,8 +19,6 @@ goog.inherits(lgb.view.input.ScenarioInputGUI, lgb.view.input.BaseViewGUI);
  */
 lgb.view.input.ScenarioInputGUI.prototype.init = function() {
 
-  this.layoutID = lgb.Config.LAYOUT_ID.ScenarioInputGUI;
-    
   this.dataSource = new lgb.component.TabStripDataSource('scenarioInputGUI-tabStrip');
   this.tabStrip1 = new lgb.component.TabStrip(this.dataSource);
 
@@ -46,10 +44,10 @@ lgb.view.input.ScenarioInputGUI.prototype.add = function(gui) {
 /**
  * @public
  */
-lgb.view.input.ScenarioInputGUI.prototype.inject = function(parentElement) {
+lgb.view.input.ScenarioInputGUI.prototype.injectTo = function(parentElement) {
   
 
-  goog.base(this,  'inject', parentElement);
+  goog.base(this,  'injectTo', parentElement);
   
   
    var items = [

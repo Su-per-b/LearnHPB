@@ -44,8 +44,12 @@ lgb.model.scenario.Variable.prototype.parse_ = function(node) {
 };
 
 
+lgb.model.scenario.Variable.prototype.getPropertyNames = function() {
+  
+  return   ['name', 'abbr', 'scope', 'phase', 'variability', 'unit'];
+};
 
-  ['name', 'abbr', 'scope', 'phase', 'variability', 'unit'];
+
 
 
 lgb.model.scenario.Variable.childClassMap = {

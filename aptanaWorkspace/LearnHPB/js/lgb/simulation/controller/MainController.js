@@ -59,7 +59,7 @@ lgb.simulation.controller.MainController.prototype.connect = function(connectFla
     if (connectFlag) {
       
       this.dataModel.setWebSocketConnectionState(lgb.simulation.model.WebSocketConnectionState.open_requested);
-  
+      
       if (window.MozWebSocket) {
           this.ws_ = new MozWebSocket(this.dataModel.socketServerURL);
       } else if (window.WebSocket) {
@@ -73,6 +73,7 @@ lgb.simulation.controller.MainController.prototype.connect = function(connectFla
       this.ws_.onmessage = this.d(this.onMessage_);
       this.ws_.onclose = this.d(this.onClose_);
       this.ws_.onerror = this.d(this.onError_);
+      
     } else {
       
       

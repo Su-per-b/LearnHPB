@@ -16,8 +16,6 @@ lgb.view.TitleBarView = function() {
     
     
   this._TITLE='TitleBar';
-  
-  this.layoutID = lgb.Config.LAYOUT_ID.TitleBar;
   lgb.view.input.BaseViewGUI.call(this);
   
   this.init_();

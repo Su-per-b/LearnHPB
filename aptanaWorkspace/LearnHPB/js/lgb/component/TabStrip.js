@@ -117,10 +117,11 @@ lgb.component.TabStrip.prototype.injectCss = function() {
 };
 
 
+
 /**
  * @public
  */
-lgb.component.TabStrip.prototype.inject = function(parentElement) {
+lgb.component.TabStrip.prototype.injectTo = function(parentElement) {
 
   var el = this.getMainElement();
 
@@ -134,7 +135,7 @@ lgb.component.TabStrip.prototype.inject = function(parentElement) {
   this.kendoTabStrip_.select(0);
   this.ds.kendoDS = this.kendoTabStrip_.dataSource;
 
-  goog.base(this,'inject', parentElement);
+  goog.base(this,'injectTo', parentElement);
 
 };
 

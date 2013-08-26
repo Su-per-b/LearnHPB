@@ -15,7 +15,6 @@ lgb.view.SimulationButtonView = function() {
     
   this._TITLE = "SimulationButton";
   lgb.view.input.BaseViewGUI.call(this, null, 'simulationButton', lgb.Config.HUD_CONTAINER_STR);
-  this.layoutID = lgb.Config.LAYOUT_ID.SimulationButton;
 
 };
 goog.inherits(lgb.view.SimulationButtonView, lgb.view.input.BaseViewGUI);

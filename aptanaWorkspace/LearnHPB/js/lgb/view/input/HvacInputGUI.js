@@ -18,8 +18,6 @@ goog.require('lgb.Config');
 lgb.view.input.HvacInputGUI = function(dataModel) {
   
   this._TITLE = "HVACOrig";
-  this.layoutID = lgb.Config.LAYOUT_ID.BaseGUI;
-  
   lgb.view.input.BaseViewGUI.call(this, dataModel, 'HvacInputGUI');
 };
 goog.inherits(lgb.view.input.HvacInputGUI, lgb.view.input.BaseViewGUI);
@@ -49,10 +47,10 @@ lgb.view.input.HvacInputGUI.prototype.calculateLayout = function(windowDimension
 };
 
 
-lgb.view.input.HvacInputGUI.prototype.inject = function(parentElement) {
+lgb.view.input.HvacInputGUI.prototype.injectTo = function(parentElement) {
   
   
-  goog.base(this,  'inject', parentElement);
+  goog.base(this,  'injectTo', parentElement);
   
   var el = this.getMainElement();
  // el.css("height", "100%");

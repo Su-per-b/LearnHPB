@@ -12,14 +12,13 @@ goog.require('lgb.component.Link');
 goog.require('lgb.view.input.DialogView');
 goog.require('lgb.simulation.events.SimStateNativeRequest');
 
+
 /**
  * @constructor
  * @extends {lgb.view.input.DialogView}
  */
 lgb.view.SimulationView = function(dataModel) {
   
-    this.layoutID = lgb.Config.LAYOUT_ID.SimulationView;
-    
     lgb.view.input.DialogView.call(this, dataModel, 'simulationView');
     this.title = 'Simulation View';
     this.useSlideEffect = false;
@@ -32,8 +31,47 @@ lgb.view.SimulationView.prototype.init = function() {
     this.listenForChange_('messageStruct');
     this.listenForChange_('xmlParsedInfo');
     this.listenForChange_('scalarValueResults');
+    this.listenForChange_('webSocketConnectionState');
 };
 
+
+
+lgb.view.SimulationView.prototype.onChange_webSocketConnectionState_ = function(webSocketConnectionState) {
+  
+  this.disableAllButtons();
+  var state = lgb.simulation.model.WebSocketConnectionState;
+  
+
+  switch (webSocketConnectionState) {
+
+      case state.uninitialized :
+          this.connectLink_.setEnabled(true);
+          break;
+      case state.open_requested :
+          this.connectLink_.setEnabled(false);
+          break;
+      case state.opened :
+          this.connectLink_.setEnabled(true);
+          break;
+      case state.closed :
+          this.connectLink_.setEnabled(false);
+          break;
+      case state.timed_out :
+          this.connectLink_.setEnabled(false);
+          break;
+      case state.dropped :
+          this.connectLink_.setEnabled(false);
+          break;
+      case state.error :
+          this.connectLink_.setEnabled(true);
+          break;
+      default :
+        debugger;
+  }
+  
+
+  return;
+};
 
 lgb.view.SimulationView.prototype.onChange_simStateNative_ = function(simStateNative) {
   
@@ -149,28 +187,6 @@ lgb.view.SimulationView.prototype.onChange_scalarValueResults_ = function(scalar
     this.resultLogDataSource_.insert(0,model);
 };
 
-
-/*
-
-lgb.view.SimulationView.prototype.showScalarValueResults = function(scalarValueResults) {
-
-    var time = scalarValueResults.time_;
-    
-    var realVarList = scalarValueResults.output.realList;
-    var newRow = {time:time};
-    
-    for (var i = 1, j = this.columnHeaders_.length; i < j; i++) {
-        var columnHeader = this.columnHeaders_[i];
-        newRow[columnHeader] = realVarList[i-1].value_;
-    };
-    
-    
-    var model = new kendo.data.Model(newRow);
-    this.resultLogDataSource_.insert(0,model);
-    
-}
-
-*/
 
 
 
@@ -325,7 +341,8 @@ lgb.view.SimulationView.prototype.disableAllButtons = function() {
 lgb.view.SimulationView.prototype.makeBottomPanel_ = function() {
 
     this.mainPanel_ = $('<div>').attr('id', "simulationViewMainPanel");
-    this.mainPanel_.appendTo(this.jq());
+    this.append(this.mainPanel_);
+    
 
     var tabsID = 'simulationView-tabs';
     var tabStripID = 'simulationView-tabstrip';
@@ -364,7 +381,6 @@ lgb.view.SimulationView.prototype.makeBottomPanel_ = function() {
     this.inputBox_ = $(this.kendoTabStrip.contentElements[1]);
     this.outputBox_ = $(this.kendoTabStrip.contentElements[2]);
     this.resultsLogBox_ = $(this.kendoTabStrip.contentElements[3]);
-
 
 };
 

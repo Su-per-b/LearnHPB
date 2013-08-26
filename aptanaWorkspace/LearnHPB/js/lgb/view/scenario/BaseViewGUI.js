@@ -43,38 +43,29 @@ lgb.view.scenario.BaseViewGUI.prototype.setDebugFlag = function(debugFlag) {
 
 };
 
+
+  
+lgb.view.scenario.BaseViewGUI.prototype.appendTitle_ = function(parentElement) {
+  
+  var html = this.dataModel.name;
+  
+  if (this.debugFlag_) {
+    html += "({1})".format(this.dataModel.abbr);
+  }
+  
+  this.append(html);
+  
+  
+};
+
+
+  
 lgb.view.scenario.BaseViewGUI.prototype.makeChildren_ = function(parentElement) {
   
   this.each(this.dataModel.children_, this.appendChildTo_, parentElement);
   
 };
 
-
-/*
-lgb.view.scenario.BaseViewGUI.prototype.appendChildTo_ = function(childNode) {
-  
-  
-  var childClassName = childNode.getClassName();
-  var fullClassName = this.getFullClassName();
-  
-  if ("description" == childClassName) {
-    
-    
-  } else {
-
-    var staticClass = eval(fullClassName);
-    var classConstructor = staticClass.childClassMap[childClassName];
-    
-    if(classConstructor) {
-      var child = new classConstructor(childNode);
-      child.appendTo(this.getMainElement(), this.debugFlag_);
-    } else {
-      debugger;
-    }
-  }
-  
-};
-*/
 
 
 lgb.view.scenario.BaseViewGUI.prototype.appendChildTo_ = function(childNode, parentElement) {

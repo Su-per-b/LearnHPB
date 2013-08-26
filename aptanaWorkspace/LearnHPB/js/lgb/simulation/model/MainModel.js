@@ -79,12 +79,8 @@ lgb.simulation.model.MainModel.prototype.init_ = function(event) {
 
 lgb.simulation.model.MainModel.prototype.setWebSocketConnectionState = function(webSocketConnectionState) {
 
-    if (this.webSocketConnectionState != webSocketConnectionState) {
-        this.webSocketConnectionState = webSocketConnectionState;
-     
-       // this.dispatchChange({webSocketConnectionState:true});
-    }
- 
+    this.changePropertyEx('webSocketConnectionState', webSocketConnectionState);
+
 };
 
 

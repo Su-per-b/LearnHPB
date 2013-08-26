@@ -18,8 +18,6 @@ goog.require('lgb.component.TabStripDataSource');
 lgb.view.PropertiesView = function(dataModel) {
 
   
-  this.layoutID = lgb.Config.LAYOUT_ID.PropertiesView;
-   
   lgb.view.input.DialogView.call(this, dataModel, 'propertiesView', lgb.Config.HUD_CONTAINER_STR);
   
   this.currentSelectionIdx = -1;
@@ -110,7 +108,7 @@ lgb.view.PropertiesView.prototype.makeTabs_ = function() {
   });
   
   var el = this.getMainElement();
-  this.tabStrip1.inject(el);
+  this.tabStrip1.injectTo(el);
   this.tabStrip1.injectCss();
   
   
@@ -131,12 +129,14 @@ lgb.view.PropertiesView.prototype.makeTabs_ = function() {
 lgb.view.PropertiesView.prototype.makeListBox_ = function() {
     this.comboBoxId = this.htmlID + '-comboBox';
 
-    $('<div>')
+    var div = $('<div>')
     .addClass('propertiesSubPanel')
     .append('<input>')
     .attr('id', this.comboBoxId)
-    .attr('value', '1')
-    .appendTo(this.jq());
+    .attr('value', '1');
+
+    this.append(div);
+  
 
     this.kendoDropDownList = $('#' + this.comboBoxId)
       .kendoDropDownList({
@@ -211,7 +211,7 @@ lgb.view.PropertiesView.prototype.showNode = function(systemNode) {
     var sysVar = inputs[j];
     var widget = new lgb.component.InputWidget(sysVar);
     
-    widget.inject(this.contentElementList_[0], j);
+    widget.injectTo(this.contentElementList_[0], j);
   }
 
   var faults = systemNode.getFaults();
@@ -225,7 +225,7 @@ lgb.view.PropertiesView.prototype.showNode = function(systemNode) {
 
     } else {
     var f = new lgb.component.FaultWidget(sysVar);
-      f.inject(this.contentElementList_[1], i);
+      f.injectTo(this.contentElementList_[1], i);
     }
 
   }

@@ -22,16 +22,13 @@ goog.require('lgb.model.input.LayoutModel');
 lgb.view.input.LayoutView = function(dataModel) {
 
   lgb.view.input.BaseViewGUI.call(this, dataModel, 'pageContainer', 'theBody');
-
-  this.parentMap = [];
   this.layoutUtils_ = [];
   
 };
 goog.inherits(lgb.view.input.LayoutView, lgb.view.input.BaseViewGUI);
 
-/**
- * @private
- */
+
+
 lgb.view.input.LayoutView.prototype.init = function() {
 
   this.splitPanelDS_ = new lgb.component.SplitPanelDataSource();
@@ -61,8 +58,6 @@ lgb.view.input.LayoutView.prototype.onChange_add_ = function(value) {
 
 
 
-
-
 lgb.view.input.LayoutView.prototype.toggleVisibility = function(guiView) {
   
   guiView.toggleVisibility();
@@ -87,69 +82,77 @@ lgb.view.input.LayoutView.prototype.toggleVisibility = function(guiView) {
 
 lgb.view.input.LayoutView.prototype.add = function(guiView) {
   
-  var parent;
-  var LAYOUT_ID = lgb.Config.LAYOUT_ID;
-    
-  if (null == guiView.layoutID) {
-    debugger;
-  } else {
-    parent = this.parentMap[guiView.layoutID];
-  }
 
-  
-  switch(guiView.layoutID )
-  {
-  case LAYOUT_ID.TopMenu:
+ 
+  var className = guiView.getClassName();
+
+  switch(className ) {
+    case "TopMenuGUI":
       var el = guiView.getMainElement();
-      
-      el.css("z-index",100); 
-      el.css("position","absolute"); 
-      guiView.inject(parent);
-      
+
+      el.css("z-index", 100);
+      el.css("position", "absolute");
+      guiView.injectTo(this.rightPanelTop_);
+
       break;
-      
-  case LAYOUT_ID.PropertiesButton:
+
+    case "PropertiesButtonView":
       this.propertiesButton_ = guiView;
-      
-      guiView.inject(parent);
+
+      guiView.injectTo(this.webGLcanvas_);
+
       var util = new lgb.view.LayoutUtil(guiView);
-      
+
       util.alignHorizontal(lgb.view.LayoutUtil.ALIGN.Right, 6);
       util.show();
-      
+
       this.layoutUtils_.push(util);
-      
+
       break;
-  case LAYOUT_ID.SimulationButton:
+    case "SimulationButtonView":
       this.simulationButton_ = guiView;
-      
-      guiView.inject(parent);
+
+      guiView.injectTo(this.webGLcanvas_);
       var util = new lgb.view.LayoutUtil(guiView);
-      
+
       util.alignHorizontal(lgb.view.LayoutUtil.ALIGN.Right, 43);
       util.show();
-      
-      this.layoutUtils_.push(util);
-      
-      break;
-  case LAYOUT_ID.TitleBar:
 
-      guiView.inject(parent);
-      
+      this.layoutUtils_.push(util);
+
+      break;
+    case "TitleBarView":
+
+      guiView.injectTo(this.leftPanel_);
+
       var util = new lgb.view.LayoutUtil(guiView);
       util.alignHorizontal(lgb.view.LayoutUtil.ALIGN.Left, 5);
       util.show();
-      
+
       this.layoutUtils_.push(util);
-      
+
       break;
-  case LAYOUT_ID.RightTopInputGUI:
-      guiView.inject(parent);
+    case "RightTopInputGUI":
+      guiView.injectTo(this.rightPanelTop_);
+      break;
+    case "MainInputGUI":
+      guiView.injectTo(this.leftPanel_);
+      break;
+    case "SimulationView":
+      guiView.injectTo(this.webGLcanvas_);
+      break;
+    case "PropertiesView":
+      guiView.injectTo(this.webGLcanvas_);
+      break;
+    case "TestingInputGUI":
+      guiView.injectTo(this.leftPanel_);
       break;
 
-  default: //LAYOUT_ID.PropertiesView, LAYOUT_ID.SimulationView
-      guiView.inject(parent);
+    default:
+      debugger;
   }
+
+
   
 };
 
@@ -160,17 +163,7 @@ lgb.view.input.LayoutView.prototype.onSplitter1Resize_ = function(event) {
 
 lgb.view.input.LayoutView.prototype.calculateLayout = function(windowDimensions) {
   
- // if (null != windowDimensions) {
-    
-    // var heightCss = "{0}px".format(window.innerHeight-100);
-//     
-    // this.leftPanel_.css({
-      // height : heightCss,
-      // background:"#ff0000"
-    // });
-    
-  //}
-  
+
   this.each(this.layoutUtils_, this.calculateOneLayout);
 };
 
@@ -183,7 +176,7 @@ lgb.view.input.LayoutView.prototype.inject = function() {
 
   goog.base(this,'inject');
 
-  this.splitPanel_.inject(this.getMainElement());
+  this.splitPanel_.injectTo(this.getMainElement());
   
   this.leftPanel_ = this.splitPanel_.getPane(0);
   this.rightPanel_ = this.splitPanel_.getPane(1);
@@ -192,22 +185,8 @@ lgb.view.input.LayoutView.prototype.inject = function() {
   this.webGLcanvas_ = this.makeDiv('webGLcanvas');
   this.rightPanelTop_ = this.makeDiv('rightPanelTop');
   
-  
   this.rightPanel_.append(this.rightPanelTop_);
   this.rightPanel_.append(this.webGLcanvas_);
-  
-  var ID = lgb.Config.LAYOUT_ID;
-  
-  this.parentMap[ID.TestingInputGUI] = this.leftPanel_;
-  this.parentMap[ID.MainInputGUI] = this.leftPanel_;
-  
-  this.parentMap[ID.TitleBar] = this.leftPanel_;
-  this.parentMap[ID.TopMenu] = this.rightPanelTop_;
-  this.parentMap[ID.PropertiesButton] = this.webGLcanvas_;
-  this.parentMap[ID.PropertiesView] = this.webGLcanvas_;
-  this.parentMap[ID.SimulationView] = this.getMainElement();
-  this.parentMap[ID.RightTopInputGUI] = this.rightPanelTop_;
-
 
 
   this.webGLcanvas_.css({
@@ -223,11 +202,8 @@ lgb.view.input.LayoutView.prototype.inject = function() {
   });
   
 
-  
-  
- 
-};
 
+};
 
 
 

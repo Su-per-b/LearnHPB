@@ -15,7 +15,6 @@ lgb.view.PropertiesButtonView = function() {
     
   this._TITLE = "PropertiesButton";
   lgb.view.input.BaseViewGUI.call(this, null, 'propertiesButton', lgb.Config.HUD_CONTAINER_STR);
-  this.layoutID = lgb.Config.LAYOUT_ID.PropertiesButton;
 
 };
 goog.inherits(lgb.view.PropertiesButtonView, lgb.view.input.BaseViewGUI);

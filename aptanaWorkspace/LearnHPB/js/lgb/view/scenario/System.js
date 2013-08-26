@@ -23,13 +23,9 @@ lgb.view.scenario.System.prototype.init = function() {
 
 lgb.view.scenario.System.prototype.appendTo = function(parentElement) {
   
-  this.inject(parentElement);
-  
-  this.append(this.dataModel.name);
+  this.injectTo(parentElement);
+  this.appendTitle_();
   this.makeChildren_(parentElement);
-  
-
-  
 };
 
 

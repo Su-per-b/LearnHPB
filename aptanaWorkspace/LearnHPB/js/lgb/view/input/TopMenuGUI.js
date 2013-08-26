@@ -14,7 +14,6 @@ goog.require('lgb.Config');
 lgb.view.input.TopMenuGUI = function(dataModel) {
 
   this._TITLE = "TopMenu";
-  this.layoutID = lgb.Config.LAYOUT_ID.TopMenu;
   lgb.view.input.BaseViewGUI.call(this, dataModel);
   
   this.listenForChange_('ds');
@@ -99,20 +98,6 @@ lgb.view.input.TopMenuGUI.prototype.onSelect_ = function(event) {
 };
 
 
-/*
-
-lgb.view.input.TopMenuGUI.prototype.onChange = function(event) {
-  
-  
-  this.kendoMenu_.setOptions(
-    {
-      dataSource:this.dataModel.ds
-    }
-  );
-  
-  
-};
-*/
 
 
 

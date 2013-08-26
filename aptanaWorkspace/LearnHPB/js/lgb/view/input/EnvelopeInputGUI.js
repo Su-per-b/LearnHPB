@@ -17,8 +17,6 @@ goog.require('lgb.Config');
  */
 lgb.view.input.EnvelopeInputGUI = function(dataModel) {
   
-  this.layoutID = lgb.Config.LAYOUT_ID.BaseGUI;
-  
   lgb.view.input.BaseViewGUI.call(this, dataModel, 'EnvelopeInputGUI');
 };
 goog.inherits(lgb.view.input.EnvelopeInputGUI, lgb.view.input.BaseViewGUI);
@@ -38,8 +36,8 @@ lgb.view.input.EnvelopeInputGUI.prototype.add = function(gui) {
 };
 
 
-lgb.view.input.EnvelopeInputGUI.prototype.inject = function(parentElement) {
-  goog.base(this,  'inject', parentElement);
+lgb.view.input.EnvelopeInputGUI.prototype.injectTo = function(parentElement) {
+  goog.base(this,  'injectTo', parentElement);
   var el = this.getMainElement();    
   el.append('<br />');
 };

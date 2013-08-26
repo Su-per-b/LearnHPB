@@ -26,8 +26,6 @@ goog.require('lgb.Config');
 lgb.view.input.PsMasterGUI = function(dataModel) {
 
   this._TITLE = 'Airflow';
-  this.layoutID = lgb.Config.LAYOUT_ID.Airflow;
-  
   lgb.view.input.BaseViewGUI.call(this, dataModel, 'PsMasterGUI');
 };
 goog.inherits(lgb.view.input.PsMasterGUI, lgb.view.input.BaseViewGUI);

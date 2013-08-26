@@ -17,8 +17,6 @@ goog.require('lgb.view.input.BaseViewGUI');
  */
 lgb.view.input.DayLightingInputGUI = function(dataModel) {
   
-  this.layoutID = lgb.Config.LAYOUT_ID.BaseGUI;
-  
   lgb.view.input.BaseViewGUI.call(this, dataModel);
 };
 goog.inherits(lgb.view.input.DayLightingInputGUI, lgb.view.input.BaseViewGUI);
@@ -43,9 +41,9 @@ lgb.view.input.DayLightingInputGUI.prototype.bind_ = function() {
 }
 
 
-lgb.view.input.DayLightingInputGUI.prototype.inject = function(parentElement) {
+lgb.view.input.DayLightingInputGUI.prototype.injectTo = function(parentElement) {
   
-  goog.base(this,  'inject', parentElement);
+  goog.base(this,  'injectTo', parentElement);
   
   var el = this.getMainElement();
   var titleDiv = el.append('<h3>Day Lighting</h3>');

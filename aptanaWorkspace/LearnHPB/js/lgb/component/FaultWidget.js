@@ -57,10 +57,10 @@ lgb.component.FaultWidget.prototype.getHtml = function() {
 };
 
 
-lgb.component.FaultWidget.prototype.inject =
+lgb.component.FaultWidget.prototype.injectTo =
   function(parentElement, idx) {
 
-  goog.base(this, 'inject', parentElement);
+  goog.base(this, 'injectTo', parentElement);
 
   if (this.dataModel.faultWidgetType != 'SLIDER') {
     throw Error('unknown faultWidgetType');

@@ -37,8 +37,10 @@ lgb.view.input.BuildingGeneralInputGUI.prototype.add = function(gui) {
   gui.appendTo(el, false);
 };
 
+/*
 
 lgb.view.input.BuildingGeneralInputGUI.prototype.inject = function(parentElement) {
   goog.base(this,  'inject', parentElement);
 };
 
+*/

@@ -19,8 +19,6 @@ goog.inherits(lgb.view.input.TestingInputGUI, lgb.view.input.BaseViewGUI);
  */
 lgb.view.input.TestingInputGUI.prototype.init = function() {
 
-  this.layoutID = lgb.Config.LAYOUT_ID.TestingInputGUI;
-    
   this.dataSource = new lgb.component.TabStripDataSource('testingInputGUI-tabStrip');
   this.tabStrip1 = new lgb.component.TabStrip(this.dataSource);
 
@@ -49,7 +47,7 @@ lgb.view.input.TestingInputGUI.prototype.add = function(gui) {
     this.tabTitleMap_[title] = contentElement;
   }
   
-  gui.inject(contentElement);
+  gui.injectTo(contentElement);
   
 };
 
@@ -57,9 +55,9 @@ lgb.view.input.TestingInputGUI.prototype.add = function(gui) {
 /**
  * @public
  */
-lgb.view.input.TestingInputGUI.prototype.inject = function(parentElement) {
+lgb.view.input.TestingInputGUI.prototype.injectTo = function(parentElement) {
   
-  this.tabStrip1.inject(parentElement);
+  this.tabStrip1.injectTo(parentElement);
   this.tabStrip1.injectCss();
 
  
