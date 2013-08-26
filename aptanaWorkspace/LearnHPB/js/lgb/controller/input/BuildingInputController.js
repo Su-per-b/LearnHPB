@@ -24,32 +24,52 @@ goog.inherits(lgb.controller.input.BuildingInputController, lgb.controller.BaseC
 lgb.controller.input.BuildingInputController.prototype.init = function() {
 
   this.dataModel = new lgb.model.input.BaseInputModel();
-
   this.guiView = new lgb.view.input.BuildingInputGUI(this.dataModel);
   
-  this.buildingGeneralInputController_ = new lgb.controller.input.BuildingGeneralInputController();
+  this.subControllerList_ = [];
   
-  this.lightingInputController_ = new lgb.controller.input.LightingInputController();
-  this.dayLightingInputController_ = new lgb.controller.input.DayLightingInputController();
-  this.envelopeInputController_ = new lgb.controller.input.EnvelopeInputController();
-  this.hvacInputController_ = new lgb.controller.input.HvacInputController();
+  this.relayLocal(
+    this.guiView,
+    e.RequestAddToParentGUI);
     
-  this.bind_();
-
+      
   this.guiView.init();
-
-  this.buildingGeneralInputController_.init();
-  this.lightingInputController_.init();
-  this.dayLightingInputController_.init();
-  this.envelopeInputController_.init();
-  this.hvacInputController_.init();
   
+  this.makeSubController_('General');
+  this.makeSubController_('Lighting');
+  this.makeSubController_('Daylighting');
+  this.makeSubController_('Enclosure');
+  this.makeSubController_('HVAC');
+  this.makeSubController_('HVAC Legacy');
+  
+  var subController = new lgb.controller.input.HvacInputController();
+  this.makeSubControllerHelper_(subController);
+  
+  var subController = new lgb.controller.input.DayLightingInputController();
+  this.makeSubControllerHelper_(subController);
+
+  return;
+
 };
 
-
-
-lgb.controller.input.BuildingInputController.prototype.init2_ = function(bs2) {
+lgb.controller.input.BuildingInputController.prototype.makeSubControllerHelper_ = function(subController) {
   
+  
+    this.listenTo(
+      subController,
+      e.RequestAddToParentGUI, 
+      this.onRequestAddToParentGUI_);
+        
+  this.subControllerList_.push(subController);
+  
+  subController.init();
+
+};
+
+lgb.controller.input.BuildingInputController.prototype.makeSubController_ = function(title) {
+  
+  var subController = new lgb.controller.input.BuildingGeneralInputController(title);
+  this.makeSubControllerHelper_(subController);
 
 };
 
@@ -92,19 +112,12 @@ lgb.controller.input.BuildingInputController.prototype.bind_ = function() {
 
 
 
-
-
-
 lgb.controller.input.BuildingInputController.prototype.onRequestAddToParentGUI_ = function(event) {
-
   this.guiView.add(event.payload);
-
 };
 
 
-/**
- * @private
- */
+
 lgb.controller.input.BuildingInputController.prototype.injectCss_ = function() {
 
   var cssInner = '';

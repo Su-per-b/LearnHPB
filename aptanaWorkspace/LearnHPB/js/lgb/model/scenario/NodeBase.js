@@ -57,7 +57,13 @@ lgb.model.scenario.NodeBase.prototype.parseChild_ = function(childNode) {
     
   } else {
     
-    var theClass = this.classReference_.childClassMap[tagName];
+    
+    if (this.classReference_.childClassMap.hasOwnProperty()) {
+      debugger;
+    } else {
+      var theClass = this.classReference_.childClassMap[tagName];
+    }
+
     
     if(theClass) {
       var child = new theClass(childNode);

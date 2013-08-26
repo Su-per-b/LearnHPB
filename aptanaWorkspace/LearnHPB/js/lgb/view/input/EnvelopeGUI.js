@@ -17,7 +17,6 @@ goog.require('lgb.view.input.BaseViewGUI');
  */
 lgb.view.input.EnvelopeGUI = function(dataModel) {
 
-  this._TITLE = "Settings";
   lgb.view.input.BaseViewGUI.call(this, dataModel);
 
 };

@@ -8,77 +8,44 @@ goog.provide('lgb.view.scenario.Decimal');
 goog.require('lgb.view.scenario.BaseViewGUI');
 
 
-
-lgb.view.scenario.Decimal = function(dataModel) {
-
-  lgb.view.scenario.BaseViewGUI.call(this, dataModel);
-
+lgb.view.scenario.Decimal = function(dataModel, debugFlag) {
+  lgb.view.scenario.BaseViewGUI.call(this, dataModel, debugFlag);
 };
 goog.inherits(lgb.view.scenario.Decimal, lgb.view.scenario.BaseViewGUI);
 
 
 
 
-lgb.view.scenario.Decimal.prototype.appendTo = function(el, debugFlag) {
+lgb.view.scenario.Decimal.prototype.appendTo = function(parentElement) {
   
-  if (debugFlag) {
-    this.debugAppendTo(el);
-  } else {
+  if (this.debugFlag_) {
     
-    el.append(
-      " ({0}-{1})".format(this.dataModel.min, this.dataModel.max)
-    );
+    this.append('type : Decimal <br />');
+    this.appendDebugProperty_('min');
+    this.appendDebugProperty_('max');
+    this.appendDebugProperty_('default');
     
-    this.div = this.makeDiv();
-    this.div.addClass('input-Decimal');
+  } 
+  else {
 
-    this.inputElement_ = $('<input>')
-      .addClass('input-Decimal-textbox')
-      .attr( "type", "text" )
-      .attr( "value", this.dataModel['default'] );
+        this.inputElement_ = $('<input>')
+          .addClass('input-Integer-textbox')
+          .attr("type", "text")
+          .attr( "size", "6" )
+          .attr( "maxlength", "10" )
+          .attr("value", this.dataModel['default']);
+          
+        this.append(this.inputElement_);
+        
+        var html = " ({0}-{1})".format(this.dataModel.min, this.dataModel.max);
+        this.append(html);
 
-    
-    this.div.append(
-      this.inputElement_
-    );
-    
-    
-    el.append(
-      this.div
-    );
-    
-  }
+      
+    }
+  
+  this.injectTo(parentElement);  
   
 };
 
 
 
-
-lgb.view.scenario.Decimal.prototype.debugAppendTo = function(el) {
-
-  var div = this.makeDiv();
-  div.addClass('input-DecimalDebug');
-  
-  
-  div.append(
-    'type : Decimal <br />'
-  );
-  
-  
-  div.append(
-    'min : ' + this.dataModel.min + '<br />'
-  );
-  
-  div.append(
-    'max : ' + this.dataModel.max + '<br />'
-  );
-  
-  div.append(
-    'default : ' + this.dataModel['default'] + '<br />'
-  );
-
-  el.append(
-    div
-  );
-
-};

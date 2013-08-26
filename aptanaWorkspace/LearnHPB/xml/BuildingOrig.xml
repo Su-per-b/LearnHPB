@@ -118,7 +118,7 @@
 			</Category>
 		</SubSystem>
 	</System>
-	<System name="Enclosure" abbr="En">
+	<System name="Envelope" abbr="En">
 		<SubSystem name="Fenestration" abbr="Fen">
 			<Category name="Window" abbr="Win">
 				<Variable name="Window System Type" abbr="SysTyp" scope="gui" variability="parameter" phase="1a">
@@ -584,31 +584,7 @@
 		</SubSystem>
 
 	</System>
-	
-	<System name="HVAC Legacy" abbr="HvL">
-	
-		<SubSystem name="System" abbr="SYS">
-		
-			<Variable name="Design room sensible heat gain" abbr="SYSRmQSens" phase="1a" scope="input" variability="parameter" unit="W" disabled="false" >
-				<Decimal min="0.0" max="30000.0" default="8000.0"/>
-			</Variable>
-			
-			
-			<Variable name="Outside air dry bulb" abbr="SYSTAirDB" phase="Legacy" scope="input" variability="continuous" unit="C" disabled="false" >
-				<Decimal min="-40.0" max="50.0" default="30.0"/>
-			</Variable>
-			
-			
-			
-		</SubSystem>
-		
-		
-	</System>
-	
 	<System name="HVAC" abbr="Hv">
-		<SubSystem name="System" abbr="SYS">
-		</SubSystem>
-		
 		<SubSystem name="Heating Coil" abbr="HC"/>
 		<SubSystem name="Cooling Coil" abbr="CC"/>
 		<SubSystem name="Fan" abbr="FAN"/>
@@ -618,12 +594,10 @@
 		<SubSystem name="Boiler" abbr="BOI"/>
 		<SubSystem name="Economizer/Mixing Box" abbr="MX"/>
 		<SubSystem name="Cooling Tower" abbr="CT"/>
+		<SubSystem name="System" abbr="SYS"/>
 		<SubSystem name="Room" abbr="RM"/>
 		<SubSystem name="Duct" abbr="DCT"/>
 	</System>
-	
-	
 	<System name="Daylighting" abbr="Dl">
 	</System>
-	
 </SystemList>

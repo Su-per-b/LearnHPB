@@ -9,56 +9,46 @@ goog.require('lgb.view.scenario.BaseViewGUI');
 goog.require('lgb.view.scenario.Option');
 
 
-lgb.view.scenario.OptionList = function(dataModel) {
-
-  lgb.view.scenario.BaseViewGUI.call(this, dataModel);
-
+lgb.view.scenario.OptionList = function(dataModel, debugFlag) {
+  lgb.view.scenario.BaseViewGUI.call(this, dataModel, debugFlag);
 };
 goog.inherits(lgb.view.scenario.OptionList, lgb.view.scenario.BaseViewGUI);
 
 
 
-
-lgb.view.scenario.OptionList.prototype.appendTo = function(el, debugFlag) {
+lgb.view.scenario.OptionList.prototype.appendTo = function(parentElement) {
   
-  var div = this.makeDiv();
-  div.addClass('input-OptionListDebug');
 
+  this.inject(parentElement);
 
-  if (debugFlag) {
-    this.debugAppendTo(el);
+  if (this.debugFlag_) {
+
+    this.append('type : OptionList <br />');
+    this.makeChildren_(parentElement);
+
   } else {
-    
-    var div = this.makeDiv();
-    div.addClass('input-OptionList');
-    
-    div.append(
-      this.dataModel.name
-    );
-    
-    this.makeListBox_(div);
-    
-    el.append(
-      div
-    );
-    
-    // this.makeChildren_(div, debugFlag);
+
+    this.makeListBox_();
+
   }
-  
+
+
+
   
 };
 
 
-lgb.view.scenario.OptionList.prototype.makeListBox_ = function(el) {
+lgb.view.scenario.OptionList.prototype.makeListBox_ = function() {
 
     var div = this.makeDiv();
         
      div
     .addClass('input-ListBox')
     .append('<input>')
-    .attr('value', '1')
-    .appendTo(el);
-
+    .attr('value', '1');
+    
+    this.append(div);
+    
     this.kendoDropDownList = 
       div.kendoDropDownList({
         dataSource: this.dataModel.getChildren(),
@@ -66,28 +56,13 @@ lgb.view.scenario.OptionList.prototype.makeListBox_ = function(el) {
             dataValueField: 'name',
         change: this.d(this.onDropDownChange)
       }).data('kendoDropDownList');
+      
 
 };
 
 lgb.view.scenario.OptionList.prototype.onDropDownChange = function(event) {
   
   return;
-};
-
-lgb.view.scenario.OptionList.prototype.debugAppendTo = function(el) {
-  
-  var div = this.makeDiv();
-    
-  div.append(
-    'type : OptionList <br />'
-  );
-  
-  el.append(
-    div
-  );
-
-  this.makeChildren_(div, true);
-  
 };
 
 

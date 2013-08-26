@@ -75,7 +75,7 @@ lgb.controller.input.ScenarioInputController.prototype.onScenarioParsed2_ = func
   
 
   var systemListDataModel = event.payload;
-  var systemListView = new lgb.view.scenario.SystemList (systemListDataModel);
+  var systemListView = new lgb.view.scenario.SystemList (systemListDataModel, true);
   
   this.guiView.add(systemListView);
 

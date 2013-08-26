@@ -12,81 +12,67 @@ goog.require('lgb.view.scenario.Decimal');
 
 
 
-lgb.view.scenario.Variable = function(dataModel) {
-
-  lgb.view.scenario.BaseViewGUI.call(this, dataModel);
-
+lgb.view.scenario.Variable = function(dataModel, debugFlag) {
+  lgb.view.scenario.BaseViewGUI.call(this, dataModel, debugFlag);
 };
 goog.inherits(lgb.view.scenario.Variable, lgb.view.scenario.BaseViewGUI);
 
 
 
-
-lgb.view.scenario.Variable.prototype.appendTo = function(el, debugFlag) {
+lgb.view.scenario.Variable.prototype.appendTo = function(parentElement) {
+    
   
-  if (debugFlag) {
-    this.debugAppendTo(el);
-  } else {
+  this.inject(parentElement);
+  
+  if (this.debugFlag_) {
     
-    var div = this.makeDiv();
-    div.addClass('input-Variable');
+    this.debugProperties_();
+    this.makeChildren_(this.getMainElement());
     
-    div.append(
-      this.dataModel.name
-    );
+  } 
+  else {
+  
+    var html = "{0} ({1})".format(this.dataModel.name, this.dataModel.abbr);
+    this.append(html);
     
-    el.append(
-      div
-    );
-    
-    this.makeChildren_(div, debugFlag);
-    
-    var c = div.children();
-    
-    c.append(
-      this.dataModel.unit
-    );
-    
-    
-  }
+
+      
+      var el = this.getMainElement();
+      this.makeChildren_(el);
+      
+      var c = el.children();
+  
+      c.append(' ' + this.dataModel.unit);
+
+  
+    }
+  
+
   
 };
 
 
 
 
-lgb.view.scenario.Variable.prototype.debugAppendTo = function(el) {
 
-  var div = this.makeDiv();
-  div.addClass('input-VariableDebug');
-  
-  
-  div.append(
-    'name : ' + this.dataModel.name + '<br />'
-  );
-  
-  div.append(
-    'scope : ' + this.dataModel.scope + '<br />'
-  );
-  
-  div.append(
-    'phase : ' + this.dataModel.phase + '<br />'
-  );
-  
-  div.append(
-    'variability : ' + this.dataModel.variability + '<br />'
-  );
-  
-  div.append(
-    'unit : ' + this.dataModel.unit + '<br />'
-  );
-  
-  el.append(
-    div
-  );
+lgb.view.scenario.Variable.prototype.injectDebugContent = function() {
 
-  this.makeChildren_(div, true);
+  this.makeChildren_(div);
 };
+
+
+
+lgb.view.scenario.Variable.prototype.debugProperties_ = function() {
+  
+  this.appendDebugProperty_('name');
+  this.appendDebugProperty_('abbr');
+  this.appendDebugProperty_('scope');
+  this.appendDebugProperty_('phase');
+  this.appendDebugProperty_('variability');
+  this.appendDebugProperty_('unit');
+  
+};
+
 
 
 lgb.view.scenario.Variable.childClassMap = {
@@ -94,4 +80,6 @@ lgb.view.scenario.Variable.childClassMap = {
     "OptionList" : lgb.view.scenario.OptionList,
     "Decimal" : lgb.view.scenario.Decimal
 };
+
+
 

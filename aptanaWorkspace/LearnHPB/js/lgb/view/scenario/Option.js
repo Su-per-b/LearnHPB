@@ -8,42 +8,20 @@ goog.provide('lgb.view.scenario.Option');
 goog.require('lgb.view.scenario.BaseViewGUI');
 
 
-
-lgb.view.scenario.Option = function(dataModel) {
-
-  lgb.view.scenario.BaseViewGUI.call(this, dataModel);
-
+lgb.view.scenario.Option = function(dataModel, debugFlag) {
+  lgb.view.scenario.BaseViewGUI.call(this, dataModel, debugFlag);
 };
 goog.inherits(lgb.view.scenario.Option, lgb.view.scenario.BaseViewGUI);
 
 
 
+lgb.view.scenario.Option.prototype.appendTo = function(parentElement) {
 
-lgb.view.scenario.Option.prototype.appendTo = function(el) {
-
-
-  var div = this.makeDiv();
-  div.addClass('input-Option');
+  this.injectTo(parentElement);  
+  this.appendDebugProperty_('name');
+  this.appendDebugProperty_('disabled');
+  this.appendDebugProperty_('default');
   
-  
-  div.append(
-    'name : ' + this.dataModel.name + '<br />'
-  );
-  
-  div.append(
-    'disabled : ' + this.dataModel.disabled + '<br />'
-  );
-  
-  div.append(
-    'default : ' + this.dataModel['default'] + '<br />'
-  );
-
-
-  el.append(
-    div
-  );
-
-
 };
 
 

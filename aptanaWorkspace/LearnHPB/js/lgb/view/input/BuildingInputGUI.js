@@ -9,14 +9,12 @@ lgb.view.input.BuildingInputGUI = function(dataModel) {
   this._TITLE = 'Building';
   
   lgb.view.input.BaseViewGUI.call(this, dataModel);
-  
   this.tabTitleMap_ = {};
   
   this.layoutID = lgb.Config.LAYOUT_ID.BuildingInputGUI;
     
   this.dataSource = new lgb.component.TabStripDataSource('buildingInputGUI-tabStrip');
   this.dataSource.setIcon("images/tabs/systemBtn_grid_25.png", 25, 25);
-  
   
   this.tabStrip1 = new lgb.component.TabStrip(this.dataSource);
 
@@ -44,7 +42,7 @@ lgb.view.input.BuildingInputGUI.prototype.add = function(gui) {
 
 
   var title = gui.getTitle();
-  
+
   if (undefined === title) {
     debugger;
   }

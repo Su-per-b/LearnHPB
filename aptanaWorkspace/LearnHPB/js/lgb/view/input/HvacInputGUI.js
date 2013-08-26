@@ -17,7 +17,7 @@ goog.require('lgb.Config');
  */
 lgb.view.input.HvacInputGUI = function(dataModel) {
   
-  this._TITLE = "HVAC";
+  this._TITLE = "HVACOrig";
   this.layoutID = lgb.Config.LAYOUT_ID.BaseGUI;
   
   lgb.view.input.BaseViewGUI.call(this, dataModel, 'HvacInputGUI');
@@ -61,7 +61,7 @@ lgb.view.input.HvacInputGUI.prototype.inject = function(parentElement) {
   
   
   
-  var titleDiv = el.append('<h3>HVAC</h3>');
+  var titleDiv = el.append('<h3>HVAC Orig</h3>');
   
   el.append('<h4>System</h4>');
   

@@ -17,10 +17,7 @@ goog.require('lgb.Config');
  */
 lgb.view.input.LightingInputGUI = function(dataModel) {
   
-  this._TITLE = "Lighting";
-  this.layoutID = lgb.Config.LAYOUT_ID.BaseGUI;
-  
-  lgb.view.input.BaseViewGUI.call(this, dataModel, 'LightingInputGUI');
+  lgb.view.input.BaseViewGUI.call(this, dataModel);
 };
 goog.inherits(lgb.view.input.LightingInputGUI, lgb.view.input.BaseViewGUI);
 
@@ -29,7 +26,6 @@ goog.inherits(lgb.view.input.LightingInputGUI, lgb.view.input.BaseViewGUI);
  * Initializes the View
  */
 lgb.view.input.LightingInputGUI.prototype.init = function() {
-  
     this.triggerLocal(e.RequestAddToParentGUI);
 };
 

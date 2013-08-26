@@ -289,3 +289,15 @@ lgb.BaseClass.prototype.getClassName = function() {
   
   return className;
 };
+
+
+lgb.BaseClass.prototype.getClassConstructor = function() {
+  
+  var fullClassName = this.getFullClassName();
+  var classConstructor = eval(fullClassName);
+
+  return classConstructor;
+};
+
+
+

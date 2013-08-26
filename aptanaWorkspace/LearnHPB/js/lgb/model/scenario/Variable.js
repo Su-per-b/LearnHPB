@@ -43,8 +43,20 @@ lgb.model.scenario.Variable.prototype.parse_ = function(node) {
   
 };
 
+
+
+  ['name', 'abbr', 'scope', 'phase', 'variability', 'unit'];
+
+
 lgb.model.scenario.Variable.childClassMap = {
     "Integer" : lgb.model.scenario.Integer,
     "OptionList" : lgb.model.scenario.OptionList,
     "Decimal" : lgb.model.scenario.Decimal
   }
+  
+
+lgb.model.scenario.Variable.propertiesClassMap = {
+    "scope" : lgb.model.scenario.Integer,
+    "abbr" : lgb.model.scenario.OptionList,
+    "Decimal" : lgb.model.scenario.Decimal
+}

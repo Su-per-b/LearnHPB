@@ -10,35 +10,21 @@ goog.require('lgb.view.scenario.Variable');
 goog.require('lgb.view.scenario.Component');
 
 
-lgb.view.scenario.Category = function(dataModel) {
-
-  lgb.view.scenario.BaseViewGUI.call(this, dataModel);
-
+lgb.view.scenario.Category = function(dataModel, debugFlag) {
+  lgb.view.scenario.BaseViewGUI.call(this, dataModel, debugFlag);
 };
+
 goog.inherits(lgb.view.scenario.Category, lgb.view.scenario.BaseViewGUI);
 
 
 
 
-lgb.view.scenario.Category.prototype.appendTo = function(el, debugFlag) {
+lgb.view.scenario.Category.prototype.appendTo = function(parentElement) {
   
-  var div = this.makeDiv();
-  div.addClass('input-Category');
+  this.inject(parentElement);  
+  this.append(this.dataModel.name + '<br />');
+  this.makeChildren_(parentElement);
   
-  el.append(
-    $('<br />')
-  );
-  
-  el.append(
-    $(div).append (this.dataModel.name)
-  );
-  
-  el.append(
-    $('<br />')
-  );
-  
-  this.makeChildren_(el, debugFlag);
-    
 };
 
 

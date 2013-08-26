@@ -9,8 +9,8 @@ goog.require('lgb.view.scenario.BaseViewGUI');
 goog.require('lgb.view.scenario.System');
 
 
-lgb.view.scenario.SystemList = function(dataModel) {
-  lgb.view.scenario.BaseViewGUI.call(this, dataModel);
+lgb.view.scenario.SystemList = function(dataModel, debugFlag) {
+  lgb.view.scenario.BaseViewGUI.call(this, dataModel, debugFlag);
 };
 goog.inherits(lgb.view.scenario.SystemList, lgb.view.scenario.BaseViewGUI);
 
@@ -18,20 +18,17 @@ goog.inherits(lgb.view.scenario.SystemList, lgb.view.scenario.BaseViewGUI);
 
 
 lgb.view.scenario.SystemList.prototype.init = function() {
-  
-    this.triggerLocal(e.RequestAddToParentGUI);
-    
+   this.triggerLocal(e.RequestAddToParentGUI);
 };
 
 
-lgb.view.scenario.SystemList.prototype.appendTo = function(el, debugFlag) {
- 
-  el.append(
-    $('<h5>').append(this.dataModel.name)
-  );
+lgb.view.scenario.SystemList.prototype.appendTo = function(parentElement) {
   
-  this.makeChildren_(el, debugFlag);
-    
+  this.inject(parentElement);
+  
+  this.append(this.dataModel.name);
+  this.makeChildren_(parentElement);
+  
 };
 
 

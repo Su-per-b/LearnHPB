@@ -33,5 +33,6 @@ lgb.model.scenario.SubSystem.prototype.parse_ = function(node) {
 
 
 lgb.model.scenario.SubSystem.childClassMap = {
-    "Category" : lgb.model.scenario.Category
+    "Category" : lgb.model.scenario.Category,
+    "Variable" : lgb.model.scenario.Variable
 };

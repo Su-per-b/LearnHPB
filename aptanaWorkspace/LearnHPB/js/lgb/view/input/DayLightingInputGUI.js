@@ -17,10 +17,9 @@ goog.require('lgb.view.input.BaseViewGUI');
  */
 lgb.view.input.DayLightingInputGUI = function(dataModel) {
   
-  this._TITLE = "Day Lighting";
   this.layoutID = lgb.Config.LAYOUT_ID.BaseGUI;
   
-  lgb.view.input.BaseViewGUI.call(this, dataModel, 'DayLightingInputGUI');
+  lgb.view.input.BaseViewGUI.call(this, dataModel);
 };
 goog.inherits(lgb.view.input.DayLightingInputGUI, lgb.view.input.BaseViewGUI);
 

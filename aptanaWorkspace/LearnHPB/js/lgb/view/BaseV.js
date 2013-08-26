@@ -13,22 +13,26 @@ goog.require('lgb.utils');
 lgb.view.BaseV = function(dataModel, htmlID, parentHtmlID) {
   lgb.BaseClass.call(this);
 
+
   if (null !== dataModel && undefined !== dataModel) {
     this.dataModel = dataModel;
-    
+
     //this.changeMap_ = {};
-      
+
     if (this.onChange && this.dataModel) {
       this.listenHelper_(this.dataModel, e.DataModelChanged, this, this.onChange);
     }
-    
+
     if (this.onDataModelChanged && this.dataModel) {
       this.listenHelper_(this.dataModel, e.DataModelChanged, this, this.onDataModelChanged);
     }
 
   }
 
-  this.setIds_(htmlID, parentHtmlID);
+  if (null == this.disableIDs_ || false == this.disableIDs_) {
+    this.setIds_(htmlID, parentHtmlID);
+  }
+
 
 };
 goog.inherits(lgb.view.BaseV, lgb.BaseClass);
@@ -108,17 +112,23 @@ lgb.view.BaseV.prototype.onChangeEx_ = function(event) {
  * @param {string} html the HTML string to append.
  * @protected
  */
-lgb.view.BaseV.prototype.append = function(html) {
+lgb.view.BaseV.prototype.append = function(content) {
 
   var el = this.getMainElement();
 
   if (!el) {
     debugger;
-    return;
   }
-  el.append(html);
+  
+  el.append(content);
 
 };
+
+
+
+lgb.view.BaseV.prototype.injectTo = function(parentElement) {
+  this.inject(parentElement);
+}
 
 
 lgb.view.BaseV.prototype.inject = function(parentElement) {
@@ -162,14 +172,28 @@ lgb.view.BaseV.prototype.setMainElement = function(el) {
 
   this.mainElement_ = el;
 
-  return;
+};
+
+
+lgb.view.BaseV.prototype.setParentElement = function(parentElement) {
+
+  this.parentElement_ = parentElement;
+
 };
 
 
 lgb.view.BaseV.prototype.getMainElement = function() {
 
   if (undefined == this.mainElement_) {
-    this.mainElement_ = this.makeDiv(this.htmlID);
+    this.mainElement_ = $('<div>');
+    
+    if (undefined != this.htmlID) {
+      this.mainElement_.attr('id', this.htmlID);
+    }
+    
+    if (undefined != this.cssClassName_) {
+      this.mainElement_.addClass(this.cssClassName_);
+    }
   }
 
   return this.mainElement_;
@@ -180,26 +204,20 @@ lgb.view.BaseV.prototype.setIds_ = function(htmlID, parentHtmlID) {
 
   this.parentHtmlID = parentHtmlID || 'theBody';
   
+  var id;
   if (null == htmlID) {
-    this.generateHTMLid_();
-  } else {
-    
-    if (lgb.view.BaseV.HTML_IDS.hasOwnProperty(htmlID)) {
-      debugger;
-    } else {
-      
-      lgb.view.BaseV.HTML_IDS[htmlID] = true;
-      
-      if (lgb.view.BaseV.HTML_IDS_COUNT.hasOwnProperty(htmlID)) {
-        debugger;
-      } else {
-        lgb.view.BaseV.HTML_IDS_COUNT[htmlID] = 0;
-      }
-    }
-    
-    this.htmlID = htmlID;
+    id = this.generateHTMLid_();
+  }  else {
+    id = htmlID;
   }
   
+  
+  if (lgb.view.BaseV.HTML_IDS.hasOwnProperty(id)) {
+    debugger;
+  } else {
+    lgb.view.BaseV.HTML_IDS[id] = true;
+    this.htmlID = id;
+  }
 
 
 };
@@ -208,7 +226,7 @@ lgb.view.BaseV.prototype.setIds_ = function(htmlID, parentHtmlID) {
 lgb.view.BaseV.prototype.generateHTMLid_ = function(id) {
   
     var fullName = this.getFullClassName();
-    var fullNameDashes = name.split('.').join('-');
+    var fullNameDashes = fullName.split('.').join('-');
     
     if (lgb.view.BaseV.HTML_IDS_COUNT.hasOwnProperty(fullNameDashes)) {
       lgb.view.BaseV.HTML_IDS_COUNT[fullNameDashes]++;
@@ -217,8 +235,13 @@ lgb.view.BaseV.prototype.generateHTMLid_ = function(id) {
     }
     
     var count = lgb.view.BaseV.HTML_IDS_COUNT[fullNameDashes];
+    var htmlID = fullNameDashes + '-' + String(count);  
     
-    this.htmlID = fullNameDashes + '-' + String(count);  
+    if (lgb.view.BaseV.HTML_IDS.hasOwnProperty(htmlID)) {
+      debugger;
+    }
+    
+    return htmlID;  
     
 };
 
@@ -258,6 +281,7 @@ lgb.view.BaseV.prototype.jqParent = function() {
 };
 
 
+
 lgb.view.BaseV.prototype.requestDataModelChange = function(property, newValue) {
   var payload = {property:property, newValue:newValue};
   this.triggerLocal(e.RequestDataModelChange, payload);
@@ -265,16 +289,14 @@ lgb.view.BaseV.prototype.requestDataModelChange = function(property, newValue) {
 
 
 
-
 lgb.view.BaseV.prototype.getTitle = function() {
   
   var title = this._TITLE || this.getClassName();
-  
   return title;
 };
 
 
 lgb.view.BaseV.HTML_IDS_COUNT = {};
-
+lgb.view.BaseV.HTML_IDS_BASE = {};
 lgb.view.BaseV.HTML_IDS = {};
 

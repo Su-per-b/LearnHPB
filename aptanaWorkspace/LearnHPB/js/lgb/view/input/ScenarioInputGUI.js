@@ -37,7 +37,7 @@ lgb.view.input.ScenarioInputGUI.prototype.init = function() {
 lgb.view.input.ScenarioInputGUI.prototype.add = function(gui) {
 
   var el = this.getMainElement();
-  gui.appendTo(el, true);
+  gui.appendTo(el);
   
 };
 

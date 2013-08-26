@@ -8,21 +8,19 @@ goog.provide('lgb.view.scenario.Component');
 goog.require('lgb.view.scenario.BaseViewGUI');
 
 
-
-lgb.view.scenario.Component = function(dataModel) {
-
-  lgb.view.scenario.BaseViewGUI.call(this, dataModel);
-
+lgb.view.scenario.Component = function(dataModel, debugFlag) {
+  lgb.view.scenario.BaseViewGUI.call(this, dataModel, debugFlag);
 };
 goog.inherits(lgb.view.scenario.Component, lgb.view.scenario.BaseViewGUI);
 
 
 
 
-lgb.view.scenario.Component.prototype.appendTo = function(el, debugFlag) {
+lgb.view.scenario.Component.prototype.appendTo = function(parentElement) {
   
-   
-  el.append(
+  this.inject(parentElement);
+  
+  this.append(
     'name : ' + this.dataModel.name
   );
   
