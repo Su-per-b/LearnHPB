@@ -58,13 +58,6 @@ lgb.view.input.LayoutView.prototype.onChange_add_ = function(value) {
 
 
 
-lgb.view.input.LayoutView.prototype.toggleVisibility = function(guiView) {
-  
-  guiView.toggleVisibility();
-  
-};
-
-
 
 lgb.view.input.LayoutView.prototype.toggleVisibility = function(guiView) {
   
@@ -74,9 +67,6 @@ lgb.view.input.LayoutView.prototype.toggleVisibility = function(guiView) {
   el.toggle();
 
 };
-
-
-
 
 
 

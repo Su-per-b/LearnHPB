@@ -35,19 +35,16 @@ lgb.view.scenario.Variable.prototype.appendTo = function(parentElement) {
     var html = "{0} ({1})".format(this.dataModel.name, this.dataModel.abbr);
     this.append(html);
     
-
-      
       var el = this.getMainElement();
       this.makeChildren_(el);
       
-      var c = el.children();
-  
-      c.append(' ' + this.dataModel.unit);
+      
+      if (null != this.dataModel.unit) {
+        var c = el.children();
+        c.append(' ' + this.dataModel.unit);
+      }
 
-  
     }
-  
-
   
 };
 

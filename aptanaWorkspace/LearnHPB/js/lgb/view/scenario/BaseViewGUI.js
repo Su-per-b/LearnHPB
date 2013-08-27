@@ -45,12 +45,12 @@ lgb.view.scenario.BaseViewGUI.prototype.setDebugFlag = function(debugFlag) {
 
 
   
-lgb.view.scenario.BaseViewGUI.prototype.appendTitle_ = function(parentElement) {
+lgb.view.scenario.BaseViewGUI.prototype.appendTitle_ = function() {
   
   var html = this.dataModel.name;
   
   if (this.debugFlag_) {
-    html += "({1})".format(this.dataModel.abbr);
+    html += " ({0})".format(this.dataModel.abbr);
   }
   
   this.append(html);

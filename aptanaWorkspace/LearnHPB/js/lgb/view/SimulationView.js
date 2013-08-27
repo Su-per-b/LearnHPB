@@ -45,25 +45,26 @@ lgb.view.SimulationView.prototype.onChange_webSocketConnectionState_ = function(
   switch (webSocketConnectionState) {
 
       case state.uninitialized :
-          this.connectLink_.setEnabled(true);
+          // this.connectLink_.setEnabled(false);
           break;
       case state.open_requested :
-          this.connectLink_.setEnabled(false);
+          // this.connectLink_.setEnabled(false);
           break;
       case state.opened :
           this.connectLink_.setEnabled(true);
           break;
       case state.closed :
-          this.connectLink_.setEnabled(false);
+          // this.connectLink_.setEnabled(true);
           break;
       case state.timed_out :
-          this.connectLink_.setEnabled(false);
+          // this.connectLink_.setEnabled(true);
           break;
       case state.dropped :
-          this.connectLink_.setEnabled(false);
+          // this.connectLink_.setEnabled(true);
           break;
       case state.error :
-          this.connectLink_.setEnabled(true);
+          // this.connectLink_.setEnabled(false);
+          debugger;
           break;
       default :
         debugger;

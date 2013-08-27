@@ -4,9 +4,11 @@
 	<System name="General" abbr="GN">
 		<SubSystem name="Site" abbr="Sit">
 			<Category name="Day of Year" abbr="DoY">
-				<Variable name="Day of Year" abbr="" scope="gui" phase="1a" variability="parameter" unit="Day">
+			
+				<Variable name="Day of Year" abbr="DoY" scope="gui" phase="1a" variability="parameter" unit="Day">
 					<Integer min="1" max="365" default="1"/>
 				</Variable>
+				
 			</Category>
 			
 			<Category name="Time of Day" abbr="Tm">
@@ -22,7 +24,7 @@
 			</Category>
 			
 			<Category name="Location" abbr="Loc">
-				<Variable name="City" abbr="" scope="gui" phase="1a" variability="parameter" unit="latlong">
+				<Variable name="City" abbr="Cit" scope="gui" phase="1a" variability="parameter" unit="latlong">
 					<OptionList>
 						<Option name="Chicago" default="true"/>
 						<Option name="Palm Springs"/>
@@ -33,7 +35,7 @@
 		</SubSystem>
 		<SubSystem name="Scenario" abbr="Sc">
 			<Category name="Simulation Period" abbr="SimPd">
-				<Variable name="Simulation Period" abbr="" phase="1a" scope="gui" variability="parameter">
+				<Variable name="Simulation Period" abbr="SimPd" phase="1a" scope="gui" variability="parameter" unit="Time Span">
 					<OptionList>
 						<Option name="instance in time"/>
 						<Option name="diurnal" description="daily"/>
@@ -45,7 +47,7 @@
 				</Variable>
 			</Category>
 			<Category name="Use Schedule" abbr="Use">
-				<Variable name="Occupancy Use Schedule" abbr="Sc" phase="1a" scope="gui" variability="parameter">
+				<Variable name="Occupancy Use Schedule" abbr="Sc" phase="1a" scope="gui" variability="parameter" unit="Time Span">
 					<OptionList>
 						<Option name="M-F 9am-5pm"/>
 						<Option name="Saturday"/>
@@ -59,7 +61,7 @@
 		</SubSystem>
 		<SubSystem name="Building" abbr="Bd">
 			<Category name="Number of Floors" abbr="NumFl">
-				<Variable name="Number of Floors" abbr="" scope="gui" phase="1a" variability="parameter" unit="{none}">
+				<Variable name="Number of Floors" abbr="NumFl" scope="gui" phase="1a" variability="parameter">
 					<OptionList>
 						<Option name="3" default="true"/>
 						<Option name="5" disabled="true"/>
@@ -68,7 +70,7 @@
 				</Variable>
 			</Category>
 			<Category name="Floor location in Building" abbr="FlLoc">
-				<Variable name="Number of Floors" abbr="" scope="gui" phase="1a" variability="parameter" unit="{none}">
+				<Variable name="Number of Floors" abbr="FlLoc" scope="gui" phase="1a" variability="parameter">
 					<OptionList>
 						<Option name="1" disabled="true"/>
 						<Option name="2" default="true"/>
@@ -80,7 +82,7 @@
 		<SubSystem name="Zone" abbr="Zn">
 		
 			<Category name="Ceiling Height" abbr="CeHt">
-				<Variable name="Ceiling Height" abbr="" scope="gui" phase="1a" variability="parameter" unit="ft">
+				<Variable name="Ceiling Height" abbr="CeHt" scope="gui" phase="1a" variability="parameter" unit="ft">
 					<OptionList>
 						<Option name="9" default="true"/>
 						<Option name="11" disabled="true"/>
@@ -91,7 +93,7 @@
 
 		
 		<Category name="Floor Location" abbr="FlLoc">
-				<Variable name="Floor Location" abbr="" scope="gui" phase="1a" variability="parameter" unit="{none}">
+				<Variable name="Floor Location" abbr="FlLoc" scope="gui" phase="1a" variability="parameter" >
 					<OptionList>
 						<Option name="N" description="North Zone"/>
 						<Option name="NE" description="North East Zone"/>
@@ -381,7 +383,7 @@
 		
 		<SubSystem name="Ceiling Mounted" abbr="Cm">
 			<Category name="Lighting Vintage" abbr="Lv">
-				<Variable name="Lighting Vintage" abbr="" phase="1a" scope="gui" variability="parameter">
+				<Variable name="Lighting Vintage" abbr="Lv" phase="1a" scope="gui" variability="parameter">
 					<OptionList>
 						<Option name="1990"/>
 						<Option name="2000"/>
@@ -587,23 +589,263 @@
 	
 	<System name="HVAC Legacy" abbr="HvL">
 	
-		<SubSystem name="System" abbr="SYS">
+	
+		<SubSystem name="VAV Box" abbr="VAV">
 		
+			<Variable name="Room temperature sensor error" abbr="VAVBadZoneMeas" phase="Legacy" scope="input" variability="continuous" unit="C" isFault="true">
+				<Decimal min="-20" max="20" default="0" />
+			</Variable>
+			
+			
+			
+			<Variable name="VAV reheat coil valve boot leakage" abbr="VAVHCBootLeak" phase="Legacy" scope="input" variability="continuous" unit="%" isFault="true">
+				<Decimal min="1.0" max="100.0" default="50.0" />
+			</Variable>
+			
+			<Variable name="VAV box air flow calibration error" abbr="VAVBadFlowMeas" phase="Legacy" scope="input" variability="continuous" unit="m3/s" isFault="true">
+				<Decimal min="-0.2" max="0.2" default="0.0" />
+			</Variable>
+			
+			<Variable name="Leaky VAV reheat coil valve" abbr="VAVHCLeakyVlv" phase="Legacy" scope="input" variability="continuous" unit="%" isFault="true">
+				<Decimal min="1.0" max="100.0" default="50.0" />
+			</Variable>
+			
+			<Variable name="Stuck VAV reheat coil valve" abbr="VAVHCStuckVlv" phase="Legacy" scope="input" variability="continuous" unit="%" isFault="true">
+				<Decimal min="1.0" max="100.0" default="50.0" />
+			</Variable>
+			
+			
+			<Variable name="VAV damper controller integrator time constant" abbr="VAVDmprKi" phase="Legacy" scope="input" variability="continuous" unit="second" isFault="false">
+				<Decimal min="0.01" max="1000.0" default="60.0" />
+			</Variable>
+			
+			<Variable name="AV fouled reheat coil" abbr="VAVHCFouledCoil" phase="Legacy" scope="input" variability="continuous" unit="%" isFault="false">
+				<Decimal min="1.0" max="100.0" default="50.0" />
+			</Variable>
+					
+							
+			<Variable name="VAV reheat coil controller integrator time constant" abbr="VAVRhcKi" phase="Legacy" scope="input" variability="continuous" unit="second" isFault="false">
+				<Decimal min="0.01" max="1000.0" default="60.0" />
+			</Variable>			
+							
+			<Variable name="VAV max cooling air flow rate" abbr="VAVAirFlwd" phase="Legacy" scope="input" variability="continuous" unit="kg/s" isFault="false">
+				<Decimal min="0.0" max="6.0" default="2.0" />
+			</Variable>		
+			
+			<Variable name="VAV reheat coil air side pressure drop at design condition" abbr="VAVRhcPDd" phase="Legacy" scope="input" variability="PARAMETER" unit="Pa" isFault="false">
+				<Decimal min="0.0" max="300.0" default="87.0" />
+			</Variable>		
+			
+			<Variable name="VAV damper controller P gain" abbr="VAVDmprKp" phase="Legacy" scope="input" variability="PARAMETER" unit="{none}" isFault="false">
+				<Decimal min="0.01" max="100.0" default="1.0" />
+			</Variable>	
+			
+			<Variable name="VAV undersized reheat coil" abbr="VAVHCUndersizedCoil" phase="Legacy" scope="input" variability="PARAMETER" unit="%" isFault="false">
+			
+				<Decimal min="1.0" max="100.0" default="50.0" />
+			</Variable>	
+			
+			<Variable name="VAV air side pressure drop at max cooling" abbr="VAVPDd" phase="Legacy" scope="input" variability="PARAMETER" unit="Pa" isFault="false">
+				<Decimal min="0.0" max="10.0" default="3.0" />
+			</Variable>
+			
+			<Variable name="VAV min volume flow rate ratio" abbr="VAVMinFlwRatio" phase="Legacy" scope="input" variability="PARAMETER" unit="%" isFault="false">
+				<Decimal min="0.0" max="100.0" default="20.0" />
+			</Variable>
+			
+			<Variable name="VAV reheat coil controller P gain" abbr="VAVRhcKp" phase="Legacy" scope="input" variability="PARAMETER" unit="" isFault="false">
+				<Decimal min="0.01" max="100.0" default="1.0" />
+			</Variable>
+			
+			<Variable name="Reheat coil design heating capacity" abbr="VAVRhcQd" phase="Legacy" scope="input" variability="PARAMETER" unit="W" isFault="false">
+				<Decimal min="0.0" max="50000.0" default="20000.0" />
+			</Variable>
+			
+		</SubSystem>
+		
+		
+		
+		<SubSystem name="Mixing Box" abbr="MX">
+		
+			<Variable name="Leaky return air damper" abbr="MXLeakRetDmpr" phase="Legacy" scope="input" variability="parameter" unit="%" disabled="true" isFault="true">
+				<Decimal min="0.0" max="100.0" default="0.0"/>
+			</Variable>
+		
+			<Variable name="Economizer PI controller integrator time constant" abbr="MXKi" phase="Legacy" scope="input" variability="parameter" unit="second" isFault="false" >
+				<Decimal min="0.01" max="1000.0" default="60.0"/>
+			</Variable>
+			
+			<Variable name="Outside air damper min position" abbr="MXMinPos" phase="Legacy" scope="input" variability="parameter" unit="%" isFault="false" >
+				<Decimal min="0.0" max="100.0" default="10.0"/>
+			</Variable>
+			
+			<Variable name="Economizer enable outside air temp" abbr="MXEnableTAirOut" phase="Legacy" scope="input" variability="parameter" unit="C" isFault="false" >
+				<Decimal min="15.0" max="30.0" default="24.0"/>
+			</Variable>
+			
+			<Variable name="Reverse Acting Damper" abbr="MXReverseActionAct" phase="Legacy" scope="input" variability="continuous" unit="C" isFault="true" >
+				<Decimal min="0.0" max="1.0" default="0.0"/>
+			</Variable>
+				
+				
+				
+			<Variable name="Damper/actuator stuck position" abbr="MXStuckActuator" phase="Legacy" scope="input" variability="continuous" unit="%" isFault="true" >
+				<Decimal min="0.0" max="100.0" default="0.0"/>
+			</Variable>
+				
+			<Variable name="Economizer PI controller P gain" abbr="MXKp" phase="Legacy" scope="input" variability="continuous" unit="" isFault="true" >
+				<Decimal min="0.01" max="100.0" default="1.0" />
+			</Variable>
+		
+		</SubSystem>
+		
+		
+		<SubSystem name="Cooling Coil" abbr="CC">
+			<Variable name="cooling coil design air flow rate" abbr="CCAirFlwd" phase="Legacy" scope="input" variability="continuous" unit="kg/s" >
+				<Decimal min="0.0" max="6.0" default="2.0"/>
+			</Variable>
+		
+			<Variable name="Fouled cooling coil" abbr="CCFouledCoil" phase="Legacy" scope="input" variability="continuous" unit="%" isFault="true" >
+				<Decimal min="1.0" max="100.0" default="50.0"/>
+			</Variable>
+			
+			
+			<Variable name="Cooling coil valve controller P gain" abbr="CCKp" phase="Legacy" scope="input" variability="continuous" unit="" isFault="false" >
+				<Decimal min="0.01" max="100.0" default="1.0"/>
+			</Variable>
+			
+			
+			<Variable name="Cooling coil valve boot leakage" abbr="CCBootLeak" phase="Legacy" scope="input" variability="continuous" unit="%" isFault="true" >
+				<Decimal min="1.0" max="100.0" default="50.0"/>
+			</Variable>
+			
+			
+			
+			<Variable name="cooling coil design air side pressure drop" abbr="CCPDd" phase="Legacy" scope="input" variability="PARAMETER" unit="Pa" isFault="false" >
+				<Decimal min="0.0" max="400.0" default="165.0"/>
+			</Variable>
+			
+			<Variable name="Cooling coil chilled water design mass flow rate" abbr="CCLiqFlwd" phase="Legacy" scope="input" variability="PARAMETER" unit="kg/s" isFault="false" >
+				<Decimal min="0.0" max="3.0" default="1.0"/>
+			</Variable>
+			
+			<Variable name="Stuck cooling coil valve" abbr="CCStuckVlv" phase="Legacy" scope="input" variability="PARAMETER" unit="%" isFault="false" >
+				<Decimal min="1.0" max="100.0" default="50.0"/>
+			</Variable>
+			
+			<Variable name="Cooling coil design cooling capacity" abbr="CCUA" phase="Legacy" scope="input" variability="PARAMETER" unit="W" isFault="false" >
+				<Decimal min="0.0" max="50000.0" default="29454.0"/>
+			</Variable>
+			
+			<Variable name="Leaky cooling coil valve" abbr="CCLeakyVlv" phase="Legacy" scope="input" variability="PARAMETER" unit="%" isFault="true" >
+				<Decimal min="1.0" max="100.0" default="50.0"/>
+			</Variable>
+			
+			<Variable name="Cooling coil valve controller integrator time constant" abbr="CCKi" phase="Legacy" scope="input" variability="PARAMETER" unit="second" isFault="false" >
+				<Decimal min="0.01" max="1000.0" default="60.0"/>
+			</Variable>
+			
+			<Variable name="Undersized cooling coil" abbr="CCUndersizedCoil" phase="Legacy" scope="input" variability="PARAMETER" unit="%" isFault="true" >
+				<Decimal min="1.0" max="100.0" default="50.0"/>
+			</Variable>
+			
+					
+		
+		</SubSystem>
+		
+		
+
+		<SubSystem name="System" abbr="SYS">
 			<Variable name="Design room sensible heat gain" abbr="SYSRmQSens" phase="1a" scope="input" variability="parameter" unit="W" disabled="false" >
 				<Decimal min="0.0" max="30000.0" default="8000.0"/>
 			</Variable>
 			
+			<Variable name="Room temp heating set point" abbr="SYSTRmSPHeat" phase="Legacy" scope="input" variability="continuous" unit="C" disabled="false" >
+				<Decimal min="0.0" max="100.0" default="18.0"/>
+			</Variable>
 			
 			<Variable name="Outside air dry bulb" abbr="SYSTAirDB" phase="Legacy" scope="input" variability="continuous" unit="C" disabled="false" >
 				<Decimal min="-40.0" max="50.0" default="30.0"/>
 			</Variable>
 			
+			<Variable name="Supply air temp set point" abbr="SYSTSupS" phase="Legacy" scope="input" variability="continuous" unit="C" disabled="false" >
+				<Decimal min="13.0" max="25.0" default="15.0"/>
+			</Variable>
 			
+			<Variable name="Outside air relative humidity" abbr="SYSRHOutside" phase="Legacy" scope="input" variability="continuous" unit="%" disabled="false" >
+				<Decimal min="0.0" max="100.0" default="30.0"/>
+			</Variable>
+			
+
+			<Variable name="Room temp cooling set point" abbr="SYSTRmSPCool" phase="Legacy" scope="input" variability="continuous" unit="C" disabled="false" >
+				<Decimal min="16.0" max="26.0" default="24.0"/>
+			</Variable>
+		</SubSystem>
+		
+		<SubSystem name="Filter" abbr="FLT">
+			<Variable name="filter pressure drop" abbr="FLTPDrop" phase="Legacy" scope="input" variability="continuous" unit="Pa" disabled="false" >
+				<Decimal />
+			</Variable>
+		</SubSystem>
+		
+		
+		<SubSystem name="Room" abbr="RM">
+		
+			<Variable name="Room temp" abbr="RMTemp" phase="Legacy" scope="input" variability="continuous" unit="C" >
+				<Decimal />
+			</Variable>
+			
+			<Variable name="Room relative humidity" abbr="RMRH" phase="Legacy" scope="input" variability="continuous" unit="%" >
+				<Decimal min="0" max="100" default="50" />
+			</Variable>
 			
 		</SubSystem>
 		
 		
+		<SubSystem name="Heating Coil" abbr="HC">
+		
+		
+			<Variable name="Heating coil leaving hot water temp" abbr="HCTLiqLvg" phase="Legacy" scope="input" variability="continuous" unit="C" >
+				<Decimal min="-10" max="100" default="35" />
+			</Variable>
+			
+			<Variable name="Heating coil valve boot leakage" abbr="HCBootLeak" phase="Legacy" scope="input" variability="continuous" unit="%" isFault="true">
+				<Decimal min="0" max="100" default="50" />
+			</Variable>
+			
+			<Variable name="Stuck heating coil valve" abbr="HCStuckVlv" phase="Legacy" scope="input" variability="continuous" unit="%" isFault="true">
+				<Decimal min="0" max="100" default="50" />
+			</Variable>
+			
+			<Variable name="Heating coil design air side pressure drop" abbr="HCPDd" phase="Legacy" scope="input" variability="continuous" unit="Pa" isFault="false">
+				<Decimal min="0" max="100" default="50" />
+			</Variable>
+			
+			
+			<Variable name="Heating coil valve position" abbr="HCPos" phase="Legacy" scope="input" variability="continuous" unit="%" isFault="false">
+				<Decimal min="0" max="100" default="50" />
+			</Variable>
+			
+			
+			<Variable name="Heating coil entering air temp" abbr="HCPos" phase="Legacy" scope="input" variability="continuous" unit="%" isFault="false">
+				<Decimal min="0" max="100" default="50" />
+			</Variable>
+				
+			
+			
+		</SubSystem>
+			
+			
+
+			
+			
+		
+		
+		
 	</System>
+	
+	
+	
 	
 	<System name="HVAC" abbr="Hv">
 		<SubSystem name="System" abbr="SYS">

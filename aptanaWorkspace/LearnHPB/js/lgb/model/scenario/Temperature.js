@@ -3,7 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.model.scenario.Decimal');
+goog.provide('lgb.model.scenario.Temperature');
 goog.require('lgb.model.scenario.NodeBase');
 
 
@@ -15,30 +15,30 @@ goog.require('lgb.model.scenario.NodeBase');
  * @param {!lgb.utils.XmlWrapper} xmlParser The parse used
  * to populate the object, contains an xml document.
  */
-lgb.model.scenario.Decimal = function(node) {
+lgb.model.scenario.Temperature = function(node) {
 
   lgb.model.scenario.NodeBase.call(this, node);
   
 };
-goog.inherits(lgb.model.scenario.Decimal, lgb.model.scenario.NodeBase);
+goog.inherits(lgb.model.scenario.Temperature, lgb.model.scenario.NodeBase);
 
 
 
-lgb.model.scenario.Decimal.prototype.parse_ = function(node) {
+lgb.model.scenario.Temperature.prototype.parse_ = function(node) {
   
   this.setPropertyFloat_('min');  
   if (undefined == this.min) {
-      this.min = 0.0;
+      this.min = -10.0;
   }
   
   this.setPropertyFloat_('max');
   if (undefined == this.max) {
-      this.max = 9999999.0;
+      this.max = 90.0;
   }
   
   this.setPropertyFloat_('default');
   if (undefined == this['default']) {
-      this['default'] = 0.0;
+      this['default'] = 30;
   }
   
 };

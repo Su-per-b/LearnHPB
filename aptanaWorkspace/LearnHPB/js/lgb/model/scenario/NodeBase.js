@@ -137,7 +137,7 @@ lgb.model.scenario.NodeBase.prototype.setPropertyBool_ = function(propertyName) 
   if (strValue) {
     this[propertyName] = Boolean(strValue);
   } else {
-    this[propertyName] = null;
+    this[propertyName] = false;
   }
 
 };
