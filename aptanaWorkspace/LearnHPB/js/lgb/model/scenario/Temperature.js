@@ -28,17 +28,17 @@ lgb.model.scenario.Temperature.prototype.parse_ = function(node) {
   
   this.setPropertyFloat_('min');  
   if (undefined == this.min) {
-      this.min = -10.0;
+      this.min = 250;
   }
   
   this.setPropertyFloat_('max');
   if (undefined == this.max) {
-      this.max = 90.0;
+      this.max = 325;
   }
   
   this.setPropertyFloat_('default');
   if (undefined == this['default']) {
-      this['default'] = 30;
+      this['default'] = 295.15;
   }
   
 };

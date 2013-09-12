@@ -11,6 +11,7 @@ goog.require('lgb.controller.input.EnvelopeInputController');
 goog.require('lgb.controller.input.HvacInputController');
 
 
+
 lgb.controller.input.BuildingInputController = function() {
 
   lgb.controller.BaseController.call(this);
@@ -40,15 +41,6 @@ lgb.controller.input.BuildingInputController.prototype.init = function() {
   this.makeSubController_('Daylighting');
   this.makeSubController_('Enclosure');
   this.makeSubController_('HVAC');
-  this.makeSubController_('HVAC Legacy');
-  
-  var subController = new lgb.controller.input.HvacInputController();
-  this.makeSubControllerHelper_(subController);
-  
-  var subController = new lgb.controller.input.DayLightingInputController();
-  this.makeSubControllerHelper_(subController);
-
-  return;
 
 };
 

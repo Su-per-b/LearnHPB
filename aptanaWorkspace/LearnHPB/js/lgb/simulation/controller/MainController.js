@@ -13,6 +13,7 @@ goog.require('lgb.simulation.events.WebSocketConnectionStateEvent');
 goog.require('lgb.simulation.model.WebSocketConnectionState');
 goog.require('lgb.simulation.events.SimStateNativeRequest');
 goog.require('lgb.simulation.model.voNative.SimStateNative');
+goog.require('lgb.simulation.model.WebSocketConnectionStateRequest');
 
 lgb.simulation.controller.MainController = function() {
     lgb.controller.BaseController.call(this);
@@ -33,17 +34,77 @@ lgb.simulation.controller.MainController.prototype.init_ = function(event) {
 
     this.delayedMessages = [];
 
-    //this.state_ = lgb.simulation.model.WebSocketConnectionState.uninitialized;
-
-    // this.dataModel.setSimStateNative(lgb.simulation.model.WebSocketConnectionState.uninitialized);
-
-    // this.view = new lgb.view.HvacView(this.dataModel);
-    // this.bind_();
-    //this.view.init();
-
-    //this.isInitialized_ = true;
+    this.bind_();
 
 };
+
+
+lgb.simulation.controller.MainController.prototype.bind_ = function() {
+  
+    this.listenTo (
+        this,
+        lgb.simulation.events.SimStateNativeNotify.TYPE,
+        this.onSimStateNativeNotify_
+    );
+    
+    this.listenTo (
+        this,
+        lgb.simulation.events.ConfigChangeNotify.TYPE,
+        this.onConfigChangeNotify_
+    );
+    
+    
+    this.listenTo (
+        this,
+        lgb.simulation.events.XMLparsedEvent.TYPE,
+        this.onXMLparsedEvent_
+    );
+    
+    this.listenTo (
+        this,
+        lgb.simulation.events.ResultEvent.TYPE,
+        this.onResultEvent_
+    );
+    
+    
+    this.listenTo (
+        this,
+        lgb.simulation.events.MessageEvent.TYPE,
+        this.onMessageEvent_
+    );
+    
+};
+
+
+    
+lgb.simulation.controller.MainController.prototype.onSimStateNativeNotify_ = function(event) {
+  this.dataModel.changePropertyEx('simStateNative', event.getPayload());
+  this.dispatch(event);
+};
+
+lgb.simulation.controller.MainController.prototype.onConfigChangeNotify_ = function(event) {
+ // this.dataModel.changePropertyEx('simStateNative', event.getPayload());
+   this.dispatch(event);
+};
+
+lgb.simulation.controller.MainController.prototype.onXMLparsedEvent_ = function(event) {
+  this.dataModel.changePropertyEx('xmlParsedInfo', event.getPayload());
+  this.dispatch(event);
+};
+
+lgb.simulation.controller.MainController.prototype.onResultEvent_ = function(event) {
+  this.dataModel.changePropertyEx('scalarValueResults', event.getPayload());
+  this.dispatch(event);
+};
+
+lgb.simulation.controller.MainController.prototype.onMessageEvent_ = function(event) {
+  this.dataModel.changePropertyEx('messageStruct', event.getPayload());
+ this.dispatch(event);
+};
+
+
+
+
 
 lgb.simulation.controller.MainController.prototype.getState = function() {
     return this.dataModel.getState();
@@ -52,6 +113,38 @@ lgb.simulation.controller.MainController.prototype.getState = function() {
 lgb.simulation.controller.MainController.prototype.getDataModel = function() {
     return this.dataModel;
 }
+
+
+lgb.simulation.controller.MainController.prototype.requestSimStateChange = function(state) {
+
+  this.dataModel.changePropertyEx('simStateNative', state);
+  
+  var event = new lgb.simulation.events.SimStateNativeRequest(state);
+  this.serializeAndSend(event);
+
+};
+
+
+lgb.simulation.controller.MainController.prototype.requestWebSocketStateChange = function(state) {
+
+  switch (state) {
+    
+    case  lgb.simulation.model.WebSocketConnectionStateRequest.open : {
+       this.connect(true);
+      break;
+    }
+    case  lgb.simulation.model.WebSocketConnectionStateRequest.close : {
+       this.connect(false);
+      break;
+    }
+    
+    default:
+  }
+  
+  
+};
+
+
 
 lgb.simulation.controller.MainController.prototype.connect = function(connectFlag) {
 
@@ -76,7 +169,7 @@ lgb.simulation.controller.MainController.prototype.connect = function(connectFla
       
     } else {
       
-      
+      this.dataModel.setWebSocketConnectionState(lgb.simulation.model.WebSocketConnectionState.closed);
     }
 
 };

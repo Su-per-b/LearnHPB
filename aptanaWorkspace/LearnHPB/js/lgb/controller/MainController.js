@@ -79,7 +79,12 @@ lgb.controller.MainController.prototype.init = function() {
    
   this.simulationController_ = new lgb.controller.SimulationController();
 
- 
+
+  this.simMainController_ = new lgb.simulation.controller.MainController();
+  this.trigger(e.SimulationEngineLoaded, this.simMainController_);
+  
+  
+  
   /**
   * The logger used by this object.
   * @type {goog.debug.Logger}

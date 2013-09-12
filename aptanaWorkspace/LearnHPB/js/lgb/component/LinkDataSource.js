@@ -24,5 +24,6 @@ lgb.component.LinkDataSource = function(title, parentHtmlID, subID) {
   this.theSelectedOne = null;
   this.data = null;
   this.isEnabled = true;
+  this.cssClass = 'admin';
 };
 goog.inherits(lgb.component.LinkDataSource, lgb.component.BaseDataSource);

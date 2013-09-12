@@ -77,4 +77,8 @@ e.SelectableLoaded = 'e.SelectableLoaded';
 e.Object3DSelected = 'e.Object3DSelected';
 
 e.RequestSelectSystemNode = 'e.RequestSelectSystemNode';
+e.SimulationEngineLoaded = 'e.SimulationEngineLoaded';
+
+
+
 

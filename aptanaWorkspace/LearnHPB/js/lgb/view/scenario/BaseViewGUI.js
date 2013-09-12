@@ -79,7 +79,7 @@ lgb.view.scenario.BaseViewGUI.prototype.appendChildTo_ = function(childNode, par
     
   } else {
 
-    var classConstructor = this.getClassConstructor()
+    var classConstructor = this.getClassConstructor();
     var childClassConstructor = classConstructor.childClassMap[childClassName];
     
     if(childClassConstructor) {

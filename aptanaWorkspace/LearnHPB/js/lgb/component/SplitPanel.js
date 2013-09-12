@@ -43,7 +43,7 @@ lgb.component.SplitPanel.prototype.makeElement = function() {
 lgb.component.SplitPanel.prototype.getPane = function(idx) {
   
   return this.panes_[idx];
-}
+};
 
 
 
@@ -66,11 +66,11 @@ lgb.component.SplitPanel.prototype.injectTo = function(parentElement) {
   var w = window.innerWidth;
   var h = window.innerHeight;
   
-  this.leftPane_ = this.makeDiv("leftPanel");
-  this.rightPane_ = this.makeDiv();
+  this.paneOne_ = this.makeDiv("leftPanel");
+  this.paneTwo_ = this.makeDiv();
   
-  this.panes_.push(this.leftPane_);
-  this.panes_.push(this.rightPane_);
+  this.panes_.push(this.paneOne_);
+  this.panes_.push(this.paneTwo_);
   
   this.splitterBarContainer_ = this.makeDiv();
   
@@ -80,19 +80,9 @@ lgb.component.SplitPanel.prototype.injectTo = function(parentElement) {
     overflow:"hidden"
   });
   
-//   
-  // this.rightPane_.css({
-    // width : "100%",
-    // height : "100%"
-  // });
-//   
-  // this.leftPane_.css({
-    // overflow : "visible",
-    // height : "auto"
-  // });
+
   
-  
-  this.leftPane_.css({
+  this.paneOne_.css({
     position : "fixed !important",
     position : "absolute",
     top : "0",
@@ -104,24 +94,23 @@ lgb.component.SplitPanel.prototype.injectTo = function(parentElement) {
   });
   
   
-  this.splitterBarContainer_.append(this.leftPane_).append(this.rightPane_);
+  this.splitterBarContainer_.append(this.paneOne_).append(this.paneTwo_);
   this.setMainElement(this.splitterBarContainer_);
   
   goog.base(this, 'injectTo', parentElement);
   
-  var px = String (this.ds.splitLocation) + 'px';
-  
-  this.splitterBarContainer_.kendoSplitter({
-    panes : [{
-      collapsible : true,
-      size : px
-    }, {
-      collapsible : false
-    }]
-  });
-  
+  var theOptions = {panes :  this.ds.panes};
 
-  this.kendoSplitter1_ = this.splitterBarContainer_.data("kendoSplitter");
-  this.kendoSplitter1_.bind('resize', this.d(this.onResize_));
+
+  if (this.ds.splitsAlongHorizontalAxis) {
+    theOptions.orientation = 'horizontal';
+  } else {
+    theOptions.orientation = 'vertical';
+  }
+  
+  this.splitterBarContainer_.kendoSplitter(theOptions);
+  
+  this.kendoSplitter_ = this.splitterBarContainer_.data("kendoSplitter");
+  this.kendoSplitter_.bind('resize', this.d(this.onResize_));
   
 };

@@ -24,79 +24,61 @@ goog.require('lgb.simulation.model.WebSocketConnectionState');
  * @constructor
  * @extends lgb.controller.BaseController
  */
-lgb.controller.SimulationController = function() {
+lgb.controller.SimulationController = function(simMainController) {
 
   lgb.controller.BaseController.call(this);
-    
-    
-  this.simulationMainController_ = new lgb.simulation.controller.MainController();
-  this.dataModel = this.simulationMainController_.getDataModel();
+  this.bind_();
+  
+};
+goog.inherits(lgb.controller.SimulationController, lgb.controller.BaseController);
+
+
+
+lgb.controller.SimulationController.prototype.onSimulationEngineLoaded_ = function(event) {
+  
+  this.simMainController_ = event.payload;
+  this.init_();
+
+};
+
+
+
+
+
+lgb.controller.SimulationController.prototype.init_ = function() {
+  this.dataModel = this.simMainController_.getDataModel();
   
   this.view = new lgb.view.SimulationView(this.dataModel);
   this.buttonView = new lgb.view.SimulationButtonView();
 
-  this.bind_();
+  this.bind2_();
   
   this.buttonView.init();
   this.view.init();
   
   this.trigger(e.RequestAddToLayout, this.buttonView);
   this.trigger(e.RequestAddToLayout, this.view);
-   
-
-
-    
 };
-goog.inherits(lgb.controller.SimulationController, lgb.controller.BaseController);
-
 
 
 lgb.controller.SimulationController.prototype.bind_ = function() {
+  
+    this.listen (
+        e.SimulationEngineLoaded,
+        this.onSimulationEngineLoaded_
+    );
+    
+};
+
+
+lgb.controller.SimulationController.prototype.bind2_ = function() {
     
     this.listenTo (
         this.view,
         lgb.simulation.events.SimStateNativeRequest.TYPE,
         this.onSimStateNativeRequest_
     );
-    
-    
-    this.listenTo (
-        this.simulationMainController_,
-        lgb.simulation.events.MessageEvent.TYPE,
-        this.onMessageEvent_
-    );
-    
-    
-    this.listenTo (
-        this.simulationMainController_,
-        lgb.simulation.events.SimStateNativeNotify.TYPE,
-        this.onSimStateNativeNotify_
-    );
-    
-    
-    
-    this.listenTo (
-        this.simulationMainController_,
-        lgb.simulation.events.ConfigChangeNotify.TYPE,
-        this.onConfigChangeNotify_
-    );
-    
-    
-    this.listenTo (
-        this.simulationMainController_,
-        lgb.simulation.events.XMLparsedEvent.TYPE,
-        this.onXMLparsedEvent_
-    );
-    
-    
-    
-    this.listenTo (
-        this.simulationMainController_,
-        lgb.simulation.events.ResultEvent.TYPE,
-        this.onResultEvent_
-    );
-    
-    
+
     
   this.listenTo(this.buttonView,
     e.RequestActivateView,
@@ -106,9 +88,10 @@ lgb.controller.SimulationController.prototype.bind_ = function() {
     e.ViewClosed,
     this.onClosedPanel);
     
-    
-}
 
+    
+    
+};
 
 
 
@@ -124,32 +107,9 @@ lgb.controller.SimulationController.prototype.onRequestActivateView_ =
   this.buttonView.setSelected(showFlag);
   this.view.show(showFlag);
  
-  this.simulationMainController_.connect(true);
+  this.simMainController_.connect(true);
 };
 
-
-lgb.controller.SimulationController.prototype.onResultEvent_ = function(event) {
-
-  this.dataModel.changePropertyEx('scalarValueResults', event.getPayload());
-};
-
-lgb.controller.SimulationController.prototype.onXMLparsedEvent_ = function(event) {
-
-  this.dataModel.changePropertyEx('xmlParsedInfo', event.getPayload());
-};
-
-lgb.controller.SimulationController.prototype.onConfigChangeNotify_ = function(event) {
-  //this.dataModel.setMessage(event.getPayload());
-};
-
-lgb.controller.SimulationController.prototype.onMessageEvent_ = function(event) {
-
-  this.dataModel.changePropertyEx('messageStruct', event.getPayload());
-};
-
-lgb.controller.SimulationController.prototype.onSimStateNativeNotify_ = function(event) {
-  this.dataModel.changePropertyEx('simStateNative', event.getPayload());
-};
 
 
 
@@ -160,7 +120,7 @@ lgb.controller.SimulationController.prototype.onSimStateNativeNotify_ = function
 lgb.controller.SimulationController.prototype.onSimStateNativeRequest_ = function(event) {
 
   this.dataModel.changePropertyEx('simStateNative', event.getPayload());
-  this.simulationMainController_.serializeAndSend(event);
+  this.simMainController_.serializeAndSend(event);
 
 }; 
 
@@ -173,7 +133,7 @@ lgb.controller.SimulationController.prototype.onClosedPanel =
     
   this.buttonView.setSelected(false);
   
-  this.simulationMainController_.connect(false);
+  this.simMainController_.connect(false);
   
 };
 

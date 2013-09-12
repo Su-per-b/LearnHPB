@@ -25,25 +25,16 @@ lgb.component.Link = function(ds) {
 goog.inherits(lgb.component.Link, lgb.view.BaseV);
 
 
-/**
- * @return {string} The html string.
- */
+
+
 lgb.component.Link.prototype.getHTML = function() {
 
-
-  return this.getHTML2() + ' <br />';
-};
-
-lgb.component.Link.prototype.getHTML2 = function() {
-
-   var theClass;
+   var theClass ="{0}-link".format(this.ds.cssClass);
    
-   if (this.ds.isEnabled) {
-       theClass = "admin-link";
-   } else {
-       theClass = "admin-link-disabled";
+   if (!this.ds.isEnabled) {
+       theClass +="-disabled";
    }
- 
+   
  var html = '<a id="{0}" class="{1}" href="#">{2}</a>'.
   format(
       this.ds.htmlID,
@@ -55,19 +46,25 @@ lgb.component.Link.prototype.getHTML2 = function() {
 };
 
 
+
 /**
  * Binds specific event types to functions which handle the events.
  * If no event target is specified then the listener is set  on the global
  * event bus.
  */
-lgb.component.Link.prototype.bind = function() {
+lgb.component.Link.prototype.bind = function(el) {
     
   var delegateClick = this.d(this.onMouseClick_);
   var delegateOver = this.d(this.onMouseOver_);
   var delegateOut = this.d(this.onMouseOut_);
 
+  
+  if (el) {
+    this.theEl_ = el;
+  } else {
+    var el = $('#' + this.ds.htmlID);
+  }
 
-  var el = $('#' + this.ds.htmlID);
 
   el.click(delegateClick);
   el.hover(delegateOver, delegateOut);
@@ -77,26 +74,36 @@ lgb.component.Link.prototype.bind = function() {
 
 lgb.component.Link.prototype.setEnabled = function(isEnabled) {
    
-   
-   
-   
+
     if (this.ds.isEnabled != isEnabled) {
+        
+        var enabledClass = this.ds.cssClass + '-link';
+        var disabledClass = enabledClass + '-disabled';
+      
         this.ds.isEnabled = isEnabled;
 
-
-        var el = $('#' + this.ds.htmlID);
-        
-        this.ds.htmlID
-        
-        if(isEnabled) {
-            el.removeClass('admin-link-disabled');
-            el.addClass('admin-link');
-            
+        if (this.theEl_) {
+          var el = this.theEl_;
+          
+          if(isEnabled) {
+              el.removeClass(disabledClass);
+              el.addClass(enabledClass);
+              
+          } else {
+              el.removeClass(enabledClass);
+              el.addClass(disabledClass);
+          }
         } else {
-            el.removeClass('admin-link');
-            el.addClass('admin-link-disabled');
+           var el = $('#' + this.ds.htmlID);
+          if(isEnabled) {
+              el.removeClass(disabledClass);
+              el.addClass(enabledClass);
+          } else {
+              el.removeClass(enabledClass);
+              el.addClass(disabledClass);
+          }
         }
-   
+
     }
 };
 

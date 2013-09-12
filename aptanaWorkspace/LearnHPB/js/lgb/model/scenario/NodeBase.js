@@ -20,7 +20,7 @@ lgb.model.scenario.NodeBase = function(node) {
   
   var className = this.getClassName();
   
-  if (className != node.tagName) {
+  if (null == node || className != node.tagName) {
       debugger;
   }
   
@@ -50,6 +50,13 @@ lgb.model.scenario.NodeBase.prototype.makeChildren_ = function() {
 lgb.model.scenario.NodeBase.prototype.parseChild_ = function(childNode) {
   
   var tagName = childNode.tagName;
+  
+  if ("description" == tagName) {
+    
+    this.description = childNode.textContent;
+    
+  }
+  
   
   if ("description" == tagName) {
     
@@ -134,10 +141,18 @@ lgb.model.scenario.NodeBase.prototype.setPropertyFloat_ = function(propertyName)
 lgb.model.scenario.NodeBase.prototype.setPropertyBool_ = function(propertyName) {
     
   var strValue = this.getAttribute(propertyName);
-  if (strValue) {
-    this[propertyName] = Boolean(strValue);
-  } else {
+  if (undefined == strValue) {
     this[propertyName] = false;
+  } else {
+    
+    if ("false" == strValue.toLowerCase()) {
+      this[propertyName] = false;
+    } else if ("true" == strValue.toLowerCase()) {
+      this[propertyName] = true;
+    } else {
+      debugger;
+    }
+    
   }
 
 };

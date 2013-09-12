@@ -3,8 +3,9 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.model.scenario.Integer');
+goog.provide('lgb.model.scenario.Boolean');
 goog.require('lgb.model.scenario.NodeBase');
+
 
 
 /**
@@ -14,19 +15,20 @@ goog.require('lgb.model.scenario.NodeBase');
  * @param {!lgb.utils.XmlWrapper} xmlParser The parse used
  * to populate the object, contains an xml document.
  */
-lgb.model.scenario.Integer = function(node) {
+lgb.model.scenario.Boolean = function(node) {
 
   lgb.model.scenario.NodeBase.call(this, node);
   
 };
-goog.inherits(lgb.model.scenario.Integer, lgb.model.scenario.NodeBase);
+goog.inherits(lgb.model.scenario.Boolean, lgb.model.scenario.NodeBase);
 
 
 
-lgb.model.scenario.Integer.prototype.parse_ = function(node) {
-  this.setPropertyInt_('min');
-  this.setPropertyInt_('max');
-  this.setPropertyInt_('default');
+lgb.model.scenario.Boolean.prototype.parse_ = function(node) {
+  
+  this.setPropertyBool_('default');  
+
+  
 };
 
 

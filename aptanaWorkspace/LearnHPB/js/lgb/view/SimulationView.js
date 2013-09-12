@@ -264,18 +264,18 @@ lgb.view.SimulationView.prototype.makeTopPanel_ = function() {
     this.topPanelButtons_ = new Array();
 
     // linkHtml = '';
-    var ds = new lgb.component.LinkDataSource('Connect~', this.htmlID, 'connect')
+    var ds = new lgb.component.LinkDataSource('Connect~', this.htmlID, 'connect');
     this.connectLink_ = new lgb.component.Link(ds);
     this.connectLink_.data = lgb.simulation.model.voNative.SimStateNative.simStateNative_1_connect_requested;
     this.topPanelButtons_.push(this.connectLink_);
 
-    var ds2 = new lgb.component.LinkDataSource('XML Parse {}', this.htmlID, 'xmlParse-link')
+    var ds2 = new lgb.component.LinkDataSource('XML Parse {}', this.htmlID, 'xmlParse-link');
     this.xmlParseLink_ = new lgb.component.Link(ds2);
     this.xmlParseLink_.data = lgb.simulation.model.voNative.SimStateNative.simStateNative_2_xmlParse_requested;
 
     this.topPanelButtons_.push(this.xmlParseLink_);
 
-    var ds3 = new lgb.component.LinkDataSource('Init ^', this.htmlID, 'init-link')
+    var ds3 = new lgb.component.LinkDataSource('Init ^', this.htmlID, 'init-link');
     this.initLink_ = new lgb.component.Link(ds3);
     this.initLink_.data = lgb.simulation.model.voNative.SimStateNative.simStateNative_3_init_requested;
 
@@ -287,25 +287,25 @@ lgb.view.SimulationView.prototype.makeTopPanel_ = function() {
 
     this.topPanelButtons_.push(this.runLink_);
 
-    var ds5 = new lgb.component.LinkDataSource('Step >', this.htmlID, 'step-link')
+    var ds5 = new lgb.component.LinkDataSource('Step >', this.htmlID, 'step-link');
     this.stepLink_ = new lgb.component.Link(ds5);
     this.stepLink_.data = lgb.simulation.model.voNative.SimStateNative.simStateNative_5_step_requested;
 
     this.topPanelButtons_.push(this.stepLink_);
 
-    var ds6 = new lgb.component.LinkDataSource('Stop []', this.htmlID, 'stop-link')
+    var ds6 = new lgb.component.LinkDataSource('Stop []', this.htmlID, 'stop-link');
     this.stopLink_ = new lgb.component.Link(ds6);
     this.stopLink_.data = lgb.simulation.model.voNative.SimStateNative.simStateNative_5_stop_requested;
 
     this.topPanelButtons_.push(this.stopLink_);
 
-    var ds7 = new lgb.component.LinkDataSource('Terminate.', this.htmlID, 'terminate-link')
+    var ds7 = new lgb.component.LinkDataSource('Terminate.', this.htmlID, 'terminate-link');
     this.terminateLink_ = new lgb.component.Link(ds7);
     this.terminateLink_.data = lgb.simulation.model.voNative.SimStateNative.simStateNative_7_terminate_requested;
 
     this.topPanelButtons_.push(this.terminateLink_);
 
-    var ds8 = new lgb.component.LinkDataSource('Clear -', this.htmlID, 'clear-link')
+    var ds8 = new lgb.component.LinkDataSource('Clear -', this.htmlID, 'clear-link');
     this.clearLink_ = new lgb.component.Link(ds8);
     this.topPanelButtons_.push(this.clearLink_);
 
@@ -318,7 +318,7 @@ lgb.view.SimulationView.prototype.makeTopPanel_ = function() {
         var button = this.topPanelButtons_[i];
 
         button.ds.isEnabled = false;
-        linkHtml += button.getHTML2();
+        linkHtml += button.getHTML();
 
     };
 

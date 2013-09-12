@@ -31,10 +31,32 @@ goog.inherits(lgb.view.input.LayoutView, lgb.view.input.BaseViewGUI);
 
 lgb.view.input.LayoutView.prototype.init = function() {
 
-  this.splitPanelDS_ = new lgb.component.SplitPanelDataSource();
-  this.splitPanelDS_.splitLocation = 380;
+  this.splitPanelHorizontalDS_ = new lgb.component.SplitPanelDataSource();
   
-  this.splitPanel_ = new lgb.component.SplitPanel(this.splitPanelDS_);
+  this.splitPanelHorizontalDS_.panes =  [{
+      collapsible : true,
+      size:"380px"
+    }, {
+      collapsible : false
+    }];
+    
+  this.splitPanelHorizontalDS_.splitsAlongHorizontalAxis = true;
+  this.splitPanelHorizontal_ = new lgb.component.SplitPanel(this.splitPanelHorizontalDS_);
+  
+  
+  this.splitPanelVerticalDS_ = new lgb.component.SplitPanelDataSource();
+  
+
+  this.splitPanelVerticalDS_.panes =  [{
+      collapsible : false,
+    }, {
+      size:"200px",
+      collapsible : true
+    }];
+    
+    
+  this.splitPanelVerticalDS_.splitsAlongHorizontalAxis = false;
+  this.splitPanelVertical_ = new lgb.component.SplitPanel(this.splitPanelVerticalDS_);
   
   this.bind_();
   this.inject();
@@ -43,7 +65,8 @@ lgb.view.input.LayoutView.prototype.init = function() {
 
 lgb.view.input.LayoutView.prototype.bind_ = function(guiView) {
   
-  this.listenTo(this.splitPanel_, e.Resize, this.onSplitter1Resize_);
+  this.listenTo(this.splitPanelHorizontal_, e.Resize, this.onSplitterResize_);
+  this.listenTo(this.splitPanelVertical_, e.Resize, this.onSplitterResize_);
   this.listenForChange_('add');
   
 };
@@ -54,7 +77,7 @@ lgb.view.input.LayoutView.prototype.bind_ = function(guiView) {
 lgb.view.input.LayoutView.prototype.onChange_add_ = function(value) {
   
   this.add(value);
-}
+};
 
 
 
@@ -82,7 +105,7 @@ lgb.view.input.LayoutView.prototype.add = function(guiView) {
 
       el.css("z-index", 100);
       el.css("position", "absolute");
-      guiView.injectTo(this.rightPanelTop_);
+      guiView.injectTo(this.viewportTop_);
 
       break;
 
@@ -123,7 +146,7 @@ lgb.view.input.LayoutView.prototype.add = function(guiView) {
 
       break;
     case "RightTopInputGUI":
-      guiView.injectTo(this.rightPanelTop_);
+      guiView.injectTo(this.viewportTop_);
       break;
     case "MainInputGUI":
       guiView.injectTo(this.leftPanel_);
@@ -137,6 +160,9 @@ lgb.view.input.LayoutView.prototype.add = function(guiView) {
     case "TestingInputGUI":
       guiView.injectTo(this.leftPanel_);
       break;
+    case "ResultsGUI":
+      guiView.injectTo(this.bottomRightPanel_);
+      break;
 
     default:
       debugger;
@@ -147,7 +173,7 @@ lgb.view.input.LayoutView.prototype.add = function(guiView) {
 };
 
 
-lgb.view.input.LayoutView.prototype.onSplitter1Resize_ = function(event) {
+lgb.view.input.LayoutView.prototype.onSplitterResize_ = function(event) {
   this.triggerLocal(e.LayoutChange);
 };
 
@@ -166,17 +192,23 @@ lgb.view.input.LayoutView.prototype.inject = function() {
 
   goog.base(this,'inject');
 
-  this.splitPanel_.injectTo(this.getMainElement());
+  this.splitPanelHorizontal_.injectTo(this.getMainElement());
+  this.leftPanel_ = this.splitPanelHorizontal_.getPane(0);
+  this.rightPanel_ = this.splitPanelHorizontal_.getPane(1);
   
-  this.leftPanel_ = this.splitPanel_.getPane(0);
-  this.rightPanel_ = this.splitPanel_.getPane(1);
+
+
+  this.splitPanelVertical_.injectTo(this.rightPanel_);
+  this.topRightPanel_ = this.splitPanelVertical_.getPane(0);
+  this.bottomRightPanel_ = this.splitPanelVertical_.getPane(1);
   
-  
+
+
   this.webGLcanvas_ = this.makeDiv('webGLcanvas');
-  this.rightPanelTop_ = this.makeDiv('rightPanelTop');
+  this.viewportTop_ = this.makeDiv('viewportTop');
   
-  this.rightPanel_.append(this.rightPanelTop_);
-  this.rightPanel_.append(this.webGLcanvas_);
+  this.topRightPanel_.append(this.viewportTop_);
+  this.topRightPanel_.append(this.webGLcanvas_);
 
 
   this.webGLcanvas_.css({
@@ -185,7 +217,7 @@ lgb.view.input.LayoutView.prototype.inject = function() {
   });
   
 
-  this.rightPanelTop_.css({
+  this.viewportTop_.css({
     width : "100%",
     height : "32px",
     background:"#fafafa"

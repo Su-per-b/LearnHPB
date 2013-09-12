@@ -1665,6 +1665,7 @@
         <lowValue type="Float">0.0</lowValue>
         <highValue type="Float">0.0</highValue>
         <initialValue type="Float">0.0</initialValue>
+        
         <ioType type="String">OUTPUT</ioType>
         <viewType type="String">PUBLIC</viewType>
         <unitSI type="String">C</unitSI>
@@ -1674,18 +1675,25 @@
         <disabled type="Boolean">true</disabled>
         <isFault type="Boolean">false</isFault>
       </sysVar>
+      
       <sysVar>
         <name type="String">BOITLiqSup</name>
 
         <displayName type="String">design hot water supply temperature</displayName>
         <description type="String"></description>
+        
         <index type="Integer">17</index>
+        
+        
         <lowValue type="Float">60.0</lowValue>
         <highValue type="Float">95.0</highValue>
         <initialValue type="Float">82.0</initialValue>
+        
+        
 
         <ioType type="String">PARAMETER</ioType>
         <viewType type="String">PUBLIC</viewType>
+        
         <unitSI type="String">C</unitSI>
         <SItoIP type="String">SI*1.8+32</SItoIP>
         <unitIP type="String">F</unitIP>
@@ -1693,6 +1701,8 @@
 
         <isFault type="Boolean">false</isFault>
       </sysVar>
+      
+      
       <sysVar>
         <name type="String">BOILiqFlw</name>
         <displayName type="String">Hot water flow rate</displayName>
@@ -1732,6 +1742,8 @@
         <disabled type="Boolean">true</disabled>
         <isFault type="Boolean">false</isFault>
       </sysVar>
+      
+      
       <sysVar>
         <name type="String">CHLTLiqSup</name>
         <displayName type="String">design chilled water supply temperature</displayName>
@@ -1741,6 +1753,7 @@
         <lowValue type="Float">2.0</lowValue>
         <highValue type="Float">13.0</highValue>
         <initialValue type="Float">7.0</initialValue>
+        
         <ioType type="String">PARAMETER</ioType>
         <viewType type="String">PUBLIC</viewType>
 
@@ -1771,18 +1784,22 @@
       </sysVar>
     </systemNode>
     <systemNode name="Fan" id="FAN">
+    
       <sysVar>
         <name type="String">FANTAirEnt</name>
 
         <displayName type="String">Fan entering air temp</displayName>
         <description type="String"></description>
         <index type="Integer">23</index>
+        
         <lowValue type="Float">0.0</lowValue>
         <highValue type="Float">0.0</highValue>
         <initialValue type="Float">0.0</initialValue>
 
         <ioType type="String">OUTPUT</ioType>
         <viewType type="String">PUBLIC</viewType>
+        
+        
         <unitSI type="String">C</unitSI>
         <SItoIP type="String">SI*1.8+32</SItoIP>
         <unitIP type="String">F</unitIP>
@@ -1845,12 +1862,15 @@
         <disabled type="Boolean">false</disabled>
         <isFault type="Boolean">false</isFault>
       </sysVar>
+      
+      
       <sysVar>
         <name type="String">FANAirFlwd</name>
 
         <displayName type="String">fan volume flow rate at design operating point</displayName>
         <description type="String"></description>
         <index type="Integer">3</index>
+        
         <lowValue type="Float">0.0</lowValue>
         <highValue type="Float">6.0</highValue>
         <initialValue type="Float">2.0</initialValue>
@@ -1864,6 +1884,8 @@
 
         <isFault type="Boolean">false</isFault>
       </sysVar>
+      
+      
       <sysVar>
         <name type="String">FANSpd</name>
         <displayName type="String">Fan speed</displayName>
@@ -1873,6 +1895,7 @@
         <lowValue type="Float">0.0</lowValue>
         <highValue type="Float">0.0</highValue>
         <initialValue type="Float">0.0</initialValue>
+        
         <ioType type="String">OUTPUT</ioType>
         <viewType type="String">PUBLIC</viewType>
         <unitSI type="String">%</unitSI>
@@ -1882,12 +1905,16 @@
         <disabled type="Boolean">true</disabled>
         <isFault type="Boolean">false</isFault>
       </sysVar>
+      
+      
+      
       <sysVar>
         <name type="String">FANSpdMin</name>
 
         <displayName type="String">Fan minimum speed ratio</displayName>
         <description type="String"></description>
         <index type="Integer">9</index>
+        
         <lowValue type="Float">0.0</lowValue>
         <highValue type="Float">100.0</highValue>
         <initialValue type="Float">30.0</initialValue>
@@ -1901,6 +1928,10 @@
 
         <isFault type="Boolean">false</isFault>
       </sysVar>
+      
+      
+      
+      
       <sysVar>
         <name type="String">FANTAirLvg</name>
         <displayName type="String">Fan leaving air temp</displayName>
@@ -1910,6 +1941,7 @@
         <lowValue type="Float">0.0</lowValue>
         <highValue type="Float">0.0</highValue>
         <initialValue type="Float">0.0</initialValue>
+        
         <ioType type="String">OUTPUT</ioType>
         <viewType type="String">PUBLIC</viewType>
         <unitSI type="String">C</unitSI>
@@ -1919,12 +1951,17 @@
         <disabled type="Boolean">true</disabled>
         <isFault type="Boolean">false</isFault>
       </sysVar>
+      
+      
+      
+      
       <sysVar>
         <name type="String">FANki</name>
 
         <displayName type="String">Fan speed controller integrator time constant</displayName>
         <description type="String"></description>
         <index type="Integer">11</index>
+        
         <lowValue type="Float">0.01</lowValue>
         <highValue type="Float">1000.0</highValue>
         <initialValue type="Float">60.0</initialValue>
@@ -1938,6 +1975,9 @@
 
         <isFault type="Boolean">false</isFault>
       </sysVar>
+      
+      
+      
       <sysVar>
         <name type="String">FANHd</name>
         <displayName type="String">fan head at design operating point</displayName>
@@ -1947,6 +1987,7 @@
         <lowValue type="Float">0.0</lowValue>
         <highValue type="Float">1000.0</highValue>
         <initialValue type="Float">461.0</initialValue>
+        
         <ioType type="String">PARAMETER</ioType>
         <viewType type="String">PUBLIC</viewType>
         <unitSI type="String">Pa</unitSI>
@@ -1955,19 +1996,26 @@
         <unitIP type="String">In.W</unitIP>
         <disabled type="Boolean">true</disabled>
         <isFault type="Boolean">false</isFault>
+        
       </sysVar>
+      
+      
       <sysVar>
         <name type="String">FANFailedFanSensor</name>
 
         <displayName type="String">Duct static press sensor offset</displayName>
         <description type="String"></description>
+        
         <index type="Integer">30</index>
+        
+        
         <lowValue type="Float">-500.0</lowValue>
         <highValue type="Float">500.0</highValue>
         <initialValue type="Float">0.0</initialValue>
 
         <ioType type="String">INPUT</ioType>
         <viewType type="String">PUBLIC</viewType>
+        
         <unitSI type="String">Pa</unitSI>
         <SItoIP type="String"></SItoIP>
         <unitIP type="String">In.W</unitIP>
@@ -1983,25 +2031,37 @@
         <zonePosition type="String">CENTER</zonePosition>
         <isPercentage type="Boolean">false</isPercentage>
       </sysVar>
+      
+      
       <sysVar>
         <name type="String">FANKp</name>
         <displayName type="String">Fan speed controller P gain</displayName>
         <description type="String"></description>
 
         <index type="Integer">10</index>
+        
+        
         <lowValue type="Float">0.01</lowValue>
         <highValue type="Float">100.0</highValue>
         <initialValue type="Float">1.0</initialValue>
+        
+        
         <ioType type="String">INPUT</ioType>
         <viewType type="String">PUBLIC</viewType>
+
+
 
         <unitSI type="String"></unitSI>
         <SItoIP type="String"></SItoIP>
         <unitIP type="String"></unitIP>
+        
+        
         <disabled type="Boolean">true</disabled>
         <isFault type="Boolean">false</isFault>
       </sysVar>
     </systemNode>
+    
+    
     <systemNode name="Duct" id="DCT">
 
       <sysVar>
@@ -2028,9 +2088,13 @@
         <description type="String"></description>
 
         <index type="Integer">12</index>
+        
+        
         <lowValue type="Float">50.0</lowValue>
         <highValue type="Float">800.0</highValue>
         <initialValue type="Float">190.0</initialValue>
+        
+        
         <ioType type="String">INPUT</ioType>
         <viewType type="String">PUBLIC</viewType>
 

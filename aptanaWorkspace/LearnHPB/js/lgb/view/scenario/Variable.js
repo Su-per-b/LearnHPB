@@ -9,6 +9,8 @@ goog.require('lgb.view.scenario.BaseViewGUI');
 goog.require('lgb.view.scenario.Integer');
 goog.require('lgb.view.scenario.OptionList');
 goog.require('lgb.view.scenario.Decimal');
+goog.require('lgb.view.scenario.Boolean');
+goog.require('lgb.view.scenario.Temperature');
 
 
 
@@ -32,7 +34,7 @@ lgb.view.scenario.Variable.prototype.appendTo = function(parentElement) {
   } 
   else {
   
-    var html = "{0} ({1})".format(this.dataModel.name, this.dataModel.abbr);
+    var html = "{0} ({1}) - {2}".format(this.dataModel.name, this.dataModel.abbr, this.dataModel.modName);
     this.append(html);
     
       var el = this.getMainElement();
@@ -67,6 +69,7 @@ lgb.view.scenario.Variable.prototype.debugProperties_ = function() {
   this.appendDebugProperty_('phase');
   this.appendDebugProperty_('variability');
   this.appendDebugProperty_('unit');
+  this.appendDebugProperty_('modName');
   
 };
 
@@ -75,7 +78,9 @@ lgb.view.scenario.Variable.prototype.debugProperties_ = function() {
 lgb.view.scenario.Variable.childClassMap = {
     "Integer" : lgb.view.scenario.Integer,
     "OptionList" : lgb.view.scenario.OptionList,
-    "Decimal" : lgb.view.scenario.Decimal
+    "Decimal" : lgb.view.scenario.Decimal,
+    "Boolean" : lgb.view.scenario.Boolean,
+    "Temperature" : lgb.view.scenario.Temperature
 };
 
 

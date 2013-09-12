@@ -190,9 +190,35 @@ a.admin-link {
 }
 
 
-a.admin-link:hover {
-	background-color: #6d9d35;
+a.sim-link:hover {
+	background-color: #A6CD73;
 }
+
+a.sim-link, a.sim-link-disabled {
+  font-weight:normal;
+  font-size:10pt;
+  color:#ffffff;
+  background-color: #666666;
+  padding:1px 3px 2px 4px;
+  margin:2px;
+  display: inline-block;
+}
+
+
+a.sim-link:hover {
+  background-color: #A6CD73;
+}
+
+a.sim-link-disabled {
+  background-color:#999999; 
+}
+
+a.sim-link-disabled:hover  {
+  cursor: default;
+}
+
+
+
 
 #simulationView{
 	text-align: left;	
@@ -219,6 +245,8 @@ a.admin-link:hover {
 	background-color:#999999; 
 	margin:0 6px 0 6px;
 }
+
+
 
 
 #simulationView-topPanel a.admin-link-disabled:hover  {

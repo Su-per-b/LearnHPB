@@ -25,7 +25,6 @@ lgb.component.SplitPanelDataSource = function() {
   lgb.component.BaseDataSource.call(this);
 
   
-  
   this.pane1 = {
     size:'250px'
   };

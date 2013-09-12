@@ -56,6 +56,10 @@ lgb.model.scenario.Bs2.prototype.parse = function(xml) {
   var xmlWrapper = new lgb.utils.XmlWrapper(xml);
   var node = xmlWrapper.makeRootNode('/SystemList');
   
+  if (null == node) {
+    debugger;
+  }
+  
   this.systemList = new lgb.model.scenario.SystemList(node);
   
  // this.systemMap = systemList.systemMap;

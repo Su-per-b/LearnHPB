@@ -25,8 +25,7 @@ lgb.view.scenario.Decimal.prototype.appendTo = function(parentElement) {
     this.appendDebugProperty_('max');
     this.appendDebugProperty_('default');
     
-  } 
-  else {
+  } else {
 
         this.inputElement_ = $('<input>')
           .addClass('input-Integer-textbox')

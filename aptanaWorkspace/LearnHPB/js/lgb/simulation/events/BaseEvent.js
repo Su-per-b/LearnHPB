@@ -4,6 +4,8 @@
  */
  
 goog.provide('lgb.simulation.events.BaseEvent');
+goog.provide('se.Event');
+
 goog.require('goog.events.Event');
 
 /**
@@ -60,3 +62,8 @@ lgb.simulation.events.BaseEvent.TYPE = 'lgb.simulation.events.BaseEvent';
  * @type {string}
  */
 lgb.simulation.events.BaseEvent.SERVER_TYPE = 'com.sri.straylight.fmuWrapper.event.BaseEvent';
+
+
+se.Event = function() {};
+
+se.WebSocketChangeRequest = 'se.WebSocketChangeRequest';

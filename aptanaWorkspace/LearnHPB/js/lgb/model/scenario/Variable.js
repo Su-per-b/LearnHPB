@@ -9,7 +9,8 @@ goog.require('lgb.model.scenario.NodeBase');
 goog.require('lgb.model.scenario.Integer');
 goog.require('lgb.model.scenario.OptionList');
 goog.require('lgb.model.scenario.Decimal');
-
+goog.require('lgb.model.scenario.Boolean');
+goog.require('lgb.model.scenario.Temperature');
 
 
 
@@ -38,6 +39,7 @@ lgb.model.scenario.Variable.prototype.parse_ = function(node) {
   this.phase = this.getAttribute("phase");
   this.variability = this.getAttribute("variability");
   this.unit = this.getAttribute("unit");
+  this.modName = this.getAttribute("modName");
 
   this.makeChildren_();
   
@@ -46,7 +48,7 @@ lgb.model.scenario.Variable.prototype.parse_ = function(node) {
 
 lgb.model.scenario.Variable.prototype.getPropertyNames = function() {
   
-  return   ['name', 'abbr', 'scope', 'phase', 'variability', 'unit'];
+  return   ['name', 'abbr', 'scope', 'phase', 'variability', 'unit', 'modName'];
 };
 
 
@@ -55,12 +57,8 @@ lgb.model.scenario.Variable.prototype.getPropertyNames = function() {
 lgb.model.scenario.Variable.childClassMap = {
     "Integer" : lgb.model.scenario.Integer,
     "OptionList" : lgb.model.scenario.OptionList,
-    "Decimal" : lgb.model.scenario.Decimal
-  }
+    "Decimal" : lgb.model.scenario.Decimal,
+    "Boolean" : lgb.model.scenario.Boolean,
+    "Temperature" : lgb.model.scenario.Temperature,
+};
   
-
-lgb.model.scenario.Variable.propertiesClassMap = {
-    "scope" : lgb.model.scenario.Integer,
-    "abbr" : lgb.model.scenario.OptionList,
-    "Decimal" : lgb.model.scenario.Decimal
-}
