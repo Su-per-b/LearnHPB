@@ -135,7 +135,7 @@ lgb.view.input.SimulationInputGUI.prototype.injectTo = function(parentElement) {
   var el = this.getMainElement();
   
 
-  el.append('<h4>Select Simulation</h4>');
+  el.append('<h4>Simulation</h4>');
   el.append('<h5>Websockets</h5>');
   
   el.append('State:');

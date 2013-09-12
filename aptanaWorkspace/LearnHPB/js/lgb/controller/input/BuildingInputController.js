@@ -4,11 +4,8 @@ goog.require('lgb.controller.BaseController');
 goog.require('lgb.view.input.BuildingInputGUI');
 goog.require('lgb.model.input.BaseInputModel');
 
-goog.require('lgb.controller.input.BuildingGeneralInputController');
-goog.require('lgb.controller.input.LightingInputController');
-goog.require('lgb.controller.input.DayLightingInputController');
-goog.require('lgb.controller.input.EnvelopeInputController');
-goog.require('lgb.controller.input.HvacInputController');
+goog.require('lgb.controller.input.BuildingInputSubController');
+
 
 
 
@@ -60,7 +57,7 @@ lgb.controller.input.BuildingInputController.prototype.makeSubControllerHelper_ 
 
 lgb.controller.input.BuildingInputController.prototype.makeSubController_ = function(title) {
   
-  var subController = new lgb.controller.input.BuildingGeneralInputController(title);
+  var subController = new lgb.controller.input.BuildingInputSubController(title);
   this.makeSubControllerHelper_(subController);
 
 };

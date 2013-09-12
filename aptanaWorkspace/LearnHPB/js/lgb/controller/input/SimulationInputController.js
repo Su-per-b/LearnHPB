@@ -75,8 +75,6 @@ lgb.controller.input.SimulationInputController.prototype.bind2_ = function() {
     );
     
     
-
-
 };
 
 
@@ -85,16 +83,7 @@ lgb.controller.input.SimulationInputController.prototype.bind2_ = function() {
 lgb.controller.input.SimulationInputController.prototype.onSimStateNativeRequest_ = function(event) {
   
   var payload = event.getPayload();
-  
-/*
-  this.dataModel.changePropertyEx('simStateNative', payload);
-  this.simMainController_.serializeAndSend(event);*/
-
-  
   this.simMainController_.requestSimStateChange(payload);
-    
-    
-  return;
 };
 
 
@@ -102,9 +91,8 @@ lgb.controller.input.SimulationInputController.prototype.onSimStateNativeRequest
 
 
 lgb.controller.input.SimulationInputController.prototype.onWebSocketChangeRequest_ = function(event) {
-
-  this.simMainController_.requestWebSocketStateChange(event.payload);
-
+  var payload = event.getPayload();
+  this.simMainController_.requestWebSocketStateChange(payload);
 };
 
 
