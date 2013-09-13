@@ -23,12 +23,6 @@ lgb.world.view.OutputGUI.prototype.init = function() {
   this.dataSource = new lgb.component.TabStripDataSource('mainInputGUI-tabStrip');
   this.tabStrip1 = new lgb.component.TabStrip(this.dataSource);
 
-/*
-  this.tabStrip1.setOptions({
-    width : "100%"
-  });
-*/
-
   this.tabTitleMap_ = {};
   
   this.triggerLocal(e.RequestAddToParentGUI);

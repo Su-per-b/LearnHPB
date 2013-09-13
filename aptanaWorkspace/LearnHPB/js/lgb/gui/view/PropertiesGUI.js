@@ -3,7 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.gui.view.PropertiesView');
+goog.provide('lgb.gui.view.PropertiesGUI');
 goog.require('lgb.gui.view.DialogView');
 goog.require('lgb.component.FaultWidget');
 goog.require('lgb.component.InputWidget');
@@ -15,7 +15,7 @@ goog.require('lgb.component.TabStripDataSource');
  * @param {lgb.scenario.model.Base} dataModel The data model to display.
  * @extends {lgb.gui.view.DialogView}
  */
-lgb.gui.view.PropertiesView = function(dataModel) {
+lgb.gui.view.PropertiesGUI = function(dataModel) {
 
   
   lgb.gui.view.DialogView.call(this, dataModel, 'propertiesView', lgb.core.Config.HUD_CONTAINER_STR);
@@ -28,12 +28,12 @@ lgb.gui.view.PropertiesView = function(dataModel) {
   this.kendoTabStrip_ = null;
   this.listenForChange_('selectedSystemNode');
 };
-goog.inherits(lgb.gui.view.PropertiesView, lgb.gui.view.DialogView);
+goog.inherits(lgb.gui.view.PropertiesGUI, lgb.gui.view.DialogView);
 
 
 
 
-lgb.gui.view.PropertiesView.prototype.onChange_selectedSystemNode_ = function(selectedSystemNode) {
+lgb.gui.view.PropertiesGUI.prototype.onChange_selectedSystemNode_ = function(selectedSystemNode) {
    this.setDropDownSelection(selectedSystemNode);
    this.showNode(selectedSystemNode);
 };
@@ -45,7 +45,7 @@ lgb.gui.view.PropertiesView.prototype.onChange_selectedSystemNode_ = function(se
  * close button (x) on the dialog.
  * @param {goog.events.Event} event The event received.
  */
-lgb.gui.view.PropertiesView.prototype.onCloseButtonClicked = function(event) {
+lgb.gui.view.PropertiesGUI.prototype.onCloseButtonClicked = function(event) {
   
   this.triggerLocal(e.ViewClosed);
 };
@@ -54,7 +54,7 @@ lgb.gui.view.PropertiesView.prototype.onCloseButtonClicked = function(event) {
  * injects HTML into the DOM
  * @private
  */
-lgb.gui.view.PropertiesView.prototype.inject = function(parentElement) {
+lgb.gui.view.PropertiesGUI.prototype.inject = function(parentElement) {
   
   goog.base(this, 'inject', parentElement);
   
@@ -73,7 +73,7 @@ lgb.gui.view.PropertiesView.prototype.inject = function(parentElement) {
  * injects the dialog panel into the DOM
  * @private
  */
-lgb.gui.view.PropertiesView.prototype.makeDialog_ = function() {
+lgb.gui.view.PropertiesGUI.prototype.makeDialog_ = function() {
 
     var el = this.getMainElement();
     el.direction = 'left';
@@ -97,17 +97,11 @@ lgb.gui.view.PropertiesView.prototype.makeDialog_ = function() {
  * injects the tabs into the DOM
  * @private
  */
-lgb.gui.view.PropertiesView.prototype.makeTabs_ = function() {
+lgb.gui.view.PropertiesGUI.prototype.makeTabs_ = function() {
   
   
   this.dataSource = new lgb.component.TabStripDataSource('PropertiesView-tabStrip');
   this.tabStrip1 = new lgb.component.TabStrip(this.dataSource);
-
-/*
-  this.tabStrip1.setOptions({
-    width : "100%"
-  });
-  */
 
   var el = this.getMainElement();
   this.tabStrip1.injectTo(el);
@@ -128,7 +122,7 @@ lgb.gui.view.PropertiesView.prototype.makeTabs_ = function() {
  * injects the dropdown list box into the DOM
  * @private
  */
-lgb.gui.view.PropertiesView.prototype.makeListBox_ = function() {
+lgb.gui.view.PropertiesGUI.prototype.makeListBox_ = function() {
     this.comboBoxId = this.htmlID + '-comboBox';
 
     var div = $('<div>')
@@ -156,7 +150,7 @@ lgb.gui.view.PropertiesView.prototype.makeListBox_ = function() {
  * @param {goog.events.Event} event The Event that notifies us the
  * user has made a selection.
  */
-lgb.gui.view.PropertiesView.prototype.onDropDownChange = function(event) {
+lgb.gui.view.PropertiesGUI.prototype.onDropDownChange = function(event) {
   var jq = $('#' + this.comboBoxId);
   var id = jq[0].value;
 
@@ -170,7 +164,7 @@ lgb.gui.view.PropertiesView.prototype.onDropDownChange = function(event) {
  * @param {!lgb.scenario.model.SystemNode} systemNode  Used to
  * identify the value to select.
  */
-lgb.gui.view.PropertiesView.prototype.setDropDownSelection = function(systemNode) {
+lgb.gui.view.PropertiesGUI.prototype.setDropDownSelection = function(systemNode) {
 
   if (systemNode.idx != this.currentSelectionIdx) {
       this.currentSelectionIdx = systemNode.idx;
@@ -184,7 +178,7 @@ lgb.gui.view.PropertiesView.prototype.setDropDownSelection = function(systemNode
  * @param {!lgb.scenario.model.SystemNode} systemNode Used to
  * populate the tabs.
  */
-lgb.gui.view.PropertiesView.prototype.showNode = function(systemNode) {
+lgb.gui.view.PropertiesGUI.prototype.showNode = function(systemNode) {
   
 
   this.contentElementList_[0].empty();

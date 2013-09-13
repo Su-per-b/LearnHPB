@@ -95,7 +95,7 @@ lgb.gui.view.PsMasterGUI.prototype.onDataModelChangedEx_ = function(event) {
     var property = {
       idx: changedItem.idx,
       name: propertyName
-    }
+    };
     
     var newValue = changedItem.isChecked;
     

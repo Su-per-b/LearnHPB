@@ -66,7 +66,7 @@ lgb.gui.view.TestLightingGUI.prototype.inject = function(parentElement) {
   var el = this.getMainElement();
   
 
-  var titleDiv = el.append('<h4>Lighting</h4>')
+  var titleDiv = el.append('<h4>Lighting</h4>');
     
   var cb = $('<div>');
   el.append(cb);

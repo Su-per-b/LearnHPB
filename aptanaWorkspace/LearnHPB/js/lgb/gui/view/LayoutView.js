@@ -100,6 +100,23 @@ lgb.gui.view.LayoutView.prototype.add = function(guiView) {
   var className = guiView.getClassName();
 
   switch(className ) {
+    
+    
+    case "ButtonsTopRightHUD":
+      guiView.injectTo(this.viewportTop_);
+      break;
+      
+    case "TitleBarGUI":
+
+      guiView.injectTo(this.leftPanel_);
+
+      var util = new lgb.gui.view.LayoutUtil(guiView);
+      util.alignHorizontal(lgb.gui.view.LayoutUtil.ALIGN.Left, 5);
+      util.show();
+
+      this.layoutUtils_.push(util);
+
+      break;
     case "TopMenuGUI":
       var el = guiView.getMainElement();
 
@@ -109,7 +126,7 @@ lgb.gui.view.LayoutView.prototype.add = function(guiView) {
 
       break;
 
-    case "PropertiesButtonView":
+    case "PropertiesButtonGUI":
       this.propertiesButton_ = guiView;
 
       guiView.injectTo(this.webGLcanvas_);
@@ -134,34 +151,21 @@ lgb.gui.view.LayoutView.prototype.add = function(guiView) {
       this.layoutUtils_.push(util);
 
       break;
-    case "TitleBarView":
 
-      guiView.injectTo(this.leftPanel_);
 
-      var util = new lgb.gui.view.LayoutUtil(guiView);
-      util.alignHorizontal(lgb.gui.view.LayoutUtil.ALIGN.Left, 5);
-      util.show();
-
-      this.layoutUtils_.push(util);
-
-      break;
-    case "RightTopInputGUI":
-      guiView.injectTo(this.viewportTop_);
-      break;
-    case "MainInputGUI":
+    case "LeftPanelGUI":
       guiView.injectTo(this.leftPanel_);
       break;
-    case "SimulationView":
+    case "SimulationGUI":
       guiView.injectTo(this.webGLcanvas_);
       break;
-    case "PropertiesView":
+    case "PropertiesGUI":
       guiView.injectTo(this.webGLcanvas_);
       break;
-    case "TestingInputGUI":
+    case "TestGUI":
       guiView.injectTo(this.leftPanel_);
       break;
     case "ResultsGUI":
-    
       var util = new lgb.gui.view.LayoutUtil(guiView);
       
       guiView.injectTo(this.bottomRightPanel_);

@@ -1,13 +1,12 @@
-goog.provide('lgb.gui.view.BuildingInputGUI');
+goog.provide('lgb.gui.view.BuildingGUI');
 
 goog.require('lgb.gui.view.BaseViewGUI');
 goog.require('lgb.component.TabStrip');
 goog.require('lgb.component.TabStripDataSource');
 
-lgb.gui.view.BuildingInputGUI = function(dataModel) {
+lgb.gui.view.BuildingGUI = function(dataModel) {
 
-  this._TITLE = 'Building';
-  
+
   lgb.gui.view.BaseViewGUI.call(this, dataModel);
   this.tabTitleMap_ = {};
   
@@ -17,26 +16,21 @@ lgb.gui.view.BuildingInputGUI = function(dataModel) {
   this.tabStrip1 = new lgb.component.TabStrip(this.dataSource);
 
 };
-goog.inherits(lgb.gui.view.BuildingInputGUI, lgb.gui.view.BaseViewGUI);
+goog.inherits(lgb.gui.view.BuildingGUI, lgb.gui.view.BaseViewGUI);
 
 
 
 /**
  * @public
  */
-lgb.gui.view.BuildingInputGUI.prototype.init = function() {
-  
-
-  // this.tabStrip1.setOptions({
-    // width : "100%"
-  // });
+lgb.gui.view.BuildingGUI.prototype.init = function() {
   
   this.triggerLocal(e.RequestAddToParentGUI);
 };
 
 
 
-lgb.gui.view.BuildingInputGUI.prototype.add = function(gui) {
+lgb.gui.view.BuildingGUI.prototype.add = function(gui) {
 
 
   var title = gui.getTitle();
@@ -66,7 +60,7 @@ lgb.gui.view.BuildingInputGUI.prototype.add = function(gui) {
 /**
  * @public
  */
-lgb.gui.view.BuildingInputGUI.prototype.injectTo = function(parentElement) {
+lgb.gui.view.BuildingGUI.prototype.injectTo = function(parentElement) {
   
   this.tabStrip1.injectTo(parentElement);
   this.tabStrip1.injectCss();

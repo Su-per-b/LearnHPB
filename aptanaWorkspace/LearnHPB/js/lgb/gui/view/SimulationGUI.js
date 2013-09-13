@@ -1,4 +1,4 @@
-goog.provide('lgb.gui.view.SimulationInputGUI');
+goog.provide('lgb.gui.view.SimulationGUI');
 
 goog.require('lgb.gui.view.BaseViewGUI');
 goog.require('lgb.component.TabStrip');
@@ -15,28 +15,25 @@ goog.require('lgb.simulation.model.voNative.SimStateNative');
 goog.require('lgb.simulation.model.SimStateNativeWrapper');
 
 
-lgb.gui.view.SimulationInputGUI = function(dataModel) {
+lgb.gui.view.SimulationGUI = function(dataModel) {
 
   this._TITLE = 'Sim';
   
   lgb.gui.view.BaseViewGUI.call(this, dataModel);
   
 };
-goog.inherits(lgb.gui.view.SimulationInputGUI, lgb.gui.view.BaseViewGUI);
+goog.inherits(lgb.gui.view.SimulationGUI, lgb.gui.view.BaseViewGUI);
 
 
 /**
  * @public
  */
-lgb.gui.view.SimulationInputGUI.prototype.init = function() {
+lgb.gui.view.SimulationGUI.prototype.init = function() {
 
 /*
   this.dataSource = new lgb.component.TabStripDaSource('simulationInputGUI-tabStrip');
   this.tabStrip1 = new lgb.component.TabStrip(thista.dataSource);
 
-  this.tabStrip1.setOptions({
-    width : "100%"
-  });
 
   this.tabTitleMap_ = {};*/
 
@@ -52,7 +49,7 @@ lgb.gui.view.SimulationInputGUI.prototype.init = function() {
     this.triggerLocal(e.RequestAddToParentGUI);
 };
 
-lgb.gui.view.SimulationInputGUI.prototype.onChange_simStateNative_ = function(simStateNative) {
+lgb.gui.view.SimulationGUI.prototype.onChange_simStateNative_ = function(simStateNative) {
   
   var SimStateNative = lgb.simulation.model.voNative.SimStateNative;
   var stateObject = new lgb.simulation.model.SimStateNativeWrapper(simStateNative);
@@ -70,7 +67,7 @@ lgb.gui.view.SimulationInputGUI.prototype.onChange_simStateNative_ = function(si
 
 };
 
-lgb.gui.view.SimulationInputGUI.prototype.onChange_webSocketConnectionState_ = function(webSocketConnectionState) {
+lgb.gui.view.SimulationGUI.prototype.onChange_webSocketConnectionState_ = function(webSocketConnectionState) {
   
   
   var WebSocketConnectionState = lgb.simulation.model.WebSocketConnectionState;
@@ -88,7 +85,7 @@ lgb.gui.view.SimulationInputGUI.prototype.onChange_webSocketConnectionState_ = f
 };
 
 
-lgb.gui.view.SimulationInputGUI.prototype.checkIfButtonEnabled_ = function(button, stateObject) {
+lgb.gui.view.SimulationGUI.prototype.checkIfButtonEnabled_ = function(button, stateObject) {
   
   var buttonPayloadState = button.ds.clickPayload;
   
@@ -104,7 +101,7 @@ lgb.gui.view.SimulationInputGUI.prototype.checkIfButtonEnabled_ = function(butto
 
 
 
-lgb.gui.view.SimulationInputGUI.prototype.add = function(gui) {
+lgb.gui.view.SimulationGUI.prototype.add = function(gui) {
 
 
   var title = gui.getTitle();
@@ -112,7 +109,7 @@ lgb.gui.view.SimulationInputGUI.prototype.add = function(gui) {
   var contentElement;
   
   if (this.tabTitleMap_[title]) {
-    contentElement = this.tabTitleMap_[title]
+    contentElement = this.tabTitleMap_[title];
   } else {
     
     contentElement = this.tabStrip1.addTab(title);
@@ -127,7 +124,7 @@ lgb.gui.view.SimulationInputGUI.prototype.add = function(gui) {
 /**
  * @public
  */
-lgb.gui.view.SimulationInputGUI.prototype.injectTo = function(parentElement) {
+lgb.gui.view.SimulationGUI.prototype.injectTo = function(parentElement) {
   
 
   goog.base(this,  'injectTo', parentElement);
@@ -184,7 +181,7 @@ lgb.gui.view.SimulationInputGUI.prototype.injectTo = function(parentElement) {
 };
 
 
-lgb.gui.view.SimulationInputGUI.prototype.bind2_ = function() {
+lgb.gui.view.SimulationGUI.prototype.bind2_ = function() {
 
     this.listenTo(this.wsConnectLink_, e.MouseClick, this.onWsConnectLink_);
     this.listenTo(this.wsDisConnectLink_, e.MouseClick, this.onWsDisConnectLink_);
@@ -200,7 +197,7 @@ lgb.gui.view.SimulationInputGUI.prototype.bind2_ = function() {
 };
 
 
-lgb.gui.view.SimulationInputGUI.prototype.onClickSimStateNativeRequest_ = function(event) {
+lgb.gui.view.SimulationGUI.prototype.onClickSimStateNativeRequest_ = function(event) {
   
     var simState = event.target.ds.clickPayload;
 
@@ -208,7 +205,7 @@ lgb.gui.view.SimulationInputGUI.prototype.onClickSimStateNativeRequest_ = functi
     this.dispatchLocal(e);
 };
 
-lgb.gui.view.SimulationInputGUI.prototype.makeLink2_ = function(label, cssId, simStateNative) {
+lgb.gui.view.SimulationGUI.prototype.makeLink2_ = function(label, cssId, simStateNative) {
   
   var link = this.makeLink_(label, cssId);
   link.ds.clickPayload = simStateNative;
@@ -218,7 +215,7 @@ lgb.gui.view.SimulationInputGUI.prototype.makeLink2_ = function(label, cssId, si
 };
 
 
-lgb.gui.view.SimulationInputGUI.prototype.makeLink_ = function(label, cssId) {
+lgb.gui.view.SimulationGUI.prototype.makeLink_ = function(label, cssId) {
   
   var ds = new lgb.component.LinkDataSource(label, this.htmlID, cssId);
   ds.cssClass = "sim";
@@ -238,13 +235,13 @@ lgb.gui.view.SimulationInputGUI.prototype.makeLink_ = function(label, cssId) {
   
 };
 
-lgb.gui.view.SimulationInputGUI.prototype.onWsConnectLink_ = function(event) {
+lgb.gui.view.SimulationGUI.prototype.onWsConnectLink_ = function(event) {
   
   this.triggerLocal(se.WebSocketChangeRequest, lgb.simulation.model.WebSocketConnectionStateRequest.open);
   
 };
 
-lgb.gui.view.SimulationInputGUI.prototype.onWsDisConnectLink_ = function(event) {
+lgb.gui.view.SimulationGUI.prototype.onWsDisConnectLink_ = function(event) {
   
   this.triggerLocal(se.WebSocketChangeRequest, lgb.simulation.model.WebSocketConnectionStateRequest.close);
   

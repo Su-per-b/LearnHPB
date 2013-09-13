@@ -4,7 +4,7 @@
  */
  
 
-goog.provide('lgb.gui.controller.ResultsSubController');
+goog.provide('lgb.gui.controller.ResultsControllerOutput');
 
 goog.require('lgb.core.BaseController');
 
@@ -20,17 +20,17 @@ goog.require('lgb.gui.model.ResultsModel');
  * @constructor
  * @extends lgb.core.BaseController
  */
-lgb.gui.controller.ResultsSubController = function(title) {
+lgb.gui.controller.ResultsControllerOutput = function() {
 
-  this.TITLE_ = title;
+  this.TITLE_ = 'Output !';
   lgb.core.BaseController.call(this);
 
 };
-goog.inherits(lgb.gui.controller.ResultsSubController, lgb.core.BaseController);
+goog.inherits(lgb.gui.controller.ResultsControllerOutput, lgb.core.BaseController);
 
 
 
-lgb.gui.controller.ResultsSubController.prototype.init = function() {
+lgb.gui.controller.ResultsControllerOutput.prototype.init = function() {
   
   this.dataModel = new lgb.gui.model.BaseInputModel();
   this.guiView = new lgb.gui.view.GUI (this.dataModel, this.TITLE_);
@@ -42,13 +42,13 @@ lgb.gui.controller.ResultsSubController.prototype.init = function() {
 
 
 
-lgb.gui.controller.ResultsSubController.prototype.onRequestAddToParentGUI_ = function(event) {
+lgb.gui.controller.ResultsControllerOutput.prototype.onRequestAddToParentGUI_ = function(event) {
   this.guiView.add(event.payload);
 };
 
 
 
-lgb.gui.controller.ResultsSubController.prototype.bind_ = function() {
+lgb.gui.controller.ResultsControllerOutput.prototype.bind_ = function() {
 
     this.listen (
         lgb.simulation.events.ResultEvent.TYPE,
@@ -64,7 +64,7 @@ lgb.gui.controller.ResultsSubController.prototype.bind_ = function() {
 
 
 
-lgb.gui.controller.ResultsSubController.prototype.onResultEvent_ = function(event) {
+lgb.gui.controller.ResultsControllerOutput.prototype.onResultEvent_ = function(event) {
   
   return;
 };

@@ -1,7 +1,7 @@
 goog.provide('lgb.gui.controller.SimulationInputController');
 
 goog.require('lgb.core.BaseController');
-goog.require('lgb.gui.view.SimulationInputGUI');
+goog.require('lgb.gui.view.SimulationGUI');
 goog.require('lgb.gui.model.BaseInputModel');
 
 goog.require('lgb.simulation.controller.MainController');
@@ -45,7 +45,7 @@ lgb.gui.controller.SimulationInputController.prototype.onSimulationEngineLoaded_
 lgb.gui.controller.SimulationInputController.prototype.init_ = function() {
 
   this.dataModel = this.simMainController_.getDataModel();
-  this.guiView = new lgb.gui.view.SimulationInputGUI(this.dataModel);
+  this.guiView = new lgb.gui.view.SimulationGUI(this.dataModel);
   
   this.bind2_();
   this.guiView.init();

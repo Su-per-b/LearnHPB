@@ -47,11 +47,6 @@ lgb.gui.view.ResultsGUI.prototype.add = function(gui) {
 lgb.gui.view.ResultsGUI.prototype.init = function() {
 
 
-  // this.tabStrip1.setOptions({
-    // width : "100%",
-    // height : "100%",
-  // });
-
     this.triggerLocal(e.RequestAddToLayout, this);
 };
 

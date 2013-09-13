@@ -3,7 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.gui.view.TitleBarView');
+goog.provide('lgb.gui.view.TitleBarGUI');
 goog.require('lgb.gui.view.BaseViewGUI');
 goog.require('lgb.core.Config');
 
@@ -12,7 +12,7 @@ goog.require('lgb.core.Config');
  * @constructor
  * @extends {lgb.gui.view.BaseViewGUI}
  */
-lgb.gui.view.TitleBarView = function() {
+lgb.gui.view.TitleBarGUI = function() {
     
     
   this._TITLE='TitleBar';
@@ -21,11 +21,11 @@ lgb.gui.view.TitleBarView = function() {
   this.init_();
 
 };
-goog.inherits(lgb.gui.view.TitleBarView, lgb.gui.view.BaseViewGUI);
+goog.inherits(lgb.gui.view.TitleBarGUI, lgb.gui.view.BaseViewGUI);
 
 
 
-lgb.gui.view.TitleBarView.prototype.init_ = function() {
+lgb.gui.view.TitleBarGUI.prototype.init_ = function() {
     
     var el = this.getMainElement();
     

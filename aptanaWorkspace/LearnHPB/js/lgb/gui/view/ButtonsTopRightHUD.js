@@ -3,7 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.gui.view.RightTopInputGUI');
+goog.provide('lgb.gui.view.ButtonsTopRightHUD');
 
 goog.require('lgb.gui.view.BaseViewGUI');
 goog.require('lgb.core.Config');
@@ -17,18 +17,18 @@ goog.require('lgb.component.TabStrip');
  * @param {string} parentHtmlID the CSS id of the parent to inject into the DOM.
  * @extends {lgb.gui.view.BaseViewGUI}
  */
-lgb.gui.view.RightTopInputGUI = function(dataModel) {
+lgb.gui.view.ButtonsTopRightHUD = function(dataModel) {
   
   this._TITLE = "RightTop";
   lgb.gui.view.BaseViewGUI.call(this, dataModel, 'RightTopInputGUI');
 };
-goog.inherits(lgb.gui.view.RightTopInputGUI, lgb.gui.view.BaseViewGUI);
+goog.inherits(lgb.gui.view.ButtonsTopRightHUD, lgb.gui.view.BaseViewGUI);
 
 
 /**
  * Initializes the View
  */
-lgb.gui.view.RightTopInputGUI.prototype.init = function() {
+lgb.gui.view.ButtonsTopRightHUD.prototype.init = function() {
   
   this.dataSource1 = new lgb.component.TabStripDataSource('RightTopInputGUI-tabStrip');
   this.dataSource1.setIcon("images/tabs/optionsBtn_grid_25.png", 25, 25);
@@ -59,7 +59,7 @@ lgb.gui.view.RightTopInputGUI.prototype.init = function() {
 
 
 
-lgb.gui.view.RightTopInputGUI.prototype.injectTo = function(parentElement) {
+lgb.gui.view.ButtonsTopRightHUD.prototype.injectTo = function(parentElement) {
   
   goog.base(this,  'injectTo', parentElement);
   

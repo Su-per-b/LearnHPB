@@ -1,4 +1,4 @@
-goog.provide('lgb.gui.controller.ScenarioInputController');
+goog.provide('lgb.gui.controller.ScenarioController');
 
 goog.require('lgb.core.BaseController');
 
@@ -6,34 +6,34 @@ goog.require('lgb.gui.model.BaseInputModel');
 goog.require('lgb.scenario.model.Bs2');
 goog.require('lgb.scenario.model.SystemList');
 
-goog.require('lgb.gui.view.ScenarioInputGUI');
+goog.require('lgb.gui.view.ScenarioGUI');
 goog.require('lgb.scenario.view.SystemList');
 
 goog.require('lgb.scenario.model.SystemList');
 
 
-lgb.gui.controller.ScenarioInputController = function() {
+lgb.gui.controller.ScenarioController = function() {
 
   lgb.core.BaseController.call(this);
 };
-goog.inherits(lgb.gui.controller.ScenarioInputController, lgb.core.BaseController);
+goog.inherits(lgb.gui.controller.ScenarioController, lgb.core.BaseController);
 
 
 /**
  * Initializes the Main Controller after the document is ready
  */
-lgb.gui.controller.ScenarioInputController.prototype.init = function() {
+lgb.gui.controller.ScenarioController.prototype.init = function() {
 
   this.dataModel = new lgb.gui.model.BaseInputModel();
 
-  this.guiView = new lgb.gui.view.ScenarioInputGUI(this.dataModel);
+  this.guiView = new lgb.gui.view.ScenarioGUI(this.dataModel);
   this.bind_();
   this.guiView.init();
   
 };
 
 
-lgb.gui.controller.ScenarioInputController.prototype.bind_ = function() {
+lgb.gui.controller.ScenarioController.prototype.bind_ = function() {
 
   this.listen(
     e.ScenarioParsed2,
@@ -48,7 +48,7 @@ lgb.gui.controller.ScenarioInputController.prototype.bind_ = function() {
 };
 
 
-lgb.gui.controller.ScenarioInputController.prototype.onRequestAddToGUI_ = function(event) {
+lgb.gui.controller.ScenarioController.prototype.onRequestAddToGUI_ = function(event) {
 
   this.guiView.add(event.payload);
 
@@ -58,7 +58,7 @@ lgb.gui.controller.ScenarioInputController.prototype.onRequestAddToGUI_ = functi
 /**
  * @private
  */
-lgb.gui.controller.ScenarioInputController.prototype.injectCss_ = function() {
+lgb.gui.controller.ScenarioController.prototype.injectCss_ = function() {
 
   var cssInner = '';
 
@@ -71,7 +71,7 @@ lgb.gui.controller.ScenarioInputController.prototype.injectCss_ = function() {
 
 
 
-lgb.gui.controller.ScenarioInputController.prototype.onScenarioParsed2_ = function(event) {
+lgb.gui.controller.ScenarioController.prototype.onScenarioParsed2_ = function(event) {
   
 
   var systemListDataModel = event.payload;

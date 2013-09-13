@@ -115,7 +115,7 @@ lgb.gui.model.TopMenuModel.prototype.add = function(guiView) {
     this.dispatchChangedEx('ds', this.ds);
   }
 
-}
+};
 
 
 

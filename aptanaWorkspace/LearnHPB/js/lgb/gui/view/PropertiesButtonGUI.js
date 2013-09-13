@@ -3,7 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.gui.view.PropertiesButtonView');
+goog.provide('lgb.gui.view.PropertiesButtonGUI');
 goog.require('lgb.gui.view.BaseViewGUI');
 goog.require('lgb.component.ToggleButtonA');
 
@@ -11,18 +11,18 @@ goog.require('lgb.component.ToggleButtonA');
  * @constructor
  * @extends {lgb.gui.view.BaseViewGUI}
  */
-lgb.gui.view.PropertiesButtonView = function() {
+lgb.gui.view.PropertiesButtonGUI = function() {
     
   this._TITLE = "PropertiesButton";
   lgb.gui.view.BaseViewGUI.call(this, null, 'propertiesButton', lgb.core.Config.HUD_CONTAINER_STR);
 
 };
-goog.inherits(lgb.gui.view.PropertiesButtonView, lgb.gui.view.BaseViewGUI);
+goog.inherits(lgb.gui.view.PropertiesButtonGUI, lgb.gui.view.BaseViewGUI);
 
 /**
  * Initializes the view.
  */
-lgb.gui.view.PropertiesButtonView.prototype.init = function() {
+lgb.gui.view.PropertiesButtonGUI.prototype.init = function() {
 
   this.button =
     new lgb.component.ToggleButtonA({
@@ -40,7 +40,7 @@ lgb.gui.view.PropertiesButtonView.prototype.init = function() {
 };
 
 
-lgb.gui.view.PropertiesButtonView.prototype.inject = function(parentElement) {
+lgb.gui.view.PropertiesButtonGUI.prototype.inject = function(parentElement) {
   
   this.injectCss_();
   
@@ -68,7 +68,7 @@ lgb.gui.view.PropertiesButtonView.prototype.inject = function(parentElement) {
 /**
  * Injects the CSS into the DOM.
  */
-lgb.gui.view.PropertiesButtonView.prototype.injectCss_ = function() {
+lgb.gui.view.PropertiesButtonGUI.prototype.injectCss_ = function() {
   
     var cssInner = this.button.getCss();
     var cssStr = "<style type='text/css'>{0}</style>".format(cssInner);
@@ -81,7 +81,7 @@ lgb.gui.view.PropertiesButtonView.prototype.injectCss_ = function() {
  * Adds or removes the 'selected' CSS class.
  * @param {boolean} isSelected If true adds the class.
  */
-lgb.gui.view.PropertiesButtonView.prototype.setSelected = function(isSelected) {
+lgb.gui.view.PropertiesButtonGUI.prototype.setSelected = function(isSelected) {
   this.isSelected = isSelected;
 
   if (this.isSelected) {
@@ -99,7 +99,7 @@ lgb.gui.view.PropertiesButtonView.prototype.setSelected = function(isSelected) {
  * event bus.
  * @private
  */
-lgb.gui.view.PropertiesButtonView.prototype.bind_ = function() {
+lgb.gui.view.PropertiesButtonGUI.prototype.bind_ = function() {
 
   this.propertiesButtonLink_.click(this.d(this.onClick_));
 
@@ -110,7 +110,7 @@ lgb.gui.view.PropertiesButtonView.prototype.bind_ = function() {
  * @private
  * @param {jQuery.event} event The click event.
  */
-lgb.gui.view.PropertiesButtonView.prototype.onClick_ = function(event) {
+lgb.gui.view.PropertiesButtonGUI.prototype.onClick_ = function(event) {
   
   this.triggerLocal(e.RequestActivateView, !this.isSelected);
 

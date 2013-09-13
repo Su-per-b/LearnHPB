@@ -1,32 +1,27 @@
-goog.provide('lgb.world.view.input.TestingInputGUI');
+goog.provide('lgb.gui.view.TestGUI');
 
 goog.require('lgb.gui.view.BaseViewGUI');
 goog.require('lgb.component.TabStrip');
 goog.require('lgb.component.TabStripDataSource');
 
-lgb.world.view.input.TestingInputGUI = function(dataModel) {
+lgb.gui.view.TestGUI = function(dataModel) {
 
   this._TITLE = 'Testing';
   
   lgb.gui.view.BaseViewGUI.call(this, dataModel);
   
 };
-goog.inherits(lgb.world.view.input.TestingInputGUI, lgb.gui.view.BaseViewGUI);
+goog.inherits(lgb.gui.view.TestGUI, lgb.gui.view.BaseViewGUI);
 
 
 /**
  * @public
  */
-lgb.world.view.input.TestingInputGUI.prototype.init = function() {
+lgb.gui.view.TestGUI.prototype.init = function() {
 
   this.dataSource = new lgb.component.TabStripDataSource('testingInputGUI-tabStrip');
   this.tabStrip1 = new lgb.component.TabStrip(this.dataSource);
 
-/*
-  this.tabStrip1.setOptions({
-    width : "100%"
-  });
-*/
 
   this.tabTitleMap_ = {};
   
@@ -34,7 +29,7 @@ lgb.world.view.input.TestingInputGUI.prototype.init = function() {
 };
 
 
-lgb.world.view.input.TestingInputGUI.prototype.add = function(gui) {
+lgb.gui.view.TestGUI.prototype.add = function(gui) {
 
 
   var title = gui.getTitle();
@@ -42,7 +37,7 @@ lgb.world.view.input.TestingInputGUI.prototype.add = function(gui) {
   var contentElement;
   
   if (this.tabTitleMap_[title]) {
-    contentElement = this.tabTitleMap_[title]
+    contentElement = this.tabTitleMap_[title];
   } else {
     
     contentElement = this.tabStrip1.addTab(title);
@@ -57,7 +52,7 @@ lgb.world.view.input.TestingInputGUI.prototype.add = function(gui) {
 /**
  * @public
  */
-lgb.world.view.input.TestingInputGUI.prototype.injectTo = function(parentElement) {
+lgb.gui.view.TestGUI.prototype.injectTo = function(parentElement) {
   
   this.tabStrip1.injectTo(parentElement);
   this.tabStrip1.injectCss();

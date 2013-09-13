@@ -3,8 +3,8 @@ goog.provide('lgb.gui.controller.PropertiesController');
 
 
 goog.require('lgb.core.BaseController');
-goog.require('lgb.gui.view.PropertiesView');
-goog.require('lgb.gui.view.PropertiesButtonView');
+goog.require('lgb.gui.view.PropertiesGUI');
+goog.require('lgb.gui.view.PropertiesButtonGUI');
 
 
 /**@extends lgb.core.BaseController
@@ -67,11 +67,11 @@ lgb.gui.controller.PropertiesController.prototype.onRequestSelectSystemNode_ =
 lgb.gui.controller.PropertiesController.prototype.onScenarioParsed_ =
   function(event) {
 
-  this.buttonView = new lgb.gui.view.PropertiesButtonView();
+  this.buttonView = new lgb.gui.view.PropertiesButtonGUI();
   this.buttonView.init();
   
   this.dataModel = event.payload;
-  this.view = new lgb.gui.view.PropertiesView(this.dataModel);
+  this.view = new lgb.gui.view.PropertiesGUI(this.dataModel);
 
   this.trigger(e.RequestAddToLayout, this.buttonView);
   this.trigger(e.RequestAddToLayout, this.view);

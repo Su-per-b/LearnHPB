@@ -1,32 +1,27 @@
-goog.provide('lgb.gui.view.MainInputGUI');
+goog.provide('lgb.gui.view.LeftPanelGUI');
 
 goog.require('lgb.gui.view.BaseViewGUI');
 goog.require('lgb.component.TabStrip');
 goog.require('lgb.component.TabStripDataSource');
 
-lgb.gui.view.MainInputGUI = function(dataModel) {
+lgb.gui.view.LeftPanelGUI = function(dataModel) {
 
   this._TITLE = 'Testing';
   
   lgb.gui.view.BaseViewGUI.call(this, dataModel);
   
 };
-goog.inherits(lgb.gui.view.MainInputGUI, lgb.gui.view.BaseViewGUI);
+goog.inherits(lgb.gui.view.LeftPanelGUI, lgb.gui.view.BaseViewGUI);
 
 
 /**
  * @public
  */
-lgb.gui.view.MainInputGUI.prototype.init = function() {
+lgb.gui.view.LeftPanelGUI.prototype.init = function() {
 
   this.dataSource = new lgb.component.TabStripDataSource('mainInputGUI-tabStrip');
   this.tabStrip1 = new lgb.component.TabStrip(this.dataSource);
 
-/*
-  this.tabStrip1.setOptions({
-    width : "100%"
-  });
-*/
 
   this.tabTitleMap_ = {};
   
@@ -34,7 +29,7 @@ lgb.gui.view.MainInputGUI.prototype.init = function() {
 };
 
 
-lgb.gui.view.MainInputGUI.prototype.add = function(gui) {
+lgb.gui.view.LeftPanelGUI.prototype.add = function(gui) {
 
 
   var title = gui.getTitle();
@@ -57,7 +52,7 @@ lgb.gui.view.MainInputGUI.prototype.add = function(gui) {
 /**
  * @public
  */
-lgb.gui.view.MainInputGUI.prototype.injectTo = function(parentElement) {
+lgb.gui.view.LeftPanelGUI.prototype.injectTo = function(parentElement) {
   
   this.tabStrip1.injectTo(parentElement);
   this.tabStrip1.injectCss();

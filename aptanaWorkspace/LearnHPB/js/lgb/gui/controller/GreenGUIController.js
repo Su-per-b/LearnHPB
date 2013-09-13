@@ -1,38 +1,38 @@
-goog.provide('lgb.gui.controller.MainController');
+goog.provide('lgb.gui.controller.GreenGUIController');
 
 goog.require('lgb.core.BaseController');
-goog.require('lgb.gui.controller.TestingInputController');
-goog.require('lgb.gui.controller.ScenarioInputController');
-goog.require('lgb.gui.controller.BuildingGuiController');
+goog.require('lgb.gui.controller.TestController');
+goog.require('lgb.gui.controller.ScenarioController');
+goog.require('lgb.gui.controller.BuildingGUIController');
 goog.require('lgb.gui.controller.SimulationInputController');
 
-goog.require('lgb.gui.view.MainInputGUI');
+goog.require('lgb.gui.view.LeftPanelGUI');
 goog.require('lgb.gui.model.BaseInputModel');
 //goog.require('lgb.gui.controller.ResultsController');
 
 
-lgb.gui.controller.MainController = function() {
+lgb.gui.controller.GreenGUIController = function() {
 
   lgb.core.BaseController.call(this);
   this.init_();
 };
-goog.inherits(lgb.gui.controller.MainController, lgb.core.BaseController);
+goog.inherits(lgb.gui.controller.GreenGUIController, lgb.core.BaseController);
 
 
 /**
  * Initializes the Main Controller after the document is ready
  */
-lgb.gui.controller.MainController.prototype.init_ = function() {
+lgb.gui.controller.GreenGUIController.prototype.init_ = function() {
 
   this.dataModel = new lgb.gui.model.BaseInputModel();
-  this.guiView = new lgb.gui.view.MainInputGUI(this.dataModel);
+  this.guiView = new lgb.gui.view.LeftPanelGUI(this.dataModel);
   
   
-  this.scenarioInputController_ = new lgb.gui.controller.ScenarioInputController();
-  this.buildingInputController_ = new lgb.gui.controller.BuildingGuiController();
+  this.scenarioInputController_ = new lgb.gui.controller.ScenarioController();
+  this.buildingInputController_ = new lgb.gui.controller.BuildingGUIController();
   this.simulationInputController_ = new lgb.gui.controller.SimulationInputController();
   
-  this.testingInputController_ = new lgb.gui.controller.TestingInputController();
+  this.testingInputController_ = new lgb.gui.controller.TestController();
   
   // this.resultsController_ = new lgb.gui.controller.ResultsController();
     
@@ -53,7 +53,7 @@ lgb.gui.controller.MainController.prototype.init_ = function() {
 };
 
 
-lgb.gui.controller.MainController.prototype.bind_ = function() {
+lgb.gui.controller.GreenGUIController.prototype.bind_ = function() {
 
   this.listenTo(this.testingInputController_,
     e.RequestAddToParentGUI, 
@@ -80,7 +80,7 @@ lgb.gui.controller.MainController.prototype.bind_ = function() {
 };
 
 
-lgb.gui.controller.MainController.prototype.onRequestAddToParentGUI_ = function(event) {
+lgb.gui.controller.GreenGUIController.prototype.onRequestAddToParentGUI_ = function(event) {
 
   this.guiView.add(event.payload);
 
@@ -90,7 +90,7 @@ lgb.gui.controller.MainController.prototype.onRequestAddToParentGUI_ = function(
 /**
  * @private
  */
-lgb.gui.controller.MainController.prototype.injectCss_ = function() {
+lgb.gui.controller.GreenGUIController.prototype.injectCss_ = function() {
 
   var cssInner = '';
 

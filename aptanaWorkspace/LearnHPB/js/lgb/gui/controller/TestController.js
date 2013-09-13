@@ -1,32 +1,32 @@
-goog.provide('lgb.gui.controller.TestingInputController');
+goog.provide('lgb.gui.controller.TestController');
 
 goog.require('lgb.core.BaseController');
-goog.require('lgb.world.view.input.TestingInputGUI');
+goog.require('lgb.gui.view.TestGUI');
 goog.require('lgb.gui.model.BaseInputModel');
 
 
-lgb.gui.controller.TestingInputController = function() {
+lgb.gui.controller.TestController = function() {
 
   lgb.core.BaseController.call(this);
 };
-goog.inherits(lgb.gui.controller.TestingInputController, lgb.core.BaseController);
+goog.inherits(lgb.gui.controller.TestController, lgb.core.BaseController);
 
 
 /**
  * Initializes the Main Controller after the document is ready
  */
-lgb.gui.controller.TestingInputController.prototype.init = function() {
+lgb.gui.controller.TestController.prototype.init = function() {
 
   this.dataModel = new lgb.gui.model.BaseInputModel();
 
-  this.guiView = new lgb.world.view.input.TestingInputGUI(this.dataModel);
+  this.guiView = new lgb.gui.view.TestGUI(this.dataModel);
   this.bind_();
   this.guiView.init();
   
 };
 
 
-lgb.gui.controller.TestingInputController.prototype.bind_ = function() {
+lgb.gui.controller.TestController.prototype.bind_ = function() {
 
   this.listen(
     e.RequestAddToTestingInput, 
@@ -39,7 +39,7 @@ lgb.gui.controller.TestingInputController.prototype.bind_ = function() {
 };
 
 
-lgb.gui.controller.TestingInputController.prototype.onRequestAddToGUI_ = function(event) {
+lgb.gui.controller.TestController.prototype.onRequestAddToGUI_ = function(event) {
 
   this.guiView.add(event.payload);
 
@@ -49,7 +49,7 @@ lgb.gui.controller.TestingInputController.prototype.onRequestAddToGUI_ = functio
 /**
  * @private
  */
-lgb.gui.controller.TestingInputController.prototype.injectCss_ = function() {
+lgb.gui.controller.TestController.prototype.injectCss_ = function() {
 
   var cssInner = '';
 
