@@ -5,23 +5,23 @@
  
 goog.provide('lgb.gui.controller.TestLightingController');
 
-goog.require('lgb.controller.BaseController');
+goog.require('lgb.core.BaseController');
 
-goog.require('lgb.model.LightingModel');
-goog.require('lgb.view.LightingView');
+goog.require('lgb.world.model.LightingModel');
+goog.require('lgb.world.view.LightingView');
 goog.require('lgb.gui.view.TestLightingGUI');
-goog.require('lgb.model.BuildingHeightModel');
+goog.require('lgb.world.model.BuildingHeightModel');
 
 /**
  * MVC controller for the Ductwork
  * @constructor
- * @extends lgb.controller.BaseController
+ * @extends lgb.core.BaseController
  */
 lgb.gui.controller.TestLightingController = function() {
 
-  lgb.controller.BaseController.call(this);
+  lgb.core.BaseController.call(this);
 };
-goog.inherits(lgb.gui.controller.TestLightingController, lgb.controller.BaseController);
+goog.inherits(lgb.gui.controller.TestLightingController, lgb.core.BaseController);
 
 /**
  * initializes the controller
@@ -30,10 +30,10 @@ goog.inherits(lgb.gui.controller.TestLightingController, lgb.controller.BaseCont
 lgb.gui.controller.TestLightingController.prototype.init = function() {
  
   
-  this.dataModel = new lgb.model.LightingModel();
+  this.dataModel = new lgb.world.model.LightingModel();
   
   this.guiView = new lgb.gui.view.TestLightingGUI(this.dataModel);
-  this.view = new lgb.view.LightingView(this.dataModel);
+  this.view = new lgb.world.view.LightingView(this.dataModel);
 
   this.bind_();
   

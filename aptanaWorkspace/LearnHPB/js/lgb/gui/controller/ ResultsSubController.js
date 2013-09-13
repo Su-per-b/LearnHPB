@@ -6,10 +6,10 @@
 
 goog.provide('lgb.gui.controller.ResultsSubController');
 
-goog.require('lgb.controller.BaseController');
+goog.require('lgb.core.BaseController');
 
 goog.require('goog.debug.Logger');
-goog.require('lgb.Config');
+goog.require('lgb.core.Config');
 
 goog.require('lgb.gui.view.ResultsGUI');
 goog.require('lgb.gui.model.ResultsModel');
@@ -18,15 +18,15 @@ goog.require('lgb.gui.model.ResultsModel');
 /**
  * MVC controller for the App
  * @constructor
- * @extends lgb.controller.BaseController
+ * @extends lgb.core.BaseController
  */
 lgb.gui.controller.ResultsSubController = function(title) {
 
   this.TITLE_ = title;
-  lgb.controller.BaseController.call(this);
+  lgb.core.BaseController.call(this);
 
 };
-goog.inherits(lgb.gui.controller.ResultsSubController, lgb.controller.BaseController);
+goog.inherits(lgb.gui.controller.ResultsSubController, lgb.core.BaseController);
 
 
 

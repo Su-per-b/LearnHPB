@@ -1,6 +1,6 @@
 goog.provide('lgb.gui.controller.TopMenuController');
 
-goog.require('lgb.controller.BaseController');
+goog.require('lgb.core.BaseController');
 
 goog.require('lgb.gui.model.TopMenuModel');
 goog.require('lgb.gui.view.TopMenuGUI');
@@ -8,11 +8,11 @@ goog.require('lgb.gui.view.TopMenuGUI');
 
 lgb.gui.controller.TopMenuController = function() {
 
-  lgb.controller.BaseController.call(this);
+  lgb.core.BaseController.call(this);
 
   this.init_();
 };
-goog.inherits(lgb.gui.controller.TopMenuController, lgb.controller.BaseController);
+goog.inherits(lgb.gui.controller.TopMenuController, lgb.core.BaseController);
 
 /**
  * Initializes the Main Controller after the document is ready

@@ -8,7 +8,7 @@
 */
 
 goog.provide('lgb.component.Tree');
-goog.require('lgb.view.BaseV');
+goog.require('lgb.world.view.BaseV');
 
 
 /**
@@ -21,14 +21,14 @@ goog.require('lgb.view.BaseV');
  */
 lgb.component.Tree = function(ds) {
     
-  lgb.view.BaseV.call(this);
+  lgb.world.view.BaseV.call(this);
   
   lgb.assert (ds);
   this.ds = ds;
   
   this.nodeStatusList_ = [];
 };
-goog.inherits(lgb.component.Tree, lgb.view.BaseV);
+goog.inherits(lgb.component.Tree, lgb.world.view.BaseV);
 
 
 

@@ -9,7 +9,7 @@
 
 goog.provide('lgb.component.SplitPanelDataSource');
 
-goog.require('lgb.view.BaseV');
+goog.require('lgb.world.view.BaseV');
 goog.require('lgb.component.BaseDataSource');
 
 /**

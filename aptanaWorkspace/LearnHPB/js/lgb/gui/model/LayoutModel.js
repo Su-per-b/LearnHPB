@@ -5,23 +5,23 @@
  
 goog.provide('lgb.gui.model.LayoutModel');
 
-goog.require('lgb.model.BaseModel');
+goog.require('lgb.world.model.BaseModel');
 
 
 
 /**
  * @constructor
- * @extends lgb.model.BaseModel
+ * @extends lgb.world.model.BaseModel
  */
 lgb.gui.model.LayoutModel = function() {
 
   /**@const */
   this._TITLE = 'LayoutModel';
 
-  lgb.model.BaseModel.call(this);
+  lgb.world.model.BaseModel.call(this);
   this.init_();
 };
-goog.inherits(lgb.gui.model.LayoutModel, lgb.model.BaseModel);
+goog.inherits(lgb.gui.model.LayoutModel, lgb.world.model.BaseModel);
 
 
 

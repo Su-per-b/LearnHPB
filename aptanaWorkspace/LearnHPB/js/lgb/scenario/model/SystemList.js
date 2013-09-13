@@ -13,7 +13,7 @@ goog.require('lgb.scenario.model.System');
 /**
  * Primarily a container object for Sysvars
  * @constructor
- * @extends lgb.model.BaseModel
+ * @extends lgb.world.model.BaseModel
  * @param {!lgb.utils.XmlWrapper} xmlParser The parse used
  * to populate the object, contains an xml document.
  */

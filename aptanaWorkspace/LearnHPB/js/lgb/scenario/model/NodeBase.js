@@ -4,13 +4,13 @@
  */
  
 goog.provide('lgb.scenario.model.NodeBase');
-goog.require('lgb.model.BaseModel');
+goog.require('lgb.world.model.BaseModel');
 
 
 /**
  * Primarily a container object for Sysvars
  * @constructor
- * @extends lgb.model.BaseModel
+ * @extends lgb.world.model.BaseModel
  * @param {!lgb.utils.XmlWrapper} xmlParser The parse used
  * to populate the object, contains an xml document.
  */
@@ -26,13 +26,13 @@ lgb.scenario.model.NodeBase = function(node) {
   
   this.classReference_ = eval(this.getFullClassName());
   
-  lgb.model.BaseModel.call(this);
+  lgb.world.model.BaseModel.call(this);
   
   this.parse_(node);
   this.node = null;
   
 };
-goog.inherits(lgb.scenario.model.NodeBase, lgb.model.BaseModel);
+goog.inherits(lgb.scenario.model.NodeBase, lgb.world.model.BaseModel);
 
 
 lgb.scenario.model.NodeBase.prototype.getChildren = function() {

@@ -1,23 +1,23 @@
-goog.provide('lgb.view.input.TestingInputGUI');
+goog.provide('lgb.world.view.input.TestingInputGUI');
 
 goog.require('lgb.gui.view.BaseViewGUI');
 goog.require('lgb.component.TabStrip');
 goog.require('lgb.component.TabStripDataSource');
 
-lgb.view.input.TestingInputGUI = function(dataModel) {
+lgb.world.view.input.TestingInputGUI = function(dataModel) {
 
   this._TITLE = 'Testing';
   
   lgb.gui.view.BaseViewGUI.call(this, dataModel);
   
 };
-goog.inherits(lgb.view.input.TestingInputGUI, lgb.gui.view.BaseViewGUI);
+goog.inherits(lgb.world.view.input.TestingInputGUI, lgb.gui.view.BaseViewGUI);
 
 
 /**
  * @public
  */
-lgb.view.input.TestingInputGUI.prototype.init = function() {
+lgb.world.view.input.TestingInputGUI.prototype.init = function() {
 
   this.dataSource = new lgb.component.TabStripDataSource('testingInputGUI-tabStrip');
   this.tabStrip1 = new lgb.component.TabStrip(this.dataSource);
@@ -34,7 +34,7 @@ lgb.view.input.TestingInputGUI.prototype.init = function() {
 };
 
 
-lgb.view.input.TestingInputGUI.prototype.add = function(gui) {
+lgb.world.view.input.TestingInputGUI.prototype.add = function(gui) {
 
 
   var title = gui.getTitle();
@@ -57,7 +57,7 @@ lgb.view.input.TestingInputGUI.prototype.add = function(gui) {
 /**
  * @public
  */
-lgb.view.input.TestingInputGUI.prototype.injectTo = function(parentElement) {
+lgb.world.view.input.TestingInputGUI.prototype.injectTo = function(parentElement) {
   
   this.tabStrip1.injectTo(parentElement);
   this.tabStrip1.injectCss();

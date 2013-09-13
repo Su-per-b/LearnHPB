@@ -5,20 +5,20 @@
  
 goog.provide('lgb.component.BaseDataSource');
 
-goog.require('lgb.BaseClass');
+goog.require('lgb.core.BaseClass');
 
 
 
 /**
  * @constructor
- * @extends lgb.BaseClass
+ * @extends lgb.core.BaseClass
  */
 lgb.component.BaseDataSource = function() {
 
-  lgb.BaseClass.call(this);
+  lgb.core.BaseClass.call(this);
 
 };
-goog.inherits(lgb.component.BaseDataSource, lgb.BaseClass);
+goog.inherits(lgb.component.BaseDataSource, lgb.core.BaseClass);
 
 
 

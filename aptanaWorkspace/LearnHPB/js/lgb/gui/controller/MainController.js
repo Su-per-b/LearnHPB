@@ -1,9 +1,9 @@
 goog.provide('lgb.gui.controller.MainController');
 
-goog.require('lgb.controller.BaseController');
+goog.require('lgb.core.BaseController');
 goog.require('lgb.gui.controller.TestingInputController');
 goog.require('lgb.gui.controller.ScenarioInputController');
-goog.require('lgb.gui.controller.BuildingInputController');
+goog.require('lgb.gui.controller.BuildingGuiController');
 goog.require('lgb.gui.controller.SimulationInputController');
 
 goog.require('lgb.gui.view.MainInputGUI');
@@ -13,10 +13,10 @@ goog.require('lgb.gui.model.BaseInputModel');
 
 lgb.gui.controller.MainController = function() {
 
-  lgb.controller.BaseController.call(this);
+  lgb.core.BaseController.call(this);
   this.init_();
 };
-goog.inherits(lgb.gui.controller.MainController, lgb.controller.BaseController);
+goog.inherits(lgb.gui.controller.MainController, lgb.core.BaseController);
 
 
 /**
@@ -29,7 +29,7 @@ lgb.gui.controller.MainController.prototype.init_ = function() {
   
   
   this.scenarioInputController_ = new lgb.gui.controller.ScenarioInputController();
-  this.buildingInputController_ = new lgb.gui.controller.BuildingInputController();
+  this.buildingInputController_ = new lgb.gui.controller.BuildingGuiController();
   this.simulationInputController_ = new lgb.gui.controller.SimulationInputController();
   
   this.testingInputController_ = new lgb.gui.controller.TestingInputController();

@@ -1,15 +1,15 @@
 goog.provide('lgb.gui.controller.TestingInputController');
 
-goog.require('lgb.controller.BaseController');
-goog.require('lgb.view.input.TestingInputGUI');
+goog.require('lgb.core.BaseController');
+goog.require('lgb.world.view.input.TestingInputGUI');
 goog.require('lgb.gui.model.BaseInputModel');
 
 
 lgb.gui.controller.TestingInputController = function() {
 
-  lgb.controller.BaseController.call(this);
+  lgb.core.BaseController.call(this);
 };
-goog.inherits(lgb.gui.controller.TestingInputController, lgb.controller.BaseController);
+goog.inherits(lgb.gui.controller.TestingInputController, lgb.core.BaseController);
 
 
 /**
@@ -19,7 +19,7 @@ lgb.gui.controller.TestingInputController.prototype.init = function() {
 
   this.dataModel = new lgb.gui.model.BaseInputModel();
 
-  this.guiView = new lgb.view.input.TestingInputGUI(this.dataModel);
+  this.guiView = new lgb.world.view.input.TestingInputGUI(this.dataModel);
   this.bind_();
   this.guiView.init();
   

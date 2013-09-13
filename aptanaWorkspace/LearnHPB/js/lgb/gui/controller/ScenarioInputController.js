@@ -1,6 +1,6 @@
 goog.provide('lgb.gui.controller.ScenarioInputController');
 
-goog.require('lgb.controller.BaseController');
+goog.require('lgb.core.BaseController');
 
 goog.require('lgb.gui.model.BaseInputModel');
 goog.require('lgb.scenario.model.Bs2');
@@ -14,9 +14,9 @@ goog.require('lgb.scenario.model.SystemList');
 
 lgb.gui.controller.ScenarioInputController = function() {
 
-  lgb.controller.BaseController.call(this);
+  lgb.core.BaseController.call(this);
 };
-goog.inherits(lgb.gui.controller.ScenarioInputController, lgb.controller.BaseController);
+goog.inherits(lgb.gui.controller.ScenarioInputController, lgb.core.BaseController);
 
 
 /**

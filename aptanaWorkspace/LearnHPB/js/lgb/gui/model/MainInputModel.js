@@ -4,13 +4,13 @@
  */
  
 goog.provide('lgb.gui.model.MainInputModel');
-goog.require('lgb.model.BaseModel');
+goog.require('lgb.world.model.BaseModel');
 
 
 
 /**
  * @constructor
- * @extends lgb.model.BaseModel
+ * @extends lgb.world.model.BaseModel
  */
 lgb.gui.model.MainInputModel = function() {
 
@@ -18,9 +18,9 @@ lgb.gui.model.MainInputModel = function() {
   this._TITLE = 'MainInputModel';
 
 
-  lgb.model.BaseModel.call(this);
+  lgb.world.model.BaseModel.call(this);
 
 };
-goog.inherits(lgb.gui.model.MainInputModel, lgb.model.BaseModel);
+goog.inherits(lgb.gui.model.MainInputModel, lgb.world.model.BaseModel);
 
 

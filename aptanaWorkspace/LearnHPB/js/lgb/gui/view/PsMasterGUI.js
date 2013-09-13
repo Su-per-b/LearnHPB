@@ -6,8 +6,8 @@
 goog.provide('lgb.gui.view.PsMasterGUI');
 
 goog.require('lgb.gui.view.BaseViewGUI');
-goog.require('lgb.model.BuildingHeightModel');
-goog.require('lgb.model.PsModelMaster');
+goog.require('lgb.world.model.BuildingHeightModel');
+goog.require('lgb.world.model.PsModelMaster');
 
 goog.require('lgb.component.Tree');
 goog.require('lgb.component.TreeDataSource');
@@ -15,13 +15,13 @@ goog.require('lgb.component.TreeDataSource');
 goog.require('lgb.component.TreeH');
 goog.require('lgb.component.TreeDataSourceH');
 
-goog.require('lgb.Config');
+goog.require('lgb.core.Config');
 
 
 /**
  * @constructor
  * @extends {lgb.gui.view.BaseViewGUI}
- * @param {lgb.model.LightingModel} dataModel The model to display.
+ * @param {lgb.world.model.LightingModel} dataModel The model to display.
  */
 lgb.gui.view.PsMasterGUI = function(dataModel) {
 

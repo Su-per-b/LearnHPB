@@ -7,7 +7,7 @@ goog.provide('lgb.gui.view.TopMenuGUI');
 
 
 goog.require('lgb.gui.view.BaseViewGUI');
-goog.require('lgb.Config');
+goog.require('lgb.core.Config');
 
 
 

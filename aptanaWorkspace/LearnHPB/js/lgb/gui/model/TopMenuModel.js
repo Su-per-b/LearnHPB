@@ -5,12 +5,12 @@
  
 goog.provide('lgb.gui.model.TopMenuModel');
 
-goog.require('lgb.model.BaseModel');
+goog.require('lgb.world.model.BaseModel');
 
 
 /**
  * @constructor
- * @extends lgb.model.BaseModel
+ * @extends lgb.world.model.BaseModel
  */
 lgb.gui.model.TopMenuModel = function() {
 
@@ -22,7 +22,7 @@ lgb.gui.model.TopMenuModel = function() {
   this.viewTitleToGuiMap_ = {};
   
 };
-goog.inherits(lgb.gui.model.TopMenuModel, lgb.model.BaseModel);
+goog.inherits(lgb.gui.model.TopMenuModel, lgb.world.model.BaseModel);
 
 
 /**

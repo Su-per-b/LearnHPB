@@ -5,13 +5,13 @@
  
 goog.provide('lgb.gui.view.EnvelopeGUI');
 
-goog.require('lgb.model.LightingModel');
+goog.require('lgb.world.model.LightingModel');
 goog.require('lgb.gui.view.BaseViewGUI');
 
 
 /**
  * @constructor
- * @param {lgb.model.VisibilityModel} dataModel The data model to display.
+ * @param {lgb.world.model.VisibilityModel} dataModel The data model to display.
  * @param {string} parentHtmlID the CSS id of the parent to inject into the DOM.
  * @extends {lgb.gui.view.BaseViewGUI}
  */

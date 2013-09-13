@@ -8,8 +8,8 @@ goog.provide('lgb.gui.view.LayoutView');
 goog.require('lgb.gui.view.BaseViewGUI');
 goog.require('lgb.component.SplitPanel');
 goog.require('lgb.component.SplitPanelDataSource');
-goog.require('lgb.view.LayoutUtil');
-goog.require('lgb.Config');
+goog.require('lgb.gui.view.LayoutUtil');
+goog.require('lgb.core.Config');
 goog.require('lgb.gui.model.LayoutModel');
 
 
@@ -114,9 +114,9 @@ lgb.gui.view.LayoutView.prototype.add = function(guiView) {
 
       guiView.injectTo(this.webGLcanvas_);
 
-      var util = new lgb.view.LayoutUtil(guiView);
+      var util = new lgb.gui.view.LayoutUtil(guiView);
 
-      util.alignHorizontal(lgb.view.LayoutUtil.ALIGN.Right, 6);
+      util.alignHorizontal(lgb.gui.view.LayoutUtil.ALIGN.Right, 6);
       util.show();
 
       this.layoutUtils_.push(util);
@@ -126,9 +126,9 @@ lgb.gui.view.LayoutView.prototype.add = function(guiView) {
       this.simulationButton_ = guiView;
 
       guiView.injectTo(this.webGLcanvas_);
-      var util = new lgb.view.LayoutUtil(guiView);
+      var util = new lgb.gui.view.LayoutUtil(guiView);
 
-      util.alignHorizontal(lgb.view.LayoutUtil.ALIGN.Right, 43);
+      util.alignHorizontal(lgb.gui.view.LayoutUtil.ALIGN.Right, 43);
       util.show();
 
       this.layoutUtils_.push(util);
@@ -138,8 +138,8 @@ lgb.gui.view.LayoutView.prototype.add = function(guiView) {
 
       guiView.injectTo(this.leftPanel_);
 
-      var util = new lgb.view.LayoutUtil(guiView);
-      util.alignHorizontal(lgb.view.LayoutUtil.ALIGN.Left, 5);
+      var util = new lgb.gui.view.LayoutUtil(guiView);
+      util.alignHorizontal(lgb.gui.view.LayoutUtil.ALIGN.Left, 5);
       util.show();
 
       this.layoutUtils_.push(util);
@@ -162,7 +162,7 @@ lgb.gui.view.LayoutView.prototype.add = function(guiView) {
       break;
     case "ResultsGUI":
     
-      var util = new lgb.view.LayoutUtil(guiView);
+      var util = new lgb.gui.view.LayoutUtil(guiView);
       
       guiView.injectTo(this.bottomRightPanel_);
       break;

@@ -1,6 +1,6 @@
 goog.provide('lgb.gui.controller.SimulationInputController');
 
-goog.require('lgb.controller.BaseController');
+goog.require('lgb.core.BaseController');
 goog.require('lgb.gui.view.SimulationInputGUI');
 goog.require('lgb.gui.model.BaseInputModel');
 
@@ -10,11 +10,11 @@ goog.require('lgb.simulation.controller.MainController');
 
 lgb.gui.controller.SimulationInputController = function() {
 
-  lgb.controller.BaseController.call(this);
+  lgb.core.BaseController.call(this);
   this.bind_();
   
 };
-goog.inherits(lgb.gui.controller.SimulationInputController, lgb.controller.BaseController);
+goog.inherits(lgb.gui.controller.SimulationInputController, lgb.core.BaseController);
 
 
 

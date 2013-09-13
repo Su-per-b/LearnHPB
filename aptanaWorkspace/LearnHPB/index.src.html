@@ -81,7 +81,7 @@
 
     <!--{BLOCK_END:LGB}-->
     
-      <script src="js/lgb/debugKendo.js"></script>
+      <script src="js/lgb/core/debugKendo.js"></script>
 
       
       
@@ -274,15 +274,15 @@
 
   <script>
 
-goog.require('lgb.controller.MainController');
-goog.require('lgb.events.EventBus');
-goog.require('lgb.Global');
+goog.require('lgb.core.MainController');
+goog.require('lgb.core.EventBus');
+goog.require('lgb.core.Global');
 goog.require('lgb');
 
 lgb.init();
 
 //jQuery.noConflict();
-var mainController = new lgb.controller.MainController();
+var mainController = new lgb.core.MainController();
 
   </script>
 

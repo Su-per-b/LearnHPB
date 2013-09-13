@@ -5,25 +5,25 @@
  
 goog.provide('lgb.gui.controller.ViewpointController');
 
-goog.require('lgb.controller.BaseController');
-goog.require('lgb.model.BuildingHeightModel');
-goog.require('lgb.view.ViewpointView');
-goog.require('lgb.model.ViewpointModel');
+goog.require('lgb.core.BaseController');
+goog.require('lgb.world.model.BuildingHeightModel');
+goog.require('lgb.world.view.ViewpointView');
+goog.require('lgb.world.model.ViewpointModel');
 goog.require('lgb.gui.view.ViewpointGUI');
 
 /**
  * @constructor
- * @extends lgb.controller.BaseController
+ * @extends lgb.core.BaseController
  */
 lgb.gui.controller.ViewpointController = function( ) {
 
-  lgb.controller.BaseController.call(this);
+  lgb.core.BaseController.call(this);
   
   this.viewpointGroupsLoaded_ = 0;
-  this.dataModel = new lgb.model.ViewpointModel();
+  this.dataModel = new lgb.world.model.ViewpointModel();
   
 };
-goog.inherits(lgb.gui.controller.ViewpointController, lgb.controller.BaseController);
+goog.inherits(lgb.gui.controller.ViewpointController, lgb.core.BaseController);
 
 
 /**
@@ -32,7 +32,7 @@ goog.inherits(lgb.gui.controller.ViewpointController, lgb.controller.BaseControl
 lgb.gui.controller.ViewpointController.prototype.init = function() {
   
 
-  this.view = new lgb.view.ViewpointView(this.dataModel);
+  this.view = new lgb.world.view.ViewpointView(this.dataModel);
 
   this.guiView = new lgb.gui.view.ViewpointGUI (this.dataModel);
   this.guiView._TITLE = "Viewpoints";

@@ -5,24 +5,24 @@
 
 goog.provide('lgb.component.TabStrip');
 goog.require('lgb.component.TabStripDataSource');
-goog.require('lgb.view.BaseV');
+goog.require('lgb.world.view.BaseV');
 
 
 /**
  * Html radio button group that will be inserted into the DOM
  * @constructor
- * @extends {lgb.view.BaseV}
+ * @extends {lgb.world.view.BaseV}
  * @param {lgb.component.TabStripDataSource} ds the datasource
  * for this component.
  */
 lgb.component.TabStrip = function(ds) {
 
-  lgb.view.BaseV.call(this, ds, ds.htmlID, ds.parentHtmlID);
+  lgb.world.view.BaseV.call(this, ds, ds.htmlID, ds.parentHtmlID);
   this.ds = ds;
   
   this.listenForChange_('addTab');
 };
-goog.inherits(lgb.component.TabStrip, lgb.view.BaseV);
+goog.inherits(lgb.component.TabStrip, lgb.world.view.BaseV);
 
 
 lgb.component.TabStrip.prototype.onChange_addTab_ = function(tab) {

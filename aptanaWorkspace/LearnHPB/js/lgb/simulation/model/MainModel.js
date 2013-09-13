@@ -5,15 +5,15 @@
  
 goog.provide('lgb.simulation.model.MainModel');
 
-goog.require('lgb.model.BaseModel');
-goog.require('lgb.Config');
+goog.require('lgb.world.model.BaseModel');
+goog.require('lgb.core.Config');
 goog.require('lgb.simulation.model.voNative.SimStateNative');
 goog.require('lgb.simulation.model.WebSocketConnectionState');
 
 
 /**
  * @constructor
- * @extends lgb.model.BaseModel
+ * @extends lgb.world.model.BaseModel
  */
 lgb.simulation.model.MainModel = function() {
 
@@ -21,7 +21,7 @@ lgb.simulation.model.MainModel = function() {
   
   /**@const */
   this._TITLE = 'MainModel';
-  lgb.model.BaseModel.call(this);
+  lgb.world.model.BaseModel.call(this);
 
   this.simStateNative = lgb.simulation.model.voNative.SimStateNative.simStateNative_unknown;
   this.webSocketConnectionState = lgb.simulation.model.WebSocketConnectionState.uninitialized;
@@ -33,7 +33,7 @@ lgb.simulation.model.MainModel = function() {
   this.init_();
 
 };
-goog.inherits(lgb.simulation.model.MainModel, lgb.model.BaseModel);
+goog.inherits(lgb.simulation.model.MainModel, lgb.world.model.BaseModel);
 
 
 /**
@@ -45,10 +45,10 @@ lgb.simulation.model.MainModel.prototype.init_ = function(event) {
   var hostname;
   var hostname2;
   
-  switch(lgb.Config.SOCKET_SERVER_HOST) {
+  switch(lgb.core.Config.SOCKET_SERVER_HOST) {
     
     
-    case lgb.Config.SOCKET_SERVER.AutoConfig :
+    case lgb.core.Config.SOCKET_SERVER.AutoConfig :
     
       url = String (window.location);
       console.log('window.location: '+ url);
@@ -60,11 +60,11 @@ lgb.simulation.model.MainModel.prototype.init_ = function(event) {
       console.log('hostname2: '+ hostname2);
       break;
       
-    case lgb.Config.SOCKET_SERVER.Pfalco :
+    case lgb.core.Config.SOCKET_SERVER.Pfalco :
       hostname2 = 'learnhpb.straylightsim.com';
       break;
       
-    case lgb.Config.SOCKET_SERVER.PfalcoLocal :
+    case lgb.core.Config.SOCKET_SERVER.PfalcoLocal :
       hostname2 = '192.168.0.15';
       break;
       

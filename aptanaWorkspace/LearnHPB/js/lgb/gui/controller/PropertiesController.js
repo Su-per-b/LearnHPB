@@ -2,19 +2,19 @@
 goog.provide('lgb.gui.controller.PropertiesController');
 
 
-goog.require('lgb.controller.BaseController');
+goog.require('lgb.core.BaseController');
 goog.require('lgb.gui.view.PropertiesView');
 goog.require('lgb.gui.view.PropertiesButtonView');
 
 
-/**@extends lgb.controller.BaseController
+/**@extends lgb.core.BaseController
  */
 lgb.gui.controller.PropertiesController = function() {
 
-  lgb.controller.BaseController.call(this);
+  lgb.core.BaseController.call(this);
     this.init_();
 };
-goog.inherits(lgb.gui.controller.PropertiesController,lgb.controller.BaseController);
+goog.inherits(lgb.gui.controller.PropertiesController,lgb.core.BaseController);
 
 
 lgb.gui.controller.PropertiesController.prototype.init_ = function() {
@@ -84,7 +84,7 @@ lgb.gui.controller.PropertiesController.prototype.onScenarioParsed_ =
 
 
 /**
- * @param {lgb.events.Event} event The event.
+ * @param {lgb.core.Event} event The event.
  */
 lgb.gui.controller.PropertiesController.prototype.onRequestActivateView_ =
   function(event) {
@@ -102,7 +102,7 @@ lgb.gui.controller.PropertiesController.prototype.onRequestActivateView_ =
 
 
 /**
- * @param {lgb.events.Event} event The event.
+ * @param {lgb.core.Event} event The event.
  */
 lgb.gui.controller.PropertiesController.prototype.onClosedPanel =
   function(event) {

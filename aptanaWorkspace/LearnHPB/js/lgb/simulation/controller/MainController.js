@@ -5,7 +5,7 @@
 
 goog.provide('lgb.simulation.controller.MainController');
 
-goog.require('lgb.controller.BaseController');
+goog.require('lgb.core.BaseController');
 goog.require('lgb.simulation.controller.JsonController');
 
 goog.require('lgb.simulation.model.MainModel');
@@ -16,10 +16,10 @@ goog.require('lgb.simulation.model.voNative.SimStateNative');
 goog.require('lgb.simulation.model.WebSocketConnectionStateRequest');
 
 lgb.simulation.controller.MainController = function() {
-    lgb.controller.BaseController.call(this);
+    lgb.core.BaseController.call(this);
     this.init_();
 };
-goog.inherits(lgb.simulation.controller.MainController, lgb.controller.BaseController);
+goog.inherits(lgb.simulation.controller.MainController, lgb.core.BaseController);
 
 /**
  * Handler used for websocket init

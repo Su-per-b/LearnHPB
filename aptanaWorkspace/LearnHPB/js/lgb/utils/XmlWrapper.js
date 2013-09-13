@@ -8,12 +8,12 @@ goog.provide('lgb.utils.XmlWrapper');
 /**
  * @constructor
  * @param {Document} xml The xml document that we will parse.
- * @extends {lgb.BaseClass}
+ * @extends {lgb.core.BaseClass}
  */
 lgb.utils.XmlWrapper = function(xml) {
 
 
-  lgb.BaseClass.call(this);
+  lgb.core.BaseClass.call(this);
 
  /** @type {Document}  */
   this.xml = xml;
@@ -22,7 +22,7 @@ lgb.utils.XmlWrapper = function(xml) {
   /** @type {Node} A Node Object */
   this.currentNode = null;
 };
-goog.inherits(lgb.utils.XmlWrapper, lgb.BaseClass);
+goog.inherits(lgb.utils.XmlWrapper, lgb.core.BaseClass);
 
 
 /**

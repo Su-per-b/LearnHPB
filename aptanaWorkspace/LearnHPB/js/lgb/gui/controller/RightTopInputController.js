@@ -5,21 +5,21 @@
  
 goog.provide('lgb.gui.controller.RightTopInputController');
 
-goog.require('lgb.controller.BaseController');
+goog.require('lgb.core.BaseController');
 goog.require('lgb.gui.model.BaseInputModel');
 goog.require('lgb.gui.view.RightTopInputGUI');
 
 /**
  * @constructor
- * @extends lgb.controller.BaseController
+ * @extends lgb.core.BaseController
  */
 lgb.gui.controller.RightTopInputController = function( ) {
 
-  lgb.controller.BaseController.call(this);
+  lgb.core.BaseController.call(this);
   this.init_();
   
 };
-goog.inherits(lgb.gui.controller.RightTopInputController, lgb.controller.BaseController);
+goog.inherits(lgb.gui.controller.RightTopInputController, lgb.core.BaseController);
 
 
 /**

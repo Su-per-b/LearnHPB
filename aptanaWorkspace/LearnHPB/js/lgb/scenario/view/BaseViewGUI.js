@@ -5,16 +5,16 @@
  
 goog.provide('lgb.scenario.view.BaseViewGUI');
 
-goog.require('lgb.model.ViewpointModel');
+goog.require('lgb.world.model.ViewpointModel');
 goog.require('lgb.gui.view.BaseViewGUI');
-goog.require('lgb.Config');
+goog.require('lgb.core.Config');
 goog.require('lgb.scenario.model.System');
 goog.require('lgb.scenario.model.SubSystem');
 
 
 /**
  * @constructor
- * @param {lgb.model.ViewpointModel} dataModel The data model to display.
+ * @param {lgb.world.model.ViewpointModel} dataModel The data model to display.
  * @param {string} parentHtmlID the CSS id of the parent to inject into the DOM.
  * @extends {lgb.gui.view.BaseViewGUIGUI}
  */

@@ -11,18 +11,18 @@ goog.require('lgb.component.LinkDataSource');
 /**
  * Html radio button group that will be inserted into the DOM
  * @constructor
- * @extends {lgb.view.BaseV}
+ * @extends {lgb.world.view.BaseV}
  * @param {lgb.component.LinkDataSource} ds the datasource
  * for this component.
  */
 lgb.component.Link = function(ds) {
 
   
-  lgb.view.BaseV.call(this, null, ds.htmlID);
+  lgb.world.view.BaseV.call(this, null, ds.htmlID);
   this.ds = ds;
 
 };
-goog.inherits(lgb.component.Link, lgb.view.BaseV);
+goog.inherits(lgb.component.Link, lgb.world.view.BaseV);
 
 
 

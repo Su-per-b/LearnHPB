@@ -8,7 +8,7 @@
 */
 
 goog.provide('lgb.component.SplitPanel');
-goog.require('lgb.view.BaseV');
+goog.require('lgb.world.view.BaseV');
 
 
 /**
@@ -21,13 +21,13 @@ goog.require('lgb.view.BaseV');
  */
 lgb.component.SplitPanel = function(ds) {
     
-  lgb.view.BaseV.call(this);
+  lgb.world.view.BaseV.call(this);
   
   lgb.assert (ds);
   this.ds = ds;
   this.panes_ = [];
 };
-goog.inherits(lgb.component.SplitPanel, lgb.view.BaseV);
+goog.inherits(lgb.component.SplitPanel, lgb.world.view.BaseV);
 
 
 

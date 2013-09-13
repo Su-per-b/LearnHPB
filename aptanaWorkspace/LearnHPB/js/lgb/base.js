@@ -11,7 +11,7 @@ goog.provide('lgb');
 goog.require('goog.debug.Console');
 goog.require('goog.debug.LogRecord');
 goog.require('goog.debug.Logger.Level');
-goog.require('lgb.DebugLGB');
+goog.require('lgb.core.DebugLGB');
 
 
 /**
@@ -22,7 +22,7 @@ goog.require('lgb.DebugLGB');
 lgb.init = function() {
   lgb.console = new goog.debug.Console();
   
-  var debug = new lgb.DebugLGB();
+  var debug = new lgb.core.DebugLGB();
     
   if ( !COMPILED ) {
     debug.tag();
@@ -37,7 +37,7 @@ lgb.assert = function(obj) {
     
   if (obj === undefined  ) {
     debugger;
-    throw "lgb.assert Failed"
+    throw "lgb.assert Failed";
 
   }
 };

@@ -5,18 +5,18 @@
  
 goog.provide('lgb.scenario.model.Bs2');
 
-goog.require('lgb.model.BaseModel');
+goog.require('lgb.world.model.BaseModel');
 goog.require('lgb.scenario.model.SystemList');
 goog.require('lgb.utils.XmlWrapper');
 
 
 /**
  * @constructor
- * @extends lgb.model.Bs2Model
+ * @extends lgb.world.model.Bs2Model
  */
 lgb.scenario.model.Bs2 = function() {
 
-  lgb.model.BaseModel.call(this);
+  lgb.world.model.BaseModel.call(this);
 
   this.xml = null;
   this.systemNodeArray = [];
@@ -24,7 +24,7 @@ lgb.scenario.model.Bs2 = function() {
   this.selectedSystemNode = null;
 
 };
-goog.inherits(lgb.scenario.model.Bs2, lgb.model.BaseModel);
+goog.inherits(lgb.scenario.model.Bs2, lgb.world.model.BaseModel);
 
 
 
@@ -32,7 +32,7 @@ goog.inherits(lgb.scenario.model.Bs2, lgb.model.BaseModel);
  * Loads the scario from a remote XML file.
  */
 lgb.scenario.model.Bs2.prototype.load = function() {
-   var url = lgb.Config.XML_BASE_PATH + 'Building.xml';
+   var url = lgb.core.Config.XML_BASE_PATH + 'Building.xml';
 
   var delegate = this.d(this.parse);
   

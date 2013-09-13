@@ -5,7 +5,7 @@
  
 goog.provide('lgb.gui.view.TitleBarView');
 goog.require('lgb.gui.view.BaseViewGUI');
-goog.require('lgb.Config');
+goog.require('lgb.core.Config');
 
 
 /**

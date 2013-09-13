@@ -4,19 +4,19 @@
  */
  
 goog.provide('lgb.component.ToggleButtonA');
-goog.require('lgb.view.BaseV');
+goog.require('lgb.world.view.BaseV');
 
 
 /**
  * Html button type object made with a <div> that will be instered into the DOM
  * @param {Object} options Use this to set things like the title and id.
  * @constructor
- * @extends {lgb.view.BaseV}
+ * @extends {lgb.world.view.BaseV}
  */
 lgb.component.ToggleButtonA = function(options) {
     
 
-  lgb.view.BaseV.call(this, null, options.htmlID);
+  lgb.world.view.BaseV.call(this, null, options.htmlID);
 
   this.options = $.extend({ // Default values
     htmlID: 'IDnotSet',
@@ -31,7 +31,7 @@ lgb.component.ToggleButtonA = function(options) {
 
 
 };
-goog.inherits(lgb.component.ToggleButtonA, lgb.view.BaseV);
+goog.inherits(lgb.component.ToggleButtonA, lgb.world.view.BaseV);
 
 
 /**

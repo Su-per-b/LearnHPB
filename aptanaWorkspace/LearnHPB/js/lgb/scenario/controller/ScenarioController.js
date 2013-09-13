@@ -5,18 +5,18 @@
  
 goog.provide('lgb.scenario.controller.ScenarioController');
 
-goog.require('lgb.controller.BaseController');
+goog.require('lgb.core.BaseController');
 goog.require('lgb.scenario.model.Base');
 goog.require('lgb.scenario.model.Bs2');
 
 
 /**
  * @constructor
- * @extends lgb.controller.BaseController
+ * @extends lgb.core.BaseController
  */
 lgb.scenario.controller.ScenarioController = function() {
 
-  lgb.controller.BaseController.call(this);
+  lgb.core.BaseController.call(this);
 
 
   this.dataModel = new lgb.scenario.model.Base();
@@ -40,7 +40,7 @@ lgb.scenario.controller.ScenarioController = function() {
   
   
 };
-goog.inherits(lgb.scenario.controller.ScenarioController, lgb.controller.BaseController);
+goog.inherits(lgb.scenario.controller.ScenarioController, lgb.core.BaseController);
 
 
 
