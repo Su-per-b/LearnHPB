@@ -3,30 +3,30 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.gui.view.DialogView');
+goog.provide('lgb.gui.view.DialogGreenGUI');
 
-goog.require('lgb.gui.view.BaseViewGUI');
+goog.require('lgb.gui.view.BaseGUI');
 
 /**
  * @constructor
  * @param {lgb.world.model.BaseModel=} dataModel The data model to display.
- * @extends {lgb.gui.view.BaseViewGUI}
+ * @extends {lgb.gui.view.BaseGUI}
  */
-lgb.gui.view.DialogView = function(dataModel, htmlID, parentHtmlID) {
+lgb.gui.view.DialogGreenGUI = function(dataModel, htmlID, parentHtmlID) {
     
-  lgb.gui.view.BaseViewGUI.call(this, dataModel, htmlID, parentHtmlID);
+  lgb.gui.view.BaseGUI.call(this, dataModel, htmlID, parentHtmlID);
   this.subPanels = [];
   this.useSlideEffect = false;
 
 };
-goog.inherits(lgb.gui.view.DialogView, lgb.gui.view.BaseViewGUI);
+goog.inherits(lgb.gui.view.DialogGreenGUI, lgb.gui.view.BaseGUI);
 
 
 /**
  * Called by the controller I believe.
  * @return {jQuery|jQuery.widget|null} The dialog.
  */
-lgb.gui.view.DialogView.prototype.isOpen = function() {
+lgb.gui.view.DialogGreenGUI.prototype.isOpen = function() {
   
   var el = this.getMainElement();
   
@@ -37,7 +37,7 @@ lgb.gui.view.DialogView.prototype.isOpen = function() {
 /**
  * shows the Dialog.
  */
-lgb.gui.view.DialogView.prototype.show = function(showFlag) {
+lgb.gui.view.DialogGreenGUI.prototype.show = function(showFlag) {
 
   
   if(showFlag) {
@@ -52,7 +52,7 @@ lgb.gui.view.DialogView.prototype.show = function(showFlag) {
 /**
  * hide the dialog.
  */
-lgb.gui.view.DialogView.prototype.show_ = function() {
+lgb.gui.view.DialogGreenGUI.prototype.show_ = function() {
   
   var el = this.getMainElement();
 
@@ -76,7 +76,7 @@ lgb.gui.view.DialogView.prototype.show_ = function() {
 /**
  * hide the dialog.
  */
-lgb.gui.view.DialogView.prototype.hide_ = function() {
+lgb.gui.view.DialogGreenGUI.prototype.hide_ = function() {
   
   var el = this.getMainElement();
 

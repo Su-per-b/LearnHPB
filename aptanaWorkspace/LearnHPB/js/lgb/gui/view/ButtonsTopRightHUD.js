@@ -5,7 +5,7 @@
  
 goog.provide('lgb.gui.view.ButtonsTopRightHUD');
 
-goog.require('lgb.gui.view.BaseViewGUI');
+goog.require('lgb.gui.view.BaseGUI');
 goog.require('lgb.core.Config');
 goog.require('lgb.component.TabStripDataSource');
 goog.require('lgb.component.TabStrip');
@@ -15,14 +15,14 @@ goog.require('lgb.component.TabStrip');
  * @constructor
  * @param {lgb.world.model.ViewpointModel} dataModel The data model to display.
  * @param {string} parentHtmlID the CSS id of the parent to inject into the DOM.
- * @extends {lgb.gui.view.BaseViewGUI}
+ * @extends {lgb.gui.view.BaseGUI}
  */
 lgb.gui.view.ButtonsTopRightHUD = function(dataModel) {
   
   this._TITLE = "RightTop";
-  lgb.gui.view.BaseViewGUI.call(this, dataModel, 'RightTopInputGUI');
+  lgb.gui.view.BaseGUI.call(this, dataModel, 'RightTopInputGUI');
 };
-goog.inherits(lgb.gui.view.ButtonsTopRightHUD, lgb.gui.view.BaseViewGUI);
+goog.inherits(lgb.gui.view.ButtonsTopRightHUD, lgb.gui.view.BaseGUI);
 
 
 /**

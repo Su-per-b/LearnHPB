@@ -6,9 +6,9 @@
 goog.provide('lgb.world.view.input.VisibilityGUI');
 
 goog.require('lgb.world.model.VisibilityModel');
-goog.require('lgb.gui.view.BaseViewGUI');
+goog.require('lgb.gui.view.BaseGUI');
 
-goog.require('lgb.gui.view.BaseViewGUI');
+goog.require('lgb.gui.view.BaseGUI');
 goog.require('lgb.component.TreeH');
 goog.require('lgb.component.TreeDataSourceH');
 goog.require('lgb.core.Config');
@@ -16,12 +16,12 @@ goog.require('lgb.core.Config');
 /**
  * @constructor
  * @param {lgb.world.model.VisibilityModel} dataModel The data model to display.
- * @extends {lgb.gui.view.BaseViewGUI}
+ * @extends {lgb.gui.view.BaseGUI}
  */
 lgb.world.view.input.VisibilityGUI = function(dataModel) {
 
   this._TITLE = "Visibility";
-  lgb.gui.view.BaseViewGUI.call(this, dataModel);
+  lgb.gui.view.BaseGUI.call(this, dataModel);
   
   this.listenForChange_('addNode');
   this.listenForChange_('init');
@@ -29,7 +29,7 @@ lgb.world.view.input.VisibilityGUI = function(dataModel) {
   
   
 };
-goog.inherits(lgb.world.view.input.VisibilityGUI, lgb.gui.view.BaseViewGUI);
+goog.inherits(lgb.world.view.input.VisibilityGUI, lgb.gui.view.BaseGUI);
 
 
 

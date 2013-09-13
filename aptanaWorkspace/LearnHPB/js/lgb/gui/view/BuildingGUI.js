@@ -1,13 +1,13 @@
 goog.provide('lgb.gui.view.BuildingGUI');
 
-goog.require('lgb.gui.view.BaseViewGUI');
+goog.require('lgb.gui.view.BaseGUI');
 goog.require('lgb.component.TabStrip');
 goog.require('lgb.component.TabStripDataSource');
 
 lgb.gui.view.BuildingGUI = function(dataModel) {
 
 
-  lgb.gui.view.BaseViewGUI.call(this, dataModel);
+  lgb.gui.view.BaseGUI.call(this, dataModel);
   this.tabTitleMap_ = {};
   
   this.dataSource = new lgb.component.TabStripDataSource('buildingInputGUI-tabStrip');
@@ -16,7 +16,7 @@ lgb.gui.view.BuildingGUI = function(dataModel) {
   this.tabStrip1 = new lgb.component.TabStrip(this.dataSource);
 
 };
-goog.inherits(lgb.gui.view.BuildingGUI, lgb.gui.view.BaseViewGUI);
+goog.inherits(lgb.gui.view.BuildingGUI, lgb.gui.view.BaseGUI);
 
 
 

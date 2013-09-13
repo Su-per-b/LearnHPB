@@ -6,24 +6,24 @@
 goog.provide('lgb.world.view.RoofTopView');
 
 
-goog.require('lgb.world.view.BaseView3dScene');
+goog.require('lgb.world.view.BaseWorldView');
 goog.require('lgb.world.model.vo.ViewpointNode');
 
 
 /**
  * MVC View for the RoofTop Unit
  * @constructor
- * @extendslgb.world.view.BaseView3dScene
+ * @extendslgb.world.view.BaseWorldView
  * @param {lgb.world.model.RoofTopModel} dataModel The data model to display.
  */
 lgb.world.view.RoofTopView = function(dataModel) {
     
   this._ASSETS_FOLDER = 'rooftop';
   this._TITLE = 'RoofTop';
- lgb.world.view.BaseView3dScene.call(this, dataModel);
+ lgb.world.view.BaseWorldView.call(this, dataModel);
 
 };
-goog.inherits(lgb.world.view.RoofTopView,lgb.world.view.BaseView3dScene);
+goog.inherits(lgb.world.view.RoofTopView,lgb.world.view.BaseWorldView);
 
 
 

@@ -4,24 +4,24 @@
  */
  
 goog.provide('lgb.gui.view.TitleBarGUI');
-goog.require('lgb.gui.view.BaseViewGUI');
+goog.require('lgb.gui.view.BaseGUI');
 goog.require('lgb.core.Config');
 
 
 /**
  * @constructor
- * @extends {lgb.gui.view.BaseViewGUI}
+ * @extends {lgb.gui.view.BaseGUI}
  */
 lgb.gui.view.TitleBarGUI = function() {
     
     
   this._TITLE='TitleBar';
-  lgb.gui.view.BaseViewGUI.call(this);
+  lgb.gui.view.BaseGUI.call(this);
   
   this.init_();
 
 };
-goog.inherits(lgb.gui.view.TitleBarGUI, lgb.gui.view.BaseViewGUI);
+goog.inherits(lgb.gui.view.TitleBarGUI, lgb.gui.view.BaseGUI);
 
 
 

@@ -3,23 +3,21 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
 
-goog.provide('lgb.world.view.PsView');
-
-
+goog.provide('lgb.world.view.ParticleSystemView');
 
 goog.require('lgb.world.view.ParticleElement');
 goog.require('lgb.world.view.ParticlePath');
-goog.require('lgb.world.view.BaseView3dScene');
+goog.require('lgb.world.view.BaseWorldView');
 goog.require('lgb.world.model.BuildingHeightModel');
 
 /**
  * @constructor
- * @extends {lgb.world.view.BaseView3dScene}
- * @param {lgb.world.model.PsModel} dataModel The data model to display.
+ * @extends {lgb.world.view.BaseWorldView}
+ * @param {lgb.world.model.ParticleSystemModel} dataModel The data model to display.
  */
-lgb.world.view.PsView = function(dataModel) {
+lgb.world.view.ParticleSystemView = function(dataModel) {
 
-  lgb.world.view.BaseView3dScene.call(this, dataModel);
+  lgb.world.view.BaseWorldView.call(this, dataModel);
 
   this.title = dataModel.title;
 
@@ -31,18 +29,18 @@ lgb.world.view.PsView = function(dataModel) {
 
     
 };
-goog.inherits(lgb.world.view.PsView, lgb.world.view.BaseView3dScene);
+goog.inherits(lgb.world.view.ParticleSystemView, lgb.world.view.BaseWorldView);
 
 
-lgb.world.view.PsView.prototype.onChange_isRunning_ = function(isRunning) {
+lgb.world.view.ParticleSystemView.prototype.onChange_isRunning_ = function(isRunning) {
     this.updateIsRunning_();
 };
 
-lgb.world.view.PsView.prototype.onChange_showBoxes_ = function(showBoxes) {
+lgb.world.view.ParticleSystemView.prototype.onChange_showBoxes_ = function(showBoxes) {
     this.showBoxes(showBoxes);
 };
 
-lgb.world.view.PsView.prototype.onChange_showCurves_ = function(showCurves) {
+lgb.world.view.ParticleSystemView.prototype.onChange_showCurves_ = function(showCurves) {
     this.showCurves(showCurves);
 };
 
@@ -53,7 +51,7 @@ lgb.world.view.PsView.prototype.onChange_showCurves_ = function(showCurves) {
  * Updates the running state from the dataModel.
  * @private
  */
-lgb.world.view.PsView.prototype.updateIsRunning_ = function() {
+lgb.world.view.ParticleSystemView.prototype.updateIsRunning_ = function() {
 
   if (this.dataModel.isRunning) {
     this.renderListenerKey_ = this.listen(e.RenderNotify, this.onRender);
@@ -67,7 +65,7 @@ lgb.world.view.PsView.prototype.updateIsRunning_ = function() {
 /**
  * Initializes the View.
  */
-lgb.world.view.PsView.prototype.init = function() {
+lgb.world.view.ParticleSystemView.prototype.init = function() {
 
   /**@type THREE.Object3D */
   this.visibleLineGroup = null;
@@ -104,7 +102,7 @@ lgb.world.view.PsView.prototype.init = function() {
 /**
  * parse the particle system config.
  */
-lgb.world.view.PsView.prototype.parseConfig = function() {
+lgb.world.view.ParticleSystemView.prototype.parseConfig = function() {
   this.translate = this.dataModel.translate;
   this.rotate = this.dataModel.rotate;
   this.particlePaths = [];
@@ -123,7 +121,7 @@ lgb.world.view.PsView.prototype.parseConfig = function() {
 /**
  * create the particle system.
  */
-lgb.world.view.PsView.prototype.createSystem = function() {
+lgb.world.view.ParticleSystemView.prototype.createSystem = function() {
 
   var cicle = THREE.ImageUtils.loadTexture('3d-assets/textures/circle.png');
 
@@ -173,7 +171,7 @@ lgb.world.view.PsView.prototype.createSystem = function() {
  * creates the THREE.js lines.
  * @private
  */
-lgb.world.view.PsView.prototype.makeVisibleLines_ = function() {
+lgb.world.view.ParticleSystemView.prototype.makeVisibleLines_ = function() {
 
   this.visibleLineGroup = new THREE.Object3D();
   this.visibleLineGroup.name = 'PsView-visibleLineGroup-' + this.dataModel.title;
@@ -189,7 +187,7 @@ lgb.world.view.PsView.prototype.makeVisibleLines_ = function() {
 /**
  * converts the curves to paths.
  */
-lgb.world.view.PsView.prototype.generateParticlePaths = function() {
+lgb.world.view.ParticleSystemView.prototype.generateParticlePaths = function() {
 
   var j = this.particlePathCount;
   while (j--) {
@@ -208,7 +206,7 @@ lgb.world.view.PsView.prototype.generateParticlePaths = function() {
  * @param {number} tension tension parameter for the curve.
  * @return {THREE.SplineCurve3} The randomly generated Curve object.
  */
-lgb.world.view.PsView.prototype.newCurve = function() {
+lgb.world.view.ParticleSystemView.prototype.newCurve = function() {
 
   var vec3AlongCurve = [];
 
@@ -228,7 +226,7 @@ lgb.world.view.PsView.prototype.newCurve = function() {
 /**
  * @param {boolean} isVisible whether to show the curves or hide them.
  */
-lgb.world.view.PsView.prototype.showCurves = function(isVisible) {
+lgb.world.view.ParticleSystemView.prototype.showCurves = function(isVisible) {
 
   if (isVisible) {
     if (this.visibleLineGroup == null) {
@@ -248,7 +246,7 @@ lgb.world.view.PsView.prototype.showCurves = function(isVisible) {
 /**
  * @param {boolean} isVisible whether to show the boxes or hide them.
  */
-lgb.world.view.PsView.prototype.showBoxes = function(isVisible) {
+lgb.world.view.ParticleSystemView.prototype.showBoxes = function(isVisible) {
 
   if (isVisible) {
 
@@ -269,13 +267,13 @@ lgb.world.view.PsView.prototype.showBoxes = function(isVisible) {
   }
 };
 
-lgb.world.view.PsView.prototype.setBuildingHeight = function(buildingHeightModel) {
+lgb.world.view.ParticleSystemView.prototype.setBuildingHeight = function(buildingHeightModel) {
 
   this.topFloorMaxY_ = buildingHeightModel.topFloorMaxY;
   this.setY_();
 };
 
-lgb.world.view.PsView.prototype.setY_ = function() {
+lgb.world.view.ParticleSystemView.prototype.setY_ = function() {
 
   if (null != this.topFloorMaxY_ && null != this.sceneY_) {
     this.masterGroup_.position.y = this.topFloorMaxY_ + this.sceneY_;
@@ -287,7 +285,7 @@ lgb.world.view.PsView.prototype.setY_ = function() {
  * event Handler
  * @param {e.RenderNotify} event The event.
  */
-lgb.world.view.PsView.prototype.onRender = function(event) {
+lgb.world.view.ParticleSystemView.prototype.onRender = function(event) {
   //first remove any particles at the end
 
   //if none are at the end, create a new particle

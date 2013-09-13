@@ -3,44 +3,44 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.gui.view.TestLightingGUI');
+goog.provide('lgb.gui.view.TestGUILighting');
 
 goog.require('lgb.world.model.LightingModel');
-goog.require('lgb.gui.view.BaseViewGUI');
+goog.require('lgb.gui.view.BaseGUI');
 
 
 /**
  * @constructor
  * @param {lgb.world.model.VisibilityModel} dataModel The data model to display.
  * @param {string} parentHtmlID the CSS id of the parent to inject into the DOM.
- * @extends {lgb.gui.view.BaseViewGUI}
+ * @extends {lgb.gui.view.BaseGUI}
  */
-lgb.gui.view.TestLightingGUI = function(dataModel) {
+lgb.gui.view.TestGUILighting = function(dataModel) {
 
   this._TITLE = "Settings";
-  lgb.gui.view.BaseViewGUI.call(this, dataModel);
+  lgb.gui.view.BaseGUI.call(this, dataModel);
 
 };
-goog.inherits(lgb.gui.view.TestLightingGUI, lgb.gui.view.BaseViewGUI);
+goog.inherits(lgb.gui.view.TestGUILighting, lgb.gui.view.BaseGUI);
 
 
 /**
  * Initializes the View
  */
-lgb.gui.view.TestLightingGUI.prototype.init = function() {
+lgb.gui.view.TestGUILighting.prototype.init = function() {
 
   this.triggerLocal(e.RequestAddToTestingInput, this);
   
 };
 
-lgb.gui.view.TestLightingGUI.prototype.bind_ = function() {
+lgb.gui.view.TestGUILighting.prototype.bind_ = function() {
   
   this.kendoComboBox_.bind('select', this.d(this.onComboBoxSelect_));
 
 };
 
 
-lgb.gui.view.TestLightingGUI.prototype.onComboBoxSelect_ = function(event) {
+lgb.gui.view.TestGUILighting.prototype.onComboBoxSelect_ = function(event) {
   
   var idx = event.item.index();
   var dataItem = this.kendoComboBox_.dataItem(idx);
@@ -52,7 +52,7 @@ lgb.gui.view.TestLightingGUI.prototype.onComboBoxSelect_ = function(event) {
 
 
 
-lgb.gui.view.TestLightingGUI.prototype.inject = function(parentElement) {
+lgb.gui.view.TestGUILighting.prototype.inject = function(parentElement) {
   
   goog.base(this,  'inject', parentElement);
   

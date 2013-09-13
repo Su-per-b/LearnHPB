@@ -62,7 +62,7 @@ lgb.world.view.WorldSelectionView.prototype.changeMaterial_ = function(mesh, mak
   } else {
       mesh.material = new THREE.MeshFaceMaterial();
   }
-}
+};
 
 
 /**

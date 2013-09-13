@@ -3,11 +3,11 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
 
-goog.provide('lgb.gui.view.PsMasterGUI');
+goog.provide('lgb.gui.view.ParticleSystemMasterGUI');
 
-goog.require('lgb.gui.view.BaseViewGUI');
+goog.require('lgb.gui.view.BaseGUI');
 goog.require('lgb.world.model.BuildingHeightModel');
-goog.require('lgb.world.model.PsModelMaster');
+goog.require('lgb.world.model.ParticleSystemMasterModel');
 
 goog.require('lgb.component.Tree');
 goog.require('lgb.component.TreeDataSource');
@@ -20,20 +20,20 @@ goog.require('lgb.core.Config');
 
 /**
  * @constructor
- * @extends {lgb.gui.view.BaseViewGUI}
+ * @extends {lgb.gui.view.BaseGUI}
  * @param {lgb.world.model.LightingModel} dataModel The model to display.
  */
-lgb.gui.view.PsMasterGUI = function(dataModel) {
+lgb.gui.view.ParticleSystemMasterGUI = function(dataModel) {
 
   this._TITLE = 'Airflow';
-  lgb.gui.view.BaseViewGUI.call(this, dataModel, 'PsMasterGUI');
+  lgb.gui.view.BaseGUI.call(this, dataModel, 'PsMasterGUI');
 };
-goog.inherits(lgb.gui.view.PsMasterGUI, lgb.gui.view.BaseViewGUI);
+goog.inherits(lgb.gui.view.ParticleSystemMasterGUI, lgb.gui.view.BaseGUI);
 
 /**
  * Initializes the View
  */
-lgb.gui.view.PsMasterGUI.prototype.init = function() {
+lgb.gui.view.ParticleSystemMasterGUI.prototype.init = function() {
   
   
     var list = this.dataModel.getPsModelList();
@@ -68,7 +68,7 @@ lgb.gui.view.PsMasterGUI.prototype.init = function() {
  * event bus.
  * @private
  */
-lgb.gui.view.PsMasterGUI.prototype.bind_ = function() {
+lgb.gui.view.ParticleSystemMasterGUI.prototype.bind_ = function() {
 
 
     
@@ -87,7 +87,7 @@ lgb.gui.view.PsMasterGUI.prototype.bind_ = function() {
 };
 
 
-lgb.gui.view.PsMasterGUI.prototype.onDataModelChangedEx_ = function(event) {
+lgb.gui.view.ParticleSystemMasterGUI.prototype.onDataModelChangedEx_ = function(event) {
   
     var propertyName = event.payload.changedItems.propertyName;
     var changedItem = event.payload.changedItems[0];
@@ -107,7 +107,7 @@ lgb.gui.view.PsMasterGUI.prototype.onDataModelChangedEx_ = function(event) {
 /**
  * injects the html into the DOM
  */
-lgb.gui.view.PsMasterGUI.prototype.injectHtml = function() {
+lgb.gui.view.ParticleSystemMasterGUI.prototype.injectHtml = function() {
 
 
   this.treeActive = new lgb.component.Tree(this.treeActiveDS);

@@ -5,14 +5,14 @@
  
 goog.provide('lgb.scenario.view.System');
 
-goog.require('lgb.scenario.view.BaseViewGUI');
+goog.require('lgb.scenario.view.BaseView');
 goog.require('lgb.scenario.view.SubSystem');
 
 
 lgb.scenario.view.System = function(dataModel, debugFlag) {
-  lgb.scenario.view.BaseViewGUI.call(this, dataModel, debugFlag);
+  lgb.scenario.view.BaseView.call(this, dataModel, debugFlag);
 };
-goog.inherits(lgb.scenario.view.System, lgb.scenario.view.BaseViewGUI);
+goog.inherits(lgb.scenario.view.System, lgb.scenario.view.BaseView);
 
 
 

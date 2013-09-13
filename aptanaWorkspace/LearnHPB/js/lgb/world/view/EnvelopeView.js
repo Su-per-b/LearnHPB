@@ -7,7 +7,7 @@ goog.provide('lgb.world.view.EnvelopeView');
 
 goog.require('goog.userAgent');
 goog.require('lgb.core.ThreeUtils');
-goog.require('lgb.world.view.BaseView3dScene');
+goog.require('lgb.world.view.BaseWorldView');
 
 goog.require('lgb.world.model.BuildingHeightModel');
 
@@ -23,7 +23,7 @@ lgb.world.view.EnvelopeView = function(dataModel) {
   this._ASSETS_FOLDER = 'envelope';
   this._TITLE = 'Envelope';
   
-  lgb.world.view.BaseView3dScene.call(this, dataModel);
+  lgb.world.view.BaseWorldView.call(this, dataModel);
 
   this.floorMeshHash_ = [];
   this.floorOffset_= [];  
@@ -40,13 +40,13 @@ lgb.world.view.EnvelopeView = function(dataModel) {
   
 
 };
-goog.inherits(lgb.world.view.EnvelopeView,lgb.world.view.BaseView3dScene);
+goog.inherits(lgb.world.view.EnvelopeView,lgb.world.view.BaseWorldView);
 
 
 lgb.world.view.EnvelopeView.prototype.bind_ = function() {
   this.listenForChange_('floorHeight');
   this.listenForChange_('floorCount');
-}
+};
 
 
 lgb.world.view.EnvelopeView.prototype.onChange_floorHeight_ = function(floorHeight) {

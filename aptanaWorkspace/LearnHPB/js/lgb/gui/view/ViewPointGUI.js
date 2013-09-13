@@ -6,7 +6,7 @@
 goog.provide('lgb.gui.view.ViewpointGUI');
 
 goog.require('lgb.world.model.ViewpointModel');
-goog.require('lgb.gui.view.BaseViewGUI');
+goog.require('lgb.gui.view.BaseGUI');
 goog.require('lgb.core.Config');
 goog.require('lgb.component.TreeDataSourceH');
 
@@ -15,17 +15,17 @@ goog.require('lgb.component.TreeDataSourceH');
  * @constructor
  * @param {lgb.world.model.ViewpointModel} dataModel The data model to display.
  * @param {string} parentHtmlID the CSS id of the parent to inject into the DOM.
- * @extends {lgb.gui.view.BaseViewGUI}
+ * @extends {lgb.gui.view.BaseGUI}
  */
 lgb.gui.view.ViewpointGUI = function(dataModel) {
   
   this._TITLE = "Viewpoints";
   
-  lgb.gui.view.BaseViewGUI.call(this, dataModel, 'ViewpointGUI');
+  lgb.gui.view.BaseGUI.call(this, dataModel, 'ViewpointGUI');
   
   this.listenForChange_('viewpointNode');
 };
-goog.inherits(lgb.gui.view.ViewpointGUI, lgb.gui.view.BaseViewGUI);
+goog.inherits(lgb.gui.view.ViewpointGUI, lgb.gui.view.BaseGUI);
 
 
 /**

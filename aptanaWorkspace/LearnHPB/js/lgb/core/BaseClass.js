@@ -90,7 +90,7 @@ lgb.core.BaseClass.prototype.listen = function(eventType, handler) {
 lgb.core.BaseClass.prototype.listenTo = function(eventTarget, eventType, handler) {
   
   if (isArray (eventTarget)) {
-    this.each(eventTarget, this.listenHelper_, eventType, this, handler)  
+    this.each(eventTarget, this.listenHelper_, eventType, this, handler);
   } else {
     return this.listenHelper_(eventTarget, eventType, this, handler);
   }

@@ -9,10 +9,10 @@ lgb.world.view.OutputGUI = function(dataModel) {
 
   this._TITLE = 'Testing';
   
-  lgb.gui.view.BaseViewGUI.call(this, dataModel);
+  lgb.gui.view.BaseGUI.call(this, dataModel);
   
 };
-goog.inherits(lgb.world.view.OutputGUI, lgb.gui.view.BaseViewGUI);
+goog.inherits(lgb.world.view.OutputGUI, lgb.gui.view.BaseGUI);
 
 
 /**

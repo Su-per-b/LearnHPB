@@ -118,7 +118,7 @@ lgb.core.MainController.prototype.onNativeWindowResize_ =
     h:window.innerHeight
     };
   
-  this.trigger(e.WindowResize, payload)
+  this.trigger(e.WindowResize, payload);
   
 
 };

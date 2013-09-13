@@ -5,7 +5,7 @@
 
 goog.provide('lgb.world.view.LightingView');
 
-goog.require('lgb.world.view.BaseView3dScene');
+goog.require('lgb.world.view.BaseWorldView');
 goog.require('lgb.world.model.GridModel');
 goog.require('lgb.world.model.BuildingHeightModel');
 
@@ -18,13 +18,13 @@ lgb.world.view.LightingView = function(dataModel) {
 
   this._ASSETS_FOLDER = 'lighting';
 
-  lgb.world.view.BaseView3dScene.call(this, dataModel);
+  lgb.world.view.BaseWorldView.call(this, dataModel);
 
   this.pendantGeom = null;
   this.recessedGeom = null;
   this.listenForChange_('lightingType');
 };
-goog.inherits(lgb.world.view.LightingView, lgb.world.view.BaseView3dScene);
+goog.inherits(lgb.world.view.LightingView, lgb.world.view.BaseWorldView);
 
 lgb.world.view.LightingView.prototype.onChange_lightingType_ = function(lightingType) {
   this.buildGrid_();

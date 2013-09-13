@@ -60,9 +60,11 @@ lgb.component.TabStripDataSource.prototype.getTabCount = function() {
 
 lgb.component.TabStripDataSource.prototype.addTab = function(title, content, xPosition) {
 
-  if (undefined == title || '' == title) {
+  //if (undefined == title || '' == title) {
    // debugger;
-  }
+ // }
+ 
+ 
   if (null == xPosition) { 
     xPosition = this.tabCollection.length + 1;
   };

@@ -5,14 +5,14 @@
 
 goog.provide('lgb.world.view.HvacView');
 
-goog.require('lgb.world.view.BaseView3dScene');
+goog.require('lgb.world.view.BaseWorldView');
 goog.require('lgb.world.model.BuildingHeightModel');
 goog.require('lgb.world.model.vo.VisibilityNode');
 goog.require('lgb.world.model.vo.ViewpointNode');
 
 /**
  * @constructor
- * @extends {lgb.world.view.BaseView3dScene}
+ * @extends {lgb.world.view.BaseWorldView}
  * @param {lgb.world.model.HvacModel} dataModel The model to display.
  */
 lgb.world.view.HvacView = function(dataModel) {
@@ -20,10 +20,10 @@ lgb.world.view.HvacView = function(dataModel) {
   this._TITLE = 'HVAC';
   this._ASSETS_FOLDER = 'hvac';
 
-  lgb.world.view.BaseView3dScene.call(this, dataModel);
+  lgb.world.view.BaseWorldView.call(this, dataModel);
 
 };
-goog.inherits(lgb.world.view.HvacView, lgb.world.view.BaseView3dScene);
+goog.inherits(lgb.world.view.HvacView, lgb.world.view.BaseWorldView);
 
 /**
  * Event handler called when the scene file is loaded
@@ -68,16 +68,16 @@ lgb.world.view.HvacView.prototype.dispatchSelectableLoaded_ = function(selectabl
      this.triggerLocal(e.SelectableLoaded, selectableList);
   }
   
-}
+};
 
 
 lgb.world.view.HvacView.prototype.dispatchViewpointNodes_ = function() {
   var node = new lgb.world.model.vo.ViewpointNode.makeFromObject3D(this.masterGroup_, 1);
   this.triggerLocal(e.ViewpointNodesLoaded, node);
-}
+};
 
 lgb.world.view.HvacView.prototype.dispatchVisibilityNodes_ = function() {
   var node = new lgb.world.model.vo.VisibilityNode('HVAC', this.masterGroup_, 1);
   this.triggerLocal(e.VisibilityNodesLoaded, node);
-}
+};
 

@@ -6,7 +6,7 @@
 goog.provide('lgb.world.view.CameraView');
 
 goog.require('lgb.world.controller.CameraCraneController');
-goog.require('lgb.world.view.BaseView3dScene');
+goog.require('lgb.world.view.BaseWorldView');
 
 /**
  * @constructor
@@ -16,13 +16,13 @@ goog.require('lgb.world.view.BaseView3dScene');
 lgb.world.view.CameraView = function(domElement) {
 
 
- lgb.world.view.BaseView3dScene.call(this);
+ lgb.world.view.BaseWorldView.call(this);
 
   this.domElement_ = domElement;
 
   this.offset_ = new THREE.Vector3(0, 2, 5);
 };
-goog.inherits(lgb.world.view.CameraView,lgb.world.view.BaseView3dScene);
+goog.inherits(lgb.world.view.CameraView,lgb.world.view.BaseWorldView);
 
 lgb.world.view.CameraView.prototype.init = function() {
 
@@ -50,7 +50,7 @@ lgb.world.view.CameraView.prototype.init = function() {
 
 lgb.world.view.CameraView.prototype.bind_ = function() {
   this.listen(e.LayoutChange, this.onLayoutChange_);
-}
+};
 
 
 lgb.world.view.CameraView.prototype.goToViewpointNode = function(viewpointNode) {

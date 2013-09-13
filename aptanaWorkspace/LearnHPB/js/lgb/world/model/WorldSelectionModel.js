@@ -144,7 +144,7 @@ lgb.world.model.WorldSelectionModel.prototype.addMesh_ = function(mesh) {
 
 
 lgb.world.model.WorldSelectionModel.prototype.addMeshAry = function(meshAry) {
-  this.each(meshAry, this.addMesh_)
+  this.each(meshAry, this.addMesh_);
 };
 
 

@@ -5,16 +5,16 @@
  
 goog.provide('lgb.scenario.view.Category');
 
-goog.require('lgb.scenario.view.BaseViewGUI');
+goog.require('lgb.scenario.view.BaseView');
 goog.require('lgb.scenario.view.Variable');
 goog.require('lgb.scenario.view.Component');
 
 
 lgb.scenario.view.Category = function(dataModel, debugFlag) {
-  lgb.scenario.view.BaseViewGUI.call(this, dataModel, debugFlag);
+  lgb.scenario.view.BaseView.call(this, dataModel, debugFlag);
 };
 
-goog.inherits(lgb.scenario.view.Category, lgb.scenario.view.BaseViewGUI);
+goog.inherits(lgb.scenario.view.Category, lgb.scenario.view.BaseView);
 
 
 

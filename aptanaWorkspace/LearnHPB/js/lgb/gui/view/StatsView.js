@@ -27,24 +27,24 @@
 
 goog.provide('lgb.gui.view.StatsView');
 
-goog.require('lgb.gui.view.StatsHelper');
-goog.require('lgb.gui.view.BaseViewGUI');
+goog.require('lgb.gui.view.StatsViewHelper');
+goog.require('lgb.gui.view.BaseGUI');
 
 
 
 /**
  * MVC View
  * @constructor
- * @extends {lgb.gui.view.BaseViewGUI}
+ * @extends {lgb.gui.view.BaseGUI}
  * @param {Element} containerDiv The DOM element to append to.
  */
 lgb.gui.view.StatsView = function(containerDiv) {
 
-  lgb.gui.view.BaseViewGUI.call(this);
+  lgb.gui.view.BaseGUI.call(this);
   this.init(containerDiv);
 
 };
-goog.inherits(lgb.gui.view.StatsView, lgb.gui.view.BaseViewGUI);
+goog.inherits(lgb.gui.view.StatsView, lgb.gui.view.BaseGUI);
 
 
 
@@ -54,7 +54,7 @@ goog.inherits(lgb.gui.view.StatsView, lgb.gui.view.BaseViewGUI);
  */
 lgb.gui.view.StatsView.prototype.init = function(containerDiv) {
 
-  this.stats_ = new lgb.gui.view.StatsHelper(containerDiv);
+  this.stats_ = new lgb.gui.view.StatsViewHelper(containerDiv);
   containerDiv.appendChild(this.stats_.domElement);
 
   this.listen(e.RenderNotify, this.d(this.onRender));

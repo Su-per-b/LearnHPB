@@ -3,7 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
 goog.provide('lgb.world.view.UtilityAxisView');
-goog.require('lgb.world.view.BaseView3dScene');
+goog.require('lgb.world.view.BaseWorldView');
 
 
 /**
@@ -15,11 +15,11 @@ lgb.world.view.UtilityAxisView = function() {
     
 
   this._ASSETS_FOLDER = 'utility';
- lgb.world.view.BaseView3dScene.call(this, null);
+ lgb.world.view.BaseWorldView.call(this, null);
 
   this.filename = 'axis_flipped.json';
 };
-goog.inherits(lgb.world.view.UtilityAxisView,lgb.world.view.BaseView3dScene);
+goog.inherits(lgb.world.view.UtilityAxisView,lgb.world.view.BaseWorldView);
 
 
 

@@ -87,7 +87,7 @@ lgb.world.controller.CameraCraneController.prototype.setDuration =
       this.lookAtDuration = 3000;
     }
 
-}
+};
 
 lgb.world.controller.CameraCraneController.prototype.moveToViewpoint =
   function(viewpointNode) {
@@ -137,7 +137,7 @@ lgb.world.controller.CameraCraneController.prototype.moveToViewpoint =
     x: this.destinationCamera_.up.x,
     y: this.destinationCamera_.up.y,
     z: this.destinationCamera_.up.z
-  }
+  };
   new createjs.Tween(this.cameraOnCrane_.up, props).to(
     upTween,
     this.lookAtDuration,
@@ -185,7 +185,7 @@ lgb.world.controller.CameraCraneController.prototype.onRender_ = function(event)
   if (this.listenForRender) {
     this.cameraOnCrane_.lookAt(this.lookAtPosition);
   }
-}
+};
 
 /**
  * 
@@ -194,6 +194,6 @@ lgb.world.controller.CameraCraneController.prototype.onTweenComplete = function(
   
   this.cameraOnCrane_.lookAt(this.lookAtPosition);
   this.listenForRender = false;
-}
+};
 
 

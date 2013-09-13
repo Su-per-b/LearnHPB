@@ -3,9 +3,9 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.gui.view.StatsHelper');
+goog.provide('lgb.gui.view.StatsViewHelper');
 
-goog.require('lgb.gui.view.BaseViewGUI');
+goog.require('lgb.gui.view.BaseGUI');
 
 
 
@@ -13,16 +13,16 @@ goog.require('lgb.gui.view.BaseViewGUI');
 /**
  * @constructor
  * @param {Element} containerDiv The DOM element to append to.
- * @extends {lgb.gui.view.BaseViewGUI}
+ * @extends {lgb.gui.view.BaseGUI}
  */
-lgb.gui.view.StatsHelper = function(containerDiv) {
+lgb.gui.view.StatsViewHelper = function(containerDiv) {
     
-  lgb.gui.view.BaseViewGUI.call(this);
+  lgb.gui.view.BaseGUI.call(this);
 
   this.init_(containerDiv);
 
 };
-goog.inherits(lgb.gui.view.StatsHelper, lgb.gui.view.BaseViewGUI);
+goog.inherits(lgb.gui.view.StatsViewHelper, lgb.gui.view.BaseGUI);
 
 
 
@@ -31,7 +31,7 @@ goog.inherits(lgb.gui.view.StatsHelper, lgb.gui.view.BaseViewGUI);
  * @param {Element} containerDiv The DOM element to append to.
  * @private
  */
-lgb.gui.view.StatsHelper.prototype.init_ = function(containerDiv) {
+lgb.gui.view.StatsViewHelper.prototype.init_ = function(containerDiv) {
 
 
  this._mode = 0;
@@ -211,7 +211,7 @@ lgb.gui.view.StatsHelper.prototype.init_ = function(containerDiv) {
 /**
  * changes from MS to FPS
  */
-lgb.gui.view.StatsHelper.prototype.swapMode = function() {
+lgb.gui.view.StatsViewHelper.prototype.swapMode = function() {
 
   this._mode++;
   this._mode = this._modesCount ? this._mode = 0 : this._mode;
@@ -237,7 +237,7 @@ lgb.gui.view.StatsHelper.prototype.swapMode = function() {
 /**
  * called every animation frame to update the stats.
  */
-lgb.gui.view.StatsHelper.prototype.update = function() {
+lgb.gui.view.StatsViewHelper.prototype.update = function() {
     this._frames++;
     this._time = new Date().getTime();
 
@@ -289,7 +289,7 @@ lgb.gui.view.StatsHelper.prototype.update = function() {
  * @param {number} value Th value.
  * @param {*} color Th color.
  */
-lgb.gui.view.StatsHelper.prototype.updateGraph = function(data, value, color) {
+lgb.gui.view.StatsViewHelper.prototype.updateGraph = function(data, value, color) {
 
   var x, y, index;
 

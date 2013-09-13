@@ -3,7 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
 
-goog.provide('lgb.world.view.BaseView3dScene');
+goog.provide('lgb.world.view.BaseWorldView');
 
 goog.require('lgb.core.BaseClass');
 
@@ -16,7 +16,7 @@ goog.require('lgb.utils');
  * @extends {lgb.world.view.BaseV}
  * @param {lgb.world.model.BaseModel=} dataModel that the view with display.
  */
-lgb.world.view.BaseView3dScene = function(dataModel) {
+lgb.world.view.BaseWorldView = function(dataModel) {
   lgb.core.BaseClass.call(this);
 
 
@@ -29,12 +29,12 @@ lgb.world.view.BaseView3dScene = function(dataModel) {
   this.filename = this.filename || 'scene.json';
 
 };
-goog.inherits(lgb.world.view.BaseView3dScene, lgb.core.BaseClass);
+goog.inherits(lgb.world.view.BaseWorldView, lgb.core.BaseClass);
 
 
 
 
-lgb.world.view.BaseView3dScene.prototype.listenForChange_ = function(changedPropertyString) {
+lgb.world.view.BaseWorldView.prototype.listenForChange_ = function(changedPropertyString) {
     
     
     if (this.changeMap_ === undefined) {
@@ -46,7 +46,7 @@ lgb.world.view.BaseView3dScene.prototype.listenForChange_ = function(changedProp
 };
 
 
-lgb.world.view.BaseView3dScene.prototype.listenForOneChange_ = function(changedPropertyString) {
+lgb.world.view.BaseWorldView.prototype.listenForOneChange_ = function(changedPropertyString) {
   
     var handlerName = 'onChange_' + changedPropertyString + '_';
     var func = this[handlerName];
@@ -60,7 +60,7 @@ lgb.world.view.BaseView3dScene.prototype.listenForOneChange_ = function(changedP
 };
 
 
-lgb.world.view.BaseView3dScene.prototype.onChangeEx_ = function(event) {
+lgb.world.view.BaseWorldView.prototype.onChangeEx_ = function(event) {
   
    var whatIsDirty = event.payload;
   
@@ -88,10 +88,10 @@ lgb.world.view.BaseView3dScene.prototype.onChangeEx_ = function(event) {
  * and loads the meshes from remote files
  * @protected
  */
-lgb.world.view.BaseView3dScene.prototype.init = function() {
+lgb.world.view.BaseWorldView.prototype.init = function() {
 
   if (undefined === this._ASSETS_FOLDER) {
-    throw ("You must define this._ASSETS_FOLDER")
+    throw ("You must define this._ASSETS_FOLDER");
   }
 
   this.loadSceneFromFolder_(this._ASSETS_FOLDER);
@@ -102,7 +102,7 @@ lgb.world.view.BaseView3dScene.prototype.init = function() {
  * @param {string} the folder name form which to load the 'scene.json' file
  * @protected
  */
-lgb.world.view.BaseView3dScene.prototype.loadSceneFromFolder_ = function(folderName) {
+lgb.world.view.BaseWorldView.prototype.loadSceneFromFolder_ = function(folderName) {
 
   var path = lgb.core.Config.ASSETS_BASE_PATH + folderName + '/' + this.filename;
   this.loader_ = new THREE.SceneLoaderEx();
@@ -115,7 +115,7 @@ lgb.world.view.BaseView3dScene.prototype.loadSceneFromFolder_ = function(folderN
  * @param {Object} result From the THREE.js lib.
  * @private
  */
-lgb.world.view.BaseView3dScene.prototype.onSceneLoadedBase_ = function(result) {
+lgb.world.view.BaseWorldView.prototype.onSceneLoadedBase_ = function(result) {
 
   this.scene_ = result['scene'];
   this.groups_ = result['groups'];
@@ -146,7 +146,7 @@ lgb.world.view.BaseView3dScene.prototype.onSceneLoadedBase_ = function(result) {
 
 
 
-lgb.world.view.BaseView3dScene.prototype.placeContainers_ = function() {
+lgb.world.view.BaseWorldView.prototype.placeContainers_ = function() {
     
 
   //  var count = 0;
@@ -161,7 +161,7 @@ lgb.world.view.BaseView3dScene.prototype.placeContainers_ = function() {
 
 
 
-lgb.world.view.BaseView3dScene.prototype.chromeBlinkingFix_ = function(mesh) {
+lgb.world.view.BaseWorldView.prototype.chromeBlinkingFix_ = function(mesh) {
   
     mesh.material.opacity = 1;
     
@@ -175,10 +175,10 @@ lgb.world.view.BaseView3dScene.prototype.chromeBlinkingFix_ = function(mesh) {
     }
     
     
-}
+};
 
 
-lgb.world.view.BaseView3dScene.prototype.placeOneContainer_ = function(containerName, containerObject) {
+lgb.world.view.BaseWorldView.prototype.placeOneContainer_ = function(containerName, containerObject) {
     
     if (containerObject.type == "group") {
         
@@ -236,7 +236,7 @@ lgb.world.view.BaseView3dScene.prototype.placeOneContainer_ = function(container
 
 
 
-lgb.world.view.BaseView3dScene.prototype.requestDataModelChange = function(propertyName, propertyValue) {
+lgb.world.view.BaseWorldView.prototype.requestDataModelChange = function(propertyName, propertyValue) {
   
   var payload = {name:propertyName, value:propertyValue};
   this.triggerLocal(e.RequestDataModelChange, payload);
@@ -247,7 +247,7 @@ lgb.world.view.BaseView3dScene.prototype.requestDataModelChange = function(prope
 /**
  * @protected
  */
-lgb.world.view.BaseView3dScene.prototype.moveGroupToObject3D_ = function(groupName) {
+lgb.world.view.BaseWorldView.prototype.moveGroupToObject3D_ = function(groupName) {
   
   var obj3D = new THREE.Object3D();
   
@@ -265,7 +265,7 @@ lgb.world.view.BaseView3dScene.prototype.moveGroupToObject3D_ = function(groupNa
  * added to the world.
  * @protected
  */
-lgb.world.view.BaseView3dScene.prototype.requestAddToWorld = function(object3D) {
+lgb.world.view.BaseWorldView.prototype.requestAddToWorld = function(object3D) {
 
   object3D.name = object3D.name || this._TITLE;
   object3D.name = object3D.name || this._NAME;

@@ -3,26 +3,26 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.world.view.SimulationButtonView');
-goog.require('lgb.gui.view.BaseViewGUI');
+goog.provide('lgb.world.view.SimulationButtonGreenGUI');
+goog.require('lgb.gui.view.BaseGUI');
 goog.require('lgb.component.ToggleButtonA');
 
 /**
  * @constructor
- * @extends {lgb.gui.view.BaseViewGUI}
+ * @extends {lgb.gui.view.BaseGUI}
  */
-lgb.world.view.SimulationButtonView = function() {
+lgb.world.view.SimulationButtonGreenGUI = function() {
     
   this._TITLE = "SimulationButton";
-  lgb.gui.view.BaseViewGUI.call(this, null, 'simulationButton', lgb.core.Config.HUD_CONTAINER_STR);
+  lgb.gui.view.BaseGUI.call(this, null, 'simulationButton', lgb.core.Config.HUD_CONTAINER_STR);
 
 };
-goog.inherits(lgb.world.view.SimulationButtonView, lgb.gui.view.BaseViewGUI);
+goog.inherits(lgb.world.view.SimulationButtonGreenGUI, lgb.gui.view.BaseGUI);
 
 /**
  * Initializes the view.
  */
-lgb.world.view.SimulationButtonView.prototype.init = function() {
+lgb.world.view.SimulationButtonGreenGUI.prototype.init = function() {
 
   this.button =
     new lgb.component.ToggleButtonA({
@@ -40,7 +40,7 @@ lgb.world.view.SimulationButtonView.prototype.init = function() {
 };
 
 
-lgb.world.view.SimulationButtonView.prototype.inject = function(parentElement) {
+lgb.world.view.SimulationButtonGreenGUI.prototype.inject = function(parentElement) {
   
   this.injectCss_();
   
@@ -68,7 +68,7 @@ lgb.world.view.SimulationButtonView.prototype.inject = function(parentElement) {
 /**
  * Injects the CSS into the DOM.
  */
-lgb.world.view.SimulationButtonView.prototype.injectCss_ = function() {
+lgb.world.view.SimulationButtonGreenGUI.prototype.injectCss_ = function() {
   
     var cssInner = this.button.getCss();
     var cssStr = "<style type='text/css'>{0}</style>".format(cssInner);
@@ -81,7 +81,7 @@ lgb.world.view.SimulationButtonView.prototype.injectCss_ = function() {
  * Adds or removes the 'selected' CSS class.
  * @param {boolean} isSelected If true adds the class.
  */
-lgb.world.view.SimulationButtonView.prototype.setSelected = function(isSelected) {
+lgb.world.view.SimulationButtonGreenGUI.prototype.setSelected = function(isSelected) {
   this.isSelected = isSelected;
 
   if (this.isSelected) {
@@ -99,7 +99,7 @@ lgb.world.view.SimulationButtonView.prototype.setSelected = function(isSelected)
  * event bus.
  * @private
  */
-lgb.world.view.SimulationButtonView.prototype.bind_ = function() {
+lgb.world.view.SimulationButtonGreenGUI.prototype.bind_ = function() {
 
   this.simulationButtonLink_.click(this.d(this.onClick_));
 
@@ -110,7 +110,7 @@ lgb.world.view.SimulationButtonView.prototype.bind_ = function() {
  * @private
  * @param {jQuery.event} event The click event.
  */
-lgb.world.view.SimulationButtonView.prototype.onClick_ = function(event) {
+lgb.world.view.SimulationButtonGreenGUI.prototype.onClick_ = function(event) {
   
   this.triggerLocal(e.RequestActivateView, !this.isSelected);
 

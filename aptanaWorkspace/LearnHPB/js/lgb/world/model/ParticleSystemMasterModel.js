@@ -3,20 +3,20 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
 
-goog.provide('lgb.world.model.PsModelMaster');
+goog.provide('lgb.world.model.ParticleSystemMasterModel');
 
 goog.require('goog.array');
 goog.require('lgb.core.Config');
 
 goog.require('lgb.world.model.BaseModel');
-goog.require('lgb.world.model.PsModel');
+goog.require('lgb.world.model.ParticleSystemModel');
 goog.require('lgb.utils.XmlWrapper');
 
 /**
  * @constructor
  * @extends lgb.world.model.BaseModel
  */
-lgb.world.model.PsModelMaster = function() {
+lgb.world.model.ParticleSystemMasterModel = function() {
 
   /**@const */
   this._TITLE = 'Mutiple Particle System';
@@ -25,7 +25,7 @@ lgb.world.model.PsModelMaster = function() {
   this.init_();
 
 };
-goog.inherits(lgb.world.model.PsModelMaster, lgb.world.model.BaseModel);
+goog.inherits(lgb.world.model.ParticleSystemMasterModel, lgb.world.model.BaseModel);
 
 
 
@@ -33,7 +33,7 @@ goog.inherits(lgb.world.model.PsModelMaster, lgb.world.model.BaseModel);
 /**
  * @private
  */
-lgb.world.model.PsModelMaster.prototype.init_ = function() {
+lgb.world.model.ParticleSystemMasterModel.prototype.init_ = function() {
 
   this.xml = null;
   this.xpathResult = null;
@@ -49,13 +49,13 @@ lgb.world.model.PsModelMaster.prototype.init_ = function() {
 
 
 
-lgb.world.model.PsModelMaster.prototype.getPsModelList = function() {
+lgb.world.model.ParticleSystemMasterModel.prototype.getPsModelList = function() {
 
   return this.psModelList;
 };
 
 
-lgb.world.model.PsModelMaster.prototype.changePropertyEx = function(property, newValue) {
+lgb.world.model.ParticleSystemMasterModel.prototype.changePropertyEx = function(property, newValue) {
   
     var psModel = this.psModelList[property.idx];
     psModel.changePropertyEx(property.name, newValue);
@@ -69,7 +69,7 @@ lgb.world.model.PsModelMaster.prototype.changePropertyEx = function(property, ne
  * The Particle system data is located in remotes files.
  * this triggers the process of downloading and parsing those files.
  */
-lgb.world.model.PsModelMaster.prototype.load = function() {
+lgb.world.model.ParticleSystemMasterModel.prototype.load = function() {
 
   /**@type {THREE.SceneLoaderEx} */
   this.loader_ = new THREE.SceneLoaderEx();
@@ -83,7 +83,7 @@ lgb.world.model.PsModelMaster.prototype.load = function() {
  * @param {Object} result Contains the scene.
  * @private
  */
-lgb.world.model.PsModelMaster.prototype.onSceneLoadedSync_ = function(result) {
+lgb.world.model.ParticleSystemMasterModel.prototype.onSceneLoadedSync_ = function(result) {
 
   this.scene_ = result['scene'];
   this.groups_ = result['groups'];
@@ -117,7 +117,7 @@ lgb.world.model.PsModelMaster.prototype.onSceneLoadedSync_ = function(result) {
  * loaded.
  * @private
  */
-lgb.world.model.PsModelMaster.prototype.checkForInitComplete_ = function() {
+lgb.world.model.ParticleSystemMasterModel.prototype.checkForInitComplete_ = function() {
 
   if (this.isXMLloaded && this.isSceneLoaded) {
 
@@ -134,7 +134,7 @@ lgb.world.model.PsModelMaster.prototype.checkForInitComplete_ = function() {
  * affter all needed data files are loaded, creates the data models.
  * @private
  */
-lgb.world.model.PsModelMaster.prototype.startFactory_ = function() {
+lgb.world.model.ParticleSystemMasterModel.prototype.startFactory_ = function() {
 
   var items = [];
 
@@ -152,7 +152,7 @@ lgb.world.model.PsModelMaster.prototype.startFactory_ = function() {
     sys.translate = this.translate;
     sys.rotate = this.rotate;
 
-    var psModel = new lgb.world.model.PsModel(sys, this.psModelList.length);
+    var psModel = new lgb.world.model.ParticleSystemModel(sys, this.psModelList.length);
     this.psModelList.push(psModel);
 
     
@@ -166,7 +166,7 @@ lgb.world.model.PsModelMaster.prototype.startFactory_ = function() {
  * uses AJAX to download the remote XML files.
  * @private
  */
-lgb.world.model.PsModelMaster.prototype.loadXML_ = function() {
+lgb.world.model.ParticleSystemMasterModel.prototype.loadXML_ = function() {
 
   jQuery.ajax({
     type : 'GET',
@@ -184,7 +184,7 @@ lgb.world.model.PsModelMaster.prototype.loadXML_ = function() {
  * @param {Document} xml The downloaded XML doc.
  * @private
  */
-lgb.world.model.PsModelMaster.prototype.parse_ = function(xml) {
+lgb.world.model.ParticleSystemMasterModel.prototype.parse_ = function(xml) {
 
   var parser = new lgb.utils.XmlWrapper(xml);
 

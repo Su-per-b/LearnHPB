@@ -135,7 +135,7 @@ lgb.world.view.BaseV.prototype.injectTo = function(parentElement) {
   }
   
   this.inject();
-}
+};
 
 
 

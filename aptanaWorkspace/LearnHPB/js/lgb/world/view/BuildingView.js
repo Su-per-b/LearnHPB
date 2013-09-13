@@ -5,7 +5,7 @@
  
 goog.provide('lgb.world.view.BuildingView');
 
-goog.require('lgb.world.view.BaseView3dScene');
+goog.require('lgb.world.view.BaseWorldView');
 goog.require('lgb.world.model.vo.ViewpointNode');
 
 
@@ -18,7 +18,7 @@ lgb.world.view.BuildingView = function(dataModel) {
     
   this._TITLE = 'BuildingView';
   
-  lgb.world.view.BaseView3dScene.call(this, dataModel);
+  lgb.world.view.BaseWorldView.call(this, dataModel);
   this.masterGroup_ = new THREE.Object3D();
   this.masterGroup_.name = this._TITLE;
   
@@ -44,17 +44,17 @@ lgb.world.view.BuildingView = function(dataModel) {
     "ceiling": this.ceilingGroup_,
     "roof": this.roofGroup_,
     "ground": this.groundGroup_
-  }
+  };
   
   lgb.world.model.vo.ViewpointNode.anchors = {
     "floor": this.floorGroup_,
     "ceiling": this.ceilingGroup_,
     "roof": this.roofGroup_,
     "ground": this.groundGroup_
-  }
+  };
   
 };
-goog.inherits(lgb.world.view.BuildingView, lgb.world.view.BaseView3dScene);
+goog.inherits(lgb.world.view.BuildingView, lgb.world.view.BaseWorldView);
 
 
 lgb.world.view.BuildingView.prototype.init = function() {

@@ -5,7 +5,7 @@
 
 goog.provide('lgb.world.view.UtilityGridView');
 
-goog.require('lgb.world.view.BaseView3dScene');
+goog.require('lgb.world.view.BaseWorldView');
 
 /**
  * @constructor
@@ -13,12 +13,12 @@ goog.require('lgb.world.view.BaseView3dScene');
  */
 lgb.world.view.UtilityGridView = function() {
     
- lgb.world.view.BaseView3dScene.call(this);
+ lgb.world.view.BaseWorldView.call(this);
 
   this.width_ = 120;
   
 };
-goog.inherits(lgb.world.view.UtilityGridView,lgb.world.view.BaseView3dScene);
+goog.inherits(lgb.world.view.UtilityGridView,lgb.world.view.BaseWorldView);
 
 /**
  * Initializes the View

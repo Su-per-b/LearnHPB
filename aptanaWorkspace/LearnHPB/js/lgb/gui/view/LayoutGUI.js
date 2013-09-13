@@ -3,9 +3,9 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
 
-goog.provide('lgb.gui.view.LayoutView');
+goog.provide('lgb.gui.view.LayoutGUI');
 
-goog.require('lgb.gui.view.BaseViewGUI');
+goog.require('lgb.gui.view.BaseGUI');
 goog.require('lgb.component.SplitPanel');
 goog.require('lgb.component.SplitPanelDataSource');
 goog.require('lgb.gui.view.LayoutUtil');
@@ -17,19 +17,19 @@ goog.require('lgb.gui.model.LayoutModel');
 
 /**
  * @constructor
- * @extends {lgb.gui.view.BaseViewGUI}
+ * @extends {lgb.gui.view.BaseGUI}
  */
-lgb.gui.view.LayoutView = function(dataModel) {
+lgb.gui.view.LayoutGUI = function(dataModel) {
 
-  lgb.gui.view.BaseViewGUI.call(this, dataModel, 'pageContainer', 'theBody');
+  lgb.gui.view.BaseGUI.call(this, dataModel, 'pageContainer', 'theBody');
   this.layoutUtils_ = [];
   
 };
-goog.inherits(lgb.gui.view.LayoutView, lgb.gui.view.BaseViewGUI);
+goog.inherits(lgb.gui.view.LayoutGUI, lgb.gui.view.BaseGUI);
 
 
 
-lgb.gui.view.LayoutView.prototype.init = function() {
+lgb.gui.view.LayoutGUI.prototype.init = function() {
 
   this.splitPanelHorizontalDS_ = new lgb.component.SplitPanelDataSource();
   
@@ -48,7 +48,7 @@ lgb.gui.view.LayoutView.prototype.init = function() {
   
 
   this.splitPanelVerticalDS_.panes =  [{
-      collapsible : false,
+      collapsible : false
     }, {
       size:"200px",
       collapsible : true
@@ -63,7 +63,7 @@ lgb.gui.view.LayoutView.prototype.init = function() {
 };
 
 
-lgb.gui.view.LayoutView.prototype.bind_ = function(guiView) {
+lgb.gui.view.LayoutGUI.prototype.bind_ = function(guiView) {
   
   this.listenTo(this.splitPanelHorizontal_, e.Resize, this.onSplitterResize_);
   this.listenTo(this.splitPanelVertical_, e.Resize, this.onSplitterResize_);
@@ -74,7 +74,7 @@ lgb.gui.view.LayoutView.prototype.bind_ = function(guiView) {
 
 
 
-lgb.gui.view.LayoutView.prototype.onChange_add_ = function(value) {
+lgb.gui.view.LayoutGUI.prototype.onChange_add_ = function(value) {
   
   this.add(value);
 };
@@ -82,7 +82,7 @@ lgb.gui.view.LayoutView.prototype.onChange_add_ = function(value) {
 
 
 
-lgb.gui.view.LayoutView.prototype.toggleVisibility = function(guiView) {
+lgb.gui.view.LayoutGUI.prototype.toggleVisibility = function(guiView) {
   
   guiView.isVisible_ = !guiView.isVisible_;
   var el = guiView.getMainElement();
@@ -93,7 +93,7 @@ lgb.gui.view.LayoutView.prototype.toggleVisibility = function(guiView) {
 
 
 
-lgb.gui.view.LayoutView.prototype.add = function(guiView) {
+lgb.gui.view.LayoutGUI.prototype.add = function(guiView) {
   
 
  
@@ -125,8 +125,10 @@ lgb.gui.view.LayoutView.prototype.add = function(guiView) {
       guiView.injectTo(this.viewportTop_);
 
       break;
-
-    case "PropertiesButtonGUI":
+    case "PropertiesGreenGUI":
+      guiView.injectTo(this.webGLcanvas_);
+      break;
+    case "PropertiesButtonGreenGUI":
       this.propertiesButton_ = guiView;
 
       guiView.injectTo(this.webGLcanvas_);
@@ -139,7 +141,10 @@ lgb.gui.view.LayoutView.prototype.add = function(guiView) {
       this.layoutUtils_.push(util);
 
       break;
-    case "SimulationButtonView":
+    case "SimulationGreenGUI":
+      guiView.injectTo(this.webGLcanvas_);
+      break;
+    case "SimulationButtonGreenGUI":
       this.simulationButton_ = guiView;
 
       guiView.injectTo(this.webGLcanvas_);
@@ -152,16 +157,10 @@ lgb.gui.view.LayoutView.prototype.add = function(guiView) {
 
       break;
 
-
     case "LeftPanelGUI":
       guiView.injectTo(this.leftPanel_);
       break;
-    case "SimulationGUI":
-      guiView.injectTo(this.webGLcanvas_);
-      break;
-    case "PropertiesGUI":
-      guiView.injectTo(this.webGLcanvas_);
-      break;
+
     case "TestGUI":
       guiView.injectTo(this.leftPanel_);
       break;
@@ -180,22 +179,22 @@ lgb.gui.view.LayoutView.prototype.add = function(guiView) {
 };
 
 
-lgb.gui.view.LayoutView.prototype.onSplitterResize_ = function(event) {
+lgb.gui.view.LayoutGUI.prototype.onSplitterResize_ = function(event) {
   this.triggerLocal(e.LayoutChange);
 };
 
-lgb.gui.view.LayoutView.prototype.calculateLayout = function(windowDimensions) {
+lgb.gui.view.LayoutGUI.prototype.calculateLayout = function(windowDimensions) {
   
 
   this.each(this.layoutUtils_, this.calculateOneLayout);
 };
 
-lgb.gui.view.LayoutView.prototype.calculateOneLayout = function(layoutUtil) {
+lgb.gui.view.LayoutGUI.prototype.calculateOneLayout = function(layoutUtil) {
   layoutUtil.tweenToPosition();
 };
 
 
-lgb.gui.view.LayoutView.prototype.inject = function() {
+lgb.gui.view.LayoutGUI.prototype.inject = function() {
 
   goog.base(this,'inject');
 

@@ -5,13 +5,13 @@
  
 goog.provide('lgb.world.controller.PsMasterController');
 
-goog.require('lgb.gui.view.PsMasterGUI');
+goog.require('lgb.gui.view.ParticleSystemMasterGUI');
 goog.require('lgb.core.BaseController');
 goog.require('lgb.world.controller.PsController');
-goog.require('lgb.world.model.PsModel');
-goog.require('lgb.world.model.PsModelMaster');
-goog.require('lgb.world.view.PsView');
-goog.require('lgb.world.view.PsMasterView');
+goog.require('lgb.world.model.ParticleSystemModel');
+goog.require('lgb.world.model.ParticleSystemMasterModel');
+goog.require('lgb.world.view.ParticleSystemView');
+goog.require('lgb.world.view.ParticleSystemMasterView');
 
 
 /**
@@ -31,10 +31,10 @@ goog.inherits(lgb.world.controller.PsMasterController, lgb.core.BaseController);
  */
 lgb.world.controller.PsMasterController.prototype.init = function() {
   
-  this.dataModel = new lgb.world.model.PsModelMaster();
+  this.dataModel = new lgb.world.model.ParticleSystemMasterModel();
   
-  this.guiView = new lgb.gui.view.PsMasterGUI(this.dataModel);
-  this.view = new lgb.world.view.PsMasterView(this.dataModel);
+  this.guiView = new lgb.gui.view.ParticleSystemMasterGUI(this.dataModel);
+  this.view = new lgb.world.view.ParticleSystemMasterView(this.dataModel);
   
   this.bind_();
   this.dataModel.load();

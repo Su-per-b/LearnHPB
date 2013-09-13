@@ -22,7 +22,7 @@ lgb.world.model.vo.VisibilityNode = function(title, object3d, recurseDepth) {
   this.focusEvent = false;
   
   if (object3d && object3d instanceof THREE.Object3D) {
-    this.init_(object3d,recurseDepth)
+    this.init_(object3d,recurseDepth);
   } else if (object3d && object3d instanceof Array) {
     this.initArray_(object3d, recurseDepth);
   }

@@ -1,17 +1,17 @@
 goog.provide('lgb.gui.view.TestGUI');
 
-goog.require('lgb.gui.view.BaseViewGUI');
+goog.require('lgb.gui.view.BaseGUI');
 goog.require('lgb.component.TabStrip');
 goog.require('lgb.component.TabStripDataSource');
 
 lgb.gui.view.TestGUI = function(dataModel) {
 
-  this._TITLE = 'Testing';
+  this._TITLE = 'Test';
   
-  lgb.gui.view.BaseViewGUI.call(this, dataModel);
+  lgb.gui.view.BaseGUI.call(this, dataModel);
   
 };
-goog.inherits(lgb.gui.view.TestGUI, lgb.gui.view.BaseViewGUI);
+goog.inherits(lgb.gui.view.TestGUI, lgb.gui.view.BaseGUI);
 
 
 /**

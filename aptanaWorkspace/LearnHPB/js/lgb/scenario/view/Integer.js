@@ -5,13 +5,13 @@
  
 goog.provide('lgb.scenario.view.Integer');
 
-goog.require('lgb.scenario.view.BaseViewGUI');
+goog.require('lgb.scenario.view.BaseView');
 
 
 lgb.scenario.view.Integer = function(dataModel, debugFlag) {
-  lgb.scenario.view.BaseViewGUI.call(this, dataModel, debugFlag);
+  lgb.scenario.view.BaseView.call(this, dataModel, debugFlag);
 };
-goog.inherits(lgb.scenario.view.Integer, lgb.scenario.view.BaseViewGUI);
+goog.inherits(lgb.scenario.view.Integer, lgb.scenario.view.BaseView);
 
 
 

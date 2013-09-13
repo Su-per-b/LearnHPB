@@ -3,10 +3,10 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.scenario.view.BaseViewGUI');
+goog.provide('lgb.scenario.view.BaseView');
 
 goog.require('lgb.world.model.ViewpointModel');
-goog.require('lgb.gui.view.BaseViewGUI');
+goog.require('lgb.gui.view.BaseGUI');
 goog.require('lgb.core.Config');
 goog.require('lgb.scenario.model.System');
 goog.require('lgb.scenario.model.SubSystem');
@@ -16,9 +16,9 @@ goog.require('lgb.scenario.model.SubSystem');
  * @constructor
  * @param {lgb.world.model.ViewpointModel} dataModel The data model to display.
  * @param {string} parentHtmlID the CSS id of the parent to inject into the DOM.
- * @extends {lgb.gui.view.BaseViewGUIGUI}
+ * @extends {lgb.gui.view.BaseGUIGUI}
  */
-lgb.scenario.view.BaseViewGUI = function(dataModel, debugFlag) {
+lgb.scenario.view.BaseView = function(dataModel, debugFlag) {
   this.disableIDs_ = true;
   this.setDebugFlag(debugFlag);
   
@@ -28,12 +28,12 @@ lgb.scenario.view.BaseViewGUI = function(dataModel, debugFlag) {
     this.cssClassName_ += 'Debug';
   }
   
-  lgb.gui.view.BaseViewGUI.call(this, dataModel);
+  lgb.gui.view.BaseGUI.call(this, dataModel);
 };
-goog.inherits(lgb.scenario.view.BaseViewGUI, lgb.gui.view.BaseViewGUI);
+goog.inherits(lgb.scenario.view.BaseView, lgb.gui.view.BaseGUI);
 
 
-lgb.scenario.view.BaseViewGUI.prototype.setDebugFlag = function(debugFlag) {
+lgb.scenario.view.BaseView.prototype.setDebugFlag = function(debugFlag) {
   
   if (undefined == debugFlag) {
     this.debugFlag_ = false;
@@ -45,7 +45,7 @@ lgb.scenario.view.BaseViewGUI.prototype.setDebugFlag = function(debugFlag) {
 
 
   
-lgb.scenario.view.BaseViewGUI.prototype.appendTitle_ = function() {
+lgb.scenario.view.BaseView.prototype.appendTitle_ = function() {
   
   var html = this.dataModel.name;
   
@@ -60,7 +60,7 @@ lgb.scenario.view.BaseViewGUI.prototype.appendTitle_ = function() {
 
 
   
-lgb.scenario.view.BaseViewGUI.prototype.makeChildren_ = function(parentElement) {
+lgb.scenario.view.BaseView.prototype.makeChildren_ = function(parentElement) {
   
   this.each(this.dataModel.children_, this.appendChildTo_, parentElement);
   
@@ -68,7 +68,7 @@ lgb.scenario.view.BaseViewGUI.prototype.makeChildren_ = function(parentElement) 
 
 
 
-lgb.scenario.view.BaseViewGUI.prototype.appendChildTo_ = function(childNode, parentElement) {
+lgb.scenario.view.BaseView.prototype.appendChildTo_ = function(childNode, parentElement) {
   
 
   var childClassName = childNode.getClassName();
@@ -94,7 +94,7 @@ lgb.scenario.view.BaseViewGUI.prototype.appendChildTo_ = function(childNode, par
 };
 
 
-lgb.scenario.view.BaseViewGUI.prototype.appendDebugProperty_ = function(propertyName) {
+lgb.scenario.view.BaseView.prototype.appendDebugProperty_ = function(propertyName) {
   
   var value = this.dataModel[propertyName];
   

@@ -227,7 +227,7 @@ lgb.core.DebugLGB.prototype.setSuperClassCount_ = function(classConstructor) {
         if (superClassConstructor.SUPERCLASS_COUNT_) {
           classConstructor.SUPERCLASS_COUNT_ = superClassConstructor.SUPERCLASS_COUNT_ + 1;
         } else {
-          this.setSuperClassCount_ (superClassConstructor)
+          this.setSuperClassCount_ (superClassConstructor);
           classConstructor.SUPERCLASS_COUNT_ = superClassConstructor.SUPERCLASS_COUNT_ + 1;
         }
         

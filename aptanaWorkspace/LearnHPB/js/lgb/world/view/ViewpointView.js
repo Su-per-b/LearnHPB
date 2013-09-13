@@ -8,7 +8,7 @@ goog.provide('lgb.world.view.ViewpointView');
 ;
 
 
-goog.require('lgb.world.view.BaseView3dScene');
+goog.require('lgb.world.view.BaseWorldView');
 goog.require('lgb.world.model.BuildingHeightModel');
 goog.require('lgb.world.model.vo.ViewpointNode');
 
@@ -20,11 +20,11 @@ lgb.world.view.ViewpointView = function(dataModel) {
   this._ASSETS_FOLDER = 'viewpoints';
   this._TITLE = 'Custom Viewpoints';
   
-  lgb.world.view.BaseView3dScene.call(this, dataModel);
+  lgb.world.view.BaseWorldView.call(this, dataModel);
 
   
 };
-goog.inherits(lgb.world.view.ViewpointView,lgb.world.view.BaseView3dScene);
+goog.inherits(lgb.world.view.ViewpointView,lgb.world.view.BaseWorldView);
 
 
 

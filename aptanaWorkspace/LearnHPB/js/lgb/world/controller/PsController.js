@@ -9,15 +9,15 @@ goog.require('lgb.core.BaseController');
 
 
 
-goog.require('lgb.world.model.PsModel');
-goog.require('lgb.world.view.PsView');
+goog.require('lgb.world.model.ParticleSystemModel');
+goog.require('lgb.world.view.ParticleSystemView');
 
 
 
 /**
  * @constructor
  * @extends lgb.core.BaseController
- * @param {lgb.world.model.PsModel} dataModel The model.
+ * @param {lgb.world.model.ParticleSystemModel} dataModel The model.
  */
 lgb.world.controller.PsController = function(dataModel) {
   lgb.core.BaseController.call(this);
@@ -33,7 +33,7 @@ goog.inherits(lgb.world.controller.PsController, lgb.core.BaseController);
  */
 lgb.world.controller.PsController.prototype.init = function() {
 
-  this.view = new lgb.world.view.PsView( this.dataModel );
+  this.view = new lgb.world.view.ParticleSystemView( this.dataModel );
   this.bind_();
   this.view.init();
 

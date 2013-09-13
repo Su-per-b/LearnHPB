@@ -1,6 +1,6 @@
 goog.provide('lgb.gui.view.SimulationGUI');
 
-goog.require('lgb.gui.view.BaseViewGUI');
+goog.require('lgb.gui.view.BaseGUI');
 goog.require('lgb.component.TabStrip');
 goog.require('lgb.component.TabStripDataSource');
 
@@ -17,12 +17,12 @@ goog.require('lgb.simulation.model.SimStateNativeWrapper');
 
 lgb.gui.view.SimulationGUI = function(dataModel) {
 
-  this._TITLE = 'Sim';
+  this._TITLE = 'SimulationGUI';
   
-  lgb.gui.view.BaseViewGUI.call(this, dataModel);
+  lgb.gui.view.BaseGUI.call(this, dataModel);
   
 };
-goog.inherits(lgb.gui.view.SimulationGUI, lgb.gui.view.BaseViewGUI);
+goog.inherits(lgb.gui.view.SimulationGUI, lgb.gui.view.BaseGUI);
 
 
 /**

@@ -3,30 +3,30 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
 
-goog.provide('lgb.world.view.SimulationView');
+goog.provide('lgb.world.view.SimulationGreenGUI');
 
 goog.require('lgb.simulation.model.MainModel');
 goog.require('lgb.simulation.model.voNative.SimStateNative');
 goog.require('lgb.component.LinkDataSource');
 goog.require('lgb.component.Link');
-goog.require('lgb.gui.view.DialogView');
+goog.require('lgb.gui.view.DialogGreenGUI');
 goog.require('lgb.simulation.events.SimStateNativeRequest');
 
 
 /**
  * @constructor
- * @extends {lgb.gui.view.DialogView}
+ * @extends {lgb.gui.view.DialogGreenGUI}
  */
-lgb.world.view.SimulationView = function(dataModel) {
+lgb.world.view.SimulationGreenGUI = function(dataModel) {
   
-    lgb.gui.view.DialogView.call(this, dataModel, 'simulationView');
+    lgb.gui.view.DialogGreenGUI.call(this, dataModel, 'simulationView');
     this.title = 'Simulation View';
     this.useSlideEffect = false;
 
 };
-goog.inherits(lgb.world.view.SimulationView, lgb.gui.view.DialogView);
+goog.inherits(lgb.world.view.SimulationGreenGUI, lgb.gui.view.DialogGreenGUI);
 
-lgb.world.view.SimulationView.prototype.init = function() {
+lgb.world.view.SimulationGreenGUI.prototype.init = function() {
     this.listenForChange_('simStateNative');
     this.listenForChange_('messageStruct');
     this.listenForChange_('xmlParsedInfo');
@@ -36,7 +36,7 @@ lgb.world.view.SimulationView.prototype.init = function() {
 
 
 
-lgb.world.view.SimulationView.prototype.onChange_webSocketConnectionState_ = function(webSocketConnectionState) {
+lgb.world.view.SimulationGreenGUI.prototype.onChange_webSocketConnectionState_ = function(webSocketConnectionState) {
   
   this.disableAllButtons();
   var state = lgb.simulation.model.WebSocketConnectionState;
@@ -74,7 +74,7 @@ lgb.world.view.SimulationView.prototype.onChange_webSocketConnectionState_ = fun
   return;
 };
 
-lgb.world.view.SimulationView.prototype.onChange_simStateNative_ = function(simStateNative) {
+lgb.world.view.SimulationGreenGUI.prototype.onChange_simStateNative_ = function(simStateNative) {
   
     this.disableAllButtons();
 
@@ -104,11 +104,11 @@ lgb.world.view.SimulationView.prototype.onChange_simStateNative_ = function(simS
     }
 };
 
-lgb.world.view.SimulationView.prototype.onChange_messageStruct_ = function(messageStruct) {
+lgb.world.view.SimulationGreenGUI.prototype.onChange_messageStruct_ = function(messageStruct) {
   this.messageBox_.append(messageStruct.msgText + '<br />' + "\n");
 };
 
-lgb.world.view.SimulationView.prototype.onChange_xmlParsedInfo_ = function(xmlParsedInfo) {
+lgb.world.view.SimulationGreenGUI.prototype.onChange_xmlParsedInfo_ = function(xmlParsedInfo) {
   
   var dataItem = {};
     var fields = {time:  { type: "number" , width: "100px" } };
@@ -172,7 +172,7 @@ lgb.world.view.SimulationView.prototype.onChange_xmlParsedInfo_ = function(xmlPa
 };
 
 
-lgb.world.view.SimulationView.prototype.onChange_scalarValueResults_ = function(scalarValueResults) {
+lgb.world.view.SimulationGreenGUI.prototype.onChange_scalarValueResults_ = function(scalarValueResults) {
   
     var time = scalarValueResults.time_;
     
@@ -191,7 +191,7 @@ lgb.world.view.SimulationView.prototype.onChange_scalarValueResults_ = function(
 
 
 
-lgb.world.view.SimulationView.prototype.inject = function(parentElement) {
+lgb.world.view.SimulationGreenGUI.prototype.inject = function(parentElement) {
   
     goog.base(this, 'inject', parentElement);
   
@@ -208,7 +208,7 @@ lgb.world.view.SimulationView.prototype.inject = function(parentElement) {
  * @private
  * @param {lgb.core.Event} event The Event.
  */
-lgb.world.view.SimulationView.prototype.onClickSimStateNativeRequest_ = function(event) {
+lgb.world.view.SimulationGreenGUI.prototype.onClickSimStateNativeRequest_ = function(event) {
 
     var simState = event.target.data;
 
@@ -225,7 +225,7 @@ lgb.world.view.SimulationView.prototype.onClickSimStateNativeRequest_ = function
  * event bus.
  * @private
  */
-lgb.world.view.SimulationView.prototype.bind2_ = function() {
+lgb.world.view.SimulationGreenGUI.prototype.bind2_ = function() {
 
     //data model changed
     
@@ -248,7 +248,7 @@ lgb.world.view.SimulationView.prototype.bind2_ = function() {
  * close button (x) on the dialog.
  * @param {goog.events.Event} event The event received.
  */
-lgb.world.view.SimulationView.prototype.onCloseButtonClicked = function(event) {
+lgb.world.view.SimulationGreenGUI.prototype.onCloseButtonClicked = function(event) {
 
     this.triggerLocal(e.ViewClosed);
 
@@ -257,7 +257,7 @@ lgb.world.view.SimulationView.prototype.onCloseButtonClicked = function(event) {
 /**
  * @private
  */
-lgb.world.view.SimulationView.prototype.makeTopPanel_ = function() {
+lgb.world.view.SimulationGreenGUI.prototype.makeTopPanel_ = function() {
 
     this.topPanelID = this.htmlID + '-topPanel';
 
@@ -281,7 +281,7 @@ lgb.world.view.SimulationView.prototype.makeTopPanel_ = function() {
 
     this.topPanelButtons_.push(this.initLink_);
 
-    var ds4 = new lgb.component.LinkDataSource('Run >', this.htmlID, 'run-link')
+    var ds4 = new lgb.component.LinkDataSource('Run >', this.htmlID, 'run-link');
     this.runLink_ = new lgb.component.Link(ds4);
     this.runLink_.data = lgb.simulation.model.voNative.SimStateNative.simStateNative_4_run_requested;
 
@@ -329,7 +329,7 @@ lgb.world.view.SimulationView.prototype.makeTopPanel_ = function() {
 };
 
 
-lgb.world.view.SimulationView.prototype.disableAllButtons = function() {
+lgb.world.view.SimulationGreenGUI.prototype.disableAllButtons = function() {
 
     var len = this.topPanelButtons_.length;
     for (var i = 0; i < len; i++) {
@@ -339,7 +339,7 @@ lgb.world.view.SimulationView.prototype.disableAllButtons = function() {
 
 };
 
-lgb.world.view.SimulationView.prototype.makeBottomPanel_ = function() {
+lgb.world.view.SimulationGreenGUI.prototype.makeBottomPanel_ = function() {
 
     this.mainPanel_ = $('<div>').attr('id', "simulationViewMainPanel");
     this.append(this.mainPanel_);
@@ -386,7 +386,7 @@ lgb.world.view.SimulationView.prototype.makeBottomPanel_ = function() {
 };
 
 
-lgb.world.view.SimulationView.prototype.makeDialog_ = function() {
+lgb.world.view.SimulationGreenGUI.prototype.makeDialog_ = function() {
 
     var el = this.getMainElement();
     el.direction = 'left';

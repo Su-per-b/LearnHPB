@@ -50,7 +50,7 @@ lgb.world.model.GridModel.prototype.calculatePosition_ = function() {
   var zPos = this.position.z +
   (-1 * (this.dimensions.z / 2)) + 
   (this.geometryDimensions.z / 2) +
-  (this.columnSpacing/ 2)
+  (this.columnSpacing/ 2);
   
   var yPos = this.position.y + (1 * this.geometryDimensions.y / 2);
 
@@ -71,8 +71,8 @@ lgb.world.model.GridModel.prototype.calculateSpacing_ = function() {
   var totalSpaceX = this.width - totalLightX;
   var totalSpaceZ = this.depth - totalLightZ;
   
-  this.columnSpacing = totalSpaceX / (this.columnCount)
-  this.rowSpacing = totalSpaceZ / (this.rowCount)
+  this.columnSpacing = totalSpaceX / (this.columnCount);
+  this.rowSpacing = totalSpaceZ / (this.rowCount);
   
   this.dimensions = new THREE.Vector3(
     totalLightX + totalSpaceX,

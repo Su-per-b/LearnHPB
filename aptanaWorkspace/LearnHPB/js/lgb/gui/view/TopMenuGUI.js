@@ -6,7 +6,7 @@
 goog.provide('lgb.gui.view.TopMenuGUI');
 
 
-goog.require('lgb.gui.view.BaseViewGUI');
+goog.require('lgb.gui.view.BaseGUI');
 goog.require('lgb.core.Config');
 
 
@@ -14,12 +14,12 @@ goog.require('lgb.core.Config');
 lgb.gui.view.TopMenuGUI = function(dataModel) {
 
   this._TITLE = "TopMenu";
-  lgb.gui.view.BaseViewGUI.call(this, dataModel);
+  lgb.gui.view.BaseGUI.call(this, dataModel);
   
   this.listenForChange_('ds');
 
 };
-goog.inherits(lgb.gui.view.TopMenuGUI, lgb.gui.view.BaseViewGUI);
+goog.inherits(lgb.gui.view.TopMenuGUI, lgb.gui.view.BaseGUI);
 
 
 

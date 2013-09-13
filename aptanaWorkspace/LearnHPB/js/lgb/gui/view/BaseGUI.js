@@ -1,4 +1,4 @@
-goog.provide('lgb.gui.view.BaseViewGUI');
+goog.provide('lgb.gui.view.BaseGUI');
 
 goog.require('lgb.world.view.BaseV');
 
@@ -9,13 +9,13 @@ goog.require('lgb.world.view.BaseV');
  * @extends {lgb.BaseV}
  * @param {lgb.world.model.BaseModel=} dataModel that the view with display.
  */
-lgb.gui.view.BaseViewGUI = function(dataModel, htmlID, parentHtmlID) {
+lgb.gui.view.BaseGUI = function(dataModel, htmlID, parentHtmlID) {
   
   lgb.world.view.BaseV.call(this, dataModel, htmlID, parentHtmlID);
   this.isVisible_ = true;
 
 };
-goog.inherits(lgb.gui.view.BaseViewGUI, lgb.world.view.BaseV);
+goog.inherits(lgb.gui.view.BaseGUI, lgb.world.view.BaseV);
 
 
 

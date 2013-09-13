@@ -1,6 +1,6 @@
 goog.provide('lgb.gui.view.LeftPanelGUI');
 
-goog.require('lgb.gui.view.BaseViewGUI');
+goog.require('lgb.gui.view.BaseGUI');
 goog.require('lgb.component.TabStrip');
 goog.require('lgb.component.TabStripDataSource');
 
@@ -8,10 +8,10 @@ lgb.gui.view.LeftPanelGUI = function(dataModel) {
 
   this._TITLE = 'Testing';
   
-  lgb.gui.view.BaseViewGUI.call(this, dataModel);
+  lgb.gui.view.BaseGUI.call(this, dataModel);
   
 };
-goog.inherits(lgb.gui.view.LeftPanelGUI, lgb.gui.view.BaseViewGUI);
+goog.inherits(lgb.gui.view.LeftPanelGUI, lgb.gui.view.BaseGUI);
 
 
 /**

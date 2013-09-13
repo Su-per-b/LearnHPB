@@ -5,7 +5,7 @@
  
 goog.provide('lgb.scenario.view.Temperature');
 
-goog.require('lgb.scenario.view.BaseViewGUI');
+goog.require('lgb.scenario.view.BaseView');
 goog.require('lgb.scenario.view.Decimal');
 
 

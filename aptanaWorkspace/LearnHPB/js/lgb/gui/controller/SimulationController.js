@@ -6,8 +6,8 @@
 goog.provide('lgb.gui.controller.SimulationGUIController');
 
 goog.require('lgb.core.BaseController');
-goog.require('lgb.world.view.SimulationView');
-goog.require('lgb.world.view.SimulationButtonView');
+goog.require('lgb.world.view.SimulationGreenGUI');
+goog.require('lgb.world.view.SimulationButtonGreenGUI');
 
 goog.require('lgb.simulation.controller.MainController');
 goog.require('lgb.simulation.model.MainModel');
@@ -48,8 +48,8 @@ lgb.gui.controller.SimulationGUIController.prototype.onSimulationEngineLoaded_ =
 lgb.gui.controller.SimulationGUIController.prototype.init_ = function() {
   this.dataModel = this.simMainController_.getDataModel();
   
-  this.view = new lgb.world.view.SimulationView(this.dataModel);
-  this.buttonView = new lgb.world.view.SimulationButtonView();
+  this.view = new lgb.world.view.SimulationGreenGUI(this.dataModel);
+  this.buttonView = new lgb.world.view.SimulationButtonGreenGUI();
 
   this.bind2_();
   

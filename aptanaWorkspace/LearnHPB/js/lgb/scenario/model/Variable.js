@@ -59,6 +59,6 @@ lgb.scenario.model.Variable.childClassMap = {
     "OptionList" : lgb.scenario.model.OptionList,
     "Decimal" : lgb.scenario.model.Decimal,
     "Boolean" : lgb.scenario.model.Boolean,
-    "Temperature" : lgb.scenario.model.Temperature,
+    "Temperature" : lgb.scenario.model.Temperature
 };
   
