@@ -13,7 +13,7 @@ goog.require('lgb.view.BaseV');
 
 /**
  * Html component that contains a slider
- * @param {lgb.model.scenario.SysVar} dataModel Tells us what to display.
+ * @param {lgb.scenario.model.SysVar} dataModel Tells us what to display.
  * @constructor
  * @extends {lgb.view.BaseV}
  */

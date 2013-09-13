@@ -5,7 +5,7 @@
  
 goog.provide('lgb.controller.PsMasterController');
 
-goog.require('lgb.view.input.PsMasterGUI');
+goog.require('lgb.gui.view.PsMasterGUI');
 goog.require('lgb.controller.BaseController');
 goog.require('lgb.controller.PsController');
 goog.require('lgb.model.PsModel');
@@ -33,7 +33,7 @@ lgb.controller.PsMasterController.prototype.init = function() {
   
   this.dataModel = new lgb.model.PsModelMaster();
   
-  this.guiView = new lgb.view.input.PsMasterGUI(this.dataModel);
+  this.guiView = new lgb.gui.view.PsMasterGUI(this.dataModel);
   this.view = new lgb.view.PsMasterView(this.dataModel);
   
   this.bind_();

@@ -9,22 +9,22 @@ goog.require('lgb.simulation.model.MainModel');
 goog.require('lgb.simulation.model.voNative.SimStateNative');
 goog.require('lgb.component.LinkDataSource');
 goog.require('lgb.component.Link');
-goog.require('lgb.view.input.DialogView');
+goog.require('lgb.gui.view.DialogView');
 goog.require('lgb.simulation.events.SimStateNativeRequest');
 
 
 /**
  * @constructor
- * @extends {lgb.view.input.DialogView}
+ * @extends {lgb.gui.view.DialogView}
  */
 lgb.view.SimulationView = function(dataModel) {
   
-    lgb.view.input.DialogView.call(this, dataModel, 'simulationView');
+    lgb.gui.view.DialogView.call(this, dataModel, 'simulationView');
     this.title = 'Simulation View';
     this.useSlideEffect = false;
 
 };
-goog.inherits(lgb.view.SimulationView, lgb.view.input.DialogView);
+goog.inherits(lgb.view.SimulationView, lgb.gui.view.DialogView);
 
 lgb.view.SimulationView.prototype.init = function() {
     this.listenForChange_('simStateNative');

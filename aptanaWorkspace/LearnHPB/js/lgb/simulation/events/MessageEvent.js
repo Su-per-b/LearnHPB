@@ -11,7 +11,7 @@ goog.require('lgb.simulation.model.voNative.MessageType');
 
 /**
  * @constructor
- * @param {lgb.model.scenario.Base} scenarioBase The Data Model.
+ * @param {lgb.scenario.model.Base} scenarioBase The Data Model.
  * @extends {goog.events.Event}
  */
 lgb.simulation.events.MessageEvent = function(payload) {

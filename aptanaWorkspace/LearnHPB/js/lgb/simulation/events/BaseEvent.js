@@ -10,7 +10,7 @@ goog.require('goog.events.Event');
 
 /**
  * @constructor
- * @param {lgb.model.scenario.Base} scenarioBase The Data Model.
+ * @param {lgb.scenario.model.Base} scenarioBase The Data Model.
  * @extends {goog.events.Event}
  */
 lgb.simulation.events.BaseEvent = function(type, payload) {

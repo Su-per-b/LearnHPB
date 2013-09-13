@@ -15,7 +15,7 @@ goog.require('lgb.controller.WorldSelectionController');
 goog.require('lgb.model.WorldModel');
 goog.require('lgb.view.WorldView');
 
-goog.require('lgb.view.StatsView');
+goog.require('lgb.gui.view.StatsView');
 goog.require('lgb');
 
 /**
@@ -81,7 +81,7 @@ lgb.controller.WorldController.prototype.init = function() {
 
 
   if (lgb.Config.SHOW_STATS) {
-   // this.statsView_ = new lgb.view.StatsView(this.containerDiv_);
+   // this.statsView_ = new lgb.gui.view.StatsView(this.containerDiv_);
   } else {
     this.statsView_ = null;
   }

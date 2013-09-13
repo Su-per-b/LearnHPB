@@ -31,22 +31,31 @@ lgb.DebugLGB.prototype.getPackages = function() {
   var packages = [
     ['lgb'],
     ['lgb','component'],
+    
+    ['lgb','gui'],
+    ['lgb','gui','controller'],
+    ['lgb','gui','model'],
+    ['lgb','gui','view'],
+    
+    ['lgb','scenario','view'],
+    ['lgb','scenario','model'],
+    ['lgb','scenario','controller'],
+    
     ['lgb','model'],
-    ['lgb','model', 'input'],
     ['lgb','model', 'scenario'],
     ['lgb','model', 'vo'],
+    
     ['lgb','events'],
     ['lgb','controller'],
-    ['lgb','controller','input'],
+    
     ['lgb','simulation','controller'],
     ['lgb','simulation','events'],
     ['lgb','simulation','model'],
     ['lgb','simulation','model','voManaged'],
     ['lgb','simulation','model','voNative'],
+    
     ['lgb','utils'],
     ['lgb','view'],
-    ['lgb','view','input'],
-    ['lgb','view','scenario'],
     ['THREE']
   ];
   

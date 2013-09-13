@@ -9,10 +9,10 @@ lgb.view.OutputGUI = function(dataModel) {
 
   this._TITLE = 'Testing';
   
-  lgb.view.input.BaseViewGUI.call(this, dataModel);
+  lgb.gui.view.BaseViewGUI.call(this, dataModel);
   
 };
-goog.inherits(lgb.view.OutputGUI, lgb.view.input.BaseViewGUI);
+goog.inherits(lgb.view.OutputGUI, lgb.gui.view.BaseViewGUI);
 
 
 /**
@@ -23,9 +23,11 @@ lgb.view.OutputGUI.prototype.init = function() {
   this.dataSource = new lgb.component.TabStripDataSource('mainInputGUI-tabStrip');
   this.tabStrip1 = new lgb.component.TabStrip(this.dataSource);
 
+/*
   this.tabStrip1.setOptions({
     width : "100%"
   });
+*/
 
   this.tabTitleMap_ = {};
   

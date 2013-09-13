@@ -7,13 +7,13 @@ goog.provide('lgb.controller.BuildingController');
 
 goog.require('lgb.controller.BaseController');
 goog.require('lgb.controller.HvacController');
-goog.require('lgb.controller.input.TestLightingController');
+goog.require('lgb.gui.controller.TestLightingController');
 goog.require('lgb.controller.EnvelopeController');
 goog.require('lgb.controller.RoofTopController');
 goog.require('lgb.controller.FurnitureController');
 goog.require('lgb.controller.ZoneController');
 goog.require('lgb.controller.PsMasterController');
-goog.require('lgb.controller.input.ViewpointController');
+goog.require('lgb.gui.controller.ViewpointController');
 
 goog.require('lgb.model.BuildingModel');
 goog.require('lgb.view.BuildingView');
@@ -47,12 +47,12 @@ lgb.controller.BuildingController.prototype.init_ = function() {
   this.zoneController_ = new lgb.controller.ZoneController();
   this.roofTopController_ = new lgb.controller.RoofTopController();
   this.hvacController_ = new lgb.controller.HvacController();
-  this.lightingController_ = new lgb.controller.input.TestLightingController();
+  this.lightingController_ = new lgb.gui.controller.TestLightingController();
   this.furnitureController_ = new lgb.controller.FurnitureController();
   this.envelopeController_ = new lgb.controller.EnvelopeController();
   this.psMasterController_ = new lgb.controller.PsMasterController();
   
-  this.viewpointController_ = new lgb.controller.input.ViewpointController();
+  this.viewpointController_ = new lgb.gui.controller.ViewpointController();
   this.viewpointController_.setAnchors(this.view.anchors);
   
   this.bind2_();

@@ -18,6 +18,12 @@ lgb.component.TabStripDataSource = function(title, htmlID, parentHtmlID) {
   lgb.component.BaseDataSource.call(this);
   
   this.title = title;
+  
+  if (undefined == title || '' == title) {
+    debugger;
+  }
+  
+  
   this.parentHtmlID = parentHtmlID;
   
   if (undefined === htmlID) {
@@ -46,17 +52,19 @@ lgb.component.TabStripDataSource.prototype.setIcon = function(imageUrl, iconHeig
 
 };
 
+
 lgb.component.TabStripDataSource.prototype.getTabCount = function() {
   return this.tabCollection.length;
-}
-
-
+};
 
 
 lgb.component.TabStripDataSource.prototype.addTab = function(title, content, xPosition) {
 
+  if (undefined == title || '' == title) {
+   // debugger;
+  }
   if (null == xPosition) { 
-    xPosition = this.tabCollection.length + 1
+    xPosition = this.tabCollection.length + 1;
   };
 
   if (null == content) { 
@@ -71,7 +79,7 @@ lgb.component.TabStripDataSource.prototype.addTab = function(title, content, xPo
     content : content,
     cssClass : cssClassName,
     xPosition : xPosition
-  }
+  };
 
   this.tabCollection.push(tab);
   

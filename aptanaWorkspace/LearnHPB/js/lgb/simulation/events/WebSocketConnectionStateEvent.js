@@ -18,6 +18,7 @@ lgb.simulation.events.WebSocketConnectionStateEvent = function(payload) {
       lgb.simulation.events.WebSocketConnectionStateEvent.TYPE, 
       payload);
 
+
 };
 goog.inherits(lgb.simulation.events.WebSocketConnectionStateEvent, lgb.simulation.events.BaseEvent);
 

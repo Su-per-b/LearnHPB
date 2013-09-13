@@ -8,12 +8,12 @@ goog.provide('lgb.controller.MainController');
 goog.require('goog.debug.Logger');
 goog.require('lgb.Config');
 goog.require('lgb.controller.BaseController');
-goog.require('lgb.controller.input.GuiController');
-goog.require('lgb.controller.ScenarioController');
+goog.require('lgb.gui.controller.GuiController');
+goog.require('lgb.scenario.controller.ScenarioController');
 goog.require('lgb.controller.WorldController');
 goog.require('lgb.controller.SimulationController');
-goog.require('lgb.controller.LayoutController');
-goog.require('lgb.controller.input.GuiController');
+goog.require('lgb.gui.controller.LayoutController');
+goog.require('lgb.gui.controller.GuiController');
 
 goog.require('lgb.simulation.model.voNative.SimStateNative');
 goog.require('lgb');
@@ -62,14 +62,14 @@ lgb.controller.MainController.prototype.init = function() {
 
 */
 
-  this.layoutController_ = new lgb.controller.LayoutController();
+  this.layoutController_ = new lgb.gui.controller.LayoutController();
   this.layoutController_.init();
   
   var theTitle = lgb.Config.getTitle();
    $('title').html(theTitle);
    
-  this.guiController = new lgb.controller.input.GuiController();
-  this.scenarioController = new lgb.controller.ScenarioController();
+  this.guiController = new lgb.gui.controller.GuiController();
+  this.scenarioController = new lgb.scenario.controller.ScenarioController();
    
   this.worldController_ = new lgb.controller.WorldController();
   this.worldController_.init();

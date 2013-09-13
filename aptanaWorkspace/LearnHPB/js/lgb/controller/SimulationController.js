@@ -73,11 +73,10 @@ lgb.controller.SimulationController.prototype.bind_ = function() {
 
 lgb.controller.SimulationController.prototype.bind2_ = function() {
     
-    this.listenTo (
-        this.view,
-        lgb.simulation.events.SimStateNativeRequest.TYPE,
-        this.onSimStateNativeRequest_
-    );
+  this.listenTo (
+      this.view,
+      lgb.simulation.events.SimStateNativeRequest.TYPE,
+      this.onSimStateNativeRequest_);
 
     
   this.listenTo(this.buttonView,

@@ -78,15 +78,17 @@ lgb.component.TabStrip.prototype.getContentElement = function() {
 };
 
 
+/*
 lgb.component.TabStrip.prototype.setOptions = function(options) {
 
   this.options = options;
 
   if (this.options.width) {
-    this.getMainElement().css('width', this.options.width)
+    this.getMainElement().css('width', this.options.width);
   }
 
 };
+*/
 
 
 lgb.component.TabStrip.prototype.injectCss = function() {

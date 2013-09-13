@@ -5,7 +5,7 @@
  
 goog.provide('lgb.view.LayoutUtil');
 
-goog.require('lgb.view.input.BaseViewGUI');
+goog.require('lgb.gui.view.BaseViewGUI');
 
 
 
@@ -17,7 +17,7 @@ lgb.view.LayoutUtil = function(guiView) {
   lgb.controller.BaseController.call(this);
 
 };
-goog.inherits(lgb.view.LayoutUtil, lgb.view.input.BaseViewGUI);
+goog.inherits(lgb.view.LayoutUtil, lgb.gui.view.BaseViewGUI);
 
 
 
