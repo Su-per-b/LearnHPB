@@ -28,6 +28,11 @@ lgb.scenario.view.Integer.prototype.appendTo = function(parentElement) {
 
 
     this.inputElement_ = $('<input>').addClass('input-Integer-textbox').attr("type", "text").attr("value", this.dataModel['default']);
+    
+     if (!this.isEnabled) {
+       this.inputElement_.attr( "disabled", "disabled" );
+     }
+     
     this.append(this.inputElement_);
     
     var html = " ({0}-{1})".format(this.dataModel.min, this.dataModel.max);
@@ -37,6 +42,18 @@ lgb.scenario.view.Integer.prototype.appendTo = function(parentElement) {
   this.injectTo(parentElement);
 };
 
+lgb.scenario.view.Integer.prototype.setEnabled = function(enabledFlag) {
+  
+  
+   this.isEnabled = enabledFlag;
+   
+   // if (this.isEnabled) {
+//      
+   // } else {
+     // this.inputElement_.attr( "disabled", "disabled" );
+   // }
+
+};
 
 
 

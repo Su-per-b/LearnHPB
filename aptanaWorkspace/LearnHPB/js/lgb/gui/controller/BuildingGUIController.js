@@ -44,6 +44,8 @@ lgb.gui.controller.BuildingGUIController.prototype.makeSubController_ = function
   this.listenTo(subController, e.RequestAddToParentGUI, this.onRequestAddToParentGUI_);
   this.subControllerList_.push(subController);
   subController.init();
+  
+  
 
 };
 

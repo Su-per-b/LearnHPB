@@ -27,7 +27,7 @@ lgb.gui.controller.SimulationStateControlController.prototype.bind_ = function(e
         e.SimulationEngineLoaded,
         this.onSimulationEngineLoaded_
     );
-    
+
 };
 
 
@@ -47,7 +47,6 @@ lgb.gui.controller.SimulationStateControlController.prototype.init_ = function()
 
   this.dataModel = this.simMainController_.getDataModel();
   this.simulationStateControlGUI_ = new lgb.gui.view.SimulationStateControlGUI(this.dataModel);
-  // this.simulationConsoleGUI_ = new lgb.gui.view.SimulationConsoleGUI(this.dataModel);
   
   this.bind2_();
   this.simulationStateControlGUI_.init();
@@ -68,14 +67,12 @@ lgb.gui.controller.SimulationStateControlController.prototype.bind2_ = function(
         this.onWebSocketChangeRequest_
     );
 
-
-
     this.listenTo (
         this.simulationStateControlGUI_,
         lgb.simulation.events.SimStateNativeRequest.TYPE,
         this.onSimStateNativeRequest_
     );
-    
+
     
 };
 

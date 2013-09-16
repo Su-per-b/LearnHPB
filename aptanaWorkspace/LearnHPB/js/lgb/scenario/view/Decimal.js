@@ -34,11 +34,23 @@ lgb.scenario.view.Decimal.prototype.appendTo = function(parentElement) {
           .attr( "maxlength", "10" )
           .attr("value", this.dataModel['default']);
           
+
+           
+         if (this.isEnabled == false) {
+           this.inputElement_.attr( "disabled", "disabled" );
+         } else {
+           
+
+         }
+     
+     
         this.append(this.inputElement_);
         
         var html = " ({0}-{1})".format(this.dataModel.min, this.dataModel.max);
         this.append(html);
 
+
+        this.inputElement_.blur(this.d(this.onblur_));
       
     }
   
@@ -48,3 +60,18 @@ lgb.scenario.view.Decimal.prototype.appendTo = function(parentElement) {
 
 
 
+
+lgb.scenario.view.Decimal.prototype.onblur_ = function(event) {
+  
+  
+  var stringValue = this.inputElement_[0].value;
+  var floatValue = parseFloat(stringValue);
+  
+  this.triggerLocal(e.GuiValueChanged, floatValue);
+};
+
+lgb.scenario.view.Decimal.prototype.setEnabled = function(enabledFlag) {
+
+   this.isEnabled = enabledFlag;
+
+};

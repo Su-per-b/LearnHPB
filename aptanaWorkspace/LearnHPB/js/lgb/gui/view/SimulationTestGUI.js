@@ -32,7 +32,12 @@ lgb.gui.view.SimulationTestGUI.prototype.calculateLayout = function() {
   
   this.kendoGridContent_.css("height", cssStr);
      
-
+  //var data = this.gridDS_.options.data[0].idx_ += 1;
+  
+  
+  //this.gridDS_.read();
+  
+  return;
 };
 
 
@@ -232,7 +237,7 @@ var variables = [
    var el = this.getMainElement();
   
   
-  var dataSource = {
+  var ds = {
               data: variables,
               schema: {
                   model: {
@@ -248,10 +253,15 @@ var variables = [
         };
         
         
+
+    
+    this.gridDS_ = new kendo.data.DataSource(ds);
+  
+        
   
       this.kendoGrid_ = el.kendoGrid({
           resizable : "true",
-          dataSource: dataSource,
+          dataSource: this.gridDS_,
           scrollable: true,
           sortable: true,
           filterable: false,

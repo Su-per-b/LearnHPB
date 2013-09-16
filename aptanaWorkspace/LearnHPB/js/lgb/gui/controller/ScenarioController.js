@@ -77,9 +77,23 @@ lgb.gui.controller.ScenarioController.prototype.onScenarioParsed2_ = function(ev
   var systemListDataModel = event.payload;
   var systemListView = new lgb.scenario.view.SystemList (systemListDataModel, true);
   
+
+  
   this.guiView.add(systemListView);
 
-
+  this.variableList_ = systemListView.getVariables();
+  
+  //this.listenTo(this.variableList_, e.RequestModelicaVariableChange, this.onRequestModelicaVariableChange_);
+  
+  
+  
+  return;
   
 };
 
+
+lgb.gui.controller.ScenarioController.prototype.onRequestModelicaVariableChange_ = function(event) {
+  
+  
+  return;
+};

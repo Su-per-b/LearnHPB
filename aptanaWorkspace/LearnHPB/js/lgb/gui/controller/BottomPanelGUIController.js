@@ -7,6 +7,7 @@ goog.require('lgb.gui.model.BaseInputModel');
 goog.require('lgb.gui.controller.SimulationConsoleController');
 goog.require('lgb.gui.controller.SimulationOutputController');
 goog.require('lgb.gui.controller.SimulationTestController');
+goog.require('lgb.gui.controller.SimulationInputController');
 
 
 lgb.gui.controller.BottomPanelGUIController = function() {
@@ -30,15 +31,12 @@ lgb.gui.controller.BottomPanelGUIController.prototype.init_ = function() {
 
 
   this.simulationConsoleController_ = new lgb.gui.controller.SimulationConsoleController();
+  this.simulationInputController_ = new lgb.gui.controller.SimulationInputController();
   this.simulationOutputController_ = new lgb.gui.controller.SimulationOutputController();
   this.simulationTestController_ = new lgb.gui.controller.SimulationTestController();
-  
-  
-  this.bind_();
-  
 
-  
-  
+  this.bind_();
+
 };
 
 
@@ -46,7 +44,7 @@ lgb.gui.controller.BottomPanelGUIController.prototype.bind_ = function() {
   
   
   this.listenTo(
-    this.simulationConsoleController_,
+    [this.simulationConsoleController_,this.simulationInputController_],
     e.RequestAddToParentGUI, 
     this.onRequestAddToParentGUI_);
 

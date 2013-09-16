@@ -43,6 +43,16 @@ lgb.scenario.view.BaseView.prototype.setDebugFlag = function(debugFlag) {
 
 };
 
+lgb.scenario.view.BaseView.prototype.setEnabled = function(debugFlag) {
+  
+
+   this.setEnabled = debugFlag;
+  
+
+};
+
+
+
 
   
 lgb.scenario.view.BaseView.prototype.appendTitle_ = function() {

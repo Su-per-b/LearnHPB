@@ -43,7 +43,7 @@ lgb.gui.controller.SimulationOutputController.prototype.bind2_ = function() {
     this.guiView,
     e.RequestAddToParentGUI);
     
-  this.listen(e.LayoutChange, this.onLayoutChange_);
+
 };
 
 
@@ -69,6 +69,7 @@ lgb.gui.controller.SimulationOutputController.prototype.init_ = function() {
   this.bind2_();
   this.guiView.init();
   
+  this.listen(e.LayoutChange, this.onLayoutChange_);
 };
 
 

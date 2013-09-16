@@ -110,6 +110,8 @@ lgb.world.view.SimulationGreenGUI.prototype.onChange_messageStruct_ = function(m
 
 lgb.world.view.SimulationGreenGUI.prototype.onChange_xmlParsedInfo_ = function(xmlParsedInfo) {
   
+  return;
+  
   var dataItem = {};
     var fields = {time:  { type: "number" , width: "100px" } };
     dataItem.time = 0;
@@ -173,7 +175,7 @@ lgb.world.view.SimulationGreenGUI.prototype.onChange_xmlParsedInfo_ = function(x
 
 
 lgb.world.view.SimulationGreenGUI.prototype.onChange_scalarValueResults_ = function(scalarValueResults) {
-  
+    return;
     var time = scalarValueResults.time_;
     
     var realVarList = scalarValueResults.output.realList;

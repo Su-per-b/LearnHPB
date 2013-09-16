@@ -14,6 +14,8 @@ goog.require('lgb.simulation.model.WebSocketConnectionState');
 goog.require('lgb.simulation.events.SimStateNativeRequest');
 goog.require('lgb.simulation.model.voNative.SimStateNative');
 goog.require('lgb.simulation.model.WebSocketConnectionStateRequest');
+goog.require('lgb.simulation.events.ScalarValueChangeRequest');
+goog.require('lgb.simulation.model.voNative.ScalarValueRealStruct');
 
 lgb.simulation.controller.MainController = function() {
     lgb.core.BaseController.call(this);
@@ -73,6 +75,29 @@ lgb.simulation.controller.MainController.prototype.bind_ = function() {
         this.onMessageEvent_
     );
     
+    this.listen (
+        e.RequestModelicaVariableChange,
+        this.onRequestModelicaVariableChange_
+    );
+    
+    
+
+    
+};
+
+
+lgb.simulation.controller.MainController.prototype.onRequestModelicaVariableChange_ = function(event) {
+  
+  var theVar = this.dataModel.getIdxFromModelicaName(event.payload.modName);
+  var floatValue = event.payload.value;
+  
+  
+  var struct = new lgb.simulation.model.voNative.ScalarValueRealStruct(theVar.idx_, floatValue);
+  var event = new lgb.simulation.events.ScalarValueChangeRequest([struct]);
+  
+  this.serializeAndSend(event);
+
+  
 };
 
 
@@ -88,7 +113,8 @@ lgb.simulation.controller.MainController.prototype.onConfigChangeNotify_ = funct
 };
 
 lgb.simulation.controller.MainController.prototype.onXMLparsedEvent_ = function(event) {
-  this.dataModel.changePropertyEx('xmlParsedInfo', event.getPayload());
+  
+  this.dataModel.setXmlParseInfo(event.getPayload());
   this.dispatch(event);
 };
 

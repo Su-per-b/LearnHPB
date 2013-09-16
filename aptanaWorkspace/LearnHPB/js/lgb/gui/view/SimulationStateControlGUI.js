@@ -30,24 +30,25 @@ goog.inherits(lgb.gui.view.SimulationStateControlGUI, lgb.gui.view.BaseGUI);
  */
 lgb.gui.view.SimulationStateControlGUI.prototype.init = function() {
 
-/*
-  this.dataSource = new lgb.component.TabStripDaSource('simulationInputGUI-tabStrip');
-  this.tabStrip1 = new lgb.component.TabStrip(thista.dataSource);
-
-
-  this.tabTitleMap_ = {};*/
-
-/*
-    this.listenForChange_('simStateNative');
-    this.listenForChange_('messageStruct');
-    this.listenForChange_('xmlParsedInfo');
-    this.listenForChange_('scalarValueResults');*/
 
     this.listenForChange_('webSocketConnectionState');
     this.listenForChange_('simStateNative');
+    this.listenForChange_('scalarValueResults');
     
     this.triggerLocal(e.RequestAddToParentGUI);
 };
+
+
+lgb.gui.view.SimulationStateControlGUI.prototype.onChange_scalarValueResults_ = function(scalarValueResults) {
+  
+  
+  var msg = scalarValueResults.time_.toString();
+  this.simTime_.html (msg);
+  
+  
+  return;
+};
+
 
 lgb.gui.view.SimulationStateControlGUI.prototype.onChange_simStateNative_ = function(simStateNative) {
   
@@ -163,6 +164,14 @@ lgb.gui.view.SimulationStateControlGUI.prototype.injectTo = function(parentEleme
   el.append('<br />');
   
   this.makeLink2_('Terminate.', 'terminate-link', SimStateNative.simStateNative_7_terminate_requested);
+  
+  el.append('<br />');
+  el.append('<h5>Simulation Info</h5>');
+  
+  el.append('Time:');
+  
+  this.simTime_ = $('<strong>{}</strong>');
+  el.append(this.simTime_);
   
   
   this.bind2_();

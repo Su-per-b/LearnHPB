@@ -21,6 +21,10 @@ lgb.scenario.view.SystemList.prototype.init = function() {
    this.triggerLocal(e.RequestAddToParentGUI);
 };
 
+lgb.scenario.view.SystemList.prototype.getVariables = function() {
+  return lgb.scenario.view.Variable.variablesList;
+};
+
 
 lgb.scenario.view.SystemList.prototype.appendTo = function(parentElement) {
   
@@ -35,4 +39,5 @@ lgb.scenario.view.SystemList.prototype.appendTo = function(parentElement) {
 lgb.scenario.view.SystemList.childClassMap = {
     "System" : lgb.scenario.view.System
 };
+
 

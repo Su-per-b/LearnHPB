@@ -30,6 +30,9 @@ lgb.simulation.model.MainModel = function() {
   this.messageStruct = null;
   this.xmlParsedInfo = null;
   this.scalarValueResults = null;
+  
+  this.modNameToVarMap_ = {};
+  
   this.init_();
 
 };
@@ -97,6 +100,39 @@ lgb.simulation.model.MainModel.prototype.getSimStateNative = function() {
 
     return this.simStateNative; 
 };
+
+
+
+lgb.simulation.model.MainModel.prototype.getIdxFromModelicaName = function(modelicaName) {
+
+    
+    return this.modNameToVarMap_[modelicaName]; 
+};
+
+
+
+
+
+lgb.simulation.model.MainModel.prototype.setXmlParseInfo = function(xmlParseInfo) {
+
+  this.xmlParsedInfo = xmlParseInfo;
+  
+  var varList = xmlParseInfo.scalarVariablesAll_.input_.realVarList_;
+  this.each(varList, this.idxOne_);
+  
+  
+  
+  this.dispatchChangedEx('xmlParsedInfo', xmlParseInfo);
+  
+};
+
+
+lgb.simulation.model.MainModel.prototype.idxOne_ = function(theVar) {
+
+  this.modNameToVarMap_[theVar.name_] = theVar;
+};
+
+
 
 
 

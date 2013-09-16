@@ -1,48 +1,70 @@
-goog.provide('lgb.gui.view.SimulationOutputGUI');
+goog.provide('lgb.gui.view.SimulationInputGUI');
 
 
-lgb.gui.view.SimulationOutputGUI = function(dataModel) {
+lgb.gui.view.SimulationInputGUI = function(dataModel) {
 
-  this._TITLE = 'Output';
+  this._TITLE = 'Input';
   
   lgb.gui.view.BaseGUI.call(this, dataModel);
   this.totalHeaderHeight_ = 70;
 };
-goog.inherits(lgb.gui.view.SimulationOutputGUI, lgb.gui.view.BaseGUI);
+goog.inherits(lgb.gui.view.SimulationInputGUI, lgb.gui.view.BaseGUI);
 
 
 
-lgb.gui.view.SimulationOutputGUI.prototype.init = function() {
+lgb.gui.view.SimulationInputGUI.prototype.init = function() {
 
 
-    this.listenForChange_('scalarValueResults');
     this.listenForChange_('xmlParsedInfo');
+    this.listenForChange_('scalarValueResults');
     
     this.triggerLocal(e.RequestAddToParentGUI);
     
+};
+
+
+
+lgb.gui.view.SimulationInputGUI.prototype.onChange_scalarValueResults_ = function(scalarValueResults) {
+  
+  this.updateTable_(scalarValueResults.input.realList);
+  
+  return;
+};
+
+
+lgb.gui.view.SimulationInputGUI.prototype.updateTable_ = function(varList) {
+  
+  this.eachIdx(varList, this.updateRow_);
+  
+  this.gridDS_.read();
+};
+
+
+lgb.gui.view.SimulationInputGUI.prototype.updateRow_ = function(row, idx) {
+  
+  this.gridDS_.options.data[idx].value = row.value_.toFixed(4);
     
 };
 
 
-
-lgb.gui.view.SimulationOutputGUI.prototype.onChange_xmlParsedInfo_ = function(xmlParsedInfo) {
+lgb.gui.view.SimulationInputGUI.prototype.onChange_xmlParsedInfo_ = function(xmlParsedInfo) {
   
-  this.makeTable_(xmlParsedInfo.scalarVariablesAll_.output_.realVarList_);
   
-  return;
-};
+/*
+  var Input_= xmlParsedInfo.scalarVariablesAll_.Input_;
+  var internal_= xmlParsedInfo.scalarVariablesAll_.internal_;
+  var input_= xmlParsedInfo.scalarVariablesAll_.input_;*/
 
-
-lgb.gui.view.SimulationOutputGUI.prototype.onChange_scalarValueResults_ = function(scalarValueResults) {
   
-  this.updateTable_(scalarValueResults.output.realList);
+  this.makeTable_(xmlParsedInfo.scalarVariablesAll_.input_.realVarList_);
   
   return;
 };
 
 
 
-lgb.gui.view.SimulationOutputGUI.prototype.calculateLayout = function() {
+
+lgb.gui.view.SimulationInputGUI.prototype.calculateLayout = function() {
   
   if (this.kendoGridContent_) {
     
@@ -55,13 +77,14 @@ lgb.gui.view.SimulationOutputGUI.prototype.calculateLayout = function() {
     
     this.kendoGridContent_.css("height", cssStr);
   }
+
      
 
 };
 
 
 
-lgb.gui.view.SimulationOutputGUI.prototype.injectTo = function(parentElement) {
+lgb.gui.view.SimulationInputGUI.prototype.injectTo = function(parentElement) {
   
 
   goog.base(this,  'injectTo', parentElement);
@@ -71,23 +94,9 @@ lgb.gui.view.SimulationOutputGUI.prototype.injectTo = function(parentElement) {
 
 
 
-lgb.gui.view.SimulationOutputGUI.prototype.updateTable_ = function(varList) {
+lgb.gui.view.SimulationInputGUI.prototype.makeTable_ = function(varList) {
   
-  this.eachIdx(varList, this.updateRow_);
-  
-  this.gridDS_.read();
-};
 
-
-lgb.gui.view.SimulationOutputGUI.prototype.updateRow_ = function(row, idx) {
-  
-  this.gridDS_.options.data[idx].value = row.value_.toFixed(4);
-    
-};
-
-
-lgb.gui.view.SimulationOutputGUI.prototype.makeTable_ = function(varList) {
-  
 
   var ds = {
               data: varList,
@@ -135,6 +144,7 @@ lgb.gui.view.SimulationOutputGUI.prototype.makeTable_ = function(varList) {
       
     this.kendoGridContent_ = this.kendoGrid_.find('.k-grid-content');
     this.calculateLayout();  
+      
       
 };
 
