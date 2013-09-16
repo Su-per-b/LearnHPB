@@ -5,7 +5,7 @@
 THREE.Object3D.prototype.removeAllChildren = function() {
 
     var len = this.children.length;
-    var cc = []
+    var cc = [];
 
     for (var i = 0; i < len; i++) {
       var child = this.children[i];
@@ -35,7 +35,7 @@ THREE.Object3D.prototype.setVisible = function( isVisible) {
 
   }
 
-}
+};
 
 THREE.Object3D.prototype.setProperty = function(propertyName, propertyValue, includeDecendants) {
   
@@ -46,7 +46,7 @@ THREE.Object3D.prototype.setProperty = function(propertyName, propertyValue, inc
   if (includeDecendants && (this instanceof THREE.Mesh) == false) {
     this.setDescendantsProperty(propertyName, propertyValue);
   }
-}
+};
 
 THREE.Object3D.prototype.setDescendantsProperty = function(propertyName, propertyValue) {
     
@@ -194,7 +194,7 @@ THREE.Object3D.prototype.cloneEx = function(deepCloneChildren, cloneGeometry) {
 THREE.Object3D.prototype.addChildren = function(object3d) {
   
     if (undefined === object3d || null == object3d) {
-      throw ("you passed an invalid object3d as an argument")
+      throw ("you passed an invalid object3d as an argument");
     }
     
     this.addArray(object3d.children);

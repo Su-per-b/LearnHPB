@@ -36,7 +36,7 @@ lgb.simulation.events.ConfigChangeNotify.prototype.fromJson = function(deseriali
             stopTime : struct.stopTime,
             tolerance : struct.tolerance
         }
-    }
+    };
 
     
     var typedObj = new lgb.simulation.events.ConfigChangeNotify(payload);

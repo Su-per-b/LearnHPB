@@ -6,7 +6,8 @@ goog.require('lgb.component.TabStripDataSource');
 
 lgb.gui.view.BuildingGUI = function(dataModel) {
 
-
+  this._TITLE = 'Building';
+  
   lgb.gui.view.BaseGUI.call(this, dataModel);
   this.tabTitleMap_ = {};
   

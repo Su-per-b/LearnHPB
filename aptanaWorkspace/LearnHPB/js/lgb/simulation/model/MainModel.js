@@ -73,7 +73,7 @@ lgb.simulation.model.MainModel.prototype.init_ = function(event) {
 
   this.socketServerURL = "ws://" + hostname2 + ":8081/";
   
-}
+};
 
 
 

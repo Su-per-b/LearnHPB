@@ -30,11 +30,11 @@ lgb.simulation.events.SimStateNativeRequest.prototype.toJson = function() {
     jsonObj.payload = {
         type : "com.sri.straylight.fmuWrapper.voNative.SimStateNative",
         intValue : this.getPayload()
-    }
+    };
     
     var jsonString = JSON.stringify(jsonObj, null, 2);
 
-    jsonString = jsonString.replace(/\s/g, '')
+    jsonString = jsonString.replace(/\s/g, '');
     
     return jsonString;
 

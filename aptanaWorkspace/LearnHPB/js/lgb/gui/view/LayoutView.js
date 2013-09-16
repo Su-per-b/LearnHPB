@@ -3,7 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
 
-goog.provide('lgb.gui.view.LayoutGUI');
+goog.provide('lgb.gui.view.LayoutView');
 
 goog.require('lgb.gui.view.BaseGUI');
 goog.require('lgb.component.SplitPanel');
@@ -19,17 +19,17 @@ goog.require('lgb.gui.model.LayoutModel');
  * @constructor
  * @extends {lgb.gui.view.BaseGUI}
  */
-lgb.gui.view.LayoutGUI = function(dataModel) {
+lgb.gui.view.LayoutView = function(dataModel) {
 
   lgb.gui.view.BaseGUI.call(this, dataModel, 'pageContainer', 'theBody');
   this.layoutUtils_ = [];
   
 };
-goog.inherits(lgb.gui.view.LayoutGUI, lgb.gui.view.BaseGUI);
+goog.inherits(lgb.gui.view.LayoutView, lgb.gui.view.BaseGUI);
 
 
 
-lgb.gui.view.LayoutGUI.prototype.init = function() {
+lgb.gui.view.LayoutView.prototype.init = function() {
 
   this.splitPanelHorizontalDS_ = new lgb.component.SplitPanelDataSource();
   
@@ -43,14 +43,14 @@ lgb.gui.view.LayoutGUI.prototype.init = function() {
   this.splitPanelHorizontalDS_.splitsAlongHorizontalAxis = true;
   this.splitPanelHorizontal_ = new lgb.component.SplitPanel(this.splitPanelHorizontalDS_);
   
+  //
   
   this.splitPanelVerticalDS_ = new lgb.component.SplitPanelDataSource();
-  
 
   this.splitPanelVerticalDS_.panes =  [{
       collapsible : false
     }, {
-      size:"200px",
+      size:"400px",
       collapsible : true
     }];
     
@@ -58,15 +58,20 @@ lgb.gui.view.LayoutGUI.prototype.init = function() {
   this.splitPanelVerticalDS_.splitsAlongHorizontalAxis = false;
   this.splitPanelVertical_ = new lgb.component.SplitPanel(this.splitPanelVerticalDS_);
   
+  this.splitPanelVertical_.paneOneCss["overflow-y"] = "hidden";
+  this.splitPanelVertical_.paneTwoCss["overflow-y"] = "hidden";
+  this.splitPanelVertical_.paneTwoCss["overflow-x"] = "hidden";
+  
+  
   this.bind_();
   this.inject();
 };
 
 
-lgb.gui.view.LayoutGUI.prototype.bind_ = function(guiView) {
+lgb.gui.view.LayoutView.prototype.bind_ = function(guiView) {
   
-  this.listenTo(this.splitPanelHorizontal_, e.Resize, this.onSplitterResize_);
-  this.listenTo(this.splitPanelVertical_, e.Resize, this.onSplitterResize_);
+  this.listenTo(this.splitPanelHorizontal_, e.Resize, this.onSplitterResizeHorizontal_);
+  this.listenTo(this.splitPanelVertical_, e.Resize, this.onSplitterResizeVertical_);
   this.listenForChange_('add');
   
 };
@@ -74,7 +79,7 @@ lgb.gui.view.LayoutGUI.prototype.bind_ = function(guiView) {
 
 
 
-lgb.gui.view.LayoutGUI.prototype.onChange_add_ = function(value) {
+lgb.gui.view.LayoutView.prototype.onChange_add_ = function(value) {
   
   this.add(value);
 };
@@ -82,7 +87,7 @@ lgb.gui.view.LayoutGUI.prototype.onChange_add_ = function(value) {
 
 
 
-lgb.gui.view.LayoutGUI.prototype.toggleVisibility = function(guiView) {
+lgb.gui.view.LayoutView.prototype.toggleVisibility = function(guiView) {
   
   guiView.isVisible_ = !guiView.isVisible_;
   var el = guiView.getMainElement();
@@ -93,7 +98,7 @@ lgb.gui.view.LayoutGUI.prototype.toggleVisibility = function(guiView) {
 
 
 
-lgb.gui.view.LayoutGUI.prototype.add = function(guiView) {
+lgb.gui.view.LayoutView.prototype.add = function(guiView) {
   
 
  
@@ -164,7 +169,7 @@ lgb.gui.view.LayoutGUI.prototype.add = function(guiView) {
     case "TestGUI":
       guiView.injectTo(this.leftPanel_);
       break;
-    case "ResultsGUI":
+    case "BottomPanelGUI":
       var util = new lgb.gui.view.LayoutUtil(guiView);
       
       guiView.injectTo(this.bottomRightPanel_);
@@ -179,22 +184,30 @@ lgb.gui.view.LayoutGUI.prototype.add = function(guiView) {
 };
 
 
-lgb.gui.view.LayoutGUI.prototype.onSplitterResize_ = function(event) {
+
+
+lgb.gui.view.LayoutView.prototype.onSplitterResizeVertical_ = function(event) {
   this.triggerLocal(e.LayoutChange);
 };
 
-lgb.gui.view.LayoutGUI.prototype.calculateLayout = function(windowDimensions) {
-  
 
+lgb.gui.view.LayoutView.prototype.onSplitterResizeHorizontal_ = function(event) {
+  this.triggerLocal(e.LayoutChange);
+};
+
+lgb.gui.view.LayoutView.prototype.calculateLayout = function(windowDimensions) {
+  
+  //this.splitPanelHorizontal_.calculateLayout();
+  
   this.each(this.layoutUtils_, this.calculateOneLayout);
 };
 
-lgb.gui.view.LayoutGUI.prototype.calculateOneLayout = function(layoutUtil) {
+lgb.gui.view.LayoutView.prototype.calculateOneLayout = function(layoutUtil) {
   layoutUtil.tweenToPosition();
 };
 
 
-lgb.gui.view.LayoutGUI.prototype.inject = function() {
+lgb.gui.view.LayoutView.prototype.inject = function() {
 
   goog.base(this,'inject');
 

@@ -6,7 +6,7 @@ goog.require('lgb.component.TabStripDataSource');
 
 lgb.gui.view.LeftPanelGUI = function(dataModel) {
 
-  this._TITLE = 'Testing';
+  this._TITLE = 'LeftPanelGUI';
   
   lgb.gui.view.BaseGUI.call(this, dataModel);
   
@@ -19,7 +19,7 @@ goog.inherits(lgb.gui.view.LeftPanelGUI, lgb.gui.view.BaseGUI);
  */
 lgb.gui.view.LeftPanelGUI.prototype.init = function() {
 
-  this.dataSource = new lgb.component.TabStripDataSource('mainInputGUI-tabStrip');
+  this.dataSource = new lgb.component.TabStripDataSource('leftPanelGUI-tabStrip');
   this.tabStrip1 = new lgb.component.TabStrip(this.dataSource);
 
 

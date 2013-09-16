@@ -56,16 +56,16 @@ lgb.gui.controller.ResultsController.prototype.init_ = function() {
   this.resultsControllerOutput_.init();
   
   
-  
-  
-  this.resultsControllerConsole_ = new lgb.gui.controller.ResultsControllerConsole();
-  
-  this.listenTo(
-    this.resultsControllerConsole_,
-    e.RequestAddToParentGUI, 
-    this.onRequestAddToParentGUI_);
-
-  this.resultsControllerConsole_.init();
+//   
+//   
+  // this.resultsControllerConsole_ = new lgb.gui.controller.ResultsControllerConsole();
+//   
+  // this.listenTo(
+    // this.resultsControllerConsole_,
+    // e.RequestAddToParentGUI, 
+    // this.onRequestAddToParentGUI_);
+// 
+  // this.resultsControllerConsole_.init();
 
 };
 

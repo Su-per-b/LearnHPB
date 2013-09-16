@@ -70,7 +70,7 @@ lgb.component.TabStripDataSource.prototype.addTab = function(title, content, xPo
   };
 
   if (null == content) { 
-    content = '<br />';
+    content = '<span></span>';
   };
 
 

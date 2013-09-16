@@ -3,7 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.gui.controller.SimulationGUIController');
+goog.provide('lgb.gui.controller.SimulationGreenGUIController');
 
 goog.require('lgb.core.BaseController');
 goog.require('lgb.world.view.SimulationGreenGUI');
@@ -24,17 +24,17 @@ goog.require('lgb.simulation.model.WebSocketConnectionState');
  * @constructor
  * @extends lgb.core.BaseController
  */
-lgb.gui.controller.SimulationGUIController = function(simMainController) {
+lgb.gui.controller.SimulationGreenGUIController = function(simMainController) {
 
   lgb.core.BaseController.call(this);
   this.bind_();
   
 };
-goog.inherits(lgb.gui.controller.SimulationGUIController, lgb.core.BaseController);
+goog.inherits(lgb.gui.controller.SimulationGreenGUIController, lgb.core.BaseController);
 
 
 
-lgb.gui.controller.SimulationGUIController.prototype.onSimulationEngineLoaded_ = function(event) {
+lgb.gui.controller.SimulationGreenGUIController.prototype.onSimulationEngineLoaded_ = function(event) {
   
   this.simMainController_ = event.payload;
   this.init_();
@@ -45,7 +45,7 @@ lgb.gui.controller.SimulationGUIController.prototype.onSimulationEngineLoaded_ =
 
 
 
-lgb.gui.controller.SimulationGUIController.prototype.init_ = function() {
+lgb.gui.controller.SimulationGreenGUIController.prototype.init_ = function() {
   this.dataModel = this.simMainController_.getDataModel();
   
   this.view = new lgb.world.view.SimulationGreenGUI(this.dataModel);
@@ -61,7 +61,7 @@ lgb.gui.controller.SimulationGUIController.prototype.init_ = function() {
 };
 
 
-lgb.gui.controller.SimulationGUIController.prototype.bind_ = function() {
+lgb.gui.controller.SimulationGreenGUIController.prototype.bind_ = function() {
   
     this.listen (
         e.SimulationEngineLoaded,
@@ -71,7 +71,7 @@ lgb.gui.controller.SimulationGUIController.prototype.bind_ = function() {
 };
 
 
-lgb.gui.controller.SimulationGUIController.prototype.bind2_ = function() {
+lgb.gui.controller.SimulationGreenGUIController.prototype.bind2_ = function() {
     
   this.listenTo (
       this.view,
@@ -98,14 +98,12 @@ lgb.gui.controller.SimulationGUIController.prototype.bind2_ = function() {
 /**
  * @param {lgb.core.Event} event The event.
  */
-lgb.gui.controller.SimulationGUIController.prototype.onRequestActivateView_ =
+lgb.gui.controller.SimulationGreenGUIController.prototype.onRequestActivateView_ =
   function(event) {
     
   var showFlag = event.payload;
-
   this.buttonView.setSelected(showFlag);
   this.view.show(showFlag);
- 
   this.simMainController_.connect(true);
 };
 
@@ -116,7 +114,7 @@ lgb.gui.controller.SimulationGUIController.prototype.onRequestActivateView_ =
  * @private
  * @param {lgb.core.Event} event Fired.
  */
-lgb.gui.controller.SimulationGUIController.prototype.onSimStateNativeRequest_ = function(event) {
+lgb.gui.controller.SimulationGreenGUIController.prototype.onSimStateNativeRequest_ = function(event) {
 
   this.dataModel.changePropertyEx('simStateNative', event.getPayload());
   this.simMainController_.serializeAndSend(event);
@@ -127,11 +125,10 @@ lgb.gui.controller.SimulationGUIController.prototype.onSimStateNativeRequest_ = 
 /**
  * @param {lgb.core.Event} event The event.
  */
-lgb.gui.controller.SimulationGUIController.prototype.onClosedPanel =
+lgb.gui.controller.SimulationGreenGUIController.prototype.onClosedPanel =
   function(event) {
     
   this.buttonView.setSelected(false);
-  
   this.simMainController_.connect(false);
   
 };

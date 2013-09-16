@@ -97,7 +97,7 @@ lgb.component.TreeH.prototype.getHtml = function() {
   if (this.ds.propertyName_ != null) {
     options.checkboxes = {
       checkChildren : true
-    }
+    };
   }
 
   this.kendoTreeView_ = el.kendoTreeView(options).data("kendoTreeView");

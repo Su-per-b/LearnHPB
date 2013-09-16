@@ -45,8 +45,6 @@ lgb.gui.view.ResultsGUI.prototype.add = function(gui) {
  * @public
  */
 lgb.gui.view.ResultsGUI.prototype.init = function() {
-
-
     this.triggerLocal(e.RequestAddToLayout, this);
 };
 

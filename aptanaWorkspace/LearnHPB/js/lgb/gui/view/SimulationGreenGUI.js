@@ -63,7 +63,7 @@ lgb.world.view.SimulationGreenGUI.prototype.onChange_webSocketConnectionState_ =
           // this.connectLink_.setEnabled(true);
           break;
       case state.error :
-          // this.connectLink_.setEnabled(false);
+          // this.connectLink_.setEnabled(false);c
           debugger;
           break;
       default :
@@ -105,7 +105,7 @@ lgb.world.view.SimulationGreenGUI.prototype.onChange_simStateNative_ = function(
 };
 
 lgb.world.view.SimulationGreenGUI.prototype.onChange_messageStruct_ = function(messageStruct) {
-  this.messageBox_.append(messageStruct.msgText + '<br />' + "\n");
+ // this.messageBox_.append(messageStruct.msgText + '<br />' + "\n");
 };
 
 lgb.world.view.SimulationGreenGUI.prototype.onChange_xmlParsedInfo_ = function(xmlParsedInfo) {

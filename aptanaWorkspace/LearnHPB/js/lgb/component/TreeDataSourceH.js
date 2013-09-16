@@ -125,7 +125,7 @@ lgb.component.TreeDataSourceH.prototype.makeOneKendoNode_ = function(lgbNode) {
   
   
   if (this.propertyName_ != null) {
-    knode.checked = lgbNode[this.propertyName_]
+    knode.checked = lgbNode[this.propertyName_];
   }
   
   return knode;
@@ -147,7 +147,7 @@ lgb.component.TreeDataSourceH.prototype.makeKendoNodes_ = function(lgbNode, pare
   }
   
   if (knode.hasChildren) {
-    this.each(lgbNode.children, this.makeKendoNodes_, knode)
+    this.each(lgbNode.children, this.makeKendoNodes_, knode);
   }
   
   return knode;
@@ -194,5 +194,5 @@ lgb.component.TreeDataSourceH.prototype.processOneItem = function(node, idx, tha
     
   }
 
-}
+};
 

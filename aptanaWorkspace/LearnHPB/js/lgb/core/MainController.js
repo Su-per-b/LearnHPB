@@ -12,7 +12,7 @@ goog.require('lgb.scenario.controller.ScenarioController');
 goog.require('lgb.world.controller.WorldController');
 
 goog.require('lgb.gui.controller.GuiController');
-goog.require('lgb.gui.controller.SimulationGUIController');
+goog.require('lgb.gui.controller.SimulationGreenGUIController');
 goog.require('lgb.gui.controller.LayoutController');
 goog.require('lgb.gui.controller.GuiController');
 
@@ -78,7 +78,7 @@ lgb.core.MainController.prototype.init = function() {
   $(window).resize(this.d(this.onNativeWindowResize_));
   
    
-  this.simulationController_ = new lgb.gui.controller.SimulationGUIController();
+  this.simulationController_ = new lgb.gui.controller.SimulationGreenGUIController();
 
 
   this.simMainController_ = new lgb.simulation.controller.MainController();

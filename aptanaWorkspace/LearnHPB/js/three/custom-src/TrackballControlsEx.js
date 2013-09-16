@@ -49,7 +49,7 @@ THREE.TrackballControlsEx = function ( object, domElement ) {
 	// methods
 	
 	this.zoomNow = function(delta) {
-		delta = -1.0 * delta / 40.0
+		delta = -1.0 * delta / 40.0;
 		 _zoomStart = new THREE.Vector2(0,0); 
 		 _zoomEnd = new THREE.Vector2(0,delta);
 		 this.isDirty = true;

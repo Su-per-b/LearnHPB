@@ -108,11 +108,11 @@ lgb.simulation.controller.MainController.prototype.onMessageEvent_ = function(ev
 
 lgb.simulation.controller.MainController.prototype.getState = function() {
     return this.dataModel.getState();
-}
+};
 
 lgb.simulation.controller.MainController.prototype.getDataModel = function() {
     return this.dataModel;
-}
+};
 
 
 lgb.simulation.controller.MainController.prototype.requestSimStateChange = function(state) {

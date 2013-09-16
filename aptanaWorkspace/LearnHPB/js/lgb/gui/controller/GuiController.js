@@ -8,11 +8,11 @@ goog.provide('lgb.gui.controller.GuiController');
 goog.require('lgb.core.BaseController');
 goog.require('lgb.gui.controller.PropertiesController');
 goog.require('lgb.gui.controller.TestController');
-goog.require('lgb.gui.controller.GreenGUIController');
+goog.require('lgb.gui.controller.LeftPanelGUIController');
 goog.require('lgb.gui.controller.ButtonsTopRightHUDController');
 goog.require('lgb.gui.controller.TopMenuController');
 goog.require('lgb.world.controller.VisibilityController');
-goog.require('lgb.gui.controller.ResultsController');
+goog.require('lgb.gui.controller.BottomPanelGUIController');
 
 
 
@@ -38,18 +38,17 @@ goog.inherits(lgb.gui.controller.GuiController, lgb.core.BaseController);
 lgb.gui.controller.GuiController.prototype.init_ = function() {
 
   this.topMenuController = new lgb.gui.controller.TopMenuController();
-
   this.propertiesController = new lgb.gui.controller.PropertiesController();
-  this.mainInputController_ = new lgb.gui.controller.GreenGUIController();
+  this.leftPanelGUIController_ = new lgb.gui.controller.LeftPanelGUIController();
   this.rightTopInputController_ = new lgb.gui.controller.ButtonsTopRightHUDController();
 
   this.visibilityController_ = new lgb.world.controller.VisibilityController();
   this.visibilityController_.init();
 
-  this.resultsController_ = new lgb.gui.controller.ResultsController();
-
-
+  //this.resultsController_ = new lgb.gui.controller.ResultsController();
   this.titleBarView = new lgb.gui.view.TitleBarGUI();
+  this.bottomPanelGUIController_ = new lgb.gui.controller.BottomPanelGUIController();
+  
 
   this.trigger(e.RequestAddToLayout, this.titleBarView);
 

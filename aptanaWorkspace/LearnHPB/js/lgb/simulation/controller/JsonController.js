@@ -37,7 +37,7 @@ lgb.simulation.controller.JsonController.prototype.init_ = function() {
         "com.sri.straylight.fmuWrapper.event.ConfigChangeNotify" : e3,
         "com.sri.straylight.fmuWrapper.event.XMLparsedEvent" : e4,
         "com.sri.straylight.fmuWrapper.event.ResultEvent" : e5
-    }
+    };
 };
 
 

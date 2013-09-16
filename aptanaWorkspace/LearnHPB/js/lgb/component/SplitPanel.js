@@ -26,6 +26,33 @@ lgb.component.SplitPanel = function(ds) {
   lgb.assert (ds);
   this.ds = ds;
   this.panes_ = [];
+  
+  this.splitterBarContainerCss = {
+    width : "100%",
+    height : "100%",
+    overflow:"hidden"
+  };
+  
+  
+  this.paneOneCss = 
+  {
+    position : "fixed !important",
+    position : "absolute",
+    top : "0",
+    right : "0",
+    bottom : "0",
+    left : "0",
+    "overflow-y":"scroll",
+    "overflow-x":"hidden"
+  };
+  
+  this.paneTwoCss = 
+  {
+
+  };
+  
+  
+  
 };
 goog.inherits(lgb.component.SplitPanel, lgb.world.view.BaseV);
 
@@ -66,7 +93,7 @@ lgb.component.SplitPanel.prototype.injectTo = function(parentElement) {
   var w = window.innerWidth;
   var h = window.innerHeight;
   
-  this.paneOne_ = this.makeDiv("leftPanel");
+  this.paneOne_ = this.makeDiv();
   this.paneTwo_ = this.makeDiv();
   
   this.panes_.push(this.paneOne_);
@@ -74,24 +101,11 @@ lgb.component.SplitPanel.prototype.injectTo = function(parentElement) {
   
   this.splitterBarContainer_ = this.makeDiv();
   
-  this.splitterBarContainer_.css({
-    width : "100%",
-    height : "100%",
-    overflow:"hidden"
-  });
+  this.splitterBarContainer_.css(this.splitterBarContainerCss);
+  this.paneOne_.css(this.paneOneCss);
+  this.paneTwo_.css(this.paneTwoCss);
   
-
   
-  this.paneOne_.css({
-    position : "fixed !important",
-    position : "absolute",
-    top : "0",
-    right : "0",
-    bottom : "0",
-    left : "0",
-    "overflow-y":"scroll",
-    "overflow-x":"hidden"
-  });
   
   
   this.splitterBarContainer_.append(this.paneOne_).append(this.paneTwo_);

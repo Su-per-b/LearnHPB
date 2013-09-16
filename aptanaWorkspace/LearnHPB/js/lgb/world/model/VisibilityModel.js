@@ -47,7 +47,7 @@ lgb.world.model.VisibilityModel.prototype.changeVisibility = function(changeRequ
      } else {
        debugger;
      }
-}
+};
 
 
 

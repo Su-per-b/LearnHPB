@@ -392,7 +392,7 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
       counter_models -= 1;
       scope.onLoadComplete();
       async_callback_gate();
-    }
+    };
   };
 
   function create_callback_embed(id) {
@@ -401,7 +401,7 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
 
       result.geometries[id] = geo;
 
-    }
+    };
   };
 
   function async_callback_gate() {
@@ -765,7 +765,7 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
         var wrapMap = {
           "repeat" : THREE.RepeatWrapping,
           "mirror" : THREE.MirroredRepeatWrapping
-        }
+        };
 
         if (wrapMap[tt.wrap[0]] !== undefined)
           texture.wrapS = wrapMap[tt.wrap[0]];
