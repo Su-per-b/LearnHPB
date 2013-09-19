@@ -16,6 +16,8 @@ goog.require('lgb.simulation.model.voNative.SimStateNative');
 goog.require('lgb.simulation.model.WebSocketConnectionStateRequest');
 goog.require('lgb.simulation.events.ScalarValueChangeRequest');
 goog.require('lgb.simulation.model.voNative.ScalarValueRealStruct');
+goog.require('lgb.simulation.model.voManaged.ScalarValueCollection');
+goog.require('lgb.simulation.model.voManaged.ScalarValueReal');
 
 lgb.simulation.controller.MainController = function() {
     lgb.core.BaseController.call(this);
@@ -89,11 +91,14 @@ lgb.simulation.controller.MainController.prototype.bind_ = function() {
 lgb.simulation.controller.MainController.prototype.onRequestModelicaVariableChange_ = function(event) {
   
   var theVar = this.dataModel.getIdxFromModelicaName(event.payload.modName);
+  
   var floatValue = event.payload.value;
+  var idx = theVar.idx_;
   
+  var scalarValueReal = new lgb.simulation.model.voManaged.ScalarValueReal(idx, floatValue);
+  var collection = new lgb.simulation.model.voManaged.ScalarValueCollection([scalarValueReal], []);
   
-  var struct = new lgb.simulation.model.voNative.ScalarValueRealStruct(theVar.idx_, floatValue);
-  var event = new lgb.simulation.events.ScalarValueChangeRequest([struct]);
+  var event = new lgb.simulation.events.ScalarValueChangeRequest(collection);
   
   this.serializeAndSend(event);
 

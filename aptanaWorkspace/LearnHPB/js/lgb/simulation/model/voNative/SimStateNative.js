@@ -66,6 +66,7 @@ lgb.simulation.model.SimStateNativeWrapper = function(enum_arg) {
 
 lgb.simulation.model.SimStateNativeWrapper.CLIENT_TRANSITIONS = {
   0 : [1], //simStateNative_0_uninitialized
+  1 : [1], //simStateNative_0_uninitialized
   2: [3], //simStateNative_1_connect_completed
   4: [5], //simStateNative_2_xmlParse_completed
   10: [11, 17, 22, 24], //simStateNative_3_ready

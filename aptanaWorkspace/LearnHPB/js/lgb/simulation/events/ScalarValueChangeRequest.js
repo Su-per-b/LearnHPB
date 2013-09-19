@@ -23,21 +23,26 @@ goog.inherits(lgb.simulation.events.ScalarValueChangeRequest, lgb.simulation.eve
 
 lgb.simulation.events.ScalarValueChangeRequest.prototype.toJson = function() {
     
-    var jsonObj = {};
-    
-    jsonObj.type = lgb.simulation.events.ScalarValueChangeRequest.SERVER_TYPE;
-    
-    jsonObj.payload = {
-        type : "com.sri.straylight.fmuWrapper.voNative.ScalarValueRealStruct",
-        scalarValueList : this.getPayload()
-    };
+    var jsonObj = this.toJsonObj();
     
     var jsonString = JSON.stringify(jsonObj, null, 2);
-
     jsonString = jsonString.replace(/\s/g, '');
     
     return jsonString;
 
+};
+
+
+lgb.simulation.events.ScalarValueChangeRequest.prototype.toJsonObj = function() {
+  
+    var payload = this.getPayload();
+    
+    var jsonObj = {
+      type : lgb.simulation.events.ScalarValueChangeRequest.SERVER_TYPE,
+      payload : payload.toJsonObj()
+    };
+    
+    return jsonObj;
 };
 
 
@@ -55,3 +60,6 @@ lgb.simulation.events.ScalarValueChangeRequest.TYPE = 'lgb.simulation.events.Sca
  * @type {string}
  */
 lgb.simulation.events.ScalarValueChangeRequest.SERVER_TYPE = 'com.sri.straylight.fmuWrapper.event.ScalarValueChangeRequest';
+
+lgb.simulation.events.ScalarValueChangeRequest.SERVER_PAYLOAD_TYPE = 
+  'com.sri.straylight.fmuWrapper.voManaged.ScalarValueCollection';

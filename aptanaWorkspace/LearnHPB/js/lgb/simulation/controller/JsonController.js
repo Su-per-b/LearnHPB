@@ -29,6 +29,7 @@ lgb.simulation.controller.JsonController.prototype.init_ = function() {
     var e3 = new lgb.simulation.events.ConfigChangeNotify();
     var e4 = new lgb.simulation.events.XMLparsedEvent();
     var e5 = new lgb.simulation.events.ResultEvent();
+    var e6 = new lgb.simulation.events.ScalarValueChangeRequest();
 
     
     this.classMap = {
@@ -36,7 +37,8 @@ lgb.simulation.controller.JsonController.prototype.init_ = function() {
         "com.sri.straylight.fmuWrapper.event.SimStateNativeNotify" : e2,
         "com.sri.straylight.fmuWrapper.event.ConfigChangeNotify" : e3,
         "com.sri.straylight.fmuWrapper.event.XMLparsedEvent" : e4,
-        "com.sri.straylight.fmuWrapper.event.ResultEvent" : e5
+        "com.sri.straylight.fmuWrapper.event.ResultEvent" : e5,
+        "com.sri.straylight.fmuWrapper.event.ScalarValueChangeRequest" : e6
     };
 };
 
@@ -64,17 +66,3 @@ lgb.simulation.controller.JsonController.prototype.deSerialize = function(jsonSt
 };
 
 
-/*
-lgb.simulation.controller.JsonController.prototype.toJson = function(event) {
-
-    event.type = event.getServerType();
-    var jsonString = JSON.stringify(event, null, 2);
-
-    
-      
-    return jsonString;
-
-
-};
-
-*/
