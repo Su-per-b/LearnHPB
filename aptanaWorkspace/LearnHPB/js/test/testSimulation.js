@@ -1,8 +1,7 @@
 goog.require('test.TestSimulationController');
-goog.require('lgb.events.EventBus');
-goog.require('lgb.Global');
+goog.require('lgb.core.EventBus');
+goog.require('lgb.core.Global');
 goog.require('lgb');
-
 
 lgb.init();
 

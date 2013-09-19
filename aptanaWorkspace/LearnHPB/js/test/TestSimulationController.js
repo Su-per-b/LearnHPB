@@ -6,10 +6,10 @@
 goog.provide('test.TestSimulationController');
 
 goog.require('goog.debug.Logger');
-goog.require('lgb.events.EventBus');
-goog.require('lgb.controller.ControllerBase');
+goog.require('lgb.core.EventBus');
+goog.require('lgb.core.BaseController');
 
-goog.require('lgb.Config');
+goog.require('lgb.core.Config');
 
 goog.require('lgb.simulation.controller.MainController'
 );
@@ -20,19 +20,19 @@ goog.require('lgb.simulation.model.voNative.SimStateNative');
 /**
  * MVC controller for the App
  * @constructor
- * @extends lgb.controller.ControllerBase
+ * @extends lgb.core.BaseController
  */
 test.TestSimulationController = function() {
 
-  lgb.controller.ControllerBase.call(this);
+  lgb.core.BaseController.call(this);
   
-  lgb.globalEventBus = new lgb.events.EventBus();
+  lgb.globalEventBus = new lgb.core.EventBus();
 
   var delegate = jQuery.proxy(this.runAll, this);
   jQuery(document).ready(delegate);
   
 };
-goog.inherits(test.TestSimulationController, lgb.controller.ControllerBase);
+goog.inherits(test.TestSimulationController, lgb.core.BaseController);
 
 
 
