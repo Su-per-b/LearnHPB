@@ -37,14 +37,14 @@ lgb.core.Config.XML_BASE_PATH = 'xml/';
  * @const
  * @type {string}
  */
-lgb.core.Config.APP_TITLE = 'LearnHPB Demo';
+lgb.core.Config.APP_TITLE = 'LearnHPB Alpha';
 
 /**
  * The application verison, will appear in the <title>
  * @const
  * @type {string}
  */
-lgb.core.Config.APP_VERSION = '12.90';
+lgb.core.Config.APP_VERSION = '1.00';
 
 /**
  * Will show status in the upper left if set to true.
@@ -101,7 +101,7 @@ lgb.core.Config.SOCKET_SERVER.AutoConfig = 0;
 lgb.core.Config.SOCKET_SERVER.Pfalco = 1;
 lgb.core.Config.SOCKET_SERVER.PfalcoLocal = 2;
 
-lgb.core.Config.SOCKET_SERVER_HOST = lgb.core.Config.SOCKET_SERVER.PfalcoLocal;
+lgb.core.Config.SOCKET_SERVER_HOST = lgb.core.Config.SOCKET_SERVER.Pfalco;
 
 
 

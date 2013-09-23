@@ -48,6 +48,9 @@ lgb.simulation.model.MainModel.prototype.init_ = function(event) {
   var hostname;
   var hostname2;
   
+  
+  
+  
   switch(lgb.core.Config.SOCKET_SERVER_HOST) {
     
     

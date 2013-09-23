@@ -64,7 +64,7 @@ lgb.world.view.SimulationGreenGUI.prototype.onChange_webSocketConnectionState_ =
           break;
       case state.error :
           // this.connectLink_.setEnabled(false);c
-          debugger;
+         // debugger;
           break;
       default :
         debugger;

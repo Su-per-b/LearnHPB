@@ -115,7 +115,7 @@ lgb.scenario.view.Variable.prototype.onGuiValueChanged_ = function(event) {
  
  var newPayload = {
    modName : this.dataModel.modName,
-   value : event.payload,
+   value : event.payload
  };
  
 
