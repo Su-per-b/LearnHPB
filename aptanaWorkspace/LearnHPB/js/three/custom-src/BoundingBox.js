@@ -69,6 +69,32 @@ THREE.BoundingBox.prototype = {
 
   },
   
+  toString: function ()  {
+      
+      var str = 'min - ' + this.min.toString();
+      str += 'max - ' + this.max.toString();
+      
+      return str;
+  },
+  
+  
+  toJSON: function ()  {
+      
+      var str = "[{0}, {1}, {2}, {3}, {4}, {5}]".format(
+        this.min.x,
+        this.min.y,
+        this.min.z,
+        this.max.x,
+        this.max.y,
+        this.max.z
+        );
+      
+      
+      str = '"boundingBox":' + str;
+
+      return str;
+  },
+  
   
   
 

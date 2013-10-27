@@ -112,7 +112,9 @@ lgb.world.view.SimulationGreenGUI.prototype.onChange_xmlParsedInfo_ = function(x
   
   return;
   
-  var dataItem = {};
+  
+  /*
+    var dataItem = {};
     var fields = {time:  { type: "number" , width: "100px" } };
     dataItem.time = 0;
     
@@ -171,11 +173,17 @@ lgb.world.view.SimulationGreenGUI.prototype.onChange_xmlParsedInfo_ = function(x
 
     this.resultsLogGrid_.css('width', "12000px");
   
+  */
+ 
+ 
 };
+
 
 
 lgb.world.view.SimulationGreenGUI.prototype.onChange_scalarValueResults_ = function(scalarValueResults) {
     return;
+    
+    /*
     var time = scalarValueResults.time_;
     
     var realVarList = scalarValueResults.output.realList;
@@ -188,6 +196,7 @@ lgb.world.view.SimulationGreenGUI.prototype.onChange_scalarValueResults_ = funct
     
     var model = new kendo.data.Model(newRow);
     this.resultLogDataSource_.insert(0,model);
+    */
 };
 
 

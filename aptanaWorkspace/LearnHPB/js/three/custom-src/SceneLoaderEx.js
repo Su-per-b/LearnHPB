@@ -25,11 +25,12 @@ THREE.SceneLoaderEx = function() {
 
 THREE.SceneLoaderEx.prototype.constructor = THREE.SceneLoaderEx;
 
-THREE.SceneLoaderEx.prototype.load = function(url, callbackFinished) {
+THREE.SceneLoaderEx.prototype.load = function(url, callbackFinished, loaderParameters) {
 
   var scope = this;
-
   var xhr = new XMLHttpRequest();
+
+ 
 
   xhr.onreadystatechange = function() {
 
@@ -65,6 +66,8 @@ THREE.SceneLoaderEx.prototype.addGeometryHandler = function(typeID, loaderClass)
 
 THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
 
+
+  
   var scope = this;
 
   var urlBase = THREE.Loader.prototype.extractUrlBase(url);
@@ -103,7 +106,6 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
     appData : {},
     containers : null
     
-    
   };
 
   if (data.transform) {
@@ -134,6 +136,7 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
     result.containers = data.containers;
   }
 
+  
   function get_url(source_url, url_type) {
 
     if (url_type == "relativeToHTML") {
@@ -143,7 +146,7 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
     } else {
 
        var newUrlString = urlBase + source_url;
-      return newUrlString;
+       return newUrlString;
 
     }
 
@@ -176,7 +179,7 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
         if (o.geometry !== undefined) {
 
           geometry = result.geometries[o.geometry];
-
+          
           // geometry already loaded
           if (geometry) {
 
@@ -249,10 +252,6 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
             object.name = dd;
             object.viewpoint = vp;
             
-            
-            if (dd == "Chiller") {
-              //debugger; 
-            }
             
             if (m) {
 
@@ -370,24 +369,46 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
 
   };
 
+
   function handle_mesh(geo, id) {
-  
-  
+
+
+
     if (undefined !== data.geometries[id].subdivisionModifier) {
-      
-      var divisions =  data.geometries[id].subdivisionModifier;
-      var modifier = new THREE.SubdivisionModifier( divisions );
-      modifier.modify( geo );
+
+      var divisions = data.geometries[id].subdivisionModifier;
+      var modifier = new THREE.SubdivisionModifier(divisions);
+      modifier.modify(geo);
     }
-    
+
+    if (undefined !== data.geometries[id].boundingBox) {
+      
+      var ary = data.geometries[id].boundingBox;
+      
+      var min = new THREE.Vector3(ary[0], ary[1], ary[2]);
+      var max = new THREE.Vector3(ary[3], ary[4], ary[5]);
+      
+      var bb = new THREE.BoundingBox(min, max);
+      geo.boundingBoxCached = bb;
+      
+    } else {
+      geo.boundingBoxCached = null;
+    }
+
     result.geometries[id] = geo;
     handle_objects();
 
   };
 
+
   function create_callback(id) {
 
     return function(geo) {
+      
+      if ("" == geo.name) {
+        geo.name = id;
+      }
+      
       handle_mesh(geo, id);
       counter_models -= 1;
       scope.onLoadComplete();
@@ -398,9 +419,11 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
   function create_callback_embed(id) {
 
     return function(geo) {
+      if ("" == geo.name) {
+        geo.name = id;
+      }
 
       result.geometries[id] = geo;
-
     };
   };
 
@@ -580,7 +603,7 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
   for (dg in data.geometries ) {
 
     g = data.geometries[dg];
-
+    
     if (g.type === "cube") {
 
       geometry = new THREE.CubeGeometry(g.width, g.height, g.depth, g.segmentsWidth, g.segmentsHeight, g.segmentsDepth, null, g.flipped, g.sides);
@@ -622,9 +645,13 @@ THREE.SceneLoaderEx.prototype.parse = function(json, callbackFinished, url) {
 
     }
 
-    //loaderParameters.texturePath = "images/";
+    if (g.hasOwnProperty('boundingBox')) {
+      var boundingBox = g.boundingBox;
+    }
     
-  
+     //loaderParameters.texturePath = "images/";
+    
+      
       var loader = this.geometryHandlerMap[ g.type ]["loaderObject"];
       
       var geometryUrl = get_url(g.url, data.urlBaseType);

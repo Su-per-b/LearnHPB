@@ -18,6 +18,10 @@ lgb.core.Config = {};
  */
 lgb.core.Config.DEBUG_EVENTS = false;
 
+
+lgb.core.Config.DEBUG_3D = false;
+
+
 /**
  * relative path to 3d assets includinf Three.js meshes and textures.
  * @const
@@ -44,7 +48,7 @@ lgb.core.Config.APP_TITLE = 'LearnHPB Alpha';
  * @const
  * @type {string}
  */
-lgb.core.Config.APP_VERSION = '1.00';
+lgb.core.Config.APP_VERSION = '1.07';
 
 /**
  * Will show status in the upper left if set to true.

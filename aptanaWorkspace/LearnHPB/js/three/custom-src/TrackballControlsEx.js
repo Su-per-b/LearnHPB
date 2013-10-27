@@ -276,8 +276,11 @@ THREE.TrackballControlsEx = function ( object, domElement ) {
 
 		} else if ( event.keyCode === this.keys[ this.STATE.DEBUG ] ) {
 
-      console.log('position: ' + this.object.matrixWorld.getPosition().toString());
-      console.log('rotation: ' + this.object.rotation.toString());
+      var p = this.object.matrixWorld.getPosition();
+      var r = this.object.rotation;
+      
+      console.log('position: ' + p.toString());
+      console.log('rotation: ' + r.toString());
 
     } else if ( event.keyCode === this.keys[ this.STATE.PAN ] && !this.noPan ) {
 

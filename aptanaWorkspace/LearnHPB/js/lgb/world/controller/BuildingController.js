@@ -11,6 +11,7 @@ goog.require('lgb.gui.controller.TestLightingController');
 goog.require('lgb.world.controller.EnvelopeController');
 goog.require('lgb.world.controller.RoofTopController');
 goog.require('lgb.world.controller.FurnitureController');
+goog.require('lgb.world.controller.CrossSectionController');
 goog.require('lgb.world.controller.ZoneController');
 goog.require('lgb.world.controller.PsMasterController');
 goog.require('lgb.gui.controller.ViewpointController');
@@ -49,6 +50,8 @@ lgb.world.controller.BuildingController.prototype.init_ = function() {
   this.hvacController_ = new lgb.world.controller.HvacController();
   this.lightingController_ = new lgb.gui.controller.TestLightingController();
   this.furnitureController_ = new lgb.world.controller.FurnitureController();
+  this.crossSectionController_ = new lgb.world.controller.CrossSectionController();
+  
   this.envelopeController_ = new lgb.world.controller.EnvelopeController();
   this.psMasterController_ = new lgb.world.controller.PsMasterController();
   
@@ -63,6 +66,7 @@ lgb.world.controller.BuildingController.prototype.init_ = function() {
   this.hvacController_.init();
   this.lightingController_.init();
   this.furnitureController_.init();
+  this.crossSectionController_.init();
   this.envelopeController_.init();
   this.psMasterController_.init();
 
@@ -122,7 +126,11 @@ lgb.world.controller.BuildingController.prototype.bind2_ = function() {
     this.onAddToFloor_
     );
     
-
+  this.listenTo(
+    this.crossSectionController_,
+    e.AddToWorldRequest,
+    this.onAddToFloor_
+    );
     
   this.listenTo(
     this.envelopeController_,

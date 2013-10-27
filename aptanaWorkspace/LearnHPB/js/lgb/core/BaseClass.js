@@ -227,6 +227,81 @@ lgb.core.BaseClass.prototype.each = function(ary, handler) {
 };
 
 
+
+
+lgb.core.BaseClass.prototype.eachProperty = function(object, handler) {
+  
+  var additionalArgs = null;
+  var allArguments = Array.prototype.slice.call(arguments);
+  var len = allArguments.length;
+  if (len > 2) {
+    additionalArgs = allArguments.slice(2, len);
+  }
+  
+  for(var propertyName in object) {
+
+    var propertyValue = object[propertyName];
+    var argList = [propertyValue];
+    
+    if(additionalArgs) {
+      argList = argList.concat(additionalArgs);
+    }
+    
+    handler.apply(this, argList);
+  }
+
+};
+
+lgb.core.BaseClass.prototype.eachPropertyName = function(object, handler) {
+  
+  var additionalArgs = null;
+  var allArguments = Array.prototype.slice.call(arguments);
+  var len = allArguments.length;
+  if (len > 2) {
+    additionalArgs = allArguments.slice(2, len);
+  }
+  
+  for(var propertyName in object) {
+
+    var propertyValue = object[propertyName];
+    var argList = [propertyValue, propertyName];
+    
+    if(additionalArgs) {
+      argList = argList.concat(additionalArgs);
+    }
+    
+    handler.apply(this, argList);
+  }
+
+};
+
+lgb.core.BaseClass.prototype.eachPropertyNameCall = function(object, handlerName) {
+  
+
+  var additionalArgs = null;
+  var allArguments = Array.prototype.slice.call(arguments);
+  var len = allArguments.length;
+  if (len > 2) {
+    additionalArgs = allArguments.slice(2, len);
+  }
+  
+  for(var propertyName in object) {
+
+    var propertyValue = object[propertyName];
+    var argList = [propertyValue, propertyName];
+    
+    if(additionalArgs) {
+      argList = argList.concat(additionalArgs);
+    }
+    
+    var handler = propertyValue[handlerName];
+    
+    handler.apply(propertyValue, argList);
+  }
+
+};
+
+
 /**
  * loop though the array and
  * supply each element as an argument

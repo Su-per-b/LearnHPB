@@ -83,13 +83,19 @@ lgb.world.view.EnvelopeView.prototype.onSceneLoaded_ = function() {
     
    var mesh = this.floorMeshHash_[hashKey];
    
-    if (goog.userAgent.WEBKIT) {
-      this.chromeBlinkingFix_(mesh);
-    }
+   
+   if (mesh === undefined) {
+     var x = 1;
+   }
+   
+  if (goog.userAgent.WEBKIT) {
+    this.chromeBlinkingFix_(mesh);
+  }
         
 
    
    var dim = mesh.geometry.getDimensions();
+   
    this.floorMeshHash_[hashKey].position.setY(dim.y/2);
   }
 

@@ -154,5 +154,18 @@ lgb.convertFeetToMeters = function(feet) {
 };
 
 
+lgb.convertMapToArray = function(map) {
+  
+  var ary = [];
+  
+  for(var propertyName in map) {
+
+    var propertyValue = map[propertyName];
+    ary.push(propertyValue);
+    
+  }
+  
+  return ary;
+};
 
 

@@ -1,0 +1,149 @@
+{
+
+	"objects": {
+	
+		"SteelStudsLayer1": {
+			"geometry": "Geom_SteelStudsLayer1",
+			"position": [0, 0, 0]
+		},
+		"GypsumBoard": {
+			"geometry": "Geom_GypsumBoard",
+			"position": [0, 0, 0]
+		},
+		"RigidExInsulation1inch": {
+			"geometry": "Geom_RigidExInsulation1inch",
+			"position": [0, 0, 0],
+      "viewpoint": "crosssectionTop1"
+		},
+		"Vapor-AirBarrier": {
+			"geometry": "Geom_Vapor-AirBarrier",
+			"position": [0, 0, 0],
+      "viewpoint": "crosssectionAir1"
+		},
+		"InteriorInsulation": {
+			"geometry": "Geom_InteriorInsulation",
+			"position": [0.024, 0.0, 0.095]
+		},
+		"StoneVeneer": {
+			"geometry": "Geom_StoneVeneer",
+			"position": [0, 0, 0],
+      "viewpoint": "crosssectionSide1"
+		},
+		"BrickVeneer": {
+			"geometry": "Geom_BrickVeneer",
+			"position": [0, 0, 0],
+      "viewpoint": "veneer"
+		},
+    "Cube" : {
+        "geometry"  : "Geom_Cube",
+        "position": [0, 0, 0],
+        "scale"     : [ 0.4, 1.4, 0.01 ]
+    },
+    "MainViewPoint" : {
+        "geometry"  : "Geom_Cube",
+        "position": [0, 1.0, 0],
+        "scale"     : [ 0.1, 0.1, 0.14 ],
+        "viewpoint": "crosssectionMain"
+    },
+    "AirViewPoint" : {
+        "geometry"  : "Geom_Cube",
+        "position": [0, 1.0, 0],
+        "scale"     : [ 0.1, 0.1, 0.14 ],
+        "viewpoint": "crosssectionAir"
+    },
+    "TopViewPoint" : {
+        "geometry"  : "Geom_Cube",
+        "position": [0, 1.0, 0],
+        "scale"     : [ 0.1, 0.1, 0.14 ],
+        "viewpoint": "crosssectionTop"
+    },
+    "VeneerViewPoint" : {
+        "geometry"  : "Geom_Cube",
+        "position": [0, 1.0, 0],
+        "scale"     : [ 0.1, 0.1, 0.14 ],
+        "viewpoint": "crosssectionVeneer"
+    },
+    "SideViewPoint" : {
+        "geometry"  : "Geom_Cube",
+        "position": [0, 1.0, 0],
+        "scale"     : [ 0.1, 0.1, 0.14 ],
+        "viewpoint": "crosssectionSide"
+    }
+	},
+	
+	"geometries": {
+
+		"Geom_GypsumBoard": {
+			"type": "binary",
+			"url": "GypsumBoard.obj.json"
+		},
+		"Geom_SteelStudsLayer1": {
+			"type": "binary",
+			"url": "SteelStudsLayer1.obj.json"
+		},
+		"Geom_RigidExInsulation1inch": {
+			"type": "binary",
+			"url": "RigidExInsulation1inch.obj.json",
+			"boundingBox":[-0.4322749972343445, -1.3684300184249878, -0.01269999984651804, 0.4322749972343445, 1.3684300184249878, 0.01269999984651804]
+		},
+		"Geom_StoneVeneer": {
+			"type": "binary",
+			"url": "StoneVeneer.obj.json",
+      "boundingBox":[-0.4397369921207428, -1.3684300184249878, -0.05079999938607216, 0.4397369921207428, 1.3684300184249878, 0.05079999938607216]
+		},
+		"Geom_Vapor-AirBarrier": {
+			"type": "binary",
+			"url": "Vapor-Air Barrier.obj.json",
+      "boundingBox":[-0.44179999828338623, -1.3684300184249878, -0.0008572479709982872, 0.44179999828338623, 1.3684300184249878, 0.0008572479709982872]
+		},
+		"Geom_InteriorInsulation": {
+			"type": "binary",
+			"url": "InteriorInsulation2.obj.json",
+			"boundingBox":[-0.39632898569107056, -1.3652499914169312, -0.04143400117754936, 0.39632898569107056, 1.3652499914169312, 0.04143400117754936]
+		},
+		"Geom_BrickVeneer": {
+			"type": "binary",
+			"url": "BrickVeneer2.obj.json",
+			"boundingBox":[-0.4397369921207428, -1.3684300184249878, -0.05079999938607216, 0.4397369921207428, 1.3684300184249878, 0.05079999938607216]
+		},
+    "Geom_Cube" : {
+        "type" : "embedded",
+        "id"  : "emb_CubeGeom"
+    }
+
+	},
+	
+"embeds" :
+  {
+
+  
+  "emb_CubeGeom": {    
+    "version" : 2,
+    "scale" : 1.000000,
+    "materials": [  {
+    "DbgColor" : 15658734,
+    "DbgIndex" : 0,
+    "DbgName" : "particleBoxBlue",
+    "colorAmbient" : [0.0, 0.0, 0.0],
+    "colorDiffuse" : [0.12114807547849527, 0.17566639446715104, 0.6400000190734865],
+    "colorSpecular" : [0.5, 0.5, 0.5],
+    "shading" : "Lambert",
+    "specularCoef" : 50,
+    "visible" : true,
+    "transparency" : 1.0,
+    "vertexColors" : false
+    }],
+  
+      "vertices": [1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0],
+      "morphTargets": [],
+      "normals": [],
+      "colors": [],
+      "uvs": [[]],
+      "faces": [3,0,1,2,3,0,3,4,7,6,5,0,3,0,4,5,1,0,3,1,5,6,2,0,3,2,6,7,3,0,3,4,0,3,7,0]
+  }
+},
+	"transform" :
+	{
+	    "position"  : [ -2.0, 1.4, -12.0 ]
+	}
+}

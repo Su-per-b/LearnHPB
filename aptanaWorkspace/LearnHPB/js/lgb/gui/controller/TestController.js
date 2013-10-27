@@ -35,8 +35,17 @@ lgb.gui.controller.TestController.prototype.bind_ = function() {
   this.relayLocal(
     this.guiView,
     e.RequestAddToParentGUI);
+    
+    
+  this.relay(
+    this.guiView,
+    e.RequestGoToViewpointNode);
+    
+
 
 };
+
+
 
 
 lgb.gui.controller.TestController.prototype.onRequestAddToGUI_ = function(event) {

@@ -90,6 +90,22 @@ lgb.component.TabStrip.prototype.setOptions = function(options) {
 };
 */
 
+lgb.component.TabStrip.prototype.bind_ = function() {
+
+  this.kendoTabStrip_.bind('select', this.d(this.onSelect_));
+  
+};
+
+
+lgb.component.TabStrip.prototype.onSelect_ = function(event) {
+  
+  
+  var payload = event.item;
+  this.triggerLocal(e.Select, payload);
+  
+  
+};
+
 
 lgb.component.TabStrip.prototype.injectCss = function() {
 
@@ -136,7 +152,9 @@ lgb.component.TabStrip.prototype.injectTo = function(parentElement) {
 
   this.kendoTabStrip_.select(0);
   this.ds.kendoDS = this.kendoTabStrip_.dataSource;
-
+  
+  this.bind_();
+  
   goog.base(this,'injectTo', parentElement);
 
 };

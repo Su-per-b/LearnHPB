@@ -139,13 +139,15 @@
 			"target": [0, 2, 4.0],
 			"anchor" : "floor"
 		},
+		
+		
 		"SectionCamera": {
 			"type": "perspective",
       "fov": 25.7,
       "aspect": 1.6,
       "near": 1,
       "far": 10000,
-			"position": [-11.87,2,-11.99],
+			"position": [-5.895,  1.4, -9.583],
 			"target": [
         -2.0,
         1.4,
@@ -153,6 +155,8 @@
       ],
 			"anchor" : "floor"
 		}
+		
+		
 	},
 	
 	"transform" :

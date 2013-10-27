@@ -1,0 +1,32 @@
+{
+
+    "metadata" :
+    {
+        "formatVersion" : 3.1,
+        "sourceFile"    : "BrickVeneer2.obj",
+        "generatedBy"   : "OBJConverter",
+        "vertices"      : 40,
+        "faces"         : 38,
+        "normals"       : 152,
+        "uvs"           : 20,
+        "materials"     : 1
+    },
+
+    "materials": [	{
+	"DbgColor" : 15658734,
+	"DbgIndex" : 0,
+	"DbgName" : "Brick",
+	"colorAmbient" : [0.363311, 0.0765428, 0.0860775],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+  "mapAmbient" : "images/BrickSmallBrown0264_5_S.jpg",
+  "mapDiffuse" : "images/BrickSmallBrown0264_5_S.jpg",
+  "mapBump" : "images/BrickSmallBrown0264_5_S.jpg",
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	}],
+
+    "buffers": "BrickVeneer2.obj.bin"
+
+}

@@ -6,8 +6,18 @@
 			"groups": ["9ft"],
 			"position": [0, 0, 0]
 		},
+		"floor9ftWindows": {
+			"geometry": "Geom_Floor_9ft_Windows",
+			"groups": ["9ft"],
+			"position": [0, 0, 0]
+		},
 		"floor11ft": {
 			"geometry": "Geom_Floor_11ft",
+			"groups": ["11ft"],
+			"position": [0, 0, 0]
+		},
+		"11ftStripWindow": {
+			"geometry": "Geom_11ftStripWindow",
 			"groups": ["11ft"],
 			"position": [0, 0, 0]
 		},
@@ -15,21 +25,39 @@
 			"geometry": "Geom_Floor_13ft",
 			"groups": ["13ft"],
 			"position": [0, 0, 0]
-		}
+		},
+    "floor13ftWindows": {
+      "geometry": "Geom_Floor_13ft_Windows",
+      "groups": ["13ft"],
+      "position": [0, 0, 0]
+    }
 	},
+	
 	"geometries": {
 
 		"Geom_Floor_9ft": {
 			"type": "binary",
 			"url": "floor9ft.obj.json"
 		},
+		"Geom_Floor_9ft_Windows": {
+			"type": "binary",
+			"url": "9ftStripWindow.obj.json"
+		},
 		"Geom_Floor_11ft": {
 			"type": "binary",
-			"url": "floor11ft.obj.json"
+			"url": "Floor11ft.obj.json"
+		},
+		"Geom_11ftStripWindow": {
+			"type": "binary",
+			"url": "11ftStripWindow.obj.json"
 		},
 		"Geom_Floor_13ft": {
 			"type": "binary",
-			"url": "floor13ft.obj.json"
+			"url": "Floor13ft.obj.json"
+		},
+		"Geom_Floor_13ft_Windows": {
+			"type": "binary",
+			"url": "13ftStripWindow.obj.json"
 		}
 	},
 	"transform" :

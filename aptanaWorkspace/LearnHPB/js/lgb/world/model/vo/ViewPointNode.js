@@ -20,7 +20,7 @@ lgb.world.model.vo.ViewpointNode = function(title) {
   this.parent = undefined;
   this.camera_ = undefined;
   this.focusEvent = false;
-
+  this.titleToChildMap_ = {};
 
 };
 goog.inherits(lgb.world.model.vo.ViewpointNode, lgb.world.model.vo.BaseVo);
@@ -198,6 +198,7 @@ lgb.world.model.vo.ViewpointNode.prototype.initOneChild = function(object, recur
     
     childNode.parent = this;
     this.children.push(childNode);
+    this.titleToChildMap_[childNode.title] = childNode;
 };
 
 
@@ -217,6 +218,18 @@ lgb.world.model.vo.ViewpointNode.prototype.generateCamera = function(cameraTempl
 };
 
 
+lgb.world.model.vo.ViewpointNode.prototype.getViewpoint = function(name) {
+
+  //var vp = this.children[0];
+  
+  
+  return this.titleToChildMap_[name];
+  
+};
+
+
+
+
 
 
 lgb.world.model.vo.ViewpointNode.idx = 0;
@@ -224,6 +237,7 @@ lgb.world.model.vo.ViewpointNode.allNodes = [];
 
 lgb.world.model.vo.ViewpointNode.offsetMap_ = [];
 lgb.world.model.vo.ViewpointNode.offsetMap_["default"] = [0, 2, 5];
+
 lgb.world.model.vo.ViewpointNode.offsetMap_["vp1"] = [0, 2, 7];
 lgb.world.model.vo.ViewpointNode.offsetMap_["vp2"] = [0, 2, 9];
 lgb.world.model.vo.ViewpointNode.offsetMap_["vp3"] = [0, 2, 30];
@@ -246,6 +260,12 @@ lgb.world.model.vo.ViewpointNode.offsetMap_["officeComputer2"] = [-1.2, 0.5, -1.
 lgb.world.model.vo.ViewpointNode.offsetMap_["officeComputer3"] = [1.2, 0.5, -1.0];
 lgb.world.model.vo.ViewpointNode.offsetMap_["officeComputer4"] = [-1.2, 0.5, -1.0];
 lgb.world.model.vo.ViewpointNode.offsetMap_["crosssection"] = [-0.5, 1.2, 0.5];
+
+lgb.world.model.vo.ViewpointNode.offsetMap_["crosssectionTop"] = [-2.7, 2.4, 2.0];
+lgb.world.model.vo.ViewpointNode.offsetMap_["crosssectionAir"] =  [0.0, 1.0, 2.0];
+lgb.world.model.vo.ViewpointNode.offsetMap_["crosssectionMain"] = [-2.5, 1.0, 1.6];
+lgb.world.model.vo.ViewpointNode.offsetMap_["crosssectionVeneer"] = [-2.7, 1.2, -3.0];
+lgb.world.model.vo.ViewpointNode.offsetMap_["crosssectionSide"] = [-2.7, 0.3, -0.2];
 
 
 lgb.world.model.vo.ViewpointNode.make= function(object, recurseDepth) {
@@ -279,12 +299,13 @@ lgb.world.model.vo.ViewpointNode.makeFromCamera= function(camera, recurseDepth) 
 
 
 
-lgb.world.model.vo.ViewpointNode.makeFromObject3D= function(object3D, recurseDepth) {
+lgb.world.model.vo.ViewpointNode.makeFromObject3D = function(object3D, recurseDepth) {
 
   var node = new lgb.world.model.vo.ViewpointNode(object3D.name);
   node.initObject3D(object3D, recurseDepth);
   return node;
 };
+
 
 
 

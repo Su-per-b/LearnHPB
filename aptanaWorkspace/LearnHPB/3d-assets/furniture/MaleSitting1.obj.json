@@ -1,0 +1,425 @@
+{
+
+    "metadata" :
+    {
+        "formatVersion" : 3.1,
+        "sourceFile"    : "MaleSitting1.obj",
+        "generatedBy"   : "OBJConverter",
+        "vertices"      : 59756,
+        "faces"         : 57993,
+        "normals"       : 227301,
+        "uvs"           : 0,
+        "materials"     : 34
+    },
+
+    "materials": [	{
+	"DbgColor" : 15658734,
+	"DbgIndex" : 0,
+	"DbgName" : "Figure_7_Body",
+	"colorAmbient" : [1.0, 1.0, 1.0],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 15597568,
+	"DbgIndex" : 1,
+	"DbgName" : "Figure_7_Head",
+	"colorAmbient" : [0.992157, 0.992157, 0.992157],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 60928,
+	"DbgIndex" : 2,
+	"DbgName" : "Figure_7_Gums",
+	"colorAmbient" : [1.0, 0.976471, 0.972549],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 238,
+	"DbgIndex" : 3,
+	"DbgName" : "Figure_7_TeethBottom",
+	"colorAmbient" : [0.988235, 0.972549, 0.972549],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 15658496,
+	"DbgIndex" : 4,
+	"DbgName" : "Figure_7_TeethTop",
+	"colorAmbient" : [0.988235, 0.972549, 0.972549],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 61166,
+	"DbgIndex" : 5,
+	"DbgName" : "Figure_7_TopEyelashes",
+	"colorAmbient" : [0.988235, 0.972549, 0.972549],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 15597806,
+	"DbgIndex" : 6,
+	"DbgName" : "Figure_7_BottomEyelashes",
+	"colorAmbient" : [0.258824, 0.203922, 0.164706],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 14457041,
+	"DbgIndex" : 7,
+	"DbgName" : "Figure_7_FingerNails",
+	"colorAmbient" : [0.258824, 0.203922, 0.164706],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 4855124,
+	"DbgIndex" : 8,
+	"DbgName" : "Figure_7_Pupil",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 768805,
+	"DbgIndex" : 9,
+	"DbgName" : "Figure_7_Iris",
+	"colorAmbient" : [0.00392157, 0.00392157, 0.00392157],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 4479144,
+	"DbgIndex" : 10,
+	"DbgName" : "Figure_7_Tongue",
+	"colorAmbient" : [0.972549, 0.972549, 0.972549],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 3823498,
+	"DbgIndex" : 11,
+	"DbgName" : "Figure_7_Eyeball",
+	"colorAmbient" : [0.980392, 0.94902, 0.945098],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 10665014,
+	"DbgIndex" : 12,
+	"DbgName" : "Figure_7_ToeNails",
+	"colorAmbient" : [0.996078, 0.984314, 0.976471],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 13541364,
+	"DbgIndex" : 13,
+	"DbgName" : "Figure_7_EyeTrans",
+	"colorAmbient" : [0.996078, 0.984314, 0.976471],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 10377038,
+	"DbgIndex" : 14,
+	"DbgName" : "Figure_8_pants",
+	"colorAmbient" : [0.992157, 0.992157, 0.992157],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 1338687,
+	"DbgIndex" : 15,
+	"DbgName" : "Figure_8_BeltLoops",
+	"colorAmbient" : [0.992157, 0.992157, 0.992157],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 8996413,
+	"DbgIndex" : 16,
+	"DbgName" : "Figure_8_button",
+	"colorAmbient" : [0.992157, 0.992157, 0.992157],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 6210605,
+	"DbgIndex" : 17,
+	"DbgName" : "Figure_9_sock",
+	"colorAmbient" : [0.992157, 0.992157, 0.992157],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 16326172,
+	"DbgIndex" : 18,
+	"DbgName" : "Figure_10_sock",
+	"colorAmbient" : [1.0, 1.0, 1.0],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 4663622,
+	"DbgIndex" : 19,
+	"DbgName" : "Figure_11_SoleShoe",
+	"colorAmbient" : [0.992157, 0.992157, 0.992157],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 1622631,
+	"DbgIndex" : 20,
+	"DbgName" : "Figure_11_Sole",
+	"colorAmbient" : [0.992157, 0.992157, 0.992157],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 3905582,
+	"DbgIndex" : 21,
+	"DbgName" : "Figure_11_laces",
+	"colorAmbient" : [0.992157, 0.992157, 0.992157],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 14218595,
+	"DbgIndex" : 22,
+	"DbgName" : "Figure_11_bow",
+	"colorAmbient" : [0.992157, 0.992157, 0.992157],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 9686361,
+	"DbgIndex" : 23,
+	"DbgName" : "Figure_12_SoleShoe",
+	"colorAmbient" : [0.992157, 0.992157, 0.992157],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 1694522,
+	"DbgIndex" : 24,
+	"DbgName" : "Figure_12_Sole",
+	"colorAmbient" : [0.992157, 0.992157, 0.992157],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 6350752,
+	"DbgIndex" : 25,
+	"DbgName" : "Figure_12_laces",
+	"colorAmbient" : [0.992157, 0.992157, 0.992157],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 9261704,
+	"DbgIndex" : 26,
+	"DbgName" : "Figure_12_bow",
+	"colorAmbient" : [0.992157, 0.992157, 0.992157],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 12242867,
+	"DbgIndex" : 27,
+	"DbgName" : "Figure_13_Shirt",
+	"colorAmbient" : [0.992157, 0.992157, 0.992157],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 13915100,
+	"DbgIndex" : 28,
+	"DbgName" : "Figure_13_Collar",
+	"colorAmbient" : [0.992157, 0.992157, 0.992157],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 15714455,
+	"DbgIndex" : 29,
+	"DbgName" : "Figure_13_Buttons",
+	"colorAmbient" : [0.992157, 0.992157, 0.992157],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 11820753,
+	"DbgIndex" : 30,
+	"DbgName" : "Figure_13_Sleeves",
+	"colorAmbient" : [0.992157, 0.992157, 0.992157],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 3514944,
+	"DbgIndex" : 31,
+	"DbgName" : "Figure_13_forehead",
+	"colorAmbient" : [1.0, 1.0, 1.0],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 6120867,
+	"DbgIndex" : 32,
+	"DbgName" : "Figure_13_inner",
+	"colorAmbient" : [1.0, 1.0, 1.0],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 10128841,
+	"DbgIndex" : 33,
+	"DbgName" : "Figure_13_upper",
+	"colorAmbient" : [1.0, 1.0, 1.0],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	}],
+
+    "buffers": "MaleSitting1.obj.bin"
+
+}

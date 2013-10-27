@@ -139,21 +139,21 @@ lgb.world.controller.WorldController.prototype.initLights_ = function() {
   this.ambientLight_ .name = "AmbientLight";
   this.lightGroup_.add(this.ambientLight_);
 
-  this.light1_ = new THREE.DirectionalLight( 0xffffff, 1.0 , 40);
+  this.light1_ = new THREE.DirectionalLight( 0xffffff, 0.7 , 60);
   this.light1_ .name = "Light1";
   this.light1_.position.set( 0, 70, -45 );
   this.light1_.target.name = "Light1_target";
   this.lightGroup_.add( this.light1_ );
   this.lightGroup_.add( this.light1_.target );
   
-  this.light2_ = new THREE.DirectionalLight( 0xffffff, 0.8 , 40);
+  this.light2_ = new THREE.DirectionalLight( 0xffffff, 0.8 , 60);
   this.light2_ .name = "Light2";
   this.light2_.position.set( -45, -70, 0 );
   this.light2_.target.name = "Light2_target";
   this.lightGroup_.add( this.light2_ );
   this.lightGroup_.add( this.light2_.target );
   
-  this.light3_ = new THREE.DirectionalLight( 0xffffff, 1.3 , 40);
+  this.light3_ = new THREE.DirectionalLight( 0xffffff, 1.0 , 60);
   this.light3_ .name = "Light3";
   this.light3_.position.set( 45, 0, 45 );
   this.light3_.target.name = "Light3_target";

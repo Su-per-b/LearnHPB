@@ -19,7 +19,7 @@ THREE.Mesh = function ( geometry, material ) {
 
 			this.geometry.computeBoundingSphere();
 
-		}
+		};
 
 		this.boundRadius = geometry.boundingSphere.radius;
 
@@ -40,9 +40,9 @@ THREE.Mesh = function ( geometry, material ) {
 
 			}
 
-		}
+		};
 
-	}
+	};
 
 }
 
@@ -58,8 +58,8 @@ THREE.Mesh.prototype.getMorphTargetIndexByName = function( name ) {
 	if ( this.morphTargetDictionary[ name ] !== undefined ) {
 
 		return this.morphTargetDictionary[ name ];
-	}
-
+	};
+	
 	console.log( "THREE.Mesh.getMorphTargetIndexByName: morph target " + name + " does not exist. Returning 0." );
 	return 0;
 

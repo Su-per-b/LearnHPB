@@ -3,6 +3,8 @@ goog.provide('lgb.gui.view.TestGUI');
 goog.require('lgb.gui.view.BaseGUI');
 goog.require('lgb.component.TabStrip');
 goog.require('lgb.component.TabStripDataSource');
+goog.require('lgb.core.Event');
+
 
 lgb.gui.view.TestGUI = function(dataModel) {
 
@@ -20,33 +22,62 @@ goog.inherits(lgb.gui.view.TestGUI, lgb.gui.view.BaseGUI);
 lgb.gui.view.TestGUI.prototype.init = function() {
 
   this.dataSource = new lgb.component.TabStripDataSource('testingInputGUI-tabStrip');
-  this.tabStrip1 = new lgb.component.TabStrip(this.dataSource);
-
+  this.tabStrip = new lgb.component.TabStrip(this.dataSource);
 
   this.tabTitleMap_ = {};
+  this.tabViewPointMap_ = {};
+  this.tab2guiMap_ = {};
+  
+  this.bind_();
   
   this.triggerLocal(e.RequestAddToParentGUI);
 };
 
 
-lgb.gui.view.TestGUI.prototype.add = function(gui) {
 
+
+lgb.gui.view.TestGUI.prototype.bind_ = function() {
+  
+  this.listenTo(this.tabStrip, e.Select, this.onSelect);
+  
+};
+
+
+lgb.gui.view.TestGUI.prototype.onSelect = function(event) {
+
+  var title = event.payload.textContent;
+  var gui = this.tab2guiMap_[title];
+  
+  if (null == gui) {
+    //debugger;
+  } else {
+    gui.gotoViewPoint('MainViewPoint');
+  }
+
+
+};
+
+
+lgb.gui.view.TestGUI.prototype.add = function(gui) {
 
   var title = gui.getTitle();
 
   var contentElement;
   
-  if (this.tabTitleMap_[title]) {
-    contentElement = this.tabTitleMap_[title];
+  if (this.tabTitleMap_.hasOwnProperty(title)) {
+    debugger;
   } else {
-    
-    contentElement = this.tabStrip1.addTab(title);
+    contentElement = this.tabStrip.addTab(title);
     this.tabTitleMap_[title] = contentElement;
+    this.tab2guiMap_[title] = gui;
   }
   
   gui.injectTo(contentElement);
   
+  
 };
+
+
 
 
 /**
@@ -54,8 +85,8 @@ lgb.gui.view.TestGUI.prototype.add = function(gui) {
  */
 lgb.gui.view.TestGUI.prototype.injectTo = function(parentElement) {
   
-  this.tabStrip1.injectTo(parentElement);
-  this.tabStrip1.injectCss();
+  this.tabStrip.injectTo(parentElement);
+  this.tabStrip.injectCss();
 
  
 };

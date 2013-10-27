@@ -40,13 +40,15 @@ lgb.component.TreeDataSource.prototype.build_ = function(objectList) {
   var items = [];
   
   objectList.forEach( function(val, idx) {
+    
     items.push(
       { text:val.title,
         checked:val[this.propertyName_ ],
         idx:val.idx,
         hasChildren : false
        }
-    )
+    );
+    
   });
   
   var rootNodeAry = [{
@@ -83,7 +85,7 @@ lgb.component.TreeDataSource.prototype.getChangedItems = function() {
 
   return this.changedItems_;
   
-}
+};
 
 
 lgb.component.TreeDataSource.prototype.onChangeDS_ = function(event) {
@@ -120,5 +122,5 @@ lgb.component.TreeDataSource.prototype.processOneItem = function(node, idx, that
     
   }
 
-}
+};
 

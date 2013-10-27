@@ -1,0 +1,18 @@
+{
+
+
+    "materials": [	{
+	"DbgColor" : 15658734,
+	"DbgIndex" : 0,
+	"DbgName" : "Rigid_Insulation",
+	"colorAmbient" : [0.784314, 0.784314, 0.784314],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	}],
+
+    "buffers": "RigidExInsulation1inch.obj.bin"
+
+}

@@ -7,15 +7,11 @@ goog.provide('lgb.gui.controller.GuiController');
 
 goog.require('lgb.core.BaseController');
 goog.require('lgb.gui.controller.PropertiesController');
-goog.require('lgb.gui.controller.TestController');
 goog.require('lgb.gui.controller.LeftPanelGUIController');
 goog.require('lgb.gui.controller.ButtonsTopRightHUDController');
 goog.require('lgb.gui.controller.TopMenuController');
 goog.require('lgb.world.controller.VisibilityController');
 goog.require('lgb.gui.controller.BottomPanelGUIController');
-
-
-
 goog.require('lgb.gui.view.TitleBarGUI');
 
 

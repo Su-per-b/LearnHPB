@@ -6,9 +6,10 @@
 goog.provide('lgb.world.view.BaseWorldView');
 
 goog.require('lgb.core.BaseClass');
-
-
 goog.require('lgb.utils');
+goog.require('lgb.core.Config');
+
+
 
 /**
  * MVC View base class
@@ -117,17 +118,27 @@ lgb.world.view.BaseWorldView.prototype.loadSceneFromFolder_ = function(folderNam
  */
 lgb.world.view.BaseWorldView.prototype.onSceneLoadedBase_ = function(result) {
 
-  this.scene_ = result['scene'];
-  this.groups_ = result['groups'];
-  this.cameras_ = result['cameras'];
-  this.appData_ = result['appData'];
-  this.containers_ = result['containers'];
+  this.scene_ = result.scene;
+  this.groups_ = result.groups;
+  this.cameras_ = result.cameras;
+  this.appData_ = result.appData;
+  this.containers_ = result.containers;
+  this.geometries_ = result.geometries;
+  this.objects_ = result.objects;
+  this.meshes_ = {};
+  this.object3ds_ = {};
   
   this.masterGroup_.position = this.scene_.position;
   this.masterGroup_.rotation = this.scene_.rotation;
   this.masterGroup_.scale = this.scene_.scale;
   this.masterGroup_.viewpoint = "defaultScene";
-
+  
+  if ( !COMPILED  && lgb.core.Config.DEBUG_3D) {
+    this.eachProperty(this.geometries_, this.analyzeOneGeometry_);
+  }
+ 
+  this.eachPropertyName(this.objects_, this.processOneObject_);
+  
   var c = this.containers_; 
   if (this.containers_ != null) {
     this.placeContainers_();
@@ -146,15 +157,81 @@ lgb.world.view.BaseWorldView.prototype.onSceneLoadedBase_ = function(result) {
 
 
 
+lgb.world.view.BaseWorldView.prototype.processOneObject_ = function(object, name) {
+  
+  var className = object.getFullClassName();
+  
+  if ('' == object.name) {
+    object.name = name;
+  }
+  
+  switch (className) {
+    case 'THREE.Mesh': {
+      this.meshes_[name] = object;
+      break;
+    }
+    case 'THREE.Object3d': {
+      this.object3ds_[name] = object;
+      break;
+    }
+    
+    default: {
+      debugger;
+    }
+  };
+  
+
+  
+};
+
+
+
+
+lgb.world.view.BaseWorldView.prototype.analyzeOneGeometry_ = function(geometry) {
+
+  var result = geometry.analyze();
+  
+  
+  if (!result.isCentered) {
+
+    var msg = "geometry:{0} - Geometry is not centered. offset: {1}".format(geometry.name, result.v3Offset.toString());
+
+    lgb.logWarning(msg, this._TITLE);
+  }
+  
+
+  if (result.duplicateVerticesCount > 0) {
+    var msg = "geometry:{0} - Duplicate vertices found. duplicate count:{1} ".format(geometry.name, result.duplicateVerticesCount);
+
+    lgb.logWarning(msg, this._TITLE);
+  }
+  
+  
+
+  
+};
+
+
+
+
+lgb.world.view.BaseWorldView.prototype.addAlltoMasterGroup_ = function() {
+
+  var len = this.scene_.children.length;
+  for (var i = 0; i < len; i++) {
+
+    var mesh = this.scene_.children.pop();
+    this.masterGroup_.add(mesh);
+
+  }
+
+};
+
+
 lgb.world.view.BaseWorldView.prototype.placeContainers_ = function() {
     
-
-  //  var count = 0;
     for(var containerName in this.containers_) {
       var containerObject = this.containers_[containerName];
       this.placeOneContainer_(containerName, containerObject);
-      
-     // count++;
     }
 
 };

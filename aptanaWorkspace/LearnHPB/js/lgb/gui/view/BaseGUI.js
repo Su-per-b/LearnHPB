@@ -19,5 +19,11 @@ goog.inherits(lgb.gui.view.BaseGUI, lgb.world.view.BaseV);
 
 
 
+lgb.gui.view.BaseGUI.prototype.gotoViewPoint = function(name) {
+
+
+};
+
+
 
 

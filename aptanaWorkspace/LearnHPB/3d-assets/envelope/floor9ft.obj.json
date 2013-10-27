@@ -1,69 +1,51 @@
 {
 
+    "metadata" :
+    {
+        "formatVersion" : 3.1,
+        "sourceFile"    : "floor9ft.obj",
+        "generatedBy"   : "OBJConverter",
+        "vertices"      : 1788,
+        "faces"         : 457,
+        "normals"       : 2900,
+        "uvs"           : 48,
+        "materials"     : 3
+    },
 
     "materials": [	{
 	"DbgColor" : 15658734,
 	"DbgIndex" : 0,
-	"DbgName" : "Default",
-	"colorAmbient" : [0.0, 0.0, 0.0],
-	"colorDiffuse" : [0.784314, 0.784314, 0.784314],
-	"colorSpecular" : [0.0, 0.0, 0.0],
-	"illumination" : 1,
+	"DbgName" : "Exterior_Envelope",
+	"colorAmbient" : [0.715777, 0.672648, 0.602652],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.1, 0.1, 0.1],
 	"opticalDensity" : 1.0,
-	"specularCoef" : 17.647059,
+	"specularCoef" : 250.0,
 	"transparency" : 1.0
 	},
 
 	{
 	"DbgColor" : 15597568,
 	"DbgIndex" : 1,
-	"DbgName" : "Mullion_Smoothing",
-	"colorAmbient" : [0.0, 0.0, 0.0],
-	"colorDiffuse" : [0.170654, 0.170681, 0.170642],
-	"colorSpecular" : [0.5, 0.5, 0.5],
-	"illumination" : 2,
+	"DbgName" : "Default",
+	"colorAmbient" : [0.853153, 0.853153, 0.853153],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
 	"opticalDensity" : 1.0,
-	"specularCoef" : 88.235294,
+	"specularCoef" : 131.0,
 	"transparency" : 1.0
 	},
 
 	{
 	"DbgColor" : 60928,
 	"DbgIndex" : 2,
-	"DbgName" : "clearglass_Smoothing",
+	"DbgName" : "tintglass",
 	"colorAmbient" : [0.0, 0.0, 0.0],
-	"colorDiffuse" : [0.0, 0.0, 0.0],
-	"colorSpecular" : [0.75, 0.75, 0.75],
-	"illumination" : 2,
-	"opticalDensity" : 1.0,
-	"specularCoef" : 17.647059,
-	"transparency" : 0.05
-	},
-
-	{
-	"DbgColor" : 238,
-	"DbgIndex" : 3,
-	"DbgName" : "tintglass_Smoothing",
-	"colorAmbient" : [0.0, 0.0, 0.0],
-	"colorDiffuse" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
 	"colorSpecular" : [0.8, 0.8, 0.8],
-	"illumination" : 2,
 	"opticalDensity" : 1.0,
-	"specularCoef" : 17.647059,
+	"specularCoef" : 131.0,
 	"transparency" : 0.525
-	},
-
-	{
-	"DbgColor" : 15658496,
-	"DbgIndex" : 4,
-	"DbgName" : "Material",
-	"colorAmbient" : [0.0, 0.0, 0.0],
-	"colorDiffuse" : [0.64, 0.64, 0.64],
-	"colorSpecular" : [0.5, 0.5, 0.5],
-	"illumination" : 2,
-	"opticalDensity" : 1.0,
-	"specularCoef" : 96.078431,
-	"transparency" : 1.0
 	}],
 
     "buffers": "floor9ft.obj.bin"

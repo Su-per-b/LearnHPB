@@ -1,0 +1,22 @@
+{
+
+
+    "materials": [	{
+	"DbgColor" : 15658734,
+	"DbgIndex" : 0,
+	"DbgName" : "insulation",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [1.0, 0.863159, 0.812139],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+  "mapAmbient" : "images/InteriorInsulationUV.jpg",
+  "mapDiffuse" : "images/InteriorInsulationUV.jpg",
+  "mapBump" : "images/InteriorInsulationUV.jpg",
+	"illumination" : 1,
+	"opticalDensity" : 1.0,
+	"specularCoef" : 201.960784,
+	"transparency" : 1.0
+	}],
+
+    "buffers": "InteriorInsulation2.obj.bin"
+
+}

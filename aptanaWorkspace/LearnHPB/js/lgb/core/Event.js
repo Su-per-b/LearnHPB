@@ -39,6 +39,10 @@ e.MouseClick = 'e.MouseClick';
 e.MouseOut = 'e.MouseOut';
 e.MouseOver = 'e.MouseOver';
 e.Select = 'e.Select';
+
+e.OpenDropDown = 'e.OpenDropDown';
+e.CloseDropDown = 'e.CloseDropDown';
+
 e.AddToWorldRequest = 'e.AddToWorldRequest';
 
 e.ViewClosed = 'e.ViewClosed';

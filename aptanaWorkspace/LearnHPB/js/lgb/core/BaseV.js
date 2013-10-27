@@ -281,6 +281,13 @@ lgb.world.view.BaseV.prototype.getTitle = function() {
 };
 
 
+lgb.world.view.BaseV.prototype.getViewPoint = function() {
+  
+  return null;
+};
+
+
+
 lgb.world.view.BaseV.HTML_IDS_COUNT = {};
 lgb.world.view.BaseV.HTML_IDS_BASE = {};
 lgb.world.view.BaseV.HTML_IDS = {};

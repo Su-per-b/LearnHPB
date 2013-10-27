@@ -35,6 +35,8 @@ lgb.world.view.RoofTopView.prototype.onSceneLoaded_ = function(result) {
 
    this.masterGroup_.viewpoint = "RoofTopScene";
   
+
+   
    this.dispatchSelectableLoaded_();
    this.dispatchViewpointNodes_();
    this.dispatchVisibilityNodes_();
@@ -69,27 +71,6 @@ lgb.world.view.RoofTopView.prototype.dispatchSelectableLoaded_ = function() {
   this.each(airHandlerCenterList, this.addSelectable);
   this.each(otherList, this.addSelectable);
   
-/*
-  var len = airHandlerCenterList.length;
-  
-  for (var i = 0; i < len; i++) {
-    var mesh = airHandlerCenterList[i];
-    if (true == selectableMap[mesh.name]) {
-      selectableList.push(mesh);
-    }
-  }
-  
-  var len2 = airHandlerCenterList.length;
-  
-  for (var j = 0; i < len; i++) {
-    var mesh = airHandlerCenterList[i];
-    if (true == selectableMap[mesh.name]) {
-      selectableList.push(mesh);
-    }
-  }
-  
-  */
-
   
   if (this.selectableList_.length > 0) {
      this.triggerLocal(e.SelectableLoaded, this.selectableList_);

@@ -20,6 +20,43 @@ THREE.Mesh.prototype.bakeTransformsIntoGeometry = function() {
 
 
 
+THREE.Mesh.prototype.bakeScaleIntoGeometry = function() {
+
+
+  if (this.scale.x != 1.0 ||
+    this.scale.y != 1.0 ||
+    this.scale.z != 1.0) {
+      
+
+    var originalPosition = this.position;
+    var originalRotation = this.rotation;
+    var originalScale = this.scale;
+    var originalQuaternion = this.quaternion;
+        
+    this.position = new THREE.Vector3();
+    this.rotation = new THREE.Vector3();
+    this.quaternion = new THREE.Quaternion();
+    
+    this.updateMatrix();
+    
+    this.geometry.applyMatrix(this.matrix);
+    this.geometry.computeBoundingSphere();
+  
+    this.geometry.center();
+  
+    this.position = originalPosition;
+    this.rotation = originalRotation;
+    this.quaternion = originalQuaternion;
+    this.scale = new THREE.Vector3(1, 1, 1);
+  
+    this.updateMatrix();
+    
+  }
+    
+
+};
+
+
 THREE.Mesh.prototype.cloneEx = function(deepCloneChildren, cloneGeometry) {
   
   var geo;
@@ -72,48 +109,19 @@ THREE.Mesh.prototype.getBoundingBox = function() {
 
 
 
+THREE.Mesh.prototype.analyzeGeometry = function() {
+  
+  return this.geometry.analyze();
+  
+};
 
-//@author Raj Dye raj@pcdigi.com
-THREE.Mesh.prototype.extractPositionFromGeometry = function() {
 
-  //this.updateMatrix();
+THREE.Mesh.prototype.centerGeometry = function() {
+  
+  
+  
+};
 
-  var newGeom = THREE.GeometryUtils.clone(this.geometry);
-  var dim = newGeom.getDimensions();
 
-  //var len1 = newGeom.vertices.length;
-  newGeom.mergeVertices();
-  // var len2 = newGeom.vertices.length;
 
-  var correctX = -1 * dim.x / 2;
-  var correctY = -1 * dim.y / 2;
-  var correctZ = -1 * dim.z / 2;
-
-  var xDelta = correctX - newGeom.boundingBox.x[0];
-  var yDelta = correctY - newGeom.boundingBox.y[0];
-  var zDelta = correctZ - newGeom.boundingBox.z[0];
-
-  var len = newGeom.vertices.length;
-
-  for (var i = 0; i < len; i++) {
-    newGeom.vertices[i].position.x += xDelta;
-    newGeom.vertices[i].position.y += yDelta;
-    newGeom.vertices[i].position.z += zDelta;
-  }
-
-  newGeom.computeBoundingBox();
-  newGeom.computeBoundingSphere();
-  // newGeom.__dirtyVertices = true;
-
-  this.geometry = newGeom;
-
-  // this.updateMatrix();
-  //this.update();
-  this.position.x -= xDelta;
-  this.position.y -= yDelta;
-  this.position.z -= zDelta;
-
-  //newGeom.applyMatrix(this.matrix);
-  var x;
-
-}; 
+ 
