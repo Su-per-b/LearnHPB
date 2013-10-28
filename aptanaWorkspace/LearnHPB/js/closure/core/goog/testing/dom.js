@@ -157,7 +157,7 @@ goog.testing.dom.checkUserAgents_ = function(userAgents) {
 /**
  * Map function that converts end tags to a specific object.
  * @param {Node} node The node to map.
- * @param {Object} ignore Always undefined.
+ * @param {undefined} ignore Always undefined.
  * @param {goog.dom.TagIterator} iterator The iterator.
  * @return {Node|Object} The resulting iteration item.
  * @private
@@ -273,7 +273,7 @@ goog.testing.dom.assertHtmlContentsMatch = function(htmlPattern, actual,
     }
   };
 
-  // HACK(user): IE has unique ideas about whitespace handling when setting
+  // HACK(brenneman): IE has unique ideas about whitespace handling when setting
   // innerHTML. This results in elision of leading whitespace in the expected
   // nodes where doing so doesn't affect visible rendering. As a workaround, we
   // remove the leading whitespace in the actual nodes where necessary.

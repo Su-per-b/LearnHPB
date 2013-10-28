@@ -15,13 +15,15 @@
 /**
  * @fileoverview Base class for container renderers.
  *
+ * @author attila@google.com (Attila Bodis)
  */
 
 goog.provide('goog.ui.ContainerRenderer');
 
+goog.require('goog.a11y.aria');
+goog.require('goog.asserts');
 goog.require('goog.array');
 goog.require('goog.dom');
-goog.require('goog.dom.a11y');
 goog.require('goog.dom.classes');
 goog.require('goog.string');
 goog.require('goog.style');
@@ -278,7 +280,7 @@ goog.ui.ContainerRenderer.prototype.decorateChildren = function(container,
  *     (null if none).
  */
 goog.ui.ContainerRenderer.prototype.getDecoratorForChild = function(element) {
-  return (/** @type {goog.ui.Control} */
+  return /** @type {goog.ui.Control} */ (
       goog.ui.registry.getDecorator(element));
 };
 
@@ -291,7 +293,7 @@ goog.ui.ContainerRenderer.prototype.getDecoratorForChild = function(element) {
  */
 goog.ui.ContainerRenderer.prototype.initializeDom = function(container) {
   var elem = container.getElement();
-
+  goog.asserts.assert(elem, 'The container DOM element cannot be null.');
   // Make sure the container's element isn't selectable.  On Gecko, recursively
   // marking each child element unselectable is expensive and unnecessary, so
   // only mark the root element unselectable.
@@ -305,7 +307,7 @@ goog.ui.ContainerRenderer.prototype.initializeDom = function(container) {
   // Set the ARIA role.
   var ariaRole = this.getAriaRole();
   if (ariaRole) {
-    goog.dom.a11y.setRole(elem, ariaRole);
+    goog.a11y.aria.setRole(elem, ariaRole);
   }
 };
 

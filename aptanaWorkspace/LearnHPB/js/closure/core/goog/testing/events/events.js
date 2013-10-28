@@ -39,9 +39,10 @@ goog.require('goog.events');
 goog.require('goog.events.BrowserEvent');
 goog.require('goog.events.BrowserEvent.MouseButton');
 goog.require('goog.events.BrowserFeature');
-goog.require('goog.events.Event');
+goog.require('goog.events.EventTarget');
 goog.require('goog.events.EventType');
 goog.require('goog.events.KeyCodes');
+goog.require('goog.events.Listenable');
 goog.require('goog.object');
 goog.require('goog.style');
 goog.require('goog.userAgent');
@@ -51,6 +52,9 @@ goog.require('goog.userAgent');
 /**
  * goog.events.BrowserEvent expects an Event so we provide one for JSCompiler.
  *
+ * This clones a lot of the functionality of goog.events.Event. This used to
+ * use a mixin, but the mixin results in confusing the two types when compiled.
+ *
  * @param {string} type Event Type.
  * @param {Object=} opt_target Reference to the object that is the target of
  *     this event.
@@ -58,26 +62,47 @@ goog.require('goog.userAgent');
  * @extends {Event}
  */
 goog.testing.events.Event = function(type, opt_target) {
-  /**
-   * Event type.
-   * @type {string}
-   */
   this.type = type;
 
-  /**
-   * Target of the event.
-   * @type {Object|undefined}
-   */
-  this.target = opt_target;
+  this.target = /** @type {EventTarget} */ (opt_target || null);
 
-  /**
-   * Object that had the listener attached.
-   * @type {Object|undefined}
-   */
   this.currentTarget = this.target;
 };
-goog.object.extend(
-    goog.testing.events.Event.prototype, goog.events.Event.prototype);
+
+
+/**
+ * Whether to cancel the event in internal capture/bubble processing for IE.
+ * @type {boolean}
+ * @suppress {underscore} Technically public, but referencing this outside
+ *     this package is strongly discouraged.
+ */
+goog.testing.events.Event.prototype.propagationStopped_ = false;
+
+
+/** @override */
+goog.testing.events.Event.prototype.defaultPrevented = false;
+
+
+/**
+ * Return value for in internal capture/bubble processing for IE.
+ * @type {boolean}
+ * @suppress {underscore} Technically public, but referencing this outside
+ *     this package is strongly discouraged.
+ */
+goog.testing.events.Event.prototype.returnValue_ = true;
+
+
+/** @override */
+goog.testing.events.Event.prototype.stopPropagation = function() {
+  this.propagationStopped_ = true;
+};
+
+
+/** @override */
+goog.testing.events.Event.prototype.preventDefault = function() {
+  this.defaultPrevented = true;
+  this.returnValue_ = false;
+};
 
 
 /**
@@ -551,4 +576,117 @@ goog.testing.events.fireBrowserEvent = function(event) {
   }
 
   return event.returnValue_;
+};
+
+
+/**
+ * Simulates a touchstart event on the given target.
+ * @param {EventTarget} target The target for the event.
+ * @param {goog.math.Coordinate=} opt_coords Touch position. Defaults to event's
+ *     target's position (if available), otherwise (0, 0).
+ * @param {Object=} opt_eventProperties Event properties to be mixed into the
+ *     BrowserEvent.
+ * @return {boolean} The returnValue of the event: false if preventDefault() was
+ *     called on it, true otherwise.
+ */
+goog.testing.events.fireTouchStartEvent = function(
+    target, opt_coords, opt_eventProperties) {
+  // TODO: Support multi-touch events with array of coordinates.
+  var touchstart =
+      new goog.testing.events.Event(goog.events.EventType.TOUCHSTART, target);
+  goog.testing.events.setEventClientXY_(touchstart, opt_coords);
+  return goog.testing.events.fireBrowserEvent(touchstart);
+};
+
+
+/**
+ * Simulates a touchmove event on the given target.
+ * @param {EventTarget} target The target for the event.
+ * @param {goog.math.Coordinate=} opt_coords Touch position. Defaults to event's
+ *     target's position (if available), otherwise (0, 0).
+ * @param {Object=} opt_eventProperties Event properties to be mixed into the
+ *     BrowserEvent.
+ * @return {boolean} The returnValue of the event: false if preventDefault() was
+ *     called on it, true otherwise.
+ */
+goog.testing.events.fireTouchMoveEvent = function(
+    target, opt_coords, opt_eventProperties) {
+  // TODO: Support multi-touch events with array of coordinates.
+  var touchmove =
+      new goog.testing.events.Event(goog.events.EventType.TOUCHMOVE, target);
+  goog.testing.events.setEventClientXY_(touchmove, opt_coords);
+  return goog.testing.events.fireBrowserEvent(touchmove);
+};
+
+
+/**
+ * Simulates a touchend event on the given target.
+ * @param {EventTarget} target The target for the event.
+ * @param {goog.math.Coordinate=} opt_coords Touch position. Defaults to event's
+ *     target's position (if available), otherwise (0, 0).
+ * @param {Object=} opt_eventProperties Event properties to be mixed into the
+ *     BrowserEvent.
+ * @return {boolean} The returnValue of the event: false if preventDefault() was
+ *     called on it, true otherwise.
+ */
+goog.testing.events.fireTouchEndEvent = function(
+    target, opt_coords, opt_eventProperties) {
+  // TODO: Support multi-touch events with array of coordinates.
+  var touchend =
+      new goog.testing.events.Event(goog.events.EventType.TOUCHEND, target);
+  goog.testing.events.setEventClientXY_(touchend, opt_coords);
+  return goog.testing.events.fireBrowserEvent(touchend);
+};
+
+
+/**
+ * Simulates a simple touch sequence on the given target.
+ * @param {EventTarget} target The target for the event.
+ * @param {goog.math.Coordinate=} opt_coords Touch position. Defaults to event
+ *     target's position (if available), otherwise (0, 0).
+ * @param {Object=} opt_eventProperties Event properties to be mixed into the
+ *     BrowserEvent.
+ * @return {boolean} The returnValue of the sequence: false if preventDefault()
+ *     was called on any of the events, true otherwise.
+ */
+goog.testing.events.fireTouchSequence = function(
+    target, opt_coords, opt_eventProperties) {
+  // TODO: Support multi-touch events with array of coordinates.
+  // Fire touchstart, touchmove, touchend then return the bitwise AND of the 3.
+  return !!(goog.testing.events.fireTouchStartEvent(
+                target, opt_coords, opt_eventProperties) &
+            goog.testing.events.fireTouchEndEvent(
+                target, opt_coords, opt_eventProperties));
+};
+
+
+/**
+ * Mixins a listenable into the given object. This turns the object
+ * into a goog.events.Listenable. This is useful, for example, when
+ * you need to mock a implementation of listenable and still want it
+ * to work with goog.events.
+ * @param {!Object} obj The object to mixin into.
+ */
+goog.testing.events.mixinListenable = function(obj) {
+  var listenable = new goog.events.EventTarget();
+
+  if (goog.events.Listenable.USE_LISTENABLE_INTERFACE) {
+    listenable.setTargetForTesting(obj);
+
+    var listenablePrototype = goog.events.EventTarget.prototype;
+    var disposablePrototype = goog.Disposable.prototype;
+    for (var key in listenablePrototype) {
+      if (listenablePrototype.hasOwnProperty(key) ||
+          disposablePrototype.hasOwnProperty(key)) {
+        var member = listenablePrototype[key];
+        if (goog.isFunction(member)) {
+          obj[key] = goog.bind(member, listenable);
+        } else {
+          obj[key] = member;
+        }
+      }
+    }
+  } else {
+    goog.mixin(obj, listenable);
+  }
 };

@@ -427,16 +427,31 @@ goog.ui.Menu.prototype.handleKeyEventInternal = function(e) {
     // Loop through all child components, and for each menu item call its
     // key event handler so that keyboard mnemonics can be handled.
     this.forEachChild(function(menuItem) {
-      if (!handled) {
-        handled =
-            menuItem.getMnemonic && menuItem.getMnemonic() == e.keyCode &&
-            // We still delegate to handleKeyEvent, so that it can handle
-            // enabled/disabled state.
-            menuItem.handleKeyEvent(e);
+      if (!handled && menuItem.getMnemonic &&
+          menuItem.getMnemonic() == e.keyCode) {
+        if (this.isEnabled()) {
+          this.setHighlighted(menuItem);
+        }
+        // We still delegate to handleKeyEvent, so that it can handle
+        // enabled/disabled state.
+        handled = menuItem.handleKeyEvent(e);
       }
-    });
+    }, this);
   }
   return handled;
+};
+
+
+/** @override */
+goog.ui.Menu.prototype.setHighlightedIndex = function(index) {
+  goog.base(this, 'setHighlightedIndex', index);
+
+  // Bring the highlighted item into view. This has no effect if the menu is not
+  // scrollable.
+  var child = this.getChildAt(index);
+  if (child) {
+    goog.style.scrollIntoContainerView(child.getElement(), this.getElement());
+  }
 };
 
 

@@ -40,7 +40,7 @@ lgb.world.view.CrossSectionView.prototype.onSceneLoaded_ = function() {
   
   this.makeLayers_();
   
-  var mesh = this.meshes_["MainViewPoint"];
+
  // mesh.visible = false;
  
   this.masterGroup_.add(this.meshes_["MainViewPoint"]);
@@ -48,6 +48,7 @@ lgb.world.view.CrossSectionView.prototype.onSceneLoaded_ = function() {
   this.masterGroup_.add(this.meshes_["VeneerViewPoint"]);
   this.masterGroup_.add(this.meshes_["TopViewPoint"]);
   this.masterGroup_.add(this.meshes_["SideViewPoint"]);
+  
   
   var mesh2 = this.meshes_["Cube"];
   mesh2.visible = false;

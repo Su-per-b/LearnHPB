@@ -26,11 +26,10 @@ goog.require('goog.json');
 goog.require('goog.net.ErrorCode');
 goog.require('goog.net.EventType');
 goog.require('goog.net.HttpStatus');
-goog.require('goog.net.XhrIo.ResponseType');
+goog.require('goog.net.XhrIo');
 goog.require('goog.net.XmlHttp');
 goog.require('goog.object');
 goog.require('goog.structs.Map');
-goog.require('goog.uri.utils');
 
 
 
@@ -60,6 +59,13 @@ goog.testing.net.XhrIo = function(opt_testQueue) {
   this.testQueue_ = opt_testQueue || null;
 };
 goog.inherits(goog.testing.net.XhrIo, goog.events.EventTarget);
+
+
+/**
+ * Alias this enum here to make mocking of goog.net.XhrIo easier.
+ * @enum {string}
+ */
+goog.testing.net.XhrIo.ResponseType = goog.net.XhrIo.ResponseType;
 
 
 /**
@@ -417,6 +423,13 @@ goog.testing.net.XhrIo.prototype.simulateReadyStateChange =
     throw Error('Readystate cannot go backwards');
   }
 
+  // INTERACTIVE can be dispatched repeatedly as more data is reported.
+  if (readyState == goog.net.XmlHttp.ReadyState.INTERACTIVE &&
+      readyState == this.readyState_) {
+    this.dispatchEvent(goog.net.EventType.READY_STATE_CHANGE);
+    return;
+  }
+
   while (this.readyState_ < readyState) {
     this.readyState_++;
     this.dispatchEvent(goog.net.EventType.READY_STATE_CHANGE);
@@ -426,6 +439,21 @@ goog.testing.net.XhrIo.prototype.simulateReadyStateChange =
       this.dispatchEvent(goog.net.EventType.COMPLETE);
     }
   }
+};
+
+
+/**
+ * Simulate receiving some bytes but the request not fully completing, and
+ * the XHR entering the 'INTERACTIVE' state.
+ * @param {string} partialResponse A string to append to the response text.
+ * @param {Object=} opt_headers Simulated response headers.
+ */
+goog.testing.net.XhrIo.prototype.simulatePartialResponse =
+    function(partialResponse, opt_headers) {
+  this.response_ += partialResponse;
+  this.responseHeaders_ = opt_headers || {};
+  this.statusCode_ = 200;
+  this.simulateReadyStateChange(goog.net.XmlHttp.ReadyState.INTERACTIVE);
 };
 
 
@@ -594,6 +622,16 @@ goog.testing.net.XhrIo.prototype.getLastRequestHeaders = function() {
 goog.testing.net.XhrIo.prototype.getResponseText = function() {
   return goog.isString(this.response_) ? this.response_ :
          goog.dom.xml.serialize(this.response_);
+};
+
+
+/**
+ * Gets the response body from the Xhr object. Will only return correct result
+ * when called from the context of a callback.
+ * @return {Object} Binary result from the server or null.
+ */
+goog.testing.net.XhrIo.prototype.getResponseBody = function() {
+  return null;
 };
 
 

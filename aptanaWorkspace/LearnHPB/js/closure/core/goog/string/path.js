@@ -15,12 +15,58 @@
 /**
  * @fileoverview Utilities for dealing with POSIX path strings. Based on
  * Python's os.path and posixpath.
+ * @author nnaze@google.com (Nathan Naze)
  */
 
 goog.provide('goog.string.path');
 
 goog.require('goog.array');
 goog.require('goog.string');
+
+
+/**
+ * Returns the final component of a pathname.
+ * See http://docs.python.org/library/os.path.html#os.path.basename
+ * @param {string} path A pathname.
+ * @return {string} path The final component of a pathname, i.e. everything
+ *     after the final slash.
+ */
+goog.string.path.basename = function(path) {
+  var i = path.lastIndexOf('/') + 1;
+  return path.slice(i);
+};
+
+
+/**
+ * Returns the directory component of a pathname.
+ * See http://docs.python.org/library/os.path.html#os.path.dirname
+ * @param {string} path A pathname.
+ * @return {string} The directory component of a pathname, i.e. everything
+ *     leading up to the final slash.
+ */
+goog.string.path.dirname = function(path) {
+  var i = path.lastIndexOf('/') + 1;
+  var head = path.slice(0, i);
+  // If the path isn't all forward slashes, trim the trailing slashes.
+  if (!/^\/+$/.test(head)) {
+    head = head.replace(/\/+$/, '');
+  }
+  return head;
+};
+
+
+/**
+ * Extracts the extension part of a pathname.
+ * @param {string} path The path name to process.
+ * @return {string} The extension if any, otherwise the empty string.
+ */
+goog.string.path.extension = function(path) {
+  var separator = '.';
+  // Combining all adjacent periods in the basename to a single period.
+  var basename = goog.string.path.basename(path).replace(/\.+/g, separator);
+  var separatorIndex = basename.lastIndexOf(separator);
+  return separatorIndex <= 0 ? '' : basename.substr(separatorIndex + 1);
+};
 
 
 /**
@@ -97,4 +143,18 @@ goog.string.path.normalizePath = function(path) {
   return returnPath || '.';
 };
 
-// TODO(user): Implement other useful functions from os.path
+
+/**
+ * Splits a pathname into "dirname" and "basename" components, where "basename"
+ * is everything after the final slash. Either part may return an empty string.
+ * See http://docs.python.org/library/os.path.html#os.path.split
+ * @param {string} path A pathname.
+ * @return {!Array.<string>} An array of [dirname, basename].
+ */
+goog.string.path.split = function(path) {
+  var head = goog.string.path.dirname(path);
+  var tail = goog.string.path.basename(path);
+  return [head, tail];
+};
+
+// TODO(nnaze): Implement other useful functions from os.path

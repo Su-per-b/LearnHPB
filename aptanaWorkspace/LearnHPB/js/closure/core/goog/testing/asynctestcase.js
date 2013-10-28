@@ -248,10 +248,10 @@ goog.testing.AsyncTestCase.prototype.nextStepName_ = '';
 
 /**
  * The handle to the current setTimeout timer.
- * @type {number|undefined}
+ * @type {number}
  * @private
  */
-goog.testing.AsyncTestCase.prototype.timeoutHandle_;
+goog.testing.AsyncTestCase.prototype.timeoutHandle_ = 0;
 
 
 /**
@@ -305,6 +305,16 @@ goog.testing.AsyncTestCase.prototype.returnWillPump_ = false;
  * @private
  */
 goog.testing.AsyncTestCase.prototype.numControlExceptionsExpected_ = 0;
+
+
+/**
+ * The current step name.
+ * @return {!string} Step name.
+ * @protected
+ */
+goog.testing.AsyncTestCase.prototype.getCurrentStepName = function() {
+  return this.curStepName_;
+};
 
 
 /**
@@ -375,9 +385,13 @@ goog.testing.AsyncTestCase.prototype.doAsyncError = function(opt_e) {
     fakeTestObj.name = this.activeTest.name + ' [' + fakeTestObj.name + ']';
   }
 
-  // Note: if the test has an error, and then tearDown has an error, they will
-  // both be reported.
-  this.doError(fakeTestObj, opt_e);
+  if (this.activeTest) {
+    // Note: if the test has an error, and then tearDown has an error, they will
+    // both be reported.
+    this.doError(fakeTestObj, opt_e);
+  } else {
+    this.exceptionBeforeTest = opt_e;
+  }
 
   // This is a potential entry point, so we pump. We also add in a bit of a
   // delay to try and prevent any async behavior from the failed test from
@@ -620,7 +634,7 @@ goog.testing.AsyncTestCase.prototype.startTimeoutTimer_ = function() {
   if (!this.timeoutHandle_ && this.stepTimeout > 0) {
     this.timeoutHandle_ = this.timeout(goog.bind(function() {
       this.dbgLog_('Timeout timer fired with id ' + this.timeoutHandle_);
-      this.timeoutHandle_ = null;
+      this.timeoutHandle_ = 0;
 
       this.doTopOfStackAsyncError_('Timed out while waiting for ' +
           'continueTesting() to be called.');
@@ -637,7 +651,7 @@ goog.testing.AsyncTestCase.prototype.startTimeoutTimer_ = function() {
 goog.testing.AsyncTestCase.prototype.stopTimeoutTimer_ = function() {
   if (this.timeoutHandle_) {
     this.dbgLog_('Clearing timeout timer with id ' + this.timeoutHandle_);
-    window.clearTimeout(this.timeoutHandle_);
+    this.clearTimeout(this.timeoutHandle_);
     this.timeoutHandle_ = 0;
   }
 };
@@ -693,16 +707,8 @@ goog.testing.AsyncTestCase.prototype.pump_ = function(opt_doFirst) {
   // If this function is already above us in the call-stack, then we should
   // return rather than pumping in order to minimize call-stack depth.
   if (!this.returnWillPump_) {
-    this.setBatchTime(this.now_());
+    this.setBatchTime(this.now());
     this.returnWillPump_ = true;
-    // If we catch an exception in the step, we don't want to return control
-    // to our caller since there may be non-testcase code in our call stack.
-    // Eg)
-    //   asyncCallback() { fail(1); fail(2); }
-    //                       V
-    //   - ...
-    //   - pump_();
-    // We don't want fail(2) to ever be called.
     var topFuncResult = {};
 
     if (opt_doFirst) {
@@ -726,7 +732,7 @@ goog.testing.AsyncTestCase.prototype.pump_ = function(opt_doFirst) {
 
       // If the max run time is exceeded call this function again async so as
       // not to block the browser.
-      var delta = this.now_() - this.getBatchTime();
+      var delta = this.now() - this.getBatchTime();
       if (delta > goog.testing.TestCase.MAX_RUN_TIME &&
           !topFuncResult.controlBreakingExceptionThrown) {
         this.saveMessage('Breaking async');
@@ -736,14 +742,6 @@ goog.testing.AsyncTestCase.prototype.pump_ = function(opt_doFirst) {
       }
     }
     this.returnWillPump_ = false;
-    // See note at top of this function.
-    if (topFuncResult.controlBreakingExceptionThrown) {
-      this.numControlExceptionsExpected_ += 1;
-      this.dbgLog_('pump: numControlExceptionsExpected_ = ' +
-          this.numControlExceptionsExpected_ + ' and throwing exception.');
-      throw new goog.testing.AsyncTestCase.
-          ControlBreakingException(topFuncResult.message);
-    }
   } else if (opt_doFirst) {
     opt_doFirst.call(this);
   }
@@ -769,7 +767,13 @@ goog.testing.AsyncTestCase.prototype.doIteration_ = function() {
   this.activeTest = this.next();
   if (this.activeTest && this.running) {
     this.result_.runCount++;
-    this.setNextStep_(this.doSetUp_, 'setUp');
+    // If this test should be marked as having failed, doIteration will go
+    // straight to the next test.
+    if (this.maybeFailTestEarly(this.activeTest)) {
+      this.setNextStep_(this.doIteration_, 'doIteration');
+    } else {
+      this.setNextStep_(this.doSetUp_, 'setUp');
+    }
   } else {
     // All tests done.
     this.finalize();

@@ -144,6 +144,7 @@ goog.format.EmailAddress.prototype.setAddress = function(address) {
  *  - remove extra spaces.
  *  - Surround name with quotes if it contains special characters.
  * @return {string} The cleaned address.
+ * @override
  */
 goog.format.EmailAddress.prototype.toString = function() {
   var name = this.getName();
@@ -197,10 +198,11 @@ goog.format.EmailAddress.isValidAddress = function(str) {
  */
 goog.format.EmailAddress.isValidAddrSpec = function(str) {
   // This is a fairly naive implementation, but it covers 99% of use cases.
-  // For example, having two dots in a row isn't valid, but I don't think we
-  // need that level of validation.  Also, things like [a@b]@c.com is valid, but
-  // I don't think anyone would accept it.
-  var filter = /^[+a-zA-Z0-9_.-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z0-9]{2,6}$/;
+  // For more details, see http://en.wikipedia.org/wiki/Email_address#Syntax
+  // TODO(mariakhomenko): we should also be handling i18n domain names as per
+  // http://en.wikipedia.org/wiki/Internationalized_domain_name
+  var filter =
+      /^[+a-zA-Z0-9_.!#$%&'*\/=?^`{|}~-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z0-9]{2,6}$/;
   return filter.test(str);
 };
 
@@ -256,7 +258,8 @@ goog.format.EmailAddress.parseList = function(str) {
 
   for (var i = 0; i < str.length; ) {
     token = goog.format.EmailAddress.getToken_(str, i);
-    if (token == ',' || token == ';') {
+    if (token == ',' || token == ';' ||
+        (token == ' ' && goog.format.EmailAddress.parse(email).isValid())) {
       if (!goog.string.isEmpty(email)) {
         result.push(goog.format.EmailAddress.parse(email));
       }

@@ -27,6 +27,7 @@ goog.provide('goog.ui.RoundedPanel.Corner');
 goog.require('goog.dom');
 goog.require('goog.dom.classes');
 goog.require('goog.graphics');
+goog.require('goog.graphics.Path');
 goog.require('goog.graphics.SolidFill');
 goog.require('goog.graphics.Stroke');
 goog.require('goog.math.Coordinate');
@@ -202,6 +203,7 @@ goog.ui.BaseRoundedPanel.prototype.contentElement_;
  * Overrides {@link goog.ui.Component#decorateInternal}.
  * @param {Element} element The element to decorate.
  * @protected
+ * @override
  */
 goog.ui.BaseRoundedPanel.prototype.decorateInternal = function(element) {
   goog.ui.BaseRoundedPanel.superClass_.decorateInternal.call(this, element);
@@ -238,6 +240,7 @@ goog.ui.BaseRoundedPanel.prototype.disposeInternal = function() {
 /**
  * Returns the DOM element containing the actual content.
  * @return {Element} The element containing the actual content (null if none).
+ * @override
  */
 goog.ui.BaseRoundedPanel.prototype.getContentElement = function() {
   return this.contentElement_;
@@ -283,6 +286,7 @@ goog.inherits(goog.ui.CssRoundedPanel, goog.ui.BaseRoundedPanel);
  * Overrides {@link goog.ui.Component#decorateInternal}.
  * @param {Element} element The element to decorate.
  * @protected
+ * @override
  */
 goog.ui.CssRoundedPanel.prototype.decorateInternal = function(element) {
   goog.ui.CssRoundedPanel.superClass_.decorateInternal.call(this, element);
@@ -470,6 +474,7 @@ goog.ui.GraphicsRoundedPanel.BORDER_WIDTH_FACTOR_ = 1 / 2;
  * Overrides {@link goog.ui.Component#decorateInternal}.
  * @param {Element} element The element to decorate.
  * @protected
+ * @override
  */
 goog.ui.GraphicsRoundedPanel.prototype.decorateInternal =
     function(element) {

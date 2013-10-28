@@ -16,14 +16,16 @@
 	"DbgColor" : 15658734,
 	"DbgIndex" : 0,
 	"DbgName" : "Stone",
-  "colorAmbient" : [0.7176, 0.6745, 0.6039],
-	"colorDiffuse" : [0.7176, 0.6745, 0.6039],
+  "colorAmbient" : [1.0, 1.0, 1.0],
+  "colorDiffuse" : [1.0, 1.0, 1.0],
 	"colorSpecular" : [0.7176, 0.6745, 0.6039],
+  "mapAmbient" : "images/Cliffs0174_5_S.jpg",
+  "mapDiffuse" : "images/Cliffs0174_5_S.jpg",
 	"opticalDensity" : 1.0,
-	"specularCoef" : 250.0,
+	"specularCoef" : 400.0,
 	"transparency" : 1.0
 	}],
 
-    "buffers": "StoneVeneer.obj.bin"
+    "buffers": "BrickVeneer2.obj.bin"
 
 }

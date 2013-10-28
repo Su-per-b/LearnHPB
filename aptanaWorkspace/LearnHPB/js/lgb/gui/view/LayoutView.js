@@ -62,7 +62,6 @@ lgb.gui.view.LayoutView.prototype.init = function() {
   this.splitPanelVertical_.paneTwoCss["overflow-y"] = "hidden";
   this.splitPanelVertical_.paneTwoCss["overflow-x"] = "hidden";
   
-  
   this.bind_();
   this.inject();
 };
@@ -145,9 +144,6 @@ lgb.gui.view.LayoutView.prototype.add = function(guiView) {
 
       this.layoutUtils_.push(util);
 
-      break;
-    case "SimulationGreenGUI":
-      guiView.injectTo(this.webGLcanvas_);
       break;
     case "SimulationButtonGreenGUI":
       this.simulationButton_ = guiView;

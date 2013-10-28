@@ -27,10 +27,10 @@ goog.require('goog.ui.tree.BaseNode');
 
 
 /**
- * An single node in the tree.
+ * A single node in the tree.
  * @param {string} html The html content of the node label.
  * @param {Object=} opt_config The configuration for the tree. See
- *    goog.ui.tree.TreeControl.DefaultConfig. If not specified, a default config
+ *    goog.ui.tree.TreeControl.defaultConfig. If not specified, a default config
  *    will be used.
  * @param {goog.dom.DomHelper=} opt_domHelper Optional DOM helper.
  * @constructor
@@ -51,8 +51,9 @@ goog.ui.tree.TreeNode.prototype.tree_ = null;
 
 
 /**
- * Returns the tree
+ * Returns the tree.
  * @return {goog.ui.tree.TreeControl?} The tree.
+ * @override
  */
 goog.ui.tree.TreeNode.prototype.getTree = function() {
   if (this.tree_) {
@@ -73,6 +74,7 @@ goog.ui.tree.TreeNode.prototype.getTree = function() {
 /**
  * Returns the source for the icon.
  * @return {string} Src for the icon.
+ * @override
  */
 goog.ui.tree.TreeNode.prototype.getCalculatedIconClass = function() {
   var expanded = this.getExpanded();

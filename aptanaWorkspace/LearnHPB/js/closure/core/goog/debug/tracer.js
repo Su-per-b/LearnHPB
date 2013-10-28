@@ -225,6 +225,7 @@ goog.debug.Trace_.Stat_.prototype.type;
 
 /**
  * @return {string} A string describing the tracer stat.
+ * @override
  */
 goog.debug.Trace_.Stat_.prototype.toString = function() {
   var sb = [];
@@ -295,6 +296,7 @@ goog.debug.Trace_.Event_.prototype.toTraceString = function(startTime, prevTime,
 
 /**
  * @return {string} A string describing the tracer event.
+ * @override
  */
 goog.debug.Trace_.Event_.prototype.toString = function() {
   if (this.type == null) {
@@ -344,7 +346,7 @@ goog.debug.Trace_.prototype.reset = function(defaultThreshold) {
   this.defaultThreshold_ = defaultThreshold;
 
   for (var i = 0; i < this.events_.length; i++) {
-    var id = (/** @type {Object} */ this.eventPool_).id;
+    var id = /** @type {Object} */ (this.eventPool_).id;
     if (id) {
       this.idPool_.releaseObject(id);
     }
@@ -418,7 +420,7 @@ goog.debug.Trace_.prototype.startTracer = function(comment, opt_type) {
 
   goog.debug.Logger.logToProfilers('Start : ' + comment);
 
-  var event = (/** @type {goog.debug.Trace_.Event_} */
+  var event = /** @type {goog.debug.Trace_.Event_} */ (
       this.eventPool_.getObject());
   event.totalVarAlloc = varAlloc;
   event.eventType = goog.debug.Trace_.EventType.START;
@@ -479,7 +481,7 @@ goog.debug.Trace_.prototype.stopTracer = function(id, opt_silenceThreshold) {
     }
 
   } else {
-    stopEvent = (/** @type {goog.debug.Trace_.Event_} */
+    stopEvent = /** @type {goog.debug.Trace_.Event_} */ (
         this.eventPool_.getObject());
     stopEvent.eventType = goog.debug.Trace_.EventType.STOP;
     stopEvent.startTime = startEvent.startTime;
@@ -551,7 +553,7 @@ goog.debug.Trace_.prototype.addComment = function(comment, opt_type,
   var now = goog.debug.Trace_.now();
   var timeStamp = opt_timeStamp ? opt_timeStamp : now;
 
-  var eventComment = (/** @type {goog.debug.Trace_.Event_} */
+  var eventComment = /** @type {goog.debug.Trace_.Event_} */ (
       this.eventPool_.getObject());
   eventComment.eventType = goog.debug.Trace_.EventType.COMMENT;
   eventComment.eventTime = timeStamp;
@@ -598,7 +600,7 @@ goog.debug.Trace_.prototype.addComment = function(comment, opt_type,
 goog.debug.Trace_.prototype.getStat_ = function(type) {
   var stat = this.stats_.get(type);
   if (!stat) {
-    stat = (/** @type {goog.debug.Trace_.Event_} */
+    stat = /** @type {goog.debug.Trace_.Event_} */ (
         this.statPool_.getObject());
     stat.type = type;
     this.stats_.set(type, stat);
@@ -620,6 +622,7 @@ goog.debug.Trace_.prototype.getFormattedTrace = function() {
 /**
  * Returns a formatted string that describes the thread trace.
  * @return {string} A formatted string.
+ * @override
  */
 goog.debug.Trace_.prototype.toString = function() {
   var sb = [];

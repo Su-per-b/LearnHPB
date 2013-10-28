@@ -41,11 +41,16 @@ goog.require('goog.events.EventType');
  * @param {goog.dom.DomHelper|Array.<goog.dom.DomHelper>=} opt_domHelper
  *     DomHelper which contains the document(s) to listen to.  If null, the
  *     default document is usedinstead.
+ * @param {boolean=} opt_useBubble Whether to use the bubble phase to listen for
+ *     events. By default listens on the capture phase so that it won't miss
+ *     events that get stopPropagation/cancelBubble'd. However, this can cause
+ *     problems in IE8 if the page loads multiple scripts that include the
+ *     closure event handling code.
  *
  * @constructor
  * @extends {goog.events.EventTarget}
  */
-goog.ui.ActivityMonitor = function(opt_domHelper) {
+goog.ui.ActivityMonitor = function(opt_domHelper, opt_useBubble) {
   goog.events.EventTarget.call(this);
 
   /**
@@ -54,6 +59,13 @@ goog.ui.ActivityMonitor = function(opt_domHelper) {
    * @private
    */
   this.documents_ = [];
+
+  /**
+   * Whether to use the bubble phase to listen for events.
+   * @type {boolean}
+   * @private
+   */
+  this.useBubble_ = !!opt_useBubble;
 
   /**
    * The event handler.
@@ -66,7 +78,7 @@ goog.ui.ActivityMonitor = function(opt_domHelper) {
     this.addDocument(goog.dom.getDomHelper().getDocument());
   } else if (goog.isArray(opt_domHelper)) {
     for (var i = 0; i < opt_domHelper.length; i++) {
-       this.addDocument(opt_domHelper[i].getDocument());
+      this.addDocument(opt_domHelper[i].getDocument());
     }
   } else {
     this.addDocument(opt_domHelper.getDocument());
@@ -127,10 +139,16 @@ goog.ui.ActivityMonitor.MIN_EVENT_SPACING = 3 * 1000;
  * @type {Array.<goog.events.EventType>}
  * @private
  */
-goog.ui.ActivityMonitor.userEventTypesBody_ =
-  [goog.events.EventType.CLICK, goog.events.EventType.DBLCLICK,
-   goog.events.EventType.MOUSEDOWN, goog.events.EventType.MOUSEUP,
-   goog.events.EventType.MOUSEMOVE];
+goog.ui.ActivityMonitor.userEventTypesBody_ = [
+  goog.events.EventType.CLICK,
+  goog.events.EventType.DBLCLICK,
+  goog.events.EventType.MOUSEDOWN,
+  goog.events.EventType.MOUSEMOVE,
+  goog.events.EventType.MOUSEUP,
+  goog.events.EventType.TOUCHEND,
+  goog.events.EventType.TOUCHMOVE,
+  goog.events.EventType.TOUCHSTART
+];
 
 
 /**
@@ -139,7 +157,7 @@ goog.ui.ActivityMonitor.userEventTypesBody_ =
  * @private
  */
 goog.ui.ActivityMonitor.userEventTypesDocuments_ =
-  [goog.events.EventType.KEYDOWN, goog.events.EventType.KEYUP];
+    [goog.events.EventType.KEYDOWN, goog.events.EventType.KEYUP];
 
 
 /**
@@ -168,12 +186,13 @@ goog.ui.ActivityMonitor.prototype.disposeInternal = function() {
  */
 goog.ui.ActivityMonitor.prototype.addDocument = function(doc) {
   this.documents_.push(doc);
+  var useCapture = !this.useBubble_;
   this.eventHandler_.listen(
       doc, goog.ui.ActivityMonitor.userEventTypesDocuments_,
-      this.handleEvent_, true);
+      this.handleEvent_, useCapture);
   this.eventHandler_.listen(
       doc, goog.ui.ActivityMonitor.userEventTypesBody_,
-      this.handleEvent_, true);
+      this.handleEvent_, useCapture);
 };
 
 
@@ -187,12 +206,13 @@ goog.ui.ActivityMonitor.prototype.removeDocument = function(doc) {
     return;
   }
   goog.array.remove(this.documents_, doc);
+  var useCapture = !this.useBubble_;
   this.eventHandler_.unlisten(
       doc, goog.ui.ActivityMonitor.userEventTypesDocuments_,
-      this.handleEvent_, true);
+      this.handleEvent_, useCapture);
   this.eventHandler_.unlisten(
       doc, goog.ui.ActivityMonitor.userEventTypesBody_,
-      this.handleEvent_, true);
+      this.handleEvent_, useCapture);
 };
 
 
@@ -221,7 +241,8 @@ goog.ui.ActivityMonitor.prototype.handleEvent_ = function(e) {
   }
 
   if (update) {
-    this.updateIdleTime_(goog.now(), /** @type {string} */ (e.type));
+    var type = goog.asserts.assertString(e.type);
+    this.updateIdleTime(goog.now(), type);
   }
 };
 
@@ -231,19 +252,20 @@ goog.ui.ActivityMonitor.prototype.handleEvent_ = function(e) {
  * events that should update idle time.
  */
 goog.ui.ActivityMonitor.prototype.resetTimer = function() {
-  this.updateIdleTime_(goog.now(), 'manual');
+  this.updateIdleTime(goog.now(), 'manual');
 };
 
 
 /**
- * Does the work of updating the idle time and firing an event
+ * Updates the idle time and fires an event if time has elapsed since
+ * the last update.
  * @param {number} eventTime Time (in MS) of the event that cleared the idle
- * timer.
+ *     timer.
  * @param {string} eventType Type of the event, used only for debugging.
- * @private
+ * @protected
  */
-goog.ui.ActivityMonitor.prototype.updateIdleTime_ = function(eventTime,
-      eventType) {
+goog.ui.ActivityMonitor.prototype.updateIdleTime = function(
+    eventTime, eventType) {
   // update internal state noting whether the user was idle
   this.lastEventTime_ = eventTime;
   this.lastEventType_ = eventType;

@@ -15,6 +15,7 @@
 /**
  * @fileoverview Date picker implementation.
  *
+ * @author eae@google.com (Emil A Eklund)
  * @see ../demos/datepicker.html
  */
 
@@ -22,11 +23,12 @@ goog.provide('goog.ui.DatePicker');
 goog.provide('goog.ui.DatePicker.Events');
 goog.provide('goog.ui.DatePickerEvent');
 
+goog.require('goog.a11y.aria');
+goog.require('goog.asserts');
 goog.require('goog.date');
 goog.require('goog.date.Date');
 goog.require('goog.date.Interval');
 goog.require('goog.dom');
-goog.require('goog.dom.a11y');
 goog.require('goog.dom.classes');
 goog.require('goog.events');
 goog.require('goog.events.Event');
@@ -37,6 +39,7 @@ goog.require('goog.i18n.DateTimeFormat');
 goog.require('goog.i18n.DateTimeSymbols');
 goog.require('goog.style');
 goog.require('goog.ui.Component');
+goog.require('goog.ui.IdGenerator');
 
 
 
@@ -198,11 +201,12 @@ goog.ui.DatePicker.prototype.elFootRow_ = null;
 
 
 /**
- * Next unique instance ID of a datepicker cell.
- * @type {number}
+ * Generator for unique table cell IDs.
+ * @type {goog.ui.IdGenerator}
  * @private
  */
-goog.ui.DatePicker.nextId_ = 0;
+goog.ui.DatePicker.prototype.cellIdGenerator_ =
+    goog.ui.IdGenerator.getInstance();
 
 
 /**
@@ -540,6 +544,14 @@ goog.ui.DatePicker.prototype.selectNone = function() {
 
 
 /**
+ * @return {goog.date.Date} The active month displayed.
+ */
+goog.ui.DatePicker.prototype.getActiveMonth = function() {
+  return this.activeMonth_.clone();
+};
+
+
+/**
  * @return {goog.date.Date} The selected date or null if nothing is selected.
  */
 goog.ui.DatePicker.prototype.getDate = function() {
@@ -573,7 +585,7 @@ goog.ui.DatePicker.prototype.setDate = function(date) {
   // selected another month can be displayed.
   this.updateCalendarGrid_();
 
-  // TODO(user): Standardize selection and change events with other components.
+  // TODO(eae): Standardize selection and change events with other components.
   // Fire select event.
   var selectEvent = new goog.ui.DatePickerEvent(
       goog.ui.DatePicker.Events.SELECT, this, this.date_);
@@ -706,7 +718,7 @@ goog.ui.DatePicker.prototype.decorateInternal = function(el) {
   var tbody = this.dom_.createElement('tbody');
   var tfoot = this.dom_.createElement('tfoot');
 
-  goog.dom.a11y.setRole(tbody, 'grid');
+  goog.a11y.aria.setRole(tbody, 'grid');
   tbody.tabIndex = '0';
 
   // As per comment in colorpicker: table.tBodies and table.tFoot should not be
@@ -732,7 +744,7 @@ goog.ui.DatePicker.prototype.decorateInternal = function(el) {
         cell.className = (j == 0) ?
             goog.getCssName(this.getBaseCssClass(), 'week') :
             goog.getCssName(this.getBaseCssClass(), 'wday');
-        goog.dom.a11y.setRole(cell, j == 0 ? 'rowheader' : 'columnheader');
+        goog.a11y.aria.setRole(cell, j == 0 ? 'rowheader' : 'columnheader');
       }
       row.appendChild(cell);
       this.elTable_[i][j] = cell;
@@ -898,10 +910,10 @@ goog.ui.DatePicker.prototype.showMonthMenu_ = function(event) {
 
   var list = [];
   for (var i = 0; i < 12; i++) {
-    list.push(this.symbols_.MONTHS[i]);
+    list.push(this.symbols_.STANDALONEMONTHS[i]);
   }
   this.createMenu_(this.elMonth_, list, this.handleMonthMenuClick_,
-      this.symbols_.MONTHS[this.activeMonth_.getMonth()]);
+      this.symbols_.STANDALONEMONTHS[this.activeMonth_.getMonth()]);
 };
 
 
@@ -1139,12 +1151,12 @@ goog.ui.DatePicker.prototype.updateCalendarGrid_ = function() {
   if (this.elMonthYear_) {
     goog.dom.setTextContent(this.elMonthYear_,
         goog.date.formatMonthAndYear(
-            this.symbols_.MONTHS[date.getMonth()],
+            this.symbols_.STANDALONEMONTHS[date.getMonth()],
             date.getFullYear()));
   }
   if (this.elMonth_) {
     goog.dom.setTextContent(this.elMonth_,
-        this.symbols_.MONTHS[date.getMonth()]);
+        this.symbols_.STANDALONEMONTHS[date.getMonth()]);
   }
   if (this.elYear_) {
     goog.dom.setTextContent(this.elYear_, String(date.getFullYear()));
@@ -1214,9 +1226,10 @@ goog.ui.DatePicker.prototype.redrawCalendarGrid_ = function() {
       // Assign a unique element id (required for setting the active descendant
       // ARIA role) unless already set.
       if (!el.id) {
-        el.id = 'goog-dp-' + goog.ui.DatePicker.nextId_++;
+        el.id = this.cellIdGenerator_.getNextUniqueId();
       }
-      goog.dom.a11y.setRole(el, 'gridcell');
+      goog.asserts.assert(el, 'The table DOM element cannot be null.');
+      goog.a11y.aria.setRole(el, 'gridcell');
       var classes = [goog.getCssName(this.getBaseCssClass(), 'date')];
       if (this.showOtherMonths_ || o.getMonth() == month) {
         // Date belongs to previous or next month
@@ -1241,7 +1254,9 @@ goog.ui.DatePicker.prototype.redrawCalendarGrid_ = function() {
             o.getMonth() == this.date_.getMonth() &&
             o.getFullYear() == this.date_.getFullYear()) {
           classes.push(goog.getCssName(this.getBaseCssClass(), 'selected'));
-          goog.dom.a11y.setState(this.tableBody_, 'activedescendant', el.id);
+          goog.asserts.assert(this.tableBody_,
+              'The table body DOM element cannot be null');
+          goog.a11y.aria.setState(this.tableBody_, 'activedescendant', el.id);
         }
 
         // Custom decorator

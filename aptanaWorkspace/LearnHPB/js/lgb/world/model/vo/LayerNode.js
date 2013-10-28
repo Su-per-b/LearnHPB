@@ -22,11 +22,6 @@ lgb.world.model.vo.LayerNode.prototype.init = function(meshWrapper) {
   
     var mesh = meshWrapper.mesh;
     
-    
-    if (mesh.scale.z != 1.0) {
-      //mesh.bakeScaleIntoGeometry();
-    }
-    
     var bb = mesh.geometry.getBoundingBoxObject();
   
     this.thickness = (bb.max.z - bb.min.z);

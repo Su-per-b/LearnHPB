@@ -32,6 +32,7 @@ goog.require('goog.editor.style');
 goog.require('goog.events');
 goog.require('goog.events.EventHandler');
 goog.require('goog.events.EventType');
+goog.require('goog.math.Box');
 goog.require('goog.positioning');
 goog.require('goog.string');
 goog.require('goog.style');
@@ -175,7 +176,6 @@ goog.ui.editor.Bubble.prototype.disposeInternal = function() {
 
 /**
  * @return {Element} The element that where the bubble's contents go.
- * @protected
  */
 goog.ui.editor.Bubble.prototype.getContentElement = function() {
   return this.bubbleContents_;

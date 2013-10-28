@@ -129,7 +129,7 @@
     "colorSpecular" : [0.5, 0.5, 0.5],
     "shading" : "Lambert",
     "specularCoef" : 50,
-    "visible" : true,
+    "visible" : false,
     "transparency" : 1.0,
     "vertexColors" : false
     }],

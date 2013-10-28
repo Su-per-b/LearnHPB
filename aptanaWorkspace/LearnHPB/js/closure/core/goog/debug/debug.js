@@ -15,7 +15,6 @@
 /**
  * @fileoverview Logging and debugging utilities.
  *
-
  * @see ../demos/debug.html
  */
 
@@ -38,9 +37,16 @@ goog.require('goog.userAgent');
 goog.debug.catchErrors = function(logFunc, opt_cancel, opt_target) {
   var target = opt_target || goog.global;
   var oldErrorHandler = target.onerror;
-  // Chrome interprets onerror return value backwards (http://crbug.com/92062).
-  // Safari doesn't support onerror at all.
-  var retVal = goog.userAgent.WEBKIT ? !opt_cancel : !!opt_cancel;
+  var retVal = !!opt_cancel;
+
+  // Chrome interprets onerror return value backwards (http://crbug.com/92062)
+  // until it was fixed in webkit revision r94061 (Webkit 535.3). This
+  // workaround still needs to be skipped in Safari after the webkit change
+  // gets pushed out in Safari.
+  // See https://bugs.webkit.org/show_bug.cgi?id=67119
+  if (goog.userAgent.WEBKIT && !goog.userAgent.isVersion('535.3')) {
+    retVal = !retVal;
+  }
   target.onerror = function(message, url, line) {
     if (oldErrorHandler) {
       oldErrorHandler(message, url, line);
@@ -226,7 +232,10 @@ goog.debug.normalizeErrorObject = function(err) {
   }
 
   try {
-    fileName = err.fileName || err.filename || err.sourceURL || href;
+    fileName = err.fileName || err.filename || err.sourceURL ||
+        // $googDebugFname may be set before a call to eval to set the filename
+        // that the eval is supposed to present.
+        goog.global['$googDebugFname'] || href;
   } catch (e) {
     // Firefox 2 may also throw an error when accessing 'filename'.
     fileName = 'Not available';
