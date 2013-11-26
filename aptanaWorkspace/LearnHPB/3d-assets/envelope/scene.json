@@ -59,9 +59,8 @@
 			"type": "binary",
 			"url": "13ftStripWindow.obj.json"
 		}
-	},
-	"transform" :
-	{
-	    "position"  : [ 0, 0, 0 ]
 	}
+	
+
+
 }

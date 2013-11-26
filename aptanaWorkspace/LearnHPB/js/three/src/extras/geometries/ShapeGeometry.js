@@ -52,6 +52,7 @@ THREE.ShapeGeometry.prototype.addShapeList = function ( shapes, options ) {
 THREE.ShapeGeometry.prototype.addShape = function ( shape, options ) {
 
 	if ( options === undefined ) options = {};
+	var curveSegments = options.curveSegments !== undefined ? options.curveSegments : 12;
 
 	var material = options.material;
 	var uvgen = options.UVGenerator === undefined ? THREE.ExtrudeGeometry.WorldUVGenerator : options.UVGenerator;
@@ -63,7 +64,7 @@ THREE.ShapeGeometry.prototype.addShape = function ( shape, options ) {
 	var i, l, hole, s;
 
 	var shapesOffset = this.vertices.length;
-	var shapePoints = shape.extractPoints();
+	var shapePoints = shape.extractPoints( curveSegments );
 
 	var vertices = shapePoints.shape;
 	var holes = shapePoints.holes;
@@ -123,9 +124,9 @@ THREE.ShapeGeometry.prototype.addShape = function ( shape, options ) {
 
 		face = faces[ i ];
 
-		var a = face[ 2 ] + shapesOffset;
+		var a = face[ 0 ] + shapesOffset;
 		var b = face[ 1 ] + shapesOffset;
-		var c = face[ 0 ] + shapesOffset;
+		var c = face[ 2 ] + shapesOffset;
 
 		this.faces.push( new THREE.Face3( a, b, c, null, null, material ) );
 		this.faceVertexUvs[ 0 ].push( uvgen.generateBottomUV( this, shape, options, a, b, c ) );

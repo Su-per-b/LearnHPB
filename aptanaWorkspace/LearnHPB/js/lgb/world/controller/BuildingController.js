@@ -48,6 +48,7 @@ lgb.world.controller.BuildingController.prototype.init_ = function() {
   this.zoneController_ = new lgb.world.controller.ZoneController();
   this.roofTopController_ = new lgb.world.controller.RoofTopController();
   this.hvacController_ = new lgb.world.controller.HvacController();
+  
   this.lightingController_ = new lgb.gui.controller.TestLightingController();
   this.furnitureController_ = new lgb.world.controller.FurnitureController();
   this.crossSectionController_ = new lgb.world.controller.CrossSectionController();
@@ -64,6 +65,7 @@ lgb.world.controller.BuildingController.prototype.init_ = function() {
   this.zoneController_.init();
   this.roofTopController_.init();
   this.hvacController_.init();
+  
   this.lightingController_.init();
   this.furnitureController_.init();
   this.crossSectionController_.init();
@@ -97,27 +99,9 @@ lgb.world.controller.BuildingController.prototype.bind2_ = function() {
 
 
   this.listenTo(
-    this.zoneController_,
+    this.envelopeController_,
     e.AddToWorldRequest,
-    this.onAddToFloor_
-    );
-    
-  this.listenTo(
-    this.roofTopController_,
-    e.AddToWorldRequest,
-    this.onAddToRoof_
-    );
-    
-  this.listenTo(
-    this.hvacController_,
-    e.AddToWorldRequest,
-    this.onAddToCeiling_
-    );
-    
-  this.listenTo(
-    this.lightingController_,
-    e.AddToWorldRequest,
-    this.onAddToCeiling_
+    this.onAddToGround_
     );
     
   this.listenTo(
@@ -126,27 +110,49 @@ lgb.world.controller.BuildingController.prototype.bind2_ = function() {
     this.onAddToFloor_
     );
     
+    
+  this.listenTo(
+    this.zoneController_,
+    e.AddToWorldRequest,
+    this.onAddToFloor_
+    );
+    
+
+  this.listenTo(
+    this.roofTopController_,
+    e.AddToWorldRequest,
+    this.onAddToRoof_
+    );
+    
+    
+  this.listenTo(
+    this.hvacController_,
+    e.AddToWorldRequest,
+    this.onAddToCeiling_
+    );
+    
+    
+    
+  this.listenTo(
+    this.lightingController_,
+    e.AddToWorldRequest,
+    this.onAddToCeiling_
+    );
+
+
   this.listenTo(
     this.crossSectionController_,
     e.AddToWorldRequest,
     this.onAddToFloor_
     );
     
-  this.listenTo(
-    this.envelopeController_,
-    e.AddToWorldRequest,
-    this.onAddToGround_
-    );
     
-
   this.listenTo(
     this.psMasterController_,
     e.AddToWorldRequest,
     this.onAddToCeiling_
     );
     
-  
-  //var controllers =     [this.furnitureController_,this.roofTopController_];
 
   this.listen(
     e.ViewpointNodesLoaded,
@@ -161,11 +167,9 @@ lgb.world.controller.BuildingController.prototype.bind2_ = function() {
 
 lgb.world.controller.BuildingController.prototype.onViewpointNodesLoaded_ =
   function(event) {
-
-
+    
     this.viewpointController_.loadViewpoint(event.payload);
-    
-    
+
 };
 
 
@@ -182,8 +186,6 @@ lgb.world.controller.BuildingController.prototype.onAddToAnchor_ =
       this.view.addToFloor(node);
    }
 
-
-
 };
 
 
@@ -191,7 +193,6 @@ lgb.world.controller.BuildingController.prototype.onAddToAnchor_ =
 
 lgb.world.controller.BuildingController.prototype.onAddToCeiling_ =
   function(event) {
-
    this.view.addToCeiling(event.payload);
 };
 
@@ -199,33 +200,27 @@ lgb.world.controller.BuildingController.prototype.onAddToCeiling_ =
 
 lgb.world.controller.BuildingController.prototype.onAddToFloor_ =
   function(event) {
-
    this.view.addToFloor(event.payload);
 };
 
 
 lgb.world.controller.BuildingController.prototype.onAddToRoof_ =
   function(event) {
-
    this.view.addToRoof(event.payload);
 };
 
 
 lgb.world.controller.BuildingController.prototype.onAddToGround_ =
   function(event) {
-
    this.view.addToGround_(event.payload);
 };
 
 
-
-
-
 lgb.world.controller.BuildingController.prototype.onBuildingHeightChanged_ =
   function(event) {
-
+    
    this.view.setBuildingHeight(event.payload);
-  
+   
 };
 
 

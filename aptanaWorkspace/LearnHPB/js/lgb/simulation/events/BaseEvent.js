@@ -13,9 +13,11 @@ goog.require('goog.events.Event');
  * @param {lgb.scenario.model.Base} scenarioBase The Data Model.
  * @extends {goog.events.Event}
  */
-lgb.simulation.events.BaseEvent = function(type, payload) {
+lgb.simulation.events.BaseEvent = function(payload) {
     
-  goog.events.Event.call( this, type );
+ var fullClassName = this.getFullClassName();
+ 
+  goog.events.Event.call( this, fullClassName );
   
   this.setPayload(payload);
   
@@ -45,16 +47,9 @@ lgb.simulation.events.BaseEvent.prototype.fromJson = function(deserializedObj) {
     
     return typedObj;
     
-    
-    //return deserializedObj;
 };
 
-/**
- * Event type
- * @const
- * @type {string}
- */
-lgb.simulation.events.BaseEvent.TYPE = 'lgb.simulation.events.BaseEvent';
+
 
 /**
  * Server type
@@ -66,4 +61,14 @@ lgb.simulation.events.BaseEvent.SERVER_TYPE = 'com.sri.straylight.fmuWrapper.eve
 
 se.Event = function() {};
 
-se.WebSocketChangeRequest = 'se.WebSocketChangeRequest';
+se.BaseEvent = 'lgb.simulation.events.BaseEvent';
+se.WebSocketChangeRequest = 'lgb.simulation.events.WebSocketChangeRequest';
+se.SimStateNativeNotify = 'lgb.simulation.events.SimStateNativeNotify';
+se.XMLparsedEvent = 'lgb.simulation.events.XMLparsedEvent';
+se.ResultEvent = 'lgb.simulation.events.ResultEvent';
+se.MessageEvent = 'lgb.simulation.events.MessageEvent';
+se.RequestModelicaVariableChange = 'lgb.simulation.events.RequestModelicaVariableChange';
+se.ConfigChangeNotify = 'lgb.simulation.events.ConfigChangeNotify';
+se.SimStateNativeRequest = 'lgb.simulation.events.SimStateNativeRequest';
+
+

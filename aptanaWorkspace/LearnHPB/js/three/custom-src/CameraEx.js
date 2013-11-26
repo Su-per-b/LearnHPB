@@ -13,19 +13,38 @@ THREE.Camera.prototype.getAnchor = function (  ) {
 };
 
 
-THREE.Camera.prototype.lookAt = function ( vector ) {
+THREE.Camera.prototype.lookAt = function () {
 
-  // TODO: Add hierarchy support.
+  // This routine does not support cameras with rotated and/or translated parent(s)
 
-  this.matrix.lookAt( this.position, vector, this.up );
+  var m1 = new THREE.Matrix4();
 
-  if ( this.rotationAutoUpdate === true ) {
-    this.rotation.setEulerFromRotationMatrix( this.matrix, this.eulerOrder );
-  }
-  
-  this.lookAtPosition = vector;
+  return function ( vector ) {
+    
+    this.lookAtPosition = vector;
+    m1.lookAt( this.position, vector, this.up );
 
-};
+    this.quaternion.setFromRotationMatrix( m1 );
+
+  };
+
+}();
+
+
+
+// THREE.Camera.prototype.lookAt = function ( vector ) {
+// 
+  // // TODO: Add hierarchy support.
+// 
+  // this.matrix.lookAt( this.position, vector, this.up );
+// 
+  // //if ( this.rotationAutoUpdate === true ) {
+    // //this.rotation.setEulerFromRotationMatrix( this.matrix, this.eulerOrder );
+ // //}
+//   
+  // this.lookAtPosition = vector;
+// 
+// };
 
 
 THREE.Camera.prototype.getInfo = function ( vector ) {

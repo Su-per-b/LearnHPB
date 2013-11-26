@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="/LearnHPB/" >
+    <meta charset="UTF-8" />
+
+    <!-- =========================  CSS  ============================ -->
+
+    <link type="text/css" href="css/lgb.css"  rel="stylesheet" />
+    <link type="text/css" href="css/lgb-test.css"  rel="stylesheet" />
+    
+    <!-- =========================   JavaScript  ============================ -->
+    <script src="test/js/includes/Main.js"></script>
+    <script src="test/js/includes/MainLibs.js"></script>
+    <script src="test/js/includes/ThreeEx.js"></script>
+
+    <title>Test World 4</title>
+
+    <script>
+    
+      goog.require('lgb');
+      goog.require('lgb.core.EventBus');
+      goog.require('lgb.core.Global');
+      goog.require('test.world.controller.WorldController');
+      goog.require('lgb.world.controller.UtilityController');
+      goog.require('test.world.controller.RoofTopController1');
+    </script>
+  
+  
+
+  </head>
+
+  <body id="theBody">
+    <div id="webGLcanvas"></div>
+  </body>
+  
+
+  <script>
+
+    lgb.init();
+    lgb.globalEventBus = new lgb.core.EventBus();
+      
+    var worldController = new test.world.controller.WorldController();
+    worldController.init();
+    
+    this.utilityController_ = new lgb.world.controller.UtilityController();
+    
+    this.testController_ = new test.world.controller.RoofTopController1();
+    this.testController_.init();
+    
+    
+  </script>
+  
+</html>

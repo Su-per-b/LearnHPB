@@ -36,8 +36,8 @@ lgb.world.controller.EnvelopeController.prototype.init = function() {
   this.guiView.init();
   
   this.trigger(e.EnvelopeModelChanged, this.dataModel);
-  
 };
+
 
 
 /**
@@ -71,11 +71,7 @@ lgb.world.controller.EnvelopeController.prototype.bind_ = function() {
     e.VisibilityNodesLoaded
     );
 
-
-
-    
 };
-
 
 
 
@@ -85,10 +81,6 @@ lgb.world.controller.EnvelopeController.prototype.getTopFloor =
   return this.view.getTopFloor();
   
 };
-
-
-
-
 
 
 lgb.world.controller.EnvelopeController.prototype.onViewInitialized_ =

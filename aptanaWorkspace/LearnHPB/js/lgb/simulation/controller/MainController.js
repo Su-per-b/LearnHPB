@@ -5,6 +5,8 @@
 
 goog.provide('lgb.simulation.controller.MainController');
 
+goog.require('se.Event');
+
 goog.require('lgb.core.BaseController');
 goog.require('lgb.simulation.controller.JsonController');
 
@@ -47,38 +49,37 @@ lgb.simulation.controller.MainController.prototype.bind_ = function() {
   
     this.listenTo (
         this,
-        lgb.simulation.events.SimStateNativeNotify.TYPE,
+        se.SimStateNativeNotify,
         this.onSimStateNativeNotify_
     );
     
     this.listenTo (
         this,
-        lgb.simulation.events.ConfigChangeNotify.TYPE,
+        se.ConfigChangeNotify,
         this.onConfigChangeNotify_
     );
     
-    
     this.listenTo (
         this,
-        lgb.simulation.events.XMLparsedEvent.TYPE,
+        se.XMLparsedEvent,
         this.onXMLparsedEvent_
     );
     
     this.listenTo (
         this,
-        lgb.simulation.events.ResultEvent.TYPE,
+        se.ResultEvent,
         this.onResultEvent_
     );
     
     
     this.listenTo (
         this,
-        lgb.simulation.events.MessageEvent.TYPE,
+        se.MessageEvent,
         this.onMessageEvent_
     );
     
     this.listen (
-        e.RequestModelicaVariableChange,
+        se.RequestModelicaVariableChange,
         this.onRequestModelicaVariableChange_
     );
     

@@ -1,4 +1,8 @@
 
+
+
+
+
 THREE.BinaryLoader.prototype.load = function( url, callback, loaderParameters ) {
 
 	var texturePath = loaderParameters.texturePath ? loaderParameters.texturePath : this.extractUrlBase( url );

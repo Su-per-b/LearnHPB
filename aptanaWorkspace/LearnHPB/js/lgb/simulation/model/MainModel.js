@@ -74,6 +74,10 @@ lgb.simulation.model.MainModel.prototype.init_ = function(event) {
       hostname2 = '192.168.0.15';
       break;
       
+    case lgb.core.Config.SOCKET_SERVER.LocalHost :
+      hostname2 = '127.0.0.1';
+      break;
+      
   }
   
 

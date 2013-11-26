@@ -1,93 +1,86 @@
 /**
  * @author mrdoob / http://mrdoob.com/
+ * @author Larry Battle / http://bateru.com/news
+ * @author bhouston / http://exocortex.com
  */
 
-var THREE = THREE || { REVISION: '51' };
+var THREE = { REVISION: '63' };
 
-if ( self.console === undefined ) {
+self.console = self.console || {
 
-	self.console = {
+	info: function () {},
+	log: function () {},
+	debug: function () {},
+	warn: function () {},
+	error: function () {}
 
-		info: function () {},
-		log: function () {},
-		debug: function () {},
-		warn: function () {},
-		error: function () {}
+};
 
-	};
+String.prototype.trim = String.prototype.trim || function () {
 
-}
+	return this.replace( /^\s+|\s+$/g, '' );
 
-if ( self.Int32Array === undefined ) {
+};
 
-	self.Int32Array = Array;
-	self.Float32Array = Array;
+// based on https://github.com/documentcloud/underscore/blob/bf657be243a075b5e72acc8a83e6f12a564d8f55/underscore.js#L767
+THREE.extend = function ( obj, source ) {
 
-}
+	// ECMAScript5 compatibility based on: http://www.nczonline.net/blog/2012/12/11/are-your-mixins-ecmascript-5-compatible/
+	if ( Object.keys ) {
 
-// Shims for "startsWith", "endsWith", and "trim" for browsers where this is not yet implemented
-// not sure we should have this, or at least not have it here
+		var keys = Object.keys( source );
 
-// http://stackoverflow.com/questions/646628/javascript-startswith
-// http://stackoverflow.com/questions/498970/how-do-i-trim-a-string-in-javascript
-// http://wiki.ecmascript.org/doku.php?id=harmony%3astring_extras
+		for (var i = 0, il = keys.length; i < il; i++) {
 
-if ( String.prototype.startsWith === undefined ) {
+			var prop = keys[i];
+			Object.defineProperty( obj, prop, Object.getOwnPropertyDescriptor( source, prop ) );
 
-	String.prototype.startsWith = function ( str ) {
+		}
 
-		return this.slice( 0, str.length ) === str;
+	} else {
 
-	};
+		var safeHasOwnProperty = {}.hasOwnProperty;
 
-}
+		for ( var prop in source ) {
 
-if ( String.prototype.endsWith === undefined ) {
+			if ( safeHasOwnProperty.call( source, prop ) ) {
 
-	String.prototype.endsWith = function ( str ) {
+				obj[prop] = source[prop];
 
-		var t = String( str );
-		var index = this.lastIndexOf( t );
-		return index >= 0 && index === this.length - t.length;
+			}
 
-	};
+		}
 
-}
+	}
 
-if ( ! String.prototype.trim === undefined ) {
+	return obj;
 
-	String.prototype.trim = function () {
-
-		return this.replace( /^\s+|\s+$/g, '' );
-
-	};
-
-}
+};
 
 // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
 // http://my.opera.com/emoller/blog/2011/12/20/requestanimationframe-for-smart-er-animating
 
 // requestAnimationFrame polyfill by Erik Möller
 // fixes from Paul Irish and Tino Zijdel
-
+// using 'self' instead of 'window' for compatibility with both NodeJS and IE10.
 ( function () {
 
 	var lastTime = 0;
 	var vendors = [ 'ms', 'moz', 'webkit', 'o' ];
 
-	for ( var x = 0; x < vendors.length && !window.requestAnimationFrame; ++ x ) {
+	for ( var x = 0; x < vendors.length && !self.requestAnimationFrame; ++ x ) {
 
-		window.requestAnimationFrame = window[ vendors[ x ] + 'RequestAnimationFrame' ];
-		window.cancelAnimationFrame = window[ vendors[ x ] + 'CancelAnimationFrame' ] || window[ vendors[ x ] + 'CancelRequestAnimationFrame' ];
+		self.requestAnimationFrame = self[ vendors[ x ] + 'RequestAnimationFrame' ];
+		self.cancelAnimationFrame = self[ vendors[ x ] + 'CancelAnimationFrame' ] || self[ vendors[ x ] + 'CancelRequestAnimationFrame' ];
 
 	}
 
-	if ( window.requestAnimationFrame === undefined ) {
+	if ( self.requestAnimationFrame === undefined && self['setTimeout'] !== undefined ) {
 
-		window.requestAnimationFrame = function ( callback, element ) {
+		self.requestAnimationFrame = function ( callback ) {
 
 			var currTime = Date.now(), timeToCall = Math.max( 0, 16 - ( currTime - lastTime ) );
-			var id = window.setTimeout( function() { callback( currTime + timeToCall ); }, timeToCall );
+			var id = self.setTimeout( function() { callback( currTime + timeToCall ); }, timeToCall );
 			lastTime = currTime + timeToCall;
 			return id;
 
@@ -95,15 +88,29 @@ if ( ! String.prototype.trim === undefined ) {
 
 	}
 
+	if( self.cancelAnimationFrame === undefined && self['clearTimeout'] !== undefined ) {
 
-	if ( window.cancelAnimationFrame === undefined ) {
-
-		window.cancelAnimationFrame = function ( id ) { clearTimeout( id ); };
+		self.cancelAnimationFrame = function ( id ) { self.clearTimeout( id ) };
 
 	}
 
 }() );
 
+// GL STATE CONSTANTS
+
+THREE.CullFaceNone = 0;
+THREE.CullFaceBack = 1;
+THREE.CullFaceFront = 2;
+THREE.CullFaceFrontBack = 3;
+
+THREE.FrontFaceDirectionCW = 0;
+THREE.FrontFaceDirectionCCW = 1;
+
+// SHADOWING TYPES
+
+THREE.BasicShadowMap = 0;
+THREE.PCFShadowMap = 1;
+THREE.PCFSoftShadowMap = 2;
 
 // MATERIAL CONSTANTS
 
@@ -170,6 +177,7 @@ THREE.SrcAlphaSaturateFactor = 210;
 
 THREE.MultiplyOperation = 0;
 THREE.MixOperation = 1;
+THREE.AddOperation = 2;
 
 // Mapping modes
 

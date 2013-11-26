@@ -37,6 +37,8 @@ lgb.world.view.LightingView.prototype.onChange_lightingType_ = function(lighting
  * @private
  */
 lgb.world.view.LightingView.prototype.onSceneLoaded_ = function() {
+ 
+
 
   for (var i = this.scene_.children.length - 1; i >= 0; i--) {
     var mesh = this.scene_.children.pop();
@@ -44,11 +46,14 @@ lgb.world.view.LightingView.prototype.onSceneLoaded_ = function() {
     if (mesh.name == 'recessed') {
 
       this.recessedGeom = mesh.geometry;
+      this.recessedMesh_ = mesh;
+      
       this.gridRecessed = new lgb.world.model.GridModel(this.appData_.gridRecessed, mesh.geometry.getDimensions());
 
     } else if (mesh.name == 'pendant') {
 
       this.pendantGeom = mesh.geometry;
+      this.pendantMesh_ = mesh;
       this.gridPendant = new lgb.world.model.GridModel(this.appData_.gridPendant, mesh.geometry.getDimensions());
     }
 
@@ -59,6 +64,7 @@ lgb.world.view.LightingView.prototype.onSceneLoaded_ = function() {
   this.requestAddToWorld(this.masterGroup_);
 
   this.dispatchVisibilityNodes_();
+
 
 };
 
@@ -75,30 +81,28 @@ lgb.world.view.LightingView.prototype.dispatchVisibilityNodes_ = function() {
  */
 lgb.world.view.LightingView.prototype.buildGrid_ = function() {
 
-  var m = this.masterGroup_.children.length;
 
-  for (var i = this.masterGroup_.children.length - 1; i >= 0; i--) {
-    this.masterGroup_.remove(this.masterGroup_.children[i]);
-  }
-
-  var geometry;
+  this.masterGroup_.removeAllChildren();
+  
+  var mesh;
   var gridModel;
 
   if (this.dataModel.lightingType == lgb.world.model.LightingModel.Type.PENDANT) {
 
-    geometry = this.pendantGeom;
+    mesh = this.pendantMesh_;
+    
     gridModel = this.gridPendant;
 
   } else if (this.dataModel.lightingType == lgb.world.model.LightingModel.Type.RECESSED) {
 
-    geometry = this.recessedGeom;
+    mesh = this.recessedMesh_;
     gridModel = this.gridRecessed;
 
   } else {
 
   }
 
-  this.buildGridHelper_(gridModel, geometry);
+  this.buildGridHelper_(gridModel, mesh);
 
 };
 
@@ -108,12 +112,12 @@ lgb.world.view.LightingView.prototype.buildGrid_ = function() {
  * @param {lgb.world.model.GridModel} gridModel.
  * @protected
  */
-lgb.world.view.LightingView.prototype.buildGridHelper_ = function(gridModel, geometry) {
+lgb.world.view.LightingView.prototype.buildGridHelper_ = function(gridModel, mesh) {
 
   for (var c = 0; c < gridModel.columnCount; c++) {
     for (var r = 0; r < gridModel.rowCount; r++) {
 
-      var light = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial());
+      var light = mesh.clone();
       light.castShadow = true;
       light.receiveShadow = true;
 

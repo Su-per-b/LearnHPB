@@ -13,11 +13,7 @@ goog.require('lgb.simulation.model.WebSocketConnectionState');
  */
 lgb.simulation.events.WebSocketConnectionStateEvent = function(payload) {
     
-  lgb.simulation.events.BaseEvent.call(
-      this,
-      lgb.simulation.events.WebSocketConnectionStateEvent.TYPE, 
-      payload);
-
+  lgb.simulation.events.BaseEvent.call(this,payload);
 
 };
 goog.inherits(lgb.simulation.events.WebSocketConnectionStateEvent, lgb.simulation.events.BaseEvent);
@@ -31,13 +27,6 @@ lgb.simulation.events.WebSocketConnectionStateEvent.prototype.fromJson = functio
     
 };
 
-
-/**
- * Event type
- * @const
- * @type {string}
- */
-lgb.simulation.events.WebSocketConnectionStateEvent.TYPE = 'lgb.simulation.events.WebSocketConnectionStateEvent';
 
 /**
  * Server type

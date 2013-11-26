@@ -105,7 +105,7 @@ lgb.world.view.WorldSelectionView.prototype.onRenderNotify_checkCollision_ = fun
   var vector = new THREE.Vector3(this.mouse.x, this.mouse.y, 0.5);
   this.projector_.unprojectVector(vector, this.camera_);
 
-  var ray = new THREE.Ray(this.camera_.position, vector.subSelf(this.camera_.position).normalize());
+  var ray = new THREE.Raycaster(this.camera_.position, vector.sub(this.camera_.position).normalize());
   var intersectList = ray.intersectObjects(this.dataModel.selectableMeshesAry, true);
 
   if (intersectList.length > 0) {

@@ -1,16 +1,6 @@
 {
 
-    "metadata" :
-    {
-        "formatVersion" : 3.1,
-        "sourceFile"    : "floor9ft.obj",
-        "generatedBy"   : "OBJConverter",
-        "vertices"      : 1788,
-        "faces"         : 457,
-        "normals"       : 2900,
-        "uvs"           : 48,
-        "materials"     : 3
-    },
+
 
     "materials": [	{
 	"DbgColor" : 15658734,

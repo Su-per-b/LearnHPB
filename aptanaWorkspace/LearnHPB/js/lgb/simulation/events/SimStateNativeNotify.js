@@ -14,7 +14,7 @@ goog.require('lgb.simulation.events.BaseEvent');
  * @extends {goog.events.Event}
  */
 lgb.simulation.events.SimStateNativeNotify = function(payload) {
-  lgb.simulation.events.BaseEvent.call(this, lgb.simulation.events.SimStateNativeNotify.TYPE,  payload);
+  lgb.simulation.events.BaseEvent.call(this,  payload);
 };
 
 goog.inherits(lgb.simulation.events.SimStateNativeNotify, lgb.simulation.events.BaseEvent);
@@ -33,12 +33,16 @@ lgb.simulation.events.SimStateNativeNotify.prototype.fromJson = function(deseria
 };
 
 
-/**
- * Event type
- * @const
- * @type {string}
- */
-lgb.simulation.events.SimStateNativeNotify.TYPE = 'lgb.simulation.events.SimStateNativeNotify';
+lgb.simulation.events.SimStateNativeNotify.fromJson = function(deserializedObj) {
+    
+    var intValue =  deserializedObj.payload.intValue;
+    
+    var instance = new lgb.simulation.events.SimStateNativeNotify(intValue);
+    return instance;
+    
+};
+
+
 
 /**
  * Server type

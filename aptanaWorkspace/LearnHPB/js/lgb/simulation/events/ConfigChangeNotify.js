@@ -14,7 +14,7 @@ goog.require('lgb.simulation.events.BaseEvent');
  * @extends {goog.events.Event}
  */
 lgb.simulation.events.ConfigChangeNotify = function(payload) {
-  lgb.simulation.events.BaseEvent.call(this, lgb.simulation.events.ConfigChangeNotify.TYPE,  payload);
+  lgb.simulation.events.BaseEvent.call(this,  payload);
 };
 
 goog.inherits(lgb.simulation.events.ConfigChangeNotify, lgb.simulation.events.BaseEvent);
@@ -45,12 +45,6 @@ lgb.simulation.events.ConfigChangeNotify.prototype.fromJson = function(deseriali
 };
 
 
-/**
- * Event type
- * @const
- * @type {string}
- */
-lgb.simulation.events.ConfigChangeNotify.TYPE = 'lgb.simulation.events.ConfigChangeNotify';
 
 /**
  * Server type

@@ -89,17 +89,40 @@ lgb.world.model.ParticleSystemMasterModel.prototype.onSceneLoadedSync_ = functio
   this.groups_ = result['groups'];
   this.cameras_ = result['cameras'];
 
-
+  this.objects_ = result.objects;
+  this.meshes_ = {};
+  this.object3ds_ = {};
+  
+  
+  this.objectTypeMap_ = {
+    Mesh : this.meshes_,
+    Object3D : this.object3ds_
+  };
+  
+  
+  //this.eachPropertyName(this.objects_, this.processOneObject_);
+  
+   var scene_rotation = new THREE.Euler(this.scene_.rotation.x, this.scene_.rotation.y, this.scene_.rotation.z);
+  
   var i = this.scene_.children.length;
   while (i--) {
     var mesh = this.scene_.children.shift();
     if (null != mesh.geometry) {
       
         mesh.bakeTransformsIntoGeometry();
-        mesh.position = this.scene_.position;
-        mesh.rotation = this.scene_.rotation;
+       mesh.position.add(this.scene_.position);
+        
+       mesh.rotation.fromArray(
+         [this.scene_.rotation.x,
+         this.scene_.rotation.y,
+         this.scene_.rotation.z 
+         ]
+       );
+       
         mesh.scale = this.scene_.scale;
         mesh.bakeTransformsIntoGeometry();
+        
+        this.processOneObject_(mesh, mesh.name);
     }
   }
 
@@ -111,6 +134,45 @@ lgb.world.model.ParticleSystemMasterModel.prototype.onSceneLoadedSync_ = functio
   this.checkForInitComplete_();
 
 };
+
+
+
+lgb.world.model.ParticleSystemMasterModel.prototype.processOneObject_ = function(object, name) {
+  
+
+  var fullClassName = object.getFullClassName();
+  var ary = fullClassName.split('.');
+
+  var len = ary.length;
+  var className = ary[len - 1];
+
+  if ('' == object.name) {
+    object.name = name;
+  }
+
+  this.objectTypeMap_[className][name] = object;
+
+
+  if (undefined !== object.groups){
+    
+    for (var i = 0; i < object.groups.length; i++) {
+      var groupID = object.groups[i];
+  
+      if (this.groups_[groupID] === undefined) {
+        this.groups_[groupID] = [];
+      }
+      
+      this.groups_[groupID].push(object);
+    }
+
+  }
+
+  
+};
+
+
+
+
 
 /**
  * used to determine if both the XML file and the JS file are

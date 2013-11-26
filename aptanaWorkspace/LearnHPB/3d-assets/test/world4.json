@@ -1,0 +1,65 @@
+{
+
+
+  "containers":{
+  
+  "107": {
+      "type": "group",
+      "groupName": "OuterOfficeGroup",
+      "position": [
+          0,
+          0,
+          -3
+      ],
+      "rotation": [
+          0,
+          0,
+          0
+      ]
+    }
+  },
+
+    
+
+	"objects": {
+	
+    "TaskLight1" : {
+      "geometry" : "geo_TaskLight",
+      "materials": [],
+      "position" : [ 0, 0, 0 ],
+      "rotation" : [ 0, 0, 0 ],
+      "scale"    : [ 20, 20, 20 ],
+      "visible"  : true,
+      "groups":[
+        "OuterOfficeGroup"
+      ]
+    },
+    
+    
+    "TaskLight2" : {
+      "geometry" : "geo_TaskLight",
+      "materials": [],
+      "position" : [ 20, 0, 0 ],
+      "rotation" : [ 0, 0, 0 ],
+      "scale"    : [ 20, 20, 20 ],
+      "visible"  : true,
+      "groups":[
+        "OuterOfficeGroup"
+      ]
+    }
+        
+	},
+
+	"geometries": {
+    "geo_TaskLight":{
+      "type":"binary",
+      "url":"TaskLight.obj.json"
+    }
+	},
+
+
+	"defaults": {
+		"bgalpha": 1
+	}
+
+}

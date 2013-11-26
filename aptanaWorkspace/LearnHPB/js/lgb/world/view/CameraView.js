@@ -72,7 +72,7 @@ lgb.world.view.CameraView.prototype.goToViewpoint = function(node) {
   var camera = new THREE.PerspectiveCamera(this.camera.fov, this.camera.aspect, this.camera.near, this.camera.far);
 
   var moveToPosition = targetPosition.clone();
-  moveToPosition.addSelf(this.offset_);
+  moveToPosition.add(this.offset_);
 
   camera.position = moveToPosition;
   camera.target = targetPosition;

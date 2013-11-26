@@ -48,7 +48,7 @@ lgb.core.Config.APP_TITLE = 'LearnHPB Alpha';
  * @const
  * @type {string}
  */
-lgb.core.Config.APP_VERSION = '1.07';
+lgb.core.Config.APP_VERSION = '1.09';
 
 /**
  * Will show status in the upper left if set to true.
@@ -104,8 +104,9 @@ lgb.core.Config.SOCKET_SERVER = function() {};
 lgb.core.Config.SOCKET_SERVER.AutoConfig = 0;
 lgb.core.Config.SOCKET_SERVER.Pfalco = 1;
 lgb.core.Config.SOCKET_SERVER.PfalcoLocal = 2;
+lgb.core.Config.SOCKET_SERVER.LocalHost = 3;
 
-lgb.core.Config.SOCKET_SERVER_HOST = lgb.core.Config.SOCKET_SERVER.Pfalco;
+lgb.core.Config.SOCKET_SERVER_HOST = lgb.core.Config.SOCKET_SERVER.LocalHost;
 
 
 

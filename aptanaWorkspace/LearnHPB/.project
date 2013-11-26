@@ -15,6 +15,16 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.ui.externaltools.ExternalToolBuilder</name>
+			<triggers>full,incremental,</triggers>
+			<arguments>
+				<dictionary>
+					<key>LaunchConfigHandle</key>
+					<value>&lt;project&gt;/.externalToolBuilders/org.python.pydev.PyDevBuilder.launch</value>
+				</dictionary>
+			</arguments>
+		</buildCommand>
 	</buildSpec>
 	<natures>
 		<nature>com.aptana.projects.webnature</nature>
@@ -22,7 +32,7 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1354663220597</id>
+			<id>1384201054216</id>
 			<name></name>
 			<type>26</type>
 			<matcher>
@@ -40,7 +50,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1354663220598</id>
+			<id>1384201054217</id>
 			<name></name>
 			<type>26</type>
 			<matcher>
@@ -49,7 +59,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1354663220599</id>
+			<id>1384201054218</id>
 			<name></name>
 			<type>14</type>
 			<matcher>
@@ -58,7 +68,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1354663220600</id>
+			<id>1384201054219</id>
 			<name></name>
 			<type>6</type>
 			<matcher>

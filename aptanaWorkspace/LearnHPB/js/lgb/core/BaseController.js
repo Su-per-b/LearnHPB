@@ -39,24 +39,21 @@ lgb.core.BaseClass.prototype.relayLocal = function(eventTarget, eventType) {
   this.listenTo(eventTarget, eventType, this.onRelayLocal_);
 };
 
+
 lgb.core.BaseClass.prototype.onRelayLocal_ = function(event) {
   this.dispatchLocal(event);
 };
 
+
 lgb.core.BaseClass.prototype.relay = function(eventTarget, eventType) {
   
   if (isArray(eventType)) {
-    
     var that = this;
     eventType.forEach(
       function(oneEventType, idx, ary) {
-        
         that.listenTo(eventTarget, oneEventType, that.onRelay_);
-        
       }
-      
     );
-    
   } else {
     this.listenTo(eventTarget, eventType, this.onRelay_);
   }

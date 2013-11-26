@@ -119,7 +119,7 @@ lgb.world.controller.CameraCraneController.prototype.moveToViewpoint =
   //tween target
   if (undefined !== this.destinationCamera_.lookAtPosition) {
     
-   // this.lookAtPosition = this.destinationCamera_.lookAtPosition;
+    this.lookAtPosition = this.destinationCamera_.lookAtPosition;
     
     var tweenTarget = new createjs.Tween(this.lookAtPosition, props);
     

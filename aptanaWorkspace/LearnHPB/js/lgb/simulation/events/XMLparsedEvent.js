@@ -14,7 +14,7 @@ goog.require('lgb.simulation.model.voManaged.XMLparsedInfo');
  * @extends {goog.events.Event}
  */
 lgb.simulation.events.XMLparsedEvent = function(payload) {
-  lgb.simulation.events.BaseEvent.call(this, lgb.simulation.events.XMLparsedEvent.TYPE,  payload);
+  lgb.simulation.events.BaseEvent.call(this,  payload);
 };
 
 goog.inherits(lgb.simulation.events.XMLparsedEvent, lgb.simulation.events.BaseEvent);
@@ -33,13 +33,6 @@ lgb.simulation.events.XMLparsedEvent.prototype.fromJson = function(deserializedO
     
 };
 
-
-/**
- * Event type
- * @const
- * @type {string}
- */
-lgb.simulation.events.XMLparsedEvent.TYPE = 'lgb.simulation.events.XMLparsedEvent';
 
 /**
  * Server type

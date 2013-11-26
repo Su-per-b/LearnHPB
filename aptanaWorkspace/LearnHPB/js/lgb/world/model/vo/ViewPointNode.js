@@ -32,12 +32,13 @@ lgb.world.model.vo.ViewpointNode.prototype.getCameraOffset = function() {
 
     var vpName = this.object3d.viewpoint;
     
+    
+    lgb.assert (vpName);
+    
     if (vpName == "default" || vpName == "") {
-      
       if (this.object3d.geometry && this.object3d.geometry.viewpoint) {
         vpName = this.object3d.geometry.viewpoint;
       }
-      
     }
     
     var offsetAry = lgb.world.model.vo.ViewpointNode.offsetMap_[vpName];
@@ -73,12 +74,12 @@ lgb.world.model.vo.ViewpointNode.prototype.getTargetPosition = function(cameraPo
     this.camera_.localToWorld(cameraPositionWorld);
     
     var cameraPositionDelta = cameraPositionWorld.clone();
-    cameraPositionDelta.subSelf(cameraPositionLocal);
+    cameraPositionDelta.sub(cameraPositionLocal);
     
     var cameraTargetLocal = this.camera_.target.clone();
     var cameraTargetWorld = this.camera_.target.clone();
 
-    cameraTargetWorld.addSelf(cameraPositionDelta);
+    cameraTargetWorld.add(cameraPositionDelta);
 
     return  cameraTargetWorld;
     
@@ -127,7 +128,11 @@ lgb.world.model.vo.ViewpointNode.prototype.updateWorldPositions = function() {
   var  cameraTemplate = new THREE.PerspectiveCamera(40, 16/9, 1, 10000);
   
   var position = this.getCameraPosition();
+  lgb.assert(position);
+  
   var targetPosition = this.getTargetPosition(position);
+  lgb.assert(targetPosition);
+  
   
   this.viewpointCamera_ = new THREE.PerspectiveCamera(
     cameraTemplate.fov, 
@@ -170,7 +175,7 @@ lgb.world.model.vo.ViewpointNode.prototype.generateCameraPosition = function() {
     this.object3d.localToWorld(cameraPosition);
     
     var offset = this.getCameraOffset();
-    cameraPosition.addSelf(offset);
+    cameraPosition.add(offset);
 
     return cameraPosition;
   

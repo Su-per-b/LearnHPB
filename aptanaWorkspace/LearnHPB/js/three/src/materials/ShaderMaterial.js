@@ -7,9 +7,12 @@
  *
  *  uniforms: { "parameter1": { type: "f", value: 1.0 }, "parameter2": { type: "i" value2: 2 } },
  *
+ *  defines: { "label" : "value" },
+ *
  *  shading: THREE.SmoothShading,
  *  blending: THREE.NormalBlending,
  *  depthTest: <bool>,
+ *  depthWrite: <bool>,
  *
  *  wireframe: <boolean>,
  *  wireframeLinewidth: <float>,
@@ -33,9 +36,12 @@ THREE.ShaderMaterial = function ( parameters ) {
 	this.fragmentShader = "void main() {}";
 	this.vertexShader = "void main() {}";
 	this.uniforms = {};
+	this.defines = {};
 	this.attributes = null;
 
 	this.shading = THREE.SmoothShading;
+
+	this.linewidth = 1;
 
 	this.wireframe = false;
 	this.wireframeLinewidth = 1;
@@ -51,6 +57,18 @@ THREE.ShaderMaterial = function ( parameters ) {
 	this.morphTargets = false; // set to use morph targets
 	this.morphNormals = false; // set to use morph normals
 
+	// When rendered geometry doesn't include these attributes but the material does,
+	// use these default values in WebGL. This avoids errors when buffer data is missing.
+	this.defaultAttributeValues = {
+		"color" : [ 1, 1, 1],
+		"uv" : [ 0, 0 ],
+		"uv2" : [ 0, 0 ]
+	};
+
+	// By default, bind position to attribute index 0. In WebGL, attribute 0
+	// should always be used to avoid potentially expensive emulation.
+	this.index0AttributeName = "position";
+
 	this.setValues( parameters );
 
 };
@@ -65,8 +83,11 @@ THREE.ShaderMaterial.prototype.clone = function () {
 
 	material.fragmentShader = this.fragmentShader;
 	material.vertexShader = this.vertexShader;
-	material.uniforms = this.uniforms;
+
+	material.uniforms = THREE.UniformsUtils.clone( this.uniforms );
+
 	material.attributes = this.attributes;
+	material.defines = this.defines;
 
 	material.shading = this.shading;
 

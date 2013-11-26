@@ -50,7 +50,7 @@ THREE.BoundingBox.prototype = {
 
   },
 
-  mergeSelf: function (bb)  {
+  merge: function (bb)  {
       
       this.min.x = Math.min(this.min.x, bb.min.x);
       this.min.y = Math.min(this.min.y, bb.min.y);
@@ -62,10 +62,10 @@ THREE.BoundingBox.prototype = {
   },
   
 
-  addSelf: function (v3)  {
+  add: function (v3)  {
       
-      this.min.addSelf(v3);
-      this.max.addSelf(v3);
+      this.min.add(v3);
+      this.max.add(v3);
 
   },
   

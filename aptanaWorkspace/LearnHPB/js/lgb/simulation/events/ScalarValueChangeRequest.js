@@ -13,7 +13,7 @@ goog.require('lgb.simulation.model.voNative.SimStateNative');
  * @extends {goog.events.Event}
  */
 lgb.simulation.events.ScalarValueChangeRequest = function(payload) {
-  lgb.simulation.events.BaseEvent.call(this, lgb.simulation.events.ScalarValueChangeRequest.TYPE,  payload);
+  lgb.simulation.events.BaseEvent.call(this, payload);
 };
 goog.inherits(lgb.simulation.events.ScalarValueChangeRequest, lgb.simulation.events.BaseEvent);
 
@@ -47,12 +47,6 @@ lgb.simulation.events.ScalarValueChangeRequest.prototype.toJsonObj = function() 
 
 
 
-/**
- * Event type
- * @const
- * @type {string}
- */
-lgb.simulation.events.ScalarValueChangeRequest.TYPE = 'lgb.simulation.events.ScalarValueChangeRequest';
 
 /**
  * Server type

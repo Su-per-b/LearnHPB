@@ -1,0 +1,40 @@
+{
+
+
+	"objects": {
+	
+    "TaskLight1" : {
+      "geometry" : "geo_TaskLight",
+      "materials": [],
+      "position" : [ 0, 0, 0 ],
+      "rotation" : [ 0, 0, 0 ],
+      "scale"    : [ 20, 20, 20 ],
+      "visible"  : true
+    },
+    
+    
+    "TaskLight2" : {
+      "geometry" : "geo_TaskLight",
+      "materials": [],
+      "position" : [ 20, 0, 0 ],
+      "rotation" : [ 0, 0, 0 ],
+      "scale"    : [ 20, 20, 20 ],
+      "visible"  : true
+    }
+        
+	},
+
+	"geometries": {
+    "geo_TaskLight":{
+      "type":"binary",
+      "url":"TaskLight.obj.json"
+    }
+	},
+
+
+	"defaults": {
+
+		"bgalpha": 1
+	}
+
+}

@@ -35,7 +35,7 @@ lgb.world.view.CrossSectionView.prototype.onSceneLoaded_ = function() {
 
   this.bind_();
   
-  this.dispatchViewpointNodes_();
+
   this.dataModel.setMeshes(this.meshes_);
   
   this.makeLayers_();
@@ -52,7 +52,8 @@ lgb.world.view.CrossSectionView.prototype.onSceneLoaded_ = function() {
   
   var mesh2 = this.meshes_["Cube"];
   mesh2.visible = false;
- 
+  
+  this.dispatchViewpointNodes_();
 };
 
 
@@ -154,10 +155,11 @@ lgb.world.view.CrossSectionView.prototype.dispatchVisibilityNodes_ = function() 
 
 lgb.world.view.CrossSectionView.prototype.dispatchViewpointNodes_ = function() {
   
- // var node = new lgb.world.model.vo.ViewpointNode.makeFromObject3D(this.masterGroup_, 2);
+  var node = new lgb.world.model.vo.ViewpointNode.makeFromObject3D(this.masterGroup_, 2);
  
-  var ary = lgb.convertMapToArray(this.objects_);
-  var node = new lgb.world.model.vo.ViewpointNode.makeFromArray(this._TITLE, ary, 1);
+  //var ary = lgb.convertMapToArray(this.objects_);
+  //var node = new lgb.world.model.vo.ViewpointNode.makeFromArray(this._TITLE, ary, 1);
+  
   this.dataModel.setViewpointNode(node);
   this.triggerLocal(e.ViewpointNodesLoaded, node);
   

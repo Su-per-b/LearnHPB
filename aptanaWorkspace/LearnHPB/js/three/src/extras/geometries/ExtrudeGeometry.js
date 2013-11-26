@@ -5,15 +5,13 @@
  *
  * parameters = {
  *
- *  size: <float>, // size of the text
- *  height: <float>, // thickness to extrude text
  *  curveSegments: <int>, // number of points on the curves
  *  steps: <int>, // number of points for z-side extrusions / used for subdividing segements of extrude spline too
- *  amount: <int>, // Amount
+ *  amount: <int>, // Depth to extrude the shape
  *
  *  bevelEnabled: <bool>, // turn on bevel
- *  bevelThickness: <float>, // how deep into text bevel goes
- *  bevelSize: <float>, // how far from text outline is bevel
+ *  bevelThickness: <float>, // how deep into the original shape bevel goes
+ *  bevelSize: <float>, // how far from shape outline is bevel
  *  bevelSegments: <int>, // number of bevel layers
  *
  *  extrudePath: <THREE.CurvePath> // 3d spline path to extrude shape along. (creates Frames if .frames aren't defined)
@@ -134,7 +132,7 @@ THREE.ExtrudeGeometry.prototype.addShape = function ( shape, options ) {
 
 	var shapesOffset = this.vertices.length;
 
-	var shapePoints = shape.extractPoints();
+	var shapePoints = shape.extractPoints( curveSegments );
 
 	var vertices = shapePoints.shape;
 	var holes = shapePoints.holes;
@@ -183,7 +181,7 @@ THREE.ExtrudeGeometry.prototype.addShape = function ( shape, options ) {
 
 		if ( !vec ) console.log( "die" );
 
-		return vec.clone().multiplyScalar( size ).addSelf( pt );
+		return vec.clone().multiplyScalar( size ).add( pt );
 
 	}
 
@@ -264,8 +262,8 @@ THREE.ExtrudeGeometry.prototype.addShape = function ( shape, options ) {
 
 		// pts from i
 
-		p.copy( pt_i ).addSelf( v_hat );
-		q.copy( pt_i ).addSelf( w_hat );
+		p.copy( pt_i ).add( v_hat );
+		q.copy( pt_i ).add( w_hat );
 
 		if ( p.equals( q ) ) {
 
@@ -276,11 +274,11 @@ THREE.ExtrudeGeometry.prototype.addShape = function ( shape, options ) {
 
 		// Points from j, k. helps prevents points cross overover most of the time
 
-		p.copy( pt_j ).addSelf( v_hat );
-		q.copy( pt_k ).addSelf( w_hat );
+		p.copy( pt_j ).add( v_hat );
+		q.copy( pt_k ).add( w_hat );
 
 		v_dot_w_hat = v.dot( w_hat );
-		q_sub_p_dot_w_hat = q.subSelf( p ).dot( w_hat );
+		q_sub_p_dot_w_hat = q.sub( p ).dot( w_hat );
 
 		// We should not reach these conditions
 
@@ -310,9 +308,9 @@ THREE.ExtrudeGeometry.prototype.addShape = function ( shape, options ) {
 
 		}
 
-		intersection = v.multiplyScalar( s ).addSelf( p );
+		intersection = v.multiplyScalar( s ).add( p );
 
-		return intersection.subSelf( pt_i ).clone(); // Don't normalize!, otherwise sharp corners become ugly
+		return intersection.sub( pt_i ).clone(); // Don't normalize!, otherwise sharp corners become ugly
 
 	}
 
@@ -419,7 +417,7 @@ THREE.ExtrudeGeometry.prototype.addShape = function ( shape, options ) {
 			normal.copy( splineTube.normals[0] ).multiplyScalar(vert.x);
 			binormal.copy( splineTube.binormals[0] ).multiplyScalar(vert.y);
 
-			position2.copy( extrudePts[0] ).addSelf(normal).addSelf(binormal);
+			position2.copy( extrudePts[0] ).add(normal).add(binormal);
 
 			v( position2.x, position2.y, position2.z );
 
@@ -449,7 +447,7 @@ THREE.ExtrudeGeometry.prototype.addShape = function ( shape, options ) {
 				normal.copy( splineTube.normals[s] ).multiplyScalar( vert.x );
 				binormal.copy( splineTube.binormals[s] ).multiplyScalar( vert.y );
 
-				position2.copy( extrudePts[s] ).addSelf( normal ).addSelf( binormal );
+				position2.copy( extrudePts[s] ).add( normal ).add( binormal );
 
 				v( position2.x, position2.y, position2.z );
 
@@ -651,11 +649,14 @@ THREE.ExtrudeGeometry.prototype.addShape = function ( shape, options ) {
 		c += shapesOffset;
 		d += shapesOffset;
 
- 		scope.faces.push( new THREE.Face4( a, b, c, d, null, null, extrudeMaterial ) );
+ 		scope.faces.push( new THREE.Face3( a, b, d, null, null, extrudeMaterial ) );
+ 		scope.faces.push( new THREE.Face3( b, c, d, null, null, extrudeMaterial ) );
 
  		var uvs = uvgen.generateSideWallUV( scope, shape, wallContour, options, a, b, c, d,
  		                                    stepIndex, stepsLength, contourIndex1, contourIndex2 );
- 		scope.faceVertexUvs[ 0 ].push( uvs );
+
+ 		scope.faceVertexUvs[ 0 ].push( [ uvs[ 0 ], uvs[ 1 ], uvs[ 3 ] ] );
+ 		scope.faceVertexUvs[ 0 ].push( [ uvs[ 1 ], uvs[ 2 ], uvs[ 3 ] ] );
 
 	}
 
@@ -674,9 +675,9 @@ THREE.ExtrudeGeometry.WorldUVGenerator = {
 			cy = geometry.vertices[ indexC ].y;
 
 		return [
-			new THREE.UV( ax, ay ),
-			new THREE.UV( bx, by ),
-			new THREE.UV( cx, cy )
+			new THREE.Vector2( ax, ay ),
+			new THREE.Vector2( bx, by ),
+			new THREE.Vector2( cx, cy )
 		];
 
 	},
@@ -709,17 +710,17 @@ THREE.ExtrudeGeometry.WorldUVGenerator = {
 
 		if ( Math.abs( ay - by ) < 0.01 ) {
 			return [
-				new THREE.UV( ax, 1 - az ),
-				new THREE.UV( bx, 1 - bz ),
-				new THREE.UV( cx, 1 - cz ),
-				new THREE.UV( dx, 1 - dz )
+				new THREE.Vector2( ax, 1 - az ),
+				new THREE.Vector2( bx, 1 - bz ),
+				new THREE.Vector2( cx, 1 - cz ),
+				new THREE.Vector2( dx, 1 - dz )
 			];
 		} else {
 			return [
-				new THREE.UV( ay, 1 - az ),
-				new THREE.UV( by, 1 - bz ),
-				new THREE.UV( cy, 1 - cz ),
-				new THREE.UV( dy, 1 - dz )
+				new THREE.Vector2( ay, 1 - az ),
+				new THREE.Vector2( by, 1 - bz ),
+				new THREE.Vector2( cy, 1 - cz ),
+				new THREE.Vector2( dy, 1 - dz )
 			];
 		}
 	}

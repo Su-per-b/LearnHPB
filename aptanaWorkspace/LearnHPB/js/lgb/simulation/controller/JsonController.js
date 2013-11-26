@@ -10,6 +10,8 @@ goog.require('lgb.simulation.events.SimStateNativeNotify');
 goog.require('lgb.simulation.events.ConfigChangeNotify');
 goog.require('lgb.simulation.events.XMLparsedEvent');
 goog.require('lgb.simulation.events.ResultEvent');
+goog.require('lgb.simulation.events.SimStateNativeRequest');
+goog.require('lgb.simulation.model.voNative.MessageStruct');
 
 
 lgb.simulation.controller.JsonController = function() {
@@ -24,22 +26,41 @@ goog.inherits(lgb.simulation.controller.JsonController, lgb.core.BaseController)
  */
 lgb.simulation.controller.JsonController.prototype.init_ = function() {
     
-    var e1 = new lgb.simulation.events.MessageEvent();
-    var e2 = new lgb.simulation.events.SimStateNativeNotify();
-    var e3 = new lgb.simulation.events.ConfigChangeNotify();
-    var e4 = new lgb.simulation.events.XMLparsedEvent();
-    var e5 = new lgb.simulation.events.ResultEvent();
-    var e6 = new lgb.simulation.events.ScalarValueChangeRequest();
+    this.classMap  = {};
+    
+    this.initClass_(new lgb.simulation.events.MessageEvent());
+    this.initClass_(new lgb.simulation.events.SimStateNativeNotify());
+    this.initClass_(new lgb.simulation.events.ConfigChangeNotify());
+    this.initClass_(new lgb.simulation.events.XMLparsedEvent());
+    this.initClass_(new lgb.simulation.events.ResultEvent());
+    this.initClass_(new lgb.simulation.events.ScalarValueChangeRequest());
+    this.initClass_(new lgb.simulation.events.SimStateNativeRequest());
+    
+    
+    this.payloadClassMap_ = {
+      "com.sri.straylight.fmuWrapper.voNative.SimStateNative" : lgb.simulation.events.SimStateNativeNotify
+      
+    };
+    
 
     
-    this.classMap = {
-        "com.sri.straylight.fmuWrapper.event.MessageEvent" : e1,
-        "com.sri.straylight.fmuWrapper.event.SimStateNativeNotify" : e2,
-        "com.sri.straylight.fmuWrapper.event.ConfigChangeNotify" : e3,
-        "com.sri.straylight.fmuWrapper.event.XMLparsedEvent" : e4,
-        "com.sri.straylight.fmuWrapper.event.ResultEvent" : e5,
-        "com.sri.straylight.fmuWrapper.event.ScalarValueChangeRequest" : e6
+    this.deserializeEventMap_ = {
+      "com.sri.straylight.fmuWrapper.event.SimStateNativeNotify":lgb.simulation.events.SimStateNativeNotify
     };
+    
+    this.deserializePayloadMap_ = {
+      "com.sri.straylight.fmuWrapper.voNative.SimStateNative":lgb.simulation.model.voNative.SimStateNative
+    };
+    
+};
+
+
+
+lgb.simulation.controller.JsonController.prototype.initClass_ = function(instance) {
+  
+  var name = instance.getFullClassName();
+  this.classMap[name] = instance;
+  
 };
 
 
@@ -50,15 +71,16 @@ lgb.simulation.controller.JsonController.prototype.deSerialize = function(jsonSt
 
     var deserializedObj = JSON && JSON.parse(jsonString) || $.parseJSON(jsonString);
     
-    var typeStr = deserializedObj.type;
-    var protoObj = this.classMap[typeStr];
+    var eventType = deserializedObj.type;
+    var eventClass = this.deserializeEventMap_[eventType];
     
-    if (! protoObj ) {
+    if (! eventClass ) {
         throw ("JsonController.deSerialize() failed due to unknwon type: "+ typeStr);
     }
     
-    var typedObj = protoObj.fromJson(deserializedObj);
+    var typedObj = eventClass.fromJson(deserializedObj);
     
+   
       
     return typedObj;
 

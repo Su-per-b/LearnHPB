@@ -109,126 +109,146 @@
 
     <!--{BLOCK_START:Three}-->
     <script src="js/three/src/Three.js"></script>
-    <script src="js/three/src/core/Color.js"></script>
-    <script src="js/three/src/core/Vector2.js"></script>
-    <script src="js/three/src/core/Vector3.js"></script>
-    <script src="js/three/src/core/Vector4.js"></script>
-    <script src="js/three/src/core/Matrix3.js"></script>
-    <script src="js/three/src/core/Matrix4.js"></script>
-    <script src="js/three/src/core/Object3D.js"></script>
-    <script src="js/three/src/core/Ray.js"></script>
-    <script src="js/three/src/core/Rectangle.js"></script>
+    
+    <!-- Three math -->
+    <script src="js/three/src/math/Color.js"></script>
+    <script src="js/three/src/math/Quaternion.js"></script>
+    <script src="js/three/src/math/Vector2.js"></script>
+    <script src="js/three/src/math/Vector3.js"></script>
+    <script src="js/three/src/math/Vector4.js"></script>
+    <script src="js/three/src/math/Euler.js"></script>
+    <script src="js/three/src/math/Line3.js"></script>
+    <script src="js/three/src/math/Box2.js"></script>
+    <script src="js/three/src/math/Box3.js"></script>
+    <script src="js/three/src/math/Matrix3.js"></script>
+    <script src="js/three/src/math/Matrix4.js"></script>
+    <script src="js/three/src/math/Ray.js"></script>
+    <script src="js/three/src/math/Sphere.js"></script>
+    <script src="js/three/src/math/Frustum.js"></script>
+    <script src="js/three/src/math/Plane.js"></script>
+    <script src="js/three/src/math/Math.js"></script>
+    <script src="js/three/src/math/Spline.js"></script>
+    <script src="js/three/src/math/Triangle.js"></script>
+    <script src="js/three/src/math/Vertex.js"></script>
 
+    <!-- Three core -->
+    <script src="js/three/src/core/Clock.js"></script>
+    <script src="js/three/src/core/EventDispatcher.js"></script> 
+    <script src="js/three/src/core/Raycaster.js"></script>
+    <script src="js/three/src/core/Object3D.js"></script>
     <script src="js/three/src/core/Projector.js"></script>
-    <script src="js/three/src/core/Quaternion.js"></script>
-    <script src="js/three/src/core/Vertex.js"></script>
     <script src="js/three/src/core/Face3.js"></script>
     <script src="js/three/src/core/Face4.js"></script>
-    <script src="js/three/src/core/UV.js"></script>
     <script src="js/three/src/core/Geometry.js"></script>
-    <script src="js/three/src/core/Spline.js"></script>
-    <script src="js/three/src/core/Math.js"></script>
-    <script src="js/three/src/core/Frustum.js"></script>
-    <script src="js/three/src/core/EventTarget.js"></script>
     <script src="js/three/src/core/BufferGeometry.js"></script>
-
+    
+    <!-- Three cameras -->
     <script src="js/three/src/cameras/Camera.js"></script>
     <script src="js/three/src/cameras/OrthographicCamera.js"></script>
     <script src="js/three/src/cameras/PerspectiveCamera.js"></script>
-
-    <script src="js/three/src/loaders/Loader.js"></script>
-    <script src="js/three/src/loaders/BinaryLoader.js"></script>
-    <script src="js/three/src/loaders/JSONLoader.js"></script>
-    <script src="js/three/src/loaders/SceneLoader.js"></script>
-    <script src="js/three/src/loaders/ImageLoader.js"></script>
-
+    
+    <!-- Three lights -->
     <script src="js/three/src/lights/Light.js"></script>
     <script src="js/three/src/lights/AmbientLight.js"></script>
+    <script src="js/three/src/lights/AreaLight.js"></script>
     <script src="js/three/src/lights/DirectionalLight.js"></script>
+    <script src="js/three/src/lights/HemisphereLight.js"></script>
     <script src="js/three/src/lights/PointLight.js"></script>
     <script src="js/three/src/lights/SpotLight.js"></script>
-    <script src="js/three/src/lights/HemisphereLight.js"></script>
-
+    
+    <!-- Three loaders -->
+    <script src="js/three/src/loaders/Loader.js"></script>
+    <script src="js/three/src/loaders/ImageLoader.js"></script>
+    <script src="js/three/src/loaders/JSONLoader.js"></script>
+    <script src="js/three/src/loaders/GeometryLoader.js"></script>
+    <script src="js/three/src/loaders/MaterialLoader.js"></script> 
+    <script src="js/three/src/loaders/TextureLoader.js"></script>
+    <script src="js/three/src/loaders/BufferGeometryLoader.js"></script>
+    <script src="js/three/src/loaders/LoadingManager.js"></script>
+    <script src="js/three/src/loaders/ObjectLoader.js"></script>
+    <script src="js/three/src/loaders/XHRLoader.js"></script>
+    
+    <!-- Three materials -->
     <script src="js/three/src/materials/Material.js"></script>
     <script src="js/three/src/materials/LineBasicMaterial.js"></script>
+    <script src="js/three/src/materials/LineDashedMaterial.js"></script>
     <script src="js/three/src/materials/MeshBasicMaterial.js"></script>
-    <script src="js/three/src/materials/MeshLambertMaterial.js"></script>
-    <script src="js/three/src/materials/MeshPhongMaterial.js"></script>
     <script src="js/three/src/materials/MeshDepthMaterial.js"></script>
-    <script src="js/three/src/materials/MeshNormalMaterial.js"></script>
     <script src="js/three/src/materials/MeshFaceMaterial.js"></script>
-
-    <script src="js/three/src/materials/ParticleBasicMaterial.js"></script>
-    <script src="js/three/src/materials/ParticleCanvasMaterial.js"></script>
-    <script src="js/three/src/materials/ParticleDOMMaterial.js"></script>
+    <script src="js/three/src/materials/MeshLambertMaterial.js"></script>
+    <script src="js/three/src/materials/MeshNormalMaterial.js"></script>
+    <script src="js/three/src/materials/MeshPhongMaterial.js"></script>
+    <script src="js/three/src/materials/ParticleSystemMaterial.js"></script>
     <script src="js/three/src/materials/ShaderMaterial.js"></script>
-
+    <script src="js/three/src/materials/SpriteCanvasMaterial.js"></script>
+    <script src="js/three/src/materials/SpriteMaterial.js"></script>
+    
+    <!-- Three textures -->
     <script src="js/three/src/textures/Texture.js"></script>
-    <script src="js/three/src/textures/DataTexture.js"></script>
     <script src="js/three/src/textures/CompressedTexture.js"></script>
+    <script src="js/three/src/textures/DataTexture.js"></script>
 
-    <script src="js/three/src/objects/Particle.js"></script>
-    <script src="js/three/src/objects/ParticleSystem.js"></script>
+    <!-- Three objects -->
+    <script src="js/three/src/objects/Bone.js"></script>
     <script src="js/three/src/objects/Line.js"></script>
+    <script src="js/three/src/objects/LOD.js"></script>
     <script src="js/three/src/objects/Mesh.js"></script>
+    <script src="js/three/src/objects/MorphAnimMesh.js"></script>
+    <script src="js/three/src/objects/ParticleSystem.js"></script>
+    <script src="js/three/src/objects/SkinnedMesh.js"></script>
     <script src="js/three/src/objects/Sprite.js"></script>
-
+    
+    <!-- Three scenes -->
     <script src="js/three/src/scenes/Scene.js"></script>
     <script src="js/three/src/scenes/Fog.js"></script>
     <script src="js/three/src/scenes/FogExp2.js"></script>
 
-    <script src="js/three/src/renderers/CanvasRenderer.js"></script>
+    <!-- Three shaders -->
+    <script src="js/three/src/extras/shaders/ShaderFlares.js"></script>
+  
+    <!-- Three renderers -->
     <script src="js/three/src/renderers/WebGLShaders.js"></script>
+    <script src="js/three/src/renderers/CanvasRenderer.js"></script>
+    
+    <!-- Three plugins -->
+    <script src="js/three/src/extras/renderers/plugins/ShadowMapPlugin.js"></script>
+    <script src="js/three/src/extras/renderers/plugins/SpritePlugin.js"></script>
+    <script src="js/three/src/extras/renderers/plugins/LensFlarePlugin.js"></script>
+    
+    <script src="js/three/src/extras/objects/ImmediateRenderObject.js"></script>
+    <script src="js/three/src/extras/objects/LensFlare.js"></script>
+    
     <script src="js/three/src/renderers/WebGLRenderer.js"></script>
     <script src="js/three/src/renderers/WebGLRenderTarget.js"></script>
     <script src="js/three/src/renderers/WebGLRenderTargetCube.js"></script>
-    <script src="js/three/src/renderers/renderables/RenderableVertex.js"></script>
+
     <script src="js/three/src/renderers/renderables/RenderableFace3.js"></script>
-    <script src="js/three/src/renderers/renderables/RenderableFace4.js"></script>
-    <script src="js/three/src/renderers/renderables/RenderableObject.js"></script>
-    <script src="js/three/src/renderers/renderables/RenderableParticle.js"></script>
     <script src="js/three/src/renderers/renderables/RenderableLine.js"></script>
-
-    <script src="js/three/src/objects/Bone.js"></script>
-    <script src="js/three/src/objects/Ribbon.js"></script>
-    <script src="js/three/src/objects/SkinnedMesh.js"></script>
-
-
-
-    <!-- EXTRAS_FILES -->
-    <script src="js/three/src/extras/ColorUtils.js"></script>
+    <script src="js/three/src/renderers/renderables/RenderableObject.js"></script>
+    <script src="js/three/src/renderers/renderables/RenderableSprite.js"></script>
+    <script src="js/three/src/renderers/renderables/RenderableVertex.js"></script>
+    
+    <script src="js/three/src/extras/FontUtils.js"></script>
     <script src="js/three/src/extras/GeometryUtils.js"></script>
     <script src="js/three/src/extras/ImageUtils.js"></script>
     <script src="js/three/src/extras/SceneUtils.js"></script>
-    <script src="js/three/src/extras/ShaderUtils.js"></script>
 
-    <script src="js/three/src/extras/animation/AnimationHandler.js"></script>
-    <script src="js/three/src/extras/animation/Animation.js"></script>
-
-    <script src="js/three/src/extras/core/Curve.js"></script>
-    <script src="js/three/src/extras/core/CurvePath.js"></script>
-    <script src="js/three/src/extras/core/Path.js"></script>
-    <script src="js/three/src/extras/core/Shape.js"></script>
-
-    <script src="js/three/src/extras/controls/PathControls.js"></script>
-
+    <!-- Three extras -->
     <script src="js/three/src/extras/geometries/CubeGeometry.js"></script>
     <script src="js/three/src/extras/geometries/PlaneGeometry.js"></script>
     <script src="js/three/src/extras/geometries/SphereGeometry.js"></script>
     <script src="js/three/src/extras/geometries/CylinderGeometry.js"></script>
-
-    <script src="js/three/src/extras/objects/ImmediateRenderObject.js"></script>
-    <script src="js/three/src/extras/objects/LensFlare.js"></script>
-
-    <script src="js/three/src/extras/modifiers/SubdivisionModifier.js"></script>
-
-    <script src="js/three/src/extras/renderers/plugins/ShadowMapPlugin.js"></script>
-    <script src="js/three/src/extras/renderers/plugins/SpritePlugin.js"></script>
-    <script src="js/three/src/extras/renderers/plugins/LensFlarePlugin.js"></script>
-
-    <script src="js/three/src/extras/shaders/ShaderSprite.js"></script>
-    <script src="js/three/src/extras/shaders/ShaderFlares.js"></script>
-
+    <script src="js/three/src/extras/geometries/IcosahedronGeometry.js"></script>
+    <script src="js/three/src/extras/geometries/PolyhedronGeometry.js"></script>
+    <script src="js/three/src/extras/geometries/TorusGeometry.js"></script>
+    
+    
+     <script src="js/three/src/extras/core/Curve.js"></script>
+     <script src="js/three/src/extras/curves/SplineCurve.js"></script>
+     <script src="js/three/src/extras/curves/SplineCurve3.js"></script>
+    <script src="js/three/src/extras/helpers/BoundingBoxHelper.js"></script>
+    
+    
     <!-- CUSTOM_FILES -->
     <script src="js/three/custom-src/SceneLoaderEx.js"></script>
     <script src="js/three/custom-src/Object3DEx.js"></script>
@@ -236,10 +256,16 @@
     <script src="js/three/custom-src/GeometryEx.js"></script>
     <script src="js/three/custom-src/TrackballControlsEx.js"></script>
     <script src="js/three/custom-src/BoundingBox.js"></script>
-    <script src="js/three/custom-src/BinaryLoaderEx.js"></script>
+
     <script src="js/three/custom-src/CameraEx.js"></script>
     <script src="js/three/custom-src/Vector3Ex.js"></script>
 
+    <script src="js/three/loaders/BinaryLoader.js"></script>
+
+    <!-- UNUSED_CUSTOM_FILES
+    -->
+    
+    
     <!--{BLOCK_END:Three}-->
 
     

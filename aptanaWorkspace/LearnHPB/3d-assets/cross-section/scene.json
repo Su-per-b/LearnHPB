@@ -13,12 +13,12 @@
 		"RigidExInsulation1inch": {
 			"geometry": "Geom_RigidExInsulation1inch",
 			"position": [0, 0, 0],
-      "viewpoint": "crosssectionTop1"
+      "viewpoint": "crosssectionTop"
 		},
 		"Vapor-AirBarrier": {
 			"geometry": "Geom_Vapor-AirBarrier",
 			"position": [0, 0, 0],
-      "viewpoint": "crosssectionAir1"
+      "viewpoint": "crosssectionAir"
 		},
 		"InteriorInsulation": {
 			"geometry": "Geom_InteriorInsulation",
@@ -27,12 +27,12 @@
 		"StoneVeneer": {
 			"geometry": "Geom_StoneVeneer",
 			"position": [0, 0, 0],
-      "viewpoint": "crosssectionSide1"
+      "viewpoint": "crosssectionSide"
 		},
 		"BrickVeneer": {
 			"geometry": "Geom_BrickVeneer",
 			"position": [0, 0, 0],
-      "viewpoint": "veneer"
+      "viewpoint": "crosssectionVeneer"
 		},
     "Cube" : {
         "geometry"  : "Geom_Cube",

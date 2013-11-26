@@ -15,7 +15,6 @@ goog.require('lgb.gui.controller.GuiController');
 goog.require('lgb.gui.controller.LayoutController');
 goog.require('lgb.gui.controller.GuiController');
 
-goog.require('lgb.simulation.model.voNative.SimStateNative');
 goog.require('lgb');
 
 /**

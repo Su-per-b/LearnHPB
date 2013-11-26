@@ -216,7 +216,6 @@ lgb.gui.view.LayoutView.prototype.inject = function() {
   this.splitPanelVertical_.injectTo(this.rightPanel_);
   this.topRightPanel_ = this.splitPanelVertical_.getPane(0);
   this.bottomRightPanel_ = this.splitPanelVertical_.getPane(1);
-  
 
 
   this.webGLcanvas_ = this.makeDiv('webGLcanvas');

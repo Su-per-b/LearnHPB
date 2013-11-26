@@ -52,7 +52,7 @@ lgb.gui.view.SimulationStateControlGUI.prototype.onChange_scalarValueResults_ = 
 
 lgb.gui.view.SimulationStateControlGUI.prototype.onChange_simStateNative_ = function(simStateNative) {
   
-  var SimStateNative = lgb.simulation.model.voNative.SimStateNative;
+
   var stateObject = new lgb.simulation.model.SimStateNativeWrapper(simStateNative);
   
   if (stateObject.getString() == undefined) {

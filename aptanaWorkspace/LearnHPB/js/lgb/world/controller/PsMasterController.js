@@ -80,12 +80,10 @@ lgb.world.controller.PsMasterController.prototype.init2_ = function() {
   this.childControllers_ = [];
 
   var list = this.dataModel.getPsModelList();
-  list.forEach(this.d(this.makeChildController_));
-  
+  this.each( list, this.makeChildController_ );
   this.view.init();
   this.guiView.init();
 
-  
 };
 
 

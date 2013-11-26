@@ -6,14 +6,15 @@ THREE.Mesh.prototype.bakeTransformsIntoGeometry = function() {
 
   this.updateMatrix();
 
-  var newGeom = THREE.GeometryUtils.clone(this.geometry);
+  var newGeom = this.geometry.clone();
   newGeom.applyMatrix(this.matrix);
 
   this.geometry = newGeom;
   this.geometry.computeBoundingSphere();
 
   this.position = new THREE.Vector3();
-  this.rotation = new THREE.Vector3();
+  this.rotation = new THREE.Euler();
+  
   this.scale = new THREE.Vector3(1, 1, 1);
   this.quaternion = new THREE.Quaternion();
 };
@@ -34,7 +35,7 @@ THREE.Mesh.prototype.bakeScaleIntoGeometry = function() {
     var originalQuaternion = this.quaternion;
         
     this.position = new THREE.Vector3();
-    this.rotation = new THREE.Vector3();
+    this.rotation = new THREE.Euler();
     this.quaternion = new THREE.Quaternion();
     
     this.updateMatrix();
@@ -57,30 +58,33 @@ THREE.Mesh.prototype.bakeScaleIntoGeometry = function() {
 };
 
 
-THREE.Mesh.prototype.cloneEx = function(deepCloneChildren, cloneGeometry) {
-  
-  var geo;
-  
-  if (cloneGeometry) {
-    geo = THREE.GeometryUtils.clone(this.geometry);
-  } else {
-    geo = this.geometry;
-  }
-
-   var theClone = new THREE.Mesh(geo, this.material);
-   this.cloneBuilder_(theClone);
-   
-   if (deepCloneChildren) {
-     var len = this.children.length;
-     for (var i=0; i <  len ; i++) {
-       var childClone = this.children[i].cloneEx(deepCloneChildren, cloneGeometry);
-       theClone.add(childClone);
-     };
-   }
-   
-   return theClone;
-};
-
+// THREE.Mesh.prototype.cloneEx = function(deepCloneChildren, cloneGeometry) {
+//   
+  // var geo;
+//   
+  // if (cloneGeometry) {
+    // geo = THREE.GeometryUtils.clone(this.geometry);
+  // } else {
+    // geo = this.geometry;
+  // }
+// 
+// 
+// 
+// 
+   // var theClone = new THREE.Mesh(geo, this.material);
+   // this.cloneBuilder_(theClone);
+//    
+   // if (deepCloneChildren) {
+     // var len = this.children.length;
+     // for (var i=0; i <  len ; i++) {
+       // var childClone = this.children[i].cloneEx(deepCloneChildren, cloneGeometry);
+       // theClone.add(childClone);
+     // };
+   // }
+//    
+   // return theClone;
+// };
+// 
 
 
 /**
@@ -92,9 +96,9 @@ THREE.Mesh.prototype.cloneEx = function(deepCloneChildren, cloneGeometry) {
  * @author Raj Dye raj@pcdigi.com
  * @public
  */
-THREE.Mesh.prototype.clone = function() {
-  return this.cloneEx(false,false);
-};
+// THREE.Mesh.prototype.clone = function() {
+  // return this.cloneEx(false,false);
+// };
 
 
 THREE.Mesh.prototype.getBoundingBox = function() {
@@ -116,11 +120,12 @@ THREE.Mesh.prototype.analyzeGeometry = function() {
 };
 
 
-THREE.Mesh.prototype.centerGeometry = function() {
-  
-  
-  
-};
+
+// THREE.Mesh.prototype.centerGeometry = function() {
+//   
+//   
+//   
+// };
 
 
 

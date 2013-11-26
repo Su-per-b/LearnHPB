@@ -1,17 +1,19 @@
 {
-	"cameras": {
 
-		"Front 01": {
-			"type": "perspective",
+  "objects":{
+  
+  
+    "Front 01": {
+      "type": "PerspectiveCamera",
       "fov": 30,
       "aspect": 1.6,
       "near": 1,
       "far": 10000,
       "position": [0, 8.0, 70],
       "target": [0, 8, 0]
-		},
-		"Front 02": {
-			"type": "perspective",
+    },
+    "Front 02": {
+      "type": "PerspectiveCamera",
       "fov": 30,
       "aspect": 1.6,
       "near": 1,
@@ -19,145 +21,144 @@
       "position": [0, 1.4, 35],
       "target": [0, 1.0, 0],
       "anchor" : "floor"
-		},
-		"Top": {
-			"type": "perspective",
+    },
+    "Top": {
+      "type": "PerspectiveCamera",
       "fov": 30,
       "aspect": 1.6,
       "near": 1,
       "far": 10000,
-			"position": [0, 65, 0],
-			"target": [0, 0, 0]
-		},
-		"Eye Level 01": {
-			"type": "perspective",
+      "position": [0, 65, 0],
+      "target": [0, 0, 0]
+    },
+    "Eye Level 01": {
+      "type": "PerspectiveCamera",
       "fov": 30,
       "aspect": 1.6,
       "near": 1,
       "far": 10000,
-			"position": [-14.23, 1.6, -12.43],
-			"target": [-14.23, 1.4, 9.2],
+      "position": [-14.23, 1.6, -12.43],
+      "target": [-14.23, 1.4, 9.2],
       "anchor" : "floor"
-		},
-		"Eye Level 02": {
-			"type": "perspective",
-			"fov": 30,
-			"aspect": 1.6,
-			"near": 1,
-			"far": 10000,
-			"position": [0.5, 1.6, -12.43],
-			"target": [0.5, 1.4, 9.2],
-      "anchor" : "floor"
-		},
-		"Eye Level 03": {
-			"type": "perspective",
+    },
+    "Eye Level 02": {
+      "type": "PerspectiveCamera",
       "fov": 30,
       "aspect": 1.6,
       "near": 1,
       "far": 10000,
-			"position": [10, 1.6, -12.43],
-			"target": [10, 1.4, 9.2],
+      "position": [0.5, 1.6, -12.43],
+      "target": [0.5, 1.4, 9.2],
       "anchor" : "floor"
-		},
-		"Eye Level 04": {
-			"type": "perspective",
+    },
+    "Eye Level 03": {
+      "type": "PerspectiveCamera",
       "fov": 30,
       "aspect": 1.6,
       "near": 1,
       "far": 10000,
-			"position": [-19.4, 1.6, 0],
-			"target": [0, 1.4, 0],
+      "position": [10, 1.6, -12.43],
+      "target": [10, 1.4, 9.2],
       "anchor" : "floor"
-		},
-		"Eye Level 05": {
-			"type": "perspective",
+    },
+    "Eye Level 04": {
+      "type": "PerspectiveCamera",
       "fov": 30,
       "aspect": 1.6,
       "near": 1,
       "far": 10000,
-			"position": [0.5, 1.6, 9.4],
-			"target": [0.5, 1.4, -9.2],
+      "position": [-19.4, 1.6, 0],
+      "target": [0, 1.4, 0],
       "anchor" : "floor"
-		},
-		"Eye Level 06": {
-			"type": "perspective",
+    },
+    "Eye Level 05": {
+      "type": "PerspectiveCamera",
       "fov": 30,
       "aspect": 1.6,
       "near": 1,
       "far": 10000,
-			"position": [18, 1.6, 0],
-			"target": [0, 1.4, 0],
+      "position": [0.5, 1.6, 9.4],
+      "target": [0.5, 1.4, -9.2],
       "anchor" : "floor"
-		},
-		"Eye Level 07": {
-			"type": "perspective",
+    },
+    "Eye Level 06": {
+      "type": "PerspectiveCamera",
       "fov": 30,
       "aspect": 1.6,
       "near": 1,
       "far": 10000,
-			"position": [-14, 1.6, 0],
-			"target": [-14, 1.4, 12.4],
+      "position": [18, 1.6, 0],
+      "target": [0, 1.4, 0],
       "anchor" : "floor"
-		},
-		"Eye Level 08": {
-			"type": "perspective",
+    },
+    "Eye Level 07": {
+      "type": "PerspectiveCamera",
       "fov": 30,
       "aspect": 1.6,
       "near": 1,
       "far": 10000,
-			"position": [0.5, 1.6, 0],
-			"target": [0.5, 1.4, 12.4],
+      "position": [-14, 1.6, 0],
+      "target": [-14, 1.4, 12.4],
       "anchor" : "floor"
-		},
-		"Eye Level 09": {
-			"type": "perspective",
+    },
+    "Eye Level 08": {
+      "type": "PerspectiveCamera",
       "fov": 30,
       "aspect": 1.6,
       "near": 1,
       "far": 10000,
-			"position": [14, 1.6, 0],
-			"target": [14, 1.4, 12.4],
+      "position": [0.5, 1.6, 0],
+      "target": [0.5, 1.4, 12.4],
       "anchor" : "floor"
-		},
-		"PlenumCamera": {
-			"type": "perspective",
+    },
+    "Eye Level 09": {
+      "type": "PerspectiveCamera",
+      "fov": 30,
+      "aspect": 1.6,
+      "near": 1,
+      "far": 10000,
+      "position": [14, 1.6, 0],
+      "target": [14, 1.4, 12.4],
+      "anchor" : "floor"
+    },
+    "PlenumCamera": {
+      "type": "PerspectiveCamera",
       "fov": 25.7,
       "aspect": 1.6,
       "near": 1,
       "far": 10000,
-			"position": [0, -0.6, 10.0],
-			"target": [-13, -0.6, 8.0],
-			"anchor" : "ceiling"
-		},
-		"OfficeCamera": {
-			"type": "perspective",
+      "position": [0, -0.6, 10.0],
+      "target": [-13, -0.6, 8.0],
+      "anchor" : "ceiling"
+    },
+    "OfficeCamera": {
+      "type": "PerspectiveCamera",
       "fov": 25.7,
       "aspect": 1.6,
       "near": 1,
       "far": 10000,
-			"position": [-13, 2, 8.0],
-			"target": [0, 2, 4.0],
-			"anchor" : "floor"
-		},
-		
-		
-		"SectionCamera": {
-			"type": "perspective",
+      "position": [-13, 2, 8.0],
+      "target": [0, 2, 4.0],
+      "anchor" : "floor"
+    },
+    "SectionCamera": {
+      "type": "PerspectiveCamera",
       "fov": 25.7,
       "aspect": 1.6,
       "near": 1,
       "far": 10000,
-			"position": [-5.895,  1.4, -9.583],
-			"target": [
+      "position": [-5.895,  1.4, -9.583],
+      "target": [
         -2.0,
         1.4,
         -12.0
       ],
-			"anchor" : "floor"
-		}
-		
-		
-	},
+      "anchor" : "floor"
+    }
+    
+  },
+
+
 	
 	"transform" :
 	{

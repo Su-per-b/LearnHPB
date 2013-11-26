@@ -5,6 +5,7 @@
 
 goog.provide('lgb.world.controller.UtilityController');
 
+goog.require('lgb.core.BaseController');
 goog.require('lgb.world.view.UtilityAxisView');
 goog.require('lgb.world.view.UtilityGridView');
 goog.require('lgb.core.Config');

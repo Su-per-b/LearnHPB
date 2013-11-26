@@ -23,7 +23,7 @@ THREE.Object3D.prototype.setVisible = function( isVisible) {
   
   if (this.isVisibleHelper_ != isVisible) {
     
-    this.isVisibleHelper_ = isVisible
+    this.isVisibleHelper_ = isVisible;
     
     if (isVisible) {
       this.position.z = this.zz;
@@ -36,6 +36,19 @@ THREE.Object3D.prototype.setVisible = function( isVisible) {
   }
 
 };
+
+THREE.Object3D.prototype.getDimensions = function() {
+
+    var bb = this.getDescendantsBoundingBox();
+  
+    var xExt = bb.max.x - bb.min.x;
+    var yExt = bb.max.y - bb.min.y;
+    var zExt = bb.max.z - bb.min.z;
+    
+    var dimensions = new THREE.Vector3(xExt, yExt, zExt);
+    return dimensions;
+};
+
 
 THREE.Object3D.prototype.setProperty = function(propertyName, propertyValue, includeDecendants) {
   
@@ -86,14 +99,14 @@ THREE.Object3D.prototype.getDescendantsBoundingBox = function() {
      if ( child instanceof THREE.Mesh ) {
        var boundingBoxObject = child.getBoundingBox();
        
-       boundingBoxObject.addSelf(child.position);
+       boundingBoxObject.add(child.position);
        
-       decendantsBoundingBox.mergeSelf(boundingBoxObject);
+       decendantsBoundingBox.merge(boundingBoxObject);
      }
      
    };
    
-   return decendantsBoundingBox
+   return decendantsBoundingBox;
                               
 
 };
@@ -111,95 +124,129 @@ THREE.Object3D.prototype.getDescendantsBoundingBox = function() {
  * @public
  
  */
-THREE.Object3D.prototype.cloneBuilder_ = function(theClone) {
-
-  
-  theClone.name = this.name;
-  theClone.properties = this.properties;
-  
-  theClone.parent = this.parent;
-  
-  theClone.up = this.up.clone();
-  theClone.position = this.position.clone();
-  theClone.rotation = this.rotation.clone();
-  theClone.eulerOrder = this.eulerOrder;
-  
-  theClone.scale = this.scale.clone();
-  theClone.renderDepth = this.renderDepth;
-  
-  theClone.rotationAutoUpdate = this.rotationAutoUpdate;
-  theClone.renderDepth = this.renderDepth;
-  
-  theClone.matrix = this.matrix.clone();
-  theClone.matrixWorld = this.matrixWorld.clone();
-  theClone.matrixRotationWorld = this.matrixRotationWorld.clone();
-  
-  
-  theClone.matrixAutoUpdate = this.matrixAutoUpdate;
-  theClone.matrixWorldNeedsUpdate = this.matrixWorldNeedsUpdate;
-  
-  theClone.quaternion = this.quaternion.clone();
-  
-  theClone.useQuaternion = this.useQuaternion;
-  theClone.boundRadius = this.boundRadius;
-  theClone.boundRadiusScale = this.boundRadiusScale;
-  theClone.visible = this.visible;
-  theClone.castShadow = this.castShadow;
-  theClone.receiveShadow = this.receiveShadow;
-  theClone.frustumCulled = this.frustumCulled;
-  
-  theClone._vector = this._vector.clone();
-  
-  theClone.viewpoint = this.viewpoint;
-  
-  
-  /*
-  theClone.dynamic = this.dynamic;
-  theClone.doubleSided = this.doubleSided;
-  theClone.flipSided = this.flipSided;
-  theClone.renderDepth = this.renderDepth;
-  theClone.rotationAutoUpdate = this.rotationAutoUpdate;
-  theClone.matrixAutoUpdate = this.matrixAutoUpdate;
-  theClone.matrixWorldNeedsUpdate = this.matrixWorldNeedsUpdate;
-  theClone.useQuaternion = this.useQuaternion;
-  theClone.boundRadius = this.boundRadius;
-  theClone.boundRadiusScale = this.boundRadiusScale;
-*/
-
-
-};
-
-
-
-THREE.Object3D.prototype.cloneEx = function(deepCloneChildren, cloneGeometry) {
-  
-   var theClone = new THREE.Object3D();
-   this.cloneBuilder_(theClone);
-   
-   if (deepCloneChildren) {
-     var len = this.children.length;
-     for (var i=0; i <  len ; i++) {
-       var childClone = this.children[i].cloneEx(deepCloneChildren, cloneGeometry);
-       theClone.add(childClone);
-     };
-   }
-   
-   return theClone;
-   
-};
+// THREE.Object3D.prototype.cloneBuilder_ = function(theClone) {
+// 
+//   
+  // theClone.name = this.name;
+  // theClone.properties = this.properties;
+//   
+  // theClone.parent = this.parent;
+//   
+  // theClone.up = this.up.clone();
+  // theClone.position = this.position.clone();
+  // theClone.rotation = this.rotation.clone();
+  // theClone.eulerOrder = this.eulerOrder;
+//   
+  // theClone.scale = this.scale.clone();
+  // theClone.renderDepth = this.renderDepth;
+//   
+  // theClone.rotationAutoUpdate = this.rotationAutoUpdate;
+  // theClone.renderDepth = this.renderDepth;
+//   
+  // theClone.matrix = this.matrix.clone();
+  // theClone.matrixWorld = this.matrixWorld.clone();
+  // //theClone.matrixRotationWorld = this.matrixRotationWorld.clone();
+//   
+//   
+  // theClone.matrixAutoUpdate = this.matrixAutoUpdate;
+  // theClone.matrixWorldNeedsUpdate = this.matrixWorldNeedsUpdate;
+//   
+  // theClone.quaternion = this.quaternion.clone();
+//   
+  // theClone.useQuaternion = this.useQuaternion;
+  // theClone.boundRadius = this.boundRadius;
+  // theClone.boundRadiusScale = this.boundRadiusScale;
+  // theClone.visible = this.visible;
+  // theClone.castShadow = this.castShadow;
+  // theClone.receiveShadow = this.receiveShadow;
+  // theClone.frustumCulled = this.frustumCulled;
+//   
+  // //theClone._vector = this._vector.clone();
+//   
+  // theClone.viewpoint = this.viewpoint;
+//   
+//   
+  // /*
+  // theClone.dynamic = this.dynamic;
+  // theClone.doubleSided = this.doubleSided;
+  // theClone.flipSided = this.flipSided;
+  // theClone.renderDepth = this.renderDepth;
+  // theClone.rotationAutoUpdate = this.rotationAutoUpdate;
+  // theClone.matrixAutoUpdate = this.matrixAutoUpdate;
+  // theClone.matrixWorldNeedsUpdate = this.matrixWorldNeedsUpdate;
+  // theClone.useQuaternion = this.useQuaternion;
+  // theClone.boundRadius = this.boundRadius;
+  // theClone.boundRadiusScale = this.boundRadiusScale;
+// */
+// 
+// 
+// };
 
 
 
 
-THREE.Object3D.prototype.addChildren = function(object3d) {
+THREE.Object3D.prototype.clone = function(object, recursive) {
   
-    if (undefined === object3d || null == object3d) {
-      throw ("you passed an invalid object3d as an argument");
+
+
+    if ( object === undefined ) object = new THREE.Object3D();
+    if ( recursive === undefined ) recursive = true;
+
+    object.name = this.name;
+
+    object.up.copy( this.up );
+
+    object.position.copy( this.position );
+    object.quaternion.copy( this.quaternion );
+    object.scale.copy( this.scale );
+
+    object.renderDepth = this.renderDepth;
+
+    object.rotationAutoUpdate = this.rotationAutoUpdate;
+
+    object.matrix.copy( this.matrix );
+    object.matrixWorld.copy( this.matrixWorld );
+
+    object.matrixAutoUpdate = this.matrixAutoUpdate;
+    object.matrixWorldNeedsUpdate = this.matrixWorldNeedsUpdate;
+
+    object.visible = this.visible;
+
+    object.castShadow = this.castShadow;
+    object.receiveShadow = this.receiveShadow;
+
+    object.frustumCulled = this.frustumCulled;
+    object.viewpoint = this.viewpoint;
+
+    object.userData = JSON.parse( JSON.stringify( this.userData ) );
+
+    if ( recursive === true ) {
+
+      for ( var i = 0; i < this.children.length; i ++ ) {
+
+        var child = this.children[ i ];
+        object.add( child.clone() );
+
+      }
+
     }
-    
-    this.addArray(object3d.children);
-    
+
+    return object;
+ 
 };
+
+
+
+
+// THREE.Object3D.prototype.addChildren = function(object3d) {
+//   
+    // if (undefined === object3d || null == object3d) {
+      // throw ("you passed an invalid object3d as an argument");
+    // }
+//     
+    // this.addArray(object3d.children);
+//     
+// };
 
 
 
@@ -214,7 +261,7 @@ THREE.Object3D.prototype.cloneArray = function(ary) {
     for (var i = 0; i < len; i++) {
       var arrayElement = ary[i];
       
-      var clonedObj = arrayElement.cloneEx();
+      var clonedObj = arrayElement.clone();
       this.add(clonedObj);
     }
     

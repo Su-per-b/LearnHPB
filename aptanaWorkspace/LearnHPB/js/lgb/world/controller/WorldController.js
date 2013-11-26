@@ -41,15 +41,9 @@ lgb.world.controller.WorldController.prototype.init = function() {
   this.dataModel = new lgb.world.model.WorldModel();
   this.view = new lgb.world.view.WorldView(this.dataModel);
   
-  
   this.containerDiv_ = $('#' + this.parentHtmlID);
-  
-  //this.containerDiv_ = this.makeDiv();
-  
-  //this.trigger(e.RequestAddToLayout);
-  
-  
   this.containerDiv_.attr('unselectable','on').css('UserSelect','none').css('MozUserSelect','none');
+  
   $('body').attr('unselectable','on').css('UserSelect','none').css('MozUserSelect','none');
   
   /**
@@ -139,21 +133,21 @@ lgb.world.controller.WorldController.prototype.initLights_ = function() {
   this.ambientLight_ .name = "AmbientLight";
   this.lightGroup_.add(this.ambientLight_);
 
-  this.light1_ = new THREE.DirectionalLight( 0xffffff, 0.7 , 60);
+  this.light1_ = new THREE.DirectionalLight( 0xffffff, 0.5 , 60);
   this.light1_ .name = "Light1";
   this.light1_.position.set( 0, 70, -45 );
   this.light1_.target.name = "Light1_target";
   this.lightGroup_.add( this.light1_ );
   this.lightGroup_.add( this.light1_.target );
   
-  this.light2_ = new THREE.DirectionalLight( 0xffffff, 0.8 , 60);
+  this.light2_ = new THREE.DirectionalLight( 0xffffff, 0.6 , 60);
   this.light2_ .name = "Light2";
   this.light2_.position.set( -45, -70, 0 );
   this.light2_.target.name = "Light2_target";
   this.lightGroup_.add( this.light2_ );
   this.lightGroup_.add( this.light2_.target );
   
-  this.light3_ = new THREE.DirectionalLight( 0xffffff, 1.0 , 60);
+  this.light3_ = new THREE.DirectionalLight( 0xffffff, 0.8 , 60);
   this.light3_ .name = "Light3";
   this.light3_.position.set( 45, 0, 45 );
   this.light3_.target.name = "Light3_target";
@@ -173,21 +167,9 @@ lgb.world.controller.WorldController.prototype.initRenderer_ = function() {
    * @type {THREE.WebGLRenderer}
    * @private
    */
-  this.renderer_ = new THREE.WebGLRenderer({ antialias: false });
+  this.renderer_ = new THREE.WebGLRenderer({ antialias: false, alpha:1 });
   this.renderer_.domElement.id='wbGLrenderer';
   $(this.renderer_.domElement).attr('unselectable','on').css('UserSelect','none').css('MozUserSelect','none');
-
-/*
-  this.renderer_.shadowCameraNear = 3;
-  this.renderer_.shadowCameraFar = 300;
-  this.renderer_.shadowCameraFov = 30;
-  this.renderer_.shadowMapBias = 0.0039;
-  this.renderer_.shadowMapDarkness = 1;
-  this.renderer_.shadowMapWidth = 1024;
-  this.renderer_.shadowMapHeight = 1024;
-  this.renderer_.shadowMapEnabled = true;
-  this.renderer_.shadowMapSoft = false;
-*/
 
   this.renderEvent_ = new lgb.core.Event (e.RenderNotify);
 
@@ -257,13 +239,9 @@ lgb.world.controller.WorldController.prototype.onAddToWorldRequest_ = function(e
  */
 lgb.world.controller.WorldController.prototype.calculateSize_ = function() {
     
-   // var container = $(lgb.core.Config.HUD_CONTAINER);
-    
     var w = this.containerDiv_.width();
     var h = this.containerDiv_.height();
-    
     this.renderer_.setSize(w,h);
-
 };
 
 

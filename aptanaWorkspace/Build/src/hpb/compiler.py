@@ -35,7 +35,7 @@ def buildThreeJs(includesFileList=None):
 
     externsStr = jsonConfig.getCommandClause('externs' , '--externs ')
 
-    cmd = 'java -jar %s  --version --warning_level=VERBOSE --jscomp_off=globalThis %s ' + \
+    cmd = 'java -jar %s  --version --language_in=ECMASCRIPT5 --warning_level=VERBOSE --jscomp_off=globalThis %s ' + \
     '--jscomp_off=checkTypes --jscomp_off=internetExplorerChecks --js %s ' + \
     '--js_output_file %s'
 

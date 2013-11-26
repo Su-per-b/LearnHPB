@@ -13,7 +13,7 @@ goog.require('lgb.world.view.BaseV');
 /**
  * @constructor
  * @extends {lgb.world.view.BaseV}
- * @param {THREE.ParticleBasicMaterial} pMaterial the material to use.
+ * @param {THREE.ParticleSystemMaterial} pMaterial the material to use.
  */
 lgb.world.view.ParticleElement = function(pMaterial) {
     

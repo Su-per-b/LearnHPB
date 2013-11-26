@@ -6,6 +6,7 @@ goog.require('lgb.gui.model.BaseInputModel');
 
 goog.require('lgb.simulation.controller.MainController');
 goog.require('lgb.gui.view.SimulationConsoleGUI');
+goog.require('se.Event');
 
 
 
@@ -69,7 +70,7 @@ lgb.gui.controller.SimulationStateControlController.prototype.bind2_ = function(
 
     this.listenTo (
         this.simulationStateControlGUI_,
-        lgb.simulation.events.SimStateNativeRequest.TYPE,
+        se.SimStateNativeRequest,
         this.onSimStateNativeRequest_
     );
 

@@ -34,9 +34,8 @@ goog.inherits(lgb.world.view.RoofTopView,lgb.world.view.BaseWorldView);
 lgb.world.view.RoofTopView.prototype.onSceneLoaded_ = function(result) {
 
    this.masterGroup_.viewpoint = "RoofTopScene";
-  
-
-   
+   var dim = this.masterGroup_.getDimensions();
+    
    this.dispatchSelectableLoaded_();
    this.dispatchViewpointNodes_();
    this.dispatchVisibilityNodes_();
@@ -71,12 +70,10 @@ lgb.world.view.RoofTopView.prototype.dispatchSelectableLoaded_ = function() {
   this.each(airHandlerCenterList, this.addSelectable);
   this.each(otherList, this.addSelectable);
   
-  
   if (this.selectableList_.length > 0) {
      this.triggerLocal(e.SelectableLoaded, this.selectableList_);
   }
   
-
 };
 
 

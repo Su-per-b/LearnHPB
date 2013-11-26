@@ -37,7 +37,6 @@ goog.inherits(lgb.world.view.BaseWorldView, lgb.core.BaseClass);
 
 lgb.world.view.BaseWorldView.prototype.listenForChange_ = function(changedPropertyString) {
     
-    
     if (this.changeMap_ === undefined) {
       this.changeMap_ = {};
       this.listenHelper_(this.dataModel, e.DataModelChangedEx, this, this.onChangeEx_);
@@ -107,6 +106,7 @@ lgb.world.view.BaseWorldView.prototype.loadSceneFromFolder_ = function(folderNam
 
   var path = lgb.core.Config.ASSETS_BASE_PATH + folderName + '/' + this.filename;
   this.loader_ = new THREE.SceneLoaderEx();
+  this.loader_.addGeometryHandler( "binary", THREE.BinaryLoader );
   this.loader_.load(path, this.d(this.onSceneLoadedBase_));
 };
 
@@ -133,13 +133,19 @@ lgb.world.view.BaseWorldView.prototype.onSceneLoadedBase_ = function(result) {
   this.masterGroup_.scale = this.scene_.scale;
   this.masterGroup_.viewpoint = "defaultScene";
   
+  this.objectTypeMap_ = {
+    Mesh : this.meshes_,
+    Object3D : this.object3ds_
+  };
+  
+
+  
   if ( !COMPILED  && lgb.core.Config.DEBUG_3D) {
     this.eachProperty(this.geometries_, this.analyzeOneGeometry_);
   }
  
   this.eachPropertyName(this.objects_, this.processOneObject_);
   
-  var c = this.containers_; 
   if (this.containers_ != null) {
     this.placeContainers_();
   }
@@ -159,27 +165,38 @@ lgb.world.view.BaseWorldView.prototype.onSceneLoadedBase_ = function(result) {
 
 lgb.world.view.BaseWorldView.prototype.processOneObject_ = function(object, name) {
   
-  var className = object.getFullClassName();
-  
+
+  var fullClassName = object.getFullClassName();
+  var ary = fullClassName.split('.');
+
+  var len = ary.length;
+  var className = ary[len - 1];
+
   if ('' == object.name) {
     object.name = name;
   }
-  
-  switch (className) {
-    case 'THREE.Mesh': {
-      this.meshes_[name] = object;
-      break;
-    }
-    case 'THREE.Object3d': {
-      this.object3ds_[name] = object;
-      break;
-    }
+
+
+  if (!this.objectTypeMap_.hasOwnProperty(className)) {
+    this.objectTypeMap_[className] = {};
+  }
+
+  this.objectTypeMap_[className][name] = object;
+
+
+  if (undefined !== object.groups){
     
-    default: {
-      debugger;
-    }
-  };
+    for (var i = 0; i < object.groups.length; i++) {
+      var groupID = object.groups[i];
   
+      if (this.groups_[groupID] === undefined) {
+        this.groups_[groupID] = [];
+      }
+      
+      this.groups_[groupID].push(object);
+    }
+
+  }
 
   
 };
@@ -206,9 +223,6 @@ lgb.world.view.BaseWorldView.prototype.analyzeOneGeometry_ = function(geometry) 
     lgb.logWarning(msg, this._TITLE);
   }
   
-  
-
-  
 };
 
 
@@ -231,6 +245,29 @@ lgb.world.view.BaseWorldView.prototype.placeContainers_ = function() {
     
     for(var containerName in this.containers_) {
       var containerObject = this.containers_[containerName];
+      
+      
+      if (undefined !== containerObject.position ) {
+          containerObject.position = new THREE.Vector3().fromArray(containerObject.position);
+      } else {
+          containerObject.position = new THREE.Vector3();
+      }
+      
+      
+      if (undefined !== containerObject.rotation ) {
+          containerObject.rotation = new THREE.Euler().fromArray(containerObject.rotation);
+      } else {
+          containerObject.rotation = new THREE.Euler();
+      }
+      
+      
+      if (undefined !== containerObject.scale ) {
+          containerObject.scale = new THREE.Vector3().fromArray(containerObject.scale);
+      } else {
+          containerObject.scale = new THREE.Vector3(1,1,1);
+      }
+
+      
       this.placeOneContainer_(containerName, containerObject);
     }
 
@@ -265,38 +302,18 @@ lgb.world.view.BaseWorldView.prototype.placeOneContainer_ = function(containerNa
         
         var ary = this.groups_[groupName];
         
+        lgb.assert(ary);
+        
         if (goog.userAgent.WEBKIT) {
           this.each(ary, this.chromeBlinkingFix_);
         }
         
         obj3D.cloneArray(ary);
           
-          
-          
-  
-        if (containerObject.position != null) {
-            obj3D.position = new THREE.Vector3(
-                containerObject.position[0],
-                containerObject.position[1],
-                containerObject.position[2]
-            );
-        }
+        obj3D.position = containerObject.position;
+        obj3D.rotation = containerObject.rotation;
+        obj3D.scale = containerObject.scale;
         
-        if (containerObject.rotation != null) {
-            obj3D.rotation = new THREE.Vector3(
-                containerObject.rotation[0],
-                containerObject.rotation[1],
-                containerObject.rotation[2]
-            );
-        }
-        
-        if (containerObject.scale != null) {
-            obj3D.scale = new THREE.Vector3(
-                containerObject.scale[0],
-                containerObject.scale[1],
-                containerObject.scale[2]
-            );
-        }
         
         if (containerObject.viewpoint == null) {
            obj3D.viewpoint = "default";

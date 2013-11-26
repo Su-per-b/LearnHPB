@@ -13,6 +13,32 @@ goog.require('goog.structs.Map');
 lgb.core.ThreeUtils = {};
 
 
+// lgb.core.ThreeUtils.convertGroupHashToMeshHash2 = function(groupHash) {
+//   
+  // var hash = {};
+// 
+  // for (var theGroupName in groupHash) {
+//     
+    // var theGroup = groupHash[theGroupName];
+//     
+    // var object3d = new THREE.Object3D();
+    // object3d.name = theGroupName;
+//     
+    // var len = theGroup.length;
+    // for (var i = 0; i < len; i++) {
+        // object3d.add(theGroup[i]);
+    // }
+//     
+    // hash[theGroupName] = object3d;
+//     
+// 
+  // }
+// 
+  // return hash;
+// };
+// 
+
+
 /**
  * This will take a group and just merge all the geometries of
  * the group members into one
@@ -28,7 +54,7 @@ lgb.core.ThreeUtils.convertGroupHashToMeshHash = function(groupHash) {
     var theGroup = groupHash[theGroupName];
     var mesh = lgb.core.ThreeUtils.convertGroupToOneMesh(theGroup, theGroupName);
     meshHash[theGroupName] = mesh;
-    mesh.geometry.computeBoundingBox();
+    mesh.geometry.center();
   }
 
   return meshHash;
@@ -43,15 +69,31 @@ lgb.core.ThreeUtils.convertGroupHashToMeshHash = function(groupHash) {
  */
 lgb.core.ThreeUtils.convertGroupToOneMesh = function(theGroup, theGroupName) {
 
-  var geom = new THREE.Geometry();
+
+  var newMesh = theGroup[0];
+  
+  //var geom = new THREE.Geometry();
 
   var l = theGroup.length;
-  for (var i = 0; i < l; i++) {
-    THREE.GeometryUtils.merge(geom, theGroup[i]);
+  for (var i = 1; i < l; i++) {
+    
+    var mesh = theGroup[i];
+    
+    THREE.GeometryUtils.merge(newMesh.geometry, mesh.geometry);
+    
+    var marterialsAry = mesh.material.materials;
+    var len = marterialsAry.length;
+    
+    for (var j = 0; j < len; j++) {
+      newMesh.material.materials.push(marterialsAry[j]);
+    }
   }
 
-  var newMesh = new THREE.Mesh(geom, new THREE.MeshFaceMaterial());
-  newMesh.name = theGroupName;
+ // var newMesh = new THREE.Mesh(geom, new THREE.MeshFaceMaterial());
+ // newMesh.name = theGroupName;
+ 
+  newMesh.geometry.mergeVertices();
+
 
   return newMesh;
 };

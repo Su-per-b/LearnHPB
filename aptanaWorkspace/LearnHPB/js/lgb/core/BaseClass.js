@@ -272,6 +272,8 @@ lgb.core.BaseClass.prototype.eachPropertyName = function(object, handler) {
     
     handler.apply(this, argList);
   }
+  
+  
 
 };
 

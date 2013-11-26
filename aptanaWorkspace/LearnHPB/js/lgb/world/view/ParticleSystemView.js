@@ -82,10 +82,10 @@ lgb.world.view.ParticleSystemView.prototype.init = function() {
   var degreesY = this.dataModel.rotate[1] * Math.PI / 180;
   var degreesZ = this.dataModel.rotate[2] * Math.PI / 180;
 
-  this.rotationVector = new THREE.Vector3(degreesX, degreesY, degreesZ);
+  this.rotationEuler = new THREE.Euler(degreesX, degreesY, degreesZ);
 
   this.masterGroup_.position = this.positionVector;
-  this.masterGroup_.rotation = this.rotationVector;
+  this.masterGroup_.rotation = this.rotationEuler;
 
   this.generateParticlePaths();
   this.createSystem();
@@ -125,7 +125,7 @@ lgb.world.view.ParticleSystemView.prototype.createSystem = function() {
 
   var cicle = THREE.ImageUtils.loadTexture('3d-assets/textures/circle.png');
 
-  this.pMaterial = new THREE.ParticleBasicMaterial({
+  this.pMaterial = new THREE.ParticleSystemMaterial({
     color : 0x0000ff,
     size : 0.75,
     map : cicle,
@@ -214,6 +214,8 @@ lgb.world.view.ParticleSystemView.prototype.newCurve = function() {
 
   for (var i = 0; i < num; i++) {
     var boxMesh = this.dataModel.meshes[i];
+    lgb.assert(boxMesh);
+    
     var vex3 = THREE.GeometryUtils.randomPointsInGeometry( boxMesh.geometry, 1 )[0];
     vec3AlongCurve.push(vex3);
   }

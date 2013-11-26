@@ -59,6 +59,9 @@ lgb.core.DebugLGB.prototype.getPackages = function() {
   
   
   
+  
+  
+  
   return packages;
 };
 
@@ -291,7 +294,9 @@ lgb.core.DebugLGB.prototype.tagExClassName_ = function(fullClassName) {
   var functionExists1 = classConstructor.prototype.hasOwnProperty('getFullClassName');  
   
   if(functionExists1) {
-    debugger;
+    
+    console.log("DebugLGB.tagClassName_() - skipping class: " + fullClassName + " - already tagged");
+    
   } else {
     var code = "{0}.prototype.getFullClassName".format(fullClassName);
     code += "=function() { return '{0}'};".format(fullClassName);
@@ -306,15 +311,6 @@ lgb.core.DebugLGB.prototype.tagExClassName_ = function(fullClassName) {
   } 
   
   
-/*
-  var code2 = "new " + fullClassName + "()";
-  var instance = eval(code2);
-  var fullClassNameResult = instance.getFullClassName();
-  
-  if (fullClassName != fullClassNameResult) {
-    debugger;
-  }
-  */
 
   return;
     

@@ -1,7 +1,8 @@
 /**
  * @author mrdoob / http://mrdoob.com/
  * @author mikael emtinger / http://gomo.se/
- */
+ * @author WestLangley / http://github.com/WestLangley
+*/
 
 THREE.Camera = function () {
 
@@ -16,17 +17,31 @@ THREE.Camera = function () {
 
 THREE.Camera.prototype = Object.create( THREE.Object3D.prototype );
 
-THREE.Camera.prototype.lookAt = function ( vector ) {
+THREE.Camera.prototype.lookAt = function () {
 
-	// TODO: Add hierarchy support.
+	// This routine does not support cameras with rotated and/or translated parent(s)
 
-	this.matrix.lookAt( this.position, vector, this.up );
+	var m1 = new THREE.Matrix4();
 
-	if ( this.rotationAutoUpdate === true ) {
-		this.rotation.setEulerFromRotationMatrix( this.matrix, this.eulerOrder );
-	}
+	return function ( vector ) {
 
+		m1.lookAt( this.position, vector, this.up );
+
+		this.quaternion.setFromRotationMatrix( m1 );
+
+	};
+
+}();
+
+THREE.Camera.prototype.clone = function (camera) {
+
+	if ( camera === undefined ) camera = new THREE.Camera();
+
+	THREE.Object3D.prototype.clone.call( this, camera );
+
+	camera.matrixWorldInverse.copy( this.matrixWorldInverse );
+	camera.projectionMatrix.copy( this.projectionMatrix );
+	camera.projectionMatrixInverse.copy( this.projectionMatrixInverse );
+
+	return camera;
 };
-
-
-

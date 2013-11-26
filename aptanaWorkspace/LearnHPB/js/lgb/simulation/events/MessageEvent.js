@@ -15,7 +15,7 @@ goog.require('lgb.simulation.model.voNative.MessageType');
  * @extends {goog.events.Event}
  */
 lgb.simulation.events.MessageEvent = function(payload) {
-  lgb.simulation.events.BaseEvent.call(this, lgb.simulation.events.MessageEvent.TYPE,  payload);
+  lgb.simulation.events.BaseEvent.call(this,  payload);
 };
 goog.inherits(lgb.simulation.events.MessageEvent, lgb.simulation.events.BaseEvent);
 
@@ -34,12 +34,19 @@ lgb.simulation.events.MessageEvent.prototype.fromJson = function(deserializedObj
 };
 
 
-/**
- * Event type
- * @const
- * @type {string}
- */
-lgb.simulation.events.MessageEvent.TYPE = 'lgb.simulation.events.MessageEvent';
+
+lgb.simulation.events.MessageEvent.fromJson = function(deserializedObj) {
+   
+    var payload = new lgb.simulation.model.voNative.MessageStruct(
+        deserializedObj.payload.msgText,
+        deserializedObj.payload.messageType
+    );
+    
+    var typedObj = new lgb.simulation.events.MessageEvent(payload);
+    return typedObj;
+
+};
+
 
 /**
  * Server type

@@ -35,8 +35,6 @@ lgb.world.controller.RoofTopController.prototype.init = function() {
 
 
 
-
-
 lgb.world.controller.RoofTopController.prototype.bind_ = function() {
 
   this.relay(this.view, 

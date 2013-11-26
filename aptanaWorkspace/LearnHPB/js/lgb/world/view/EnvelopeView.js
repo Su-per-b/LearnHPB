@@ -24,19 +24,12 @@ lgb.world.view.EnvelopeView = function(dataModel) {
   this._TITLE = 'Envelope';
   
   lgb.world.view.BaseWorldView.call(this, dataModel);
-
-  this.floorMeshHash_ = [];
-  this.floorOffset_= [];  
+  this.floorMeshHash_ = {};
   
   this.floorDimensions_ = null;
   
-  this.topFloorContainer_ = new THREE.Object3D();
-  this.topFloorContainer_.name = this._ASSETS_FOLDER + "-topFloorContainer";
-  
-  this.lowerFloorContainer_ = new THREE.Object3D();
-  this.lowerFloorContainer_.name = this._ASSETS_FOLDER + "-lowerFloorContainer";
-  
-  this.topFloorMesh_ = null;
+  this.allFloorsContainer_ = new THREE.Object3D();
+  this.allFloorsContainer_.name = this._ASSETS_FOLDER + "-allFloorsContainer";
   
 
 };
@@ -70,54 +63,40 @@ lgb.world.view.EnvelopeView.prototype.getTopFloorContainer = function() {
  */
 lgb.world.view.EnvelopeView.prototype.onSceneLoaded_ = function() {
 
-  
-  this.floorMeshHash_ = lgb.core.ThreeUtils.convertGroupHashToMeshHash(this.groups_);
 
+  this.floorMeshHash_ = lgb.core.ThreeUtils.convertGroupHashToMeshHash(this.groups_);
+  
   var hashKeyArray = [];
   var optionsAry = this.dataModel.floorHeightOptions;
   var len = optionsAry.length;
-  
+
   for (var i = 0; i < len; i++) {
     var hashKey = optionsAry[i] + 'ft';
     hashKeyArray.push(hashKey);
+
+    var mesh = this.floorMeshHash_[hashKey];
     
-   var mesh = this.floorMeshHash_[hashKey];
-   
-   
-   if (mesh === undefined) {
-     var x = 1;
-   }
-   
-  if (goog.userAgent.WEBKIT) {
-    this.chromeBlinkingFix_(mesh);
-  }
-        
+    if (goog.userAgent.WEBKIT) {
+      this.chromeBlinkingFix_(mesh);
+    }
 
-   
-   var dim = mesh.geometry.getDimensions();
-   
-   this.floorMeshHash_[hashKey].position.setY(dim.y/2);
+    var dim = mesh.geometry.getDimensions();
+    var y = dim.y / 2;
+    
+    mesh.position.setY(y);
   }
 
-  this.masterGroup_.add(this.topFloorContainer_);
-  this.masterGroup_.add(this.lowerFloorContainer_);
-  
+  this.masterGroup_.add(this.allFloorsContainer_);
   this.requestAddToWorld(this.masterGroup_);
   this.makeFloors_();
   this.dispatchVisibilityNodes_();
-  
-  this.bind_();
+  this.bind_(); 
+
 };
 
 
 lgb.world.view.EnvelopeView.prototype.dispatchVisibilityNodes_ = function() {
 
-  var lowClone = this.lowerFloorContainer_.children.slice(0);
-  var topClone = this.topFloorContainer_.children.slice(0);
-  
-  var allFloors = lowClone.concat(topClone); 
-  allFloors.reverse();
-  
   var visibilityNode = new lgb.world.model.vo.VisibilityNode('Envelope', this.masterGroup_, 1 );
   this.triggerLocal(e.VisibilityNodesLoaded, visibilityNode);
 
@@ -133,45 +112,28 @@ lgb.world.view.EnvelopeView.prototype.makeFloors_ = function() {
   var hashKey = this.dataModel.floorHeight + 'ft';
   
   var mesh = this.floorMeshHash_[hashKey];
-  var geometry = mesh.geometry;
-  
-  this.floorDimensions_ = geometry.getDimensions();
+  this.floorDimensions_ = mesh.geometry.getDimensions();
  
-  this.lowerFloorContainer_.removeAllChildren();
+  this.allFloorsContainer_.removeAllChildren();
   var floorCount = this.dataModel.floorCount;
 
-  for (var j = 0; j < floorCount-1; j++) {
-    var newFloor = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial());
+  for (var j = 0; j < floorCount; j++) {
+    var newFloor = mesh.clone();
+    
     newFloor.name = this._ASSETS_FOLDER + "-floor-" + (j + 1);
-    newFloor.position.y += j * this.floorDimensions_.y + mesh.position.y;
-    this.lowerFloorContainer_.add(newFloor);
+    newFloor.position.y += j * this.floorDimensions_.y;
+    this.allFloorsContainer_.add(newFloor);
   }
+
+  var topFloorMaxY = this.floorDimensions_.y * floorCount;
+  var topFloorMinY = topFloorMaxY - this.floorDimensions_.y;
   
-  //make top floor
-  var topFloorY = j * this.floorDimensions_.y + mesh.position.y;
+  var payload = new lgb.world.model.BuildingHeightModel(topFloorMaxY, topFloorMinY);
   
-  if (this.topFloorMesh_) {
-      this.topFloorContainer_.remove(this.topFloorMesh_);
-  }
-  
-  this.topFloorMesh_ = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial());
-  this.topFloorMesh_.name = this._ASSETS_FOLDER + "-floor-" + (j + 1);
-  this.topFloorContainer_.position.y = topFloorY;
-  this.topFloorContainer_.add(this.topFloorMesh_);
-  
-  this.topFloorMesh_.geometry.computeBoundingBox();
-  
-  var bb = this.topFloorMesh_.geometry.boundingBox;
-  
-  var topFloorMaxY = topFloorY + bb.max.y;
-  var topFloorMinY = topFloorY + bb.min.y;
-  
-  var payload = new lgb.world.model.BuildingHeightModel(topFloorMaxY,topFloorMinY);
   this.triggerLocal(e.BuildingHeightChanged, payload);
   
   
 };
-
 
 
 

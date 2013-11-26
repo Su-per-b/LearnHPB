@@ -5,18 +5,16 @@ var originalPrototype = THREE.Geometry.prototype;
 
 THREE.Geometry = function () {
   
-  this.id = THREE.GeometryCount ++;
+  this.id = THREE.GeometryIdCount ++;
+  this.uuid = THREE.Math.generateUUID();
 
   this.name = '';
 
   this.vertices = [];
-  this.colors = []; // one-to-one vertex colors, used in ParticleSystem, Line and Ribbon
-
-  this.materials = [];
+  this.colors = [];  // one-to-one vertex colors, used in ParticleSystem and Line
 
   this.faces = [];
 
-  this.faceUvs = [[]];
   this.faceVertexUvs = [[]];
 
   this.morphTargets = [];
@@ -26,12 +24,26 @@ THREE.Geometry = function () {
   this.skinWeights = [];
   this.skinIndices = [];
 
+  this.lineDistances = [];
+
   this.boundingBox = null;
   this.boundingSphere = null;
 
   this.hasTangents = false;
 
-  this.dynamic = true; // the intermediate typearrays will be deleted when set to false
+  this.dynamic = true; // the intermediate typed arrays will be deleted when set to false
+
+  // update flags
+
+  this.verticesNeedUpdate = false;
+  this.elementsNeedUpdate = false;
+  this.uvsNeedUpdate = false;
+  this.normalsNeedUpdate = false;
+  this.tangentsNeedUpdate = false;
+  this.colorsNeedUpdate = false;
+  this.lineDistancesNeedUpdate = false;
+
+  this.buffersNeedUpdate = false;
   
   this.analysis_ = {
     isCentered : null,
