@@ -70,6 +70,7 @@ lgb.simulation.model.SimStateNativeWrapper.CLIENT_TRANSITIONS = {
   2: [3], //simStateNative_1_connect_completed
   4: [5], //simStateNative_2_xmlParse_completed
   10: [11, 17, 22, 24], //simStateNative_3_ready
+  12:[15], //simStateNative_4_run_started
   13: [10], //simStateNative_4_run_completed
   16: [17, 26, 24, 22], //simStateNative_5_stop_completed
   21: [26,22,15] //simStateNative_6_pause_completed

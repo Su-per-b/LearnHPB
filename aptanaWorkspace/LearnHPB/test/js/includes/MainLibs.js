@@ -11,6 +11,9 @@ test.includes.MainLibs.init = function() {
  
   test.includes.Main.addOneScript("js/lib/", "jquery.src");  
   test.includes.Main.addOneScript("js/lib/", "jquery.easing.1.3");
+  test.includes.Main.addOneScript("js/lib/", "purl");
+    
+
     
   test.includes.Main.addScripts(
     "js/lib/tweenjs/", 

@@ -41,12 +41,9 @@ lgb.gui.view.SimulationStateControlGUI.prototype.init = function() {
 
 lgb.gui.view.SimulationStateControlGUI.prototype.onChange_scalarValueResults_ = function(scalarValueResults) {
   
-  
   var msg = scalarValueResults.time_.toString();
   this.simTime_.html (msg);
   
-  
-  return;
 };
 
 
@@ -60,16 +57,13 @@ lgb.gui.view.SimulationStateControlGUI.prototype.onChange_simStateNative_ = func
   }
   
   var msg = "{0}:{1}".format(stateObject.getInteger(), stateObject.getString());
-  
   this.simStatus_.html (msg);
-  
   this.each(this.simControlButtons_, this.checkIfButtonEnabled_, stateObject);
-  
 
 };
 
+
 lgb.gui.view.SimulationStateControlGUI.prototype.onChange_webSocketConnectionState_ = function(webSocketConnectionState) {
-  
   
   var WebSocketConnectionState = lgb.simulation.model.WebSocketConnectionState;
   var stateObject = new lgb.simulation.model.WSConnectionState(webSocketConnectionState);
@@ -135,8 +129,8 @@ lgb.gui.view.SimulationStateControlGUI.prototype.injectTo = function(parentEleme
   el.append(this.wsStatus_);
   el.append('<br />');
   
-  this.wsConnectLink_ = this.makeLink_('Socket Open', 'wsConnect');
-  this.wsDisConnectLink_ = this.makeLink_('Socket Close', 'wsDisConnect');
+  this.wsConnectLink_ = this.makeLink1_('Socket Open', 'wsConnect');
+  this.wsDisConnectLink_ = this.makeLink1_('Socket Close', 'wsDisConnect');
 
   el.append('<br />');
   
@@ -205,23 +199,21 @@ lgb.gui.view.SimulationStateControlGUI.prototype.onClickSimStateNativeRequest_ =
     this.dispatchLocal(e);
 };
 
+
 lgb.gui.view.SimulationStateControlGUI.prototype.makeLink2_ = function(label, cssId, simStateNative) {
   
-  var link = this.makeLink_(label, cssId);
+  var link = this.makeLink1_(label, cssId);
   link.ds.clickPayload = simStateNative;
-  
   this.simControlButtons_.push(link);
   
 };
 
 
-lgb.gui.view.SimulationStateControlGUI.prototype.makeLink_ = function(label, cssId) {
+lgb.gui.view.SimulationStateControlGUI.prototype.makeLink1_ = function(label, cssId) {
   
   var ds = new lgb.component.LinkDataSource(label, this.htmlID, cssId);
   ds.cssClass = "sim";
-  
   var link = new lgb.component.Link(ds);
-  
   
   var el = this.getMainElement();
   var html = link.getHTML();
@@ -234,6 +226,8 @@ lgb.gui.view.SimulationStateControlGUI.prototype.makeLink_ = function(label, css
   return link;
   
 };
+
+
 
 lgb.gui.view.SimulationStateControlGUI.prototype.onWsConnectLink_ = function(event) {
   

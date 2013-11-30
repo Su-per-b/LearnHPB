@@ -131,7 +131,7 @@ lgb.simulation.controller.MainController.prototype.onResultEvent_ = function(eve
 
 lgb.simulation.controller.MainController.prototype.onMessageEvent_ = function(event) {
   this.dataModel.changePropertyEx('messageStruct', event.getPayload());
- this.dispatch(event);
+  this.dispatch(event);
 };
 
 
@@ -240,16 +240,7 @@ lgb.simulation.controller.MainController.prototype.onOpen_ = function(event) {
         this.ws_.send(msg);
     }
 
-/*
-    var len = this.delayedMessages.length;
 
-    for (var i = 0; i < len; i++) {
-        var message = this.delayedMessages[i];
-
-    };
-*/
-
-   // this.delayedMessages = [];
 };
 
 /**
@@ -264,7 +255,11 @@ lgb.simulation.controller.MainController.prototype.onMessage_ = function(event) 
 
         var event = this.jsonController_.deSerialize(jsonString);
 
+        
         this.dispatchLocal(event);
+        
+       // setInterval(this.d(this.dispatchLocal), 1000, event);
+       
     }
 };
 

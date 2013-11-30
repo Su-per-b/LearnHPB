@@ -33,8 +33,6 @@ lgb.gui.view.SimulationTestGUI.prototype.calculateLayout = function() {
   this.kendoGridContent_.css("height", cssStr);
      
   //var data = this.gridDS_.options.data[0].idx_ += 1;
-  
-  
   //this.gridDS_.read();
   
   return;

@@ -72,7 +72,6 @@ lgb.world.controller.BuildingController.prototype.init_ = function() {
   this.envelopeController_.init();
   this.psMasterController_.init();
 
-  
 };
 
 
@@ -131,8 +130,6 @@ lgb.world.controller.BuildingController.prototype.bind2_ = function() {
     this.onAddToCeiling_
     );
     
-    
-    
   this.listenTo(
     this.lightingController_,
     e.AddToWorldRequest,
@@ -174,7 +171,6 @@ lgb.world.controller.BuildingController.prototype.onViewpointNodesLoaded_ =
 
 
 
-
 lgb.world.controller.BuildingController.prototype.onAddToAnchor_ =
   function(event) {
   
@@ -187,7 +183,6 @@ lgb.world.controller.BuildingController.prototype.onAddToAnchor_ =
    }
 
 };
-
 
 
 

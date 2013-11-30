@@ -32,19 +32,6 @@ THREE.Camera.prototype.lookAt = function () {
 
 
 
-// THREE.Camera.prototype.lookAt = function ( vector ) {
-// 
-  // // TODO: Add hierarchy support.
-// 
-  // this.matrix.lookAt( this.position, vector, this.up );
-// 
-  // //if ( this.rotationAutoUpdate === true ) {
-    // //this.rotation.setEulerFromRotationMatrix( this.matrix, this.eulerOrder );
- // //}
-//   
-  // this.lookAtPosition = vector;
-// 
-// };
 
 
 THREE.Camera.prototype.getInfo = function ( vector ) {

@@ -20,6 +20,17 @@
       "rotation" : [ 0, 0, 0 ],
       "scale"    : [ 20, 20, 20 ],
       "visible"  : true
+    },
+       
+
+    
+    "TaskLight3" : {
+      "geometry" : "geo_TaskLight",
+      "materials": [],
+      "position" : [ 0, 0, 20 ],
+      "rotation" : [ 0, 0, 0 ],
+      "scale"    : [ 20, 20, 20 ],
+      "visible"  : true
     }
         
 	},

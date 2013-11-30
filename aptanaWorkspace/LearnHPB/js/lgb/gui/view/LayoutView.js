@@ -79,7 +79,6 @@ lgb.gui.view.LayoutView.prototype.bind_ = function(guiView) {
 
 
 lgb.gui.view.LayoutView.prototype.onChange_add_ = function(value) {
-  
   this.add(value);
 };
 
@@ -140,18 +139,6 @@ lgb.gui.view.LayoutView.prototype.add = function(guiView) {
       var util = new lgb.gui.view.LayoutUtil(guiView);
 
       util.alignHorizontal(lgb.gui.view.LayoutUtil.ALIGN.Right, 6);
-      util.show();
-
-      this.layoutUtils_.push(util);
-
-      break;
-    case "SimulationButtonGreenGUI":
-      this.simulationButton_ = guiView;
-
-      guiView.injectTo(this.webGLcanvas_);
-      var util = new lgb.gui.view.LayoutUtil(guiView);
-
-      util.alignHorizontal(lgb.gui.view.LayoutUtil.ALIGN.Right, 43);
       util.show();
 
       this.layoutUtils_.push(util);

@@ -16,7 +16,24 @@
           0,
           0
       ]
+    },
+  "108": {
+      "type": "group",
+      "groupName": "OuterOfficeGroup",
+      "position": [
+          0,
+          0,
+          3
+      ],
+      "rotation": [
+          0,
+          0,
+          0
+      ]
     }
+    
+    
+    
   },
 
     

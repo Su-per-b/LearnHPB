@@ -23,7 +23,7 @@ goog.inherits(lgb.simulation.events.XMLparsedEvent, lgb.simulation.events.BaseEv
 
 
 
-lgb.simulation.events.XMLparsedEvent.prototype.fromJson = function(deserializedObj) {
+lgb.simulation.events.XMLparsedEvent.fromJson = function(deserializedObj) {
     
 
     var payload =  lgb.simulation.model.voManaged.XMLparsedInfo.fromJson(deserializedObj.payload);

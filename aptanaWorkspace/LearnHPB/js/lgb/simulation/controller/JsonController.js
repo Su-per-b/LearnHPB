@@ -36,16 +36,16 @@ lgb.simulation.controller.JsonController.prototype.init_ = function() {
     this.initClass_(new lgb.simulation.events.ScalarValueChangeRequest());
     this.initClass_(new lgb.simulation.events.SimStateNativeRequest());
     
-    
     this.payloadClassMap_ = {
       "com.sri.straylight.fmuWrapper.voNative.SimStateNative" : lgb.simulation.events.SimStateNativeNotify
-      
     };
     
-
-    
     this.deserializeEventMap_ = {
-      "com.sri.straylight.fmuWrapper.event.SimStateNativeNotify":lgb.simulation.events.SimStateNativeNotify
+      "com.sri.straylight.fmuWrapper.event.SimStateNativeNotify":lgb.simulation.events.SimStateNativeNotify,
+      "com.sri.straylight.fmuWrapper.event.MessageEvent": lgb.simulation.events.MessageEvent,
+      "com.sri.straylight.fmuWrapper.event.XMLparsedEvent": lgb.simulation.events.XMLparsedEvent,
+      "com.sri.straylight.fmuWrapper.event.ConfigChangeNotify" : lgb.simulation.events.ConfigChangeNotify,
+      "com.sri.straylight.fmuWrapper.event.ResultEvent" : lgb.simulation.events.ResultEvent
     };
     
     this.deserializePayloadMap_ = {
@@ -75,8 +75,13 @@ lgb.simulation.controller.JsonController.prototype.deSerialize = function(jsonSt
     var eventClass = this.deserializeEventMap_[eventType];
     
     if (! eventClass ) {
-        throw ("JsonController.deSerialize() failed due to unknwon type: "+ typeStr);
+        throw ("JsonController.deSerialize() failed due to unknwon type: "+ eventType);
     }
+    
+    if (! eventClass.fromJson ) {
+        throw ("JsonController.deSerialize() failed due to unknwon type: "+ eventType);
+    }
+    
     
     var typedObj = eventClass.fromJson(deserializedObj);
     

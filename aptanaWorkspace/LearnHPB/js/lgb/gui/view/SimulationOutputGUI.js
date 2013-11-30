@@ -7,6 +7,8 @@ lgb.gui.view.SimulationOutputGUI = function(dataModel) {
   
   lgb.gui.view.BaseGUI.call(this, dataModel);
   this.totalHeaderHeight_ = 70;
+  this.isDirty_ = false;
+  this.blockUpdates_ = false;
 };
 goog.inherits(lgb.gui.view.SimulationOutputGUI, lgb.gui.view.BaseGUI);
 
@@ -29,15 +31,33 @@ lgb.gui.view.SimulationOutputGUI.prototype.onChange_xmlParsedInfo_ = function(xm
   
   this.makeTable_(xmlParsedInfo.scalarVariablesAll_.output_.realVarList_);
   
-  return;
 };
 
 
 lgb.gui.view.SimulationOutputGUI.prototype.onChange_scalarValueResults_ = function(scalarValueResults) {
   
-  this.updateTable_(scalarValueResults.output.realList);
+  this.processUpdate_(scalarValueResults.output.realList);
   
-  return;
+};
+
+
+
+lgb.gui.view.SimulationOutputGUI.prototype.processUpdate_ = function(varList) {
+  
+  this.eachIdx(varList, this.updateRowData_);
+  
+  if (false == this.blockUpdates_) {
+      this.blockUpdates_ = true;
+      this.updateAll_();
+      setInterval(this.d(this.checkUpdate_),1000);
+  }
+};
+
+
+lgb.gui.view.SimulationOutputGUI.prototype.updateRowData_ = function(row, idx) {
+  
+  this.gridDS_.options.data[idx].value = row.value_.toFixed(4);
+    
 };
 
 
@@ -71,24 +91,33 @@ lgb.gui.view.SimulationOutputGUI.prototype.injectTo = function(parentElement) {
 
 
 
-lgb.gui.view.SimulationOutputGUI.prototype.updateTable_ = function(varList) {
-  
-  this.eachIdx(varList, this.updateRow_);
-  
-  this.gridDS_.read();
-};
 
 
-lgb.gui.view.SimulationOutputGUI.prototype.updateRow_ = function(row, idx) {
+lgb.gui.view.SimulationOutputGUI.prototype.checkUpdate_ = function() {
   
-  this.gridDS_.options.data[idx].value = row.value_.toFixed(4);
+  this.blockUpdates_ = false;
+
+
+  if (true == this.isDirty_) {
+      this.blockUpdates_ = true;
+      this.updateAll_();
+      setInterval(this.d(this.checkUpdate_),1000);
+  }
+  
     
 };
+
+lgb.gui.view.SimulationOutputGUI.prototype.updateAll_ = function() {
+  
+  this.gridDS_.read();
+  this.isDirty_ = false;
+};
+
+
 
 
 lgb.gui.view.SimulationOutputGUI.prototype.makeTable_ = function(varList) {
   
-
   var ds = {
               data: varList,
               schema: {

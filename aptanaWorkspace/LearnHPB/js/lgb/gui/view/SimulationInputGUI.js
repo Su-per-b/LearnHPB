@@ -7,6 +7,8 @@ lgb.gui.view.SimulationInputGUI = function(dataModel) {
   
   lgb.gui.view.BaseGUI.call(this, dataModel);
   this.totalHeaderHeight_ = 70;
+  this.isDirty_ = false;
+  this.blockUpdates_ = false;
 };
 goog.inherits(lgb.gui.view.SimulationInputGUI, lgb.gui.view.BaseGUI);
 
@@ -34,15 +36,52 @@ lgb.gui.view.SimulationInputGUI.prototype.onChange_scalarValueResults_ = functio
 
 lgb.gui.view.SimulationInputGUI.prototype.updateTable_ = function(varList) {
   
+  
   this.eachIdx(varList, this.updateRow_);
   
-  this.gridDS_.read();
+  if (false == this.blockUpdates_ && true == this.isDirty_) {
+      this.blockUpdates_ = true;
+      this.updateAll_();
+      setInterval(this.d(this.checkUpdate_),1000);
+  }
+  
+ 
+
 };
+
+
+
+lgb.gui.view.SimulationInputGUI.prototype.checkUpdate_ = function() {
+  
+
+  if (true == this.isDirty_) {
+      this.updateAll_();
+      setInterval(this.d(this.checkUpdate_),1000);
+  }
+  
+  this.blockUpdates_ = false;
+  
+};
+
+lgb.gui.view.SimulationInputGUI.prototype.updateAll_ = function() {
+  
+  this.gridDS_.read();
+  this.isDirty_ = false;
+};
+
 
 
 lgb.gui.view.SimulationInputGUI.prototype.updateRow_ = function(row, idx) {
   
-  this.gridDS_.options.data[idx].value = row.value_.toFixed(4);
+  var existingValue = this.gridDS_.options.data[idx].value;
+  var newValue = row.value_.toFixed(4);
+  var newFloat = parseFloat(newValue);
+  
+  if (newFloat != existingValue) {
+      this.gridDS_.options.data[idx].value = newFloat;
+      this.isDirty_ = true;
+  }
+
     
 };
 

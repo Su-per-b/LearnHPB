@@ -23,7 +23,7 @@ goog.inherits(lgb.simulation.events.ConfigChangeNotify, lgb.simulation.events.Ba
 
 
 
-lgb.simulation.events.ConfigChangeNotify.prototype.fromJson = function(deserializedObj) {
+lgb.simulation.events.ConfigChangeNotify.fromJson = function(deserializedObj) {
     
     
     var struct = deserializedObj.payload.defaultExperimentStruct;
