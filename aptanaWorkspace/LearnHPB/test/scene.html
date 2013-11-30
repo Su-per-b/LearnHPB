@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="/LearnHPB/" >
+    <meta charset="UTF-8" />
+
+    <!-- =========================  CSS  ============================ -->
+
+    <link type="text/css" href="css/lgb.css"  rel="stylesheet" />
+    <link type="text/css" href="css/lgb-test.css"  rel="stylesheet" />
+    
+    <!-- =========================   JavaScript  ============================ -->
+    <script src="test/js/includes/Main.js"></script>
+    <script src="test/js/includes/MainLibs.js"></script>
+    <script src="test/js/includes/ThreeEx.js"></script>
+
+    <title>Test Scene</title>
+
+    <script>
+    
+      goog.require('lgb');
+      goog.require('lgb.core.EventBus');
+      goog.require('lgb.core.Global');
+      goog.require('test.world.controller.WorldController');
+      goog.require('lgb.world.controller.UtilityController');
+      goog.require('test.world.controller.SceneController');
+    </script>
+  
+  
+
+  </head>
+
+  <body id="theBody">
+    <div id="webGLcanvas"></div>
+  </body>
+  
+
+  <script>
+  
+   var worldController;
+   
+   
+   $(document).ready(function () {
+     
+      var url = $.url(); // parse the current page URL
+      var folder = url.param('folder');
+      var file = url.param('file') + '.json';
+
+        
+      lgb.init();
+      lgb.globalEventBus = new lgb.core.EventBus();
+        
+      worldController = new test.world.controller.WorldController();
+      worldController.init();
+      
+      this.utilityController_ = new lgb.world.controller.UtilityController();
+      
+      this.sceneController_ = new test.world.controller.SceneController(folder, file);
+      this.sceneController_.init();
+        
+    });
+    
+    
+
+    
+  </script>
+  
+</html>
