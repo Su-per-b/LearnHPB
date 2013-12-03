@@ -18,7 +18,7 @@ goog.require('lgb.component.TabStripDataSource');
 lgb.gui.view.PropertiesGreenGUI = function(dataModel) {
 
   
-  lgb.gui.view.DialogGreenGUI.call(this, dataModel, 'propertiesView', lgb.core.Config.HUD_CONTAINER_STR);
+  lgb.gui.view.DialogGreenGUI.call(this, dataModel, 'propertiesView', lgb.core.Config.WEBGL_CONTAINER_DIV_ID);
   
   this.currentSelectionIdx = -1;
   this.title = 'Properties';

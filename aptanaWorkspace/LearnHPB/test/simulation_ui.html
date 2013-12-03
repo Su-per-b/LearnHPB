@@ -20,9 +20,7 @@
       goog.require('lgb');
       goog.require('lgb.core.EventBus');
       goog.require('lgb.core.Global');
-      goog.require('lgb.world.controller.RenderController');
-      goog.require('lgb.world.controller.UtilityController');
-      goog.require('test.world.controller.SceneController');
+
     </script>
   
   
@@ -30,7 +28,7 @@
   </head>
 
   <body id="theBody">
-    <div id="webGLcontainerDiv"></div>
+    <div id="webGLcanvas"></div>
   </body>
   
 
@@ -46,13 +44,15 @@
         
       lgb.init();
       lgb.globalEventBus = new lgb.core.EventBus();
+        
 
-      mainController.renderController_ = new lgb.world.controller.RenderController();
-      mainController.renderController_.init();
+      mainController.worldController_ = new lgb.world.controller.WorldController();
+      mainController.worldController_.init();
       
-      var camera = mainController.renderController_.getCamera();
       
-      this.trackController_ = new lgb.world.controller.TrackBallController(camera);
+      this.trackController_ = new lgb.world.controller.TrackBallController(
+        mainController.worldController_.getCamera()
+      );
       
       this.utilityController_ = new lgb.world.controller.UtilityController();
       

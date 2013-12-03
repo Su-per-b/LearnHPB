@@ -58,8 +58,7 @@ lgb.core.Config.APP_VERSION = '1.09';
 lgb.core.Config.SHOW_STATS = true;
 
 
-lgb.core.Config.HUD_CONTAINER = "#webGLcanvas";
-lgb.core.Config.HUD_CONTAINER_STR = "webGLcanvas";
+lgb.core.Config.WEBGL_CONTAINER_DIV_ID = "webGLcontainerDiv";
 
 /**
  * The file that holds the Three.js scene for all the particle systems.

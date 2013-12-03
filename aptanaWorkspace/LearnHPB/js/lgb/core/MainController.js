@@ -9,11 +9,15 @@ goog.require('goog.debug.Logger');
 goog.require('lgb.core.Config');
 goog.require('lgb.core.BaseController');
 goog.require('lgb.scenario.controller.ScenarioController');
-goog.require('lgb.world.controller.WorldController');
+goog.require('lgb.world.controller.RenderController');
 
 goog.require('lgb.gui.controller.GuiController');
 goog.require('lgb.gui.controller.LayoutController');
-goog.require('lgb.gui.controller.GuiController');
+goog.require('lgb.world.controller.BuildingController');
+goog.require('lgb.world.controller.UtilityController');
+goog.require('lgb.world.controller.WorldSelectionController');
+
+
 
 goog.require('lgb');
 
@@ -41,10 +45,20 @@ goog.inherits(lgb.core.MainController, lgb.core.BaseController);
  */
 lgb.core.MainController.prototype.init = function() {
 
-
+  
+  var url = $.url(); // parse the current page URL
+  var server = url.param('server');
+  
+  if (server) {
+    this.socketServerHost = server;
+  } else {
+    this.socketServerHost = null;
+  }
+  
+  
   console.log('lgb.core.MainController.init');
   this.injectErrorWindow_();
-  this.injectSimulationWindow_();
+  // this.injectSimulationWindow_();
   
   
 /*
@@ -70,14 +84,38 @@ lgb.core.MainController.prototype.init = function() {
   this.guiController = new lgb.gui.controller.GuiController();
   this.scenarioController = new lgb.scenario.controller.ScenarioController();
    
-  this.worldController_ = new lgb.world.controller.WorldController();
-  this.worldController_.init();
-    
+  this.renderController_ = new lgb.world.controller.RenderController();
+  this.renderController_.init();
+  
+  
+  if (lgb.core.Config.SHOW_STATS) {
+   // this.statsView_ = new lgb.gui.view.StatsView(this.view.containerDiv_);
+  } else {
+    this.statsView_ = null;
+  }
+  
+  this.buildingController_ = new lgb.world.controller.BuildingController();
+  this.utilityController_ = new lgb.world.controller.UtilityController();
+  
+  
+  /**@type {lgb.world.controller.WorldSelectionController} */
+  this.selectionController_ =
+    new lgb.world.controller.WorldSelectionController(
+      this.renderController_.getCamera(),
+      this.renderController_.scene_,
+      this.renderController_.view.containerDiv_
+  );
+  
+  
+  /** @type {lgb.world.controller.TrackBallController} */
+  this.trackController_ = new lgb.world.controller.TrackBallController(
+    this.renderController_.getCamera()
+  );
+  
+  
   $(window).resize(this.d(this.onNativeWindowResize_));
   
    
-
-
   this.simMainController_ = new lgb.simulation.controller.MainController();
   this.trigger(e.SimulationEngineLoaded, this.simMainController_);
   
@@ -120,33 +158,33 @@ lgb.core.MainController.prototype.onNativeWindowResize_ =
 
 };
 
-/**
- * Injects the HTML needed for the modal
- * dialog that apears if an exception occurs
- * @private
- */
-lgb.core.MainController.prototype.injectSimulationWindow_ = function() {
-  var container = $('<p>')
-    .attr('id', 'simulationWindow')
-    .appendTo('body');
-
-   var w = $('#simulationWindow').kendoWindow({
-       draggable: false,
-       resizable: false,
-       width: '500px',
-       height: '300px',
-       title: 'Simulation Output',
-       modal: true,
-       visible: false,
-       actions: ['Refresh', 'Maximize', 'Close']
-   }).data('kendoWindow');
-
-   w.center();
-   
-   
-   container.attr('unselectable','on').css('UserSelect','none').css('MozUserSelect','none');
-   
-};
+// /**
+ // * Injects the HTML needed for the modal
+ // * dialog that apears if an exception occurs
+ // * @private
+ // */
+// lgb.core.MainController.prototype.injectSimulationWindow_ = function() {
+  // var container = $('<p>')
+    // .attr('id', 'simulationWindow')
+    // .appendTo('body');
+// 
+   // var w = $('#simulationWindow').kendoWindow({
+       // draggable: false,
+       // resizable: false,
+       // width: '500px',
+       // height: '300px',
+       // title: 'Simulation Output',
+       // modal: true,
+       // visible: false,
+       // actions: ['Refresh', 'Maximize', 'Close']
+   // }).data('kendoWindow');
+// 
+   // w.center();
+//    
+//    
+   // container.attr('unselectable','on').css('UserSelect','none').css('MozUserSelect','none');
+//    
+// };
 
 
 

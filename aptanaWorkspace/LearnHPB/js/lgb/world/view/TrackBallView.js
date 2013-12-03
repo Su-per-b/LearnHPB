@@ -22,7 +22,7 @@ lgb.world.view.TrackBallView = function( camera) {
   /**@constant **/
   this._SENSITIVITY = -0.4;
   
-  lgb.world.view.BaseV.call(this, null, "TrackBallView",  lgb.core.Config.HUD_CONTAINER_STR);
+  lgb.world.view.BaseV.call(this, null, "TrackBallView",  lgb.core.Config.WEBGL_CONTAINER_DIV_ID);
 
   var p = this.getParentElement();
   this.domElement_ = p.get(0);

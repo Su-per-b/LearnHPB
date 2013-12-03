@@ -204,7 +204,8 @@ test.includes.ThreeEx.init = function() {
   ];
   
   
-  test.includes.Main.addOneScript("js/three/src/", "Three");  
+  test.includes.Main.addOneScript("js/three/src/", "Three");
+  
   test.includes.Main.addScripts("js/three/src/math/", math);
   test.includes.Main.addScripts("js/three/src/core/", core);
   test.includes.Main.addScripts("js/three/src/cameras/", cameras);

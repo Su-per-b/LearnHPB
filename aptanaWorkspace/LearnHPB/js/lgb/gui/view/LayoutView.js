@@ -105,6 +105,7 @@ lgb.gui.view.LayoutView.prototype.add = function(guiView) {
   switch(className ) {
     
     
+
     case "ButtonsTopRightHUD":
       guiView.injectTo(this.viewportTop_);
       break;
@@ -129,12 +130,12 @@ lgb.gui.view.LayoutView.prototype.add = function(guiView) {
 
       break;
     case "PropertiesGreenGUI":
-      guiView.injectTo(this.webGLcanvas_);
+      guiView.injectTo(this.topRightPanel_);
       break;
     case "PropertiesButtonGreenGUI":
       this.propertiesButton_ = guiView;
 
-      guiView.injectTo(this.webGLcanvas_);
+      guiView.injectTo(this.topRightPanel_);
 
       var util = new lgb.gui.view.LayoutUtil(guiView);
 
@@ -197,22 +198,19 @@ lgb.gui.view.LayoutView.prototype.inject = function() {
   this.splitPanelHorizontal_.injectTo(this.getMainElement());
   this.leftPanel_ = this.splitPanelHorizontal_.getPane(0);
   this.rightPanel_ = this.splitPanelHorizontal_.getPane(1);
-  
-
 
   this.splitPanelVertical_.injectTo(this.rightPanel_);
   this.topRightPanel_ = this.splitPanelVertical_.getPane(0);
   this.bottomRightPanel_ = this.splitPanelVertical_.getPane(1);
 
-
-  this.webGLcanvas_ = this.makeDiv('webGLcanvas');
+  this.webGLcontainer_ = this.makeDiv(lgb.core.Config.WEBGL_CONTAINER_DIV_ID);
+  
   this.viewportTop_ = this.makeDiv('viewportTop');
   
   this.topRightPanel_.append(this.viewportTop_);
-  this.topRightPanel_.append(this.webGLcanvas_);
+  this.topRightPanel_.append(this.webGLcontainer_);
 
-
-  this.webGLcanvas_.css({
+  this.webGLcontainer_.css({
     width : "100%",
     height : "95%"
   });

@@ -14,7 +14,7 @@ goog.require('lgb.component.ToggleButtonA');
 lgb.gui.view.PropertiesButtonGreenGUI = function() {
     
   this._TITLE = "PropertiesButton";
-  lgb.gui.view.BaseGUI.call(this, null, 'propertiesButton', lgb.core.Config.HUD_CONTAINER_STR);
+  lgb.gui.view.BaseGUI.call(this, null, 'propertiesButton', lgb.core.Config.WEBGL_CONTAINER_DIV_ID);
 
 };
 goog.inherits(lgb.gui.view.PropertiesButtonGreenGUI, lgb.gui.view.BaseGUI);

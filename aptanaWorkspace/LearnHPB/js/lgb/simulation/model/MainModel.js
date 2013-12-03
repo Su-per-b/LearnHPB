@@ -50,37 +50,42 @@ lgb.simulation.model.MainModel.prototype.init_ = function(event) {
   
   
   
+  if (mainController.socketServerHost == null) {
+    
+    switch(lgb.core.Config.SOCKET_SERVER_HOST) {
+      
+      
+      case lgb.core.Config.SOCKET_SERVER.AutoConfig :
+      
+        url = String (window.location);
+        console.log('window.location: '+ url);
+        
+        hostname = url.split('/')[2];
+        console.log('hostname: '+ hostname);
+        
+        var hostname2 = hostname.split(':')[0];
+        console.log('hostname2: '+ hostname2);
+        break;
+        
+      case lgb.core.Config.SOCKET_SERVER.Pfalco :
+        hostname2 = 'learnhpb.straylightsim.com';
+        break;
+        
+      case lgb.core.Config.SOCKET_SERVER.PfalcoLocal :
+        hostname2 = '192.168.0.15';
+        break;
+        
+      case lgb.core.Config.SOCKET_SERVER.LocalHost :
+        hostname2 = '127.0.0.1';
+        break;
+        
+    }
   
-  switch(lgb.core.Config.SOCKET_SERVER_HOST) {
+  } else {
     
-    
-    case lgb.core.Config.SOCKET_SERVER.AutoConfig :
-    
-      url = String (window.location);
-      console.log('window.location: '+ url);
-      
-      hostname = url.split('/')[2];
-      console.log('hostname: '+ hostname);
-      
-      var hostname2 = hostname.split(':')[0];
-      console.log('hostname2: '+ hostname2);
-      break;
-      
-    case lgb.core.Config.SOCKET_SERVER.Pfalco :
-      hostname2 = 'learnhpb.straylightsim.com';
-      break;
-      
-    case lgb.core.Config.SOCKET_SERVER.PfalcoLocal :
-      hostname2 = '192.168.0.15';
-      break;
-      
-    case lgb.core.Config.SOCKET_SERVER.LocalHost :
-      hostname2 = '127.0.0.1';
-      break;
-      
+    hostname2 = mainController.socketServerHost;
   }
   
-
   this.socketServerURL = "ws://" + hostname2 + ":8081/";
   
 };

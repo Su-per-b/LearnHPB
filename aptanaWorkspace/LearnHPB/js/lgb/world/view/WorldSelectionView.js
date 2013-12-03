@@ -18,7 +18,7 @@ goog.require('lgb.world.view.BaseV');
  */
 lgb.world.view.WorldSelectionView = function(dataModel, containerDiv, camera, scene) {
     
-  lgb.world.view.BaseV.call(this, dataModel, "SelectionView", lgb.core.Config.HUD_CONTAINER_STR);
+  lgb.world.view.BaseV.call(this, dataModel, "SelectionView", lgb.core.Config.WEBGL_CONTAINER_DIV_ID);
   
   this.containerDiv_ = containerDiv;
   this.camera_ = camera;
@@ -106,6 +106,8 @@ lgb.world.view.WorldSelectionView.prototype.onRenderNotify_checkCollision_ = fun
   this.projector_.unprojectVector(vector, this.camera_);
 
   var ray = new THREE.Raycaster(this.camera_.position, vector.sub(this.camera_.position).normalize());
+  
+  
   var intersectList = ray.intersectObjects(this.dataModel.selectableMeshesAry, true);
 
   if (intersectList.length > 0) {
