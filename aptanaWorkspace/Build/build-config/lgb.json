@@ -5,6 +5,7 @@
         "inc.js",
         "main.src.js",
         "js/lib/jquery-plugins.js",
+        "js/lib/purl.js",
         "js/lib/jquery.checkbox.src.js",
         "js/kendo/src/kendo.core.js",
         "js/kendo/src/kendo.window.js",

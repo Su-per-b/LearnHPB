@@ -460,7 +460,7 @@ THREE.SceneLoaderEx.prototype = {
             pos = objJSON.position;
             rot = objJSON.rotation;
             quat = objJSON.quaternion;
-            t = objJSON.target;
+            var t = objJSON.target;
             
             
             if ( objJSON.type === "PerspectiveCamera" ) {

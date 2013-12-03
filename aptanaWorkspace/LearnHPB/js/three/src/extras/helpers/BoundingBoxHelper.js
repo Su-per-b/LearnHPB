@@ -1,5 +1,5 @@
 /**
- * @author WestLangley / http://github.com/WestLangley
+ * @author WestLangley  http://github.com/WestLangley
  */
 
 // a helper to show the world-axis-aligned bounding box for an object
