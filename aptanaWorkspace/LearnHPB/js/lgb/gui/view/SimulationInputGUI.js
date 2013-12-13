@@ -78,6 +78,8 @@ lgb.gui.view.SimulationInputGUI.prototype.updateRow_ = function(row, idx) {
   var newFloat = parseFloat(newValue);
   
   if (newFloat != existingValue) {
+    
+      
       this.gridDS_.options.data[idx].value = newFloat;
       this.isDirty_ = true;
   }
@@ -147,6 +149,7 @@ lgb.gui.view.SimulationInputGUI.prototype.makeTable_ = function(varList) {
                           idx_: { type: "number" },
                           name_: { type: "string" },
                           value: { type: "number" },
+                          unit_: { type: "string" },
                           "typeSpecReal_.min" : { type: "number" },
                           "typeSpecReal_.max" : { type: "number" },
                           "typeSpecReal_.start" : { type: "number" },
@@ -173,6 +176,7 @@ lgb.gui.view.SimulationInputGUI.prototype.makeTable_ = function(varList) {
               { field: "idx_", title: "idx" , width: "40px"},
               { field: "name_", title: "Name", width: "60px" },
               { field: "value", title: "Value", width: "60px" },
+              { field: "unit_", title: "Unit", width: "60px" },
               { field: "description_", title: "Description" , width: "140px"},
               { field: "typeSpecReal_.min", title: "Min" , width: "20px"},
               { field: "typeSpecReal_.max", title: "Max" , width: "30px"},

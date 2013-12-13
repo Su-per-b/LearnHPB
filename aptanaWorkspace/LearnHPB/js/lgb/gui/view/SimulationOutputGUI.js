@@ -29,7 +29,19 @@ lgb.gui.view.SimulationOutputGUI.prototype.init = function() {
 
 lgb.gui.view.SimulationOutputGUI.prototype.onChange_xmlParsedInfo_ = function(xmlParsedInfo) {
   
-  this.makeTable_(xmlParsedInfo.scalarVariablesAll_.output_.realVarList_);
+  this.realVarList_ = xmlParsedInfo.scalarVariablesAll_.output_.realVarList_;
+  
+  var len = this.realVarList_.length;
+  for (var i=0; i < len; i++) {
+    if (this.realVarList_[i].unit_ == "K") {
+      this.realVarList_[i].unit_ = "C";
+    }
+  };
+  
+  
+  this.makeTable_(  this.realVarList_ );
+  
+
   
 };
 
@@ -56,8 +68,26 @@ lgb.gui.view.SimulationOutputGUI.prototype.processUpdate_ = function(varList) {
 
 lgb.gui.view.SimulationOutputGUI.prototype.updateRowData_ = function(row, idx) {
   
-  this.gridDS_.options.data[idx].value = row.value_.toFixed(4);
+  var value = row.value_.toFixed(4);
+  var theVar = this.realVarList_[idx];
+  
+    var degC = value-272.15;
+    var degF = 1.8 * degC +32;
+  
+  switch(theVar.unit_) {
+    case "C" :
+      value = degC;
+    case "F" :
+      value = degF;
+  }
+  
+ this.gridDS_.options.data[idx].value = value;
     
+
+    
+
+
+  
 };
 
 
@@ -118,6 +148,8 @@ lgb.gui.view.SimulationOutputGUI.prototype.updateAll_ = function() {
 
 lgb.gui.view.SimulationOutputGUI.prototype.makeTable_ = function(varList) {
   
+  
+  
   var ds = {
               data: varList,
               schema: {
@@ -128,6 +160,7 @@ lgb.gui.view.SimulationOutputGUI.prototype.makeTable_ = function(varList) {
                           idx_: { type: "number" },
                           name_: { type: "string" },
                           value: { type: "number" },
+                          unit_: { type: "string" },
                           "typeSpecReal_.min" : { type: "number" },
                           "typeSpecReal_.max" : { type: "number" },
                           "typeSpecReal_.start" : { type: "number" },
@@ -154,6 +187,7 @@ lgb.gui.view.SimulationOutputGUI.prototype.makeTable_ = function(varList) {
               { field: "idx_", title: "idx" , width: "40px"},
               { field: "name_", title: "Name", width: "60px" },
               { field: "value", title: "Value", width: "60px" },
+              { field: "unit_", title: "Unit", width: "60px" },
               { field: "description_", title: "Description" , width: "140px"},
               { field: "typeSpecReal_.min", title: "Min" , width: "20px"},
               { field: "typeSpecReal_.max", title: "Max" , width: "30px"},
