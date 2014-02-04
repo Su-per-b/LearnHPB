@@ -33,16 +33,16 @@ lgb.gui.view.SimulationStateControlGUI.prototype.init = function() {
 
     this.listenForChange_('webSocketConnectionState');
     this.listenForChange_('simStateNative');
-    this.listenForChange_('scalarValueResults');
+    this.listenForChange_('scalarValueResultsConverted');
     
     this.triggerLocal(e.RequestAddToParentGUI);
 };
 
 
-lgb.gui.view.SimulationStateControlGUI.prototype.onChange_scalarValueResults_ = function(scalarValueResults) {
+lgb.gui.view.SimulationStateControlGUI.prototype.onChange_scalarValueResultsConverted_ = 
+  function(scalarValueResultsConverted) {
   
-  var msg = scalarValueResults.time_.toString();
-  this.simTime_.html (msg);
+  this.simTime_.html (scalarValueResultsConverted.time_);
   
 };
 

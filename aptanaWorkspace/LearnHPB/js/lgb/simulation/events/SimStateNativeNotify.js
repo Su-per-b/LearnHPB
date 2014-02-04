@@ -21,19 +21,8 @@ goog.inherits(lgb.simulation.events.SimStateNativeNotify, lgb.simulation.events.
 
 
 
-
-
-lgb.simulation.events.SimStateNativeNotify.prototype.fromJson = function(deserializedObj) {
-    
-    var payload =  deserializedObj.payload.intValue;
-    
-    var typedObj = new lgb.simulation.events.SimStateNativeNotify(payload);
-    return typedObj;
-    
-};
-
-
 lgb.simulation.events.SimStateNativeNotify.fromJson = function(deserializedObj) {
+    
     
     var intValue =  deserializedObj.payload.intValue;
     
@@ -44,9 +33,3 @@ lgb.simulation.events.SimStateNativeNotify.fromJson = function(deserializedObj) 
 
 
 
-/**
- * Server type
- * @const
- * @type {string}
- */
-lgb.simulation.events.SimStateNativeNotify.SERVER_TYPE = 'com.sri.straylight.fmuWrapper.event.SimStateNativeNotify';

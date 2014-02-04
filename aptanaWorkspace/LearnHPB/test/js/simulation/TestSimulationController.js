@@ -11,18 +11,19 @@ goog.require('lgb.core.BaseController');
 
 goog.require('lgb.core.Config');
 
-goog.require('lgb.simulation.controller.MainController'
-);
+goog.require('lgb.simulation.controller.MainController');
 goog.require('lgb.simulation.events.WebSocketConnectionStateEvent');
 goog.require('lgb.simulation.model.WebSocketConnectionState');
 goog.require('lgb.simulation.model.voNative.MessageStruct');
 goog.require('lgb.simulation.model.voNative.SimStateNative');
+
+
 /**
  * MVC controller for the App
  * @constructor
  * @extends lgb.core.BaseController
  */
-test.TestSimulationController = function() {
+test.simulation.TestSimulationController = function() {
 
   lgb.core.BaseController.call(this);
   
@@ -32,15 +33,22 @@ test.TestSimulationController = function() {
   jQuery(document).ready(delegate);
   
 };
-goog.inherits(test.TestSimulationController, lgb.core.BaseController);
+goog.inherits(test.simulation.TestSimulationController , lgb.core.BaseController);
 
 
 
 
-test.TestSimulationController.prototype.runAll = function() {
+test.simulation.TestSimulationController .prototype.runAll = function() {
     
     test("testJquery() Test Jquery", this.testJquery);
-    asyncTest("testMessages() Connect to Simulation Server", this.testMessages);
+    
+    asyncTest("asyncTest()", this.asyncTest);
+    asyncTest("testWebSocketConnect() Connect to WebSocket", this.testWebSocketOpen);
+    asyncTest("testConnect() Connect to Simulation Server", this.testConnect);
+    
+    asyncTest("testStep() Connect to Simulation Server and step through", this.testConnect);
+    
+    
     
    // asyncTest("XML Parse", this.testXmlParse);
    // lgb.logInfo('runAll end');
@@ -48,111 +56,192 @@ test.TestSimulationController.prototype.runAll = function() {
 };
 
 
-test.TestSimulationController.prototype.testJquery = function() {
+test.simulation.TestSimulationController.prototype.testJquery = function() {
     expect(2);
-    equal('1.8.2', $('').jquery, 'jQuery Version');
-    equal("Learn Grean Buildings - Demo - v0.11.03", lgb.Config.getTitle(), "Web Page Title Correct")
+    
+    var jqueryVersion = $('').jquery;
+    equal('1.8.2', jqueryVersion , 'jQuery Version');
+    
+    var pageTitle = $( 'title' ).text();
+    equal("Test Simulation", pageTitle, "Web Page Title Correct");
     
 };
 
-test.TestSimulationController.prototype.testMessages = function() {
+test.simulation.TestSimulationController.prototype.asyncTest = function() {
+   expect( 1 );
+ 
+  setTimeout(function() {
+    ok( true, "Passed and ready to resume!" );
+    start();
+  }, 1000);
+  
+   
+};
+
+
+test.simulation.TestSimulationController.prototype.testWebSocketOpen = function() {
     
-  //expect(8);
+  expect(5);
     
   that.mainController = new lgb.simulation.controller.MainController();
   ok( that.mainController, 'mainController instantiated');
   
+  that.trigger(se.SetRemoteHost, "127.0.0.1");
   
-  equal(
-      that.mainController.getsetSimStateNative(), 
+  
+  var dataModel = that.mainController.getDataModel();
+  var state = dataModel.getSimStateNative();
+  var state2 = that.mainController.getSimStateNative();
+  
+  
+  equal(state,
       lgb.simulation.model.WebSocketConnectionState.uninitialized,
       'WebSocketConnectionState.uninitialized'
   );
   
-  var expectedMessages = ["Logger::registerMessageCallback\n", "MainController::staticLogger\n"];
-  
-  
 
-   
-   var msgIdx = 0;
-   
-   
-    that.listen (
-        lgb.simulation.events.MessageEvent.TYPE,
-        
-            function(event) {
-                
-                start();
-                    
-                var messageStruct = event.getPayload();              
-                ok(
-                    messageStruct,  
-                    'Event.payload not nmull'
-                  );
 
-                
-                equal(
-                    event.type, 
-                    'lgb.simulation.events.MessageEvent', 
-                    'Event.type: MessageEvent'
-                    )
-                    
-                
-                equal(
-                    messageStruct._NAME, 
-                    'lgb.simulation.model.voNative.MessageStruct', 
-                    'Event.payload.type: MessageStruct: '
-                    )
-                       
-                       
-                var expectedText = expectedMessages[msgIdx];
-                
-                equal(
-                    expectedText, 
-                    event.getPayload().msgText, 
-                    'Event.payload.msgText: ' + messageStruct.msgText
-                    )
-                    
-                
-                
-                msgIdx++;
+    that.listenOnce (
+        se.WebSocketChangeNotify,
+        function(event) {
+             
+            var webSocketState = event.getPayload();              
 
+            equal (
+                event.type, 
+                "lgb.simulation.events.WebSocketChangeNotify", 
+                'Event.type: SimStateNativeNotify'
+              );
                 
+            
+              
+            start();
+        }
+    );
+    
+    
 
-            }
-       
+
+    that.listenOnce (
+        se.SimStateNativeNotify,
+        function(event) {
+             
+            var theState = event.getPayload();              
+
+            equal (
+                event.type, 
+                "lgb.simulation.events.SimStateNativeNotify", 
+                'Event.type: SimStateNativeNotify'
+              );
+                
+            
+            equal (
+                theState, 
+                lgb.simulation.model.voNative.SimStateNative.simStateNative_0_uninitialized, 
+                'SimStateNativeNotify: simStateNative_0_uninitialized:'
+              );
+              
+            start();
+        }
     );
     
     
     
-  that.mainController.connect();
-  stop();
+    
+    
+  that.mainController.connect(true);
+
   
 };
 
 
 
-test.TestSimulationController.prototype.testXmlParse = function() {
+test.simulation.TestSimulationController.prototype.testConnect = function() {
     
-  expect(2);  
+  expect(3);  
     
-  equal(
-      that.mainController.getState(), 
+  var webSocketConnectionState = that.mainController.getWebSocketConnectionState();
+  
+  equal (
+      webSocketConnectionState, 
       lgb.simulation.model.WebSocketConnectionState.opened,
       'WebSocketConnectionState.opened'
   );
   
+  
+  
+    that.listenOnce (
+        se.SimStateNativeNotify,
+        function(event) {
+             
+            var theState = event.getPayload();              
 
-  that.mainController.requestStateChange(
-      lgb.simulation.model.voNative.SimStateNative.simStateNative_2_xmlParse_requested
-  )
-    
-  //var expectedState = lgb.simulation.model.WebSocketConnectionState.connected;
+            equal (
+                event.type, 
+                "lgb.simulation.events.SimStateNativeNotify", 
+                'Event.type: SimStateNativeNotify'
+              );
+                
+            
+            equal (
+                theState, 
+                lgb.simulation.model.voNative.SimStateNative.simStateNative_1_connect_completed, 
+                'SimStateNativeNotify: simStateNative_1_connect_completed:'
+              );
+              
+            start();
+        }
+    );
   
-  //that.mainController
-  
-  
+
+  that.mainController.requestSimStateChange (
+      lgb.simulation.model.voNative.SimStateNative.simStateNative_1_connect_requested
+  );
   
 };
 
+
+test.simulation.TestSimulationController.prototype.testWebSocketClose = function() {
+    
+  expect(3);  
+    
+  var webSocketConnectionState = that.mainController.getWebSocketConnectionState();
+  
+  equal (
+      webSocketConnectionState, 
+      lgb.simulation.model.WebSocketConnectionState.opened,
+      'WebSocketConnectionState.opened'
+  );
+  
+  
+  
+    that.listenOnce (
+        se.SimStateNativeNotify,
+        function(event) {
+             
+            var theState = event.getPayload();              
+
+            equal (
+                event.type, 
+                "lgb.simulation.events.SimStateNativeNotify", 
+                'Event.type: SimStateNativeNotify'
+              );
+                
+            
+            equal (
+                theState, 
+                lgb.simulation.model.voNative.SimStateNative.simStateNative_1_connect_completed, 
+                'SimStateNativeNotify: simStateNative_1_connect_completed:'
+              );
+              
+            start();
+        }
+    );
+  
+
+  that.mainController.requestSimStateChange (
+      lgb.simulation.model.voNative.SimStateNative.simStateNative_1_connect_requested
+  );
+  
+};
 

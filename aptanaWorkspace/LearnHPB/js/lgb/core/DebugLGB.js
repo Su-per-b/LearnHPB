@@ -311,6 +311,13 @@ lgb.core.DebugLGB.prototype.tagExClassName_ = function(fullClassName) {
   } 
   
   
+  var functionExists3 = classConstructor.prototype.hasOwnProperty('getClassName');  
+  if(!functionExists3) {
+    
+    classConstructor.prototype.getClassName = lgb.core.BaseClass.prototype.getClassName;
+  } 
+  
+  
 
   return;
     

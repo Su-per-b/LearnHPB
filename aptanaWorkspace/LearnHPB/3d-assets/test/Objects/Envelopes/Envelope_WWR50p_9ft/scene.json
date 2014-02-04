@@ -1,0 +1,42 @@
+{
+
+
+
+    
+
+	"objects": {
+	
+    "BrickVeneer2" : {
+      "geometry" : "geom01",
+      "materials": [],
+      "position" : [ 0, 0, 0 ],
+      "rotation" : [ 0, 0, 0 ],
+      "scale"    : [ 1, 1, 1],
+      "visible"  : true
+    },
+    
+    "DefaultCamera": {
+      "type": "PerspectiveCamera",
+      "fov": 35,
+      "aspect": 1.6,
+      "near": 1,
+      "far": 10000,
+      "position": [0, 0, 40],
+      "target": [0, 0, 0]
+    }
+    
+	},
+
+	"geometries": {
+    "geom01":{
+      "type":"binary",
+      "url":"Envelope_WWR50p_9ft.obj.json"
+    }
+	},
+
+
+	"defaults": {
+		"bgalpha": 1
+	}
+
+}

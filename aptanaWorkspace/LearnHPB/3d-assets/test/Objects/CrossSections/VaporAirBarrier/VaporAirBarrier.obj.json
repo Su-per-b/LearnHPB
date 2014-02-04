@@ -1,0 +1,30 @@
+{
+
+    "metadata" :
+    {
+        "formatVersion" : 3.1,
+        "sourceFile"    : "VaporAirBarrier.obj",
+        "generatedBy"   : "OBJConverter",
+        "vertices"      : 8,
+        "faces"         : 6,
+        "normals"       : 0,
+        "uvs"           : 0,
+        "materials"     : 1
+    },
+
+    "materials": [	{
+	"DbgColor" : 15658734,
+	"DbgIndex" : 0,
+	"DbgName" : "Vapor_Membrane",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [0.989825, 0.922521, 0.244052],
+	"colorSpecular" : [0.09, 0.09, 0.09],
+	"illumination" : 2,
+	"opticalDensity" : 1.0,
+	"specularCoef" : 578.431373,
+	"transparency" : 1.0
+	}],
+
+    "buffers": "VaporAirBarrier.obj.bin"
+
+}

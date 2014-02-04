@@ -31,9 +31,3 @@ lgb.simulation.events.ResultEvent.fromJson = function(deserializedObj) {
 };
 
  
-/**
- * Server type
- * @const
- * @type {string}
- */
-lgb.simulation.events.ResultEvent.SERVER_TYPE = 'com.sri.straylight.fmuWrapper.event.ResultEvent';

@@ -42,8 +42,26 @@
      
       var url = $.url(); // parse the current page URL
       var folder = url.param('folder');
-      var file = url.param('file') + '.json';
+      
+      var titleAry = folder.split('_');
+      titleAry.shift();
+     // titleAry.shift();
+      
+      var title = titleAry.join(' - ');
+
+            
+     // folder = folder.split('_').join('/');
+
+      var file = url.param('file');
         
+        
+      if (null == file) {
+        file = 'scene';
+      }
+      
+       file += '.json';
+      
+      
       lgb.init();
       lgb.globalEventBus = new lgb.core.EventBus();
 
@@ -58,6 +76,8 @@
       
       this.sceneController_ = new test.world.controller.SceneController(folder, file);
       this.sceneController_.init();
+        
+       $('title').html(title);
         
     });
     

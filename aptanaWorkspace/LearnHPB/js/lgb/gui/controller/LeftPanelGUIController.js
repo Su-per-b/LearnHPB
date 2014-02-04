@@ -25,11 +25,11 @@ lgb.gui.controller.LeftPanelGUIController.prototype.init_ = function() {
 
   this.dataModel = new lgb.gui.model.BaseInputModel();
   
-  this.scenarioController_ = new lgb.gui.controller.ScenarioController();
-  this.buildingGUIController_ = new lgb.gui.controller.BuildingGUIController();
-  this.simulationStateControlController_ = new lgb.gui.controller.SimulationStateControlController();
-  this.testController_ = new lgb.gui.controller.TestController();
-  
+  this.scenarioController_ = this.makeChildController_(lgb.gui.controller.ScenarioController);
+  this.buildingGUIController_ = this.makeChildController_(lgb.gui.controller.BuildingGUIController);
+  this.simulationStateControlController_ = this.makeChildController_(lgb.gui.controller.SimulationStateControlController);
+  this.testController_ = this.makeChildController_(lgb.gui.controller.TestController);
+
   this.leftPanelGUI_ = new lgb.gui.view.LeftPanelGUI(this.dataModel);
 
   this.bind_();
@@ -48,19 +48,8 @@ lgb.gui.controller.LeftPanelGUIController.prototype.init_ = function() {
 lgb.gui.controller.LeftPanelGUIController.prototype.bind_ = function() {
 
 
-  this.listenTo(this.scenarioController_,
-    e.RequestAddToParentGUI, 
-    this.onRequestAddToParentGUI_);
-    
-  this.listenTo(this.buildingGUIController_,
-    e.RequestAddToParentGUI, 
-    this.onRequestAddToParentGUI_);
-    
-  this.listenTo(this.simulationStateControlController_,
-    e.RequestAddToParentGUI, 
-    this.onRequestAddToParentGUI_);
-    
-  this.listenTo(this.testController_,
+  this.listenTo(
+    this.childControllers_,
     e.RequestAddToParentGUI, 
     this.onRequestAddToParentGUI_);
     

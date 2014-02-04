@@ -7,7 +7,6 @@ lgb.gui.view.SimulationInputGUI = function(dataModel) {
   
   lgb.gui.view.BaseGUI.call(this, dataModel);
   this.totalHeaderHeight_ = 70;
-  this.isDirty_ = false;
   this.blockUpdates_ = false;
 };
 goog.inherits(lgb.gui.view.SimulationInputGUI, lgb.gui.view.BaseGUI);
@@ -16,9 +15,8 @@ goog.inherits(lgb.gui.view.SimulationInputGUI, lgb.gui.view.BaseGUI);
 
 lgb.gui.view.SimulationInputGUI.prototype.init = function() {
 
-
     this.listenForChange_('xmlParsedInfo');
-    this.listenForChange_('scalarValueResults');
+    this.listenForChange_('scalarValueResultsConverted');
     
     this.triggerLocal(e.RequestAddToParentGUI);
     
@@ -26,66 +24,34 @@ lgb.gui.view.SimulationInputGUI.prototype.init = function() {
 
 
 
-lgb.gui.view.SimulationInputGUI.prototype.onChange_scalarValueResults_ = function(scalarValueResults) {
+lgb.gui.view.SimulationInputGUI.prototype.onChange_scalarValueResultsConverted_ = function(scalarValueResultsConverted) {
   
-  this.updateTable_(scalarValueResults.input.realList);
-  
-  return;
-};
-
-
-lgb.gui.view.SimulationInputGUI.prototype.updateTable_ = function(varList) {
-  
-  
-  this.eachIdx(varList, this.updateRow_);
-  
-  if (false == this.blockUpdates_ && true == this.isDirty_) {
-      this.blockUpdates_ = true;
-      this.updateAll_();
-      setInterval(this.d(this.checkUpdate_),1000);
-  }
-  
- 
-
-};
-
-
-
-lgb.gui.view.SimulationInputGUI.prototype.checkUpdate_ = function() {
-  
-
-  if (true == this.isDirty_) {
-      this.updateAll_();
-      setInterval(this.d(this.checkUpdate_),1000);
-  }
-  
-  this.blockUpdates_ = false;
+  this.updateTable_(scalarValueResultsConverted.input.realList);
   
 };
 
-lgb.gui.view.SimulationInputGUI.prototype.updateAll_ = function() {
+
+lgb.gui.view.SimulationInputGUI.prototype.updateTable_ = function(realList) {
   
+  this.eachIdx(realList, this.updateRow_);
   this.gridDS_.read();
-  this.isDirty_ = false;
+
 };
 
 
-
-lgb.gui.view.SimulationInputGUI.prototype.updateRow_ = function(row, idx) {
+lgb.gui.view.SimulationInputGUI.prototype.updateRow_ = function(realVo, idx) {
   
   var existingValue = this.gridDS_.options.data[idx].value;
-  var newValue = row.value_.toFixed(4);
-  var newFloat = parseFloat(newValue);
-  
-  if (newFloat != existingValue) {
-    
-      
-      this.gridDS_.options.data[idx].value = newFloat;
-      this.isDirty_ = true;
-  }
+  var newValue = realVo.value_;
 
-    
+  if (newValue != existingValue) {
+     this.gridDS_.options.data[idx].value = newValue;
+  }
+   
 };
+
+
+
 
 
 lgb.gui.view.SimulationInputGUI.prototype.onChange_xmlParsedInfo_ = function(xmlParsedInfo) {
@@ -96,10 +62,20 @@ lgb.gui.view.SimulationInputGUI.prototype.onChange_xmlParsedInfo_ = function(xml
   var internal_= xmlParsedInfo.scalarVariablesAll_.internal_;
   var input_= xmlParsedInfo.scalarVariablesAll_.input_;*/
 
+  this.realVarList_ = xmlParsedInfo.scalarVariablesAll_.input_.realVarList_;
   
-  this.makeTable_(xmlParsedInfo.scalarVariablesAll_.input_.realVarList_);
+  var len = this.realVarList_.length;
+  for (var i=0; i < len; i++) {
+    if (this.realVarList_[i].unit_ == "K") {
+      this.realVarList_[i].unit_ = "C";
+    }
+  };
   
-  return;
+  
+  this.makeTable_(  this.realVarList_ );
+  
+  
+
 };
 
 

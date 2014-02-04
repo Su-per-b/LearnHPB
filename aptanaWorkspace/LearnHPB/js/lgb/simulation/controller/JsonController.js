@@ -25,44 +25,51 @@ goog.inherits(lgb.simulation.controller.JsonController, lgb.core.BaseController)
  * @private
  */
 lgb.simulation.controller.JsonController.prototype.init_ = function() {
+  
+  
+
     
-    this.classMap  = {};
     
-    this.initClass_(new lgb.simulation.events.MessageEvent());
-    this.initClass_(new lgb.simulation.events.SimStateNativeNotify());
-    this.initClass_(new lgb.simulation.events.ConfigChangeNotify());
-    this.initClass_(new lgb.simulation.events.XMLparsedEvent());
-    this.initClass_(new lgb.simulation.events.ResultEvent());
-    this.initClass_(new lgb.simulation.events.ScalarValueChangeRequest());
-    this.initClass_(new lgb.simulation.events.SimStateNativeRequest());
-    
-    this.payloadClassMap_ = {
-      "com.sri.straylight.fmuWrapper.voNative.SimStateNative" : lgb.simulation.events.SimStateNativeNotify
-    };
-    
-    this.deserializeEventMap_ = {
-      "com.sri.straylight.fmuWrapper.event.SimStateNativeNotify":lgb.simulation.events.SimStateNativeNotify,
-      "com.sri.straylight.fmuWrapper.event.MessageEvent": lgb.simulation.events.MessageEvent,
-      "com.sri.straylight.fmuWrapper.event.XMLparsedEvent": lgb.simulation.events.XMLparsedEvent,
-      "com.sri.straylight.fmuWrapper.event.ConfigChangeNotify" : lgb.simulation.events.ConfigChangeNotify,
-      "com.sri.straylight.fmuWrapper.event.ResultEvent" : lgb.simulation.events.ResultEvent
-    };
-    
-    this.deserializePayloadMap_ = {
-      "com.sri.straylight.fmuWrapper.voNative.SimStateNative":lgb.simulation.model.voNative.SimStateNative
-    };
-    
+
 };
 
 
 
-lgb.simulation.controller.JsonController.prototype.initClass_ = function(instance) {
+lgb.simulation.controller.JsonController.getShortClassName = function(deserializedObj) {
   
-  var name = instance.getFullClassName();
-  this.classMap[name] = instance;
+    var type = deserializedObj.type;
+    
+    var ary = type.split(".");
+    var eventTypeShort = ary.pop();
   
+    return eventTypeShort;
 };
 
+
+
+
+
+lgb.simulation.controller.JsonController.getClass = function(deserializedObj) {
+  
+    var eventTypeShort = lgb.simulation.controller.JsonController.getShortClassName(deserializedObj);
+    var map = lgb.simulation.controller.JsonController.deserializeMap_;
+    
+    if (map.hasOwnProperty(eventTypeShort)) {
+      
+      var eventClass = map[eventTypeShort];
+      
+      if (! eventClass.fromJson ) {
+          throw ("JsonController.deSerialize() failed due to missing fromJson function: "+ eventType);
+      } else {
+        return eventClass;
+      }
+      
+    } else {
+       throw ("JsonController.deSerialize() failed due to unknown type: "+ eventType);
+    }
+    
+    
+};
 
 
 
@@ -70,26 +77,26 @@ lgb.simulation.controller.JsonController.prototype.deSerialize = function(jsonSt
 
 
     var deserializedObj = JSON && JSON.parse(jsonString) || $.parseJSON(jsonString);
-    
-    var eventType = deserializedObj.type;
-    var eventClass = this.deserializeEventMap_[eventType];
-    
-    if (! eventClass ) {
-        throw ("JsonController.deSerialize() failed due to unknwon type: "+ eventType);
-    }
-    
-    if (! eventClass.fromJson ) {
-        throw ("JsonController.deSerialize() failed due to unknwon type: "+ eventType);
-    }
-    
-    
+
+    var eventClass = lgb.simulation.controller.JsonController.getClass(deserializedObj);
     var typedObj = eventClass.fromJson(deserializedObj);
     
-   
-      
     return typedObj;
 
 
 };
+
+
+
+
+lgb.simulation.controller.JsonController.deserializeMap_ = {
+      "SimStateNativeNotify":lgb.simulation.events.SimStateNativeNotify,
+      "MessageEvent": lgb.simulation.events.MessageEvent,
+      "XMLparsedEvent": lgb.simulation.events.XMLparsedEvent,
+      "ConfigChangeNotify" : lgb.simulation.events.ConfigChangeNotify,
+      "ResultEvent" : lgb.simulation.events.ResultEvent
+
+};
+
 
 

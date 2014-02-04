@@ -22,7 +22,7 @@ goog.require('lgb.world.model.VisibilityModel');
 lgb.world.controller.VisibilityController = function() {
 
   lgb.core.BaseController.call(this);
-
+  this.init_();
 };
 goog.inherits(lgb.world.controller.VisibilityController, lgb.core.BaseController);
 
@@ -32,7 +32,7 @@ goog.inherits(lgb.world.controller.VisibilityController, lgb.core.BaseController
  * initializes the controller
  * @private
  */
-lgb.world.controller.VisibilityController.prototype.init = function() {
+lgb.world.controller.VisibilityController.prototype.init_ = function() {
 
   this.dataModel = new lgb.world.model.VisibilityModel();
   this.guiView = new lgb.world.view.input.VisibilityGUI ( this.dataModel );

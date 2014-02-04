@@ -7,8 +7,7 @@ lgb.gui.view.SimulationOutputGUI = function(dataModel) {
   
   lgb.gui.view.BaseGUI.call(this, dataModel);
   this.totalHeaderHeight_ = 70;
-  this.isDirty_ = false;
-  this.blockUpdates_ = false;
+
 };
 goog.inherits(lgb.gui.view.SimulationOutputGUI, lgb.gui.view.BaseGUI);
 
@@ -17,7 +16,7 @@ goog.inherits(lgb.gui.view.SimulationOutputGUI, lgb.gui.view.BaseGUI);
 lgb.gui.view.SimulationOutputGUI.prototype.init = function() {
 
 
-    this.listenForChange_('scalarValueResults');
+    this.listenForChange_('scalarValueResultsConverted');
     this.listenForChange_('xmlParsedInfo');
     
     this.triggerLocal(e.RequestAddToParentGUI);
@@ -46,48 +45,45 @@ lgb.gui.view.SimulationOutputGUI.prototype.onChange_xmlParsedInfo_ = function(xm
 };
 
 
-lgb.gui.view.SimulationOutputGUI.prototype.onChange_scalarValueResults_ = function(scalarValueResults) {
+lgb.gui.view.SimulationOutputGUI.prototype.onChange_scalarValueResultsConverted_ = function(scalarValueResultsConverted) {
   
-  this.processUpdate_(scalarValueResults.output.realList);
+  
+  this.eachIdx(scalarValueResultsConverted.output.realList, this.updateOneRow_);
+  this.gridDS_.read();
   
 };
 
 
 
-lgb.gui.view.SimulationOutputGUI.prototype.processUpdate_ = function(varList) {
+lgb.gui.view.SimulationOutputGUI.prototype.updateOneRow_ = function(realVo, idx) {
   
-  this.eachIdx(varList, this.updateRowData_);
-  
-  if (false == this.blockUpdates_) {
-      this.blockUpdates_ = true;
-      this.updateAll_();
-      setInterval(this.d(this.checkUpdate_),1000);
-  }
-};
-
-
-lgb.gui.view.SimulationOutputGUI.prototype.updateRowData_ = function(row, idx) {
-  
+/*
   var value = row.value_.toFixed(4);
   var theVar = this.realVarList_[idx];
   
-    var degC = value-272.15;
-    var degF = 1.8 * degC +32;
+  var degC = value-273.15;
+  var degF = 1.8 * degC +32;
   
   switch(theVar.unit_) {
     case "C" :
-      value = degC;
+      value = degC.toFixed(4);
     case "F" :
-      value = degF;
+      value = degF.toFixed(4);
   }
   
  this.gridDS_.options.data[idx].value = value;
     
+    */
 
     
+  var existingValue = this.gridDS_.options.data[idx].value;
+  var newValue = realVo.value_;
 
+  if (newValue != existingValue) {
+     this.gridDS_.options.data[idx].value = newValue;
+  }
+   
 
-  
 };
 
 
@@ -111,38 +107,14 @@ lgb.gui.view.SimulationOutputGUI.prototype.calculateLayout = function() {
 
 
 
+/*
 lgb.gui.view.SimulationOutputGUI.prototype.injectTo = function(parentElement) {
   
-
   goog.base(this,  'injectTo', parentElement);
 
-  
 };
 
-
-
-
-
-lgb.gui.view.SimulationOutputGUI.prototype.checkUpdate_ = function() {
-  
-  this.blockUpdates_ = false;
-
-
-  if (true == this.isDirty_) {
-      this.blockUpdates_ = true;
-      this.updateAll_();
-      setInterval(this.d(this.checkUpdate_),1000);
-  }
-  
-    
-};
-
-lgb.gui.view.SimulationOutputGUI.prototype.updateAll_ = function() {
-  
-  this.gridDS_.read();
-  this.isDirty_ = false;
-};
-
+*/
 
 
 

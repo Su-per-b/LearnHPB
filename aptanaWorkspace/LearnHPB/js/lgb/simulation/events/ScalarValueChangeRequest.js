@@ -47,13 +47,3 @@ lgb.simulation.events.ScalarValueChangeRequest.prototype.toJsonObj = function() 
 
 
 
-
-/**
- * Server type
- * @const
- * @type {string}
- */
-lgb.simulation.events.ScalarValueChangeRequest.SERVER_TYPE = 'com.sri.straylight.fmuWrapper.event.ScalarValueChangeRequest';
-
-lgb.simulation.events.ScalarValueChangeRequest.SERVER_PAYLOAD_TYPE = 
-  'com.sri.straylight.fmuWrapper.voManaged.ScalarValueCollection';

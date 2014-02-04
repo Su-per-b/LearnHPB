@@ -77,8 +77,6 @@ lgb.world.controller.PsMasterController.prototype.onDataModelInitialized_ =
 
 lgb.world.controller.PsMasterController.prototype.init2_ = function() {
   
-  this.childControllers_ = [];
-
   var list = this.dataModel.getPsModelList();
   this.each( list, this.makeChildController_ );
   this.view.init();

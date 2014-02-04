@@ -38,8 +38,6 @@ lgb.gui.view.ParticleSystemMasterGUI.prototype.init = function() {
   
     var list = this.dataModel.getPsModelList();
     
-
-    
   //  this.treeActiveDS = new lgb.component.TreeDataSourceH(list,'isStarted',
      // 'Active Systems',  this.htmlID, 'active-systems');
       

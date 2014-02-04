@@ -125,7 +125,15 @@ lgb.world.model.vo.ViewpointNode.prototype.getCameraPosition = function() {
 
 lgb.world.model.vo.ViewpointNode.prototype.updateWorldPositions = function() {
   
-  var  cameraTemplate = new THREE.PerspectiveCamera(40, 16/9, 1, 10000);
+  var fov = 40;
+  
+  
+  if (this.camera_) {
+    fov = this.camera_.fov;
+  }
+  
+ 
+  var cameraTemplate = new THREE.PerspectiveCamera(fov, 16/9, 1, 10000);
   
   var position = this.getCameraPosition();
   lgb.assert(position);

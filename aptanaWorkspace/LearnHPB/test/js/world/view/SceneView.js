@@ -11,7 +11,6 @@ goog.require('lgb.world.view.BaseWorldView');
 
 
 
-
 /**
  * @constructor
  * @extends {BaseView3dScene}
@@ -34,10 +33,49 @@ goog.inherits(test.world.view.SceneView, lgb.world.view.BaseWorldView);
 
 test.world.view.SceneView.prototype.onSceneLoaded_ = function() {
   
-  if (this.masterGroup_.children.length < 1) {
     this.addAlltoMasterGroup_();
-  }
 
+    var camList = [];
+    var nodeList = [];
+    var nodeListCeiling = [];
+    
+    for (var camName in this.cameras_) {
+      
+      if (undefined !== camName) {
+        
+          var theCamera = this.cameras_[camName];
+          
+          theCamera.position.add(this.scene_.position);
+          theCamera.target.add(this.scene_.position);
+          
+          theCamera.name = camName;
+          camList.push(theCamera);
+          
+          var node = new lgb.world.model.vo.ViewpointNode.makeFromCamera(theCamera);
+          nodeList.push(node);
+      }
+    }
+    
+    
+    
+  if ( nodeList.length > 0 ) {
+    
+    var viewpointNode = new lgb.world.model.vo.ViewpointNode.makeFromArray (this._TITLE, nodeList, 1 );
+    this.triggerLocal(e.ViewpointNodesLoaded, viewpointNode);
+  
+    var defaultNode = nodeList[0];
+    defaultNode.metersPerSecondPosition = 64;
+    
+    
+    defaultNode.updateWorldPositions();
+    
+    this.triggerLocal(e.RequestGoToViewpointNode, defaultNode);
+    
+  }
+  
+  
+  
+  return;
 };
 
 

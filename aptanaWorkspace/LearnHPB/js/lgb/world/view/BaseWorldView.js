@@ -135,7 +135,10 @@ lgb.world.view.BaseWorldView.prototype.onSceneLoadedBase_ = function(result) {
   
   this.objectTypeMap_ = {
     Mesh : this.meshes_,
-    Object3D : this.object3ds_
+    Object3D : this.object3ds_,
+    PerspectiveCamera : this.cameras_,
+    Camera : this.cameras_,
+    OrthographicCamera : this.cameras_
   };
   
 
@@ -163,15 +166,12 @@ lgb.world.view.BaseWorldView.prototype.onSceneLoadedBase_ = function(result) {
 
 
 
+//this add the object to  this.objects_,  this.meshes_ or this.cameras_
 lgb.world.view.BaseWorldView.prototype.processOneObject_ = function(object, name) {
   
 
-  var fullClassName = object.getFullClassName();
-  var ary = fullClassName.split('.');
-
-  var len = ary.length;
-  var className = ary[len - 1];
-
+  var className = object.getClassName();
+  
   if ('' == object.name) {
     object.name = name;
   }
@@ -184,7 +184,7 @@ lgb.world.view.BaseWorldView.prototype.processOneObject_ = function(object, name
   this.objectTypeMap_[className][name] = object;
 
 
-  if (undefined !== object.groups){
+  if (undefined !== object.groups) {
     
     for (var i = 0; i < object.groups.length; i++) {
       var groupID = object.groups[i];
@@ -195,10 +195,7 @@ lgb.world.view.BaseWorldView.prototype.processOneObject_ = function(object, name
       
       this.groups_[groupID].push(object);
     }
-
   }
-
-  
 };
 
 
@@ -230,13 +227,29 @@ lgb.world.view.BaseWorldView.prototype.analyzeOneGeometry_ = function(geometry) 
 
 lgb.world.view.BaseWorldView.prototype.addAlltoMasterGroup_ = function() {
 
+/*
+   for(var mesh in this.meshes_) {
+       this.masterGroup_.add(mesh); 
+   }
+   for(var object3d in this.object3ds_) {
+       this.masterGroup_.add(object3d); 
+   }*/
+
   var len = this.scene_.children.length;
+  
   for (var i = 0; i < len; i++) {
 
-    var mesh = this.scene_.children.pop();
-    this.masterGroup_.add(mesh);
-
+    var child = this.scene_.children.pop();
+    var className = child.getClassName();
+    
+    if (className == 'Mesh' || className == 'Object3d') {
+       this.masterGroup_.add(child); 
+    }
+    
   }
+
+  
+
 
 };
 

@@ -1,0 +1,30 @@
+{
+
+    "metadata" :
+    {
+        "formatVersion" : 3.1,
+        "sourceFile"    : "StoneVeneer.obj",
+        "generatedBy"   : "OBJConverter",
+        "vertices"      : 40,
+        "faces"         : 38,
+        "normals"       : 0,
+        "uvs"           : 0,
+        "materials"     : 1
+    },
+
+    "materials": [	{
+	"DbgColor" : 15658734,
+	"DbgIndex" : 0,
+	"DbgName" : "Stone",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [0.656977, 0.644179, 0.627926],
+	"colorSpecular" : [0.1, 0.1, 0.1],
+	"illumination" : 2,
+	"opticalDensity" : 1.0,
+	"specularCoef" : 54.901961,
+	"transparency" : 1.0
+	}],
+
+    "buffers": "StoneVeneer.obj.bin"
+
+}

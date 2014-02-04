@@ -52,6 +52,12 @@ test.world.controller.SceneController.prototype.bind_ = function() {
   
   this.relay(this.view, e.AddToWorldRequest);
   
+  this.relay(
+    this.view,
+    [e.RequestGoToViewpointNode, e.ViewpointNodesLoaded]
+  );
+  
+  
 };
 
 

@@ -22,12 +22,9 @@ goog.inherits(lgb.simulation.events.ConfigChangeNotify, lgb.simulation.events.Ba
 
 
 
-
 lgb.simulation.events.ConfigChangeNotify.fromJson = function(deserializedObj) {
     
-    
     var struct = deserializedObj.payload.defaultExperimentStruct;
-    
     
     var payload =  {
         stepDelta : deserializedObj.payload.stepDelta,

@@ -46,7 +46,6 @@ lgb.gui.controller.BuildingGUIController.prototype.makeSubController_ = function
   subController.init();
   
   
-
 };
 
 lgb.gui.controller.BuildingGUIController.prototype.bind_ = function() {

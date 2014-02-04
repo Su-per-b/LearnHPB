@@ -194,7 +194,7 @@ test.includes.ThreeEx.init = function() {
     "GeometryEx",
     "TrackballControlsEx",
     "BoundingBox",
-    "Vector3Ex",
+    "CameraEx",
     "Vector3Ex"
     
   ];

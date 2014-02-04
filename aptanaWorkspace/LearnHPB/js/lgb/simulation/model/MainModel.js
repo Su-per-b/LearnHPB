@@ -23,7 +23,7 @@ lgb.simulation.model.MainModel = function() {
   this._TITLE = 'MainModel';
   lgb.world.model.BaseModel.call(this);
 
-  this.simStateNative = lgb.simulation.model.voNative.SimStateNative.simStateNative_unknown;
+  this.simStateNative = lgb.simulation.model.voNative.SimStateNative.simStateNative_0_uninitialized;
   this.webSocketConnectionState = lgb.simulation.model.WebSocketConnectionState.uninitialized;
   
   this.socketServerURL = null;
@@ -31,9 +31,9 @@ lgb.simulation.model.MainModel = function() {
   this.xmlParsedInfo = null;
   this.scalarValueResults = null;
   
-  this.modNameToVarMap_ = {};
+  this.scalarValueResultsConverted = null;
   
-  this.init_();
+  this.modNameToVarMap_ = {};
 
 };
 goog.inherits(lgb.simulation.model.MainModel, lgb.world.model.BaseModel);
@@ -43,52 +43,112 @@ goog.inherits(lgb.simulation.model.MainModel, lgb.world.model.BaseModel);
  * Handler used for websocket init
  * @private
  */
-lgb.simulation.model.MainModel.prototype.init_ = function(event) {
+lgb.simulation.model.MainModel.prototype.init = function(hostname) {
   
-  var hostname;
-  var hostname2;
+
   
-  
-  
-  if (mainController.socketServerHost == null) {
-    
-    switch(lgb.core.Config.SOCKET_SERVER_HOST) {
-      
-      
-      case lgb.core.Config.SOCKET_SERVER.AutoConfig :
-      
-        url = String (window.location);
-        console.log('window.location: '+ url);
-        
-        hostname = url.split('/')[2];
-        console.log('hostname: '+ hostname);
-        
-        var hostname2 = hostname.split(':')[0];
-        console.log('hostname2: '+ hostname2);
-        break;
-        
-      case lgb.core.Config.SOCKET_SERVER.Pfalco :
-        hostname2 = 'learnhpb.straylightsim.com';
-        break;
-        
-      case lgb.core.Config.SOCKET_SERVER.PfalcoLocal :
-        hostname2 = '192.168.0.15';
-        break;
-        
-      case lgb.core.Config.SOCKET_SERVER.LocalHost :
-        hostname2 = '127.0.0.1';
-        break;
-        
-    }
-  
-  } else {
-    
-    hostname2 = mainController.socketServerHost;
-  }
-  
-  this.socketServerURL = "ws://" + hostname2 + ":8081/";
+  this.socketServerURL = "ws://" + hostname + ":8081/";
   
 };
+
+
+
+lgb.simulation.model.MainModel.prototype.setScalarValueResults = function(scalarValueResults ) {
+
+
+    this.scalarValueResults = scalarValueResults;
+    this.dispatchChangedEx('scalarValueResults', scalarValueResults);
+    
+    this.calcScalarValueResultsConverted();
+    
+
+};
+
+
+
+lgb.simulation.model.MainModel.prototype.calcScalarValueResultsConverted = function( ) {
+
+    var totalSec = this.scalarValueResults.time_;
+    
+    var hours = parseInt( totalSec / 3600 ) % 24;
+    var minutes = parseInt( totalSec / 60 ) % 60;
+    var seconds = totalSec % 60;
+
+    var friendlyTime = (hours < 10 ? "0" + hours : hours) + ":" + 
+        (minutes < 10 ? "0" + minutes : minutes) + ":" + 
+        (seconds  < 10 ? "0" + seconds : seconds);
+
+
+
+    var outAry = this.convertRealValueList(
+      this.scalarValueResults.output.realList, 
+      this.xmlParsedInfo.scalarVariablesAll_.output_.realVarList_);
+      
+      
+    var inAry = this.convertRealValueList(
+      this.scalarValueResults.input.realList, 
+      this.xmlParsedInfo.scalarVariablesAll_.input_.realVarList_);
+    
+    
+    this.scalarValueResultsConverted = {
+      time_:friendlyTime,
+      input:{realList:inAry},
+      output:{realList:outAry}
+    };
+    
+    this.dispatchChangedEx('scalarValueResultsConverted', this.scalarValueResultsConverted);
+    
+
+};
+
+
+lgb.simulation.model.MainModel.prototype.convertRealValueList = function(valueList, variableList) {
+  
+  
+    var len = valueList.length;
+    var newValueList = [];
+    
+    for (var i=0; i < len; i++) {
+      
+      var valueVo = valueList[i];
+      var variableVo = variableList[i];
+      
+      var v = this.convertRealValue(valueVo, variableVo.unit_);
+      
+      newValueList.push( { value_ :  v} );
+    };
+    
+    
+  return newValueList;
+};
+
+
+
+lgb.simulation.model.MainModel.prototype.convertRealValue = function(realVo, unit) {
+
+      
+      var v = 0.0;
+      
+      switch(unit) {
+        case "C" :
+          v = (realVo.value_-273.15);
+          break;
+        case "F" :
+          v = (realVo.value_-273.15);
+          v = v * 1.80 + 32.00;
+          break;
+        default :
+          v = realVo.value_;
+          break;
+      }
+      
+  
+      v = v.toFixed(2);
+      return v;
+
+};
+
+
 
 
 

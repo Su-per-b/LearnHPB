@@ -46,6 +46,12 @@
     
     <!--{BLOCK_START:LGB}-->
     
+      <!-- Charting -->
+      <script src="js/lib/d3.js"></script>
+      <script src="js/lib/crossfilter.js"></script>
+      <script src="js/lib/dc.js"></script>
+      
+    
       <!-- Jquery Custom -->
       <script src="js/lib/purl.js"></script>
       <script src="js/lib/jquery-plugins.js"></script>
@@ -100,10 +106,10 @@
 
       
       
-    <!-- Google Closure    <script src="main.src.js"></script>-->
+    <!-- Google Closure -->
     <script src="js/closure/core/goog/base.js"></script>
     
-    <!--{BLOCK_START:LGB}-->
+    <!--{BLOCK_START:LGB}      -->
     <script src="inc.js"></script>
     <!--{BLOCK_END:LGB}-->
 
@@ -304,27 +310,34 @@
     <script src="js/three/src/extras/geometries/LatheGeometry.js"></script>
     <script src="js/three/src/extras/geometries/OctahedronGeometry.js"></script>
     -->
-    
-
-
-      
     <title>Learn HPB</title>
+    
+    
+    <script>
+      goog.require('lgb');
+      goog.require('lgb.core.Global');
+      goog.require('lgb.core.EventBus');
+      goog.require('lgb.core.MainController');
+    </script>
 
   </head>
 
-  <body id="theBody"></body>
+  <body id="theBody">
+    
+    <div id="yearly-bubble-chart" class="dc-chart">
+        <strong>Yearly Performance</strong> (radius: fluctuation/index ratio, color: gain/loss)
+        <a class="reset" href="javascript:yearlyBubbleChart.filterAll();dc.redrawAll();"
+           style="display: none;">reset</a>
+
+        <div class="clearfix"></div>
+    </div>
+    
+  </body>
 
   <script>
-
-goog.require('lgb.core.MainController');
-goog.require('lgb.core.EventBus');
-goog.require('lgb.core.Global');
-goog.require('lgb');
-
-lgb.init();
-
-//jQuery.noConflict();
-var mainController = new lgb.core.MainController();
+  
+    lgb.init();
+    var mainController = new lgb.core.MainController();
 
   </script>
 

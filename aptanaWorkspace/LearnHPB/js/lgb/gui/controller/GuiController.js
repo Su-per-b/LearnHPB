@@ -33,19 +33,17 @@ goog.inherits(lgb.gui.controller.GuiController, lgb.core.BaseController);
  */
 lgb.gui.controller.GuiController.prototype.init_ = function() {
 
-  this.topMenuController = new lgb.gui.controller.TopMenuController();
-  this.propertiesController = new lgb.gui.controller.PropertiesController();
-  this.leftPanelGUIController_ = new lgb.gui.controller.LeftPanelGUIController();
-  this.rightTopInputController_ = new lgb.gui.controller.ButtonsTopRightHUDController();
 
-  this.visibilityController_ = new lgb.world.controller.VisibilityController();
-  this.visibilityController_.init();
-
-  //this.resultsController_ = new lgb.gui.controller.ResultsController();
-  this.titleBarView = new lgb.gui.view.TitleBarGUI();
-  this.bottomPanelGUIController_ = new lgb.gui.controller.BottomPanelGUIController();
+  this.topMenuController_ = this.makeChildController_(lgb.gui.controller.TopMenuController);
+  this.propertiesController_ = this.makeChildController_(lgb.gui.controller.PropertiesController);
+  this.leftPanelGUIController_ = this.makeChildController_(lgb.gui.controller.LeftPanelGUIController);
+  this.rightTopInputController_ = this.makeChildController_(lgb.gui.controller.ButtonsTopRightHUDController);
+  this.visibilityController_ = this.makeChildController_(lgb.world.controller.VisibilityController);
+  this.bottomPanelGUIController_ = this.makeChildController_(lgb.gui.controller.BottomPanelGUIController);
   
+  this.titleBarView = new lgb.gui.view.TitleBarGUI();
 
+    
   this.trigger(e.RequestAddToLayout, this.titleBarView);
 
 };

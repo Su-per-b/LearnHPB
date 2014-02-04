@@ -1,0 +1,30 @@
+{
+
+    "metadata" :
+    {
+        "formatVersion" : 3.1,
+        "sourceFile"    : "SteelStuds.obj",
+        "generatedBy"   : "OBJConverter",
+        "vertices"      : 120,
+        "faces"         : 114,
+        "normals"       : 0,
+        "uvs"           : 0,
+        "materials"     : 1
+    },
+
+    "materials": [	{
+	"DbgColor" : 15658734,
+	"DbgIndex" : 0,
+	"DbgName" : "SteelStuds",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [0.58461, 0.581344, 0.587875],
+	"colorSpecular" : [0.33, 0.33, 0.33],
+	"illumination" : 2,
+	"opticalDensity" : 1.0,
+	"specularCoef" : 33.333333,
+	"transparency" : 1.0
+	}],
+
+    "buffers": "SteelStuds.obj.bin"
+
+}

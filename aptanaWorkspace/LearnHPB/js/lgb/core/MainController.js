@@ -17,8 +17,6 @@ goog.require('lgb.world.controller.BuildingController');
 goog.require('lgb.world.controller.UtilityController');
 goog.require('lgb.world.controller.WorldSelectionController');
 
-
-
 goog.require('lgb');
 
 /**
@@ -46,14 +44,7 @@ goog.inherits(lgb.core.MainController, lgb.core.BaseController);
 lgb.core.MainController.prototype.init = function() {
 
   
-  var url = $.url(); // parse the current page URL
-  var server = url.param('server');
-  
-  if (server) {
-    this.socketServerHost = server;
-  } else {
-    this.socketServerHost = null;
-  }
+
   
   
   console.log('lgb.core.MainController.init');
@@ -117,6 +108,53 @@ lgb.core.MainController.prototype.init = function() {
   
    
   this.simMainController_ = new lgb.simulation.controller.MainController();
+  
+  
+  var url = $.url(); // parse the current page URL
+  var server = url.param('server');
+  
+  if (server) {
+    
+    this.socketServerHost = server;
+    
+  } else {
+    
+    switch(lgb.core.Config.SOCKET_SERVER_HOST) {
+      
+      case lgb.core.Config.SOCKET_SERVER.AutoConfig :
+      
+        url = String (window.location);
+        console.log('window.location: '+ url);
+        
+        hostname = url.split('/')[2];
+        console.log('hostname: '+ hostname);
+        
+        this.socketServerHost = hostname.split(':')[0];
+        console.log('hostname2: '+ hostname2);
+        break;
+        
+      case lgb.core.Config.SOCKET_SERVER.Pfalco :
+        this.socketServerHost = 'learnhpb.straylightsim.com';
+        break;
+        
+      case lgb.core.Config.SOCKET_SERVER.PfalcoLocal :
+        this.socketServerHost = '192.168.0.15';
+        break;
+        
+      case lgb.core.Config.SOCKET_SERVER.LocalHost :
+        this.socketServerHost = '127.0.0.1';
+        break;
+        
+      case lgb.core.Config.SOCKET_SERVER.Cube :
+        this.socketServerHost = 'cube.straylightsim.com';
+        break;
+    }
+    
+  }
+  
+  
+  this.trigger(se.SetRemoteHost, this.socketServerHost);
+  
   this.trigger(e.SimulationEngineLoaded, this.simMainController_);
   
   

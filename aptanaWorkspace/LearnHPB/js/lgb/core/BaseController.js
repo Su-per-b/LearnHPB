@@ -15,8 +15,21 @@ goog.require('lgb.core.BaseClass');
  */
 lgb.core.BaseController = function() {
   lgb.core.BaseClass.call(this);
+  
+  this.childControllers_ = [];
 };
 goog.inherits(lgb.core.BaseController, lgb.core.BaseClass);
+
+
+
+lgb.core.BaseController.prototype.makeChildController_ = function(classReference) {
+
+  controller = new classReference();
+  this.childControllers_.push(controller);
+  
+  return controller;
+
+};
 
 
 /**

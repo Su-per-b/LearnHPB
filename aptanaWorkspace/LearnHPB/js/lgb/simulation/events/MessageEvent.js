@@ -21,17 +21,6 @@ goog.inherits(lgb.simulation.events.MessageEvent, lgb.simulation.events.BaseEven
 
 
 
-lgb.simulation.events.MessageEvent.prototype.fromJson = function(deserializedObj) {
-   
-    var payload = new lgb.simulation.model.voNative.MessageStruct(
-        deserializedObj.payload.msgText,
-        deserializedObj.payload.messageType
-    );
-    
-    var typedObj = new lgb.simulation.events.MessageEvent(payload);
-    return typedObj;
-
-};
 
 
 
@@ -46,6 +35,13 @@ lgb.simulation.events.MessageEvent.fromJson = function(deserializedObj) {
     return typedObj;
 
 };
+
+
+lgb.simulation.events.MessageEvent.deserializeMap_ = {
+  "MessageStruct":lgb.simulation.model.voNative.MessageStruct 
+};
+
+
 
 
 /**

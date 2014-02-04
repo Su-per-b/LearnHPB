@@ -113,78 +113,14 @@ THREE.Object3D.prototype.getDescendantsBoundingBox = function() {
 
 
 
+
+
+
 /**
  *  "Master Obi-Wan, not victory. The shroud of the dark side has fallen.
- * Begun, the Clone War has!"
+ * Begun, the Clone War has."
  *  ―Yoda (http://starwars.wikia.com/wiki/Star_Wars_Episode_II:_Attack_of_the_Clones)
- * Not not clone:
- *        Object3D.id
- * @author Raj Dye raj@pcdigi.com
- * @param the new clone, the original al is 'this'
- * @public
- 
  */
-// THREE.Object3D.prototype.cloneBuilder_ = function(theClone) {
-// 
-//   
-  // theClone.name = this.name;
-  // theClone.properties = this.properties;
-//   
-  // theClone.parent = this.parent;
-//   
-  // theClone.up = this.up.clone();
-  // theClone.position = this.position.clone();
-  // theClone.rotation = this.rotation.clone();
-  // theClone.eulerOrder = this.eulerOrder;
-//   
-  // theClone.scale = this.scale.clone();
-  // theClone.renderDepth = this.renderDepth;
-//   
-  // theClone.rotationAutoUpdate = this.rotationAutoUpdate;
-  // theClone.renderDepth = this.renderDepth;
-//   
-  // theClone.matrix = this.matrix.clone();
-  // theClone.matrixWorld = this.matrixWorld.clone();
-  // //theClone.matrixRotationWorld = this.matrixRotationWorld.clone();
-//   
-//   
-  // theClone.matrixAutoUpdate = this.matrixAutoUpdate;
-  // theClone.matrixWorldNeedsUpdate = this.matrixWorldNeedsUpdate;
-//   
-  // theClone.quaternion = this.quaternion.clone();
-//   
-  // theClone.useQuaternion = this.useQuaternion;
-  // theClone.boundRadius = this.boundRadius;
-  // theClone.boundRadiusScale = this.boundRadiusScale;
-  // theClone.visible = this.visible;
-  // theClone.castShadow = this.castShadow;
-  // theClone.receiveShadow = this.receiveShadow;
-  // theClone.frustumCulled = this.frustumCulled;
-//   
-  // //theClone._vector = this._vector.clone();
-//   
-  // theClone.viewpoint = this.viewpoint;
-//   
-//   
-  // /*
-  // theClone.dynamic = this.dynamic;
-  // theClone.doubleSided = this.doubleSided;
-  // theClone.flipSided = this.flipSided;
-  // theClone.renderDepth = this.renderDepth;
-  // theClone.rotationAutoUpdate = this.rotationAutoUpdate;
-  // theClone.matrixAutoUpdate = this.matrixAutoUpdate;
-  // theClone.matrixWorldNeedsUpdate = this.matrixWorldNeedsUpdate;
-  // theClone.useQuaternion = this.useQuaternion;
-  // theClone.boundRadius = this.boundRadius;
-  // theClone.boundRadiusScale = this.boundRadiusScale;
-// */
-// 
-// 
-// };
-
-
-
-
 THREE.Object3D.prototype.clone = function(object, recursive) {
   
 
@@ -235,18 +171,6 @@ THREE.Object3D.prototype.clone = function(object, recursive) {
  
 };
 
-
-
-
-// THREE.Object3D.prototype.addChildren = function(object3d) {
-//   
-    // if (undefined === object3d || null == object3d) {
-      // throw ("you passed an invalid object3d as an argument");
-    // }
-//     
-    // this.addArray(object3d.children);
-//     
-// };
 
 
 

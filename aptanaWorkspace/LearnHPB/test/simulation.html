@@ -5,14 +5,10 @@
   <title>Test Simulation</title>
     <base href="/LearnHPB/" >
   <link rel="stylesheet" href="test/css/qunit-1.12.0.css">
-</head>
-
-<body>
-  <div id="qunit"></div>
-  <div id="qunit-fixture"></div>
   
-  <script src="js/test/qunit-1.12.0.js"></script>
   
+  <!-- Qunit -->
+  <script src="test/js/qunit-1.12.0.js"></script>
   
   <!-- Jquery -->
   <script src="js/lib/jquery.src.js"></script>
@@ -20,10 +16,24 @@
   <!-- Google Closure -->
   <script src="js/closure/core/goog/base.js"></script>
   
+  <script>
+    goog.require('lgb');
+    goog.require('lgb.core.EventBus');
+    goog.require('lgb.core.Global');
+    goog.require('test.simulation.TestSimulationController');
+  </script>
   
+</head>
+
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  
+
   <!-- Test -->
-  <script src="js/test/inc.js"></script>
-  <script src="js/test/testSimulation.js"></script>
+  <script src="test/js/inc.js"></script>
+  <script src="test/js/simulation.js"></script>
+
 
 </body>
 </html>

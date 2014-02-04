@@ -22,13 +22,18 @@ lgb.world.controller.CameraCraneController = function() {
   
   this.moveDuration = 5 * 1000; // milliseconds
   this.lookAtDuration = 2 * 1000; // milliseconds
-  this.fovDuration = 5 * 1000; // milliseconds
+  this.fovDuration = 2 * 1000; // milliseconds
   
-  this.metersPerSecondPostion = 6;
+  this.metersPerSecondPosition = 6;
   this.metersPerSecondRotation = .1;
-  this.degreesPerSecondFOV = 4;
+ // this.degreesPerSecondFOV = 4;
   
   this.easing = createjs.Ease.quadInOut;
+  
+  this.fov = 40;
+  this.fovWrapper_ = new THREE.Vector3(40,0,0);
+  this.destFovWrapper_ = new THREE.Vector3(40,0,0);
+
    
 };
 goog.inherits(lgb.world.controller.CameraCraneController, lgb.core.BaseController);
@@ -44,6 +49,8 @@ lgb.world.controller.CameraCraneController.prototype.init =
   
   this.cameraOnCrane_ = cameraOnCrane;
   this.lookAtPosition = cameraOnCrane.lookAtPosition;
+  this.fov = cameraOnCrane.fov;
+  
   
   if (this.debugMode) {
     
@@ -72,7 +79,7 @@ lgb.world.controller.CameraCraneController.prototype.setDuration =
     var pos2 = this.destinationCamera_.position;
          
     var positionDistance = pos1.distanceTo(pos2);
-    var durationPosition = positionDistance /this.metersPerSecondPostion;
+    var durationPosition = positionDistance /this.metersPerSecondPosition;
     
     this.moveDuration = durationPosition * 1000;
     this.lookAtDuration = this.moveDuration * 0.6;
@@ -86,17 +93,18 @@ lgb.world.controller.CameraCraneController.prototype.setDuration =
       this.moveDuration = 4500;
       this.lookAtDuration = 3000;
     }
+    
+    this.fovDuration = this.moveDuration - 50;
 
 };
 
 lgb.world.controller.CameraCraneController.prototype.moveToViewpoint =
   function(viewpointNode) {
 
-  var destinationCamera = viewpointNode.generateCamera( this.cameraOnCrane_ );
+   this.destinationCamera_ = viewpointNode.generateCamera( this.cameraOnCrane_ );
 
-  
-  this.destinationCamera_ = destinationCamera;
-  
+  this.metersPerSecondPosition = viewpointNode.metersPerSecondPosition;
+    
   this.setDuration();
   this.listenForRender = true;
   
@@ -105,15 +113,19 @@ lgb.world.controller.CameraCraneController.prototype.moveToViewpoint =
     override : true
   };
   
-  //position tween
   
-  var tweenPosition = createjs.Tween.get(this.cameraOnCrane_.position, props)
-    .to(
+  //position tween
+
+  this.tweenPosition = createjs.Tween.get(this.cameraOnCrane_.position, props);
+  
+  
+    this.tweenPosition.to(
       this.destinationCamera_.position,
       this.moveDuration,
       this.easing 
       )
     .call(this.d(this.onTweenComplete));
+
     
     
   //tween target
@@ -131,6 +143,8 @@ lgb.world.controller.CameraCraneController.prototype.moveToViewpoint =
   } else {
     debugger;
   }
+  
+  
 
   //camera up tween
   var upTween = {
@@ -138,11 +152,50 @@ lgb.world.controller.CameraCraneController.prototype.moveToViewpoint =
     y: this.destinationCamera_.up.y,
     z: this.destinationCamera_.up.z
   };
+  
   new createjs.Tween(this.cameraOnCrane_.up, props).to(
     upTween,
     this.lookAtDuration,
     this.easing 
     );
+    
+    
+  if (undefined !== this.destinationCamera_.lookAtPosition) {
+    
+    this.lookAtPosition = this.cameraOnCrane_.lookAtPosition;
+    
+    var tweenTargetLookAt = new createjs.Tween(this.lookAtPosition, props);
+    
+    tweenTargetLookAt.to (
+      this.destinationCamera_.lookAtPosition,
+      this.lookAtDuration,
+      this.easing 
+      );
+  } else {
+    debugger;
+  }
+  
+  
+  //fov tween
+  if (this.cameraOnCrane_.fov != this.destinationCamera_.fov) {
+    
+    this.destFovWrapper_ = new THREE.Vector3(this.destinationCamera_.fov,0,0);
+
+    var tweenTargetFov = new createjs.Tween(this.fovWrapper_, props);
+    
+    tweenTargetFov.to (
+      this.destFovWrapper_,
+      this.fovDuration,
+      this.easing 
+      );
+  } else {
+    debugger;
+  }
+  
+  
+    
+
+    
   
 };
 
@@ -184,6 +237,8 @@ lgb.world.controller.CameraCraneController.prototype.onRender_ = function(event)
   
   if (this.listenForRender) {
     this.cameraOnCrane_.lookAt(this.lookAtPosition);
+    this.cameraOnCrane_.fov = this.fovWrapper_.x;
+    this.cameraOnCrane_.updateProjectionMatrix();
   }
 };
 
@@ -193,6 +248,10 @@ lgb.world.controller.CameraCraneController.prototype.onRender_ = function(event)
 lgb.world.controller.CameraCraneController.prototype.onTweenComplete = function(event) {
   
   this.cameraOnCrane_.lookAt(this.lookAtPosition);
+  this.cameraOnCrane_.fov = this.fovWrapper_.x;
+    this.cameraOnCrane_.updateProjectionMatrix();
+      
+      
   this.listenForRender = false;
 };
 

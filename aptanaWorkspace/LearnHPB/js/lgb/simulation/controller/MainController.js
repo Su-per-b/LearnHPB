@@ -11,15 +11,20 @@ goog.require('lgb.core.BaseController');
 goog.require('lgb.simulation.controller.JsonController');
 
 goog.require('lgb.simulation.model.MainModel');
-goog.require('lgb.simulation.events.WebSocketConnectionStateEvent');
 goog.require('lgb.simulation.model.WebSocketConnectionState');
-goog.require('lgb.simulation.events.SimStateNativeRequest');
 goog.require('lgb.simulation.model.voNative.SimStateNative');
 goog.require('lgb.simulation.model.WebSocketConnectionStateRequest');
-goog.require('lgb.simulation.events.ScalarValueChangeRequest');
 goog.require('lgb.simulation.model.voNative.ScalarValueRealStruct');
 goog.require('lgb.simulation.model.voManaged.ScalarValueCollection');
 goog.require('lgb.simulation.model.voManaged.ScalarValueReal');
+
+goog.require('lgb.simulation.events.SimStateNativeRequest');
+goog.require('lgb.simulation.events.ScalarValueChangeRequest');
+goog.require('lgb.simulation.events.ResultEventList');
+goog.require('lgb.simulation.events.ResultEvent');
+
+
+
 
 lgb.simulation.controller.MainController = function() {
     lgb.core.BaseController.call(this);
@@ -36,10 +41,14 @@ lgb.simulation.controller.MainController.prototype.init_ = function(event) {
     this.jsonController_ = new lgb.simulation.controller.JsonController();
     this.dataModel = new lgb.simulation.model.MainModel();
 
-    this.webSocketConnectionState_ = lgb.simulation.model.WebSocketConnectionState.uninitialized;
-
     this.delayedMessages = [];
-
+    this.resultEventQueue_ = [];
+    this.resultEventQueueIsDirty_ = false;
+    this.resultEventQueueIntervalMS_ = 1000; //ms
+    this.clearResultEventQueueDelegate_ = this.d(this.clearResultEventqueue_),
+    this.resultEventQueueIntervalHandle_ = null;
+    
+  
     this.bind_();
 
 };
@@ -78,15 +87,35 @@ lgb.simulation.controller.MainController.prototype.bind_ = function() {
         this.onMessageEvent_
     );
     
+    
     this.listen (
         se.RequestModelicaVariableChange,
         this.onRequestModelicaVariableChange_
     );
     
-    
+    this.listen (
+        se.SetRemoteHost,
+        this.onSetRemoteHost_
+    );
 
     
 };
+
+
+lgb.simulation.controller.MainController.prototype.onSetRemoteHost_ = function(event) {
+  
+  this.dataModel.init(event.payload);
+  
+};
+
+
+lgb.simulation.controller.MainController.prototype.getDataModel = function() {
+  
+  return this.dataModel;
+  
+};
+
+
 
 
 lgb.simulation.controller.MainController.prototype.onRequestModelicaVariableChange_ = function(event) {
@@ -125,9 +154,45 @@ lgb.simulation.controller.MainController.prototype.onXMLparsedEvent_ = function(
 };
 
 lgb.simulation.controller.MainController.prototype.onResultEvent_ = function(event) {
-  this.dataModel.changePropertyEx('scalarValueResults', event.getPayload());
-  this.dispatch(event);
+
+  this.resultEventQueue_.push(event);
+  
+  if (null == this.resultEventQueueIntervalHandle_) {
+      this.resultEventQueueIntervalHandle_ = setInterval(
+        this.clearResultEventQueueDelegate_,this.resultEventQueueInterval_);
+  }
+
+  //this.dispatch(event);
 };
+
+lgb.simulation.controller.MainController.prototype.clearResultEventqueue_ = function() {
+  
+  var eventCount = this.resultEventQueue_.length;
+  
+  if (0 == eventCount) {
+    
+    window.clearInterval(this.resultEventQueueIntervalHandle_);
+    this.resultEventQueueIntervalHandle_ = null;
+    
+  } else {
+    
+    var event = new lgb.simulation.events.ResultEventList(this.resultEventQueue_);
+    this.dispatch(event);
+   
+    var mostRecentResult = this.resultEventQueue_[eventCount-1];
+    this.dataModel.setScalarValueResults(mostRecentResult.getPayload());
+     
+    this.resultEventQueue_ = [];
+      
+  }
+  
+  
+
+  
+};
+
+
+
 
 lgb.simulation.controller.MainController.prototype.onMessageEvent_ = function(event) {
   this.dataModel.changePropertyEx('messageStruct', event.getPayload());
@@ -136,11 +201,17 @@ lgb.simulation.controller.MainController.prototype.onMessageEvent_ = function(ev
 
 
 
-
-
-lgb.simulation.controller.MainController.prototype.getState = function() {
-    return this.dataModel.getState();
+lgb.simulation.controller.MainController.prototype.getWebSocketConnectionState = function() {
+    return this.dataModel.getWebSocketConnectionState();
 };
+
+
+lgb.simulation.controller.MainController.prototype.getSimStateNative = function() {
+    return this.dataModel.getSimStateNative();
+};
+
+
+
 
 lgb.simulation.controller.MainController.prototype.getDataModel = function() {
     return this.dataModel;
@@ -183,7 +254,7 @@ lgb.simulation.controller.MainController.prototype.connect = function(connectFla
 
     if (connectFlag) {
       
-      this.dataModel.setWebSocketConnectionState(lgb.simulation.model.WebSocketConnectionState.open_requested);
+
       
       if (window.MozWebSocket) {
           this.ws_ = new MozWebSocket(this.dataModel.socketServerURL);
@@ -199,8 +270,11 @@ lgb.simulation.controller.MainController.prototype.connect = function(connectFla
       this.ws_.onclose = this.d(this.onClose_);
       this.ws_.onerror = this.d(this.onError_);
       
+      this.dataModel.setWebSocketConnectionState(lgb.simulation.model.WebSocketConnectionState.open_requested);
+      
     } else {
       
+      this.ws_.close();
       this.dataModel.setWebSocketConnectionState(lgb.simulation.model.WebSocketConnectionState.closed);
     }
 
@@ -258,8 +332,7 @@ lgb.simulation.controller.MainController.prototype.onMessage_ = function(event) 
         
         this.dispatchLocal(event);
         
-       // setInterval(this.d(this.dispatchLocal), 1000, event);
-       
+
     }
 };
 

@@ -1,4 +1,3 @@
-goog.require('test.TestSimulationController');
 
 goog.require('test.simulation.TestSerializationController');
 goog.require('lgb.core.EventBus');

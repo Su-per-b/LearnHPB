@@ -9,6 +9,9 @@ goog.require('lgb.gui.controller.SimulationOutputController');
 goog.require('lgb.gui.controller.SimulationTestController');
 goog.require('lgb.gui.controller.SimulationInputController');
 
+goog.require('lgb.gui.controller.SimulationResultsController');
+goog.require('lgb.gui.controller.SimulationGraphController');
+
 
 lgb.gui.controller.BottomPanelGUIController = function() {
 
@@ -30,11 +33,29 @@ lgb.gui.controller.BottomPanelGUIController.prototype.init_ = function() {
   this.trigger(e.RequestAddToLayout, this.bottomPanelGUI_);
 
 
-  this.simulationConsoleController_ = new lgb.gui.controller.SimulationConsoleController();
-  this.simulationInputController_ = new lgb.gui.controller.SimulationInputController();
-  this.simulationOutputController_ = new lgb.gui.controller.SimulationOutputController();
-  this.simulationTestController_ = new lgb.gui.controller.SimulationTestController();
-
+  this.simulationConsoleController_ = this.makeChildController_
+  (lgb.gui.controller.SimulationConsoleController);
+  
+  this.simulationInputController_ = this.makeChildController_
+  (lgb.gui.controller.SimulationInputController);
+  
+  this.simulationOutputController_ = this.makeChildController_
+  (lgb.gui.controller.SimulationOutputController);
+  
+ 
+  //this.simulationTestController_ = this.makeChildController_
+  //(lgb.gui.controller.SimulationTestController);
+  
+  
+   this.simulationResultsController_ = this.makeChildController_
+   (lgb.gui.controller.SimulationResultsController);
+   
+   
+   this.simulationResultsController_ = this.makeChildController_
+   (lgb.gui.controller.SimulationGraphController);
+   
+   
+  
   this.bind_();
 
 };
@@ -42,27 +63,13 @@ lgb.gui.controller.BottomPanelGUIController.prototype.init_ = function() {
 
 lgb.gui.controller.BottomPanelGUIController.prototype.bind_ = function() {
   
-  
   this.listenTo(
-    [this.simulationConsoleController_,this.simulationInputController_],
-    e.RequestAddToParentGUI, 
-    this.onRequestAddToParentGUI_);
-
-  
-  this.listenTo(
-    this.simulationOutputController_,
+    this.childControllers_,
     e.RequestAddToParentGUI, 
     this.onRequestAddToParentGUI_);
     
-  this.listenTo(
-    this.simulationTestController_,
-    e.RequestAddToParentGUI, 
-    this.onRequestAddToParentGUI_);
-
-
-
-
 };
+
 
 
 lgb.gui.controller.BottomPanelGUIController.prototype.onRequestAddToParentGUI_ = function(event) {
@@ -70,6 +77,7 @@ lgb.gui.controller.BottomPanelGUIController.prototype.onRequestAddToParentGUI_ =
   this.bottomPanelGUI_.add(event.payload);
 
 };
+
 
 
 /**
