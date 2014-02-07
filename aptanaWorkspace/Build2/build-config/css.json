@@ -1,0 +1,21 @@
+{
+    "includes": {
+      "rootPath": "../LearnHPB/css/",
+      "fileList":   [
+        "jquery-ui.css",
+        "tipped.css",
+        "kendo.common.css",
+        "kendo.silver.css",
+        "lgb.css",
+        "jquery.checkbox.css"
+      ]
+    },
+    "config":{
+      "outputFileNameBase" : "lgb",
+      "outputFileExtension" : "css"
+    }
+ }
+    
+    
+    
+

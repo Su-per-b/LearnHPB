@@ -1,0 +1,5 @@
+/*
+* Kendo UI Beta 2 (http://kendoui.com)
+* Copyright 2011 Telerik AD. All rights reserved.
+*
+*/
