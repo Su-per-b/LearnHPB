@@ -51,12 +51,12 @@ lgb.gui.view.SimulationGraphGUI.prototype.onChange_scalarValueResultsConverted_ 
   
   var testTempRealVo = scalarValueResultsConverted.output.realList[7];
   
-  var element = this.getMainElement();
+ // var element = this.getMainElement();
   
-  element.empty();
+  //element.empty();
   this.data_.push(testTempRealVo.value_);
     
- // this.makeGraph_(   );
+  this.makeGraph2_(   );
     
   return;
   
@@ -94,12 +94,6 @@ lgb.gui.view.SimulationGraphGUI.prototype.injectTo = function(parentElement) {
 
 
 
-lgb.gui.view.SimulationGraphGUI.prototype.updateAll_ = function() {
-  
-  this.gridDS_.read();
-  this.isDirty_ = false;
-  
-};
 
 
 
@@ -107,30 +101,57 @@ lgb.gui.view.SimulationGraphGUI.prototype.setGraphSize_ = function() {
 
     var parent = this.getParentElement();
     var w = parent.width();
-    
-    
     if (w < 400) {
       w = 400;
     }
-    
-    this.moveChart.width(400);
     
     var h = parent.height();
     if (h < 200) {
       h = 200;
     }
     
+    var h1 = h * 0.7;
+    var h2 = h * 0.16;
     
- 
+    this.moveChart.width(w);
+    this.moveChart.height(h1);
+    
+    this.volumeChart.width(w);
+    this.volumeChart.height(h2);
+    
+    
+     dc.renderAll();
 
         
 
 };
 
+lgb.gui.view.SimulationGraphGUI.prototype.makeGraph2_ = function() {
+	
+	//this.moveChart.data(this.data_);
+	//this.moveChart.redraw();
+	return;
+};
 
 lgb.gui.view.SimulationGraphGUI.prototype.makeGraph_ = function() {
   
   
+  
+    var parent = this.getParentElement();
+    var w = parent.width();
+    if (w < 500) {
+      w = 500;
+    }
+    
+    var h = parent.height();
+    if (h < 200) {
+      h = 200;
+    }
+    
+    var h1 = h * 0.7;
+    var h2 = h * 0.16;
+    
+    
       //var element = this.getMainElement()[0];
       var that = this;
       
@@ -190,35 +211,9 @@ d3.csv("ndx.csv", function (data) {
     var yearlyDimension = ndx.dimension(function (d) {
         return d3.time.year(d.dd).getFullYear();
     });
-    // maintain running tallies by year as filters are applied or removed
-    var yearlyPerformanceGroup = yearlyDimension.group().reduce(
-        /* callback for when data is added to the current filter results */
-        function (p, v) {
-            ++p.count;
-            p.absGain += v.close - v.open;
-            p.fluctuation += Math.abs(v.close - v.open);
-            p.sumIndex += (v.open + v.close) / 2;
-            p.avgIndex = p.sumIndex / p.count;
-            p.percentageGain = (p.absGain / p.avgIndex) * 100;
-            p.fluctuationPercentage = (p.fluctuation / p.avgIndex) * 100;
-            return p;
-        },
-        /* callback for when data is removed from the current filter results */
-        function (p, v) {
-            --p.count;
-            p.absGain -= v.close - v.open;
-            p.fluctuation -= Math.abs(v.close - v.open);
-            p.sumIndex -= (v.open + v.close) / 2;
-            p.avgIndex = p.sumIndex / p.count;
-            p.percentageGain = (p.absGain / p.avgIndex) * 100;
-            p.fluctuationPercentage = (p.fluctuation / p.avgIndex) * 100;
-            return p;
-        },
-        /* initialize p */
-        function () {
-            return {count: 0, absGain: 0, fluctuation: 0, fluctuationPercentage: 0, sumIndex: 0, avgIndex: 0, percentageGain: 0};
-        }
-    );
+    
+    
+ 
 
     // dimension by full date
     var dateDimension = ndx.dimension(function (d) {
@@ -255,34 +250,8 @@ d3.csv("ndx.csv", function (data) {
         }
     );
 
-    // create categorical dimension
-    var gainOrLoss = ndx.dimension(function (d) {
-        return d.open > d.close ? "Loss" : "Gain";
-    });
-    // produce counts records in the dimension
-    var gainOrLossGroup = gainOrLoss.group();
 
-    // determine a histogram of percent changes
-    var fluctuation = ndx.dimension(function (d) {
-        return Math.round((d.close - d.open) / d.open * 100);
-    });
-    var fluctuationGroup = fluctuation.group();
 
-    // summerize volume by quarter
-    var quarter = ndx.dimension(function (d) {
-        var month = d.dd.getMonth();
-        if (month <= 2)
-            return "Q1";
-        else if (month > 3 && month <= 5)
-            return "Q2";
-        else if (month > 5 && month <= 8)
-            return "Q3";
-        else
-            return "Q4";
-    });
-    var quarterGroup = quarter.group().reduceSum(function (d) {
-        return d.volume;
-    });
 
     // counts per weekday
     var dayOfWeek = ndx.dimension(function (d) {
@@ -304,10 +273,10 @@ d3.csv("ndx.csv", function (data) {
     //Specify an area chart, by using a line chart with `.renderArea(true)`
     that.moveChart
         .renderArea(true)
-        .width(990)
+        .width(700)
         .height(200)
         .transitionDuration(1000)
-        .margins({top: 30, right: 50, bottom: 25, left: 40})
+        .margins({top: 20, right: 20, bottom: 20, left: 40})
         .dimension(moveMonths)
         .mouseZoomable(true)
         // Specify a range chart to link the brush extent of the range with the zoom focue of the current chart.
@@ -337,7 +306,7 @@ d3.csv("ndx.csv", function (data) {
             return dateFormat(d.key) + "\n" + numberFormat(value);
         });
 
-    that.volumeChart.width(990)
+    that.volumeChart.width(700)
         .height(40)
         .margins({top: 0, right: 50, bottom: 20, left: 40})
         .dimension(moveMonths)
@@ -350,9 +319,6 @@ d3.csv("ndx.csv", function (data) {
         .xUnits(d3.time.months);
 
 
-    dc.dataCount(".dc-data-count")
-        .dimension(ndx)
-        .group(all);
 
 
 
