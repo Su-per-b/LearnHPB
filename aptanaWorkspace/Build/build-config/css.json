@@ -7,7 +7,9 @@
         "kendo.common.css",
         "kendo.silver.css",
         "lgb.css",
-        "jquery.checkbox.css"
+        "jquery.checkbox.css",
+        "bootstrap.min.css",
+        "dc.css"
       ]
     },
     "config":{

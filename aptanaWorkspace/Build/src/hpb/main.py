@@ -132,6 +132,8 @@ def copy1():
     shutil.copyfile(ROOT_ORIG + 'xml\\DefaultScenario.xml', ROOT_MIN + 'xml\\DefaultScenario.xml')
     shutil.copyfile(ROOT_ORIG + 'xml\\Building.xml', ROOT_MIN + 'xml\\Building.xml')
     
+    shutil.copyfile(ROOT_ORIG + 'ndx.csv', ROOT_MIN + 'ndx.csv')
+    
     
 def deployMin():
     printBanner('Deploy Min')

@@ -201,7 +201,7 @@ d3.csv("ndx.csv", function (data) {
 
 
 
-    dc.renderAll();
+    //dc.renderAll();
 
 });
 

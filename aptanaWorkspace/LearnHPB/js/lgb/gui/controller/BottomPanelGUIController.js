@@ -11,6 +11,9 @@ goog.require('lgb.gui.controller.SimulationInputController');
 
 goog.require('lgb.gui.controller.SimulationResultsController');
 goog.require('lgb.gui.controller.SimulationGraphController');
+goog.require('lgb.gui.controller.SimulationIframeGraphController');
+
+
 
 
 lgb.gui.controller.BottomPanelGUIController = function() {
@@ -51,10 +54,14 @@ lgb.gui.controller.BottomPanelGUIController.prototype.init_ = function() {
    (lgb.gui.controller.SimulationResultsController);
    
    
-   this.simulationResultsController_ = this.makeChildController_
+   this.simulationGraphController_ = this.makeChildController_
    (lgb.gui.controller.SimulationGraphController);
    
+   this.simulationIframeGraphController_ = this.makeChildController_
+   (lgb.gui.controller.SimulationIframeGraphController);
    
+   
+  
   
   this.bind_();
 

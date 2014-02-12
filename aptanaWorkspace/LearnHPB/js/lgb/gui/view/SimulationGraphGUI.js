@@ -3,7 +3,7 @@ goog.provide('lgb.gui.view.SimulationGraphGUI');
 
 lgb.gui.view.SimulationGraphGUI = function(dataModel) {
 
-  this._TITLE = 'Graph';
+  this._TITLE = 'Graph-Static';
   
   lgb.gui.view.BaseGUI.call(this, dataModel);
   this.totalHeaderHeight_ = 70;
@@ -135,8 +135,7 @@ lgb.gui.view.SimulationGraphGUI.prototype.makeGraph2_ = function() {
 
 lgb.gui.view.SimulationGraphGUI.prototype.makeGraph_ = function() {
   
-  
-  
+
     var parent = this.getParentElement();
     var w = parent.width();
     if (w < 500) {
@@ -280,7 +279,7 @@ d3.csv("ndx.csv", function (data) {
         .dimension(moveMonths)
         .mouseZoomable(true)
         // Specify a range chart to link the brush extent of the range with the zoom focue of the current chart.
-        .rangeChart(volumeChart)
+        .rangeChart(that.volumeChart)
         .x(d3.time.scale().domain([new Date(1985, 0, 1), new Date(2012, 11, 31)]))
         .round(d3.time.month.round)
         .xUnits(d3.time.months)
