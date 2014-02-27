@@ -106,7 +106,7 @@ lgb.core.Config.SOCKET_SERVER.PfalcoLocal = 2;
 lgb.core.Config.SOCKET_SERVER.LocalHost = 3;
 lgb.core.Config.SOCKET_SERVER.Cube = 4;
 
-lgb.core.Config.SOCKET_SERVER_HOST = lgb.core.Config.SOCKET_SERVER.Cube;
+lgb.core.Config.SOCKET_SERVER_HOST = lgb.core.Config.SOCKET_SERVER.LocalHost;
 
 
 

@@ -130,6 +130,9 @@ lgb.simulation.model.MainModel.prototype.convertRealValue = function(realVo, uni
       var v = 0.0;
       
       switch(unit) {
+        case "K" :
+          v = (realVo.value_-273.15);
+          break;
         case "C" :
           v = (realVo.value_-273.15);
           break;

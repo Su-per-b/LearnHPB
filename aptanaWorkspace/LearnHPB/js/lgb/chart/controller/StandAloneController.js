@@ -1,4 +1,9 @@
-goog.provide('lgb.gui.controller.BottomPanelGUIController');
+/**
+ * @author Raj Dye - raj@rajdye.com
+ * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
+ */
+ 
+goog.provide('lgb.chart.controller.StandAloneController');
 
 goog.require('lgb.core.BaseController');
 goog.require('lgb.gui.view.BottomPanelGUI');
@@ -15,19 +20,31 @@ goog.require('lgb.gui.controller.SimulationIframeGraphController');
 
 
 
-
-lgb.gui.controller.BottomPanelGUIController = function() {
-
+/**
+ * MVC controller for the App
+ * @constructor
+ * @extends lgb.core.BaseController
+ */
+lgb.chart.controller.StandAloneController = function(versionNumber) {
+  
+  this.versionNumber_ = versionNumber;
+  
   lgb.core.BaseController.call(this);
+  lgb.globalEventBus = new lgb.core.EventBus();
+  
   this.init_();
+
 };
-goog.inherits(lgb.gui.controller.BottomPanelGUIController, lgb.core.BaseController);
+goog.inherits(lgb.chart.controller.StandAloneController, lgb.core.BaseController);
+
 
 
 /**
  * Initializes the Main Controller after the document is ready
  */
-lgb.gui.controller.BottomPanelGUIController.prototype.init_ = function() {
+lgb.chart.controller.StandAloneController.prototype.init_ = function() {
+
+  $(window).resize(this.d(this.onNativeWindowResize_));
 
   this.dataModel = new lgb.gui.model.BaseInputModel();
   
@@ -35,6 +52,7 @@ lgb.gui.controller.BottomPanelGUIController.prototype.init_ = function() {
   this.bottomPanelGUI_.init();
   
   this.trigger(e.RequestAddToLayout, this.bottomPanelGUI_);
+
 
   this.simulationConsoleController_ = this.makeChildController_
   (lgb.gui.controller.SimulationConsoleController);
@@ -45,33 +63,37 @@ lgb.gui.controller.BottomPanelGUIController.prototype.init_ = function() {
   this.simulationOutputController_ = this.makeChildController_
   (lgb.gui.controller.SimulationOutputController);
   
- 
-  //this.simulationTestController_ = this.makeChildController_
-  //(lgb.gui.controller.SimulationTestController);
   
-  
-   this.simulationResultsController_ = this.makeChildController_
-   (lgb.gui.controller.SimulationResultsController);
-   
-   
-/*
-   // this.simulationGraphController_ = this.makeChildController_
-   // (lgb.gui.controller.SimulationGraphController);*/
-
-   
-   this.simulationIframeGraphController_ = this.makeChildController_
-   (lgb.gui.controller.SimulationIframeGraphController);
-   
-   
   this.bind_();
-
 };
 
 
-lgb.gui.controller.BottomPanelGUIController.prototype.bind_ = function() {
+
+/**
+ * Handles the browser resize event
+ * then dispatches a lgb event
+ * @private
+ * @param {Event} event The browser's event.
+ */
+lgb.chart.controller.StandAloneController.prototype.onNativeWindowResize_ =
+  function(event) {
+
+  var payload = {
+    w:window.innerWidth,
+    h:window.innerHeight
+    };
+  
+  this.trigger(e.WindowResize, payload);
+  
+};
+
+
+
+
+lgb.chart.controller.StandAloneController.prototype.bind_ = function() {
   
   this.listenTo(
-    this.childControllers_,
+    this.standAloneLayoutView_,
     e.RequestAddToParentGUI, 
     this.onRequestAddToParentGUI_);
     
@@ -79,25 +101,9 @@ lgb.gui.controller.BottomPanelGUIController.prototype.bind_ = function() {
 
 
 
-lgb.gui.controller.BottomPanelGUIController.prototype.onRequestAddToParentGUI_ = function(event) {
+lgb.chart.controller.StandAloneController.prototype.onRequestAddToParentGUI_ = function(event) {
 
   this.bottomPanelGUI_.add(event.payload);
-
-};
-
-
-
-/**
- * @private
- */
-lgb.gui.controller.BottomPanelGUIController.prototype.injectCss_ = function() {
-
-  var cssInner = '';
-
-  cssInner += this.leftPanelGUI_.getCss();
-  var cssStr = "\n<style type='text/css'>{0}</style>".format(cssInner);
-
-  $('head').append(cssStr);
 
 };
 

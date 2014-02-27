@@ -17,26 +17,31 @@ goog.require('lgb.simulation.model.WebSocketConnectionStateRequest');
 goog.require('lgb.simulation.model.voNative.ScalarValueRealStruct');
 goog.require('lgb.simulation.model.voManaged.ScalarValueCollection');
 goog.require('lgb.simulation.model.voManaged.ScalarValueReal');
+goog.require('lgb.simulation.model.voManaged.SessionControl');
+
 
 goog.require('lgb.simulation.events.SimStateNativeRequest');
 goog.require('lgb.simulation.events.ScalarValueChangeRequest');
 goog.require('lgb.simulation.events.ResultEventList');
 goog.require('lgb.simulation.events.ResultEvent');
+goog.require('lgb.simulation.events.SessionControlEvent');
 
 
 
 
 lgb.simulation.controller.MainController = function() {
     lgb.core.BaseController.call(this);
-    this.init_();
+
 };
 goog.inherits(lgb.simulation.controller.MainController, lgb.core.BaseController);
+
 
 /**
  * Handler used for websocket init
  * @private
  */
-lgb.simulation.controller.MainController.prototype.init_ = function(event) {
+lgb.simulation.controller.MainController.prototype.init = function() {
+
 
     this.jsonController_ = new lgb.simulation.controller.JsonController();
     this.dataModel = new lgb.simulation.model.MainModel();
@@ -48,11 +53,68 @@ lgb.simulation.controller.MainController.prototype.init_ = function(event) {
     this.clearResultEventQueueDelegate_ = this.d(this.clearResultEventqueue_),
     this.resultEventQueueIntervalHandle_ = null;
     
-  
+    
+
     this.bind_();
+
+    this.setRemoteHost_();
 
 };
 
+lgb.simulation.controller.MainController.prototype.setRemoteHost_ = function() {
+  
+  var url = $.url(); // parse the current page URL
+  var server = url.param('server');
+  
+  if (server) {
+    
+    this.socketServerHost = server;
+    
+  } else {
+    
+    switch(lgb.core.Config.SOCKET_SERVER_HOST) {
+      
+      case lgb.core.Config.SOCKET_SERVER.AutoConfig :
+      
+        url = String (window.location);
+        console.log('window.location: '+ url);
+        
+        hostname = url.split('/')[2];
+        console.log('hostname: '+ hostname);
+        
+        this.socketServerHost = hostname.split(':')[0];
+        console.log('hostname2: '+ hostname2);
+        break;
+        
+      case lgb.core.Config.SOCKET_SERVER.Pfalco :
+        this.socketServerHost = 'learnhpb.straylightsim.com';
+        break;
+        
+      case lgb.core.Config.SOCKET_SERVER.PfalcoLocal :
+        this.socketServerHost = '192.168.0.15';
+        break;
+        
+      case lgb.core.Config.SOCKET_SERVER.LocalHost :
+        this.socketServerHost = '127.0.0.1';
+        break;
+        
+      case lgb.core.Config.SOCKET_SERVER.Cube :
+        this.socketServerHost = 'cube.straylightsim.com';
+        break;
+    }
+    
+  }
+  
+
+    this.trigger(se.SetRemoteHost, this.socketServerHost);
+
+    this.trigger(e.SimulationEngineLoaded, this);
+  
+};
+
+
+
+    
 
 lgb.simulation.controller.MainController.prototype.bind_ = function() {
   
@@ -102,6 +164,18 @@ lgb.simulation.controller.MainController.prototype.bind_ = function() {
 };
 
 
+
+lgb.simulation.controller.MainController.prototype.attachToSession = function(sessionID) {
+  
+  var payload = new lgb.simulation.model.voManaged.SessionControl(0,sessionID);
+  var event = new lgb.simulation.events.SessionControlEvent(payload);
+  
+  this.serializeAndSend(event);
+  
+  
+};
+
+
 lgb.simulation.controller.MainController.prototype.onSetRemoteHost_ = function(event) {
   
   this.dataModel.init(event.payload);
@@ -110,9 +184,7 @@ lgb.simulation.controller.MainController.prototype.onSetRemoteHost_ = function(e
 
 
 lgb.simulation.controller.MainController.prototype.getDataModel = function() {
-  
   return this.dataModel;
-  
 };
 
 
@@ -253,8 +325,6 @@ lgb.simulation.controller.MainController.prototype.connect = function(connectFla
 
 
     if (connectFlag) {
-      
-
       
       if (window.MozWebSocket) {
           this.ws_ = new MozWebSocket(this.dataModel.socketServerURL);

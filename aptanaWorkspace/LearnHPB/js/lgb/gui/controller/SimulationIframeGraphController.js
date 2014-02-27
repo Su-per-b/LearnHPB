@@ -7,7 +7,7 @@
 goog.provide('lgb.gui.controller.SimulationIframeGraphController');
 
 goog.require('lgb.core.BaseController');
-goog.require('lgb.gui.view.SimulationIframeGraphGUI');
+goog.require('lgb.chart.view.SimulationIframeGraphGUI');
 
 
 
@@ -63,7 +63,7 @@ lgb.gui.controller.SimulationIframeGraphController.prototype.onSimulationEngineL
 lgb.gui.controller.SimulationIframeGraphController.prototype.init_ = function() {
   
   this.dataModel = this.simMainController_.getDataModel();
-  this.guiView = new lgb.gui.view.SimulationIframeGraphGUI (this.dataModel, this.TITLE_);
+  this.guiView = new lgb.chart.view.SimulationIframeGraphGUI (this.dataModel, this.TITLE_);
 
   this.bind2_();
   this.guiView.init();

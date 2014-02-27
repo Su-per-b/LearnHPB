@@ -71,16 +71,16 @@ lgb.gui.view.LayoutView.prototype.bind_ = function(guiView) {
   
   this.listenTo(this.splitPanelHorizontal_, e.Resize, this.onSplitterResizeHorizontal_);
   this.listenTo(this.splitPanelVertical_, e.Resize, this.onSplitterResizeVertical_);
-  this.listenForChange_('add');
+  // this.listenForChange_('add');
   
 };
 
 
 
-
-lgb.gui.view.LayoutView.prototype.onChange_add_ = function(value) {
-  this.add(value);
-};
+// 
+// lgb.gui.view.LayoutView.prototype.onChange_add_ = function(value) {
+  // this.add(value);
+// };
 
 
 
@@ -99,7 +99,6 @@ lgb.gui.view.LayoutView.prototype.toggleVisibility = function(guiView) {
 lgb.gui.view.LayoutView.prototype.add = function(guiView) {
   
 
- 
   var className = guiView.getClassName();
 
   switch(className ) {

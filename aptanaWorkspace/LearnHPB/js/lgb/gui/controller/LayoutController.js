@@ -12,6 +12,15 @@ goog.require('lgb.gui.view.LayoutView');
 goog.require('lgb.gui.model.LayoutModel');
 
 
+goog.require('lgb.gui.controller.PropertiesController');
+goog.require('lgb.gui.controller.LeftPanelGUIController');
+goog.require('lgb.gui.controller.ButtonsTopRightHUDController');
+goog.require('lgb.gui.controller.TopMenuController');
+goog.require('lgb.world.controller.VisibilityController');
+goog.require('lgb.gui.controller.BottomPanelGUIController');
+goog.require('lgb.gui.view.TitleBarGUI');
+
+
 /**
  * MVC controller for the App
  * @constructor
@@ -31,13 +40,23 @@ goog.inherits(lgb.gui.controller.LayoutController, lgb.core.BaseController);
  */
 lgb.gui.controller.LayoutController.prototype.init = function() {
     
+    
+    
     this.dataModel = new lgb.gui.model.LayoutModel();
     this.view  = new lgb.gui.view.LayoutView(this.dataModel);
     this.bind_();
     this.view.init();
+    
+    this.topMenuController_ = this.makeChildController_(lgb.gui.controller.TopMenuController);
+    this.propertiesController_ = this.makeChildController_(lgb.gui.controller.PropertiesController);
+    this.leftPanelGUIController_ = this.makeChildController_(lgb.gui.controller.LeftPanelGUIController);
+    this.rightTopInputController_ = this.makeChildController_(lgb.gui.controller.ButtonsTopRightHUDController);
+    this.visibilityController_ = this.makeChildController_(lgb.world.controller.VisibilityController);
+    this.bottomPanelGUIController_ = this.makeChildController_(lgb.gui.controller.BottomPanelGUIController);
+    
+    this.titleBarView = new lgb.gui.view.TitleBarGUI();
+    this.trigger(e.RequestAddToLayout, this.titleBarView);
 };
-
-
 
 
 
@@ -52,7 +71,8 @@ lgb.gui.controller.LayoutController.prototype.bind_ = function() {
 
 lgb.gui.controller.LayoutController.prototype.onRequestAddToLayout_ = function(event) {
 
-    this.dataModel.add(event.payload);
+   // this.dataModel.add(event.payload);
+    this.view.add(event.payload);
 };
 
 

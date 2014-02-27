@@ -26,6 +26,7 @@ lgb.core.DebugLGB.prototype.getClasses = function() {
 };
 
 
+/*
 lgb.core.DebugLGB.prototype.getPackages = function() {
   
   var packages = [
@@ -49,6 +50,10 @@ lgb.core.DebugLGB.prototype.getPackages = function() {
     
     ['lgb','utils'],
     
+    ['lgb','chart'],
+    ['lgb','chart', 'controller'],
+    ['lgb','chart', 'view'],
+    
     ['lgb','world'],
     ['lgb','world', 'controller'],
     ['lgb','world', 'model'],
@@ -64,6 +69,7 @@ lgb.core.DebugLGB.prototype.getPackages = function() {
   
   return packages;
 };
+*/
 
 
 
@@ -145,6 +151,10 @@ lgb.core.DebugLGB.prototype.getPackages3 = function() {
     
     'lgb.utils',
     
+    'lgb.chart',
+    'lgb.chart.controller',
+    'lgb.chart.view',
+
     'lgb.world',
     'lgb.world.controller',
     'lgb.world.model',

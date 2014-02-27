@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="/LearnHPB/" >
+    <meta charset="UTF-8" />
+
+    <!-- =========================  CSS  ============================ -->
+
+
+    <link type="text/css" href="css/dc.css" rel="stylesheet" />
+    
+    
+    <!-- =========================   JavaScript  ============================ -->
+    <script src="test/js/includes/Main.js"></script>
+    <script src="test/js/includes/MainLibs.js"></script>
+
+    <title>Chart Test 1</title>
+    
+    
+    <script>
+      test.includes.MainLibs.initChart();
+    </script>
+    
+    <script>
+    
+      goog.require('lgb');
+      goog.require('lgb.core.EventBus');
+      goog.require('lgb.core.Global');
+      
+      goog.require('lgb.chart.controller.MainController');
+    </script>
+  
+  
+
+  </head>
+
+  <body id="theBody">
+
+  </body>
+  
+
+  <script>
+
+        
+   var mainController = {};
+   
+   $(document).ready(function () {
+     
+      lgb.init();
+      lgb.globalEventBus = new lgb.core.EventBus();
+      
+      var mainController = new lgb.chart.controller.MainController(1);
+        
+    });
+    
+    
+
+    
+  </script>
+  
+</html>

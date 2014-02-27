@@ -34,8 +34,6 @@ lgb.gui.controller.SimulationTestController.prototype.bind1_ = function() {
         this.onSimulationEngineLoaded_
     );
     
-    
-
 };
 
 

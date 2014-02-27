@@ -41,12 +41,10 @@ lgb.gui.controller.LeftPanelGUIController.prototype.init_ = function() {
   this.buildingGUIController_.init();
   this.testController_.init();
 
-
 };
 
 
 lgb.gui.controller.LeftPanelGUIController.prototype.bind_ = function() {
-
 
   this.listenTo(
     this.childControllers_,
