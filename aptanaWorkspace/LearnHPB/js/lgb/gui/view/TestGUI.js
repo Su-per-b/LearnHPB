@@ -30,10 +30,8 @@ lgb.gui.view.TestGUI.prototype.init = function() {
   
   this.bind_();
   
-  this.triggerLocal(e.RequestAddToParentGUI);
+
 };
-
-
 
 
 lgb.gui.view.TestGUI.prototype.bind_ = function() {
@@ -76,8 +74,6 @@ lgb.gui.view.TestGUI.prototype.add = function(gui) {
   
   
 };
-
-
 
 
 /**

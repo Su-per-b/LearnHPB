@@ -9,20 +9,20 @@ lgb.gui.view.BottomPanelGUI = function(dataModel) {
   this._TITLE = 'BottomPanelGUI';
   
   lgb.gui.view.BaseGUI.call(this, dataModel);
-  
-  this.tabTitleMap_ = {};
-  
-  this.dataSource = new lgb.component.TabStripDataSource('bottomPanelGUI-tabStrip');
-  this.tabStrip1 = new lgb.component.TabStrip(this.dataSource);
+  this.init_();
+
   
 };
 goog.inherits(lgb.gui.view.BottomPanelGUI, lgb.gui.view.BaseGUI);
 
 
 
-lgb.gui.view.BottomPanelGUI.prototype.init = function() {
-    this.triggerLocal(e.RequestAddToLayout, this);
-    
+lgb.gui.view.BottomPanelGUI.prototype.init_ = function() {
+  
+  this.tabTitleMap_ = {};
+  
+  this.dataSource = new lgb.component.TabStripDataSource('bottomPanelGUI-tabStrip');
+  this.tabStrip1 = new lgb.component.TabStrip(this.dataSource);
     
 };
 

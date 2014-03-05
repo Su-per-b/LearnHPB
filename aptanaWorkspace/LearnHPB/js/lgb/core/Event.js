@@ -65,7 +65,6 @@ e.EnvelopeModelChanged = 'e.EnvelopeModelChanged';
 e.RequestLayoutVisibilityChange = 'e.RequestLayoutVisibilityChange';
 e.RequestAddToMainInput = 'e.RequestAddToMainInput';
 e.RequestAddToTestingInput = 'e.RequestAddToTestingInput';
-e.RequestAddToLayout = 'e.RequestAddToLayout';
 e.RequestRemoveFromLayout = 'e.RequestRemoveFromLayout';
 
 e.RequestAddToParentGUI = 'e.RequestAddToParentGUI';

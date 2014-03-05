@@ -38,8 +38,9 @@ lgb.gui.controller.TestLightingController.prototype.init = function() {
   this.bind_();
   
   this.view.init();
-  this.guiView.init();
+
   
+  this.triggerLocal(e.RequestAddToTestingInput, this.guiView);
 };
 
 

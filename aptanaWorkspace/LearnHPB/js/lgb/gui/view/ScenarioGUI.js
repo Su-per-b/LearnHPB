@@ -23,7 +23,7 @@ lgb.gui.view.ScenarioGUI.prototype.init = function() {
   this.tabStrip1 = new lgb.component.TabStrip(this.dataSource);
 
   this.tabTitleMap_ = {};
-  this.triggerLocal(e.RequestAddToParentGUI);
+
 };
 
 

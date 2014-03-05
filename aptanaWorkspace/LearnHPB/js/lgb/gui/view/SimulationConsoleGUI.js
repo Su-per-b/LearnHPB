@@ -21,7 +21,7 @@ lgb.gui.view.SimulationConsoleGUI.prototype.init = function() {
        "height":"100%"
     });
     
-    this.triggerLocal(e.RequestAddToParentGUI);
+
     this.listenForChange_('messageStruct');
 };
 

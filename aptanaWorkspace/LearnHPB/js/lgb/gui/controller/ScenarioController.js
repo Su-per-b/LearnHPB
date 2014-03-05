@@ -2,7 +2,7 @@ goog.provide('lgb.gui.controller.ScenarioController');
 
 goog.require('lgb.core.BaseController');
 
-goog.require('lgb.gui.model.BaseInputModel');
+goog.require('lgb.gui.model.BaseGuiModel');
 goog.require('lgb.scenario.model.Bs2');
 goog.require('lgb.scenario.model.SystemList');
 
@@ -22,78 +22,26 @@ goog.inherits(lgb.gui.controller.ScenarioController, lgb.core.BaseController);
 /**
  * Initializes the Main Controller after the document is ready
  */
-lgb.gui.controller.ScenarioController.prototype.init = function() {
+lgb.gui.controller.ScenarioController.prototype.init = function(systemListDataModel) {
 
-  this.dataModel = new lgb.gui.model.BaseInputModel();
-
+  this.systemListDataModel_ = systemListDataModel;
+  this.systemListView_ = new lgb.scenario.view.SystemList (this.systemListDataModel_, true);
+  
+  this.dataModel = new lgb.gui.model.BaseGuiModel();
   this.guiView = new lgb.gui.view.ScenarioGUI(this.dataModel);
-  this.bind_();
   this.guiView.init();
   
-};
+  
+  this.guiView.add(this.systemListView_);
+  // this.variableList_ = systemListView.getVariables();
+  
+  this.triggerLocal(e.RequestAddToParentGUI, this.guiView);
 
-
-lgb.gui.controller.ScenarioController.prototype.bind_ = function() {
-
-  this.listen(
-    e.ScenarioParsed2,
-    this.onScenarioParsed2_
-  );
-
-  this.relayLocal(
-    this.guiView,
-    e.RequestAddToParentGUI);
-
-
-};
-
-
-lgb.gui.controller.ScenarioController.prototype.onRequestAddToGUI_ = function(event) {
-
-  this.guiView.add(event.payload);
-
-};
-
-
-/**
- * @private
- */
-lgb.gui.controller.ScenarioController.prototype.injectCss_ = function() {
-
-  var cssInner = '';
-
-  cssInner += this.guiView.getCss();
-  var cssStr = "\n<style type='text/css'>{0}</style>".format(cssInner);
-
-  $('head').append(cssStr);
-
+  
+  
 };
 
 
 
-lgb.gui.controller.ScenarioController.prototype.onScenarioParsed2_ = function(event) {
-  
-
-  var systemListDataModel = event.payload;
-  var systemListView = new lgb.scenario.view.SystemList (systemListDataModel, true);
-  
-
-  
-  this.guiView.add(systemListView);
-
-  this.variableList_ = systemListView.getVariables();
-  
-  //this.listenTo(this.variableList_, e.RequestModelicaVariableChange, this.onRequestModelicaVariableChange_);
-  
-  
-  
-  return;
-  
-};
 
 
-lgb.gui.controller.ScenarioController.prototype.onRequestModelicaVariableChange_ = function(event) {
-  
-  
-  return;
-};

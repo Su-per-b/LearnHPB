@@ -25,13 +25,6 @@ lgb.gui.view.GUI = function(dataModel, title) {
 goog.inherits(lgb.gui.view.GUI, lgb.gui.view.BaseGUI);
 
 
-/**
- * Initializes the View
- */
-lgb.gui.view.GUI.prototype.init = function() {
-  this.triggerLocal(e.RequestAddToParentGUI);
-};
-
 
 lgb.gui.view.GUI.prototype.add = function(gui) {
   var el = this.getMainElement();

@@ -194,9 +194,6 @@ lgb.world.controller.CameraCraneController.prototype.moveToViewpoint =
   
   
     
-
-    
-  
 };
 
 

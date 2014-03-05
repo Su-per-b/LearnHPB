@@ -60,11 +60,9 @@ lgb.core.MainController.prototype.init = function() {
   
 /*
 
-
 */
 
   this.layoutController_ = new lgb.gui.controller.LayoutController();
-  this.layoutController_.init();
   
   var theTitle = lgb.core.Config.getTitle();
    $('title').html(theTitle);

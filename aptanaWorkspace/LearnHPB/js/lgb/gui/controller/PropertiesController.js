@@ -9,22 +9,32 @@ goog.require('lgb.gui.view.PropertiesButtonGreenGUI');
 
 /**@extends lgb.core.BaseController
  */
-lgb.gui.controller.PropertiesController = function() {
+lgb.gui.controller.PropertiesController = function(scenarioDataModel) {
 
   lgb.core.BaseController.call(this);
-    this.init_();
+  this.scenarioDataModel_ = scenarioDataModel;
+  
 };
 goog.inherits(lgb.gui.controller.PropertiesController,lgb.core.BaseController);
 
 
-lgb.gui.controller.PropertiesController.prototype.init_ = function() {
-  this.bind1_();
+lgb.gui.controller.PropertiesController.prototype.init = function(scenarioDataModel) {
+
+
+  this.buttonView = new lgb.gui.view.PropertiesButtonGreenGUI();
+  this.buttonView.init();
+  
+  this.dataModel = scenarioDataModel;
+  this.view = new lgb.gui.view.PropertiesGreenGUI(this.dataModel);
+
+  this.triggerLocal(e.RequestAddToParentGUI, this.buttonView);
+  this.triggerLocal(e.RequestAddToParentGUI, this.view);
+  
+  this.bind2_();
+  
 };
 
 
-lgb.gui.controller.PropertiesController.prototype.bind1_ = function() {
-    this.listenOnce(e.ScenarioParsed, this.onScenarioParsed_);
-};
 
 lgb.gui.controller.PropertiesController.prototype.bind2_ = function() {
   
@@ -60,24 +70,8 @@ lgb.gui.controller.PropertiesController.prototype.onRequestSelectSystemNode_ =
     this.dataModel.selectId(id);
   }
 
-
 };
 
-
-lgb.gui.controller.PropertiesController.prototype.onScenarioParsed_ =
-  function(event) {
-
-  this.buttonView = new lgb.gui.view.PropertiesButtonGreenGUI();
-  this.buttonView.init();
-  
-  this.dataModel = event.payload;
-  this.view = new lgb.gui.view.PropertiesGreenGUI(this.dataModel);
-
-  this.trigger(e.RequestAddToLayout, this.buttonView);
-  this.trigger(e.RequestAddToLayout, this.view);
-  
-  this.bind2_();
-};
 
 
 

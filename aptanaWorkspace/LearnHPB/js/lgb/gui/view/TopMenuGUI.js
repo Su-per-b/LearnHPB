@@ -56,7 +56,8 @@ lgb.gui.view.TopMenuGUI.prototype.init = function() {
   
   
   this.bind_();
-  this.triggerLocal(e.RequestAddToLayout, this);
+  
+
   
 };
 

@@ -18,7 +18,6 @@ goog.require('lgb.simulation.model.WebSocketConnectionState');
 lgb.simulation.model.MainModel = function() {
 
 
-  
   /**@const */
   this._TITLE = 'MainModel';
   lgb.world.model.BaseModel.call(this);
@@ -77,7 +76,6 @@ lgb.simulation.model.MainModel.prototype.calcScalarValueResultsConverted = funct
     var friendlyTime = (hours < 10 ? "0" + hours : hours) + ":" + 
         (minutes < 10 ? "0" + minutes : minutes) + ":" + 
         (seconds  < 10 ? "0" + seconds : seconds);
-
 
 
     var outAry = this.convertRealValueList(

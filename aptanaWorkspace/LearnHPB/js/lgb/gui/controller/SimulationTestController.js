@@ -74,9 +74,3 @@ lgb.gui.controller.SimulationTestController.prototype.init_ = function() {
   
 };
 
-
-lgb.gui.controller.SimulationTestController.prototype.onRequestAddToParentGUI_ = function(event) {
-  this.guiView.add(event.payload);
-};
-
-

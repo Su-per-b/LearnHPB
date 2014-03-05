@@ -13,30 +13,6 @@ goog.require('goog.structs.Map');
 lgb.core.ThreeUtils = {};
 
 
-// lgb.core.ThreeUtils.convertGroupHashToMeshHash2 = function(groupHash) {
-//   
-  // var hash = {};
-// 
-  // for (var theGroupName in groupHash) {
-//     
-    // var theGroup = groupHash[theGroupName];
-//     
-    // var object3d = new THREE.Object3D();
-    // object3d.name = theGroupName;
-//     
-    // var len = theGroup.length;
-    // for (var i = 0; i < len; i++) {
-        // object3d.add(theGroup[i]);
-    // }
-//     
-    // hash[theGroupName] = object3d;
-//     
-// 
-  // }
-// 
-  // return hash;
-// };
-// 
 
 
 /**

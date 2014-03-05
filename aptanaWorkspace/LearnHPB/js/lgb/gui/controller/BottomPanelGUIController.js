@@ -2,13 +2,11 @@ goog.provide('lgb.gui.controller.BottomPanelGUIController');
 
 goog.require('lgb.core.BaseController');
 goog.require('lgb.gui.view.BottomPanelGUI');
-goog.require('lgb.gui.model.BaseInputModel');
+goog.require('lgb.gui.model.BaseGuiModel');
 
 goog.require('lgb.gui.controller.SimulationConsoleController');
 goog.require('lgb.gui.controller.SimulationOutputController');
-goog.require('lgb.gui.controller.SimulationTestController');
 goog.require('lgb.gui.controller.SimulationInputController');
-
 goog.require('lgb.gui.controller.SimulationResultsController');
 goog.require('lgb.gui.controller.SimulationGraphController');
 goog.require('lgb.gui.controller.SimulationIframeGraphController');
@@ -19,7 +17,6 @@ goog.require('lgb.gui.controller.SimulationIframeGraphController');
 lgb.gui.controller.BottomPanelGUIController = function() {
 
   lgb.core.BaseController.call(this);
-  this.init_();
 };
 goog.inherits(lgb.gui.controller.BottomPanelGUIController, lgb.core.BaseController);
 
@@ -27,77 +24,68 @@ goog.inherits(lgb.gui.controller.BottomPanelGUIController, lgb.core.BaseControll
 /**
  * Initializes the Main Controller after the document is ready
  */
-lgb.gui.controller.BottomPanelGUIController.prototype.init_ = function() {
+lgb.gui.controller.BottomPanelGUIController.prototype.init = function() {
 
-  this.dataModel = new lgb.gui.model.BaseInputModel();
+  this.dataModel = new lgb.gui.model.BaseGuiModel();
+  this.guiView = new lgb.gui.view.BottomPanelGUI(this.dataModel);
   
-  this.bottomPanelGUI_ = new lgb.gui.view.BottomPanelGUI(this.dataModel);
-  this.bottomPanelGUI_.init();
+  this.triggerLocal(e.RequestAddToParentGUI, this.guiView);
   
-  this.trigger(e.RequestAddToLayout, this.bottomPanelGUI_);
-
-  this.simulationConsoleController_ = this.makeChildController_
-  (lgb.gui.controller.SimulationConsoleController);
-  
-  this.simulationInputController_ = this.makeChildController_
-  (lgb.gui.controller.SimulationInputController);
-  
-  this.simulationOutputController_ = this.makeChildController_
-  (lgb.gui.controller.SimulationOutputController);
-  
- 
-  //this.simulationTestController_ = this.makeChildController_
-  //(lgb.gui.controller.SimulationTestController);
-  
-  
-   this.simulationResultsController_ = this.makeChildController_
-   (lgb.gui.controller.SimulationResultsController);
-   
-   
-/*
-   // this.simulationGraphController_ = this.makeChildController_
-   // (lgb.gui.controller.SimulationGraphController);*/
-
-   
-   this.simulationIframeGraphController_ = this.makeChildController_
-   (lgb.gui.controller.SimulationIframeGraphController);
-   
-   
   this.bind_();
 
 };
 
-
 lgb.gui.controller.BottomPanelGUIController.prototype.bind_ = function() {
-  
-  this.listenTo(
-    this.childControllers_,
-    e.RequestAddToParentGUI, 
-    this.onRequestAddToParentGUI_);
+
+    this.listenOnce (
+        e.SimulationEngineLoaded,
+        this.onSimulationEngineLoaded_
+    );
     
 };
+
+
+lgb.gui.controller.BottomPanelGUIController.prototype.onSimulationEngineLoaded_ = function(event) {
+  
+  simMainController = event.payload;
+  var simDataModel = simMainController.getDataModel();
+  
+  this.init2_(simDataModel);
+
+};
+
+
+lgb.gui.controller.BottomPanelGUIController.prototype.init2_ = function(simDataModel) {
+  
+
+  this.makeChildGUIcontroller_
+    (lgb.gui.controller.SimulationConsoleController, simDataModel);
+
+  this.makeChildGUIcontroller_
+    (lgb.gui.controller.SimulationInputController, simDataModel);
+
+
+  this.makeChildGUIcontroller_
+    (lgb.gui.controller.SimulationOutputController, simDataModel);
+    
+     
+  this.makeChildGUIcontroller_
+    (lgb.gui.controller.SimulationResultsController, simDataModel);
+    
+   // this.simulationIframeGraphController_ = this.makeChildController_
+   // (lgb.gui.controller.SimulationIframeGraphController);
+   
+   
+};
+
 
 
 
 lgb.gui.controller.BottomPanelGUIController.prototype.onRequestAddToParentGUI_ = function(event) {
 
-  this.bottomPanelGUI_.add(event.payload);
+  this.guiView.add(event.payload);
 
 };
 
 
-
-/**
- * @private
- */
-lgb.gui.controller.BottomPanelGUIController.prototype.injectCss_ = function() {
-
-  var cssInner = '';
-
-  cssInner += this.leftPanelGUI_.getCss();
-  var cssStr = "\n<style type='text/css'>{0}</style>".format(cssInner);
-
-  $('head').append(cssStr);
-
-};
 

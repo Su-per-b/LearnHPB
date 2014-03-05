@@ -11,7 +11,6 @@ goog.require('lgb.core.Config');
 goog.require('lgb.gui.view.LayoutView');
 goog.require('lgb.gui.model.LayoutModel');
 
-
 goog.require('lgb.gui.controller.PropertiesController');
 goog.require('lgb.gui.controller.LeftPanelGUIController');
 goog.require('lgb.gui.controller.ButtonsTopRightHUDController');
@@ -29,7 +28,7 @@ goog.require('lgb.gui.view.TitleBarGUI');
 lgb.gui.controller.LayoutController = function() {
 
   lgb.core.BaseController.call(this);
-
+  this.init_();
 };
 goog.inherits(lgb.gui.controller.LayoutController, lgb.core.BaseController);
 
@@ -38,62 +37,68 @@ goog.inherits(lgb.gui.controller.LayoutController, lgb.core.BaseController);
 /**
  * Initializes the Main Controller after the document is ready
  */
-lgb.gui.controller.LayoutController.prototype.init = function() {
-    
+lgb.gui.controller.LayoutController.prototype.init_ = function() {
     
     
     this.dataModel = new lgb.gui.model.LayoutModel();
-    this.view  = new lgb.gui.view.LayoutView(this.dataModel);
+    this.guiView  = new lgb.gui.view.LayoutView(this.dataModel);
+    this.guiView.init();
+    
     this.bind_();
-    this.view.init();
     
-    this.topMenuController_ = this.makeChildController_(lgb.gui.controller.TopMenuController);
-    this.propertiesController_ = this.makeChildController_(lgb.gui.controller.PropertiesController);
-    this.leftPanelGUIController_ = this.makeChildController_(lgb.gui.controller.LeftPanelGUIController);
-    this.rightTopInputController_ = this.makeChildController_(lgb.gui.controller.ButtonsTopRightHUDController);
-    this.visibilityController_ = this.makeChildController_(lgb.world.controller.VisibilityController);
-    this.bottomPanelGUIController_ = this.makeChildController_(lgb.gui.controller.BottomPanelGUIController);
+    this.leftPanelGUIController_ = this.makeChildGUIcontroller_(lgb.gui.controller.LeftPanelGUIController);
+    this.rightTopInputController_ = this.makeChildGUIcontroller_(lgb.gui.controller.ButtonsTopRightHUDController);
+    this.visibilityController_ = this.makeChildGUIcontroller_(lgb.world.controller.VisibilityController);
+    this.bottomPanelGUIController_ = this.makeChildGUIcontroller_(lgb.gui.controller.BottomPanelGUIController);
     
-    this.titleBarView = new lgb.gui.view.TitleBarGUI();
-    this.trigger(e.RequestAddToLayout, this.titleBarView);
 };
 
 
 
 lgb.gui.controller.LayoutController.prototype.bind_ = function() {
-    
-  this.listenTo(this.view, e.LayoutChange, this.onLayoutChange_);
+  
+  this.listenTo(this.guiView, e.LayoutChange, this.onLayoutChange_);
   this.listen(e.WindowResize, this.onWindowResize_);
-  this.listen(e.RequestAddToLayout, this.onRequestAddToLayout_);
   this.listen(e.RequestLayoutVisibilityChange, this.onRequestLayoutVisibilityChange_);
-   
+  
+  this.listenOnce(
+    e.ScenarioParsed,
+    this.onScenarioParsed_);
+    
 };
 
-lgb.gui.controller.LayoutController.prototype.onRequestAddToLayout_ = function(event) {
 
-   // this.dataModel.add(event.payload);
-    this.view.add(event.payload);
+lgb.gui.controller.LayoutController.prototype.onScenarioParsed_ = function(event) {
+  
+   var scenarioDataModel = event.payload;
+   this.init2_(scenarioDataModel);
+
+};
+
+lgb.gui.controller.LayoutController.prototype.init2_ = function(scenarioDataModel) {
+
+   this.makeChildGUIcontroller_(lgb.gui.controller.PropertiesController, scenarioDataModel);
+
+};
+
+lgb.gui.controller.LayoutController.prototype.onRequestAddToParentGUI_ = function(event) {
+    this.guiView.add(event.payload);
 };
 
 
 lgb.gui.controller.LayoutController.prototype.onRequestLayoutVisibilityChange_ = function(event) {
-  
-    this.view.toggleVisibility(event.payload);
-    
+    this.guiView.toggleVisibility(event.payload);
 };
 
 
-/**
- * Event handler for browser resize
- * @param {goog.events.Event} event The Event.
- */
+
 lgb.gui.controller.LayoutController.prototype.onWindowResize_ = function(event) {
-    this.view.calculateLayout(event.payload);
+    this.guiView.calculateLayout(event.payload);
 };
 
 lgb.gui.controller.LayoutController.prototype.onLayoutChange_ = function(event) {
     
-    this.view.calculateLayout();
+    this.guiView.calculateLayout();
     this.dispatch(event);
     
 };

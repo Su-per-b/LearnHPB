@@ -9,7 +9,7 @@ lgb.gui.view.LeftPanelGUI = function(dataModel) {
   this._TITLE = 'LeftPanelGUI';
   
   lgb.gui.view.BaseGUI.call(this, dataModel);
-  
+  this.init_();
 };
 goog.inherits(lgb.gui.view.LeftPanelGUI, lgb.gui.view.BaseGUI);
 
@@ -17,7 +17,7 @@ goog.inherits(lgb.gui.view.LeftPanelGUI, lgb.gui.view.BaseGUI);
 /**
  * @public
  */
-lgb.gui.view.LeftPanelGUI.prototype.init = function() {
+lgb.gui.view.LeftPanelGUI.prototype.init_ = function() {
 
   this.dataSource = new lgb.component.TabStripDataSource('leftPanelGUI-tabStrip');
   this.tabStrip1 = new lgb.component.TabStrip(this.dataSource);
@@ -25,7 +25,6 @@ lgb.gui.view.LeftPanelGUI.prototype.init = function() {
 
   this.tabTitleMap_ = {};
   
-  this.triggerLocal(e.RequestAddToParentGUI);
 };
 
 

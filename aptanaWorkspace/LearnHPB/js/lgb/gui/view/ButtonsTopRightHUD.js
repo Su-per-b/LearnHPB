@@ -52,7 +52,6 @@ lgb.gui.view.ButtonsTopRightHUD.prototype.init = function() {
   this.tabStrip2 = new lgb.component.TabStrip(this.dataSource2);
   
   
-  this.triggerLocal(e.RequestAddToLayout, this);
 };
 
 
@@ -63,15 +62,11 @@ lgb.gui.view.ButtonsTopRightHUD.prototype.injectTo = function(parentElement) {
   
   goog.base(this,  'injectTo', parentElement);
   
-
   this.tabStrip1.injectTo(parentElement);
   this.tabStrip1.injectCss();
   
   this.tabStrip2.injectTo(parentElement);
   this.tabStrip2.injectCss();
-  
- // el.append(this.tabStrip1);
-  
-  return;
+
 };
 

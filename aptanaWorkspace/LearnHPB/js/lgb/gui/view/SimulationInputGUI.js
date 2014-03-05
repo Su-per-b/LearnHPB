@@ -18,8 +18,6 @@ lgb.gui.view.SimulationInputGUI.prototype.init = function() {
     this.listenForChange_('xmlParsedInfo');
     this.listenForChange_('scalarValueResultsConverted');
     
-    this.triggerLocal(e.RequestAddToParentGUI);
-    
 };
 
 

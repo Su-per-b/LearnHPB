@@ -21,9 +21,7 @@ lgb.chart.view.SimulationIframeGraphGUI.prototype.init = function() {
     
    // this.listenForChange_('scalarValueResultsConverted');
     this.listenForChange_('xmlParsedInfo');
-    
-   // this.data_ = [18,19];
-        
+       
     this.triggerLocal(e.RequestAddToParentGUI);
 
 };
@@ -37,9 +35,8 @@ lgb.chart.view.SimulationIframeGraphGUI.prototype.onChange_xmlParsedInfo_ = func
   var width = p.width() - 36;
   var height = p.height();
 
-  var src = "/LearnHPB/test/ChartTestwithDC.html?width={0}&height={1}&sessionID={2}".format(width, height, xmlParsedInfo.sessionID_);
+  var src = "/LearnHPB/test/chart_05.html?width={0}&height={1}&sessionID={2}".format(width, height, xmlParsedInfo.sessionID_);
   this.iframe.attr("src", src);
-  
   
   this.xmlParsedInfo = xmlParsedInfo;
   
@@ -88,13 +85,15 @@ lgb.chart.view.SimulationIframeGraphGUI.prototype.injectTo = function(parentElem
   
   this.setWidthAndHeight_();
   
-  var src = this.getSrc_();
+  // var src = this.getSrc_();
+  var src = "#";
   
   var tag = '<iframe src="{0}" width="{1}" height="{2}" frameborder="0"></iframe>'.
     format(src, this.width, this.height);
   
   
   this.iframe = $(tag);
+
   this.graphContainerDiv_.append(this.iframe);
 
 };

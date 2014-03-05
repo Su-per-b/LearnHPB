@@ -9,24 +9,22 @@ lgb.gui.view.BuildingGUI = function(dataModel) {
   this._TITLE = 'Building';
   
   lgb.gui.view.BaseGUI.call(this, dataModel);
-  this.tabTitleMap_ = {};
-  
-  this.dataSource = new lgb.component.TabStripDataSource('buildingInputGUI-tabStrip');
-  this.dataSource.setIcon("images/tabs/systemBtn_grid_25.png", 25, 25);
-  
-  this.tabStrip1 = new lgb.component.TabStrip(this.dataSource);
+
 
 };
 goog.inherits(lgb.gui.view.BuildingGUI, lgb.gui.view.BaseGUI);
 
 
 
-/**
- * @public
- */
+
 lgb.gui.view.BuildingGUI.prototype.init = function() {
   
-  this.triggerLocal(e.RequestAddToParentGUI);
+  this.tabTitleMap_ = {};
+  
+  this.dataSource = new lgb.component.TabStripDataSource('buildingInputGUI-tabStrip');
+  this.dataSource.setIcon("images/tabs/systemBtn_grid_25.png", 25, 25);
+  
+  this.tabStrip1 = new lgb.component.TabStrip(this.dataSource);
 };
 
 

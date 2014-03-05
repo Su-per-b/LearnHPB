@@ -19,9 +19,7 @@ goog.require('lgb.chart.controller.GraphController');
  * @constructor
  * @extends lgb.core.BaseController
  */
-lgb.chart.controller.MainController = function(versionNumber) {
-  
-  this.versionNumber_ = versionNumber;
+lgb.chart.controller.MainController = function() {
   
   lgb.core.BaseController.call(this);
   lgb.globalEventBus = new lgb.core.EventBus();
@@ -40,14 +38,13 @@ goog.inherits(lgb.chart.controller.MainController, lgb.core.BaseController);
 lgb.chart.controller.MainController.prototype.init = function() {
 
   
-
   var theTitle = lgb.core.Config.getTitle();
    $('title').html(theTitle);
    
   $(window).resize(this.d(this.onNativeWindowResize_));
   
       
-  this.graphController_ = new lgb.chart.controller.GraphController(this.versionNumber_);
+  this.graphController_ = new lgb.chart.controller.GraphController();
 
       
   var url = $.url(); // parse the current page URL

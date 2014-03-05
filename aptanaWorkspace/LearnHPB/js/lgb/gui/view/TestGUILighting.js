@@ -24,14 +24,7 @@ lgb.gui.view.TestGUILighting = function(dataModel) {
 goog.inherits(lgb.gui.view.TestGUILighting, lgb.gui.view.BaseGUI);
 
 
-/**
- * Initializes the View
- */
-lgb.gui.view.TestGUILighting.prototype.init = function() {
 
-  this.triggerLocal(e.RequestAddToTestingInput, this);
-  
-};
 
 lgb.gui.view.TestGUILighting.prototype.bind_ = function() {
   

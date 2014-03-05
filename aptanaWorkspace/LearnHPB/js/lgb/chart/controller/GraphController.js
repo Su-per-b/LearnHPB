@@ -20,23 +20,28 @@ goog.require('lgb.chart.model.GraphGUImodel');
  * @constructor
  * @extends lgb.core.BaseController
  */
-lgb.chart.controller.GraphController = function(versionNumber) {
+lgb.chart.controller.GraphController = function() {
   
-  this.versionNumber_ = versionNumber;
   this.TITLE_ = 'GraphController';
   lgb.core.BaseController.call(this);
   
-  this.bind1_();
 
 };
 goog.inherits(lgb.chart.controller.GraphController, lgb.core.BaseController);
 
 
 
+
+lgb.chart.controller.GraphController.prototype.init = function() {
+  
+  this.bind1_();
+
+};
+
+
 lgb.chart.controller.GraphController.prototype.init_ = function() {
   
-
-  switch (this.versionNumber_) {
+  switch (lgb.chart.controller.GraphController.versionNumber) {
     case 1 : {
       this.dataModel = this.simMainController_.getDataModel();
       this.guiView = new lgb.chart.view.GraphGUI_01 (this.dataModel, this.TITLE_);
@@ -64,8 +69,11 @@ lgb.chart.controller.GraphController.prototype.init_ = function() {
       this.guiView.chartModel = new lgb.chart.model.GraphGUImodel();
       break;
     }
+    default : {
+      debugger;
+    }
+    
   }
-
 
   this.bind2_();
   this.guiView.init();
@@ -85,13 +93,11 @@ lgb.chart.controller.GraphController.prototype.bind1_ = function() {
 
 lgb.chart.controller.GraphController.prototype.bind2_ = function() {
 
-  this.listenTo(
+  this.relayLocal(
     this.guiView,
-    e.RequestAddToParentGUI,
-    this.onRequestAddToParentGUI_
+    e.RequestAddToParentGUI
     );
     
-
 };
 
 
@@ -104,12 +110,5 @@ lgb.chart.controller.GraphController.prototype.onSimulationEngineLoaded_ = funct
 };
 
 
-
-lgb.chart.controller.GraphController.prototype.onRequestAddToParentGUI_ = function(event) {
-  
-  this.guiView.injectTo($('body'));
-
-  
-};
 
 

@@ -103,8 +103,7 @@ lgb.gui.view.LayoutView.prototype.add = function(guiView) {
 
   switch(className ) {
     
-    
-
+   
     case "ButtonsTopRightHUD":
       guiView.injectTo(this.viewportTop_);
       break;

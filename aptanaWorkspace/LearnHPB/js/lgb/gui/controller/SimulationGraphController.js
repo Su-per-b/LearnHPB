@@ -72,8 +72,4 @@ lgb.gui.controller.SimulationGraphController.prototype.init_ = function() {
 };
 
 
-lgb.gui.controller.SimulationGraphController.prototype.onRequestAddToParentGUI_ = function(event) {
-  this.guiView.add(event.payload);
-};
-
 

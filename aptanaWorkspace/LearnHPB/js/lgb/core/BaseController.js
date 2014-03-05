@@ -16,20 +16,41 @@ goog.require('lgb.core.BaseClass');
 lgb.core.BaseController = function() {
   lgb.core.BaseClass.call(this);
   
-  this.childControllers_ = [];
+  this.childGUIcontrollers_ = [];
 };
 goog.inherits(lgb.core.BaseController, lgb.core.BaseClass);
 
 
-
-lgb.core.BaseController.prototype.makeChildController_ = function(classReference) {
+lgb.core.BaseController.prototype.makeChildGUIcontroller_ = function(classReference, initArg) {
 
   controller = new classReference();
-  this.childControllers_.push(controller);
+    
+  this.childGUIcontrollers_.push(controller);
   
+  this.listenTo(
+    controller,
+    e.RequestAddToParentGUI, 
+    this.onRequestAddToParentGUI_
+    );
+    
+  
+  if (undefined == initArg) {
+    controller.init();
+  } else {
+    controller.init(initArg);
+  }
+  
+
   return controller;
 
 };
+
+lgb.core.BaseController.prototype.onRequestAddToParentGUI_ = function(event) {
+
+  this.guiView.add(event.payload);
+  
+};
+
 
 
 /**

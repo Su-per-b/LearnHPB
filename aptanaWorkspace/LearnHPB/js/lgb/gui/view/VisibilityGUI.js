@@ -71,7 +71,7 @@ lgb.world.view.input.VisibilityGUI.prototype.init_ = function(visibilityNode) {
   var treeElement = this.treeComponent_.getHtml();
   this.append(treeElement);
   
-  this.triggerLocal(e.RequestAddToTestingInput, this);
+
    
 };
 

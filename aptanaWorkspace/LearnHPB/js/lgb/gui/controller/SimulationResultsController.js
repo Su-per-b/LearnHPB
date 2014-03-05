@@ -18,32 +18,32 @@ goog.require('lgb.gui.view.SimulationResultsGUI');
  */
 lgb.gui.controller.SimulationResultsController = function() {
 
-  this.TITLE_ = 'Results';
   lgb.core.BaseController.call(this);
   
-  this.bind1_();
 
 };
 goog.inherits(lgb.gui.controller.SimulationResultsController, lgb.core.BaseController);
 
 
-lgb.gui.controller.SimulationResultsController.prototype.bind1_ = function() {
-
-    this.listen (
-        e.SimulationEngineLoaded,
-        this.onSimulationEngineLoaded_
-    );
+lgb.gui.controller.SimulationResultsController.prototype.bind_ = function() {
+    this.listen(e.LayoutChange, this.onLayoutChange_);
 };
 
 
 
-lgb.gui.controller.SimulationResultsController.prototype.bind2_ = function() {
 
-  this.relayLocal(
-    this.guiView,
-    e.RequestAddToParentGUI);
-   
+lgb.gui.controller.SimulationResultsController.prototype.init = function(simulationDataModel) {
+  
+  this.dataModel = simulationDataModel;
+  this.guiView = new lgb.gui.view.SimulationResultsGUI (this.dataModel, this.TITLE_);
+  
+  this.guiView.init();
+  this.bind_();
+  
+  this.triggerLocal(e.RequestAddToParentGUI, this.guiView);
+  
 };
+
 
 
 lgb.gui.controller.SimulationResultsController.prototype.onLayoutChange_ = function(event) {
@@ -51,29 +51,4 @@ lgb.gui.controller.SimulationResultsController.prototype.onLayoutChange_ = funct
   this.guiView.calculateLayout(event.payload);
 
 };
-
-lgb.gui.controller.SimulationResultsController.prototype.onSimulationEngineLoaded_ = function(event) {
-
-  this.simMainController_ = event.payload;
-  this.init_();
-
-};
-
-
-lgb.gui.controller.SimulationResultsController.prototype.init_ = function() {
-  
-  this.dataModel = this.simMainController_.getDataModel();
-  this.guiView = new lgb.gui.view.SimulationResultsGUI (this.dataModel, this.TITLE_);
-
-  this.bind2_();
-  this.guiView.init();
-  
-  this.listen(e.LayoutChange, this.onLayoutChange_);
-};
-
-
-lgb.gui.controller.SimulationResultsController.prototype.onRequestAddToParentGUI_ = function(event) {
-  this.guiView.add(event.payload);
-};
-
 

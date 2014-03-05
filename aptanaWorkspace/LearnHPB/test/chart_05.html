@@ -26,6 +26,35 @@
       stroke: #000;
       shape-rendering: crispEdges;
     }
+    
+    
+    a.sim-link:hover {
+      background-color: #A6CD73;
+    }
+    
+    a.sim-link, a.sim-link-disabled {
+      font-weight:normal;
+      font-size:10pt;
+      color:#ffffff;
+      background-color: #666666;
+      padding:1px 3px 2px 4px;
+      margin:2px;
+      display: inline-block;
+    }
+    
+    
+    a.sim-link:hover {
+      background-color: #A6CD73;
+    }
+    
+    a.sim-link-disabled {
+      background-color:#999999; 
+    }
+    
+    a.sim-link-disabled:hover  {
+      cursor: default;
+    }
+
    
   </style>
     
@@ -46,6 +75,8 @@
       goog.require('lgb.core.EventBus');
       goog.require('lgb.core.Global');
       goog.require('lgb.chart.controller.MainController2');
+      goog.require('lgb.chart.controller.GraphController');
+      
     </script>
     
   </head>
@@ -63,7 +94,7 @@
      
       lgb.init();
       //lgb.globalEventBus = new lgb.core.EventBus();
-      
+      lgb.chart.controller.GraphController.versionNumber = 5;
       var mainController2 = new lgb.chart.controller.MainController2();
 
       mainController2.init();

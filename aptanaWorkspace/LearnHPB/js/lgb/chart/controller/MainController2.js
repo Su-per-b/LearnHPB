@@ -11,7 +11,6 @@ goog.require('lgb');
 goog.require('lgb.core.Config');
 goog.require('lgb.core.BaseController');
 
-goog.require('lgb.chart.controller.GuiController');
 goog.require('lgb.chart.controller.LayoutController');
 goog.require('lgb.simulation.controller.MainController');
 
@@ -21,15 +20,11 @@ goog.require('lgb.simulation.controller.MainController');
  * @constructor
  * @extends lgb.core.BaseController
  */
-lgb.chart.controller.MainController2 = function(versionNumber) {
-  
-  this.versionNumber_ = versionNumber;
+lgb.chart.controller.MainController2 = function() {
   
   lgb.core.BaseController.call(this);
   lgb.globalEventBus = new lgb.core.EventBus();
 
- // var delegate = jQuery.proxy(this.init, this);
-  //jQuery(document).ready(delegate);
 };
 goog.inherits(lgb.chart.controller.MainController2, lgb.core.BaseController);
 
@@ -45,16 +40,18 @@ lgb.chart.controller.MainController2.prototype.init = function() {
    
   $(window).resize(this.d(this.onNativeWindowResize_));
   
+  var url = $.url(); // parse the current page URL
+  var sessionID = url.param('sessionID');
   
-  this.layoutController_ = new lgb.chart.controller.LayoutController();
-  this.layoutController_.init();
+  this.layoutController = new lgb.chart.controller.LayoutController();
   
-  this.guiController = new lgb.chart.controller.GuiController();
-     
   this.simMainController_ = new lgb.simulation.controller.MainController();
   this.simMainController_.init();
   
+
+   
 };
+
 
 
 

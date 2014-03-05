@@ -7,7 +7,7 @@ goog.provide('lgb.chart.controller.StandAloneController');
 
 goog.require('lgb.core.BaseController');
 goog.require('lgb.gui.view.BottomPanelGUI');
-goog.require('lgb.gui.model.BaseInputModel');
+goog.require('lgb.gui.model.BaseGuiModel');
 
 goog.require('lgb.gui.controller.SimulationConsoleController');
 goog.require('lgb.gui.controller.SimulationOutputController');
@@ -25,9 +25,8 @@ goog.require('lgb.gui.controller.SimulationIframeGraphController');
  * @constructor
  * @extends lgb.core.BaseController
  */
-lgb.chart.controller.StandAloneController = function(versionNumber) {
+lgb.chart.controller.StandAloneController = function() {
   
-  this.versionNumber_ = versionNumber;
   
   lgb.core.BaseController.call(this);
   lgb.globalEventBus = new lgb.core.EventBus();
@@ -46,13 +45,11 @@ lgb.chart.controller.StandAloneController.prototype.init_ = function() {
 
   $(window).resize(this.d(this.onNativeWindowResize_));
 
-  this.dataModel = new lgb.gui.model.BaseInputModel();
+  this.dataModel = new lgb.gui.model.BaseGuiModel();
   
   this.bottomPanelGUI_ = new lgb.gui.view.BottomPanelGUI(this.dataModel);
   this.bottomPanelGUI_.init();
   
-  this.trigger(e.RequestAddToLayout, this.bottomPanelGUI_);
-
 
   this.simulationConsoleController_ = this.makeChildController_
   (lgb.gui.controller.SimulationConsoleController);
@@ -96,6 +93,16 @@ lgb.chart.controller.StandAloneController.prototype.bind_ = function() {
     this.standAloneLayoutView_,
     e.RequestAddToParentGUI, 
     this.onRequestAddToParentGUI_);
+    
+    
+    
+    window.addEventListener('message', function(e) {
+      //inside frame
+      var message = e.data;
+    });
+
+
+
     
 };
 

@@ -2,7 +2,7 @@ goog.provide('lgb.gui.controller.TestController');
 
 goog.require('lgb.core.BaseController');
 goog.require('lgb.gui.view.TestGUI');
-goog.require('lgb.gui.model.BaseInputModel');
+goog.require('lgb.gui.model.BaseGuiModel');
 
 
 lgb.gui.controller.TestController = function() {
@@ -17,55 +17,30 @@ goog.inherits(lgb.gui.controller.TestController, lgb.core.BaseController);
  */
 lgb.gui.controller.TestController.prototype.init = function() {
 
-  this.dataModel = new lgb.gui.model.BaseInputModel();
+  this.dataModel = new lgb.gui.model.BaseGuiModel();
 
   this.guiView = new lgb.gui.view.TestGUI(this.dataModel);
   this.bind_();
   this.guiView.init();
   
+  this.triggerLocal(e.RequestAddToParentGUI, this.guiView);
 };
 
 
 lgb.gui.controller.TestController.prototype.bind_ = function() {
 
-  this.listen(
-    e.RequestAddToTestingInput, 
-    this.onRequestAddToGUI_);
-    
-  this.relayLocal(
-    this.guiView,
-    e.RequestAddToParentGUI);
-    
-    
   this.relay(
     this.guiView,
     e.RequestGoToViewpointNode);
     
-
-
-};
-
-
-
-
-lgb.gui.controller.TestController.prototype.onRequestAddToGUI_ = function(event) {
-
-  this.guiView.add(event.payload);
+  this.listen(e.RequestAddToTestingInput, this.onRequestAddToTestingInput_);
+    
 
 };
 
 
-/**
- * @private
- */
-lgb.gui.controller.TestController.prototype.injectCss_ = function() {
-
-  var cssInner = '';
-
-  cssInner += this.guiView.getCss();
-  var cssStr = "\n<style type='text/css'>{0}</style>".format(cssInner);
-
-  $('head').append(cssStr);
-
+lgb.gui.controller.TestController.prototype.onRequestAddToTestingInput_ = function(event) {
+  
+    this.guiView.add(event.payload);
+  
 };
-

@@ -27,6 +27,28 @@ lgb.gui.controller.SimulationIframeGraphController = function() {
 goog.inherits(lgb.gui.controller.SimulationIframeGraphController, lgb.core.BaseController);
 
 
+
+lgb.gui.controller.SimulationIframeGraphController.prototype.init_ = function() {
+  
+  this.dataModel = this.simMainController_.getDataModel();
+  this.guiView = new lgb.chart.view.SimulationIframeGraphGUI (this.dataModel, this.TITLE_);
+
+  this.bind2_();
+  this.guiView.init();
+  
+  this.listen(e.LayoutChange, this.onLayoutChange_);
+};
+
+
+lgb.gui.controller.SimulationIframeGraphController.prototype.onSimulationEngineLoaded_ = function(event) {
+
+  this.simMainController_ = event.payload;
+  this.init_();
+
+};
+
+
+
 lgb.gui.controller.SimulationIframeGraphController.prototype.bind1_ = function() {
 
     this.listen (
@@ -42,7 +64,10 @@ lgb.gui.controller.SimulationIframeGraphController.prototype.bind2_ = function()
   this.relayLocal(
     this.guiView,
     e.RequestAddToParentGUI);
-   
+    
+    
+    
+
 };
 
 
@@ -52,28 +77,5 @@ lgb.gui.controller.SimulationIframeGraphController.prototype.onLayoutChange_ = f
 
 };
 
-lgb.gui.controller.SimulationIframeGraphController.prototype.onSimulationEngineLoaded_ = function(event) {
-
-  this.simMainController_ = event.payload;
-  this.init_();
-
-};
-
-
-lgb.gui.controller.SimulationIframeGraphController.prototype.init_ = function() {
-  
-  this.dataModel = this.simMainController_.getDataModel();
-  this.guiView = new lgb.chart.view.SimulationIframeGraphGUI (this.dataModel, this.TITLE_);
-
-  this.bind2_();
-  this.guiView.init();
-  
-  this.listen(e.LayoutChange, this.onLayoutChange_);
-};
-
-
-lgb.gui.controller.SimulationIframeGraphController.prototype.onRequestAddToParentGUI_ = function(event) {
-  this.guiView.add(event.payload);
-};
 
 

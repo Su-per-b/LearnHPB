@@ -24,39 +24,59 @@ goog.inherits(lgb.chart.view.LayoutView, lgb.gui.view.BaseGUI);
 
 lgb.chart.view.LayoutView.prototype.init = function() {
 
-  // this.bind_();
   this.inject();
 };
-
-
-// lgb.chart.view.LayoutView.prototype.bind_ = function(guiView) {
-//   
-  // this.listenForChange_('add');
-//   
-// };
-
-
-
-// 
-// lgb.chart.view.LayoutView.prototype.onChange_add_ = function(value) {
-//   
-  // this.add(value);
-// };
-
 
 
 
 
 lgb.chart.view.LayoutView.prototype.add = function(guiView) {
   
-  var className = guiView.getClassName();
+  var className = guiView.getClassName(); 
 
-  var el = this.getMainElement();
-  guiView.injectTo(el);
+  switch(className ) {
+    
+    case "GraphGUI_05": {
+      guiView.injectTo(this.chartTop_);
+      break;
+    }
+    case "SimulationStateControlGUI": {
+      guiView.injectTo(this.chartBottom_);
+      break;
+    }
+     default: {
+      debugger;
+    }
+
+     
+  }
+
       
-  
 };
 
+
+
+  
+lgb.chart.view.LayoutView.prototype.inject = function() {
+  
+  goog.base(this,'inject');
+  
+  this.chartTop_ = this.makeDiv('chartTop');
+  this.chartBottom_ = this.makeDiv('chartBottom');
+  
+  this.chartTop_.css({
+    width : "100%",
+    height : "38px",
+    background:"#fafafa"
+  });
+  
+  this.chartBottom_.css({
+    width : "100%",
+    background:"#fff"
+  });
+  
+  
+};
 
 
 

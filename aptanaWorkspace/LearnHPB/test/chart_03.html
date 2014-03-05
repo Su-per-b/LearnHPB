@@ -46,8 +46,10 @@
       goog.require('lgb');
       goog.require('lgb.core.EventBus');
       goog.require('lgb.core.Global');
-      
       goog.require('lgb.chart.controller.MainController');
+      goog.require('lgb.chart.controller.GraphController');
+      
+      
     </script>
   
   
@@ -74,8 +76,8 @@
       lgb.init();
       lgb.globalEventBus = new lgb.core.EventBus();
       
-
-      var mainController = new lgb.chart.controller.MainController(3);
+      lgb.chart.controller.GraphController.versionNumber = 3;
+      var mainController = new lgb.chart.controller.MainController();
         
     });
     

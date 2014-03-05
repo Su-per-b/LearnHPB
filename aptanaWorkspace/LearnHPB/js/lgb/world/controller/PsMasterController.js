@@ -21,6 +21,7 @@ goog.require('lgb.world.view.ParticleSystemMasterView');
 lgb.world.controller.PsMasterController = function() {
 
   lgb.core.BaseController.call(this);
+  this.childControllers_ = [];
 
 };
 goog.inherits(lgb.world.controller.PsMasterController, lgb.core.BaseController);
