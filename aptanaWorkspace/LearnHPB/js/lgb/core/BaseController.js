@@ -52,6 +52,17 @@ lgb.core.BaseController.prototype.onRequestAddToParentGUI_ = function(event) {
 };
 
 
+lgb.core.BaseController.prototype.triggerGUI = function(event) {
+
+  this.guiView.init();
+  this.triggerLocal(e.RequestAddToParentGUI, this.guiView);
+  
+};
+
+
+
+
+
 
 /**
  * fires an event on the lgb global event bus

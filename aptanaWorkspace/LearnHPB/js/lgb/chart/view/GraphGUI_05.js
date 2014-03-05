@@ -75,7 +75,7 @@ lgb.chart.view.GraphGUI_05.prototype.onChange_scalarValueResultsConverted_ = fun
 
 lgb.chart.view.GraphGUI_05.prototype.makeChart_ = function() {
   
-  var dm = this.chartModel;
+  var dm = this.dataModel;
   var n = dm.x.max;
   
   
@@ -136,8 +136,7 @@ lgb.chart.view.GraphGUI_05.prototype.makeChart_ = function() {
  this.chart_.x = x;
  this.chart_.line = line;
  
- //this.intervalHandle_ = setInterval(this.tickDelegate_,1000);
-    
+
 
 };
 

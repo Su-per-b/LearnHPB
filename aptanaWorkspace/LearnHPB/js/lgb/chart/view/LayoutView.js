@@ -36,18 +36,17 @@ lgb.chart.view.LayoutView.prototype.add = function(guiView) {
 
   switch(className ) {
     
-    case "GraphGUI_05": {
-      guiView.injectTo(this.chartTop_);
+    case "SimulationStateControlGUIh": {
+       guiView.injectTo(this.chartTop_);
       break;
     }
-    case "SimulationStateControlGUI": {
+    case "GraphGUI_05": {
       guiView.injectTo(this.chartBottom_);
       break;
     }
      default: {
       debugger;
     }
-
      
   }
 
@@ -66,8 +65,8 @@ lgb.chart.view.LayoutView.prototype.inject = function() {
   
   this.chartTop_.css({
     width : "100%",
-    height : "38px",
-    background:"#fafafa"
+    height : "68px",
+    background:"#ffffaa"
   });
   
   this.chartBottom_.css({
@@ -75,6 +74,8 @@ lgb.chart.view.LayoutView.prototype.inject = function() {
     background:"#fff"
   });
   
+    this.append(this.chartTop_);
+    this.append(this.chartBottom_);
   
 };
 

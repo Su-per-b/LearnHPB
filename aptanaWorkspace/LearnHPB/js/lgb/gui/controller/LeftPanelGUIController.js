@@ -5,6 +5,7 @@ goog.require('lgb.gui.controller.TestController');
 goog.require('lgb.gui.controller.ScenarioController');
 goog.require('lgb.gui.controller.BuildingGUIController');
 goog.require('lgb.gui.controller.SimulationStateControlController');
+goog.require('lgb.gui.view.SimulationStateControlGUI');
 
 goog.require('lgb.gui.view.LeftPanelGUI');
 goog.require('lgb.gui.model.BaseGuiModel');
@@ -54,8 +55,6 @@ lgb.gui.controller.LeftPanelGUIController.prototype.bind_ = function() {
 lgb.gui.controller.LeftPanelGUIController.prototype.onSimulationEngineLoaded_ = function(event) {
 
   var simulationMainController = event.payload;
-
-  
   this.init3_(simulationMainController);
   
 };
@@ -78,14 +77,9 @@ lgb.gui.controller.LeftPanelGUIController.prototype.init2_ = function(systemList
 
 
 lgb.gui.controller.LeftPanelGUIController.prototype.init3_ = function(simulationMainController) {
-
+  
   this.makeChildGUIcontroller_(lgb.gui.controller.SimulationStateControlController, simulationMainController);
 
 };
 
 
-lgb.gui.controller.LeftPanelGUIController.prototype.onRequestAddToParentGUI_ = function(event) {
-
-  this.guiView.add(event.payload);
-  
-};

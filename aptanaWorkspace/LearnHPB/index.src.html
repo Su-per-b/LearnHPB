@@ -324,6 +324,10 @@
       goog.require('lgb.core.Global');
       goog.require('lgb.core.EventBus');
       goog.require('lgb.core.MainController');
+      
+      goog.require('lgb.gui.controller.SimulationStateControlController');
+      goog.require('lgb.gui.view.SimulationStateControlGUIh');
+      
     </script>
 
   </head>
@@ -332,6 +336,8 @@
 
   <script>
   
+    lgb.gui.controller.SimulationStateControlController.viewClass = lgb.gui.view.SimulationStateControlGUI;
+        
     lgb.init();
     var mainController = new lgb.core.MainController();
 

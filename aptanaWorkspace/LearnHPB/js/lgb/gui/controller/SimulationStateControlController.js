@@ -1,7 +1,9 @@
 goog.provide('lgb.gui.controller.SimulationStateControlController');
 
 goog.require('lgb.core.BaseController');
+goog.require('lgb.gui.view.SimulationStateControlGUIh');
 goog.require('lgb.gui.view.SimulationStateControlGUI');
+
 goog.require('lgb.gui.model.BaseGuiModel');
 
 goog.require('lgb.simulation.controller.MainController');
@@ -19,19 +21,19 @@ lgb.gui.controller.SimulationStateControlController = function() {
 goog.inherits(lgb.gui.controller.SimulationStateControlController, lgb.core.BaseController);
 
 
+
+
 lgb.gui.controller.SimulationStateControlController.prototype.init = function(simulationMainController) {
   
   this.simulationMainController_ = simulationMainController;
-  this.dataModel = simulationMainController.getDataModel();
+  this.dataModel = this.simulationMainController_.getDataModel();
     
-    
-  this.guiView = new lgb.gui.view.SimulationStateControlGUI(this.dataModel);
+  this.guiView = new lgb.gui.controller.SimulationStateControlController.viewClass(this.dataModel);
   
   this.bind_();
-  this.guiView.init();
+  this.triggerGUI();
   
-  this.triggerLocal(e.RequestAddToParentGUI, this.guiView);
-  
+
 };
 
 
@@ -39,34 +41,11 @@ lgb.gui.controller.SimulationStateControlController.prototype.init = function(si
 
 lgb.gui.controller.SimulationStateControlController.prototype.bind_ = function() {
 
-    this.listenTo (
+    this.relay (
         this.guiView,
-        se.WebSocketChangeRequest,
-        this.onWebSocketChangeRequest_
-    );
-
-    this.listenTo (
-        this.guiView,
-        se.SimStateNativeRequest,
-        this.onSimStateNativeRequest_
+        [se.WebSocketChangeRequest, se.SimStateNativeRequest]
     );
 
 };
-
-
-
-lgb.gui.controller.SimulationStateControlController.prototype.onSimStateNativeRequest_ = function(event) {
-  
-  var payload = event.getPayload();
-  this.simulationMainController_.requestSimStateChange(payload);
-};
-
-
-
-lgb.gui.controller.SimulationStateControlController.prototype.onWebSocketChangeRequest_ = function(event) {
-  
-  this.simulationMainController_.requestWebSocketStateChange(event.payload);
-};
-
 
 

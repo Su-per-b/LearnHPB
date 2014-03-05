@@ -160,8 +160,38 @@ lgb.simulation.controller.MainController.prototype.bind_ = function() {
         this.onSetRemoteHost_
     );
 
+
+    this.listen (
+        se.WebSocketChangeRequest,
+        this.onWebSocketChangeRequest_
+    );
+    
+    this.listen (
+        se.SimStateNativeRequest,
+        this.onSimStateNativeRequest_
+    );
+    
+    
     
 };
+
+
+
+lgb.simulation.controller.MainController.prototype.onWebSocketChangeRequest_ = function(event) {
+  
+  this.requestWebSocketStateChange(event.payload);
+  
+};
+
+
+
+lgb.simulation.controller.MainController.prototype.onSimStateNativeRequest_ = function(event) {
+  
+  this.requestSimStateChange(event.getPayload());
+  
+};
+
+
 
 
 

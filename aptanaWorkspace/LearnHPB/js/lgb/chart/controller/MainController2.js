@@ -37,22 +37,25 @@ lgb.chart.controller.MainController2.prototype.init = function() {
 
   var theTitle = lgb.core.Config.getTitle();
    $('title').html(theTitle);
-   
-  $(window).resize(this.d(this.onNativeWindowResize_));
+  
   
   var url = $.url(); // parse the current page URL
   var sessionID = url.param('sessionID');
   
   this.layoutController = new lgb.chart.controller.LayoutController();
+  this.layoutController.init();
   
   this.simMainController_ = new lgb.simulation.controller.MainController();
   this.simMainController_.init();
-  
-
+ 
    
 };
 
-
+lgb.chart.controller.MainController2.prototype.bind_ = function() {
+  
+  $(window).resize(this.d(this.onNativeWindowResize_));
+  
+};
 
 
 

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="UTF-8" />
+
+    <!-- =========================  CSS  ============================ -->
+
+
+
+  <style>
+   
+    svg {
+      font: 10px sans-serif;
+    }
+     
+    .line {
+      fill: none;
+      stroke: #000;
+      stroke-width: 1.5px;
+    }
+     
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+    
+    
+    a.sim-link:hover {
+      background-color: #A6CD73;
+    }
+    
+    a.sim-link, a.sim-link-disabled {
+      font-weight:normal;
+      font-size:10pt;
+      color:#ffffff;
+      background-color: #666666;
+      padding:1px 3px 2px 4px;
+      margin:2px;
+      display: inline-block;
+    }
+    
+    
+    a.sim-link:hover {
+      background-color: #A6CD73;
+    }
+    
+    a.sim-link-disabled {
+      background-color:#999999; 
+    }
+    
+    a.sim-link-disabled:hover  {
+      cursor: default;
+    }
+
+   
+  </style>
+    
+    <!-- =========================   JavaScript  ============================ -->
+    <script src="test/js/includes/Main.js"></script>
+    <script src="test/js/includes/MainLibs.js"></script>
+
+    <title>Chart Test 5</title>
+    
+    
+    <script>
+      test.includes.MainLibs.initChart2();
+    </script>
+    
+    
+    <script>
+      goog.require('lgb');
+      goog.require('lgb.core.EventBus');
+      goog.require('lgb.core.Global');
+      goog.require('lgb.chart.controller.MainController2');
+      goog.require('lgb.chart.controller.GraphController');
+      goog.require('lgb.gui.controller.SimulationStateControlController');
+      goog.require('lgb.gui.view.SimulationStateControlGUIh');
+      
+    </script>
+    
+  </head>
+
+
+  <body id="theBody">
+  </body>
+  
+
+  <script>
+  
+
+   
+   $(document).ready(function () {
+     
+      lgb.init();
+      //lgb.globalEventBus = new lgb.core.EventBus();
+      
+      lgb.gui.controller.SimulationStateControlController.viewClass = lgb.gui.view.SimulationStateControlGUIh;
+        
+      lgb.chart.controller.GraphController.versionNumber = 5;
+      var mainController2 = new lgb.chart.controller.MainController2();
+
+      mainController2.init();
+      
+      
+    });
+    
+  </script>
+  
+</html>
