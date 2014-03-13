@@ -9,7 +9,7 @@ goog.require('lgb.core.BaseController');
 goog.require('lgb.gui.model.BaseGuiModel');
 
 goog.require('lgb.scenario.view.System');
-goog.require('lgb.scenario.model.Bs2');
+goog.require('lgb.scenario.model.ScenarioModel');
 goog.require('lgb.gui.view.GUI');
 
 

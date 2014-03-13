@@ -7,11 +7,7 @@
 goog.provide('lgb.chart.controller.GraphController');
 
 goog.require('lgb.core.BaseController');
-goog.require('lgb.chart.view.GraphGUI_01');
-goog.require('lgb.chart.view.GraphGUI_02');
-goog.require('lgb.chart.view.GraphGUI_03');
-goog.require('lgb.chart.view.GraphGUI_04');
-goog.require('lgb.chart.view.GraphGUI_05');
+goog.require('lgb.chart.view.GraphGUIStandAlone');
 goog.require('lgb.chart.model.GraphGUImodel');
 
 
@@ -31,41 +27,13 @@ goog.inherits(lgb.chart.controller.GraphController, lgb.core.BaseController);
 
 
 
-lgb.chart.controller.GraphController.prototype.init = function(simMainController) {
+lgb.chart.controller.GraphController.prototype.init = function(simulationModel) {
   
-  this.dataModel = simMainController.getDataModel();
+  this.dataModel = simulationModel;
           
-  switch (lgb.chart.controller.GraphController.versionNumber) {
-    case 1 : {
-      this.guiView = new lgb.chart.view.GraphGUI_01 (this.dataModel);
-      break;
-    }
-    case 2 : {
-      this.guiView = new lgb.chart.view.GraphGUI_02 (this.dataModel);
-      break;
-    }
-    case 3 : {
-      this.dataModel = new lgb.chart.model.GraphGUImodel();
-      this.guiView = new lgb.chart.view.GraphGUI_03 (this.dataModel);
-      break;
-    }
-    case 4 : {
-      this.guiView = new lgb.chart.view.GraphGUI_04 (this.dataModel);
-      this.guiView.chartModel = new lgb.chart.model.GraphGUImodel();
-      break;
-    }
-    case 5 : {
-      
-      var chartModel = new lgb.chart.model.GraphGUImodel();
-      this.guiView = new lgb.chart.view.GraphGUI_05 (chartModel);
-       
-      break;
-    }
-    default : {
-      debugger;
-    }
-    
-  }
+  var chartModel = new lgb.chart.model.GraphGUImodel();
+  this.guiView = new lgb.chart.view.GraphGUIStandAlone ( this.dataModel, chartModel );
+  
 
   this.triggerGUI();
   

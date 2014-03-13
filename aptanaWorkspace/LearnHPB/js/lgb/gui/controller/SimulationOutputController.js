@@ -29,10 +29,10 @@ lgb.gui.controller.SimulationOutputController.prototype.init = function(simulati
   this.dataModel = simulationDataModel;
   this.guiView = new lgb.gui.view.SimulationOutputGUI (this.dataModel);
   
-  this.guiView.init();
   this.bind_();
   
-  this.triggerLocal(e.RequestAddToParentGUI, this.guiView);
+  this.triggerGUI();
+
 
 };
 

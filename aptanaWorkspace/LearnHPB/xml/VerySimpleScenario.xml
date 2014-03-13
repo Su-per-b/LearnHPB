@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 sp1 (x64) (http://www.altova.com) by RD (pcd) -->
+<SystemList name="Very Simple Scenario">
+	<System name="HVAC" abbr="Hv">
+		<SubSystem name="System" abbr="SYS">
+		
+	<Variable name="Outside air dry bulb" abbr="SYSTAirDB" modName="" scope="input" variability="continuous" unit="K">
+		<Temperature />
+	</Variable>
+			
+			<Variable name="Outside air relative humidity" abbr="SYSRHOutside" modName="" scope="input" variability="continuous" unit="%">
+				<Decimal min="0" max="100" default="50" />
+			</Variable>
+			
+			<Variable name="Direct normal (beam) solar radiation" modName="" abbr="SYSSolBea" scope="input" variability="continuous" unit="W/m2">
+				<Temperature />
+			</Variable>
+			
+			<Variable name="Diffuse solar radiation" abbr="SYSSolDif" modName="" scope="input" variability="continuous" unit="K">
+				<Decimal />
+			</Variable>
+			
+			<Variable name="Outdoor wind speed" abbr="SYSWinSpd" modName="" scope="input" variability="continuous" unit="m/s" type="Speed">
+				<Decimal min="0" max="33.33" default="1" />
+			</Variable>
+			
+			<Variable name="Outdoor wind direction" abbr="SYSWinDir" modName="" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			
+			
+			<Variable name="City name" abbr="SYSLoc" modName="" scope="input" variability="parameter" unit="K">
+				<Decimal min="0" max="100" default="90" />
+			</Variable>
+			<Variable name="Weather input/run period" abbr="SYSWea" modName="" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="HVAC system operation start time" abbr="sysSta" modName="occSch.occupancy[1]" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="HVAC system operation stop time" abbr="sysSto" modName="occSch.occupancy[2]" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Window to wall ratio" abbr="SYSWWR" modName="" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+		</SubSystem>
+		
+		<SubSystem name="Zone" abbr="ZN">
+		
+		
+		
+<Variable FMUvarName="u_ZN[1]" >
+	<Decimal start="90.0"  />
+</Variable>
+
+
+	
+	
+	
+<Variable abbr="ZN1SPHeat" modName="u_ZN[1]">
+	<Decimal min="283.15" max="313.15" default="90.0" />
+</Variable>
+
+
+		
+<Variable name="Zone 1 (North) heating set point" abbr="ZN1SPHeat" modName="u_ZN[1]" scope="input" variability="continuous" unit="K">
+	<Decimal min="283.15" max="313.15" default="90" />
+</Variable>
+			
+			
+			<Variable name="Zone 1 (North) cooling set point" abbr="ZN1SPCool" modName="u_ZN[2]">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 1 heating set point night setback" abbr="ZN1SPHeatNig" modName="u_ZN[3]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 1 cooling set point night setup" abbr="ZN1SPCoolNig" modName="u_ZN[4]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 2 (NorthWest) heating set point" abbr="ZN2SPHeat" modName="u_ZN[5]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 2 (NorthWest) cooling set point" abbr="ZN2SPCool" modName="u_ZN[6]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 2 (NorthWest) heating set point night setback" abbr="ZN2SPHeat" modName="u_ZN[7]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 2 (NorthWest) cooling set point night setup" abbr="ZN2SPCool" modName="u_ZN[8]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 3 (West) heating set point" abbr="ZN3SPHeat" modName="u_ZN[9]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 3 (West) cooling set point" abbr="ZN3SPCool" modName="u_ZN[10]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 3 (West) heating set point night setback" abbr="ZN3SPHeat" modName="u_ZN[11]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 3 (West) cooling set point night setup" abbr="ZN3SPCool" modName="u_ZN[12]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 4 (SouthWest) heating set point" abbr="ZN4SPHeat" modName="u_ZN[13]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 4 (SouthWest) cooling set point" abbr="ZN4SPCool" modName="u_ZN[14]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 4 (SouthWest) heating set point night setback" abbr="ZN4SPHeat" modName="u_ZN[15]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 4 (SouthWest) cooling set point night setup" abbr="ZN4SPCool" modName="u_ZN[16]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 5 (South) heating set point" abbr="ZN5SPHeat" modName="u_ZN[17]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 5 (South) cooling set point" abbr="ZN5SPCool" modName="u_ZN[18]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 5 (South) heating set point night setback" abbr="ZN5SPHeat" modName="u_ZN[19]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 5 (South) cooling set point night setup" abbr="ZN5SPCool" modName="u_ZN[20]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 6 (SouthEast) heating set point" abbr="ZN6SPHeat" modName="u_ZN[21]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 6 (SouthEast) cooling set point" abbr="ZN6SPCool" modName="u_ZN[22]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 6 (SouthEast) heating set point night setback" abbr="ZN6SPHeat" modName="u_ZN[23]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 6 (SouthEast) cooling set point night setup" abbr="ZN6SPCool" modName="u_ZN[24]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 7 (East) heating set point" abbr="ZN7SPHeat" modName="u_ZN[25]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 7 (East) cooling set point" abbr="ZN7SPCool" modName="u_ZN[26]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 7 (East) heating set point night setback" abbr="ZN7SPHeat" modName="u_ZN[27]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 7 (East) cooling set point night setup" abbr="ZN7SPCool" modName="u_ZN[28]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 8 (NorthEast) heating set point" abbr="ZN8SPHeat" modName="u_ZN[29]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 8 (NorthEast) cooling set point" abbr="ZN8SPCool" modName="u_ZN[30]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 8 (NorthEast) heating set point night setback" abbr="ZN8SPHeat" modName="u_ZN[31]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 8 (NorthEast) cooling set point night setup" abbr="ZN8SPCool" modName="u_ZN[32]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 9 (Core) heating set point" abbr="ZN9SPHeat" modName="u_ZN[33]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 9 (Core) cooling set point" abbr="ZN9SPCool" modName="u_ZN[34]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 9 (Core) heating set point night setback" abbr="ZN9SPHeat" modName="u_ZN[35]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 9 (Core) cooling set point night setup" abbr="ZN9SPCool" modName="u_ZN[36]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="zone tightness" abbr="ZNTig" modName="" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="external wall construction" abbr="ZNExtWal" modName="" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="external glazing system" abbr="ZNExtWin" modName="" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone maximum lighting power density" abbr="ZNLightPD" modName="" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone maximum people density " abbr="ZNPeop" modName="" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone maximum electric equipment power density" abbr="ZNElecEqui" modName="" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone lighting schedule" abbr="ZNLightPDSchd" modName="" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone occupancy schedule" abbr="ZNPeopSchd" modName="" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone electric equipment usage schedule" abbr="ZNElecEquiSchd" modName="" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+		</SubSystem>
+		
+		
+		<SubSystem name="Air Handling Unit" abbr="AHU">
+			<Variable name="Supply air temp reset high limit" abbr="AHUTSupRstHLM" modName="" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Supply air temp reset low limit" abbr="AHUTSupRstLLM" modName="" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Supply air temp set point" abbr="AHUTSupSP" modName="u_AHU[1]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Duct static pressure reset override" abbr="AHUPresRstOve" modName="u_AHU[2]" scope="input" variability="continuous" unit="?">
+				<Boolean default="true" />
+			</Variable>
+			<Variable name="Supply duct static pressure set point" abbr="AHUPresSP" modName="u_AHU[3]" scope="input" variability="continuous" unit="Pa">
+				<Decimal min="50" max="1000" default="300" />
+			</Variable>
+			<Variable name="Duct static pressure reset high limit" abbr="AHUPresRstHLM" modName="u_AHU[4]" scope="input" variability="continuous" unit="Pa">
+				<Decimal min="50" max="2000" default="410" />
+			</Variable>
+			<Variable name="Duct static pressure reset low limit" abbr="AHUPressRstLLM" modName="u_AHU[5]" scope="input" variability="continuous" unit="Pa">
+				<Decimal min="10" max="500" default="50" />
+			</Variable>
+			<Variable name="Supply air temp set point reset strategy" abbr="AHUTSupRstStr" modName="" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Duct static pressure reset strategy" abbr="AHUPressRstStr" modName="" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+		</SubSystem>
+		
+		
+		<SubSystem name="Mixing Box" abbr="MX">
+			<Variable name="Minimum outside air damper position" abbr="MXDmprMin" modName="u_MX[1]" scope="input" variability="continuous" unit="?">
+				<Decimal min="0" max="10" default="0.1" />
+			</Variable>
+			`
+			<Variable name="Economizer PI controller P gain" abbr="MXKp" modName="u_MX[2]" scope="input" variability="continuous" unit="?">
+				<Decimal min="0.1" max="2" default="1" />
+			</Variable>
+			<Variable name="Economizer PI controller integrator time constant" abbr="MXKi" modName="u_MX[3]" scope="input" variability="continuous" unit="second">
+				<Decimal min="10" max="120" default="60" />
+			</Variable>
+		</SubSystem>
+		<SubSystem name="Fan" abbr="FAN">
+			<Variable name="Supply fan speed controller P gain" abbr="SFANKp" modName="u_FAN[2]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Supply fan speed controller integrator time constant" abbr="SFANki" modName="u_FAN[1]" scope="input" variability="continuous" unit="second">
+				<Decimal min="1" max="100" default="60" />
+			</Variable>
+			<Variable name="Return fan speed controller P gain" abbr="RFANKp" modName="u_FAN[4]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Return fan speed controller integrator time constant" abbr="RFANki" modName="u_FAN[3]" scope="input" variability="continuous" unit="second">
+				<Decimal min="1" max="100" default="60" />
+			</Variable>
+		</SubSystem>
+		<SubSystem name="Heating and Cooling Coil" abbr="CO">
+			<Variable name="Heating coil valve controller P gain" abbr="HCKp" modName="u_CO[2]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Heating coil valve controller integrator time constant" abbr="HCKi" modName="u_CO[1]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Cooling coil valve controller P gain" abbr="CCKp" modName="u_CO[4]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Cooling coil valve controller integrator time constant" abbr="CCKi" modName="u_CO[3]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Heating coil hot water design flow rate" abbr="HCWatFloNom" modName="heaCoi.m2_flow_nominal" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Heating coil design heating capacity" abbr="HCHeaCapNom" modName="heaCoi.Q_flow_nominal" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="heating coil design air flow rate" abbr="HCAirFloNom" modName="heaCoi.m1_flow_nominal" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="heating coil design air side pressure drop" abbr="HCPDd" modName="" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+		</SubSystem>
+		<SubSystem name="VAV box" abbr="VAV">
+			<Variable name="Zone 1 VAV damper controller P gain" abbr="VAV1DmprKp" modName="u_VAV[1]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 1 VAV damper controller integrator time constant" abbr="VAV1DmprKi" modName="u_VAV[2]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 1 VAV min volume flow rate ratio" abbr="VAV1MinFlwRatio" modName="u_VAV[3]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 1 VAV reheat coil controller P gain" abbr="VAV1RhcKp" modName="u_VAV[4]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 1 VAV reheat coil controller integrator time constant" abbr="VAV1RhcKi" modName="u_VAV[5]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 2 VAV damper controller P gain" abbr="VAV2DmprKp" modName="u_VAV[6]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 2 VAV damper controller integrator time constant" abbr="VAV2DmprKi" modName="u_VAV[7]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 2 VAV min volume flow rate ratio" abbr="VAV2MinFlwRatio" modName="u_VAV[8]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 2 VAV reheat coil controller P gain" abbr="VAV2RhcKp" modName="u_VAV[9]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 2 VAV reheat coil controller integrator time constant" abbr="VAV2RhcKi" modName="u_VAV[10]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 3 VAV damper controller P gain" abbr="VAV3DmprKp" modName="u_VAV[11]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 3 VAV damper controller integrator time constant" abbr="VAV3DmprKi" modName="u_VAV[12]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 3 VAV min volume flow rate ratio" abbr="VAV3MinFlwRatio" modName="u_VAV[13]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 3 VAV reheat coil controller P gain" abbr="VAV3RhcKp" modName="u_VAV[14]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 3 VAV reheat coil controller integrator time constant" abbr="VAV3RhcKi" modName="u_VAV[15]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 4 VAV damper controller P gain" abbr="VAV4DmprKp" modName="u_VAV[16]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 4 VAV damper controller integrator time constant" abbr="VAV4DmprKi" modName="u_VAV[17]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 4 VAV min volume flow rate ratio" abbr="VAV4MinFlwRatio" modName="u_VAV[18]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 4 VAV reheat coil controller P gain" abbr="VAV4RhcKp" modName="u_VAV[19]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 4 VAV reheat coil controller integrator time constant" abbr="VAV4RhcKi" modName="u_VAV[20]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 5 VAV damper controller P gain" abbr="VAV5DmprKp" modName="u_VAV[21]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 5 VAV damper controller integrator time constant" abbr="VAV5DmprKi" modName="u_VAV[22]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 5 VAV min volume flow rate ratio" abbr="VAV5MinFlwRatio" modName="u_VAV[23]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 5 VAV reheat coil controller P gain" abbr="VAV5RhcKp" modName="u_VAV[24]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 5 VAV reheat coil controller integrator time constant" abbr="VAV5RhcKi" modName="u_VAV[25]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 6 VAV damper controller P gain" abbr="VAV6DmprKp" modName="u_VAV[26]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 6 VAV damper controller integrator time constant" abbr="VAV6DmprKi" modName="u_VAV[27]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 6 VAV min volume flow rate ratio" abbr="VAV6MinFlwRatio" modName="u_VAV[28]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 6 VAV reheat coil controller P gain" abbr="VAV6RhcKp" modName="u_VAV[29]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 6 VAV reheat coil controller integrator time constant" abbr="VAV6RhcKi" modName="u_VAV[30]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 7 VAV damper controller P gain" abbr="VAV7DmprKp" modName="u_VAV[31]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 7 VAV damper controller integrator time constant" abbr="VAV7DmprKi" modName="u_VAV[32]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 7 VAV min volume flow rate ratio" abbr="VAV7MinFlwRatio" modName="u_VAV[33]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 7 VAV reheat coil controller P gain" abbr="VAV7RhcKp" modName="u_VAV[34]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 7 VAV reheat coil controller integrator time constant" abbr="VAV7RhcKi" modName="u_VAV[35]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 8 VAV damper controller P gain" abbr="VAV8DmprKp" modName="u_VAV[36]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 8 VAV damper controller integrator time constant" abbr="VAV8DmprKi" modName="u_VAV[37]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 8 VAV min volume flow rate ratio" abbr="VAV8MinFlwRatio" modName="u_VAV[38]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 8 VAV reheat coil controller P gain" abbr="VAV8RhcKp" modName="u_VAV[39]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 8 VAV reheat coil controller integrator time constant" abbr="VAV8RhcKi" modName="u_VAV[40]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 9 VAV damper controller P gain" abbr="VAV9DmprKp" modName="u_VAV[41]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 9 VAV damper controller integrator time constant" abbr="VAV9DmprKi" modName="u_VAV[42]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 9 VAV min volume flow rate ratio" abbr="VAV9MinFlwRatio" modName="u_VAV[43]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 9 VAV reheat coil controller P gain" abbr="VAV9RhcKp" modName="u_VAV[44]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Zone 9 VAV reheat coil controller integrator time constant" abbr="VAV9RhcKi" modName="u_VAV[45]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="VAV1 max cooling air flow rate" abbr="VAV1AirFloNom" modName="nor.m_flow_nominal" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="VAV1 air side pressure drop at max cooling" abbr="VAV1DpNom" modName="nor.vav.dp_nominal" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="VAV2 max cooling air flow rate" abbr="VAV2AirFloNom" modName="norWes.m_flow_nominal" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="VAV2 air side pressure drop at max cooling" abbr="VAV2DpNom" modName="norWes.vav.dp_nominal" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="VAV3 max cooling air flow rate" abbr="VAV3AirFloNom" modName="wes.m_flow_nominal" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="VAV3 air side pressure drop at max cooling" abbr="VAV3DpNom" modName="wes.vav.dp_nominal" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="VAV4 max cooling air flow rate" abbr="VAV4AirFloNom" modName="souWes.m_flow_nominal" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="VAV4 air side pressure drop at max cooling" abbr="VAV4DpNom" modName="souWes.vav.dp_nominal" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="VAV5 max cooling air flow rate" abbr="VAV5AirFloNom" modName="sou.m_flow_nominal" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="VAV5 air side pressure drop at max cooling" abbr="VAV5DpNom" modName="sou.vav.dp_nominal" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="VAV6 max cooling air flow rate" abbr="VAV6AirFloNom" modName="souEas.m_flow_nominal" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="VAV6 air side pressure drop at max cooling" abbr="VAV6DpNom" modName="souEas.vav.dp_nominal" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="VAV7 max cooling air flow rate" abbr="VAV7AirFloNom" modName="eas.m_flow_nominal" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="VAV7 air side pressure drop at max cooling" abbr="VAV7DpNom" modName="eas.vav.dp_nominal" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="VAV8 max cooling air flow rate" abbr="VAV8AirFloNom" modName="norEas.m_flow_nominal" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="VAV8 air side pressure drop at max cooling" abbr="VAV8DpNom" modName="norEas.vav.dp_nominal" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="VAV9 max cooling air flow rate" abbr="VAV9AirFloNom" modName="cor.m_flow_nominal" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="VAV9 air side pressure drop at max cooling" abbr="VAV9DpNom" modName="cor.vav.dp_nominal" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+		</SubSystem>
+		<SubSystem name="Chiller" abbr="Chi">
+			<Variable name="Supply air temp reset high limit" abbr="AHUTSupRstHLM" modName="" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Supply air temp reset low limit" abbr="AHUTSupRstLLM" modName="" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="chilled water pump volume flow rate at first operating point" abbr="CHWPumCurFlo1" modName="CHWPum.pressure.V_flow[1]" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="chilled water pump total pressure at first operating point" abbr="CHWPumCurDp1" modName="CHWPum.pressure.dp[1]" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="chilled water pump volume flow rate at second operating point" abbr="CHWPumCurFlo2" modName="CHWPum.pressure.V_flow[2]" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="chilled water pump total pressure at second operating point" abbr="CHWPumCurDp2" modName="CHWPum.pressure.dp[2]" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="chilled water pump volume flow rate at third operating point" abbr="CHWPumCurFlo3" modName="CHWPum.pressure.V_flow[3]" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="chilled water pump total pressure at third operating point" abbr="CHWPumCurDp3" modName="CHWPum.pressure.dp[3]" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Chiller COP" abbr="CHICOP" modName="" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Chilled water loop differential pressure set point reset" abbr="CHICHWPresRstStr" modName="" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Chiller start/stop control strategy" abbr="CHISSCtrl" modName="" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Chilled water temp reset" abbr="CHICHWTempRst" modName="" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Chilled water pump overall efficiency" abbr="CHWPEffi" modName="" scope="input" variability="parameter" unit="K">
+				<Temperature />
+			</Variable>
+		</SubSystem>
+		<SubSystem name="Boiler" abbr="Boi">
+			<Variable name="Hot water temp set point" abbr="BOIHWTempSP" modName="u_BOI[1]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Hot water pump speed controller P gain" abbr="BOIHWPumpKp" modName="u_BOI[2]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Hot water pump controller integrator time constant" abbr="BOIHWPumpKi" modName="u_BOI[3]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+			<Variable name="Hot water loop heating valve set point" abbr="BOIHWPresSP" modName="u_BOI[4]" scope="input" variability="continuous" unit="K">
+				<Temperature />
+			</Variable>
+		</SubSystem>
+	</System>
+</SystemList>

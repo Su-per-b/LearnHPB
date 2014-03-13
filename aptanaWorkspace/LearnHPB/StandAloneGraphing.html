@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <base href="/LearnHPB/">
+
     <meta charset="UTF-8" />
 
     <!-- =========================  CSS  ============================ -->
@@ -23,7 +23,7 @@
     .axis path,
     .axis line {
       fill: none;
-      stroke: #a00;
+      stroke: #000;
       shape-rendering: crispEdges;
     }
     
@@ -58,11 +58,16 @@
    
   </style>
     
+    <link type="text/css" href="css/tipped.css" rel="stylesheet" />
+    <link type="text/css" href="css/kendo.common.css" rel="stylesheet"/>
+    <link type="text/css" href="css/kendo.silver.css" rel="stylesheet"/>
+    <link type="text/css" href="css/lgb.css"  rel="stylesheet" />
+    
     <!-- =========================   JavaScript  ============================ -->
     <script src="test/js/includes/Main.js"></script>
     <script src="test/js/includes/MainLibs.js"></script>
 
-    <title>Chart Test 5</title>
+    <title>Stand Alone Graphing</title>
     
     
     <script>
@@ -71,12 +76,13 @@
     
     
     <script>
+    
       goog.require('lgb');
       goog.require('lgb.core.EventBus');
       goog.require('lgb.core.Global');
-      goog.require('lgb.chart.controller.MainController2');
-      goog.require('lgb.chart.controller.GraphController');
-      
+      goog.require('lgb.chart.controller.StandAloneController');
+      goog.require('lgb.scenario.controller.ScenarioController');
+
     </script>
     
   </head>
@@ -93,11 +99,10 @@
    $(document).ready(function () {
      
       lgb.init();
-      //lgb.globalEventBus = new lgb.core.EventBus();
-      lgb.chart.controller.GraphController.versionNumber = 5;
-      var mainController2 = new lgb.chart.controller.MainController2();
 
-      mainController2.init();
+      var controller = new lgb.chart.controller.StandAloneController();
+
+      controller.init();
       
       
     });

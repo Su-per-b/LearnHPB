@@ -29,10 +29,9 @@ lgb.gui.controller.SimulationConsoleController.prototype.init = function(simulat
   this.dataModel = simulationDataModel;
   this.guiView = new lgb.gui.view.SimulationConsoleGUI (this.dataModel);
   
-  this.guiView.init();
   this.bind_();
   
-  this.triggerLocal(e.RequestAddToParentGUI, this.guiView);
+  this.triggerGUI();
 
 };
 

@@ -3,7 +3,7 @@ goog.provide('lgb.gui.controller.ScenarioController');
 goog.require('lgb.core.BaseController');
 
 goog.require('lgb.gui.model.BaseGuiModel');
-goog.require('lgb.scenario.model.Bs2');
+goog.require('lgb.scenario.model.ScenarioModel');
 goog.require('lgb.scenario.model.SystemList');
 
 goog.require('lgb.gui.view.ScenarioGUI');

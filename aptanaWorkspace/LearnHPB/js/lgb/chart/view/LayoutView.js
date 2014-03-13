@@ -44,6 +44,10 @@ lgb.chart.view.LayoutView.prototype.add = function(guiView) {
       guiView.injectTo(this.chartBottom_);
       break;
     }
+    case "StandAlonePanelGUI": {
+      guiView.injectTo(this.chartBottom_);
+      break;
+    }
      default: {
       debugger;
     }
@@ -65,12 +69,13 @@ lgb.chart.view.LayoutView.prototype.inject = function() {
   
   this.chartTop_.css({
     width : "100%",
-    height : "68px",
+    height : "10%",
     background:"#ffffaa"
   });
   
   this.chartBottom_.css({
     width : "100%",
+    height : "90%",
     background:"#fff"
   });
   
