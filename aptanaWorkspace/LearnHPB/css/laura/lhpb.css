@@ -303,11 +303,12 @@ ul.scenario-action li  {
   font-size: 1.0em;
 }
 
-.input-OptionList {
-  
-  padding:0px; 
-}
 
+
+.input-ListBox {
+    margin:0px 4px 0px 0px; 
+  
+}
 
 ::-webkit-scrollbar { width: 16px; height: 3px;}
 ::-webkit-scrollbar-button {  background-color: #284EAD; } /*up and down arrows */
