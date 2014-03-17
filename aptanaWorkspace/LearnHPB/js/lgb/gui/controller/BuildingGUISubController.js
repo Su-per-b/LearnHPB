@@ -38,7 +38,21 @@ lgb.gui.controller.BuildingGUISubController.prototype.init = function( system ) 
   this.guiView.add(systemView);
   
   this.triggerLocal(e.RequestAddToParentGUI, this.guiView);
-
+  
+  this.bind_();
+  this.guiView.calculateLayout();
 };
 
 
+lgb.gui.controller.BuildingGUISubController.prototype.bind_ = function() {
+  
+  this.listen( e.LayoutChange, this.onLayoutChange_);
+
+  
+};
+
+
+lgb.gui.controller.BuildingGUISubController.prototype.onLayoutChange_ = function(event) {
+
+    this.guiView.calculateLayout();
+};

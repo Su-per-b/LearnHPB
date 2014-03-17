@@ -34,14 +34,35 @@ lgb.gui.view.BuildingSimpleGUI.prototype.init = function() {
 
   
   this.tabStrip_ = new lgb.component.TabStripH(this.dataSource);
+  
+  this.bind_();
+  
 };
 
+lgb.gui.view.BuildingSimpleGUI.prototype.bind_ = function() {
+  
+  
+  this.listenTo(
+    this.tabStrip_,
+    e.Activate,
+    this.onActivate_
+  );
+  
+  
+};
+
+
+lgb.gui.view.BuildingSimpleGUI.prototype.onActivate_ = function(event) {
+  
+  //this.calculateLayout();
+  
+};
 
 
 lgb.gui.view.BuildingSimpleGUI.prototype.calculateLayout = function() {
 
   var h = window.innerHeight;
-  var height2 = (h-260);
+  var height2 = (h-210);
   
   this.tabStrip_.setContentHeight(height2);
 
@@ -140,21 +161,9 @@ lgb.gui.view.BuildingSimpleGUI.prototype.injectTo = function(parentElement) {
     
     
     return;
-    
-    
 
     
-    
-//     
-    // buildingLevelUl
-    // .append('<li>')
-    // .append('<a>Floor</a>');
-//     
-    // buildingLevelUl
-    // .append('<li>')
-    // .append('<a>Site</a>');
-    
-    parentElement.append(buildingLevelUl);
+
   
   
 

@@ -41,10 +41,6 @@ lgb.gui.view.LeftPanelGUISimple.prototype.injectTo = function(parentElement) {
     
   var el = this.getMainElement();
   
-  el.css({
-      padding:"15px 10px 10px 10px"
-    });
-    
     
    var titleDiv = $('<div>').css({
       width:"120px",
@@ -52,7 +48,7 @@ lgb.gui.view.LeftPanelGUISimple.prototype.injectTo = function(parentElement) {
       "background-image":"url(images/laura/logo.png)",
       "background-repeat":"no-repeat",
     })
-    .attr('title', 'LHPB: Learn High Performance Buildings');
+    .attr('title', 'Learn High Performance Buildings');
     
     
     var toolTipConfig = {

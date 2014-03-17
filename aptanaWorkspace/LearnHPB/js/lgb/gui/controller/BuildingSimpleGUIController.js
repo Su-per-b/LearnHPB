@@ -32,9 +32,9 @@ lgb.gui.controller.BuildingSimpleGUIController.prototype.init = function(systemL
   var children = this.systemListDataModel_.getChildren();
   this.each (children, this.makeBuildingGUISubController_);
   
-  this.guiView.calculateLayout();
+ // this.guiView.calculateLayout();
     
-  this.listen(e.LayoutChange, this.onLayoutChange_);
+  //this.listen(e.LayoutChange, this.onLayoutChange_);
     
 };
 

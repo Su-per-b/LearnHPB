@@ -34,6 +34,19 @@ lgb.gui.view.GUI.prototype.add = function(gui) {
 };
 
 
+lgb.gui.view.GUI.prototype.calculateLayout = function() {
+  
+  var el = this.getMainElement();
+  
+  var h = window.innerHeight;
+  var height = (h-210);
+  
+  el.height(height);
+  
+};
+
+
+
 /*
 
 lgb.gui.view.GUI.prototype.injectTo = function(parentElement) {

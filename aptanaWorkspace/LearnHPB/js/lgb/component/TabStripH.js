@@ -80,10 +80,13 @@ lgb.component.TabStripH.prototype.makeBackgroundPosition = function(appendToSele
 lgb.component.TabStripH.prototype.setContentHeight = function(height) {
   
   var len = this.kendoTabStrip_.contentElements.length;
-  heightStr = height + "px";
   
-  this.setContentCss("height", heightStr);
+   for (var i = 0; i < len; i++) {
+     var contentElement = $(this.kendoTabStrip_.contentElements[i]);
+     contentElement.height(height);
+   }
   
+  return;
 };
 
 
