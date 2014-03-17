@@ -1,5 +1,5 @@
 /*
-* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Kendo UI Web v2013.3.1119 (http://kendoui.com)
 * Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
@@ -13,7 +13,13 @@ kendo_module({
     name: "ComboBox",
     category: "web",
     description: "The ComboBox widget allows the selection from pre-defined values or entering a new value.",
-    depends: [ "list" ]
+    depends: [ "list" ],
+    features: [ {
+        id: "mobile-scroller",
+        name: "Mobile scroller",
+        description: "Support for kinetic scrolling in mobile device",
+        depends: [ "mobile.scroller" ]
+    } ]
 });
 
 (function($, undefined) {
@@ -73,8 +79,6 @@ kendo_module({
 
             that._popup();
 
-            that._accessors();
-
             that._dataSource();
             that._ignoreCase();
 
@@ -97,6 +101,7 @@ kendo_module({
 
                 if (text) {
                     that.input.val(text);
+                    that._prev = text;
                 }
             }
 
@@ -124,6 +129,8 @@ kendo_module({
             filter: "none",
             placeholder: "",
             suggest: false,
+            cascadeFrom: "",
+            cascadeFromField: "",
             ignoreCase: true,
             animation: {}
         },
@@ -250,7 +257,7 @@ kendo_module({
                 state = that._state,
                 data = that._data(),
                 length = data.length,
-                value, open, custom;
+                hasChild, value, open, custom;
 
             that.trigger("dataBinding");
 
@@ -262,6 +269,8 @@ kendo_module({
             }
 
             if (that._isSelect) {
+                hasChild = that.element[0].firstChild;
+
                 if (state === STATE_REBIND) {
                     that._state = "";
                     value = that.value();
@@ -273,6 +282,8 @@ kendo_module({
 
                 if (custom && custom[0].selected) {
                     that._custom(custom.val());
+                } else if (!that._bound && !hasChild) {
+                    that._custom("");
                 }
             }
 
@@ -380,7 +391,9 @@ kendo_module({
 
             if (value.length !== caret || !word) {
                 element.value = value;
-                List.selectText(element, caret, value.length);
+                if (element === activeElement()) {
+                    List.selectText(element, caret, value.length);
+                }
             }
         },
 
@@ -388,7 +401,6 @@ kendo_module({
             text = text === null ? "" : text;
 
             var that = this,
-                textAccessor = that._text,
                 input = that.input[0],
                 ignoreCase = that.options.ignoreCase,
                 loweredText = text,
@@ -397,7 +409,7 @@ kendo_module({
             if (text !== undefined) {
                 dataItem = that.dataItem();
 
-                if (dataItem && textAccessor(dataItem) === text) {
+                if (dataItem && that._text(dataItem) === text && that._value(dataItem).toString() === that._old) {
                     that._triggerCascade();
                     return;
                 }
@@ -407,7 +419,7 @@ kendo_module({
                 }
 
                 that._select(function(data) {
-                    data = textAccessor(data);
+                    data = that._text(data);
 
                     if (ignoreCase) {
                         data = (data + "").toLowerCase();
@@ -421,6 +433,7 @@ kendo_module({
                     input.value = text;
                 }
 
+                that._prev = input.value;
                 that._triggerCascade();
             } else {
                 return input.value;
@@ -435,6 +448,7 @@ kendo_module({
 
         value: function(value) {
             var that = this,
+                options = that.options,
                 idx;
 
             if (value !== undefined) {
@@ -456,11 +470,13 @@ kendo_module({
                     that.current(NULL);
                     that._custom(value);
 
-                    that.text(value);
-                    that._placeholder();
+                    if (options.value !== value || options.text !== that.input.val()) {
+                        that.text(value);
+                        that._placeholder();
+                    }
                 }
 
-                that._prev = that._old = that._accessor();
+                that._old = that._accessor();
                 that._oldIndex = that.selectedIndex;
             } else {
                 return that._accessor();
@@ -557,7 +573,10 @@ kendo_module({
 
             if (idx == -1) {
                 if (that.options.highlightFirst && !that.text()) {
-                    li = $(that.ul[0].firstChild);
+                    li = that.ul[0].firstChild;
+                    if (li) {
+                        li = $(li);
+                    }
                 } else {
                     li = NULL;
                 }
@@ -597,7 +616,7 @@ kendo_module({
             }
 
             input.addClass(element.className)
-                 .val(element.value)
+                 .val(this.options.text || element.value)
                  .css({
                     width: "100%",
                     height: element.style.height
@@ -671,6 +690,10 @@ kendo_module({
                 }
 
                 input.val(placeholder);
+
+                if (!placeholder && input[0] === activeElement()) {
+                    List.selectText(input[0], 0, 0);
+                }
             }
         },
 

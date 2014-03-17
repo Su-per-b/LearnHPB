@@ -1,5 +1,5 @@
 /*
-* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Kendo UI Web v2013.3.1119 (http://kendoui.com)
 * Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
@@ -78,7 +78,12 @@ kendo_module({
             that._reset();
             that._template();
 
-            element[0].type = "text";
+            try {
+                element[0].setAttribute("type", "text");
+            } catch(e) {
+                element[0].type = "text";
+            }
+
             element.addClass("k-input")
                    .attr({
                        "role": "textbox",
@@ -95,7 +100,9 @@ kendo_module({
             } else {
                 that.readonly(element.is("[readonly]"));
             }
-            that.value(options.value || element.val());
+
+            that._old = that._update(options.value || that.element.val());
+            that._oldText = element.val();
 
             kendo.notify(that);
         },
@@ -127,13 +134,28 @@ kendo_module({
     ],
         setOptions: function(options) {
             var that = this,
-            dateViewOptions = that.dateView.options,
-            timeViewOptions = that.timeView.options;
+                dateViewOptions = that.dateView.options,
+                timeViewOptions = that.timeView.options,
+                min, max, currentValue;
 
             Widget.fn.setOptions.call(that, options);
             normalize(that.options);
 
+
             options = that.options;
+
+            min = options.min;
+            max = options.max;
+            currentValue = options.value || that._value || that.dateView._current;
+
+            if (min && !isEqualDatePart(min, currentValue)) {
+                min = new DATE(MIN);
+            }
+
+            if (max && !isEqualDatePart(max, currentValue)) {
+                max = new DATE(MAX);
+            }
+
             extend(dateViewOptions, options, {
                 change: dateViewOptions.change,
                 close: dateViewOptions.close,
@@ -145,7 +167,9 @@ kendo_module({
                 active: timeViewOptions.active,
                 change: timeViewOptions.change,
                 close: timeViewOptions.close,
-                open: timeViewOptions.open
+                open: timeViewOptions.open,
+                min: min,
+                max: max
             });
 
             that.timeView.ul[0].innerHTML = "";
@@ -402,7 +426,7 @@ kendo_module({
                 if (!skip) {
                     if (isEqualDatePart(date, min)) {
                         timeViewOptions.min = min;
-                        timeViewOptions.max = MAX;
+                        timeViewOptions.max = lastTimeOption(options.interval);
                         rebind = true;
                     }
 
@@ -476,9 +500,7 @@ kendo_module({
 
                     if (msValue === msMin || msValue === msMax) {
                         current = new DATE(+that._value);
-                        current.setFullYear(value.getFullYear());
-                        current.setMonth(value.getMonth());
-                        current.setDate(value.getDate());
+                        current.setFullYear(value.getFullYear(), value.getMonth(), value.getDate());
 
                         if (isInRange(current, msMin, msMax)) {
                             value = current;
@@ -637,7 +659,8 @@ kendo_module({
         _reset: function() {
             var that = this,
                 element = that.element,
-                form = element.closest("form");
+                formId = element.attr("form"),
+                form = formId ? $("#" + formId) : element.closest("form");
 
             if (form[0]) {
                 that._resetHandler = function() {
@@ -656,6 +679,12 @@ kendo_module({
             this.element.attr("aria-label", this._ariaTemplate({ current: date }));
         }
     });
+
+    function lastTimeOption(interval) {
+        var date = new Date(2100, 0, 1);
+        date.setMinutes(-interval);
+        return date;
+    }
 
     function preventDefault(e) {
         e.preventDefault();

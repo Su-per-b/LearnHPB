@@ -1,5 +1,5 @@
 /*
-* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Kendo UI Web v2013.3.1119 (http://kendoui.com)
 * Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
@@ -53,7 +53,9 @@ kendo_module({
         options: {
             name: "Sortable",
             mode: SINGLE,
-            allowUnsort: true
+            allowUnsort: true,
+            compare: null,
+            filter: ""
         },
 
         destroy: function() {
@@ -106,9 +108,16 @@ kendo_module({
                 field = element.attr(kendo.attr(FIELD)),
                 dir = element.attr(kendo.attr(DIR)),
                 options = that.options,
+                compare = that.options.compare,
                 sort = that.dataSource.sort() || [],
                 idx,
                 length;
+
+            e.preventDefault();
+
+            if (options.filter && !element.is(options.filter)) {
+                return;
+            }
 
             if (dir === ASC) {
                 dir = DESC;
@@ -119,7 +128,7 @@ kendo_module({
             }
 
             if (options.mode === SINGLE) {
-                sort = [ { field: field, dir: dir } ];
+                sort = [ { field: field, dir: dir, compare: compare } ];
             } else if (options.mode === "multiple") {
                 for (idx = 0, length = sort.length; idx < length; idx++) {
                     if (sort[idx].field === field) {
@@ -127,10 +136,9 @@ kendo_module({
                         break;
                     }
                 }
-                sort.push({ field: field, dir: dir });
+                sort.push({ field: field, dir: dir, compare: compare });
             }
 
-            e.preventDefault();
 
             that.dataSource.sort(sort);
         }

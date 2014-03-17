@@ -8,8 +8,9 @@ goog.provide('lgb.scenario.view.Decimal');
 goog.require('lgb.scenario.view.BaseView');
 
 
-lgb.scenario.view.Decimal = function(dataModel, debugFlag) {
+lgb.scenario.view.Decimal = function(dataModel, debugFlag, unit) {
   lgb.scenario.view.BaseView.call(this, dataModel, debugFlag);
+  this.unit_ = unit;
 };
 goog.inherits(lgb.scenario.view.Decimal, lgb.scenario.view.BaseView);
 
@@ -37,7 +38,7 @@ lgb.scenario.view.Decimal.prototype.appendTo = function(parentElement) {
 
            
          if (this.isEnabled == false) {
-           this.inputElement_.attr( "disabled", "disabled" );
+           // this.inputElement_.attr( "disabled", "disabled" );
          } else {
            
 
@@ -46,7 +47,16 @@ lgb.scenario.view.Decimal.prototype.appendTo = function(parentElement) {
      
         this.append(this.inputElement_);
         
-        var html = " ({0}-{1})".format(this.dataModel.min, this.dataModel.max);
+        
+        if (undefined == this.unit_) {
+          var html = "({0}-{1})".format( this.dataModel.min, this.dataModel.max);
+        } else {
+          var html = "{0} ({1}-{2})".format(this.unit_, this.dataModel.min, this.dataModel.max);
+          
+        }
+        
+        
+
         this.append(html);
 
 

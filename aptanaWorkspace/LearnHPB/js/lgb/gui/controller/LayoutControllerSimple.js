@@ -9,10 +9,10 @@ goog.require('lgb.core.BaseController');
 goog.require('goog.debug.Logger');
 goog.require('lgb.core.Config');
 
-goog.require('lgb.gui.view.LayoutView');
+goog.require('lgb.gui.view.LayoutViewSimple');
 goog.require('lgb.gui.model.LayoutModel');
 
-goog.require('lgb.gui.controller.LeftPanelGUIController');
+goog.require('lgb.gui.controller.LeftPanelSimpleGUIController');
 goog.require('lgb.gui.controller.BottomPanelGUIController');
 
 
@@ -37,13 +37,14 @@ lgb.gui.controller.LayoutControllerSimple.prototype.init_ = function() {
     
     
     this.dataModel = new lgb.gui.model.LayoutModel();
-    this.guiView  = new lgb.gui.view.LayoutView(this.dataModel);
+    this.guiView  = new lgb.gui.view.LayoutViewSimple(this.dataModel);
     this.guiView.init();
     
     this.bind_();
     
-    this.leftPanelGUIController_ = this.makeChildGUIcontroller_(lgb.gui.controller.LeftPanelGUIController);
-    this.bottomPanelGUIController_ = this.makeChildGUIcontroller_(lgb.gui.controller.BottomPanelGUIController);
+     this.leftPanelGUIController_ = this.makeChildGUIcontroller_(lgb.gui.controller.LeftPanelSimpleGUIController);
+     
+    // this.bottomPanelGUIController_ = this.makeChildGUIcontroller_(lgb.gui.controller.BottomPanelGUIController);
     
 };
 

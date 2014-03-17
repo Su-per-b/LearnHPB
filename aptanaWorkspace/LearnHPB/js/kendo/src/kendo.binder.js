@@ -1,5 +1,5 @@
 /*
-* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Kendo UI Web v2013.3.1119 (http://kendoui.com)
 * Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
@@ -23,6 +23,7 @@ kendo_module({
         ObservableArray = kendo.data.ObservableArray,
         toString = {}.toString,
         binders = {},
+        splice = Array.prototype.splice,
         Class = kendo.Class,
         innerText,
         proxy = $.proxy,
@@ -65,6 +66,21 @@ kendo_module({
 
                 that.source.bind(CHANGE, that._change);
             }
+        },
+
+        _parents: function() {
+            var parents = this.parents;
+            var value = this.get();
+
+            if (value && typeof value.parent == "function") {
+                var parent = value.parent();
+
+                if ($.inArray(parent, parents) < 0) {
+                    parents = [parent].concat(parents);
+                }
+            }
+
+            return parents;
         },
 
         change: function(e) {
@@ -120,6 +136,19 @@ kendo_module({
 
                 if (source instanceof ObservableObject) {
                     result = source.get(path);
+                }
+            }
+
+            // second pass try to get the parent from the object hierarchy
+            if (result === undefined) {
+                source = that.source; //get the initial source
+
+                while (result === undefined && source) {
+                    source = source.parent();
+
+                    if (source instanceof ObservableObject) {
+                        result = source.get(path);
+                    }
                 }
             }
 
@@ -243,7 +272,7 @@ kendo_module({
 
     binders.style = Binder.extend({
         refresh: function(key) {
-            this.element.style[key] = this.bindings.style[key].get();
+            this.element.style[key] = this.bindings.style[key].get() || "";
         }
     });
 
@@ -359,7 +388,21 @@ kendo_module({
 
         change: function() {
             this._initChange = this.eventName != CHANGE;
-            this.bindings[VALUE].set(this.element.value);
+
+            var value = this.element.value;
+
+            var type = this.element.type;
+
+            if (type == "date") {
+                value = kendo.parseDate(value, "yyyy-MM-dd");
+            } else if (type == "datetime-local") {
+                value = kendo.parseDate(value, ["yyyy-MM-ddTHH:mm:ss", "yyyy-MM-ddTHH:mm"] );
+            } else if (type == "number") {
+                value = kendo.parseFloat(value);
+            }
+
+            this.bindings[VALUE].set(value);
+
             this._initChange = false;
         },
 
@@ -369,6 +412,14 @@ kendo_module({
 
                 if (value == null) {
                     value = "";
+                }
+
+                var type = this.element.type;
+
+                if (type == "date") {
+                    value = kendo.toString(value, "yyyy-MM-dd");
+                } else if (type == "datetime-local") {
+                    value = kendo.toString(value, "yyyy-MM-ddTHH:mm:ss");
                 }
 
                 this.element.value = value;
@@ -385,13 +436,19 @@ kendo_module({
     binders.source = Binder.extend({
         init: function(element, bindings, options) {
             Binder.fn.init.call(this, element, bindings, options);
+
+            var source = this.bindings.source.get();
+
+            if (source instanceof kendo.data.DataSource && options.autoBind !== false) {
+                source.fetch();
+            }
         },
 
         refresh: function(e) {
             var that = this,
                 source = that.bindings.source.get();
 
-            if (source instanceof ObservableArray) {
+            if (source instanceof ObservableArray || source instanceof kendo.data.DataSource) {
                 e = e || {};
 
                 if (e.action == "add") {
@@ -454,6 +511,7 @@ kendo_module({
 
         add: function(index, items) {
             var element = this.container(),
+                parents,
                 idx,
                 length,
                 child,
@@ -463,30 +521,38 @@ kendo_module({
             $(clone).html(kendo.render(this.template(), items));
 
             if (clone.children.length) {
+                parents = this.bindings.source._parents();
+
                 for (idx = 0, length = items.length; idx < length; idx++) {
                     child = clone.children[0];
                     element.insertBefore(child, reference || null);
-                    bindElement(child, items[idx], this.options.roles, [items[idx]].concat(this.bindings.source.parents));
+                    bindElement(child, items[idx], this.options.roles, [items[idx]].concat(parents));
                 }
             }
         },
 
         remove: function(index, items) {
-            var idx,
-            element = this.container();
+            var idx, element = this.container();
 
             for (idx = 0; idx < items.length; idx++) {
-                element.removeChild(element.children[index]);
+                var child = element.children[index];
+                unbindElementTree(child);
+                element.removeChild(child);
             }
         },
 
         render: function() {
             var source = this.bindings.source.get(),
-                 idx,
-                 length,
-                 element = this.container(),
-                 template = this.template(),
-                 parent;
+                parents,
+                idx,
+                length,
+                element = this.container(),
+                template = this.template(),
+                parent;
+
+            if (source instanceof kendo.data.DataSource) {
+                source = source.view();
+            }
 
             if (!(source instanceof ObservableArray) && toString.call(source) !== "[object Array]") {
                 if (source.parent) {
@@ -501,11 +567,15 @@ kendo_module({
             }
 
             if (this.bindings.template) {
+                unbindElementChildren(element);
+
                 $(element).html(this.bindings.template.render(source));
 
                 if (element.children.length) {
+                    parents = this.bindings.source._parents();
+
                     for (idx = 0, length = source.length; idx < length; idx++) {
-                        bindElement(element.children[idx], source[idx], this.options.roles, [source[idx]].concat(this.bindings.source.parents) );
+                        bindElement(element.children[idx], source[idx], this.options.roles, [source[idx]].concat(parents));
                     }
                 }
             }
@@ -601,6 +671,7 @@ kendo_module({
                     element = this.element,
                     source,
                     field = this.options.valueField || this.options.textField,
+                    valuePrimitive = this.options.valuePrimitive,
                     option,
                     valueIndex,
                     value,
@@ -638,7 +709,7 @@ kendo_module({
                 value = this.bindings[VALUE].get();
                 if (value instanceof ObservableArray) {
                     value.splice.apply(value, [0, value.length].concat(values));
-                } else if (value instanceof ObservableObject || !field) {
+                } else if (!valuePrimitive && (value instanceof ObservableObject || !field)) {
                     this.bindings[VALUE].set(values[0]);
                 } else {
                     this.bindings[VALUE].set(values[0].get(field));
@@ -826,7 +897,7 @@ kendo_module({
             },
 
             itemChange: function(e) {
-                bindElement(e.item[0], e.data, this._ns(e.ns), [e.data].concat(this.bindings.source.parents));
+                bindElement(e.item[0], e.data, this._ns(e.ns), [e.data].concat(this.bindings.source._parents()));
             },
 
             dataBinding: function() {
@@ -856,6 +927,7 @@ kendo_module({
                     items = widget.items(),
                     dataSource = widget.dataSource,
                     view = dataSource.view(),
+                    parents,
                     groups = dataSource.group() || [];
 
                 if (items.length) {
@@ -863,8 +935,10 @@ kendo_module({
                         view = flattenGroups(view);
                     }
 
+                    parents = this.bindings.source._parents();
+
                     for (idx = 0, length = view.length; idx < length; idx++) {
-                        bindElement(items[idx], view[idx], this._ns(e.ns), [view[idx]].concat(this.bindings.source.parents));
+                        bindElement(items[idx], view[idx], this._ns(e.ns), [view[idx]].concat(parents));
                     }
                 }
             },
@@ -916,7 +990,7 @@ kendo_module({
 
                 var value = this.bindings.value.get();
 
-                this._valueIsObservableObject = value == null || value instanceof ObservableObject;
+                this._valueIsObservableObject = !options.valuePrimitive && (value == null || value instanceof ObservableObject);
                 this._valueIsObservableArray = value instanceof ObservableArray;
                 this._initChange = false;
             },
@@ -938,7 +1012,7 @@ kendo_module({
                         source = this.bindings.source.get();
                     }
 
-                    if (value === "" && isObservableObject ) {
+                    if (value === "" && (isObservableObject || this.options.valuePrimitive)) {
                         value = null;
                     } else {
                         if (!source || source instanceof kendo.data.DataSource) {
@@ -1010,7 +1084,128 @@ kendo_module({
             destroy: function() {
                 this.widget.unbind(CHANGE, this._change);
             }
-        })
+        }),
+
+        multiselect: {
+            value: Binder.extend({
+                init: function(widget, bindings, options) {
+                    Binder.fn.init.call(this, widget.element[0], bindings, options);
+
+                    this.widget = widget;
+                    this._change = $.proxy(this.change, this);
+                    this.widget.first(CHANGE, this._change);
+                    this._initChange = false;
+                },
+
+                change: function() {
+                    var that = this,
+                        oldValues = that.bindings[VALUE].get(),
+                        valuePrimitive = that.options.valuePrimitive,
+                        newValues = valuePrimitive ? that.widget.value() : that.widget.dataItems();
+
+                    var field = this.options.dataValueField || this.options.dataTextField;
+
+                    newValues = newValues.slice(0);
+
+                    that._initChange = true;
+
+                    if (oldValues instanceof ObservableArray) {
+                        var remove = [];
+
+                        var newLength = newValues.length;
+
+                        var i = 0, j = 0;
+                        var old = oldValues[i];
+                        var same = false;
+                        var removeIndex;
+                        var newValue;
+                        var found;
+
+                        while (old) {
+                            found = false;
+                            for (j = 0; j < newLength; j++) {
+                                if (valuePrimitive) {
+                                    same = newValues[j] == old;
+                                } else {
+                                    newValue = newValues[j];
+
+                                    newValue = newValue.get ? newValue.get(field) : newValue;
+                                    same = newValue == (old.get ? old.get(field) : old);
+                                }
+
+                                if (same) {
+                                    newValues.splice(j, 1);
+                                    newLength -= 1;
+                                    found = true;
+                                    break;
+                                }
+                            }
+
+                            if (!found) {
+                                remove.push(old);
+                                splice.call(oldValues, i, 1);
+                                removeIndex = i;
+                            } else {
+                                i += 1;
+                            }
+
+                            old = oldValues[i];
+                        }
+
+                        splice.apply(oldValues, [oldValues.length, 0].concat(newValues));
+
+                        if (remove.length) {
+                            oldValues.trigger("change", {
+                                action: "remove",
+                                items: remove,
+                                index: removeIndex
+                            });
+                        }
+
+                        if (newValues.length) {
+                            oldValues.trigger("change", {
+                                action: "add",
+                                items: newValues,
+                                index: oldValues.length - 1
+                            });
+                        }
+                    } else {
+                        that.bindings[VALUE].set(newValues);
+                    }
+
+                    that._initChange = false;
+                },
+
+                refresh: function() {
+                    if (!this._initChange) {
+                        var field = this.options.dataValueField || this.options.dataTextField,
+                            value = this.bindings.value.get(),
+                            idx = 0, length,
+                            values = [],
+                            selectedValue;
+
+                        if (field) {
+                            if (value instanceof ObservableArray) {
+                                for (length = value.length; idx < length; idx++) {
+                                    selectedValue = value[idx];
+                                    values[idx] = selectedValue.get ? selectedValue.get(field) : selectedValue;
+                                }
+                                value = values;
+                            } else if (value instanceof ObservableObject) {
+                                value = value.get(field);
+                            }
+                        }
+
+                        this.widget.value(value);
+                    }
+                },
+
+                destroy: function() {
+                    this.widget.unbind(CHANGE, this._change);
+                }
+
+            })
+        }
     };
 
     var BindingTarget = Class.extend( {
@@ -1094,7 +1289,8 @@ kendo_module({
             var that = this,
                 binding,
                 hasValue = false,
-                hasSource = false;
+                hasSource = false,
+                specificBinders = binders.widget[that.target.options.name.toLowerCase()] || {};
 
             for (binding in bindings) {
                 if (binding == VALUE) {
@@ -1111,12 +1307,12 @@ kendo_module({
             }
 
             if (hasValue) {
-                that.applyBinding(VALUE, bindings);
+                that.applyBinding(VALUE, bindings, specificBinders[VALUE]);
             }
         },
 
-        applyBinding: function(name, bindings) {
-            var binder = binders.widget[name],
+        applyBinding: function(name, bindings, specificBinder) {
+            var binder = specificBinder || binders.widget[name],
                 toDestroy = this.toDestroy,
                 attribute,
                 binding = bindings[name];
@@ -1149,17 +1345,17 @@ kendo_module({
             if (data[idx].hasSubgroups) {
                 result = result.concat(flattenGroups(data[idx].items));
             } else {
-                result = result.concat(data[idx].items);
+                result = result.concat.apply(result, data[idx].items);
             }
         }
         return result;
     }
 
-    function bindingTargetForRole(role, element, roles) {
-        var type = roles[role];
+    function bindingTargetForRole(element, roles) {
+        var widget = kendo.initWidget(element, {}, roles);
 
-        if (type) {
-            return new WidgetBindingTarget(kendo.initWidget(element, type.options, roles));
+        if (widget) {
+            return new WidgetBindingTarget(widget);
         }
     }
 
@@ -1224,14 +1420,14 @@ kendo_module({
         }
 
         if (role) {
-            target = bindingTargetForRole(role, element, roles);
+            target = bindingTargetForRole(element, roles);
         }
 
         if (bind) {
             bind = parseBindings(bind.replace(whiteSpaceRegExp, ""));
 
             if (!target) {
-                options = kendo.parseOptions(element, {textField: "", valueField: "", template: "", valueUpdate: CHANGE});
+                options = kendo.parseOptions(element, {textField: "", valueField: "", template: "", valueUpdate: CHANGE, valuePrimitive: false, autoBind: true});
                 options.roles = roles;
                 target = new BindingTarget(element, options);
             }
@@ -1288,13 +1484,17 @@ kendo_module({
     function bind(dom, object) {
         var idx,
             length,
+            node,
             roles = kendo.rolesFromNamespaces([].slice.call(arguments, 2));
 
         object = kendo.observable(object);
         dom = $(dom);
 
-        for (idx = 0, length = dom.length; idx < length; idx++ ) {
-            bindElement(dom[idx], object, roles);
+        for (idx = 0, length = dom.length; idx < length; idx++) {
+            node = dom[idx];
+            if (node.nodeType === 1) {
+                bindElement(node, object, roles);
+            }
         }
     }
 
@@ -1315,14 +1515,16 @@ kendo_module({
     }
 
     function unbindElementTree(element) {
-        var idx,
-            length,
-            children = element.children;
-
         unbindElement(element);
 
+        unbindElementChildren(element);
+    }
+
+    function unbindElementChildren(element) {
+        var children = element.children;
+
         if (children) {
-            for (idx = 0, length = children.length; idx < length; idx++) {
+            for (var idx = 0, length = children.length; idx < length; idx++) {
                 unbindElementTree(children[idx]);
             }
         }

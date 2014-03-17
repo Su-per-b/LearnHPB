@@ -31,12 +31,15 @@ goog.inherits(lgb.chart.model.GraphGUImodel, lgb.world.model.BaseModel);
 
 lgb.chart.model.GraphGUImodel.prototype.generateData = function() {
   
-  this.data = [
-   { timeString: "07:45:00", value: 20.0},
-   { timeString: "07:46:00", value: 22.0},
-   { timeString: "07:47:00", value: 23.0},
-   { timeString: "07:48:00", value: 24.0}
-  ];
+  // this.data = [
+   // { timeString: "07:45:00", value: 20.0},
+   // { timeString: "07:46:00", value: 22.0},
+   // { timeString: "07:47:00", value: 23.0},
+   // { timeString: "07:48:00", value: 24.0}
+  // ];
+  
+  this.data = [];
+  
   
 };
 

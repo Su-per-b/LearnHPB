@@ -1,5 +1,5 @@
 /*
-* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Kendo UI Web v2013.3.1119 (http://kendoui.com)
 * Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
@@ -41,6 +41,7 @@ kendo_module({
         EFFECTS = "effects",
         ACTIVE = "k-state-active",
         ACTIVEBORDER = "k-state-border",
+        ACTIVEBORDERREGEXP = /k-state-border-(\w+)/,
         ACTIVECHILDREN = ".k-picker-wrap, .k-dropdown-wrap, .k-link",
         MOUSEDOWN = "down",
         WINDOW = $(window),
@@ -124,7 +125,7 @@ kendo_module({
                     }
 
                     if (options.anchor != BODY) {
-                        direction = anchor.hasClass(ACTIVEBORDER + "-down") ? "down" : "up";
+                        direction = (anchor[0].className.match(ACTIVEBORDERREGEXP) || ["", "down"])[1];
                         dirClass = ACTIVEBORDER + "-" + direction;
 
                         anchor
@@ -170,6 +171,8 @@ kendo_module({
             collision: "flip fit",
             viewport: window,
             copyAnchorStyles: true,
+            autosize: false,
+            modal: false,
             animation: {
                 open: {
                     effects: "slideIn:down",
@@ -195,8 +198,10 @@ kendo_module({
                 $(options.toggleTarget).off(NS);
             }
 
-            DOCUMENT_ELEMENT.unbind(MOUSEDOWN, that._mousedownProxy);
-            WINDOW.unbind(RESIZE_SCROLL, that._resizeProxy);
+            if (!options.modal) {
+                DOCUMENT_ELEMENT.unbind(MOUSEDOWN, that._mousedownProxy);
+                WINDOW.unbind(RESIZE_SCROLL, that._resizeProxy);
+            }
 
             if (options.appendTo[0] === document.body) {
                 parent = element.parent(".k-animation-container");
@@ -229,16 +234,18 @@ kendo_module({
                     return;
                 }
 
-                DOCUMENT_ELEMENT.unbind(MOUSEDOWN, that._mousedownProxy)
+                if (!options.modal) {
+                    DOCUMENT_ELEMENT.unbind(MOUSEDOWN, that._mousedownProxy)
                                 .bind(MOUSEDOWN, that._mousedownProxy);
 
-                // this binding hangs iOS in editor
-                if (!(support.mobileOS.ios || support.mobileOS.android)) {
-                    WINDOW.unbind(RESIZE_SCROLL, that._resizeProxy)
-                          .bind(RESIZE_SCROLL, that._resizeProxy);
+                    // this binding hangs iOS in editor
+                    if (!(support.mobileOS.ios || support.mobileOS.android)) {
+                        WINDOW.unbind(RESIZE_SCROLL, that._resizeProxy)
+                              .bind(RESIZE_SCROLL, that._resizeProxy);
+                    }
                 }
 
-                that.wrapper = wrapper = kendo.wrap(element)
+                that.wrapper = wrapper = kendo.wrap(element, options.autosize)
                                         .css({
                                             overflow: HIDDEN,
                                             display: "block",
@@ -354,9 +361,16 @@ kendo_module({
                 anchor = $(options.anchor)[0],
                 toggleTarget = options.toggleTarget,
                 target = kendo.eventTarget(e),
-                popup = $(target).closest(".k-popup")[0];
+                popup = $(target).closest(".k-popup"),
+                mobile = popup.parent().parent(".km-shim").length;
 
-            if (popup && popup !== that.element[0] ){
+            popup = popup[0];
+            if (!mobile && popup && popup !== that.element[0]){
+                return;
+            }
+
+            // This MAY result in popup not closing in certain cases.
+            if ($(e.target).closest("a").data("rel") === "popover") {
                 return;
             }
 

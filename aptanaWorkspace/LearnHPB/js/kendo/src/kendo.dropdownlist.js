@@ -1,5 +1,5 @@
 /*
-* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Kendo UI Web v2013.3.1119 (http://kendoui.com)
 * Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
@@ -13,7 +13,13 @@ kendo_module({
     name: "DropDownList",
     category: "web",
     description: "The DropDownList widget displays a list of values and allows the selection of a single value from the list.",
-    depends: [ "list" ]
+    depends: [ "list" ],
+    features: [ {
+        id: "mobile-scroller",
+        name: "Mobile scroller",
+        description: "Support for kinetic scrolling in mobile device",
+        depends: [ "mobile.scroller" ]
+    } ]
 });
 
 (function($, undefined) {
@@ -25,7 +31,6 @@ kendo_module({
         DISABLED = "disabled",
         READONLY = "readonly",
         CHANGE = "change",
-        SELECT = "select",
         FOCUSED = "k-state-focused",
         DEFAULT = "k-state-default",
         STATEDISABLED = "k-state-disabled",
@@ -54,6 +59,8 @@ kendo_module({
             options = that.options;
             element = that.element.on("focus" + ns, that._focusHandler);
 
+            this._inputTemplate();
+
             that._reset();
 
             that._word = "";
@@ -71,29 +78,28 @@ kendo_module({
 
             that._mobile();
 
-            that._accessors();
-
             that._dataSource();
             that._ignoreCase();
 
             that._enable();
 
+            that._oldIndex = that.selectedIndex = -1;
+
             that._cascade();
 
-            that._oldIndex = that.selectedIndex = -1;
             if (index !== undefined) {
                 options.index = index;
             }
 
             if (options.autoBind) {
                 that.dataSource.fetch();
-            } else {
+            } else if (that.selectedIndex === -1) {
                 text = options.text || "";
                 if (!text) {
-                    optionLabel = that._optionLabelText(options.optionLabel),
+                    optionLabel = options.optionLabel,
                     useOptionLabel = optionLabel && options.index === 0;
 
-                    if (element.is(SELECT)) {
+                    if (that._isSelect) {
                         if (useOptionLabel) {
                             text = optionLabel;
                         } else {
@@ -104,7 +110,7 @@ kendo_module({
                     }
                 }
 
-                that.text(text);
+                that._textAccessor(text);
             }
 
             kendo.notify(that);
@@ -118,12 +124,14 @@ kendo_module({
             text: null,
             value: null,
             template: "",
+            valueTemplate: "",
             delay: 500,
             height: 200,
             dataTextField: "",
             dataValueField: "",
             optionLabel: "",
             cascadeFrom: "",
+            cascadeFromField: "",
             ignoreCase: true,
             animation: {}
         },
@@ -141,6 +149,7 @@ kendo_module({
             Select.fn.setOptions.call(this, options);
 
             this._template();
+            this._inputTemplate();
             this._accessors();
             this._aria();
         },
@@ -192,7 +201,7 @@ kendo_module({
                 that.popup._position();
             }
 
-            if (that.element.is(SELECT)) {
+            if (that._isSelect) {
                 if (optionLabel && length) {
                     optionLabel = that._optionLabelText(optionLabel);
                     optionLabel = '<option value="">' + optionLabel + "</option>";
@@ -209,15 +218,18 @@ kendo_module({
             that._hideBusy();
             that._makeUnselectable();
 
-            if (!that._fetch && length /*do set value when no data*/) {
-                that._selectItem();
+            if (!that._fetch) {
+                if (length) {
+                    that._selectItem();
+                } else if (that._textAccessor() !== optionLabel) {
+                    that.element.val("");
+                    that._textAccessor("");
+                }
             }
 
-            that._bound = true;
+            that._bound = !!length;
             that.trigger("dataBound");
         },
-
-
 
         search: function(word) {
             if (word) {
@@ -244,12 +256,34 @@ kendo_module({
         },
 
         text: function (text) {
-            var span = this.span;
+            var that = this;
+            var dataItem, loweredText;
+            var ignoreCase = that.options.ignoreCase;
+
+            text = text === null ? "" : text;
 
             if (text !== undefined) {
-                span.text(text);
+                if (typeof text === "string") {
+                    loweredText = ignoreCase ? text.toLowerCase() : text;
+
+                    dataItem = that._select(function(data) {
+                        data = that._text(data);
+
+                        if (ignoreCase) {
+                            data = (data + "").toLowerCase();
+                        }
+
+                        return data === loweredText;
+                    });
+
+                    if (dataItem) {
+                        text = dataItem;
+                    }
+                }
+
+                that._textAccessor(text);
             } else {
-                return span.text();
+                return that._textAccessor();
             }
         },
 
@@ -282,7 +316,27 @@ kendo_module({
                 disable = options.disable,
                 readonly = options.readonly,
                 wrapper = that.wrapper.off(ns),
-                dropDownWrapper = that._inputWrapper.off(HOVEREVENTS);
+                dropDownWrapper = that._inputWrapper.off(HOVEREVENTS),
+                focusin = function() {
+                    dropDownWrapper.addClass(FOCUSED);
+                    that._blured = false;
+                },
+                focusout = function() {
+                    if (!that._blured) {
+                        that._triggerCascade();
+
+                        var isIFrame = window.self !== window.top;
+                        if (kendo.support.mobileOS.ios && isIFrame) {
+                            that._change();
+                        } else {
+                            that._blur();
+                        }
+
+                        dropDownWrapper.removeClass(FOCUSED);
+                        that._blured = true;
+                        element.blur();
+                    }
+                };
 
             if (!readonly && !disable) {
                 element.removeAttr(DISABLED).removeAttr(READONLY);
@@ -303,20 +357,8 @@ kendo_module({
                     })
                     .on("keydown" + ns, proxy(that._keydown, that))
                     .on("keypress" + ns, proxy(that._keypress, that))
-                    .on("focusin" + ns, function() {
-                        dropDownWrapper.addClass(FOCUSED);
-                        that._blured = false;
-                    })
-                    .on("focusout" + ns, function() {
-                        if (!that._blured) {
-                            that._triggerCascade();
-                            that._blur();
-                            dropDownWrapper.removeClass(FOCUSED);
-
-                            that._blured = true;
-                            element.blur();
-                        }
-                    });
+                    .on("focusin" + ns, focusin)
+                    .on("focusout" + ns, focusout);
 
             } else {
                 if (disable) {
@@ -328,6 +370,10 @@ kendo_module({
                     dropDownWrapper
                         .addClass(DEFAULT)
                         .removeClass(STATEDISABLED);
+
+                    wrapper
+                        .on("focusin" + ns, focusin)
+                        .on("focusout" + ns, focusout);
                 }
 
                 element.attr(DISABLED, disable)
@@ -413,24 +459,37 @@ kendo_module({
             }
         },
 
-        _selectNext: function(character, index) {
-            var that = this,
-                ignoreCase = that.options.ignoreCase,
+        _selectNext: function(word, index) {
+            var that = this, text,
+                startIndex = index,
                 data = that._data(),
                 length = data.length,
-                text;
-
-            for (; index < length; index++) {
-                text = that._text(data[index]);
-                if (text) {
+                ignoreCase = that.options.ignoreCase,
+                action = function(text, index) {
                     text = text + "";
                     if (ignoreCase) {
                         text = text.toLowerCase();
                     }
 
-                    if (text.indexOf(character) === 0) {
+                    if (text.indexOf(word) === 0) {
                         that._select(index);
                         that._triggerEvents();
+                        return true;
+                    }
+                };
+
+            for (; index < length; index++) {
+                text = that._text(data[index]);
+                if (text && action(text, index)) {
+                    return true;
+                }
+            }
+
+            if (startIndex > 0) {
+                index = 0;
+                for (; index <= startIndex; index++) {
+                    text = that._text(data[index]);
+                    if (text && action(text, index)) {
                         return true;
                     }
                 }
@@ -440,28 +499,36 @@ kendo_module({
         },
 
         _keypress: function(e) {
-            var that = this;
+            if (e.charCode === 0) {
+                return;
+            }
 
-            setTimeout(function() {
-                var character = String.fromCharCode(e.keyCode || e.charCode),
-                    index = that.selectedIndex;
+            var that = this,
+                character = String.fromCharCode(e.charCode || e.keyCode),
+                index = that.selectedIndex,
+                word = that._word;
 
-                if (that.options.ignoreCase) {
-                    character = character.toLowerCase();
+            if (that.options.ignoreCase) {
+                character = character.toLowerCase();
+            }
+
+            if (character === " ") {
+                e.preventDefault();
+            }
+
+            if (that._last === character && word.length <= 1 && index > -1) {
+                if (!word) {
+                    word = character;
                 }
 
-                if (character === that._last && index > -1) {
-                    that._word = character;
-                    if (that._selectNext(character, index + 1)) {
-                        return;
-                    }
-                } else {
-                    that._word += character;
+                if (that._selectNext(word, index + 1)) {
+                    return;
                 }
+            }
 
-                that._last = character;
-                that._search();
-            });
+            that._word = word + character;
+            that._last = character;
+            that._search();
         },
 
         _popup: function() {
@@ -475,6 +542,7 @@ kendo_module({
         _search: function() {
             var that = this,
                 dataSource = that.dataSource,
+                index = that.selectedIndex,
                 word = that._word;
 
             clearTimeout(that._typing);
@@ -486,22 +554,21 @@ kendo_module({
             if (!that.ul[0].firstChild) {
                 dataSource.one(CHANGE, function () {
                     if (dataSource.data()[0]) {
-                        that.search(word);
+                        that._selectNext(word, index);
                     }
                 }).fetch();
                 return;
             }
 
-            that.search(word);
+            that._selectNext(word, index);
             that._triggerEvents();
         },
 
         _select: function(li) {
             var that = this,
                 current = that._current,
-                data = that._data(),
+                data = null,
                 value,
-                text,
                 idx;
 
             li = that._get(li);
@@ -513,13 +580,12 @@ kendo_module({
 
                 idx = ui.List.inArray(li[0], that.ul[0]);
                 if (idx > -1) {
-                    data = data[idx];
-                    text = that._text(data);
+                    data = that._data()[idx];
                     value = that._value(data);
                     that.selectedIndex = idx;
 
-                    that.text(text);
-                    that._accessor(value !== undefined ? value : text, idx);
+                    that._textAccessor(data);
+                    that._accessor(value !== undefined ? value : that._text(data), idx);
                     that._selectedValue = that._accessor();
 
                     that.current(li.addClass(SELECTED));
@@ -529,6 +595,8 @@ kendo_module({
                     }
                 }
             }
+
+            return data;
         },
 
         _triggerEvents: function() {
@@ -604,9 +672,47 @@ kendo_module({
                 return;
             }
 
-            that.text(optionLabel);
-            that.element.val("");
             that.selectedIndex = -1;
+
+            that.element.val("");
+            that._textAccessor(optionLabel);
+        },
+
+        _inputTemplate: function() {
+            var that = this,
+                template = that.options.valueTemplate;
+
+
+            if (!template) {
+                template = $.proxy(kendo.template('#:this._text(data)#'), that);
+            } else {
+                template = kendo.template(template);
+            }
+
+            that.valueTemplate = template;
+        },
+
+        _textAccessor: function(text) {
+            var dataItem = this.dataItem();
+            var span = this.span;
+
+            if (text !== undefined) {
+                if ($.isPlainObject(text) || text instanceof kendo.data.ObservableObject) {
+                    dataItem = text;
+                } else if (!dataItem || this._text(dataItem) !== text) {
+                    if (this.options.dataTextField) {
+                        dataItem = {};
+                        dataItem[this.options.dataTextField] = text;
+                        dataItem[this.options.dataValueField] = this._accessor();
+                    } else {
+                        dataItem = text;
+                    }
+                }
+
+                span.html(this.valueTemplate(dataItem));
+            } else {
+                return span.text();
+            }
         }
     });
 

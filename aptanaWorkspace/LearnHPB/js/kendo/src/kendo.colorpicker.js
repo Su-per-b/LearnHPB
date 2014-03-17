@@ -1,5 +1,5 @@
 /*
-* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Kendo UI Web v2013.3.1119 (http://kendoui.com)
 * Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
@@ -26,7 +26,6 @@ kendo_module({
         Widget = ui.Widget,
         KEYS = kendo.keys,
         BACKGROUNDCOLOR = "background-color",
-        UNSELECTABLE = "unselectable",
         ITEMSELECTEDCLASS = "k-state-selected",
         SIMPLEPALETTE = "000000,7f7f7f,880015,ed1c24,ff7f27,fff200,22b14c,00a2e8,3f48cc,a349a4,ffffff,c3c3c3,b97a57,ffaec9,ffc90e,efe4b0,b5e61d,99d9ea,7092be,c8bfe7",
         WEBPALETTE = "FFFFFF,FFCCFF,FF99FF,FF66FF,FF33FF,FF00FF,CCFFFF,CCCCFF,CC99FF,CC66FF,CC33FF,CC00FF,99FFFF,99CCFF,9999FF,9966FF,9933FF,9900FF,FFFFCC,FFCCCC,FF99CC,FF66CC,FF33CC,FF00CC,CCFFCC,CCCCCC,CC99CC,CC66CC,CC33CC,CC00CC,99FFCC,99CCCC,9999CC,9966CC,9933CC,9900CC,FFFF99,FFCC99,FF9999,FF6699,FF3399,FF0099,CCFF99,CCCC99,CC9999,CC6699,CC3399,CC0099,99FF99,99CC99,999999,996699,993399,990099,FFFF66,FFCC66,FF9966,FF6666,FF3366,FF0066,CCFF66,CCCC66,CC9966,CC6666,CC3366,CC0066,99FF66,99CC66,999966,996666,993366,990066,FFFF33,FFCC33,FF9933,FF6633,FF3333,FF0033,CCFF33,CCCC33,CC9933,CC6633,CC3333,CC0033,99FF33,99CC33,999933,996633,993333,990033,FFFF00,FFCC00,FF9900,FF6600,FF3300,FF0000,CCFF00,CCCC00,CC9900,CC6600,CC3300,CC0000,99FF00,99CC00,999900,996600,993300,990000,66FFFF,66CCFF,6699FF,6666FF,6633FF,6600FF,33FFFF,33CCFF,3399FF,3366FF,3333FF,3300FF,00FFFF,00CCFF,0099FF,0066FF,0033FF,0000FF,66FFCC,66CCCC,6699CC,6666CC,6633CC,6600CC,33FFCC,33CCCC,3399CC,3366CC,3333CC,3300CC,00FFCC,00CCCC,0099CC,0066CC,0033CC,0000CC,66FF99,66CC99,669999,666699,663399,660099,33FF99,33CC99,339999,336699,333399,330099,00FF99,00CC99,009999,006699,003399,000099,66FF66,66CC66,669966,666666,663366,660066,33FF66,33CC66,339966,336666,333366,330066,00FF66,00CC66,009966,006666,003366,000066,66FF33,66CC33,669933,666633,663333,660033,33FF33,33CC33,339933,336633,333333,330033,00FF33,00CC33,009933,006633,003333,000033,66FF00,66CC00,669900,666600,663300,660000,33FF00,33CC00,339900,336600,333300,330000,00FF00,00CC00,009900,006600,003300,000000",
@@ -60,13 +59,19 @@ kendo_module({
             }
         },
         options: {
+            name: "ColorSelector",
             value: null,
             _standalone: true
         },
-        events: [ "change", "select", "cancel" ],
+        events: [
+            "change",
+            "select",
+            "cancel"
+        ],
         color: function(value) {
             if (value !== undefined) {
-                this._updateUI(this._value = parse(value));
+                this._value = parse(value);
+                this._updateUI(this._value);
             }
 
             return this._value;
@@ -174,15 +179,15 @@ kendo_module({
 
             element.addClass("k-widget k-colorpalette")
                 .append($(that._template({
-                    colors: colors,
-                    tileSize: options.tileSize,
-                    value: that._value,
-                    id: options.ariaId
+                    colors   : colors,
+                    columns  : options.columns,
+                    tileSize : options.tileSize,
+                    value    : that._value,
+                    id       : options.ariaId
                 })))
                 .on(CLICK_NS, ".k-item", function(ev){
-                    that._select($(ev.currentTarget).find("div").css(BACKGROUNDCOLOR));
+                    that._select($(ev.currentTarget).css(BACKGROUNDCOLOR));
                 })
-                .find("*").attr(UNSELECTABLE, "on").end()
                 .attr("tabIndex", 0)
                 .on(KEYDOWN_NS, bind(that._keydown, that));
 
@@ -197,10 +202,6 @@ kendo_module({
                     throw new Error("Unsupported value for the 'tileSize' argument");
                 }
                 element.find(".k-item").css({ width: width, height: height });
-            }
-
-            if (options.columns) {
-                element.css("width", options.columns * (width || 14));
             }
         },
         focus: function(){
@@ -238,7 +239,7 @@ kendo_module({
             } else if (keyCode == KEYS.ENTER) {
                 preventDefault(e);
                 if (current) {
-                    this._select($("div", current).css(BACKGROUNDCOLOR));
+                    this._select($(current).css(BACKGROUNDCOLOR));
                 }
             } else if (keyCode == KEYS.ESC) {
                 this._cancel();
@@ -254,7 +255,7 @@ kendo_module({
                 selected.addClass(ITEMSELECTEDCLASS).attr("aria-selected", true);
 
                 try {
-                    var color = parse(selected.find("div").css(BACKGROUNDCOLOR));
+                    var color = parse(selected.css(BACKGROUNDCOLOR));
                     that._triggerSelect(color);
                 } catch(ex) {}
             }
@@ -267,24 +268,23 @@ kendo_module({
                 .removeClass(ITEMSELECTEDCLASS)
                 .removeAttr("aria-selected");
 
-            that.wrapper.find(".k-item div").each(function(){
+            that.wrapper.find(".k-item").each(function(){
                 var c = parse($(this).css(BACKGROUNDCOLOR));
 
                 if (c && c.equals(color)) {
-                    el = this.parentNode;
+                    el = this;
                 }
             });
 
             $(el).addClass(ITEMSELECTEDCLASS).attr("aria-selected", true);
         },
         _template: kendo.template(
-            '<ul class="k-palette k-reset">'+
-            '# for (var i = 0; i < colors.length; i++) { #' +
-                '<li #=(id && i === 0) ? "id=\\""+id+"\\" aria-selected=\\"true\\"" : "" # class="k-item #= colors[i].equals(value) ? "' + ITEMSELECTEDCLASS + '" : "" #" aria-label="#= colors[i].toCss() #">' +
-                    '<div style="background-color:#= colors[i].toCss() #"></div>' +
-                '</li>' +
-            '# } #' +
-            '</ul>'
+            '<table class="k-palette k-reset"><tr>' +
+              '# for (var i = 0; i < colors.length; ++i) { #' +
+                '# if (i && i % columns == 0) { # </tr><tr> # } #' +
+                '<td unselectable="on" style="background-color:#= colors[i].toCss() #" #=(id && i === 0) ? "id=\\""+id+"\\" aria-selected=\\"true\\"" : "" # class="k-item #= colors[i].equals(value) ? "' + ITEMSELECTEDCLASS + '" : "" #" aria-label="#= colors[i].toCss() #"></td>' +
+              '# } #' +
+            '</tr></table>'
         )
     });
 
@@ -296,13 +296,7 @@ kendo_module({
             element = that.element;
 
             that.wrapper = element.addClass("k-widget k-flatcolorpicker")
-                .append(that._template(options))
-                .find("*").attr(UNSELECTABLE, "on").end();
-
-            if (isIE8) {
-                // IE filters require absolute URLs
-                that._applyIEFilter();
-            }
+                .append(that._template(options));
 
             that._hueElements = $(".k-hsv-rectangle, .k-transparency-slider .k-slider-track", element);
 
@@ -318,17 +312,25 @@ kendo_module({
 
             element
                 .find("input.k-color-value").on(KEYDOWN_NS, function(ev){
+                    var input = this;
                     if (ev.keyCode == KEYS.ENTER) {
                         try {
-                            var color = parse(this.value);
+                            var color = parse(input.value);
                             var val = that.color();
-                            $(this).removeClass("k-state-error");
-                            that._select(color, !color.equals(val));
+                            that._select(color, color.equals(val));
                         } catch(ex) {
-                            $(this).addClass("k-state-error");
+                            $(input).addClass("k-state-error");
                         }
+                    } else if (that.options.autoupdate) {
+                        setTimeout(function(){
+                            var color = parse(input.value, true);
+                            if (color) {
+                                that._updateUI(color, true);
+                            }
+                        }, 10);
                     }
                 }).end()
+
                 .on(CLICK_NS, ".k-controls button.apply", function(){
                     // calling select for the currently displayed
                     // color will trigger the "change" event.
@@ -340,6 +342,11 @@ kendo_module({
                     that._updateUI(that.color());
                     that._cancel();
                 });
+
+            if (isIE8) {
+                // IE filters require absolute URLs
+                that._applyIEFilter();
+            }
         },
         destroy: function() {
             this._hueSlider.destroy();
@@ -351,12 +358,13 @@ kendo_module({
             ColorSelector.fn.destroy.call(this);
         },
         options: {
-            name: "FlatColorPicker",
-            opacity: false,
-            buttons: false,
-            input: true,
-            preview: true,
-            messages: APPLY_CANCEL
+            name       : "FlatColorPicker",
+            opacity    : false,
+            buttons    : false,
+            input      : true,
+            preview    : true,
+            autoupdate : true,
+            messages   : APPLY_CANCEL
         },
         _applyIEFilter: function() {
             var track = this.element.find(".k-hue-slider .k-slider-track")[0],
@@ -530,7 +538,7 @@ kendo_module({
             var color = this._getHSV(null, s, v, null);
             this._updateUI(color);
         },
-        _updateUI: function(color) {
+        _updateUI: function(color, dontChangeInput) {
             var that = this,
                 rect = that._hsvRect;
 
@@ -538,8 +546,12 @@ kendo_module({
                 return;
             }
 
+            this._colorAsText.removeClass("k-state-error");
+
             that._selectedColor.css(BACKGROUNDCOLOR, color.toDisplay());
-            that._colorAsText.val(that._opacitySlider ? color.toCssRgba() : color.toCss());
+            if (!dontChangeInput) {
+                that._colorAsText.val(that._opacitySlider ? color.toCssRgba() : color.toCss());
+            }
             that._triggerSelect(color);
 
             color = color.toHSV();
@@ -562,7 +574,7 @@ kendo_module({
         },
         _template: kendo.template(
             '# if (preview) { #' +
-                '<div class="k-selected-color"><div class="k-selected-color-display"><input spellcheck="false" class="k-color-value" #= !data.input ? \'style=\"visibility: hidden;\"\' : \"\" #></div></div>' +
+                '<div class="k-selected-color"><div class="k-selected-color-display"><input class="k-color-value" #= !data.input ? \'style=\"visibility: hidden;\"\' : \"\" #></div></div>' +
             '# } #' +
             '<div class="k-hsv-rectangle"><div class="k-hsv-gradient"></div><div class="k-draghandle"></div></div>' +
             '<input class="k-hue-slider" />' +
@@ -570,7 +582,7 @@ kendo_module({
                 '<input class="k-transparency-slider" />' +
             '# } #' +
             '# if (buttons) { #' +
-                '<div class="k-controls"><button class="k-button apply">#: messages.apply #</button> <button class="k-button cancel">#: messages.cancel #</button></div>' +
+                '<div unselectable="on" class="k-controls"><button class="k-button apply">#: messages.apply #</button> <button class="k-button cancel">#: messages.cancel #</button></div>' +
             '# } #'
         )
     });
@@ -606,7 +618,7 @@ kendo_module({
             }
             return this.toCssRgba();
         },
-        equals: function(c) { return c === this || c !== null && this.toHex() == parse(c).toHex(); },
+        equals: function(c) { return c === this || c !== null && this.toCssRgba() == parse(c).toCssRgba(); },
         diff: function(c2) {
             if (c2 == null) {
                 return NaN;
@@ -790,9 +802,9 @@ kendo_module({
             options = that.options;
             element = that.element;
 
-            var value;
-            if (element.val()) {
-                value = parse(element.val(), true);
+            var value = element.attr("value") || element.val();
+            if (value) {
+                value = parse(value, true);
             } else {
                 value = parse(options.value, true);
             }
@@ -822,7 +834,7 @@ kendo_module({
             that._updateUI(value);
         },
         destroy: function() {
-            this.wrapper.add("*").off(NS);
+            this.wrapper.off(NS).find("*").off(NS);
             if (this._popup) {
                 this._selector.destroy();
                 this._popup.destroy();
@@ -845,6 +857,10 @@ kendo_module({
 
             icon.off(NS).on("mousedown" + NS, preventDefault);
 
+            wrapper.addClass("k-state-disabled")
+                .removeAttr("tabIndex")
+                .add("*", wrapper).off(NS);
+
             if (enable) {
                 wrapper.removeClass("k-state-disabled")
                     .attr("tabIndex", 0)
@@ -857,10 +873,6 @@ kendo_module({
                     .on(CLICK_NS, that.options.toolIcon ? ".k-tool-icon" : ".k-selected-color", function(){
                         that.trigger("activate");
                     });
-            } else {
-                wrapper.addClass("k-state-disabled")
-                    .removeAttr("tabIndex")
-                    .add("*", wrapper).off(NS);
             }
         },
 
@@ -957,6 +969,9 @@ kendo_module({
                 }
 
                 options._standalone = false;
+                delete options.select;
+                delete options.change;
+                delete options.cancel;
 
                 var selector = this._selector = new selectorType($("<div />").appendTo(document.body), options);
 
@@ -981,6 +996,7 @@ kendo_module({
                             ev.preventDefault();
                             return;
                         }
+                        that.wrapper.children(".k-picker-wrap").removeClass("k-state-focused");
                         var color = selector._selectOnHide();
                         if (!color) {
                             that.wrapper.focus();
@@ -992,11 +1008,14 @@ kendo_module({
                     open: function(ev) {
                         if (that.trigger("open")) {
                             ev.preventDefault();
+                        } else {
+                            that.wrapper.children(".k-picker-wrap").addClass("k-state-focused");
                         }
                     },
                     activate: function(){
                         selector._select(that.color(), true);
                         selector.focus();
+                        that.wrapper.children(".k-picker-wrap").addClass("k-state-focused");
                     }
                 });
             }

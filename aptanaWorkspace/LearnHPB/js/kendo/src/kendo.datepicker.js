@@ -1,5 +1,5 @@
 /*
-* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Kendo UI Web v2013.3.1119 (http://kendoui.com)
 * Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
@@ -138,6 +138,7 @@ kendo_module({
                 calendar.min(options.min);
                 calendar.max(options.max);
 
+                calendar._value = null;
                 calendar.navigate(that._value || that._current, options.start);
                 that.value(that._value);
             }
@@ -336,7 +337,12 @@ kendo_module({
 
             that._icon();
 
-            element[0].type = "text";
+            try {
+                element[0].setAttribute("type", "text");
+            } catch(e) {
+                element[0].type = "text";
+            }
+
             element
                 .addClass("k-input")
                 .attr({
@@ -356,7 +362,8 @@ kendo_module({
                 that.readonly(element.is("[readonly]"));
             }
 
-            that.value(options.value || that.element.val());
+            that._old = that._update(options.value || that.element.val());
+            that._oldText = element.val();
 
             kendo.notify(that);
         },
@@ -647,7 +654,8 @@ kendo_module({
         _reset: function() {
             var that = this,
                 element = that.element,
-                form = element.closest("form");
+                formId = element.attr("form"),
+                form = formId ? $("#" + formId) : element.closest("form");
 
             if (form[0]) {
                 that._resetHandler = function() {

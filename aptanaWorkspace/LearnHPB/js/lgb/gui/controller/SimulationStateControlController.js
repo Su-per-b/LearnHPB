@@ -2,6 +2,7 @@ goog.provide('lgb.gui.controller.SimulationStateControlController');
 
 goog.require('lgb.core.BaseController');
 goog.require('lgb.gui.view.SimulationStateControlGUIh');
+goog.require('lgb.gui.view.SimulationStateControlGUI');
 
 
 goog.require('lgb.gui.model.BaseGuiModel');
@@ -28,7 +29,8 @@ lgb.gui.controller.SimulationStateControlController.prototype.init = function(si
   this.simulationMainController_ = simulationMainController;
   this.dataModel = this.simulationMainController_.getDataModel();
     
-  this.guiView = new lgb.gui.view.SimulationStateControlGUIh(this.dataModel);
+  this.guiView = new lgb.SimulationStateControlGUI(this.dataModel);
+  
   
   this.bind_();
   this.triggerGUI();

@@ -9,8 +9,8 @@ goog.require('lgb.scenario.view.BaseView');
 goog.require('lgb.scenario.view.Decimal');
 
 
-lgb.scenario.view.Temperature = function(dataModel, debugFlag) {
-  lgb.scenario.view.Decimal.call(this, dataModel, debugFlag);
+lgb.scenario.view.Temperature = function(dataModel, debugFlag, unit) {
+  lgb.scenario.view.Decimal.call(this, dataModel, debugFlag, unit);
 };
 goog.inherits(lgb.scenario.view.Temperature, lgb.scenario.view.Decimal);
 

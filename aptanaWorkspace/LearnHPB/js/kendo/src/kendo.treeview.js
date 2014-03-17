@@ -1,5 +1,5 @@
 /*
-* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Kendo UI Web v2013.3.1119 (http://kendoui.com)
 * Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
@@ -32,6 +32,7 @@ kendo_module({
         NAVIGATE = "navigate",
         EXPAND = "expand",
         CHANGE = "change",
+        ERROR = "error",
         CHECKED = "checked",
         COLLAPSE = "collapse",
         DRAGSTART = "dragstart",
@@ -51,6 +52,7 @@ kendo_module({
         ARIADISABLED = "aria-disabled",
         TreeView,
         subGroup, nodeContents, nodeIcon,
+        spriteRe,
         bindings = {
             text: "dataTextField",
             url: "dataUrlField",
@@ -76,6 +78,10 @@ kendo_module({
         };
     }
 
+    function templateNoWith(code) {
+        return kendo.template(code, { useWithBlock: false });
+    }
+
     subGroup = contentChild(".k-group");
     nodeContents = contentChild(".k-group,.k-content");
     nodeIcon = function(node) {
@@ -86,13 +92,50 @@ kendo_module({
         return node.children("div").find(".k-checkbox:first :checkbox");
     }
 
+    function insertAction(indexOffset) {
+        return function (nodeData, referenceNode) {
+            referenceNode = referenceNode.closest(NODE);
+
+            var group = referenceNode.parent(),
+                parentNode;
+
+            if (group.parent().is("li")) {
+                parentNode = group.parent();
+            }
+
+            return this._dataSourceMove(nodeData, group, parentNode, function (dataSource, model) {
+                return this._insert(dataSource.data(), model, referenceNode.index() + indexOffset);
+            });
+        };
+    }
+
+    spriteRe = /k-sprite/;
+
+    function moveContents(node, container) {
+        var tmp;
+
+        while (node && node.nodeName.toLowerCase() != "ul") {
+            tmp = node;
+            node = node.nextSibling;
+
+            if (tmp.nodeType == 3) {
+                tmp.nodeValue = $.trim(tmp.nodeValue);
+            }
+
+            if (spriteRe.test(tmp.className)) {
+                container.insertBefore(tmp, container.firstChild);
+            } else {
+                container.appendChild(tmp);
+            }
+        }
+    }
+
     function updateNodeHtml(node) {
         var wrapper = node.children("div"),
             group = node.children("ul"),
             toggleButton = wrapper.children(".k-icon"),
             checkbox = node.children(":checkbox"),
-            innerWrapper = wrapper.children(".k-in"),
-            currentNode, tmp;
+            innerWrapper = wrapper.children(".k-in");
 
         if (node.hasClass("k-treeview")) {
             return;
@@ -114,21 +157,16 @@ kendo_module({
         }
 
         if (!innerWrapper.length) {
-            innerWrapper = $("<span class='k-in' />").appendTo(wrapper)[0];
+            innerWrapper = node.children("a").eq(0).addClass("k-in");
 
-            // move all non-group content in the k-in container
-            currentNode = wrapper[0].nextSibling;
-            innerWrapper = wrapper.find(".k-in")[0];
+            if (!innerWrapper.length) {
+                innerWrapper = $("<span class='k-in' />");
+            }
 
-            while (currentNode && currentNode.nodeName.toLowerCase() != "ul") {
-                tmp = currentNode;
-                currentNode = currentNode.nextSibling;
+            innerWrapper.appendTo(wrapper);
 
-                if (tmp.nodeType == 3) {
-                    tmp.nodeValue = $.trim(tmp.nodeValue);
-                }
-
-                innerWrapper.appendChild(tmp);
+            if (wrapper.length) {
+                moveContents(wrapper[0].nextSibling, innerWrapper[0]);
             }
         }
     }
@@ -137,7 +175,9 @@ kendo_module({
         init: function (element, options) {
             var that = this,
                 dataInit,
-                inferred = false;
+                inferred = false,
+                hasDataSource = options && !!options.dataSource,
+                list;
 
             if (isArray(options)) {
                 dataInit = true;
@@ -153,10 +193,13 @@ kendo_module({
             element = that.element;
             options = that.options;
 
-            inferred = element.is("ul") || element.hasClass(KTREEVIEW);
+            list = (element.is("ul") && element) ||
+                   (element.hasClass(KTREEVIEW) && element.children("ul"));
+
+            inferred = !hasDataSource && list.length;
 
             if (inferred) {
-                options.dataSource.list = element.is("ul") ? element : element.children("ul");
+                options.dataSource.list = list;
             }
 
             that._animation();
@@ -169,7 +212,7 @@ kendo_module({
             if (!element.hasClass(KTREEVIEW)) {
                 that._wrapper();
 
-                if (inferred) {
+                if (list) {
                     that.root = element;
                     that._group(that.wrapper);
                 }
@@ -189,9 +232,7 @@ kendo_module({
 
             that._attachEvents();
 
-            if (options.dragAndDrop) {
-                that.dragging = new TreeViewDragAndDrop(that);
-            }
+            that._dragging();
 
             if (!inferred) {
                 if (options.autoBind) {
@@ -203,7 +244,7 @@ kendo_module({
             }
 
             if (options.checkboxes && options.checkboxes.checkChildren) {
-                that._updateIndeterminateInitial(that.wrapper);
+                that.updateIndeterminate();
             }
 
             if (that.element[0].id) {
@@ -229,8 +270,9 @@ kendo_module({
                 .on("mousedown" + NS, ".k-in,.k-checkbox :checkbox,.k-plus,.k-minus", proxy(that._mousedown, that))
                 .on("change" + NS, ".k-checkbox :checkbox", proxy(that._checkboxChange, that))
                 .on("click" + NS, ".k-checkbox :checkbox", proxy(that._checkboxClick, that))
+                .on("click" + NS, ".k-request-retry", proxy(that._retryRequest, that))
                 .on("click" + NS, function(e) {
-                    if (!$(e.target).is(":focusable")) {
+                    if (!$(e.target).is(":kendoFocusable")) {
                         that.focus();
                     }
                 });
@@ -284,6 +326,18 @@ kendo_module({
             options.animation = animationOptions;
         },
 
+        _dragging: function() {
+            var enabled = this.options.dragAndDrop;
+            var dragging = this.dragging;
+
+            if (enabled && !dragging) {
+                this.dragging = new TreeViewDragAndDrop(this);
+            } else if (!enabled && dragging) {
+                dragging.destroy();
+                this.dragging = null;
+            }
+        },
+
         _templates: function() {
             var that = this,
                 options = that.options,
@@ -292,9 +346,9 @@ kendo_module({
             if (options.template && typeof options.template == STRING) {
                 options.template = template(options.template);
             } else if (!options.template) {
-                options.template = template(
-                    "# var text = " + fieldAccessor("text") + "(item); #" +
-                    "# if (typeof item.encoded != 'undefined' && item.encoded === false) {#" +
+                options.template = templateNoWith(
+                    "# var text = " + fieldAccessor("text") + "(data.item); #" +
+                    "# if (typeof data.item.encoded != 'undefined' && data.item.encoded === false) {#" +
                         "#= text #" +
                     "# } else { #" +
                         "#: text #" +
@@ -378,40 +432,41 @@ kendo_module({
 
                     return cssClass;
                 },
-                dragClue: template(
+                dragClue: templateNoWith(
                     "<div class='k-header k-drag-clue'>" +
-                        "<span class='k-icon k-drag-status'></span>" +
-                        "#= treeview.template(data) #" +
+                        "<span class='k-icon k-drag-status' />" +
+                        "#= data.treeview.template(data) #" +
                     "</div>"
                 ),
-                group: template(
-                    "<ul class='#= r.groupCssClass(group) #'#= r.groupAttributes(group) # role='group'>" +
-                        "#= renderItems(data) #" +
+                group: templateNoWith(
+                    "<ul class='#= data.r.groupCssClass(data.group) #'#= data.r.groupAttributes(data.group) # role='group'>" +
+                        "#= data.renderItems(data) #" +
                     "</ul>"
                 ),
-                itemContent: template(
-                    "# var imageUrl = " + fieldAccessor("imageUrl") + "(item); #" +
-                    "# var spriteCssClass = " + fieldAccessor("spriteCssClass") + "(item); #" +
+                itemContent: templateNoWith(
+                    "# var imageUrl = " + fieldAccessor("imageUrl") + "(data.item); #" +
+                    "# var spriteCssClass = " + fieldAccessor("spriteCssClass") + "(data.item); #" +
                     "# if (imageUrl) { #" +
                         "<img class='k-image' alt='' src='#= imageUrl #'>" +
                     "# } #" +
 
                     "# if (spriteCssClass) { #" +
-                        "<span class='k-sprite #= spriteCssClass #'></span>" +
+                        "<span class='k-sprite #= spriteCssClass #' />" +
                     "# } #" +
 
-                    "#= treeview.template(data) #"
+                    "#= data.treeview.template(data) #"
                 ),
-                itemElement: template(
+                itemElement: templateNoWith(
+                    "# var item = data.item, r = data.r; #" +
                     "# var url = " + fieldAccessor("url") + "(item); #" +
-                    "<div class='#= r.cssClass(group, item) #'>" +
+                    "<div class='#= r.cssClass(data.group, item) #'>" +
                         "# if (item.hasChildren) { #" +
-                            "<span class='#= r.toggleButtonClass(item) #' role='presentation'></span>" +
+                            "<span class='#= r.toggleButtonClass(item) #' role='presentation' />" +
                         "# } #" +
 
-                        "# if (treeview.checkboxes) { #" +
+                        "# if (data.treeview.checkboxes) { #" +
                             "<span class='k-checkbox' role='presentation'>" +
-                                "#= treeview.checkboxes.template(data) #" +
+                                "#= data.treeview.checkboxes.template(data) #" +
                             "</span>" +
                         "# } #" +
 
@@ -423,8 +478,9 @@ kendo_module({
                         "</#=tag#>" +
                     "</div>"
                 ),
-                item: template(
-                    "<li role='treeitem' class='#= r.wrapperCssClass(group, item) #'" +
+                item: templateNoWith(
+                    "# var item = data.item, r = data.r; #" +
+                    "<li role='treeitem' class='#= r.wrapperCssClass(data.group, item) #'" +
                         " " + kendo.attr("uid") + "='#= item.uid #'" +
                         "#=item.selected ? \"aria-selected='true'\" : ''#" +
                         "#=item.enabled === false ? \"aria-disabled='true'\" : ''#" +
@@ -432,8 +488,12 @@ kendo_module({
                         "#= r.itemElement(data) #" +
                     "</li>"
                 ),
-                loading: template(
+                loading: templateNoWith(
                     "<div class='k-icon k-loading' /> Loading..."
+                ),
+                retry: templateNoWith(
+                    "Request failed. " +
+                    "<button class='k-button k-request-retry'>Retry</button>"
                 )
             };
         },
@@ -448,6 +508,23 @@ kendo_module({
             this._dataSource();
 
             this.dataSource.fetch();
+        },
+
+        _bindDataSource: function() {
+            this._refreshHandler = proxy(this.refresh, this);
+            this._errorHandler = proxy(this._error, this);
+
+            this.dataSource.bind(CHANGE, this._refreshHandler);
+            this.dataSource.bind(ERROR, this._errorHandler);
+        },
+
+        _unbindDataSource: function() {
+            var dataSource = this.dataSource;
+
+            if (dataSource) {
+                dataSource.unbind(CHANGE, this._refreshHandler);
+                dataSource.unbind(ERROR, this._errorHandler);
+            }
         },
 
         _dataSource: function(silentRead) {
@@ -467,11 +544,7 @@ kendo_module({
 
             dataSource = isArray(dataSource) ? { data: dataSource } : dataSource;
 
-            if (that.dataSource && that._refreshHandler) {
-                that.dataSource.unbind(CHANGE, that._refreshHandler);
-            } else {
-                that._refreshHandler = proxy(that.refresh, that);
-            }
+            that._unbindDataSource();
 
             if (!dataSource.fields) {
                 dataSource.fields = [
@@ -482,15 +555,15 @@ kendo_module({
                 ];
             }
 
-            that.dataSource = HierarchicalDataSource.create(dataSource);
+            that.dataSource = dataSource = HierarchicalDataSource.create(dataSource);
 
             if (silentRead) {
-                that.dataSource.fetch();
+                dataSource.fetch();
 
-                recursiveRead(that.dataSource.view());
+                recursiveRead(dataSource.view());
             }
 
-            that.dataSource.bind(CHANGE, that._refreshHandler);
+            that._bindDataSource();
         },
 
         events: [
@@ -553,6 +626,7 @@ kendo_module({
             }
         },
 
+        // generates accessor function for a given field name, honoring the data*Field arrays
         _fieldAccessor: function(fieldName) {
             var fieldBindings = this.options[bindings[fieldName]],
                 count = fieldBindings.length,
@@ -561,14 +635,12 @@ kendo_module({
             if (count === 0) {
                 result += "return item['" + fieldName + "'];";
             } else {
-                result += "var level = item.level();" +
-                          "var levels = [" +
+                result += "var levels = [" +
                             $.map(fieldBindings, function(x) {
                                 return "function(d){ return " + kendo.expr(x) + "}";
                             }).join(",") + "];";
 
-                // generates levels[level < 3 ? level : 2](item);
-                result += "return levels[Math.min(level, " + count + "-1)](item)";
+                result += "return levels[Math.min(item.level(), " + count + "-1)](item)";
             }
 
             result += "})";
@@ -577,23 +649,33 @@ kendo_module({
         },
 
         setOptions: function(options) {
-            var that = this;
+            Widget.fn.setOptions.call(this, options);
 
-            if (("dragAndDrop" in options) && options.dragAndDrop && !that.options.dragAndDrop) {
-                that.dragging = new TreeViewDragAndDrop(that);
-            }
+            this._animation();
 
-            Widget.fn.setOptions.call(that, options);
+            this._dragging();
 
-            that._animation();
-
-            that._templates();
+            this._templates();
         },
 
         _trigger: function (eventName, node) {
             return this.trigger(eventName, {
                 node: node.closest(NODE)[0]
             });
+        },
+
+        _setChecked: function(datasource, value) {
+            if (!datasource || !$.isFunction(datasource.view)) {
+                return;
+            }
+
+            for (var i = 0, nodes = datasource.view(); i < nodes.length; i++) {
+                nodes[i][CHECKED] = value;
+
+                if (nodes[i].children) {
+                    this._setChecked(nodes[i].children, value);
+                }
+            }
         },
 
         _setIndeterminate: function(node) {
@@ -609,7 +691,9 @@ kendo_module({
             siblings = checkboxes(group.children());
             length = siblings.length;
 
-            if (length > 1) {
+            if (!length) {
+                return;
+            } else if (length > 1) {
                 for (i = 1; i < length; i++) {
                     if (siblings[i].checked != siblings[i-1].checked ||
                         siblings[i].indeterminate || siblings[i-1].indeterminate) {
@@ -627,25 +711,33 @@ kendo_module({
                 .prop(CHECKED, all && siblings[0].checked);
         },
 
-        _updateIndeterminateInitial: function(node) {
+        updateIndeterminate: function(node) {
+            // top-down update of inital indeterminate state for all nodes
+            node = node || this.wrapper;
+
             var subnodes = subGroup(node).children(), i;
 
             if (subnodes.length) {
                 for (i = 0; i < subnodes.length; i++) {
-                    this._updateIndeterminateInitial(subnodes.eq(i));
+                    this.updateIndeterminate(subnodes.eq(i));
                 }
 
                 this._setIndeterminate(node);
             }
         },
 
-        _updateIndeterminate: function(node) {
+        _bubbleIndeterminate: function(node) {
+            // bottom-up setting of indeterminate state of parent nodes
+            if (!node.length) {
+                return;
+            }
+
             var parentNode = this.parent(node),
                 checkbox;
 
             if (parentNode.length) {
                 this._setIndeterminate(parentNode);
-                checkbox = parentNode.children("div").find(".k-checkbox > :checkbox");
+                checkbox = parentNode.children("div").find(".k-checkbox :checkbox");
 
                 if (checkbox.prop("indeterminate") === false) {
                     this.dataItem(parentNode).set(CHECKED, checkbox.prop(CHECKED));
@@ -653,17 +745,16 @@ kendo_module({
                     this.dataItem(parentNode).checked = false;
                 }
 
-                this._updateIndeterminate(parentNode);
+                this._bubbleIndeterminate(parentNode);
             }
         },
 
         _checkboxChange: function(e) {
             var checkbox = $(e.target),
                 isChecked = checkbox.prop(CHECKED),
-                node = checkbox.closest(NODE),
-                that = this;
+                node = checkbox.closest(NODE);
 
-            that.dataItem(node).set(CHECKED, isChecked);
+            this.dataItem(node).set(CHECKED, isChecked);
         },
 
         _toggleButtonClick: function (e) {
@@ -708,18 +799,25 @@ kendo_module({
         focus: function() {
             var wrapper = this.wrapper,
                 scrollContainer = wrapper[0],
-                scrollTop,
-                body = document.body;
+                containers = [],
+                offsets = [],
+                documentElement = document.documentElement,
+                i;
 
             do {
                 scrollContainer = scrollContainer.parentNode;
-            } while (scrollContainer.scrollHeight <= scrollContainer.clientHeight && scrollContainer != body);
 
-            scrollTop = scrollContainer.scrollTop;
+                if (scrollContainer.scrollHeight > scrollContainer.clientHeight) {
+                    containers.push(scrollContainer);
+                    offsets.push(scrollContainer.scrollTop);
+                }
+            } while (scrollContainer != documentElement);
 
             wrapper.focus();
 
-            scrollContainer.scrollTop = scrollTop;
+            for (i = 0; i < containers.length; i++) {
+                containers[i].scrollTop = offsets[i];
+            }
         },
 
         _blur: function() {
@@ -766,20 +864,29 @@ kendo_module({
                 expanded = that._expanded(node),
                 result;
 
-            if (!node.length || !node.is(":visible")) {
-                result = that.root.children().eq(0);
-            } else if (expanded) {
-                result = subGroup(node).children().first();
-            } else {
+            function nextParent(node) {
                 while (node.length && !node.next().length) {
                     node = that.parent(node);
                 }
 
                 if (node.next().length) {
-                    result = node.next();
+                    return node.next();
                 } else {
-                    result = node;
+                    return node;
                 }
+            }
+
+            if (!node.length || !node.is(":visible")) {
+                result = that.root.children().eq(0);
+            } else if (expanded) {
+                result = subGroup(node).children().first();
+
+                // expanded node with no children
+                if (!result.length) {
+                    result = nextParent(node);
+                }
+            } else {
+                result = nextParent(node);
             }
 
             if (!that._enabled(result)) {
@@ -791,6 +898,7 @@ kendo_module({
 
         _previousVisible: function(node) {
             var that = this,
+                lastChild,
                 result;
 
             if (!node.length || node.prev().length) {
@@ -801,7 +909,13 @@ kendo_module({
                 }
 
                 while (that._expanded(result)) {
-                    result = subGroup(result).children().last();
+                    lastChild = subGroup(result).children().last();
+
+                    if (!lastChild.length) {
+                        break;
+                    }
+
+                    result = lastChild;
                 }
             } else {
                 result = that.parent(node) || node;
@@ -879,7 +993,7 @@ kendo_module({
 
         _click: function (e) {
             var that = this,
-                node = $(e.target),
+                node = $(e.currentTarget),
                 contents = nodeContents(node.closest(NODE)),
                 href = node.attr("href"),
                 shouldNavigate;
@@ -905,12 +1019,12 @@ kendo_module({
                 wrapper, root,
                 wrapperClasses = "k-widget k-treeview";
 
-            if (element.is("div")) {
-                wrapper = element;
-                root = wrapper.children("ul").eq(0);
-            } else { // element is ul
+            if (element.is("ul")) {
                 wrapper = element.wrap('<div />').parent();
                 root = element;
+            } else {
+                wrapper = element;
+                root = wrapper.children("ul").eq(0);
             }
 
             that.wrapper = wrapper.addClass(wrapperClasses);
@@ -1105,10 +1219,18 @@ kendo_module({
         _updateNode: function(field, items) {
             var that = this, i, node, item,
                 isChecked, isCollapsed,
-                context = { treeview: that.options, item: item };
+                context = { treeview: that.options, item: item },
+                shouldUpdate = false;
 
-            function setChecked() {
-                that.dataItem(this).set(CHECKED, isChecked);
+            function access() {
+                shouldUpdate = true;
+            }
+
+            function setCheckedState(root, state) {
+                root.find(".k-checkbox :checkbox")
+                    .prop(CHECKED, state)
+                    .data("indeterminate", false)
+                    .prop("indeterminate", false);
             }
 
             if (field == "selected") {
@@ -1126,26 +1248,35 @@ kendo_module({
                     node.attr(ARIASELECTED, false);
                 }
             } else {
+                if ($.inArray(field, that.options.dataTextField) >= 0) {
+                    shouldUpdate = true;
+                } else {
+                    context.item = items[0];
+                    context.item.bind("get", access);
+                    that.templates.itemContent(context);
+                    context.item.unbind("set", access);
+                }
+
                 for (i = 0; i < items.length; i++) {
                     context.item = item = items[i];
 
-                    if (field == "spriteCssClass" || field == "imageUrl" ||
-                        $.inArray(field, that.options.dataTextField) >= 0) {
+                    if (field == "spriteCssClass" || field == "imageUrl" || shouldUpdate) {
                         that.findByUid(item.uid).find(">div>.k-in").html(that.templates.itemContent(context));
-                    } else if (field == CHECKED) {
+                    }
+
+                    if (field == CHECKED) {
                         node = that.findByUid(item.uid);
 
                         isChecked = item[field];
 
-                        node.children("div").find(".k-checkbox :checkbox")
-                            .prop(CHECKED, item[field])
-                            .data("indeterminate", false)
-                            .prop("indeterminate", false);
+                        setCheckedState(node.children("div"), isChecked);
 
                         if (that.options.checkboxes.checkChildren) {
-                            node.find(".k-checkbox :checkbox").each(setChecked);
+                            setCheckedState(node.children(".k-group"), isChecked);
 
-                            that._updateIndeterminate(node);
+                            that._setChecked(item.children, isChecked);
+
+                            that._bubbleIndeterminate(node);
                         }
                     } else if (field == "expanded") {
                         that._toggle(that.findByUid(item.uid), item, item[field]);
@@ -1178,41 +1309,40 @@ kendo_module({
             }
         },
 
+        _appendItems: function(index, items, parentNode) {
+            var group = subGroup(parentNode);
+            var children = group.children();
+            var collapsed = !this._expanded(parentNode);
+
+            if (typeof index == UNDEFINED) {
+                index = children.length;
+            }
+
+            this._insertNode(items, index, parentNode, function(item, group) {
+                // insert node into DOM
+                if (index == children.length) {
+                    item.appendTo(group);
+                } else {
+                    item.insertBefore(children.eq(index));
+                }
+            }, collapsed);
+
+            if (this._expanded(parentNode)) {
+                this._updateNodeClasses(parentNode);
+                subGroup(parentNode).css("display", "block");
+            }
+        },
+
         refresh: function(e) {
             var that = this,
                 parentNode = that.wrapper,
                 node = e.node,
                 action = e.action,
                 items = e.items,
-                index = e.index,
                 options = that.options,
                 loadOnDemand = options.loadOnDemand,
                 checkChildren = options.checkboxes && options.checkboxes.checkChildren,
                 i;
-
-            function append(items, parentNode) {
-                var group = subGroup(parentNode),
-                    children = group.children(),
-                    collapsed = !that._expanded(parentNode);
-
-                if (typeof index == UNDEFINED) {
-                    index = children.length;
-                }
-
-                that._insertNode(items, index, parentNode, function(item, group) {
-                    // insert node into DOM
-                    if (index == children.length) {
-                        item.appendTo(group);
-                    } else {
-                        item.insertBefore(children.eq(index));
-                    }
-                }, collapsed);
-
-                if (that._expanded(parentNode)) {
-                    that._updateNodeClasses(parentNode);
-                    subGroup(parentNode).css("display", "block");
-                }
-            }
 
             if (e.field) {
                 return that._updateNode(e.field, items);
@@ -1230,14 +1360,20 @@ kendo_module({
             }
 
             if (action == "add") {
-                append(items, parentNode);
+                this._appendItems(e.index, items, parentNode);
             } else if (action == "remove") {
                 that._remove(that.findByUid(items[0].uid), false);
             } else {
                 if (node) {
                     subGroup(parentNode).empty();
 
-                    append(items, parentNode);
+                    if (!items.length) {
+                        updateNodeHtml(parentNode);
+                    } else {
+                        this._appendItems(e.index, items, parentNode);
+
+                        this._bubbleIndeterminate(subGroup(parentNode).children().last());
+                    }
                 } else {
                     that.root = that.wrapper.html(that._renderGroup({
                         items: items,
@@ -1258,6 +1394,27 @@ kendo_module({
             that.trigger(DATABOUND, {
                 node: node ? parentNode : undefined
             });
+        },
+
+        _error: function(e) {
+            var that = this,
+                node = e.node && that.findByUid(e.node.uid);
+
+            if (node) {
+                this._progress(node, false);
+                this._expanded(node, false);
+                nodeIcon(node).addClass("k-i-refresh");
+                e.node.loaded(false);
+            } else {
+                this._progress(false);
+                this.element.html(this.templates.retry);
+            }
+        },
+
+        _retryRequest: function(e) {
+            e.preventDefault();
+
+            this.dataSource.fetch();
         },
 
         expand: function (nodes) {
@@ -1375,7 +1532,7 @@ kendo_module({
                             }
                         }
                     }));
-                } else if (!loaded || (loaded && expand)) {
+                } else if (expand) {
                     if (options.loadOnDemand) {
                         that._progress(node, true);
                     }
@@ -1407,6 +1564,8 @@ kendo_module({
 
             that.element.off(NS);
 
+            that._unbindDataSource();
+
             if (that.dragging) {
                 that.dragging.destroy();
             }
@@ -1428,6 +1587,8 @@ kendo_module({
 
             if (dataItem) {
                 dataItem.set("expanded", value);
+                // necessary when expanding an item yields an error and the item is not expanded as a result
+                value = dataItem.expanded;
             }
 
             if (value) {
@@ -1451,7 +1612,7 @@ kendo_module({
                     element.empty();
                 }
             } else {
-                nodeIcon(node).toggleClass("k-loading", showProgress);
+                nodeIcon(node).toggleClass("k-loading", showProgress).removeClass("k-i-refresh");
             }
         },
 
@@ -1491,6 +1652,7 @@ kendo_module({
 
                     if (!destDataSource || !(destDataSource instanceof HierarchicalDataSource)) {
                         referenceDataItem._initChildren();
+                        referenceDataItem.loaded(true);
                         destDataSource = referenceDataItem.children;
                     }
                 }
@@ -1528,63 +1690,56 @@ kendo_module({
                 model = model.toJSON();
             }
 
+            var parentNode = data.parent();
+
+            if (parentNode) {
+                parentNode.hasChildren = true;
+                parentNode._initChildren();
+            }
+
             data.splice.apply(data, [ index, 0 ].concat(model));
 
             return this.findByUid(data[index].uid);
         },
 
-        insertAfter: function (nodeData, referenceNode) {
-            var group = referenceNode.parent(),
-                parentNode;
+        insertAfter: insertAction(1),
 
-            if (group.parent().is("li")) {
-                parentNode = group.parent();
-            }
+        insertBefore: insertAction(0),
 
-            return this._dataSourceMove(nodeData, group, parentNode, function (dataSource, model) {
-                return this._insert(dataSource.data(), model, referenceNode.index() + 1);
-            });
-        },
-
-        insertBefore: function (nodeData, referenceNode) {
-            var group = referenceNode.parent(),
-                parentNode;
-
-            if (group.parent().is("li")) {
-                parentNode = group.parent();
-            }
-
-            return this._dataSourceMove(nodeData, group, parentNode, function (dataSource, model) {
-                return this._insert(dataSource.data(), model, referenceNode.index());
-            });
-        },
-
-        append: function (nodeData, parentNode) {
+        append: function (nodeData, parentNode, success) {
             var that = this,
                 group = that.root;
+
+            success = success || $.noop;
 
             if (parentNode) {
                 group = subGroup(parentNode);
             }
 
             return that._dataSourceMove(nodeData, group, parentNode, function (dataSource, model) {
-                function add() {
-                    var data = dataSource.data(),
-                        index = Math.max(data.length, 0);
+                var inserted;
 
+                function add() {
                     if (parentNode) {
                         that._expanded(parentNode, true);
                     }
+
+                    var data = dataSource.data(),
+                        index = Math.max(data.length, 0);
 
                     return that._insert(data, model, index);
                 }
 
                 if (!dataSource.data()) {
-                    dataSource.one(CHANGE, add);
+                    dataSource.one(CHANGE, function() {
+                        success(add());
+                    });
 
                     return null;
                 } else {
-                    return add();
+                    inserted = add();
+                    success(inserted);
+                    return inserted;
                 }
             });
         },
@@ -1632,6 +1787,42 @@ kendo_module({
 
         findByUid: function(uid) {
             return this.element.find(".k-item[" + kendo.attr("uid") + "=" + uid + "]");
+        },
+
+        expandPath: function(path, complete) {
+            var dataSource = this.dataSource;
+            var node = dataSource.get(path[0]);
+            complete = complete || $.noop;
+
+            // expand loaded nodes
+            while (path.length > 0 && (node.expanded || node.loaded())) {
+                node.set("expanded", true);
+                path.shift();
+                node = dataSource.get(path[0]);
+            }
+
+            if (!path.length) {
+                return complete();
+            }
+
+            // expand async nodes
+            dataSource.bind("change", function expandLevel(e) {
+                // listen to the change event to know when the node has been loaded
+                var id = e.node && e.node.id;
+
+                // proceed if the change is caused by the last fetching
+                if (id && id === path[0]) {
+                    path.shift();
+
+                    if (path.length) {
+                        dataSource.get(path[0]).set("expanded", true);
+                    } else {
+                        complete();
+                    }
+                }
+            });
+
+            node.set("expanded", true);
         },
 
         _renderItem: function (options) {
@@ -1690,7 +1881,7 @@ kendo_module({
            },
            cursorOffset: {
                left: 10,
-               top: kendo.support.touch || kendo.support.pointers ? -40 / kendo.support.zoomLevel() : 10
+               top: kendo.support.touch || kendo.support.msPointers || kendo.support.pointers ? -40 / kendo.support.zoomLevel() : 10
            },
            dragstart: proxy(that.dragstart, that),
            dragcancel: proxy(that.dragcancel, that),
@@ -1828,7 +2019,7 @@ kendo_module({
                 destinationNode,
                 dropHint = that.dropHint,
                 dropTarget = that.dropTarget,
-                valid, dropPrevented;
+                e, dropPrevented;
 
             if (dropHint.css(VISIBILITY) == "visible") {
                 dropPosition = dropHint.prevAll(".k-in").length > 0 ? "after" : "before";
@@ -1842,41 +2033,50 @@ kendo_module({
                 }
             }
 
-            valid = that._hintStatus() != "k-denied";
-
-            dropPrevented = treeview.trigger(DROP, {
+            e = {
                 sourceNode: sourceNode[0],
                 destinationNode: destinationNode[0],
-                valid: valid,
-                setValid: function(newValid) { valid = newValid; },
+                valid: that._hintStatus() != "k-denied",
+                setValid: function(newValid) {
+                    this.valid = newValid;
+                },
                 dropTarget: dropTarget[0],
                 dropPosition: dropPosition
-            });
+            };
+
+            dropPrevented = treeview.trigger(DROP, e);
 
             dropHint.remove();
             that._removeTouchHover();
 
-            if (!valid || dropPrevented) {
-                that._draggable.dropped = valid;
+            if (!e.valid || dropPrevented) {
+                that._draggable.dropped = e.valid;
                 return;
             }
 
             that._draggable.dropped = true;
 
-            // perform reorder / move
-            if (dropPosition == "over") {
-                sourceNode = treeview.append(sourceNode, destinationNode);
-            } else if (dropPosition == "before") {
-                sourceNode = treeview.insertBefore(sourceNode, destinationNode);
-            } else if (dropPosition == "after") {
-                sourceNode = treeview.insertAfter(sourceNode, destinationNode);
+            function triggerDragEnd(sourceNode) {
+                treeview.trigger(DRAGEND, {
+                    sourceNode: sourceNode && sourceNode[0],
+                    destinationNode: destinationNode[0],
+                    dropPosition: dropPosition
+                });
             }
 
-            treeview.trigger(DRAGEND, {
-                sourceNode: sourceNode && sourceNode[0],
-                destinationNode: destinationNode[0],
-                dropPosition: dropPosition
-            });
+            // perform reorder / move
+            // different handling is necessary because append might be async in remote bound tree
+            if (dropPosition == "over") {
+                treeview.append(sourceNode, destinationNode, triggerDragEnd);
+            } else {
+                if (dropPosition == "before") {
+                    sourceNode = treeview.insertBefore(sourceNode, destinationNode);
+                } else if (dropPosition == "after") {
+                    sourceNode = treeview.insertAfter(sourceNode, destinationNode);
+                }
+
+                triggerDragEnd(sourceNode);
+            }
         },
 
         destroy: function() {

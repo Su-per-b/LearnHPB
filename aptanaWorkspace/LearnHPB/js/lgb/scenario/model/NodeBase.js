@@ -41,11 +41,22 @@ lgb.scenario.model.NodeBase.prototype.getChildren = function() {
 
 };
 
+lgb.scenario.model.NodeBase.prototype.makeChildrenAbbr_ = function(parentFqAbbr) {
+  
+  this.parentFqAbbr_=parentFqAbbr;
+  
+  this.children_ = [];
+  this.each(this.node.children, this.parseChild_);
+};
+
 lgb.scenario.model.NodeBase.prototype.makeChildren_ = function() {
   
   this.children_ = [];
   this.each(this.node.children, this.parseChild_);
 };
+
+
+
 
 lgb.scenario.model.NodeBase.prototype.parseChild_ = function(childNode) {
   

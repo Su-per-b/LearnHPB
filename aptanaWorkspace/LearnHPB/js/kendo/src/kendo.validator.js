@@ -1,5 +1,5 @@
 /*
-* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Kendo UI Web v2013.3.1119 (http://kendoui.com)
 * Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
@@ -21,6 +21,7 @@ kendo_module({
         Widget = kendo.ui.Widget,
         NS = ".kendoValidator",
         INVALIDMSG = "k-invalid-msg",
+        invalidMsgRegExp = new RegExp(INVALIDMSG,'i'),
         INVALIDINPUT = "k-invalid",
         emailRegExp = /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$/i,
         urlRegExp = /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i,
@@ -48,11 +49,10 @@ kendo_module({
         },
         hasAttribute = function(input, name) {
             if (input.length)  {
-                return input[0].attributes[name] !== undefined;
+                return input[0].attributes[name] != null;
             }
             return false;
-        },
-        nameSpecialCharRegExp = /("|'|\[|\]|\$|\.|\:|\+)/g;
+        };
 
     if (!kendo.ui.validator) {
         kendo.ui.validator = { rules: {}, messages: {} };
@@ -85,6 +85,13 @@ kendo_module({
         return 0;
     }
 
+    function parseHtml(text) {
+        if ($.parseHTML) {
+            return $($.parseHTML(text));
+        }
+        return $(text);
+    }
+
     var Validator = Widget.extend({
         init: function(element, options) {
             var that = this,
@@ -107,6 +114,8 @@ kendo_module({
             that._attachEvents();
         },
 
+        events: [ "validate" ],
+
         options: {
             name: "Validator",
             errorTemplate: '<span class="k-widget k-tooltip k-tooltip-validation">' +
@@ -123,7 +132,7 @@ kendo_module({
             },
             rules: {
                 required: function(input) {
-                    var checkbox = input.filter("[type=checkbox]").length && input.attr("checked") !== "checked",
+                    var checkbox = input.filter("[type=checkbox]").length && !input.is(":checked"),
                         value = input.val();
 
                     return !(hasAttribute(input, "required") && (value === "" || !value  || checkbox));
@@ -137,7 +146,7 @@ kendo_module({
                 min: function(input) {
                     if (input.filter(NUMBERINPUTSELECTOR + ",[" + kendo.attr("type") + "=number]").filter("[min]").length && input.val() !== "") {
                         var min = parseFloat(input.attr("min")) || 0,
-                            val = parseFloat(input.val());
+                            val = kendo.parseFloat(input.val());
 
                         return min <= val;
                     }
@@ -146,7 +155,7 @@ kendo_module({
                 max: function(input) {
                     if (input.filter(NUMBERINPUTSELECTOR + ",[" + kendo.attr("type") + "=number]").filter("[max]").length && input.val() !== "") {
                         var max = parseFloat(input.attr("max")) || 0,
-                            val = parseFloat(input.val());
+                            val = kendo.parseFloat(input.val());
 
                         return max >= val;
                     }
@@ -231,25 +240,32 @@ kendo_module({
         },
 
         validate: function() {
-            var that = this,
-                inputs,
-                idx,
-                invalid = false,
-                length;
+            var inputs;
+            var idx;
+            var result = false;
+            var length;
 
-            that._errors = {};
+            this._errors = {};
 
-            if (!that.element.is(INPUTSELECTOR)) {
-                inputs = that.element.find(INPUTSELECTOR);
+            if (!this.element.is(INPUTSELECTOR)) {
+                var invalid = false;
+
+                inputs = this.element.find(INPUTSELECTOR);
 
                 for (idx = 0, length = inputs.length; idx < length; idx++) {
-                    if (!that.validateInput(inputs.eq(idx))) {
+                    if (!this.validateInput(inputs.eq(idx))) {
                         invalid = true;
                     }
                 }
-                return !invalid;
+
+                result = !invalid;
+            } else {
+                result = this.validateInput(this.element);
             }
-            return that.validateInput(that.element);
+
+            this.trigger("validate", { valid: result });
+
+            return result;
         },
 
         validateInput: function(input) {
@@ -269,7 +285,7 @@ kendo_module({
             if (!valid) {
                 messageText = that._extractMessage(input, result.key);
                 that._errors[fieldName] = messageText;
-                var messageLabel = $(template({ message: decode(messageText) }));
+                var messageLabel = parseHtml(template({ message: decode(messageText) }));
 
                 that._decorateMessageContainer(messageLabel, fieldName);
 
@@ -301,7 +317,18 @@ kendo_module({
         _findMessageContainer: function(fieldName) {
             var locators = kendo.ui.validator.messageLocators,
                 name,
-                containers = this.element.find("." + INVALIDMSG + "[" + kendo.attr("for") +"=" + fieldName.replace(nameSpecialCharRegExp, "\\$1") + "]");
+                containers = $(),
+                children = this.element[0].getElementsByTagName("*");
+
+            for (var idx = 0, length = children.length; idx < length; idx++) {
+                var element = children[idx];
+                if (invalidMsgRegExp.test(element.className)) {
+                    var attr = element.getAttribute(kendo.attr("for"));
+                    if (attr === fieldName) {
+                        containers = containers.add(element);
+                    }
+                }
+            }
 
             for (name in locators) {
                 containers = containers.add(locators[name].locate(this.element, fieldName));
@@ -329,7 +356,7 @@ kendo_module({
                 customMessage = that.options.messages[ruleKey],
                 fieldName = input.attr(NAME);
 
-            customMessage = $.isFunction(customMessage) ? customMessage(input) : customMessage;
+            customMessage = kendo.isFunction(customMessage) ? customMessage(input) : customMessage;
 
             return kendo.format(input.attr(kendo.attr(ruleKey + "-msg")) || input.attr("validationMessage") || input.attr("title") || customMessage || "", fieldName, input.attr(ruleKey));
         },

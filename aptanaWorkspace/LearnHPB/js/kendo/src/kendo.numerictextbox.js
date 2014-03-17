@@ -1,5 +1,5 @@
 /*
-* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Kendo UI Web v2013.3.1119 (http://kendoui.com)
 * Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
@@ -26,6 +26,7 @@ kendo_module({
         parse = kendo.parseFloat,
         placeholderSupported = kendo.support.placeholder,
         getCulture = kendo.getCulture,
+        round = kendo._round,
         CHANGE = "change",
         DISABLED = "disabled",
         READONLY = "readonly",
@@ -34,7 +35,6 @@ kendo_module({
         ns = ".kendoNumericTextBox",
         TOUCHEND = "touchend",
         MOUSELEAVE = "mouseleave" + ns,
-        MOUSEUP = "touchcancel" + ns + " " + "touchend" + ns + " mouseup" + ns + " " + MOUSELEAVE,
         HOVEREVENTS = "mouseenter" + ns + " " + MOUSELEAVE,
         DEFAULT = "k-state-default",
         FOCUSED = "k-state-focused",
@@ -45,12 +45,9 @@ kendo_module({
         STATEDISABLED = "k-state-disabled",
         ARIA_DISABLED = "aria-disabled",
         ARIA_READONLY = "aria-readonly",
+        INTEGER_REGEXP = /^(-)?(\d*)$/,
         NULL = null,
-        proxy = $.proxy,
-        decimals = {
-            190 : ".",
-            188 : ","
-        };
+        proxy = $.proxy;
 
     var NumericTextBox = Widget.extend({
          init: function(element, options) {
@@ -148,7 +145,7 @@ kendo_module({
 
             that._upArrowEventHandler.unbind("press");
             that._downArrowEventHandler.unbind("press");
-            element.off("keydown" + ns).off("paste" + ns);
+            element.off("keydown" + ns).off("keypress" + ns).off("paste" + ns);
 
             if (!readonly && !disable) {
                 wrapper
@@ -175,6 +172,7 @@ kendo_module({
 
                 that.element
                     .on("keydown" + ns, proxy(that._keydown, that))
+                    .on("keypress" + ns, proxy(that._keypress, that))
                     .on("paste" + ns, proxy(that._paste, that));
 
             } else {
@@ -212,6 +210,9 @@ kendo_module({
                 .add(that._downArrow)
                 .add(that._inputWrapper)
                 .off(ns);
+
+            that._upArrowEventHandler.destroy();
+            that._downArrowEventHandler.destroy();
 
             if (that._form) {
                 that._form.off("reset", that._resetHandler);
@@ -276,6 +277,10 @@ kendo_module({
         _arrows: function() {
             var that = this,
             arrows,
+            _release = function() {
+                clearTimeout( that._spinning );
+                arrows.removeClass(SELECTED);
+            },
             options = that.options,
             spinners = options.spinners,
             element = that.element;
@@ -289,20 +294,15 @@ kendo_module({
                 arrows.wrapAll('<span class="k-select"/>');
             }
 
-            arrows.on(MOUSEUP, function() {
-                clearTimeout( that._spinning );
-                arrows.removeClass(SELECTED);
-            });
-
             if (!spinners) {
                 arrows.parent().toggle(spinners);
                 that._inputWrapper.addClass("k-expand-padding");
             }
 
             that._upArrow = arrows.eq(0);
-            that._upArrowEventHandler = new kendo.UserEvents(that._upArrow);
+            that._upArrowEventHandler = new kendo.UserEvents(that._upArrow, { release: _release });
             that._downArrow = arrows.eq(1);
-            that._downArrowEventHandler = new kendo.UserEvents(that._downArrow);
+            that._downArrowEventHandler = new kendo.UserEvents(that._downArrow, { release: _release });
         },
 
         _blur: function() {
@@ -322,10 +322,17 @@ kendo_module({
                     value = input.value.substring(0, idx),
                     format = that._format(that.options.format),
                     group = format[","],
-                    groupRegExp = new RegExp("\\" + group, "g"),
-                    extractRegExp = new RegExp("([\\d\\" + group + "]+)(\\" + format[POINT] + ")?(\\d+)?"),
-                    result = extractRegExp.exec(value),
+                    result, groupRegExp, extractRegExp,
                     caretPosition = 0;
+
+                if (group) {
+                    groupRegExp = new RegExp("\\" + group, "g");
+                    extractRegExp = new RegExp("([\\d\\" + group + "]+)(\\" + format[POINT] + ")?(\\d+)?");
+                }
+
+                if (extractRegExp) {
+                    result = extractRegExp.exec(value);
+                }
 
                 if (result) {
                     caretPosition = result[0].replace(groupRegExp, "").length;
@@ -403,7 +410,12 @@ kendo_module({
                 text = $('<input type="text"/>').insertBefore(element).addClass(CLASSNAME);
             }
 
-            element.type = "text";
+            try {
+                element.setAttribute("type", "text");
+            } catch(e) {
+                element.type = "text";
+            }
+
             text[0].tabIndex = element.tabIndex;
             text[0].style.cssText = element.style.cssText;
             text.prop("placeholder", that.options.placeholder);
@@ -427,10 +439,54 @@ kendo_module({
             } else if (key == keys.ENTER) {
                 that._change(that.element.val());
             }
+        },
 
-            if (that._prevent(key, e.shiftKey) && !e.ctrlKey) {
+        _keypress: function(e) {
+            if (e.which === 0 || e.keyCode === keys.BACKSPACE) {
+                return;
+            }
+
+            var element = this.element;
+            var character = String.fromCharCode(e.which);
+            var selection = caret(element[0]);
+            var selectionStart = selection[0];
+            var selectionEnd = selection[1];
+            var min = this.options.min;
+
+            var value = element.val();
+
+            value = value.substring(0, selectionStart) + character + value.substring(selectionEnd);
+
+            if ((min !== null && min >= 0 && value.charAt(0) === "-") || !this._numericRegex().test(value)) {
                 e.preventDefault();
             }
+        },
+
+        _numericRegex: function() {
+            var that = this;
+            var options = that.options;
+            var numberFormat = that._format(options.format);
+            var separator = numberFormat[POINT];
+            var precision = options.decimals;
+
+            if (separator === POINT) {
+                separator = "\\" + separator;
+            }
+
+            if (precision === NULL) {
+                precision = numberFormat.decimals;
+            }
+
+            if (precision === 0) {
+                return INTEGER_REGEXP;
+            }
+
+            if (that._separator !== separator) {
+                that._separator = separator;
+                that._floatRegExp = new RegExp("^(-)?(((\\d+(" + separator + "\\d*)?)|(" + separator + "\\d*)))?$");
+            }
+
+            return that._floatRegExp;
         },
 
         _paste: function(e) {
@@ -443,66 +499,6 @@ kendo_module({
                     that._update(value);
                 }
             });
-        },
-
-        _prevent: function(key, shiftKey) {
-            var that = this,
-                element = that.element[0],
-                value = element.value,
-                options = that.options,
-                min = options.min,
-                numberFormat = that._format(options.format),
-                separator = numberFormat[POINT],
-                precision = options.decimals,
-                selection = caret(element),
-                selectionStart = selection[0],
-                selectionEnd = selection[1],
-                textSelected = selectionStart === 0 && selectionEnd === value.length,
-                prevent = true,
-                number;
-
-            if (precision === NULL) {
-                precision = numberFormat.decimals;
-            }
-
-            if ((key > 16 && key < 21) ||
-                (key > 32 && key < 37) ||
-                (key > 47 && key < 58) ||
-                (key > 95 && key < 106) ||
-                 key == keys.INSERT ||
-                 key == keys.DELETE ||
-                 key == keys.LEFT ||
-                 key == keys.RIGHT ||
-                 key == keys.TAB ||
-                 key == keys.BACKSPACE ||
-                 key == keys.ENTER)
-            {
-                prevent = false;
-                if (shiftKey) {
-                    number = parseInt(String.fromCharCode(key), 10);
-                    if (!isNaN(number)) {
-                        number = number + "";
-                        value = value.substring(0, selectionStart) + number + value.substring(selectionEnd);
-                        if (element.maxLength === -1 || element.maxLength >= value.length) {
-                            element.value = value;
-                            caret(element, selectionStart + number.length);
-                        }
-
-                        prevent = true;
-                    }
-                }
-            } else if ((decimals[key] === separator || key == 110) && precision > 0 && (value.indexOf(separator) == -1 || textSelected)) {
-                if (key == 110) {
-                    element.value = value.substring(0, selectionStart) + separator + value.substring(selectionEnd);
-                    caret(element, selectionStart + separator.length);
-                } else if (!shiftKey) {
-                    prevent = false;
-                }
-            } else if ((min === NULL || min < 0) && value.indexOf("-") == -1 && (key == 189 || key == 109 || key == 173) && selectionStart === 0) { //sign
-                prevent = false;
-            }
-
-            return prevent;
         },
 
         _option: function(option, value) {
@@ -519,8 +515,10 @@ kendo_module({
                 return;
             }
 
-            options[option] = that._parse(value);
-            that.element.attr("aria-value" + option, options[option]);
+            options[option] = value;
+            that.element
+                .attr("aria-value" + option, value)
+                .attr(option, value);
         },
 
         _spin: function(step, timeout) {
@@ -585,13 +583,23 @@ kendo_module({
             isNotNull = value !== NULL;
 
             if (isNotNull) {
-                value = parseFloat(value.toFixed(decimals));
+                value = parseFloat(round(value, decimals));
             }
 
             that._value = value = that._adjust(value);
             that._placeholder(kendo.toString(value, format, culture));
-            that.element.val(isNotNull ? value.toString().replace(POINT, numberFormat[POINT]) : "")
-                        .attr("aria-valuenow", value);
+
+            if (isNotNull) {
+                value = value.toString();
+                if (value.indexOf("e") !== -1) {
+                    value = round(+value, decimals);
+                }
+                value = value.replace(POINT, numberFormat[POINT]);
+            } else {
+                value = "";
+            }
+
+            that.element.val(value).attr("aria-valuenow", value);
         },
 
         _placeholder: function(value) {
@@ -626,7 +634,8 @@ kendo_module({
         _reset: function() {
             var that = this,
                 element = that.element,
-                form = element.closest("form");
+                formId = element.attr("form"),
+                form = formId ? $("#" + formId) : element.closest("form");
 
             if (form[0]) {
                 that._resetHandler = function() {

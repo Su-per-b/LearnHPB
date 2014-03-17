@@ -1,5 +1,5 @@
 /*
-* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Kendo UI Web v2013.3.1119 (http://kendoui.com)
 * Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
@@ -21,9 +21,9 @@ kendo_module({
         support = kendo.support,
         ui = kendo.ui,
         Widget = ui.Widget,
-        parse = kendo.parseDate,
-        adjustDate = kendo._adjustDate,
         keys = kendo.keys,
+        parse = kendo.parseDate,
+        adjustDST = kendo.date.adjustDST,
         extractFormat = kendo._extractFormat,
         template = kendo.template,
         getCulture = kendo.getCulture,
@@ -113,8 +113,8 @@ kendo_module({
                 that._cellID = id + "_cell_selected";
             }
 
-            value = options.value;
             normalize(options);
+            value = parse(options.value, options.format, options.culture);
 
             that._index = views[options.start];
             that._current = new DATE(+restrictValue(value, options.min, options.max));
@@ -181,7 +181,7 @@ kendo_module({
             that[PREVARROW].off(ns);
             that[NEXTARROW].off(ns);
 
-            kendo.destroy(that._view);
+            kendo.destroy(that._table);
 
             if (today) {
                 kendo.destroy(today.off(ns));
@@ -271,9 +271,9 @@ kendo_module({
 
             if (!value) {
                 value = currentValue;
-            } else {
-                that._current = value = new DATE(+restrictValue(value, min, max));
             }
+
+            that._current = value = new DATE(+restrictValue(value, min, max));
 
             if (view === undefined) {
                 view = that._index;
@@ -607,7 +607,7 @@ kendo_module({
 
             //Safari cannot create correctly date from "1/1/2090"
             value = new DATE(value[0], value[1], value[2]);
-            adjustDate(value);
+            adjustDST(value, 0);
 
             that._view.setDate(currentValue, value);
 
@@ -634,8 +634,8 @@ kendo_module({
 
         _footer: function(template) {
             var that = this,
+                today = getToday(),
                 element = that.element,
-                today = new DATE(),
                 footer = element.find(".k-footer");
 
             if (!template) {
@@ -700,9 +700,8 @@ kendo_module({
         _option: function(option, value) {
             var that = this,
                 options = that.options,
-                selectedValue = +that._value,
-                bigger, navigate,
-                arrow = NEXTARROW;
+                currentValue = that._value || that._current,
+                isBigger;
 
             if (value === undefined) {
                 return options[option];
@@ -716,26 +715,22 @@ kendo_module({
 
             options[option] = new DATE(+value);
 
-            navigate = that._view.compare(value, that._current);
-
             if (option === MIN) {
-                bigger = +value > selectedValue;
-                navigate = navigate > -1;
-                arrow = PREVARROW;
+                isBigger = value > currentValue;
             } else {
-                bigger = selectedValue > +value;
-                navigate = navigate < 1;
+                isBigger = currentValue > value;
             }
 
-            if (bigger) {
-                that.value(null);
-            } else if (navigate) {
-                that.navigate();
-            } else {
-                that[arrow]
-                    .toggleClass(DISABLED, false)
-                    .attr(ARIA_DISABLED, false);
+            if (isBigger || isEqualMonth(currentValue, value)) {
+                that._value = null;
+                that._changeView = true;
             }
+
+            if (!that._changeView) {
+                that._changeView = !!(options.month.content || options.month.empty);
+            }
+
+            that.navigate(that._value);
 
             that._toggle();
         },
@@ -746,7 +741,7 @@ kendo_module({
                 link = that._today;
 
             if (toggle === undefined) {
-                toggle = isInRange(new DATE(), options.min, options.max);
+                toggle = isInRange(getToday(), options.min, options.max);
             }
 
             if (link) {
@@ -767,7 +762,7 @@ kendo_module({
         _todayClick: function(e) {
             var that = this,
                 depth = views[that.options.depth],
-                today = new DATE();
+                today = getToday();
 
             e.preventDefault();
 
@@ -864,7 +859,7 @@ kendo_module({
                 }
 
                 today = new DATE(today.getFullYear(), today.getMonth(), today.getDate());
-                adjustDate(today);
+                adjustDST(today, 0);
                 today = +today;
 
                 return view({
@@ -952,7 +947,7 @@ kendo_module({
                 } else {
                     calendar.setTime(date, value * MS_PER_DAY);
                 }
-                adjustDate(date, hours);
+                adjustDST(date, hours);
             },
             toDateString: function(date) {
                 return date.getFullYear() + "/" + date.getMonth() + "/" + date.getDate();
@@ -1019,7 +1014,7 @@ kendo_module({
                     }
                 }
 
-                adjustDate(date, hours);
+                adjustDST(date, hours);
             },
             toDateString: function(date) {
                 return date.getFullYear() + "/" + date.getMonth() + "/1";
@@ -1202,10 +1197,13 @@ kendo_module({
         return result;
     }
 
-    function restrictValue (value, min, max) {
+    function getToday() {
         var today = new DATE();
+        return new DATE(today.getFullYear(), today.getMonth(), today.getDate());
+    }
 
-        today = new DATE(today.getFullYear(), today.getMonth(), today.getDate());
+    function restrictValue (value, min, max) {
+        var today = getToday();
 
         if (value) {
             today = new DATE(+value);
@@ -1285,6 +1283,15 @@ kendo_module({
             return value1.getFullYear() === value2.getFullYear() &&
                    value1.getMonth() === value2.getMonth() &&
                    value1.getDate() === value2.getDate();
+        }
+
+        return false;
+    }
+
+    function isEqualMonth(value1, value2) {
+        if (value1) {
+            return value1.getFullYear() === value2.getFullYear() &&
+                   value1.getMonth() === value2.getMonth();
         }
 
         return false;

@@ -1,0 +1,445 @@
+<!doctype html>
+<html>
+  
+<head>
+    <!--
+    Learn Green Buildings (http://su-per-b.org/projects_lgb.html)
+    by Institute For Superior Performance of Buildings (http://su-per-b.org)
+    for California Energy Commission (http://www.energy.ca.gov/)
+    -->
+    <meta name="author" content="Joseph Deringer"><!-- Project Leader -->
+    <meta name="author" content="Raj Dye"><!-- Software Engineer (http://rajdye.com) -->
+    <meta name="author" content="Andrew Scully"><!-- 3D Modeling and Animation -->
+    <meta name="author" content="Elliot Nahman"><!-- Information Architecture -->
+
+    <meta name = "description" content = "Learn Green Buildings: Commercial building energy use simulation" />
+    <meta name = "revised" content = "April 25, 2013" />
+    <meta name="Copyright" content="Copyright 2013, Institute For Superior Performance of Buildings">
+
+    <meta charset="UTF-8" />
+
+    <!-- =========================  CSS  ============================ -->
+    <link type="text/css" href="css/jquery-ui.css" rel="stylesheet" />
+    <link type="text/css" href="css/tipped.css" rel="stylesheet" />
+    <link type="text/css" href="css/kendo.common.css" rel="stylesheet"/>
+    <link type="text/css" href="css/kendo.silver.css" rel="stylesheet"/>
+    <link type="text/css" href="css/lgb.css"  rel="stylesheet" />
+    <link type="text/css" href="css/jquery.checkbox.css"  rel="stylesheet" />
+    <link type="text/css" href="css/dc.css" rel="stylesheet" />
+    
+    
+<link type="text/css" href="css2/normalize.css" rel="stylesheet" media="all">
+<link type="text/css" href="css2/panels.css" rel="stylesheet" media="all">
+<link type="text/css" href="css2/lhpb.css" rel="stylesheet" media="all">
+<link type="text/css" href="css2/jquery.jscrollpane.css" rel="stylesheet" media="all" />
+
+
+    <!-- =========================   JavaScript  ============================ -->
+    
+    <!--{BLOCK_START:Jquery}-->
+    
+      <!-- Jquery -->
+      <script src="js/lib/jquery.src.js"></script>
+  
+      <!-- jQuery UI -->
+      <script src="js/jquery-ui/src/jquery.ui.core.js"></script>
+      <script src="js/jquery-ui/src/jquery.ui.widget.js"></script>
+      <script src="js/jquery-ui/src/jquery.ui.mouse.js"></script>
+      <script src="js/jquery-ui/src/jquery.ui.position.js"></script>
+      <script src="js/jquery-ui/src/jquery.ui.draggable.js"></script>
+      <script src="js/jquery-ui/src/jquery.ui.resizable.js"></script>
+      <script src="js/jquery-ui/src/jquery.ui.button.js"></script>
+      <script src="js/jquery-ui/src/jquery.ui.dialog.js"></script>
+  
+    <!--{BLOCK_END:Jquery}-->
+    
+    <!--{BLOCK_START:LGB}-->
+    
+      <!-- Charting       <script src="js/lib/stock.js"></script>
+      -->
+      <script src="js/lib/d3.js"></script>
+      <script src="js/lib/crossfilter.js"></script>
+      <script src="js/lib/dc.js"></script>
+      <script src="js/lib/colorbrewer.js"></script>
+
+    
+      <!-- Jquery Custom -->
+      <script src="js/lib/purl.js"></script>
+      <script src="js/lib/jquery-plugins.js"></script>
+      <script src="js/lib/jquery.easing.1.3.js"></script>
+      <script src="js/lib/tipped.js"></script>
+            
+      <!-- tweenjs -->
+      <script src="js/lib/tweenjs/CSSPlugin.js"></script>
+      <script src="js/lib/tweenjs/Ease.js"></script>
+      <script src="js/lib/tweenjs/Timeline.js"></script>
+      <script src="js/lib/tweenjs/Tween.js"></script>
+      
+      <!-- kendo-custom    -->
+      <script src="js/kendo/custom-src/kendo.core.js"></script>
+       
+      <!-- kendo off-the-shelf-->
+      <script src="js/kendo/src/kendo.window.js"></script>
+      <script src="js/kendo/src/kendo.userevents.js"></script> 
+      <script src="js/kendo/src/kendo.binder.js"></script>
+      <script src="js/kendo/src/kendo.draganddrop.js"></script>
+      <script src="js/kendo/src/kendo.popup.js"></script>
+      <script src="js/kendo/src/kendo.data.js"></script>
+      <script src="js/kendo/src/kendo.list.js"></script>
+      <script src="js/kendo/src/kendo.dropdownlist.js"></script>
+      <script src="js/kendo/src/kendo.fx.js"></script>
+      <script src="js/kendo/src/kendo.tabstrip.js"></script>
+      
+      <script src="js/kendo/src/kendo.pager.js"></script>
+      <script src="js/kendo/src/kendo.editable.js"></script>
+      <script src="js/kendo/src/kendo.filtermenu.js"></script>
+      <script src="js/kendo/src/kendo.columnmenu.js"></script>
+      <script src="js/kendo/src/kendo.groupable.js"></script>
+      <script src="js/kendo/src/kendo.selectable.js"></script>
+      <script src="js/kendo/src/kendo.sortable.js"></script>
+      <script src="js/kendo/src/kendo.reorderable.js"></script>
+      
+      
+      <script src="js/kendo/src/kendo.grid.js"></script>
+      
+      <script src="js/kendo/src/kendo.slider.js"></script>
+      <script src="js/kendo/src/kendo.splitter.js"></script>
+      <script src="js/kendo/src/kendo.resizable.js"></script>
+      <script src="js/kendo/src/kendo.treeview.js"></script> 
+      <script src="js/kendo/src/kendo.combobox.js"></script>
+      <script src="js/kendo/src/kendo.menu.js"></script>
+      
+      
+
+    <!--{BLOCK_END:LGB}-->
+    
+      <script src="js/lgb/core/debugKendo.js"></script>
+
+      
+      
+    <!-- Google Closure -->
+    <script src="js/closure/core/goog/base.js"></script>
+    
+    <!--{BLOCK_START:LGB}      -->
+    <script src="inc.js"></script>
+    <!--{BLOCK_END:LGB}-->
+
+
+    <!--{BLOCK_START:Three}-->
+    <script src="js/three/src/Three.js"></script>
+    
+    <!-- Three math -->
+    <script src="js/three/src/math/Color.js"></script>
+    <script src="js/three/src/math/Quaternion.js"></script>
+    <script src="js/three/src/math/Vector2.js"></script>
+    <script src="js/three/src/math/Vector3.js"></script>
+    <script src="js/three/src/math/Vector4.js"></script>
+    <script src="js/three/src/math/Euler.js"></script>
+    <script src="js/three/src/math/Line3.js"></script>
+    <script src="js/three/src/math/Box2.js"></script>
+    <script src="js/three/src/math/Box3.js"></script>
+    <script src="js/three/src/math/Matrix3.js"></script>
+    <script src="js/three/src/math/Matrix4.js"></script>
+    <script src="js/three/src/math/Ray.js"></script>
+    <script src="js/three/src/math/Sphere.js"></script>
+    <script src="js/three/src/math/Frustum.js"></script>
+    <script src="js/three/src/math/Plane.js"></script>
+    <script src="js/three/src/math/Math.js"></script>
+    <script src="js/three/src/math/Spline.js"></script>
+    <script src="js/three/src/math/Triangle.js"></script>
+    <script src="js/three/src/math/Vertex.js"></script>
+
+    <!-- Three core -->
+    <script src="js/three/src/core/Clock.js"></script>
+    <script src="js/three/src/core/EventDispatcher.js"></script> 
+    <script src="js/three/src/core/Raycaster.js"></script>
+    <script src="js/three/src/core/Object3D.js"></script>
+    <script src="js/three/src/core/Projector.js"></script>
+    <script src="js/three/src/core/Face3.js"></script>
+    <script src="js/three/src/core/Face4.js"></script>
+    <script src="js/three/src/core/Geometry.js"></script>
+    <script src="js/three/src/core/BufferGeometry.js"></script>
+    
+    <!-- Three cameras -->
+    <script src="js/three/src/cameras/Camera.js"></script>
+    <script src="js/three/src/cameras/OrthographicCamera.js"></script>
+    <script src="js/three/src/cameras/PerspectiveCamera.js"></script>
+    
+    <!-- Three lights -->
+    <script src="js/three/src/lights/Light.js"></script>
+    <script src="js/three/src/lights/AmbientLight.js"></script>
+    <script src="js/three/src/lights/AreaLight.js"></script>
+    <script src="js/three/src/lights/DirectionalLight.js"></script>
+    <script src="js/three/src/lights/HemisphereLight.js"></script>
+    <script src="js/three/src/lights/PointLight.js"></script>
+    <script src="js/three/src/lights/SpotLight.js"></script>
+    
+    <!-- Three loaders -->
+    <script src="js/three/src/loaders/Loader.js"></script>
+    <script src="js/three/src/loaders/ImageLoader.js"></script>
+    <script src="js/three/src/loaders/JSONLoader.js"></script>
+    <script src="js/three/src/loaders/GeometryLoader.js"></script>
+    <script src="js/three/src/loaders/MaterialLoader.js"></script> 
+    <script src="js/three/src/loaders/TextureLoader.js"></script>
+    <script src="js/three/src/loaders/BufferGeometryLoader.js"></script>
+    <script src="js/three/src/loaders/LoadingManager.js"></script>
+    <script src="js/three/src/loaders/ObjectLoader.js"></script>
+    <script src="js/three/src/loaders/XHRLoader.js"></script>
+    
+    <!-- Three materials -->
+    <script src="js/three/src/materials/Material.js"></script>
+    <script src="js/three/src/materials/LineBasicMaterial.js"></script>
+    <script src="js/three/src/materials/LineDashedMaterial.js"></script>
+    <script src="js/three/src/materials/MeshBasicMaterial.js"></script>
+    <script src="js/three/src/materials/MeshDepthMaterial.js"></script>
+    <script src="js/three/src/materials/MeshFaceMaterial.js"></script>
+    <script src="js/three/src/materials/MeshLambertMaterial.js"></script>
+    <script src="js/three/src/materials/MeshNormalMaterial.js"></script>
+    <script src="js/three/src/materials/MeshPhongMaterial.js"></script>
+    <script src="js/three/src/materials/ParticleSystemMaterial.js"></script>
+    <script src="js/three/src/materials/ShaderMaterial.js"></script>
+    <script src="js/three/src/materials/SpriteCanvasMaterial.js"></script>
+    <script src="js/three/src/materials/SpriteMaterial.js"></script>
+    
+    <!-- Three textures -->
+    <script src="js/three/src/textures/Texture.js"></script>
+    <script src="js/three/src/textures/CompressedTexture.js"></script>
+    <script src="js/three/src/textures/DataTexture.js"></script>
+
+    <!-- Three objects -->
+    <script src="js/three/src/objects/Bone.js"></script>
+    <script src="js/three/src/objects/Line.js"></script>
+    <script src="js/three/src/objects/LOD.js"></script>
+    <script src="js/three/src/objects/Mesh.js"></script>
+    <script src="js/three/src/objects/MorphAnimMesh.js"></script>
+    <script src="js/three/src/objects/ParticleSystem.js"></script>
+    <script src="js/three/src/objects/SkinnedMesh.js"></script>
+    <script src="js/three/src/objects/Sprite.js"></script>
+    
+    <!-- Three scenes -->
+    <script src="js/three/src/scenes/Scene.js"></script>
+    <script src="js/three/src/scenes/Fog.js"></script>
+    <script src="js/three/src/scenes/FogExp2.js"></script>
+
+    <!-- Three shaders -->
+    <script src="js/three/src/extras/shaders/ShaderFlares.js"></script>
+  
+    <!-- Three renderers -->
+    <script src="js/three/src/renderers/WebGLShaders.js"></script>
+    <script src="js/three/src/renderers/CanvasRenderer.js"></script>
+    
+    <!-- Three plugins -->
+    <script src="js/three/src/extras/renderers/plugins/ShadowMapPlugin.js"></script>
+    <script src="js/three/src/extras/renderers/plugins/SpritePlugin.js"></script>
+    <script src="js/three/src/extras/renderers/plugins/LensFlarePlugin.js"></script>
+    
+    <script src="js/three/src/extras/objects/ImmediateRenderObject.js"></script>
+    <script src="js/three/src/extras/objects/LensFlare.js"></script>
+    
+    <script src="js/three/src/renderers/WebGLRenderer.js"></script>
+    <script src="js/three/src/renderers/WebGLRenderTarget.js"></script>
+    <script src="js/three/src/renderers/WebGLRenderTargetCube.js"></script>
+
+    <script src="js/three/src/renderers/renderables/RenderableFace3.js"></script>
+    <script src="js/three/src/renderers/renderables/RenderableLine.js"></script>
+    <script src="js/three/src/renderers/renderables/RenderableObject.js"></script>
+    <script src="js/three/src/renderers/renderables/RenderableSprite.js"></script>
+    <script src="js/three/src/renderers/renderables/RenderableVertex.js"></script>
+    
+    <script src="js/three/src/extras/FontUtils.js"></script>
+    <script src="js/three/src/extras/GeometryUtils.js"></script>
+    <script src="js/three/src/extras/ImageUtils.js"></script>
+    <script src="js/three/src/extras/SceneUtils.js"></script>
+
+    <!-- Three extras -->
+    <script src="js/three/src/extras/geometries/CubeGeometry.js"></script>
+    <script src="js/three/src/extras/geometries/PlaneGeometry.js"></script>
+    <script src="js/three/src/extras/geometries/SphereGeometry.js"></script>
+    <script src="js/three/src/extras/geometries/CylinderGeometry.js"></script>
+    <script src="js/three/src/extras/geometries/IcosahedronGeometry.js"></script>
+    <script src="js/three/src/extras/geometries/PolyhedronGeometry.js"></script>
+    <script src="js/three/src/extras/geometries/TorusGeometry.js"></script>
+    
+    
+     <script src="js/three/src/extras/core/Curve.js"></script>
+     <script src="js/three/src/extras/curves/SplineCurve.js"></script>
+     <script src="js/three/src/extras/curves/SplineCurve3.js"></script>
+    <script src="js/three/src/extras/helpers/BoundingBoxHelper.js"></script>
+    
+    
+    <!-- CUSTOM_FILES -->
+    <script src="js/three/custom-src/SceneLoaderEx.js"></script>
+    <script src="js/three/custom-src/Object3DEx.js"></script>
+    <script src="js/three/custom-src/MeshEx.js"></script>
+    <script src="js/three/custom-src/GeometryEx.js"></script>
+    <script src="js/three/custom-src/TrackballControlsEx.js"></script>
+    <script src="js/three/custom-src/BoundingBox.js"></script>
+
+    <script src="js/three/custom-src/CameraEx.js"></script>
+    <script src="js/three/custom-src/Vector3Ex.js"></script>
+
+    <script src="js/three/loaders/BinaryLoader.js"></script>
+
+    <!-- UNUSED_CUSTOM_FILES
+    -->
+    
+    
+    <!--{BLOCK_END:Three}-->
+
+
+    <title>Learn HPB</title>
+    
+    
+    <script>
+      goog.require('lgb');
+      goog.require('lgb.core.Global');
+      goog.require('lgb.core.EventBus');
+      goog.require('lgb.core.MainController');
+      
+      goog.require('lgb.gui.controller.SimulationStateControlController');
+      goog.require('lgb.gui.view.SimulationStateControlGUIh');
+      goog.require('lgb.gui.view.SimulationStateControlGUI');
+      
+    </script>
+
+  </head>
+  
+  
+  
+  
+
+
+
+
+<body>
+<div class="wrapper cf">
+  <div class=" container cf">
+    <div class="container-left cf">
+      <div class="logo-lhpb" title="LHPB: Learn High Performance Buildings"></div>
+      <div class="select cf">
+        <div class="scenario">
+            <select name="Scenarios">
+                    <option>Scenario Name One</option>
+                    <option>Scenario Name Two</option>
+                    <option>Scenario Name Three</option>
+                    <option>Scenario Name Four</option>
+            </select>
+        </div>
+        <ul class="scenario-play">
+            <li><a href="#" class="play"></a></li>
+            <li ><a href="#" class="forward"></a></li>
+          </ul>
+        <ul class="scenario-action">
+            <li><a href="#" class="selected">Inputs</a></li>
+            <li><a href="#">Faults</a></li>
+            <li><a href="#">Evaluate</a></li>
+          </ul>
+      </div>
+      <div class="input-controls">
+          <div class="building-icons">
+            <ul>
+              <li><a href="#" title="Building" class="building"></a></li>
+              <li><a href="#" title="Lighting" class="lighting selected"></a></li>
+              <li><a href="#" title="Daylight" class="daylight"></a></li>
+              <li><a href="#" title="Envelope" class="envelope unavailable"></a></li>
+              <li><a href="#" title="HVAC" class="hvac"></a></li>
+            </ul>
+          </div>
+          <ul class="building-level">
+            <li><a href="#">Roof</a></li>
+            <li><a href="#" class="selected">Floor</a></li>
+            <li><a href="#">Site</a></li>
+          </ul>
+		<div class="mini-map">
+            <a href="#" class="mini-map-zone top-left"></a>
+            <a href="#" class="mini-map-zone top-center"></a>
+            <a href="#" class="mini-map-zone top-right"></a>
+            <a href="#" class="mini-map-zone middle-left"></a>
+            <a href="#" class="mini-map-zone middle-center"></a>
+            <a href="#" class="mini-map-zone middle-right"></a>
+            <a href="#" class="mini-map-zone bottom-left"></a>
+            <a href="#" class="mini-map-zone bottom-center"></a>
+            <a href="#" class="mini-map-zone bottom-right"></a>
+        	<div class="mini-map-location"></div>
+        </div>
+      </div>
+      <div class="input-wrapper">
+        <div class="panel input">
+          <h1>Lighting</h1>
+          <div class="content scroll-pane">
+            <h2>Ceiling Mounted</h2>
+            <h3>Lighting Vintage</h3>
+            <ul>
+              <li>
+                <div class="more"><a href="info.html" class="info"></a><a href="#" class="param disabled"></a></div>
+                <label for="textfield3">Lighting Vintage</label>
+                <input name="textfield2" type="text" id="textfield3" value="1900"></li>
+            </ul>
+            <h3>Parabolic Troffer</h3>
+            <ul>
+              <li>
+                <div class="more"><a href="info.html" class="info"></a><a href="#" class="param disabled"></a></div>
+                <label for="textfield">Luminaire Size</label>
+                <input name="textfield" type="text" id="textfield" value="1x4">
+                <span>m</span>
+              </li>
+              <li>
+                <div class="more"><a href="info.html" class="info"></a><a href="#" class="param"></a></div>
+                <label for="textfield">Color Temperature</label>
+                <input name="textfield" type="text" id="textfield" value="2700">
+                <span>K</span></li>
+              <li>
+                <div class="more"><a href="info.html" class="info"></a><a href="#" class="param"></a></div>
+                <label for="textfield">Number of Lamps</label>
+                <input name="textfield" type="text" id="textfield" value="2"></li>
+            </ul>
+            <h2>Lamp Type</h2>
+            <ul>
+              <li>
+                <div class="more"><a href="info.html" class="info"></a><a href="#" class="param"></a></div>
+                <label for="textfield">Lamp Type</label>
+                <input name="textfield" type="text" id="textfield" value="T5"></li>
+              <li>
+                <div class="more"><a href="info.html" class="info"></a><a href="#" class="param"></a></div>
+                <label for="textfield">Lamp Wattage</label>
+                <input name="textfield" type="text" id="textfield" value="0">
+                <span>(0-9999999) W</span></li>
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-right cf">
+      <div class="container-top">
+        <ul class="top-field view">
+          <li><a href="#" title="" class="one"></a></li>
+          <li><a href="#" title="" class="two"></a></li>
+          <li><a href="#" title="" class="three selected"></a></li>
+          <li><a href="#" title="" class="four"></a></li>
+          <li><a href="#" title="" class="five"></a></li>
+        </ul>
+      <div class="top-field location">
+      	New York, NY  |  FEB 8, 12:09:02 <br>
+		Partly Sunny, 57 Degrees</div>
+        </div>
+      <div class="main">
+      <div class="logo-superb"></div>
+          <div class="right-icons">
+            <ul>
+              <li class="settings"><span><a href="#" title="Settings"></a></span></li>
+              <li class="measurement si"><span><a href="#" title="Measurement"></a></span></li>
+              <li class="help"><span><a href="#" title="Help"></a></span></li>
+            </ul>
+		</div>
+        <div class="three-d cf"></div>
+        <div class="container-bottom">
+          <!-- Old pre-html5 iFrame atributes are for older browsers. They won't validate. -->
+          <iframe src="output.html" allowtransparency="true" scrolling="no"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

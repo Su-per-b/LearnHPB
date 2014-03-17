@@ -41,7 +41,8 @@ lgb.scenario.controller.ScenarioController.prototype.init_ = function() {
      e.DataModelInitialized,
       this.onDataModelInitialized_);
 
-  this.dataModel.load("VerySimpleScenario.xml");
+  // this.dataModel.load("VerySimpleScenario.xml");
+  this.dataModel.load("Building.xml");
   
 };
 
@@ -60,6 +61,9 @@ lgb.scenario.controller.ScenarioController.prototype.onDataModelInitialized_ =
   function(event) {
 
   this.trigger(e.ScenarioParsed2, this.dataModel.systemList);
+  
+  // this.listen(e.LayoutChange, this.onLayoutChange_);
+    
   
 };
 

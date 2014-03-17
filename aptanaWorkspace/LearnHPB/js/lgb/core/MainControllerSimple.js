@@ -47,9 +47,9 @@ lgb.core.MainControllerSimple.prototype.init = function() {
 
 
   this.layoutControllerSimple_ = new lgb.gui.controller.LayoutControllerSimple();
-  
-  var theTitle = lgb.core.Config.getTitle();
-   $('title').html(theTitle);
+//   
+  // var theTitle = lgb.core.Config.getTitle();
+   // $('title').html(theTitle);
    
 
   this.scenarioController = new lgb.scenario.controller.ScenarioController();
@@ -57,14 +57,13 @@ lgb.core.MainControllerSimple.prototype.init = function() {
   $(window).resize(this.d(this.onNativeWindowResize_));
   
    
-  this.simMainControllerSimple_ = new lgb.simulation.controller.MainController();
-  this.simMainControllerSimple_.init();
+  // this.simMainControllerSimple_ = new lgb.simulation.controller.MainController();
+  // this.simMainControllerSimple_.init();
   
   this.logger_ = goog.debug.Logger.getLogger('lgb.core.MainControllerSimple');
 
   lgb.logInfo(lgb.core.Config.getTitle());
   lgb.logInfo('jQuery version: ' + $('').jquery);
-  lgb.logInfo('jQuery.ui version: ' + $.ui.version);
 
 
 };

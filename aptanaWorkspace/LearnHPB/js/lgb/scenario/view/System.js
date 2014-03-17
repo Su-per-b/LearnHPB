@@ -29,7 +29,24 @@ lgb.scenario.view.System.prototype.appendTo = function(parentElement) {
 };
 
 
+
+
+lgb.scenario.view.System.prototype.getMainElement = function() {
+
+  if (undefined == this.mainElement_) {
+    this.mainElement_ = $('<h1>');
+    
+    if (undefined != this.htmlID) {
+      this.mainElement_.attr('id', this.htmlID);
+    }
+
+  }
+
+  return this.mainElement_;
+};
+
+
+
 lgb.scenario.view.System.childClassMap = {
     "SubSystem" : lgb.scenario.view.SubSystem
 };
-

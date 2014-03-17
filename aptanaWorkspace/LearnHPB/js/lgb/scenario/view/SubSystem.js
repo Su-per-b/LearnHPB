@@ -30,3 +30,18 @@ lgb.scenario.view.SubSystem.childClassMap = {
     "Variable" : lgb.scenario.view.Variable
 };
 
+
+lgb.scenario.view.SubSystem.prototype.getMainElement = function() {
+
+  if (undefined == this.mainElement_) {
+    this.mainElement_ = $('<h2>');
+    
+    if (undefined != this.htmlID) {
+      this.mainElement_.attr('id', this.htmlID);
+    }
+
+  }
+
+  return this.mainElement_;
+};
+

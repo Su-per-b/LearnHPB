@@ -1,5 +1,5 @@
 /*
-* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Kendo UI Web v2013.3.1119 (http://kendoui.com)
 * Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
@@ -12,7 +12,7 @@ kendo_module({
     id: "tooltip",
     name: "Tooltip",
     category: "web",
-    description: "",
+    description: "The Tooltip widget displays a popup hint for a given html element.",
     depends: [ "core", "popup" ]
 });
 
@@ -20,7 +20,7 @@ kendo_module({
     var kendo = window.kendo,
         Widget = kendo.ui.Widget,
         Popup = kendo.ui.Popup,
-        isFunction = $.isFunction,
+        isFunction = kendo.isFunction,
         isPlainObject = $.isPlainObject,
         extend = $.extend,
         proxy = $.proxy,
@@ -83,8 +83,8 @@ kendo_module({
             center: "n"
         },
         DIMENSIONS = {
-            "horizontal": { offset: "top", size: "height" },
-            "vertical": { offset: "left", size: "width" }
+            "horizontal": { offset: "top", size: "outerHeight" },
+            "vertical": { offset: "left", size: "outerWidth" }
         },
         DEFAULTCONTENT = function(e) {
             return e.target.data(kendo.ns + "title");
@@ -114,7 +114,7 @@ kendo_module({
     }
 
     function saveTitleAttributes(element) {
-        while(element.length) {
+        while(element.length && !element.is("body")) {
             saveTitleAttributeForElement(element);
             element = element.parent();
         }
@@ -151,6 +151,8 @@ kendo_module({
             position: "bottom",
             showOn: "mouseenter",
             autoHide: true,
+            width: null,
+            height: null,
             animation: {
                 open: {
                     effects: "fade:in",
@@ -173,13 +175,14 @@ kendo_module({
         _showOn: function(e) {
             var that = this;
 
+            var currentTarget = $(e.currentTarget);
             if (that.options.showOn && that.options.showOn.match(/click|focus/)) {
-                that._show($(e.currentTarget));
+                that._show(currentTarget);
             } else {
                 clearTimeout(that.timeout);
 
                 that.timeout = setTimeout(function() {
-                    that._show($(e.currentTarget));
+                    that._show(currentTarget);
                 }, that.options.showAfter);
             }
         },
@@ -224,8 +227,8 @@ kendo_module({
                         });
                 }
             } else if (contentOptions && isFunction(contentOptions)) {
-                contentOptions = contentOptions({ target: target });
-                that.content.html(contentOptions);
+                contentOptions = contentOptions({ sender: this, target: target });
+                that.content.html(contentOptions || "");
             } else {
                 that.content.html(contentOptions);
             }
@@ -259,6 +262,15 @@ kendo_module({
             }
         },
 
+        refresh: function() {
+            var that = this,
+                popup = that.popup;
+
+            if (popup && popup.options.anchor) {
+                that._appendContent(popup.options.anchor);
+            }
+        },
+
         hide: function() {
             if (this.popup) {
                 this.popup.close();
@@ -266,6 +278,8 @@ kendo_module({
         },
 
         show: function(target) {
+            target = target || this.element;
+
             saveTitleAttributes(target);
             this._show(target);
         },
@@ -387,7 +401,7 @@ kendo_module({
                 popup = that.popup,
                 anchor = popup.options.anchor,
                 anchorOffset = $(anchor).offset(),
-                arrowBorder = parseInt(that.arrow.css("borderWidth"), 10),
+                arrowBorder = parseInt(that.arrow.css("border-top-width"), 10),
                 elementOffset = $(popup.element).offset(),
                 cssClass = DIRCLASSES[popup.flipped ? REVERSE[position] : position],
                 offsetAmount = anchorOffset[offset] - elementOffset[offset] + ($(anchor)[dimensions.size]() / 2) - arrowBorder;

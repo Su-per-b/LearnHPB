@@ -1,5 +1,5 @@
 /*
-* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Kendo UI Web v2013.3.1119 (http://kendoui.com)
 * Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
@@ -50,7 +50,7 @@ kendo_module({
 
             Widget.fn.init.call(that, element, options);
 
-            that._marquee = $("<div class='k-marquee'></div>");
+            that._marquee = $("<div class='k-marquee'><div class='k-marquee-color'></div></div>");
             that._lastActive = null;
             that.element.addClass(SELECTABLE);
 
@@ -82,7 +82,7 @@ kendo_module({
         _tap: function(e) {
             var target = $(e.target),
                 that = this,
-                ctrlKey = e.event.ctrlKey,
+                ctrlKey = e.event.ctrlKey || e.event.metaKey,
                 multiple = that.options.multiple,
                 shiftKey = multiple && e.event.shiftKey,
                 selected,
@@ -117,7 +117,7 @@ kendo_module({
             var that = this,
                 target = $(e.target),
                 selected = target.hasClass(SELECTED),
-                ctrlKey = e.event.ctrlKey;
+                ctrlKey = e.event.ctrlKey || e.event.metaKey;
 
             that._downTarget = target;
 
@@ -161,7 +161,7 @@ kendo_module({
 
             that._marquee.css(position);
 
-            invalidateSelectables(items, that._downTarget[0], position, e.event.ctrlKey);
+            invalidateSelectables(items, that._downTarget[0], position, (e.event.ctrlKey || e.event.metaKey));
 
             e.preventDefault();
         },
@@ -239,10 +239,12 @@ kendo_module({
         },
 
         _select: function(e) {
-            if ($(e.event.target).is("input,a,textarea")) {
+            var selector = "input,a,textarea,.k-multiselect-wrap,select",
+                msie = kendo.support.browser.msie;
+            if ($(e.event.target).is(selector)) {
                 this.userEvents.cancel();
                 this._downTarget = null;
-            } else {
+            } else if (!msie || (msie && !$(kendo._activeElement()).is(selector))) {
                 e.preventDefault();
             }
         },

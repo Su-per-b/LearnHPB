@@ -1,5 +1,5 @@
 /*
-* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Kendo UI Web v2013.3.1119 (http://kendoui.com)
 * Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
@@ -19,7 +19,7 @@ kendo_module({
 (function($, undefined) {
     var kendo = window.kendo,
         mobile = kendo.mobile,
-        fx = kendo.fx,
+        fx = kendo.effects,
         ui = mobile.ui,
         proxy = $.proxy,
         extend = $.extend,
@@ -33,8 +33,11 @@ kendo_module({
         abs = Math.abs,
         SNAPBACK_DURATION = 500,
         SCROLLBAR_OPACITY = 0.7,
-        FRICTION = 0.93,
+        FRICTION = 0.96,
+        VELOCITY_MULTIPLIER = 10,
+        MAX_VELOCITY = 55,
         OUT_OF_BOUNDS_FRICTION = 0.5,
+        ANIMATED_SCROLLER_PRECISION = 5,
         RELEASECLASS = "km-scroller-release",
         REFRESHCLASS = "km-scroller-refresh",
         PULL = "pull",
@@ -120,10 +123,15 @@ kendo_module({
             if (that._outOfBounds()) {
                 that._snapBack();
             } else {
-                that.velocity = e.touch[that.axis].velocity * 16;
+                that.velocity = Math.max(Math.min(
+                    e.touch[that.axis].velocity * that.velocityMultiplier,
+                    MAX_VELOCITY), -MAX_VELOCITY);
+
                 if (that.velocity) {
                     that.tapCapture.captureNext();
                     Animation.fn.start.call(that);
+                } else {
+                    that._end();
                 }
             }
         },
@@ -131,7 +139,7 @@ kendo_module({
         tick: function() {
             var that = this,
                 dimension = that.dimension,
-                friction = that._outOfBounds() ? OUT_OF_BOUNDS_FRICTION : FRICTION,
+                friction = that._outOfBounds() ? OUT_OF_BOUNDS_FRICTION : that.friction,
                 delta = (that.velocity *= friction),
                 location = that.movable[that.axis] + delta;
 
@@ -161,6 +169,51 @@ kendo_module({
 
         _moveTo: function(location) {
             this.transition.moveTo({ location: location, duration: SNAPBACK_DURATION, ease: Transition.easeOutExpo });
+        }
+    });
+
+    var AnimatedScroller = Animation.extend({
+        init: function(options) {
+            var that = this;
+
+            kendo.effects.Animation.fn.init.call(this);
+
+            extend(that, options, {
+                origin: {},
+                destination: {},
+                offset: {}
+            });
+        },
+
+        tick: function() {
+            this._updateCoordinates();
+            this.moveTo(this.origin);
+        },
+
+        done: function() {
+            return abs(this.offset.y) < ANIMATED_SCROLLER_PRECISION && abs(this.offset.x) < ANIMATED_SCROLLER_PRECISION;
+        },
+
+        onEnd: function() {
+            this.moveTo(this.destination);
+        },
+
+        setCoordinates: function(from, to) {
+            this.offset = {};
+            this.origin = from;
+            this.destination = to;
+        },
+
+        _updateCoordinates: function() {
+            this.offset = {
+                x: (this.destination.x - this.origin.x) / 4,
+                y: (this.destination.y - this.origin.y) / 4
+            };
+
+            this.origin = {
+                y: this.origin.y + this.offset.y,
+                x: this.origin.x + this.offset.x
+            };
         }
     });
 
@@ -223,7 +276,8 @@ kendo_module({
 
             element = that.element;
 
-            if (that.options.useNative && kendo.support.hasNativeScrolling) {
+            that._native = that.options.useNative && kendo.support.hasNativeScrolling;
+            if (that._native) {
                 element.addClass("km-native-scroller")
                     .prepend('<div class="km-scroll-header"/>');
 
@@ -250,24 +304,25 @@ kendo_module({
                 dimensions = new PaneDimensions({
                     element: inner,
                     container: element,
-                    forcedEnabled: that.options.zoom,
-                    change: function() {
-                        that.trigger(RESIZE);
-                    }
+                    forcedEnabled: that.options.zoom
                 }),
+
+                avoidScrolling = this.options.avoidScrolling,
 
                 userEvents = new kendo.UserEvents(element, {
                     allowSelection: true,
                     preventDragEvent: true,
+                    captureUpIfMoved: true,
                     multiTouch: that.options.zoom,
                     start: function(e) {
                         dimensions.refresh();
 
                         var velocityX = abs(e.x.velocity),
-                            velocityY = abs(e.y.velocity);
+                            velocityY = abs(e.y.velocity),
+                            horizontalSwipe  = velocityX * 2 >= velocityY,
+                            verticalSwipe = velocityY * 2 >= velocityX;
 
-                        if (dimensions.x.enabled && velocityX * 2 >= velocityY ||
-                            dimensions.y.enabled && velocityY * 2 >= velocityX) {
+                        if (!avoidScrolling(e) && that.enabled && (dimensions.x.enabled && horizontalSwipe || dimensions.y.enabled && verticalSwipe)) {
                             userEvents.capture();
                         } else {
                             userEvents.cancel();
@@ -287,6 +342,12 @@ kendo_module({
                     dimensions: dimensions,
                     userEvents: userEvents,
                     tapCapture: tapCapture
+                }),
+
+                animatedScroller = new AnimatedScroller({
+                    moveTo: function(coordinates) {
+                        that.scrollTo(coordinates.x, coordinates.y);
+                    }
                 });
 
             movable.bind(CHANGE, function() {
@@ -303,11 +364,15 @@ kendo_module({
                 movable: movable,
                 dimensions: dimensions,
                 zoomSnapBack: zoomSnapBack,
+                animatedScroller: animatedScroller,
                 userEvents: userEvents,
                 pane: pane,
                 tapCapture: tapCapture,
                 pulled: false,
+                enabled: true,
                 scrollElement: inner,
+                scrollTop: 0,
+                scrollLeft: 0,
                 fixedContainer: element.children().first()
             });
 
@@ -319,8 +384,18 @@ kendo_module({
             if (that.options.pullToRefresh) {
                 that._initPullToRefresh();
             }
+        },
 
-            kendo.onResize($.proxy(that.reset, that));
+        makeVirtual: function() {
+            this.dimensions.y.makeVirtual();
+        },
+
+        virtualSize: function(min, max) {
+            this.dimensions.y.virtualSize(min, max);
+        },
+
+        height: function() {
+            return this.dimensions.y.size;
         },
 
         scrollHeight: function() {
@@ -337,6 +412,8 @@ kendo_module({
             pullOffset: 140,
             elastic: true,
             useNative: false,
+            avoidScrolling: function() { return false; },
+            pullToRefresh: false,
             pullTemplate: "Pull to refresh",
             releaseTemplate: "Release to refresh",
             refreshTemplate: "Refreshing"
@@ -348,6 +425,13 @@ kendo_module({
             RESIZE
         ],
 
+        _resize: function() {
+            if (!this._native) {
+                this.dimensions.refresh();
+            }
+            this.reset();
+        },
+
         setOptions: function(options) {
             var that = this;
             Widget.fn.setOptions.call(that, options);
@@ -357,11 +441,45 @@ kendo_module({
         },
 
         reset: function() {
-            this.movable.moveTo({x: 0, y: 0});
+            if (this._native) {
+                this.scrollElement.scrollTop(0);
+            } else {
+                this.movable.moveTo({x: 0, y: 0});
+                this._scale(1);
+            }
+        },
+
+        zoomOut: function() {
+            var dimensions = this.dimensions;
+            dimensions.refresh();
+            this._scale(dimensions.fitScale);
+            this.movable.moveTo(dimensions.centerCoordinates());
+        },
+
+        enable: function() {
+            this.enabled = true;
+        },
+
+        disable: function() {
+            this.enabled = false;
         },
 
         scrollTo: function(x, y) {
-            this.movable.moveTo({x: x, y: y});
+            if (this._native) {
+                this.scrollElement.scrollLeft(x);
+                this.scrollElement.scrollTop(y);
+            } else {
+                this.dimensions.refresh();
+                this.movable.moveTo({x: x, y: y});
+            }
+        },
+
+        animatedScrollTo: function(x, y) {
+            var from = { x: this.movable.x, y: this.movable.y },
+                to = { x: x, y: y };
+
+            this.animatedScroller.setCoordinates(from, to);
+            this.animatedScroller.start();
         },
 
         pullHandled: function() {
@@ -374,7 +492,14 @@ kendo_module({
 
         destroy: function() {
             Widget.fn.destroy.call(this);
-            this.userEvents.destroy();
+            if (this.userEvents) {
+                this.userEvents.destroy();
+            }
+        },
+
+        _scale: function(scale) {
+            this.dimensions.rescale(scale);
+            this.movable.scaleTo(scale);
         },
 
         _initPullToRefresh: function() {
@@ -385,7 +510,7 @@ kendo_module({
             that.releaseTemplate = kendo.template(that.options.releaseTemplate);
             that.refreshTemplate = kendo.template(that.options.refreshTemplate);
 
-            that.scrollElement.prepend('<span class="km-scroller-pull"><span class="km-icon"></span><span class="km-template">' + that.pullTemplate({}) + '</span></span>');
+            that.scrollElement.prepend('<span class="km-scroller-pull"><span class="km-icon"></span><span class="km-loading-left"></span><span class="km-loading-right"></span><span class="km-template">' + that.pullTemplate({}) + '</span></span>');
             that.refreshHint = that.scrollElement.children().first();
             that.hintContainer = that.refreshHint.children(".km-template");
 
@@ -425,31 +550,37 @@ kendo_module({
 
         _initAxis: function(axis) {
             var that = this,
-            movable = that.movable,
-            dimension = that.dimensions[axis],
-            tapCapture = that.tapCapture,
+                movable = that.movable,
+                dimension = that.dimensions[axis],
+                tapCapture = that.tapCapture,
+                scrollBar = new ScrollBar({
+                    axis: axis,
+                    movable: movable,
+                    dimension: dimension,
+                    container: that.element
+                });
 
-            scrollBar = new ScrollBar({
-                axis: axis,
-                movable: movable,
-                dimension: dimension,
-                container: that.element
-            }),
+            that.pane[axis].bind(CHANGE, function() {
+                scrollBar.show();
+            });
 
-            inertia = new DragInertia({
+            that[axis + "inertia"] = new DragInertia({
                 axis: axis,
                 movable: movable,
                 tapCapture: tapCapture,
                 userEvents: that.userEvents,
                 dimension: dimension,
                 elastic: that.options.elastic,
-                end: function() { scrollBar.hide(); }
-            });
-
-            that[axis + "inertia"] = inertia;
-
-            that.pane[axis].bind(CHANGE, function() {
-                scrollBar.show();
+                friction: that.options.friction || FRICTION,
+                velocityMultiplier: that.options.velocityMultiplier || VELOCITY_MULTIPLIER,
+                end: function() {
+                    scrollBar.hide();
+                    that.trigger("scrollEnd", {
+                        axis: axis,
+                        scrollTop: that.scrollTop,
+                        scrollLeft: that.scrollLeft
+                    });
+                }
             });
         }
     });

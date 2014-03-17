@@ -82,6 +82,7 @@
       goog.require('lgb.core.Global');
       goog.require('lgb.chart.controller.StandAloneController');
       goog.require('lgb.scenario.controller.ScenarioController');
+      goog.require('lgb.gui.view.SimulationStateControlGUIh');
 
     </script>
     
@@ -95,13 +96,16 @@
   <script>
   
 
+    
    
    $(document).ready(function () {
      
       lgb.init();
 
       var controller = new lgb.chart.controller.StandAloneController();
-
+      
+      lgb.SimulationStateControlGUI =  lgb.gui.view.SimulationStateControlGUIh;
+  
       controller.init();
       
       

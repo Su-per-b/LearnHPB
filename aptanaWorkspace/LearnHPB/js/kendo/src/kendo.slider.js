@@ -1,5 +1,5 @@
 /*
-* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Kendo UI Web v2013.3.1119 (http://kendoui.com)
 * Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
@@ -28,12 +28,14 @@ kendo_module({
         math = Math,
         support = kendo.support,
         pointers = support.pointers,
+        msPointers = support.msPointers,
         CHANGE = "change",
         SLIDE = "slide",
         NS = ".slider",
         MOUSE_DOWN = "touchstart" + NS + " mousedown" + NS,
-        TRACK_MOUSE_DOWN = pointers ? "MSPointerDown" + NS : "mousedown" + NS + " touchstart" + NS,
+        TRACK_MOUSE_DOWN = pointers ? "pointerdown" + NS : (msPointers ? "MSPointerDown" + NS : MOUSE_DOWN),
         MOUSE_UP = "touchend" + NS + " mouseup" + NS,
+        TRACK_MOUSE_UP = pointers ? "pointerup" : (msPointers ? "MSPointerUp" + NS : MOUSE_UP),
         MOVE_SELECTION = "moveSelection",
         KEY_DOWN = "keydown" + NS,
         CLICK = "click" + NS,
@@ -44,6 +46,7 @@ kendo_module({
         TRACK_SELECTOR = ".k-slider-track",
         TICK_SELECTOR = ".k-tick",
         STATE_SELECTED = "k-state-selected",
+        STATE_FOCUSED = "k-state-focused",
         STATE_DEFAULT = "k-state-default",
         STATE_DISABLED = "k-state-disabled",
         PRECISION = 3,
@@ -64,7 +67,7 @@ kendo_module({
             that._isHorizontal = options.orientation == "horizontal";
             that._isRtl = that._isHorizontal && kendo.support.isRtl(element);
             that._position = that._isHorizontal ? "left" : "bottom";
-            that._size = that._isHorizontal ? "width" : "height";
+            that._sizeFn = that._isHorizontal ? "width" : "height";
             that._outerSize = that._isHorizontal ? "outerWidth" : "outerHeight";
 
             options.tooltip.format = options.tooltip.enabled ? options.tooltip.format || "{0}" : "{0}";
@@ -75,22 +78,11 @@ kendo_module({
 
             that._setTrackDivWidth();
 
-            that._maxSelection = that._trackDiv[that._size]();
+            that._maxSelection = that._trackDiv[that._sizeFn]();
 
-            var sizeBetweenTicks = that._maxSelection / ((options.max - options.min) / options.smallStep);
-            var pixelWidths = that._calculateItemsWidth(math.floor(that._distance / options.smallStep));
-
-            if (options.tickPlacement != "none" && sizeBetweenTicks >= 2) {
-                that._trackDiv.before(createSliderItems(options, that._distance));
-                that._setItemsWidth(pixelWidths);
-                that._setItemsTitle();
-                that._setItemsLargeTick();
-            }
-
-            that._calculateSteps(pixelWidths);
+            that._sliderItemsInit();
 
             that._tabindex(that.wrapper.find(DRAG_HANDLE));
-
             that[options.enabled ? "enable" : "disable"]();
 
             var rtlDirectionSign = kendo.support.isRtl(that.wrapper) ? -1 : 1;
@@ -125,11 +117,45 @@ kendo_module({
             tooltip: { enabled: true, format: "{0}" }
         },
 
+        _resize: function() {
+            this._setTrackDivWidth();
+            this.wrapper.find(".k-slider-items").remove();
+
+            this._maxSelection = this._trackDiv[this._sizeFn]();
+            this._sliderItemsInit();
+            this._refresh();
+        },
+
+        _sliderItemsInit: function() {
+            var that = this,
+                options = that.options;
+
+            var sizeBetweenTicks = that._maxSelection / ((options.max - options.min) / options.smallStep);
+            var pixelWidths = that._calculateItemsWidth(math.floor(that._distance / options.smallStep));
+
+            if (options.tickPlacement != "none" && sizeBetweenTicks >= 2) {
+                that._trackDiv.before(createSliderItems(options, that._distance));
+                that._setItemsWidth(pixelWidths);
+                that._setItemsTitle();
+            }
+
+            that._calculateSteps(pixelWidths);
+
+            if (options.tickPlacement != "none" && sizeBetweenTicks >= 2 &&
+                options.largeStep > options.smallStep) {
+                that._setItemsLargeTick();
+            }
+        },
+
+        getSize: function() {
+            return kendo.dimensions(this.wrapper);
+        },
+
         _setTrackDivWidth: function() {
             var that = this,
                 trackDivPosition = parseFloat(that._trackDiv.css(that._isRtl ? "right" : that._position), 10) * 2;
 
-            that._trackDiv[that._size]((that.wrapper[that._size]() - 2) - trackDivPosition);
+            that._trackDiv[that._sizeFn]((that.wrapper[that._sizeFn]() - 2) - trackDivPosition);
         },
 
         _setItemsWidth: function(pixelWidths) {
@@ -145,15 +171,15 @@ kendo_module({
                 selection = 0;
 
             for (i = 0; i < count - 2; i++) {
-                $(items[i + 1])[that._size](pixelWidths[i]);
+                $(items[i + 1])[that._sizeFn](pixelWidths[i]);
             }
 
             if (that._isHorizontal) {
-                $(items[first]).addClass("k-first")[that._size](pixelWidths[last - 1]);
-                $(items[last]).addClass("k-last")[that._size](pixelWidths[last]);
+                $(items[first]).addClass("k-first")[that._sizeFn](pixelWidths[last - 1]);
+                $(items[last]).addClass("k-last")[that._sizeFn](pixelWidths[last]);
             } else {
-                $(items[last]).addClass("k-first")[that._size](pixelWidths[last]);
-                $(items[first]).addClass("k-last")[that._size](pixelWidths[last - 1]);
+                $(items[last]).addClass("k-first")[that._sizeFn](pixelWidths[last]);
+                $(items[first]).addClass("k-last")[that._sizeFn](pixelWidths[last - 1]);
             }
 
             if (that._distance % options.smallStep !== 0 && !that._isHorizontal) {
@@ -187,30 +213,23 @@ kendo_module({
         _setItemsLargeTick: function() {
             var that = this,
                 options = that.options,
-                i,
                 items = that.wrapper.find(TICK_SELECTOR),
-                item = {},
-                step = round(options.largeStep / options.smallStep);
+                i = 0, item, value;
 
-            if ((1000 * options.largeStep) % (1000 * options.smallStep) === 0) {
+            if ((1000 * options.largeStep) % (1000 * options.smallStep) === 0 || that._distance / options.largeStep >= 3) {
                 if (that._isHorizontal && !that._isRtl) {
-                    for (i = 0; i < items.length; i = round(i + step)) {
-                        item = $(items[i]);
+                    items = $.makeArray(items).reverse();
+                }
 
-                        item.addClass("k-tick-large")
-                            .html("<span class='k-label'>" + item.attr("title") + "</span>");
-                    }
-                } else {
-                    for (i = items.length - 1; i >= 0; i = round(i - step)) {
-                        item = $(items[i]);
-
+                for (i = 0; i < items.length; i++) {
+                    item = $(items[i]);
+                    value = that._values[i];
+                    if (value % options.smallStep === 0 && value % options.largeStep === 0) {
                         item.addClass("k-tick-large")
                             .html("<span class='k-label'>" + item.attr("title") + "</span>");
 
-                        if (!that._isRtl) {
-                            if (i !== 0 && i !== items.length - 1) {
-                                item.css("line-height", item[that._size]() + "px");
-                            }
+                        if (i !== 0 && i !== items.length - 1) {
+                            item.css("line-height", item[that._sizeFn]() + "px");
                         }
                     }
                 }
@@ -220,7 +239,7 @@ kendo_module({
         _calculateItemsWidth: function(itemsCount) {
             var that = this,
                 options = that.options,
-                trackDivSize = parseFloat(that._trackDiv.css(that._size)) + 1,
+                trackDivSize = parseFloat(that._trackDiv.css(that._sizeFn)) + 1,
                 pixelStep = trackDivSize / that._distance,
                 itemWidth,
                 pixelWidths,
@@ -441,7 +460,7 @@ kendo_module({
                 val = val[that._activeHandle];
             }
 
-            $(target).addClass(STATE_SELECTED);
+            $(target).addClass(STATE_FOCUSED + " " + STATE_SELECTED);
 
             if (drag) {
                 that._activeHandleDrag = drag;
@@ -453,9 +472,10 @@ kendo_module({
             }
         },
 
-        _focusWithMouse: function(e) {
+        _focusWithMouse: function(target) {
+            target = $(target);
+
             var that = this,
-                target = $(e.target),
                 idx = target.is(DRAG_HANDLE) ? target.index() : 0;
 
             window.setTimeout(function(){
@@ -469,7 +489,7 @@ kendo_module({
             var that = this,
                 drag = that._activeHandleDrag;
 
-            $(e.target).removeClass(STATE_SELECTED);
+            $(e.target).removeClass(STATE_FOCUSED + " " + STATE_SELECTED);
 
             if (drag) {
                 drag._removeTooltip();
@@ -660,13 +680,13 @@ kendo_module({
                     target = $(e.target);
 
                 if (target.hasClass("k-draghandle")) {
-                    target.addClass(STATE_SELECTED);
+                    target.addClass(STATE_FOCUSED + " " + STATE_SELECTED);
                     return;
                 }
 
                 that._update(that._getValueFromPosition(mousePosition, dragableArea));
 
-                that._focusWithMouse(e);
+                that._focusWithMouse(e.target);
 
                 that._drag.dragstart(e);
                 e.preventDefault();
@@ -678,6 +698,9 @@ kendo_module({
                     .end()
                     .on(TRACK_MOUSE_DOWN, function() {
                         $(document.documentElement).one("selectstart", kendo.preventDefault);
+                    })
+                    .on(TRACK_MOUSE_UP, function() {
+                        that._drag._end();
                     });
 
             that.wrapper
@@ -687,7 +710,7 @@ kendo_module({
                     that._setTooltipTimeout();
                 })
                 .on(CLICK, function (e) {
-                    that._focusWithMouse(e);
+                    that._focusWithMouse(e.target);
                     e.preventDefault();
                 })
                 .on(FOCUS, proxy(that._focus, that))
@@ -716,7 +739,7 @@ kendo_module({
                 that.wrapper.find(".k-button")
                     .on(MOUSE_UP, proxy(function (e) {
                         this._clearTimer();
-                        that._focusWithMouse(e);
+                        that._focusWithMouse(e.target);
                     }, that))
                     .on(MOUSE_OVER, function (e) {
                         $(e.currentTarget).addClass("k-state-hover");
@@ -767,7 +790,7 @@ kendo_module({
                 .on(MOUSE_OVER, kendo.preventDefault);
 
             that.wrapper
-                .find(TICK_SELECTOR + ", " + TRACK_SELECTOR).off(TRACK_MOUSE_DOWN);
+                .find(TICK_SELECTOR + ", " + TRACK_SELECTOR).off(TRACK_MOUSE_DOWN).off(TRACK_MOUSE_UP);
 
             that.wrapper
                 .find(DRAG_HANDLE)
@@ -892,7 +915,7 @@ kendo_module({
                 halfDragHanndle = parseInt(dragHandle[that._outerSize]() / 2, 10),
                 rtlCorrection = that._isRtl ? 2 : 0;
 
-            selectionDiv[that._size](that._isRtl ? that._maxSelection - selection : selection);
+            selectionDiv[that._sizeFn](that._isRtl ? that._maxSelection - selection : selection);
             dragHandle.css(that._position, selection - halfDragHanndle - rtlCorrection);
         }
 
@@ -903,15 +926,14 @@ kendo_module({
         });
     };
 
-    Slider.Drag = function (dragHandle, type, owner, options) {
+    Slider.Drag = function (element, type, owner, options) {
         var that = this;
         that.owner = owner;
         that.options = options;
-        that.dragHandle = dragHandle;
-        that.dragHandleSize = dragHandle[owner._outerSize]();
+        that.element = element;
         that.type = type;
 
-        that.draggable = new Draggable(dragHandle, {
+        that.draggable = new Draggable(element, {
             distance: 0,
             dragstart: proxy(that._dragstart, that),
             drag: proxy(that.drag, that),
@@ -919,12 +941,15 @@ kendo_module({
             dragcancel: proxy(that.dragcancel, that)
         });
 
-        dragHandle.click(false);
+        element.click(false);
     };
 
     Slider.Drag.prototype = {
         dragstart: function(e) {
+            // add reference to the last active drag handle.
+            this.owner._activeDragHandle = this;
             // HACK to initiate click on the line
+            this.draggable.userEvents.cancel();
             this.draggable.userEvents._start(e);
         },
 
@@ -938,8 +963,11 @@ kendo_module({
                 return;
             }
 
+            // add reference to the last active drag handle.
+            this.owner._activeDragHandle = this;
+
             owner.element.off(MOUSE_OVER);
-            that.dragHandle.addClass(STATE_SELECTED);
+            that.element.addClass(STATE_FOCUSED + " " + STATE_SELECTED);
             $(document.documentElement).css("cursor", "pointer");
 
             that.dragableArea = owner._getDraggableArea();
@@ -1095,7 +1123,7 @@ kendo_module({
             var that = this,
                 owner = that.owner;
 
-            owner._focusWithMouse({"target":that.dragHandle[0]});
+            owner._focusWithMouse(that.element);
 
             owner.element.on(MOUSE_OVER);
 
@@ -1124,8 +1152,8 @@ kendo_module({
                 owner = that.owner,
                 top = 0,
                 left = 0,
-                dragHandle = that.dragHandle,
-                offset = kendo.getOffset(dragHandle),
+                element = that.element,
+                offset = kendo.getOffset(element),
                 margin = 8,
                 viewport = $(window),
                 callout = that.tooltipDiv.find(".k-callout"),
@@ -1150,14 +1178,14 @@ kendo_module({
             } else {
                 top = offset.top;
                 left = offset.left;
-                anchorSize = dragHandle.outerWidth() + 2 * margin;
+                anchorSize = element.outerWidth() + 2 * margin;
             }
 
             if (owner._isHorizontal) {
-                left -= parseInt((width - dragHandle[owner._outerSize]()) / 2, 10);
+                left -= parseInt((width - element[owner._outerSize]()) / 2, 10);
                 top -= height + callout.height() + margin;
             } else {
-                top -= parseInt((height - dragHandle[owner._outerSize]()) / 2, 10);
+                top -= parseInt((height - element[owner._outerSize]()) / 2, 10);
                 left -= width + callout.width() + margin;
             }
 
@@ -1309,33 +1337,36 @@ kendo_module({
                     dragableArea = that._getDraggableArea(),
                     val = that._getValueFromPosition(mousePosition, dragableArea),
                     target = $(e.target),
-                    idx;
+                    from, to, drag;
 
                 if (target.hasClass("k-draghandle")) {
-                    target.addClass(STATE_SELECTED);
+                    target.addClass(STATE_FOCUSED + " " + STATE_SELECTED);
                     return;
                 }
 
                 if (val < options.selectionStart) {
-                    that._setValueInRange(val, options.selectionEnd);
-                    that._firstHandleDrag.dragstart(e);
-                    idx = 0;
+                    from = val;
+                    to = options.selectionEnd;
+                    drag = that._firstHandleDrag;
                 } else if (val > that.selectionEnd) {
-                    that._setValueInRange(options.selectionStart, val);
-                    that._lastHandleDrag.dragstart(e);
-                    idx = 1;
+                    from = options.selectionStart;
+                    to = val;
+                    drag = that._lastHandleDrag;
                 } else {
                     if (val - options.selectionStart <= options.selectionEnd - val) {
-                        that._setValueInRange(val, options.selectionEnd);
-                        that._firstHandleDrag.dragstart(e);
-                        idx = 0;
+                        from = val;
+                        to = options.selectionEnd;
+                        drag = that._firstHandleDrag;
                     } else {
-                        that._setValueInRange(options.selectionStart, val);
-                        that._lastHandleDrag.dragstart(e);
-                        idx = 1;
+                        from = options.selectionStart;
+                        to = val;
+                        drag = that._lastHandleDrag;
                     }
                 }
-                that._focusWithMouse({"target":that.wrapper.find(DRAG_HANDLE)[idx]});
+
+                drag.dragstart(e);
+                that._setValueInRange(from, to);
+                that._focusWithMouse(drag.element);
             };
 
             that.wrapper
@@ -1344,6 +1375,9 @@ kendo_module({
                     .end()
                     .on(TRACK_MOUSE_DOWN, function() {
                         $(document.documentElement).one("selectstart", kendo.preventDefault);
+                    })
+                    .on(TRACK_MOUSE_UP, function() {
+                        that._activeDragHandle._end();
                     });
 
             that.wrapper
@@ -1353,7 +1387,7 @@ kendo_module({
                     that._setTooltipTimeout();
                 })
                 .on(CLICK, function (e) {
-                    that._focusWithMouse(e);
+                    that._focusWithMouse(e.target);
                     e.preventDefault();
                 })
                 .on(FOCUS, proxy(that._focus, that))
@@ -1386,7 +1420,7 @@ kendo_module({
             that.wrapper.find("input").prop(DISABLED, DISABLED);
 
             that.wrapper
-                .find(TICK_SELECTOR + ", " + TRACK_SELECTOR).off(TRACK_MOUSE_DOWN);
+                .find(TICK_SELECTOR + ", " + TRACK_SELECTOR).off(TRACK_MOUSE_DOWN).off(TRACK_MOUSE_UP);
 
             that.wrapper
                 .find(DRAG_HANDLE)
@@ -1591,7 +1625,7 @@ kendo_module({
 
             selection = math.abs(selectionStart - selectionEnd);
 
-            selectionDiv[that._size](selection);
+            selectionDiv[that._sizeFn](selection);
             if (that._isRtl) {
                 selectionPosition = math.max(selectionStart, selectionEnd);
                 selectionDiv.css("right", that._maxSelection - selectionPosition - 1);

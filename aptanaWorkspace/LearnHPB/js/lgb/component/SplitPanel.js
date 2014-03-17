@@ -30,7 +30,8 @@ lgb.component.SplitPanel = function(ds) {
   this.splitterBarContainerCss = {
     width : "100%",
     height : "100%",
-    overflow:"hidden"
+    overflow:"hidden",
+    "background":"transparent"
   };
   
   
@@ -42,6 +43,7 @@ lgb.component.SplitPanel = function(ds) {
     right : "0",
     bottom : "0",
     left : "0",
+    
     "overflow-y":"scroll",
     "overflow-x":"hidden"
   };
@@ -90,8 +92,7 @@ lgb.component.SplitPanel.prototype.onResize_ = function(event) {
 
 lgb.component.SplitPanel.prototype.injectTo = function(parentElement) {
 
-  var w = window.innerWidth;
-  var h = window.innerHeight;
+
   
   this.paneOne_ = this.makeDiv();
   this.paneTwo_ = this.makeDiv();

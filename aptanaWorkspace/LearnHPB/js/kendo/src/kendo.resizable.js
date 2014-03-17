@@ -1,5 +1,5 @@
 /*
-* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Kendo UI Web v2013.3.1119 (http://kendoui.com)
 * Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
@@ -21,7 +21,7 @@ kendo_module({
         ui = kendo.ui,
         Widget = ui.Widget,
         proxy = $.proxy,
-        isFunction = $.isFunction,
+        isFunction = kendo.isFunction,
         extend = $.extend,
         HORIZONTAL = "horizontal",
         VERTICAL = "vertical",
@@ -61,6 +61,10 @@ kendo_module({
         options: {
             name: "Resizable",
             orientation: HORIZONTAL
+        },
+
+        resize: function() {
+            // Overrides base widget resize
         },
 
         _max: function(e) {

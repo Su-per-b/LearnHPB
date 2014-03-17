@@ -1,5 +1,5 @@
 /*
-* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Kendo UI Web v2013.3.1119 (http://kendoui.com)
 * Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
@@ -29,7 +29,12 @@ kendo_module({
             "number": "numerictextbox",
             "date": "datepicker"
         },
-        isFunction = $.isFunction,
+        mobileRoles = {
+            "string": "text",
+            "number": "number",
+            "date": "date"
+        },
+        isFunction = kendo.isFunction,
         Widget = ui.Widget;
 
     var booleanTemplate =
@@ -86,6 +91,97 @@ kendo_module({
                 '</div>'+
             '</div>';
 
+        var defaultMobileTemplate =
+            '<div data-#=ns#role="view" data-#=ns#init-widgets="false" class="k-grid-filter-menu">'+
+                '<div data-#=ns#role="header" class="k-header">'+
+                    '<button class="k-button k-cancel">#=messages.cancel#</button>'+
+                    '#=field#'+
+                    '<button type="submit" class="k-button k-submit">#=messages.filter#</button>'+
+                '</div>'+
+                '<form class="k-filter-menu k-mobile-list k-secondary">'+
+                    '<ul class="k-filter-help-text"><li><span class="k-link">#=messages.info#</span>'+
+                    '<ul>'+
+                        '<li class="k-item"><label class="k-label">#=messages.operator#'+
+                            '<select data-#=ns#bind="value: filters[0].operator">'+
+                                '#for(var op in operators){#'+
+                                    '<option value="#=op#">#=operators[op]#</option>' +
+                                '#}#'+
+                            '</select>'+
+                        '</label></li>' +
+                        '<li class="k-item"><label class="k-label">#=messages.value#'+
+                            '#if(values){#' +
+                                '<select data-#=ns#bind="value:filters[0].value">'+
+                                    '<option value="">#=messages.selectValue#</option>' +
+                                    '#for(var val in values){#'+
+                                        '<option value="#=values[val].value#">#=values[val].text#</option>' +
+                                    '#}#'+
+                                '</select>' +
+                            '#}else{#' +
+                                '<input data-#=ns#bind="value:filters[0].value" class="k-textbox" type="#=inputType#" '+
+                                '#=useRole ? "data-" + ns + "role=\'" + role + "\'" : ""# />'+
+                            '#}#' +
+                        '</label></li>'+
+                        '#if(extra){#'+
+                        '</ul>'+
+                        '<ul class="k-filter-help-text"><li><span class="k-link"></span>'+
+                            '<li class="k-item"><label class="k-label"><input type="radio" name="logic" class="k-check" data-#=ns#bind="checked: logic" value="and" />#=messages.and#</label></li>'+
+                            '<li class="k-item"><label class="k-label"><input type="radio" name="logic" class="k-check" data-#=ns#bind="checked: logic" value="or" />#=messages.or#</label></li>'+
+                        '</ul>'+
+                        '<ul class="k-filter-help-text"><li><span class="k-link"></span>'+
+                            '<li class="k-item"><label class="k-label">#=messages.operator#'+
+                                '<select data-#=ns#bind="value: filters[1].operator">'+
+                                    '#for(var op in operators){#'+
+                                        '<option value="#=op#">#=operators[op]#</option>' +
+                                    '#}#'+
+                                '</select>'+
+                            '</label></li>'+
+                            '<li class="k-item"><label class="k-label">#=messages.value#'+
+                                '#if(values){#' +
+                                    '<select data-#=ns#bind="value:filters[1].value">'+
+                                        '<option value="">#=messages.selectValue#</option>' +
+                                        '#for(var val in values){#'+
+                                            '<option value="#=values[val].value#">#=values[val].text#</option>' +
+                                        '#}#'+
+                                    '</select>' +
+                                '#}else{#' +
+                                    '<input data-#=ns#bind="value:filters[1].value" class="k-textbox" type="#=inputType#" '+
+                                    '#=useRole ? "data-" + ns + "role=\'" + role + "\'" : ""# />'+
+                                '#}#' +
+                            '</label></li>'+
+                        '#}#'+
+                        '</ul>'+
+                        '</li><li class="k-button-container">' +
+                            '<button type="reset" class="k-button">#=messages.clear#</button>'+
+                        '</li></ul>' +
+                    '</div>'+
+                '</form>'+
+            '</div>';
+
+    var booleanMobileTemplate =
+            '<div data-#=ns#role="view" data-#=ns#init-widgets="false" class="k-grid-filter-menu">'+
+                '<div data-#=ns#role="header" class="k-header">'+
+                    '<button class="k-button k-cancel">#=messages.cancel#</button>'+
+                    '#=field#'+
+                    '<button type="submit" class="k-button k-submit">#=messages.filter#</button>'+
+                '</div>'+
+                '<form class="k-filter-menu k-mobile-list k-secondary">'+
+                    '<ul class="k-filter-help-text"><li><span class="k-link">#=messages.info#</span>'+
+                    '<ul>'+
+                        '<li class="k-item"><label class="k-label">'+
+                            '<input class="k-check" type="radio" data-#=ns#bind="checked: filters[0].value" value="true" name="filters[0].value"/>' +
+                            '#=messages.isTrue#' +
+                        '</label></li>' +
+                        '<li class="k-item"><label class="k-label">'+
+                            '<input class="k-check" type="radio" data-#=ns#bind="checked: filters[0].value" value="false" name="filters[0].value"/>' +
+                            '#=messages.isFalse#' +
+                        '</label></li>' +
+                    '</ul>'+
+                    '</li><li class="k-button-container">' +
+                        '<button type="reset" class="k-button">#=messages.clear#</button>'+
+                    '</li></ul>' +
+                '</form>'+
+            '</div>';
+
     function removeFiltersForField(expression, field) {
         if (expression.filters) {
             expression.filters = $.grep(expression.filters, function(filter) {
@@ -120,16 +216,32 @@ kendo_module({
         return result;
     }
 
+
+    function clearFilter(filters, field) {
+        return $.grep(filters, function(expr) {
+            if (expr.filters) {
+                expr.filters = $.grep(expr.filters, function(nested) {
+                    return nested.field != field;
+                });
+
+                return expr.filters.length;
+            }
+            return expr.field != field;
+        });
+    }
+
     var FilterMenu = Widget.extend({
         init: function(element, options) {
             var that = this,
                 type = "string",
+                operators,
+                initial,
                 link,
                 field;
 
             Widget.fn.init.call(that, element, options);
 
-            that.operators = options.operators || {};
+            operators = that.operators = options.operators || {};
 
             element = that.element;
             options = that.options;
@@ -173,25 +285,6 @@ kendo_module({
 
             that.type = type;
 
-            if (options.appendToElement) { // force creation if used in column menu
-                that._init();
-            }
-        },
-
-        _init: function() {
-            var that = this,
-                options = that.options,
-                operators = that.operators || {},
-                initial,
-                ui = options.ui,
-                setUI = isFunction(ui),
-                role,
-                type = that.type;
-
-            that._refreshHandler = proxy(that.refresh, that);
-
-            that.dataSource.bind("change", that._refreshHandler);
-
             operators = operators[type] || options.operators[type];
 
             for (initial in operators) { // get the first operator
@@ -202,37 +295,41 @@ kendo_module({
                 return { field: that.field, operator: initial || "eq", value: "" };
             };
 
-            if (!setUI) {
-                role = ui || roles[type];
+            that._refreshHandler = proxy(that.refresh, that);
+
+            that.dataSource.bind("change", that._refreshHandler);
+
+            if (options.appendToElement) { // force creation if used in column menu
+                that._init();
+            } else {
+                that.refresh(); //refresh if DataSource is fitered before menu is created
+            }
+        },
+
+        _init: function() {
+            var that = this,
+                ui = that.options.ui,
+                setUI = isFunction(ui),
+                role;
+
+            that.pane = that.element.closest(kendo.roleSelector("pane")).data("kendoMobilePane");
+            if (that.pane) {
+                that._isMobile = true;
             }
 
-            that.form = $('<form class="k-filter-menu"/>')
-                .html(kendo.template(type === "boolean" ? booleanTemplate : defaultTemplate)({
-                    field: that.field,
-                    format: options.format,
-                    ns: kendo.ns,
-                    messages: options.messages,
-                    extra: options.extra,
-                    operators: operators,
-                    type: type,
-                    role: role,
-                    values: convertItems(options.values)
-                }))
-                .on("keydown" + NS, proxy(that._keydown, that))
+            if (!setUI) {
+                role = ui || roles[that.type];
+            }
+
+            if (that._isMobile) {
+                that._createMobileForm(role);
+            } else {
+                that._createForm(role);
+            }
+
+            that.form
                 .on("submit" + NS, proxy(that._submit, that))
                 .on("reset" + NS, proxy(that._reset, that));
-
-            if (!options.appendToElement) {
-                that.popup = that.form[POPUP]({
-                    anchor: that.link,
-                    open: proxy(that._open, that),
-                    activate: proxy(that._activate, that),
-                    close: that.options.closeCallback
-                }).data(POPUP);
-            } else {
-                that.element.append(that.form);
-                that.popup = that.element.closest(".k-popup").data(POPUP);
-            }
 
             if (setUI) {
                 that.form.find(".k-textbox")
@@ -260,6 +357,80 @@ kendo_module({
             that.trigger(INIT, { field: that.field, container: that.form });
         },
 
+        _createForm: function(role) {
+            var that = this,
+                options = that.options,
+                operators = that.operators || {},
+                type = that.type;
+
+            operators = operators[type] || options.operators[type];
+
+            that.form = $('<form class="k-filter-menu k-secondary"/>')
+                .html(kendo.template(type === "boolean" ? booleanTemplate : defaultTemplate)({
+                    field: that.field,
+                    format: options.format,
+                    ns: kendo.ns,
+                    messages: options.messages,
+                    extra: options.extra,
+                    operators: operators,
+                    type: type,
+                    role: role,
+                    values: convertItems(options.values)
+                }));
+
+            if (!options.appendToElement) {
+                that.popup = that.form[POPUP]({
+                    anchor: that.link,
+                    open: proxy(that._open, that),
+                    activate: proxy(that._activate, that),
+                    close: that.options.closeCallback
+                }).data(POPUP);
+            } else {
+                that.element.append(that.form);
+                that.popup = that.element.closest(".k-popup").data(POPUP);
+            }
+
+            that.form
+                .on("keydown" + NS, proxy(that._keydown, that));
+        },
+
+        _createMobileForm: function(role) {
+            var that = this,
+                options = that.options,
+                operators = that.operators || {},
+                type = that.type;
+
+            operators = operators[type] || options.operators[type];
+
+            that.form = $("<div />")
+                .html(kendo.template(type === "boolean" ? booleanMobileTemplate : defaultMobileTemplate)({
+                    field: that.field,
+                    format: options.format,
+                    ns: kendo.ns,
+                    messages: options.messages,
+                    extra: options.extra,
+                    operators: operators,
+                    type: type,
+                    role: role,
+                    useRole: (!kendo.support.input.date && type === "date") || type === "number",
+                    inputType: mobileRoles[type],
+                    values: convertItems(options.values)
+                }));
+
+            that.view = that.pane.append(that.form.html());
+            that.form = that.view.element.find("form");
+
+            that.view.element
+                .on("click", ".k-submit", function(e) {
+                    that.form.submit();
+                    e.preventDefault();
+                })
+                .on("click", ".k-cancel", function(e) {
+                    that._closeForm();
+                    e.preventDefault();
+                });
+        },
+
         refresh: function() {
             var that = this,
                 expression = that.dataSource.filter() || { filters: [], logic: "and" };
@@ -269,8 +440,10 @@ kendo_module({
                 filters: [ that._defaultFilter(), that._defaultFilter()]
             });
 
-            //NOTE: binding the form element directly causes weird error in IE when grid is bound through MVVM and column is sorted
-            kendo.bind(that.form.children().first(), that.filterModel);
+            if (that.form) {
+                //NOTE: binding the form element directly causes weird error in IE when grid is bound through MVVM and column is sorted
+                kendo.bind(that.form.children().first(), that.filterModel);
+            }
 
             if (that._bind(expression)) {
                 that.link.addClass("k-state-active");
@@ -288,12 +461,20 @@ kendo_module({
                 kendo.unbind(that.form);
                 kendo.destroy(that.form);
                 that.form.unbind(NS);
-                that.popup.destroy();
+                if (that.popup) {
+                    that.popup.destroy();
+                }
+            }
+
+            if (that.view) {
+                that.view.purge();
             }
 
             that.link.unbind(NS);
 
-            that.dataSource.unbind("change", that._refreshHandler);
+            if (that._refreshHandler) {
+                that.dataSource.unbind("change", that._refreshHandler);
+            }
         },
 
         _bind: function(expression) {
@@ -342,7 +523,7 @@ kendo_module({
             removeFiltersForField(result, that.field);
 
             filters = $.grep(filters, function(filter) {
-                return filter.value !== "";
+                return filter.value !== "" && filter.value != null;
             });
 
             for (idx = 0, length = filters.length; idx < length; idx++) {
@@ -387,9 +568,7 @@ kendo_module({
 
             expression.filters = $.grep(expression.filters, function(filter) {
                 if (filter.filters) {
-                    filter.filters = $.grep(filter.filters, function(expr) {
-                        return expr.field != that.field;
-                    });
+                    filter.filters = clearFilter(filter.filters, that.field);
 
                     return filter.filters.length;
                 }
@@ -405,29 +584,40 @@ kendo_module({
         },
 
         _submit: function(e) {
-            var that = this;
-
             e.preventDefault();
 
-            that.filter(that.filterModel.toJSON());
+            this.filter(this.filterModel.toJSON());
 
-            that.popup.close();
+            this._closeForm();
         },
 
         _reset: function() {
             this.clear();
-            this.popup.close();
+
+            this._closeForm();
+        },
+
+        _closeForm: function() {
+            if (this._isMobile) {
+                this.pane.navigate("", this.options.animations.right);
+            } else {
+                this.popup.close();
+            }
         },
 
         _click: function(e) {
             e.preventDefault();
             e.stopPropagation();
 
-            if (!this.popup) {
+            if (!this.popup && !this.pane) {
                 this._init();
             }
 
-            this.popup.toggle();
+            if (this._isMobile) {
+                this.pane.navigate(this.view, this.options.animations.left);
+            } else {
+                this.popup.toggle();
+            }
         },
 
         _open: function() {
@@ -442,7 +632,7 @@ kendo_module({
         },
 
         _activate: function() {
-            this.form.find(":focusable:first").focus();
+            this.form.find(":kendoFocusable:first").focus();
         },
 
         _keydown: function(e) {
@@ -496,7 +686,14 @@ kendo_module({
                 clear: "Clear",
                 and: "And",
                 or: "Or",
-                selectValue: "-Select value-"
+                selectValue: "-Select value-",
+                operator: "Operator",
+                value: "Value",
+                cancel: "Cancel"
+            },
+            animations: {
+                left: "slide",
+                right: "slide:right"
             }
         }
     });

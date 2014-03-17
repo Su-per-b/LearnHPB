@@ -1,5 +1,5 @@
 /*
-* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Kendo UI Web v2013.3.1119 (http://kendoui.com)
 * Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
@@ -72,9 +72,7 @@ kendo_module({
 
             that._dataSource();
 
-            that.template = kendo.template(options.template || "");
-            that.altTemplate = kendo.template(options.altTemplate || options.template);
-            that.editTemplate = kendo.template(options.editTemplate || "");
+            that._templates();
 
             that._navigatable();
 
@@ -109,6 +107,20 @@ kendo_module({
             template: "",
             altTemplate: "",
             editTemplate: ""
+        },
+
+        setOptions: function(options) {
+            Widget.fn.setOptions.call(this, options);
+
+            this._templates();
+        },
+
+        _templates: function() {
+            var options = this.options;
+
+            this.template = kendo.template(options.template || "");
+            this.altTemplate = kendo.template(options.altTemplate || options.template);
+            this.editTemplate = kendo.template(options.editTemplate || "");
         },
 
         _item: function(action) {
@@ -178,13 +190,16 @@ kendo_module({
                 altTemplate = that.altTemplate,
                 active = activeElement();
 
-            if (e && e.action === "itemchange") {
-                if (!that.editable) {
-                    data = e.items[0];
-                    idx = $.inArray(data, view);
+            e = e || {};
 
-                    if (idx >= 0) {
-                        that.items().eq(idx).replaceWith(template(data));
+            if (e.action === "itemchange") {
+                if (!that._hasBindingTarget() && !that.editable) {
+                    data = e.items[0];
+                    item = that.items().filter("[" + kendo.attr("uid") + "=" + data.uid + "]");
+
+                    if (item.length > 0) {
+                        idx = item.index();
+                        item.replaceWith(template(data));
                         item = that.items().eq(idx);
                         item.attr(kendo.attr("uid"), data.uid);
 
@@ -197,8 +212,6 @@ kendo_module({
 
                 return;
             }
-
-            e = e || {};
 
             if (that.trigger(DATABINDING, { action: e.action || "rebind", items: e.items, index: e.index })) {
                 return;
@@ -307,7 +320,7 @@ kendo_module({
                 return current;
             }
 
-            if (current) {
+            if (current && current[0]) {
                 if (current[0].id === id) {
                     current.removeAttr("id");
                 }
@@ -528,9 +541,13 @@ kendo_module({
            var that = this,
                data = that._modelFromElement(item),
                container,
-               index = item.index();
+               uid = data.uid,
+               index;
 
             that.cancel();
+
+            item = that.items().filter("[" + kendo.attr("uid") + "=" + uid + "]");
+            index = item.index();
             item.replaceWith(that.editTemplate(data));
             container = that.items().eq(index).addClass(KEDITITEM).attr(kendo.attr("uid"), data.uid);
             that.editable = container.kendoEditable({ model: data, clearContainer: false, errorTemplate: false }).data("kendoEditable");

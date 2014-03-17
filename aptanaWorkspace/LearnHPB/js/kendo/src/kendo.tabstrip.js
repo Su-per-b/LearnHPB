@@ -1,5 +1,5 @@
 /*
-* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Kendo UI Web v2013.3.1119 (http://kendoui.com)
 * Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
@@ -207,6 +207,10 @@ kendo_module({
             that.wrapper.children(".k-tabstrip-items")
                 .on(CLICK + NS, ".k-state-disabled .k-link", false)
                 .on(CLICK + NS, " > " + NAVIGATABLEITEMS, function(e) {
+                    if (that.wrapper[0] !== document.activeElement) {
+                        that.wrapper.focus();
+                    }
+
                     if (that._click($(e.currentTarget))) {
                         e.preventDefault();
                     }
@@ -714,7 +718,7 @@ kendo_module({
         _updateContentElements: function() {
             var that = this,
                 contentUrls = that.options.contentUrls || [],
-                tabStripID = that.element.attr("id"),
+                tabStripID = that.element.attr("id") || kendo.guid(),
                 contentElements = that.wrapper.children("div");
 
             that.tabGroup.find(".k-item").each(function(idx) {
@@ -724,9 +728,13 @@ kendo_module({
                 this.setAttribute("aria-controls", id);
 
                 if (!currentContent.length && contentUrls[idx]) {
-                    $("<div id='"+ id +"' class='" + CONTENT + "'/>").appendTo(that.wrapper);
+                    $("<div class='" + CONTENT + "'/>").appendTo(that.wrapper).attr("id", id);
                 } else {
                     currentContent.attr("id", id);
+
+                    if (!$(this).children(".k-loading")[0] && !contentUrls[idx]) {
+                        $("<span class='k-loading k-complete'/>").prependTo(this);
+                    }
                 }
                 currentContent.attr("role", "tabpanel");
                 currentContent.filter(":not(." + ACTIVESTATE + ")").attr("aria-hidden", true).attr("aria-expanded", false);
@@ -841,9 +849,9 @@ kendo_module({
             // handle content elements
             var contentAnimators = that.contentAnimators;
 
-            if (item.data("in-request")) {
+            if (that.inRequest) {
                 that.xhr.abort();
-                item.removeAttr("data-in-request");
+                that.inRequest = false;
             }
 
             if (contentAnimators.length === 0) {
@@ -962,20 +970,20 @@ kendo_module({
 
         ajaxRequest: function (element, content, complete, url) {
             element = this.tabGroup.find(element);
-            if (element.find(".k-loading").length) {
-                return;
-            }
 
             var that = this,
+                xhr = $.ajaxSettings.xhr,
                 link = element.find("." + LINK),
                 data = {},
-                statusIcon = null,
-                loadingIconTimeout = setTimeout(function () {
-                    statusIcon = $("<span class='k-icon k-loading'/>").prependTo(link);
-                }, 100);
+                fakeProgress = false,
+                statusIcon = element.find(".k-loading").removeClass("k-complete");
+
+            if (!statusIcon[0]) {
+                statusIcon = $("<span class='k-loading'/>").prependTo(element);
+            }
 
             url = url || link.data(CONTENTURL) || link.attr(HREF);
-            element.attr("data-in-request", true);
+            that.inRequest = true;
 
             that.xhr = $.ajax({
                 type: "GET",
@@ -983,6 +991,39 @@ kendo_module({
                 url: url,
                 dataType: "html",
                 data: data,
+                xhr: function() {
+                    var current = this,
+                        request = xhr(),
+                        loaded = 10,
+                        event = current.progressUpload ? "progressUpload" : current.progress ? "progress" : false;
+
+                    if (request) {
+                        $.each([ request, request.upload ], function () {
+                            if (this.addEventListener) {
+                                this.addEventListener("progress", function(evt) {
+                                    if (event) {
+                                        current[event](evt);
+                                    }
+                                }, false);
+                            }
+                        });
+                    }
+
+                    if (!current.progress) {
+                        fakeProgress = setInterval(function () {
+                            current.progress({ lengthComputable: true, loaded: Math.min(loaded, 100), total: 100 });
+                        }, 100);
+                        loaded += 10;
+                    }
+                    return request;
+                },
+
+                progress: function(evt) {
+                    if (evt.lengthComputable) {
+                        var percent = parseInt((evt.loaded / evt.total * 100), 10) + "%";
+                        statusIcon.width(percent);
+                    }
+                },
 
                 error: function (xhr, status) {
                     if (that.trigger("error", { xhr: xhr, status: status })) {
@@ -991,15 +1032,13 @@ kendo_module({
                 },
 
                 complete: function () {
-                    element.removeAttr("data-in-request");
-
-                    clearTimeout(loadingIconTimeout);
-                    if (statusIcon !== null) {
-                        statusIcon.remove();
-                    }
+                    that.inRequest = false;
+                    clearInterval(fakeProgress);
+                    statusIcon.css("width", "");
                 },
 
                 success: function (data) {
+                    statusIcon.addClass("k-complete");
                     try {
                         content.html(data);
                     } catch (e) {

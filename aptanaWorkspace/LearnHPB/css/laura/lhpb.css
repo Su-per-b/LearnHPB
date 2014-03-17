@@ -1,0 +1,319 @@
+@charset "UTF-8";
+/* CSS Document */
+
+@import url(http://fonts.googleapis.com/css?family=Aldrich|Titillium+Web:400,600,700);
+
+html {
+	height: 100%;
+	background-color: #231F20;
+	background-image: url(../../images/laura/back-main.jpg);
+	background-position: left top;
+	background-repeat: repeat;
+  font: 400 1.2em 'Aldrich', Helvetica, Arial, sans-serif;
+}
+
+body {
+  font: 400 1em 'Aldrich', Helvetica, Arial, sans-serif;
+}
+
+a:link, a:visited {
+  color: #0F81BA;
+  text-decoration: none;
+}
+a:hover, .select a:hover, .input-controls a:hover, a:hover, .panel a:hover {
+	color: #58A0C4;
+}
+a:active, .select a:active, .input-controls a:active, .panel a:active {
+	color: #ACDEEF;
+}
+a.selected:link, a.selected:visited , a.selected:hover, a.selected:hover,
+.select a.selected:hover, .input-controls a.selected:hover, .panel a.selected:hover {
+  color: #88C442;
+  cursor:default;
+}
+p {
+  margin-top: 0px;
+  margin-bottom: 15px;
+}
+
+h1, h2, h3, h4, h5 {
+	margin-top: 0px;
+	margin-bottom: 10px;
+}
+
+h1 {
+
+}
+h2 {
+  text-transform:none;
+}
+h3 {
+  text-transform:none;
+}
+
+img {
+  max-width: 100%;
+}
+
+ul {
+	margin: 0px 0px 10px;
+	padding: 0px;
+	list-style: none;
+}
+
+
+
+/* --- SELECT  ---*/
+
+.select input, .select textfield, .select select {
+  padding: 5px;
+  color: #7CB236;
+  background-color: #161414;
+  border: 1px solid #284EAD;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px
+}
+.select select {
+  padding: 5px;
+  color: #7CB236;
+  background-color: #161414;
+  border: 1px solid #284EAD;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+
+/* --- SELECT - Action ---*/
+.scenario-action {
+  margin-bottom: 15px;
+  font-size: 0.85em;
+  text-transform: uppercase;
+}
+ul.scenario-action  {
+  display: block;
+  float:right;
+  background-color: #162B60;
+  border: 2px solid #231F20;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  border-radius: 7px;
+  font-size: 0.70em;
+}
+ul.scenario-action li  {
+  padding: 7px 5px 5px;
+  float: left;
+  border-right: 2px solid #231F20;
+}
+
+
+/* --- INPUT CONTROLS ---*/
+.input-controls  {
+  height: 145px;
+  display: block;
+  z-index: 500;
+  background-image: url(../../images/laura/mini-map-back.png);
+  background-repeat: no-repeat;
+  background-position: 80px 10px;
+  position: relative;
+  font-size: 0.8em;
+  clear: both;
+}
+
+.building-level  {
+
+  text-transform: uppercase;
+  font-size: 0.8em;
+
+}
+
+/* --- INPUT CONTROLS - Building Level ---*/
+.input-controls ul.building-level  {
+  background-color: #162B60;
+  width: 60px;
+  text-align: center;
+  border: 2px solid #231F20;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  border-radius: 7px;
+  position: absolute;
+  top: 45px;
+  left: 28px;
+  overflow-x: no-content;
+  font-size: 0.85em;
+}
+.input-controls .building-level li  {
+  padding-top: 5px;
+  padding-bottom: 3px;
+  border-bottom: 2px solid #231F20;
+}
+
+/* --- INPUT CONTROLS - Mini Map ---*/
+.mini-map  {
+  height: 43px;
+  width: 55px;
+  display: block;
+  z-index: 700;
+  background-image: url(../../images/laura/mini-map.gif);
+  background-repeat: no-repeat;
+  position: absolute;
+  left: 116px;
+  top: 49px;
+  z-index: 2000;
+}
+.mini-map .mini-map-location {
+  width: 7px;
+  height: 7px;
+  position: absolute;
+  top: 7px;
+  left: 13px;
+  background-color: rgba(15,95,32,0.80);
+  border: 1px solid #88C442;
+  -moz-border-radius: 50%; 
+    -webkit-border-radius: 50%; 
+    border-radius: 50%;
+  z-index: 100;
+}
+.mini-map a.mini-map-zone {
+  width: 17px;
+  height: 12px;
+  position: absolute;
+}
+.mini-map a:hover.mini-map-zone {
+  background-color: rgba(15,69,97,0.50);
+  border: 1px solid #0194DD;
+  cursor: crosshair;
+}
+.mini-map a:hover.mini-map-zone {
+  background-color: rgba(15,69,97,0.50);
+  border: 1px solid #0194DD;
+  cursor: crosshair;
+}
+.mini-map a:active.mini-map-zone {
+  background-color: rgba(2,148,221,0.50);
+  border: 1px solid #0294DD;
+}
+.mini-map a.mini-map-zone.top-left {
+  top: 0px;
+  left: 0px;
+}
+.mini-map a.mini-map-zone.top-center {
+  top: 0px;
+  left: 18px;
+}
+.mini-map a.mini-map-zone.top-right {
+  top: 0px;
+  left: 36px;
+}
+.mini-map a.mini-map-zone.middle-left {
+  top: 13px;
+  left: 0px;
+}
+.mini-map a.mini-map-zone.middle-center{
+  top: 13px;
+  left: 18px;
+}
+.mini-map a.mini-map-zone.middle-right {
+  top: 13px;
+  left: 36px;
+}
+.mini-map a.mini-map-zone.bottom-left {
+  top: 26px;
+  left: 0px;
+}
+.mini-map a.mini-map-zone.bottom-center {
+  top: 26px;
+  left: 18px;
+}
+.mini-map a.mini-map-zone.bottom-right {
+  top: 26px;
+  left: 36px;
+}
+
+
+
+.k-sprite {
+  display: inline-block;
+  background-repeat: no-repeat;
+  font-size: 0;
+  line-height: 0;
+  text-indent: -3333px;
+  text-align: center;
+  vertical-align: middle;  
+  background:none;
+  width: 4px;
+  height: 24px;
+  padding-top: 4px;
+  
+}
+
+.k-tabstrip {
+  border: 0;
+}
+
+
+
+.k-tabstrip-items .k-link {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  border: 2px solid #231F20;
+  width: 28px;
+  height: 28px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+
+
+.k-tabstrip .k-content {
+  padding: 0 0 0 0;
+  margin-top: 60px;
+  padding-bottom: 25px;
+  border: 0;
+
+}
+
+
+
+.k-tabstrip-items .k-item .k-sprite {
+  margin: 0;
+  vertical-align: middle;
+  border: 0;
+}
+
+
+
+.k-tabstrip-items .k-item {
+  background: none;
+  margin: 0 4px 0 0;
+  border: 0;
+
+}
+
+
+.k-content {
+  padding: 0 0 0 0;
+    margin:0px;
+}
+
+
+.input-OptionList.k-list li {
+  font-size: 1.0em;
+}
+
+.input-OptionList {
+  
+  padding:0px; 
+}
+
+
+::-webkit-scrollbar { width: 16px; height: 3px;}
+::-webkit-scrollbar-button {  background-color: #284EAD; } /*up and down arrows */
+::-webkit-scrollbar-track {  background-color: #284EAD;} /* background */
+::-webkit-scrollbar-track-piece { background-color: #1C2E4F;}
+::-webkit-scrollbar-thumb { height: 50px; background-color: #284EAD; border-radius: 10px;}
+::-webkit-scrollbar-corner { background-color: #284EAD;}}
+::-webkit-resizer { background-color: #666;}
+

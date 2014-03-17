@@ -28,7 +28,12 @@ lgb.gui.controller.ScenarioController.prototype.init = function(systemListDataMo
   this.systemListView_ = new lgb.scenario.view.SystemList (this.systemListDataModel_, true);
   
   this.dataModel = new lgb.gui.model.BaseGuiModel();
+  
+
+  
   this.guiView = new lgb.gui.view.ScenarioGUI(this.dataModel);
+  
+  
   this.guiView.init();
   
   

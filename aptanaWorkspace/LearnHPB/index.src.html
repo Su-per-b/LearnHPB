@@ -20,13 +20,14 @@
     <!-- =========================  CSS  ============================ -->
     <link type="text/css" href="css/jquery-ui.css" rel="stylesheet" />
     <link type="text/css" href="css/tipped.css" rel="stylesheet" />
+    
     <link type="text/css" href="css/kendo.common.css" rel="stylesheet"/>
     <link type="text/css" href="css/kendo.silver.css" rel="stylesheet"/>
+    
     <link type="text/css" href="css/lgb.css"  rel="stylesheet" />
     <link type="text/css" href="css/jquery.checkbox.css"  rel="stylesheet" />
 
 
-    <link type="text/css" href="css/bootstrap.min.css" rel="stylesheet" />
     <link type="text/css" href="css/dc.css" rel="stylesheet" />
     
     <!-- =========================   JavaScript  ============================ -->
@@ -327,6 +328,7 @@
       
       goog.require('lgb.gui.controller.SimulationStateControlController');
       goog.require('lgb.gui.view.SimulationStateControlGUIh');
+      goog.require('lgb.gui.view.SimulationStateControlGUI');
       
     </script>
 
@@ -337,6 +339,12 @@
   <script>
   
     lgb.gui.controller.SimulationStateControlController.viewClass = lgb.gui.view.SimulationStateControlGUI;
+        
+        
+    lgb.SimulationStateControlGUI =  lgb.gui.view.SimulationStateControlGUI;
+    
+
+
         
     lgb.init();
     var mainController = new lgb.core.MainController();

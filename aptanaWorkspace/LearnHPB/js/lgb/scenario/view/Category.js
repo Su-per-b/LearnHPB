@@ -35,3 +35,45 @@ lgb.scenario.view.Category.childClassMap = {
   "Component" : lgb.scenario.view.Component
 };
 
+
+lgb.scenario.view.Category.prototype.getMainElement = function() {
+
+  if (undefined == this.mainElement_) {
+    this.mainElement_ = $('<h3>');
+    
+    if (undefined != this.htmlID) {
+      this.mainElement_.attr('id', this.htmlID);
+    }
+
+  }
+
+  return this.mainElement_;
+};
+
+
+  
+lgb.scenario.view.Category.prototype.makeChildren_ = function(parentElement) {
+  
+  this.ul_ = $('<ul>');
+  this.ul_.appendTo(parentElement);
+  this.each(this.dataModel.children_, this.appendChildTo_, this.ul_);
+  
+};
+
+
+// lgb.scenario.view.Category.prototype.makeChildren_ = function(parentElement) {
+//   
+  // this.ul_ = $(<ul>);
+  // this.ul_.appendTo(parentElement);
+//   
+//   
+  // this.each(this.dataModel.children_, this.appendChildTo_, this.ul_);
+//   
+// };
+
+
+
+// 
+// 
+// 
+

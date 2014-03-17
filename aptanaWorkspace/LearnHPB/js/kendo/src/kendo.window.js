@@ -1,5 +1,5 @@
 /*
-* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Kendo UI Web v2013.3.1119 (http://kendoui.com)
 * Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
@@ -40,6 +40,7 @@ kendo_module({
         LOADING = "k-loading",
         KHOVERSTATE = "k-state-hover",
         KFOCUSEDSTATE = "k-state-focused",
+        MAXIMIZEDSTATE = "k-window-maximized",
         // constants
         VISIBLE = ":visible",
         HIDDEN = "hidden",
@@ -57,6 +58,9 @@ kendo_module({
         OVERFLOW = "overflow",
         ZINDEX = "zIndex",
         MINIMIZE_MAXIMIZE = ".k-window-actions .k-i-minimize,.k-window-actions .k-i-maximize",
+        KPIN = ".k-i-pin",
+        KUNPIN = ".k-i-unpin",
+        PIN_UNPIN = KPIN + "," + KUNPIN,
         TITLEBAR_BUTTONS = ".k-window-titlebar .k-window-action",
         isLocalUrl = kendo.isLocalUrl;
 
@@ -65,23 +69,7 @@ kendo_module({
     }
 
     function constrain(value, low, high) {
-        return Math.max(Math.min(value, high), low);
-    }
-
-    function windowObject(element, name) {
-        var contentElement = element.children(KWINDOWCONTENT);
-
-        return contentElement.data("kendoWindow") || contentElement.data("kendo" + name);
-    }
-
-    function openedModalWindows(name) {
-        return $(KWINDOW).filter(function() {
-            var wnd = $(this),
-                winObj = windowObject(wnd, name);
-            return winObj.options.modal && wnd.is(VISIBLE) && winObj.options.visible;
-        }).sort(function(a, b){
-            return +$(a).css("zIndex") - +$(b).css("zIndex");
-        });
+        return Math.max(Math.min(parseInt(value, 10), high === Infinity ? high : parseInt(high, 10)), parseInt(low, 10));
     }
 
     function sizingAction(actionId, callback) {
@@ -101,11 +89,17 @@ kendo_module({
             };
 
             wrapper
-                .find(KWINDOWRESIZEHANDLES).hide().end()
-                .find(MINIMIZE_MAXIMIZE).parent().hide()
+                .children(KWINDOWRESIZEHANDLES).hide().end()
+                .children(KWINDOWTITLEBAR).find(MINIMIZE_MAXIMIZE).parent().hide()
                     .eq(0).before(templates.action({ name: "Restore" }));
 
             callback.call(that);
+
+            if (actionId == "maximize") {
+                that.wrapper.children(KWINDOWTITLEBAR).find(PIN_UNPIN).parent().hide();
+            } else {
+                that.wrapper.children(KWINDOWTITLEBAR).find(PIN_UNPIN).parent().show();
+            }
 
             return that;
         };
@@ -115,18 +109,25 @@ kendo_module({
         init: function(element, options) {
             var that = this,
                 wrapper,
-                offset, visibility, display,
+                offset = {},
+                visibility, display, position,
                 isVisible = false,
                 content,
                 windowContent,
+                suppressActions = options && options.actions && !options.actions.length,
                 id;
 
             Widget.fn.init.call(that, element, options);
             options = that.options;
+            position = options.position;
             element = that.element;
             content = options.content;
 
-            that.appendTo = $(options.appendTo || document.body);
+            if (suppressActions) {
+                options.actions = [];
+            }
+
+            that.appendTo = $($(options.appendTo)[0] || document.body);
 
             that._animations();
 
@@ -139,7 +140,7 @@ kendo_module({
                 return !this.type || this.type.toLowerCase().indexOf("script") >= 0;
             }).remove();
 
-            if (!element.parent().is(that.appendTo)) {
+            if (!element.parent().is(that.appendTo) && (options.position.top === undefined || options.position.left === undefined)) {
                 if (element.is(VISIBLE)) {
                     offset = element.offset();
                     isVisible = true;
@@ -167,11 +168,21 @@ kendo_module({
                 that._dimensions();
             }
 
-            if (offset) {
-                wrapper.css({
-                    top: offset.top,
-                    left: offset.left
-                });
+            if (position.top !== undefined) {
+                position.top = position.top.toString();
+            }
+
+            if (position.left !== undefined) {
+                position.left = position.left.toString();
+            }
+
+            wrapper.css({
+                top: position.top || offset.top || "",
+                left: position.left || offset.left || ""
+            });
+
+            if (options.pinned) {
+                that.pin(true);
             }
 
             if (content) {
@@ -192,37 +203,21 @@ kendo_module({
             wrapper
                 .on("mouseenter" + NS, TITLEBAR_BUTTONS, function () { $(this).addClass(KHOVERSTATE); })
                 .on("mouseleave" + NS, TITLEBAR_BUTTONS, function () { $(this).removeClass(KHOVERSTATE); })
-                .on("click" + NS, TITLEBAR_BUTTONS, proxy(that._windowActionHandler, that));
+                .on("click" + NS, "> " + TITLEBAR_BUTTONS, proxy(that._windowActionHandler, that));
 
             windowContent
                 .on("keydown" + NS, proxy(that._keydown, that))
                 .on("focus" + NS, function() { wrapper.addClass(KFOCUSEDSTATE); })
                 .on("blur" + NS, function() { wrapper.removeClass(KFOCUSEDSTATE); });
 
-            if (options.resizable) {
-                wrapper.on("dblclick" + NS, KWINDOWTITLEBAR, function(e) {
-                    if (!$(e.target).closest(".k-window-action").length) {
-                        that.toggleMaximization();
-                    }
+            this._resizable();
 
-                    return this;
-                });
-
-                each("n e s w se sw ne nw".split(" "), function(index, handler) {
-                    wrapper.append(templates.resizeHandle(handler));
-                });
-
-                that.resizing = new WindowResizing(that);
-            }
-
-            if (options.draggable) {
-                that.dragging = new WindowDragging(that);
-            }
+            this._draggable();
 
             id = element.attr("id");
             if (id) {
                 id = id + "_wnd_title";
-                wrapper.find(KWINDOWTITLEBAR)
+                wrapper.children(KWINDOWTITLEBAR)
                        .children(KWINDOWTITLE)
                        .attr("id", id);
 
@@ -233,7 +228,7 @@ kendo_module({
                     });
             }
 
-            wrapper.add(wrapper.find(".k-resize-handle,.k-window-titlebar"))
+            wrapper.add(wrapper.children(".k-resize-handle," + KWINDOWTITLEBAR))
                     .on("mousedown" + NS, proxy(that.toFront, that));
 
             that.touchScroller = kendo.touchScroller(element);
@@ -255,24 +250,38 @@ kendo_module({
         _dimensions: function() {
             var that = this,
                 wrapper = that.wrapper,
-                element = that.element,
-                options = that.options;
+                options = that.options,
+                w = options.width,
+                h = options.height,
+                maxh = options.maxHeight;
 
             that.title(options.title);
 
             each(["minWidth","minHeight","maxWidth","maxHeight"], function(_, prop) {
                 var value = options[prop];
                 if (value && value != Infinity) {
-                    element.css(prop, value);
+                    wrapper.css(prop, value);
                 }
             });
 
-            if (options.width) {
-                wrapper.width(constrain(parseInt(options.width, 10), options.minWidth, options.maxWidth));
+            if (maxh && maxh != Infinity) {
+                that.element.css("maxHeight", maxh);
             }
 
-            if (options.height) {
-                wrapper.height(constrain(parseInt(options.height, 10), options.minHeight, options.maxHeight));
+            if (w) {
+                if (w.toString().indexOf("%") > 0) {
+                    wrapper.width(w);
+                } else {
+                    wrapper.width(constrain(w, options.minWidth, options.maxWidth));
+                }
+            }
+
+            if (h) {
+                if (h.toString().indexOf("%") > 0) {
+                    wrapper.height(h);
+                } else {
+                    wrapper.height(constrain(h, options.minHeight, options.maxHeight));
+                }
             }
 
             if (!options.visible) {
@@ -288,10 +297,53 @@ kendo_module({
             }
         },
 
+        _resize: function() {
+            kendo.resize(this.element.children());
+        },
+
+        _resizable: function() {
+            var resizable = this.options.resizable;
+            var wrapper = this.wrapper;
+
+            if (resizable) {
+                wrapper.on("dblclick" + NS, KWINDOWTITLEBAR, proxy(function(e) {
+                    if (!$(e.target).closest(".k-window-action").length) {
+                        this.toggleMaximization();
+                    }
+                }, this));
+
+                each("n e s w se sw ne nw".split(" "), function(index, handler) {
+                    wrapper.append(templates.resizeHandle(handler));
+                });
+
+                this.resizing = new WindowResizing(this);
+            } else if (this.resizing) {
+                wrapper
+                    .off("dblclick" + NS)
+                    .children(KWINDOWRESIZEHANDLES).remove();
+
+                this.resizing.destroy();
+                this.resizing = null;
+            }
+        },
+
+        _draggable: function() {
+            var draggable = this.options.draggable;
+
+            if (draggable) {
+                this.dragging = new WindowDragging(this, draggable.dragHandle || KWINDOWTITLEBAR);
+            } else if (this.dragging) {
+                this.dragging.destroy();
+                this.dragging = null;
+            }
+        },
+
         setOptions: function(options) {
             Widget.fn.setOptions.call(this, options);
             this._animations();
             this._dimensions();
+            this._resizable();
+            this._draggable();
         },
 
         events:[
@@ -321,6 +373,7 @@ kendo_module({
             },
             title: "",
             actions: ["Close"],
+            autoFocus: true,
             modal: false,
             resizable: true,
             draggable: true,
@@ -328,6 +381,9 @@ kendo_module({
             minHeight: 50,
             maxWidth: Infinity,
             maxHeight: Infinity,
+            pinned: false,
+            position: {},
+            content: null,
             visible: null,
             height: null,
             width: null
@@ -346,9 +402,9 @@ kendo_module({
                 offset, handled,
                 distance = 10,
                 isMaximized = that.options.isMaximized,
-                newWidth, newHeight;
+                newWidth, newHeight, w, h;
 
-            if (e.target != e.currentTarget) {
+            if (e.target != e.currentTarget || that._closing) {
                 return;
             }
 
@@ -386,12 +442,19 @@ kendo_module({
                 }
 
                 if (handled) {
-                    wrapper.css({
-                        width: constrain(newWidth, options.minWidth, options.maxWidth),
-                        height: constrain(newHeight, options.minHeight, options.maxHeight)
-                    });
+                    w = constrain(newWidth, options.minWidth, options.maxWidth);
+                    h = constrain(newHeight, options.minHeight, options.maxHeight);
+                    
+                    if (!isNaN(w)) {
+                        wrapper.width(w);
+                        that.options.width = w + "px";
+                    }
+                    if (!isNaN(h)) {
+                        wrapper.height(h);
+                        that.options.height = h + "px";
+                    }
 
-                    that.trigger(RESIZE);
+                    that.resize();
                 }
             }
 
@@ -401,7 +464,7 @@ kendo_module({
         },
 
         _overlay: function (visible) {
-            var overlay = this.appendTo.children(".k-overlay"),
+            var overlay = this.appendTo.children(KOVERLAY),
                 wrapper = this.wrapper;
 
             if (!overlay.length) {
@@ -429,7 +492,9 @@ kendo_module({
                 "k-i-maximize": that.maximize,
                 "k-i-minimize": that.minimize,
                 "k-i-restore": that.restore,
-                "k-i-refresh": that.refresh
+                "k-i-refresh": that.refresh,
+                "k-i-pin": that.pin,
+                "k-i-unpin": that.unpin
             }, function (commandName, handler) {
                 if (target.hasClass(commandName)) {
                     e.preventDefault();
@@ -439,23 +504,47 @@ kendo_module({
             });
         },
 
+        _modals: function() {
+            var that = this;
+
+            return $(KWINDOW).filter(function() {
+                var wnd = $(this);
+                var options = that._object(wnd).options;
+
+                return options.modal && options.visible && wnd.is(VISIBLE);
+            }).sort(function(a, b){
+                return +$(a).css("zIndex") - +$(b).css("zIndex");
+            });
+        },
+
+        _object: function(element) {
+            var content = element.children(KWINDOWCONTENT);
+
+            return content.data("kendoWindow") || content.data("kendo" + this.options.name);
+        },
+
         center: function () {
-            var wrapper = this.wrapper,
+            var that = this,
+                wrapper = that.wrapper,
                 documentWindow = $(window);
+
+            if (that.options.isMaximized) {
+                return that;
+            }
 
             wrapper.css({
                 left: documentWindow.scrollLeft() + Math.max(0, (documentWindow.width() - wrapper.width()) / 2),
                 top: documentWindow.scrollTop() + Math.max(0, (documentWindow.height() - wrapper.height()) / 2)
             });
 
-            return this;
+            return that;
         },
 
         title: function (text) {
             var that = this,
                 wrapper = that.wrapper,
                 options = that.options,
-                titleBar = wrapper.find(KWINDOWTITLEBAR),
+                titleBar = wrapper.children(KWINDOWTITLEBAR),
                 title = titleBar.children(KWINDOWTITLE),
                 titleBarHeight = titleBar.outerHeight();
 
@@ -476,6 +565,7 @@ kendo_module({
             }
 
             title.text(text);
+            that.options.title = text;
 
             return that;
         },
@@ -489,6 +579,8 @@ kendo_module({
             if (!html) {
                 return content.html();
             }
+
+            kendo.destroy(this.element.children());
 
             content.html(html);
             return this;
@@ -504,22 +596,35 @@ kendo_module({
                 overlay;
 
             if (!that.trigger(OPEN)) {
+                if (that._closing) {
+                    wrapper.kendoStop(true, true);
+                }
+
                 that._closing = false;
 
                 that.toFront();
 
-                that.element.focus();
+                if (options.autoFocus) {
+                    that.element.focus();
+                }
 
                 options.visible = true;
 
                 if (options.modal) {
                     overlay = that._overlay(false);
 
-                    if (showOptions.duration) {
-                        overlay.kendoStop().kendoAnimate({ effects: "fade:in", duration: showOptions.duration });
+                    overlay.kendoStop(true, true);
+
+                    if (showOptions.duration && kendo.effects.Fade) {
+                        var overlayFx = kendo.fx(overlay).fadeIn();
+                        overlayFx.duration(showOptions.duration || 0);
+                        overlayFx.endValue(0.5);
+                        overlayFx.play();
                     } else {
-                        overlay.css("opacity", 0.5).show();
+                        overlay.css("opacity", 0.5);
                     }
+
+                    overlay.show();
                 }
 
                 if (!wrapper.is(VISIBLE)) {
@@ -528,7 +633,9 @@ kendo_module({
                         effects: showOptions.effects,
                         duration: showOptions.duration,
                         complete: function() {
-                            that.element.focus();
+                            if (options.autoFocus) {
+                                that.element.focus();
+                            }
                             that.trigger(ACTIVATE);
                             contentElement.css(OVERFLOW, initialOverflow);
                         }
@@ -544,56 +651,60 @@ kendo_module({
             return that;
         },
 
+        _removeOverlay: function(suppressAnimation) {
+            var modals = this._modals();
+            var options = this.options;
+            var hideOverlay = options.modal && !modals.length;
+            var overlay = options.modal ? this._overlay(true) : $(undefined);
+            var hideOptions = options.animation.close;
+
+            if (hideOverlay) {
+                if (!suppressAnimation && hideOptions.duration && kendo.effects.Fade) {
+                    var overlayFx = kendo.fx(overlay).fadeOut();
+                    overlayFx.duration(hideOptions.duration || 0);
+                    overlayFx.startValue(0.5);
+                    overlayFx.play();
+                } else {
+                    this._overlay(false).remove();
+                }
+            } else if (modals.length) {
+                this._object(modals.last())._overlay(true);
+            }
+        },
+
         _close: function(userTriggered) {
             var that = this,
                 wrapper = that.wrapper,
                 options = that.options,
                 showOptions = options.animation.open,
-                hideOptions = options.animation.close,
-                modalWindows,
-                shouldHideOverlay, overlay;
+                hideOptions = options.animation.close;
 
             if (wrapper.is(VISIBLE) && !that.trigger(CLOSE, { userTriggered: !!userTriggered })) {
                 that._closing = true;
                 options.visible = false;
 
                 $(KWINDOW).each(function(i, element) {
-                    var windowObject = $(element),
-                        contentElement = windowObject.find(KWINDOWCONTENT);
+                    var contentElement = $(element).children(KWINDOWCONTENT);
 
                     // Remove overlay set by toFront
                     if (element != wrapper && contentElement.find("> ." + KCONTENTFRAME).length > 0) {
-                        contentElement.children(".k-overlay").remove();
+                        contentElement.children(KOVERLAY).remove();
                     }
                 });
 
-                modalWindows = openedModalWindows(options.name);
-
-                shouldHideOverlay = options.modal && !modalWindows.length;
-
-                overlay = options.modal ? that._overlay(true) : $(undefined);
-
-                if (shouldHideOverlay) {
-                    if (hideOptions.duration) {
-                        overlay.kendoStop().kendoAnimate({
-                             effects: "fade:out",
-                             duration: hideOptions.duration,
-                             hide: true
-                         });
-                    } else {
-                        overlay.hide();
-                    }
-                } else if (modalWindows.length) {
-                    windowObject(modalWindows.eq(modalWindows.length - 1), options.name)._overlay(true);
-                }
+                this._removeOverlay();
 
                 wrapper.kendoStop().kendoAnimate({
                     effects: hideOptions.effects || showOptions.effects,
                     reverse: hideOptions.reverse === true,
                     duration: hideOptions.duration,
                     complete: function() {
-                        wrapper.hide();
+                        wrapper.hide().css("opacity","");
                         that.trigger(DEACTIVATE);
+                        var lastModal = that._object(that._modals().last());
+                        if (lastModal) {
+                            lastModal.toFront();
+                        }
                     }
                 });
             }
@@ -611,20 +722,32 @@ kendo_module({
             return this;
         },
 
+        _actionable: function(element) {
+            return $(element).is(TITLEBAR_BUTTONS + "," + TITLEBAR_BUTTONS + " .k-icon,:input,a");
+        },
+
+        _shouldFocus: function(target) {
+            var active = activeElement(),
+                element = this.element;
+
+            return this.options.autoFocus &&
+                    !$(active).is(element) &&
+                    !this._actionable(target) &&
+                    (!element.find(active).length || !element.find(target).length);
+        },
+
         toFront: function (e) {
             var that = this,
                 wrapper = that.wrapper,
                 currentWindow = wrapper[0],
                 zIndex = +wrapper.css(ZINDEX),
                 originalZIndex = zIndex,
-                active = activeElement(),
-                winElement = that.element,
-                target = e && e.target ? e.target : null;
+                target = (e && e.target) || null;
 
             $(KWINDOW).each(function(i, element) {
                 var windowObject = $(element),
                     zIndexNew = windowObject.css(ZINDEX),
-                    contentElement = windowObject.find(KWINDOWCONTENT);
+                    contentElement = windowObject.children(KWINDOWCONTENT);
 
                 if (!isNaN(zIndexNew)) {
                     zIndex = Math.max(+zIndexNew, zIndex);
@@ -637,23 +760,22 @@ kendo_module({
                 }
             });
 
-            if (zIndex == 10001 || originalZIndex < zIndex) {
+            if (!wrapper[0].style.zIndex || originalZIndex < zIndex) {
                 wrapper.css(ZINDEX, zIndex + 2);
             }
             that.element.find("> .k-overlay").remove();
 
-            if (!$(active).is(winElement) &&
-                !$(target).is(TITLEBAR_BUTTONS + "," + TITLEBAR_BUTTONS + " .k-icon,:input") &&
-                (!winElement.find(active).length || !winElement.find(target).length)) {
-                winElement.focus();
+            if (that._shouldFocus(target)) {
+                that.element.focus();
 
                 var scrollTop = $(window).scrollTop(),
-                    windowTop = parseInt(that.wrapper.position().top, 10);
-                if (windowTop > 0 && windowTop - scrollTop < 0) {
+                    windowTop = parseInt(wrapper.position().top, 10);
+
+                if (windowTop > 0 && windowTop < scrollTop) {
                     if (scrollTop > 0) {
                         $(window).scrollTop(windowTop);
                     } else {
-                        that.wrapper.css("top", scrollTop);
+                        wrapper.css("top", scrollTop);
                     }
                 }
             }
@@ -670,25 +792,35 @@ kendo_module({
         },
 
         restore: function () {
-            var that = this,
-                options = that.options,
-                restoreOptions = that.restoreOptions;
+            var that = this;
+            var options = that.options;
+            var minHeight = options.minHeight;
+            var restoreOptions = that.restoreOptions;
 
             if (!options.isMaximized && !options.isMinimized) {
-                return;
+                return that;
+            }
+
+            if (minHeight && minHeight != Infinity) {
+                that.wrapper.css("min-height", minHeight);
             }
 
             that.wrapper
                 .css({
-                    position: "absolute",
+                    position: options.pinned ? "fixed" : "absolute",
                     left: restoreOptions.left,
                     top: restoreOptions.top,
                     width: restoreOptions.width,
                     height: restoreOptions.height
                 })
+                .removeClass(MAXIMIZEDSTATE)
                 .find(".k-window-content,.k-resize-handle").show().end()
                 .find(".k-window-titlebar .k-i-restore").parent().remove().end().end()
-                .find(MINIMIZE_MAXIMIZE).parent().show();
+                .find(MINIMIZE_MAXIMIZE).parent().show().end().end()
+                .find(PIN_UNPIN).parent().show();
+
+            that.options.width = restoreOptions.width;
+            that.options.height = restoreOptions.height;
 
             $("html, body").css(OVERFLOW, "");
             if (this._documentScrollTop && this._documentScrollTop > 0) {
@@ -697,7 +829,7 @@ kendo_module({
 
             options.isMaximized = options.isMinimized = false;
 
-            that.trigger(RESIZE);
+            that.resize();
 
             return that;
         },
@@ -716,7 +848,8 @@ kendo_module({
                     left: 0,
                     top: 0,
                     position: "fixed"
-                });
+                })
+                .addClass(MAXIMIZEDSTATE);
 
             this._documentScrollTop = $(document).scrollTop();
             $("html, body").css(OVERFLOW, HIDDEN);
@@ -729,27 +862,67 @@ kendo_module({
         minimize: sizingAction("minimize", function() {
             var that = this;
 
-            that.wrapper.css("height", "");
+            that.wrapper.css({
+                height: "",
+                minHeight: ""
+            });
+
             that.element.hide();
 
             that.options.isMinimized = true;
         }),
 
+        pin: function(force) {
+            var that = this,
+                win = $(window),
+                wrapper = that.wrapper,
+                top = parseInt(wrapper.css("top"), 10),
+                left = parseInt(wrapper.css("left"), 10);
+
+            if (force || !that.options.pinned && !that.options.isMaximized) {
+                wrapper.css({position: "fixed", top: top - win.scrollTop(), left: left - win.scrollLeft()});
+                wrapper.children(KWINDOWTITLEBAR).find(KPIN).addClass("k-i-unpin").removeClass("k-i-pin");
+
+                that.options.pinned = true;
+            }
+        },
+
+        unpin: function() {
+            var that = this,
+                win = $(window),
+                wrapper = that.wrapper,
+                top = parseInt(wrapper.css("top"), 10),
+                left = parseInt(wrapper.css("left"), 10);
+
+            if (that.options.pinned && !that.options.isMaximized) {
+                wrapper.css({position: "", top: top + win.scrollTop(), left: left + win.scrollLeft()});
+                wrapper.children(KWINDOWTITLEBAR).find(KUNPIN).addClass("k-i-pin").removeClass("k-i-unpin");
+
+                that.options.pinned = false;
+            }
+        },
+
         _onDocumentResize: function () {
             var that = this,
                 wrapper = that.wrapper,
-                wnd = $(window);
+                wnd = $(window),
+                w, h;
 
             if (!that.options.isMaximized) {
                 return;
             }
 
-            wrapper.css({
-                    width: wnd.width(),
-                    height: wnd.height() - parseInt(wrapper.css("padding-top"), 10)
-                });
+            w = wnd.width();
+            h = wnd.height() - parseInt(wrapper.css("padding-top"), 10);
 
-            that.trigger(RESIZE);
+            wrapper.css({
+                    width: w,
+                    height: h
+                });
+            that.options.width = w;
+            that.options.height = h;
+
+            that.resize();
         },
 
         refresh: function (options) {
@@ -819,17 +992,17 @@ kendo_module({
                 type: "GET",
                 dataType: "html",
                 cache: false,
-                error: proxy(function (xhr, status) {
+                error: function (xhr, status) {
                     that.trigger(ERROR, {
                         status: status,
                         xhr: xhr
                     });
-                }, that),
+                },
                 complete: function () {
                     clearTimeout(loadingIconTimeout);
                     refreshIcon.removeClass(LOADING);
                 },
-                success: proxy(function (data) {
+                success: function (data) {
                     if (contentTemplate) {
                         data = template(contentTemplate)(data || {});
                     }
@@ -838,41 +1011,32 @@ kendo_module({
                     that.element.prop("scrollTop", 0);
 
                     that.trigger(REFRESH);
-                }, that)
+                }
             }, options));
         },
 
         destroy: function () {
-            var that = this,
-                modalWindows,
-                shouldHideOverlay;
+            var wrapper = this.wrapper;
 
-            Widget.fn.destroy.call(that);
+            Widget.fn.destroy.call(this);
 
-            kendo.destroy(that.wrapper);
+            kendo.destroy(wrapper);
 
-            if (that.resizing) {
-                that.resizing.destroy();
+            if (this.resizing) {
+                this.resizing.destroy();
             }
 
-            if (that.dragging) {
-                that.dragging.destroy();
+            if (this.dragging) {
+                this.dragging.destroy();
             }
 
-            that.element.children("iframe").remove();
-            that.wrapper.remove().add(that.wrapper.find(".k-resize-handle,.k-window-titlebar")).off(NS);
+            this.element.children("iframe").remove();
+            wrapper.find(".k-resize-handle,.k-window-titlebar").off(NS);
+            wrapper.remove().off(NS);
 
-            $(window).off("resize", that._resizeHandler);
+            $(window).off("resize", this._resizeHandler);
 
-            modalWindows = openedModalWindows();
-
-            shouldHideOverlay = that.options.modal && !modalWindows.length;
-
-            if (shouldHideOverlay) {
-                that._overlay(false).remove();
-            } else if (modalWindows.length > 0) {
-                windowObject(modalWindows.eq(modalWindows.length - 1), that.options.name)._overlay(true);
-            }
+            this._removeOverlay(true);
         },
 
         _createWindow: function() {
@@ -915,6 +1079,14 @@ kendo_module({
                 .css(isRtl ? "left" : "right", wrapper.find(".k-window-actions").outerWidth() + 10);
 
             contentHtml.show();
+
+            contentHtml.find("[data-role=editor]").each(function() {
+                var editor = $(this).data("kendoEditor");
+
+                if (editor) {
+                    editor.refresh();
+                }
+            });
         }
     });
 
@@ -979,7 +1151,7 @@ kendo_module({
 
             wrapper
                 .append(templates.overlay)
-                .find(KWINDOWRESIZEHANDLES).not(e.currentTarget).hide();
+                .children(KWINDOWRESIZEHANDLES).not(e.currentTarget).hide();
 
             $(BODY).css(CURSOR, e.currentTarget.css(CURSOR));
         },
@@ -994,8 +1166,8 @@ kendo_module({
                 initialSize = that.initialSize,
                 newWidth, newHeight,
                 windowBottom, windowRight,
-                x = e.x.location,
-                y = e.y.location;
+                x = Math.max(e.x.location, containerOffset.left),
+                y = Math.max(e.y.location, containerOffset.top);
 
             if (direction.indexOf("e") >= 0) {
                 newWidth = x - initialPosition.left;
@@ -1025,7 +1197,14 @@ kendo_module({
                 });
             }
 
-            wnd.trigger(RESIZE);
+            if (newWidth) {
+                wnd.options.width = newWidth + "px";
+            }
+            if (newHeight) {
+                wnd.options.height = newHeight + "px";
+            }
+
+            wnd.resize();
         },
         dragend: function (e) {
             var that = this,
@@ -1034,7 +1213,7 @@ kendo_module({
 
             wrapper
                 .find(KOVERLAY).remove().end()
-                .find(KWINDOWRESIZEHANDLES).not(e.currentTarget).show();
+                .children(KWINDOWRESIZEHANDLES).not(e.currentTarget).show();
 
             $(BODY).css(CURSOR, "");
 
@@ -1053,18 +1232,20 @@ kendo_module({
         }
     };
 
-    function WindowDragging(wnd) {
+    function WindowDragging(wnd, dragHandle) {
         var that = this;
 
         that.owner = wnd;
         that._draggable = new Draggable(wnd.wrapper, {
-            filter: KWINDOWTITLEBAR,
+            filter: dragHandle,
             group: wnd.wrapper.id + "-moving",
             dragstart: proxy(that.dragstart, that),
             drag: proxy(that.drag, that),
             dragend: proxy(that.dragend, that),
             dragcancel: proxy(that.dragcancel, that)
         });
+
+        that._draggable.userEvents.stopPropagation = false;
     }
 
     WindowDragging.prototype = {
@@ -1094,7 +1275,7 @@ kendo_module({
 
             wnd.wrapper
                 .append(templates.overlay)
-                .find(KWINDOWRESIZEHANDLES).hide();
+                .children(KWINDOWRESIZEHANDLES).hide();
 
             $(BODY).css(CURSOR, e.currentTarget.css(CURSOR));
         },
@@ -1113,7 +1294,7 @@ kendo_module({
             var wnd = this.owner;
 
             wnd.wrapper
-                .find(KWINDOWRESIZEHANDLES).toggle(!wnd.options.isMinimized).end()
+                .children(KWINDOWRESIZEHANDLES).toggle(!wnd.options.isMinimized).end()
                 .find(KOVERLAY).remove();
 
             $(BODY).css(CURSOR, "");

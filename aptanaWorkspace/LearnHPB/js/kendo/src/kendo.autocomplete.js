@@ -1,5 +1,5 @@
 /*
-* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Kendo UI Web v2013.3.1119 (http://kendoui.com)
 * Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
@@ -13,7 +13,13 @@ kendo_module({
     name: "AutoComplete",
     category: "web",
     description: "The AutoComplete widget provides suggestions depending on the typed text.It also allows multiple value entries.",
-    depends: [ "list" ]
+    depends: [ "list" ],
+    features: [ {
+        id: "mobile-scroller",
+        name: "Mobile scroller",
+        description: "Support for kinetic scrolling in mobile device",
+        depends: [ "mobile.scroller" ]
+    } ]
 });
 
 (function ($, undefined) {
@@ -86,8 +92,6 @@ kendo_module({
             that._wrapper();
             that._loader();
 
-            that._accessors();
-
             that._dataSource();
             that._ignoreCase();
 
@@ -145,7 +149,8 @@ kendo_module({
             highlightFirst: false,
             separator: null,
             placeholder: "",
-            animation: {}
+            animation: {},
+            value: null
         },
 
         _dataSource: function() {
@@ -381,7 +386,9 @@ kendo_module({
 
             that._accessor(words.join(separator || ""));
 
-            selectText(element, caret, selectionEnd);
+            if (element === activeElement()) {
+                selectText(element, caret, selectionEnd);
+            }
         },
 
         value: function (value) {
@@ -522,6 +529,10 @@ kendo_module({
 
                 element.toggleClass("k-readonly", show)
                        .val(placeholder);
+
+                if (!placeholder && element[0] === document.activeElement) {
+                    List.selectText(element[0], 0, 0);
+                }
             }
         },
 

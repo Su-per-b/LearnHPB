@@ -50,25 +50,30 @@ lgb.scenario.view.Variable.prototype.appendTo = function(parentElement) {
   } 
   else {
   
-    var html = "{0} ({1}) - {2}".format(this.dataModel.name, this.dataModel.abbr, this.dataModel.modName);
-    this.append(html);
+     var txt = "{0} ({1})".format(this.dataModel.name, this.dataModel.abbr);
+    // this.append(html);
     
-    
+    this.label_.text(txt);
 
       var el = this.getMainElement();
+      
+      
       this.makeChildren_(el);
       
       
-      if (null != this.dataModel.unit) {
-        var c = el.children();
-        c.append(' ' + this.dataModel.unit);
-      }
+      // if (null != this.dataModel.unit) {
+        // var c = el.children();
+        // c.append(' ' + this.dataModel.unit);
+      // }
 
 
 
     }
   
 };
+
+
+
 
 
 lgb.scenario.view.Variable.prototype.appendChildTo_ = function(childNode, parentElement) {
@@ -86,7 +91,68 @@ lgb.scenario.view.Variable.prototype.appendChildTo_ = function(childNode, parent
     var childClassConstructor = classConstructor.childClassMap[childClassName];
     
     if(childClassConstructor) {
-      var child = new childClassConstructor(childNode, this.debugFlag_);
+      var child = new childClassConstructor(childNode, this.debugFlag_, this.dataModel.unit);
+      
+      child.appendTo(parentElement);
+      
+    } else {
+      debugger;
+    }
+  }
+  
+};
+
+
+
+
+
+lgb.scenario.view.Variable.prototype.getMainElement = function() {
+
+  if (undefined == this.mainElement_) {
+    
+    var li = $('<li>');
+
+    var divMore = $('<div>');
+    divMore.addClass('more');
+    
+    divMore.append ('<a href="info.html" class="info"></a>');  
+    divMore.append ('<a href="#" class="param disabled"></a>');  
+    
+    li.append(divMore);
+    this.label_ = $('<label for="textfield">');
+    li.append(this.label_);
+    
+    
+    this.mainElement_ = li;
+    
+    
+    if (undefined != this.htmlID) {
+      this.mainElement_.attr('id', this.htmlID);
+    }
+
+  }
+
+  return this.mainElement_;
+};
+
+
+
+lgb.scenario.view.Variable.prototype.appendChildTo_ = function(childNode, parentElement) {
+  
+
+  var childClassName = childNode.getClassName();
+
+
+  if ("description" == childClassName) {
+    
+    
+  } else {
+
+    var classConstructor = this.getClassConstructor();
+    var childClassConstructor = classConstructor.childClassMap[childClassName];
+    
+    if(childClassConstructor) {
+      var child = new childClassConstructor(childNode, this.debugFlag_, this.dataModel.unit);
       
       
       this.listenTo(child, e.GuiValueChanged, this.onGuiValueChanged_);

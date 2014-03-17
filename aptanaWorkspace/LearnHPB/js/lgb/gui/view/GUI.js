@@ -21,6 +21,8 @@ lgb.gui.view.GUI = function(dataModel, title) {
   this._TITLE = title;
   lgb.gui.view.BaseGUI.call(this, dataModel);
   
+  this.cssClassName_ = "panel input";
+  
 };
 goog.inherits(lgb.gui.view.GUI, lgb.gui.view.BaseGUI);
 
@@ -39,3 +41,4 @@ lgb.gui.view.GUI.prototype.injectTo = function(parentElement) {
 };
 
 */
+

@@ -1,5 +1,5 @@
 /*
-* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Kendo UI Web v2013.3.1119 (http://kendoui.com)
 * Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
@@ -33,6 +33,7 @@ kendo_module({
                 model = options.model,
                 parse = options.parse,
                 errors = options.errors,
+                serialize = options.serialize,
                 data = options.data;
 
             if (model) {
@@ -123,12 +124,19 @@ kendo_module({
                     return xmlParse.call(that, xml);
                 };
             }
+
+            if (typeof serialize == "function") {
+                that.serialize = serialize;
+            }
         },
         total: function(result) {
             return this.data(result).length;
         },
         errors: function(data) {
             return data ? data.errors : null;
+        },
+        serialize: function(data) {
+            return data;
         },
         parseDOM: function(element) {
             var result = {},

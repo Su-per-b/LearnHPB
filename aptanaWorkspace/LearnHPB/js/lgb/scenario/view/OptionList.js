@@ -9,8 +9,9 @@ goog.require('lgb.scenario.view.BaseView');
 goog.require('lgb.scenario.view.Option');
 
 
-lgb.scenario.view.OptionList = function(dataModel, debugFlag) {
+lgb.scenario.view.OptionList = function(dataModel, debugFlag, unit) {
   lgb.scenario.view.BaseView.call(this, dataModel, debugFlag);
+  this.unit_ = unit;
 };
 goog.inherits(lgb.scenario.view.OptionList, lgb.scenario.view.BaseView);
 
@@ -44,6 +45,7 @@ lgb.scenario.view.OptionList.prototype.makeListBox_ = function() {
         
      div
     .addClass('input-ListBox')
+    .addClass('select')
     .append('<input>')
     .attr('value', '1');
     
@@ -56,6 +58,17 @@ lgb.scenario.view.OptionList.prototype.makeListBox_ = function() {
             dataValueField: 'name',
         change: this.d(this.onDropDownChange)
       }).data('kendoDropDownList');
+      
+      
+      if (undefined != this.unit_) {
+
+        var html = " {0}".format(this.unit_);
+        this.append(html);
+      }
+        
+        
+
+
       
 
 };

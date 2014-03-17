@@ -1,5 +1,5 @@
 /*
-* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Kendo UI Web v2013.3.1119 (http://kendoui.com)
 * Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
@@ -39,6 +39,7 @@ kendo_module({
 
         // Draggable events
         DRAGSTART = "dragstart",
+        HOLD = "hold",
         DRAG = "drag",
         DRAGEND = "dragend",
         DRAGCANCEL = "dragcancel",
@@ -117,12 +118,22 @@ kendo_module({
                 domElement = element[0];
 
             that.capture = false;
-            $.each(kendo.eventMap.down.split(" "), function() {
-                domElement.addEventListener(this, proxy(that._press, that), true);
-            });
-            $.each(kendo.eventMap.up.split(" "), function() {
-                domElement.addEventListener(this, proxy(that._release, that), true);
-            });
+
+            if (domElement.addEventListener) {
+                $.each(kendo.eventMap.down.split(" "), function() {
+                    domElement.addEventListener(this, proxy(that._press, that), true);
+                });
+                $.each(kendo.eventMap.up.split(" "), function() {
+                    domElement.addEventListener(this, proxy(that._release, that), true);
+                });
+            } else {
+                $.each(kendo.eventMap.down.split(" "), function() {
+                    domElement.attachEvent(this, proxy(that._press, that));
+                });
+                $.each(kendo.eventMap.up.split(" "), function() {
+                    domElement.attachEvent(this, proxy(that._release, that));
+                });
+            }
 
             Observable.fn.init.call(that);
 
@@ -166,16 +177,32 @@ kendo_module({
             $.extend(that, options);
 
             that.scale = 1;
-            that.max = 0;
 
             if (that.horizontal) {
-                that.measure = "width";
+                that.measure = "offsetWidth";
                 that.scrollSize = "scrollWidth";
                 that.axis = "x";
             } else {
-                that.measure = "height";
+                that.measure = "offsetHeight";
                 that.scrollSize = "scrollHeight";
                 that.axis = "y";
+            }
+        },
+
+        makeVirtual: function() {
+            $.extend(this, {
+                virtual: true,
+                forcedEnabled: true,
+                _virtualMin: 1000,
+                _virtualMax: -1000
+            });
+        },
+
+        virtualSize: function(min, max) {
+            if (this._virtualMin !== min || this._virtualMax !== max) {
+                this._virtualMin = min;
+                this._virtualMax = max;
+                this.update();
             }
         },
 
@@ -188,7 +215,7 @@ kendo_module({
         },
 
         getSize: function() {
-            return this.container[this.measure]();
+            return this.container[0][this.measure];
         },
 
         getTotal: function() {
@@ -201,14 +228,16 @@ kendo_module({
 
         update: function(silent) {
             var that = this,
-                total = that.getTotal(),
+                total = that.virtual ? that._virtualMax : that.getTotal(),
                 scaledTotal = total * that.scale,
                 size = that.getSize();
 
+            that.max = that.virtual ? -that._virtualMin : 0;
             that.size = size;
             that.total = scaledTotal;
-            that.min = Math.min(that.max, that.size - scaledTotal);
-            that.minScale = that.size / total;
+            that.min = Math.min(that.max, size - scaledTotal);
+            that.minScale = size / total;
+            that.centerOffset = (scaledTotal - size) / 2;
 
             that.enabled = that.forcedEnabled || (scaledTotal > size);
 
@@ -220,18 +249,17 @@ kendo_module({
 
     var PaneDimensions = Observable.extend({
         init: function(options) {
-            var that = this,
-                refresh = proxy(that.refresh, that);
+            var that = this;
 
             Observable.fn.init.call(that);
 
             that.x = new PaneDimension(extend({horizontal: true}, options));
             that.y = new PaneDimension(extend({horizontal: false}, options));
+            that.container = options.container;
             that.forcedMinScale = options.minScale;
+            that.maxScale = options.maxScale || 100;
 
             that.bind(CHANGE, options);
-
-            kendo.onResize(refresh);
         },
 
         rescale: function(newScale) {
@@ -240,12 +268,17 @@ kendo_module({
             this.refresh();
         },
 
+        centerCoordinates: function() {
+            return { x: Math.min(0, -this.x.centerOffset), y: Math.min(0, -this.y.centerOffset) };
+        },
+
         refresh: function() {
             var that = this;
             that.x.update();
             that.y.update();
             that.enabled = that.x.enabled || that.y.enabled;
-            that.minScale = that.forcedMinScale || Math.max(that.x.minScale, that.y.minScale);
+            that.minScale = that.forcedMinScale || Math.min(that.x.minScale, that.y.minScale);
+            that.fitScale = Math.max(that.x.minScale, that.y.minScale);
             that.trigger(CHANGE);
         }
     });
@@ -308,6 +341,7 @@ kendo_module({
             that.userEvents.bind(["move", "end", "gesturestart", "gesturechange"], {
                 gesturestart: function(e) {
                     that.gesture = e;
+                    that.offset = that.dimensions.container.offset();
                 },
 
                 gesturechange: function(e) {
@@ -319,6 +353,7 @@ kendo_module({
                         scaleDelta = e.distance / previousGesture.distance,
 
                         minScale = that.dimensions.minScale,
+                        maxScale = that.dimensions.maxScale,
                         coordinates;
 
                     if (movable.scale <= minScale && scaleDelta < 1) {
@@ -326,9 +361,16 @@ kendo_module({
                         scaleDelta += (1 - scaleDelta) * 0.8;
                     }
 
+                    if (movable.scale * scaleDelta >= maxScale) {
+                        scaleDelta = maxScale / movable.scale;
+                    }
+
+                    var offsetX = movable.x + that.offset.left,
+                        offsetY = movable.y + that.offset.top;
+
                     coordinates = {
-                        x: (movable.x - previousCenter.x) * scaleDelta + center.x - movable.x,
-                        y: (movable.y - previousCenter.y) * scaleDelta + center.y - movable.y
+                        x: (offsetX - previousCenter.x) * scaleDelta + center.x - offsetX,
+                        y: (offsetY - previousCenter.y) * scaleDelta + center.y - offsetY
                     };
 
                     movable.scaleWith(scaleDelta);
@@ -338,9 +380,14 @@ kendo_module({
 
                     that.dimensions.rescale(movable.scale);
                     that.gesture = e;
+                    e.preventDefault();
                 },
 
                 move: function(e) {
+                    if (e.event.target.tagName.match(/textarea|input/i)) {
+                        return;
+                    }
+
                     if (x.dimension.enabled || y.dimension.enabled) {
                         x.dragMove(e.x.delta);
                         y.dragMove(e.y.delta);
@@ -358,16 +405,16 @@ kendo_module({
     });
 
     var TRANSFORM_STYLE = support.transitions.prefix + "Transform",
-        round = Math.round,
         translate;
+
 
     if (support.hasHW3D) {
         translate = function(x, y, scale) {
-            return "translate3d(" + round(x) + "px," + round(y) +"px,0) scale(" + scale + ")";
+            return "translate3d(" + x + "px," + y +"px,0) scale(" + scale + ")";
         };
     } else {
         translate = function(x, y, scale) {
-            return "translate(" + round(x) + "px," + round(y) +"px) scale(" + scale + ")";
+            return "translate(" + x + "px," + y +"px) scale(" + scale + ")";
         };
     }
 
@@ -418,10 +465,25 @@ kendo_module({
 
         refresh: function() {
             var that = this,
-                newCoordinates = translate(that.x, that.y, that.scale);
+                x = that.x,
+                y = that.y,
+                newCoordinates;
+
+            if (that.round) {
+                x = Math.round(x);
+                y = Math.round(y);
+            }
+
+            newCoordinates = translate(x, y, that.scale);
 
             if (newCoordinates != that.coordinates) {
-                that.element[0].style[TRANSFORM_STYLE] = newCoordinates;
+                if (kendo.support.browser.msie && kendo.support.browser.version < 10) {
+                    that.element[0].style.position = "absolute";
+                    that.element[0].style.left = that.x + "px";
+                    that.element[0].style.top = that.y + "px";
+                } else {
+                    that.element[0].style[TRANSFORM_STYLE] = newCoordinates;
+                }
                 that._saveCoordinates(newCoordinates);
                 that.trigger(CHANGE);
             }
@@ -552,12 +614,15 @@ kendo_module({
 
             Widget.fn.init.call(that, element, options);
 
+            that._activated = false;
+
             that.userEvents = new UserEvents(that.element, {
                 global: true,
                 stopPropagation: true,
                 filter: that.options.filter,
                 threshold: that.options.distance,
                 start: proxy(that._start, that),
+                hold: proxy(that._hold, that),
                 move: proxy(that._drag, that),
                 end: proxy(that._end, that),
                 cancel: proxy(that._cancel, that)
@@ -573,6 +638,7 @@ kendo_module({
         },
 
         events: [
+            HOLD,
             DRAGSTART,
             DRAG,
             DRAGEND,
@@ -586,7 +652,12 @@ kendo_module({
             cursorOffset: null,
             axis: null,
             container: null,
+            holdToDrag: false,
             dropped: false
+        },
+
+        cancelHold: function() {
+            this._activated = false;
         },
 
         _updateHint: function(e) {
@@ -625,6 +696,11 @@ kendo_module({
                 container = options.container,
                 hint = options.hint;
 
+            if (options.holdToDrag && !that._activated) {
+                that.userEvents.cancel();
+                return;
+            }
+
             that.currentTarget = e.target;
             that.currentTargetOffset = getOffset(that.currentTarget);
 
@@ -633,7 +709,7 @@ kendo_module({
                     that.hint.stop(true, true).remove();
                 }
 
-                that.hint = $.isFunction(hint) ? $(hint.call(that, that.currentTarget)) : hint;
+                that.hint = kendo.isFunction(hint) ? $(hint.call(that, that.currentTarget)) : hint;
 
                 var offset = getOffset(that.currentTarget);
                 that.hintOffset = offset;
@@ -661,6 +737,16 @@ kendo_module({
             }
 
             $(document).on(KEYUP, that.captureEscape);
+        },
+
+        _hold: function(e) {
+            this.currentTarget = e.target;
+
+            if (this._trigger(HOLD, e)) {
+                this.userEvents.cancel();
+            } else {
+                this._activated = true;
+            }
         },
 
         _drag: function(e) {
@@ -712,6 +798,8 @@ kendo_module({
 
         _cancel: function() {
             var that = this;
+
+            that._activated = false;
 
             if (that.hint && !that.dropped) {
                 setTimeout(function() {

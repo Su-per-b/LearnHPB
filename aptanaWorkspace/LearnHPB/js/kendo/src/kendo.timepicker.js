@@ -1,5 +1,5 @@
 /*
-* Kendo UI Web v2013.1.319 (http://kendoui.com)
+* Kendo UI Web v2013.3.1119 (http://kendoui.com)
 * Copyright 2013 Telerik AD. All rights reserved.
 *
 * Kendo UI Web commercial licenses may be obtained at
@@ -254,11 +254,23 @@ kendo_module({
                 itemOffsetHeight = item.offsetHeight,
                 ulScrollTop = ul.scrollTop,
                 ulOffsetHeight = ul.clientHeight,
-                bottomDistance = itemOffsetTop + itemOffsetHeight;
+                bottomDistance = itemOffsetTop + itemOffsetHeight,
+                touchScroller = this._touchScroller,
+                yDimension;
 
+            if (touchScroller) {
+                yDimension = touchScroller.dimensions.y;
+
+                if (yDimension.enabled && itemOffsetTop > yDimension.size) {
+                    itemOffsetTop = itemOffsetTop - yDimension.size + itemOffsetHeight + 4;
+
+                    touchScroller.scrollTo(0, -itemOffsetTop);
+                }
+            } else {
                 ul.scrollTop = ulScrollTop > itemOffsetTop ?
                                itemOffsetTop : bottomDistance > (ulScrollTop + ulOffsetHeight) ?
                                bottomDistance - ulOffsetHeight : ulScrollTop;
+            }
         },
 
         select: function(li) {
@@ -393,7 +405,7 @@ kendo_module({
                 isRtl: support.isRtl(options.anchor)
             }));
 
-            kendo.touchScroller(that.popup.element);
+            that._touchScroller = kendo.touchScroller(that.popup.element);
         },
 
         move: function(e) {
@@ -534,7 +546,12 @@ kendo_module({
             that._icon();
             that._reset();
 
-            element[0].type = "text";
+            try {
+                element[0].setAttribute("type", "text");
+            } catch(e) {
+                element[0].type = "text";
+            }
+
             element.addClass("k-input")
                    .attr({
                         "role": "textbox",
@@ -550,7 +567,8 @@ kendo_module({
                 that.readonly(element.is("[readonly]"));
             }
 
-            that.value(options.value || element.val());
+            that._old = that._update(options.value || that.element.val());
+            that._oldText = element.val();
 
             kendo.notify(that);
         },
@@ -836,7 +854,8 @@ kendo_module({
         _reset: function() {
             var that = this,
                 element = that.element,
-                form = element.closest("form");
+                formId = element.attr("form"),
+                form = formId ? $("#" + formId) : element.closest("form");
 
             if (form[0]) {
                 that._resetHandler = function() {

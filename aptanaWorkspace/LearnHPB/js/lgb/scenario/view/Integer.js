@@ -8,8 +8,9 @@ goog.provide('lgb.scenario.view.Integer');
 goog.require('lgb.scenario.view.BaseView');
 
 
-lgb.scenario.view.Integer = function(dataModel, debugFlag) {
+lgb.scenario.view.Integer = function(dataModel, debugFlag, unit) {
   lgb.scenario.view.BaseView.call(this, dataModel, debugFlag);
+  this.unit_ = unit;
 };
 goog.inherits(lgb.scenario.view.Integer, lgb.scenario.view.BaseView);
 
@@ -30,12 +31,19 @@ lgb.scenario.view.Integer.prototype.appendTo = function(parentElement) {
     this.inputElement_ = $('<input>').addClass('input-Integer-textbox').attr("type", "text").attr("value", this.dataModel['default']);
     
      if (!this.isEnabled) {
-       this.inputElement_.attr( "disabled", "disabled" );
+       // this.inputElement_.attr( "disabled", "disabled" );
      }
      
     this.append(this.inputElement_);
     
-    var html = " ({0}-{1})".format(this.dataModel.min, this.dataModel.max);
+    
+    if (undefined == this.unit_) {
+      var html = "({0}-{1})".format(this.dataModel.min, this.dataModel.max);
+    } else {
+      var html = "{0} ({1}-{2})".format(this.unit_, this.dataModel.min, this.dataModel.max);
+      
+    }
+        
     this.append(html);
   }
 
