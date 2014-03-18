@@ -20,8 +20,18 @@ goog.inherits(lgb.gui.view.ScenarioMasterGUI, lgb.gui.view.BaseGUI);
 lgb.gui.view.ScenarioMasterGUI.prototype.init = function() {
 
 
-
+  this.listenForChange_('selectedFileName');
+  
 };
+
+
+lgb.gui.view.ScenarioMasterGUI.prototype.onChange_selectedFileName_ = function(selectedFileName) {
+  
+  
+  this.triggerLocal(e.RequestLoadScenario, selectedFileName);
+  
+};
+
 
 
 lgb.gui.view.ScenarioMasterGUI.prototype.add = function(gui) {
@@ -29,6 +39,24 @@ lgb.gui.view.ScenarioMasterGUI.prototype.add = function(gui) {
   var el = this.getMainElement();
   gui.appendTo(el);
   
+};
+
+
+
+lgb.gui.view.ScenarioMasterGUI.prototype.bind_ = function() {
+  
+  this.kendoDropDownList_.bind('select', this.d(this.onDropDownSelect_));
+
+};
+
+
+lgb.gui.view.ScenarioMasterGUI.prototype.onDropDownSelect_ = function(event) {
+  
+  var idx = event.item.index();
+  var dataItem = this.kendoDropDownList_.dataItem(idx);
+  var value = dataItem.value;
+  
+  this.dataModel.changePropertyEx('selectedFileName', value);
 };
 
 
@@ -56,15 +84,16 @@ lgb.gui.view.ScenarioMasterGUI.prototype.injectInto = function(parentElement) {
     
     this.append(div);
     
-    this.kendoDropDownList = 
+    this.kendoDropDownList_ = 
       div.kendoDropDownList({
         dataSource: scenarios,
             dataTextField: 'name',
-            dataValueField: 'fileName',
+            dataValueField: 'value',
         change: this.d(this.onDropDownChange)
       }).data('kendoDropDownList');
       
-  
+     this.bind_();
+     
 };
 
 

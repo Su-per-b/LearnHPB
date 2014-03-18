@@ -44,6 +44,10 @@ lgb.gui.controller.BuildingSubController.prototype.init = function( system ) {
 };
 
 
+
+
+
+
 lgb.gui.controller.BuildingSubController.prototype.bind_ = function() {
   
   this.listen(e.WindowResize, this.onWindowResize_);

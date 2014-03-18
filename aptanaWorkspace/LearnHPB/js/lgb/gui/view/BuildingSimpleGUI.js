@@ -37,18 +37,29 @@ lgb.gui.view.BuildingSimpleGUI.prototype.init = function() {
   
 
   
+}; 
+
+
+
+
+lgb.gui.view.BuildingSimpleGUI.prototype.init2 = function() {
+  this.tabStrip_.select(0);
+  
 };
 
 
+lgb.gui.view.BuildingSimpleGUI.prototype.loadNew = function(dataModel) {
+  this.dataModel = dataModel;
+};
 
 
-lgb.gui.view.BuildingSimpleGUI.prototype.calculateLayout = function() {
-
-  var h = window.innerHeight;
-  var height2 = (h-210);
+lgb.gui.view.BuildingSimpleGUI.prototype.clear = function() {
   
-  this.tabStrip_.setContentHeight(height2);
-
+    this.tabTitleMap_ = {};
+  
+    this.dataSource.removeAllTabs();
+    
+    
 };
 
 

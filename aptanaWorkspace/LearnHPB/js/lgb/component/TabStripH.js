@@ -60,6 +60,14 @@ lgb.component.TabStripH.prototype.onChange_addTab_ = function(tab) {
 };
 
 
+
+
+lgb.component.TabStripH.prototype.select = function(idx) {
+  this.kendoTabStrip_.select(idx);   
+};
+
+  
+  
 /**
  * @param {string} appendToSelector The second part of the
  * jQuery selector string.

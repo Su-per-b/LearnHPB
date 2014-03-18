@@ -45,14 +45,11 @@ goog.inherits(lgb.core.MainControllerSimple, lgb.core.BaseController);
  */
 lgb.core.MainControllerSimple.prototype.init = function() {
 
+  this.scenarioController_ = new lgb.scenario.controller.ScenarioController();
 
   this.layoutSimpleController_ = new lgb.gui.controller.LayoutSimpleController();
   this.layoutSimpleController_.init();
 
-  this.scenarioController_ = new lgb.scenario.controller.ScenarioController();
-  this.scenarioController_.load("Building.xml");
-  
-  
   
   $(window).resize(this.d(this.onNativeWindowResize_));
   

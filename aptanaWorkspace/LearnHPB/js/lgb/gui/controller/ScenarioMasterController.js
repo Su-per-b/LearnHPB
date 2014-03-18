@@ -28,28 +28,12 @@ lgb.gui.controller.ScenarioMasterController.prototype.init = function() {
   this.dataModel = new lgb.gui.model.ScenarioMasterModel();
   this.guiView = new lgb.gui.view.ScenarioMasterGUI(this.dataModel);
   
-
-  // this.trigger(e.ScenarioMasterControllerLoaded, this);
+  this.bind_();
+  
+  this.guiView.init();
+  
   this.triggerLocal(e.RequestAddToParentGUI, this.guiView);
-    
-};
-
-
-
-
-
-
-lgb.gui.controller.ScenarioMasterController.prototype.getView = function() {
-  
-  return this.guiView;
-  
-};
-
-
-lgb.gui.controller.ScenarioMasterController.prototype.load = function(filename) {
-  
-  this.scenarioController_ = new lgb.scenario.controller.ScenarioController();
-  this.scenarioController_.load("Building.xml");
+  this.trigger(e.RequestLoadScenario, this.dataModel.selectedFileName);
   
 };
 
@@ -57,13 +41,16 @@ lgb.gui.controller.ScenarioMasterController.prototype.load = function(filename) 
 
 
 
+lgb.gui.controller.ScenarioMasterController.prototype.bind_ = function() {
+  
+  
+  this.relay(this.guiView, e.RequestLoadScenario);
+  
+};
 
 
-// lgb.gui.controller.ScenarioMasterController.prototype.onDataModelInitialized_ =
-  // function(event) {
-// 
-  // this.trigger(e.ScenarioParsed, this.dataModel);
-// };
+
+
 
 
 
@@ -72,8 +59,7 @@ lgb.gui.controller.ScenarioMasterController.prototype.onDataModelInitialized_ =
 
   this.trigger(e.ScenarioDataModelLoaded, this.dataModel.systemList);
   
-  // this.listen(e.LayoutChange, this.onLayoutChange_);
-    
+  
   
 };
 

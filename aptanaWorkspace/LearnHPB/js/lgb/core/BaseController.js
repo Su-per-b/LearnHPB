@@ -23,7 +23,7 @@ goog.inherits(lgb.core.BaseController, lgb.core.BaseClass);
 
 lgb.core.BaseController.prototype.makeChildGUIcontroller_ = function(classReference, initArg) {
 
-  controller = new classReference();
+  var controller = new classReference();
     
   this.childGUIcontrollers_.push(controller);
   

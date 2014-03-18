@@ -32,21 +32,39 @@ lgb.gui.controller.BuildingSimpleController.prototype.init = function(systemList
   var children = this.systemListDataModel_.getChildren();
   this.each (children, this.makeBuildingSubController_);
   
- // this.guiView.calculateLayout();
+  this.guiView.init2();
     
-
-  this.bind_();
-  
 };
 
 
-lgb.gui.controller.BuildingSimpleController.prototype.bind_ = function() {
 
-  //this.listen(e.WindowResize, this.onWindowResize_);
+
+
+
+lgb.gui.controller.BuildingSimpleController.prototype.loadNew = function(systemListDataModel) {
+
+
+  // this.guiView.loadNew(systemListDataModel);
+  this.guiView.clear();
   
+  this.systemListDataModel_ = systemListDataModel;
+  var children = this.systemListDataModel_.getChildren();
+  this.eachIdx (children, this.updateBuildingSubController_);
+  
+  this.guiView.init2();
 };
 
 
+lgb.gui.controller.BuildingSimpleController.prototype.updateBuildingSubController_ = function(system, idx) {
+  
+
+  
+  var controller = this.childGUIcontrollers_[idx];
+  controller.init(system);
+  
+  // /controller.loadNew(system);
+  
+};
 
 lgb.gui.controller.BuildingSimpleController.prototype.makeBuildingSubController_ = function(system) {
 
@@ -54,10 +72,3 @@ lgb.gui.controller.BuildingSimpleController.prototype.makeBuildingSubController_
   
 };
 
-
-
-  
-// lgb.gui.controller.BuildingSimpleController.prototype.onWindowResize_ = function(event) {
-//   
-    // this.guiView.calculateLayout();
-// };

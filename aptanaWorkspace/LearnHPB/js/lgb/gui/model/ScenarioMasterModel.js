@@ -19,27 +19,41 @@ lgb.gui.model.ScenarioMasterModel = function() {
   this._TITLE = 'ScenarioMasterModel';
 
   lgb.world.model.BaseModel.call(this);
+  
+  this.init_();
+  
 
+  
 };
 goog.inherits(lgb.gui.model.ScenarioMasterModel, lgb.world.model.BaseModel);
+
+
+
+lgb.gui.model.ScenarioMasterModel.prototype.init_ = function() {
+  
+  this.scenarios_ = [
+    {
+      name:"Complete Scenario",
+      value:"Complete.xml"
+    },
+    {
+      name:"Very Simple Scenario",
+      value:"VerySimpleScenario.xml"
+    }
+    ];
+  
+  
+  
+  this.selectedFileName = this.scenarios_[0].value;
+  
+};
 
 
 lgb.gui.model.ScenarioMasterModel.prototype.getScenarioList = function() {
 
 
-    var scenarios = [
-    {
-      name:"Building",
-      fileName:"Building.xml"
-    },
-    {
-      name:"Very Simple Scenario",
-      fileName:"VerySimpleScenario.xml"
-    }
-    ];
-    
-    
-    return scenarios;
+ 
+    return this.scenarios_;
 
 };
 

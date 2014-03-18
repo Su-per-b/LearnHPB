@@ -59,7 +59,6 @@ e.ScenarioControllerLoaded = 'e.ScenarioControllerLoaded';
 
 
 
-//e.DataModelChanged = 'e.DataModelChanged';
 e.DataModelChangedEx = 'e.DataModelChangedEx';
 
 e.BuildingHeightChanged = 'e.BuildingHeightChanged';
@@ -93,3 +92,5 @@ e.GuiValueChanged = 'e.GuiValueChanged';
 e.RequestModelicaVariableChange = 'e.RequestModelicaVariableChange';
 
 e.SplitterResize = 'e.SplitterResize';
+
+e.RequestLoadScenario = 'e.RequestLoadScenario';

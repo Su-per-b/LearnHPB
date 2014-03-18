@@ -24,30 +24,31 @@ goog.inherits(lgb.scenario.controller.ScenarioController, lgb.core.BaseControlle
 
 lgb.scenario.controller.ScenarioController.prototype.init_ = function() {
   
-/*
-  this.dataModel = new lgb.scenario.model.Base();
-  
-  this.listenToOnce(this.dataModel,
-     e.DataModelInitialized,
-      this.onDataModelInitialized_);
-      
-  this.dataModel.load();
-*/
+
 
   
   this.dataModel = new lgb.scenario.model.ScenarioModel();
 
-  this.listenToOnce(this.dataModel,
+  this.listenTo(this.dataModel,
      e.DataModelInitialized,
       this.onDataModelInitialized_);
 
-  // this.dataModel.load("VerySimpleScenario.xml");
 
+  this.bind_();
   
   
-  this.trigger(e.ScenarioControllerLoaded, this);
-  
-  
+};
+
+
+lgb.scenario.controller.ScenarioController.prototype.bind_ = function() {
+  this.listen(e.RequestLoadScenario, this.onRequestLoadScenario_);
+};
+
+
+
+lgb.scenario.controller.ScenarioController.prototype.onRequestLoadScenario_ = function(event) {
+  var fileName = event.payload;
+  this.dataModel.load(fileName);
 };
 
 
@@ -57,21 +58,12 @@ lgb.scenario.controller.ScenarioController.prototype.load = function(fileName) {
 
 
 
-// lgb.scenario.controller.ScenarioController.prototype.onDataModelInitialized_ =
-  // function(event) {
-// 
-  // this.trigger(e.ScenarioParsed, this.dataModel);
-// };
-
-
 
 lgb.scenario.controller.ScenarioController.prototype.onDataModelInitialized_ =
   function(event) {
 
   this.trigger(e.ScenarioDataModelLoaded, this.dataModel.systemList);
   
-  // this.listen(e.LayoutChange, this.onLayoutChange_);
-    
   
 };
 

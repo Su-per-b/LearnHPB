@@ -48,7 +48,7 @@ lgb.gui.controller.LeftPanelSimpleController.prototype.bind_ = function() {
 
   this.listenOnce (
     e.ScenarioDataModelLoaded,
-    this.onScenarioDataModelLoaded_
+    this.onScenarioDataModelLoadedFirstTime_
   );
   
   
@@ -74,20 +74,36 @@ lgb.gui.controller.LeftPanelSimpleController.prototype.onSimulationEngineLoaded_
 };
 
 
-lgb.gui.controller.LeftPanelSimpleController.prototype.onScenarioDataModelLoaded_ = function(event) {
+
+
+lgb.gui.controller.LeftPanelSimpleController.prototype.onScenarioDataModelLoadedFirstTime_ = function(event) {
+
 
   var systemListDataModel = event.payload;
-  this.init2_(systemListDataModel);
-
-};
-
-
-lgb.gui.controller.LeftPanelSimpleController.prototype.init2_ = function(systemListDataModel) {
 
    // this.makeChildGUIcontroller_(lgb.gui.controller.ScenarioController, systemListDataModel);
-   this.makeChildGUIcontroller_(lgb.gui.controller.BuildingSimpleController, systemListDataModel);
+   
+   this.buildingSimpleController_ = this.makeChildGUIcontroller_
+    (lgb.gui.controller.BuildingSimpleController, systemListDataModel);
+
+
+    this.listen (
+      e.ScenarioDataModelLoaded,
+      this.onScenarioDataModelLoadedNTime_
+    );
+  
+};
+
+
+lgb.gui.controller.LeftPanelSimpleController.prototype.onScenarioDataModelLoadedNTime_ = function(event) {
+
+
+  var systemListDataModel = event.payload;
+  this.buildingSimpleController_.loadNew(systemListDataModel);
+  
 
 };
+
 
 
 lgb.gui.controller.LeftPanelSimpleController.prototype.init3_ = function(simulationMainController) {

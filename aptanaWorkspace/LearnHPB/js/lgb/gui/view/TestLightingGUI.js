@@ -28,15 +28,15 @@ goog.inherits(lgb.gui.view.TestLightingGUI, lgb.gui.view.BaseGUI);
 
 lgb.gui.view.TestLightingGUI.prototype.bind_ = function() {
   
-  this.kendoComboBox_.bind('select', this.d(this.onComboBoxSelect_));
+  this.kendoDropDownList_.bind('select', this.d(this.onDropDownSelect_));
 
 };
 
 
-lgb.gui.view.TestLightingGUI.prototype.onComboBoxSelect_ = function(event) {
+lgb.gui.view.TestLightingGUI.prototype.onDropDownSelect_ = function(event) {
   
   var idx = event.item.index();
-  var dataItem = this.kendoComboBox_.dataItem(idx);
+  var dataItem = this.kendoDropDownList_.dataItem(idx);
   
   var value = parseInt(dataItem.value);
   
@@ -65,7 +65,7 @@ lgb.gui.view.TestLightingGUI.prototype.inject = function(parentElement) {
   el.append(cb);
   
   
-  this.kendoComboBox_ = 
+  this.kendoDropDownList_ = 
       cb.kendoDropDownList( 
         {
           dataTextField: "text",

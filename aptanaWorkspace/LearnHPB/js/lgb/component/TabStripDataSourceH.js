@@ -64,6 +64,27 @@ lgb.component.TabStripDataSourceH.prototype.getTabCount = function() {
 };
 
 
+lgb.component.TabStripDataSourceH.prototype.removeAllTabs = function() {
+  
+  this.tabCollection = [];
+  
+  if (this.kendoDS) {
+    var data = this.kendoDS.data();
+    
+    var len = data.length;
+    
+    for (var i=0; i < len; i++) {
+      var dataItem = data.pop();
+      this.kendoDS.remove(dataItem);
+    };
+    
+    
+  }
+  
+};
+
+
+
 lgb.component.TabStripDataSourceH.prototype.addTab = function(title, content, yPosition) {
 
   //if (undefined == title || '' == title) {
