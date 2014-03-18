@@ -39,10 +39,10 @@ lgb.gui.view.ScenarioGUI.prototype.add = function(gui) {
 /**
  * @public
  */
-lgb.gui.view.ScenarioGUI.prototype.injectTo = function(parentElement) {
+lgb.gui.view.ScenarioGUI.prototype.injectInto = function(parentElement) {
   
 
-  goog.base(this,  'injectTo', parentElement);
+  goog.base(this,  'injectInto', parentElement);
   
   
    var items = [

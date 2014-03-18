@@ -58,14 +58,14 @@ lgb.gui.view.ButtonsTopRightHUD.prototype.init = function() {
 
 
 
-lgb.gui.view.ButtonsTopRightHUD.prototype.injectTo = function(parentElement) {
+lgb.gui.view.ButtonsTopRightHUD.prototype.injectInto = function(parentElement) {
   
-  goog.base(this,  'injectTo', parentElement);
+  goog.base(this,  'injectInto', parentElement);
   
-  this.tabStrip1.injectTo(parentElement);
+  this.tabStrip1.injectInto(parentElement);
   this.tabStrip1.injectCss();
   
-  this.tabStrip2.injectTo(parentElement);
+  this.tabStrip2.injectInto(parentElement);
   this.tabStrip2.injectCss();
 
 };

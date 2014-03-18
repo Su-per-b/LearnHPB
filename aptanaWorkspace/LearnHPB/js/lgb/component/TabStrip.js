@@ -139,7 +139,7 @@ lgb.component.TabStrip.prototype.injectCss = function() {
 /**
  * @public
  */
-lgb.component.TabStrip.prototype.injectTo = function(parentElement) {
+lgb.component.TabStrip.prototype.injectInto = function(parentElement) {
 
   var el = this.getMainElement();
 
@@ -155,7 +155,7 @@ lgb.component.TabStrip.prototype.injectTo = function(parentElement) {
   
   this.bind_();
   
-  goog.base(this,'injectTo', parentElement);
+  goog.base(this,'injectInto', parentElement);
 
 };
 

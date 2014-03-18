@@ -28,7 +28,7 @@ lgb.scenario.view.SystemList.prototype.getVariables = function() {
 
 lgb.scenario.view.SystemList.prototype.appendTo = function(parentElement) {
   
-  this.injectTo(parentElement);
+  this.injectInto(parentElement);
   
   this.append(this.dataModel.name);
   this.makeChildren_(parentElement);

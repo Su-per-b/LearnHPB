@@ -17,7 +17,7 @@ goog.inherits(lgb.scenario.view.Option, lgb.scenario.view.BaseView);
 
 lgb.scenario.view.Option.prototype.appendTo = function(parentElement) {
 
-  this.injectTo(parentElement);  
+  this.injectInto(parentElement);  
   this.appendDebugProperty_('name');
   this.appendDebugProperty_('disabled');
   this.appendDebugProperty_('default');

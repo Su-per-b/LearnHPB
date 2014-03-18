@@ -175,10 +175,10 @@ lgb.chart.view.GraphGUI_04.prototype.tick_ = function() {
 
 
 
-lgb.chart.view.GraphGUI_04.prototype.injectTo = function(parentElement) {
+lgb.chart.view.GraphGUI_04.prototype.injectInto = function(parentElement) {
   
 
-    goog.base(this,  'injectTo', parentElement);
+    goog.base(this,  'injectInto', parentElement);
     this.makeChart_();
 
 };

@@ -9,12 +9,23 @@ html {
 	background-image: url(../../images/laura/back-main.jpg);
 	background-position: left top;
 	background-repeat: repeat;
-  font: 400 1.2em 'Aldrich', Helvetica, Arial, sans-serif;
+  font: 400 1.0em 'Aldrich', Helvetica, Arial, sans-serif;
 }
 
 body {
   font: 400 1em 'Aldrich', Helvetica, Arial, sans-serif;
 }
+
+
+
+.logo-lhpb {
+
+  width: 120px;
+  height: 50px;
+  background-image: url(../../images/laura/logo.png);  
+  background-repeat: no-repeat;
+}
+
 
 a:link, a:visited {
   color: #0F81BA;
@@ -116,14 +127,15 @@ ul.scenario-action li  {
   background-repeat: no-repeat;
   background-position: 80px 10px;
   position: relative;
-  font-size: 0.8em;
+  font-size: 1.0em;
   clear: both;
+  padding: 30px 0 0 0;
 }
 
 .building-level  {
 
   text-transform: uppercase;
-  font-size: 0.8em;
+
 
 }
 
@@ -140,7 +152,7 @@ ul.scenario-action li  {
   top: 45px;
   left: 28px;
   overflow-x: no-content;
-  font-size: 0.85em;
+  font-size: 0.75em;
 }
 .input-controls .building-level li  {
   padding-top: 5px;

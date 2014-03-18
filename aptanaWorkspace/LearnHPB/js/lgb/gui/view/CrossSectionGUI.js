@@ -144,9 +144,9 @@ lgb.gui.view.CrossSectionGUI.prototype.getViewPoint = function(name) {
 
 
 
-lgb.gui.view.CrossSectionGUI.prototype.injectTo = function(parentElement) {
+lgb.gui.view.CrossSectionGUI.prototype.injectInto = function(parentElement) {
   
-  goog.base(this,  'injectTo', parentElement);
+  goog.base(this,  'injectInto', parentElement);
   var el = this.getMainElement();
   
   this.dropDownExternalInsulation_ = new lgb.component.DropDown(this.dataModel.externalInsulationOptions);
@@ -157,10 +157,10 @@ lgb.gui.view.CrossSectionGUI.prototype.injectTo = function(parentElement) {
   
   this.bind_();
   
-  this.dropDownExternalInsulation_.injectTo(el);
-  this.dropDownAirBarrier_.injectTo(el);
-  this.dropDownGap_.injectTo(el);
-  this.dropDownVeneer_.injectTo(el);
+  this.dropDownExternalInsulation_.injectInto(el);
+  this.dropDownAirBarrier_.injectInto(el);
+  this.dropDownGap_.injectInto(el);
+  this.dropDownVeneer_.injectInto(el);
   
 };
 

@@ -59,7 +59,7 @@ lgb.component.DropDown.prototype.onSelect_ = function(event) {
 };
 
 
-lgb.component.DropDown.prototype.injectTo = function(parentElement) {
+lgb.component.DropDown.prototype.injectInto = function(parentElement) {
 
   parentElement.append('<br />');
   parentElement.append('<br />');

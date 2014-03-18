@@ -76,11 +76,11 @@ lgb.chart.view.SimulationIframeGraphGUI.prototype.calculateLayout = function(the
 };
 
 
-lgb.chart.view.SimulationIframeGraphGUI.prototype.injectTo = function(parentElement) {
+lgb.chart.view.SimulationIframeGraphGUI.prototype.injectInto = function(parentElement) {
   
   this.graphContainerDiv_ = this.makeDiv();
   this.append(this.graphContainerDiv_);
-  goog.base(this, 'injectTo', parentElement);
+  goog.base(this, 'injectInto', parentElement);
   
   
   this.setWidthAndHeight_();

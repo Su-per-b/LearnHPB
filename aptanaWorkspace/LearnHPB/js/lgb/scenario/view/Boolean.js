@@ -38,7 +38,7 @@ lgb.scenario.view.Boolean.prototype.appendTo = function(parentElement) {
 
     }
   
-  this.injectTo(parentElement);  
+  this.injectInto(parentElement);  
   
 };
 

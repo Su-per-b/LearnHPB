@@ -85,10 +85,10 @@ lgb.chart.view.GraphGUI_01.prototype.calculateLayout = function(theVar) {
 };
 
 
-lgb.chart.view.GraphGUI_01.prototype.injectTo = function(parentElement) {
+lgb.chart.view.GraphGUI_01.prototype.injectInto = function(parentElement) {
   
 
-    goog.base(this,  'injectTo', parentElement);
+    goog.base(this,  'injectInto', parentElement);
 
 
 

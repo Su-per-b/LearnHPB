@@ -25,9 +25,7 @@ lgb.gui.view.BuildingGUI.prototype.init = function() {
   this.dataSource.setIcon("images/tabs/systemBtn_grid_25.png", 25, 25);
   
   
-  
-  
-  this.tabStrip1 = new lgb.component.TabStrip(this.dataSource);
+  this.tabStrip = new lgb.component.TabStrip(this.dataSource);
 };
 
 
@@ -48,13 +46,12 @@ lgb.gui.view.BuildingGUI.prototype.add = function(gui) {
   } else {
     this.dataSource.addTab('', '<br />');
     
-    contentElement = this.tabStrip1.getContentElement();
+    contentElement = this.tabStrip.getContentElement();
     this.tabTitleMap_[title] = contentElement;
   }
   
-  //this.tabStrip1.injectOneCss();
   
-  gui.injectTo(contentElement);
+  gui.injectInto(contentElement);
   
 };
 
@@ -62,14 +59,11 @@ lgb.gui.view.BuildingGUI.prototype.add = function(gui) {
 /**
  * @public
  */
-lgb.gui.view.BuildingGUI.prototype.injectTo = function(parentElement) {
+lgb.gui.view.BuildingGUI.prototype.injectInto = function(parentElement) {
   
-  this.tabStrip1.injectTo(parentElement);
-  this.tabStrip1.injectCss();
+  this.tabStrip.injectInto(parentElement);
+  this.tabStrip.injectCss();
   
-  // var el = this.tabStrip1.getMainElement();
-  // el.css("width","100%");
-  // el.css("min-height","100%");
   
 };
 

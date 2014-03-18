@@ -47,7 +47,7 @@ lgb.gui.view.BottomPanelGUI.prototype.add = function(gui) {
     this.tabTitleMap_[title] = contentElement;
   }
   
-  gui.injectTo(contentElement);
+  gui.injectInto(contentElement);
   
 };
 
@@ -55,9 +55,9 @@ lgb.gui.view.BottomPanelGUI.prototype.add = function(gui) {
 /**
  * @public
  */
-lgb.gui.view.BottomPanelGUI.prototype.injectTo = function(parentElement) {
+lgb.gui.view.BottomPanelGUI.prototype.injectInto = function(parentElement) {
   
-  this.tabStrip1.injectTo(parentElement);
+  this.tabStrip1.injectInto(parentElement);
   this.tabStrip1.injectCss();
   
   var el = this.tabStrip1.getMainElement();

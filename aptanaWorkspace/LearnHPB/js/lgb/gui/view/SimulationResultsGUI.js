@@ -88,10 +88,10 @@ lgb.gui.view.SimulationResultsGUI.prototype.calculateLayout = function() {
 
 
 
-lgb.gui.view.SimulationResultsGUI.prototype.injectTo = function(parentElement) {
+lgb.gui.view.SimulationResultsGUI.prototype.injectInto = function(parentElement) {
   
 
-  goog.base(this,  'injectTo', parentElement);
+  goog.base(this,  'injectInto', parentElement);
 
   
 };

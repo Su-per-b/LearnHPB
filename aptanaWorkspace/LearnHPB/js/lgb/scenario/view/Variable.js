@@ -38,7 +38,7 @@ lgb.scenario.view.Variable.prototype.appendTo = function(parentElement) {
      this.isEnabled = true;
    }
        
-  this.injectTo(parentElement);
+  this.injectInto(parentElement);
   
   this.childList_ = [];
   
@@ -51,23 +51,12 @@ lgb.scenario.view.Variable.prototype.appendTo = function(parentElement) {
   else {
   
      var txt = "{0} ({1})".format(this.dataModel.name, this.dataModel.abbr);
-    // this.append(html);
     
-    this.label_.text(txt);
+      this.label_.text(txt);
 
       var el = this.getMainElement();
-      
-      
       this.makeChildren_(el);
       
-      
-      // if (null != this.dataModel.unit) {
-        // var c = el.children();
-        // c.append(' ' + this.dataModel.unit);
-      // }
-
-
-
     }
   
 };
@@ -104,6 +93,18 @@ lgb.scenario.view.Variable.prototype.appendChildTo_ = function(childNode, parent
 
 
 
+lgb.scenario.view.Variable.showIcontentPopup = function(abbr) {
+  
+  
+    var url = "i-content/iv-{0}.html".format(abbr);
+    
+    
+    newwindow=window.open(url,'name','height=600,width=450');
+    if (window.focus) {newwindow.focus()}
+    return false;
+};
+
+
 
 
 lgb.scenario.view.Variable.prototype.getMainElement = function() {
@@ -115,7 +116,19 @@ lgb.scenario.view.Variable.prototype.getMainElement = function() {
     var divMore = $('<div>');
     divMore.addClass('more');
     
-    divMore.append ('<a href="info.html" class="info"></a>');  
+    var abbr = this.dataModel.abbr;
+    var tooltip = 'Show info page for the variable: {0}'.format(abbr);
+    
+    var tag = '<a href="#" class="info" title="{0}"' +
+    ' onclick="return lgb.scenario.view.Variable.showIcontentPopup (\'{1}\');"' +
+    '></a>';
+    
+    
+    tag = tag.format(tooltip, abbr);
+
+
+    divMore.append (tag);
+    
     divMore.append ('<a href="#" class="param disabled"></a>');  
     
     li.append(divMore);
@@ -131,6 +144,8 @@ lgb.scenario.view.Variable.prototype.getMainElement = function() {
     }
 
   }
+
+
 
   return this.mainElement_;
 };

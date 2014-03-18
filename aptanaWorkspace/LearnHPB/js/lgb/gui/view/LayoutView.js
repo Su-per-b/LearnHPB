@@ -105,12 +105,12 @@ lgb.gui.view.LayoutView.prototype.add = function(guiView) {
     
    
     case "ButtonsTopRightHUD":
-      guiView.injectTo(this.viewportTop_);
+      guiView.injectInto(this.viewportTop_);
       break;
       
     case "TitleBarGUI":
 
-      guiView.injectTo(this.leftPanel_);
+      guiView.injectInto(this.leftPanel_);
 
       var util = new lgb.gui.view.LayoutUtil(guiView);
       util.alignHorizontal(lgb.gui.view.LayoutUtil.ALIGN.Left, 5);
@@ -124,16 +124,16 @@ lgb.gui.view.LayoutView.prototype.add = function(guiView) {
 
       el.css("z-index", 100);
       el.css("position", "absolute");
-      guiView.injectTo(this.viewportTop_);
+      guiView.injectInto(this.viewportTop_);
 
       break;
     case "PropertiesGreenGUI":
-      guiView.injectTo(this.topRightPanel_);
+      guiView.injectInto(this.topRightPanel_);
       break;
     case "PropertiesButtonGreenGUI":
       this.propertiesButton_ = guiView;
 
-      guiView.injectTo(this.topRightPanel_);
+      guiView.injectInto(this.topRightPanel_);
 
       var util = new lgb.gui.view.LayoutUtil(guiView);
 
@@ -145,16 +145,16 @@ lgb.gui.view.LayoutView.prototype.add = function(guiView) {
       break;
 
     case "LeftPanelGUI":
-      guiView.injectTo(this.leftPanel_);
+      guiView.injectInto(this.leftPanel_);
       break;
 
     case "TestGUI":
-      guiView.injectTo(this.leftPanel_);
+      guiView.injectInto(this.leftPanel_);
       break;
     case "BottomPanelGUI":
       var util = new lgb.gui.view.LayoutUtil(guiView);
       
-      guiView.injectTo(this.bottomRightPanel_);
+      guiView.injectInto(this.bottomRightPanel_);
       break;
 
     default:
@@ -193,11 +193,11 @@ lgb.gui.view.LayoutView.prototype.inject = function() {
 
   goog.base(this,'inject');
 
-  this.splitPanelHorizontal_.injectTo(this.getMainElement());
+  this.splitPanelHorizontal_.injectInto(this.getMainElement());
   this.leftPanel_ = this.splitPanelHorizontal_.getPane(0);
   this.rightPanel_ = this.splitPanelHorizontal_.getPane(1);
 
-  this.splitPanelVertical_.injectTo(this.rightPanel_);
+  this.splitPanelVertical_.injectInto(this.rightPanel_);
   this.topRightPanel_ = this.splitPanelVertical_.getPane(0);
   this.bottomRightPanel_ = this.splitPanelVertical_.getPane(1);
 

@@ -44,7 +44,7 @@ lgb.world.view.OutputGUI.prototype.add = function(gui) {
     this.tabTitleMap_[title] = contentElement;
   }
   
-  gui.injectTo(contentElement);
+  gui.injectInto(contentElement);
   
 };
 
@@ -52,9 +52,9 @@ lgb.world.view.OutputGUI.prototype.add = function(gui) {
 /**
  * @public
  */
-lgb.world.view.OutputGUI.prototype.injectTo = function(parentElement) {
+lgb.world.view.OutputGUI.prototype.injectInto = function(parentElement) {
   
-  this.tabStrip1.injectTo(parentElement);
+  this.tabStrip1.injectInto(parentElement);
   this.tabStrip1.injectCss();
   
   var el = this.tabStrip1.getMainElement();

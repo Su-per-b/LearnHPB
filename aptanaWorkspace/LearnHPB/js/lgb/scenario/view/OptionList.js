@@ -20,7 +20,7 @@ goog.inherits(lgb.scenario.view.OptionList, lgb.scenario.view.BaseView);
 lgb.scenario.view.OptionList.prototype.appendTo = function(parentElement) {
   
 
-  this.injectTo(parentElement);
+  this.injectInto(parentElement);
 
   if (this.debugFlag_) {
 

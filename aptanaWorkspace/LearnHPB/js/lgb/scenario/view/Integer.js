@@ -47,7 +47,7 @@ lgb.scenario.view.Integer.prototype.appendTo = function(parentElement) {
     this.append(html);
   }
 
-  this.injectTo(parentElement);
+  this.injectInto(parentElement);
 };
 
 lgb.scenario.view.Integer.prototype.setEnabled = function(enabledFlag) {

@@ -32,7 +32,7 @@ goog.inherits(lgb.component.InputWidget, lgb.world.view.BaseV);
 
 
 
-lgb.component.InputWidget.prototype.injectTo = function(parentElement, idx) {
+lgb.component.InputWidget.prototype.injectInto = function(parentElement, idx) {
 
     var cl = idx % 2 ? '' : ' greyBackground';
 
@@ -49,7 +49,7 @@ lgb.component.InputWidget.prototype.injectTo = function(parentElement, idx) {
     
 
   this.append(html);
-  goog.base(this, 'injectTo', parentElement);
+  goog.base(this, 'injectInto', parentElement);
     
 
 };

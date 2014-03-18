@@ -1,4 +1,4 @@
-goog.provide('lgb.gui.controller.StandAlonePanelGUIController');
+goog.provide('lgb.gui.controller.StandAlonePanelController');
 
 goog.require('lgb.core.BaseController');
 goog.require('lgb.gui.view.BottomPanelGUI');
@@ -14,17 +14,17 @@ goog.require('lgb.gui.view.StandAlonePanelGUI');
 
 
 
-lgb.gui.controller.StandAlonePanelGUIController = function() {
+lgb.gui.controller.StandAlonePanelController = function() {
 
   lgb.core.BaseController.call(this);
 };
-goog.inherits(lgb.gui.controller.StandAlonePanelGUIController, lgb.core.BaseController);
+goog.inherits(lgb.gui.controller.StandAlonePanelController, lgb.core.BaseController);
 
 
 /**
  * Initializes the Main Controller after the document is ready
  */
-lgb.gui.controller.StandAlonePanelGUIController.prototype.init = function() {
+lgb.gui.controller.StandAlonePanelController.prototype.init = function() {
 
   this.dataModel = new lgb.gui.model.BaseGuiModel();
   this.guiView = new lgb.gui.view.StandAlonePanelGUI(this.dataModel);
@@ -35,7 +35,7 @@ lgb.gui.controller.StandAlonePanelGUIController.prototype.init = function() {
 
 };
 
-lgb.gui.controller.StandAlonePanelGUIController.prototype.bind_ = function() {
+lgb.gui.controller.StandAlonePanelController.prototype.bind_ = function() {
 
     this.listenOnce (
         e.SimulationEngineLoaded,
@@ -45,7 +45,7 @@ lgb.gui.controller.StandAlonePanelGUIController.prototype.bind_ = function() {
 };
 
 
-lgb.gui.controller.StandAlonePanelGUIController.prototype.onSimulationEngineLoaded_ = function(event) {
+lgb.gui.controller.StandAlonePanelController.prototype.onSimulationEngineLoaded_ = function(event) {
   
   simMainController = event.payload;
   var simDataModel = simMainController.getDataModel();
@@ -55,7 +55,7 @@ lgb.gui.controller.StandAlonePanelGUIController.prototype.onSimulationEngineLoad
 };
 
 
-lgb.gui.controller.StandAlonePanelGUIController.prototype.init2_ = function(simDataModel) {
+lgb.gui.controller.StandAlonePanelController.prototype.init2_ = function(simDataModel) {
   
 
   this.makeChildGUIcontroller_

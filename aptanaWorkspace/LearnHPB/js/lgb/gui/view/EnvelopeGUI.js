@@ -62,9 +62,9 @@ lgb.gui.view.EnvelopeGUI.prototype.onFloorHeightSelect_ = function(event) {
 
 
 
-lgb.gui.view.EnvelopeGUI.prototype.injectTo = function(parentElement) {
+lgb.gui.view.EnvelopeGUI.prototype.injectInto = function(parentElement) {
   
-  goog.base(this,  'injectTo', parentElement);
+  goog.base(this,  'injectInto', parentElement);
   
   
    var items = [

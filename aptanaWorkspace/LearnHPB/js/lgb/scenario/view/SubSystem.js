@@ -18,7 +18,7 @@ goog.inherits(lgb.scenario.view.SubSystem, lgb.scenario.view.BaseView);
 
 lgb.scenario.view.SubSystem.prototype.appendTo = function(parentElement) {
   
-  this.injectTo(parentElement);
+  this.injectInto(parentElement);
   this.appendTitle_();
   this.makeChildren_(parentElement);
   

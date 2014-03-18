@@ -52,8 +52,12 @@ e.WindowResize = 'e.WindowResize';
 
 e.VisibilityNodesLoaded = 'e.VisibilityNodesLoaded';
 e.ViewpointNodesLoaded = 'e.ViewpointNodesLoaded';
+
 e.ScenarioParsed = 'e.ScenarioParsed';
-e.ScenarioParsed2 = 'e.ScenarioParsed2';
+e.ScenarioDataModelLoaded = 'e.ScenarioDataModelLoaded';
+e.ScenarioControllerLoaded = 'e.ScenarioControllerLoaded';
+
+
 
 //e.DataModelChanged = 'e.DataModelChanged';
 e.DataModelChangedEx = 'e.DataModelChangedEx';
@@ -88,4 +92,4 @@ e.GuiValueChanged = 'e.GuiValueChanged';
 
 e.RequestModelicaVariableChange = 'e.RequestModelicaVariableChange';
 
-
+e.SplitterResize = 'e.SplitterResize';

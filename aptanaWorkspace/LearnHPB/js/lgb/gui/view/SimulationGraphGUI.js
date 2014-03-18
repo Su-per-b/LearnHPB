@@ -79,12 +79,12 @@ lgb.gui.view.SimulationGraphGUI.prototype.calculateLayout = function(theVar) {
 };
 
 
-lgb.gui.view.SimulationGraphGUI.prototype.injectTo = function(parentElement) {
+lgb.gui.view.SimulationGraphGUI.prototype.injectInto = function(parentElement) {
   
   this.yearlyBubbleChartDiv = this.makeDiv();
   this.yearlyBubbleChartDiv.append('<a >reset</a>');
   
-  goog.base(this, 'injectTo', parentElement);
+  goog.base(this, 'injectInto', parentElement);
   
   this.yearlyBubbleChart = dc.bubbleChart(this.yearlyBubbleChartDiv[0], "chartGroup");
 

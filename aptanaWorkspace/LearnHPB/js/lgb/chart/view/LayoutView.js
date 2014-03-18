@@ -37,15 +37,15 @@ lgb.chart.view.LayoutView.prototype.add = function(guiView) {
   switch(className ) {
     
     case "SimulationStateControlGUIh": {
-       guiView.injectTo(this.chartTop_);
+       guiView.injectInto(this.chartTop_);
       break;
     }
     case "GraphGUI_05": {
-      guiView.injectTo(this.chartBottom_);
+      guiView.injectInto(this.chartBottom_);
       break;
     }
     case "StandAlonePanelGUI": {
-      guiView.injectTo(this.chartBottom_);
+      guiView.injectInto(this.chartBottom_);
       break;
     }
      default: {

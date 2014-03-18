@@ -23,7 +23,7 @@ lgb.scenario.view.System.prototype.init = function() {
 
 lgb.scenario.view.System.prototype.appendTo = function(parentElement) {
   
-  this.injectTo(parentElement);
+  this.injectInto(parentElement);
   this.appendTitle_();
   this.makeChildren_(parentElement);
 };

@@ -90,7 +90,7 @@ lgb.component.SplitPanel.prototype.onResize_ = function(event) {
 };
 
 
-lgb.component.SplitPanel.prototype.injectTo = function(parentElement) {
+lgb.component.SplitPanel.prototype.injectInto = function(parentElement) {
 
 
   
@@ -112,7 +112,7 @@ lgb.component.SplitPanel.prototype.injectTo = function(parentElement) {
   this.splitterBarContainer_.append(this.paneOne_).append(this.paneTwo_);
   this.setMainElement(this.splitterBarContainer_);
   
-  goog.base(this, 'injectTo', parentElement);
+  goog.base(this, 'injectInto', parentElement);
   
   var theOptions = {panes :  this.ds.panes};
 

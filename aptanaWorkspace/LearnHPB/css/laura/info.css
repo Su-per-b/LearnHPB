@@ -1,0 +1,182 @@
+@charset "UTF-8";
+/* CSS Document */
+
+@import url(http://fonts.googleapis.com/css?family=Aldrich|Titillium+Web:400,600,700);
+
+html {
+	background-color: #231F20;
+	background-image: url(../images/back-main.jpg);
+	background-position: left top;
+	background-repeat: repeat;
+}
+body {
+	color: #1883B8;
+	background-image: url(../images/back-top.jpg);
+	background-repeat: repeat-x;
+	font: 1em Helvetica, Arial, sans-serif;
+}
+a:link, a:visited {
+	color: #40C027;
+	text-decoration: none;
+}
+a:hover {
+	color: #80DD1F;
+}
+a:active {
+	color: #BDF484;
+}
+p {
+  margin-top: 0px;
+  margin-bottom: 15px;
+}
+img {
+  max-width: 100%;
+}
+ul {
+	margin: 0px 0px 25px 20px;
+	padding: 0px;
+	line-height: 120%;
+	list-style: none;
+}
+li {
+	margin-bottom: 10px;
+}
+
+/* --- CONTAINER ---*/
+#wrapper {
+	background-image: none;
+	padding:25px;
+}
+#container {
+	max-width:1000px;
+	margin-left:auto;
+	margin-right:auto;
+	display: block;
+}
+#logo {
+	width: 120px;
+	height: 40px;
+	margin-bottom: -8px;
+	background-image: url(../images/logo.png);	
+	background-repeat: no-repeat;
+}
+#title {
+	margin-bottom: 15px;
+	margin-right: 25px;
+	display: block;
+	float: left;
+	color: #33A5DE;
+	font: 400 1.3em 'Aldrich', Helvetica, Arial, sans-serif;
+	line-height: 110%;
+	text-transform: capitalize;
+}
+#from {
+	float: right;
+	margin-top: -12px;
+	width: 145px;
+	height: 40px;
+	background-image: url(../images/from-superb-info.png);
+	background-repeat: no-repeat;
+	background-position: right top;
+}
+
+/* --- INFO ---*/
+
+#info {
+	padding: 25px;
+	clear: both;
+	display: block;
+	color: #1CBCFC;
+	line-height: 150%;
+	border: 1px solid #1A3856;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	background-color: #0E2042;
+}
+h1, h2, h3, h4, h5 {
+	margin-top: 0px;
+	margin-bottom: 15px;
+	line-height: 115%;
+}
+h1 {
+	font: 400 1.9em 'Aldrich', Helvetica, Arial, sans-serif;
+	color: #D1F3FF;
+	text-transform: capitalize;
+}
+h2 {
+	margin-top: 30px;
+	margin-bottom: 10px;
+	font: 400 1.3em 'Aldrich', Helvetica, Arial, sans-serif;
+	color: #68D2FA;
+	text-transform: capitalize;
+}
+h2 {
+	text-transform: capitalize;
+}
+h3 {
+	font-size: 1.2em;
+	color: #1CBCFC;
+}
+h4 {
+	margin-bottom: 20px;
+	clear: both;
+	color: #D1F3FF;
+	font-size: 1.3em;
+	font-weight:normal;
+	font-style: italic;
+	line-height: 125%;
+}
+.graphic {
+	max-width: 800px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	padding: 15px;
+	clear: both;
+	display: block;
+	overflow: visible;
+	color: #1CBCFC;
+	text-align: center;
+	background-color: #FFFFFF;
+	border: 1px solid #1A3856;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+}
+.graphic img {
+	max-height: 500px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.instructions {
+	margin-bottom: 20px;
+	clear: both;
+	display: block;
+	color: #D1F3FF;
+	font-size: 1.3em;
+	font-style: italic;
+	line-height: 125%;
+}
+ul.list-variable label {
+	margin-right: 10px;
+	width: 125px;
+	display: inline-block;
+}
+.version {
+	float:right;
+/*	margin-top: 20px;
+*/	font-size: 0.8em;
+}
+
+/* --- CLEARFIX --- 
+apply .cf to all elements that contain floats */
+/* For modern browsers */
+.cf:before,
+.cf:after {
+  content: "";
+  display: table;
+}
+
+.cf:after {
+  clear: both;
+}

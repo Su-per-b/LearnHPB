@@ -42,9 +42,9 @@ lgb.gui.view.SimulationTestGUI.prototype.calculateLayout = function() {
 
 
 
-lgb.gui.view.SimulationTestGUI.prototype.injectTo = function(parentElement) {
+lgb.gui.view.SimulationTestGUI.prototype.injectInto = function(parentElement) {
   
-  goog.base(this,  'injectTo', parentElement);
+  goog.base(this,  'injectInto', parentElement);
   this.makeVariablesTest_();
   
 };

@@ -191,7 +191,7 @@ lgb.component.TabStripH.prototype.injectCss = function() {
 /**
  * @public
  */
-lgb.component.TabStripH.prototype.injectTo = function(parentElement) {
+lgb.component.TabStripH.prototype.injectInto = function(parentElement) {
 
   var el = this.getMainElement();
 
@@ -208,7 +208,7 @@ lgb.component.TabStripH.prototype.injectTo = function(parentElement) {
   this.ds.kendoDS = this.kendoTabStrip_.dataSource;
   
   
-  goog.base(this,'injectTo', parentElement);
+  goog.base(this,'injectInto', parentElement);
 
 };
 

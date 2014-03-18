@@ -70,7 +70,7 @@ lgb.gui.view.TestGUI.prototype.add = function(gui) {
     this.tab2guiMap_[title] = gui;
   }
   
-  gui.injectTo(contentElement);
+  gui.injectInto(contentElement);
   
   
 };
@@ -79,9 +79,9 @@ lgb.gui.view.TestGUI.prototype.add = function(gui) {
 /**
  * @public
  */
-lgb.gui.view.TestGUI.prototype.injectTo = function(parentElement) {
+lgb.gui.view.TestGUI.prototype.injectInto = function(parentElement) {
   
-  this.tabStrip.injectTo(parentElement);
+  this.tabStrip.injectInto(parentElement);
   this.tabStrip.injectCss();
 
  

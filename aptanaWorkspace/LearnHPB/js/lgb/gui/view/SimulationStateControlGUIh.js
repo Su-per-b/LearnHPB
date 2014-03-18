@@ -101,7 +101,7 @@ lgb.gui.view.SimulationStateControlGUIh.prototype.add = function(gui) {
     this.tabTitleMap_[title] = contentElement;
   }
   
-  gui.injectTo(contentElement);
+  gui.injectInto(contentElement);
   
 };
 
@@ -109,10 +109,10 @@ lgb.gui.view.SimulationStateControlGUIh.prototype.add = function(gui) {
 /**
  * @public
  */
-lgb.gui.view.SimulationStateControlGUIh.prototype.injectTo = function(parentElement) {
+lgb.gui.view.SimulationStateControlGUIh.prototype.injectInto = function(parentElement) {
   
 
-  goog.base(this,  'injectTo', parentElement);
+  goog.base(this,  'injectInto', parentElement);
 
   var el = this.getMainElement();
   

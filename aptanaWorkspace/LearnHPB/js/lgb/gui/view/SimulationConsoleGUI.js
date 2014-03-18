@@ -41,9 +41,9 @@ lgb.gui.view.SimulationConsoleGUI.prototype.calculateLayout = function() {
 };
 
 
-lgb.gui.view.SimulationConsoleGUI.prototype.injectTo = function(parentElement) {
+lgb.gui.view.SimulationConsoleGUI.prototype.injectInto = function(parentElement) {
   
-  goog.base(this,  'injectTo', parentElement);
+  goog.base(this,  'injectInto', parentElement);
   this.calculateLayout();
   
 };

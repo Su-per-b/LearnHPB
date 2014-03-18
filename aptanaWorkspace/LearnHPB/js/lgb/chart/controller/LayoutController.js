@@ -13,7 +13,7 @@ goog.require('lgb.chart.controller.GraphController');
 
 goog.require('lgb.gui.model.BaseGuiModel');
 
-goog.require('lgb.gui.controller.StandAlonePanelGUIController');
+goog.require('lgb.gui.controller.StandAlonePanelController');
 
 
 
@@ -40,7 +40,7 @@ lgb.chart.controller.LayoutController.prototype.init = function() {
     this.bind_();
     this.triggerGUI();
 
-    this.makeChildGUIcontroller_(lgb.gui.controller.StandAlonePanelGUIController);
+    this.makeChildGUIcontroller_(lgb.gui.controller.StandAlonePanelController);
 };
 
 

@@ -3,7 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
 
-goog.provide('lgb.gui.view.LayoutViewSimple');
+goog.provide('lgb.gui.view.LayoutSimpleView');
 
 goog.require('lgb.gui.view.BaseGUI');
 goog.require('lgb.component.SplitPanel');
@@ -19,17 +19,17 @@ goog.require('lgb.gui.model.LayoutModel');
  * @constructor
  * @extends {lgb.gui.view.BaseGUI}
  */
-lgb.gui.view.LayoutViewSimple = function(dataModel) {
+lgb.gui.view.LayoutSimpleView = function(dataModel) {
 
   lgb.gui.view.BaseGUI.call(this, dataModel, 'pageContainer', 'theBody');
   this.layoutUtils_ = [];
   
 };
-goog.inherits(lgb.gui.view.LayoutViewSimple, lgb.gui.view.BaseGUI);
+goog.inherits(lgb.gui.view.LayoutSimpleView, lgb.gui.view.BaseGUI);
 
 
 
-lgb.gui.view.LayoutViewSimple.prototype.init = function() {
+lgb.gui.view.LayoutSimpleView.prototype.init = function() {
 
   this.splitPanelHorizontalDS_ = new lgb.component.SplitPanelDataSource();
   
@@ -70,11 +70,9 @@ lgb.gui.view.LayoutViewSimple.prototype.init = function() {
 };
 
 
-lgb.gui.view.LayoutViewSimple.prototype.bind_ = function(guiView) {
+lgb.gui.view.LayoutSimpleView.prototype.bind_ = function(guiView) {
   
-  this.listenTo(this.splitPanelHorizontal_, e.Resize, this.onSplitterResizeHorizontal_);
-  this.listenTo(this.splitPanelVertical_, e.Resize, this.onSplitterResizeVertical_);
-  // this.listenForChange_('add');
+  this.listenTo(this.splitPanelHorizontal_, e.Resize, this.onSplitterResize_);
   
 };
 
@@ -82,7 +80,7 @@ lgb.gui.view.LayoutViewSimple.prototype.bind_ = function(guiView) {
 
 
 
-lgb.gui.view.LayoutViewSimple.prototype.toggleVisibility = function(guiView) {
+lgb.gui.view.LayoutSimpleView.prototype.toggleVisibility = function(guiView) {
   
   guiView.isVisible_ = !guiView.isVisible_;
   var el = guiView.getMainElement();
@@ -93,21 +91,21 @@ lgb.gui.view.LayoutViewSimple.prototype.toggleVisibility = function(guiView) {
 
 
 
-lgb.gui.view.LayoutViewSimple.prototype.add = function(guiView) {
+lgb.gui.view.LayoutSimpleView.prototype.add = function(guiView) {
   
 
   var className = guiView.getClassName();
 
   switch(className ) {
     
-    case "LeftPanelGUISimple":
-      guiView.injectTo(this.leftPanel_);
+    case "LeftPanelSimpleGUI":
+      guiView.injectInto(this.leftPanel_);
       break;
 
     case "BottomPanelGUI":
       var util = new lgb.gui.view.LayoutUtil(guiView);
       
-      guiView.injectTo(this.bottomRightPanel_);
+      guiView.injectInto(this.bottomRightPanel_);
       break;
 
     default:
@@ -115,35 +113,21 @@ lgb.gui.view.LayoutViewSimple.prototype.add = function(guiView) {
   }
 
 
-  
 };
 
 
 
 
-lgb.gui.view.LayoutViewSimple.prototype.onSplitterResizeVertical_ = function(event) {
-  this.triggerLocal(e.LayoutChange);
+lgb.gui.view.LayoutSimpleView.prototype.onSplitterResize_ = function(event) {
+  this.triggerLocal(e.SplitterResize);
 };
 
 
-lgb.gui.view.LayoutViewSimple.prototype.onSplitterResizeHorizontal_ = function(event) {
-  this.triggerLocal(e.LayoutChange);
-};
-
-lgb.gui.view.LayoutViewSimple.prototype.calculateLayout = function(windowDimensions) {
-  
-  //this.splitPanelHorizontal_.calculateLayout();
-  
-  //this.each(this.layoutUtils_, this.calculateOneLayout);
-};
-
-lgb.gui.view.LayoutViewSimple.prototype.calculateOneLayout = function(layoutUtil) {
-  layoutUtil.tweenToPosition();
-};
 
 
-lgb.gui.view.LayoutViewSimple.prototype.inject = function() {
 
+//this is the root injection
+lgb.gui.view.LayoutSimpleView.prototype.inject = function() {
 
   var el = this.getMainElement();
   el.css({
@@ -160,12 +144,12 @@ lgb.gui.view.LayoutViewSimple.prototype.inject = function() {
   goog.base(this,'inject');
 
   
-  this.splitPanelHorizontal_.injectTo(el);
+  this.splitPanelHorizontal_.injectInto(el);
   
   this.leftPanel_ = this.splitPanelHorizontal_.getPane(0);
   this.rightPanel_ = this.splitPanelHorizontal_.getPane(1);
 
-  this.splitPanelVertical_.injectTo(this.rightPanel_);
+  this.splitPanelVertical_.injectInto(this.rightPanel_);
   this.topRightPanel_ = this.splitPanelVertical_.getPane(0);
   this.bottomRightPanel_ = this.splitPanelVertical_.getPane(1);
 
@@ -189,11 +173,6 @@ lgb.gui.view.LayoutViewSimple.prototype.inject = function() {
   });
   
   
-  
-  
-  
-
-
 
 };
 

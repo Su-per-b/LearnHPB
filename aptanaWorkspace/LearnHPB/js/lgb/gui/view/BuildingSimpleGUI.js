@@ -35,28 +35,11 @@ lgb.gui.view.BuildingSimpleGUI.prototype.init = function() {
   
   this.tabStrip_ = new lgb.component.TabStripH(this.dataSource);
   
-  this.bind_();
-  
-};
 
-lgb.gui.view.BuildingSimpleGUI.prototype.bind_ = function() {
-  
-  
-  this.listenTo(
-    this.tabStrip_,
-    e.Activate,
-    this.onActivate_
-  );
-  
   
 };
 
 
-lgb.gui.view.BuildingSimpleGUI.prototype.onActivate_ = function(event) {
-  
-  //this.calculateLayout();
-  
-};
 
 
 lgb.gui.view.BuildingSimpleGUI.prototype.calculateLayout = function() {
@@ -92,7 +75,7 @@ lgb.gui.view.BuildingSimpleGUI.prototype.add = function(gui) {
   }
   
   
-  gui.injectTo(contentElement);
+  gui.injectInto(contentElement);
   
 };
 
@@ -100,13 +83,13 @@ lgb.gui.view.BuildingSimpleGUI.prototype.add = function(gui) {
 /**
  * @public
  */
-lgb.gui.view.BuildingSimpleGUI.prototype.injectTo = function(parentElement) {
+lgb.gui.view.BuildingSimpleGUI.prototype.injectInto = function(parentElement) {
   
    var el = this.getMainElement();
    el.addClass("input-controls");
    
     
-   this.tabStrip_.injectTo(el);
+   this.tabStrip_.injectInto(el);
    this.tabStrip_.injectCss();
   
    var tabEl = this.tabStrip_.getMainElement();

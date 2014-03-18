@@ -64,7 +64,7 @@ lgb.scenario.view.Decimal.prototype.appendTo = function(parentElement) {
       
     }
   
-  this.injectTo(parentElement);  
+  this.injectInto(parentElement);  
   
 };
 

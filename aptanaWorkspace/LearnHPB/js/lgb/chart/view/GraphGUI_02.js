@@ -229,10 +229,10 @@ lgb.chart.view.GraphGUI_02.prototype.processCSV_ = function(error, data) {
 };
 
 
-lgb.chart.view.GraphGUI_02.prototype.injectTo = function(parentElement) {
+lgb.chart.view.GraphGUI_02.prototype.injectInto = function(parentElement) {
   
 
-    goog.base(this,  'injectTo', parentElement);
+    goog.base(this,  'injectInto', parentElement);
     this.makeChart_();
 
     this.tickDelegate_ = this.d(this.tick2_);

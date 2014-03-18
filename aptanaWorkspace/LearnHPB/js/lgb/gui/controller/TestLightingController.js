@@ -9,7 +9,7 @@ goog.require('lgb.core.BaseController');
 
 goog.require('lgb.world.model.LightingModel');
 goog.require('lgb.world.view.LightingView');
-goog.require('lgb.gui.view.TestGUILighting');
+goog.require('lgb.gui.view.TestLightingGUI');
 goog.require('lgb.world.model.BuildingHeightModel');
 
 /**
@@ -32,7 +32,7 @@ lgb.gui.controller.TestLightingController.prototype.init = function() {
   
   this.dataModel = new lgb.world.model.LightingModel();
   
-  this.guiView = new lgb.gui.view.TestGUILighting(this.dataModel);
+  this.guiView = new lgb.gui.view.TestLightingGUI(this.dataModel);
   this.view = new lgb.world.view.LightingView(this.dataModel);
 
   this.bind_();

@@ -126,7 +126,7 @@ lgb.world.view.BaseV.prototype.append = function(content) {
 
 
 
-lgb.world.view.BaseV.prototype.injectTo = function(parentElement) {
+lgb.world.view.BaseV.prototype.injectInto = function(parentElement) {
   
   if (null == parentElement) {
     debugger;

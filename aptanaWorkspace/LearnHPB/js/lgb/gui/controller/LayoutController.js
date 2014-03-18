@@ -12,7 +12,7 @@ goog.require('lgb.gui.view.LayoutView');
 goog.require('lgb.gui.model.LayoutModel');
 
 goog.require('lgb.gui.controller.PropertiesController');
-goog.require('lgb.gui.controller.LeftPanelGUIController');
+goog.require('lgb.gui.controller.LeftPanelController');
 goog.require('lgb.gui.controller.ButtonsTopRightHUDController');
 goog.require('lgb.gui.controller.TopMenuController');
 goog.require('lgb.world.controller.VisibilityController');
@@ -46,7 +46,7 @@ lgb.gui.controller.LayoutController.prototype.init_ = function() {
     
     this.bind_();
     
-    this.leftPanelGUIController_ = this.makeChildGUIcontroller_(lgb.gui.controller.LeftPanelGUIController);
+    this.leftPanelGUIController_ = this.makeChildGUIcontroller_(lgb.gui.controller.LeftPanelController);
     this.rightTopInputController_ = this.makeChildGUIcontroller_(lgb.gui.controller.ButtonsTopRightHUDController);
     this.visibilityController_ = this.makeChildGUIcontroller_(lgb.world.controller.VisibilityController);
     this.bottomPanelGUIController_ = this.makeChildGUIcontroller_(lgb.gui.controller.BottomPanelGUIController);
