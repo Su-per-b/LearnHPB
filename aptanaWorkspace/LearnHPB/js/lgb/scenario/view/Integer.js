@@ -28,7 +28,10 @@ lgb.scenario.view.Integer.prototype.appendTo = function(parentElement) {
   } else {
 
 
-    this.inputElement_ = $('<input>').addClass('input-Integer-textbox').attr("type", "text").attr("value", this.dataModel['default']);
+    this.inputElement_ = $('<input>')
+    .addClass('input-Integer-textbox')
+    .attr("type", "text")
+    .attr("value", this.dataModel['default']);
     
      if (!this.isEnabled) {
        // this.inputElement_.attr( "disabled", "disabled" );

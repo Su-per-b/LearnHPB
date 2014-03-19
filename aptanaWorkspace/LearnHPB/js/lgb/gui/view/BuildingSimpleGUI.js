@@ -22,7 +22,11 @@ lgb.gui.view.BuildingSimpleGUI.prototype.init = function() {
   this.tabTitleMap_ = {};
   
   this.dataSource = new lgb.component.TabStripDataSourceH('BuildingSimpleGUI-tabStrip');
-  this.dataSource.setIcon("images/laura/icons-building-all.png", 28, 30);
+  
+  
+  var path = lgb.core.Config.WEBROOT + "images/laura/icons-building-all.png";
+  
+  this.dataSource.setIcon(path, 28, 30);
   
   this.dataSource.setOffsets([
     {x:76, y:0},

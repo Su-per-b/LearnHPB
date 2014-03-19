@@ -64,6 +64,8 @@ lgb.gui.view.BottomPanelGUI.prototype.injectInto = function(parentElement) {
   el.css("width","100%");
   el.css("min-height","100%");
   el.css("height","100%");
+  
+  
 };
 
 

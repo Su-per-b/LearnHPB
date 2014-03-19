@@ -205,7 +205,7 @@ ul {
 
 #lgb-gui-view-LeftPanelSimpleGUI-0 .k-dropdown {
   
-  font-size: 0.8em;
+  font-size: 0.9em;
   width: 200px;
 }
 
@@ -214,5 +214,14 @@ ul {
 }
 
 
+.input-OptionList.k-list li {
+  font-size: 1.1em;
+}
 
+
+
+.input-ListBox {
+    margin:0px 4px 0px 0px; 
+  
+}
 

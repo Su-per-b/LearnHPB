@@ -18,7 +18,8 @@ goog.require('lgb.world.controller.WorldSelectionController');
 goog.require('lgb.gui.controller.LayoutSimpleController');
 
 goog.require('lgb');
-
+goog.require('lgb.core.EventBus');
+goog.require('lgb.core.Global');
 
 
 /**
@@ -28,6 +29,7 @@ goog.require('lgb');
  */
 lgb.core.MainControllerSimple = function() {
   
+
   lgb.core.BaseController.call(this);
   lgb.globalEventBus = new lgb.core.EventBus();
 
@@ -86,5 +88,21 @@ lgb.core.MainControllerSimple.prototype.onNativeWindowResize_ =
 };
 
 
+
+
+
+lgb.core.MainControllerSimple.start =
+  function() {
+
+
+  if (undefined != LGB_WEBROOT) {
+     lgb.core.Config.WEBROOT = LGB_WEBROOT;
+  }
+  
+  lgb.init();
+  lgb.core.MainControllerSimple.instance = new lgb.core.MainControllerSimple();
+
+
+};
 
 

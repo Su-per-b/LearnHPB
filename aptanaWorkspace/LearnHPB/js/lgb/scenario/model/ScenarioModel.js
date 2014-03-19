@@ -8,6 +8,7 @@ goog.provide('lgb.scenario.model.ScenarioModel');
 goog.require('lgb.world.model.BaseModel');
 goog.require('lgb.scenario.model.SystemList');
 goog.require('lgb.utils.XmlWrapper');
+goog.require('lgb.core.Config');
 
 
 /**
@@ -35,7 +36,7 @@ lgb.scenario.model.ScenarioModel.prototype.load = function(xmlFileName) {
   
   
   
-   var url = lgb.core.Config.XML_BASE_PATH + xmlFileName;
+  var url = lgb.core.Config.WEBROOT + lgb.core.Config.XML_BASE_PATH + xmlFileName;
 
   var delegate = this.d(this.parse);
   

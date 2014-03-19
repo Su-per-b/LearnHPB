@@ -16,7 +16,16 @@ body {
   font: 400 1em 'Aldrich', Helvetica, Arial, sans-serif;
 }
 
-
+#pageContainer {
+    top:0px;
+    left:0px;
+    position:absolute;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background-image: url(../../images/laura/back-top.jpg);
+    background-repeat: repeat-x;
+}
 
 .logo-lhpb {
 
@@ -311,16 +320,7 @@ ul.scenario-action li  {
 }
 
 
-.input-OptionList.k-list li {
-  font-size: 1.0em;
-}
 
-
-
-.input-ListBox {
-    margin:0px 4px 0px 0px; 
-  
-}
 
 ::-webkit-scrollbar { width: 16px; height: 3px;}
 ::-webkit-scrollbar-button {  background-color: #284EAD; } /*up and down arrows */

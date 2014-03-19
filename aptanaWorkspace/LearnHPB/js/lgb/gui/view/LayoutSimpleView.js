@@ -103,7 +103,7 @@ lgb.gui.view.LayoutSimpleView.prototype.add = function(guiView) {
       break;
 
     case "BottomPanelGUI":
-      var util = new lgb.gui.view.LayoutUtil(guiView);
+      // var util = new lgb.gui.view.LayoutUtil(guiView);
       
       guiView.injectInto(this.bottomRightPanel_);
       break;
@@ -130,16 +130,7 @@ lgb.gui.view.LayoutSimpleView.prototype.onSplitterResize_ = function(event) {
 lgb.gui.view.LayoutSimpleView.prototype.inject = function() {
 
   var el = this.getMainElement();
-  el.css({
-      top:"0px",
-      left:"0px",
-      position:"absolute",
-      width:"100%",
-      height:"100%",
-      overflow:"hidden",
-      "background-image": "url(images/laura/back-top.jpg)",
-      "background-repeat": "repeat-x"
-    });
+
 
   goog.base(this,'inject');
 

@@ -44,7 +44,7 @@ lgb.gui.controller.LayoutSimpleController.prototype.init = function() {
     
     this.leftPanelGUIController_ = this.makeChildGUIcontroller_(lgb.gui.controller.LeftPanelSimpleController);
      
-    // this.bottomPanelGUIController_ = this.makeChildGUIcontroller_(lgb.gui.controller.BottomPanelGUIController);
+    this.bottomPanelGUIController_ = this.makeChildGUIcontroller_(lgb.gui.controller.BottomPanelGUIController);
     
 };
 
