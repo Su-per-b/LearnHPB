@@ -104,6 +104,7 @@ def recreateJsonFolder(jsonFolderList):
 def addLicenses():
     addLicensesHelper('three_license.txt', r'temp\min\js\three.min.js')
     addLicensesHelper('lgb_license.txt', r'temp\min\js\lgb.min.js')
+    addLicensesHelper('css_header.txt', r'temp\min\css\lgb.min.css')
 
 def addLicensesHelper(licenceTemplateFile, codeFile):
     licenceTemplateFile = 'templates' + os.sep + licenceTemplateFile
@@ -126,6 +127,7 @@ def copy1():
     shutil.copytree(ROOT_ORIG + 'images', ROOT_MIN + 'images')
     shutil.copytree(ROOT_ORIG + 'info-pages', ROOT_MIN + 'info-pages')
     shutil.copyfile(ROOT_ORIG + 'css\\info.css', ROOT_MIN + 'css\\info.css')
+    shutil.copyfile(ROOT_ORIG + 'css\\normalize.css', ROOT_MIN + 'css\\normalize.css')
     
     #shutil.copytree(ROOT_ORIG + 'css\\Silver', ROOT_MIN + 'css\\Silver')
     

@@ -1,41 +1,42 @@
 {
 
-    "paths": {
-      "rootPath": "../LearnHPB/js/",
-      "fileList":   [
-        "closure",
-        "lgb"
+   "paths": {
+     "rootPath":"../LearnHPB/js/",
+     "fileList":   [
+       "closure",
+       "lgb"
       ]
     },
-    "externs": {
-      "rootPath": "./externs/lgb/",
-      "fileList":   [
-        "browser.js ",
-        "jquery-1.9.js ",
-        "jquery-plugins.js ",
-        "tipped.js ",
-        "kendo.core.js ",
-        "kendo.data.js ",
-        "three.cameras.js ",
-        "three.core.js ",
-        "three.extras.animation.js ",
-        "three.extras.controls.js ",
-        "three.extras.geometries.js ",
-        "three.extras.io.loaders.js ",
-        "three.extras.physics.js ",
-        "three.extras.js ",
-        "three.lights.js ",
-        "three.materials.js ",
-        "three.objects.js ",
-        "three.renderers.js ",
-        "three.scenes.js ",
-        "jquery-ui-raj.js ",
-        "tween.js "
+   "externs": {
+     "rootPath":"./externs/lgb/",
+     "fileList":   [
+       "browser.js",
+       "jquery-1.9.js",
+       "jquery-plugins.js",
+       "tipped.js",
+       "kendo.core.js",
+       "kendo.data.js",
+       "three.cameras.js",
+       "three.core.js",
+       "three.extras.animation.js",
+       "three.extras.controls.js",
+       "three.extras.geometries.js",
+       "three.extras.io.loaders.js",
+       "three.extras.physics.js",
+       "three.extras.js",
+       "three.lights.js",
+       "three.materials.js",
+       "three.objects.js",
+       "three.renderers.js",
+       "three.scenes.js",
+       "tween.js",
+       "lgb.js"
+        
       ]
     },
-    "config":{
-      "outputFileNameBase" : "lgb",
-      "outputFileExtension" : "js"
+   "config":{
+     "outputFileNameBase" :"lgb",
+     "outputFileExtension" :"js"
     }
  }
     

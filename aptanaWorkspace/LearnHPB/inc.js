@@ -1,4 +1,2 @@
-goog.require('lgb');
-goog.require('lgb.core.Global');
-goog.require('lgb.core.EventBus');
+/* needed for the build process */
 goog.require('lgb.core.MainController');
