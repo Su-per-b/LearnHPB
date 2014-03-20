@@ -118,6 +118,9 @@ lgb.world.controller.CameraCraneController.prototype.moveToViewpoint =
 
   this.tweenPosition = createjs.Tween.get(this.cameraOnCrane_.position, props);
   
+    if (isNaN(this.moveDuration)) {
+      debugger;
+    }
   
     this.tweenPosition.to(
       this.destinationCamera_.position,

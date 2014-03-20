@@ -124,15 +124,20 @@ def copy1():
     shutil.copyfile("templates\\htaccess.txt", ROOT_MIN + '.htaccess')
     
     shutil.copytree(ROOT_ORIG + 'images', ROOT_MIN + 'images')
-    shutil.copytree(ROOT_ORIG + 'css\\Silver', ROOT_MIN + 'css\\Silver')
+    shutil.copytree(ROOT_ORIG + 'info-pages', ROOT_MIN + 'info-pages')
+    shutil.copyfile(ROOT_ORIG + 'css\\info.css', ROOT_MIN + 'css\\info.css')
+    
+    #shutil.copytree(ROOT_ORIG + 'css\\Silver', ROOT_MIN + 'css\\Silver')
     
     shutil.copytree(ROOT_ORIG + '3d-assets\\textures', ROOT_MIN + '3d-assets\\textures')
     
     shutil.copyfile(ROOT_ORIG + 'xml\\scene.xml', ROOT_MIN + 'xml\\scene.xml')
-    shutil.copyfile(ROOT_ORIG + 'xml\\DefaultScenario.xml', ROOT_MIN + 'xml\\DefaultScenario.xml')
-    shutil.copyfile(ROOT_ORIG + 'xml\\Building.xml', ROOT_MIN + 'xml\\Building.xml')
+    shutil.copyfile(ROOT_ORIG + 'xml\\Complete.xml', ROOT_MIN + 'xml\\Complete.xml')
+    shutil.copyfile(ROOT_ORIG + 'xml\\VerySimpleScenario.xml', ROOT_MIN + 'xml\\VerySimpleScenario.xml')
     
-    shutil.copyfile(ROOT_ORIG + 'ndx.csv', ROOT_MIN + 'ndx.csv')
+    
+    
+    #shutil.copyfile(ROOT_ORIG + 'ndx.csv', ROOT_MIN + 'ndx.csv')
     
     
 def deployMin():

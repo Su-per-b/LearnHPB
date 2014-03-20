@@ -168,3 +168,18 @@ lgb.core.MainController.prototype.injectErrorWindow_ = function() {
 };
 
 
+lgb.core.MainController.start =
+  function() {
+
+
+  if (typeof LGB_WEBROOT != 'undefined') {
+     lgb.core.Config.WEBROOT = LGB_WEBROOT;
+  }
+  
+  lgb.init();
+  
+  //lgb.core.MainController.instance = new lgb.core.MainController();
+  window.mainController = new lgb.core.MainController();
+
+};
+

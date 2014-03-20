@@ -33,9 +33,9 @@ lgb.scenario.view.Integer.prototype.appendTo = function(parentElement) {
     .attr("type", "text")
     .attr("value", this.dataModel['default']);
     
-     if (!this.isEnabled) {
-       // this.inputElement_.attr( "disabled", "disabled" );
-     }
+     // if (!this.isEnabled) {
+       // // this.inputElement_.attr( "disabled", "disabled" );
+     // }
      
     this.append(this.inputElement_);
     

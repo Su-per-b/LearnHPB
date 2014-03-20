@@ -1,16 +1,27 @@
 /*
 Three.js is used by permission.  The following classes were modified 
-by Raj Dye before being compiled into this project:
+by Raj Dye. 
 
-THREE.Mesh - added 3 functions 
-THREE.BinaryLoader - modified 1 function
-THREE.Geometry - added 2 functions 
-THREE.Object3D - added 1 function
+  THREE.BinaryLoader - added 'load' function
+  THREE.Camera - added 'setAnchor', 'getAnchor', 'lookAt' and 'getInfo' functions
+  THREE.Geometry - added new constructor, 'getDimensions', 'getBoundingBoxPoints', 
+                'getBoundingBox', 'getBoundingBoxObject', 'center', 'analyzeAlignment', 
+                'analyze’ and 'countDuplicateVertices' functions.
+  THREE.Mesh - added 'bakeTransformsIntoGeometry', 'bakeScaleIntoGeometry', 
+              'getBoundingBox', 'analyzeGeometry' functions.
+              
+  THREE.Object3D - added 'removeAllChildren', 'setVisible', 'setProperty', 
+                   'setDescendantsProperty', 'getDescendantsBoundingBox', 
+                   'clone', 'cloneArray', 'addArray' functions.
+  
+  THREE.Vector3 - added 'toString', 'toStringHelper_'  functions.
+
 
 The following classes were created based on THREE.js classes:
 
-THREE.SceneLoaderEx - based on THREE.SceneLoader
-THREE.TrackballControlsEx - based on THREE.TrackballControls
+  THREE.SceneLoaderEx - based on THREE.SceneLoader
+  THREE.TrackballControlsEx - based on THREE.TrackballControls
+  THREE.BoundingBox - bounding box functionality
 
 
 The MIT License

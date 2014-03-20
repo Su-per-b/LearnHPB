@@ -2,14 +2,12 @@
     "includes": {
       "rootPath": "../LearnHPB/css/",
       "fileList":   [
-        "jquery-ui.css",
         "tipped.css",
-        "kendo.common.css",
-        "kendo.silver.css",
-        "lgb.css",
-        "jquery.checkbox.css",
-        "bootstrap.min.css",
-        "dc.css"
+        "kendo/kendo.common.css",
+        "kendo/kendo.lgb.css",
+        "panels.css",
+        "lhpb.css",
+        "normalize.css"
       ]
     },
     "config":{

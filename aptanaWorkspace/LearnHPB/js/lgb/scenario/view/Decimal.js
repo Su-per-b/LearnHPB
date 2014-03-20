@@ -37,12 +37,12 @@ lgb.scenario.view.Decimal.prototype.appendTo = function(parentElement) {
           
 
            
-         if (this.isEnabled == false) {
-           // this.inputElement_.attr( "disabled", "disabled" );
-         } else {
-           
-
-         }
+         // if (this.isEnabled == false) {
+           // // this.inputElement_.attr( "disabled", "disabled" );
+         // } else {
+//            
+// 
+         // }
      
      
         this.append(this.inputElement_);

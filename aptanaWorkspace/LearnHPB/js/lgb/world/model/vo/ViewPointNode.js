@@ -21,6 +21,7 @@ lgb.world.model.vo.ViewpointNode = function(title) {
   this.camera_ = undefined;
   this.focusEvent = false;
   this.titleToChildMap_ = {};
+  this.metersPerSecondPosition = 6;
 
 };
 goog.inherits(lgb.world.model.vo.ViewpointNode, lgb.world.model.vo.BaseVo);
