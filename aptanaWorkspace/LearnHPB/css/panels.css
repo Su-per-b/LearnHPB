@@ -180,11 +180,11 @@ ul {
 }
 .panel.input .more a.info {
   margin-bottom:5px;
-  background-image: url(../../images/laura/icons-panel-info.png);
+  background-image: url(../images/icons-panel-info.png);
   background-position: 0px top;
 }
 .panel.input .more a.param {
-  background-image: url(../../images/laura/icons-panel-parameters.png);
+  background-image: url(../images/icons-panel-parameters.png);
   background-position: 0px top;
 }
 .panel.input .more a:hover.info, 

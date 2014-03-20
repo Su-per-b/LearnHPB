@@ -11,8 +11,11 @@ goog.require('lgb.core.Config');
 goog.require('lgb.gui.view.LayoutView');
 goog.require('lgb.gui.model.LayoutModel');
 
-goog.require('lgb.gui.controller.PropertiesController');
+
 goog.require('lgb.gui.controller.LeftPanelController');
+goog.require('lgb.gui.controller.LeftPanelSimpleController');
+
+
 goog.require('lgb.gui.controller.ButtonsTopRightHUDController');
 goog.require('lgb.gui.controller.TopMenuController');
 goog.require('lgb.world.controller.VisibilityController');
@@ -46,9 +49,9 @@ lgb.gui.controller.LayoutController.prototype.init_ = function() {
     
     this.bind_();
     
-    this.leftPanelGUIController_ = this.makeChildGUIcontroller_(lgb.gui.controller.LeftPanelController);
-    this.rightTopInputController_ = this.makeChildGUIcontroller_(lgb.gui.controller.ButtonsTopRightHUDController);
-    this.visibilityController_ = this.makeChildGUIcontroller_(lgb.world.controller.VisibilityController);
+    this.leftPanelSimpleController_ = this.makeChildGUIcontroller_(lgb.gui.controller.LeftPanelSimpleController);
+    this.buttonsTopRightHUDController_ = this.makeChildGUIcontroller_(lgb.gui.controller.ButtonsTopRightHUDController);
+    // this.visibilityController_ = this.makeChildGUIcontroller_(lgb.world.controller.VisibilityController);
     this.bottomPanelGUIController_ = this.makeChildGUIcontroller_(lgb.gui.controller.BottomPanelGUIController);
     
 };
@@ -61,25 +64,12 @@ lgb.gui.controller.LayoutController.prototype.bind_ = function() {
   this.listen(e.WindowResize, this.onWindowResize_);
   this.listen(e.RequestLayoutVisibilityChange, this.onRequestLayoutVisibilityChange_);
   
-  this.listenOnce(
-    e.ScenarioParsed,
-    this.onScenarioParsed_);
+
     
 };
 
 
-lgb.gui.controller.LayoutController.prototype.onScenarioParsed_ = function(event) {
-  
-   var scenarioDataModel = event.payload;
-   this.init2_(scenarioDataModel);
 
-};
-
-lgb.gui.controller.LayoutController.prototype.init2_ = function(scenarioDataModel) {
-
-   this.makeChildGUIcontroller_(lgb.gui.controller.PropertiesController, scenarioDataModel);
-
-};
 
 lgb.gui.controller.LayoutController.prototype.onRequestAddToParentGUI_ = function(event) {
     this.guiView.add(event.payload);

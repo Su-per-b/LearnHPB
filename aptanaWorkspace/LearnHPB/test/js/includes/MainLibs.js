@@ -145,9 +145,9 @@ test.includes.MainLibs.standAloneCss = function() {
    test.includes.MainLibs.addOneCssScript("css/kendo/", "kendo.common");
    test.includes.MainLibs.addOneCssScript("css/kendo/", "kendo.lgb");
 
-   test.includes.MainLibs.addOneCssScript("css/laura/", "panels");
-   test.includes.MainLibs.addOneCssScript("css/laura/", "lhpb");
-   test.includes.MainLibs.addOneCssScript("css/laura/", "normalize");
+   test.includes.MainLibs.addOneCssScript("css/", "panels");
+   test.includes.MainLibs.addOneCssScript("css/", "lhpb");
+   test.includes.MainLibs.addOneCssScript("css/", "normalize");
 
 };
 

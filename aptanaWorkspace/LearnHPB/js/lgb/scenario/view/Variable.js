@@ -96,7 +96,7 @@ lgb.scenario.view.Variable.prototype.appendChildTo_ = function(childNode, parent
 lgb.scenario.view.Variable.showIcontentPopup = function(abbr) {
   
   
-    var url = "i-content/iv-{0}.html".format(abbr);
+    var url = "info-pages/iv-{0}.html".format(abbr);
     
     
     newwindow=window.open(url,'name','height=600,width=450');

@@ -24,7 +24,7 @@ lgb.gui.view.BuildingSimpleGUI.prototype.init = function() {
   this.dataSource = new lgb.component.TabStripDataSourceH('BuildingSimpleGUI-tabStrip');
   
   
-  var path = lgb.core.Config.WEBROOT + "images/laura/icons-building-all.png";
+  var path = lgb.core.Config.WEBROOT + "images/icons-building-all.png";
   
   this.dataSource.setIcon(path, 28, 30);
   

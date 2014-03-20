@@ -363,7 +363,7 @@ html .km-pane-wrapper .k-header {
 .k-state-active:hover,
 .k-active-filter,
 .k-tabstrip .k-state-active {
-  background-color: #ffffff;
+  background-color: #231F20;
   border-color: #7ea700;
   color: #000000;
 }
@@ -1205,7 +1205,7 @@ html .km-pane-wrapper .km-widget,
   border-color: #7ea700;
 }
 .k-tabstrip .k-content.k-state-active {
-  background-color: #ffffff;
+  background-color: #231F20;
   color: #7cb236;
 }
 .k-menu.k-header,

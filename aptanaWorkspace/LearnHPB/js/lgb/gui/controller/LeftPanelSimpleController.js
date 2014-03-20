@@ -6,7 +6,7 @@ goog.require('lgb.gui.controller.ScenarioController');
 goog.require('lgb.gui.controller.BuildingSimpleController');
 
 
-goog.require('lgb.gui.controller.SimulationStateControlController');
+goog.require('lgb.gui.controller.SimulationStateController');
 goog.require('lgb.gui.view.SimulationStateControlGUI');
 
 goog.require('lgb.gui.view.LeftPanelSimpleGUI');
@@ -51,29 +51,24 @@ lgb.gui.controller.LeftPanelSimpleController.prototype.bind_ = function() {
     this.onScenarioDataModelLoadedFirstTime_
   );
   
-  
-  this.listenOnce (
-      e.SimulationEngineLoaded,
-      this.onSimulationEngineLoaded_
-  );
-    
-    
+//   
+  // this.listenOnce (
+      // e.SimulationEngineLoaded,
+      // this.onSimulationEngineLoaded_
+  // );
+//     
 
 };
 
 
 
 
-
-
-lgb.gui.controller.LeftPanelSimpleController.prototype.onSimulationEngineLoaded_ = function(event) {
-
-  var simulationMainController = event.payload;
-  this.init3_(simulationMainController);
-  
-};
-
-
+// lgb.gui.controller.LeftPanelSimpleController.prototype.onSimulationEngineLoaded_ = function(event) {
+// 
+  // var simulationMainController = event.payload;
+  // this.init3_(simulationMainController);
+//   
+// };
 
 
 lgb.gui.controller.LeftPanelSimpleController.prototype.onScenarioDataModelLoadedFirstTime_ = function(event) {
@@ -106,10 +101,12 @@ lgb.gui.controller.LeftPanelSimpleController.prototype.onScenarioDataModelLoaded
 
 
 
-lgb.gui.controller.LeftPanelSimpleController.prototype.init3_ = function(simulationMainController) {
-  
-  // this.makeChildGUIcontroller_(lgb.gui.controller.SimulationStateControlController, simulationMainController);
-
-};
+// 
+// lgb.gui.controller.LeftPanelSimpleController.prototype.init3_ = function(simulationMainController) {
+//   
+  // this.makeChildGUIcontroller_(lgb.gui.controller.SimulationStateController, simulationMainController);
+// 
+// };
+// 
 
 

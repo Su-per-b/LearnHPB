@@ -5,18 +5,22 @@
  
 goog.provide('lgb.core.MainController');
 
-goog.require('goog.debug.Logger');
+goog.require('lgb');
+goog.require('lgb.core.EventBus');
+goog.require('lgb.core.Global');
 goog.require('lgb.core.Config');
 goog.require('lgb.core.BaseController');
+goog.require('goog.debug.Logger');
+
 goog.require('lgb.scenario.controller.ScenarioController');
 goog.require('lgb.world.controller.RenderController');
 
 goog.require('lgb.gui.controller.LayoutController');
 goog.require('lgb.world.controller.BuildingController');
 goog.require('lgb.world.controller.UtilityController');
-goog.require('lgb.world.controller.WorldSelectionController');
+// goog.require('lgb.world.controller.WorldSelectionController');
 
-goog.require('lgb');
+
 
 
 
@@ -85,12 +89,12 @@ lgb.core.MainController.prototype.init = function() {
   
   
   /**@type {lgb.world.controller.WorldSelectionController} */
-  this.selectionController_ =
-    new lgb.world.controller.WorldSelectionController(
-      this.renderController_.getCamera(),
-      this.renderController_.scene_,
-      this.renderController_.view.containerDiv_
-  );
+  // this.selectionController_ =
+    // new lgb.world.controller.WorldSelectionController(
+      // this.renderController_.getCamera(),
+      // this.renderController_.scene_,
+      // this.renderController_.view.containerDiv_
+  // );
   
   
   /** @type {lgb.world.controller.TrackBallController} */
@@ -102,14 +106,14 @@ lgb.core.MainController.prototype.init = function() {
   $(window).resize(this.d(this.onNativeWindowResize_));
   
    
-  this.simMainController_ = new lgb.simulation.controller.MainController();
-  this.simMainController_.init();
+  this.simunlationMainController_ = new lgb.simulation.controller.MainController();
+  this.simunlationMainController_.init();
   
   this.logger_ = goog.debug.Logger.getLogger('lgb.core.MainController');
 
   lgb.logInfo(lgb.core.Config.getTitle());
   lgb.logInfo('jQuery version: ' + $('').jquery);
-  lgb.logInfo('jQuery.ui version: ' + $.ui.version);
+
 
 
 };

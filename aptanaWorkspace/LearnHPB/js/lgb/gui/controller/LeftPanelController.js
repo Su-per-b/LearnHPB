@@ -4,7 +4,7 @@ goog.require('lgb.core.BaseController');
 goog.require('lgb.gui.controller.TestController');
 goog.require('lgb.gui.controller.ScenarioController');
 goog.require('lgb.gui.controller.BuildingController');
-goog.require('lgb.gui.controller.SimulationStateControlController');
+goog.require('lgb.gui.controller.SimulationStateController');
 goog.require('lgb.gui.view.SimulationStateControlGUI');
 
 goog.require('lgb.gui.view.LeftPanelGUI');
@@ -78,7 +78,7 @@ lgb.gui.controller.LeftPanelController.prototype.init2_ = function(systemListDat
 
 lgb.gui.controller.LeftPanelController.prototype.init3_ = function(simulationMainController) {
   
-  this.makeChildGUIcontroller_(lgb.gui.controller.SimulationStateControlController, simulationMainController);
+  this.makeChildGUIcontroller_(lgb.gui.controller.SimulationStateController, simulationMainController);
 
 };
 

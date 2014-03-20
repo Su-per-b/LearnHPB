@@ -32,9 +32,35 @@ lgb.gui.controller.ButtonsTopRightHUDController.prototype.init = function() {
   this.guiView.init();
   this.triggerLocal(e.RequestAddToParentGUI, this.guiView);
   
+  this.bind_();
   
 };
 
 
 
 
+lgb.gui.controller.ButtonsTopRightHUDController.prototype.bind_ = function() {
+
+
+  this.listenOnce (
+      e.SimulationEngineLoaded,
+      this.onSimulationEngineLoaded_
+  );
+    
+
+};
+
+
+lgb.gui.controller.ButtonsTopRightHUDController.prototype.onSimulationEngineLoaded_ = function(event) {
+
+  var simulationMainController = event.payload;
+  this.init3_(simulationMainController);
+  
+};
+
+
+lgb.gui.controller.ButtonsTopRightHUDController.prototype.init3_ = function(simulationMainController) {
+  
+  this.makeChildGUIcontroller_(lgb.gui.controller.SimulationStateController, simulationMainController);
+
+};

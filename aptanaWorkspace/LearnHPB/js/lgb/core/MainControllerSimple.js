@@ -5,6 +5,10 @@
  
 goog.provide('lgb.core.MainControllerSimple');
 
+goog.require('lgb');
+goog.require('lgb.core.EventBus');
+goog.require('lgb.core.Global');
+
 goog.require('goog.debug.Logger');
 goog.require('lgb.core.Config');
 goog.require('lgb.core.BaseController');
@@ -16,10 +20,10 @@ goog.require('lgb.world.controller.BuildingController');
 goog.require('lgb.world.controller.UtilityController');
 goog.require('lgb.world.controller.WorldSelectionController');
 goog.require('lgb.gui.controller.LayoutSimpleController');
+goog.require('lgb.simulation.controller.MainController');
 
-goog.require('lgb');
-goog.require('lgb.core.EventBus');
-goog.require('lgb.core.Global');
+
+
 
 
 /**
@@ -56,8 +60,10 @@ lgb.core.MainControllerSimple.prototype.init = function() {
   $(window).resize(this.d(this.onNativeWindowResize_));
   
    
-  // this.simMainControllerSimple_ = new lgb.simulation.controller.MainController();
-  // this.simMainControllerSimple_.init();
+  this.simMainController_ = new lgb.simulation.controller.MainController();
+  this.simMainController_.init();
+  
+  
   
   this.logger_ = goog.debug.Logger.getLogger('lgb.core.MainControllerSimple');
 

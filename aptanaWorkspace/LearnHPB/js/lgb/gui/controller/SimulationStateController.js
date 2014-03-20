@@ -1,4 +1,4 @@
-goog.provide('lgb.gui.controller.SimulationStateControlController');
+goog.provide('lgb.gui.controller.SimulationStateController');
 
 goog.require('lgb.core.BaseController');
 goog.require('lgb.gui.view.SimulationStateControlGUIh');
@@ -13,27 +13,29 @@ goog.require('se.Event');
 
 
 
-lgb.gui.controller.SimulationStateControlController = function() {
+lgb.gui.controller.SimulationStateController = function() {
 
   lgb.core.BaseController.call(this);
 
   
 };
-goog.inherits(lgb.gui.controller.SimulationStateControlController, lgb.core.BaseController);
+goog.inherits(lgb.gui.controller.SimulationStateController, lgb.core.BaseController);
 
 
 
 
-lgb.gui.controller.SimulationStateControlController.prototype.init = function(simulationMainController) {
+lgb.gui.controller.SimulationStateController.prototype.init = function(simulationMainController) {
   
   this.simulationMainController_ = simulationMainController;
   this.dataModel = this.simulationMainController_.getDataModel();
     
-  this.guiView = new lgb.SimulationStateControlGUI(this.dataModel);
+  this.guiView = new lgb.gui.view.SimulationStateControlGUIh(this.dataModel);
   
   
   this.bind_();
-  this.triggerGUI();
+  
+  this.guiView.init();
+  this.triggerLocal(e.RequestAddToParentGUI, this.guiView);
   
 
 };
@@ -41,7 +43,7 @@ lgb.gui.controller.SimulationStateControlController.prototype.init = function(si
 
 
 
-lgb.gui.controller.SimulationStateControlController.prototype.bind_ = function() {
+lgb.gui.controller.SimulationStateController.prototype.bind_ = function() {
 
     this.relay (
         this.guiView,

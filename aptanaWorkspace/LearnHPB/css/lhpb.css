@@ -6,7 +6,7 @@
 html {
 	height: 100%;
 	background-color: #231F20;
-	background-image: url(../../images/laura/back-main.jpg);
+	background-image: url(../images/back-main.jpg);
 	background-position: left top;
 	background-repeat: repeat;
   font: 400 1.0em 'Aldrich', Helvetica, Arial, sans-serif;
@@ -23,7 +23,7 @@ body {
     width:100%;
     height:100%;
     overflow:hidden;
-    background-image: url(../../images/laura/back-top.jpg);
+    background-image: url(../images/back-top.jpg);
     background-repeat: repeat-x;
 }
 
@@ -31,7 +31,7 @@ body {
 
   width: 120px;
   height: 50px;
-  background-image: url(../../images/laura/logo.png);  
+  background-image: url(../images/logo.png);  
   background-repeat: no-repeat;
 }
 
@@ -132,7 +132,7 @@ ul.scenario-action li  {
   height: 145px;
   display: block;
   z-index: 500;
-  background-image: url(../../images/laura/mini-map-back.png);
+  background-image: url(../images/mini-map-back.png);
   background-repeat: no-repeat;
   background-position: 80px 10px;
   position: relative;
@@ -175,7 +175,7 @@ ul.scenario-action li  {
   width: 55px;
   display: block;
   z-index: 700;
-  background-image: url(../../images/laura/mini-map.gif);
+  background-image: url(../images/mini-map.gif);
   background-repeat: no-repeat;
   position: absolute;
   left: 116px;
@@ -273,8 +273,7 @@ ul.scenario-action li  {
 }
 
 
-
-.k-tabstrip-items .k-link {
+#lgb-gui-view-LeftPanelSimpleGUI-0 .k-tabstrip-items .k-link {
   display: inline-block;
   padding: 0;
   margin: 0;
@@ -288,7 +287,7 @@ ul.scenario-action li  {
 
 
 
-.k-tabstrip .k-content {
+#lgb-gui-view-LeftPanelSimpleGUI-0 .k-tabstrip .k-content {
   padding: 0 0 0 0;
   margin-top: 60px;
   padding-bottom: 25px;
@@ -298,7 +297,7 @@ ul.scenario-action li  {
 
 
 
-.k-tabstrip-items .k-item .k-sprite {
+#lgb-gui-view-LeftPanelSimpleGUI-0 .k-tabstrip-items .k-item .k-sprite {
   margin: 0;
   vertical-align: middle;
   border: 0;
@@ -306,7 +305,7 @@ ul.scenario-action li  {
 
 
 
-.k-tabstrip-items .k-item {
+#lgb-gui-view-LeftPanelSimpleGUI-0 .k-tabstrip-items .k-item {
   background: none;
   margin: 0 4px 0 0;
   border: 0;
@@ -314,10 +313,13 @@ ul.scenario-action li  {
 }
 
 
-.k-content {
+#lgb-gui-view-LeftPanelSimpleGUI-0 .k-content {
   padding: 0 0 0 0;
-    margin:0px;
+  margin:0px;
 }
+
+
+
 
 
 

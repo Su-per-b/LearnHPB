@@ -30,27 +30,39 @@ goog.inherits(lgb.gui.view.ButtonsTopRightHUD, lgb.gui.view.BaseGUI);
  */
 lgb.gui.view.ButtonsTopRightHUD.prototype.init = function() {
   
-  this.dataSource1 = new lgb.component.TabStripDataSource('RightTopInputGUI-tabStrip');
-  this.dataSource1.setIcon("images/tabs/optionsBtn_grid_25.png", 25, 25);
-  this.dataSource1.addTab('', '', 1);
-  this.dataSource1.addTab('', '', 2);
-  this.dataSource1.addTab('', '', 3);
-  this.dataSource1.addTab('', '', 4);
-  this.dataSource1.addTab('', '', 5);
+  // this.dataSource1 = new lgb.component.TabStripDataSource('RightTopInputGUI-tabStrip');
+  // this.dataSource1.setIcon("images/tabs/optionsBtn_grid_25.png", 25, 25);
+  // this.dataSource1.addTab('', '', 1);
+  // this.dataSource1.addTab('', '', 2);
+  // this.dataSource1.addTab('', '', 3);
+  // this.dataSource1.addTab('', '', 4);
+  // this.dataSource1.addTab('', '', 5);
+//   
+  // this.tabStrip1 = new lgb.component.TabStrip(this.dataSource1);
+//   
+// 
+  // this.dataSource2 = new lgb.component.TabStripDataSource('RightTopInputGUI2-tabStrip');
+  // this.dataSource2.setIcon("images/tabs/viewBtn_grid_25.png", 25, 25);
+  // this.dataSource2.addTab('', '', 1);
+  // this.dataSource2.addTab('', '', 2);
+  // this.dataSource2.addTab('', '', 3);
+  // this.dataSource2.addTab('', '', 4);
+  // this.dataSource2.addTab('', '', 5);
+//   
+  // this.tabStrip2 = new lgb.component.TabStrip(this.dataSource2);
   
-  this.tabStrip1 = new lgb.component.TabStrip(this.dataSource1);
   
+};
 
-  this.dataSource2 = new lgb.component.TabStripDataSource('RightTopInputGUI2-tabStrip');
-  this.dataSource2.setIcon("images/tabs/viewBtn_grid_25.png", 25, 25);
-  this.dataSource2.addTab('', '', 1);
-  this.dataSource2.addTab('', '', 2);
-  this.dataSource2.addTab('', '', 3);
-  this.dataSource2.addTab('', '', 4);
-  this.dataSource2.addTab('', '', 5);
+
+lgb.gui.view.ButtonsTopRightHUD.prototype.add = function(gui) {
+
+
+  var title = gui.getTitle();
+
+  var el = this.getMainElement();;
   
-  this.tabStrip2 = new lgb.component.TabStrip(this.dataSource2);
-  
+  gui.injectInto(el);
   
 };
 
@@ -62,11 +74,11 @@ lgb.gui.view.ButtonsTopRightHUD.prototype.injectInto = function(parentElement) {
   
   goog.base(this,  'injectInto', parentElement);
   
-  this.tabStrip1.injectInto(parentElement);
-  this.tabStrip1.injectCss();
-  
-  this.tabStrip2.injectInto(parentElement);
-  this.tabStrip2.injectCss();
+  // this.tabStrip1.injectInto(parentElement);
+  // this.tabStrip1.injectCss();
+//   
+  // this.tabStrip2.injectInto(parentElement);
+  // this.tabStrip2.injectCss();
 
 };
 

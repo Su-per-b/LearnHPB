@@ -6,7 +6,7 @@
 goog.provide('lgb.chart.controller.LayoutController');
 
 goog.require('lgb.core.BaseController');
-goog.require('lgb.gui.controller.SimulationStateControlController');
+goog.require('lgb.gui.controller.SimulationStateController');
 goog.require('lgb.chart.view.LayoutView');
 
 goog.require('lgb.chart.controller.GraphController');
@@ -86,7 +86,7 @@ lgb.chart.controller.LayoutController.prototype.init3_ = function(simulationMain
   
   
 
-  this.makeChildGUIcontroller_(lgb.gui.controller.SimulationStateControlController, simulationMainController);
+  this.makeChildGUIcontroller_(lgb.gui.controller.SimulationStateController, simulationMainController);
   
  // this.makeChildGUIcontroller_(lgb.chart.controller.GraphController, simulationMainController);
   

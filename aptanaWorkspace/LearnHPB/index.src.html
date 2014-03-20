@@ -12,51 +12,35 @@
     <meta name="author" content="Elliot Nahman"><!-- Information Architecture -->
 
     <meta name = "description" content = "Learn Green Buildings: Commercial building energy use simulation" />
-    <meta name = "revised" content = "April 25, 2013" />
+    <meta name = "revised" content = "March 20, 2014" />
     <meta name="Copyright" content="Copyright 2013, Institute For Superior Performance of Buildings">
 
     <meta charset="UTF-8" />
 
     <!-- =========================  CSS  ============================ -->
-    <link type="text/css" href="css/jquery-ui.css" rel="stylesheet" />
     <link type="text/css" href="css/tipped.css" rel="stylesheet" />
-    
-    <link type="text/css" href="css/kendo.common.css" rel="stylesheet"/>
-    <link type="text/css" href="css/kendo.silver.css" rel="stylesheet"/>
-    
-    <link type="text/css" href="css/lgb.css"  rel="stylesheet" />
-    <link type="text/css" href="css/jquery.checkbox.css"  rel="stylesheet" />
 
-
-    <link type="text/css" href="css/dc.css" rel="stylesheet" />
     
+    <link type="text/css" href="css/kendo/kendo.common.css" rel="stylesheet"/>
+    <link type="text/css" href="css/kendo/kendo.lgb.css" rel="stylesheet"/>
+    
+    
+    <link type="text/css" href="css/panels.css" rel="stylesheet"/>
+    <link type="text/css" href="css/lhpb.css" rel="stylesheet"/>
+    <link type="text/css" href="css/normalize.css" rel="stylesheet"/>
+    
+
     <!-- =========================   JavaScript  ============================ -->
     
     <!--{BLOCK_START:Jquery}-->
     
       <!-- Jquery -->
       <script src="js/lib/jquery.src.js"></script>
-  
-      <!-- jQuery UI -->
-      <script src="js/jquery-ui/src/jquery.ui.core.js"></script>
-      <script src="js/jquery-ui/src/jquery.ui.widget.js"></script>
-      <script src="js/jquery-ui/src/jquery.ui.mouse.js"></script>
-      <script src="js/jquery-ui/src/jquery.ui.position.js"></script>
-      <script src="js/jquery-ui/src/jquery.ui.draggable.js"></script>
-      <script src="js/jquery-ui/src/jquery.ui.resizable.js"></script>
-      <script src="js/jquery-ui/src/jquery.ui.button.js"></script>
-      <script src="js/jquery-ui/src/jquery.ui.dialog.js"></script>
-  
+      
     <!--{BLOCK_END:Jquery}-->
     
-    <!--{BLOCK_START:LGB}-->
     
-      <!-- Charting       <script src="js/lib/stock.js"></script>
-      -->
-      <script src="js/lib/d3.js"></script>
-      <script src="js/lib/crossfilter.js"></script>
-      <script src="js/lib/dc.js"></script>
-      <script src="js/lib/colorbrewer.js"></script>
+    <!--{BLOCK_START:LGB}-->
 
     
       <!-- Jquery Custom -->
@@ -326,7 +310,7 @@
       goog.require('lgb.core.EventBus');
       goog.require('lgb.core.MainController');
       
-      goog.require('lgb.gui.controller.SimulationStateControlController');
+      goog.require('lgb.gui.controller.SimulationStateController');
       goog.require('lgb.gui.view.SimulationStateControlGUIh');
       goog.require('lgb.gui.view.SimulationStateControlGUI');
       
@@ -338,7 +322,7 @@
 
   <script>
   
-    lgb.gui.controller.SimulationStateControlController.viewClass = lgb.gui.view.SimulationStateControlGUI;
+    lgb.gui.controller.SimulationStateController.viewClass = lgb.gui.view.SimulationStateControlGUI;
         
         
     lgb.SimulationStateControlGUI =  lgb.gui.view.SimulationStateControlGUI;

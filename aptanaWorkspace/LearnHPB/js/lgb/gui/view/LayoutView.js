@@ -35,7 +35,7 @@ lgb.gui.view.LayoutView.prototype.init = function() {
   
   this.splitPanelHorizontalDS_.panes =  [{
       collapsible : true,
-      size:"380px"
+      size:"340px"
     }, {
       collapsible : false
     }];
@@ -43,7 +43,9 @@ lgb.gui.view.LayoutView.prototype.init = function() {
   this.splitPanelHorizontalDS_.splitsAlongHorizontalAxis = true;
   this.splitPanelHorizontal_ = new lgb.component.SplitPanel(this.splitPanelHorizontalDS_);
   
-  //
+  this.splitPanelHorizontal_.paneOneCss["overflow-y"] = "hidden";
+  this.splitPanelHorizontal_.paneOneCss["height"] = "100%";
+  
   
   this.splitPanelVerticalDS_ = new lgb.component.SplitPanelDataSource();
 
@@ -59,6 +61,7 @@ lgb.gui.view.LayoutView.prototype.init = function() {
   this.splitPanelVertical_ = new lgb.component.SplitPanel(this.splitPanelVerticalDS_);
   
   this.splitPanelVertical_.paneOneCss["overflow-y"] = "hidden";
+  
   this.splitPanelVertical_.paneTwoCss["overflow-y"] = "hidden";
   this.splitPanelVertical_.paneTwoCss["overflow-x"] = "hidden";
   
@@ -71,16 +74,8 @@ lgb.gui.view.LayoutView.prototype.bind_ = function(guiView) {
   
   this.listenTo(this.splitPanelHorizontal_, e.Resize, this.onSplitterResizeHorizontal_);
   this.listenTo(this.splitPanelVertical_, e.Resize, this.onSplitterResizeVertical_);
-  // this.listenForChange_('add');
   
 };
-
-
-
-// 
-// lgb.gui.view.LayoutView.prototype.onChange_add_ = function(value) {
-  // this.add(value);
-// };
 
 
 
@@ -107,44 +102,8 @@ lgb.gui.view.LayoutView.prototype.add = function(guiView) {
     case "ButtonsTopRightHUD":
       guiView.injectInto(this.viewportTop_);
       break;
-      
-    case "TitleBarGUI":
 
-      guiView.injectInto(this.leftPanel_);
-
-      var util = new lgb.gui.view.LayoutUtil(guiView);
-      util.alignHorizontal(lgb.gui.view.LayoutUtil.ALIGN.Left, 5);
-      util.show();
-
-      this.layoutUtils_.push(util);
-
-      break;
-    case "TopMenuGUI":
-      var el = guiView.getMainElement();
-
-      el.css("z-index", 100);
-      el.css("position", "absolute");
-      guiView.injectInto(this.viewportTop_);
-
-      break;
-    case "PropertiesGreenGUI":
-      guiView.injectInto(this.topRightPanel_);
-      break;
-    case "PropertiesButtonGreenGUI":
-      this.propertiesButton_ = guiView;
-
-      guiView.injectInto(this.topRightPanel_);
-
-      var util = new lgb.gui.view.LayoutUtil(guiView);
-
-      util.alignHorizontal(lgb.gui.view.LayoutUtil.ALIGN.Right, 6);
-      util.show();
-
-      this.layoutUtils_.push(util);
-
-      break;
-
-    case "LeftPanelGUI":
+    case "LeftPanelSimpleGUI":
       guiView.injectInto(this.leftPanel_);
       break;
 
@@ -216,8 +175,8 @@ lgb.gui.view.LayoutView.prototype.inject = function() {
 
   this.viewportTop_.css({
     width : "100%",
-    height : "32px",
-    background:"#fafafa"
+    height : "64px",
+    background:"transparent"
   });
   
 

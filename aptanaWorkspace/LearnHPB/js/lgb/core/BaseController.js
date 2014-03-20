@@ -47,6 +47,9 @@ lgb.core.BaseController.prototype.makeChildGUIcontroller_ = function(classRefere
 
 lgb.core.BaseController.prototype.onRequestAddToParentGUI_ = function(event) {
 
+  if (undefined == this.guiView.add) {
+    debugger;
+  }
   this.guiView.add(event.payload);
   
 };
