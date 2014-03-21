@@ -9,7 +9,7 @@ html {
 	background-image: url(../images/back-main.jpg);
 	background-position: left top;
 	background-repeat: repeat;
-  font: 400 1.0em 'Aldrich', Helvetica, Arial, sans-serif;
+	font: 400 1.0em 'Aldrich', Helvetica, Arial, sans-serif;
 }
 
 body {
@@ -256,7 +256,7 @@ ul.scenario-action li  {
 }
 
 
-
+/* --- Kendo Widgets ---*/
 .k-sprite {
   display: inline-block;
   background-repeat: no-repeat;
