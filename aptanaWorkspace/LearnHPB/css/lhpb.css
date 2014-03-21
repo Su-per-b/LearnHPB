@@ -28,9 +28,8 @@ body {
 }
 
 .logo-lhpb {
-
   width: 120px;
-  height: 50px;
+  height: 38px;
   background-image: url(../images/logo.png);  
   background-repeat: no-repeat;
 }
@@ -138,15 +137,10 @@ ul.scenario-action li  {
   position: relative;
   font-size: 1.0em;
   clear: both;
-  padding: 30px 0 0 0;
+  margin: 30px 0 0 0;
 }
 
-.building-level  {
 
-  text-transform: uppercase;
-
-
-}
 
 /* --- INPUT CONTROLS - Building Level ---*/
 .input-controls ul.building-level  {
@@ -159,15 +153,24 @@ ul.scenario-action li  {
   border-radius: 7px;
   position: absolute;
   top: 45px;
-  left: 28px;
+  left: 30px;
   overflow-x: no-content;
   font-size: 0.75em;
+  text-transform: uppercase;
 }
+
 .input-controls .building-level li  {
-  padding-top: 5px;
-  padding-bottom: 3px;
+  padding: 4px 0 0 0;
   border-bottom: 2px solid #231F20;
 }
+
+
+.building-level a {
+  display:block;
+  line-height:20px;  
+  
+}
+
 
 /* --- INPUT CONTROLS - Mini Map ---*/
 .mini-map  {
@@ -182,6 +185,7 @@ ul.scenario-action li  {
   top: 49px;
   z-index: 2000;
 }
+
 .mini-map .mini-map-location {
   width: 7px;
   height: 7px;
@@ -305,22 +309,27 @@ ul.scenario-action li  {
 
 
 
-#lgb-gui-view-LeftPanelSimpleGUI-0 .k-tabstrip-items .k-item {
+#lgb-gui-view-LeftPanelSimpleGUI-0 .k-tabstrip-items .k-state-default {
   background: none;
   margin: 0 4px 0 0;
-  border: 0;
+  border: none;
 
 }
 
+#lgb-gui-view-LeftPanelSimpleGUI-0 .k-tabstrip-items .k-state-hover {
+  background: none;
+  margin: 0 4px 0 0;
+  border: none;
 
-#lgb-gui-view-LeftPanelSimpleGUI-0 .k-content {
-  padding: 0 0 0 0;
-  margin:0px;
 }
 
-
-
-
+/**
+ * Kendo inserts a tag: <span class="k-loading k-complete"></span> for some reason
+ * this style hides it
+ */
+#lgb-gui-view-LeftPanelSimpleGUI-0 .k-loading {
+  display:none;  
+}
 
 
 
@@ -353,3 +362,49 @@ textarea {
   font: inherit; /* 2 */
   margin: 0; /* 3 */
 }
+
+
+
+
+a.sim-link, a.sim-link-disabled {
+  font-weight:normal;
+  font-size:10pt;
+  color:#90d7f6;
+  background-color: #162b60;
+  padding:3px 3px 2px 4px;
+  margin:3px;
+  display: inline-block;
+  border: 1px solid #284EAD;
+}
+
+
+a.sim-link:hover {
+  background-color: #1e90ff;
+}
+
+a.sim-link-disabled {
+  color:#3067b7;
+  background-color:#1C2E4F; 
+}
+
+a.sim-link-disabled:hover  {
+  cursor: default;
+}
+
+
+
+
+.simulation-state {
+    font-size:10pt;
+    padding: 0 3px 0 3px;
+}
+
+
+
+#webGLcontainerDiv {
+  background-color:#E0E6E9;  
+}
+
+
+
+

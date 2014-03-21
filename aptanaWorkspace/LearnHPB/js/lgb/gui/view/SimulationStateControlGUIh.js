@@ -122,26 +122,26 @@ lgb.gui.view.SimulationStateControlGUIh.prototype.injectInto = function(parentEl
   this.wsDisConnectLink_ = this.makeLink1_('Socket Close', 'wsDisConnect');
   
   
-  el.append('State:');
-  this.wsStatus_ = $('<strong>{}</strong>');
-  el.append(this.wsStatus_);
-  
-  el.append('Time:');
-  this.simTime_ = $('<strong>{}</strong>');
-  el.append(this.simTime_);
-  
-  
+  var state1 = $('<span>State:</span>')
+  .addClass('simulation-state');
 
+  this.wsStatus_ = $('<strong>{}</strong>');
+  state1.append(this.wsStatus_);
+  
+  el.append(state1);
+  
+  var time1 = $('<span>Time:</span>')
+  .addClass('simulation-state');
+
+  this.simTime_ = $('<strong>{}</strong>');
+  time1.append(this.simTime_);
+  
+  el.append(time1);
 
   el.append('<br />');
 
 
-  
 
-  
-
-
-  
   this.simControlButtons_ = new Array();
   var SimStateNative = lgb.simulation.model.voNative.SimStateNative;
   
@@ -156,9 +156,16 @@ lgb.gui.view.SimulationStateControlGUIh.prototype.injectInto = function(parentEl
   
   this.makeLink2_('Terminate.', 'terminate-link', SimStateNative.simStateNative_7_terminate_requested);
   
-  el.append('State:');
+  
+  var state2 = $('<span>State:</span>')
+  .addClass('simulation-state');
+  
+
   this.simStatus_ = $('<strong>{}</strong>');
-  el.append(this.simStatus_);
+  state2.append(this.simStatus_);
+  
+  el.append(state2);
+  
   
   this.bind2_();
   

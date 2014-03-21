@@ -106,9 +106,11 @@ lgb.core.MainController.prototype.init = function() {
   $(window).resize(this.d(this.onNativeWindowResize_));
   
    
-  this.simunlationMainController_ = new lgb.simulation.controller.MainController();
-  this.simunlationMainController_.init();
+  this.simulationMainController_ = new lgb.simulation.controller.MainController();
+  this.simulationMainController_.init();
   
+  this.trigger(e.RequestLoadScenario, "Complete.xml");
+    
   this.logger_ = goog.debug.Logger.getLogger('lgb.core.MainController');
 
   lgb.logInfo(lgb.core.Config.getTitle());

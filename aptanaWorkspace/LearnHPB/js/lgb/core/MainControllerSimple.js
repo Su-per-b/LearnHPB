@@ -12,7 +12,6 @@ goog.require('lgb.core.Global');
 goog.require('goog.debug.Logger');
 goog.require('lgb.core.Config');
 goog.require('lgb.core.BaseController');
-goog.require('lgb.gui.controller.ScenarioMasterController');
 goog.require('lgb.world.controller.RenderController');
 
 goog.require('lgb.gui.controller.LayoutSimpleController');
@@ -64,7 +63,8 @@ lgb.core.MainControllerSimple.prototype.init = function() {
   this.simMainController_.init();
   
   
-  
+  this.trigger(e.RequestLoadScenario, "Complete.xml");
+    
   this.logger_ = goog.debug.Logger.getLogger('lgb.core.MainControllerSimple');
 
   lgb.logInfo(lgb.core.Config.getTitle());

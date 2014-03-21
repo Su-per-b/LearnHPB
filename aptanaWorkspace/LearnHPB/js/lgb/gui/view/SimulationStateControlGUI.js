@@ -142,9 +142,12 @@ lgb.gui.view.SimulationStateControlGUI.prototype.injectInto = function(parentEle
    
   el.append('<h5>Simulation Control</h5>');
   
-  el.append('State:');
+  el.append('<span class="simulation-state">State:');
   this.simStatus_ = $('<strong>{}</strong>');
   el.append(this.simStatus_);
+  el.append('</span>');
+  
+  
   el.append('<br />');
 
   
@@ -167,10 +170,12 @@ lgb.gui.view.SimulationStateControlGUI.prototype.injectInto = function(parentEle
   el.append('<br />');
   el.append('<h5>Simulation Info</h5>');
   
-  el.append('Time:');
+  el.append('<span class="simulation-state">Time:');
+  
   
   this.simTime_ = $('<strong>{}</strong>');
   el.append(this.simTime_);
+  el.append('</span>');
   
   
   this.bind2_();

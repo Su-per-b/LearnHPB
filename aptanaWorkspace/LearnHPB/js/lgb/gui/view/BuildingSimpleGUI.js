@@ -117,22 +117,25 @@ lgb.gui.view.BuildingSimpleGUI.prototype.injectInto = function(parentElement) {
    tabEl.css("min-height","100%");
    
    
-   
-   
     var buildingLevelUl = $('<ul>')
     .addClass("building-level");
     
-    buildingLevelUl.append('<li>')
+    var li1 = $('<li>')
     .append('<a href="#">Roof</a>');
+    buildingLevelUl.append(li1);
     
-    buildingLevelUl.append('<li>')
+    var li2 = $('<li>')
     .append('<a href="#">Floor</a>');
+    buildingLevelUl.append(li2);
     
-    buildingLevelUl.append('<li>')
+    
+    var li3 = $('<li>')
     .append('<a href="#">Site</a>');
+    buildingLevelUl.append(li3);
+    
+    
     
    this.append(buildingLevelUl);
-   
    
    
     var miniMap = $('<div>')
@@ -150,7 +153,7 @@ lgb.gui.view.BuildingSimpleGUI.prototype.injectInto = function(parentElement) {
     miniMap.append('<a href="#" class="mini-map-zone bottom-right"></a>');
     
    
-   this.append(miniMap);
+   el.append(miniMap);
    
    parentElement.append(el);
     

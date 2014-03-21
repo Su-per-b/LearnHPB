@@ -71,9 +71,6 @@ lgb.gui.view.ScenarioMasterGUI.prototype.injectInto = function(parentElement) {
    
    var scenarios = this.dataModel.getScenarioList();
    
-
-    
-    
     var div = this.makeDiv();
         
      div
