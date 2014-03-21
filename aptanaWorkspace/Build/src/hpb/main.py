@@ -47,6 +47,7 @@ def main(argv=None):
 
     
     deployMin()
+    deploySrc()
     printBanner('* Build Completed')
 
     return
@@ -141,12 +142,18 @@ def copy1():
     
     #shutil.copyfile(ROOT_ORIG + 'ndx.csv', ROOT_MIN + 'ndx.csv')
     
+def deploySrc():
+    printBanner('Deploy Src')
+    
+    jsonFolderList = allFolders['deploySrc']
+    rootDeploySrc = str(jsonFolderList['rootPath'])
+    
+    deleteFolder(rootDeploySrc)
+    shutil.copytree(ROOT_SRC, rootDeploySrc)
     
 def deployMin():
     printBanner('Deploy Min')
     
-    #folderListName = 'deployMin'
-    #print '* Cleaning ' + folderListName
     jsonFolderList = allFolders['deployMin']
     rootDeployMin = str(jsonFolderList['rootPath'])
     
