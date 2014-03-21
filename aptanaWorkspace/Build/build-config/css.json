@@ -3,8 +3,8 @@
       "rootPath": "../LearnHPB/css/",
       "fileList":   [
         "tipped.css",
-        "kendo/kendo.common.css",
-        "kendo/kendo.lgb.css",
+        "kendo.common.css",
+        "kendo.lgb.css",
         "panels.css",
         "lhpb.css",
         "normalize.css"

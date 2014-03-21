@@ -22,7 +22,9 @@ allFolders = {}
 def main(argv=None):
     
     clean()
-    copy1()
+    copy1("templates\\min\\index.html", ROOT_MIN)
+    copy1("templates\\src\\index.html", ROOT_SRC)
+    copySrc()
     
     blockMap = parseIndexSourceFile()
 
@@ -45,7 +47,6 @@ def main(argv=None):
 
     addLicenses()
 
-    
     deployMin()
     deploySrc()
     printBanner('* Build Completed')
@@ -119,28 +120,37 @@ def printBanner(title):
     print '  ' + title
     print '=============================================================='
 
-def copy1():
-    printBanner('Copy 1')
+def copy1(indexFile, deployWebRoot):
+    printBanner('Copy 1 ' + deployWebRoot)
     
-    shutil.copyfile("templates\\min\\index.html", ROOT_MIN + 'index.html')
-    shutil.copyfile("templates\\htaccess.txt", ROOT_MIN + '.htaccess')
+    shutil.copyfile(indexFile, deployWebRoot + 'index.html')
     
-    shutil.copytree(ROOT_ORIG + 'images', ROOT_MIN + 'images')
-    shutil.copytree(ROOT_ORIG + 'info-pages', ROOT_MIN + 'info-pages')
-    shutil.copyfile(ROOT_ORIG + 'css\\info.css', ROOT_MIN + 'css\\info.css')
-    shutil.copyfile(ROOT_ORIG + 'css\\normalize.css', ROOT_MIN + 'css\\normalize.css')
+    shutil.copyfile("templates\\htaccess.txt", deployWebRoot + '.htaccess')
     
-    #shutil.copytree(ROOT_ORIG + 'css\\Silver', ROOT_MIN + 'css\\Silver')
-    
-    shutil.copytree(ROOT_ORIG + '3d-assets\\textures', ROOT_MIN + '3d-assets\\textures')
-    
-    shutil.copyfile(ROOT_ORIG + 'xml\\scene.xml', ROOT_MIN + 'xml\\scene.xml')
-    shutil.copyfile(ROOT_ORIG + 'xml\\Complete.xml', ROOT_MIN + 'xml\\Complete.xml')
-    shutil.copyfile(ROOT_ORIG + 'xml\\VerySimpleScenario.xml', ROOT_MIN + 'xml\\VerySimpleScenario.xml')
+    shutil.copytree(ROOT_ORIG + 'images', deployWebRoot + 'images')
     
     
+    shutil.copytree(ROOT_ORIG + 'info-pages', deployWebRoot + 'info-pages')
+    shutil.copyfile(ROOT_ORIG + 'css\\info.css', deployWebRoot + 'css\\info.css')
+    shutil.copyfile(ROOT_ORIG + 'css\\normalize.css', deployWebRoot + 'css\\normalize.css')
     
-    #shutil.copyfile(ROOT_ORIG + 'ndx.csv', ROOT_MIN + 'ndx.csv')
+    shutil.copytree(ROOT_ORIG + '3d-assets\\textures', deployWebRoot + '3d-assets\\textures')
+    
+    shutil.copyfile(ROOT_ORIG + 'xml\\scene.xml', deployWebRoot + 'xml\\scene.xml')
+    shutil.copyfile(ROOT_ORIG + 'xml\\Complete.xml', deployWebRoot + 'xml\\Complete.xml')
+    shutil.copyfile(ROOT_ORIG + 'xml\\VerySimpleScenario.xml', deployWebRoot + 'xml\\VerySimpleScenario.xml')
+    
+    
+def copySrc():
+    printBanner('Copy Src')
+    shutil.copyfile(ROOT_ORIG + 'css\\kendo.common.css', ROOT_SRC + 'css\\kendo.common.css')
+    shutil.copyfile(ROOT_ORIG + 'css\\kendo.lgb.css', ROOT_SRC + 'css\\kendo.lgb.css')
+    shutil.copyfile(ROOT_ORIG + 'css\\lhpb.css', ROOT_SRC + 'css\\lhpb.css')
+    shutil.copyfile(ROOT_ORIG + 'css\\panels.css', ROOT_SRC + 'css\\panels.css')
+    shutil.copyfile(ROOT_ORIG + 'css\\tipped.css', ROOT_SRC + 'css\\tipped.css')
+    shutil.copyfile(ROOT_ORIG + 'js\\lib\\jquery.src.js', ROOT_SRC + 'js\\jquery.src.js')
+
+
     
 def deploySrc():
     printBanner('Deploy Src')

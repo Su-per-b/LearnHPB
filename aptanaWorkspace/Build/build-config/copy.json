@@ -11,6 +11,10 @@
     "deployMin": {
       "rootPath": "../LearnHPB/bin/min",
       "folderList": ["css", "xml", "js", "3d-assets"]
+    },
+    "deploySrc": {
+      "rootPath": "../LearnHPB/bin/src",
+      "folderList": ["css", "xml", "js", "3d-assets"]
     }
   }
 }

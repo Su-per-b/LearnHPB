@@ -139,7 +139,7 @@ def buildLgb(includesFileList=None):
     
     
     externFileList = jsonConfig.getFileList('externs')
-    printFileList('Processing externs for LGB', externFileList)
+    printFileList('Skipping externs for LGB', externFileList)
 
     cmdAry1 = []
     
