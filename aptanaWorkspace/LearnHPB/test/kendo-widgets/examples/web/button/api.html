@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API</title>
+    <meta charset="utf-8">
+    <link href="../../content/shared/styles/examples-offline.css" rel="stylesheet">
+    <link href="../../../../../css/kendo/kendo.common.css" rel="stylesheet" type="text/css">
+    <link href="../../../../../css/kendo/kendo.rtl.css" rel="stylesheet" type="text/css">
+    <link href="../../../../../css/kendo/kendo.metroblack.css" rel="stylesheet" type="text/css">
+    <link href="../../../../../css/normalize.css" rel="stylesheet" type="text/css">
+    <link href="../../../../../css/lhpb.css" rel="stylesheet" type="text/css">
+
+    <script src="../../../js/jquery.min.js"></script>
+    <script src="../../../js/kendo.web.min.js"></script>
+    <script src="../../content/shared/js/console.js"></script>
+    
+    
+</head>
+<body>
+    
+        <a class="offline-button" href="../index.html">Back</a>
+    
+    
+        <div id="example" class="k-content">
+
+            <div class="configuration-horizontal">
+                <div class="config-section">
+                    <span class="configHead">Button API Functions</span>
+                    <ul class="options">
+                        <li>
+                            <button class="k-button" id="enableButton" type="button">Enable</button> or <button class="k-button" id="disableButton" type="button">Disable</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="demo-section">
+                <button id="iconTextButton">Kendo UI Button</button>
+            </div>
+
+            <script>
+                $(document).ready(function() {
+                    var buttonObject = $("#iconTextButton").kendoButton({
+                        icon: "ungroup"
+                    }).data("kendoButton");
+
+
+                    $("#enableButton").click(function(){
+                        buttonObject.enable(true);
+                    });
+
+                    $("#disableButton").click(function(){
+                        buttonObject.enable(false);
+                    });
+                });
+            </script>
+            
+            <style scoped>
+                .demo-section {
+                    width: 500px;
+                    text-align: center;
+                    padding: 30px 10px;
+                }
+                .configuration-horizontal {
+                    width: 500px;
+                }
+                .configuration-horizontal .k-textbox {
+                    margin: 0;
+                    width: 80px;
+                }
+                .configuration-horizontal .options li {
+                    padding: 3px 0;
+                }
+            </style>
+        </div>
+	
+			
+</body>
+</html>
