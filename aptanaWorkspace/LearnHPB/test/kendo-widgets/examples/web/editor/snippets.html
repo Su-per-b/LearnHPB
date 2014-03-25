@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Snippets</title>
+    <meta charset="utf-8">
+    <link href="../../content/shared/styles/examples-offline.css" rel="stylesheet">
+    <link href="../../../../../css/kendo/kendo.common.css" rel="stylesheet" type="text/css">
+    <link href="../../../../../css/kendo/kendo.rtl.css" rel="stylesheet" type="text/css">
+    <link href="../../../../../css/kendo/kendo.metroblack.css" rel="stylesheet" type="text/css">
+    <link href="../../../../../css/normalize.css" rel="stylesheet" type="text/css">
+    <link href="../../../../../css/lhpb.css" rel="stylesheet" type="text/css">
+
+    <script src="../../../js/jquery.min.js"></script>
+    <script src="../../../js/kendo.web.min.js"></script>
+    <script src="../../content/shared/js/console.js"></script>
+    
+    
+</head>
+<body>
+    
+        <a class="offline-button" href="../index.html">Back</a>
+    
+            <div id="example" class="k-content">
+                <textarea id="editor" rows="10" cols="30" style="width:740px;height:440px">
+                    Put the cursor after this text and use the "Insert HTML" tool.
+                </textarea>
+            <script>
+                $(document).ready(function() {
+                    $("#editor").kendoEditor({
+                        tools: ["insertHtml"],
+                        insertHtml: [
+                            { text: "Signature", value: "<p>Regards,<br /> John Doe,<br /><a href='mailto:john.doe@example.com'>john.doe@example.com</a></p>" },
+                            { text: "Kendo online demos", value: " <a href='http://demos.telerik.com/kendo-ui'>Kendo online demos</a> " }
+                        ]
+                    });
+                });
+            </script>
+        </div>
+
+	
+			
+</body>
+</html>

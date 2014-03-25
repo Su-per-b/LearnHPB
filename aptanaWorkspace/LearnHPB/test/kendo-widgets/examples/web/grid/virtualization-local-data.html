@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Virtualization of local data</title>
+    <meta charset="utf-8">
+    <link href="../../content/shared/styles/examples-offline.css" rel="stylesheet">
+    <link href="../../../../../css/kendo/kendo.common.css" rel="stylesheet" type="text/css">
+    <link href="../../../../../css/kendo/kendo.rtl.css" rel="stylesheet" type="text/css">
+    <link href="../../../../../css/kendo/kendo.metroblack.css" rel="stylesheet" type="text/css">
+    <link href="../../../../../css/normalize.css" rel="stylesheet" type="text/css">
+    <link href="../../../../../css/lhpb.css" rel="stylesheet" type="text/css">
+
+    <script src="../../../js/jquery.min.js"></script>
+    <script src="../../../js/kendo.web.min.js"></script>
+    <script src="../../content/shared/js/console.js"></script>
+    
+    
+</head>
+<body>
+    
+        <a class="offline-button" href="../index.html">Back</a>
+    
+            <script src="../../content/shared/js/people.js"></script>
+
+        <div id="example" class="k-content">
+            <div id="loading" class="demo-section" style="text-align:center">
+                Generating test data...
+            </div>
+
+            <div id="grid"></div>
+
+            <script>
+                $(document).ready(function() {
+                    generatePeople(100000, function(data) {
+                        $("#loading").hide();
+
+                        $("#grid").kendoGrid({
+                            dataSource: {
+                                data: data,
+                                pageSize: 50
+                            },
+                            height: 430,
+                            scrollable: {
+                                virtual: true
+                            },
+                            columns: [ { field: "Id", title: "ID", width: "70px" },
+                                { field: "FirstName", title: "First Name", width: "130px" },
+                                { field: "LastName", title: "Last Name", width: "130px" },
+                                { field: "City", title: "City", width: "130px" },
+                                "Title"
+                            ]
+                        });
+                    });
+                });
+            </script>
+        </div>
+
+	
+			
+</body>
+</html>
