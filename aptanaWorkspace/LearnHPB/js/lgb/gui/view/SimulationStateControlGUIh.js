@@ -45,14 +45,15 @@ lgb.gui.view.SimulationStateControlGUIh.prototype.onChange_scalarValueResultsCon
 };
 
 
-lgb.gui.view.SimulationStateControlGUIh.prototype.onChange_simStateNative_ = function(simStateNative) {
+lgb.gui.view.SimulationStateControlGUIh.prototype.onChange_simStateNative_ = function(stateObject) {
   
 
-  var stateObject = new lgb.simulation.model.SimStateNativeWrapper(simStateNative);
+  //var stateObject = new lgb.simulation.model.SimStateNativeWrapper(simStateNative);
+  goog.asserts.assert(stateObject, "stateObject not set");
+
+  var str = stateObject.getString();
+  goog.asserts.assert(str);
   
-  if (stateObject.getString() == undefined) {
-    debugger;  
-  }
   
   var msg = "{0}:{1}".format(stateObject.getInteger(), stateObject.getString());
   this.simStatus_.html (msg);
@@ -223,9 +224,10 @@ lgb.gui.view.SimulationStateControlGUIh.prototype.makeLink1_ = function(label, c
 
 lgb.gui.view.SimulationStateControlGUIh.prototype.onClickSimStateNativeRequest_ = function(event) {
   
-    var simState = event.target.ds.clickPayload;
-
-    var e = new lgb.simulation.events.SimStateNativeRequest(simState);
+    var simStateInt = event.target.ds.clickPayload;
+    var simStateWrapper = new lgb.simulation.model.SimStateNativeWrapper(simStateInt);
+    
+    var e = new lgb.simulation.events.SimStateNativeRequest(simStateWrapper);
     this.dispatchLocal(e);
 };
 

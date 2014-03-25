@@ -25,7 +25,7 @@ lgb.scenario.view.System.prototype.appendTo = function(parentElement) {
   
   this.injectInto(parentElement);
   this.appendTitle_();
-  this.makeChildren_(parentElement);
+  this.makeChildrenAndListen_(parentElement);
 };
 
 
@@ -50,3 +50,5 @@ lgb.scenario.view.System.prototype.getMainElement = function() {
 lgb.scenario.view.System.childClassMap = {
     "SubSystem" : lgb.scenario.view.SubSystem
 };
+
+

@@ -35,6 +35,10 @@ lgb.gui.controller.BuildingSubController.prototype.init = function( system ) {
   this.guiView = new lgb.gui.view.BuildingSubControllerGUI (this.dataModel, system.name);
   
   var systemView = new lgb.scenario.view.System (system);
+
+  // this.listenTo(systemView, se.RequestModelicaVariableChange, this.onRequestModelicaVariableChange_);
+  this.relay(systemView, se.RequestModelicaVariableChange);
+  
   this.guiView.add(systemView);
   
   this.triggerLocal(e.RequestAddToParentGUI, this.guiView);
@@ -42,7 +46,6 @@ lgb.gui.controller.BuildingSubController.prototype.init = function( system ) {
   this.bind_();
   this.guiView.calculateLayout();
 };
-
 
 
 
@@ -58,3 +61,5 @@ lgb.gui.controller.BuildingSubController.prototype.onWindowResize_ = function(ev
 
     this.guiView.calculateLayout();
 };
+
+

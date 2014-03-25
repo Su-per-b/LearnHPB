@@ -89,8 +89,6 @@ e.SimulationEngineLoaded = 'e.SimulationEngineLoaded';
 
 e.GuiValueChanged = 'e.GuiValueChanged';
 
-e.RequestModelicaVariableChange = 'e.RequestModelicaVariableChange';
-
 e.SplitterResize = 'e.SplitterResize';
 
 e.RequestLoadScenario = 'e.RequestLoadScenario';

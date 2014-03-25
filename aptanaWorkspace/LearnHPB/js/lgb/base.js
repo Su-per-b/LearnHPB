@@ -42,6 +42,9 @@ lgb.assert = function(obj) {
   }
 };
 
+
+
+
 lgb.selectNone = function(msg, loggerName) {
   
   if (window.getSelection) {

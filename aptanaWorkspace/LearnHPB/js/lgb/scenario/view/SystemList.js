@@ -36,8 +36,7 @@ lgb.scenario.view.SystemList.prototype.appendTo = function(parentElement) {
 };
 
 
+
 lgb.scenario.view.SystemList.childClassMap = {
     "System" : lgb.scenario.view.System
 };
-
-

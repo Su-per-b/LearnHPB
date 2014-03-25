@@ -45,10 +45,10 @@ lgb.simulation.model.voManaged.ScalarValueCollection.prototype.toJsonObj = funct
 lgb.simulation.model.voManaged.ScalarValueCollection.prototype.getJsonObjs = function(theList) {
   
     var objs = [];
-    var len = this.realList_.length;
+    var len = theList.length;
     
     for (var i=0; i < len; i++) {
-      var jsonObj = this.realList_[i].toJsonObj();
+      var jsonObj = theList[i].toJsonObj();
       objs.push(jsonObj);
     };
   

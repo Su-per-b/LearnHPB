@@ -48,7 +48,7 @@ lgb.core.Config.APP_TITLE = 'LearnHPB Alpha';
  * @const
  * @type {string}
  */
-lgb.core.Config.APP_VERSION = '1.31';
+lgb.core.Config.APP_VERSION = '1.33';
 
 /**
  * Will show status in the upper left if set to true.

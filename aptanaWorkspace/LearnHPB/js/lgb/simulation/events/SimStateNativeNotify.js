@@ -25,8 +25,10 @@ lgb.simulation.events.SimStateNativeNotify.fromJson = function(deserializedObj) 
     
     
     var intValue =  deserializedObj.payload.intValue;
+    var payload = new lgb.simulation.model.SimStateNativeWrapper(intValue);
     
-    var instance = new lgb.simulation.events.SimStateNativeNotify(intValue);
+    
+    var instance = new lgb.simulation.events.SimStateNativeNotify(payload);
     return instance;
     
 };

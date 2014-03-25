@@ -280,10 +280,11 @@ ul.scenario-action li  {
 #lgb-gui-view-LeftPanelSimpleGUI-0 .k-tabstrip-items .k-link {
   display: inline-block;
   padding: 0;
-  margin: 0;
-  border: 2px solid #231F20;
+  margin: 0 0 0 0;
   width: 28px;
   height: 28px;
+  
+  border: 2px solid #231F20;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
@@ -312,16 +313,16 @@ ul.scenario-action li  {
 #lgb-gui-view-LeftPanelSimpleGUI-0 .k-tabstrip-items .k-state-default {
   background: none;
   margin: 0 4px 0 0;
-  border: none;
-
+  border:none;
 }
+
 
 #lgb-gui-view-LeftPanelSimpleGUI-0 .k-tabstrip-items .k-state-hover {
   background: none;
   margin: 0 4px 0 0;
-  border: none;
-
+  border:none;
 }
+
 
 /**
  * Kendo inserts a tag: <span class="k-loading k-complete"></span> for some reason
@@ -380,6 +381,7 @@ a.sim-link, a.sim-link-disabled {
 
 a.sim-link:hover {
   background-color: #1e90ff;
+  color: #e7edef;
 }
 
 a.sim-link-disabled {
@@ -390,7 +392,6 @@ a.sim-link-disabled {
 a.sim-link-disabled:hover  {
   cursor: default;
 }
-
 
 
 

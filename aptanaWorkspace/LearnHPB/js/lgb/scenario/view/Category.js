@@ -8,6 +8,7 @@ goog.provide('lgb.scenario.view.Category');
 goog.require('lgb.scenario.view.BaseView');
 goog.require('lgb.scenario.view.Variable');
 goog.require('lgb.scenario.view.Component');
+goog.require('goog.asserts');
 
 
 lgb.scenario.view.Category = function(dataModel, debugFlag) {
@@ -64,42 +65,27 @@ lgb.scenario.view.Category.prototype.appendTitle_ = function() {
   if (this.debugFlag_) {
     html += " ({0})".format(this.dataModel.abbr);
   }
-  
-  
+    
     if ("NONE" == this.dataModel.name) {
       //this.append(html);
     } else {
       this.append(html);
     }
 
-
-  
-  
 };
+
 
   
 lgb.scenario.view.Category.prototype.makeChildren_ = function(parentElement) {
   
   this.ul_ = $('<ul>');
   this.ul_.appendTo(parentElement);
-  this.each(this.dataModel.children_, this.appendChildTo_, this.ul_);
+  this.each(this.dataModel.children_, this.appendChildToAndListen_, this.ul_);
   
 };
 
 
-// lgb.scenario.view.Category.prototype.makeChildren_ = function(parentElement) {
-//   
-  // this.ul_ = $(<ul>);
-  // this.ul_.appendTo(parentElement);
-//   
-//   
-  // this.each(this.dataModel.children_, this.appendChildTo_, this.ul_);
-//   
-// };
 
 
 
-// 
-// 
-// 
 

@@ -45,7 +45,6 @@ lgb.gui.view.BuildingSimpleGUI.prototype.init = function() {
 
 
 
-
 lgb.gui.view.BuildingSimpleGUI.prototype.init2 = function() {
   this.tabStrip_.select(0);
   

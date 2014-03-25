@@ -52,10 +52,12 @@ lgb.gui.view.SimulationStateControlGUI.prototype.onChange_scalarValueResultsConv
 };
 
 
-lgb.gui.view.SimulationStateControlGUI.prototype.onChange_simStateNative_ = function(simStateNative) {
+lgb.gui.view.SimulationStateControlGUI.prototype.onChange_simStateNative_ = function(stateObject) {
   
 
-  var stateObject = new lgb.simulation.model.SimStateNativeWrapper(simStateNative);
+  
+
+  //var stateObject = new lgb.simulation.model.SimStateNativeWrapper(simStateNative);
   
   if (stateObject.getString() == undefined) {
     debugger;  

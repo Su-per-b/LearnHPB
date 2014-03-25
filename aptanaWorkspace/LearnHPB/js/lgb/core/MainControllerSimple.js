@@ -63,7 +63,7 @@ lgb.core.MainControllerSimple.prototype.init = function() {
   this.simMainController_.init();
   
   
-  this.trigger(e.RequestLoadScenario, "Complete.xml");
+  
     
   this.logger_ = goog.debug.Logger.getLogger('lgb.core.MainControllerSimple');
 
@@ -72,6 +72,11 @@ lgb.core.MainControllerSimple.prototype.init = function() {
 
 
 };
+
+
+
+
+
 
 
 

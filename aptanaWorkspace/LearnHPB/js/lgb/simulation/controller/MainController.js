@@ -149,7 +149,6 @@ lgb.simulation.controller.MainController.prototype.bind_ = function() {
         this.onMessageEvent_
     );
     
-    
     this.listen (
         se.RequestModelicaVariableChange,
         this.onRequestModelicaVariableChange_
@@ -223,7 +222,6 @@ lgb.simulation.controller.MainController.prototype.getDataModel = function() {
 lgb.simulation.controller.MainController.prototype.onRequestModelicaVariableChange_ = function(event) {
   
   var theVar = this.dataModel.getIdxFromModelicaName(event.payload.modName);
-  
   var floatValue = event.payload.value;
   var idx = theVar.idx_;
   
@@ -231,17 +229,29 @@ lgb.simulation.controller.MainController.prototype.onRequestModelicaVariableChan
   var collection = new lgb.simulation.model.voManaged.ScalarValueCollection([scalarValueReal], []);
   
   var event = new lgb.simulation.events.ScalarValueChangeRequest(collection);
-  
   this.serializeAndSend(event);
-
   
 };
 
 
     
 lgb.simulation.controller.MainController.prototype.onSimStateNativeNotify_ = function(event) {
-  this.dataModel.changePropertyEx('simStateNative', event.getPayload());
+  
+  var simStateNativeWrapper = event.getPayload();
+  
+  this.dataModel.changePropertyEx('simStateNative', simStateNativeWrapper);
   this.dispatch(event);
+  
+  
+  //fix for init_completed not reported
+  if (simStateNativeWrapper.getInteger() ==  lgb.simulation.model.voNative.SimStateNative.init_completed) {
+    
+    var x= 0;
+  }
+  
+  
+  return;
+  
 };
 
 lgb.simulation.controller.MainController.prototype.onConfigChangeNotify_ = function(event) {

@@ -13,6 +13,7 @@ goog.require('lgb.scenario.view.Boolean');
 goog.require('lgb.scenario.view.Temperature');
 //goog.require('lgb.simulation.model.voNative.ScalarValueRealStruct');
 
+goog.require('goog.events.Event');
 
 
 lgb.scenario.view.Variable = function(dataModel, debugFlag) {
@@ -55,7 +56,7 @@ lgb.scenario.view.Variable.prototype.appendTo = function(parentElement) {
       this.label_.text(txt);
 
       var el = this.getMainElement();
-      this.makeChildren_(el);
+      this.makeChildrenAndListen_(el);
       
     }
   
@@ -64,31 +65,42 @@ lgb.scenario.view.Variable.prototype.appendTo = function(parentElement) {
 
 
 
-
-lgb.scenario.view.Variable.prototype.appendChildTo_ = function(childNode, parentElement) {
+lgb.scenario.view.Variable.prototype.appendChildToAndListen_ = function(childNode, parentElement) {
   
 
   var childClassName = childNode.getClassName();
-
-
-  if ("description" == childClassName) {
-    
-    
-  } else {
-
-    var classConstructor = this.getClassConstructor();
-    var childClassConstructor = classConstructor.childClassMap[childClassName];
-    
-    if(childClassConstructor) {
-      var child = new childClassConstructor(childNode, this.debugFlag_, this.dataModel.unit);
-      
-      child.appendTo(parentElement);
-      
-    } else {
-      debugger;
-    }
-  }
+  goog.asserts.assert("description" != childClassName);
   
+  var classConstructor = this.getClassConstructor();
+  goog.asserts.assertFunction(classConstructor);
+  
+  var childClassConstructor = classConstructor.childClassMap[childClassName];
+  goog.asserts.assertFunction(childClassConstructor);
+  
+
+  var child = new childClassConstructor(childNode, this.debugFlag_);
+  goog.asserts.assertInstanceof(child, childClassConstructor);
+    
+    
+  this.listenTo(child, e.GuiValueChanged, this.onGuiValueChanged_);
+  
+  child.appendTo(parentElement);
+      
+    
+
+};
+
+
+lgb.scenario.view.Variable.prototype.onGuiValueChanged_ = function(event) {
+
+ var newPayload = {
+   modName : this.dataModel.modName,
+   value : event.payload
+ };
+ 
+ this.triggerLocal(se.RequestModelicaVariableChange, newPayload);
+  
+
 };
 
 
@@ -152,59 +164,9 @@ lgb.scenario.view.Variable.prototype.getMainElement = function() {
 
 
 
-lgb.scenario.view.Variable.prototype.appendChildTo_ = function(childNode, parentElement) {
-  
-
-  var childClassName = childNode.getClassName();
-
-
-  if ("description" == childClassName) {
-    
-    
-  } else {
-
-    var classConstructor = this.getClassConstructor();
-    var childClassConstructor = classConstructor.childClassMap[childClassName];
-    
-    if(childClassConstructor) {
-      var child = new childClassConstructor(childNode, this.debugFlag_, this.dataModel.unit);
-      
-      
-      this.listenTo(child, e.GuiValueChanged, this.onGuiValueChanged_);
-      child.setEnabled(this.isEnabled);
-              
-      
-      this.childList_.push(child);
-      
-      
-      child.appendTo(parentElement);
-      
-    } else {
-      debugger;
-    }
-  }
-  
-};
 
 
 
-lgb.scenario.view.Variable.prototype.onGuiValueChanged_ = function(event) {
-
-  //this.triggerLocal(e.RequestModelicaVariableChange, event.payload);
-  
- // var struct = new lgb.simulation.model.voNative.ScalarValueRealStruct(event.getPayload());
- 
- var newPayload = {
-   modName : this.dataModel.modName,
-   value : event.payload
- };
- 
-
-  var event = new lgb.core.Event(e.RequestModelicaVariableChange, newPayload);
-  goog.events.dispatchEvent(lgb.globalEventBus, event);
-  
-  return;
-};
 
 
 

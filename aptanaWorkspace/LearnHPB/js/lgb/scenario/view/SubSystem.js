@@ -20,14 +20,8 @@ lgb.scenario.view.SubSystem.prototype.appendTo = function(parentElement) {
   
   this.injectInto(parentElement);
   this.appendTitle_();
-  this.makeChildren_(parentElement);
+  this.makeChildrenAndListen_(parentElement);
   
-};
-
-
-lgb.scenario.view.SubSystem.childClassMap = {
-    "Category" : lgb.scenario.view.Category,
-    "Variable" : lgb.scenario.view.Variable
 };
 
 
@@ -44,4 +38,15 @@ lgb.scenario.view.SubSystem.prototype.getMainElement = function() {
 
   return this.mainElement_;
 };
+
+
+
+
+lgb.scenario.view.SubSystem.childClassMap = {
+    "Category" : lgb.scenario.view.Category,
+    "Variable" : lgb.scenario.view.Variable
+};
+
+
+
 

@@ -44,10 +44,8 @@ lgb.scenario.view.BaseView.prototype.setDebugFlag = function(debugFlag) {
 };
 
 lgb.scenario.view.BaseView.prototype.setEnabled = function(debugFlag) {
-  
-
+ 
    this.setEnabled = debugFlag;
-  
 
 };
 
@@ -78,6 +76,9 @@ lgb.scenario.view.BaseView.prototype.makeChildren_ = function(parentElement) {
 
 
 
+
+
+
 lgb.scenario.view.BaseView.prototype.appendChildTo_ = function(childNode, parentElement) {
   
 
@@ -102,6 +103,49 @@ lgb.scenario.view.BaseView.prototype.appendChildTo_ = function(childNode, parent
   }
   
 };
+
+lgb.scenario.view.BaseView.prototype.makeChildrenAndListen_ = function(parentElement) {
+  
+  this.each(this.dataModel.children_, this.appendChildToAndListen_, parentElement);
+  
+};
+
+
+
+lgb.scenario.view.BaseView.prototype.appendChildToAndListen_ = function(childNode, parentElement) {
+  
+
+  var childClassName = childNode.getClassName();
+  goog.asserts.assert("description" != childClassName);
+  
+  var classConstructor = this.getClassConstructor();
+  goog.asserts.assertFunction(classConstructor);
+  
+  var childClassConstructor = classConstructor.childClassMap[childClassName];
+  goog.asserts.assertFunction(childClassConstructor);
+  
+
+  var child = new childClassConstructor(childNode, this.debugFlag_);
+  goog.asserts.assertInstanceof(child, childClassConstructor);
+    
+  this.relayLocal(
+    child, 
+    se.RequestModelicaVariableChange
+    );
+    
+  // this.listenTo(child, se.RequestModelicaVariableChange, this.onRequestModelicaVariableChange_);
+  
+  
+  child.appendTo(parentElement);
+      
+
+};
+
+
+// lgb.scenario.view.BaseView.prototype.onRequestModelicaVariableChange_ = function(event) {
+//   
+  // return;
+// };
 
 
 lgb.scenario.view.BaseView.prototype.appendDebugProperty_ = function(propertyName) {

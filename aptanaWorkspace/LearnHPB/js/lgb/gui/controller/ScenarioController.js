@@ -27,6 +27,8 @@ lgb.gui.controller.ScenarioController.prototype.init = function(systemListDataMo
   this.systemListDataModel_ = systemListDataModel;
   this.systemListView_ = new lgb.scenario.view.SystemList (this.systemListDataModel_, true);
   
+  this.bind_();
+  
   this.dataModel = new lgb.gui.model.BaseGuiModel();
   
 
@@ -50,3 +52,22 @@ lgb.gui.controller.ScenarioController.prototype.init = function(systemListDataMo
 
 
 
+lgb.gui.controller.ScenarioController.prototype.bind_ = function() {
+  
+
+      this.listenTo(
+        this.systemListDataModel_, 
+        se.RequestModelicaVariableChange,
+        this.onRequestModelicaVariableChange_
+        );
+
+
+};
+
+
+lgb.gui.controller.ScenarioController.prototype.onRequestModelicaVariableChange_ = function(event) {
+  
+
+  return;
+
+};

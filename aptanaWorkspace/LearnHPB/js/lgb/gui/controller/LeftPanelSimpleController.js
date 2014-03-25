@@ -31,16 +31,12 @@ lgb.gui.controller.LeftPanelSimpleController.prototype.init = function() {
   
   this.guiView = new lgb.gui.view.LeftPanelSimpleGUI(this.dataModel);
   this.triggerLocal(e.RequestAddToParentGUI, this.guiView);
-  
-  
   this.makeChildGUIcontroller_(lgb.gui.controller.ScenarioMasterController);
-    
-    
+  
   this.bind_();
   
-
-  
 };
+
 
 
 
@@ -51,15 +47,31 @@ lgb.gui.controller.LeftPanelSimpleController.prototype.bind_ = function() {
     this.onScenarioDataModelLoadedFirstTime_
   );
   
-//   
-  // this.listenOnce (
-      // e.SimulationEngineLoaded,
-      // this.onSimulationEngineLoaded_
+  // this.simStateNativeNotifyKey_ = this.listen (
+    // se.SimStateNativeNotify,
+    // this.onSimStateNativeNotify_
   // );
-//     
-
+  
+  
 };
 
+
+// lgb.gui.controller.LeftPanelSimpleController.prototype.onSimStateNativeNotify_ = function(event) {
+// 
+  // var simStateNativeWrapper = event.getPayload();
+//   
+  // var theInt = simStateNativeWrapper.getInteger();
+//   
+  // if (theInt == lgb.simulation.model.voNative.SimStateNative.simStateNative_3_ready) {
+//     
+    // this.unlisten (this.simStateNativeNotifyKey_);
+    // this.makeChildGUIcontroller_(lgb.gui.controller.ScenarioMasterController);
+//     
+  // }
+//   
+//   
+  // return;
+// };
 
 
 
