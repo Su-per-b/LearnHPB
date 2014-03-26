@@ -43,9 +43,9 @@ lgb.scenario.view.BaseView.prototype.setDebugFlag = function(debugFlag) {
 
 };
 
-lgb.scenario.view.BaseView.prototype.setEnabled = function(debugFlag) {
+lgb.scenario.view.BaseView.prototype.setEnabled = function(isEnabled) {
  
-   this.setEnabled = debugFlag;
+   this.setEnabled = isEnabled;
 
 };
 

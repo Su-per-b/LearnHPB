@@ -135,8 +135,19 @@ lgb.simulation.model.SimStateNativeWrapper.prototype.canRequestTransitionTo  = f
 };
 
 
+lgb.simulation.model.SimStateNativeWrapper.prototype.toJsonObj  = function(  ) {
+
+    var json = {
+        type : "com.sri.straylight.fmuWrapper.voNative.SimStateNative",
+        intValue : this.getInteger()
+    };
+    
+    return json;
+};
 
 
+
+    
 
 
 

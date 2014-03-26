@@ -81,11 +81,13 @@ lgb.chart.model.GraphGUImodel.prototype.init_ = function() {
 
   
   this.y = {
-    max:26,
-    min:15,
-    mean:24,
-    deviation:2
+    max:295,
+    min:288,
+    mean:295,
+    deviation:4
   };
+  
+  
   
   this.domainY_ = [
     this.y.min,
@@ -96,6 +98,8 @@ lgb.chart.model.GraphGUImodel.prototype.init_ = function() {
   var minDate = formatDateObj.parse("7:45:00");
   var maxDate  = formatDateObj.parse("8:00:00");
   
+
+
 
   this.domainX_ = [
     minDate,

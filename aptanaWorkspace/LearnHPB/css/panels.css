@@ -226,5 +226,8 @@ ul {
 }
 
 
-
+.panel.input  input[type="text"]:disabled {
+  color:#666;
+  background-color:#000000;
+}
 

@@ -3,7 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
 
-goog.provide('lgb.gui.view.LayoutSimpleView');
+goog.provide('lgb.gui.view.LayoutStandaloneView');
 
 goog.require('lgb.gui.view.BaseGUI');
 goog.require('lgb.component.SplitPanel');
@@ -19,17 +19,17 @@ goog.require('lgb.gui.model.LayoutModel');
  * @constructor
  * @extends {lgb.gui.view.BaseGUI}
  */
-lgb.gui.view.LayoutSimpleView = function(dataModel) {
+lgb.gui.view.LayoutStandaloneView = function(dataModel) {
 
   lgb.gui.view.BaseGUI.call(this, dataModel, 'pageContainer', 'theBody');
   this.layoutUtils_ = [];
   
 };
-goog.inherits(lgb.gui.view.LayoutSimpleView, lgb.gui.view.BaseGUI);
+goog.inherits(lgb.gui.view.LayoutStandaloneView, lgb.gui.view.BaseGUI);
 
 
 
-lgb.gui.view.LayoutSimpleView.prototype.init = function() {
+lgb.gui.view.LayoutStandaloneView.prototype.init = function() {
 
   this.splitPanelHorizontalDS_ = new lgb.component.SplitPanelDataSource();
   
@@ -70,7 +70,7 @@ lgb.gui.view.LayoutSimpleView.prototype.init = function() {
 };
 
 
-lgb.gui.view.LayoutSimpleView.prototype.bind_ = function(guiView) {
+lgb.gui.view.LayoutStandaloneView.prototype.bind_ = function(guiView) {
   
   this.listenTo(this.splitPanelHorizontal_, e.Resize, this.onSplitterResize_);
   
@@ -80,7 +80,7 @@ lgb.gui.view.LayoutSimpleView.prototype.bind_ = function(guiView) {
 
 
 
-lgb.gui.view.LayoutSimpleView.prototype.toggleVisibility = function(guiView) {
+lgb.gui.view.LayoutStandaloneView.prototype.toggleVisibility = function(guiView) {
   
   guiView.isVisible_ = !guiView.isVisible_;
   var el = guiView.getMainElement();
@@ -91,7 +91,7 @@ lgb.gui.view.LayoutSimpleView.prototype.toggleVisibility = function(guiView) {
 
 
 
-lgb.gui.view.LayoutSimpleView.prototype.add = function(guiView) {
+lgb.gui.view.LayoutStandaloneView.prototype.add = function(guiView) {
   
 
   var className = guiView.getClassName();
@@ -112,6 +112,7 @@ lgb.gui.view.LayoutSimpleView.prototype.add = function(guiView) {
       guiView.injectInto(this.viewportTop_);
       break;
       
+
       
     default:
       debugger;
@@ -123,7 +124,7 @@ lgb.gui.view.LayoutSimpleView.prototype.add = function(guiView) {
 
 
 
-lgb.gui.view.LayoutSimpleView.prototype.onSplitterResize_ = function(event) {
+lgb.gui.view.LayoutStandaloneView.prototype.onSplitterResize_ = function(event) {
   this.triggerLocal(e.SplitterResize);
 };
 
@@ -132,7 +133,7 @@ lgb.gui.view.LayoutSimpleView.prototype.onSplitterResize_ = function(event) {
 
 
 //this is the root injection
-lgb.gui.view.LayoutSimpleView.prototype.inject = function() {
+lgb.gui.view.LayoutStandaloneView.prototype.inject = function() {
 
   var el = this.getMainElement();
 

@@ -3,7 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.core.MainControllerSimple');
+goog.provide('lgb.core.MainControllerStandalone');
 
 goog.require('lgb');
 goog.require('lgb.core.EventBus');
@@ -18,7 +18,7 @@ goog.require('lgb.gui.controller.LayoutSimpleController');
 goog.require('lgb.world.controller.BuildingController');
 goog.require('lgb.world.controller.UtilityController');
 goog.require('lgb.world.controller.WorldSelectionController');
-goog.require('lgb.gui.controller.LayoutSimpleController');
+goog.require('lgb.gui.controller.LayoutStandaloneController');
 goog.require('lgb.simulation.controller.MainController');
 
 
@@ -30,42 +30,38 @@ goog.require('lgb.simulation.controller.MainController');
  * @constructor
  * @extends lgb.core.BaseController
  */
-lgb.core.MainControllerSimple = function() {
+lgb.core.MainControllerStandalone = function() {
   
 
   lgb.core.BaseController.call(this);
   lgb.globalEventBus = new lgb.core.EventBus();
 
-  console.log('lgb.core.MainControllerSimple');
+  console.log('lgb.core.MainControllerStandalone');
   
   var delegate = jQuery.proxy(this.init, this);
   jQuery(document).ready(delegate);
 };
-goog.inherits(lgb.core.MainControllerSimple, lgb.core.BaseController);
+goog.inherits(lgb.core.MainControllerStandalone, lgb.core.BaseController);
 
 
 
 /**
  * Initializes the Main Controller after the document is ready
  */
-lgb.core.MainControllerSimple.prototype.init = function() {
+lgb.core.MainControllerStandalone.prototype.init = function() {
 
   this.scenarioController_ = new lgb.scenario.controller.ScenarioController();
 
-  this.layoutSimpleController_ = new lgb.gui.controller.LayoutSimpleController();
-  this.layoutSimpleController_.init();
+  this.layoutController_ = new lgb.gui.controller.LayoutStandaloneController();
+  this.layoutController_.init();
 
   
   $(window).resize(this.d(this.onNativeWindowResize_));
   
-   
   this.simulationMainController_ = new lgb.simulation.controller.MainController();
   this.simulationMainController_.init();
   
-  
-
-    
-  this.logger_ = goog.debug.Logger.getLogger('lgb.core.MainControllerSimple');
+  this.logger_ = goog.debug.Logger.getLogger('lgb.core.MainControllerStandalone');
 
   lgb.logInfo(lgb.core.Config.getTitle());
   lgb.logInfo('jQuery version: ' + $('').jquery);
@@ -86,7 +82,7 @@ lgb.core.MainControllerSimple.prototype.init = function() {
  * @private
  * @param {Event} event The browser's event.
  */
-lgb.core.MainControllerSimple.prototype.onNativeWindowResize_ =
+lgb.core.MainControllerStandalone.prototype.onNativeWindowResize_ =
   function(event) {
 
   var payload = {
@@ -102,7 +98,7 @@ lgb.core.MainControllerSimple.prototype.onNativeWindowResize_ =
 
 
 
-lgb.core.MainControllerSimple.start =
+lgb.core.MainControllerStandalone.start =
   function() {
 
 
@@ -111,7 +107,7 @@ lgb.core.MainControllerSimple.start =
   }
   
   lgb.init();
-  window.mainController = new lgb.core.MainControllerSimple();
+  window.mainController = new lgb.core.MainControllerStandalone();
 
 
 };

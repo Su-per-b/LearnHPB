@@ -6,7 +6,7 @@ lgb.gui.view.SimulationResultsGUI = function(dataModel) {
   this._TITLE = 'Results';
   
   lgb.gui.view.BaseGUI.call(this, dataModel);
-  this.totalHeaderHeight_ = 70;
+  this.totalHeaderHeight_ = 94;
   this.isDirty_ = false;
   this.blockUpdates_ = false;
 };
@@ -32,11 +32,11 @@ lgb.gui.view.SimulationResultsGUI.prototype.onChange_xmlParsedInfo_ = function(x
   this.realVarList_ = xmlParsedInfo.scalarVariablesAll_.output_.realVarList_;
   
   var len = this.realVarList_.length;
-  for (var i=0; i < len; i++) {
-    if (this.realVarList_[i].unit_ == "K") {
-      this.realVarList_[i].unit_ = "C";
-    }
-  };
+  // for (var i=0; i < len; i++) {
+    // if (this.realVarList_[i].unit_ == "K") {
+      // this.realVarList_[i].unit_ = "C";
+    // }
+  // };
   
   
   this.makeTable_(  this.realVarList_ );

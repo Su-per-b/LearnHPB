@@ -6,7 +6,7 @@ lgb.gui.view.SimulationInputGUI = function(dataModel) {
   this._TITLE = 'Input';
   
   lgb.gui.view.BaseGUI.call(this, dataModel);
-  this.totalHeaderHeight_ = 70;
+  this.totalHeaderHeight_ = 94;
   this.blockUpdates_ = false;
 };
 goog.inherits(lgb.gui.view.SimulationInputGUI, lgb.gui.view.BaseGUI);
@@ -62,12 +62,12 @@ lgb.gui.view.SimulationInputGUI.prototype.onChange_xmlParsedInfo_ = function(xml
 
   this.realVarList_ = xmlParsedInfo.scalarVariablesAll_.input_.realVarList_;
   
-  var len = this.realVarList_.length;
-  for (var i=0; i < len; i++) {
-    if (this.realVarList_[i].unit_ == "K") {
-      this.realVarList_[i].unit_ = "C";
-    }
-  };
+  // var len = this.realVarList_.length;
+  // for (var i=0; i < len; i++) {
+    // if (this.realVarList_[i].unit_ == "K") {
+      // this.realVarList_[i].unit_ = "C";
+    // }
+  // };
   
   
   this.makeTable_(  this.realVarList_ );

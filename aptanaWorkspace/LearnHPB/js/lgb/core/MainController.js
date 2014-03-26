@@ -109,7 +109,7 @@ lgb.core.MainController.prototype.init = function() {
   this.simulationMainController_ = new lgb.simulation.controller.MainController();
   this.simulationMainController_.init();
   
-  this.trigger(e.RequestLoadScenario, "Complete.xml");
+  this.trigger(e.RequestLoadScenario, "VerySimpleScenario.xml");
     
   this.logger_ = goog.debug.Logger.getLogger('lgb.core.MainController');
 
@@ -180,7 +180,6 @@ lgb.core.MainController.start =
   
   lgb.init();
   
-  //lgb.core.MainController.instance = new lgb.core.MainController();
   window.mainController = new lgb.core.MainController();
 
 };

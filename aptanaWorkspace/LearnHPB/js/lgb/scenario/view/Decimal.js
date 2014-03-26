@@ -83,5 +83,13 @@ lgb.scenario.view.Decimal.prototype.onblur_ = function(event) {
 lgb.scenario.view.Decimal.prototype.setEnabled = function(enabledFlag) {
 
    this.isEnabled = enabledFlag;
+   
+   if (enabledFlag) {
+     this.inputElement_
+      .removeAttr("disabled");
+   } else {
+     this.inputElement_
+      .attr("disabled", "disabled");
+   }
 
 };

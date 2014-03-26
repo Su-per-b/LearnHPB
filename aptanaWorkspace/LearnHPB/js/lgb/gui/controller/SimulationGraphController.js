@@ -7,8 +7,9 @@
 goog.provide('lgb.gui.controller.SimulationGraphController');
 
 goog.require('lgb.core.BaseController');
-goog.require('lgb.gui.view.SimulationGraphGUI');
-
+goog.require('lgb.chart.view.GraphGUI_05');
+goog.require('lgb.chart.view.GraphGUI_04');
+goog.require('lgb.chart.model.GraphGUImodel');
 
 
 /**
@@ -21,20 +22,39 @@ lgb.gui.controller.SimulationGraphController = function() {
   this.TITLE_ = 'Graph';
   lgb.core.BaseController.call(this);
   
-  this.bind1_();
+
 
 };
 goog.inherits(lgb.gui.controller.SimulationGraphController, lgb.core.BaseController);
 
 
-lgb.gui.controller.SimulationGraphController.prototype.bind1_ = function() {
 
-    this.listen (
-        e.SimulationEngineLoaded,
-        this.onSimulationEngineLoaded_
-    );
+lgb.gui.controller.SimulationGraphController.prototype.init = function(simDataModel) {
+
+  this.dataModel = simDataModel;
+  this.bind1_();
+  
 };
 
+
+
+
+lgb.gui.controller.SimulationGraphController.prototype.bind1_ = function() {
+
+
+    this.listen (
+        e.SimulationInitialized,
+        this.onSimulationInitialized_
+    );
+    
+};
+
+lgb.gui.controller.SimulationGraphController.prototype.onSimulationInitialized_ = function(event) {
+
+
+  this.init2_();
+
+};
 
 
 lgb.gui.controller.SimulationGraphController.prototype.bind2_ = function() {
@@ -52,23 +72,24 @@ lgb.gui.controller.SimulationGraphController.prototype.onLayoutChange_ = functio
 
 };
 
-lgb.gui.controller.SimulationGraphController.prototype.onSimulationEngineLoaded_ = function(event) {
-
-  this.simMainController_ = event.payload;
-  this.init_();
-
-};
 
 
-lgb.gui.controller.SimulationGraphController.prototype.init_ = function() {
+lgb.gui.controller.SimulationGraphController.prototype.init2_ = function() {
   
-  this.dataModel = this.simMainController_.getDataModel();
-  this.guiView = new lgb.gui.view.SimulationGraphGUI (this.dataModel, this.TITLE_);
+  this.chartModel = new lgb.chart.model.GraphGUImodel();
+  
+  this.guiView = new lgb.chart.view.GraphGUI_04 (this.dataModel, this.chartModel);
+
+
+
 
   this.bind2_();
   this.guiView.init();
   
   this.listen(e.LayoutChange, this.onLayoutChange_);
+  this.triggerLocal(e.RequestAddToParentGUI, this.guiView);
+    
+    
 };
 
 

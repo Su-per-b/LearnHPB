@@ -3,13 +3,13 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.gui.controller.LayoutSimpleController');
+goog.provide('lgb.gui.controller.LayoutStandaloneController');
 
 goog.require('lgb.core.BaseController');
 goog.require('goog.debug.Logger');
 goog.require('lgb.core.Config');
 
-goog.require('lgb.gui.view.LayoutSimpleView');
+goog.require('lgb.gui.view.LayoutStandaloneView');
 goog.require('lgb.gui.model.LayoutModel');
 
 goog.require('lgb.gui.controller.LeftPanelSimpleController');
@@ -21,23 +21,23 @@ goog.require('lgb.gui.controller.ButtonsTopRightHUDController');
  * @constructor
  * @extends lgb.core.BaseController
  */
-lgb.gui.controller.LayoutSimpleController = function() {
+lgb.gui.controller.LayoutStandaloneController = function() {
 
   lgb.core.BaseController.call(this);
 
 };
-goog.inherits(lgb.gui.controller.LayoutSimpleController, lgb.core.BaseController);
+goog.inherits(lgb.gui.controller.LayoutStandaloneController, lgb.core.BaseController);
 
 
 
 /**
  * Initializes the Main Controller after the document is ready
  */
-lgb.gui.controller.LayoutSimpleController.prototype.init = function() {
+lgb.gui.controller.LayoutStandaloneController.prototype.init = function() {
     
     
     this.dataModel = new lgb.gui.model.LayoutModel();
-    this.guiView  = new lgb.gui.view.LayoutSimpleView(this.dataModel);
+    this.guiView  = new lgb.gui.view.LayoutStandaloneView(this.dataModel);
     this.guiView.init();
     
     this.bind_();
@@ -50,28 +50,13 @@ lgb.gui.controller.LayoutSimpleController.prototype.init = function() {
 
 
 
-lgb.gui.controller.LayoutSimpleController.prototype.bind_ = function() {
+lgb.gui.controller.LayoutStandaloneController.prototype.bind_ = function() {
   
   this.relay(this.guiView, e.SplitterResize);
   
-  //this.listen(e.WindowResize, this.onWindowResize_);
-  
+
 };
 
-
-
-// lgb.gui.controller.LayoutSimpleController.prototype.onWindowResize_ = function(event) {
-   // // this.guiView.calculateLayout(event.payload);
-// };
-
-// lgb.gui.controller.LayoutSimpleController.prototype.onLayoutChange_ = function(event) {
-//     
-   // // this.guiView.calculateLayout();
-    // this.dispatch(event);
-//     
-// };
-// 
-// 
 
 
 

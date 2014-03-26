@@ -82,12 +82,21 @@ lgb.scenario.view.Variable.prototype.appendChildToAndListen_ = function(childNod
   goog.asserts.assertInstanceof(child, childClassConstructor);
     
     
+    
+
+    
+    
   this.listenTo(child, e.GuiValueChanged, this.onGuiValueChanged_);
   
   child.appendTo(parentElement);
       
     
-
+  if ("parameter" == this.dataModel.variability) {
+    
+    child.setEnabled(false);
+  
+  }
+  
 };
 
 
@@ -141,7 +150,18 @@ lgb.scenario.view.Variable.prototype.getMainElement = function() {
 
     divMore.append (tag);
     
-    divMore.append ('<a href="#" class="param disabled"></a>');  
+    if ("parameter" == this.dataModel.variability) {
+      
+      divMore.append ('<a href="#" class="param"></a>');  
+    
+    } else {
+      
+      divMore.append ('<a href="#" class="param disabled"></a>');  
+      
+    }
+    
+
+    
     
     li.append(divMore);
     this.label_ = $('<label for="textfield">');

@@ -334,7 +334,7 @@ ul.scenario-action li  {
 
 
 
-::-webkit-scrollbar { width: 16px; height: 3px;}
+::-webkit-scrollbar { width: 16px; height: 16px;}
 ::-webkit-scrollbar-button {  background-color: #284EAD; } /*up and down arrows */
 ::-webkit-scrollbar-track {  background-color: #284EAD;} /* background */
 ::-webkit-scrollbar-track-piece { background-color: #1C2E4F;}
@@ -408,4 +408,13 @@ a.sim-link-disabled:hover  {
 
 
 
+input[type="text"]:disabled
+{
+background:#dddddd;
+}
 
+
+#lgb-chart-view-GraphGUI_04-0 {
+  
+ background-color:#ffffff; 
+}

@@ -86,9 +86,9 @@ lgb.chart.controller.LayoutController.prototype.init3_ = function(simulationMain
   
   
 
-  this.makeChildGUIcontroller_(lgb.gui.controller.SimulationStateController, simulationMainController);
+  //this.makeChildGUIcontroller_(lgb.gui.controller.SimulationStateController, simulationMainController);
   
- // this.makeChildGUIcontroller_(lgb.chart.controller.GraphController, simulationMainController);
+   this.makeChildGUIcontroller_(lgb.chart.controller.GraphController, simulationMainController);
   
 
   

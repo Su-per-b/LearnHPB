@@ -21,7 +21,7 @@ lgb.chart.view.GraphGUI_05.prototype.init = function() {
 
 
     this.listenForChange_('scalarValueResultsConverted');
-    this.listenForChange_('xmlParsedInfo');
+    // this.listenForChange_('xmlParsedInfo');
     
     this.tickDelegate_ = this.d(this.tick_);
     

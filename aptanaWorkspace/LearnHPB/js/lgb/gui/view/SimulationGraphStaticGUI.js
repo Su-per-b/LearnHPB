@@ -1,7 +1,7 @@
-goog.provide('lgb.gui.view.SimulationGraphGUI');
+goog.provide('lgb.gui.view.SimulationGraphStaticGUI');
 
 
-lgb.gui.view.SimulationGraphGUI = function(dataModel) {
+lgb.gui.view.SimulationGraphStaticGUI = function(dataModel) {
 
   this._TITLE = 'Graph-Static';
   
@@ -10,11 +10,11 @@ lgb.gui.view.SimulationGraphGUI = function(dataModel) {
   this.isDirty_ = false;
   this.blockUpdates_ = false;
 };
-goog.inherits(lgb.gui.view.SimulationGraphGUI, lgb.gui.view.BaseGUI);
+goog.inherits(lgb.gui.view.SimulationGraphStaticGUI, lgb.gui.view.BaseGUI);
 
 
 
-lgb.gui.view.SimulationGraphGUI.prototype.init = function() {
+lgb.gui.view.SimulationGraphStaticGUI.prototype.init = function() {
 
     this.listenForChange_('scalarValueResultsConverted');
     // this.listenForChange_('xmlParsedInfo');
@@ -28,7 +28,7 @@ lgb.gui.view.SimulationGraphGUI.prototype.init = function() {
 
 
 
-lgb.gui.view.SimulationGraphGUI.prototype.onChange_xmlParsedInfo_ = function(xmlParsedInfo) {
+lgb.gui.view.SimulationGraphStaticGUI.prototype.onChange_xmlParsedInfo_ = function(xmlParsedInfo) {
   
   this.realVarList_ = xmlParsedInfo.scalarVariablesAll_.output_.realVarList_;
   
@@ -44,7 +44,7 @@ lgb.gui.view.SimulationGraphGUI.prototype.onChange_xmlParsedInfo_ = function(xml
 };
 
 
-lgb.gui.view.SimulationGraphGUI.prototype.onChange_scalarValueResultsConverted_ = function(scalarValueResultsConverted) {
+lgb.gui.view.SimulationGraphStaticGUI.prototype.onChange_scalarValueResultsConverted_ = function(scalarValueResultsConverted) {
   
   var realList = scalarValueResultsConverted.output.realList;
   var newRecord = { time: scalarValueResultsConverted.time_};
@@ -67,7 +67,7 @@ lgb.gui.view.SimulationGraphGUI.prototype.onChange_scalarValueResultsConverted_ 
 
 
 
-lgb.gui.view.SimulationGraphGUI.prototype.calculateLayout = function(theVar) {
+lgb.gui.view.SimulationGraphStaticGUI.prototype.calculateLayout = function(theVar) {
   
 
 
@@ -79,7 +79,7 @@ lgb.gui.view.SimulationGraphGUI.prototype.calculateLayout = function(theVar) {
 };
 
 
-lgb.gui.view.SimulationGraphGUI.prototype.injectInto = function(parentElement) {
+lgb.gui.view.SimulationGraphStaticGUI.prototype.injectInto = function(parentElement) {
   
   this.yearlyBubbleChartDiv = this.makeDiv();
   this.yearlyBubbleChartDiv.append('<a >reset</a>');
@@ -97,7 +97,7 @@ lgb.gui.view.SimulationGraphGUI.prototype.injectInto = function(parentElement) {
 
 
 
-lgb.gui.view.SimulationGraphGUI.prototype.setGraphSize_ = function() {
+lgb.gui.view.SimulationGraphStaticGUI.prototype.setGraphSize_ = function() {
 
     var parent = this.getParentElement();
     var w = parent.width();
@@ -125,14 +125,14 @@ lgb.gui.view.SimulationGraphGUI.prototype.setGraphSize_ = function() {
 
 };
 
-lgb.gui.view.SimulationGraphGUI.prototype.makeGraph2_ = function() {
+lgb.gui.view.SimulationGraphStaticGUI.prototype.makeGraph2_ = function() {
 	
 	//this.moveChart.data(this.data_);
 	//this.moveChart.redraw();
 	return;
 };
 
-lgb.gui.view.SimulationGraphGUI.prototype.makeGraph_ = function() {
+lgb.gui.view.SimulationGraphStaticGUI.prototype.makeGraph_ = function() {
   
 
     var parent = this.getParentElement();

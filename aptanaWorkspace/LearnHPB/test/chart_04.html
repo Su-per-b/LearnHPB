@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <base href="/LearnHPB/">
+    
     <meta charset="UTF-8" />
-
-    <!-- =========================  CSS  ============================ -->
-
+    
+    <script>
+        LGB_WEBROOT = "../";
+    </script>
 
 
   <style>
@@ -16,73 +17,70 @@
      
     .line {
       fill: none;
-      stroke: #000;
+      stroke: #a00;
       stroke-width: 1.5px;
     }
      
     .axis path,
     .axis line {
       fill: none;
-      stroke: #000;
+      stroke: #a00;
       shape-rendering: crispEdges;
     }
+    
+    
+    a.sim-link:hover {
+      background-color: #A6CD73;
+    }
+    
+    a.sim-link, a.sim-link-disabled {
+      font-weight:normal;
+      font-size:10pt;
+      color:#ffffff;
+      background-color: #666666;
+      padding:1px 3px 2px 4px;
+      margin:2px;
+      display: inline-block;
+    }
+    
+    
+    a.sim-link:hover {
+      background-color: #A6CD73;
+    }
+    
+    a.sim-link-disabled {
+      background-color:#999999; 
+    }
+    
+    a.sim-link-disabled:hover  {
+      cursor: default;
+    }
+
    
   </style>
+  
     
-    <!-- =========================   JavaScript  ============================ -->
-    <script src="test/js/includes/Main.js"></script>
-    <script src="test/js/includes/MainLibs.js"></script>
-
-    <title>Chart Test 4</title>
-    
+    <script src="js/includes/MainLibs.js"></script>
     
     <script>
+      test.includes.MainLibs.standAloneCss();
       test.includes.MainLibs.initChart2();
-    </script>
-    
-    
-    <script>
-    
-      goog.require('lgb');
-      goog.require('lgb.core.EventBus');
-      goog.require('lgb.core.Global');
-      goog.require('lgb.chart.controller.MainController');
-      goog.require('lgb.chart.controller.GraphController');
       
     </script>
-  
-  
+    
+    <script>
+      goog.require('lgb.chart.controller.MainController');
+      goog.require('lgb.core.EventBus');
+    </script>
+    
+    <script>
+      lgb.chart.controller.MainController.start();
+    </script>
 
   </head>
 
 
-
-
-
-
-
-  <body id="theBody">
-
-  </body>
+  <body id="theBody"></body>
   
 
-  <script>
-  
-   var mainController = {};
-   
-   $(document).ready(function () {
-     
-      lgb.init();
-      lgb.globalEventBus = new lgb.core.EventBus();
-      
-      lgb.chart.controller.GraphController.versionNumber = 4;
-      var mainController = new lgb.chart.controller.MainController();
-        
-    });
-    
-    
-
-    
-  </script>
-  
 </html>

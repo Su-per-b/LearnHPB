@@ -37,6 +37,19 @@ lgb.simulation.events.BaseEvent.prototype.getJsonObjBase = function() {
 };
 
 
+lgb.simulation.events.BaseEvent.prototype.toJsonBase_ = function() {
+    
+    var jsonObj = this.getJsonObjBase();
+    jsonObj.payload = this.payload_.toJsonObj();
+    
+    var jsonString = this.stringify_(jsonObj);
+    
+    return jsonString;
+};
+
+
+
+
 lgb.simulation.events.BaseEvent.prototype.getPayload = function() {
 
     return this.payload_;
@@ -59,6 +72,17 @@ lgb.simulation.events.BaseEvent.prototype.getClassName = function() {
   
   return className;
 };
+
+
+lgb.simulation.events.BaseEvent.prototype.stringify_ = function(jsonObj) {
+
+    var jsonString = JSON.stringify(jsonObj, null, 2);
+    jsonString = jsonString.replace(/\s/g, '');
+    
+    return jsonString;
+    
+};
+
 
 
 

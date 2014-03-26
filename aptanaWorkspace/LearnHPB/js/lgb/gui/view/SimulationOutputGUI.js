@@ -6,7 +6,7 @@ lgb.gui.view.SimulationOutputGUI = function(dataModel) {
   this._TITLE = 'Output';
   
   lgb.gui.view.BaseGUI.call(this, dataModel);
-  this.totalHeaderHeight_ = 70;
+  this.totalHeaderHeight_ = 94;
 
 };
 goog.inherits(lgb.gui.view.SimulationOutputGUI, lgb.gui.view.BaseGUI);
@@ -18,6 +18,8 @@ lgb.gui.view.SimulationOutputGUI.prototype.init = function() {
 
     this.listenForChange_('scalarValueResultsConverted');
     this.listenForChange_('xmlParsedInfo');
+    //this.listenForChange_('scalarValueResults');
+    
     
     this.triggerLocal(e.RequestAddToParentGUI);
     
@@ -31,11 +33,12 @@ lgb.gui.view.SimulationOutputGUI.prototype.onChange_xmlParsedInfo_ = function(xm
   this.realVarList_ = xmlParsedInfo.scalarVariablesAll_.output_.realVarList_;
   
   var len = this.realVarList_.length;
-  for (var i=0; i < len; i++) {
-    if (this.realVarList_[i].unit_ == "K") {
-      this.realVarList_[i].unit_ = "C";
-    }
-  };
+  
+  // for (var i=0; i < len; i++) {
+    // if (this.realVarList_[i].unit_ == "K") {
+      // this.realVarList_[i].unit_ = "C";
+    // }
+  // };
   
   
   this.makeTable_(  this.realVarList_ );
@@ -43,6 +46,14 @@ lgb.gui.view.SimulationOutputGUI.prototype.onChange_xmlParsedInfo_ = function(xm
 
   
 };
+
+// lgb.gui.view.SimulationOutputGUI.prototype.onChange_scalarValueResults_ = function(scalarValueResults) {
+//   
+//   
+  // this.eachIdx(scalarValueResults.output.realList, this.updateOneRow_);
+  // this.gridDS_.read();
+//   
+// };
 
 
 lgb.gui.view.SimulationOutputGUI.prototype.onChange_scalarValueResultsConverted_ = function(scalarValueResultsConverted) {

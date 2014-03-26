@@ -6,7 +6,7 @@ lgb.gui.view.SimulationConsoleGUI = function(dataModel) {
   this._TITLE = 'Console';
   
   lgb.gui.view.BaseGUI.call(this, dataModel);
-  this.totalHeaderHeight_ =50;
+  this.totalHeaderHeight_ = 74;
 };
 goog.inherits(lgb.gui.view.SimulationConsoleGUI, lgb.gui.view.BaseGUI);
 

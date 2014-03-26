@@ -32,8 +32,7 @@ lgb.chart.controller.GraphController.prototype.init = function(simulationModel) 
   this.dataModel = simulationModel;
           
   var chartModel = new lgb.chart.model.GraphGUImodel();
-  this.guiView = new lgb.chart.view.GraphGUIStandAlone ( this.dataModel, chartModel );
-  
+  this.guiView = new lgb.chart.view.GraphGUI_05 ( this.dataModel, chartModel );
 
   this.triggerGUI();
   

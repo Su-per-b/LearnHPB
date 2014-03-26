@@ -22,28 +22,7 @@ goog.inherits(lgb.simulation.events.ScalarValueChangeRequest, lgb.simulation.eve
 
 
 lgb.simulation.events.ScalarValueChangeRequest.prototype.toJson = function() {
-    
-    var jsonObj = this.toJsonObj();
-    
-    var jsonString = JSON.stringify(jsonObj, null, 2);
-    jsonString = jsonString.replace(/\s/g, '');
-    
-    return jsonString;
-
+    return this.toJsonBase_();
 };
-
-
-lgb.simulation.events.ScalarValueChangeRequest.prototype.toJsonObj = function() {
-  
-    var payload = this.getPayload();
-    
-    var jsonObj = {
-      type : lgb.simulation.events.ScalarValueChangeRequest.SERVER_TYPE,
-      payload : payload.toJsonObj()
-    };
-    
-    return jsonObj;
-};
-
 
 

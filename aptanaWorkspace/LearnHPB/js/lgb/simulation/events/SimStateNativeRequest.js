@@ -19,27 +19,7 @@ goog.inherits(lgb.simulation.events.SimStateNativeRequest, lgb.simulation.events
 
 
 
-
-
-
 lgb.simulation.events.SimStateNativeRequest.prototype.toJson = function() {
-    
-
-    var jsonObj = this.getJsonObjBase();
-    
-    
-    jsonObj.payload = {
-        type : "com.sri.straylight.fmuWrapper.voNative.SimStateNative",
-        intValue : this.payload_.getInteger()
-    };
-    
-    var jsonString = JSON.stringify(jsonObj, null, 2);
-
-    jsonString = jsonString.replace(/\s/g, '');
-    
-    return jsonString;
-
+    return this.toJsonBase_();
 };
-
-
 

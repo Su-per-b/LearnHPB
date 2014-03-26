@@ -242,11 +242,16 @@ lgb.simulation.controller.MainController.prototype.onSimStateNativeNotify_ = fun
   this.dataModel.changePropertyEx('simStateNative', simStateNativeWrapper);
   this.dispatch(event);
   
+  var theInt = simStateNativeWrapper.getInteger();
+  var theString = simStateNativeWrapper.getString();
   
   //fix for init_completed not reported
-  if (simStateNativeWrapper.getInteger() ==  lgb.simulation.model.voNative.SimStateNative.init_completed) {
+  if (theInt ==  9) { //init_completed
     
-    var x= 0;
+   // var x= 0;
+    
+    this.trigger(e.SimulationInitialized, simStateNativeWrapper);
+    // return;
   }
   
   

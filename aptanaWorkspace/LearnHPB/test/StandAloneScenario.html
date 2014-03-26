@@ -1,7 +1,34 @@
 <!DOCTYPE html>
 <html>
   <head>
+    
 
+  <style>
+   
+    svg {
+      font: 10px sans-serif;
+    }
+     
+    .line {
+      fill: none;
+      stroke: #a00;
+      stroke-width: 1.5px;
+    }
+     
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #a00;
+      shape-rendering: crispEdges;
+    }
+    
+
+
+   
+  </style>
+  
+  
+    <!-- graphing, results and no iframe-->
     <meta charset="UTF-8" />
     
     <script>
@@ -14,15 +41,15 @@
     
     <script>
       test.includes.MainLibs.standAloneCss();
-      test.includes.MainLibs.standAlone();
+      test.includes.MainLibs.standAloneWithCharting();
     </script>
     
     <script>
-      goog.require('lgb.core.MainControllerSimple');
+      goog.require('lgb.core.MainControllerStandalone');
     </script>
     
     <script>
-        lgb.core.MainControllerSimple.start();
+        lgb.core.MainControllerStandalone.start();
     </script>
   
   

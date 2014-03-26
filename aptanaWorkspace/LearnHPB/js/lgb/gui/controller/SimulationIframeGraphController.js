@@ -28,9 +28,19 @@ goog.inherits(lgb.gui.controller.SimulationIframeGraphController, lgb.core.BaseC
 
 
 
-lgb.gui.controller.SimulationIframeGraphController.prototype.init_ = function() {
+
+lgb.gui.controller.SimulationIframeGraphController.prototype.init = function(simulationDataModel) {
   
-  this.dataModel = this.simMainController_.getDataModel();
+  this.dataModel = simulationDataModel;
+
+
+
+};
+
+
+lgb.gui.controller.SimulationIframeGraphController.prototype.init2_ = function() {
+  
+ 
   this.guiView = new lgb.chart.view.SimulationIframeGraphGUI (this.dataModel, this.TITLE_);
 
   this.bind2_();
@@ -40,10 +50,12 @@ lgb.gui.controller.SimulationIframeGraphController.prototype.init_ = function() 
 };
 
 
-lgb.gui.controller.SimulationIframeGraphController.prototype.onSimulationEngineLoaded_ = function(event) {
 
-  this.simMainController_ = event.payload;
-  this.init_();
+
+
+lgb.gui.controller.SimulationIframeGraphController.prototype.onSimulationInitialized_ = function(event) {
+
+  this.init2_();
 
 };
 
@@ -51,10 +63,18 @@ lgb.gui.controller.SimulationIframeGraphController.prototype.onSimulationEngineL
 
 lgb.gui.controller.SimulationIframeGraphController.prototype.bind1_ = function() {
 
+    // this.listen (
+        // e.SimulationEngineLoaded,
+        // this.onSimulationEngineLoaded_
+    // );
+    
+    
     this.listen (
-        e.SimulationEngineLoaded,
-        this.onSimulationEngineLoaded_
+        e.SimulationInitialized,
+        this.onSimulationInitialized_
     );
+
+    
 };
 
 

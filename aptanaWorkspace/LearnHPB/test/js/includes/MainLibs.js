@@ -60,63 +60,61 @@ test.includes.MainLibs.addOneCssScript = function(path, name) {
 };
 
 
+// 
+// test.includes.MainLibs.init = function() {
+//   
+//  
+  // test.includes.MainLibs.addOneScript("js/lib/", "jquery.src");  
+  // test.includes.MainLibs.addOneScript("js/lib/", "jquery.easing.1.3");
+  // test.includes.MainLibs.addOneScript("js/lib/", "purl");
+//     
+// 
+  // test.includes.MainLibs.addScripts(
+    // "js/lib/tweenjs/", 
+    // ["CSSPlugin", "Ease", "Timeline", "Tween"]
+    // );  
+// 
+// 
+  // test.includes.MainLibs.addOneScript("js/closure/core/goog/", "base");
+//   
+// 
+// };
 
-test.includes.MainLibs.init = function() {
+
+// 
+// test.includes.MainLibs.initChart = function() {
+//   
+//     
+   // test.includes.MainLibs.addScripts(
+    // "js/lib/", 
+      // [
+        // "jquery.src",
+        // "purl",
+      // ]
+    // );
+//     
+//     
+   // test.includes.MainLibs.initKendo();
+   // test.includes.MainLibs.addOneScript("js/closure/core/goog/", "base");
+   // test.includes.MainLibs.initGraph();
+//       
+// };
+
+test.includes.MainLibs.standAloneWithCharting = function() {
   
- 
-  test.includes.MainLibs.addOneScript("js/lib/", "jquery.src");  
-  test.includes.MainLibs.addOneScript("js/lib/", "jquery.easing.1.3");
-  test.includes.MainLibs.addOneScript("js/lib/", "purl");
     
-
-  test.includes.MainLibs.addScripts(
-    "js/lib/tweenjs/", 
-    ["CSSPlugin", "Ease", "Timeline", "Tween"]
-    );  
-
-
-  test.includes.MainLibs.addOneScript("js/closure/core/goog/", "base");
-  
-
-};
-
-
-
-test.includes.MainLibs.initChart = function() {
-  
-    
-   test.includes.MainLibs.addScripts(
-    "js/lib/", 
+   test.includes.MainLibs.standAlone();
+   
+    test.includes.MainLibs.addScripts(
+      "js/lib/", 
       [
-        "jquery.src",
-        "purl",
+      "d3.v3",
+      "crossfilter",
+      "dc",
+      "colorbrewer"
       ]
-    );
+      );  
     
-    
-   test.includes.MainLibs.initKendo();
-   test.includes.MainLibs.addOneScript("js/closure/core/goog/", "base");
-   test.includes.MainLibs.initGraph();
-      
-};
-
-test.includes.MainLibs.initChart2 = function() {
-  
-    
-   test.includes.MainLibs.addScripts(
-    "js/lib/", 
-      [
-        "jquery.src",
-        "purl",
-        "tipped"
-      ]
-    );
-    
-    
-   test.includes.MainLibs.initKendo();
-   test.includes.MainLibs.addOneScript("js/closure/core/goog/", "base");
-   test.includes.MainLibs.initGraph2();
-      
 };
 
 test.includes.MainLibs.standAlone = function() {
@@ -141,40 +139,41 @@ test.includes.MainLibs.standAlone = function() {
 test.includes.MainLibs.standAloneCss = function() {
   
    test.includes.MainLibs.addOneCssScript("css/", "tipped");
+   test.includes.MainLibs.addOneCssScript("css/", "normalize");
    
    test.includes.MainLibs.addOneCssScript("css/", "kendo.common");
    test.includes.MainLibs.addOneCssScript("css/", "kendo.lgb");
 
    test.includes.MainLibs.addOneCssScript("css/", "panels");
    test.includes.MainLibs.addOneCssScript("css/", "lhpb");
-   test.includes.MainLibs.addOneCssScript("css/", "normalize");
+
 
 };
 
 
 
-
-
-test.includes.MainLibs.initGraph2 = function() {
-  
-  test.includes.MainLibs.addScripts(
-    "js/lib/", 
-    ["d3.v3"]
-    );  
-    
-};
-
-
-
-test.includes.MainLibs.initGraph = function() {
-  
-  test.includes.MainLibs.addScripts(
-    "js/lib/", 
-    ["d3", "crossfilter", "dc", "colorbrewer"]
-    );  
-    
-};
-
+// 
+// 
+// test.includes.MainLibs.initGraph2 = function() {
+//   
+  // test.includes.MainLibs.addScripts(
+    // "js/lib/", 
+    // ["d3.v3"]
+    // );  
+//     
+// };
+// 
+// 
+// 
+// test.includes.MainLibs.initGraph = function() {
+//   
+  // test.includes.MainLibs.addScripts(
+    // "js/lib/", 
+    // ["d3", "crossfilter", "dc", "colorbrewer"]
+    // );  
+//     
+// };
+// 
 
 
 

@@ -92,3 +92,5 @@ e.GuiValueChanged = 'e.GuiValueChanged';
 e.SplitterResize = 'e.SplitterResize';
 
 e.RequestLoadScenario = 'e.RequestLoadScenario';
+
+e.SimulationInitialized = 'e.SimulationInitialized';
