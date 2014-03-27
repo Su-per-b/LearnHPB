@@ -19,7 +19,9 @@ goog.require('lgb.gui.controller.LeftPanelSimpleController');
 goog.require('lgb.gui.controller.ButtonsTopRightHUDController');
 goog.require('lgb.gui.controller.TopMenuController');
 goog.require('lgb.world.controller.VisibilityController');
-goog.require('lgb.gui.controller.BottomPanelGUIController');
+goog.require('lgb.gui.controller.BottomPanelIframeGUIController');
+
+
 goog.require('lgb.gui.view.TitleBarGUI');
 
 
@@ -51,8 +53,7 @@ lgb.gui.controller.LayoutController.prototype.init_ = function() {
     
     this.leftPanelSimpleController_ = this.makeChildGUIcontroller_(lgb.gui.controller.LeftPanelSimpleController);
     this.buttonsTopRightHUDController_ = this.makeChildGUIcontroller_(lgb.gui.controller.ButtonsTopRightHUDController);
-    // this.visibilityController_ = this.makeChildGUIcontroller_(lgb.world.controller.VisibilityController);
-    this.bottomPanelGUIController_ = this.makeChildGUIcontroller_(lgb.gui.controller.BottomPanelGUIController);
+    this.bottomPanelGUIController_ = this.makeChildGUIcontroller_(lgb.gui.controller.BottomPanelIframeGUIController);
     
 };
 

@@ -44,6 +44,10 @@ lgb.chart.view.LayoutView.prototype.add = function(guiView) {
       guiView.injectInto(this.chartBottom_);
       break;
     }
+    case "GraphGUI_04": {
+      guiView.injectInto(this.chartBottom_);
+      break;
+    }
     case "GraphGUIStandAlone": {
       guiView.injectInto(this.chartBottom_);
       break;

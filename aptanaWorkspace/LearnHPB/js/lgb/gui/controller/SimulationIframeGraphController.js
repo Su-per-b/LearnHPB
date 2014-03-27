@@ -33,8 +33,6 @@ lgb.gui.controller.SimulationIframeGraphController.prototype.init = function(sim
   
   this.dataModel = simulationDataModel;
 
-
-
 };
 
 
@@ -42,11 +40,11 @@ lgb.gui.controller.SimulationIframeGraphController.prototype.init2_ = function()
   
  
   this.guiView = new lgb.chart.view.SimulationIframeGraphGUI (this.dataModel, this.TITLE_);
-
-  this.bind2_();
   this.guiView.init();
   
   this.listen(e.LayoutChange, this.onLayoutChange_);
+  this.triggerLocal(e.RequestAddToParentGUI, this.guiView);
+      
 };
 
 
@@ -63,32 +61,17 @@ lgb.gui.controller.SimulationIframeGraphController.prototype.onSimulationInitial
 
 lgb.gui.controller.SimulationIframeGraphController.prototype.bind1_ = function() {
 
-    // this.listen (
-        // e.SimulationEngineLoaded,
-        // this.onSimulationEngineLoaded_
-    // );
-    
-    
     this.listen (
         e.SimulationInitialized,
         this.onSimulationInitialized_
     );
 
-    
+   
 };
 
 
 
-lgb.gui.controller.SimulationIframeGraphController.prototype.bind2_ = function() {
 
-  this.relayLocal(
-    this.guiView,
-    e.RequestAddToParentGUI);
-    
-    
-    
-
-};
 
 
 lgb.gui.controller.SimulationIframeGraphController.prototype.onLayoutChange_ = function(event) {

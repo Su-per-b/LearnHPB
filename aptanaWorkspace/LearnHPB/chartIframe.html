@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    <meta charset="UTF-8" />
+    
+    <script>
+        LGB_WEBROOT = "";
+    </script>
+
+
+    <script src="js/lib/MainLibs.js"></script>
+    
+    <script>
+      test.includes.MainLibs.chartIframeCss();
+      test.includes.MainLibs.chartIframeJs();
+      
+    </script>
+    
+    <script>
+      goog.require('lgb.chart.controller.MainIframeController');
+      goog.require('lgb.core.EventBus');
+    </script>
+    
+    <script>
+      lgb.chart.controller.MainIframeController.start();
+    </script>
+
+  </head>
+
+
+  <body id="theBody"></body>
+  
+
+</html>

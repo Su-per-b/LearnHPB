@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+svg {
+  font: 10px sans-serif;
+}
+ 
+.line {
+  fill: none;
+  stroke: #a00;
+  stroke-width: 1.5px;
+}
+ 
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #a00;
+  shape-rendering: crispEdges;
+}
+
+html {
+  background-color : #ffffff;
+  
+}

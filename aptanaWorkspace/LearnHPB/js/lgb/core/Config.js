@@ -41,7 +41,7 @@ lgb.core.Config.XML_BASE_PATH = 'xml/';
  * @const
  * @type {string}
  */
-lgb.core.Config.APP_TITLE = 'LearnHPB Alpha';
+lgb.core.Config.APP_TITLE = 'LearnHPB Beta';
 
 /**
  * The application verison, will appear in the <title>

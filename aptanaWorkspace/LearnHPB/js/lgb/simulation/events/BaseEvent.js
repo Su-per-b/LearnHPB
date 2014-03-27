@@ -7,6 +7,9 @@ goog.provide('lgb.simulation.events.BaseEvent');
 goog.provide('se.Event');
 
 goog.require('goog.events.Event');
+goog.require('lgb.simulation.controller.JsonController');
+goog.require('goog.asserts');
+
 
 /**
  * @constructor
@@ -14,10 +17,10 @@ goog.require('goog.events.Event');
  * @extends {goog.events.Event}
  */
 lgb.simulation.events.BaseEvent = function(payload) {
-    
- var fullClassName = this.getFullClassName();
- 
-  goog.events.Event.call( this, fullClassName );
+  
+  
+
+  goog.events.Event.call( this, this.getLocalTypeString() );
   
   this.setPayload(payload);
   
@@ -26,25 +29,56 @@ goog.inherits(lgb.simulation.events.BaseEvent, goog.events.Event);
 
 
 
-lgb.simulation.events.BaseEvent.prototype.getJsonObjBase = function() {
+lgb.simulation.events.BaseEvent.prototype.getLocalTypeString = function() {
   
-    var className = this.getClassName();
-    var theType = "com.sri.straylight.fmuWrapper.event." + className;
-    var jsonObj = {type:theType};
-    
-    return jsonObj;
+  var fullClassName = this.getFullClassName();
+  return fullClassName;
   
 };
 
+lgb.simulation.events.BaseEvent.prototype.getRemoteTypeString = function() {
+  
+    var className = this.getClassName();
+    var typeStr = "com.sri.straylight.fmuWrapper.event." + className;
+    
+    return typeStr;
+};
 
-lgb.simulation.events.BaseEvent.prototype.toJsonBase_ = function() {
+
+//must implement in subclass
+lgb.simulation.events.BaseEvent.prototype.getPayloadType = function() { debugger;};
+
+
+
+
+lgb.simulation.events.BaseEvent.prototype.toJson = function() {
     
-    var jsonObj = this.getJsonObjBase();
-    jsonObj.payload = this.payload_.toJsonObj();
+    var jsonObj = this.getJsonObj();
     
-    var jsonString = this.stringify_(jsonObj);
+    var jsonStr = lgb.simulation.controller.JsonController.stringify(jsonObj);
+    return jsonStr;
+};
+
+
+lgb.simulation.events.BaseEvent.prototype.getJsonObj = function() {
     
-    return jsonString;
+    var jsonObj = {
+      type:this.getRemoteTypeString(),
+      payload:this.payload_.getJsonObj()
+    };
+    
+    return jsonObj;
+};
+    
+    
+
+
+lgb.simulation.events.BaseEvent.prototype.toJson = function() {
+    
+    var jsonObj = this.getJsonObj();
+    
+    var jsonStr = lgb.simulation.controller.JsonController.stringify(jsonObj);
+    return jsonStr;
 };
 
 
@@ -57,6 +91,9 @@ lgb.simulation.events.BaseEvent.prototype.getPayload = function() {
 
 
 lgb.simulation.events.BaseEvent.prototype.setPayload = function(payload) {
+  
+    var payloadType = this.getPayloadType();
+    goog.asserts.assertInstanceof(payload, payloadType);
 
     this.payload_ = payload;
 };
@@ -74,14 +111,7 @@ lgb.simulation.events.BaseEvent.prototype.getClassName = function() {
 };
 
 
-lgb.simulation.events.BaseEvent.prototype.stringify_ = function(jsonObj) {
 
-    var jsonString = JSON.stringify(jsonObj, null, 2);
-    jsonString = jsonString.replace(/\s/g, '');
-    
-    return jsonString;
-    
-};
 
 
 

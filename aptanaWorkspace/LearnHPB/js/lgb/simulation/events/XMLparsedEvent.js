@@ -33,3 +33,7 @@ lgb.simulation.events.XMLparsedEvent.fromJson = function(deserializedObj) {
 };
 
 
+
+lgb.simulation.events.XMLparsedEvent.prototype.getPayloadType = function() {
+  return lgb.simulation.model.voManaged.XMLparsedInfo;
+};

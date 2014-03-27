@@ -11,8 +11,8 @@ goog.require('lgb.simulation.model.WebSocketConnectionStateRequest');
 goog.require('lgb.simulation.events.BaseEvent');
 goog.require('lgb.simulation.model.WSConnectionState');
 goog.require('lgb.simulation.events.SimStateNativeRequest');
+goog.require('lgb.simulation.model.voNative.SimStateNativeEnum');
 goog.require('lgb.simulation.model.voNative.SimStateNative');
-goog.require('lgb.simulation.model.SimStateNativeWrapper');
 
 
 lgb.gui.view.SimulationStateControlGUI = function(dataModel) {
@@ -57,7 +57,7 @@ lgb.gui.view.SimulationStateControlGUI.prototype.onChange_simStateNative_ = func
 
   
 
-  //var stateObject = new lgb.simulation.model.SimStateNativeWrapper(simStateNative);
+  //var stateObject = new lgb.simulation.model.voNative.SimStateNative(simStateNative);
   
   if (stateObject.getString() == undefined) {
     debugger;  
@@ -154,7 +154,7 @@ lgb.gui.view.SimulationStateControlGUI.prototype.injectInto = function(parentEle
 
   
   this.simControlButtons_ = new Array();
-  var SimStateNative = lgb.simulation.model.voNative.SimStateNative;
+  var SimStateNative = lgb.simulation.model.voNative.SimStateNativeEnum;
   
   
   this.makeLink2_('Connect~', 'connect-link', SimStateNative.simStateNative_1_connect_requested);

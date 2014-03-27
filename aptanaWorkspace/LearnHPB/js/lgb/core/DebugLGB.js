@@ -26,50 +26,6 @@ lgb.core.DebugLGB.prototype.getClasses = function() {
 };
 
 
-/*
-lgb.core.DebugLGB.prototype.getPackages = function() {
-  
-  var packages = [
-    ['lgb'],
-    ['lgb','component'],
-    
-    ['lgb','core'],
-    
-    ['lgb','gui'],
-    ['lgb','gui','controller'],
-    ['lgb','gui','model'],
-    ['lgb','gui','view'],
-    
-    ['lgb','scenario','controller'],
-    ['lgb','scenario','model'],
-    ['lgb','scenario','view'],
-    
-    ['lgb','simulation','controller'],
-    ['lgb','simulation','events'],
-    ['lgb','simulation','model'],
-    
-    ['lgb','utils'],
-    
-    ['lgb','chart'],
-    ['lgb','chart', 'controller'],
-    ['lgb','chart', 'view'],
-    
-    ['lgb','world'],
-    ['lgb','world', 'controller'],
-    ['lgb','world', 'model'],
-    ['lgb','world', 'view'],
-    
-    ['THREE']
-  ];
-  
-  
-  
-  
-  
-  
-  return packages;
-};
-*/
 
 
 
@@ -109,10 +65,25 @@ lgb.core.DebugLGB.prototype.filterPackages3 = function(packages) {
 
             if (isValid) {
               var level3 = level2[packageAry[2]];
+              
               if (packageAry.length < 4) {
                 filtered.push(packageName);
                 filteredAry.push(packageAry);
-              } else { debugger;
+              } else { 
+                isValid = (level3.hasOwnProperty(packageAry[3]));
+                
+                if (isValid) {
+                  var level4 = level3[packageAry[3]];
+                  if (packageAry.length < 5) {
+                    filtered.push(packageName);
+                    filteredAry.push(packageAry);
+                  } else {
+                    debugger;
+                  } 
+                  
+                  
+                }
+                
               }
             }
 
@@ -148,6 +119,8 @@ lgb.core.DebugLGB.prototype.getPackages3 = function() {
     'lgb.simulation.controller',
     'lgb.simulation.events',
     'lgb.simulation.model',
+    'lgb.simulation.model.voManaged',
+    'lgb.simulation.model.voNative',
     
     'lgb.utils',
     

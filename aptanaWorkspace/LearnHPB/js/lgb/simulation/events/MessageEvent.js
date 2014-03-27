@@ -37,16 +37,9 @@ lgb.simulation.events.MessageEvent.fromJson = function(deserializedObj) {
 };
 
 
-lgb.simulation.events.MessageEvent.deserializeMap_ = {
-  "MessageStruct":lgb.simulation.model.voNative.MessageStruct 
+
+lgb.simulation.events.MessageEvent.prototype.getPayloadType = function() {
+  return lgb.simulation.model.voNative.MessageStruct;
 };
 
 
-
-
-/**
- * Server type
- * @const
- * @type {string}
- */
-lgb.simulation.events.MessageEvent.SERVER_TYPE = 'com.sri.straylight.fmuWrapper.event.MessageEvent';

@@ -12,7 +12,7 @@ goog.require('lgb.simulation.controller.JsonController');
 
 goog.require('lgb.simulation.model.MainModel');
 goog.require('lgb.simulation.model.WebSocketConnectionState');
-goog.require('lgb.simulation.model.voNative.SimStateNative');
+goog.require('lgb.simulation.model.voNative.SimStateNativeEnum');
 goog.require('lgb.simulation.model.WebSocketConnectionStateRequest');
 goog.require('lgb.simulation.model.voNative.ScalarValueRealStruct');
 goog.require('lgb.simulation.model.voManaged.ScalarValueCollection');
@@ -203,6 +203,18 @@ lgb.simulation.controller.MainController.prototype.attachToSession = function(se
   
   
 };
+
+lgb.simulation.controller.MainController.prototype.getInfo = function() {
+  
+  var payload = new lgb.simulation.model.voManaged.SessionControl(1, 0);
+  var event = new lgb.simulation.events.SessionControlEvent(payload);
+  
+  this.serializeAndSend(event);
+  
+  
+};
+
+
 
 
 lgb.simulation.controller.MainController.prototype.onSetRemoteHost_ = function(event) {

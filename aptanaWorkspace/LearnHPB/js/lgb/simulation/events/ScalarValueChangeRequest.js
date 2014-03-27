@@ -5,9 +5,9 @@
  
 goog.provide('lgb.simulation.events.ScalarValueChangeRequest');
 goog.require('lgb.simulation.events.BaseEvent');
-goog.require('lgb.simulation.model.voNative.SimStateNative');
+goog.require('lgb.simulation.model.voManaged.ScalarValueCollection');
 
-/**
+/**lgb.simulation.model.voNative.SimStateNativeEnum
  * @constructor
  * @param {lgb.scenario.model.Base} scenarioBase The Data Model.
  * @extends {goog.events.Event}
@@ -19,10 +19,7 @@ goog.inherits(lgb.simulation.events.ScalarValueChangeRequest, lgb.simulation.eve
 
 
 
-
-
-lgb.simulation.events.ScalarValueChangeRequest.prototype.toJson = function() {
-    return this.toJsonBase_();
+ 
+lgb.simulation.events.ScalarValueChangeRequest.prototype.getPayloadType = function() {
+  return lgb.simulation.model.voManaged.ScalarValueCollection;
 };
-
-

@@ -61,8 +61,7 @@ test.includes.MainLibs.addOneCssScript = function(path, name) {
 
 
 
-
-test.includes.MainLibs.standAloneWithCharting = function() {
+test.includes.MainLibs.chartIframeJs = function() {
   
     
    test.includes.MainLibs.standAlone();
@@ -78,6 +77,23 @@ test.includes.MainLibs.standAloneWithCharting = function() {
       );  
     
 };
+
+test.includes.MainLibs.chartIframeCss = function() {
+  
+   test.includes.MainLibs.addOneCssScript("css/", "tipped");
+   test.includes.MainLibs.addOneCssScript("css/", "normalize");
+   
+   test.includes.MainLibs.addOneCssScript("css/", "kendo.common");
+   test.includes.MainLibs.addOneCssScript("css/", "kendo.lgb");
+
+   test.includes.MainLibs.addOneCssScript("css/", "panels");
+   test.includes.MainLibs.addOneCssScript("css/", "lhpb");
+   test.includes.MainLibs.addOneCssScript("css/", "chartIframe");
+
+
+};
+
+
 
 test.includes.MainLibs.standAlone = function() {
   
@@ -97,45 +113,6 @@ test.includes.MainLibs.standAlone = function() {
 
       
 };
-
-test.includes.MainLibs.standAloneCss = function() {
-  
-   test.includes.MainLibs.addOneCssScript("css/", "tipped");
-   test.includes.MainLibs.addOneCssScript("css/", "normalize");
-   
-   test.includes.MainLibs.addOneCssScript("css/", "kendo.common");
-   test.includes.MainLibs.addOneCssScript("css/", "kendo.lgb");
-
-   test.includes.MainLibs.addOneCssScript("css/", "panels");
-   test.includes.MainLibs.addOneCssScript("css/", "lhpb");
-
-
-};
-
-
-
-// 
-// 
-// test.includes.MainLibs.initGraph2 = function() {
-//   
-  // test.includes.MainLibs.addScripts(
-    // "js/lib/", 
-    // ["d3.v3"]
-    // );  
-//     
-// };
-// 
-// 
-// 
-// test.includes.MainLibs.initGraph = function() {
-//   
-  // test.includes.MainLibs.addScripts(
-    // "js/lib/", 
-    // ["d3", "crossfilter", "dc", "colorbrewer"]
-    // );  
-//     
-// };
-// 
 
 
 

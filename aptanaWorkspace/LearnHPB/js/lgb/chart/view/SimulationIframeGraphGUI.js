@@ -18,45 +18,9 @@ lgb.chart.view.SimulationIframeGraphGUI.prototype.init = function() {
 
     this.sessionID_ = 'last';
     this.server_ = 'localhost';
-    
-    //this.listenForChange_('scalarValueResultsConverted');
-   // this.listenForChange_('xmlParsedInfo');
-       
-    this.triggerLocal(e.RequestAddToParentGUI);
 
 };
 
-
-
-// lgb.chart.view.SimulationIframeGraphGUI.prototype.onChange_xmlParsedInfo_ = function(xmlParsedInfo) {
-//   
-// 
-  // var p = this.getParentElement().parent();
-  // var width = p.width() - 36;
-  // var height = p.height();
-// 
-  // var src = "/LearnHPB/test/chart_05.html?width={0}&height={1}&sessionID={2}".format(width, height, xmlParsedInfo.sessionID_);
-  // this.iframe.attr("src", src);
-//   
-  // this.xmlParsedInfo = xmlParsedInfo;
-//   
-  // return;
-//   
-// };
-// 
-// 
-// lgb.chart.view.SimulationIframeGraphGUI.prototype.onChange_scalarValueResultsConverted_ = function(scalarValueResultsConverted) {
-//   
-  // var realList = scalarValueResultsConverted.output.realList;
-  // var newRecord = { time: scalarValueResultsConverted.time_};
-//   
-  // var testTempRealVo = scalarValueResultsConverted.output.realList[7];
-//   
-// 
-//     
-  // return;
-//   
-// };
 
 
 
@@ -90,7 +54,7 @@ lgb.chart.view.SimulationIframeGraphGUI.prototype.injectInto = function(parentEl
   
   var sessionID = this.dataModel.xmlParsedInfo.sessionID_;
 
-  var src = "/LearnHPB/test/chart_05.html?width={0}&height={1}&sessionID={2}"
+  var src = "/LearnHPB/test/chart_04.html?width={0}&height={1}&sessionID={2}"
   .format(this.width, this.height, sessionID);
   
   //this.iframe.attr("src", src);

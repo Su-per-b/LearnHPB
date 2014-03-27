@@ -11,8 +11,8 @@ goog.require('lgb.simulation.model.WebSocketConnectionStateRequest');
 goog.require('lgb.simulation.events.BaseEvent');
 goog.require('lgb.simulation.model.WSConnectionState');
 goog.require('lgb.simulation.events.SimStateNativeRequest');
+goog.require('lgb.simulation.model.voNative.SimStateNativeEnum');
 goog.require('lgb.simulation.model.voNative.SimStateNative');
-goog.require('lgb.simulation.model.SimStateNativeWrapper');
 
 
 lgb.gui.view.SimulationStateControlGUIh = function(dataModel) {
@@ -48,7 +48,7 @@ lgb.gui.view.SimulationStateControlGUIh.prototype.onChange_scalarValueResultsCon
 lgb.gui.view.SimulationStateControlGUIh.prototype.onChange_simStateNative_ = function(stateObject) {
   
 
-  //var stateObject = new lgb.simulation.model.SimStateNativeWrapper(simStateNative);
+  //var stateObject = new lgb.simulation.model.voNative.SimStateNative(simStateNative);
   goog.asserts.assert(stateObject, "stateObject not set");
 
   var str = stateObject.getString();
@@ -144,7 +144,7 @@ lgb.gui.view.SimulationStateControlGUIh.prototype.injectInto = function(parentEl
 
 
   this.simControlButtons_ = new Array();
-  var SimStateNative = lgb.simulation.model.voNative.SimStateNative;
+  var SimStateNative = lgb.simulation.model.voNative.SimStateNativeEnum;
   
   
   this.makeLink2_('Connect~', 'connect-link', SimStateNative.simStateNative_1_connect_requested);
@@ -225,10 +225,10 @@ lgb.gui.view.SimulationStateControlGUIh.prototype.makeLink1_ = function(label, c
 lgb.gui.view.SimulationStateControlGUIh.prototype.onClickSimStateNativeRequest_ = function(event) {
   
     var simStateInt = event.target.ds.clickPayload;
-    var simStateWrapper = new lgb.simulation.model.SimStateNativeWrapper(simStateInt);
+    var simStateNative = new lgb.simulation.model.voNative.SimStateNative(simStateInt);
     
-    var e = new lgb.simulation.events.SimStateNativeRequest(simStateWrapper);
-    this.dispatchLocal(e);
+    var newEvent = new lgb.simulation.events.SimStateNativeRequest(simStateNative);
+    this.dispatchLocal(newEvent);
 };
 
 

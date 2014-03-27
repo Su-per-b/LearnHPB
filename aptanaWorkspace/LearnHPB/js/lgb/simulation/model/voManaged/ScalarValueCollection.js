@@ -23,14 +23,14 @@ lgb.simulation.model.voManaged.ScalarValueCollection.fromJson = function(deseria
 
 
 
-lgb.simulation.model.voManaged.ScalarValueCollection.prototype.toJsonObj = function() {
+lgb.simulation.model.voManaged.ScalarValueCollection.prototype.getJsonObj = function() {
     
     
-    var realobjs = this.getJsonObjs(this.realList_);
-    var boolobjs = this.getJsonObjs(this.booleanList_);
+    var realobjs = this.getJsonObjList(this.realList_);
+    var boolobjs = this.getJsonObjList(this.booleanList_);
     
     var jsonObj = {
-      type : lgb.simulation.model.voManaged.ScalarValueCollection.SERVER_TYPE,
+      type : 'com.sri.straylight.fmuWrapper.voManaged.ScalarValueCollection',
       realList : realobjs,
       booleanList : boolobjs
     };
@@ -42,7 +42,7 @@ lgb.simulation.model.voManaged.ScalarValueCollection.prototype.toJsonObj = funct
 
 
 
-lgb.simulation.model.voManaged.ScalarValueCollection.prototype.getJsonObjs = function(theList) {
+lgb.simulation.model.voManaged.ScalarValueCollection.prototype.getJsonObjList = function(theList) {
   
     var objs = [];
     var len = theList.length;
@@ -56,8 +56,4 @@ lgb.simulation.model.voManaged.ScalarValueCollection.prototype.getJsonObjs = fun
   
 };
 
-
-
-lgb.simulation.model.voManaged.ScalarValueCollection.SERVER_TYPE =
-'com.sri.straylight.fmuWrapper.voManaged.ScalarValueCollection';
 

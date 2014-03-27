@@ -7,7 +7,7 @@ goog.provide('lgb.simulation.model.MainModel');
 
 goog.require('lgb.world.model.BaseModel');
 goog.require('lgb.core.Config');
-goog.require('lgb.simulation.model.voNative.SimStateNative');
+goog.require('lgb.simulation.model.voNative.SimStateNativeEnum');
 goog.require('lgb.simulation.model.WebSocketConnectionState');
 
 
@@ -22,7 +22,7 @@ lgb.simulation.model.MainModel = function() {
   this._TITLE = 'MainModel';
   lgb.world.model.BaseModel.call(this);
 
-  this.simStateNative = lgb.simulation.model.voNative.SimStateNative.simStateNative_0_uninitialized;
+  this.simStateNative = lgb.simulation.model.voNative.SimStateNativeEnum.simStateNative_0_uninitialized;
   this.webSocketConnectionState = lgb.simulation.model.WebSocketConnectionState.uninitialized;
   
   this.socketServerURL = null;
@@ -193,7 +193,6 @@ lgb.simulation.model.MainModel.prototype.setXmlParseInfo = function(xmlParseInfo
   
   var varList = xmlParseInfo.scalarVariablesAll_.input_.realVarList_;
   this.each(varList, this.idxOne_);
-  
   
   
   this.dispatchChangedEx('xmlParsedInfo', xmlParseInfo);

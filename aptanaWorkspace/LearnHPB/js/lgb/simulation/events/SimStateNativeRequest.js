@@ -19,7 +19,19 @@ goog.inherits(lgb.simulation.events.SimStateNativeRequest, lgb.simulation.events
 
 
 
-lgb.simulation.events.SimStateNativeRequest.prototype.toJson = function() {
-    return this.toJsonBase_();
+
+
+lgb.simulation.events.SimStateNativeRequest.fromJson = function(deserializedObj) {
+    
+    var intValue =  deserializedObj.payload.intValue;
+    var payload = new lgb.simulation.model.voNative.SimStateNative(intValue);
+    
+    var instance = new lgb.simulation.events.SimStateNativeRequest(payload);
+    return instance;
+    
 };
 
+
+lgb.simulation.events.SimStateNativeRequest.prototype.getPayloadType = function() {
+  return lgb.simulation.model.voNative.SimStateNative;
+};

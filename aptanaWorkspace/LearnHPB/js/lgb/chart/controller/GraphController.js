@@ -7,7 +7,7 @@
 goog.provide('lgb.chart.controller.GraphController');
 
 goog.require('lgb.core.BaseController');
-goog.require('lgb.chart.view.GraphGUIStandAlone');
+goog.require('lgb.chart.view.GraphGUI_04');
 goog.require('lgb.chart.model.GraphGUImodel');
 
 
@@ -32,7 +32,7 @@ lgb.chart.controller.GraphController.prototype.init = function(simulationModel) 
   this.dataModel = simulationModel;
           
   var chartModel = new lgb.chart.model.GraphGUImodel();
-  this.guiView = new lgb.chart.view.GraphGUI_05 ( this.dataModel, chartModel );
+  this.guiView = new lgb.chart.view.GraphGUI_04 ( this.dataModel, chartModel );
 
   this.triggerGUI();
   

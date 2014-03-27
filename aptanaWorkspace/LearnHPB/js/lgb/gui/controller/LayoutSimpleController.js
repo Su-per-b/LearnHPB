@@ -13,8 +13,9 @@ goog.require('lgb.gui.view.LayoutSimpleView');
 goog.require('lgb.gui.model.LayoutModel');
 
 goog.require('lgb.gui.controller.LeftPanelSimpleController');
-goog.require('lgb.gui.controller.BottomPanelGUIController');
 goog.require('lgb.gui.controller.ButtonsTopRightHUDController');
+
+goog.require('lgb.gui.controller.BottomPanelIframeGUIController');
 
 /**
  * MVC controller for the App
@@ -44,7 +45,7 @@ lgb.gui.controller.LayoutSimpleController.prototype.init = function() {
     
     this.leftPanelSimpleController_ = this.makeChildGUIcontroller_(lgb.gui.controller.LeftPanelSimpleController);
     this.buttonsTopRightHUDController_ = this.makeChildGUIcontroller_(lgb.gui.controller.ButtonsTopRightHUDController);
-    this.bottomPanelGUIController_ = this.makeChildGUIcontroller_(lgb.gui.controller.BottomPanelGUIController);
+    this.bottomPanelGUIController_ = this.makeChildGUIcontroller_(lgb.gui.controller.BottomPanelIframeGUIController);
     
 };
 

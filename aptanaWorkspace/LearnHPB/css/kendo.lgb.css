@@ -1,3 +1,14 @@
+/* Reset fonts size for lower right panel */
+.k-pane {
+  font-size: 85%;
+  color: #1883B8;
+}
+
+/* Typography */
+.k-header {
+  text-transform: capitalize;
+}
+
 /* Kendo skin */
 .k-in,
 .k-item,
@@ -358,7 +369,10 @@ html .km-pane-wrapper .k-header {
 .k-panel > li.k-item {
   background-color: #ffffff;
 }
-/* states */
+
+/* STATES */
+
+/* selected state */
 .k-state-active,
 .k-state-active:hover,
 .k-active-filter,
@@ -473,7 +487,7 @@ td.k-state-focused.k-state-selected {
 .k-ie7 .k-tool.k-state-hover,
 .k-ie7 .k-button:focus,
 .k-ie7 .k-button.k-state-focused {
-  background-color: #1e90ff;
+  /*background-color: #1e90ff;*/
 }
 .k-list > .k-state-selected.k-state-focused {
   -webkit-box-shadow: none;
@@ -512,7 +526,7 @@ td.k-state-focused.k-state-selected {
 .k-mobile-list .k-scheduler-timezones .k-edit-field:nth-child(2):active,
 .k-mobile-list .k-recur-view .k-check:active {
   color: #ffffff;
-  background-color: #1e90ff;
+  /*background-color: #1e90ff;*/
   border-color: #2d57c2;
 }
 .k-ie7 .k-window-titlebar .k-state-hover,
@@ -924,7 +938,7 @@ div.k-imagebrowser-dropzone em {
 .k-dropdown-wrap.k-state-border-down,
 .k-picker-wrap.k-state-border-down,
 .k-numeric-wrap.k-state-border-down {
-  border-radius: 10px 10px 0 0;
+  border-radius: 5px 5px 0 0;
 }
 .k-dropdown-wrap .k-input,
 .k-picker-wrap .k-input,
@@ -1117,14 +1131,14 @@ html .km-pane-wrapper .km-widget,
   background-image: none, -o-linear-gradient(top, none);
   background-image: none, linear-gradient(to bottom, none);
   background-position: 50% 50%;
-  background-color: #161414;
+  /*background-color: #161414;*/
   border-color: #284ead;
 }
 .k-autocomplete.k-state-hover,
 .k-picker-wrap.k-state-hover,
 .k-numeric-wrap.k-state-hover,
 .k-dropdown-wrap.k-state-hover {
-  background-color: #423c3c;
+  /*background-color: #423c3c;*/
   background-image: none;
   background-image: none, -webkit-linear-gradient(top, none);
   background-image: none, -moz-linear-gradient(top, none);
@@ -1144,7 +1158,7 @@ html .km-pane-wrapper .km-widget,
 .k-numeric-wrap.k-state-focused,
 .k-dropdown-wrap.k-state-focused,
 .k-multiselect.k-header.k-state-focused {
-  background-color: #423c3c;
+ /* background-color: #423c3c;*/
   background-image: none;
   background-image: none, -webkit-linear-gradient(top, none);
   background-image: none, -moz-linear-gradient(top, none);
@@ -1174,15 +1188,17 @@ html .km-pane-wrapper .km-widget,
 }
 .k-tabstrip-items .k-state-default .k-link,
 .k-panelbar > li.k-state-default > .k-link {
-  color: #787878;
+  color: #25549F;
+
 }
 .k-tabstrip-items .k-state-hover .k-link,
 .k-panelbar > li.k-state-hover > .k-link,
 .k-panelbar > li.k-state-default > .k-link.k-state-hover {
-  color: #ffffff;
+  color: #3976CF;
+  background: none;
 }
 .k-panelbar .k-state-focused.k-state-hover {
-  background: #1e90ff;
+/*  background: #1e90ff;*/
   -webkit-box-shadow: none;
   box-shadow: none;
 }
@@ -1196,8 +1212,8 @@ html .km-pane-wrapper .km-widget,
 }
 .k-tabstrip-items .k-state-active,
 .k-ie7 .k-tabstrip-items .k-state-active .k-loading {
-  background-color: #ffffff;
-  background-image: none;
+/*  background-color: #ffffff;
+*/  background-image: none;
   background-image: none, -webkit-linear-gradient(top, none);
   background-image: none, -moz-linear-gradient(top, none);
   background-image: none, -o-linear-gradient(top, none);
@@ -1319,6 +1335,25 @@ a:focus,
 button:focus {
   outline: none;
 }
+
+
+
+
+/* TabStrip Loading Progress */
+.k-tabstrip-items .k-loading {
+  border-top: none;
+}
+
+/* TabStrip */
+.k-tabstrip .k-tabstrip-items {
+  padding: 0.3em 0.3em 0;
+}
+.k-tabstrip-items .k-link,
+.k-panelbar .k-tabstrip-items .k-link {
+  padding: .05em .92em;
+}
+
+
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
   .k-icon:not(.k-loading),
   .k-grouping-dropclue,

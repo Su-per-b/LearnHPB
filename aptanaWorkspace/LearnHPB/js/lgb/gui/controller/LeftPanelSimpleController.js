@@ -62,7 +62,7 @@ lgb.gui.controller.LeftPanelSimpleController.prototype.bind_ = function() {
 //   
   // var theInt = simStateNativeWrapper.getInteger();
 //   
-  // if (theInt == lgb.simulation.model.voNative.SimStateNative.simStateNative_3_ready) {
+  // if (theInt == lgb.simulation.model.voNative.SimStateNativeEnum.simStateNative_3_ready) {
 //     
     // this.unlisten (this.simStateNativeNotifyKey_);
     // this.makeChildGUIcontroller_(lgb.gui.controller.ScenarioMasterController);

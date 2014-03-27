@@ -25,3 +25,7 @@ lgb.simulation.events.SessionControlEvent.prototype.toJson = function() {
     return this.toJsonBase_();
 };
 
+ 
+lgb.simulation.events.SessionControlEvent.prototype.getPayloadType = function() {
+  return lgb.simulation.model.voManaged.SessionControl;
+};
