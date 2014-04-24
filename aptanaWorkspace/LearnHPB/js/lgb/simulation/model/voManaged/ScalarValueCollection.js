@@ -1,59 +1,34 @@
 goog.provide('lgb.simulation.model.voManaged.ScalarValueCollection');
 
+
+goog.require('lgb.simulation.model.BaseModel');
 goog.require('lgb.simulation.model.voManaged.ScalarValueReal');
+goog.require('lgb.simulation.model.voManaged.SerializableVector');
 
-lgb.simulation.model.voManaged.ScalarValueCollection = function(realList, booleanList) {
+
+lgb.simulation.model.voManaged.ScalarValueCollection = function(realList) {
   
-
-  this.valueList_ = [];
-  this.realList_ = realList || [];
-  this.booleanList_ = booleanList || [];
+  this.realList_ = realList;
 
 };
-
-
-lgb.simulation.model.voManaged.ScalarValueCollection.fromJson = function(deserializedObj) {
-
-    var typedObj = new lgb.simulation.model.voManaged.ScalarValueCollection();
-   
-    return typedObj;
-
-};
+goog.inherits(lgb.simulation.model.voManaged.ScalarValueCollection, lgb.simulation.model.BaseModel);
 
 
 
-
-lgb.simulation.model.voManaged.ScalarValueCollection.prototype.getJsonObj = function() {
-    
-    
-    var realobjs = this.getJsonObjList(this.realList_);
-    var boolobjs = this.getJsonObjList(this.booleanList_);
-    
-    var jsonObj = {
-      type : 'com.sri.straylight.fmuWrapper.voManaged.ScalarValueCollection',
-      realList : realobjs,
-      booleanList : boolobjs
-    };
-    
-    
-    return jsonObj;
-
+lgb.simulation.model.voManaged.ScalarValueCollection.prototype.getRealList = function() {
+  return  this.realList_;
 };
 
 
 
-lgb.simulation.model.voManaged.ScalarValueCollection.prototype.getJsonObjList = function(theList) {
+lgb.simulation.model.voManaged.ScalarValueCollection.fieldObjectsEx_ = {
   
-    var objs = [];
-    var len = theList.length;
-    
-    for (var i=0; i < len; i++) {
-      var jsonObj = theList[i].toJsonObj();
-      objs.push(jsonObj);
-    };
-  
-  return objs;
-  
+   realList_: {
+     jsonFieldName : "realList",
+     classReference : lgb.simulation.model.voManaged.SerializableVector,
+     itemTypeString : "ScalarValueReal"
+   }
+       
 };
 
 

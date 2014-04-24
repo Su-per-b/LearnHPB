@@ -54,7 +54,7 @@ lgb.chart.view.SimulationIframeGraphGUI.prototype.injectInto = function(parentEl
   
   var sessionID = this.dataModel.xmlParsedInfo.sessionID_;
 
-  var src = "/LearnHPB/test/chart_04.html?width={0}&height={1}&sessionID={2}"
+  var src = "/LearnHPB/chartIframe.html?width={0}&height={1}&sessionID={2}"
   .format(this.width, this.height, sessionID);
   
   //this.iframe.attr("src", src);

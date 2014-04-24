@@ -21,7 +21,6 @@ goog.inherits(lgb.simulation.events.ResultEventList, lgb.simulation.events.BaseE
 
 
 
-
  
 lgb.simulation.events.ResultEventList.prototype.getPayloadType = function() {
   return Array;

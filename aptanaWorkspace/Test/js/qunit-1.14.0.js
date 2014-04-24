@@ -1540,6 +1540,14 @@ assert = QUnit.assert = {
     QUnit.push( expected == actual, actual, expected, message );
   },
 
+  assertEquals: function(  expected, actual, message ) {
+    /*jshint eqeqeq:false */
+    QUnit.push( expected == actual, actual, expected, message );
+  },
+
+
+
+
   /**
    * @name notEqual
    * @function

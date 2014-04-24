@@ -23,16 +23,6 @@ goog.inherits(lgb.simulation.events.SimStateNativeNotify, lgb.simulation.events.
 
 
 
-lgb.simulation.events.SimStateNativeNotify.fromJson = function(deserializedObj) {
-    
-    
-    var intValue =  deserializedObj.payload.intValue;
-    var payload = new lgb.simulation.model.voNative.SimStateNative(intValue);
-    
-    var instance = new lgb.simulation.events.SimStateNativeNotify(payload);
-    return instance;
-    
-};
 
 
 lgb.simulation.events.SimStateNativeNotify.prototype.getPayloadType = function() {

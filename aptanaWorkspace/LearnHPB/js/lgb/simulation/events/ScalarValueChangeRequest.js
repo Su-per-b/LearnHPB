@@ -7,11 +7,7 @@ goog.provide('lgb.simulation.events.ScalarValueChangeRequest');
 goog.require('lgb.simulation.events.BaseEvent');
 goog.require('lgb.simulation.model.voManaged.ScalarValueCollection');
 
-/**lgb.simulation.model.voNative.SimStateNativeEnum
- * @constructor
- * @param {lgb.scenario.model.Base} scenarioBase The Data Model.
- * @extends {goog.events.Event}
- */
+
 lgb.simulation.events.ScalarValueChangeRequest = function(payload) {
   lgb.simulation.events.BaseEvent.call(this, payload);
 };

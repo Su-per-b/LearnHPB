@@ -63,7 +63,7 @@ lgb.gui.view.SimulationStateControlGUI.prototype.onChange_simStateNative_ = func
     debugger;  
   }
   
-  var msg = "{0}:{1}".format(stateObject.getInteger(), stateObject.getString());
+  var msg = "{0}:{1}".format(stateObject.getIntValue(), stateObject.getString());
   this.simStatus_.html (msg);
   this.each(this.simControlButtons_, this.checkIfButtonEnabled_, stateObject);
 
@@ -78,7 +78,7 @@ lgb.gui.view.SimulationStateControlGUI.prototype.onChange_webSocketConnectionSta
   var canConnect = stateObject.canRequestTransitionTo(lgb.simulation.model.WSConnectionState.ENUM.opened);
   var canDisconnect = stateObject.canRequestTransitionTo(lgb.simulation.model.WSConnectionState.ENUM.closed);
   
-  var msg = "{0}:{1}".format(stateObject.getInteger(), stateObject.getString());
+  var msg = "{0}:{1}".format(stateObject.getIntValue(), stateObject.getString());
   this.wsStatus_.html (msg);
   
   this.wsConnectLink_.setEnabled(canConnect);
@@ -154,7 +154,8 @@ lgb.gui.view.SimulationStateControlGUI.prototype.injectInto = function(parentEle
 
   
   this.simControlButtons_ = new Array();
-  var SimStateNative = lgb.simulation.model.voNative.SimStateNativeEnum;
+  //var SimStateNative = lgb.simulation.model.voNative.SimStateNativeEnum;
+  var SimStateNative = lgb.simulation.model.voNative.SimStateNative.ENUM;
   
   
   this.makeLink2_('Connect~', 'connect-link', SimStateNative.simStateNative_1_connect_requested);

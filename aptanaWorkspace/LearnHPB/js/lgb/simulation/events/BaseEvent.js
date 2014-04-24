@@ -20,66 +20,22 @@ lgb.simulation.events.BaseEvent = function(payload) {
   
   
 
-  goog.events.Event.call( this, this.getLocalTypeString() );
+  goog.events.Event.call( this, this.getClassName() );
   
-  this.setPayload(payload);
+  if (undefined != payload) {
+    this.setPayload(payload);
+  }
+
   
 };
 goog.inherits(lgb.simulation.events.BaseEvent, goog.events.Event);
 
 
 
-lgb.simulation.events.BaseEvent.prototype.getLocalTypeString = function() {
-  
-  var fullClassName = this.getFullClassName();
-  return fullClassName;
-  
-};
-
-lgb.simulation.events.BaseEvent.prototype.getRemoteTypeString = function() {
-  
-    var className = this.getClassName();
-    var typeStr = "com.sri.straylight.fmuWrapper.event." + className;
-    
-    return typeStr;
-};
 
 
 //must implement in subclass
 lgb.simulation.events.BaseEvent.prototype.getPayloadType = function() { debugger;};
-
-
-
-
-lgb.simulation.events.BaseEvent.prototype.toJson = function() {
-    
-    var jsonObj = this.getJsonObj();
-    
-    var jsonStr = lgb.simulation.controller.JsonController.stringify(jsonObj);
-    return jsonStr;
-};
-
-
-lgb.simulation.events.BaseEvent.prototype.getJsonObj = function() {
-    
-    var jsonObj = {
-      type:this.getRemoteTypeString(),
-      payload:this.payload_.getJsonObj()
-    };
-    
-    return jsonObj;
-};
-    
-    
-
-
-lgb.simulation.events.BaseEvent.prototype.toJson = function() {
-    
-    var jsonObj = this.getJsonObj();
-    
-    var jsonStr = lgb.simulation.controller.JsonController.stringify(jsonObj);
-    return jsonStr;
-};
 
 
 
@@ -111,6 +67,38 @@ lgb.simulation.events.BaseEvent.prototype.getClassName = function() {
 };
 
 
+
+
+lgb.simulation.events.BaseEvent.prototype.toJSON = function() { 
+    return this.toJSONHelper_();
+};
+
+lgb.simulation.events.BaseEvent.prototype.toJSONHelper_ = function() {
+    
+    var jsonObj = {
+      t:this.getClassName(),
+      payload:this.payload_
+    };
+    
+    return jsonObj;
+};
+
+
+
+lgb.simulation.events.BaseEvent.prototype.fromJSON = function(deserializedObj) {
+  this.fromJSONHelper_(deserializedObj);
+};
+
+
+
+lgb.simulation.events.BaseEvent.prototype.fromJSONHelper_ = function(deserializedObj) {
+    
+  var payloadClassReference = this.getPayloadType();
+  this.payload_ = new payloadClassReference();
+  
+  this.payload_.fromJSON(deserializedObj.payload);
+  
+};
 
 
 

@@ -12,7 +12,6 @@ goog.require('lgb.simulation.controller.JsonController');
 
 goog.require('lgb.simulation.model.MainModel');
 goog.require('lgb.simulation.model.WebSocketConnectionState');
-goog.require('lgb.simulation.model.voNative.SimStateNativeEnum');
 goog.require('lgb.simulation.model.WebSocketConnectionStateRequest');
 goog.require('lgb.simulation.model.voNative.ScalarValueRealStruct');
 goog.require('lgb.simulation.model.voManaged.ScalarValueCollection');
@@ -53,10 +52,7 @@ lgb.simulation.controller.MainController.prototype.init = function() {
     this.clearResultEventQueueDelegate_ = this.d(this.clearResultEventqueue_),
     this.resultEventQueueIntervalHandle_ = null;
     
-    
-
     this.bind_();
-
     this.setRemoteHost_();
 
 };
@@ -235,7 +231,7 @@ lgb.simulation.controller.MainController.prototype.onRequestModelicaVariableChan
   
   var theVar = this.dataModel.getIdxFromModelicaName(event.payload.modName);
   var floatValue = event.payload.value;
-  var idx = theVar.idx_;
+  var idx = theVar.idx;
   
   var scalarValueReal = new lgb.simulation.model.voManaged.ScalarValueReal(idx, floatValue);
   var collection = new lgb.simulation.model.voManaged.ScalarValueCollection([scalarValueReal], []);
@@ -254,7 +250,7 @@ lgb.simulation.controller.MainController.prototype.onSimStateNativeNotify_ = fun
   this.dataModel.changePropertyEx('simStateNative', simStateNativeWrapper);
   this.dispatch(event);
   
-  var theInt = simStateNativeWrapper.getInteger();
+  var theInt = simStateNativeWrapper.getIntValue();
   var theString = simStateNativeWrapper.getString();
   
   //fix for init_completed not reported
@@ -409,7 +405,7 @@ lgb.simulation.controller.MainController.prototype.connect = function(connectFla
 
 lgb.simulation.controller.MainController.prototype.serializeAndSend = function(event) {
 
-    var jsonString = event.toJson();
+    var jsonString = event.toJsonString();
     var state = this.dataModel.getWebSocketConnectionState();
 
     if (state == lgb.simulation.model.WebSocketConnectionState.uninitialized) {
@@ -454,7 +450,7 @@ lgb.simulation.controller.MainController.prototype.onMessage_ = function(event) 
         var jsonString = event.data;
         console.log("SimulationController.onMessage_() - " + jsonString);
 
-        var event = this.jsonController_.deSerialize(jsonString);
+        var event = this.jsonController_.deserialize(jsonString);
 
         
         this.dispatchLocal(event);

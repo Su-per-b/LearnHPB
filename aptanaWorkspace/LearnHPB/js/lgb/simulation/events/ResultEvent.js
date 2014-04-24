@@ -21,16 +21,6 @@ goog.inherits(lgb.simulation.events.ResultEvent, lgb.simulation.events.BaseEvent
 
 
 
-
-lgb.simulation.events.ResultEvent.fromJson = function(deserializedObj) {
-
-    var scalarValueResults =  lgb.simulation.model.voManaged.ScalarValueResults.fromJson(deserializedObj.payload);
-    
-    var instance= new lgb.simulation.events.ResultEvent(scalarValueResults);
-    return instance;
-};
-
- 
 lgb.simulation.events.ResultEvent.prototype.getPayloadType = function() {
   return lgb.simulation.model.voManaged.ScalarValueResults;
 };

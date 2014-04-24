@@ -32,7 +32,7 @@ lgb.gui.view.SimulationTestGUI.prototype.calculateLayout = function() {
   
   this.kendoGridContent_.css("height", cssStr);
      
-  //var data = this.gridDS_.options.data[0].idx_ += 1;
+  //var data = this.gridDS_.options.data[0].idx += 1;
   //this.gridDS_.read();
   
   return;
@@ -55,175 +55,175 @@ lgb.gui.view.SimulationTestGUI.prototype.makeVariablesTest_ = function() {
 
 var variables = [
   {
-    causality_ : 7,
-    description_ :  "outputs related to hot water system",
-    idx_ : 61807,
-    name_ : "y_BOI[1]",
+    causality : 7,
+    description :  "outputs related to hot water system",
+    idx : 61807,
+    name : "y_BOI[1]",
     type : "com.sri.straylight.fmuWrapper.voManaged.ScalarVariableReal"
     
   }, 
   
   {
-    causality_ : 8,
-    description_ :  "outputs related to hot  ",
-    idx_ : 61807,
-    name_ : "y_BOI[2]",
+    causality : 8,
+    description :  "outputs related to hot  ",
+    idx : 61807,
+    name : "y_BOI[2]",
     type : "com.sri.straylight.fmuWrapper.voManaged.ScalarVariableReal"
     
   },
   
   {
-    causality_ : 7,
-    description_ :  "outputs related to hot water system",
-    idx_ : 61807,
-    name_ : "y_BOI[1]",
+    causality : 7,
+    description :  "outputs related to hot water system",
+    idx : 61807,
+    name : "y_BOI[1]",
     type : "com.sri.straylight.fmuWrapper.voManaged.ScalarVariableReal"
     
   }, 
   
   {
-    causality_ : 8,
-    description_ :  "outputs related to hot  ",
-    idx_ : 61807,
-    name_ : "y_BOI[2]",
+    causality : 8,
+    description :  "outputs related to hot  ",
+    idx : 61807,
+    name : "y_BOI[2]",
     type : "com.sri.straylight.fmuWrapper.voManaged.ScalarVariableReal"
     
   },
   
   {
-    causality_ : 7,
-    description_ :  "outputs related to hot water system",
-    idx_ : 61807,
-    name_ : "y_BOI[1]",
+    causality : 7,
+    description :  "outputs related to hot water system",
+    idx : 61807,
+    name : "y_BOI[1]",
     type : "com.sri.straylight.fmuWrapper.voManaged.ScalarVariableReal"
     
   }, 
   {
-    causality_ : 7,
-    description_ :  "outputs related to hot water system",
-    idx_ : 61807,
-    name_ : "y_BOI[1]",
+    causality : 7,
+    description :  "outputs related to hot water system",
+    idx : 61807,
+    name : "y_BOI[1]",
     type : "com.sri.straylight.fmuWrapper.voManaged.ScalarVariableReal"
     
   }, 
   {
-    causality_ : 7,
-    description_ :  "outputs related to hot water system",
-    idx_ : 61807,
-    name_ : "y_BOI[1]",
+    causality : 7,
+    description :  "outputs related to hot water system",
+    idx : 61807,
+    name : "y_BOI[1]",
     type : "com.sri.straylight.fmuWrapper.voManaged.ScalarVariableReal"
     
   }, 
   {
-    causality_ : 7,
-    description_ :  "outputs related to hot water system",
-    idx_ : 61807,
-    name_ : "y_BOI[1]",
+    causality : 7,
+    description :  "outputs related to hot water system",
+    idx : 61807,
+    name : "y_BOI[1]",
     type : "com.sri.straylight.fmuWrapper.voManaged.ScalarVariableReal"
     
   }, 
   {
-    causality_ : 7,
-    description_ :  "outputs related to hot water system",
-    idx_ : 61807,
-    name_ : "y_BOI[1]",
+    causality : 7,
+    description :  "outputs related to hot water system",
+    idx : 61807,
+    name : "y_BOI[1]",
     type : "com.sri.straylight.fmuWrapper.voManaged.ScalarVariableReal"
     
   }, 
   {
-    causality_ : 7,
-    description_ :  "outputs related to hot water system",
-    idx_ : 61807,
-    name_ : "y_BOI[1]",
+    causality : 7,
+    description :  "outputs related to hot water system",
+    idx : 61807,
+    name : "y_BOI[1]",
     type : "com.sri.straylight.fmuWrapper.voManaged.ScalarVariableReal"
     
   }, 
   {
-    causality_ : 7,
-    description_ :  "outputs related to hot water system",
-    idx_ : 61807,
-    name_ : "y_BOI[1]",
+    causality : 7,
+    description :  "outputs related to hot water system",
+    idx : 61807,
+    name : "y_BOI[1]",
     type : "com.sri.straylight.fmuWrapper.voManaged.ScalarVariableReal"
     
   }, 
   {
-    causality_ : 7,
-    description_ :  "outputs related to hot water system",
-    idx_ : 61807,
-    name_ : "y_BOI[1]",
+    causality : 7,
+    description :  "outputs related to hot water system",
+    idx : 61807,
+    name : "y_BOI[1]",
     type : "com.sri.straylight.fmuWrapper.voManaged.ScalarVariableReal"
     
   }, 
   {
-    causality_ : 7,
-    description_ :  "outputs related to hot water system",
-    idx_ : 61807,
-    name_ : "y_BOI[1]",
+    causality : 7,
+    description :  "outputs related to hot water system",
+    idx : 61807,
+    name : "y_BOI[1]",
     type : "com.sri.straylight.fmuWrapper.voManaged.ScalarVariableReal"
     
   }, 
   {
-    causality_ : 7,
-    description_ :  "outputs related to hot water system",
-    idx_ : 61807,
-    name_ : "y_BOI[1]",
+    causality : 7,
+    description :  "outputs related to hot water system",
+    idx : 61807,
+    name : "y_BOI[1]",
     type : "com.sri.straylight.fmuWrapper.voManaged.ScalarVariableReal"
     
   }, 
   {
-    causality_ : 7,
-    description_ :  "outputs related to hot water system",
-    idx_ : 61807,
-    name_ : "y_BOI[1]",
+    causality : 7,
+    description :  "outputs related to hot water system",
+    idx : 61807,
+    name : "y_BOI[1]",
     type : "com.sri.straylight.fmuWrapper.voManaged.ScalarVariableReal"
     
   }, 
   {
-    causality_ : 7,
-    description_ :  "outputs related to hot water system",
-    idx_ : 61807,
-    name_ : "y_BOI[1]",
+    causality : 7,
+    description :  "outputs related to hot water system",
+    idx : 61807,
+    name : "y_BOI[1]",
     type : "com.sri.straylight.fmuWrapper.voManaged.ScalarVariableReal"
     
   }, 
   {
-    causality_ : 7,
-    description_ :  "outputs related to hot water system",
-    idx_ : 61807,
-    name_ : "y_BOI[1]",
+    causality : 7,
+    description :  "outputs related to hot water system",
+    idx : 61807,
+    name : "y_BOI[1]",
     type : "com.sri.straylight.fmuWrapper.voManaged.ScalarVariableReal"
     
   }, 
   {
-    causality_ : 7,
-    description_ :  "outputs related to hot water system",
-    idx_ : 61807,
-    name_ : "y_BOI[1]",
+    causality : 7,
+    description :  "outputs related to hot water system",
+    idx : 61807,
+    name : "y_BOI[1]",
     type : "com.sri.straylight.fmuWrapper.voManaged.ScalarVariableReal"
     
   }, 
   {
-    causality_ : 7,
-    description_ :  "outputs related to hot water system",
-    idx_ : 61807,
-    name_ : "y_BOI[1]",
+    causality : 7,
+    description :  "outputs related to hot water system",
+    idx : 61807,
+    name : "y_BOI[1]",
     type : "com.sri.straylight.fmuWrapper.voManaged.ScalarVariableReal"
     
   }, 
   {
-    causality_ : 7,
-    description_ :  "outputs related to hot water system",
-    idx_ : 61807,
-    name_ : "y_BOI[1]",
+    causality : 7,
+    description :  "outputs related to hot water system",
+    idx : 61807,
+    name : "y_BOI[1]",
     type : "com.sri.straylight.fmuWrapper.voManaged.ScalarVariableReal"
     
   }, 
   
   {
-    causality_ : 8,
-    description_ :  "outputs related to hot  ",
-    idx_ : 61807,
-    name_ : "y_BOI[2]",
+    causality : 8,
+    description :  "outputs related to hot  ",
+    idx : 61807,
+    name : "y_BOI[2]",
     type : "com.sri.straylight.fmuWrapper.voManaged.ScalarVariableReal"
     
   }
@@ -240,10 +240,10 @@ var variables = [
               schema: {
                   model: {
                       fields: {
-                          causality_: { type: "number" },
-                          description_: { type: "string" },
-                          idx_: { type: "number" },
-                          name_: { type: "string" },
+                          causality: { type: "number" },
+                          description: { type: "string" },
+                          idx: { type: "number" },
+                          name: { type: "string" },
                           type: { type: "string" }
                       }
                   }
@@ -264,9 +264,9 @@ var variables = [
           sortable: true,
           filterable: false,
           columns: [
-              { field: "idx_", title: "Idx" , width: "50px"},
-              { field: "name_", title: "Name", width: "60px" },
-              { field: "description_", title: "Description" , width: "180px"},
+              { field: "idx", title: "Idx" , width: "50px"},
+              { field: "name", title: "Name", width: "60px" },
+              { field: "description", title: "Description" , width: "180px"},
               { field: "type", title: "Type" , width: "300px"}
           ]
       });

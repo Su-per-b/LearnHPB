@@ -22,17 +22,6 @@ goog.inherits(lgb.simulation.events.ConfigChangeNotify, lgb.simulation.events.Ba
 
 
 
-
-lgb.simulation.events.ConfigChangeNotify.fromJson = function(deserializedObj) {
-    
-    var configStruct = lgb.simulation.model.voNative.ConfigStruct.fromJson(deserializedObj.payload);
-    
-    var instance = new lgb.simulation.events.ConfigChangeNotify(configStruct);
-    return instance;
-    
-};
-
-
 lgb.simulation.events.ConfigChangeNotify.prototype.getPayloadType = function() {
   return lgb.simulation.model.voNative.ConfigStruct;
 };

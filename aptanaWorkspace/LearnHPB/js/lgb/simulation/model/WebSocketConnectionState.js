@@ -34,14 +34,14 @@ lgb.simulation.model.WebSocketConnectionStateRequest = {
 lgb.simulation.model.WSConnectionState = function(enum_arg) {
   
   if (undefined != enum_arg) {
-    this.setInteger(enum_arg);
+    this.setIntValue(enum_arg);
   }
   
 };
 
 
 
-lgb.simulation.model.WSConnectionState.prototype.setInteger  = function( enum_arg ) {
+lgb.simulation.model.WSConnectionState.prototype.setIntValue  = function( enum_arg ) {
   this.enum_ = enum_arg;
 };
 

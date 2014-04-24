@@ -7,7 +7,6 @@ goog.provide('lgb.simulation.model.MainModel');
 
 goog.require('lgb.world.model.BaseModel');
 goog.require('lgb.core.Config');
-goog.require('lgb.simulation.model.voNative.SimStateNativeEnum');
 goog.require('lgb.simulation.model.WebSocketConnectionState');
 
 
@@ -22,7 +21,7 @@ lgb.simulation.model.MainModel = function() {
   this._TITLE = 'MainModel';
   lgb.world.model.BaseModel.call(this);
 
-  this.simStateNative = lgb.simulation.model.voNative.SimStateNativeEnum.simStateNative_0_uninitialized;
+  this.simStateNative = lgb.simulation.model.voNative.SimStateNative.ENUM.simStateNative_0_uninitialized;
   this.webSocketConnectionState = lgb.simulation.model.WebSocketConnectionState.uninitialized;
   
   this.socketServerURL = null;
@@ -78,13 +77,15 @@ lgb.simulation.model.MainModel.prototype.calcScalarValueResultsConverted = funct
         (seconds  < 10 ? "0" + seconds : seconds);
 
 
+
+
     var outAry = this.convertRealValueList(
-      this.scalarValueResults.output.realList, 
+      this.scalarValueResults.output.realList_, 
       this.xmlParsedInfo.scalarVariablesAll_.output_.realVarList_);
       
       
     var inAry = this.convertRealValueList(
-      this.scalarValueResults.input.realList, 
+      this.scalarValueResults.input.realList_, 
       this.xmlParsedInfo.scalarVariablesAll_.input_.realVarList_);
     
     
@@ -202,7 +203,7 @@ lgb.simulation.model.MainModel.prototype.setXmlParseInfo = function(xmlParseInfo
 
 lgb.simulation.model.MainModel.prototype.idxOne_ = function(theVar) {
 
-  this.modNameToVarMap_[theVar.name_] = theVar;
+  this.modNameToVarMap_[theVar.name] = theVar;
 };
 
 

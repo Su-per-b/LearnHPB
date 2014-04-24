@@ -20,24 +20,6 @@ lgb.simulation.events.MessageEvent = function(payload) {
 goog.inherits(lgb.simulation.events.MessageEvent, lgb.simulation.events.BaseEvent);
 
 
-
-
-
-
-lgb.simulation.events.MessageEvent.fromJson = function(deserializedObj) {
-   
-    var payload = new lgb.simulation.model.voNative.MessageStruct(
-        deserializedObj.payload.msgText,
-        deserializedObj.payload.messageType
-    );
-    
-    var typedObj = new lgb.simulation.events.MessageEvent(payload);
-    return typedObj;
-
-};
-
-
-
 lgb.simulation.events.MessageEvent.prototype.getPayloadType = function() {
   return lgb.simulation.model.voNative.MessageStruct;
 };

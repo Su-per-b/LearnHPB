@@ -1,6 +1,6 @@
 goog.provide('lgb.simulation.model.voManaged.SessionControl');
 
-
+goog.require('lgb.simulation.model.BaseModel');
 
 
 lgb.simulation.model.voManaged.SessionControl = function(idx, value) {
@@ -9,16 +9,13 @@ lgb.simulation.model.voManaged.SessionControl = function(idx, value) {
   this.value = value;
 
 };
+goog.inherits(lgb.simulation.model.voManaged.SessionControl, lgb.simulation.model.BaseModel);
 
 
-lgb.simulation.model.voManaged.SessionControl.prototype.toJsonObj = function() {
-    
-    var jsonObj = {
-      type : "com.sri.straylight.fmuWrapper.voManaged.SessionControl",
-      idx_ : this.idx,
-      value_ : this.value 
-    };
-    
-    return jsonObj;
 
+
+lgb.simulation.model.voManaged.SessionControl.fieldPrimativesEx_ = {
+   idx: "idx" ,
+   value: "value" ,
 };
+

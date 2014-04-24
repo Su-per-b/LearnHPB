@@ -1,30 +1,34 @@
 goog.provide('lgb.simulation.model.voManaged.XMLparsedInfo');
 
-
+goog.require('lgb.simulation.model.BaseModel');
+goog.require('lgb.simulation.model.voManaged.ScalarVariablesAll');
 
 lgb.simulation.model.voManaged.XMLparsedInfo = function() {
-
 
   this.scalarVariablesAll_ = null;
   this.sessionID_ = null;
 
+};
+goog.inherits(lgb.simulation.model.voManaged.XMLparsedInfo, lgb.simulation.model.BaseModel);
+
+
+
+
+
+lgb.simulation.model.voManaged.XMLparsedInfo.fieldPrimativesEx_ = {
+   sessionID_: "sessionID_" 
+};
+
+
+
+lgb.simulation.model.voManaged.XMLparsedInfo.fieldObjectsEx_ = {
   
-
+   scalarVariablesAll_: {
+     jsonFieldName : "scalarVariablesAll_",
+     classReference : lgb.simulation.model.voManaged.ScalarVariablesAll,
+   }
+   
+       
 };
-
-
-lgb.simulation.model.voManaged.XMLparsedInfo.fromJson = function(deserializedObj) {
-
-    
-    var typedObj = new lgb.simulation.model.voManaged.XMLparsedInfo();
-    
-    typedObj.scalarVariablesAll_ = deserializedObj.scalarVariablesAll_;
-    typedObj.sessionID_ = deserializedObj.sessionID_;
-    
-    return typedObj;
-
-};
-
-
 
 
