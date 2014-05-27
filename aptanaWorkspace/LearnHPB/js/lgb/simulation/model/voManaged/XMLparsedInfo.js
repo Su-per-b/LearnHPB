@@ -3,9 +3,9 @@ goog.provide('lgb.simulation.model.voManaged.XMLparsedInfo');
 goog.require('lgb.simulation.model.BaseModel');
 goog.require('lgb.simulation.model.voManaged.ScalarVariablesAll');
 
-lgb.simulation.model.voManaged.XMLparsedInfo = function() {
+lgb.simulation.model.voManaged.XMLparsedInfo = function(scalarVariablesAll) {
 
-  this.scalarVariablesAll_ = null;
+  this.scalarVariablesAll_ = scalarVariablesAll;
   this.sessionID_ = null;
 
 };
@@ -28,7 +28,7 @@ lgb.simulation.model.voManaged.XMLparsedInfo.fieldObjectsEx_ = {
      classReference : lgb.simulation.model.voManaged.ScalarVariablesAll,
    }
    
-       
 };
+
 
 

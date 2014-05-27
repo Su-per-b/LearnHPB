@@ -19,7 +19,7 @@ goog.require('test.world.view.SceneView');
 test.world.controller.SceneController = function(sceneFolder, sceneFile) {
   lgb.core.BaseController.call(this);
   
-  this.sceneFolder_ = LGB_WEBROOT + sceneFolder;
+  this.sceneFolder_ = sceneFolder;
   this.sceneFile_ = sceneFile;
 
   

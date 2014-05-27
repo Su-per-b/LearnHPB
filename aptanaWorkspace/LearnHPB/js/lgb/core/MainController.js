@@ -72,7 +72,7 @@ lgb.core.MainController.prototype.init = function() {
    $('title').html(theTitle);
    
 
-  this.scenarioController = new lgb.scenario.controller.ScenarioController();
+  this.scenarioController_ = new lgb.scenario.controller.ScenarioController();
    
   this.renderController_ = new lgb.world.controller.RenderController();
   this.renderController_.init();
@@ -109,7 +109,7 @@ lgb.core.MainController.prototype.init = function() {
   this.simulationMainController_ = new lgb.simulation.controller.MainController();
   this.simulationMainController_.init();
   
-  this.trigger(e.RequestLoadScenario, "VerySimpleScenario.xml");
+  this.trigger(e.RequestLoadScenario, "VerySimpleScenario");
     
   this.logger_ = goog.debug.Logger.getLogger('lgb.core.MainController');
 

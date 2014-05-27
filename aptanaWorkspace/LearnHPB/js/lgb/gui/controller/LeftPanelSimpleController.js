@@ -2,7 +2,6 @@ goog.provide('lgb.gui.controller.LeftPanelSimpleController');
 
 goog.require('lgb.core.BaseController');
 goog.require('lgb.gui.controller.TestController');
-goog.require('lgb.gui.controller.ScenarioController');
 goog.require('lgb.gui.controller.BuildingSimpleController');
 
 
@@ -60,7 +59,7 @@ lgb.gui.controller.LeftPanelSimpleController.prototype.bind_ = function() {
 // 
   // var simStateNativeWrapper = event.getPayload();
 //   
-  // var theInt = simStateNativeWrapper.getInteger();
+  // var theInt = simStateNativeWrapper.getIntValue();
 //   
   // if (theInt == lgb.simulation.model.voNative.SimStateNativeEnum.simStateNative_3_ready) {
 //     

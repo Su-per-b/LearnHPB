@@ -5,8 +5,8 @@
  
 goog.provide('test.serialization.VoNativeController');
 
-goog.require('test.CONSTANTS');
-goog.require('test.serialization.global');
+goog.require('test.main.CONSTANTS');
+goog.require('test.serialization.main.global');
 
 goog.require('goog.debug.Logger');
 goog.require('lgb');
@@ -63,27 +63,27 @@ test.serialization.VoNativeController.prototype.runAll = function() {
     
     module( "VoNative" );
     
-    test("DefaultExperimentStruct Serialize", 2, this.defaultExperimentStruct_serialize);
-    test("DefaultExperimentStruct Deserialize", 8, this.defaultExperimentStruct_deserialize);
+    test("T01 DefaultExperimentStruct Serialize", 2, this.T01_defaultExperimentStruct_serialize);
+    test("T02 DefaultExperimentStruct Deserialize", 8, this.T02_defaultExperimentStruct_deserialize);
    
-    test("ConfigStruct Serialize", 1, this.configStruct_serialize);
-    test("ConfigStruct Deserialize", 6, this.configStruct_deserialize);
+    test("T03 ConfigStruct Serialize", 1, this.T03_configStruct_serialize);
+    test("T04 ConfigStruct Deserialize", 6, this.T04_configStruct_serialize);
     
-    test("MessageStruct Serialize", 1, this.messageStruct_serialize);
-    test("MessageStruct Deserialize", 4, this.messageStruct_deserialize);
+    test("T05 MessageStruct Serialize", 1, this.T05_configStruct_serialize);
+    test("T06 MessageStruct Deserialize", 4, this.T06_configStruct_serialize);
     
-    test("SimStateNative Serialize", 1, this.simStateNative_serialize);
-    test("SimStateNative Deserialize", 3, this.simStateNative_deserialize);
+    test("T07 SimStateNative Serialize", 1, this.T07_configStruct_serialize);
+    test("T08 SimStateNative Deserialize", 3, this.T08_configStruct_serialize);
     
-    test("TypeSpecReal Serialize", 1, this.typeSpecReal_serialize);
-    test("TypeSpecReal Deserialize", 6, this.typeSpecReal_deserialize);
+    test("T09 TypeSpecReal Serialize", 1, this.T09_configStruct_serialize);
+    test("T10 TypeSpecReal Deserialize", 6, this.T10_configStruct_serialize);
     
 };
 
 
 
 
-test.serialization.VoNativeController.prototype.defaultExperimentStruct_serialize = function() {
+test.serialization.VoNativeController.prototype.T01_defaultExperimentStruct_serialize = function() {
     
     var defaultExperimentStruct_0 = new lgb.simulation.model.voNative.DefaultExperimentStruct();
     
@@ -108,7 +108,7 @@ test.serialization.VoNativeController.prototype.defaultExperimentStruct_serializ
 
 
 
-test.serialization.VoNativeController.prototype.defaultExperimentStruct_deserialize = function() {
+test.serialization.VoNativeController.prototype.T02_defaultExperimentStruct_deserialize = function() {
   
     var defaultExperimentStruct_0 = deserializeOk(
       CONST.STR_defaultExperimentStruct_0,
@@ -132,7 +132,7 @@ test.serialization.VoNativeController.prototype.defaultExperimentStruct_deserial
 
 
 
-test.serialization.VoNativeController.prototype.configStruct_serialize = function() {
+test.serialization.VoNativeController.prototype.T03_configStruct_serialize = function() {
   
     var defaultExperimentStruct_0 = new lgb.simulation.model.voNative.DefaultExperimentStruct(123.03, 145.03, 10.0);
     var configStruct_0 = new lgb.simulation.model.voNative.ConfigStruct(defaultExperimentStruct_0, 1);
@@ -146,7 +146,7 @@ test.serialization.VoNativeController.prototype.configStruct_serialize = functio
 };
 
 
-test.serialization.VoNativeController.prototype.configStruct_deserialize = function() {
+test.serialization.VoNativeController.prototype.T04_configStruct_serialize = function() {
 
 
     var configStruct_0 = deserializeOk(
@@ -167,7 +167,7 @@ test.serialization.VoNativeController.prototype.configStruct_deserialize = funct
 
 
 
-test.serialization.VoNativeController.prototype.messageStruct_serialize = function() {
+test.serialization.VoNativeController.prototype.T05_configStruct_serialize = function() {
 
 
     var messageType = lgb.simulation.model.voNative.MessageType.messageType_debug;
@@ -184,7 +184,7 @@ test.serialization.VoNativeController.prototype.messageStruct_serialize = functi
 
 
 
-test.serialization.VoNativeController.prototype.messageStruct_deserialize = function() {
+test.serialization.VoNativeController.prototype.T06_configStruct_serialize = function() {
 
     var messageStruct_0 = deserializeOk(
       CONST.STR_messageStruct_0,
@@ -202,7 +202,7 @@ test.serialization.VoNativeController.prototype.messageStruct_deserialize = func
 
 
 
-test.serialization.VoNativeController.prototype.simStateNative_serialize = function() {
+test.serialization.VoNativeController.prototype.T07_configStruct_serialize = function() {
 
     var theEnum = lgb.simulation.model.voNative.SimStateNative.ENUM.simStateNative_0_uninitialized;
     var simStateNative_0 = new lgb.simulation.model.voNative.SimStateNative(theEnum);
@@ -217,7 +217,7 @@ test.serialization.VoNativeController.prototype.simStateNative_serialize = funct
     
 };
 
-test.serialization.VoNativeController.prototype.simStateNative_deserialize = function() {
+test.serialization.VoNativeController.prototype.T08_configStruct_serialize = function() {
 
 
     var simStateNative_0 = deserializeOk(
@@ -232,7 +232,7 @@ test.serialization.VoNativeController.prototype.simStateNative_deserialize = fun
 };
 
 
-test.serialization.VoNativeController.prototype.typeSpecReal_serialize= function() {
+test.serialization.VoNativeController.prototype.T09_configStruct_serialize= function() {
   
     var typeSpecReal_0 = new lgb.simulation.model.voNative.TypeSpecReal();
     typeSpecReal_0.start = 20.25;
@@ -257,7 +257,7 @@ test.serialization.VoNativeController.prototype.typeSpecReal_serialize= function
 
 
 
-test.serialization.VoNativeController.prototype.typeSpecReal_deserialize= function() {
+test.serialization.VoNativeController.prototype.T10_configStruct_serialize= function() {
   
     var typeSpecReal_0 = deserializeOk(
       CONST.STR_typeSpecReal_0,

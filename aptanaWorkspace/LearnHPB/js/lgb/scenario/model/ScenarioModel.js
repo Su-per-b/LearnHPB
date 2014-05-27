@@ -24,6 +24,7 @@ lgb.scenario.model.ScenarioModel = function() {
   this.idxToNodeMap = {};
   this.selectedSystemNode = null;
 
+
 };
 goog.inherits(lgb.scenario.model.ScenarioModel, lgb.world.model.BaseModel);
 
@@ -32,11 +33,11 @@ goog.inherits(lgb.scenario.model.ScenarioModel, lgb.world.model.BaseModel);
 /**
  * Loads the scario from a remote XML file.
  */
-lgb.scenario.model.ScenarioModel.prototype.load = function(xmlFileName) {
+lgb.scenario.model.ScenarioModel.prototype.load = function(fileName) {
   
   
   
-  var url = lgb.core.Config.WEBROOT + lgb.core.Config.XML_BASE_PATH + xmlFileName;
+  var url = lgb.core.Config.WEBROOT + lgb.core.Config.XML_BASE_PATH + fileName + ".xml";
 
   var delegate = this.d(this.parse);
   

@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <base href="/LearnHPB/" >
+
     <meta charset="UTF-8" />
 
     <!-- =========================  CSS  ============================ -->
 
-    <link type="text/css" href="css/lgb.css"  rel="stylesheet" />
-    <link type="text/css" href="css/lgb-test.css"  rel="stylesheet" />
+    <link type="text/css" href="../css/lgb-test.css" rel="stylesheet"/>
     
     <!-- =========================   JavaScript  ============================ -->
-    <script src="test/js/includes/Main.js"></script>
-    <script src="test/js/includes/MainLibs.js"></script>
-    <script src="test/js/includes/ThreeEx.js"></script>
+    <script src="../js/includes/MainLibs.js"></script>
+    <script src="../js/includes/ThreeEx.js"></script>
 
+      
     <title>Test Scene</title>
     
     <script>
-      test.includes.MainLibs.init();
+    
+      var LGB_WEBROOT = "/LearnHPB/";
+      test.includes.MainLibs.initStandAloneScene();
+      test.includes.ThreeEx.init();
+
     </script>
     
     <script>
@@ -29,7 +32,6 @@
       goog.require('test.world.controller.SceneController');
     </script>
   
-  
 
   </head>
 
@@ -40,6 +42,8 @@
 
   <script>
   
+
+   
    var mainController = {};
    
    $(document).ready(function () {
@@ -49,13 +53,8 @@
       
       var titleAry = folder.split('_');
       titleAry.shift();
-     // titleAry.shift();
       
       var title = titleAry.join(' - ');
-
-            
-     // folder = folder.split('_').join('/');
-
       var file = url.param('file');
         
         
@@ -63,7 +62,7 @@
         file = 'scene';
       }
       
-       file += '.json';
+      file += '.json';
       
       
       lgb.init();
@@ -78,7 +77,7 @@
       
       this.utilityController_ = new lgb.world.controller.UtilityController();
       
-      this.sceneController_ = new test.world.controller.SceneController(folder, file);
+      this.sceneController_ = new test.world.controller.SceneController( folder, file);
       this.sceneController_.init();
         
        $('title').html(title);

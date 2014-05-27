@@ -91,7 +91,7 @@ lgb.gui.view.SimulationOutputGUI.prototype.updateOneRow_ = function(realVo, idx)
   var newValue = realVo.value_;
 
   if (newValue != existingValue) {
-     this.gridDS_.options.data[idx].value = newValue;
+     this.gridDS_.options.data[idx].value_ = newValue;
   }
    
 
@@ -138,17 +138,17 @@ lgb.gui.view.SimulationOutputGUI.prototype.makeTable_ = function(varList) {
               schema: {
                   model: {
                       fields: {
-                          causality: { type: "number" },
-                          description: { type: "string" },
-                          idx: { type: "number" },
-                          name: { type: "string" },
-                          value: { type: "number" },
-                          unit: { type: "string" },
-                          "typeSpecReal.min" : { type: "number" },
-                          "typeSpecReal.max" : { type: "number" },
-                          "typeSpecReal.start" : { type: "number" },
-                          valueReference: { type: "number" },
-                          variability: { type: "number" }
+                          causality_: { type: "number" },
+                          description_: { type: "string" },
+                          idx_: { type: "number" },
+                          name_: { type: "string" },
+                          value_: { type: "number" },
+                          "typeSpecReal_.unit": { type: "string" },
+                          "typeSpecReal_.min" : { type: "number" },
+                          "typeSpecReal_.max" : { type: "number" },
+                          "typeSpecReal_.start" : { type: "number" },
+                          valueReference_: { type: "number" },
+                          variability_: { type: "number" }
                       }
                   }
               }
@@ -167,15 +167,15 @@ lgb.gui.view.SimulationOutputGUI.prototype.makeTable_ = function(varList) {
           filterable: false,
           columnResize: true,
           columns: [
-              { field: "idx", title: "idx" , width: "40px"},
-              { field: "name", title: "Name", width: "60px" },
-              { field: "value", title: "Value", width: "60px" },
-              { field: "unit", title: "Unit", width: "60px" },
-              { field: "description", title: "Description" , width: "140px"},
-              { field: "typeSpecReal.min", title: "Min" , width: "20px"},
-              { field: "typeSpecReal.max", title: "Max" , width: "30px"},
-              { field: "typeSpecReal.start", title: "Start" , width: "30px"},
-              { field: "variability", title: "Var" , width: "20px"}
+              { field: "idx_", title: "idx" , width: "40px"},
+              { field: "name_", title: "Name", width: "60px" },
+              { field: "value_", title: "Value", width: "60px" },
+              { field: "typeSpecReal_.unit", title: "Unit", width: "60px" },
+              { field: "description_", title: "Description" , width: "140px"},
+              { field: "typeSpecReal_.min", title: "Min" , width: "20px"},
+              { field: "typeSpecReal_.max", title: "Max" , width: "30px"},
+              { field: "typeSpecReal_.start", title: "Start" , width: "30px"},
+              { field: "variability_", title: "Var" , width: "20px"}
           ]
       });
       

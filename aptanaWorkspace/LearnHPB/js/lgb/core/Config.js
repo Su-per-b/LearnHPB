@@ -22,6 +22,7 @@ lgb.core.Config.DEBUG_EVENTS = false;
 lgb.core.Config.DEBUG_3D = false;
 
 
+
 /**
  * relative path to 3d assets includinf Three.js meshes and textures.
  * @const
@@ -111,5 +112,5 @@ lgb.core.Config.SOCKET_SERVER_HOST = lgb.core.Config.SOCKET_SERVER.LocalHost;
 
 lgb.core.Config.WEBROOT = "";
 
-
+lgb.core.Config.SHOW_POPUPS = false;
 

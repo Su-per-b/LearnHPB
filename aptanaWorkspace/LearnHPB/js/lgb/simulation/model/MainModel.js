@@ -111,8 +111,8 @@ lgb.simulation.model.MainModel.prototype.convertRealValueList = function(valueLi
       
       var valueVo = valueList[i];
       var variableVo = variableList[i];
-      
-      var v = this.convertRealValue(valueVo, variableVo.unit_);
+
+      var v = this.convertRealValue(valueVo, variableVo.typeSpecReal_.unit);
       
       newValueList.push( { value_ :  v} );
     };

@@ -30,6 +30,11 @@ lgb.init = function() {
   
   debug.tagEx();
   
+  if (!"LGB_WEBROOT" in window || undefined === window.LGB_WEBROOT) {
+    window.LGB_WEBROOT = "";
+  }
+
+  
   return;
 };
 

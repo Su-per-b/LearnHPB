@@ -29,7 +29,7 @@ lgb.gui.view.ScenarioMasterGUI.prototype.onChange_selectedFileName_ = function(s
   
   
   this.triggerLocal(e.RequestLoadScenario, selectedFileName);
-  
+
 };
 
 
@@ -57,7 +57,28 @@ lgb.gui.view.ScenarioMasterGUI.prototype.onDropDownSelect_ = function(event) {
   var value = dataItem.value;
   
   this.dataModel.changePropertyEx('selectedFileName', value);
+  
+  
 };
+
+
+
+
+lgb.gui.view.ScenarioMasterGUI.prototype.showPopup_ = function(filename) {
+  
+    if (lgb.core.Config.SHOW_POPUPS) {
+      
+      var url = "info-pages/scenerios/{0}".format(filename);
+      
+      newwindow=window.open(url,'name','height=600,width=450');
+      if (window.focus) {newwindow.focus()}
+    
+    }
+
+
+
+};
+
 
 
 

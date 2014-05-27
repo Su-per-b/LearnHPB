@@ -19,8 +19,8 @@ goog.require('goog.asserts');
 lgb.simulation.events.BaseEvent = function(payload) {
   
   
-
-  goog.events.Event.call( this, this.getClassName() );
+  var type = this.getFullClassName();
+  goog.events.Event.call( this,  type);
   
   if (undefined != payload) {
     this.setPayload(payload);

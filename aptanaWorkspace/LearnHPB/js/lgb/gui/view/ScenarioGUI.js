@@ -24,6 +24,7 @@ lgb.gui.view.ScenarioGUI.prototype.init = function() {
 
   this.tabTitleMap_ = {};
 
+  this.showPopup_();
 };
 
 
@@ -36,45 +37,9 @@ lgb.gui.view.ScenarioGUI.prototype.add = function(gui) {
 
 
 
-/**
- * @public
- */
-lgb.gui.view.ScenarioGUI.prototype.injectInto = function(parentElement) {
-  
 
-  goog.base(this,  'injectInto', parentElement);
-  
-  
-   var items = [
-          {text: "Scenario 1", value:"1"},
-          {text: "Scenario 2", value:"2"}
-          ];
-          
-          
-  var el = this.getMainElement();
-  
 
-  var titleDiv = el.append('<h5>Select Scenario</h5>');
-    
-  var cb = $('<div>');
-  el.append(cb);
 
-  this.kendoComboBox_ = 
-      cb.kendoDropDownList( 
-        {
-          dataTextField: "text",
-          dataValueField: "value",
-          dataSource: items,
-          enable: false
-        }
-      ).data("kendoDropDownList");
-      
-      
-      this.kendoComboBox_.select(0);
 
-  el.append('<br />');
-  el.append('<br />');
-  
-};
 
 

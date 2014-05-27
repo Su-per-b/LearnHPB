@@ -62,11 +62,7 @@ lgb.gui.view.RenderGUI.prototype.injectInto = function(parentElement) {
   
   goog.base(this,  'injectInto', parentElement);
   
-  
-
-      
-      
-      this.bind_();
+  this.bind_();
       
 
 };

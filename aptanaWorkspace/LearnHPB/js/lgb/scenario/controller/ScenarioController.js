@@ -25,17 +25,13 @@ goog.inherits(lgb.scenario.controller.ScenarioController, lgb.core.BaseControlle
 lgb.scenario.controller.ScenarioController.prototype.init_ = function() {
   
 
-
-  
   this.dataModel = new lgb.scenario.model.ScenarioModel();
 
   this.listenTo(this.dataModel,
      e.DataModelInitialized,
       this.onDataModelInitialized_);
 
-
   this.bind_();
-  
   
 };
 
@@ -47,8 +43,11 @@ lgb.scenario.controller.ScenarioController.prototype.bind_ = function() {
 
 
 lgb.scenario.controller.ScenarioController.prototype.onRequestLoadScenario_ = function(event) {
+  
   var fileName = event.payload;
   this.dataModel.load(fileName);
+  
+  
 };
 
 

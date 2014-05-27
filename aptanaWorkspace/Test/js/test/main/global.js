@@ -1,4 +1,4 @@
-goog.provide('test.serialization.global');
+goog.provide('test.serialization.main.global');
 
 goog.require('lgb');
 goog.require('lgb.simulation.model.voNative.ConfigStruct');
@@ -10,7 +10,7 @@ voNative = lgb.simulation.model.voNative;
 voManaged = lgb.simulation.model.voManaged;
 simEvents = lgb.simulation.events;
 
-CONST = test.CONSTANTS;
+CONST = test.main.CONSTANTS;
 
 
 deserialize  = function(jsonString) {

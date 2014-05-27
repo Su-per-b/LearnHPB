@@ -1,3 +1,0 @@
-
-http://127.0.0.1:8040/LearnHPB/test/scene.html?folder=rooftop&file=scene
-http://127.0.0.1:8040/LearnHPB/test/scene.html?folder=test&file=HVACCasing

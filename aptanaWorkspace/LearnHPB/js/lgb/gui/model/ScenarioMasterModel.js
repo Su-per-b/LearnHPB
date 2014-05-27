@@ -17,7 +17,7 @@ lgb.gui.model.ScenarioMasterModel = function() {
 
   /**@const */
   this._TITLE = 'ScenarioMasterModel';
-
+  
   lgb.world.model.BaseModel.call(this);
   
   this.init_();
@@ -35,11 +35,11 @@ lgb.gui.model.ScenarioMasterModel.prototype.init_ = function() {
 
     {
       name:"Very Simple Scenario",
-      value:"VerySimpleScenario.xml"
+      value:"VerySimpleScenario"
     },
     {
       name:"Complete Scenario",
-      value:"Complete.xml"
+      value:"Complete"
     }
     ];
   

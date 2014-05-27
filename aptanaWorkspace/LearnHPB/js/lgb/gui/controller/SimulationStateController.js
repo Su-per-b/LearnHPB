@@ -49,6 +49,8 @@ lgb.gui.controller.SimulationStateController.prototype.bind_ = function() {
         this.guiView,
         [se.WebSocketChangeRequest, se.SimStateNativeRequest]
     );
+    
+    
 
 };
 

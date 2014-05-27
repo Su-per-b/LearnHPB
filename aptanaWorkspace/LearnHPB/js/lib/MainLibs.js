@@ -107,11 +107,9 @@ test.includes.MainLibs.standAlone = function() {
       ]
     );
     
-    
    test.includes.MainLibs.initKendo();
    test.includes.MainLibs.addOneScript("js/closure/core/goog/", "base");
-
-      
+    
 };
 
 

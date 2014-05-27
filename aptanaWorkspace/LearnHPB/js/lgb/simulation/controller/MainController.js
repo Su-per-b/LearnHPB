@@ -182,7 +182,8 @@ lgb.simulation.controller.MainController.prototype.onWebSocketChangeRequest_ = f
 
 lgb.simulation.controller.MainController.prototype.onSimStateNativeRequest_ = function(event) {
   
-  this.requestSimStateChange(event.getPayload());
+  var simStateNative = event.getPayload();
+  this.requestSimStateChange(simStateNative);
   
 };
 
@@ -230,6 +231,11 @@ lgb.simulation.controller.MainController.prototype.getDataModel = function() {
 lgb.simulation.controller.MainController.prototype.onRequestModelicaVariableChange_ = function(event) {
   
   var theVar = this.dataModel.getIdxFromModelicaName(event.payload.modName);
+  
+  if (undefined === theVar) {
+    debugger;
+  }
+  
   var floatValue = event.payload.value;
   var idx = theVar.idx;
   
@@ -405,7 +411,10 @@ lgb.simulation.controller.MainController.prototype.connect = function(connectFla
 
 lgb.simulation.controller.MainController.prototype.serializeAndSend = function(event) {
 
-    var jsonString = event.toJsonString();
+
+    var jsonString = lgb.simulation.controller.JsonController.serialize(event);
+      
+      
     var state = this.dataModel.getWebSocketConnectionState();
 
     if (state == lgb.simulation.model.WebSocketConnectionState.uninitialized) {

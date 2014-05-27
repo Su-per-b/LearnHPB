@@ -61,12 +61,13 @@ lgb.gui.controller.BottomPanelIframeGUIController.prototype.init2_ = function(si
   this.makeChildGUIcontroller_
     (lgb.gui.controller.SimulationConsoleController, simDataModel);
 
-  this.makeChildGUIcontroller_
-    (lgb.gui.controller.SimulationInputController, simDataModel);
+  // this.makeChildGUIcontroller_
+    // (lgb.gui.controller.SimulationInputController, simDataModel);
 
 
   this.makeChildGUIcontroller_
     (lgb.gui.controller.SimulationOutputController, simDataModel);
+    
     
      
   this.makeChildGUIcontroller_

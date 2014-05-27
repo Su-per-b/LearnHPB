@@ -5,8 +5,8 @@
  
 goog.provide('test.serialization.VoManagedController');
 
-goog.require('test.CONSTANTS');
-goog.require('test.serialization.global');
+goog.require('test.main.CONSTANTS');
+goog.require('test.serialization.main.global');
 
 goog.require('goog.debug.Logger');
 goog.require('lgb');
@@ -33,6 +33,7 @@ goog.require('lgb.simulation.model.voManaged.ScalarValueReal');
 goog.require('lgb.simulation.model.voManaged.ScalarValueCollection');
 goog.require('lgb.simulation.model.voManaged.ScalarVariableReal');
 goog.require('lgb.simulation.model.voManaged.ScalarVariablesAll');
+goog.require('lgb.simulation.model.voManaged.XMLparsedInfo');
 
 
 /**
@@ -69,35 +70,43 @@ test.serialization.VoManagedController.prototype.runAll = function() {
   
     module( "VoManaged" );
     
-    test("ScalarValueReal Serialize", 2, this.scalarValueReal_serialize);
-    test("ScalarValueReal Deserialize", 6, this.scalarValueReal_deserialize);
-   
-    test("ScalarValueCollection Serialize", 1, this.scalarValueCollection_serialize);
-    test("ScalarValueCollection Deserialize", 6, this.scalarValueCollection_deserialize);
+    test("T01 ScalarValueReal Serialize", 2, this.T01_scalarValueReal_serialize);
+    test("T02 ScalarValueReal Deserialize", 6, this.T02_scalarValueReal_deserialize);
     
-    test("ScalarValueResults Serialize", 7, this.scalarValueResults_serialize);
-    test("ScalarValueResults Deserialize", 12, this.scalarValueResults_deserialize);
-
-    test("ScalarVariableReal Serialize", 2, this.scalarVariableReal_serialize);
-    test("ScalarVariableReal Deserialize", 18, this.scalarVariableReal_deserialize);
-
-    test("ScalarVariableReal Serialize", 2, this.scalarVariableReal_serialize);
-    test("ScalarVariableReal Deserialize", 18, this.scalarVariableReal_deserialize);
-
-    test("ScalarVariableCollection Serialize", 2, this.scalarVariableCollection_serialize);
-    test("ScalarVariableCollection Deserialize", 63, this.scalarVariableCollection_deserialize);
-
-    test("ScalarVariablesAll Serialize", 3, this.scalarVariablesAll_serialize);
-    test("ScalarVariablesAll Deserialize", 1, this.scalarVariablesAll_deserialize);
+    test("T03 ScalarVariableReal Serialize", 2, this.T03_scalarVariableReal_serialize);
+    test("T04 ScalarVariableReal Deserialize", 18, this.T04_scalarVariableReal_deserialize);
     
+    test("T05 ScalarValueCollection Serialize", 1, this.T05_scalarValueCollection_serialize);
+    test("T06 ScalarValueCollection Deserialize", 6, this.T06_scalarValueCollection_deserialize);
     
+    test("T07 ScalarValueCollection Serialize", 1, this.T07_serializableVector_serialize);
+    test("T08 ScalarValueCollection Deserialize", 1, this.T08_serializableVector_deserialize);
     
+    test("T09 ScalarValueResults Serialize", 7, this.T09_scalarValueResults_serialize);
+    test("T10 ScalarValueResults Deserialize", 12, this.T10_scalarValueResults_deserialize);
+                                                  
+    test("T11 ScalarVariableCollection Serialize", 2, this.T11_scalarVariableCollection_serialize);
+    test("T12 ScalarVariableCollection Deserialize", 63, this.T12_scalarVariableCollection_deserialize);
+
+    test("T13 ScalarVariablesAll Serialize", 3, this.T13_scalarVariablesAll_serialize);
+    test("T14 ScalarVariablesAll Deserialize", 1, this.T14_scalarVariablesAll_deserialize);
+    
+    test("T15 SessionControlAction Serialize", 1, this.T15_sessionControlAction_serialize);
+    test("T16 SessionControlAction Deserialize", 1, this.T16_sessionControlAction_deserialize);
+    
+    test("T17 SessionControlModel Serialize", 1, this.T17_sessionControlModel_serialize);
+    test("T18 SessionControlModel Deserialize", 1, this.T18_sessionControlModel_deserialize);
+    
+    test("T19 XMLparsedInfo Serialize", 1, this.T19_xmlParsedInfo_serialize);
+    test("T20 XMLparsedInfoDeserialize", 1, this.T20_xmlParsedInfo_deserialize);
+    
+
 };
 
 
 
 
-test.serialization.VoManagedController.prototype.scalarValueReal_serialize = function() {
+test.serialization.VoManagedController.prototype.T01_scalarValueReal_serialize = function() {
   
     var scalarValueReal_0 = new 
       lgb.simulation.model.voManaged.ScalarValueReal(1,2.0);
@@ -117,12 +126,11 @@ test.serialization.VoManagedController.prototype.scalarValueReal_serialize = fun
       CONST.STR_scalarValueReal_1
     );
     
-
 };
 
 
 
-test.serialization.VoManagedController.prototype.scalarValueReal_deserialize = function() {
+test.serialization.VoManagedController.prototype.T02_scalarValueReal_deserialize = function() {
  
     var scalarValueReal_0 = deserializeOk(
       CONST.STR_scalarValueReal_0,
@@ -138,7 +146,6 @@ test.serialization.VoManagedController.prototype.scalarValueReal_deserialize = f
       voManaged.ScalarValueReal
     );
     
-
     assertEquals(2, scalarValueReal_1.getIdx());
     assertEquals(14.2, scalarValueReal_1.getValue(), 0.0);
     
@@ -146,139 +153,7 @@ test.serialization.VoManagedController.prototype.scalarValueReal_deserialize = f
 
 
 
-
-test.serialization.VoManagedController.prototype.scalarValueCollection_serialize = function() {
-
-  var scalarValueReal_0 = new lgb.simulation.model.voManaged.ScalarValueReal(1, 2.0);
-  var scalarValueReal_1 = new lgb.simulation.model.voManaged.ScalarValueReal(2, 3.53);
-
-  var realList_0 = [scalarValueReal_0, scalarValueReal_1];
-
-  var scalarValueCollection_0 = new lgb.simulation.model.voManaged.ScalarValueCollection(realList_0);
-
-
-  serializeOk(
-    scalarValueCollection_0,
-    CONST.STR_scalarValueCollection_0
-  );
-    
-
-}; 
-
-
-
-
-test.serialization.VoManagedController.prototype.scalarValueCollection_deserialize = function() {
-  
-  
-    var scalarValueCollection_0 = deserializeOk(
-      CONST.STR_scalarValueCollection_0,
-      voManaged.ScalarValueCollection
-    );
-    
-    
-  
-    equal(scalarValueCollection_0.realList_.length, 2);
-    
-    var scalarValueReal_0  = scalarValueCollection_0.realList_[0];
-    assertEquals(1, scalarValueReal_0.getIdx());
-    assertEquals(2.0, scalarValueReal_0.getValue(), 0.0);
-    
-    var scalarValueReal_1  = scalarValueCollection_0.realList_[1];
-    assertEquals(2, scalarValueReal_1.getIdx());
-    assertEquals(3.53, scalarValueReal_1.getValue(), 0.0);
-    
-    
-
-};
-
-
-
-
-
-test.serialization.VoManagedController.prototype.scalarValueResults_serialize = function() {
-
-
-    var scalarValueReal_0 = new lgb.simulation.model.voManaged.ScalarValueReal(1, 2.0);
-    ok(scalarValueReal_0 instanceof lgb.simulation.model.voManaged.ScalarValueReal);
-    
-    var scalarValueReal_1 = new lgb.simulation.model.voManaged.ScalarValueReal(2, 3.53);
-    ok(scalarValueReal_1 instanceof lgb.simulation.model.voManaged.ScalarValueReal);
-    
-    
-    var realList_0 = [scalarValueReal_0, scalarValueReal_1];
-    var scalarValueCollection_0 = new lgb.simulation.model.voManaged.ScalarValueCollection(realList_0);
-    ok(scalarValueCollection_0 instanceof lgb.simulation.model.voManaged.ScalarValueCollection);
-    
-    
-    var scalarValueReal_2 = new lgb.simulation.model.voManaged.ScalarValueReal(3, 258.2);
-    ok(scalarValueReal_2 instanceof lgb.simulation.model.voManaged.ScalarValueReal);
-    
-    var scalarValueReal_3 = new lgb.simulation.model.voManaged.ScalarValueReal(4, 78.0);
-    ok(scalarValueReal_3 instanceof lgb.simulation.model.voManaged.ScalarValueReal);
-    
-    
-    var realList_1 = [scalarValueReal_2, scalarValueReal_3];
-    var scalarValueCollection_1 = new lgb.simulation.model.voManaged.ScalarValueCollection(realList_1);
-    ok(scalarValueCollection_1 instanceof lgb.simulation.model.voManaged.ScalarValueCollection);
-    
-    
-    var scalarValueResults = new lgb.simulation.model.voManaged.ScalarValueResults();
-    scalarValueResults.time_ = 2800.1;
-    scalarValueResults.input = scalarValueCollection_0;
-    scalarValueResults.output = scalarValueCollection_1;
-    
-    
-    serializeOk(
-      scalarValueResults,
-      CONST.STR_scalarValueResults_0
-    );
-    
-
-
-};
-
-
-
-test.serialization.VoManagedController.prototype.scalarValueResults_deserialize= function() {
-  
-    var scalarValueResults_0 = deserializeOk(
-      CONST.STR_scalarValueResults_0,
-      voManaged.ScalarValueResults
-    );
-    
-    assertEquals(2800.1, scalarValueResults_0.getTime(), 0.0);
-    
-    var scalarValueCollection_0 = scalarValueResults_0.getInput();
-    ok(scalarValueCollection_0 instanceof lgb.simulation.model.voManaged.ScalarValueCollection);
-    var realList_0 = scalarValueCollection_0.getRealList();
-    
-    var scalarValueReal_0 = realList_0[0];
-    assertEquals(1, scalarValueReal_0.getIdx());
-    assertEquals(2.0, scalarValueReal_0.getValue(), 0.0);
-    
-    var scalarValueReal_1 = realList_0[1];
-    assertEquals(2, scalarValueReal_1.getIdx());
-    assertEquals(3.530, scalarValueReal_1.getValue(), 0.0);
-    
-    var scalarValueCollection_1 = scalarValueResults_0.getOutput();
-    ok(scalarValueCollection_1 instanceof lgb.simulation.model.voManaged.ScalarValueCollection);
-    var realList_1 = scalarValueCollection_1.getRealList();
-    
-    var scalarValueReal_2 = realList_1[0];
-    assertEquals(3, scalarValueReal_2.getIdx());
-    assertEquals(258.2, scalarValueReal_2.getValue(), 0.0);
-    
-    var scalarValueReal_3 = realList_1[1];
-    assertEquals(4, scalarValueReal_3.getIdx());
-    assertEquals(78.0, scalarValueReal_3.getValue(), 0.0);
-    
- 
-};
-
-
-
-test.serialization.VoManagedController.prototype.scalarVariableReal_serialize = function() {
+test.serialization.VoManagedController.prototype.T03_scalarVariableReal_serialize = function() {
   
     var Enu = lgb.simulation.model.voNative.Enu.ENUM;
   
@@ -307,23 +182,19 @@ test.serialization.VoManagedController.prototype.scalarVariableReal_serialize = 
     scalarVariableReal_0.setDescription("The Description");
     scalarVariableReal_0.setValueReference(125420);
     
-    
     serializeOk(
       scalarVariableReal_0,
       CONST.STR_scalarVariableReal_0
     );
     
-
- 
 };
 
 
 
 
-test.serialization.VoManagedController.prototype.scalarVariableReal_deserialize= function() {
+test.serialization.VoManagedController.prototype.T04_scalarVariableReal_deserialize= function() {
   
     var Enu = lgb.simulation.model.voNative.Enu.ENUM;
-    
     
     var scalarVariableReal_0 = deserializeOk(
       CONST.STR_scalarVariableReal_0,
@@ -369,7 +240,148 @@ test.serialization.VoManagedController.prototype.scalarVariableReal_deserialize=
 
 
 
-test.serialization.VoManagedController.prototype.scalarVariableCollection_serialize= function() {
+
+test.serialization.VoManagedController.prototype.T05_scalarValueCollection_serialize = function() {
+
+  var scalarValueReal_0 = new lgb.simulation.model.voManaged.ScalarValueReal(1, 2.0);
+  var scalarValueReal_1 = new lgb.simulation.model.voManaged.ScalarValueReal(2, 3.53);
+
+  var realList_0 = [scalarValueReal_0, scalarValueReal_1];
+
+  var scalarValueCollection_0 = new lgb.simulation.model.voManaged.ScalarValueCollection(realList_0);
+
+
+  serializeOk(
+    scalarValueCollection_0,
+    CONST.STR_scalarValueCollection_0
+  );
+    
+}; 
+
+
+
+
+test.serialization.VoManagedController.prototype.T06_scalarValueCollection_deserialize = function() {
+  
+  
+    var scalarValueCollection_0 = deserializeOk(
+      CONST.STR_scalarValueCollection_0,
+      voManaged.ScalarValueCollection
+    );
+    
+    equal(scalarValueCollection_0.realList_.length, 2);
+    
+    var scalarValueReal_0  = scalarValueCollection_0.realList_[0];
+    assertEquals(1, scalarValueReal_0.getIdx());
+    assertEquals(2.0, scalarValueReal_0.getValue(), 0.0);
+    
+    var scalarValueReal_1  = scalarValueCollection_0.realList_[1];
+    assertEquals(2, scalarValueReal_1.getIdx());
+    assertEquals(3.53, scalarValueReal_1.getValue(), 0.0);
+    
+   
+};
+
+
+test.serialization.VoManagedController.prototype.T07_serializableVector_serialize = function() {
+
+   ok(true);
+   
+};
+
+
+test.serialization.VoManagedController.prototype.T08_serializableVector_deserialize = function() {
+  
+   ok(true);
+ 
+};
+
+
+
+
+test.serialization.VoManagedController.prototype.T09_scalarValueResults_serialize = function() {
+
+
+    var scalarValueReal_0 = new lgb.simulation.model.voManaged.ScalarValueReal(1, 2.0);
+    ok(scalarValueReal_0 instanceof lgb.simulation.model.voManaged.ScalarValueReal);
+    
+    var scalarValueReal_1 = new lgb.simulation.model.voManaged.ScalarValueReal(2, 3.53);
+    ok(scalarValueReal_1 instanceof lgb.simulation.model.voManaged.ScalarValueReal);
+    
+    
+    var realList_0 = [scalarValueReal_0, scalarValueReal_1];
+    var scalarValueCollection_0 = new lgb.simulation.model.voManaged.ScalarValueCollection(realList_0);
+    ok(scalarValueCollection_0 instanceof lgb.simulation.model.voManaged.ScalarValueCollection);
+    
+    
+    var scalarValueReal_2 = new lgb.simulation.model.voManaged.ScalarValueReal(3, 258.2);
+    ok(scalarValueReal_2 instanceof lgb.simulation.model.voManaged.ScalarValueReal);
+    
+    var scalarValueReal_3 = new lgb.simulation.model.voManaged.ScalarValueReal(4, 78.0);
+    ok(scalarValueReal_3 instanceof lgb.simulation.model.voManaged.ScalarValueReal);
+    
+    
+    var realList_1 = [scalarValueReal_2, scalarValueReal_3];
+    var scalarValueCollection_1 = new lgb.simulation.model.voManaged.ScalarValueCollection(realList_1);
+    ok(scalarValueCollection_1 instanceof lgb.simulation.model.voManaged.ScalarValueCollection);
+    
+    
+    var scalarValueResults = new lgb.simulation.model.voManaged.ScalarValueResults();
+    scalarValueResults.time_ = 2800.1;
+    scalarValueResults.input = scalarValueCollection_0;
+    scalarValueResults.output = scalarValueCollection_1;
+    
+    
+    serializeOk(
+      scalarValueResults,
+      CONST.STR_scalarValueResults_0
+    );
+    
+
+
+};
+
+
+
+test.serialization.VoManagedController.prototype.T10_scalarValueResults_deserialize= function() {
+  
+    var scalarValueResults_0 = deserializeOk(
+      CONST.STR_scalarValueResults_0,
+      voManaged.ScalarValueResults
+    );
+    
+    assertEquals(2800.1, scalarValueResults_0.getTime(), 0.0);
+    
+    var scalarValueCollection_0 = scalarValueResults_0.getInput();
+    ok(scalarValueCollection_0 instanceof lgb.simulation.model.voManaged.ScalarValueCollection);
+    var realList_0 = scalarValueCollection_0.getRealList();
+    
+    var scalarValueReal_0 = realList_0[0];
+    assertEquals(1, scalarValueReal_0.getIdx());
+    assertEquals(2.0, scalarValueReal_0.getValue(), 0.0);
+    
+    var scalarValueReal_1 = realList_0[1];
+    assertEquals(2, scalarValueReal_1.getIdx());
+    assertEquals(3.530, scalarValueReal_1.getValue(), 0.0);
+    
+    var scalarValueCollection_1 = scalarValueResults_0.getOutput();
+    ok(scalarValueCollection_1 instanceof lgb.simulation.model.voManaged.ScalarValueCollection);
+    var realList_1 = scalarValueCollection_1.getRealList();
+    
+    var scalarValueReal_2 = realList_1[0];
+    assertEquals(3, scalarValueReal_2.getIdx());
+    assertEquals(258.2, scalarValueReal_2.getValue(), 0.0);
+    
+    var scalarValueReal_3 = realList_1[1];
+    assertEquals(4, scalarValueReal_3.getIdx());
+    assertEquals(78.0, scalarValueReal_3.getValue(), 0.0);
+    
+ 
+};
+
+
+
+test.serialization.VoManagedController.prototype.T11_scalarVariableCollection_serialize= function() {
   
     var scalarVariableCollection_0 = test.serialization.VoManagedController.getScalarVariableCollection_A_();
   
@@ -390,17 +402,14 @@ test.serialization.VoManagedController.prototype.scalarVariableCollection_serial
 };
 
 
-test.serialization.VoManagedController.prototype.scalarVariableCollection_deserialize= function() {
+test.serialization.VoManagedController.prototype.T12_scalarVariableCollection_deserialize= function() {
     var Enu = lgb.simulation.model.voNative.Enu.ENUM;
     
-  
     var scalarVariableCollection_0 = deserializeOk(
       CONST.STR_scalarVariableCollection_0,
       voManaged.ScalarVariableCollection
     );
     
-   
-
     var scalarVariableReal_0 = scalarVariableCollection_0.getRealVarList()[0];
     ok(scalarVariableReal_0 instanceof lgb.simulation.model.voManaged.ScalarVariableReal);
     
@@ -484,7 +493,6 @@ test.serialization.VoManagedController.prototype.scalarVariableCollection_deseri
     assertEquals(Enu.enu_continuous, theVariabilityEnum_2.getIntValue());
     assertEquals("continuous", theVariabilityEnum_2.toString());
     
-    
     assertEquals("This is the pressure in the duct measured in Pa", scalarVariableReal_2.getDescription());
     
     var typeSpecReal_2 = scalarVariableReal_2.getTypeSpecReal();
@@ -494,8 +502,6 @@ test.serialization.VoManagedController.prototype.scalarVariableCollection_deseri
     assertEquals(0.0, typeSpecReal_2.min, 0.0);
     assertEquals(5400.01, typeSpecReal_2.max, 0.0);
     assertEquals("Pa", typeSpecReal_2.unit);
-    
-    
     
     var scalarVariableReal_3 = scalarVariableCollection_1.getRealVarList()[1];
     assertEquals(55, scalarVariableReal_3.getValueReference());
@@ -533,10 +539,9 @@ test.serialization.VoManagedController.prototype.scalarVariableCollection_deseri
 
 
 
-test.serialization.VoManagedController.prototype.scalarVariablesAll_serialize= function() {
+test.serialization.VoManagedController.prototype.T13_scalarVariablesAll_serialize= function() {
   
     var Enu = lgb.simulation.model.voNative.Enu.ENUM;
-      
       
     var scalarVariableCollection_0 = test.serialization.VoManagedController.getScalarVariableCollection_A_();
     ok(scalarVariableCollection_0 instanceof lgb.simulation.model.voManaged.ScalarVariableCollection);
@@ -558,7 +563,7 @@ test.serialization.VoManagedController.prototype.scalarVariablesAll_serialize= f
 
 
 
-test.serialization.VoManagedController.prototype.scalarVariablesAll_deserialize= function() {
+test.serialization.VoManagedController.prototype.T14_scalarVariablesAll_deserialize= function() {
   
     var Enu = lgb.simulation.model.voNative.Enu.ENUM;
     
@@ -566,12 +571,75 @@ test.serialization.VoManagedController.prototype.scalarVariablesAll_deserialize=
       CONST.STR_scalarVariablesAll_1,
       voManaged.ScalarVariablesAll
     );
-    
 
-    
 };
 
 
+
+
+
+
+test.serialization.VoManagedController.prototype.T15_sessionControlAction_serialize = function() {
+  
+   ok(true);
+  
+};
+
+test.serialization.VoManagedController.prototype.T16_sessionControlAction_deserialize = function() {
+  
+  ok(true);
+  
+};
+
+
+test.serialization.VoManagedController.prototype.T17_sessionControlModel_serialize = function() {
+  
+  ok(true);
+  
+};
+
+
+test.serialization.VoManagedController.prototype.T18_sessionControlModel_deserialize = function() {
+  
+  ok(true);
+  
+};
+
+test.serialization.VoManagedController.prototype.T19_xmlParsedInfo_serialize = function() {
+  
+  
+  var Enu = lgb.simulation.model.voNative.Enu.ENUM;
+    
+  var scalarVariableCollection_0 = test.serialization.VoManagedController.getScalarVariableCollection_A_();
+  ok(scalarVariableCollection_0 instanceof lgb.simulation.model.voManaged.ScalarVariableCollection);
+  
+  var scalarVariableCollection_1 = test.serialization.VoManagedController.getScalarVariableCollection_B_();
+  ok(scalarVariableCollection_1 instanceof lgb.simulation.model.voManaged.ScalarVariableCollection);
+  
+  var scalarVariablesAll_0 = new lgb.simulation.model.voManaged.ScalarVariablesAll();
+  scalarVariablesAll_0.setInput(scalarVariableCollection_0);
+  scalarVariablesAll_0.setOutput(scalarVariableCollection_1);
+
+  serializeOk(
+    scalarVariablesAll_0,
+    CONST.STR_scalarVariablesAll_1
+  );
+    
+  var xmlParsedInfo_0 = new lgb.simulation.model.voManaged.XMLparsedInfo(scalarVariablesAll_0);
+  
+  serializeOk(
+    xmlParsedInfo_0,
+    CONST.STR_XMLparsedInfo_1
+  );
+
+};
+
+
+test.serialization.VoManagedController.prototype.T20_xmlParsedInfo_deserialize = function() {
+  
+  ok(true);
+  
+};
 
 
 
@@ -636,6 +704,7 @@ test.serialization.VoManagedController.getScalarVariableCollection_A_ = function
 };
 
 
+
 test.serialization.VoManagedController.getScalarVariableCollection_B_ = function() {
   
     var Enu = lgb.simulation.model.voNative.Enu.ENUM;
@@ -696,59 +765,6 @@ test.serialization.VoManagedController.getScalarVariableCollection_B_ = function
 
 
 
-
-
-// 
-// 
-// 
-// test.serialization.VoManagedController.prototype.xmlParsedInfo_serialize= function() {
-//   
-// 
-//     
-//  
-// };
-// 
-// 
-// test.serialization.VoManagedController.prototype.xmlParsedInfo_deserialize= function() {
-//   
-// 
-//     
-//  
-// };
-// 
-// 
-// test.serialization.VoManagedController.prototype.sessionControlAction_serialize= function() {
-//   
-// 
-//     
-//  
-// };
-// 
-// 
-// 
-// test.serialization.VoManagedController.prototype.sessionControlAction_deserialize= function() {
-//   
-// 
-//     
-//  
-// };
-// 
-// 
-// 
-// test.serialization.VoManagedController.prototype.SessionControlModel_serialize= function() {
-//   
-// 
-//     
-//  
-// };
-// 
-// 
-// test.serialization.VoManagedController.prototype.SessionControlModel_deserialize= function() {
-//   
-// 
-//     
-//  
-// };
 
 
 

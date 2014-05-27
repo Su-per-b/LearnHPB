@@ -46,8 +46,22 @@ lgb.gui.controller.ScenarioMasterController.prototype.bind_ = function() {
   
   this.relay(this.guiView, e.RequestLoadScenario);
   
+  this.listen(e.RequestLoadScenario, this.onRequestLoadScenario_);
+    
+    
 };
 
+
+
+lgb.gui.controller.ScenarioMasterController.prototype.onRequestLoadScenario_ =
+  function(event) {
+
+  
+    //his.dataModel.changePropertyEx('selectedFileName', value);
+    
+     this.guiView.showPopup_(event.payload + "_start.html");
+  
+};
 
 
 

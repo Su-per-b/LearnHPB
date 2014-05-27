@@ -54,13 +54,11 @@ lgb.gui.controller.ScenarioController.prototype.init = function(systemListDataMo
 
 lgb.gui.controller.ScenarioController.prototype.bind_ = function() {
   
-
       this.listenTo(
         this.systemListDataModel_, 
         se.RequestModelicaVariableChange,
         this.onRequestModelicaVariableChange_
         );
-
 
 };
 

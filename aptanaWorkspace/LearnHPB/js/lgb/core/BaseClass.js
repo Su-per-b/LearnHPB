@@ -63,6 +63,9 @@ lgb.core.BaseClass.prototype.triggerLocal = function(type, payload) {
   if (null == payload) {
     payload = this;
   }
+  
+  
+  
   var event = new lgb.core.Event(type, payload);
   goog.events.dispatchEvent(this, event);
 };

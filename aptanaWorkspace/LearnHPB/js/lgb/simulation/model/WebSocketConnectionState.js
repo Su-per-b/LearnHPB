@@ -45,9 +45,11 @@ lgb.simulation.model.WSConnectionState.prototype.setIntValue  = function( enum_a
   this.enum_ = enum_arg;
 };
 
-lgb.simulation.model.WSConnectionState.prototype.getInteger  = function(  ) {
+
+lgb.simulation.model.WSConnectionState.prototype.getIntValue  = function(  ) {
   return this.enum_;
 };
+
 
 lgb.simulation.model.WSConnectionState.prototype.getString  = function(  ) {
   var str = lgb.simulation.model.WSConnectionState.TEXT[this.enum_];

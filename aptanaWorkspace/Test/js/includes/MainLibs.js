@@ -1,7 +1,8 @@
 
-if (undefined == LGB_WEBROOT) {
-  LGB_WEBROOT = "";
+if (!"LGB_WEBROOT" in window || undefined === LGB_WEBROOT) {
+  var LGB_WEBROOT = "";
 }
+
 
 
 
@@ -95,8 +96,50 @@ test.includes.MainLibs.standAlone = function() {
    test.includes.MainLibs.initKendo();
    test.includes.MainLibs.addOneScript("js/closure/core/goog/", "base");
 
-      
 };
+
+
+test.includes.MainLibs.initStandAloneScene = function() {
+
+    
+      
+   test.includes.MainLibs.addScripts(
+    "js/lib/", 
+      [
+        "jquery.src",
+        "purl"
+      ]
+    );
+  
+   test.includes.MainLibs.addScripts(
+    "/js/lib/createjs/events/", 
+      [
+        "Event",
+        "EventDispatcher"
+      ]
+    );
+    
+    
+    
+   test.includes.MainLibs.addScripts(
+    "js/lib/tweenjs/", 
+      [
+        "Tween",
+        "CSSPlugin",
+        "Ease",
+        "Timeline",
+        "version"
+      ]
+    );
+    
+
+    
+    
+    
+   test.includes.MainLibs.addOneScript("js/closure/core/goog/", "base");
+
+};
+
 
 test.includes.MainLibs.standAloneCss = function() {
   
@@ -109,39 +152,13 @@ test.includes.MainLibs.standAloneCss = function() {
    test.includes.MainLibs.addOneCssScript("css/", "panels");
    test.includes.MainLibs.addOneCssScript("css/", "lhpb");
 
-
 };
 
-
-
-// 
-// 
-// test.includes.MainLibs.initGraph2 = function() {
-//   
-  // test.includes.MainLibs.addScripts(
-    // "js/lib/", 
-    // ["d3.v3"]
-    // );  
-//     
-// };
-// 
-// 
-// 
-// test.includes.MainLibs.initGraph = function() {
-//   
-  // test.includes.MainLibs.addScripts(
-    // "js/lib/", 
-    // ["d3", "crossfilter", "dc", "colorbrewer"]
-    // );  
-//     
-// };
-// 
 
 
 
 test.includes.MainLibs.initKendo = function() {
   
- 
    test.includes.MainLibs.addOneScript("js/kendo/custom-src/", "kendo.core");
   
    test.includes.MainLibs.addScripts(
@@ -175,9 +192,6 @@ test.includes.MainLibs.initKendo = function() {
       ]
     );
     
-
-  
-
 };
 
 

@@ -11,7 +11,6 @@ goog.require('lgb.simulation.model.WebSocketConnectionStateRequest');
 goog.require('lgb.simulation.events.BaseEvent');
 goog.require('lgb.simulation.model.WSConnectionState');
 goog.require('lgb.simulation.events.SimStateNativeRequest');
-goog.require('lgb.simulation.model.voNative.SimStateNativeEnum');
 goog.require('lgb.simulation.model.voNative.SimStateNative');
 
 
@@ -229,6 +228,9 @@ lgb.gui.view.SimulationStateControlGUIh.prototype.onClickSimStateNativeRequest_ 
     
     var newEvent = new lgb.simulation.events.SimStateNativeRequest(simStateNative);
     this.dispatchLocal(newEvent);
+    
+    //this.triggerLocal(se.SimStateNativeRequest, simStateNative);
+    
 };
 
 

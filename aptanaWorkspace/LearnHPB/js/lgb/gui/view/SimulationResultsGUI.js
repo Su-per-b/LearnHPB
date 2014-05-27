@@ -126,7 +126,7 @@ lgb.gui.view.SimulationResultsGUI.prototype.makeTable_ = function(varList) {
   len = varList.length;
   for (i=0;i<len;i++) {
     
-    varName = varList[i].name;
+    varName = varList[i].name_;
     varName = varName.split('.').join('_');
     varName = varName.split('y_').join('');
     varName = varName.split('[').join('_');

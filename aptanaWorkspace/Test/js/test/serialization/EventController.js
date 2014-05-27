@@ -5,8 +5,8 @@
  
 goog.provide('test.serialization.EventController');
 
-goog.require('test.CONSTANTS');
-goog.require('test.serialization.global');
+goog.require('test.main.CONSTANTS');
+goog.require('test.serialization.main.global');
 
 
 goog.require('goog.debug.Logger');
@@ -31,6 +31,7 @@ goog.require('lgb.simulation.controller.JsonController');
 goog.require('lgb.simulation.model.voManaged.ScalarValueResults');
 goog.require('lgb.simulation.model.voManaged.ScalarValueReal');
 goog.require('lgb.simulation.model.voManaged.ScalarValueCollection');
+goog.require('lgb.simulation.model.voManaged.XMLparsedInfo');
 
 goog.require('lgb.simulation.events.ConfigChangeNotify');
 goog.require('lgb.simulation.events.MessageEvent');
@@ -38,6 +39,9 @@ goog.require('lgb.simulation.events.SimStateNativeRequest');
 goog.require('lgb.simulation.events.SimStateNativeNotify');
 goog.require('lgb.simulation.events.SimStateNativeRequest');
 goog.require('lgb.simulation.events.MessageEvent');
+goog.require('lgb.simulation.events.XMLparsedEvent');
+goog.require('lgb.simulation.events.SessionControlEvent');
+goog.require('lgb.simulation.events.ScalarValueChangeRequest');
 
 
 /**
@@ -74,26 +78,37 @@ test.serialization.EventController.prototype.runAll = function() {
   
     module( "Event" );
   
-    test("MessageEvent Serialize", 1, this.messageEvent_serialize);
-    test("MessageEvent Deserialize", 5, this.messageEvent_deserialize);
+    test("MessageEvent Serialize", 1, this.T01_messageEvent_serialize);
+    test("MessageEvent Deserialize", 5, this.T02_messageEvent_deserialize);
     
-    test("ConfigChangeNotify Serialize", 1, this.configChangeNotify_serialize);
-    test("ConfigChangeNotify Deserialize", 7, this.configChangeNotify_deserialize);
+    test("ConfigChangeNotify Serialize", 1, this.T03_configChangeNotify_serialize);
+    test("ConfigChangeNotify Deserialize", 7, this.T04_configChangeNotify_deserialize);
     
-    test("ResultEvent Serialize", 8, this.resultEvent_serialize);
-    test("ResultEvent Deserialize", 13, this.resultEvent_deserialize);
+    test("ResultEvent Serialize", 8, this.T05_resultEvent_serialize);
+    test("ResultEvent Deserialize", 13, this.T06_resultEvent_deserialize);
   
-    test("SimStateNativeRequest Serialize", 1, this.simStateNativeRequest_serialize);
-    test("SimStateNativeRequest Deserialize", 6, this.simStateNativeRequest_deserialize);
+    test("SimStateNativeRequest Serialize", 1, this.T07_simStateNativeRequest_serialize);
+    test("SimStateNativeRequest Deserialize", 6, this.T08_simStateNativeRequest_deserialize);
     
-    test("SimStateNativeNotify Serialize", 1, this.simStateNativeNotify_serialize);
-    test("SimStateNativeNotify Deserialize", 6, this.simStateNativeNotify_deserialize);
+    test("SimStateNativeNotify Serialize", 1, this.T09_simStateNativeNotify_serialize);
+    test("SimStateNativeNotify Deserialize", 6, this.T10_simStateNativeNotify_deserialize);
+
+    test("XMLparsedEvent Serialize", 1, this.T11_xmlParsedEvent_serialize);
+    test("XMLparsedEvent Deserialize", 1, this.T12_xmlParsedEvent_deserialize);
+    
+    test("ScalarValueChangeRequest Serialize", 1, this.T13_scalarValueChangeRequest_serialize);
+    test("ScalarValueChangeRequest Deserialize", 1, this.T14_scalarValueChangeRequest_deserialize);
+    
+    test("SessionControlEvent Serialize", 1, this.T15_sessionControlClientRequest_serialize);
+    test("SessionControlEvent Deserialize", 1, this.T16_sessionControlClientRequest_deserialize);
+
+
 
 
 };
 
 
-test.serialization.EventController.prototype.messageEvent_serialize = function() {
+test.serialization.EventController.prototype.T01_messageEvent_serialize = function() {
 
     var messageType_0 = lgb.simulation.model.voNative.MessageType.messageType_debug;
     
@@ -114,7 +129,7 @@ test.serialization.EventController.prototype.messageEvent_serialize = function()
 
 
 
-test.serialization.EventController.prototype.messageEvent_deserialize = function() {
+test.serialization.EventController.prototype.T02_messageEvent_deserialize = function() {
 
     var event_0 = deserializeOk(
       CONST.STR_messageEvent_0,
@@ -133,7 +148,7 @@ test.serialization.EventController.prototype.messageEvent_deserialize = function
 
 
 
-test.serialization.EventController.prototype.configChangeNotify_serialize = function() {
+test.serialization.EventController.prototype.T03_configChangeNotify_serialize = function() {
   
     var defaultExperimentStruct_0 = new lgb.simulation.model.voNative.DefaultExperimentStruct(123.03, 145.03, 10.0);
     var configStruct_0 = new lgb.simulation.model.voNative.ConfigStruct(defaultExperimentStruct_0, 1);
@@ -151,7 +166,7 @@ test.serialization.EventController.prototype.configChangeNotify_serialize = func
 };
 
 
-test.serialization.EventController.prototype.configChangeNotify_deserialize = function() {
+test.serialization.EventController.prototype.T04_configChangeNotify_deserialize = function() {
 
     var event_0 = deserializeOk(
       CONST.STR_configChangeNotify_0,
@@ -175,7 +190,7 @@ test.serialization.EventController.prototype.configChangeNotify_deserialize = fu
 
 
 
-test.serialization.EventController.prototype.resultEvent_serialize = function() {
+test.serialization.EventController.prototype.T05_resultEvent_serialize = function() {
 
 
     var scalarValueReal_0 = new lgb.simulation.model.voManaged.ScalarValueReal(1, 2.0);
@@ -222,7 +237,7 @@ test.serialization.EventController.prototype.resultEvent_serialize = function() 
 
 
 
-test.serialization.EventController.prototype.resultEvent_deserialize = function() {
+test.serialization.EventController.prototype.T06_resultEvent_deserialize = function() {
 
     var event_0 = deserializeOk(
       CONST.STR_resultEvent_0,
@@ -267,7 +282,7 @@ test.serialization.EventController.prototype.resultEvent_deserialize = function(
 
 
 
-test.serialization.EventController.prototype.simStateNativeRequest_serialize = function() {
+test.serialization.EventController.prototype.T07_simStateNativeRequest_serialize = function() {
 
     var simStateNativeEnum_0 = lgb.simulation.model.voNative.SimStateNative.ENUM.simStateNative_5_step_requested;
     var simStateNative_0 = new lgb.simulation.model.voNative.SimStateNative(simStateNativeEnum_0);
@@ -285,7 +300,7 @@ test.serialization.EventController.prototype.simStateNativeRequest_serialize = f
 };
 
 
-test.serialization.EventController.prototype.simStateNativeRequest_deserialize = function() {
+test.serialization.EventController.prototype.T08_simStateNativeRequest_deserialize = function() {
 
     var event_0 = deserializeOk(
       CONST.STR_simStateNativeRequest_0,
@@ -305,7 +320,7 @@ test.serialization.EventController.prototype.simStateNativeRequest_deserialize =
 };
 
 
-test.serialization.EventController.prototype.simStateNativeNotify_serialize = function() {
+test.serialization.EventController.prototype.T09_simStateNativeNotify_serialize = function() {
 
     var simStateNativeEnum_0 = lgb.simulation.model.voNative.SimStateNative.ENUM.simStateNative_3_ready;
     var simStateNative_0 = new lgb.simulation.model.voNative.SimStateNative(simStateNativeEnum_0);
@@ -323,7 +338,7 @@ test.serialization.EventController.prototype.simStateNativeNotify_serialize = fu
 
 
 
-test.serialization.EventController.prototype.simStateNativeNotify_deserialize = function() {
+test.serialization.EventController.prototype.T10_simStateNativeNotify_deserialize = function() {
 
     var event_0 = deserializeOk(
       CONST.STR_simStateNativeNotify_0,
@@ -342,32 +357,69 @@ test.serialization.EventController.prototype.simStateNativeNotify_deserialize = 
 };
 
 
-test.serialization.EventController.prototype.xmlParsedEvent_serialize = function() {
+test.serialization.EventController.prototype.T11_xmlParsedEvent_serialize = function() {
 
-    // var simStateNativeEnum_0 = lgb.simulation.model.voNative.SimStateNative.ENUM.simStateNative_3_ready;
-    // var simStateNative_0 = new lgb.simulation.model.voNative.SimStateNative(simStateNativeEnum_0);
-//     
-    // XMLparsedInfo
-//     
-//     
-    // var event_0 = new lgb.simulation.events.XMLparsedEvent(simStateNative_0);
-//     
-//     
-    // serializeOk(
-      // event_0,
-      // CONST.STR_simStateNativeNotify_0
-    // );
-//     
+    var Enu = lgb.simulation.model.voNative.Enu.ENUM;
+      
+      
+    var scalarVariableCollection_0 = test.serialization.VoManagedController.getScalarVariableCollection_A_();
+    ok(scalarVariableCollection_0 instanceof lgb.simulation.model.voManaged.ScalarVariableCollection);
+    
+    var scalarVariableCollection_1 = test.serialization.VoManagedController.getScalarVariableCollection_B_();
+    ok(scalarVariableCollection_1 instanceof lgb.simulation.model.voManaged.ScalarVariableCollection);
+    
+    var scalarVariablesAll_0 = new lgb.simulation.model.voManaged.ScalarVariablesAll();
+    scalarVariablesAll_0.setInput(scalarVariableCollection_0);
+    scalarVariablesAll_0.setOutput(scalarVariableCollection_1);
+
+    serializeOk(
+      scalarVariablesAll_0,
+      CONST.STR_scalarVariablesAll_1
+    );
+    
+    
+    var xmlParsedInfo = new XMLparsedInfo(scalarVariablesAll);
     
     
 };
 
 
-test.serialization.EventController.prototype.xmlParsedEvent_deserialize = function() {
+test.serialization.EventController.prototype.T12_xmlParsedEvent_deserialize = function() {
 
-
+    ok(true);
     
 };
+
+
+test.serialization.EventController.prototype.T13_scalarValueChangeRequest_serialize = function() {
+
+    ok(true);
+    
+};
+
+
+test.serialization.EventController.prototype.T14_scalarValueChangeRequest_deserialize = function() {
+
+    ok(true);
+    
+};
+
+
+
+test.serialization.EventController.prototype.T15_sessionControlClientRequest_serialize = function() {
+
+    ok(true);
+    
+};
+
+test.serialization.EventController.prototype.T16_sessionControlClientRequest_deserialize = function() {
+
+
+    ok(true);
+    
+};
+
+
 
 
 

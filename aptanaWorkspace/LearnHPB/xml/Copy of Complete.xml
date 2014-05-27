@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2013 sp1 (x64) (http://www.altova.com) by RD (pcd) -->
+<SystemList name="Scenario 1">
 
-<ScenarioInfo>
-
-</ScenarioInfo>
-
-<SystemList name="Complete Scenario">
   <System name="General" abbr="GN">
   
     <SubSystem name="Site" abbr="Sit">
     
       <Category name="Day of Year" abbr="DoY">
-        <Variable visible="false" name="Day of Year" abbr="DoY" scope="gui" phase="1a" variability="parameter" unit="Day">
+        <Variable visible="true" changeable="true" name="Day of Year" abbr="DoY" scope="gui" phase="1a" variability="parameter" unit="Day">
           <Integer min="1" max="365" default="1" />
         </Variable>
       </Category>
@@ -1325,5 +1321,7 @@
       </Category>
     </SubSystem>
   </System>
-
+  
+  
+  
 </SystemList>

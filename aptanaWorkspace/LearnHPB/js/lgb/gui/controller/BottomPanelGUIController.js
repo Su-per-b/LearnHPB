@@ -61,9 +61,10 @@ lgb.gui.controller.BottomPanelGUIController.prototype.init2_ = function(simDataM
   this.makeChildGUIcontroller_
     (lgb.gui.controller.SimulationConsoleController, simDataModel);
 
-  this.makeChildGUIcontroller_
-    (lgb.gui.controller.SimulationInputController, simDataModel);
 
+  // this.makeChildGUIcontroller_
+    // (lgb.gui.controller.SimulationInputController, simDataModel);
+// 
 
   this.makeChildGUIcontroller_
     (lgb.gui.controller.SimulationOutputController, simDataModel);

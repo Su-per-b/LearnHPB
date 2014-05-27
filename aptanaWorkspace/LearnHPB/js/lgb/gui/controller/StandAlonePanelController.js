@@ -65,8 +65,8 @@ lgb.gui.controller.StandAlonePanelController.prototype.init2_ = function(simData
     (lgb.gui.controller.SimulationInputController, simDataModel);
 
 
-  this.makeChildGUIcontroller_
-    (lgb.gui.controller.SimulationOutputController, simDataModel);
+  // this.makeChildGUIcontroller_
+    // (lgb.gui.controller.SimulationOutputController, simDataModel);
     
      
   // this.makeChildGUIcontroller_
