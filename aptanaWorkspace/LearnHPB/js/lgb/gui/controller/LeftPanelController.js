@@ -11,6 +11,12 @@ goog.require('lgb.gui.view.LeftPanelGUI');
 goog.require('lgb.gui.model.BaseGuiModel');
 goog.require('lgb.gui.view.BottomPanelGUI');
 
+
+
+/**
+ * @constructor
+ * @extends {lgb.core.BaseController}
+ */
 lgb.gui.controller.LeftPanelController = function() {
 
   lgb.core.BaseController.call(this);

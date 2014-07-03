@@ -14,6 +14,11 @@ goog.require('lgb.simulation.events.SimStateNativeRequest');
 goog.require('lgb.simulation.model.voNative.SimStateNative');
 
 
+
+/**
+ * @constructor
+ * @extends lgb.gui.view.BaseGUI
+ */
 lgb.gui.view.SimulationStateControlGUIh = function(dataModel) {
 
 

@@ -2,6 +2,10 @@ goog.provide('lgb.simulation.model.voNative.DefaultExperimentStruct');
 
 goog.require('lgb.simulation.model.BaseModel');
 
+
+ /**
+ * @constructor
+ */
 lgb.simulation.model.voNative.DefaultExperimentStruct = function(startTime, stopTime, tolerance) {
 
   this.startTime = startTime || 0.0;

@@ -4,6 +4,12 @@ goog.require('lgb.gui.view.BaseGUI');
 goog.require('lgb.chart.model.GraphGUImodel');
 
 
+
+
+/**
+ * @constructor
+ * @extends lgb.gui.view.BaseGUI
+ */
 lgb.chart.view.GraphGUI_05 = function(dataModel, chartModel) {
 
   this._TITLE = 'GraphGUI_05';

@@ -49,11 +49,11 @@ lgb.gui.controller.LayoutController.prototype.init_ = function() {
     this.guiView  = new lgb.gui.view.LayoutView(this.dataModel);
     this.guiView.init();
     
-    this.bind_();
+    //this.bind_();
     
-    this.leftPanelSimpleController_ = this.makeChildGUIcontroller_(lgb.gui.controller.LeftPanelSimpleController);
-    this.buttonsTopRightHUDController_ = this.makeChildGUIcontroller_(lgb.gui.controller.ButtonsTopRightHUDController);
-    this.bottomPanelGUIController_ = this.makeChildGUIcontroller_(lgb.gui.controller.BottomPanelIframeGUIController);
+    //this.leftPanelSimpleController_ = this.makeChildGUIcontroller_(lgb.gui.controller.LeftPanelSimpleController);
+   // this.buttonsTopRightHUDController_ = this.makeChildGUIcontroller_(lgb.gui.controller.ButtonsTopRightHUDController);
+    //this.bottomPanelGUIController_ = this.makeChildGUIcontroller_(lgb.gui.controller.BottomPanelIframeGUIController);
     
 };
 

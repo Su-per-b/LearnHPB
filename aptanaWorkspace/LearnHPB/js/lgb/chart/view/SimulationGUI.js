@@ -1,6 +1,12 @@
 goog.provide('lgb.chart.view.SimulationGUI');
 
 
+
+
+/**
+ * @constructor
+ * @extends lgb.gui.view.BaseGUI
+ */
 lgb.chart.view.SimulationGUI = function(dataModel) {
 
   this._TITLE = 'Input';

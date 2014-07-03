@@ -9,6 +9,10 @@ goog.require('lgb.core.BaseClass');
 
 
 
+
+/**
+ * @constructor
+ */
 lgb.simulation.model.BaseModel  = function() {
 
 
@@ -117,74 +121,75 @@ lgb.simulation.model.BaseModel.prototype.toJSONHelper_ = function() {
 };
 
 
-lgb.simulation.model.BaseModel.prototype.fromJSON = function(deserializedObj) {
-  
-  this.fromJSONHelper_(deserializedObj);
-  
-};
+
+// lgb.simulation.model.BaseModel.prototype.fromJSON = function(deserializedObj) {
+//   
+  // this.fromJSONHelper_(deserializedObj);
+//   
+// };
 
 
 
-lgb.simulation.model.BaseModel.prototype.fromJSONHelper_ = function(deserializedObj) {
-    
-  //if (undefined == classReference) {
-    var classReference = this.getClassReference();
-  //}
-
-   
-  if (undefined != classReference.fieldPrimativesEx_) {
-    
-    var fieldPrimativesEx = classReference.fieldPrimativesEx_;
-
-    for(var jsFieldName in fieldPrimativesEx) {
-      
-      var jsonFieldName = fieldPrimativesEx[jsFieldName];
-      this[jsFieldName] = deserializedObj[jsonFieldName];
-      
-    }
-  }
-  
-  if (undefined != classReference.fieldObjectsEx_) {
-    
-    var fieldObjectsEx = classReference.fieldObjectsEx_;
-
-    for(var jsFieldName in fieldObjectsEx) {
-      
-      var fieldObject = fieldObjectsEx[jsFieldName];   
-      var jsonFieldName = fieldObject.jsonFieldName;
-      var fieldClassReference = fieldObject.classReference;
-      
-      
-      if (null == fieldClassReference) {
-        debugger;
-      }
-      
-      var childDeserializedObj = deserializedObj[jsonFieldName];
-      
-      
-
-      
-      if (null != childDeserializedObj) { 
-        
-        var childTypedObject = new fieldClassReference();
-        childTypedObject.fromJSON(childDeserializedObj);
-        
-        if (fieldClassReference == lgb.simulation.model.voManaged.SerializableVector) {
-        
-          this[jsFieldName] = childTypedObject.toArray();
-          
-        } else {
-
-          this[jsFieldName] = childTypedObject;
-          
-        }
-      
-      }
-
-    }
-    
-  }
-  
-
-};
+// lgb.simulation.model.BaseModel.prototype.fromJSONHelper_ = function(deserializedObj) {
+//     
+  // //if (undefined == classReference) {
+    // var classReference = this.getClassReference();
+  // //}
+// 
+//    
+  // if (undefined != classReference.fieldPrimativesEx_) {
+//     
+    // var fieldPrimativesEx = classReference.fieldPrimativesEx_;
+// 
+    // for(var jsFieldName in fieldPrimativesEx) {
+//       
+      // var jsonFieldName = fieldPrimativesEx[jsFieldName];
+      // this[jsFieldName] = deserializedObj[jsonFieldName];
+//       
+    // }
+  // }
+//   
+  // if (undefined != classReference.fieldObjectsEx_) {
+//     
+    // var fieldObjectsEx = classReference.fieldObjectsEx_;
+// 
+    // for(var jsFieldName in fieldObjectsEx) {
+//       
+      // var fieldObject = fieldObjectsEx[jsFieldName];   
+      // var jsonFieldName = fieldObject.jsonFieldName;
+      // var fieldClassReference = fieldObject.classReference;
+//       
+//       
+      // if (null == fieldClassReference) {
+        // debugger;
+      // }
+//       
+      // var childDeserializedObj = deserializedObj[jsonFieldName];
+//       
+//       
+// 
+//       
+      // if (null != childDeserializedObj) { 
+//         
+        // var childTypedObject = new fieldClassReference();
+        // childTypedObject.fromJSON(childDeserializedObj);
+//         
+        // if (fieldClassReference == lgb.simulation.model.voManaged.SerializableVector) {
+//         
+          // this[jsFieldName] = childTypedObject.toArray();
+//           
+        // } else {
+// 
+          // this[jsFieldName] = childTypedObject;
+//           
+        // }
+//       
+      // }
+// 
+    // }
+//     
+  // }
+//   
+// 
+// };
 

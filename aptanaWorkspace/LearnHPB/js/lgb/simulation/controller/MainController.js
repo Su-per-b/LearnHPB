@@ -28,6 +28,11 @@ goog.require('lgb.simulation.events.SessionControlEvent');
 
 
 
+
+/**
+ * @constructor
+ * @extends {lgb.core.BaseController}
+ */
 lgb.simulation.controller.MainController = function() {
     lgb.core.BaseController.call(this);
 
@@ -75,11 +80,11 @@ lgb.simulation.controller.MainController.prototype.setRemoteHost_ = function() {
         url = String (window.location);
         console.log('window.location: '+ url);
         
-        hostname = url.split('/')[2];
+        var hostname = url.split('/')[2];
         console.log('hostname: '+ hostname);
         
         this.socketServerHost = hostname.split(':')[0];
-        console.log('hostname2: '+ hostname2);
+        console.log('this.socketServerHost: '+ this.socketServerHost);
         break;
         
       case lgb.core.Config.SOCKET_SERVER.Pfalco :
@@ -386,7 +391,7 @@ lgb.simulation.controller.MainController.prototype.connect = function(connectFla
     if (connectFlag) {
       
       if (window.MozWebSocket) {
-          this.ws_ = new MozWebSocket(this.dataModel.socketServerURL);
+          this.ws_ = new window.MozWebSocket(this.dataModel.socketServerURL);
       } else if (window.WebSocket) {
           this.ws_ = new WebSocket(this.dataModel.socketServerURL);
       } else {
@@ -442,9 +447,9 @@ lgb.simulation.controller.MainController.prototype.onOpen_ = function(event) {
     
     this.dataModel.setWebSocketConnectionState(lgb.simulation.model.WebSocketConnectionState.opened);
 
-    while(msg = this.delayedMessages.shift()) {
-        this.ws_.send(msg);
-    }
+    //while(msg = this.delayedMessages.shift()) {
+   //   //  this.ws_.send(msg);
+    //}
 
 
 };

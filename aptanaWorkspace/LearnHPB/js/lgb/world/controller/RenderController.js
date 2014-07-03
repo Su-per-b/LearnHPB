@@ -205,8 +205,10 @@ lgb.world.controller.RenderController.prototype.onAddToWorldRequest_ = function(
  * @param {number} timestamp A timestamp.
  */
 lgb.world.controller.RenderController.prototype.onRenderOReq_ = function(timestamp) {
-  window.oRequestAnimationFrame(mainController.renderController_.onRenderOReq_);
-  mainController.renderController_.renderHelper(timestamp);
+  
+  window.oRequestAnimationFrame(window.mainController.renderController_.onRenderOReq_);
+  window.mainController.renderController_.renderHelper(timestamp);
+  
 };
 
 
@@ -217,8 +219,8 @@ lgb.world.controller.RenderController.prototype.onRenderOReq_ = function(timesta
  */
 lgb.world.controller.RenderController.prototype.onRenderMoz_ = function(timestamp) {
 
-  window.mozRequestAnimationFrame(mainController.renderController_.onRenderMoz_);
-  mainController.renderController_.renderHelper(timestamp);
+  window.mozRequestAnimationFrame(window.mainController.renderController_.onRenderMoz_);
+  window.mainController.renderController_.renderHelper(timestamp);
 };
 
 
@@ -230,10 +232,10 @@ lgb.world.controller.RenderController.prototype.onRenderMoz_ = function(timestam
 lgb.world.controller.RenderController.prototype.onRenderWebkit_ = function(timestamp) {
 
   window.webkitRequestAnimationFrame(
-      mainController.renderController_.onRenderWebkit_
+      window.mainController.renderController_.onRenderWebkit_
     );
 
-  mainController.renderController_.renderHelper(timestamp);
+  window.mainController.renderController_.renderHelper(timestamp);
 };
 
 
@@ -245,8 +247,8 @@ lgb.world.controller.RenderController.prototype.onRenderWebkit_ = function(times
  */
 lgb.world.controller.RenderController.prototype.onRenderMisc_ = function(timestamp) {
 
-  window.requestAnimationFrame(mainController.renderController_.onRenderMisc_);
-  mainController.renderController_.renderHelper(timestamp);
+  window.requestAnimationFrame(window.mainController.renderController_.onRenderMisc_);
+  window.mainController.renderController_.renderHelper(timestamp);
 };
 
 

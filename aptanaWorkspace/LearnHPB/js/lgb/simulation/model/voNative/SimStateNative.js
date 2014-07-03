@@ -2,6 +2,10 @@ goog.provide('lgb.simulation.model.voNative.SimStateNative');
 
 goog.require('lgb.simulation.model.BaseModel');
 
+
+ /**
+ * @constructor
+ */
 lgb.simulation.model.voNative.SimStateNative = function(intValue) {
   
   if (undefined != intValue) {

@@ -13,7 +13,7 @@ goog.require('lgb.world.model.vo.ViewpointNode');
 /**
  * MVC View for the RoofTop Unit
  * @constructor
- * @extendslgb.world.view.BaseWorldView
+ * @extends lgb.world.view.BaseWorldView
  * @param {lgb.world.model.RoofTopModel} dataModel The data model to display.
  */
 lgb.world.view.RoofTopView = function(dataModel) {

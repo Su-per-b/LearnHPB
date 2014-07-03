@@ -8,29 +8,12 @@ goog.provide('lgb.simulation.model.WebSocketConnectionStateRequest');
 goog.provide('lgb.simulation.model.WSConnectionState');
 
 
+
+
+
 /**
- * @enum {number}
+ * @constructor
  */
-lgb.simulation.model.WebSocketConnectionState = {
-  uninitialized: 0,
-  open_requested: 1,
-  opened: 2,
-  closed: 3,
-  timed_out: 4,
-  dropped: 5,
-  error:6
-};
-
-
-
-lgb.simulation.model.WebSocketConnectionStateRequest = {
-  open: 0,
-  close: 1
-};
-
-
-
-
 lgb.simulation.model.WSConnectionState = function(enum_arg) {
   
   if (undefined != enum_arg) {
@@ -38,7 +21,6 @@ lgb.simulation.model.WSConnectionState = function(enum_arg) {
   }
   
 };
-
 
 
 lgb.simulation.model.WSConnectionState.prototype.setIntValue  = function( enum_arg ) {
@@ -108,5 +90,26 @@ lgb.simulation.model.WSConnectionState.ENUM = {
   timed_out: 4,
   dropped: 5,
   error:6
+};
+
+
+/**
+ * @enum {number}
+ */
+lgb.simulation.model.WebSocketConnectionState = {
+  uninitialized: 0,
+  open_requested: 1,
+  opened: 2,
+  closed: 3,
+  timed_out: 4,
+  dropped: 5,
+  error:6
+};
+
+
+
+lgb.simulation.model.WebSocketConnectionStateRequest = {
+  open: 0,
+  close: 1
 };
 

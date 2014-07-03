@@ -22,9 +22,9 @@ lgb.world.model.vo.BaseVo = function() {
  *  to the handler
  * @param {Array} ary The array to loop though.
  * @param {Function} handler The handler to call.
- * @param aditional argument to pass along for all function calls
- * @param aditional argument to pass along for all function calls
- * @param aditional argument to pass along for all function calls
+ * additional argument to pass along for all function calls
+ * additional argument to pass along for all function calls
+ * additional argument to pass along for all function calls
  * @protected
  */
 lgb.world.model.vo.BaseVo.prototype.each = function(ary, handler) {
@@ -56,9 +56,9 @@ lgb.world.model.vo.BaseVo.prototype.each = function(ary, handler) {
  *  to the handler
  * @param {Array} ary The array to loop though.
  * @param {Function} handler The handler to call.
- * @param aditional argument to pass along for all function calls
- * @param aditional argument to pass along for all function calls
- * @param aditional argument to pass along for all function calls
+ * additional argument to pass along for all function calls
+ * additional argument to pass along for all function calls
+ * additional argument to pass along for all function calls
  * @protected
  */
 lgb.world.model.vo.BaseVo.prototype.eachIdx = function(ary, handler) {
@@ -75,9 +75,8 @@ lgb.world.model.vo.BaseVo.prototype.eachIdx = function(ary, handler) {
     
     var argList = [arrayElement];
     
-    if (useIdx) {
-      argList.push(i);
-    }
+    argList.push(i);
+    
     
     if(additionalArgs) {
       argList = argList.concat(additionalArgs);

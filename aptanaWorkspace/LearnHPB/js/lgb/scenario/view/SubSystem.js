@@ -10,6 +10,10 @@ goog.require('lgb.scenario.view.Category');
 
 
 
+/**
+ * @constructor
+ * @extends {lgb.scenario.view.BaseView}
+ */
 lgb.scenario.view.SubSystem = function(dataModel, debugFlag) {
   lgb.scenario.view.BaseView.call(this, dataModel, debugFlag);
 };

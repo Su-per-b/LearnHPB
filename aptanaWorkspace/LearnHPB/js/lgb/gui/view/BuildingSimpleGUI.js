@@ -4,6 +4,10 @@ goog.require('lgb.gui.view.BaseGUI');
 goog.require('lgb.component.TabStripH');
 goog.require('lgb.component.TabStripDataSourceH');
 
+
+ /**
+ * @constructor
+ */
 lgb.gui.view.BuildingSimpleGUI = function(dataModel) {
 
   this._TITLE = 'Building';

@@ -1,9 +1,11 @@
 goog.provide('lgb.simulation.model.voManaged.SerializableVector');
 
 goog.require('lgb.simulation.model.BaseModel');
-goog.require('lgb.simulation.controller.JsonController');
 
 
+ /**
+ * @constructor
+ */
 lgb.simulation.model.voManaged.SerializableVector = function(itemTypeString, itemArray) {
 
   this.itemTypeString_ = itemTypeString;
@@ -40,10 +42,14 @@ lgb.simulation.model.voManaged.SerializableVector.prototype.toJSON = function() 
 
 
 
-lgb.simulation.model.voManaged.SerializableVector.prototype.fromJSON = function(deserializedObj) {
-    
 
-    this.fromJSONHelper_(deserializedObj);
+
+
+lgb.simulation.model.voManaged.SerializableVector.prototype.makeTyped = function(deserializedObj) {
+  
+    this.itemTypeString_ = deserializedObj.itemType;
+    
+    //this.fromJSONHelper_(deserializedObj);
     
     this.itemArray_  = [];
     
@@ -63,12 +69,41 @@ lgb.simulation.model.voManaged.SerializableVector.prototype.fromJSON = function(
       this.itemArray_ .push(typedItem);
     };
 
-
+  
 };
 
 
 
 
+// lgb.simulation.model.voManaged.SerializableVector.prototype.fromJSON = function(deserializedObj) {
+//     
+// 
+    // this.fromJSONHelper_(deserializedObj);
+//     
+    // this.itemArray_  = [];
+//     
+//     
+    // if (undefined == deserializedObj.itemArray) {
+      // debugger;
+    // }
+//     
+    // var len = deserializedObj.itemArray.length;
+//     
+    // for (var i=0; i < len; i++) {
+//       
+      // var deserializedItem =  deserializedObj.itemArray[i];
+      // deserializedItem.t = this.itemTypeString_;
+//       
+      // var typedItem =  lgb.simulation.controller.JsonController().makeTyped(deserializedItem);
+      // this.itemArray_ .push(typedItem);
+    // };
+// 
+// 
+// };
+
+
+
+
 lgb.simulation.model.voManaged.SerializableVector.fieldPrimativesEx_ = {
-   itemTypeString_: "itemType" ,
+   itemTypeString_: "itemType" 
 };

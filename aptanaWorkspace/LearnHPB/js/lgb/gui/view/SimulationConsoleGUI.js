@@ -1,6 +1,13 @@
 goog.provide('lgb.gui.view.SimulationConsoleGUI');
 
+goog.require('lgb.gui.view.BaseGUI');
 
+
+
+/**
+ * @constructor
+ * @extends lgb.gui.view.BaseGUI
+ */
 lgb.gui.view.SimulationConsoleGUI = function(dataModel) {
 
   this._TITLE = 'Console';

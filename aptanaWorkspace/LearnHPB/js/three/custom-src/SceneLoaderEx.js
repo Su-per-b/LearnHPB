@@ -54,11 +54,27 @@ THREE.SceneLoaderEx.prototype = {
 
   },
 
+  removeTrailingSlash: function ( url ) {
+
+    var len = url.length;
+    var lastChar = url.charAt(len-1);
+    
+    if (lastChar == "/") {
+      url = url.substr(0, len-1);
+    }
+    
+    return url;
+  },
+  
   parse: function ( json, callbackFinished, url ) {
 
     var scope = this;
 
     var urlBase = THREE.Loader.prototype.extractUrlBase( url );
+
+
+    urlBase = scope.removeTrailingSlash(urlBase);
+    
 
     var geometry, material, camera, fog,
       texture, images, color,
@@ -160,8 +176,13 @@ THREE.SceneLoaderEx.prototype = {
         return source_url;
 
       } else {
+        
+        
 
-        return urlBase + "/" + source_url;
+        
+        var str = urlBase + "/" + source_url;
+        
+        return str;
 
       }
 
@@ -895,7 +916,9 @@ THREE.SceneLoaderEx.prototype = {
         }
 
         var loader = this.geometryHandlers[ geoJSON.type ][ "loaderObject" ];
-        loader.load( get_url( geoJSON.url, data.urlBaseType ), create_callback_geometry( geoID ), loaderParameters );
+        var theURL = get_url( geoJSON.url, data.urlBaseType );
+        
+        loader.load( theURL, create_callback_geometry( geoID ), loaderParameters );
 
       } else if ( geoJSON.type === "embedded" ) {
 

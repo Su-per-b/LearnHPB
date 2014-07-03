@@ -9,6 +9,10 @@ goog.require('lgb.scenario.view.BaseView');
 goog.require('lgb.scenario.view.System');
 
 
+/**
+ * @constructor
+ * @extends {lgb.scenario.view.BaseView}
+ */
 lgb.scenario.view.SystemList = function(dataModel, debugFlag) {
   lgb.scenario.view.BaseView.call(this, dataModel, debugFlag);
 };

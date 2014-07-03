@@ -1,6 +1,11 @@
 goog.provide('lgb.gui.view.SimulationResultsGUI');
 
 
+
+/**
+ * @constructor
+ * @extends lgb.gui.view.BaseGUI
+ */
 lgb.gui.view.SimulationResultsGUI = function(dataModel) {
 
   this._TITLE = 'Results';
@@ -50,9 +55,9 @@ lgb.gui.view.SimulationResultsGUI.prototype.onChange_scalarValueResultsConverted
   var newRecord = { time: scalarValueResultsConverted.time_};
   
   var len = realList.length;
-  for (i=0;i<len;i++) {
-
-     varName = this.idxToNameMap_[i];
+  
+  for (var i=0;i<len;i++) {
+     var varName = this.idxToNameMap_[i];
      newRecord[varName] = realList[i].value_;
   }
   
@@ -112,21 +117,21 @@ lgb.gui.view.SimulationResultsGUI.prototype.updateAll_ = function() {
 
 lgb.gui.view.SimulationResultsGUI.prototype.makeTable_ = function(varList) {
   
-  this.idxToNameMap_ ={};
+  this.idxToNameMap_ = {};
   
-  fields = {};
+  var fields = {};
   fields['time'] = { type: "number" };
   
-  columns = [];
+  var columns = [];
   columns.push({ field: 'time', title: 'time' , width: "70px"});
   
   var data = {};
   
   
-  len = varList.length;
-  for (i=0;i<len;i++) {
+  var len = varList.length;
+  for (var i=0;i<len;i++) {
     
-    varName = varList[i].name_;
+    var varName = varList[i].name_;
     varName = varName.split('.').join('_');
     varName = varName.split('y_').join('');
     varName = varName.split('[').join('_');

@@ -17,7 +17,7 @@ goog.require('lgb.world.view.BaseV');
  * @param {string} subID The second  part fo the CSS id.
  * @param {string} title Ysed for the label of the component.
  * @constructor
- * @extends {lgb.BaseV}
+ * @extends {lgb.world.view.BaseV}
  */
 lgb.component.Tree = function(ds) {
     

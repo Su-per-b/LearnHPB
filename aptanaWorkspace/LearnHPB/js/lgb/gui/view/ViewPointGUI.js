@@ -15,7 +15,7 @@ goog.require('lgb.component.TreeDataSourceH');
  * @constructor
  * @param {lgb.world.model.ViewpointModel} dataModel The data model to display.
  * @param {string} parentHtmlID the CSS id of the parent to inject into the DOM.
- * @extends {lgb.gui.view.BaseGUI}
+ * @extends lgb.gui.view.BaseGUI
  */
 lgb.gui.view.ViewpointGUI = function(dataModel) {
   

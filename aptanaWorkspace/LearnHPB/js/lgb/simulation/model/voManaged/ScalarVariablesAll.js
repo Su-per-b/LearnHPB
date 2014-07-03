@@ -3,6 +3,10 @@ goog.provide('lgb.simulation.model.voManaged.ScalarVariablesAll');
 goog.require('lgb.simulation.model.BaseModel');
 goog.require('lgb.simulation.model.voManaged.ScalarVariableCollection');
 
+
+ /**
+ * @constructor
+ */
 lgb.simulation.model.voManaged.ScalarVariablesAll = function() {
 
   this.input_ = null;
@@ -45,7 +49,7 @@ lgb.simulation.model.voManaged.ScalarVariablesAll.fieldObjectsEx_ = {
    internal_: {
      jsonFieldName : "internal",
      classReference : lgb.simulation.model.voManaged.ScalarVariableCollection
-   },
+   }
        
 };
 

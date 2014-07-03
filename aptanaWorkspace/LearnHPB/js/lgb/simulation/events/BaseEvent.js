@@ -7,7 +7,6 @@ goog.provide('lgb.simulation.events.BaseEvent');
 goog.provide('se.Event');
 
 goog.require('goog.events.Event');
-goog.require('lgb.simulation.controller.JsonController');
 goog.require('goog.asserts');
 
 
@@ -84,22 +83,22 @@ lgb.simulation.events.BaseEvent.prototype.toJSONHelper_ = function() {
 };
 
 
-
-lgb.simulation.events.BaseEvent.prototype.fromJSON = function(deserializedObj) {
-  this.fromJSONHelper_(deserializedObj);
-};
-
-
-
-lgb.simulation.events.BaseEvent.prototype.fromJSONHelper_ = function(deserializedObj) {
-    
-  var payloadClassReference = this.getPayloadType();
-  this.payload_ = new payloadClassReference();
-  
-  this.payload_.fromJSON(deserializedObj.payload);
-  
-};
-
+// 
+// lgb.simulation.events.BaseEvent.prototype.fromJSON = function(deserializedObj) {
+  // this.fromJSONHelper_(deserializedObj);
+// };
+// 
+// 
+// 
+// lgb.simulation.events.BaseEvent.prototype.fromJSONHelper_ = function(deserializedObj) {
+//     
+  // var payloadClassReference = this.getPayloadType();
+  // this.payload_ = new payloadClassReference();
+//   
+  // this.payload_.fromJSON(deserializedObj.payload);
+//   
+// };
+// 
 
 
 

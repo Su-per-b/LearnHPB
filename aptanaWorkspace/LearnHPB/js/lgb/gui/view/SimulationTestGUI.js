@@ -2,6 +2,11 @@ goog.provide('lgb.gui.view.SimulationTestGUI');
 
 goog.require('lgb.gui.view.BaseGUI');
 
+
+/**
+ * @constructor
+ * @extends lgb.gui.view.BaseGUI
+ */
 lgb.gui.view.SimulationTestGUI = function(dataModel) {
 
   this._TITLE = 'Test';

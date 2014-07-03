@@ -72,47 +72,47 @@ lgb.chart.model.GraphGUImodel.prototype.init_ = function() {
   this.generateData();
    
   
-  var formatDateObj = d3.time.format("%H:%M:%S");
-  this.formatDateObj_ = formatDateObj;
-
-  this.data.forEach(function(d,i) {
-    d.dateObj = formatDateObj.parse(d.timeString);
-  });
-
-  
-  this.y = {
-    max:295,
-    min:288,
-    mean:295,
-    deviation:4
-  };
-  
-  
-  
-  this.domainY_ = [
-    this.y.min,
-    this.y.max
-  ];
-  
-  
-  var minDate = formatDateObj.parse("7:45:00");
-  var maxDate  = formatDateObj.parse("8:00:00");
-  
-
-
-
-  this.domainX_ = [
-    minDate,
-    maxDate
-  ];
-  
-  var that = this;
-  
-  
-  this.generateRandomFunction = function() {
-    var randomFunction = d3.random.normal(that.y.mean, that.y.deviation);
-    return randomFunction;
-  };
+  // var formatDateObj = d3.time.format("%H:%M:%S");
+  // this.formatDateObj_ = formatDateObj;
+// 
+  // this.data.forEach(function(d,i) {
+    // d.dateObj = formatDateObj.parse(d.timeString);
+  // });
+// 
+//   
+  // this.y = {
+    // max:295,
+    // min:288,
+    // mean:295,
+    // deviation:4
+  // };
+//   
+//   
+//   
+  // this.domainY_ = [
+    // this.y.min,
+    // this.y.max
+  // ];
+//   
+//   
+  // var minDate = formatDateObj.parse("7:45:00");
+  // var maxDate  = formatDateObj.parse("8:00:00");
+//   
+// 
+// 
+// 
+  // this.domainX_ = [
+    // minDate,
+    // maxDate
+  // ];
+//   
+  // var that = this;
+//   
+//   
+  // this.generateRandomFunction = function() {
+    // var randomFunction = d3.random.normal(that.y.mean, that.y.deviation);
+    // return randomFunction;
+  // };
   
 
 };

@@ -279,7 +279,6 @@ test.serialization.VoManagedController.prototype.T06_scalarValueCollection_deser
     assertEquals(2, scalarValueReal_1.getIdx());
     assertEquals(3.53, scalarValueReal_1.getValue(), 0.0);
     
-   
 };
 
 

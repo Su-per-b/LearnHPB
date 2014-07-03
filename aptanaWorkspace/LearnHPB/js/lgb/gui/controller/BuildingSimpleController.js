@@ -9,6 +9,10 @@ goog.require('lgb.gui.controller.BuildingSubController');
 
 
 
+/**
+ * @constructor
+ * @extends {lgb.core.BaseController}
+ */
 lgb.gui.controller.BuildingSimpleController = function() {
 
   lgb.core.BaseController.call(this);

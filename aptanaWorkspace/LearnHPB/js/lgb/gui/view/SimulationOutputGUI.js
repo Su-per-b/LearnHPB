@@ -1,6 +1,11 @@
 goog.provide('lgb.gui.view.SimulationOutputGUI');
 
 
+
+/**
+ * @constructor
+ * @extends lgb.gui.view.BaseGUI
+ */
 lgb.gui.view.SimulationOutputGUI = function(dataModel) {
 
   this._TITLE = 'Output';

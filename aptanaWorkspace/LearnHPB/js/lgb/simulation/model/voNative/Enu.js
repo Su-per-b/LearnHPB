@@ -2,6 +2,10 @@ goog.provide('lgb.simulation.model.voNative.Enu');
 
 goog.require('lgb.simulation.model.BaseModel');
 
+
+ /**
+ * @constructor
+ */
 lgb.simulation.model.voNative.Enu = function(enumInteger) {
   
   this.intValue_ = 0;
@@ -75,7 +79,7 @@ lgb.simulation.model.voNative.Enu.ENUM = {
   enu_noAlias: 10,
   
   enu_alias: 11,
-  enu_negatedAlias: 12,
+  enu_negatedAlias: 12
 };
 
 

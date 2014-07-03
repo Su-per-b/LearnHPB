@@ -5,6 +5,11 @@ goog.require('lgb.gui.view.TestGUI');
 goog.require('lgb.gui.model.BaseGuiModel');
 
 
+
+/**
+ * @constructor
+ * @extends {lgb.core.BaseController}
+ */
 lgb.gui.controller.TestController = function() {
 
   lgb.core.BaseController.call(this);

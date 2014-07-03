@@ -9,6 +9,10 @@ goog.require('lgb.scenario.view.BaseView');
 goog.require('lgb.scenario.view.Decimal');
 
 
+/**
+ * @constructor
+ * @extends {lgb.scenario.view.BaseView}
+ */
 lgb.scenario.view.Temperature = function(dataModel, debugFlag, unit) {
   lgb.scenario.view.Decimal.call(this, dataModel, debugFlag, unit);
 };

@@ -9,7 +9,10 @@ goog.require('lgb.world.model.BaseModel');
 
 
 
-
+/**
+ * @constructor
+ * @extends lgb.world.model.BaseModel
+ */
 lgb.world.model.RenderModel = function() {
 
 

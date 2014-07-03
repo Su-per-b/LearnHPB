@@ -104,11 +104,9 @@ lgb.world.view.BaseWorldView.prototype.init = function() {
  */
 lgb.world.view.BaseWorldView.prototype.loadSceneFromFolder_ = function(folderName) {
 
-  var path = LGB_WEBROOT + lgb.core.Config.ASSETS_BASE_PATH + folderName + '/' + this.filename;
+  var path = window.LGB_WEBROOT + lgb.core.Config.ASSETS_BASE_PATH + folderName + '/' + this.filename;
   this.loader_ = new THREE.SceneLoaderEx();
   this.loader_.addGeometryHandler( "binary", THREE.BinaryLoader );
-  
-  
   
   this.loader_.load(path, this.d(this.onSceneLoadedBase_));
 };

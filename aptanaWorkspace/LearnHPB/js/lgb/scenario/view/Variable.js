@@ -16,6 +16,10 @@ goog.require('lgb.scenario.view.Temperature');
 goog.require('goog.events.Event');
 
 
+/**
+ * @constructor
+ * @extends {lgb.scenario.view.BaseView}
+ */
 lgb.scenario.view.Variable = function(dataModel, debugFlag) {
   lgb.scenario.view.BaseView.call(this, dataModel, debugFlag);
   
@@ -119,9 +123,12 @@ lgb.scenario.view.Variable.showIcontentPopup = function(abbr) {
   
     var url = "info-pages/iv-{0}.html".format(abbr);
     
+    var newWindow=window.open(url,'name','height=600,width=450');
     
-    newwindow=window.open(url,'name','height=600,width=450');
-    if (window.focus) {newwindow.focus()}
+    if (window.focus) {
+      newWindow.focus();
+    }
+
     return false;
 };
 
@@ -192,7 +199,8 @@ lgb.scenario.view.Variable.prototype.getMainElement = function() {
 
 lgb.scenario.view.Variable.prototype.injectDebugContent = function() {
 
-  this.makeChildren_(div);
+  this.makeChildren_($("div"));
+  
 };
 
 

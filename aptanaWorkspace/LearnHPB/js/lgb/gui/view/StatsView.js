@@ -35,7 +35,7 @@ goog.require('lgb.gui.view.BaseGUI');
 /**
  * MVC View
  * @constructor
- * @extends {lgb.gui.view.BaseGUI}
+ * @extends lgb.gui.view.BaseGUI
  * @param {Element} containerDiv The DOM element to append to.
  */
 lgb.gui.view.StatsView = function(containerDiv) {

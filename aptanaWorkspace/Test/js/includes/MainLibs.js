@@ -94,15 +94,14 @@ test.includes.MainLibs.standAlone = function() {
     
     
    test.includes.MainLibs.initKendo();
-   test.includes.MainLibs.addOneScript("js/closure/core/goog/", "base");
+   test.includes.MainLibs.addOneScript("js/closure/goog/", "base");
 
 };
 
 
 test.includes.MainLibs.initStandAloneScene = function() {
 
-    
-      
+
    test.includes.MainLibs.addScripts(
     "js/lib/", 
       [
@@ -111,6 +110,7 @@ test.includes.MainLibs.initStandAloneScene = function() {
       ]
     );
   
+  
    test.includes.MainLibs.addScripts(
     "/js/lib/createjs/events/", 
       [
@@ -118,7 +118,6 @@ test.includes.MainLibs.initStandAloneScene = function() {
         "EventDispatcher"
       ]
     );
-    
     
     
    test.includes.MainLibs.addScripts(
@@ -133,11 +132,8 @@ test.includes.MainLibs.initStandAloneScene = function() {
     );
     
 
-    
-    
-    
-   test.includes.MainLibs.addOneScript("js/closure/core/goog/", "base");
-
+   test.includes.MainLibs.addOneScript("js/closure/goog/", "base");
+   test.includes.MainLibs.addOneScript("js/closure/goog/", "deps-test");
 };
 
 

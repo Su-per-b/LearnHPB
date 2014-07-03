@@ -46,7 +46,7 @@ lgb.component.TreeH.prototype.bind_ = function() {
 
 lgb.component.TreeH.prototype.onChange_showKNode_ = function(knode) {
 
-  var uid = event.node.dataset.uid;
+  var uid = knode.dataset.uid;
   this.ds.select(uid);
 
 };

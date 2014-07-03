@@ -56,6 +56,13 @@ class JsonConfig:
         fileName = "temp\\src\\%s\\%s.src.%s" % (outputFileExtension, outputFileNameBase,outputFileExtension)
         return str(fileName)
     
+    def getConcatinatedOutputFile2(self):
+        node = self.root['config']
+        outputFileNameBase = node['outputFileNameBase']
+        outputFileExtension = node['outputFileExtension']
+
+        fileName = "temp\\src\\%s\\%s.src2.%s" % (outputFileExtension, outputFileNameBase,outputFileExtension)
+        return str(fileName)
     
     
 def json_minify(json,strip_space=True):

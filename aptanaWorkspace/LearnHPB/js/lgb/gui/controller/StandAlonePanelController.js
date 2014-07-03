@@ -14,6 +14,11 @@ goog.require('lgb.gui.view.StandAlonePanelGUI');
 
 
 
+
+/**
+ * @constructor
+ * @extends {lgb.core.BaseController}
+ */
 lgb.gui.controller.StandAlonePanelController = function() {
 
   lgb.core.BaseController.call(this);

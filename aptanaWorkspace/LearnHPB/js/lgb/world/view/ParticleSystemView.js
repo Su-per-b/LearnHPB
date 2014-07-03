@@ -150,7 +150,7 @@ lgb.world.view.ParticleSystemView.prototype.createSystem = function() {
     this.inActiveParticles[i] = particleElement;
 
     // add it to the geometry
-    vec = new THREE.Vector3(particleElement.threeParticle);
+    var vec = new THREE.Vector3(particleElement.threeParticle);
     this.particlesGeometry.vertices[i] = particleElement.threeParticle.position;
 
     var idx = i % this.particlePathCount;

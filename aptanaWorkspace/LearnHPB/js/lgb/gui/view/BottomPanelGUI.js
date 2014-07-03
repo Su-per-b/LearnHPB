@@ -4,6 +4,11 @@ goog.require('lgb.gui.view.BaseGUI');
 goog.require('lgb.component.TabStrip');
 goog.require('lgb.component.TabStripDataSource');
 
+
+/**
+ * @constructor
+ * @extends lgb.gui.view.BaseGUI
+ */
 lgb.gui.view.BottomPanelGUI = function(dataModel) {
 
   this._TITLE = 'BottomPanelGUI';

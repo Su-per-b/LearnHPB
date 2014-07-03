@@ -10,7 +10,10 @@
 goog.provide('lgb.component.TreeDataSourceH');
 goog.require('lgb.component.BaseDataSource');
 
-
+/**
+ * @constructor
+ * @extends {lgb.component.BaseDataSource}
+ */
 lgb.component.TreeDataSourceH = function(lgbNode, propertyName, parentHtmlID, subID, title) {
 
   

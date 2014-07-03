@@ -13,6 +13,11 @@ goog.require('se.Event');
 
 
 
+/**
+ * @constructor
+ * @extends {lgb.core.BaseController}
+ */
+
 lgb.gui.controller.SimulationStateController = function() {
 
   lgb.core.BaseController.call(this);

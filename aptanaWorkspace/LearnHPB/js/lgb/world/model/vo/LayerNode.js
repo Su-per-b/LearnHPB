@@ -3,7 +3,10 @@ goog.provide('lgb.world.model.vo.LayerNode');
 goog.require('lgb.world.model.vo.BaseVo');
 
 
-
+/**
+ * @constructor
+ * @extends {lgb.world.model.vo.BaseVo}
+ */
 lgb.world.model.vo.LayerNode = function(name, meshName) {
   
   this.name = name;

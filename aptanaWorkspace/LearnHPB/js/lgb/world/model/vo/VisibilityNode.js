@@ -7,6 +7,12 @@ goog.provide('lgb.world.model.vo.VisibilityNode');
 
 goog.require('lgb.world.model.vo.BaseVo');
 
+
+
+/**
+ * @constructor
+ * @extends {lgb.world.model.vo.BaseVo}
+ */
 lgb.world.model.vo.VisibilityNode = function(title, object3d, recurseDepth) {
   
 

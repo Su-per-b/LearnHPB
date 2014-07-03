@@ -13,6 +13,12 @@ goog.require('lgb.gui.model.BaseGuiModel');
 goog.require('lgb.gui.view.BottomPanelGUI');
 goog.require('lgb.gui.controller.ScenarioMasterController');
 
+
+
+/**
+ * @constructor
+ * @extends {lgb.core.BaseController}
+ */
 lgb.gui.controller.LeftPanelSimpleController = function() {
 
   lgb.core.BaseController.call(this);

@@ -8,6 +8,10 @@ goog.provide('lgb.scenario.view.Option');
 goog.require('lgb.scenario.view.BaseView');
 
 
+/**
+ * @constructor
+ * @extends {lgb.scenario.view.BaseView}
+ */
 lgb.scenario.view.Option = function(dataModel, debugFlag) {
   lgb.scenario.view.BaseView.call(this, dataModel, debugFlag);
 };

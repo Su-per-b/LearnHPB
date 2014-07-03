@@ -9,6 +9,10 @@ goog.require('lgb.scenario.view.BaseView');
 goog.require('lgb.scenario.view.Option');
 
 
+/**
+ * @constructor
+ * @extends {lgb.scenario.view.BaseView}
+ */
 lgb.scenario.view.OptionList = function(dataModel, debugFlag, unit) {
   lgb.scenario.view.BaseView.call(this, dataModel, debugFlag);
   this.unit_ = unit;

@@ -85,6 +85,9 @@ lgb.core.MainController.prototype.init = function() {
   }
   
   this.buildingController_ = new lgb.world.controller.BuildingController();
+  
+
+  
   this.utilityController_ = new lgb.world.controller.UtilityController();
   
   
@@ -105,19 +108,17 @@ lgb.core.MainController.prototype.init = function() {
   
   $(window).resize(this.d(this.onNativeWindowResize_));
   
-   
+
   this.simulationMainController_ = new lgb.simulation.controller.MainController();
   this.simulationMainController_.init();
   
+  
   this.trigger(e.RequestLoadScenario, "VerySimpleScenario");
-    
   this.logger_ = goog.debug.Logger.getLogger('lgb.core.MainController');
-
   lgb.logInfo(lgb.core.Config.getTitle());
   lgb.logInfo('jQuery version: ' + $('').jquery);
 
-
-
+  return;
 };
 
 
@@ -174,8 +175,8 @@ lgb.core.MainController.start =
   function() {
 
 
-  if (typeof LGB_WEBROOT != 'undefined') {
-     lgb.core.Config.WEBROOT = LGB_WEBROOT;
+  if (typeof window.LGB_WEBROOT != 'undefined') {
+     lgb.core.Config.WEBROOT = window.LGB_WEBROOT;
   }
   
   lgb.init();
@@ -183,4 +184,10 @@ lgb.core.MainController.start =
   window.mainController = new lgb.core.MainController();
 
 };
+
+
+
+
+
+
 

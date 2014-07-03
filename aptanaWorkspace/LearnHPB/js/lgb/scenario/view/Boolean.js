@@ -7,7 +7,10 @@ goog.provide('lgb.scenario.view.Boolean');
 
 goog.require('lgb.scenario.view.BaseView');
 
-
+/**
+ * @constructor
+ * @extends {lgb.scenario.view.BaseView}
+ */
 lgb.scenario.view.Boolean = function(dataModel, debugFlag) {
   lgb.scenario.view.BaseView.call(this, dataModel, debugFlag);
 };

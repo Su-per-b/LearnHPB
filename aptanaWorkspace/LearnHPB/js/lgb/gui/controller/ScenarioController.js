@@ -12,6 +12,11 @@ goog.require('lgb.scenario.view.SystemList');
 goog.require('lgb.scenario.model.SystemList');
 
 
+
+/**
+ * @constructor
+ * @extends {lgb.core.BaseController}
+ */
 lgb.gui.controller.ScenarioController = function() {
 
   lgb.core.BaseController.call(this);

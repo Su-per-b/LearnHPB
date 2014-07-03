@@ -6,6 +6,11 @@ goog.require('lgb.gui.model.TopMenuModel');
 goog.require('lgb.gui.view.TopMenuGUI');
 
 
+
+/**
+ * @constructor
+ * @extends {lgb.core.BaseController}
+ */
 lgb.gui.controller.TopMenuController = function() {
 
   lgb.core.BaseController.call(this);

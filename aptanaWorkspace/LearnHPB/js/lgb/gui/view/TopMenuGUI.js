@@ -11,6 +11,11 @@ goog.require('lgb.core.Config');
 
 
 
+
+/**
+ * @constructor
+ * @extends lgb.gui.view.BaseGUI
+ */
 lgb.gui.view.TopMenuGUI = function(dataModel) {
 
   this._TITLE = "TopMenu";

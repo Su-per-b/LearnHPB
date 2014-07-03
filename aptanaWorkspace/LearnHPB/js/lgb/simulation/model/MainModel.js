@@ -44,7 +44,6 @@ goog.inherits(lgb.simulation.model.MainModel, lgb.world.model.BaseModel);
 lgb.simulation.model.MainModel.prototype.init = function(hostname) {
   
 
-  
   this.socketServerURL = "ws://" + hostname + ":8081/";
   
 };
@@ -203,7 +202,13 @@ lgb.simulation.model.MainModel.prototype.setXmlParseInfo = function(xmlParseInfo
 
 lgb.simulation.model.MainModel.prototype.idxOne_ = function(theVar) {
 
-  this.modNameToVarMap_[theVar.name] = theVar;
+  var theName = theVar.name_;
+  
+  if (undefined == theName) {
+    debugger;
+  }
+  
+  this.modNameToVarMap_[theName] = theVar;
 };
 
 

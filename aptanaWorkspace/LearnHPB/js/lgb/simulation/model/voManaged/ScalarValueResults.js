@@ -4,7 +4,9 @@ goog.require('lgb.simulation.model.BaseModel');
 goog.require('lgb.simulation.model.voManaged.ScalarValueCollection');
 
 
-
+ /**
+ * @constructor
+ */
 lgb.simulation.model.voManaged.ScalarValueResults = function() {
 
 
@@ -39,7 +41,7 @@ lgb.simulation.model.voManaged.ScalarValueResults.fieldObjectsEx_ = {
    output: {
      jsonFieldName : "output",
      classReference : lgb.simulation.model.voManaged.ScalarValueCollection
-   },
+   }
        
 };
 

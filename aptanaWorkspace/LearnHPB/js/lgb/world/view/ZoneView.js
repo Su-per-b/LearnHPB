@@ -17,7 +17,7 @@ goog.require('lgb.world.model.vo.ViewpointNode');
 /**
  * MVC View
  * @constructor
- * @extendslgb.world.view.BaseWorldView
+ * @extends lgb.world.view.BaseWorldView
  * @param {lgb.world.model.ZoneModel} dataModel The Data Model.
  */
 lgb.world.view.ZoneView = function(dataModel) {
@@ -54,10 +54,10 @@ lgb.world.view.ZoneView.prototype.onChange_envelopeModel_ = function(envelopeMod
   }
   
     if (!this.isInitialized_) {
-        var node = new lgb.world.model.vo.ViewpointNode.makeFromObject3D( this.masterGroup_, 2 );
+        var node = lgb.world.model.vo.ViewpointNode.makeFromObject3D( this.masterGroup_, 2 );
         
-        var len = node.children.length;
-        for (var i=0; i < len; i++) {
+        var len2 = node.children.length;
+        for (var i=0; i < len2; i++) {
           node.children[i].focusEvent = true;
         };
         this.triggerLocal(e.ViewpointNodesLoaded, node);
@@ -110,9 +110,6 @@ lgb.world.view.ZoneView.prototype.init = function() {
 
 /**
  * @private
- * @param {number} zoneNumber The idx used to locate the zone in the array.
- * @param {THREE.Vector3} geom The dimensions of the cube.
- * @param {THREE.Vector3} position The position of the cube.
  */
 lgb.world.view.ZoneView.prototype.addCube_ = function(zoneNumber, zoneShapeModel) {
 

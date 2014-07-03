@@ -3,6 +3,9 @@ goog.provide('lgb.simulation.model.voManaged.ScalarValueReal');
 
 goog.require('lgb.simulation.model.BaseModel');
 
+ /**
+ * @constructor
+ */
 lgb.simulation.model.voManaged.ScalarValueReal = function(idx, value) {
 
   this.idx_ = idx;
@@ -25,7 +28,7 @@ lgb.simulation.model.voManaged.ScalarValueReal.prototype.getValue = function() {
 
 lgb.simulation.model.voManaged.ScalarValueReal.fieldPrimativesEx_ = {
    idx_: "i" ,
-   value_: "v" ,
+   value_: "v"
 };
 
 

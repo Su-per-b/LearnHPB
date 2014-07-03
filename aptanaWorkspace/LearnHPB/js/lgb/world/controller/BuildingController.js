@@ -69,9 +69,9 @@ lgb.world.controller.BuildingController.prototype.init_ = function() {
   this.lightingController_.init();
   this.furnitureController_.init();
   this.crossSectionController_.init();
-  this.envelopeController_.init();
-  this.psMasterController_.init();
 
+  this.psMasterController_.init();
+  this.envelopeController_.init();
 };
 
 

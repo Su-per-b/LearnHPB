@@ -124,6 +124,7 @@ def buildLgb(includesFileList=None):
     jsonConfig = JsonConfig(r'build-config\lgb.json')
     
     concatinatedOutputFile = jsonConfig.getConcatinatedOutputFile()
+    concatinatedOutputFile2 = jsonConfig.getConcatinatedOutputFile2()
     minifiedOutputFile = jsonConfig.getMinifiedOutputFile()
     
     if(includesFileList == None):
@@ -134,12 +135,44 @@ def buildLgb(includesFileList=None):
     printFileList('Processing includes for LGB', includesFileList)
     
     pathList = jsonConfig.getFileList('paths')
+
+    
     pathAry = getCommandAry(pathList , '-p')
     printFileList('Processing paths for LGB', pathList)
     
     
     externFileList = jsonConfig.getFileList('externs')
     printFileList('Skipping externs for LGB', externFileList)
+
+
+    rootAry = getCommandAry(pathList , '--root')
+    printFileList('Processing paths for LGB', pathList)
+  
+  
+    namespaceList = ["lgb.core.MainController"];
+    namespaceAry = getCommandAry(namespaceList , '--namespace')
+    printFileList('Processing namespaces for LGB', namespaceAry)
+    
+    
+    cmdAry3 = []
+    
+    cmdAry3 += [r'C:\python\Python2.7\python.exe', r'compilers\closurebuilder.py']
+    cmdAry3 += includeAry
+    cmdAry3 += rootAry
+    cmdAry3 += namespaceAry
+    cmdAry3 += ['--output_mode', 'list']
+    cmdAry3 += ['--output_file', concatinatedOutputFile2]
+    
+    p = subprocess.Popen(cmdAry3, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, error = p.communicate()
+
+    print 'return code: '+ str(p.returncode)
+    print 'out: '+ out
+    print 'error: '+ error
+
+
+
+
 
     cmdAry1 = []
     
@@ -157,6 +190,7 @@ def buildLgb(includesFileList=None):
     print 'error: '+ error
     
 
+
     cmdAry2 = []
     
     cmdAry2 += [r'C:\python\Python2.7\python.exe', r'compilers\calcdeps.py']
@@ -172,6 +206,10 @@ def buildLgb(includesFileList=None):
     print 'return code: '+ str(p.returncode)
     print 'out: '+ out
     print 'error: '+ error
+    
+    
+
+    
     
     
     return

@@ -12,7 +12,6 @@ goog.require('lgb.core.Config');
 goog.require('lgb.core.BaseController');
 goog.require('goog.debug.Logger');
 
-goog.require('lgb.simulation.controller.MainIframeController');
 goog.require('lgb.chart.controller.GraphController');
 
 goog.require('lgb.chart.controller.LayoutController');

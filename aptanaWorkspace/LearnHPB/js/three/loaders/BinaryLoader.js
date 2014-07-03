@@ -18,6 +18,21 @@ THREE.BinaryLoader.prototype = Object.create( THREE.Loader.prototype );
 //		- texturePath (optional: if not specified, textures will be assumed to be in the same folder as JS model file)
 //		- binaryPath (optional: if not specified, binary file will be assumed to be in the same folder as JS model file)
 
+
+
+  
+THREE.BinaryLoader.prototype.removeTrailingSlash = function ( url ) {
+    var len = url.length;
+    var lastChar = url.charAt(len-1);
+    
+    if (lastChar == "/") {
+      url = url.substr(0, len-1);
+    }
+    
+    return url;
+};
+
+
 THREE.BinaryLoader.prototype.load = function ( url, callback, texturePath, binaryPath ) {
 
 	// todo: unify load API to for easier SceneLoader use
@@ -25,6 +40,9 @@ THREE.BinaryLoader.prototype.load = function ( url, callback, texturePath, binar
 	texturePath = texturePath || this.extractUrlBase( url );
 	binaryPath = binaryPath || this.extractUrlBase( url );
 
+  
+  
+  
 	var callbackProgress = this.showProgress ? THREE.Loader.prototype.updateProgress : undefined;
 
 	this.onLoadStart();

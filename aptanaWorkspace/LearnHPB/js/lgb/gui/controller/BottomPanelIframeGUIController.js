@@ -14,6 +14,10 @@ goog.require('lgb.gui.controller.SimulationIframeGraphController');
 
 
 
+/**
+ * @constructor
+ * @extends {lgb.core.BaseController}
+ */
 lgb.gui.controller.BottomPanelIframeGUIController = function() {
 
   lgb.core.BaseController.call(this);
@@ -47,7 +51,7 @@ lgb.gui.controller.BottomPanelIframeGUIController.prototype.bind_ = function() {
 
 lgb.gui.controller.BottomPanelIframeGUIController.prototype.onSimulationEngineLoaded_ = function(event) {
   
-  simMainController = event.payload;
+  var simMainController = event.payload;
   var simDataModel = simMainController.getDataModel();
   
   this.init2_(simDataModel);

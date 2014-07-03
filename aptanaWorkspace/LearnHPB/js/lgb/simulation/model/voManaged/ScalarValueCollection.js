@@ -5,7 +5,9 @@ goog.require('lgb.simulation.model.BaseModel');
 goog.require('lgb.simulation.model.voManaged.ScalarValueReal');
 goog.require('lgb.simulation.model.voManaged.SerializableVector');
 
-
+ /**
+ * @constructor
+ */
 lgb.simulation.model.voManaged.ScalarValueCollection = function(realList) {
   
   this.realList_ = realList;
@@ -30,5 +32,14 @@ lgb.simulation.model.voManaged.ScalarValueCollection.fieldObjectsEx_ = {
    }
        
 };
+
+
+lgb.simulation.model.voManaged.ScalarValueCollection.prototype.makeTyped = function(deserializedObj) {
+  
+  var x = 0;
+  
+  
+};
+
 
 

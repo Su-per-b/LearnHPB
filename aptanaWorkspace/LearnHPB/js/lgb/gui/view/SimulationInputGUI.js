@@ -1,6 +1,11 @@
 goog.provide('lgb.gui.view.SimulationInputGUI');
 
 
+
+/**
+ * @constructor
+ * @extends lgb.gui.view.BaseGUI
+ */
 lgb.gui.view.SimulationInputGUI = function(dataModel) {
 
   this._TITLE = 'Input';

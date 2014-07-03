@@ -202,9 +202,9 @@ lgb.core.BaseClass.prototype.listenOnceHelper_ = function(
  *  to the handler
  * @param {Array} ary The array to loop though.
  * @param {Function} handler The handler to call.
- * @param aditional argument to pass along for all function calls
- * @param aditional argument to pass along for all function calls
- * @param aditional argument to pass along for all function calls
+ * additional argument to pass along for all function calls
+ * additional argument to pass along for all function calls
+ * additional argument to pass along for all function calls
  * @protected
  */
 lgb.core.BaseClass.prototype.each = function(ary, handler) {
@@ -313,9 +313,9 @@ lgb.core.BaseClass.prototype.eachPropertyName = function(object, handler) {
  *  to the handler
  * @param {Array} ary The array to loop though.
  * @param {Function} handler The handler to call.
- * @param aditional argument to pass along for all function calls
- * @param aditional argument to pass along for all function calls
- * @param aditional argument to pass along for all function calls
+ * additional argument to pass along for all function calls
+ * additional argument to pass along for all function calls
+ * additional argument to pass along for all function calls
  * @protected
  */
 lgb.core.BaseClass.prototype.eachIdx = function(ary, handler) {

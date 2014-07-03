@@ -4,6 +4,11 @@ goog.require('lgb.gui.view.BaseGUI');
 
 
 
+
+/**
+ * @constructor
+ * @extends lgb.gui.view.BaseGUI
+ */
 lgb.gui.view.ScenarioMasterGUI = function(dataModel) {
 
   this._TITLE = 'ScenarioMasterGUI';
@@ -70,12 +75,13 @@ lgb.gui.view.ScenarioMasterGUI.prototype.showPopup_ = function(filename) {
       
       var url = "info-pages/scenerios/{0}".format(filename);
       
-      newwindow=window.open(url,'name','height=600,width=450');
-      if (window.focus) {newwindow.focus()}
-    
+      var newWindow=window.open(url,'name','height=600,width=450');
+      if (window.focus) 
+      {
+        newWindow.focus();
+      }
+      
     }
-
-
 
 };
 

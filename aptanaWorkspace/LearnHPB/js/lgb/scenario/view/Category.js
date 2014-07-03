@@ -11,6 +11,10 @@ goog.require('lgb.scenario.view.Component');
 goog.require('goog.asserts');
 
 
+/**
+ * @constructor
+ * @extends {lgb.scenario.view.BaseView}
+ */
 lgb.scenario.view.Category = function(dataModel, debugFlag) {
   lgb.scenario.view.BaseView.call(this, dataModel, debugFlag);
 };

@@ -14,10 +14,10 @@
     <SubSystem name="Zone" abbr="ZN">
       <Category name="NONE" abbr="">
       
-	      <Variable name="Zone 1 (North) heating set point" abbr="ZN1SPHeat" modName="u_ZN[1]" scope="input" variability="continuous" unit="K">
+	      <Variable name="Zone 1 (North) heating set point" abbr="ZN1SPHeat" modName="ZN1SPHeat" scope="input" variability="continuous" unit="K">
 	      	<Temperature default="302.039" />
 	      </Variable>
-	      <Variable name="Zone 1 (North) cooling set point" abbr="ZN1SPCool" modName="u_ZN[2]" scope="input" variability="continuous" unit="K">
+	      <Variable name="Zone 1 (North) cooling set point" abbr="ZN1SPCool" modName="ZN1SPCool" scope="input" variability="continuous" unit="K">
 	        <Temperature default="304.817" />
 	      </Variable>
 	      

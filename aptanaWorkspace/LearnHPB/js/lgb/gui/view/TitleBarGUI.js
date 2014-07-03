@@ -10,7 +10,7 @@ goog.require('lgb.core.Config');
 
 /**
  * @constructor
- * @extends {lgb.gui.view.BaseGUI}
+ * @extends lgb.gui.view.BaseGUI
  */
 lgb.gui.view.TitleBarGUI = function() {
     

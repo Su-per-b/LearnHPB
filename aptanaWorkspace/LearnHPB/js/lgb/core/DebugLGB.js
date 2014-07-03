@@ -149,7 +149,7 @@ lgb.core.DebugLGB.prototype.filterPackages = function(packageAry) {
   
   var thePackageString = packageAry.join('.');
     
-  topLevelPackage =  eval(thePackageString);
+  var topLevelPackage = eval(thePackageString);
   
   
   for (var propertyName in topLevelPackage) {

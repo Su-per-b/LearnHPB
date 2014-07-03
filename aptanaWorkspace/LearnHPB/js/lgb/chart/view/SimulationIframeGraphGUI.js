@@ -1,6 +1,12 @@
 goog.provide('lgb.chart.view.SimulationIframeGraphGUI');
 
 
+
+
+/**
+ * @constructor
+ * @extends lgb.gui.view.BaseGUI
+ */
 lgb.chart.view.SimulationIframeGraphGUI = function(dataModel) {
 
   this._TITLE = 'Graph-Iframe';

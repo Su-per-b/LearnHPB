@@ -14,6 +14,12 @@ goog.require('lgb.gui.controller.SimulationIframeGraphController');
 
 
 
+
+
+/**
+ * @constructor
+ * @extends {lgb.core.BaseController}
+ */
 lgb.gui.controller.BottomPanelGUIController = function() {
 
   lgb.core.BaseController.call(this);

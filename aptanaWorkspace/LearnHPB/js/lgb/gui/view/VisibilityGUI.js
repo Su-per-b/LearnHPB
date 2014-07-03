@@ -13,10 +13,12 @@ goog.require('lgb.component.TreeH');
 goog.require('lgb.component.TreeDataSourceH');
 goog.require('lgb.core.Config');
 
+
+
 /**
  * @constructor
  * @param {lgb.world.model.VisibilityModel} dataModel The data model to display.
- * @extends {lgb.gui.view.BaseGUI}
+ * @extends lgb.gui.view.BaseGUI
  */
 lgb.world.view.input.VisibilityGUI = function(dataModel) {
 

@@ -20,7 +20,7 @@ goog.require('lgb.core.Config');
 
 /**
  * @constructor
- * @extends {lgb.gui.view.BaseGUI}
+ * @extends lgb.gui.view.BaseGUI
  * @param {lgb.world.model.LightingModel} dataModel The model to display.
  */
 lgb.gui.view.ParticleSystemMasterGUI = function(dataModel) {

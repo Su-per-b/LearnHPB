@@ -9,7 +9,10 @@ goog.require('lgb.world.model.BaseModel');
 goog.require('lgb.world.model.vo.VisibilityNode');
 
 
-
+/**
+ * @constructor
+ * @extends lgb.world.model.BaseModel
+ */
 lgb.world.model.VisibilityModel = function() {
   this.init_();
 

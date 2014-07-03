@@ -13,7 +13,7 @@ goog.require('lgb.gui.view.BaseGUI');
 /**
  * @constructor
  * @param {Element} containerDiv The DOM element to append to.
- * @extends {lgb.gui.view.BaseGUI}
+ * @extends lgb.gui.view.BaseGUI
  */
 lgb.gui.view.StatsViewHelper = function(containerDiv) {
     

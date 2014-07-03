@@ -1,6 +1,11 @@
 goog.provide('lgb.gui.view.SimulationGraphGUI');
 
 
+
+/**
+ * @constructor
+ * @extends lgb.gui.view.BaseGUI
+ */
 lgb.gui.view.SimulationGraphGUI = function(dataModel) {
 
   this._TITLE = 'Graph-Static';

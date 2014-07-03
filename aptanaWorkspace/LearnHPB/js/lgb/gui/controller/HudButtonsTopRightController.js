@@ -9,9 +9,10 @@ goog.require('lgb.core.BaseController');
 goog.require('lgb.gui.model.BaseGuiModel');
 goog.require('lgb.gui.view.ButtonsTopRightHUD');
 
+
 /**
  * @constructor
- * @extends lgb.core.BaseController
+ * @extends {lgb.core.BaseController}
  */
 lgb.gui.controller.ButtonsTopRightHUDController = function( ) {
 

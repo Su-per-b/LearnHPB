@@ -17,7 +17,7 @@ goog.require('lgb.gui.model.LayoutModel');
 
 /**
  * @constructor
- * @extends {lgb.gui.view.BaseGUI}
+ * @extends lgb.gui.view.BaseGUI
  */
 lgb.gui.view.LayoutSimpleView = function(dataModel) {
 

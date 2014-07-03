@@ -7,6 +7,12 @@
        "lgb"
       ]
     },
+   "namespaces": {
+     "namespaceList":   [
+       "closure",
+       "lgb"
+      ]
+    },
    "externs": {
      "rootPath":"./externs/lgb/",
      "fileList":   [

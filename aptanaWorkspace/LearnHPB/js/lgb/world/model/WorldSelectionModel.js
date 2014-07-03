@@ -8,6 +8,8 @@ goog.provide('lgb.world.model.WorldSelectionModel');
 goog.require('lgb.world.model.BaseModel');
 goog.require('goog.array');
 goog.require('lgb');
+
+
 /**
  * @constructor
  * @extends lgb.world.model.BaseModel

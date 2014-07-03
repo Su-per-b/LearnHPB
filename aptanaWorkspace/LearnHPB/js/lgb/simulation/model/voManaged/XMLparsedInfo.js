@@ -3,6 +3,10 @@ goog.provide('lgb.simulation.model.voManaged.XMLparsedInfo');
 goog.require('lgb.simulation.model.BaseModel');
 goog.require('lgb.simulation.model.voManaged.ScalarVariablesAll');
 
+
+ /**
+ * @constructor
+ */
 lgb.simulation.model.voManaged.XMLparsedInfo = function(scalarVariablesAll) {
 
   this.scalarVariablesAll_ = scalarVariablesAll;
@@ -25,7 +29,7 @@ lgb.simulation.model.voManaged.XMLparsedInfo.fieldObjectsEx_ = {
   
    scalarVariablesAll_: {
      jsonFieldName : "scalarVariablesAll_",
-     classReference : lgb.simulation.model.voManaged.ScalarVariablesAll,
+     classReference : lgb.simulation.model.voManaged.ScalarVariablesAll
    }
    
 };

@@ -34,12 +34,15 @@ goog.require('lgb.simulation.model.voManaged.ScalarValueCollection');
 goog.require('lgb.simulation.model.voManaged.ScalarVariableReal');
 goog.require('lgb.simulation.model.voManaged.ScalarVariableCollection');
 goog.require('lgb.simulation.model.voManaged.ScalarVariablesAll');
+goog.require('lgb.simulation.model.voManaged.SerializableVector');
 
 
 
 
-
-
+/**
+ * @constructor
+ * @extends {lgb.core.BaseController}
+ */
 lgb.simulation.controller.JsonController = function() {
   
     if ( lgb.simulation.controller.JsonController.prototype._singletonInstance ) {
@@ -74,7 +77,8 @@ lgb.simulation.controller.JsonController = function() {
           
           "ScalarVariableReal" :        lgb.simulation.model.voManaged.ScalarVariableReal,
           "ScalarVariableCollection" :  lgb.simulation.model.voManaged.ScalarVariableCollection,
-          "ScalarVariablesAll" :        lgb.simulation.model.voManaged.ScalarVariablesAll
+          "ScalarVariablesAll" :        lgb.simulation.model.voManaged.ScalarVariablesAll,
+          "SerializableVector" :        lgb.simulation.model.voManaged.SerializableVector
 
     };
 
@@ -141,7 +145,69 @@ lgb.simulation.controller.JsonController.prototype.makeTyped = function(deserial
     var classReference = this.getClass(deserializedObj);
     
     var instance = new classReference();
-    instance.fromJSON(deserializedObj);
+    
+    
+  if (undefined != instance.makeTyped) {
+    instance.makeTyped(deserializedObj);
+  }
+  
+  
+  if (undefined != classReference.fieldPrimativesEx_) {
+    
+    var fieldPrimativesEx = classReference.fieldPrimativesEx_;
+
+    for(var jsFieldName in fieldPrimativesEx) {
+      
+      var jsonFieldName = fieldPrimativesEx[jsFieldName];
+      instance[jsFieldName] = deserializedObj[jsonFieldName];
+      
+    }
+  }
+  
+  if (undefined != classReference.fieldObjectsEx_) {
+    
+    var fieldObjectsEx = classReference.fieldObjectsEx_;
+
+    for(var jsFieldName in fieldObjectsEx) {
+      
+      var fieldObject = fieldObjectsEx[jsFieldName];   
+      var jsonFieldName = fieldObject.jsonFieldName;
+      var fieldClassReference = fieldObject.classReference;
+      
+      
+      if (null == fieldClassReference) {
+        debugger;
+      }
+      
+      var childDeserializedObj = deserializedObj[jsonFieldName];
+      
+      
+
+      
+      if (null != childDeserializedObj) { 
+        
+        //var childTypedObject = new fieldClassReference();
+        
+        var childTypedObject = this.makeTyped(childDeserializedObj);
+        
+        
+        if (fieldClassReference == lgb.simulation.model.voManaged.SerializableVector) {
+        
+          instance[jsFieldName] = childTypedObject.toArray();
+          
+        } else {
+
+          instance[jsFieldName] = childTypedObject;
+          
+        }
+      
+      }
+
+    }
+    
+  }
+  
+  
     
     return instance;
     

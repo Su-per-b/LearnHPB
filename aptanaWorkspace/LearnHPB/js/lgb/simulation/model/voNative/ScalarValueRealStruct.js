@@ -3,6 +3,10 @@ goog.provide('lgb.simulation.model.voNative.ScalarValueRealStruct');
 
 goog.require('lgb.simulation.model.BaseModel');
 
+
+ /**
+ * @constructor
+ */
 lgb.simulation.model.voNative.ScalarValueRealStruct = function(idx, value) {
 
   this.idx = idx;

@@ -8,6 +8,10 @@ goog.provide('lgb.scenario.view.Decimal');
 goog.require('lgb.scenario.view.BaseView');
 
 
+/**
+ * @constructor
+ * @extends {lgb.scenario.view.BaseView}
+ */
 lgb.scenario.view.Decimal = function(dataModel, debugFlag, unit) {
   lgb.scenario.view.BaseView.call(this, dataModel, debugFlag);
   this.unit_ = unit;

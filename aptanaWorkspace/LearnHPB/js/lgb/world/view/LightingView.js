@@ -11,7 +11,7 @@ goog.require('lgb.world.model.BuildingHeightModel');
 
 /**
  * @constructor
- * @extends {BaseView3dScene}
+ * @extends {lgb.world.view.BaseWorldView}
  * @param {lgb.world.model.LightingModel} dataModel The model to display.
  */
 lgb.world.view.LightingView = function(dataModel) {

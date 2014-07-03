@@ -4,6 +4,9 @@ goog.require('lgb.simulation.model.BaseModel');
 goog.require('lgb.simulation.model.voNative.MessageType');
 
 
+ /**
+ * @constructor
+ */
 lgb.simulation.model.voNative.MessageStruct = function(msgText, messageType) {
 
   this.msgText = msgText || "{not set}";

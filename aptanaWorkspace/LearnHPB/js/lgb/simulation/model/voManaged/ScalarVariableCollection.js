@@ -6,7 +6,9 @@ goog.require('lgb.simulation.model.voManaged.ScalarVariableReal');
 goog.require('lgb.simulation.model.voManaged.SerializableVector');
 
 
-
+ /**
+ * @constructor
+ */
 lgb.simulation.model.voManaged.ScalarVariableCollection = function(realVarList) {
   
   this.realVarList_ = realVarList || [];

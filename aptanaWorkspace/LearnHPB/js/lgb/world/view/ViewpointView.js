@@ -5,15 +5,17 @@
  
 goog.provide('lgb.world.view.ViewpointView');
 
-;
-
-
 goog.require('lgb.world.view.BaseWorldView');
 goog.require('lgb.world.model.BuildingHeightModel');
 goog.require('lgb.world.model.vo.ViewpointNode');
 
 
 
+/**
+ * MVC View
+ * @constructor
+ * @extends lgb.world.view.BaseWorldView
+ */
 lgb.world.view.ViewpointView = function(dataModel) {
     
 

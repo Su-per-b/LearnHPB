@@ -3,7 +3,9 @@ goog.provide('lgb.simulation.model.voNative.TypeSpecReal');
 goog.require('lgb.simulation.model.BaseModel');
 
 
-
+ /**
+ * @constructor
+ */
 lgb.simulation.model.voNative.TypeSpecReal = function() {
 
   this.start = 0.0;

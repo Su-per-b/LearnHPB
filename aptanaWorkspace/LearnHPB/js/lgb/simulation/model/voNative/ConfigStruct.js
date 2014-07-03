@@ -4,6 +4,9 @@ goog.require('lgb.simulation.model.BaseModel');
 goog.require('lgb.simulation.model.voNative.DefaultExperimentStruct');
 
 
+ /**
+ * @constructor
+ */
 lgb.simulation.model.voNative.ConfigStruct  = function(defaultExperimentStruct, stepDelta) {
   
   this.stepDelta = stepDelta;

@@ -6,6 +6,11 @@ goog.require('lgb.component.TabStripDataSource');
 goog.require('lgb.core.Event');
 
 
+
+/**
+ * @constructor
+ * @extends lgb.gui.view.BaseGUI
+ */
 lgb.gui.view.TestGUI = function(dataModel) {
 
   this._TITLE = 'Test';

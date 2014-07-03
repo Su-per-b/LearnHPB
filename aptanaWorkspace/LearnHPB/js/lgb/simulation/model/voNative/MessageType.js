@@ -3,6 +3,10 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
+ 
+ /**
+ * @constructor
+ */
 goog.provide('lgb.simulation.model.voNative.MessageType');
 
 /**

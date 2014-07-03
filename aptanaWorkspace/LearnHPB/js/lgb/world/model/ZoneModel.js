@@ -8,6 +8,7 @@ goog.provide('lgb.world.model.ZoneModel');
 goog.require('lgb.world.model.BaseModel');
 goog.require('lgb.world.model.ZoneShapeModel');
 
+
 /**
  * @constructor
  * @extends lgb.world.model.BaseModel

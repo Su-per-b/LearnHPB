@@ -103,7 +103,8 @@
      <script src="js/lgb/core/debugKendo.js"></script>
 
     <!-- Google Closure -->
-    <script src="js/closure/core/goog/base.js"></script>
+    <script src="js/closure/goog/base.js"></script>
+    <script src="js/closure/goog/deps.js"></script>
     
     
     <!--{BLOCK_START:LGB}      -->
@@ -263,16 +264,15 @@
 
     <script src="js/three/custom-src/CameraEx.js"></script>
     <script src="js/three/custom-src/Vector3Ex.js"></script>
+    <script src="js/three/custom-src/LoaderEx.js"></script>
 
     <script src="js/three/loaders/BinaryLoader.js"></script>
 
-    <!-- UNUSED_CUSTOM_FILES
-    -->
-    
-    
-    <!--{BLOCK_END:Three}-->
 
-    
+
+
+    <!-- UNUSED_CUSTOM_FILES-->
+    <!--{BLOCK_END:Three}-->
     <!-- UNUSED_COMMON_FILES
     <script src="js/three/src/core/Edge.js"></script>
     <script src="js/three/src/objects/LOD.js"></script>
@@ -307,6 +307,8 @@
     <script src="js/three/src/extras/geometries/LatheGeometry.js"></script>
     <script src="js/three/src/extras/geometries/OctahedronGeometry.js"></script>
     -->
+    
+    
     <title>Learn HPB</title>
     
     
@@ -315,10 +317,12 @@
       goog.require('lgb.core.MainController');
     </script>
 
+
     <script>
-        lgb.core.MainController.start();
-    </script>
     
+      var x = lgb.core.MainController.start();
+      
+    </script>
     
   </head>
 

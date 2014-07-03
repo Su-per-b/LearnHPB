@@ -4,6 +4,11 @@ goog.require('lgb.simulation.model.BaseModel');
 goog.require('lgb.simulation.model.voNative.Enu');
 goog.require('lgb.simulation.model.voNative.TypeSpecReal');
 
+
+
+ /**
+ * @constructor
+ */
 lgb.simulation.model.voManaged.ScalarVariableReal = function(typeSpecReal) {
   
   this.name_ = "";

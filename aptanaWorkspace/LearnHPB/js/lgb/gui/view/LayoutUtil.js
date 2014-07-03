@@ -9,6 +9,11 @@ goog.require('lgb.gui.view.BaseGUI');
 
 
 
+
+/**
+ * @constructor
+ * @extends lgb.gui.view.BaseGUI
+ */
 lgb.gui.view.LayoutUtil = function(guiView) {
   
   this.guiView_ = guiView;
@@ -85,7 +90,7 @@ lgb.gui.view.LayoutUtil.prototype.getXpos_ = function() {
     var parentWidth = this.guiView_.getParentElement().width();
     var selfWidth = this.guiView_.getMainElement().width();
     
-    x = parentWidth - this.offsetHorizontal_ - selfWidth;
+    var x = parentWidth - this.offsetHorizontal_ - selfWidth;
   
   } else if (this.alignHorizontal_ == lgb.gui.view.LayoutUtil.ALIGN.Left) {
     x = this.offsetHorizontal_;

@@ -78,8 +78,13 @@ lgb.core.BaseController.prototype.dispatch = function(event) {
 
 
 lgb.core.BaseController.prototype.trigger = function(type, payload) {
+  
   var event = new lgb.core.Event(type, payload);
+  
   goog.events.dispatchEvent(lgb.globalEventBus, event);
+  
+  
+  
 };
 
 

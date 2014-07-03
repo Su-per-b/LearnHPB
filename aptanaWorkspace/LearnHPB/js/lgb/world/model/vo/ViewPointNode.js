@@ -8,7 +8,10 @@ goog.provide('lgb.world.model.vo.ViewpointNode');
 goog.require('lgb.world.model.vo.BaseVo');
 
 
-
+/**
+ * @constructor
+ * @extends {lgb.world.model.vo.BaseVo}
+ */
 lgb.world.model.vo.ViewpointNode = function(title) {
   
   this.idx = lgb.world.model.vo.ViewpointNode.idx++;
@@ -285,11 +288,11 @@ lgb.world.model.vo.ViewpointNode.offsetMap_["crosssectionSide"] = [-2.7, 0.3, -0
 lgb.world.model.vo.ViewpointNode.make= function(object, recurseDepth) {
 
   if (object && object instanceof THREE.Camera) {
-    return new lgb.world.model.vo.ViewpointNode.makeFromCamera(object, recurseDepth);
+    return lgb.world.model.vo.ViewpointNode.makeFromCamera(object, recurseDepth);
   } else if  (object && object instanceof THREE.Object3D) {
-    return new lgb.world.model.vo.ViewpointNode.makeFromObject3D(object, recurseDepth);
+    return lgb.world.model.vo.ViewpointNode.makeFromObject3D(object, recurseDepth);
   } else if (object && object instanceof Array) {
-    return new lgb.world.model.vo.ViewpointNode.makeFromArray(object, recurseDepth);
+    return lgb.world.model.vo.ViewpointNode.makeFromArray(object, recurseDepth);
   } else if  (object && object instanceof lgb.world.model.vo.ViewpointNode){
     return object;
   }
