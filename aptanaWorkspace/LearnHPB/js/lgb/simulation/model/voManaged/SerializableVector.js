@@ -9,10 +9,64 @@ goog.require('lgb.simulation.model.BaseModel');
 lgb.simulation.model.voManaged.SerializableVector = function(itemTypeString, itemArray) {
 
   this.itemTypeString_ = itemTypeString;
-  this.itemArray_ = itemArray;
+  
+  
+  if (undefined == itemArray) {
+    this.itemTypeString_ = null;
+  } else {
+    this.itemTypeString_ = itemTypeString;
+  }
+  
+  if (undefined == itemArray || null == itemArray) {
+    this.itemArray_ = [];
+  } else {
+    this.itemArray_ = itemArray;
+  }
+  
+
 
 };
 goog.inherits(lgb.simulation.model.voManaged.SerializableVector, lgb.simulation.model.BaseModel);
+
+
+
+
+lgb.simulation.model.voManaged.SerializableVector.prototype.get = function(idx) {
+
+  return this.itemArray_[idx];
+
+};
+
+
+
+lgb.simulation.model.voManaged.SerializableVector.prototype.add = function(item) {
+
+  
+  this.itemArray_.push(item);
+  
+  var itemTypeString = item.getClassName();
+  
+  
+  if (null == this.itemTypeString_) {
+    this.itemTypeString_ = itemTypeString;
+  } else {
+  
+    var result = this.itemTypeString_.localeCompare(itemTypeString);
+    
+    if (result != 0) {
+      debugger;
+    }
+
+  }
+
+
+};
+
+
+
+lgb.simulation.model.voManaged.SerializableVector.prototype.getItemTypeString = function() {
+  return this.itemTypeString_;
+};
 
 
 
@@ -24,24 +78,27 @@ lgb.simulation.model.voManaged.SerializableVector.prototype.toJSON = function() 
     
     var ary = [];
     var len = this.itemArray_.length;
+    
+    var itemArray = [];
+    
+    
     for (var i=0; i < len; i++) {
-      
      this.itemArray_[i].serializeType = false;
-
+     
+     var obj = this.itemArray_[i].toJSON();
+     itemArray.push(obj);
+     
     };
     
     var jsonObj = {
       t:this.getClassName(),
       itemType:this.itemTypeString_,
-      itemArray:this.itemArray_
+      itemArray:itemArray
     };
     
     
     return jsonObj;
 };
-
-
-
 
 
 
@@ -74,6 +131,10 @@ lgb.simulation.model.voManaged.SerializableVector.prototype.makeTyped = function
 
 
 
+// lgb.simulation.model.voManaged.SerializableVector.fieldPrimitivesEx_ = {
+   // itemTypeString_: "itemType" 
+// };
+
 
 // lgb.simulation.model.voManaged.SerializableVector.prototype.fromJSON = function(deserializedObj) {
 //     
@@ -104,6 +165,4 @@ lgb.simulation.model.voManaged.SerializableVector.prototype.makeTyped = function
 
 
 
-lgb.simulation.model.voManaged.SerializableVector.fieldPrimativesEx_ = {
-   itemTypeString_: "itemType" 
-};
+

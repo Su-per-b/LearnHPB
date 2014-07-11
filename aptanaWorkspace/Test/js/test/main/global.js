@@ -5,39 +5,15 @@ goog.require('lgb.simulation.model.voNative.ConfigStruct');
 goog.require('lgb.simulation.model.voManaged.ScalarValueReal');
 goog.require('lgb.simulation.events.BaseEvent');
 goog.require('se.Event');
-
-voNative = lgb.simulation.model.voNative;
-voManaged = lgb.simulation.model.voManaged;
-simEvents = lgb.simulation.events;
-
-CONST = test.main.CONSTANTS;
+goog.require('test.main.Util');
 
 
-deserialize  = function(jsonString) {
+window.voNative = lgb.simulation.model.voNative;
+window.voManaged = lgb.simulation.model.voManaged;
+window.simEvents = lgb.simulation.events;
+window.CONSTANTS = test.main.CONSTANTS;
+window.Util = test.main.Util;
 
-  var deserializedObject = lgb.simulation.controller.JsonController().deserialize(jsonString);
-    
-  return deserializedObject;
-  
-};
+window.SessionControlAction = lgb.simulation.model.voManaged.SessionControlAction;
+window.Enu = lgb.simulation.model.voNative.Enu.ENUM;
 
-deserializeOk  = function(jsonString, expectedType) {
-
-  var deserializedObject = lgb.simulation.controller.JsonController().deserialize(jsonString);
-  ok(deserializedObject instanceof expectedType);
-   
-  return deserializedObject;
-  
-};
-
-serializeOk  = function(serializableObject, expectedString) {
-
-  var jsonString_0 = lgb.simulation.controller.JsonController.serialize(serializableObject);
-      
-  assertEquals(
-      expectedString, 
-      jsonString_0
-  );
-  
-  return jsonString_0;
-};

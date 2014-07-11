@@ -26,7 +26,7 @@ goog.inherits(lgb.simulation.model.voNative.TypeSpecReal, lgb.simulation.model.B
 
 
 
-lgb.simulation.model.voNative.TypeSpecReal.fieldPrimativesEx_ = {
+lgb.simulation.model.voNative.TypeSpecReal.fieldPrimitivesEx_ = {
    start: "start",
    nominal: "nominal",
    min: "min",

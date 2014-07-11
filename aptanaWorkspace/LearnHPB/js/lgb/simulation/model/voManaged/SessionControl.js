@@ -17,7 +17,7 @@ goog.inherits(lgb.simulation.model.voManaged.SessionControl, lgb.simulation.mode
 
 
 
-lgb.simulation.model.voManaged.SessionControl.fieldPrimativesEx_ = {
+lgb.simulation.model.voManaged.SessionControl.fieldPrimitivesEx_ = {
    idx: "idx" ,
    value: "value" 
 };

@@ -76,6 +76,31 @@ lgb.simulation.model.voManaged.ScalarVariableReal.prototype.getCausalityAsEnum =
 };
 
 
+lgb.simulation.model.voManaged.ScalarVariableReal.prototype.getCausalityAsString = function() {
+  var theEnum = this.getCausalityAsEnum();
+  
+  return theEnum.toString();
+};
+
+
+
+lgb.simulation.model.voManaged.ScalarVariableReal.prototype.getVariabilityAsString = function() {
+  var theEnum = this.getVariabilityAsEnum();
+  
+  return theEnum.toString();
+};
+
+
+lgb.simulation.model.voManaged.ScalarVariableReal.prototype.getUnit = function() {
+  var unit = this.typeSpecReal_.unit;
+  
+  return unit;
+};
+
+
+
+
+
 lgb.simulation.model.voManaged.ScalarVariableReal.prototype.getVariabilityAsInt = function() {
   return this.variability_;
 };
@@ -103,7 +128,7 @@ lgb.simulation.model.voManaged.ScalarVariableReal.prototype.getTypeSpecReal = fu
 
 
 
-lgb.simulation.model.voManaged.ScalarVariableReal.fieldPrimativesEx_ = {
+lgb.simulation.model.voManaged.ScalarVariableReal.fieldPrimitivesEx_ = {
    name_: "n" ,
    idx_: "i" ,
    causality_: "c" ,

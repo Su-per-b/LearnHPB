@@ -13,22 +13,19 @@ lgb.simulation.model.voNative.Enu = function(enumInteger) {
   if (undefined != enumInteger) {
     this.setIntValue(enumInteger);
   }
-    lgb.simulation.model.BaseModel.call(this);
+  lgb.simulation.model.BaseModel.call(this);
 };
 goog.inherits(lgb.simulation.model.voNative.Enu, lgb.simulation.model.BaseModel);
 
 
 
 lgb.simulation.model.voNative.Enu.prototype.setIntValue  = function( intValue ) {
-  
     this.intValue_ = intValue;
-
 };
 
 lgb.simulation.model.voNative.Enu.prototype.getIntValue  = function(  ) {
   return this.intValue_;
 };
-
 
 
 lgb.simulation.model.voNative.Enu.prototype.toString  = function(  ) {
@@ -39,7 +36,6 @@ lgb.simulation.model.voNative.Enu.prototype.toString  = function(  ) {
 
 
  
-
 lgb.simulation.model.voNative.Enu.TEXT = {
   
   0 : 'flat',
@@ -84,7 +80,7 @@ lgb.simulation.model.voNative.Enu.ENUM = {
 
 
 
-lgb.simulation.model.voNative.Enu.fieldPrimativesEx_ = {
+lgb.simulation.model.voNative.Enu.fieldPrimitivesEx_ = {
    intValue_: "intValue" 
 };
 

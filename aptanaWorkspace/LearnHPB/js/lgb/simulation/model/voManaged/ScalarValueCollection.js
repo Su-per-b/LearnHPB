@@ -22,6 +22,15 @@ lgb.simulation.model.voManaged.ScalarValueCollection.prototype.getRealList = fun
 };
 
 
+lgb.simulation.model.voManaged.ScalarValueCollection.prototype.setRealList = function(realList) {
+  this.realList_ = realList;
+};
+
+
+
+
+
+
 
 lgb.simulation.model.voManaged.ScalarValueCollection.fieldObjectsEx_ = {
   
@@ -33,13 +42,6 @@ lgb.simulation.model.voManaged.ScalarValueCollection.fieldObjectsEx_ = {
        
 };
 
-
-lgb.simulation.model.voManaged.ScalarValueCollection.prototype.makeTyped = function(deserializedObj) {
-  
-  var x = 0;
-  
-  
-};
 
 
 

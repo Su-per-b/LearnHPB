@@ -42,6 +42,13 @@ goog.require('lgb.simulation.events.MessageEvent');
 goog.require('lgb.simulation.events.XMLparsedEvent');
 goog.require('lgb.simulation.events.SessionControlEvent');
 goog.require('lgb.simulation.events.ScalarValueChangeRequest');
+goog.require('lgb.simulation.events.SessionControlClientRequest');
+
+goog.require('test.main.TestDataGenerator');
+
+goog.require('lgb.simulation.model.voManaged.SerializableVector');
+goog.require('lgb.simulation.model.voManaged.SessionControlAction');
+goog.require('lgb.simulation.model.voManaged.SessionControlModel');
 
 
 /**
@@ -93,14 +100,14 @@ test.serialization.EventController.prototype.runAll = function() {
     test("SimStateNativeNotify Serialize", 1, this.T09_simStateNativeNotify_serialize);
     test("SimStateNativeNotify Deserialize", 6, this.T10_simStateNativeNotify_deserialize);
 
-    test("XMLparsedEvent Serialize", 1, this.T11_xmlParsedEvent_serialize);
-    test("XMLparsedEvent Deserialize", 1, this.T12_xmlParsedEvent_deserialize);
+    test("XMLparsedEvent Serialize", 5, this.T11_xmlParsedEvent_serialize);
+    test("XMLparsedEvent Deserialize", 19, this.T12_xmlParsedEvent_deserialize);
     
     test("ScalarValueChangeRequest Serialize", 1, this.T13_scalarValueChangeRequest_serialize);
-    test("ScalarValueChangeRequest Deserialize", 1, this.T14_scalarValueChangeRequest_deserialize);
+    test("ScalarValueChangeRequest Deserialize", 5, this.T14_scalarValueChangeRequest_deserialize);
     
     test("SessionControlEvent Serialize", 1, this.T15_sessionControlClientRequest_serialize);
-    test("SessionControlEvent Deserialize", 1, this.T16_sessionControlClientRequest_deserialize);
+    test("SessionControlEvent Deserialize", 5, this.T16_sessionControlClientRequest_deserialize);
 
 
 
@@ -116,12 +123,12 @@ test.serialization.EventController.prototype.T01_messageEvent_serialize = functi
       "This is the test Message Text", messageType_0);
 
 
-    var event_0 = new lgb.simulation.events.MessageEvent(messageStruct_0);
+    var event_0 = new simEvents.MessageEvent(messageStruct_0);
     
     
-    serializeOk(
+    Util.serializeOk(
       event_0,
-      CONST.STR_messageEvent_0
+      CONSTANTS.STR_messageEvent_0
     );
     
       
@@ -131,12 +138,12 @@ test.serialization.EventController.prototype.T01_messageEvent_serialize = functi
 
 test.serialization.EventController.prototype.T02_messageEvent_deserialize = function() {
 
-    var event_0 = deserializeOk(
-      CONST.STR_messageEvent_0,
+    var event_0 = Util.deserializeOk(
+      CONSTANTS.STR_messageEvent_0,
       simEvents.MessageEvent
     );
     
-    assertEquals("MessageEvent", event_0.type);
+    assertEquals("lgb.simulation.events.MessageEvent", event_0.type);
     var messageStruct_0 = event_0.getPayload();
     
     assertEquals("This is the test Message Text", messageStruct_0.msgText);
@@ -153,11 +160,11 @@ test.serialization.EventController.prototype.T03_configChangeNotify_serialize = 
     var defaultExperimentStruct_0 = new lgb.simulation.model.voNative.DefaultExperimentStruct(123.03, 145.03, 10.0);
     var configStruct_0 = new lgb.simulation.model.voNative.ConfigStruct(defaultExperimentStruct_0, 1);
     
-    var event_0 = new lgb.simulation.events.ConfigChangeNotify(configStruct_0);
+    var event_0 = new simEvents.ConfigChangeNotify(configStruct_0);
     
-    serializeOk(
+    Util.serializeOk(
       event_0,
-      CONST.STR_configChangeNotify_0
+      CONSTANTS.STR_configChangeNotify_0
     );
     
     
@@ -168,12 +175,12 @@ test.serialization.EventController.prototype.T03_configChangeNotify_serialize = 
 
 test.serialization.EventController.prototype.T04_configChangeNotify_deserialize = function() {
 
-    var event_0 = deserializeOk(
-      CONST.STR_configChangeNotify_0,
+    var event_0 = Util.deserializeOk(
+      CONSTANTS.STR_configChangeNotify_0,
       simEvents.ConfigChangeNotify
     );
     
-    assertEquals("ConfigChangeNotify", event_0.type);
+    assertEquals("lgb.simulation.events.ConfigChangeNotify", event_0.type);
     var configStruct_0 = event_0.getPayload();
     ok(configStruct_0 instanceof lgb.simulation.model.voNative.ConfigStruct);
     
@@ -225,11 +232,11 @@ test.serialization.EventController.prototype.T05_resultEvent_serialize = functio
     ok(scalarValueResults_0 instanceof lgb.simulation.model.voManaged.ScalarValueResults);
     
     
-    var event_0 = new lgb.simulation.events.ResultEvent(scalarValueResults_0);
+    var event_0 = new simEvents.ResultEvent(scalarValueResults_0);
     
-    serializeOk(
+    Util.serializeOk(
       event_0,
-      CONST.STR_resultEvent_0
+      CONSTANTS.STR_resultEvent_0
     );
     
 
@@ -239,12 +246,12 @@ test.serialization.EventController.prototype.T05_resultEvent_serialize = functio
 
 test.serialization.EventController.prototype.T06_resultEvent_deserialize = function() {
 
-    var event_0 = deserializeOk(
-      CONST.STR_resultEvent_0,
+    var event_0 = Util.deserializeOk(
+      CONSTANTS.STR_resultEvent_0,
       simEvents.ResultEvent
     );
     
-    assertEquals("ResultEvent", event_0.type);
+    assertEquals("lgb.simulation.events.ResultEvent", event_0.type);
     var scalarValueResults_0 = event_0.getPayload();
     ok(scalarValueResults_0 instanceof lgb.simulation.model.voManaged.ScalarValueResults);
     
@@ -287,11 +294,11 @@ test.serialization.EventController.prototype.T07_simStateNativeRequest_serialize
     var simStateNativeEnum_0 = lgb.simulation.model.voNative.SimStateNative.ENUM.simStateNative_5_step_requested;
     var simStateNative_0 = new lgb.simulation.model.voNative.SimStateNative(simStateNativeEnum_0);
     
-    var event_0 = new lgb.simulation.events.SimStateNativeRequest(simStateNative_0);
+    var event_0 = new simEvents.SimStateNativeRequest(simStateNative_0);
     
-    serializeOk(
+    Util.serializeOk(
       event_0,
-      CONST.STR_simStateNativeRequest_0
+      CONSTANTS.STR_simStateNativeRequest_0
     );
     
     
@@ -302,13 +309,13 @@ test.serialization.EventController.prototype.T07_simStateNativeRequest_serialize
 
 test.serialization.EventController.prototype.T08_simStateNativeRequest_deserialize = function() {
 
-    var event_0 = deserializeOk(
-      CONST.STR_simStateNativeRequest_0,
+    var event_0 = Util.deserializeOk(
+      CONSTANTS.STR_simStateNativeRequest_0,
       simEvents.SimStateNativeRequest
     );
     
-    assertEquals("SimStateNativeRequest", event_0.type);
-    ok(event_0 instanceof lgb.simulation.events.SimStateNativeRequest);
+    assertEquals("lgb.simulation.events.SimStateNativeRequest", event_0.type);
+    ok(event_0 instanceof simEvents.SimStateNativeRequest);
 
     var simStateNative_0 = event_0.getPayload();
     ok(simStateNative_0 instanceof lgb.simulation.model.voNative.SimStateNative);
@@ -325,12 +332,12 @@ test.serialization.EventController.prototype.T09_simStateNativeNotify_serialize 
     var simStateNativeEnum_0 = lgb.simulation.model.voNative.SimStateNative.ENUM.simStateNative_3_ready;
     var simStateNative_0 = new lgb.simulation.model.voNative.SimStateNative(simStateNativeEnum_0);
     
-    var event_0 = new lgb.simulation.events.SimStateNativeNotify(simStateNative_0);
+    var event_0 = new simEvents.SimStateNativeNotify(simStateNative_0);
     
     
-    serializeOk(
+    Util.serializeOk(
       event_0,
-      CONST.STR_simStateNativeNotify_0
+      CONSTANTS.STR_simStateNativeNotify_0
     );
     
     
@@ -340,13 +347,13 @@ test.serialization.EventController.prototype.T09_simStateNativeNotify_serialize 
 
 test.serialization.EventController.prototype.T10_simStateNativeNotify_deserialize = function() {
 
-    var event_0 = deserializeOk(
-      CONST.STR_simStateNativeNotify_0,
+    var event_0 = Util.deserializeOk(
+      CONSTANTS.STR_simStateNativeNotify_0,
       simEvents.SimStateNativeNotify
     );
     
-    assertEquals("SimStateNativeNotify", event_0.type);
-    ok(event_0 instanceof lgb.simulation.events.SimStateNativeNotify);
+    assertEquals("lgb.simulation.events.SimStateNativeNotify", event_0.type);
+    ok(event_0 instanceof simEvents.SimStateNativeNotify);
     
     var simStateNative_0 = event_0.getPayload();
     ok(simStateNative_0 instanceof lgb.simulation.model.voNative.SimStateNative);
@@ -359,48 +366,140 @@ test.serialization.EventController.prototype.T10_simStateNativeNotify_deserializ
 
 test.serialization.EventController.prototype.T11_xmlParsedEvent_serialize = function() {
 
-    var Enu = lgb.simulation.model.voNative.Enu.ENUM;
-      
-      
-    var scalarVariableCollection_0 = test.serialization.VoManagedController.getScalarVariableCollection_A_();
-    ok(scalarVariableCollection_0 instanceof lgb.simulation.model.voManaged.ScalarVariableCollection);
+  var Enu = lgb.simulation.model.voNative.Enu.ENUM;
     
-    var scalarVariableCollection_1 = test.serialization.VoManagedController.getScalarVariableCollection_B_();
-    ok(scalarVariableCollection_1 instanceof lgb.simulation.model.voManaged.ScalarVariableCollection);
-    
-    var scalarVariablesAll_0 = new lgb.simulation.model.voManaged.ScalarVariablesAll();
-    scalarVariablesAll_0.setInput(scalarVariableCollection_0);
-    scalarVariablesAll_0.setOutput(scalarVariableCollection_1);
+  var scalarVariableCollection_0 = test.main.TestDataGenerator.getScalarVariableCollection_A_();
+  ok(scalarVariableCollection_0 instanceof lgb.simulation.model.voManaged.ScalarVariableCollection);
+  
+  var scalarVariableCollection_1 = test.main.TestDataGenerator.getScalarVariableCollection_B_();
+  ok(scalarVariableCollection_1 instanceof lgb.simulation.model.voManaged.ScalarVariableCollection);
+  
+  var scalarVariablesAll_0 = new lgb.simulation.model.voManaged.ScalarVariablesAll();
+  scalarVariablesAll_0.setInput(scalarVariableCollection_0);
+  scalarVariablesAll_0.setOutput(scalarVariableCollection_1);
 
-    serializeOk(
-      scalarVariablesAll_0,
-      CONST.STR_scalarVariablesAll_1
-    );
+  Util.serializeOk(
+    scalarVariablesAll_0,
+    CONSTANTS.STR_scalarVariablesAll_0
+  );
     
+  var xmlParsedInfo_0 = new lgb.simulation.model.voManaged.XMLparsedInfo(scalarVariablesAll_0);
+  
+  Util.serializeOk(
+    xmlParsedInfo_0,
+    CONSTANTS.STR_XMLparsedInfo_0
+  );
     
-    var xmlParsedInfo = new XMLparsedInfo(scalarVariablesAll);
+  var event_0 = new simEvents.XMLparsedEvent(xmlParsedInfo_0);
     
+  Util.serializeOk(
+    event_0,
+    CONSTANTS.STR_xmlParsedEvent_0
+  );
+  
     
 };
 
 
 test.serialization.EventController.prototype.T12_xmlParsedEvent_deserialize = function() {
 
-    ok(true);
+    var event_0 = Util.deserializeOk(
+      CONSTANTS.STR_xmlParsedEvent_0,
+      simEvents.XMLparsedEvent
+    );
     
+    assertEquals("lgb.simulation.events.XMLparsedEvent", event_0.type);
+
+    var xmlParsedInfo_0 = event_0.getPayload();
+    
+    var scalarVariableRealList_input = xmlParsedInfo_0.getInputVariables(); 
+    var scalarVariableRealList_output = xmlParsedInfo_0.getOutputVariables(); 
+    
+    assertEquals( 2, scalarVariableRealList_input.length);
+    assertEquals( 2, scalarVariableRealList_output.length);
+    
+    var scalarVariableReal_0 = scalarVariableRealList_input[0];
+    
+    var theEnumCausality = scalarVariableReal_0.getCausalityAsEnum();
+    
+    assertEquals( Enu.enu_input, theEnumCausality.getIntValue());
+    assertEquals( 6, scalarVariableReal_0.getCausalityAsInt());
+    assertEquals( "input", scalarVariableReal_0.getCausalityAsString());
+    
+    assertEquals( "scalarVar name", scalarVariableReal_0.getName());
+    assertEquals( 1, scalarVariableReal_0.getIdx());
+   
+
+    var theEnumVariability = scalarVariableReal_0.getVariabilityAsEnum();
+   
+    assertEquals( Enu.enu_continuous, theEnumVariability.getIntValue());
+    assertEquals( 5, scalarVariableReal_0.getVariabilityAsInt());
+    assertEquals( "continuous", scalarVariableReal_0.getVariabilityAsString());
+    
+    assertEquals( "The Description", scalarVariableReal_0.getDescription());
+    assertEquals( "C1", scalarVariableReal_0.getUnit());
+    
+    var typeSpecReal_0 = scalarVariableReal_0.getTypeSpecReal();
+    
+    assertEquals(20.25 , typeSpecReal_0.start, 0.0);
+    assertEquals(21.25 , typeSpecReal_0.nominal, 0.0);
+    assertEquals(22.25 , typeSpecReal_0.min, 0.0);
+    assertEquals(23.25 , typeSpecReal_0.max, 0.0);
+    assertEquals("C1" , typeSpecReal_0.unit);
+   
 };
 
 
 test.serialization.EventController.prototype.T13_scalarValueChangeRequest_serialize = function() {
 
-    ok(true);
+    //make struct
+    var struct_0 = new voNative.ScalarValueRealStruct();
+    struct_0.idx = 1;
+    struct_0.value = 2.0;
+    
+    //make Object
+    var scalarValueReal_0 = new voManaged.ScalarValueReal();
+    scalarValueReal_0.setStruct(struct_0);
+    
+  
+    var serializableVector_0 = new voManaged.SerializableVector("ScalarValueReal");
+    serializableVector_0.add(scalarValueReal_0);
+
+    
+    var scalarValueCollection_0 = new voManaged.ScalarValueCollection();
+    
+    var realList = serializableVector_0.toArray();
+    scalarValueCollection_0.setRealList(realList);
+
+    var event_0 = new simEvents.ScalarValueChangeRequest (scalarValueCollection_0);
+
+    Util.serializeOk(
+      event_0,
+      CONSTANTS.STR_scalarValueChangeRequest_0
+    );
+    
     
 };
 
 
 test.serialization.EventController.prototype.T14_scalarValueChangeRequest_deserialize = function() {
 
-    ok(true);
+    var event_0 = Util.deserializeOk(
+      CONSTANTS.STR_scalarValueChangeRequest_0,
+      simEvents.ScalarValueChangeRequest
+    );
+    
+    assertEquals("lgb.simulation.events.ScalarValueChangeRequest", event_0.type);
+    
+    var scalarValueCollection_0 = event_0.getPayload();
+    assertEquals("ScalarValueCollection", scalarValueCollection_0.getClassName());
+    
+    var realList = scalarValueCollection_0.getRealList();
+    
+    var scalarValueReal_0 = realList[0];
+    
+    assertEquals(1, scalarValueReal_0.getIdx());
+    assertEquals(2.0, scalarValueReal_0.getValue(), 0.0);
     
 };
 
@@ -408,15 +507,37 @@ test.serialization.EventController.prototype.T14_scalarValueChangeRequest_deseri
 
 test.serialization.EventController.prototype.T15_sessionControlClientRequest_serialize = function() {
 
-    ok(true);
+
+    var sessionControlAction_0 = new voManaged.SessionControlAction(voManaged.SessionControlAction.ENUM.attachToSession);
+    var sessionControlModel_0 = new voManaged.SessionControlModel(sessionControlAction_0, "SESS1342");
+    
+    var event_0 = new simEvents.SessionControlClientRequest( sessionControlModel_0);
+
+    Util.serializeOk(
+      event_0,
+      CONSTANTS.STR_sessionControlClientRequest_0
+    );
+    
+    
     
 };
 
 test.serialization.EventController.prototype.T16_sessionControlClientRequest_deserialize = function() {
 
-
-    ok(true);
+    var event_0 = Util.deserializeOk(
+      CONSTANTS.STR_sessionControlClientRequest_0,
+      simEvents.SessionControlClientRequest
+    );
     
+    assertEquals("lgb.simulation.events.SessionControlClientRequest", event_0.type);
+    
+    var sessionControlModel_0 = event_0.getPayload();
+    assertEquals("SessionControlModel", sessionControlModel_0.getClassName());
+
+    assertEquals("SESS1342", sessionControlModel_0.getValue());
+    var sessionControlAction_0 = sessionControlModel_0.getAction();
+    assertEquals(voManaged.SessionControlAction.ENUM.attachToSession, sessionControlAction_0.getIntValue());
+
 };
 
 

@@ -33,6 +33,18 @@ lgb.simulation.model.voManaged.ScalarVariablesAll.prototype.setInternal = functi
 
 
 
+lgb.simulation.model.voManaged.ScalarVariablesAll.prototype.getInput = function() {
+  return this.input_;
+};
+
+lgb.simulation.model.voManaged.ScalarVariablesAll.prototype.getOutput = function() {
+  return this.output_;
+};
+
+lgb.simulation.model.voManaged.ScalarVariablesAll.prototype.getInternal = function() {
+  return this.internal_;
+};
+
 
 
 
@@ -52,8 +64,6 @@ lgb.simulation.model.voManaged.ScalarVariablesAll.fieldObjectsEx_ = {
    }
        
 };
-
-
 
 
 

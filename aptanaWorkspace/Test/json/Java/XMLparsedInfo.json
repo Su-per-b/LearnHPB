@@ -1,0 +1,89 @@
+{
+    "t": "XMLparsedInfo",
+    "sessionID_": "{not set}",
+    "scalarVariablesAll_": {
+        "t": "ScalarVariablesAll",
+        "input": {
+            "t": "ScalarVariableCollection",
+            "realVarList_": {
+                "t": "SerializableVector",
+                "itemType": "ScalarVariableReal",
+                "itemArray": [
+                    {
+                        "n": "scalarVar name",
+                        "i": 1,
+                        "c": 6,
+                        "vb": 5,
+                        "d": "The Description",
+                        "vr": 125420,
+                        "typeSpecReal": {
+                            "t": "TypeSpecReal",
+                            "start": 20.25,
+                            "nominal": 21.25,
+                            "min": 22.25,
+                            "max": 23.25,
+                            "unit": "C1"
+                        }
+                    },
+                    {
+                        "n": "scalarVar name",
+                        "i": 1,
+                        "c": 6,
+                        "vb": 4,
+                        "d": "The Description",
+                        "vr": 125420,
+                        "typeSpecReal": {
+                            "t": "TypeSpecReal",
+                            "start": 2.25,
+                            "nominal": 2.26,
+                            "min": 2.27,
+                            "max": 2.28,
+                            "unit": "C2"
+                        }
+                    }
+                ]
+            }
+        },
+        "output": {
+            "t": "ScalarVariableCollection",
+            "realVarList_": {
+                "t": "SerializableVector",
+                "itemType": "ScalarVariableReal",
+                "itemArray": [
+                    {
+                        "n": "scalarVar name",
+                        "i": 1,
+                        "c": 6,
+                        "vb": 5,
+                        "d": "The Description",
+                        "vr": 125420,
+                        "typeSpecReal": {
+                            "t": "TypeSpecReal",
+                            "start": 20.25,
+                            "nominal": 21.25,
+                            "min": 22.25,
+                            "max": 23.25,
+                            "unit": "C1"
+                        }
+                    },
+                    {
+                        "n": "scalarVar name",
+                        "i": 1,
+                        "c": 6,
+                        "vb": 4,
+                        "d": "The Description",
+                        "vr": 125420,
+                        "typeSpecReal": {
+                            "t": "TypeSpecReal",
+                            "start": 2.25,
+                            "nominal": 2.26,
+                            "min": 2.27,
+                            "max": 2.28,
+                            "unit": "C2"
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

@@ -46,6 +46,6 @@ lgb.simulation.model.voManaged.ScalarValueResults.fieldObjectsEx_ = {
 };
 
 
-lgb.simulation.model.voManaged.ScalarValueResults.fieldPrimativesEx_ = {
+lgb.simulation.model.voManaged.ScalarValueResults.fieldPrimitivesEx_ = {
    time_: "time_" 
 };

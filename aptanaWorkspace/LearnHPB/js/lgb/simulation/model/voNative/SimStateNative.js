@@ -172,7 +172,7 @@ lgb.simulation.model.voNative.SimStateNative.ENUM = {
 
 
 
-lgb.simulation.model.voNative.SimStateNative.fieldPrimativesEx_ = {
+lgb.simulation.model.voNative.SimStateNative.fieldPrimitivesEx_ = {
    intValue_: "intValue"
 };
 

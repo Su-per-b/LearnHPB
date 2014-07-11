@@ -20,7 +20,7 @@ goog.inherits(lgb.simulation.model.voNative.ConfigStruct, lgb.simulation.model.B
 
 
 
-lgb.simulation.model.voNative.ConfigStruct.fieldPrimativesEx_ = {
+lgb.simulation.model.voNative.ConfigStruct.fieldPrimitivesEx_ = {
    stepDelta: "stepDelta"
 };
 

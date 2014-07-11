@@ -24,4 +24,12 @@ lgb.simulation.events.MessageEvent.prototype.getPayloadType = function() {
   return lgb.simulation.model.voNative.MessageStruct;
 };
 
-
+// 
+// lgb.simulation.events.MessageEvent.fieldObjectsEx_ = {
+//   
+   // payload_: {
+     // jsonFieldName : "payload",
+     // classReference : lgb.simulation.model.voNative.MessageStruct
+   // }
+//        
+// };

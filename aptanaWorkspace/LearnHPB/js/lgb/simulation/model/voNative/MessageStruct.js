@@ -19,7 +19,7 @@ goog.inherits(lgb.simulation.model.voNative.MessageStruct, lgb.simulation.model.
 
 
 
-lgb.simulation.model.voNative.MessageStruct.fieldPrimativesEx_ = {
+lgb.simulation.model.voNative.MessageStruct.fieldPrimitivesEx_ = {
    msgText: "msgText",
    messageType : "messageType"
 };

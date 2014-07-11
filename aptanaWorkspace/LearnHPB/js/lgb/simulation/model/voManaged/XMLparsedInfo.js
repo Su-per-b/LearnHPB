@@ -10,7 +10,7 @@ goog.require('lgb.simulation.model.voManaged.ScalarVariablesAll');
 lgb.simulation.model.voManaged.XMLparsedInfo = function(scalarVariablesAll) {
 
   this.scalarVariablesAll_ = scalarVariablesAll;
-  this.sessionID_ = null;
+  this.sessionID_ = "{not set}";
 
 };
 goog.inherits(lgb.simulation.model.voManaged.XMLparsedInfo, lgb.simulation.model.BaseModel);
@@ -19,7 +19,30 @@ goog.inherits(lgb.simulation.model.voManaged.XMLparsedInfo, lgb.simulation.model
 
 
 
-lgb.simulation.model.voManaged.XMLparsedInfo.fieldPrimativesEx_ = {
+lgb.simulation.model.voManaged.XMLparsedInfo.prototype.getInputVariables = function() {
+
+   var input = this.scalarVariablesAll_.getInput();
+   var realVarList = input.getRealVarList();
+   
+   return realVarList;
+   
+};
+
+
+lgb.simulation.model.voManaged.XMLparsedInfo.prototype.getOutputVariables = function() {
+
+   var output = this.scalarVariablesAll_.getOutput();
+   var realVarList = output.getRealVarList();
+   
+   return realVarList;
+   
+};
+
+
+
+
+
+lgb.simulation.model.voManaged.XMLparsedInfo.fieldPrimitivesEx_ = {
    sessionID_: "sessionID_" 
 };
 

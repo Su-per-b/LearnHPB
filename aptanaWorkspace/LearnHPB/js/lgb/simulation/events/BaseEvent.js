@@ -54,18 +54,6 @@ lgb.simulation.events.BaseEvent.prototype.setPayload = function(payload) {
 };
 
 
-lgb.simulation.events.BaseEvent.prototype.getClassName = function() {
-  
-  var fullClassName = this.getFullClassName();
-  var ary = fullClassName.split('.');
-  
-  var len = ary.length;
-  var className = ary[len-1];
-  
-  return className;
-};
-
-
 
 
 lgb.simulation.events.BaseEvent.prototype.toJSON = function() { 
@@ -81,24 +69,6 @@ lgb.simulation.events.BaseEvent.prototype.toJSONHelper_ = function() {
     
     return jsonObj;
 };
-
-
-// 
-// lgb.simulation.events.BaseEvent.prototype.fromJSON = function(deserializedObj) {
-  // this.fromJSONHelper_(deserializedObj);
-// };
-// 
-// 
-// 
-// lgb.simulation.events.BaseEvent.prototype.fromJSONHelper_ = function(deserializedObj) {
-//     
-  // var payloadClassReference = this.getPayloadType();
-  // this.payload_ = new payloadClassReference();
-//   
-  // this.payload_.fromJSON(deserializedObj.payload);
-//   
-// };
-// 
 
 
 

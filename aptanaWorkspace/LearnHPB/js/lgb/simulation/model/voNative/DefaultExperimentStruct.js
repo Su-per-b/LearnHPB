@@ -18,7 +18,7 @@ goog.inherits(lgb.simulation.model.voNative.DefaultExperimentStruct, lgb.simulat
 
 
 
-lgb.simulation.model.voNative.DefaultExperimentStruct.fieldPrimativesEx_ = {
+lgb.simulation.model.voNative.DefaultExperimentStruct.fieldPrimitivesEx_ = {
    startTime: "startTime" ,
    stopTime: "stopTime" ,
    tolerance: "tolerance" 

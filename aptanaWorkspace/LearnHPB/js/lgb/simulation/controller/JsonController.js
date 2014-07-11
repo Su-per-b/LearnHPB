@@ -35,7 +35,8 @@ goog.require('lgb.simulation.model.voManaged.ScalarVariableReal');
 goog.require('lgb.simulation.model.voManaged.ScalarVariableCollection');
 goog.require('lgb.simulation.model.voManaged.ScalarVariablesAll');
 goog.require('lgb.simulation.model.voManaged.SerializableVector');
-
+goog.require('lgb.simulation.model.voManaged.XMLparsedInfo');
+goog.require('lgb.simulation.model.voManaged.SessionControlModel');
 
 
 
@@ -62,6 +63,7 @@ lgb.simulation.controller.JsonController = function() {
           "SimStateNativeNotify":       lgb.simulation.events.SimStateNativeNotify,
           "SimStateNativeRequest":      lgb.simulation.events.SimStateNativeRequest,
           "XMLparsedEvent":             lgb.simulation.events.XMLparsedEvent,
+          "SessionControlClientRequest" : lgb.simulation.events.SessionControlClientRequest,
           
           "ConfigStruct" :              lgb.simulation.model.voNative.ConfigStruct,
           "DefaultExperimentStruct" :   lgb.simulation.model.voNative.DefaultExperimentStruct,
@@ -73,11 +75,13 @@ lgb.simulation.controller.JsonController = function() {
           
           "ScalarValueResults" :        lgb.simulation.model.voManaged.ScalarValueResults,
           "ScalarValueReal" :           lgb.simulation.model.voManaged.ScalarValueReal,
-          "ScalarValueCollection" :     lgb.simulation.model.voManaged.ScalarValueCollection,
-          
+          "ScalarValueCollection" :     lgb.simulation.model.voManaged.ScalarValueCollection,   
           "ScalarVariableReal" :        lgb.simulation.model.voManaged.ScalarVariableReal,
           "ScalarVariableCollection" :  lgb.simulation.model.voManaged.ScalarVariableCollection,
           "ScalarVariablesAll" :        lgb.simulation.model.voManaged.ScalarVariablesAll,
+          "XMLparsedInfo" :             lgb.simulation.model.voManaged.XMLparsedInfo,
+          "SessionControlAction" :      lgb.simulation.model.voManaged.SessionControlAction,
+          "SessionControlModel" :       lgb.simulation.model.voManaged.SessionControlModel,
           "SerializableVector" :        lgb.simulation.model.voManaged.SerializableVector
 
     };
@@ -147,18 +151,27 @@ lgb.simulation.controller.JsonController.prototype.makeTyped = function(deserial
     var instance = new classReference();
     
     
-  if (undefined != instance.makeTyped) {
-    instance.makeTyped(deserializedObj);
-  }
+    if (undefined != instance.makeTyped) {
+      instance.makeTyped(deserializedObj);
+    }
   
   
-  if (undefined != classReference.fieldPrimativesEx_) {
-    
-    var fieldPrimativesEx = classReference.fieldPrimativesEx_;
-
-    for(var jsFieldName in fieldPrimativesEx) {
+    if (deserializedObj.hasOwnProperty("payload")) {
       
-      var jsonFieldName = fieldPrimativesEx[jsFieldName];
+      var typedPayload = this.makeTyped(deserializedObj.payload);
+      instance.setPayload (typedPayload);
+      
+    }
+    
+    
+  
+  if (undefined != classReference.fieldPrimitivesEx_) {
+    
+    var fieldPrimitivesEx = classReference.fieldPrimitivesEx_;
+
+    for(var jsFieldName in fieldPrimitivesEx) {
+      
+      var jsonFieldName = fieldPrimitivesEx[jsFieldName];
       instance[jsFieldName] = deserializedObj[jsonFieldName];
       
     }
@@ -172,10 +185,15 @@ lgb.simulation.controller.JsonController.prototype.makeTyped = function(deserial
       
       var fieldObject = fieldObjectsEx[jsFieldName];   
       var jsonFieldName = fieldObject.jsonFieldName;
+      
+      if (!fieldObject.hasOwnProperty('classReference')) { 
+         debugger;
+      }
+      
       var fieldClassReference = fieldObject.classReference;
       
       
-      if (null == fieldClassReference) {
+      if (undefined == fieldClassReference) {
         debugger;
       }
       
