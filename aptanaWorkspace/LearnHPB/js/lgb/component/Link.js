@@ -20,10 +20,38 @@ lgb.component.Link = function(ds) {
   
   lgb.world.view.BaseV.call(this, null, ds.htmlID);
   this.ds = ds;
+  
+  this.listenForChange_('title', this.ds);
 
 };
 goog.inherits(lgb.component.Link, lgb.world.view.BaseV);
 
+
+lgb.component.Link.prototype.onChange_title_ = function(title) {
+  
+  this.htmlElement_.text(this.ds.title);
+  return;
+};
+
+
+
+lgb.component.Link.prototype.getHtmlElement = function() {
+
+   var theClass ="{0}-link".format(this.ds.cssClass);
+   
+   if (!this.ds.isEnabled) {
+       theClass +="-disabled";
+   }
+   
+  this.htmlElement_ = $("<a />")
+       .attr('id', this.ds.htmlID)
+       .attr('class', theClass)
+       .attr('href', "#")
+       .text(this.ds.title);
+  
+  
+  return this.htmlElement_;
+};
 
 
 

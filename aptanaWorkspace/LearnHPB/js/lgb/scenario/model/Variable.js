@@ -17,29 +17,49 @@ goog.require('lgb.scenario.model.Temperature');
 /**
  * Primarily a container object for Sysvars
  * @constructor
- * @extends lgb.world.model.BaseModel
+ * @extends lgb.core.BaseModel
  * @param {!lgb.utils.XmlWrapper} xmlParser The parse used
  * to populate the object, contains an xml document.
  */
 lgb.scenario.model.Variable = function(node) {
 
-
   lgb.scenario.model.NodeBase.call(this, node);
-
   
 };
 goog.inherits(lgb.scenario.model.Variable, lgb.scenario.model.NodeBase);
 
 
+lgb.scenario.model.Variable.prototype.getVarList = function() {
 
-lgb.scenario.model.Variable.prototype.parse_ = function(node) {
+    return [this];
+    
+};
+
+
+
+
+lgb.scenario.model.Variable.prototype.setMergedVariable = function(mergedVariable) {
+    
+    this.mergedVariable_ = mergedVariable;
+    
+    return;
+    
+};
+
+
+
+lgb.scenario.model.Variable.prototype.parseXmlNode_ = function() {
+  
+
+  var propertyDefaults = this.getPropertyDefaults();
   
   this.setNameAndAbbr_();
-  this.scope = this.getAttribute("scope");
-  this.phase = this.getAttribute("phase");
-  this.variability = this.getAttribute("variability");
-  this.unit = this.getAttribute("unit");
-  this.modName = this.getAttribute("modName");
+  this.setPropertyStr_('scope', propertyDefaults.scope);
+  this.setPropertyStr_('phase', propertyDefaults.phase);
+  
+  this.setPropertyStr_('variability', propertyDefaults.variability);
+  this.setPropertyStr_('unit', propertyDefaults.unit);
+  this.setPropertyStr_('modName', propertyDefaults.modName);
 
   this.makeChildren_();
   
@@ -62,3 +82,19 @@ lgb.scenario.model.Variable.childClassMap = {
     "Temperature" : lgb.scenario.model.Temperature
 };
   
+
+lgb.scenario.model.Variable.prototype.getPropertyDefaults = function() {
+    
+    var propertyDefaults = {
+        name:"{name not set}",
+        scope:"{scope not set}",
+        phase:"{phase not set}",
+        variability:"{variability not set}",
+        unit:"{unit not set}",
+        modName:"{modName not set}"
+    };
+    
+    return propertyDefaults;
+};
+
+

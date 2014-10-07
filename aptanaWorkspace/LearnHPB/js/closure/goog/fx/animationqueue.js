@@ -40,7 +40,7 @@ goog.require('goog.fx.TransitionBase.State');
  * @extends {goog.fx.TransitionBase}
  */
 goog.fx.AnimationQueue = function() {
-  goog.fx.AnimationQueue.base(this, 'constructor');
+  goog.base(this);
 
   /**
    * An array holding all animations in the queue.
@@ -103,7 +103,7 @@ goog.fx.AnimationQueue.prototype.disposeInternal = function() {
   });
   this.queue.length = 0;
 
-  goog.fx.AnimationQueue.base(this, 'disposeInternal');
+  goog.base(this, 'disposeInternal');
 };
 
 
@@ -114,7 +114,7 @@ goog.fx.AnimationQueue.prototype.disposeInternal = function() {
  * @extends {goog.fx.AnimationQueue}
  */
 goog.fx.AnimationParallelQueue = function() {
-  goog.fx.AnimationParallelQueue.base(this, 'constructor');
+  goog.base(this);
 
   /**
    * Number of finished animations.
@@ -126,7 +126,7 @@ goog.fx.AnimationParallelQueue = function() {
 goog.inherits(goog.fx.AnimationParallelQueue, goog.fx.AnimationQueue);
 
 
-/** @override */
+/** @inheritDoc */
 goog.fx.AnimationParallelQueue.prototype.play = function(opt_restart) {
   if (this.queue.length == 0) {
     return false;
@@ -159,7 +159,7 @@ goog.fx.AnimationParallelQueue.prototype.play = function(opt_restart) {
 };
 
 
-/** @override */
+/** @inheritDoc */
 goog.fx.AnimationParallelQueue.prototype.pause = function() {
   if (this.isPlaying()) {
     goog.array.forEach(this.queue, function(anim) {
@@ -174,7 +174,7 @@ goog.fx.AnimationParallelQueue.prototype.pause = function() {
 };
 
 
-/** @override */
+/** @inheritDoc */
 goog.fx.AnimationParallelQueue.prototype.stop = function(opt_gotoEnd) {
   goog.array.forEach(this.queue, function(anim) {
     if (!anim.isStopped()) {
@@ -190,7 +190,7 @@ goog.fx.AnimationParallelQueue.prototype.stop = function(opt_gotoEnd) {
 };
 
 
-/** @override */
+/** @inheritDoc */
 goog.fx.AnimationParallelQueue.prototype.onAnimationFinish = function(e) {
   this.finishedCounter_++;
   if (this.finishedCounter_ == this.queue.length) {
@@ -211,7 +211,7 @@ goog.fx.AnimationParallelQueue.prototype.onAnimationFinish = function(e) {
  * @extends {goog.fx.AnimationQueue}
  */
 goog.fx.AnimationSerialQueue = function() {
-  goog.fx.AnimationSerialQueue.base(this, 'constructor');
+  goog.base(this);
 
   /**
    * Current animation in queue currently active.
@@ -223,7 +223,7 @@ goog.fx.AnimationSerialQueue = function() {
 goog.inherits(goog.fx.AnimationSerialQueue, goog.fx.AnimationQueue);
 
 
-/** @override */
+/** @inheritDoc */
 goog.fx.AnimationSerialQueue.prototype.play = function(opt_restart) {
   if (this.queue.length == 0) {
     return false;
@@ -256,7 +256,7 @@ goog.fx.AnimationSerialQueue.prototype.play = function(opt_restart) {
 };
 
 
-/** @override */
+/** @inheritDoc */
 goog.fx.AnimationSerialQueue.prototype.pause = function() {
   if (this.isPlaying()) {
     this.queue[this.current_].pause();
@@ -266,7 +266,7 @@ goog.fx.AnimationSerialQueue.prototype.pause = function() {
 };
 
 
-/** @override */
+/** @inheritDoc */
 goog.fx.AnimationSerialQueue.prototype.stop = function(opt_gotoEnd) {
   this.setStateStopped();
   this.endTime = goog.now();
@@ -290,7 +290,7 @@ goog.fx.AnimationSerialQueue.prototype.stop = function(opt_gotoEnd) {
 };
 
 
-/** @override */
+/** @inheritDoc */
 goog.fx.AnimationSerialQueue.prototype.onAnimationFinish = function(e) {
   if (this.isPlaying()) {
     this.current_++;

@@ -6,20 +6,20 @@
 goog.provide('lgb.world.model.CrossSectionModel');
 
 
-goog.require('lgb.world.model.BaseModel');
+goog.require('lgb.core.BaseModel');
 goog.require('lgb.component.DropDownDataSource');
 goog.require('lgb.world.model.vo.LayerNode');
 
 
 /**
  * @constructor
- * @extends lgb.world.model.BaseModel
+ * @extends lgb.core.BaseModel
  */
 lgb.world.model.CrossSectionModel = function() {
 
   /**@const */
   this._TITLE = 'CrossSection';
-  lgb.world.model.BaseModel.call(this);
+  lgb.core.BaseModel.call(this);
 
   this.viewPointNode = null;
   this.viewPointNodeMap_ = {};
@@ -70,7 +70,7 @@ lgb.world.model.CrossSectionModel = function() {
   this.makeLayer_('Veneer', 'StoneVeneer');
 
 };
-goog.inherits(lgb.world.model.CrossSectionModel, lgb.world.model.BaseModel);
+goog.inherits(lgb.world.model.CrossSectionModel, lgb.core.BaseModel);
 
 
 

@@ -1,7 +1,8 @@
-goog.setTestOnly('query_test');
-
 goog.require('goog.dom');
-goog.require('goog.userAgent');
+goog.require('goog.dom.query');
+goog.require('goog.testing.asserts');  // assertThrows
+
+goog.setTestOnly('query_test');
 
 function testBasicSelectors() {
   assertQuery(4, 'h3');
@@ -29,11 +30,6 @@ function testSyntacticEquivalents() {
 }
 
 function testWithARootById() {
-  // Broken in latest chrome.
-  if (goog.userAgent.WEBKIT) {
-    return;
-  }
-
   // with a root, by ID
   assertQuery(3, '> *', 'container');
   assertQuery(3, '> h3', 't');
@@ -76,12 +72,6 @@ function testAttributes() {
 }
 
 function testDescendantSelectors() {
-
-  // Broken in latest chrome.
-  if (goog.userAgent.WEBKIT) {
-    return;
-  }
-
   assertQuery(3, '>', 'container');
   assertQuery(3, '> *', 'container');
   assertQuery(2, '> [qux]', 'container');
@@ -137,8 +127,8 @@ function testEmptyPseudoSelector() {
   assertQuery(1, 'h3 :not(:empty)');
 }
 
-function testIdsWithColons() {
-  assertQuery(1, '#silly\\:id\\:\\:with\\:colons');
+function testIdsWithColons(){
+  assertQuery(1, "#silly\\:id\\:\\:with\\:colons");
 }
 
 function testOrder() {
@@ -160,7 +150,6 @@ function testCorrectDocumentInFrame() {
   assertNotEquals(document.getElementById('if3'),
                   frameDocument.getElementById('if3'));
 }
-
 
 /**
  * @param {number} expectedNumberOfNodes

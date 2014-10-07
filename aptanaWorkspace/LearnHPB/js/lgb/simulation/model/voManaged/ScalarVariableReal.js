@@ -3,7 +3,7 @@ goog.provide('lgb.simulation.model.voManaged.ScalarVariableReal');
 goog.require('lgb.simulation.model.BaseModel');
 goog.require('lgb.simulation.model.voNative.Enu');
 goog.require('lgb.simulation.model.voNative.TypeSpecReal');
-
+goog.require('lgb.simulation.model.DisplayUnitSystem');
 
 
  /**
@@ -20,6 +20,8 @@ lgb.simulation.model.voManaged.ScalarVariableReal = function(typeSpecReal) {
   this.valueReference_ = 0;
   this.typeSpecReal_ = typeSpecReal;
   this.serializeType = true;
+  
+  this.displayUnitSystem = lgb.simulation.model.DisplayUnitSystem.getInstance();
   
 };
 goog.inherits(lgb.simulation.model.voManaged.ScalarVariableReal, lgb.simulation.model.BaseModel);
@@ -99,8 +101,6 @@ lgb.simulation.model.voManaged.ScalarVariableReal.prototype.getUnit = function()
 
 
 
-
-
 lgb.simulation.model.voManaged.ScalarVariableReal.prototype.getVariabilityAsInt = function() {
   return this.variability_;
 };
@@ -122,6 +122,33 @@ lgb.simulation.model.voManaged.ScalarVariableReal.prototype.getValueReference = 
 
 lgb.simulation.model.voManaged.ScalarVariableReal.prototype.getTypeSpecReal = function() {
   return this.typeSpecReal_;
+};
+
+
+
+lgb.simulation.model.voManaged.ScalarVariableReal.prototype.getDisplayUnit = function() {
+
+  var unit = this.displayUnitSystem.convertInternalUnitToDisplayUnit(this.typeSpecReal_.unit);
+  return unit;
+};
+
+
+lgb.simulation.model.voManaged.ScalarVariableReal.prototype.getDisplayValue = function() {
+
+  var unit = this.displayUnitSystem.convertInternalUnitToDisplayUnit(this.typeSpecReal_.unit);
+  return unit;
+};
+
+
+
+
+
+lgb.simulation.model.voManaged.ScalarVariableReal.prototype.getNormalizedName = function() {
+    var normalizedName = this.name_.replace("[", "_");
+    var normalizedName = normalizedName.replace("]", "");
+    
+    
+    return normalizedName;
 };
 
 

@@ -28,6 +28,14 @@ goog.inherits(lgb.gui.view.BuildingSubControllerGUI, lgb.gui.view.BaseGUI);
 
 
 
+lgb.gui.view.BuildingSubControllerGUI.prototype.init_ = function() {
+  
+
+  
+};
+
+
+
 lgb.gui.view.BuildingSubControllerGUI.prototype.add = function(gui) {
   var el = this.getMainElement();
   gui.appendTo(el, false);

@@ -34,12 +34,10 @@ lgb.chart.view.GraphGUI_04.prototype.init = function() {
 
 
 
-
 lgb.chart.view.GraphGUI_04.prototype.onChange_scalarValueResultsConverted_ = function(scalarValueResultsConverted) {
   
   this.chartModel_.extractFromResults(scalarValueResultsConverted);
   
-
   //redraw the line
   this.chart_.path
       .attr("d", this.chart_.line);
@@ -50,7 +48,35 @@ lgb.chart.view.GraphGUI_04.prototype.onChange_scalarValueResultsConverted_ = fun
 
 
 
+lgb.chart.view.GraphGUI_04.prototype.calculateLayout = function() {
+    
+  return;
+};
 
+
+lgb.chart.view.GraphGUI_04.prototype.updateValues = function() {
+    
+  // redraw the line, and slide it to the left
+  this.chart_.path
+      .attr("d", this.chart_.line)
+      .attr("transform", null)
+    .transition()
+      .duration(500)
+      .ease("linear")
+      .attr("transform", "translate(" + this.chart_.x(-1) + ",0)");
+ 
+  return;
+  
+  
+  // // pop the old data point off the front
+  // this.chart_.data.shift();
+//     
+  // //redraw the line
+  // this.chart_.path
+      // .attr("d", this.chart_.line);
+//     
+
+};
 
 
 
@@ -71,6 +97,7 @@ lgb.chart.view.GraphGUI_04.prototype.makeChart_ = function() {
    
    
   var scaleObjectX = d3.time.scale();
+  chartModel.init_04(); 
   var domainX = chartModel.getDomainX(); 
   
   var x = scaleObjectX

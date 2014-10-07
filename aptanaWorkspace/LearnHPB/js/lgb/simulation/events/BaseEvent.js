@@ -89,3 +89,5 @@ se.RequestModelicaVariableChange = 'lgb.simulation.events.RequestModelicaVariabl
 se.ConfigChangeNotify = 'lgb.simulation.events.ConfigChangeNotify';
 
 se.SetRemoteHost = 'lgb.simulation.events.SetRemoteHost';
+se.ResultEventList = 'lgb.simulation.events.ResultEventList';
+

@@ -108,6 +108,9 @@ lgb.core.BaseClass.prototype.relay = function(eventTarget, eventType) {
       }
     );
   } else {
+    
+
+    
     this.listenTo(eventTarget, eventType, this.onRelay_);
   }
 

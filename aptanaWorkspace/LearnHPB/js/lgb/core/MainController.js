@@ -20,7 +20,7 @@ goog.require('lgb.world.controller.BuildingController');
 goog.require('lgb.world.controller.UtilityController');
 // goog.require('lgb.world.controller.WorldSelectionController');
 
-
+goog.require('lgb.integrated.controller.IntegratedController');
 
 
 
@@ -53,18 +53,14 @@ lgb.core.MainController.prototype.init = function() {
   this.injectErrorWindow_();
   
   
-/*
-  window.onerror = function(errorMsg, url, lineNumber) {
-    var w = $('#errorWindow').data('kendoWindow');
-     w.content(errorMsg + '<br />url:' + url + '<br />line:' + lineNumber);
-       w.open();
-     debugger;
-  };*/
+  // window.onerror = function(errorMsg, url, lineNumber) {
+    // var w = $('#errorWindow').data('kendoWindow');
+     // w.content(errorMsg + '<br />url:' + url + '<br />line:' + lineNumber);
+       // w.open();
+     // debugger;
+  // };
 
   
-/*
-
-*/
 
   this.layoutController_ = new lgb.gui.controller.LayoutController();
   
@@ -73,7 +69,13 @@ lgb.core.MainController.prototype.init = function() {
    
 
   this.scenarioController_ = new lgb.scenario.controller.ScenarioController();
-   
+  
+  this.scenarioController_ = new lgb.integrated.controller.IntegratedController();
+  
+  
+
+  
+  
   this.renderController_ = new lgb.world.controller.RenderController();
   this.renderController_.init();
   
@@ -113,7 +115,7 @@ lgb.core.MainController.prototype.init = function() {
   this.simulationMainController_.init();
   
   
-  this.trigger(e.RequestLoadScenario, "VerySimpleScenario");
+  this.trigger(e.RequestLoadScenario, "SimpleScenario");
   this.logger_ = goog.debug.Logger.getLogger('lgb.core.MainController');
   lgb.logInfo(lgb.core.Config.getTitle());
   lgb.logInfo('jQuery version: ' + $('').jquery);

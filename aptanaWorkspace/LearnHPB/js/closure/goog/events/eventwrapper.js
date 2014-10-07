@@ -35,9 +35,10 @@ goog.events.EventWrapper = function() {
  * implemented {@link goog.events.EventTarget}. A listener can only be added
  * once to an object.
  *
- * @param {goog.events.ListenableType} src The node to listen to events on.
- * @param {function(?):?|{handleEvent:function(?):?}|null} listener Callback
- *     method, or an object with a handleEvent function.
+ * @param {EventTarget|goog.events.EventTarget} src The node to listen to
+ *     events on.
+ * @param {Function|Object} listener Callback method, or an object with a
+ *     handleEvent function.
  * @param {boolean=} opt_capt Whether to fire in capture phase (defaults to
  *     false).
  * @param {Object=} opt_scope Element in whose scope to call the listener.
@@ -52,9 +53,10 @@ goog.events.EventWrapper.prototype.listen = function(src, listener, opt_capt,
 /**
  * Removes an event listener added using goog.events.EventWrapper.listen.
  *
- * @param {goog.events.ListenableType} src The node to remove listener from.
- * @param {function(?):?|{handleEvent:function(?):?}|null} listener Callback
- *     method, or an object with a handleEvent function.
+ * @param {EventTarget|goog.events.EventTarget} src The node to remove listener
+ *    from.
+ * @param {Function|Object} listener Callback method, or an object with a
+ *     handleEvent function.
  * @param {boolean=} opt_capt Whether to fire in capture phase (defaults to
  *     false).
  * @param {Object=} opt_scope Element in whose scope to call the listener.

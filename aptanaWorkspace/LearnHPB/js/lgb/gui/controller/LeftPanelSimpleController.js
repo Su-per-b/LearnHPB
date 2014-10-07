@@ -1,13 +1,9 @@
 goog.provide('lgb.gui.controller.LeftPanelSimpleController');
 
 goog.require('lgb.core.BaseController');
-goog.require('lgb.gui.controller.TestController');
-goog.require('lgb.gui.controller.BuildingSimpleController');
 
-
+goog.require('lgb.gui.controller.BuildingController');
 goog.require('lgb.gui.controller.SimulationStateController');
-goog.require('lgb.gui.view.SimulationStateControlGUI');
-
 goog.require('lgb.gui.view.LeftPanelSimpleGUI');
 goog.require('lgb.gui.model.BaseGuiModel');
 goog.require('lgb.gui.view.BottomPanelGUI');
@@ -47,83 +43,56 @@ lgb.gui.controller.LeftPanelSimpleController.prototype.init = function() {
 
 lgb.gui.controller.LeftPanelSimpleController.prototype.bind_ = function() {
 
-  this.listenOnce (
-    e.ScenarioDataModelLoaded,
-    this.onScenarioDataModelLoadedFirstTime_
-  );
+   this.listenOnce (
+     e.IntegratedDataModelInitialized,
+     this.onIntegratedDataModelInitializedFirstTime_
+   );
   
-  // this.simStateNativeNotifyKey_ = this.listen (
-    // se.SimStateNativeNotify,
-    // this.onSimStateNativeNotify_
-  // );
-  
+
   
 };
 
-
-// lgb.gui.controller.LeftPanelSimpleController.prototype.onSimStateNativeNotify_ = function(event) {
 // 
-  // var simStateNativeWrapper = event.getPayload();
+// lgb.gui.controller.LeftPanelSimpleController.prototype.onDisplayUnitSystemChangeRequest_ = function(event) {
+// 
+// 
+  // var newUnit = event.payload;
 //   
-  // var theInt = simStateNativeWrapper.getIntValue();
-//   
-  // if (theInt == lgb.simulation.model.voNative.SimStateNativeEnum.simStateNative_3_ready) {
-//     
-    // this.unlisten (this.simStateNativeNotifyKey_);
-    // this.makeChildGUIcontroller_(lgb.gui.controller.ScenarioMasterController);
-//     
-  // }
-//   
-//   
+  // //this.guiView.setNewUnit(newUnit);
+// 
+// 
   // return;
-// };
-
-
-
-// lgb.gui.controller.LeftPanelSimpleController.prototype.onSimulationEngineLoaded_ = function(event) {
 // 
-  // var simulationMainController = event.payload;
-  // this.init3_(simulationMainController);
-//   
 // };
+// 
 
 
-lgb.gui.controller.LeftPanelSimpleController.prototype.onScenarioDataModelLoadedFirstTime_ = function(event) {
 
 
-  var systemListDataModel = event.payload;
+lgb.gui.controller.LeftPanelSimpleController.prototype.onIntegratedDataModelInitializedFirstTime_ = function(event) {
 
-   // this.makeChildGUIcontroller_(lgb.gui.controller.ScenarioController, systemListDataModel);
+
+   var integratedMainModel = event.payload;
+   
    
    this.buildingSimpleController_ = this.makeChildGUIcontroller_
-    (lgb.gui.controller.BuildingSimpleController, systemListDataModel);
+    (lgb.gui.controller.BuildingController, integratedMainModel);
 
 
     this.listen (
-      e.ScenarioDataModelLoaded,
-      this.onScenarioDataModelLoadedNTime_
+      e.IntegratedDataModelInitialized,
+      this.onIntegratedDataModelInitializedNTime_
     );
   
 };
 
 
-lgb.gui.controller.LeftPanelSimpleController.prototype.onScenarioDataModelLoadedNTime_ = function(event) {
+lgb.gui.controller.LeftPanelSimpleController.prototype.onIntegratedDataModelInitializedNTime_ = function(event) {
 
-
-  var systemListDataModel = event.payload;
-  this.buildingSimpleController_.loadNew(systemListDataModel);
+   var integratedMainModel = event.payload;
+ 
+   this.buildingSimpleController_.loadNew(integratedMainModel);
   
-
 };
-
-
-
-// 
-// lgb.gui.controller.LeftPanelSimpleController.prototype.init3_ = function(simulationMainController) {
-//   
-  // this.makeChildGUIcontroller_(lgb.gui.controller.SimulationStateController, simulationMainController);
-// 
-// };
-// 
 
 

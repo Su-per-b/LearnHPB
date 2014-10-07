@@ -21,7 +21,9 @@
 goog.provide('goog.storage.Storage');
 
 goog.require('goog.json');
+goog.require('goog.json.Serializer');
 goog.require('goog.storage.ErrorCode');
+goog.require('goog.storage.mechanism.Mechanism');
 
 
 
@@ -33,17 +35,31 @@ goog.require('goog.storage.ErrorCode');
  * @constructor
  */
 goog.storage.Storage = function(mechanism) {
-  /**
-   * The mechanism used to persist key-value pairs.
-   *
-   * @protected {goog.storage.mechanism.Mechanism}
-   */
   this.mechanism = mechanism;
+  this.serializer_ = new goog.json.Serializer();
 };
 
 
 /**
- * Sets an item in the data storage.
+ * The mechanism used to persist key-value pairs.
+ *
+ * @type {goog.storage.mechanism.Mechanism}
+ * @protected
+ */
+goog.storage.Storage.prototype.mechanism = null;
+
+
+/**
+ * The JSON serializer used to serialize values.
+ *
+ * @type {goog.json.Serializer}
+ * @private
+ */
+goog.storage.Storage.prototype.serializer_ = null;
+
+
+/**
+ * Set an item in the data storage.
  *
  * @param {string} key The key to set.
  * @param {*} value The value to serialize to a string and save.
@@ -53,27 +69,18 @@ goog.storage.Storage.prototype.set = function(key, value) {
     this.mechanism.remove(key);
     return;
   }
-  this.mechanism.set(key, goog.json.serialize(value));
+  this.mechanism.set(key, this.serializer_.serialize(value));
 };
 
 
 /**
- * Gets an item from the data storage.
+ * Get an item from the data storage.
  *
  * @param {string} key The key to get.
  * @return {*} Deserialized value or undefined if not found.
  */
 goog.storage.Storage.prototype.get = function(key) {
-  var json;
-  try {
-    json = this.mechanism.get(key);
-  } catch (e) {
-    // If, for any reason, the value returned by a mechanism's get method is not
-    // a string, an exception is thrown.  In this case, we must fail gracefully
-    // instead of propagating the exception to clients.  See b/8095488 for
-    // details.
-    return undefined;
-  }
+  var json = this.mechanism.get(key);
   if (goog.isNull(json)) {
     return undefined;
   }
@@ -87,7 +94,7 @@ goog.storage.Storage.prototype.get = function(key) {
 
 
 /**
- * Removes an item from the data storage.
+ * Remove an item from the data storage.
  *
  * @param {string} key The key to remove.
  */

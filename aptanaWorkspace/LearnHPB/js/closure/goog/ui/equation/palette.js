@@ -29,9 +29,8 @@ goog.provide('goog.ui.equation.PaletteRenderer');
 
 goog.require('goog.dom');
 goog.require('goog.dom.TagName');
-goog.require('goog.events.Event');
 goog.require('goog.ui.Palette');
-goog.require('goog.ui.PaletteRenderer');
+goog.require('goog.ui.equation.ImageRenderer');
 
 
 
@@ -79,8 +78,7 @@ goog.ui.equation.Palette = function(paletteManager, type, spriteX,
   var x = - spriteX;
   var y = - spriteY;
   for (var i = 0; i < opt_actions.length; i++) {
-    elements.push(paletteManager.getDomHelper().createDom(
-        goog.dom.TagName.DIV,
+    elements.push(goog.dom.createDom(goog.dom.TagName.DIV,
         {'class': renderer.getItemCssClass(),
           'style': 'width:' + itemWidth +
               'px;height:' + itemHeight +
@@ -97,7 +95,7 @@ goog.ui.equation.Palette = function(paletteManager, type, spriteX,
    */
   this.paletteManager_ = paletteManager;
 
-  goog.ui.Palette.call(this, elements, renderer, paletteManager.getDomHelper());
+  goog.ui.Palette.call(this, elements, renderer);
 };
 goog.inherits(goog.ui.equation.Palette, goog.ui.Palette);
 
@@ -170,7 +168,7 @@ goog.ui.equation.Palette.prototype.getAction = function(index) {
  * @override
  */
 goog.ui.equation.Palette.prototype.handleMouseUp = function(e) {
-  goog.ui.equation.Palette.base(this, 'handleMouseUp', e);
+  goog.base(this, 'handleMouseUp', e);
 
   this.paletteManager_.dispatchEvent(
       new goog.ui.equation.PaletteEvent(
@@ -185,7 +183,7 @@ goog.ui.equation.Palette.prototype.handleMouseUp = function(e) {
  * @override
  */
 goog.ui.equation.Palette.prototype.handleMouseOut = function(e) {
-  goog.ui.equation.Palette.base(this, 'handleMouseOut', e);
+  goog.base(this, 'handleMouseOut', e);
 
   // Ignore mouse moves between descendants.
   if (e.relatedTarget &&
@@ -204,7 +202,7 @@ goog.ui.equation.Palette.prototype.handleMouseOut = function(e) {
  * @override
  */
 goog.ui.equation.Palette.prototype.handleMouseOver = function(e) {
-  goog.ui.equation.Palette.base(this, 'handleMouseOver', e);
+  goog.base(this, 'handleMouseOver', e);
 
   // Ignore mouse moves between descendants.
   if (e.relatedTarget &&
@@ -225,7 +223,6 @@ goog.ui.equation.Palette.prototype.handleMouseOver = function(e) {
  * @param {Element=} opt_target The optional target of the event.
  * @constructor
  * @extends {goog.events.Event}
- * @final
  */
 goog.ui.equation.PaletteEvent = function(type, palette, opt_target) {
   goog.events.Event.call(this, type, opt_target);

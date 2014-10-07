@@ -14,19 +14,17 @@
 
 
 /**
- * @fileoverview Tests for goog.ui.MockActivityMonitorTest.
+ * @fileoverview Tests for goog.ui.MockActivityMonitorTest
  * @author nnaze@google.com (Nathan Naze)
  */
 
-/** @suppress {extraProvide} */
 goog.provide('goog.ui.MockActivityMonitorTest');
 
-goog.require('goog.events');
-goog.require('goog.functions');
 goog.require('goog.testing.jsunit');
 goog.require('goog.testing.recordFunction');
-goog.require('goog.ui.ActivityMonitor');
 goog.require('goog.ui.MockActivityMonitor');
+goog.require('goog.ui.ActivityMonitor');
+goog.require('goog.functions');
 
 goog.setTestOnly('goog.ui.MockActivityMonitorTest');
 
@@ -68,27 +66,4 @@ function testEventFireDifferingTime() {
   goog.now = goog.functions.constant(1001);
   monitor.simulateEvent();
   assertEquals(2, recordedFunction.getCallCount());
-}
-
-function testDispatchEventReturnValue() {
-  assertTrue(monitor.dispatchEvent(goog.ui.ActivityMonitor.Event.ACTIVITY));
-  assertEquals(1, recordedFunction.getCallCount());
-}
-
-function testDispatchEventPreventDefault() {
-  // Undo the listen call in setUp.
-  goog.events.unlisten(
-      monitor,
-      goog.ui.ActivityMonitor.Event.ACTIVITY,
-      recordedFunction);
-
-  // Listen with a function that cancels the event.
-  goog.events.listen(
-      monitor,
-      goog.ui.ActivityMonitor.Event.ACTIVITY,
-      function(e) {
-        e.preventDefault();
-      });
-
-  assertFalse(monitor.dispatchEvent(goog.ui.ActivityMonitor.Event.ACTIVITY));
 }

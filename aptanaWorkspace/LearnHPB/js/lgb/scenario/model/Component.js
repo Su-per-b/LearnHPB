@@ -10,7 +10,7 @@ goog.require('lgb.scenario.model.NodeBase');
 /**
  * Primarily a container object for Sysvars
  * @constructor
- * @extends lgb.world.model.BaseModel
+ * @extends lgb.core.BaseModel
  * @param {!lgb.utils.XmlWrapper} xmlParser The parse used
  * to populate the object, contains an xml document.
  */
@@ -23,6 +23,15 @@ goog.inherits(lgb.scenario.model.Component, lgb.scenario.model.NodeBase);
 
 
 
-lgb.scenario.model.Component.prototype.parse_ = function(node) {
+
+lgb.scenario.model.Component.prototype.parseXmlNode_ = function() {
+  
   this.setNameAndAbbr_();
+
+};
+
+lgb.scenario.model.Component.prototype.getVarList = function() {
+
+    return null;
+    
 };

@@ -14,7 +14,7 @@ goog.require('lgb.component.DropDownDataSource');
 /**
  * Primarily a container object for Sysvars
  * @constructor
- * @extends lgb.world.model.BaseModel
+ * @extends lgb.core.BaseModel
  * @param {!lgb.utils.XmlWrapper} xmlParser The parse used
  * to populate the object, contains an xml document.
  */

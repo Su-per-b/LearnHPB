@@ -4,16 +4,16 @@
  */
  
 goog.provide('lgb.scenario.model.SysVar');
-goog.require('lgb.world.model.BaseModel');
+goog.require('lgb.core.BaseModel');
 
 /**
  * @constructor
- * @extends lgb.world.model.BaseModel
+ * @extends lgb.core.BaseModel
  * @param {Node} node  Used to construct this object.
  */
 lgb.scenario.model.SysVar = function(node) {
 
-  lgb.world.model.BaseModel.call(this);
+  lgb.core.BaseModel.call(this);
   this.name = '';
   this.displayName = '';
   this.description = '';
@@ -43,7 +43,7 @@ lgb.scenario.model.SysVar = function(node) {
 
 
 };
-goog.inherits(lgb.scenario.model.SysVar, lgb.world.model.BaseModel);
+goog.inherits(lgb.scenario.model.SysVar, lgb.core.BaseModel);
 
 
 /**

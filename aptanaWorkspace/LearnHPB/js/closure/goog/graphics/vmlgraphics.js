@@ -24,20 +24,20 @@ goog.provide('goog.graphics.VmlGraphics');
 
 
 goog.require('goog.array');
-goog.require('goog.events');
+goog.require('goog.dom');
 goog.require('goog.events.EventHandler');
 goog.require('goog.events.EventType');
 goog.require('goog.graphics.AbstractGraphics');
+goog.require('goog.graphics.Font');
 goog.require('goog.graphics.LinearGradient');
-goog.require('goog.graphics.Path');
 goog.require('goog.graphics.SolidFill');
+goog.require('goog.graphics.Stroke');
 goog.require('goog.graphics.VmlEllipseElement');
 goog.require('goog.graphics.VmlGroupElement');
 goog.require('goog.graphics.VmlImageElement');
 goog.require('goog.graphics.VmlPathElement');
 goog.require('goog.graphics.VmlRectElement');
 goog.require('goog.graphics.VmlTextElement');
-goog.require('goog.math');
 goog.require('goog.math.Size');
 goog.require('goog.string');
 goog.require('goog.style');
@@ -58,10 +58,6 @@ goog.require('goog.style');
  *     document we want to render in.
  * @constructor
  * @extends {goog.graphics.AbstractGraphics}
- * @deprecated goog.graphics is deprecated. It existed to abstract over browser
- *     differences before the canvas tag was widely supported.  See
- *     http://en.wikipedia.org/wiki/Canvas_element for details.
- * @final
  */
 goog.graphics.VmlGraphics = function(width, height,
                                      opt_coordWidth, opt_coordHeight,
@@ -217,7 +213,7 @@ goog.graphics.VmlGraphics.prototype.handler_;
 /**
  * Creates a VML element. Used internally and by different VML classes.
  * @param {string} tagName The type of element to create.
- * @return {!Element} The created element.
+ * @return {Element} The created element.
  */
 goog.graphics.VmlGraphics.prototype.createVmlElement = function(tagName) {
   var element =
@@ -430,7 +426,7 @@ goog.graphics.VmlGraphics.setPositionAndSize = function(
  * Creates an element spanning the surface.
  *
  * @param {string} type The type of element to create.
- * @return {!Element} The created, positioned, and sized element.
+ * @return {Element} The created, positioned, and sized element.
  * @private
  */
 goog.graphics.VmlGraphics.prototype.createFullSizeElement_ = function(type) {
@@ -612,8 +608,7 @@ goog.graphics.VmlGraphics.prototype.setSize = function(pixelWidth,
 
 
 /**
- * @return {!goog.math.Size} Returns the number of pixels spanned by the
- *     surface.
+ * @return {goog.math.Size} Returns the number of pixels spanned by the surface.
  * @override
  */
 goog.graphics.VmlGraphics.prototype.getPixelSize = function() {
@@ -646,7 +641,7 @@ goog.graphics.VmlGraphics.prototype.clear = function() {
  * @param {goog.graphics.GroupElement=} opt_group The group wrapper element
  *     to append to. If not specified, appends to the main canvas.
  *
- * @return {!goog.graphics.EllipseElement} The newly created element.
+ * @return {goog.graphics.EllipseElement} The newly created element.
  * @override
  */
 goog.graphics.VmlGraphics.prototype.drawEllipse = function(cx, cy, rx, ry,
@@ -674,7 +669,7 @@ goog.graphics.VmlGraphics.prototype.drawEllipse = function(cx, cy, rx, ry,
  * @param {goog.graphics.GroupElement=} opt_group The group wrapper element
  *     to append to. If not specified, appends to the main canvas.
  *
- * @return {!goog.graphics.RectElement} The newly created element.
+ * @return {goog.graphics.RectElement} The newly created element.
  * @override
  */
 goog.graphics.VmlGraphics.prototype.drawRect = function(x, y, width, height,
@@ -698,7 +693,7 @@ goog.graphics.VmlGraphics.prototype.drawRect = function(x, y, width, height,
  * @param {goog.graphics.GroupElement=} opt_group The group wrapper element
  *     to append to. If not specified, appends to the main canvas.
  *
- * @return {!goog.graphics.ImageElement} The newly created element.
+ * @return {goog.graphics.ImageElement} The newly created element.
  */
 goog.graphics.VmlGraphics.prototype.drawImage = function(x, y, width, height,
     src, opt_group) {
@@ -726,7 +721,7 @@ goog.graphics.VmlGraphics.prototype.drawImage = function(x, y, width, height,
  * @param {goog.graphics.GroupElement=} opt_group The group wrapper element
  *     to append to. If not specified, appends to the main canvas.
  *
- * @return {!goog.graphics.TextElement} The newly created element.
+ * @return {goog.graphics.TextElement} The newly created element.
  * @override
  */
 goog.graphics.VmlGraphics.prototype.drawTextOnLine = function(
@@ -774,7 +769,7 @@ goog.graphics.VmlGraphics.prototype.drawTextOnLine = function(
  * @param {goog.graphics.GroupElement=} opt_group The group wrapper element
  *     to append to. If not specified, appends to the main canvas.
  *
- * @return {!goog.graphics.PathElement} The newly created element.
+ * @return {goog.graphics.PathElement} The newly created element.
  * @override
  */
 goog.graphics.VmlGraphics.prototype.drawPath = function(path, stroke, fill,
@@ -795,7 +790,6 @@ goog.graphics.VmlGraphics.prototype.drawPath = function(path, stroke, fill,
  *
  * @param {goog.graphics.Path} path The logical path.
  * @return {string} The VML path representation.
- * @suppress {deprecated} goog.graphics is deprecated.
  */
 goog.graphics.VmlGraphics.getVmlPath = function(path) {
   var list = [];
@@ -845,7 +839,7 @@ goog.graphics.VmlGraphics.getVmlPath = function(path) {
  * @param {goog.graphics.GroupElement=} opt_group The group wrapper element
  *     to append to. If not specified, appends to the main canvas.
  *
- * @return {!goog.graphics.GroupElement} The newly created group.
+ * @return {goog.graphics.GroupElement} The newly created group.
  * @override
  */
 goog.graphics.VmlGraphics.prototype.createGroup = function(opt_group) {

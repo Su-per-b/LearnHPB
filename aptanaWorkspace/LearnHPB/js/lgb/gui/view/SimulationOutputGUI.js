@@ -1,6 +1,9 @@
 goog.provide('lgb.gui.view.SimulationOutputGUI');
 
 
+goog.require('lgb.scenario.model.Temperature');
+goog.require('lgb.scenario.model.Decimal');
+
 
 /**
  * @constructor
@@ -12,7 +15,10 @@ lgb.gui.view.SimulationOutputGUI = function(dataModel) {
   
   lgb.gui.view.BaseGUI.call(this, dataModel);
   this.totalHeaderHeight_ = 94;
-
+  this.displayUnitSystem = lgb.simulation.model.DisplayUnitSystem.getInstance();
+  this.realVarListConverted = [];
+  this.xmlParsedInfo_ = null;
+  
 };
 goog.inherits(lgb.gui.view.SimulationOutputGUI, lgb.gui.view.BaseGUI);
 
@@ -20,83 +26,96 @@ goog.inherits(lgb.gui.view.SimulationOutputGUI, lgb.gui.view.BaseGUI);
 
 lgb.gui.view.SimulationOutputGUI.prototype.init = function() {
 
-
-    this.listenForChange_('scalarValueResultsConverted');
+    // this.listenForChange_('mergedResults');
     this.listenForChange_('xmlParsedInfo');
-    //this.listenForChange_('scalarValueResults');
-    
+
+    this.listenTo(this.displayUnitSystem, e.DataModelChangedEx, this.onChange_displayUnitSystemValue_);
     
     this.triggerLocal(e.RequestAddToParentGUI);
     
-    
+};
+
+
+lgb.gui.view.SimulationOutputGUI.prototype.updateIntegratedDataModelVariables = function(integratedDataModelOutputVariables) {
+  
+  
+  this.makeTable2_(  integratedDataModelOutputVariables );
+  
+  return;
+  this.xmlParsedInfo_ = xmlParsedInfo;
+  
+  this.realVarList_ = xmlParsedInfo.scalarVariablesAll_.output_.realVarList_;
+  this.realVarListConverted = xmlParsedInfo.scalarVariablesAll_.output_.getRealVarListConverted();
+  
+
+  
+};
+
+
+lgb.gui.view.SimulationOutputGUI.prototype.onChange_mergedResults_ = function(mergedResults) {
+  
+  this.mergedResults_ = mergedResults;
+  this.eachIdx(mergedResults.mergedVariableListOutput_, this.updateOneRowMerged_);
+  this.gridDS_.read();
+  
+};
+
+
+lgb.gui.view.SimulationOutputGUI.prototype.updateOneRowMerged_ = function(mergedVariable, idx) {
+  
+  if (mergedVariable.displayString != this.gridDS_.options.data[idx].displayString) {
+     this.gridDS_.options.data[idx].displayString = mergedVariable.displayString;
+  }
+  
+  return;
+};
+
+
+
+
+lgb.gui.view.SimulationOutputGUI.prototype.onChange_displayUnitSystemValue_ = function(displayUnitSystem) {
+  
+    if (undefined != this.gridDS_) {
+        this.eachIdx(this.realVarListConverted, this.changeOneRowDisplayUnit_);
+        this.gridDS_.read();
+    }
+
+};
+
+
+lgb.gui.view.SimulationOutputGUI.prototype.changeOneRowDisplayUnit_ = function(displayUnitSystem, idx) {
+  
+  this.realVarListConverted[idx].updateDisplayUnits();
+  
 };
 
 
 
 lgb.gui.view.SimulationOutputGUI.prototype.onChange_xmlParsedInfo_ = function(xmlParsedInfo) {
   
-  this.realVarList_ = xmlParsedInfo.scalarVariablesAll_.output_.realVarList_;
-  
-  var len = this.realVarList_.length;
-  
-  // for (var i=0; i < len; i++) {
-    // if (this.realVarList_[i].unit_ == "K") {
-      // this.realVarList_[i].unit_ = "C";
-    // }
-  // };
-  
-  
-  this.makeTable_(  this.realVarList_ );
-  
-
-  
-};
-
-// lgb.gui.view.SimulationOutputGUI.prototype.onChange_scalarValueResults_ = function(scalarValueResults) {
+  // this.xmlParsedInfo_ = xmlParsedInfo;
 //   
+  // this.realVarList_ = xmlParsedInfo.scalarVariablesAll_.output_.realVarList_;
+  // this.realVarListConverted = xmlParsedInfo.scalarVariablesAll_.output_.getRealVarListConverted();
 //   
-  // this.eachIdx(scalarValueResults.output.realList, this.updateOneRow_);
-  // this.gridDS_.read();
-//   
-// };
-
-
-lgb.gui.view.SimulationOutputGUI.prototype.onChange_scalarValueResultsConverted_ = function(scalarValueResultsConverted) {
-  
-  
-  this.eachIdx(scalarValueResultsConverted.output.realList, this.updateOneRow_);
-  this.gridDS_.read();
+  // this.makeTable_(  this.realVarListConverted );
   
 };
 
 
 
-lgb.gui.view.SimulationOutputGUI.prototype.updateOneRow_ = function(realVo, idx) {
-  
-/*
-  var value = row.value_.toFixed(4);
-  var theVar = this.realVarList_[idx];
-  
-  var degC = value-273.15;
-  var degF = 1.8 * degC +32;
-  
-  switch(theVar.unit_) {
-    case "C" :
-      value = degC.toFixed(4);
-    case "F" :
-      value = degF.toFixed(4);
-  }
-  
- this.gridDS_.options.data[idx].value = value;
-    
-    */
 
-    
-  var existingValue = this.gridDS_.options.data[idx].value;
-  var newValue = realVo.value_;
 
-  if (newValue != existingValue) {
-     this.gridDS_.options.data[idx].value_ = newValue;
+
+lgb.gui.view.SimulationOutputGUI.prototype.updateOneRow_ = function(scalarValueReal, idx) {
+  
+  var realVarConverted = this.realVarListConverted[idx];
+
+  realVarConverted.setInternalValue(realVo);
+  
+
+  if (realVarConverted.displayValue != this.gridDS_.options.data[idx].displayValue) {
+     this.gridDS_.options.data[idx].displayValue = realVarConverted.displayValue;
   }
    
 
@@ -123,42 +142,23 @@ lgb.gui.view.SimulationOutputGUI.prototype.calculateLayout = function() {
 
 
 
-/*
-lgb.gui.view.SimulationOutputGUI.prototype.injectInto = function(parentElement) {
-  
-  goog.base(this,  'injectInto', parentElement);
-
-};
-
-*/
 
 
-
-lgb.gui.view.SimulationOutputGUI.prototype.makeTable_ = function(varList) {
-  
+lgb.gui.view.SimulationOutputGUI.prototype.makeTable2_ = function(outputVariables) {
   
   
   var ds = {
-              data: varList,
-              schema: {
-                  model: {
-                      fields: {
-                          causality_: { type: "number" },
-                          description_: { type: "string" },
-                          idx_: { type: "number" },
-                          name_: { type: "string" },
-                          value_: { type: "number" },
-                          "typeSpecReal_.unit": { type: "string" },
-                          "typeSpecReal_.min" : { type: "number" },
-                          "typeSpecReal_.max" : { type: "number" },
-                          "typeSpecReal_.start" : { type: "number" },
-                          valueReference_: { type: "number" },
-                          variability_: { type: "number" }
-                      }
-                  }
-              }
+        data: outputVariables,
+        schema: {
+            model: {
+                fields: {
+                    name_simulation: { type: "string" },
+                    'value.displayString_': { type: "string" }
+                }
+            }
+        }
 
-        };
+  };
         
     this.gridDS_ = new kendo.data.DataSource(ds);
     
@@ -172,15 +172,71 @@ lgb.gui.view.SimulationOutputGUI.prototype.makeTable_ = function(varList) {
           filterable: false,
           columnResize: true,
           columns: [
-              { field: "idx_", title: "idx" , width: "40px"},
-              { field: "name_", title: "Name", width: "60px" },
-              { field: "value_", title: "Value", width: "60px" },
-              { field: "typeSpecReal_.unit", title: "Unit", width: "60px" },
-              { field: "description_", title: "Description" , width: "140px"},
-              { field: "typeSpecReal_.min", title: "Min" , width: "20px"},
-              { field: "typeSpecReal_.max", title: "Max" , width: "30px"},
-              { field: "typeSpecReal_.start", title: "Start" , width: "30px"},
-              { field: "variability_", title: "Var" , width: "20px"}
+              { field: "name_simulation", title: "Name" , width: "80px"},
+              { field: 'value.displayString_', title: "Value", width: "60px" }
+          ]
+      });
+      
+    this.kendoGridContent_ = this.kendoGrid_.find('.k-grid-content');
+    this.calculateLayout();  
+  
+  
+  
+
+      
+};
+
+
+
+
+
+
+lgb.gui.view.SimulationOutputGUI.prototype.makeTable_ = function(realVarListConverted) {
+  
+  
+  var ds = {
+        data: realVarListConverted,
+        schema: {
+            model: {
+                fields: {
+                    causality: { type: "number" },
+                    description: { type: "string" },
+                    idx: { type: "number" },
+                    name: { type: "string" },
+                    displayString: { type: "number" },
+                    displayUnit: { type: "string" },
+                    displayMin : { type: "number" },
+                    displayMax : { type: "number" },
+                    displayStart : { type: "number" },
+                    valueReference: { type: "number" },
+                    variability: { type: "number" }
+                }
+            }
+        }
+
+  };
+        
+    this.gridDS_ = new kendo.data.DataSource(ds);
+    
+    
+      var el = this.getMainElement();
+   
+      this.kendoGrid_ = el.kendoGrid({
+          dataSource: this.gridDS_,
+          scrollable: true,
+          sortable: true,
+          filterable: false,
+          columnResize: true,
+          columns: [
+              { field: "idx", title: "idx" , width: "40px"},
+              { field: "name", title: "Name", width: "60px" },
+              { field: "displayString", title: "Value", width: "60px" },
+              { field: "displayUnit", title: "Unit", width: "60px" },
+              { field: "description", title: "Description" , width: "140px"},
+              { field: "displayMin", title: "Min" , width: "20px"},
+              { field: "displayMax", title: "Max" , width: "30px"},
+              { field: "displayStart", title: "Start" , width: "30px"},
+              { field: "variability", title: "Var" , width: "20px"}
           ]
       });
       

@@ -4,7 +4,7 @@
  */
  
 goog.provide('lgb.scenario.model.SystemNode');
-goog.require('lgb.world.model.BaseModel');
+goog.require('lgb.core.BaseModel');
 goog.require('lgb.scenario.model.SysVar');
 goog.require('lgb.utils.XmlWrapper');
 goog.require('lgb');
@@ -12,14 +12,14 @@ goog.require('lgb');
 /**
  * Primarily a container object for Sysvars
  * @constructor
- * @extends lgb.world.model.BaseModel
+ * @extends lgb.core.BaseModel
  * @param {!lgb.utils.XmlWrapper} xmlWrapper The parse used
  * to populate the object, contains an xml document.
  */
 lgb.scenario.model.SystemNode = function(xmlWrapper) {
 
 
-  lgb.world.model.BaseModel.call(this);
+  lgb.core.BaseModel.call(this);
 
   /** @type {Array.<lgb.scenario.model.SysVar>} **/
   this.sysVarArray = [];
@@ -30,7 +30,7 @@ lgb.scenario.model.SystemNode = function(xmlWrapper) {
 
 
 };
-goog.inherits(lgb.scenario.model.SystemNode, lgb.world.model.BaseModel);
+goog.inherits(lgb.scenario.model.SystemNode, lgb.core.BaseModel);
 
 
 /**

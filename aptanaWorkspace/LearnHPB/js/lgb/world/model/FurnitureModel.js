@@ -6,12 +6,12 @@
 goog.provide('lgb.world.model.FurnitureModel');
 
 
-goog.require('lgb.world.model.BaseModel');
+goog.require('lgb.core.BaseModel');
 
 
 /**
  * @constructor
- * @extends lgb.world.model.BaseModel
+ * @extends lgb.core.BaseModel
  */
 lgb.world.model.FurnitureModel = function() {
 
@@ -20,13 +20,13 @@ lgb.world.model.FurnitureModel = function() {
   
   /**@const */
   this._TITLE = 'Furniture';
-  lgb.world.model.BaseModel.call(this);
+  lgb.core.BaseModel.call(this);
 
   this.isVisible = true;
   
   
 };
-goog.inherits(lgb.world.model.FurnitureModel, lgb.world.model.BaseModel);
+goog.inherits(lgb.world.model.FurnitureModel, lgb.core.BaseModel);
 
 
 

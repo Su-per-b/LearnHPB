@@ -27,7 +27,6 @@ goog.require('goog.Disposable');
 goog.require('goog.testing.PropertyReplacer');
 goog.require('goog.testing.events');
 goog.require('goog.testing.events.Event');
-goog.require('goog.testing.watchers');
 
 
 
@@ -53,7 +52,6 @@ goog.require('goog.testing.watchers');
  * @param {boolean=} opt_autoInstall Install the MockClock at construction time.
  * @constructor
  * @extends {goog.Disposable}
- * @final
  */
 goog.testing.MockClock = function(opt_autoInstall) {
   goog.Disposable.call(this);
@@ -153,7 +151,6 @@ goog.testing.MockClock.prototype.install = function() {
     var r = this.replacer_ = new goog.testing.PropertyReplacer();
     r.set(goog.global, 'setTimeout', goog.bind(this.setTimeout_, this));
     r.set(goog.global, 'setInterval', goog.bind(this.setInterval_, this));
-    r.set(goog.global, 'setImmediate', goog.bind(this.setImmediate_, this));
     r.set(goog.global, 'clearTimeout', goog.bind(this.clearTimeout_, this));
     r.set(goog.global, 'clearInterval', goog.bind(this.clearInterval_, this));
 
@@ -211,8 +208,6 @@ goog.testing.MockClock.prototype.uninstall = function() {
     this.replacer_ = null;
     goog.now = this.oldGoogNow_;
   }
-
-  this.fireResetEvent();
 };
 
 
@@ -235,17 +230,6 @@ goog.testing.MockClock.prototype.reset = function() {
   this.nowMillis_ = 0;
   this.timeoutsMade_ = 0;
   this.timeoutDelay_ = 0;
-
-  this.fireResetEvent();
-};
-
-
-/**
- * Signals that the mock clock has been reset, allowing objects that
- * maintain their own internal state to reset.
- */
-goog.testing.MockClock.prototype.fireResetEvent = function() {
-  goog.testing.watchers.signalClockReset();
 };
 
 
@@ -328,7 +312,7 @@ goog.testing.MockClock.prototype.runFunctionsWithinRange_ = function(
   var adjustedEndTime = endTime - this.timeoutDelay_;
 
   // Repeatedly pop off the last item since the queue is always sorted.
-  while (this.queue_ && this.queue_.length &&
+  while (this.queue_.length &&
       this.queue_[this.queue_.length - 1].runAtMillis <= adjustedEndTime) {
     var timeout = this.queue_.pop();
 
@@ -358,12 +342,6 @@ goog.testing.MockClock.prototype.runFunctionsWithinRange_ = function(
  */
 goog.testing.MockClock.prototype.scheduleFunction_ = function(
     timeoutKey, funcToCall, millis, recurring) {
-  if (!goog.isFunction(funcToCall)) {
-    // Early error for debuggability rather than dying in the next .tick()
-    throw new TypeError('The provided callback must be a function, not a ' +
-        typeof funcToCall);
-  }
-
   var timeout = {
     runAtMillis: this.nowMillis_ + millis,
     funcToCall: funcToCall,
@@ -475,19 +453,6 @@ goog.testing.MockClock.prototype.requestAnimationFrame_ = function(funcToCall) {
       goog.testing.events.fireBrowserEvent(event);
     }
   }, this), goog.testing.MockClock.REQUEST_ANIMATION_FRAME_TIMEOUT);
-};
-
-
-/**
- * Schedules a function to be called immediately after the current JS
- * execution.
- * Mock implementation for setImmediate.
- * @param {Function} funcToCall The function to call.
- * @return {number} The number of timeouts created.
- * @private
- */
-goog.testing.MockClock.prototype.setImmediate_ = function(funcToCall) {
-  return this.setTimeout_(funcToCall, 0);
 };
 
 

@@ -8,7 +8,7 @@ goog.require('lgb.utils');
  * MVC View base class
  * @constructor
  * @extends {lgb.core.BaseClass}
- * @param {lgb.world.model.BaseModel=} dataModel that the view with display.
+ * @param {lgb.core.BaseModel=} dataModel that the view with display.
  */
 lgb.world.view.BaseV = function(dataModel, htmlID, parentHtmlID) {
   lgb.core.BaseClass.call(this);
@@ -46,11 +46,6 @@ lgb.world.view.BaseV.prototype.listenForChangeTargetInit_ = function(eventTarget
 
 lgb.world.view.BaseV.prototype.listenForChange_ = function(changedPropertyString, eventTargetArg) {
     
-    if (this.changeMap_ === undefined) {
-      this.changeMap_ = {};
-      this.listenerMap_ = {};
-      this.listenForChangeTargetInit_(this.dataModel);
-    }
     
     var eventTarget;
     
@@ -60,8 +55,21 @@ lgb.world.view.BaseV.prototype.listenForChange_ = function(changedPropertyString
        eventTarget = eventTargetArg;
     }
     
+    
+    if (this.changeMap_ === undefined) {
+      this.changeMap_ = {};
+      this.listenerMap_ = {};
+      
+      this.listenForChangeTargetInit_(eventTarget);
+
+    }
+    
+
+    
     this.listenForOneChange_(changedPropertyString);
 };
+
+
 
 
 
@@ -141,6 +149,12 @@ lgb.world.view.BaseV.prototype.injectInto = function(parentElement) {
 
 lgb.world.view.BaseV.prototype.inject = function() {
 
+  this.inject_();
+};
+
+
+lgb.world.view.BaseV.prototype.inject_ = function() {
+
   var el = this.getMainElement();
   
   var parentElement = this.getParentElement();
@@ -151,6 +165,7 @@ lgb.world.view.BaseV.prototype.inject = function() {
   
   parentElement.append(el);
 };
+
 
 
 lgb.world.view.BaseV.prototype.makeDiv = function(id) {

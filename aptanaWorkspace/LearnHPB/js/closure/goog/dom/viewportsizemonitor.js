@@ -26,6 +26,7 @@ goog.require('goog.events');
 goog.require('goog.events.EventTarget');
 goog.require('goog.events.EventType');
 goog.require('goog.math.Size');
+goog.require('goog.userAgent');
 
 
 
@@ -50,7 +51,8 @@ goog.require('goog.math.Size');
  *    });
  *  </pre>
  *
- * Manually verified on IE6, IE7, FF2, Opera 11, Safari 4 and Chrome.
+ * Manually verified on IE6, IE7, FF2, Opera 9, and WebKit.  {@code getSize}
+ * doesn't always return the correct viewport height on Safari 2.0.4.
  *
  * @param {Window=} opt_window The window to monitor; defaults to the window in
  *    which this code is executing.
@@ -69,6 +71,12 @@ goog.dom.ViewportSizeMonitor = function(opt_window) {
 
   // Set the initial size.
   this.size_ = goog.dom.getViewportSize(this.window_);
+
+  if (this.isPollingRequired_()) {
+    this.windowSizePollInterval_ = window.setInterval(
+        goog.bind(this.checkForSizeChange_, this),
+        goog.dom.ViewportSizeMonitor.WINDOW_SIZE_POLL_RATE);
+  }
 };
 goog.inherits(goog.dom.ViewportSizeMonitor, goog.events.EventTarget);
 
@@ -79,7 +87,7 @@ goog.inherits(goog.dom.ViewportSizeMonitor, goog.events.EventTarget);
  * multiple spooling monitors for a window.
  * @param {Window=} opt_window The window to monitor; defaults to the window in
  *     which this code is executing.
- * @return {!goog.dom.ViewportSizeMonitor} Monitor for the given window.
+ * @return {goog.dom.ViewportSizeMonitor} Monitor for the given window.
  */
 goog.dom.ViewportSizeMonitor.getInstanceForWindow = function(opt_window) {
   var currentWindow = opt_window || window;
@@ -115,6 +123,14 @@ goog.dom.ViewportSizeMonitor.windowInstanceMap_ = {};
 
 
 /**
+ * Rate in milliseconds at which to poll the window size on browsers that
+ * need polling.
+ * @type {number}
+ */
+goog.dom.ViewportSizeMonitor.WINDOW_SIZE_POLL_RATE = 500;
+
+
+/**
  * Event listener key for window the window resize handler, as returned by
  * {@link goog.events.listen}.
  * @type {goog.events.Key}
@@ -140,6 +156,27 @@ goog.dom.ViewportSizeMonitor.prototype.size_ = null;
 
 
 /**
+ * Identifier for the interval used for polling the window size on Windows
+ * Safari.
+ * @type {?number}
+ * @private
+ */
+goog.dom.ViewportSizeMonitor.prototype.windowSizePollInterval_ = null;
+
+
+/**
+ * Checks if polling is required for this user agent. Opera only requires
+ * polling when the page is loaded within an IFRAME.
+ * @return {boolean} Whether polling is required.
+ * @private
+ */
+goog.dom.ViewportSizeMonitor.prototype.isPollingRequired_ = function() {
+  return goog.userAgent.WEBKIT && goog.userAgent.WINDOWS ||
+      goog.userAgent.OPERA && this.window_.self != this.window_.top;
+};
+
+
+/**
  * Returns the most recently recorded size of the viewport, in pixels.  May
  * return null if no window resize event has been handled yet.
  * @return {goog.math.Size} The viewport dimensions, in pixels.
@@ -159,6 +196,11 @@ goog.dom.ViewportSizeMonitor.prototype.disposeInternal = function() {
     this.listenerKey_ = null;
   }
 
+  if (this.windowSizePollInterval_) {
+    window.clearInterval(this.windowSizePollInterval_);
+    this.windowSizePollInterval_ = null;
+  }
+
   this.window_ = null;
   this.size_ = null;
 };
@@ -172,6 +214,17 @@ goog.dom.ViewportSizeMonitor.prototype.disposeInternal = function() {
  * @private
  */
 goog.dom.ViewportSizeMonitor.prototype.handleResize_ = function(event) {
+  this.checkForSizeChange_();
+};
+
+
+/**
+ * Measures the dimensions of the viewport and dispatches a
+ * {@link goog.events.EventType.RESIZE} event if the current dimensions are
+ * different from the previous ones.
+ * @private
+ */
+goog.dom.ViewportSizeMonitor.prototype.checkForSizeChange_ = function() {
   var size = goog.dom.getViewportSize(this.window_);
   if (!goog.math.Size.equals(size, this.size_)) {
     this.size_ = size;

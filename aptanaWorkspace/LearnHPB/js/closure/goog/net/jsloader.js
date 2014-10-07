@@ -20,14 +20,12 @@
 
 goog.provide('goog.net.jsloader');
 goog.provide('goog.net.jsloader.Error');
-goog.provide('goog.net.jsloader.ErrorCode');
-goog.provide('goog.net.jsloader.Options');
 
 goog.require('goog.array');
 goog.require('goog.async.Deferred');
 goog.require('goog.debug.Error');
 goog.require('goog.dom');
-goog.require('goog.dom.TagName');
+goog.require('goog.userAgent');
 
 
 /**
@@ -235,8 +233,7 @@ goog.net.jsloader.loadAndVerify = function(uri, verificationObjName, options) {
   var sendDeferred = goog.net.jsloader.load(uri, options);
 
   // Create a deferred object wrapping the send result.
-  var deferred = new goog.async.Deferred(
-      goog.bind(sendDeferred.cancel, sendDeferred));
+  var deferred = new goog.async.Deferred(sendDeferred.cancel);
 
   // Call user back with object that was set by the script.
   sendDeferred.addCallback(function() {
@@ -348,14 +345,13 @@ goog.net.jsloader.ErrorCode = {
  * @param {string=} opt_message Additional message.
  * @constructor
  * @extends {goog.debug.Error}
- * @final
  */
 goog.net.jsloader.Error = function(code, opt_message) {
   var msg = 'Jsloader error (code #' + code + ')';
   if (opt_message) {
     msg += ': ' + opt_message;
   }
-  goog.net.jsloader.Error.base(this, 'constructor', msg);
+  goog.base(this, msg);
 
   /**
    * The code for this error.

@@ -29,13 +29,16 @@
 goog.provide('goog.ui.HsvPalette');
 
 goog.require('goog.color');
-goog.require('goog.dom.TagName');
+goog.require('goog.dom');
+goog.require('goog.dom.DomHelper');
 goog.require('goog.events');
+goog.require('goog.events.Event');
 goog.require('goog.events.EventType');
 goog.require('goog.events.InputHandler');
 goog.require('goog.style');
 goog.require('goog.style.bidi');
 goog.require('goog.ui.Component');
+goog.require('goog.ui.Component.EventType');
 goog.require('goog.userAgent');
 
 
@@ -53,7 +56,7 @@ goog.require('goog.userAgent');
 goog.ui.HsvPalette = function(opt_domHelper, opt_color, opt_class) {
   goog.ui.Component.call(this, opt_domHelper);
 
-  this.setColorInternal(opt_color || '#f00');
+  this.setColor_(opt_color || '#f00');
 
   /**
    * The base class name for the component.
@@ -133,17 +136,17 @@ goog.ui.HsvPalette.prototype.inputHandler_;
 /**
  * Listener key for the mousemove event (during a drag operation).
  * @type {goog.events.Key}
- * @protected
+ * @private
  */
-goog.ui.HsvPalette.prototype.mouseMoveListener;
+goog.ui.HsvPalette.prototype.mouseMoveListener_;
 
 
 /**
  * Listener key for the mouseup event (during a drag operation).
  * @type {goog.events.Key}
- * @protected
+ * @private
  */
-goog.ui.HsvPalette.prototype.mouseUpListener;
+goog.ui.HsvPalette.prototype.mouseUpListener_;
 
 
 /**
@@ -189,7 +192,7 @@ goog.ui.HsvPalette.prototype.updateInput = function() {
  */
 goog.ui.HsvPalette.prototype.setColor = function(color) {
   if (color != this.color_) {
-    this.setColorInternal(color);
+    this.setColor_(color);
     this.updateUi();
     this.dispatchEvent(goog.ui.Component.EventType.ACTION);
   }
@@ -199,9 +202,9 @@ goog.ui.HsvPalette.prototype.setColor = function(color) {
 /**
  * Sets which color is selected.
  * @param {string} color The selected color.
- * @protected
+ * @private
  */
-goog.ui.HsvPalette.prototype.setColorInternal = function(color) {
+goog.ui.HsvPalette.prototype.setColor_ = function(color) {
   var rgbHex = goog.color.parse(color).hex;
   var rgbArray = goog.color.hexToRgb(rgbHex);
   this.hsv_ = goog.color.rgbArrayToHsv(rgbArray);
@@ -270,7 +273,7 @@ goog.ui.HsvPalette.prototype.canDecorate = function(element) {
 /** @override */
 goog.ui.HsvPalette.prototype.createDom = function() {
   var dom = this.getDomHelper();
-  var noalpha = (goog.userAgent.IE && !goog.userAgent.isVersionOrHigher('7')) ?
+  var noalpha = (goog.userAgent.IE && !goog.userAgent.isVersion('7')) ?
       ' ' + goog.getCssName(this.className, 'noalpha') : '';
 
   var backdrop = dom.createDom(goog.dom.TagName.DIV,
@@ -330,7 +333,7 @@ goog.ui.HsvPalette.prototype.enterDocument = function() {
 
   var handler = this.getHandler();
   handler.listen(this.getElement(), goog.events.EventType.MOUSEDOWN,
-      this.handleMouseDown);
+      this.handleMouseDown, false, this);
 
   // Cannot create InputHandler in createDom because IE throws an exception
   // on document.activeElement
@@ -339,7 +342,7 @@ goog.ui.HsvPalette.prototype.enterDocument = function() {
   }
 
   handler.listen(this.inputHandler_,
-      goog.events.InputHandler.EventType.INPUT, this.handleInput);
+      goog.events.InputHandler.EventType.INPUT, this.handleInput, false, this);
 };
 
 
@@ -357,8 +360,8 @@ goog.ui.HsvPalette.prototype.disposeInternal = function() {
     this.inputHandler_.dispose();
     delete this.inputHandler_;
   }
-  goog.events.unlistenByKey(this.mouseMoveListener);
-  goog.events.unlistenByKey(this.mouseUpListener);
+  goog.events.unlistenByKey(this.mouseMoveListener_);
+  goog.events.unlistenByKey(this.mouseUpListener_);
 };
 
 
@@ -422,19 +425,19 @@ goog.ui.HsvPalette.prototype.handleMouseDown = function(e) {
     // Setup value change listeners
     var b = goog.style.getBounds(this.valueBackgroundImageElement);
     this.handleMouseMoveV_(b, e);
-    this.mouseMoveListener = goog.events.listen(this.document_,
+    this.mouseMoveListener_ = goog.events.listen(this.document_,
         goog.events.EventType.MOUSEMOVE,
         goog.bind(this.handleMouseMoveV_, this, b));
-    this.mouseUpListener = goog.events.listen(this.document_,
+    this.mouseUpListener_ = goog.events.listen(this.document_,
         goog.events.EventType.MOUSEUP, this.handleMouseUp, false, this);
   } else if (e.target == this.hsImageEl_ || e.target == this.hsHandleEl_) {
     // Setup hue/saturation change listeners
     var b = goog.style.getBounds(this.hsImageEl_);
     this.handleMouseMoveHs_(b, e);
-    this.mouseMoveListener = goog.events.listen(this.document_,
+    this.mouseMoveListener_ = goog.events.listen(this.document_,
         goog.events.EventType.MOUSEMOVE,
         goog.bind(this.handleMouseMoveHs_, this, b));
-    this.mouseUpListener = goog.events.listen(this.document_,
+    this.mouseUpListener_ = goog.events.listen(this.document_,
         goog.events.EventType.MOUSEUP, this.handleMouseUp, false, this);
   }
 };
@@ -488,8 +491,8 @@ goog.ui.HsvPalette.prototype.handleMouseMoveHs_ = function(b, e) {
  * @protected
  */
 goog.ui.HsvPalette.prototype.handleMouseUp = function(e) {
-  goog.events.unlistenByKey(this.mouseMoveListener);
-  goog.events.unlistenByKey(this.mouseUpListener);
+  goog.events.unlistenByKey(this.mouseMoveListener_);
+  goog.events.unlistenByKey(this.mouseUpListener_);
 };
 
 
@@ -499,7 +502,7 @@ goog.ui.HsvPalette.prototype.handleMouseUp = function(e) {
  * @protected
  */
 goog.ui.HsvPalette.prototype.handleInput = function(e) {
-  if (/^#?[0-9a-f]{6}$/i.test(this.inputElement.value)) {
+  if (/^#[0-9a-f]{6}$/i.test(this.inputElement.value)) {
     this.setColor(this.inputElement.value);
   }
 };

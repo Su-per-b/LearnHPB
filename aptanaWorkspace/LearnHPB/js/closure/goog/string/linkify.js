@@ -34,17 +34,6 @@ goog.require('goog.string');
  * @return {string} HTML Linkified HTML text.
  */
 goog.string.linkify.linkifyPlainText = function(text, opt_attributes) {
-  // This shortcut makes linkifyPlainText ~10x faster if text doesn't contain
-  // URLs or email addresses and adds insignificant performance penalty if it
-  // does.
-  if (text.indexOf('@') == -1 &&
-      text.indexOf('://') == -1 &&
-      text.indexOf('www.') == -1 &&
-      text.indexOf('Www.') == -1 &&
-      text.indexOf('WWW.') == -1) {
-    return goog.string.htmlEscape(text);
-  }
-
   var attributesMap = opt_attributes || {};
   // Set default options.
   if (!('rel' in attributesMap)) {
@@ -87,11 +76,7 @@ goog.string.linkify.linkifyPlainText = function(text, opt_attributes) {
           }
           var splitEndingPunctuation =
               original.match(goog.string.linkify.ENDS_WITH_PUNCTUATION_RE_);
-          // An open paren in the link will often be matched with a close paren
-          // at the end, so skip cutting off ending punctuation if there's an
-          // open paren. For example:
-          // http://en.wikipedia.org/wiki/Titanic_(1997_film)
-          if (splitEndingPunctuation && !goog.string.contains(original, '(')) {
+          if (splitEndingPunctuation) {
             linkText = splitEndingPunctuation[1];
             afterLink = splitEndingPunctuation[2];
           } else {
@@ -130,13 +115,11 @@ goog.string.linkify.findFirstEmail = function(text) {
 
 
 /**
- * If a series of these characters is at the end of a url, it will be considered
- * punctuation and not part of the url.
  * @type {string}
  * @const
  * @private
  */
-goog.string.linkify.ENDING_PUNCTUATION_CHARS_ = ':;,\\.?>\\]\\)!';
+goog.string.linkify.ENDING_PUNCTUATION_CHARS_ = ':;,\\.?\\[\\]';
 
 
 /**
@@ -144,19 +127,18 @@ goog.string.linkify.ENDING_PUNCTUATION_CHARS_ = ':;,\\.?>\\]\\)!';
  * @const
  * @private
  */
-goog.string.linkify.ENDS_WITH_PUNCTUATION_RE_ = new RegExp(
-    '^(.*?)([' + goog.string.linkify.ENDING_PUNCTUATION_CHARS_ + ']+)$');
+goog.string.linkify.ENDS_WITH_PUNCTUATION_RE_ =
+    new RegExp(
+        '^(.*)([' + goog.string.linkify.ENDING_PUNCTUATION_CHARS_ + '])$');
 
 
 /**
- * Set of characters to be put into a regex character set ("[...]"), used to
- * match against a url hostname and everything after it. It includes
- * "#-@", which represents the characters "#$%&'()*+,-./0123456789:;<=>?@".
  * @type {string}
  * @const
  * @private
  */
-goog.string.linkify.ACCEPTABLE_URL_CHARS_ = '\\w~#-@!\\[\\]';
+goog.string.linkify.ACCEPTABLE_URL_CHARS_ =
+    goog.string.linkify.ENDING_PUNCTUATION_CHARS_ + '\\w/~%&=+#-@!';
 
 
 /**
@@ -177,7 +159,7 @@ goog.string.linkify.RECOGNIZED_PROTOCOLS_ = ['https?', 'ftp'];
  * @private
  */
 goog.string.linkify.PROTOCOL_START_ =
-    '(' + goog.string.linkify.RECOGNIZED_PROTOCOLS_.join('|') + ')://';
+    '(' + goog.string.linkify.RECOGNIZED_PROTOCOLS_.join('|') + ')://+';
 
 
 /**
@@ -247,5 +229,5 @@ goog.string.linkify.FIND_LINKS_RE_ = new RegExp(
     '\\b' + goog.string.linkify.EMAIL_ + '|' +
     // Match url after a workd break.
     '\\b' + goog.string.linkify.URL_ + '|$)',
-    'gi');
+    'g');
 

@@ -112,6 +112,12 @@ lgb.core.DebugLGB.prototype.getPackages3 = function() {
     'lgb.gui.model',
     'lgb.gui.view',
     
+    'lgb.integrated.controller',
+    'lgb.integrated.model',
+    'lgb.integrated.model.unit',
+    'lgb.integrated.model.vo',
+    'lgb.integrated.view',
+    
     'lgb.scenario.controller',
     'lgb.scenario.model',
     'lgb.scenario.view',
@@ -121,6 +127,8 @@ lgb.core.DebugLGB.prototype.getPackages3 = function() {
     'lgb.simulation.model',
     'lgb.simulation.model.voManaged',
     'lgb.simulation.model.voNative',
+    'lgb.simulation.model.voClient',
+    'lgb.simulation.model.unit',
     
     'lgb.utils',
     
@@ -144,7 +152,7 @@ lgb.core.DebugLGB.prototype.getPackages3 = function() {
 
 lgb.core.DebugLGB.prototype.filterPackages = function(packageAry) {
   
-  var filteredPackages = []
+  var filteredPackages = [];
   this.filteredPackages_.push(packageAry);
   
   var thePackageString = packageAry.join('.');

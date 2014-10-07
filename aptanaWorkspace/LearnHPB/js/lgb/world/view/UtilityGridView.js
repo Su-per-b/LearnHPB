@@ -173,7 +173,9 @@ lgb.world.view.UtilityGridView.prototype.init = function() {
     this.masterGroup_.add(lineZnegative);
     this.masterGroup_.add(planeXY);
     
-    this.requestAddToWorld(this.masterGroup_);
+   // this.requestAddToWorld(this.masterGroup_);
+    
+    this.triggerLocal(e.AddToWorldRequest, this.masterGroup_);
 
 };
 

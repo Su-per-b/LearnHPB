@@ -21,6 +21,7 @@ goog.provide('goog.editor.plugins.BasicTextFormatter');
 goog.provide('goog.editor.plugins.BasicTextFormatter.COMMAND');
 
 goog.require('goog.array');
+goog.require('goog.debug.Logger');
 goog.require('goog.dom');
 goog.require('goog.dom.NodeType');
 goog.require('goog.dom.Range');
@@ -34,7 +35,6 @@ goog.require('goog.editor.range');
 goog.require('goog.editor.style');
 goog.require('goog.iter');
 goog.require('goog.iter.StopIteration');
-goog.require('goog.log');
 goog.require('goog.object');
 goog.require('goog.string');
 goog.require('goog.string.Unicode');
@@ -63,12 +63,12 @@ goog.editor.plugins.BasicTextFormatter.prototype.getTrogClassId = function() {
 
 /**
  * Logging object.
- * @type {goog.log.Logger}
+ * @type {goog.debug.Logger}
  * @protected
  * @override
  */
 goog.editor.plugins.BasicTextFormatter.prototype.logger =
-    goog.log.getLogger('goog.editor.plugins.BasicTextFormatter');
+    goog.debug.Logger.getLogger('goog.editor.plugins.BasicTextFormatter');
 
 
 /**
@@ -138,7 +138,7 @@ goog.editor.plugins.BasicTextFormatter.prototype.getRange_ = function() {
 
 
 /**
- * @return {!Document} The document object associated with the currently active
+ * @return {Document} The document object associated with the currently active
  *     field.
  * @private
  */
@@ -797,8 +797,7 @@ goog.editor.plugins.BasicTextFormatter.prototype.execCommandHelper_ = function(
     doc.execCommand('styleWithCSS', false, false);
   }
 
-  if (goog.userAgent.WEBKIT &&
-      !goog.userAgent.isVersionOrHigher('526') &&
+  if (goog.userAgent.WEBKIT && !goog.userAgent.isVersion('526') &&
       command.toLowerCase() == 'formatblock' &&
       opt_value && /^[<]?h\d[>]?$/i.test(opt_value)) {
     this.cleanUpSafariHeadings_();
@@ -809,8 +808,7 @@ goog.editor.plugins.BasicTextFormatter.prototype.execCommandHelper_ = function(
     // lie. Also, this runs for insertunorderedlist so that the the list
     // isn't made up of an <ul> for each <li> - even though it looks the same,
     // the markup is disgusting.
-    if (goog.userAgent.WEBKIT &&
-        !goog.userAgent.isVersionOrHigher(534)) {
+    if (goog.userAgent.WEBKIT) {
       this.fixSafariLists_();
     }
     if (goog.userAgent.IE) {
@@ -960,8 +958,7 @@ goog.editor.plugins.BasicTextFormatter.prototype.toggleLink_ = function(
  *     current selection.
  * @param {string} url The url to link to.
  * @param {string=} opt_target Target for the link.
- * @return {goog.editor.Link?} The newly created link, or null if the link
- *     couldn't be created.
+ * @return {goog.editor.Link?} The newly created link.
  * @private
  */
 goog.editor.plugins.BasicTextFormatter.prototype.createLink_ = function(range,
@@ -975,13 +972,7 @@ goog.editor.plugins.BasicTextFormatter.prototype.createLink_ = function(range,
   if (parent && parent.tagName == goog.dom.TagName.IMG) {
     return null;
   }
-  // If range is not present, the editable field doesn't have focus, abort
-  // creating a link.
-  if (!range) {
-    return null;
-  }
-
-  if (range.isCollapsed()) {
+  if (range && range.isCollapsed()) {
     var textRange = range.getTextRange(0).getBrowserRangeObject();
     if (goog.editor.BrowserFeature.HAS_W3C_RANGES) {
       anchor = this.getFieldDomHelper().createElement(goog.dom.TagName.A);
@@ -1134,7 +1125,7 @@ goog.editor.plugins.BasicTextFormatter.prototype.removeFontSizeFromStyleAttrs_ =
 /**
  * Apply pre-execCommand fixes for IE.
  * @param {string} command The command to execute.
- * @return {!Array.<Node>} Array of nodes to be removed after the execCommand.
+ * @return {Array.<Node>} Array of nodes to be removed after the execCommand.
  *     Will never be longer than 2 elements.
  * @private
  */
@@ -1272,7 +1263,7 @@ goog.editor.plugins.BasicTextFormatter.prototype.cleanUpSafariHeadings_ =
 /**
  * Prevent Safari from making each list item be "1" when converting from
  * unordered to ordered lists.
- * (see https://bugs.webkit.org/show_bug.cgi?id=19539, fixed by 2010-04-21)
+ * (see https://bugs.webkit.org/show_bug.cgi?id=19539 )
  * @private
  */
 goog.editor.plugins.BasicTextFormatter.prototype.fixSafariLists_ = function() {
@@ -1410,7 +1401,7 @@ goog.editor.plugins.BasicTextFormatter.hangingExecCommandWebkit_ = {
 /**
  * Apply pre-execCommand fixes for Safari.
  * @param {string} command The command to execute.
- * @return {!Element|undefined} The div added to the field.
+ * @return {Element|undefined} The div added to the field.
  * @private
  */
 goog.editor.plugins.BasicTextFormatter.prototype.applyExecCommandSafariFixes_ =
@@ -1429,9 +1420,8 @@ goog.editor.plugins.BasicTextFormatter.prototype.applyExecCommandSafariFixes_ =
     goog.dom.appendChild(this.getFieldObject().getElement(), div);
   }
 
-  if (!goog.userAgent.isVersionOrHigher(534) &&
-      goog.editor.plugins.BasicTextFormatter.
-          hangingExecCommandWebkit_[command]) {
+  if (goog.editor.plugins.BasicTextFormatter.
+      hangingExecCommandWebkit_[command]) {
     // Add a new div at the beginning of the field.
     var field = this.getFieldObject().getElement();
     div = this.getFieldDomHelper().createDom(
@@ -1450,7 +1440,7 @@ goog.editor.plugins.BasicTextFormatter.prototype.applyExecCommandSafariFixes_ =
  */
 goog.editor.plugins.BasicTextFormatter.prototype.applyExecCommandGeckoFixes_ =
     function(command) {
-  if (goog.userAgent.isVersionOrHigher('1.9') &&
+  if (goog.userAgent.isVersion('1.9') &&
       command.toLowerCase() == 'formatblock') {
     // Firefox 3 and above throw a JS error for formatblock if the range is
     // a child of the body node. Changing the selection to the BR fixes the

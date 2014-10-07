@@ -19,16 +19,19 @@
 
 goog.provide('goog.net.NetworkStatusMonitor');
 
-goog.require('goog.events.Listenable');
+goog.require('goog.events.EventTarget');
 
 
 
 /**
  * Base class for network status information providers.
- * @interface
- * @extends {goog.events.Listenable}
+ * @constructor
+ * @extends {goog.events.EventTarget}
  */
-goog.net.NetworkStatusMonitor = function() {};
+goog.net.NetworkStatusMonitor = function() {
+  goog.base(this);
+};
+goog.inherits(goog.net.NetworkStatusMonitor, goog.events.EventTarget);
 
 
 /**
@@ -44,4 +47,4 @@ goog.net.NetworkStatusMonitor.EventType = {
 /**
  * @return {boolean} Whether the system is online or otherwise.
  */
-goog.net.NetworkStatusMonitor.prototype.isOnline;
+goog.net.NetworkStatusMonitor.prototype.isOnline = goog.abstractMethod;

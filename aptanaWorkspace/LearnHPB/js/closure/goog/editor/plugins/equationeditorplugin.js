@@ -14,18 +14,17 @@
 
 goog.provide('goog.editor.plugins.EquationEditorPlugin');
 
-goog.require('goog.dom');
 goog.require('goog.editor.Command');
 goog.require('goog.editor.plugins.AbstractDialogPlugin');
 goog.require('goog.editor.range');
-goog.require('goog.events');
-goog.require('goog.events.EventType');
 goog.require('goog.functions');
-goog.require('goog.log');
-goog.require('goog.ui.editor.AbstractDialog');
+goog.require('goog.ui.editor.AbstractDialog.Builder');
 goog.require('goog.ui.editor.EquationEditorDialog');
+goog.require('goog.ui.editor.EquationEditorOkEvent');
+goog.require('goog.ui.equation.EquationEditor');
 goog.require('goog.ui.equation.ImageRenderer');
 goog.require('goog.ui.equation.PaletteManager');
+goog.require('goog.ui.equation.TexEditor');
 
 
 
@@ -34,7 +33,6 @@ goog.require('goog.ui.equation.PaletteManager');
  * @param {string=} opt_helpUrl A URL pointing to help documentation.
  * @constructor
  * @extends {goog.editor.plugins.AbstractDialogPlugin}
- * @final
  */
 goog.editor.plugins.EquationEditorPlugin = function(opt_helpUrl) {
   /**
@@ -68,11 +66,11 @@ goog.inherits(goog.editor.plugins.EquationEditorPlugin,
 
 /**
  * The logger for the EquationEditorPlugin.
- * @type {goog.log.Logger}
+ * @type {goog.debug.Logger}
  * @private
  */
 goog.editor.plugins.EquationEditorPlugin.prototype.logger_ =
-    goog.log.getLogger('goog.editor.plugins.EquationEditorPlugin');
+    goog.debug.Logger.getLogger('goog.editor.plugins.EquationEditorPlugin');
 
 
 /** @override */
@@ -92,7 +90,7 @@ goog.editor.plugins.EquationEditorPlugin.prototype.createDialog =
 
   this.originalElement_ = equationImgEl;
   var dialog = new goog.ui.editor.EquationEditorDialog(
-      this.populateContext_(dom), dom, equationStr, this.helpUrl_);
+      this.populateContext_(), dom, equationStr, this.helpUrl_);
   dialog.addEventListener(goog.ui.editor.AbstractDialog.EventType.OK,
       this.handleOk_,
       false,
@@ -103,15 +101,13 @@ goog.editor.plugins.EquationEditorPlugin.prototype.createDialog =
 
 /**
  * Populates the context that this plugin runs in.
- * @param {!goog.dom.DomHelper} domHelper The dom helper to be used for the
- *     palette manager.
- * @return {!Object} The context that this plugin runs in.
+ * @return {Object} The context that this plugin runs in.
  * @private
  */
 goog.editor.plugins.EquationEditorPlugin.prototype.populateContext_ =
-    function(domHelper) {
+    function() {
   var context = {};
-  context.paletteManager = new goog.ui.equation.PaletteManager(domHelper);
+  context.paletteManager = new goog.ui.equation.PaletteManager();
   return context;
 };
 
@@ -141,7 +137,7 @@ goog.editor.plugins.EquationEditorPlugin.prototype.getEquationFromSelection_ =
 /** @override */
 goog.editor.plugins.EquationEditorPlugin.prototype.enable =
     function(fieldObject) {
-  goog.editor.plugins.EquationEditorPlugin.base(this, 'enable', fieldObject);
+  goog.base(this, 'enable', fieldObject);
   if (this.isEnabled(fieldObject)) {
     this.dblClickKey_ = goog.events.listen(fieldObject.getElement(),
         goog.events.EventType.DBLCLICK,
@@ -153,7 +149,7 @@ goog.editor.plugins.EquationEditorPlugin.prototype.enable =
 /** @override */
 goog.editor.plugins.EquationEditorPlugin.prototype.disable =
     function(fieldObject) {
-  goog.editor.plugins.EquationEditorPlugin.base(this, 'disable', fieldObject);
+  goog.base(this, 'disable', fieldObject);
   if (!this.isEnabled(fieldObject)) {
     goog.events.unlistenByKey(this.dblClickKey_);
   }

@@ -1,3 +1,4 @@
+
 /**
  * @author Raj Dye - raj@rajdye.com
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
@@ -37,23 +38,23 @@ goog.require('lgb.simulation.model.voManaged.ScalarVariablesAll');
 goog.require('lgb.simulation.model.voManaged.SerializableVector');
 goog.require('lgb.simulation.model.voManaged.XMLparsedInfo');
 goog.require('lgb.simulation.model.voManaged.SessionControlModel');
+goog.require('lgb.simulation.events.SessionControlClientRequest');
 
 
 
-/**
+/*
  * @constructor
  * @extends {lgb.core.BaseController}
  */
 lgb.simulation.controller.JsonController = function() {
   
-    if ( lgb.simulation.controller.JsonController.prototype._singletonInstance ) {
-      return lgb.simulation.controller.JsonController.prototype._singletonInstance;
+    
+    if ( lgb.simulation.controller.JsonController.locked ) {
+      debugger;
+      throw new Error('You may not instantiate a Singleton - use: getInstance()');
     }
-    
-    lgb.simulation.controller.JsonController.prototype._singletonInstance = this;
-    
+
     this.deserializeMap_ = {
-      
           "ConfigChangeNotify":         lgb.simulation.events.ConfigChangeNotify,  
           "MessageEvent":               lgb.simulation.events.MessageEvent,
           "ResultEvent" :               lgb.simulation.events.ResultEvent,
@@ -64,7 +65,6 @@ lgb.simulation.controller.JsonController = function() {
           "SimStateNativeRequest":      lgb.simulation.events.SimStateNativeRequest,
           "XMLparsedEvent":             lgb.simulation.events.XMLparsedEvent,
           "SessionControlClientRequest" : lgb.simulation.events.SessionControlClientRequest,
-          
           "ConfigStruct" :              lgb.simulation.model.voNative.ConfigStruct,
           "DefaultExperimentStruct" :   lgb.simulation.model.voNative.DefaultExperimentStruct,
           "MessageStruct" :             lgb.simulation.model.voNative.MessageStruct,
@@ -83,15 +83,36 @@ lgb.simulation.controller.JsonController = function() {
           "SessionControlAction" :      lgb.simulation.model.voManaged.SessionControlAction,
           "SessionControlModel" :       lgb.simulation.model.voManaged.SessionControlModel,
           "SerializableVector" :        lgb.simulation.model.voManaged.SerializableVector
-
     };
 
+    lgb.simulation.controller.JsonController._singletonInstance = this;
 
-  return;
+    return;
 };
 goog.inherits(lgb.simulation.controller.JsonController, lgb.core.BaseController);
 
 
+lgb.simulation.controller.JsonController.locked = true;
+
+
+
+
+lgb.simulation.controller.JsonController.getInstance = function() {
+            
+    if ( lgb.simulation.controller.JsonController._singletonInstance ) {
+      
+      return lgb.simulation.controller.JsonController._singletonInstance;
+      
+    } else {
+      var instance;
+      lgb.simulation.controller.JsonController.locked = false;
+      instance = new lgb.simulation.controller.JsonController();
+      lgb.simulation.controller.JsonController.locked = true;
+      
+      return instance;
+    }
+    
+};
 
 
 

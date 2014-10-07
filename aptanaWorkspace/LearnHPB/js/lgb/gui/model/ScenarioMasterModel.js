@@ -5,27 +5,27 @@
  
 goog.provide('lgb.gui.model.ScenarioMasterModel');
 
-goog.require('lgb.world.model.BaseModel');
+goog.require('lgb.core.BaseModel');
 
 
 
 /**
  * @constructor
- * @extends lgb.world.model.BaseModel
+ * @extends lgb.core.BaseModel
  */
 lgb.gui.model.ScenarioMasterModel = function() {
 
   /**@const */
   this._TITLE = 'ScenarioMasterModel';
   
-  lgb.world.model.BaseModel.call(this);
+  lgb.core.BaseModel.call(this);
   
   this.init_();
   
 
   
 };
-goog.inherits(lgb.gui.model.ScenarioMasterModel, lgb.world.model.BaseModel);
+goog.inherits(lgb.gui.model.ScenarioMasterModel, lgb.core.BaseModel);
 
 
 
@@ -36,6 +36,10 @@ lgb.gui.model.ScenarioMasterModel.prototype.init_ = function() {
     {
       name:"Very Simple Scenario",
       value:"VerySimpleScenario"
+    },
+    {
+      name:"Simple Scenario",
+      value:"SimpleScenario"
     },
     {
       name:"Complete Scenario",

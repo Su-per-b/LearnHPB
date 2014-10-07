@@ -57,9 +57,8 @@ See the COPYING file for details.
 <script src="../base.js"></script>
 <script>
   goog.require('goog.dom');
-  goog.require('goog.dom.classlist');
+  goog.require('goog.dom.classes');
   goog.require('goog.events');
-  goog.require('goog.functions');
   goog.require('goog.positioning');
   goog.require('goog.positioning.Overflow');
   goog.require('goog.style');
@@ -293,7 +292,7 @@ function testShowAndDismissSubMenu() {
   ], handleEvent);
 
   assertFalse('Submenu must not have "-open" CSS class',
-      goog.dom.classlist.contains(subMenu.getElement(), 'goog-submenu-open'));
+      goog.dom.classes.has(subMenu.getElement(), 'goog-submenu-open'));
   assertFalse('Popup menu must not be visible',
       subMenu.getMenu().isVisible());
   assertFalse('No OPEN event must have been dispatched', openEventDispatched);
@@ -301,7 +300,7 @@ function testShowAndDismissSubMenu() {
 
   subMenu.showSubMenu();
   assertTrue('Submenu must have "-open" CSS class',
-      goog.dom.classlist.contains(subMenu.getElement(), 'goog-submenu-open'));
+      goog.dom.classes.has(subMenu.getElement(), 'goog-submenu-open'));
   assertTrue('Popup menu must be visible',
       subMenu.getMenu().isVisible());
   assertTrue('OPEN event must have been dispatched', openEventDispatched);
@@ -309,57 +308,7 @@ function testShowAndDismissSubMenu() {
 
   subMenu.dismissSubMenu();
   assertFalse('Submenu must not have "-open" CSS class',
-      goog.dom.classlist.contains(subMenu.getElement(), 'goog-submenu-open'));
-  assertFalse('Popup menu must not be visible',
-      subMenu.getMenu().isVisible());
-  assertTrue('CLOSE event must have been dispatched', closeEventDispatched);
-
-  goog.events.unlisten(subMenu, [
-    goog.ui.Component.EventType.OPEN,
-    goog.ui.Component.EventType.CLOSE
-  ], handleEvent);
-}
-
-function testDismissWhenSubMenuNotVisible() {
-  var openEventDispatched = false;
-  var closeEventDispatched = false;
-
-  function handleEvent(e) {
-    switch (e.type) {
-      case goog.ui.Component.EventType.OPEN:
-        openEventDispatched = true;
-        break;
-      case goog.ui.Component.EventType.CLOSE:
-        closeEventDispatched = true;
-        break;
-      default:
-        fail('Invalid event type: ' + e.type);
-    }
-  }
-
-  menu.decorate(goog.dom.getElement('demoMenu'));
-  var subMenu = menu.getChildAt(1);
-  subMenu.setHighlighted(true);
-
-  goog.events.listen(subMenu, [
-    goog.ui.Component.EventType.OPEN,
-    goog.ui.Component.EventType.CLOSE
-  ], handleEvent);
-
-  assertFalse('Submenu must not have "-open" CSS class',
-      goog.dom.classlist.contains(subMenu.getElement(), 'goog-submenu-open'));
-  assertFalse('Popup menu must not be visible',
-      subMenu.getMenu().isVisible());
-  assertFalse('No OPEN event must have been dispatched', openEventDispatched);
-  assertFalse('No CLOSE event must have been dispatched', closeEventDispatched);
-
-  subMenu.showSubMenu();
-  subMenu.getMenu().setVisible(false);
-
-  subMenu.dismissSubMenu();
-  assertFalse('Submenu must not have "-open" CSS class',
-      goog.dom.classlist.contains(subMenu.getElement(), 'goog-submenu-open'));
-  assertFalse(subMenu.menuIsVisible_);
+      goog.dom.classes.has(subMenu.getElement(), 'goog-submenu-open'));
   assertFalse('Popup menu must not be visible',
       subMenu.getMenu().isVisible());
   assertTrue('CLOSE event must have been dispatched', closeEventDispatched);
@@ -504,32 +453,6 @@ function testSubmenuSelectable() {
 
   assertEquals('The submenu should not have fired any further events', 2,
       numClicks);
-}
-
-/**
- * Tests that entering a child menu cancels the dismiss timer for the submenu.
- */
-function testEnteringChildCancelsDismiss() {
-  var submenu = new goog.ui.SubMenu('submenu');
-  submenu.isInDocument = goog.functions.TRUE;
-  submenu.addItem(new goog.ui.MenuItem("submenu item 1"));
-  menu.addItem(submenu);
-
-  mockClock = new goog.testing.MockClock(true);
-  submenu.getMenu().setVisible(true);
-
-  // This starts the dismiss timer.
-  submenu.setHighlighted(false);
-
-  // This should cancel the dismiss timer.
-  submenu.getMenu().dispatchEvent(goog.ui.Component.EventType.ENTER);
-
-  // Tick the length of the dismiss timer.
-  mockClock.tick(goog.ui.SubMenu.MENU_DELAY_MS);
-
-  // Check that the menu is now highlighted and still visible.
-  assertTrue(submenu.getMenu().isVisible());
-  assertTrue(submenu.isHighlighted());
 }
 
 /**

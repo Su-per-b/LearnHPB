@@ -5,21 +5,21 @@
  
 goog.provide('lgb.world.model.BuildingModel');
 
-goog.require('lgb.world.model.BaseModel');
+goog.require('lgb.core.BaseModel');
 
 
 
 /**
  * @constructor
- * @extends lgb.world.model.BaseModel
+ * @extends lgb.core.BaseModel
  */
 lgb.world.model.BuildingModel = function() {
 
   /**@const */
   this._TITLE = 'Building';
 
-  lgb.world.model.BaseModel.call(this);
+  lgb.core.BaseModel.call(this);
 
 };
-goog.inherits(lgb.world.model.BuildingModel, lgb.world.model.BaseModel);
+goog.inherits(lgb.world.model.BuildingModel, lgb.core.BaseModel);
 

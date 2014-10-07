@@ -139,7 +139,7 @@ lgb.world.controller.RenderController.prototype.initRenderer_ = function() {
   $(this.renderer_.domElement).attr('unselectable','on').css('UserSelect','none').css('MozUserSelect','none');
 
   this.renderEvent_ = new lgb.core.Event (e.RenderNotify);
-
+  
   if (window.webkitRequestAnimationFrame) {
     this.renderDelegate = this.d(this.onRenderWebkit_);
     window.webkitRequestAnimationFrame(this.renderDelegate);

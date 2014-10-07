@@ -5,22 +5,24 @@
  
 goog.provide('lgb.world.model.ZoneModel');
 
-goog.require('lgb.world.model.BaseModel');
+goog.require('lgb.core.BaseModel');
 goog.require('lgb.world.model.ZoneShapeModel');
 
 
 /**
  * @constructor
- * @extends lgb.world.model.BaseModel
+ * @extends lgb.core.BaseModel
  */
 lgb.world.model.ZoneModel = function() {
 
   this._TITLE = 'Zones';
+  
+  lgb.core.BaseModel.call(this);
   this.init_();
   this.zoneIdxVisible = -1;
 
 };
-goog.inherits(lgb.world.model.ZoneModel, lgb.world.model.BaseModel);
+goog.inherits(lgb.world.model.ZoneModel, lgb.core.BaseModel);
 
 
 /**

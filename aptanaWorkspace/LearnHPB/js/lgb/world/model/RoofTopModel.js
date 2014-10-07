@@ -5,25 +5,25 @@
  
 goog.provide('lgb.world.model.RoofTopModel');
 
-goog.require('lgb.world.model.BaseModel');
+goog.require('lgb.core.BaseModel');
 
 
 
 /**
  * @constructor
- * @extends lgb.world.model.BaseModel
+ * @extends lgb.core.BaseModel
  */
 lgb.world.model.RoofTopModel = function() {
 
   /**@const */
   this._TITLE = 'Roof-top Unit';
 
-  lgb.world.model.BaseModel.call(this);
+  lgb.core.BaseModel.call(this);
 
   this.init_();
 
 };
-goog.inherits(lgb.world.model.RoofTopModel, lgb.world.model.BaseModel);
+goog.inherits(lgb.world.model.RoofTopModel, lgb.core.BaseModel);
 
 
 /**

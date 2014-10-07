@@ -26,7 +26,6 @@ goog.provide('goog.graphics.Element');
 
 goog.require('goog.events');
 goog.require('goog.events.EventTarget');
-goog.require('goog.events.Listenable');
 goog.require('goog.graphics.AffineTransform');
 goog.require('goog.math');
 
@@ -42,9 +41,7 @@ goog.require('goog.math');
  *     this element.
  * @constructor
  * @extends {goog.events.EventTarget}
- * @deprecated goog.graphics is deprecated. It existed to abstract over browser
- *     differences before the canvas tag was widely supported.  See
- *     http://en.wikipedia.org/wiki/Canvas_element for details.
+ * @suppress {visibility} Accessing private field of superclass (see TODO).
  */
 goog.graphics.Element = function(element, graphics) {
   goog.events.EventTarget.call(this);
@@ -52,7 +49,7 @@ goog.graphics.Element = function(element, graphics) {
   this.graphics_ = graphics;
   // Overloading EventTarget field to state that this is not a custom event.
   // TODO(user) Should be handled in EventTarget.js (see bug 846824).
-  this[goog.events.Listenable.IMPLEMENTED_BY_PROP] = false;
+  this.customEvent_ = false;
 };
 goog.inherits(goog.graphics.Element, goog.events.EventTarget);
 
@@ -119,7 +116,7 @@ goog.graphics.Element.prototype.setTransformation = function(x, y, rotate,
 
 
 /**
- * @return {!goog.graphics.AffineTransform} The transformation applied to
+ * @return {goog.graphics.AffineTransform} The transformation applied to
  *     this element.
  */
 goog.graphics.Element.prototype.getTransform = function() {

@@ -145,9 +145,22 @@
       ]
     },
     "externs": {
-      "rootPath": "externs/three/",
+      "rootPath": "externs/",
       "fileList":   [
-        "common.js "
+       "three.cameras.js",
+       "three.core.js",
+       "three.custom.js",
+       "three.extras.animation.js",
+       "three.extras.controls.js",
+       "three.extras.geometries.js",
+       "three.extras.io.loaders.js",
+       "three.extras.physics.js",
+       "three.extras.js",
+       "three.lights.js",
+       "three.materials.js",
+       "three.objects.js",
+       "three.renderers.js",
+       "three.scenes.js"
       ]
     },
     "config":{

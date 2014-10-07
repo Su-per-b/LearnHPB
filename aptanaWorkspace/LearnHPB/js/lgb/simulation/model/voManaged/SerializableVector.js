@@ -122,46 +122,14 @@ lgb.simulation.model.voManaged.SerializableVector.prototype.makeTyped = function
       var deserializedItem =  deserializedObj.itemArray[i];
       deserializedItem.t = this.itemTypeString_;
       
-      var typedItem =  lgb.simulation.controller.JsonController().makeTyped(deserializedItem);
+      
+      
+      var typedItem = lgb.simulation.controller.JsonController.getInstance().makeTyped(deserializedItem);
       this.itemArray_ .push(typedItem);
     };
 
   
 };
-
-
-
-// lgb.simulation.model.voManaged.SerializableVector.fieldPrimitivesEx_ = {
-   // itemTypeString_: "itemType" 
-// };
-
-
-// lgb.simulation.model.voManaged.SerializableVector.prototype.fromJSON = function(deserializedObj) {
-//     
-// 
-    // this.fromJSONHelper_(deserializedObj);
-//     
-    // this.itemArray_  = [];
-//     
-//     
-    // if (undefined == deserializedObj.itemArray) {
-      // debugger;
-    // }
-//     
-    // var len = deserializedObj.itemArray.length;
-//     
-    // for (var i=0; i < len; i++) {
-//       
-      // var deserializedItem =  deserializedObj.itemArray[i];
-      // deserializedItem.t = this.itemTypeString_;
-//       
-      // var typedItem =  lgb.simulation.controller.JsonController().makeTyped(deserializedItem);
-      // this.itemArray_ .push(typedItem);
-    // };
-// 
-// 
-// };
-
 
 
 

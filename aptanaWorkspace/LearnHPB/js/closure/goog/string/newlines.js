@@ -22,7 +22,6 @@
  * Namespace for string utilities
  */
 goog.provide('goog.string.newlines');
-goog.provide('goog.string.newlines.Line');
 
 goog.require('goog.array');
 
@@ -61,7 +60,6 @@ goog.string.newlines.splitLines = function(str, opt_keepNewlines) {
  *     newlines.
  * @constructor
  * @struct
- * @final
  */
 goog.string.newlines.Line = function(string, startLineIndex,
                                      endContentIndex, endLineIndex) {

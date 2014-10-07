@@ -1,69 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <base href="../../LearnHPB/">
   
-    <link type="text/css" href="css/normalize.css" rel="stylesheet"/>
-    <link type="text/css" href="css/panels.css" rel="stylesheet"/>
-    <link type="text/css" href="css/lhpb.css" rel="stylesheet"/>
+    <script src="../js/includes/MainLibs.js"></script>
 
-    <link type="text/css" href="css/panels.override.css" rel="stylesheet"/>
+    <script>
+        LGB_WEBROOT = "../../LearnHPB/";
+        test.includes.MainLibs.includeMetaTags();
+        test.includes.MainLibs.includeCSS();
+        
+        test.includes.MainLibs.includeClosure();
+        test.includes.MainLibs.includeJquery();
+        test.includes.MainLibs.includeKendo();
+    </script>
+    
+    
 
-    <link type="text/css" href="../css/kendo/kendo.common.css" rel="stylesheet"/>
-    <link type="text/css" href="../css/kendo/kendo.lgb.css" rel="stylesheet"/>
-    
-    
-    
-    
-    <!--{BLOCK_START:Jquery}-->
-    
-      <!-- Jquery -->
-      <script src="../js/lib/jquery.src.js"></script>
-  
-    <!--{BLOCK_END:Jquery}-->
-    
-    <!--{BLOCK_START:LGB}-->
-    
-      <!-- kendo-custom    -->
-      <script src="/kendo/custom-src/kendo.core.js"></script>
-       
-      <!-- kendo off-the-shelf-->
-      <script src="../js/kendo/src/kendo.window.js"></script>
-      <script src="../js/kendo/src/kendo.userevents.js"></script> 
-      <script src="../js/kendo/src/kendo.binder.js"></script>
-      <script src="../js/kendo/src/kendo.draganddrop.js"></script>
-      <script src="../js/kendo/src/kendo.popup.js"></script>
-      <script src="../js/kendo/src/kendo.data.js"></script>
-      <script src="../js/kendo/src/kendo.list.js"></script>
-      <script src="../js/kendo/src/kendo.dropdownlist.js"></script>
-      <script src="../js/kendo/src/kendo.fx.js"></script>
-      <script src="../js/kendo/src/kendo.tabstrip.js"></script>
-      
-      <script src="../js/kendo/src/kendo.pager.js"></script>
-      <script src="../js/kendo/src/kendo.editable.js"></script>
-      <script src="../js/kendo/src/kendo.filtermenu.js"></script>
-      <script src="../js/kendo/src/kendo.columnmenu.js"></script>
-      <script src="../js/kendo/src/kendo.groupable.js"></script>
-      <script src="../js/kendo/src/kendo.selectable.js"></script>
-      <script src="../js/kendo/src/kendo.sortable.js"></script>
-      <script src="../js/kendo/src/kendo.reorderable.js"></script>
-      
-      <script src="../js/kendo/src/kendo.grid.js"></script>
-      
-      <script src="../js/kendo/src/kendo.slider.js"></script>
-      <script src="../js/kendo/src/kendo.splitter.js"></script>
-      <script src="../js/kendo/src/kendo.resizable.js"></script>
-      <script src="../js/kendo/src/kendo.treeview.js"></script> 
-      <script src="../js/kendo/src/kendo.combobox.js"></script>
-      <script src="../js/kendo/src/kendo.menu.js"></script>
-
-    <!--{BLOCK_END:LGB}-->
-    
-    
-  
-    
-    
-    
 </head>
 <body>
 

@@ -14,11 +14,11 @@
 
 goog.provide('goog.ui.equation.EquationEditorDialog');
 
-goog.require('goog.asserts');
 goog.require('goog.dom');
-goog.require('goog.dom.classlist');
 goog.require('goog.ui.Dialog');
+goog.require('goog.ui.Dialog.ButtonSet');
 goog.require('goog.ui.equation.EquationEditor');
+goog.require('goog.ui.equation.ImageRenderer');
 goog.require('goog.ui.equation.PaletteManager');
 goog.require('goog.ui.equation.TexEditor');
 
@@ -30,7 +30,6 @@ goog.require('goog.ui.equation.TexEditor');
  * @param {string=} opt_equation Encoded equation. If not specified, starts with
  *     an empty equation.
  * @extends {goog.ui.Dialog}
- * @final
  */
 goog.ui.equation.EquationEditorDialog = function(opt_equation) {
   goog.ui.Dialog.call(this);
@@ -64,8 +63,7 @@ goog.ui.equation.EquationEditorDialog = function(opt_equation) {
   this.equationEditor_.render(this.getContentElement());
   this.setEquation(opt_equation || '');
 
-  goog.dom.classlist.add(
-      goog.asserts.assert(this.getDialogElement()), 'ee-modal-dialog');
+  goog.dom.classes.add(this.getDialogElement(), 'ee-modal-dialog');
 };
 goog.inherits(goog.ui.equation.EquationEditorDialog, goog.ui.Dialog);
 
@@ -80,20 +78,19 @@ goog.ui.equation.EquationEditorDialog.prototype.okButton_;
 
 /** @override */
 goog.ui.equation.EquationEditorDialog.prototype.setVisible = function(visible) {
-  goog.ui.equation.EquationEditorDialog.base(this, 'setVisible', visible);
+  goog.base(this, 'setVisible', visible);
   this.equationEditor_.setVisible(visible);
 };
 
 
 /**
  * Populates the context of this dialog.
- * @return {!Object} The context that this dialog runs in.
+ * @return {Object} The context that this dialog runs in.
  * @private
  */
 goog.ui.equation.EquationEditorDialog.prototype.populateContext_ = function() {
   var context = {};
-  context.paletteManager = new goog.ui.equation.PaletteManager(
-      this.getDomHelper());
+  context.paletteManager = new goog.ui.equation.PaletteManager();
   return context;
 };
 

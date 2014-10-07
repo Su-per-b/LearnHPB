@@ -3,7 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.world.model.BaseModel');
+goog.provide('lgb.core.BaseModel');
 
 goog.require('lgb.core.BaseClass');
 
@@ -12,14 +12,14 @@ goog.require('lgb.core.BaseClass');
  * @constructor
  * @extends lgb.core.BaseClass
  */
-lgb.world.model.BaseModel = function() {
+lgb.core.BaseModel = function() {
   lgb.core.BaseClass.call(this);
 };
-goog.inherits(lgb.world.model.BaseModel, lgb.core.BaseClass);
+goog.inherits(lgb.core.BaseModel, lgb.core.BaseClass);
 
 
 
-lgb.world.model.BaseModel.prototype.changePropertyEx = function(propertyName, propertyValue) {
+lgb.core.BaseModel.prototype.changePropertyEx = function(propertyName, propertyValue) {
 
     if (this[propertyName] != propertyValue) {
         this[propertyName] = propertyValue;
@@ -28,7 +28,7 @@ lgb.world.model.BaseModel.prototype.changePropertyEx = function(propertyName, pr
 };
 
 
-lgb.world.model.BaseModel.prototype.dispatchChangedEx = function(propertyName, payload) {
+lgb.core.BaseModel.prototype.dispatchChangedEx = function(propertyName, payload) {
    
    var whatIsDirty = {};
    whatIsDirty[propertyName] = payload;

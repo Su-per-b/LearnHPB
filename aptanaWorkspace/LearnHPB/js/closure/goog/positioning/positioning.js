@@ -185,11 +185,8 @@ goog.positioning.OverflowStatus.FAILED_VERTICAL =
  * @param {goog.math.Size=} opt_preferredSize The preferred size of the
  *     movableElement.
  * @param {goog.math.Box=} opt_viewport Box object describing the dimensions of
- *     the viewport. The viewport is specified relative to offsetParent of
- *     {@code movableElement}. In other words, the viewport can be thought of as
- *     describing a "position: absolute" element contained in the offsetParent.
- *     It defaults to visible area of nearest scrollable ancestor of
- *     {@code movableElement} (see {@code goog.style.getVisibleRectForElement}).
+ *     the viewport. If not provided, a default one will be calculated by the
+ *     position of the anchorElement and its moveable parent element.
  * @return {goog.positioning.OverflowStatus} Status bitmap,
  *     {@see goog.positioning.OverflowStatus}.
  */
@@ -308,7 +305,7 @@ goog.positioning.getOffsetParentPageOffset = function(movableElement) {
  * goog.style.getVisibleRectForElement for it.
  *
  * @param {Element} el The target element.
- * @return {!goog.math.Rect} Intersection of getVisibleRectForElement
+ * @return {goog.math.Rect} Intersection of getVisibleRectForElement
  *     and the current bounding rectangle of the element.  If the
  *     intersection is empty, returns the bounding rectangle.
  * @private
@@ -469,7 +466,7 @@ goog.positioning.adjustForViewport_ = function(pos, size, viewport, overflow) {
       pos.y + size.height < viewport.bottom &&
       overflow & goog.positioning.Overflow.RESIZE_HEIGHT) {
     size.height = Math.max(size.height - (viewport.top - pos.y), 0);
-    pos.y = viewport.top;
+    pos.y = 0;
     status |= goog.positioning.OverflowStatus.HEIGHT_ADJUSTED;
   }
 

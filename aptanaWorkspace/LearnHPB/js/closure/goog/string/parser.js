@@ -20,7 +20,6 @@
 goog.provide('goog.string.Parser');
 
 
-
 /**
  * An interface for parsing strings into objects.
  * @interface

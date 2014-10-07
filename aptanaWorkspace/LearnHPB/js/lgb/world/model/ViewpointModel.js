@@ -5,23 +5,23 @@
  
 goog.provide('lgb.world.model.ViewpointModel');
 
-goog.require('lgb.world.model.BaseModel');
+goog.require('lgb.core.BaseModel');
 goog.require('lgb.world.model.vo.ViewpointNode');
 
 
 /**
  * @constructor
- * @extends lgb.world.model.BaseModel
+ * @extends lgb.core.BaseModel
  */
 lgb.world.model.ViewpointModel = function() {
 
   /**@const */
   this._TITLE = 'ViewpointModel2';
-  lgb.world.model.BaseModel.call(this);
+  lgb.core.BaseModel.call(this);
   this.init_();
   this.name = "";
 };
-goog.inherits(lgb.world.model.ViewpointModel, lgb.world.model.BaseModel);
+goog.inherits(lgb.world.model.ViewpointModel, lgb.core.BaseModel);
 
 
 

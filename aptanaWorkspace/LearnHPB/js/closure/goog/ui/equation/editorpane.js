@@ -14,6 +14,7 @@
 
 goog.provide('goog.ui.equation.EditorPane');
 
+goog.require('goog.dom');
 goog.require('goog.style');
 goog.require('goog.ui.Component');
 
@@ -47,19 +48,21 @@ goog.ui.equation.EditorPane.prototype.helpUrl_ = '';
  */
 goog.ui.equation.EditorPane.prototype.setVisible =
     function(visible) {
-  goog.style.setElementShown(this.getElement(), visible);
+  goog.style.showElement(this.getElement(), visible);
 };
 
 
 /**
  * Sets the equation to show in this tab pane.
  * @param {string} equation The equation.
+ * @protected
  */
 goog.ui.equation.EditorPane.prototype.setEquation = goog.abstractMethod;
 
 
 /**
  * @return {string} The equation shown in this tab pane.
+ * @protected
  */
 goog.ui.equation.EditorPane.prototype.getEquation = goog.abstractMethod;
 

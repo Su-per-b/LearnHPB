@@ -27,7 +27,6 @@ goog.provide('goog.date.month');
 goog.provide('goog.date.weekDay');
 
 goog.require('goog.asserts');
-/** @suppress {extraRequire} */
 goog.require('goog.date.DateLike');
 goog.require('goog.i18n.DateTimeSymbols');
 goog.require('goog.string');
@@ -268,28 +267,6 @@ goog.date.getWeekNumber = function(year, month, date, opt_weekDay,
 
 
 /**
- * @param {!T} date1 A datelike object.
- * @param {!S} date2 Another datelike object.
- * @return {!(T|S)} The earlier of them in time.
- * @template T,S
- */
-goog.date.min = function(date1, date2) {
-  return date1 < date2 ? date1 : date2;
-};
-
-
-/**
- * @param {!T} date1 A datelike object.
- * @param {!S} date2 Another datelike object.
- * @return {!(T|S)} The later of them in time.
- * @template T,S
- */
-goog.date.max = function(date1, date2) {
-  return date1 > date2 ? date1 : date2;
-};
-
-
-/**
  * Creates a DateTime from a datetime string expressed in ISO 8601 format.
  *
  * @param {string} formatted A date or datetime expressed in ISO 8601 format.
@@ -472,7 +449,6 @@ goog.date.setIso8601TimeOnly_ = function(d, formatted) {
  * @param {number=} opt_minutes Minutes.
  * @param {number=} opt_seconds Seconds.
  * @constructor
- * @final
  */
 goog.date.Interval = function(opt_years, opt_months, opt_days, opt_hours,
                               opt_minutes, opt_seconds) {
@@ -746,44 +722,21 @@ goog.date.Interval.prototype.add = function(interval) {
  * @see goog.date.DateTime
  */
 goog.date.Date = function(opt_year, opt_month, opt_date) {
-  /** @protected {!Date} The wrapped date or datetime. */
-  this.date;
-  // goog.date.DateTime assumes that only this.date is added in this ctor.
+  // goog.date.DateTime assumes that only this.date_ is added in this ctor.
   if (goog.isNumber(opt_year)) {
-    this.date = this.buildDate_(opt_year, opt_month || 0, opt_date || 1);
+    this.date_ = new Date(opt_year, opt_month || 0, opt_date || 1);
     this.maybeFixDst_(opt_date || 1);
   } else if (goog.isObject(opt_year)) {
-    this.date = this.buildDate_(opt_year.getFullYear(), opt_year.getMonth(),
-        opt_year.getDate());
+    this.date_ = new Date(opt_year.getFullYear(), opt_year.getMonth(),
+                          opt_year.getDate());
     this.maybeFixDst_(opt_year.getDate());
   } else {
-    this.date = new Date(goog.now());
-    this.date.setHours(0);
-    this.date.setMinutes(0);
-    this.date.setSeconds(0);
-    this.date.setMilliseconds(0);
+    this.date_ = new Date(goog.now());
+    this.date_.setHours(0);
+    this.date_.setMinutes(0);
+    this.date_.setSeconds(0);
+    this.date_.setMilliseconds(0);
   }
-};
-
-
-/**
- * new Date(y, m, d) treats years in the interval [0, 100) as two digit years,
- * adding 1900 to them. This method ensures that calling the date constructor
- * as a copy constructor returns a value that is equal to the passed in
- * date value by explicitly setting the full year.
- * @private
- * @param {number} fullYear The full year (including century).
- * @param {number} month The month, from 0-11.
- * @param {number} date The day of the month.
- * @return {!Date} The constructed Date object.
- */
-goog.date.Date.prototype.buildDate_ = function(fullYear, month, date) {
-  var d = new Date(fullYear, month, date);
-  if (fullYear >= 0 && fullYear < 100) {
-    // Can't just setFullYear as new Date() can flip over for e.g. month = 13.
-    d.setFullYear(d.getFullYear() - 1900);
-  }
-  return d;
 };
 
 
@@ -809,7 +762,7 @@ goog.date.Date.prototype.firstWeekCutOffDay_ =
  * @return {!goog.date.Date} A clone of the date object.
  */
 goog.date.Date.prototype.clone = function() {
-  var date = new goog.date.Date(this.date);
+  var date = new goog.date.Date(this.date_);
   date.firstDayOfWeek_ = this.firstDayOfWeek_;
   date.firstWeekCutOffDay_ = this.firstWeekCutOffDay_;
 
@@ -821,7 +774,7 @@ goog.date.Date.prototype.clone = function() {
  * @return {number} The four digit year of date.
  */
 goog.date.Date.prototype.getFullYear = function() {
-  return this.date.getFullYear();
+  return this.date_.getFullYear();
 };
 
 
@@ -840,7 +793,7 @@ goog.date.Date.prototype.getYear = function() {
  * @return {goog.date.month} The month of date, 0 = Jan, 11 = Dec.
  */
 goog.date.Date.prototype.getMonth = function() {
-  return /** @type {goog.date.month} */ (this.date.getMonth());
+  return /** @type {goog.date.month} */ (this.date_.getMonth());
 };
 
 
@@ -848,7 +801,7 @@ goog.date.Date.prototype.getMonth = function() {
  * @return {number} The date of month.
  */
 goog.date.Date.prototype.getDate = function() {
-  return this.date.getDate();
+  return this.date_.getDate();
 };
 
 
@@ -858,7 +811,7 @@ goog.date.Date.prototype.getDate = function() {
  * @return {number} The number of milliseconds since 1 January 1970 00:00:00.
  */
 goog.date.Date.prototype.getTime = function() {
-  return this.date.getTime();
+  return this.date_.getTime();
 };
 
 
@@ -866,7 +819,7 @@ goog.date.Date.prototype.getTime = function() {
  * @return {goog.date.weekDay} The day of week, US style. 0 = Sun, 6 = Sat.
  */
 goog.date.Date.prototype.getDay = function() {
-  return /** @type {goog.date.weekDay} */ (this.date.getDay());
+  return /** @type {goog.date.weekDay} */ (this.date_.getDay());
 };
 
 
@@ -890,7 +843,7 @@ goog.date.Date.prototype.getWeekday = function() {
  * @return {number} The four digit year of date according to universal time.
  */
 goog.date.Date.prototype.getUTCFullYear = function() {
-  return this.date.getUTCFullYear();
+  return this.date_.getUTCFullYear();
 };
 
 
@@ -899,7 +852,7 @@ goog.date.Date.prototype.getUTCFullYear = function() {
  *     0 = Jan, 11 = Dec.
  */
 goog.date.Date.prototype.getUTCMonth = function() {
-  return /** @type {goog.date.month} */ (this.date.getUTCMonth());
+  return /** @type {goog.date.month} */ (this.date_.getUTCMonth());
 };
 
 
@@ -907,7 +860,7 @@ goog.date.Date.prototype.getUTCMonth = function() {
  * @return {number} The date of month according to universal time.
  */
 goog.date.Date.prototype.getUTCDate = function() {
-  return this.date.getUTCDate();
+  return this.date_.getUTCDate();
 };
 
 
@@ -916,7 +869,7 @@ goog.date.Date.prototype.getUTCDate = function() {
  *     US style. 0 = Sun, 1 = Mon, 6 = Sat.
  */
 goog.date.Date.prototype.getUTCDay = function() {
-  return /** @type {goog.date.weekDay} */ (this.date.getDay());
+  return /** @type {goog.date.weekDay} */ (this.date_.getDay());
 };
 
 
@@ -924,7 +877,7 @@ goog.date.Date.prototype.getUTCDay = function() {
  * @return {number} The hours value according to universal time.
  */
 goog.date.Date.prototype.getUTCHours = function() {
-  return this.date.getUTCHours();
+  return this.date_.getUTCHours();
 };
 
 
@@ -932,7 +885,7 @@ goog.date.Date.prototype.getUTCHours = function() {
  * @return {number} The hours value according to universal time.
  */
 goog.date.Date.prototype.getUTCMinutes = function() {
-  return this.date.getUTCMinutes();
+  return this.date_.getUTCMinutes();
 };
 
 
@@ -941,7 +894,7 @@ goog.date.Date.prototype.getUTCMinutes = function() {
  *     0 = Mon, 6 = Sun.
  */
 goog.date.Date.prototype.getUTCIsoWeekday = function() {
-  return (this.date.getUTCDay() + 6) % 7;
+  return (this.date_.getUTCDay() + 6) % 7;
 };
 
 
@@ -1011,7 +964,7 @@ goog.date.Date.prototype.getDayOfYear = function() {
  * @return {number} The timezone offset.
  */
 goog.date.Date.prototype.getTimezoneOffset = function() {
-  return this.date.getTimezoneOffset();
+  return this.date_.getTimezoneOffset();
 };
 
 
@@ -1046,7 +999,7 @@ goog.date.Date.prototype.getTimezoneOffsetString = function() {
  * @param {goog.date.Date} date Date object to set date from.
  */
 goog.date.Date.prototype.set = function(date) {
-  this.date = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  this.date_ = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 };
 
 
@@ -1056,7 +1009,7 @@ goog.date.Date.prototype.set = function(date) {
  * @param {number} year Four digit year.
  */
 goog.date.Date.prototype.setFullYear = function(year) {
-  this.date.setFullYear(year);
+  this.date_.setFullYear(year);
 };
 
 
@@ -1079,7 +1032,7 @@ goog.date.Date.prototype.setYear = function(year) {
  * @param {number} month The month, where 0 = Jan, 11 = Dec.
  */
 goog.date.Date.prototype.setMonth = function(month) {
-  this.date.setMonth(month);
+  this.date_.setMonth(month);
 };
 
 
@@ -1089,7 +1042,7 @@ goog.date.Date.prototype.setMonth = function(month) {
  * @param {number} date The day part.
  */
 goog.date.Date.prototype.setDate = function(date) {
-  this.date.setDate(date);
+  this.date_.setDate(date);
 };
 
 
@@ -1100,7 +1053,7 @@ goog.date.Date.prototype.setDate = function(date) {
  * @param {number} ms Number of milliseconds since 1 Jan 1970.
  */
 goog.date.Date.prototype.setTime = function(ms) {
-  this.date.setTime(ms);
+  this.date_.setTime(ms);
 };
 
 
@@ -1110,7 +1063,7 @@ goog.date.Date.prototype.setTime = function(ms) {
  * @param {number} year Four digit year.
  */
 goog.date.Date.prototype.setUTCFullYear = function(year) {
-  this.date.setUTCFullYear(year);
+  this.date_.setUTCFullYear(year);
 };
 
 
@@ -1120,7 +1073,7 @@ goog.date.Date.prototype.setUTCFullYear = function(year) {
  * @param {number} month The month, where 0 = Jan, 11 = Dec.
  */
 goog.date.Date.prototype.setUTCMonth = function(month) {
-  this.date.setUTCMonth(month);
+  this.date_.setUTCMonth(month);
 };
 
 
@@ -1130,7 +1083,7 @@ goog.date.Date.prototype.setUTCMonth = function(month) {
  * @param {number} date The UTC date.
  */
 goog.date.Date.prototype.setUTCDate = function(date) {
-  this.date.setUTCDate(date);
+  this.date_.setUTCDate(date);
 };
 
 
@@ -1252,10 +1205,9 @@ goog.date.Date.prototype.toUTCIsoString = function(opt_verbose, opt_tz) {
  * @return {boolean} Whether the given date is equal to this one.
  */
 goog.date.Date.prototype.equals = function(other) {
-  return !!(other &&
-            this.getYear() == other.getYear() &&
-            this.getMonth() == other.getMonth() &&
-            this.getDate() == other.getDate());
+  return this.getYear() == other.getYear() &&
+         this.getMonth() == other.getMonth() &&
+         this.getDate() == other.getDate();
 };
 
 
@@ -1278,7 +1230,7 @@ goog.date.Date.prototype.toString = function() {
 goog.date.Date.prototype.maybeFixDst_ = function(expected) {
   if (this.getDate() != expected) {
     var dir = this.getDate() < expected ? 1 : -1;
-    this.date.setUTCHours(this.date.getUTCHours() + dir);
+    this.date_.setUTCHours(this.date_.getUTCHours() + dir);
   }
 };
 
@@ -1288,7 +1240,7 @@ goog.date.Date.prototype.maybeFixDst_ = function(expected) {
  * @override
  */
 goog.date.Date.prototype.valueOf = function() {
-  return this.date.valueOf();
+  return this.date_.valueOf();
 };
 
 
@@ -1328,25 +1280,14 @@ goog.date.Date.compare = function(date1, date2) {
 goog.date.DateTime = function(opt_year, opt_month, opt_date, opt_hours,
                               opt_minutes, opt_seconds, opt_milliseconds) {
   if (goog.isNumber(opt_year)) {
-    this.date = new Date(opt_year, opt_month || 0, opt_date || 1,
-        opt_hours || 0, opt_minutes || 0, opt_seconds || 0,
-        opt_milliseconds || 0);
+    this.date_ = new Date(opt_year, opt_month || 0, opt_date || 1,
+                          opt_hours || 0, opt_minutes || 0, opt_seconds || 0,
+                          opt_milliseconds || 0);
   } else {
-    this.date = new Date(opt_year ? opt_year.getTime() : goog.now());
+    this.date_ = new Date(opt_year ? opt_year.getTime() : goog.now());
   }
 };
 goog.inherits(goog.date.DateTime, goog.date.Date);
-
-
-/**
- * @param {number} timestamp Number of milliseconds since Epoch.
- * @return {!goog.date.DateTime}
- */
-goog.date.DateTime.fromTimestamp = function(timestamp) {
-  var date = new goog.date.DateTime();
-  date.setTime(timestamp);
-  return date;
-};
 
 
 /**
@@ -1367,7 +1308,7 @@ goog.date.DateTime.fromRfc822String = function(formatted) {
  * @return {number} An integer between 0 and 23, representing the hour.
  */
 goog.date.DateTime.prototype.getHours = function() {
-  return this.date.getHours();
+  return this.date_.getHours();
 };
 
 
@@ -1377,7 +1318,7 @@ goog.date.DateTime.prototype.getHours = function() {
  * @return {number} An integer between 0 and 59, representing the minutes.
  */
 goog.date.DateTime.prototype.getMinutes = function() {
-  return this.date.getMinutes();
+  return this.date_.getMinutes();
 };
 
 
@@ -1387,7 +1328,7 @@ goog.date.DateTime.prototype.getMinutes = function() {
  * @return {number} An integer between 0 and 59, representing the seconds.
  */
 goog.date.DateTime.prototype.getSeconds = function() {
-  return this.date.getSeconds();
+  return this.date_.getSeconds();
 };
 
 
@@ -1397,7 +1338,7 @@ goog.date.DateTime.prototype.getSeconds = function() {
  * @return {number} An integer between 0 and 999, representing the milliseconds.
  */
 goog.date.DateTime.prototype.getMilliseconds = function() {
-  return this.date.getMilliseconds();
+  return this.date_.getMilliseconds();
 };
 
 
@@ -1408,7 +1349,7 @@ goog.date.DateTime.prototype.getMilliseconds = function() {
  * @override
  */
 goog.date.DateTime.prototype.getUTCDay = function() {
-  return /** @type {goog.date.weekDay} */ (this.date.getUTCDay());
+  return /** @type {goog.date.weekDay} */ (this.date_.getUTCDay());
 };
 
 
@@ -1419,7 +1360,7 @@ goog.date.DateTime.prototype.getUTCDay = function() {
  * @override
  */
 goog.date.DateTime.prototype.getUTCHours = function() {
-  return this.date.getUTCHours();
+  return this.date_.getUTCHours();
 };
 
 
@@ -1430,7 +1371,7 @@ goog.date.DateTime.prototype.getUTCHours = function() {
  * @override
  */
 goog.date.DateTime.prototype.getUTCMinutes = function() {
-  return this.date.getUTCMinutes();
+  return this.date_.getUTCMinutes();
 };
 
 
@@ -1440,7 +1381,7 @@ goog.date.DateTime.prototype.getUTCMinutes = function() {
  * @return {number} An integer between 0 and 59, representing the seconds.
  */
 goog.date.DateTime.prototype.getUTCSeconds = function() {
-  return this.date.getUTCSeconds();
+  return this.date_.getUTCSeconds();
 };
 
 
@@ -1450,7 +1391,7 @@ goog.date.DateTime.prototype.getUTCSeconds = function() {
  * @return {number} An integer between 0 and 999, representing the milliseconds.
  */
 goog.date.DateTime.prototype.getUTCMilliseconds = function() {
-  return this.date.getUTCMilliseconds();
+  return this.date_.getUTCMilliseconds();
 };
 
 
@@ -1460,7 +1401,7 @@ goog.date.DateTime.prototype.getUTCMilliseconds = function() {
  * @param {number} hours An integer between 0 and 23, representing the hour.
  */
 goog.date.DateTime.prototype.setHours = function(hours) {
-  this.date.setHours(hours);
+  this.date_.setHours(hours);
 };
 
 
@@ -1470,7 +1411,7 @@ goog.date.DateTime.prototype.setHours = function(hours) {
  * @param {number} minutes Integer between 0 and 59, representing the minutes.
  */
 goog.date.DateTime.prototype.setMinutes = function(minutes) {
-  this.date.setMinutes(minutes);
+  this.date_.setMinutes(minutes);
 };
 
 
@@ -1480,7 +1421,7 @@ goog.date.DateTime.prototype.setMinutes = function(minutes) {
  * @param {number} seconds Integer between 0 and 59, representing the seconds.
  */
 goog.date.DateTime.prototype.setSeconds = function(seconds) {
-  this.date.setSeconds(seconds);
+  this.date_.setSeconds(seconds);
 };
 
 
@@ -1490,7 +1431,7 @@ goog.date.DateTime.prototype.setSeconds = function(seconds) {
  * @param {number} ms Integer between 0 and 999, representing the milliseconds.
  */
 goog.date.DateTime.prototype.setMilliseconds = function(ms) {
-  this.date.setMilliseconds(ms);
+  this.date_.setMilliseconds(ms);
 };
 
 
@@ -1500,7 +1441,7 @@ goog.date.DateTime.prototype.setMilliseconds = function(ms) {
  * @param {number} hours An integer between 0 and 23, representing the hour.
  */
 goog.date.DateTime.prototype.setUTCHours = function(hours) {
-  this.date.setUTCHours(hours);
+  this.date_.setUTCHours(hours);
 };
 
 
@@ -1510,7 +1451,7 @@ goog.date.DateTime.prototype.setUTCHours = function(hours) {
  * @param {number} minutes Integer between 0 and 59, representing the minutes.
  */
 goog.date.DateTime.prototype.setUTCMinutes = function(minutes) {
-  this.date.setUTCMinutes(minutes);
+  this.date_.setUTCMinutes(minutes);
 };
 
 
@@ -1520,7 +1461,7 @@ goog.date.DateTime.prototype.setUTCMinutes = function(minutes) {
  * @param {number} seconds Integer between 0 and 59, representing the seconds.
  */
 goog.date.DateTime.prototype.setUTCSeconds = function(seconds) {
-  this.date.setUTCSeconds(seconds);
+  this.date_.setUTCSeconds(seconds);
 };
 
 
@@ -1530,16 +1471,7 @@ goog.date.DateTime.prototype.setUTCSeconds = function(seconds) {
  * @param {number} ms Integer between 0 and 999, representing the milliseconds.
  */
 goog.date.DateTime.prototype.setUTCMilliseconds = function(ms) {
-  this.date.setUTCMilliseconds(ms);
-};
-
-
-/**
- * @return {boolean} Whether the datetime is aligned to midnight.
- */
-goog.date.DateTime.prototype.isMidnight = function() {
-  return this.getHours() == 0 && this.getMinutes() == 0 &&
-      this.getSeconds() == 0 && this.getMilliseconds() == 0;
+  this.date_.setUTCMilliseconds(ms);
 };
 
 
@@ -1553,13 +1485,13 @@ goog.date.DateTime.prototype.add = function(interval) {
   goog.date.Date.prototype.add.call(this, interval);
 
   if (interval.hours) {
-    this.setHours(this.date.getHours() + interval.hours);
+    this.setHours(this.date_.getHours() + interval.hours);
   }
   if (interval.minutes) {
-    this.setMinutes(this.date.getMinutes() + interval.minutes);
+    this.setMinutes(this.date_.getMinutes() + interval.minutes);
   }
   if (interval.seconds) {
-    this.setSeconds(this.date.getSeconds() + interval.seconds);
+    this.setSeconds(this.date_.getSeconds() + interval.seconds);
   }
 };
 
@@ -1746,7 +1678,7 @@ goog.date.DateTime.prototype.toIsoTimeString = function(opt_showSeconds) {
  * @override
  */
 goog.date.DateTime.prototype.clone = function() {
-  var date = new goog.date.DateTime(this.date);
+  var date = new goog.date.DateTime(this.date_);
   date.setFirstDayOfWeek(this.getFirstDayOfWeek());
   date.setFirstWeekCutOffDay(this.getFirstWeekCutOffDay());
   return date;

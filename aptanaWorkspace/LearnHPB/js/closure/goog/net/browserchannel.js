@@ -17,6 +17,11 @@
  * simulates a bidirectional socket over HTTP. It is the basis of the
  * Gmail Chat IM connections to the server.
  *
+ * See http://wiki/Main/BrowserChannel
+ * This doesn't yet completely comform to the design document as we've done
+ * some renaming and cleanup in the design document that hasn't yet been
+ * implemented in the protocol.
+ *
  * Typical usage will look like
  *  var handler = [handler object];
  *  var channel = new BrowserChannel(clientVersion);
@@ -44,21 +49,22 @@ goog.provide('goog.net.BrowserChannel.TimingEvent');
 goog.require('goog.Uri');
 goog.require('goog.array');
 goog.require('goog.asserts');
+goog.require('goog.debug.Logger');
 goog.require('goog.debug.TextFormatter');
 goog.require('goog.events.Event');
 goog.require('goog.events.EventTarget');
 goog.require('goog.json');
 goog.require('goog.json.EvalJsonProcessor');
-goog.require('goog.log');
 goog.require('goog.net.BrowserTestChannel');
 goog.require('goog.net.ChannelDebug');
 goog.require('goog.net.ChannelRequest');
+goog.require('goog.net.ChannelRequest.Error');
 goog.require('goog.net.XhrIo');
 goog.require('goog.net.tmpnetwork');
-goog.require('goog.object');
 goog.require('goog.string');
 goog.require('goog.structs');
 goog.require('goog.structs.CircularBuffer');
+goog.require('goog.userAgent');
 
 
 
@@ -69,12 +75,9 @@ goog.require('goog.structs.CircularBuffer');
  *        that is sent to the server when connected.
  * @param {Array.<string>=} opt_firstTestResults Previously determined results
  *        of the first browser channel test.
- * @param {boolean=} opt_secondTestResults Previously determined results
- *        of the second browser channel test.
  * @constructor
  */
-goog.net.BrowserChannel = function(opt_clientVersion, opt_firstTestResults,
-    opt_secondTestResults) {
+  goog.net.BrowserChannel = function(opt_clientVersion, opt_firstTestResults) {
   /**
    * The application specific version that is passed to the server.
    * @type {?string}
@@ -127,15 +130,6 @@ goog.net.BrowserChannel = function(opt_clientVersion, opt_firstTestResults,
    * @private
    */
   this.firstTestResults_ = opt_firstTestResults || null;
-
-  /**
-   * The results of the second browser channel test. True implies the
-   * connection is buffered, False means unbuffered, null means that
-   * the results are not available.
-   * @private
-   */
-  this.secondTestResults_ = goog.isDefAndNotNull(opt_secondTestResults) ?
-      opt_secondTestResults : null;
 };
 
 
@@ -146,7 +140,6 @@ goog.net.BrowserChannel = function(opt_clientVersion, opt_firstTestResults,
  * @param {Object|goog.structs.Map} map The map itself.
  * @param {Object=} opt_context The context associated with the map.
  * @constructor
- * @final
  */
 goog.net.BrowserChannel.QueuedMap = function(mapId, map, opt_context) {
   /**
@@ -607,7 +600,6 @@ goog.net.BrowserChannel.Event.STAT_EVENT = 'statevent';
  * @param {goog.net.BrowserChannel.Stat} stat The stat.
  * @constructor
  * @extends {goog.events.Event}
- * @final
  */
 goog.net.BrowserChannel.StatEvent = function(eventTarget, stat) {
   goog.events.Event.call(this, goog.net.BrowserChannel.Event.STAT_EVENT,
@@ -642,7 +634,6 @@ goog.net.BrowserChannel.Event.TIMING_EVENT = 'timingevent';
  * @param {number} retries The number of times the POST had to be retried.
  * @constructor
  * @extends {goog.events.Event}
- * @final
  */
 goog.net.BrowserChannel.TimingEvent = function(target, size, rtt, retries) {
   goog.events.Event.call(this, goog.net.BrowserChannel.Event.TIMING_EVENT,
@@ -698,7 +689,6 @@ goog.net.BrowserChannel.ServerReachability = {
  *     reachability event type.
  * @constructor
  * @extends {goog.events.Event}
- * @final
  */
 goog.net.BrowserChannel.ServerReachabilityEvent = function(target,
     reachabilityType) {
@@ -835,7 +825,7 @@ goog.net.BrowserChannel.OUTSTANDING_DATA_BACKCHANNEL_RETRY_CUTOFF = 37500;
 /**
  * Returns the browserchannel logger.
  *
- * @return {!goog.net.ChannelDebug} The channel debug object.
+ * @return {goog.net.ChannelDebug} The channel debug object.
  */
 goog.net.BrowserChannel.prototype.getChannelDebug = function() {
   return this.channelDebug_;
@@ -906,7 +896,7 @@ goog.net.BrowserChannel.endExecutionHook_ = function() { };
  * @param {string=} opt_sessionId  The session id for the channel.
  * @param {string|number=} opt_requestId  The request id for this request.
  * @param {number=} opt_retryId  The retry id for this request.
- * @return {!goog.net.ChannelRequest} The created channel request.
+ * @return {goog.net.ChannelRequest} The created channel request.
  */
 goog.net.BrowserChannel.createChannelRequest = function(channel, channelDebug,
     opt_sessionId, opt_requestId, opt_retryId) {
@@ -1553,7 +1543,7 @@ goog.net.BrowserChannel.prototype.addAdditionalParams_ = function(uri) {
   if (this.handler_) {
     var params = this.handler_.getAdditionalParams(this);
     if (params) {
-      goog.object.forEach(params, function(value, key) {
+      goog.structs.forEach(params, function(value, key, coll) {
         uri.setParameterValue(key, value);
       });
     }
@@ -1824,7 +1814,7 @@ goog.net.BrowserChannel.prototype.onRequestData =
     if (!goog.string.isEmpty(responseText)) {
       var response = this.parser_.parse(responseText);
       goog.asserts.assert(goog.isArray(response));
-      this.onInput_(/** @type {!Array} */ (response));
+      this.onInput_(/** @type {Array} */ (response));
     }
   }
 };
@@ -2103,10 +2093,11 @@ goog.net.BrowserChannel.prototype.setRetryDelay = function(baseDelayMs,
 
 /**
  * Processes the data returned by the server.
- * @param {!Array.<!Array>} respArray The response array returned by the server.
+ * @param {Array} respArray The response array returned by the server.
  * @private
  */
 goog.net.BrowserChannel.prototype.onInput_ = function(respArray) {
+  // respArray is an array of arrays
   var batch = this.handler_ && this.handler_.channelHandleMultipleArrays ?
       [] : null;
   for (var i = 0; i < respArray.length; i++) {
@@ -2137,7 +2128,7 @@ goog.net.BrowserChannel.prototype.onInput_ = function(respArray) {
       }
     } else if (this.state_ == goog.net.BrowserChannel.State.OPENED) {
       if (nextArray[0] == 'stop') {
-        if (batch && !goog.array.isEmpty(batch)) {
+        if (batch && batch.length) {
           this.handler_.channelHandleMultipleArrays(this, batch);
           batch.length = 0;
         }
@@ -2160,7 +2151,7 @@ goog.net.BrowserChannel.prototype.onInput_ = function(respArray) {
       this.backChannelRetryCount_ = 0;
     }
   }
-  if (batch && !goog.array.isEmpty(batch)) {
+  if (batch && batch.length) {
     this.handler_.channelHandleMultipleArrays(this, batch);
   }
 };
@@ -2284,7 +2275,7 @@ goog.net.BrowserChannel.prototype.onClose_ = function() {
 /**
  * Gets the Uri used for the connection that sends data to the server.
  * @param {string} path The path on the host.
- * @return {!goog.Uri} The forward channel URI.
+ * @return {goog.Uri} The forward channel URI.
  */
 goog.net.BrowserChannel.prototype.getForwardChannelUri =
     function(path) {
@@ -2305,20 +2296,10 @@ goog.net.BrowserChannel.prototype.getFirstTestResults =
 
 
 /**
- * Gets the results for the second browser channel test
- * @return {?boolean} The results. True -> buffered connection,
- *      False -> unbuffered, null -> unknown.
- */
-goog.net.BrowserChannel.prototype.getSecondTestResults = function() {
-  return this.secondTestResults_;
-};
-
-
-/**
  * Gets the Uri used for the connection that receives data from the server.
  * @param {?string} hostPrefix The host prefix.
  * @param {string} path The path on the host.
- * @return {!goog.Uri} The back channel URI.
+ * @return {goog.Uri} The back channel URI.
  */
 goog.net.BrowserChannel.prototype.getBackChannelUri =
     function(hostPrefix, path) {
@@ -2335,7 +2316,7 @@ goog.net.BrowserChannel.prototype.getBackChannelUri =
  * @param {?string} hostPrefix The host prefix.
  * @param {string} path The path on the host (may be absolute or relative).
  * @param {number=} opt_overridePort Optional override port.
- * @return {!goog.Uri} The data URI.
+ * @return {goog.Uri} The data URI.
  */
 goog.net.BrowserChannel.prototype.createDataUri =
     function(hostPrefix, path, opt_overridePort) {
@@ -2362,7 +2343,7 @@ goog.net.BrowserChannel.prototype.createDataUri =
   }
 
   if (this.extraParams_) {
-    goog.object.forEach(this.extraParams_, function(value, key) {
+    goog.structs.forEach(this.extraParams_, function(value, key, coll) {
       uri.setParameterValue(key, value);
     });
   }
@@ -2573,18 +2554,18 @@ goog.net.BrowserChannel.LogSaver.setEnabled = function(enable) {
   }
 
   var fn = goog.net.BrowserChannel.LogSaver.addLogRecord;
-  var logger = goog.log.getLogger('goog.net');
+  var logger = goog.debug.Logger.getLogger('goog.net');
   if (enable) {
-    goog.log.addHandler(logger, fn);
+    logger.addHandler(fn);
   } else {
-    goog.log.removeHandler(logger, fn);
+    logger.removeHandler(fn);
   }
 };
 
 
 /**
  * Adds a log record.
- * @param {goog.log.LogRecord} logRecord the LogRecord.
+ * @param {goog.debug.LogRecord} logRecord the LogRecord.
  */
 goog.net.BrowserChannel.LogSaver.addLogRecord = function(logRecord) {
   goog.net.BrowserChannel.LogSaver.buffer_.add(
@@ -2611,7 +2592,7 @@ goog.net.BrowserChannel.LogSaver.clearBuffer = function() {
 
 
 /**
- * Abstract base class for the browser channel handler
+ * Interface for the browser channel handler
  * @constructor
  */
 goog.net.BrowserChannel.Handler = function() {
@@ -2621,7 +2602,7 @@ goog.net.BrowserChannel.Handler = function() {
 /**
  * Callback handler for when a batch of response arrays is received from the
  * server.
- * @type {?function(!goog.net.BrowserChannel, !Array.<!Array>)}
+ * @type {Function}
  */
 goog.net.BrowserChannel.Handler.prototype.channelHandleMultipleArrays = null;
 

@@ -11,7 +11,7 @@ goog.require('lgb.scenario.model.Option');
 /**
  * Primarily a container object for Sysvars
  * @constructor
- * @extends lgb.world.model.BaseModel
+ * @extends lgb.core.BaseModel
  * @param {!lgb.utils.XmlWrapper} xmlParser The parse used
  * to populate the object, contains an xml document.
  */
@@ -24,7 +24,7 @@ goog.inherits(lgb.scenario.model.OptionList, lgb.scenario.model.NodeBase);
 
 
 
-lgb.scenario.model.OptionList.prototype.parse_ = function(node) {
+lgb.scenario.model.OptionList.prototype.parseXmlNode_ = function(node) {
   this.makeChildren_();
 };
 

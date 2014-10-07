@@ -20,6 +20,7 @@
 
 goog.provide('goog.ui.CheckBoxMenuItem');
 
+goog.require('goog.ui.ControlContent');
 goog.require('goog.ui.MenuItem');
 goog.require('goog.ui.registry');
 
@@ -48,6 +49,6 @@ goog.inherits(goog.ui.CheckBoxMenuItem, goog.ui.MenuItem);
 // Register a decorator factory function for goog.ui.CheckBoxMenuItems.
 goog.ui.registry.setDecoratorByClassName(
     goog.getCssName('goog-checkbox-menuitem'), function() {
-      // CheckBoxMenuItem defaults to using MenuItemRenderer.
-      return new goog.ui.CheckBoxMenuItem(null);
-    });
+  // CheckBoxMenuItem defaults to using MenuItemRenderer.
+  return new goog.ui.CheckBoxMenuItem(null);
+});

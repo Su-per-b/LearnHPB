@@ -253,7 +253,7 @@ lgb.world.model.vo.ViewpointNode.idx = 0;
 lgb.world.model.vo.ViewpointNode.allNodes = [];
 
 lgb.world.model.vo.ViewpointNode.offsetMap_ = [];
-lgb.world.model.vo.ViewpointNode.offsetMap_["default"] = [0, 2, 5];
+lgb.world.model.vo.ViewpointNode.offsetMap_.dflt = [0, 2, 5];
 
 lgb.world.model.vo.ViewpointNode.offsetMap_["vp1"] = [0, 2, 7];
 lgb.world.model.vo.ViewpointNode.offsetMap_["vp2"] = [0, 2, 9];

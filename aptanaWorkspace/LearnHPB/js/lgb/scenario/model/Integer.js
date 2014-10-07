@@ -10,7 +10,7 @@ goog.require('lgb.scenario.model.NodeBase');
 /**
  * Primarily a container object for Sysvars
  * @constructor
- * @extends lgb.world.model.BaseModel
+ * @extends lgb.core.BaseModel
  * @param {!lgb.utils.XmlWrapper} xmlParser The parse used
  * to populate the object, contains an xml document.
  */
@@ -23,10 +23,34 @@ goog.inherits(lgb.scenario.model.Integer, lgb.scenario.model.NodeBase);
 
 
 
-lgb.scenario.model.Integer.prototype.parse_ = function(node) {
-  this.setPropertyInt_('min');
-  this.setPropertyInt_('max');
-  this.setPropertyInt_('default');
+
+lgb.scenario.model.Integer.prototype.setPropertyDefaults_ = function() {
+  
+  var propertyDefaultsObject = this.getPropertyDefaults();
+  
+  this.setPropertyInt_('min', propertyDefaultsObject.min);
+  this.setPropertyInt_('max', propertyDefaultsObject.max);
+  this.setPropertyInt_('dflt', propertyDefaultsObject.dflt);
+  
 };
 
+
+
+lgb.scenario.model.Integer.prototype.parseXmlNode_ = function() {
+  
+  this.setNameAndAbbr_();
+  this.setPropertyDefaults_();
+
+};
+
+lgb.scenario.model.Integer.prototype.getPropertyDefaults = function() {
+    
+    var propertyDefaults = {
+        min:0,
+        max:999,
+        dflt:1
+    };
+    
+    return propertyDefaults;
+};
 

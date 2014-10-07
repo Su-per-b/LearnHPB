@@ -24,8 +24,6 @@
 
 goog.provide('goog.ui.DimensionPickerRenderer');
 
-goog.require('goog.a11y.aria');
-goog.require('goog.a11y.aria.State');
 goog.require('goog.dom');
 goog.require('goog.dom.TagName');
 goog.require('goog.i18n.bidi');
@@ -198,7 +196,7 @@ goog.ui.DimensionPickerRenderer.prototype.addElementContents_ = function(
 /**
  * Creates a div and adds the appropriate contents to it.
  * @param {goog.ui.Control} control Picker to render.
- * @return {!Element} Root element for the palette.
+ * @return {Element} Root element for the palette.
  * @override
  */
 goog.ui.DimensionPickerRenderer.prototype.createDom = function(control) {
@@ -271,7 +269,7 @@ goog.ui.DimensionPickerRenderer.prototype.getGridOffsetY = function(
 
 
 /**
- * Sets the highlighted size. Does nothing if the palette hasn't been rendered.
+ * Sets the highlighted size.
  * @param {goog.ui.DimensionPicker} palette The table size palette.
  * @param {number} columns The number of columns to highlight.
  * @param {number} rows The number of rows to highlight.
@@ -279,10 +277,6 @@ goog.ui.DimensionPickerRenderer.prototype.getGridOffsetY = function(
 goog.ui.DimensionPickerRenderer.prototype.setHighlightedSize = function(
     palette, columns, rows) {
   var element = palette.getElement();
-  // Can't update anything if DimensionPicker hasn't been rendered.
-  if (!element) {
-    return;
-  }
 
   // Style the highlight div.
   var style = this.getHighlightDiv_(element).style;
@@ -294,17 +288,6 @@ goog.ui.DimensionPickerRenderer.prototype.setHighlightedSize = function(
   if (palette.isRightToLeft()) {
     style.right = '0';
   }
-
-  // Update the aria label.
-  /**
-   * @desc The dimension of the columns and rows currently selected in the
-   * dimension picker, as text that can be spoken by a screen reader.
-   */
-  var MSG_DIMENSION_PICKER_HIGHLIGHTED_DIMENSIONS = goog.getMsg(
-      '{$numCols} by {$numRows}',
-      {'numCols': columns, 'numRows': rows});
-  goog.a11y.aria.setState(element, goog.a11y.aria.State.LABEL,
-      MSG_DIMENSION_PICKER_HIGHLIGHTED_DIMENSIONS);
 
   // Update the size text.
   goog.dom.setTextContent(this.getStatusDiv_(element),

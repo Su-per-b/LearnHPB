@@ -30,24 +30,16 @@ lgb.scenario.controller.ScenarioController.prototype.init_ = function() {
   this.listenTo(this.dataModel,
      e.DataModelInitialized,
       this.onDataModelInitialized_);
-
+      
   this.bind_();
   
 };
 
 
 lgb.scenario.controller.ScenarioController.prototype.bind_ = function() {
+  
   this.listen(e.RequestLoadScenario, this.onRequestLoadScenario_);
-};
-
-
-
-lgb.scenario.controller.ScenarioController.prototype.onRequestLoadScenario_ = function(event) {
-  
-  var fileName = event.payload;
-  this.dataModel.load(fileName);
-  
-  
+    
 };
 
 
@@ -56,13 +48,20 @@ lgb.scenario.controller.ScenarioController.prototype.load = function(fileName) {
 };
 
 
+lgb.scenario.controller.ScenarioController.prototype.onRequestLoadScenario_ = function(event) {
+  
+  var fileName = event.payload;
+  this.dataModel.load(fileName);
+  
+};
+
 
 
 lgb.scenario.controller.ScenarioController.prototype.onDataModelInitialized_ =
   function(event) {
 
-  this.trigger(e.ScenarioDataModelLoaded, this.dataModel.systemList);
   
+  this.trigger(e.ScenarioDataModelLoaded, this.dataModel);
   
 };
 

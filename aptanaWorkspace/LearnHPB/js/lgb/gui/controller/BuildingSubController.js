@@ -6,11 +6,13 @@
 goog.provide('lgb.gui.controller.BuildingSubController');
 
 goog.require('lgb.core.BaseController');
-goog.require('lgb.gui.model.BaseGuiModel');
 
-goog.require('lgb.scenario.view.System');
-goog.require('lgb.scenario.model.ScenarioModel');
+goog.require('lgb.gui.model.BaseGuiModel');
 goog.require('lgb.gui.view.BuildingSubControllerGUI');
+
+
+goog.require('lgb.integrated.view.System');
+goog.require('lgb.integrated.model.System');
 
 
 /**
@@ -34,12 +36,13 @@ lgb.gui.controller.BuildingSubController.prototype.init = function( system ) {
   this.dataModel = new lgb.gui.model.BaseGuiModel();
   this.guiView = new lgb.gui.view.BuildingSubControllerGUI (this.dataModel, system.name);
   
-  var systemView = new lgb.scenario.view.System (system);
+  //this.systemView = new lgb.scenario.view.System (systemDataModel);
+  this.systemView = new lgb.integrated.view.System (system);
 
   // this.listenTo(systemView, se.RequestModelicaVariableChange, this.onRequestModelicaVariableChange_);
-  this.relay(systemView, se.RequestModelicaVariableChange);
   
-  this.guiView.add(systemView);
+  this.relay(this.systemView, se.RequestModelicaVariableChange);
+  this.guiView.add(this.systemView);
   
   this.triggerLocal(e.RequestAddToParentGUI, this.guiView);
   
@@ -54,7 +57,20 @@ lgb.gui.controller.BuildingSubController.prototype.init = function( system ) {
 lgb.gui.controller.BuildingSubController.prototype.bind_ = function() {
   
   this.listen(e.WindowResize, this.onWindowResize_);
+  
+    this.listen (
+        e.DisplayUnitSystemChangeNotify,
+        this.onDisplayUnitSystemChangeNotify_
+    );
+    
 };
+
+
+lgb.gui.controller.BuildingSubController.prototype.onDisplayUnitSystemChangeNotify_ = function(event) {
+
+    this.systemView.changeDisplayUnitSystem(event.payload);
+};
+
 
 
 lgb.gui.controller.BuildingSubController.prototype.onWindowResize_ = function(event) {

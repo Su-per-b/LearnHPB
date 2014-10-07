@@ -24,21 +24,56 @@ goog.inherits(lgb.gui.controller.BuildingController, lgb.core.BaseController);
 /**
  * Initializes the Main Controller after the document is ready
  */
-lgb.gui.controller.BuildingController.prototype.init = function(systemListDataModel) {
+lgb.gui.controller.BuildingController.prototype.init = function(integratedMainModel) {
 
   this.dataModel = new lgb.gui.model.BaseGuiModel();
   this.guiView = new lgb.gui.view.BuildingGUI(this.dataModel);
   this.guiView.init();
     
   this.triggerLocal(e.RequestAddToParentGUI, this.guiView);
-  this.systemListDataModel_ = systemListDataModel;
+  this.integratedMainModel_ = integratedMainModel;
+  var children = this.integratedMainModel_.getChildren();
   
-  var children = this.systemListDataModel_.getChildren();
   this.each (children, this.makeBuildingSubController_);
-  
+  this.guiView.init2();
+    
 };
 
 
+
+
+
+
+lgb.gui.controller.BuildingController.prototype.loadNew = function(integratedMainModel) {
+
+
+  this.guiView.clear();
+  this.integratedMainModel_ = integratedMainModel;
+  
+  // this.systemListDataModel_ = systemListDataModel;
+  
+  var children = this.integratedMainModel_.getChildren();
+  this.eachIdx (children, this.updateBuildingSubController_);
+  
+  
+  this.guiView.init2();
+};
+
+
+lgb.gui.controller.BuildingController.prototype.updateBuildingSubController_ = function(system, idx) {
+  
+
+  var controller = this.childGUIcontrollers_[idx];
+  
+  if (undefined == controller) {
+      debugger;
+  }
+  
+  controller.init(system);
+  
+  // /controller.loadNew(system);
+  
+};
 
 lgb.gui.controller.BuildingController.prototype.makeBuildingSubController_ = function(system) {
 
@@ -46,6 +81,3 @@ lgb.gui.controller.BuildingController.prototype.makeBuildingSubController_ = fun
   
 };
 
-
-
-  

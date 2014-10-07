@@ -38,6 +38,14 @@ lgb.simulation.model.voManaged.XMLparsedInfo.prototype.getOutputVariables = func
    
 };
 
+lgb.simulation.model.voManaged.XMLparsedInfo.prototype.getAllVariables = function() {
+    
+   var all = this.scalarVariablesAll_.getAll();
+
+   return all;
+   
+};
+
 
 
 

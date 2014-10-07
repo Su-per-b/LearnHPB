@@ -88,9 +88,17 @@ e.RequestSelectSystemNode = 'e.RequestSelectSystemNode';
 e.SimulationEngineLoaded = 'e.SimulationEngineLoaded';
 
 e.GuiValueChanged = 'e.GuiValueChanged';
-
 e.SplitterResize = 'e.SplitterResize';
-
 e.RequestLoadScenario = 'e.RequestLoadScenario';
-
 e.SimulationInitialized = 'e.SimulationInitialized';
+
+e.DisplayUnitSystemChangeRequest = 'e.DisplayUnitSystemChangeRequest';
+e.DisplayUnitSystemChangeNotify = 'e.DisplayUnitSystemChangeNotify';
+
+e.IntegratedDataModelInitialized = 'e.IntegratedDataModelInitialized';
+e.IntegratedDataModelVariablesUpdated = 'e.IntegratedDataModelVariablesUpdated';
+e.IntegratedDataModelValuesUpdated = 'e.IntegratedDataModelValuesUpdated';
+
+//e.IntegratedDataModelOutputVariablesUpdated = 'e.IntegratedDataModelOutputVariablesUpdated';
+//e.IntegratedDataModelInputVariablesUpdated = 'e.IntegratedDataModelInputVariablesUpdated';
+

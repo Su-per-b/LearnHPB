@@ -18,13 +18,12 @@ goog.require('lgb.simulation.model.voManaged.ScalarValueCollection');
 goog.require('lgb.simulation.model.voManaged.ScalarValueReal');
 goog.require('lgb.simulation.model.voManaged.SessionControl');
 
-
 goog.require('lgb.simulation.events.SimStateNativeRequest');
 goog.require('lgb.simulation.events.ScalarValueChangeRequest');
 goog.require('lgb.simulation.events.ResultEventList');
 goog.require('lgb.simulation.events.ResultEvent');
 goog.require('lgb.simulation.events.SessionControlEvent');
-
+goog.require('lgb.simulation.model.DisplayUnitSystem');
 
 
 
@@ -34,7 +33,9 @@ goog.require('lgb.simulation.events.SessionControlEvent');
  * @extends {lgb.core.BaseController}
  */
 lgb.simulation.controller.MainController = function() {
+    
     lgb.core.BaseController.call(this);
+
 
 };
 goog.inherits(lgb.simulation.controller.MainController, lgb.core.BaseController);
@@ -47,8 +48,12 @@ goog.inherits(lgb.simulation.controller.MainController, lgb.core.BaseController)
 lgb.simulation.controller.MainController.prototype.init = function() {
 
 
-    this.jsonController_ = new lgb.simulation.controller.JsonController();
+    this.jsonController_ = lgb.simulation.controller.JsonController.getInstance();
+    
+    //var test = new lgb.simulation.controller.JsonController();
+    
     this.dataModel = new lgb.simulation.model.MainModel();
+
 
     this.delayedMessages = [];
     this.resultEventQueue_ = [];
@@ -172,8 +177,36 @@ lgb.simulation.controller.MainController.prototype.bind_ = function() {
     );
     
     
+    this.listen (
+        e.DisplayUnitSystemChangeRequest,
+        this.onDisplayUnitSystemChangeRequest_
+    );
+    
+
+    
+   // this.listenForChange_('scalarValueResults');
+
+
+
+    
     
 };
+
+
+
+lgb.simulation.controller.MainController.prototype.onDisplayUnitSystemChangeRequest_ = function(event) {
+  
+    this.dataModel.updateDisplayUnitSystem(event.payload);
+    
+};
+
+
+
+// lgb.simulation.controller.MainController.prototype.onChange_scalarValueResults_ = function(scalarValueResults) {
+//   
+  // this.xmlParsedInfo = xmlParsedInfo;
+//   
+// };
 
 
 
@@ -235,21 +268,28 @@ lgb.simulation.controller.MainController.prototype.getDataModel = function() {
 
 lgb.simulation.controller.MainController.prototype.onRequestModelicaVariableChange_ = function(event) {
   
-  var theVar = this.dataModel.getIdxFromModelicaName(event.payload.modName);
-  
-  if (undefined === theVar) {
+  if (undefined === event.payload.modName) {
     debugger;
   }
   
-  var floatValue = event.payload.value;
-  var idx = theVar.idx;
   
-  var scalarValueReal = new lgb.simulation.model.voManaged.ScalarValueReal(idx, floatValue);
-  var collection = new lgb.simulation.model.voManaged.ScalarValueCollection([scalarValueReal], []);
+  var theVar = this.dataModel.getIdxFromModelicaName(event.payload.modName);
   
-  var event = new lgb.simulation.events.ScalarValueChangeRequest(collection);
-  this.serializeAndSend(event);
+  if (undefined === theVar) {
+    //debugger;
+  } else {
+    
+    var floatValue = event.payload.value;
+    var idx = theVar.idx;
+    
+    var scalarValueReal = new lgb.simulation.model.voManaged.ScalarValueReal(idx, floatValue);
+    var collection = new lgb.simulation.model.voManaged.ScalarValueCollection([scalarValueReal], []);
+    
+    var event = new lgb.simulation.events.ScalarValueChangeRequest(collection);
+    this.serializeAndSend(event);
   
+  }
+ 
 };
 
 
@@ -289,6 +329,7 @@ lgb.simulation.controller.MainController.prototype.onXMLparsedEvent_ = function(
   this.dispatch(event);
 };
 
+
 lgb.simulation.controller.MainController.prototype.onResultEvent_ = function(event) {
 
   this.resultEventQueue_.push(event);
@@ -298,8 +339,8 @@ lgb.simulation.controller.MainController.prototype.onResultEvent_ = function(eve
         this.clearResultEventQueueDelegate_,this.resultEventQueueInterval_);
   }
 
-  //this.dispatch(event);
 };
+
 
 lgb.simulation.controller.MainController.prototype.clearResultEventqueue_ = function() {
   
@@ -312,19 +353,18 @@ lgb.simulation.controller.MainController.prototype.clearResultEventqueue_ = func
     
   } else {
     
-    var event = new lgb.simulation.events.ResultEventList(this.resultEventQueue_);
-    this.dispatch(event);
-   
-    var mostRecentResult = this.resultEventQueue_[eventCount-1];
-    this.dataModel.setScalarValueResults(mostRecentResult.getPayload());
-     
+    var resultEventList = new lgb.simulation.events.ResultEventList(this.resultEventQueue_);
+    var p = resultEventList.getPayload();
+    
+    var mostRecent_ResultEvent = this.resultEventQueue_[eventCount-1];
+    var mostRecent_ScalarValueResults = mostRecent_ResultEvent.getPayload();
     this.resultEventQueue_ = [];
-      
+    
+    //this.dataModel.setScalarValueResults(mostRecent_ScalarValueResults);
+    this.dispatch(resultEventList);
   }
-  
-  
-
-  
+        
+             
 };
 
 
@@ -465,13 +505,10 @@ lgb.simulation.controller.MainController.prototype.onMessage_ = function(event) 
         console.log("SimulationController.onMessage_() - " + jsonString);
 
         var event = this.jsonController_.deserialize(jsonString);
-
-        
         this.dispatchLocal(event);
-        
-
     }
 };
+
 
 /**
  * Handler used for websocket communication

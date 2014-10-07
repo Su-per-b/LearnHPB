@@ -6,18 +6,18 @@
 goog.provide('lgb.scenario.model.Base');
 
 
-goog.require('lgb.world.model.BaseModel');
+goog.require('lgb.core.BaseModel');
 goog.require('lgb.scenario.model.SystemNode');
 goog.require('lgb.utils.XmlWrapper');
 
 /**
  * @constructor
- * @extends lgb.world.model.BaseModel
+ * @extends lgb.core.BaseModel
  */
 lgb.scenario.model.Base = function() {
 
 
-  lgb.world.model.BaseModel.call(this);
+  lgb.core.BaseModel.call(this);
 
   this.xml = null;
   this.systemNodeArray = [];
@@ -25,7 +25,7 @@ lgb.scenario.model.Base = function() {
   this.selectedSystemNode = null;
 
 };
-goog.inherits(lgb.scenario.model.Base, lgb.world.model.BaseModel);
+goog.inherits(lgb.scenario.model.Base, lgb.core.BaseModel);
 
 
 
@@ -86,13 +86,6 @@ lgb.scenario.model.Base.prototype.parse = function(xml) {
   
   this.triggerLocal(e.DataModelInitialized);
 };
-
-
-
-
-
-
-
 
 
 

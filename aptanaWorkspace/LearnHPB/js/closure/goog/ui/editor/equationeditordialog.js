@@ -15,9 +15,9 @@
 goog.provide('goog.ui.editor.EquationEditorDialog');
 
 goog.require('goog.editor.Command');
-goog.require('goog.ui.Dialog');
 goog.require('goog.ui.editor.AbstractDialog');
 goog.require('goog.ui.editor.EquationEditorOkEvent');
+goog.require('goog.ui.equation.ChangeEvent');
 goog.require('goog.ui.equation.TexEditor');
 
 
@@ -31,13 +31,12 @@ goog.require('goog.ui.equation.TexEditor');
  * @param {string} helpUrl URL pointing to help documentation.
  * @constructor
  * @extends {goog.ui.editor.AbstractDialog}
- * @final
  */
 goog.ui.editor.EquationEditorDialog = function(context, domHelper,
     equation, helpUrl) {
   goog.ui.editor.AbstractDialog.call(this, domHelper);
   this.equationEditor_ =
-      new goog.ui.equation.TexEditor(context, helpUrl, domHelper);
+      new goog.ui.equation.TexEditor(context, helpUrl);
   this.equationEditor_.render();
   this.equationEditor_.setEquation(equation);
   this.equationEditor_.addEventListener(goog.editor.Command.EQUATION,

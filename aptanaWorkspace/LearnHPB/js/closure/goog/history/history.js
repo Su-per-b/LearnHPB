@@ -164,12 +164,14 @@ goog.provide('goog.History.EventType');
 
 goog.require('goog.Timer');
 goog.require('goog.dom');
+goog.require('goog.events');
+goog.require('goog.events.BrowserEvent');
+goog.require('goog.events.Event');
 goog.require('goog.events.EventHandler');
 goog.require('goog.events.EventTarget');
 goog.require('goog.events.EventType');
 goog.require('goog.history.Event');
 goog.require('goog.history.EventType');
-goog.require('goog.memoize');
 goog.require('goog.string');
 goog.require('goog.userAgent');
 
@@ -257,6 +259,15 @@ goog.History = function(opt_invisible, opt_blankPageUrl, opt_input,
       goog.dom.getWindow(goog.dom.getOwnerDocument(opt_input)) : window;
 
   /**
+   * The initial page location with an empty hash component. If the page uses
+   * a BASE element, setting location.hash directly will navigate away from the
+   * current document. To prevent this, the full path is always specified.
+   * @type {string}
+   * @private
+   */
+  this.baseUrl_ = this.window_.location.href.split('#')[0];
+
+  /**
    * The base URL for the hidden iframe. Must refer to a document in the
    * same domain as the main page.
    * @type {string|undefined}
@@ -287,7 +298,7 @@ goog.History = function(opt_invisible, opt_blankPageUrl, opt_input,
 
   /**
    * An object to keep track of the history event listeners.
-   * @type {goog.events.EventHandler.<!goog.History>}
+   * @type {goog.events.EventHandler}
    * @private
    */
   this.eventHandler_ = new goog.events.EventHandler(this);
@@ -392,17 +403,14 @@ goog.History.prototype.lastToken_ = null;
 
 
 /**
- * Whether the browser supports HTML5 history management's onhashchange event.
- * {@link http://www.w3.org/TR/html5/history.html}. IE 9 in compatibility mode
- * indicates that onhashchange is in window, but testing reveals the event
- * isn't actually fired.
- * @return {boolean} Whether onhashchange is supported.
+ * Whether the browser supports HTML5 history management.
+ * {@link http://www.w3.org/TR/html5/history.html}.
+ * @type {boolean}
  */
-goog.History.isOnHashChangeSupported = goog.memoize(function() {
-  return goog.userAgent.IE ?
-      document.documentMode >= 8 :
-      'onhashchange' in goog.global;
-});
+goog.History.HAS_ONHASHCHANGE =
+    goog.userAgent.IE && goog.userAgent.isDocumentMode(8) ||
+    goog.userAgent.GECKO && goog.userAgent.isVersion('1.9.2') ||
+    goog.userAgent.WEBKIT && goog.userAgent.isVersion('532.1');
 
 
 /**
@@ -411,8 +419,7 @@ goog.History.isOnHashChangeSupported = goog.memoize(function() {
  * current versions.
  * @type {boolean}
  */
-goog.History.LEGACY_IE = goog.userAgent.IE &&
-    !goog.userAgent.isDocumentModeOrHigher(8);
+goog.History.LEGACY_IE = goog.userAgent.IE && !goog.userAgent.isDocumentMode(8);
 
 
 /**
@@ -482,8 +489,7 @@ goog.History.prototype.setEnabled = function(enable) {
 
     // TODO(user): make HTML5 and invisible history work by listening to the
     // iframe # changes instead of the window.
-    if (goog.History.isOnHashChangeSupported() &&
-        this.userVisible_) {
+    if (goog.History.HAS_ONHASHCHANGE && this.userVisible_) {
       this.eventHandler_.listen(
           this.window_, goog.events.EventType.HASHCHANGE, this.onHashChange_);
       this.enabled_ = true;
@@ -558,8 +564,8 @@ goog.History.prototype.onShow_ = function(e) {
 /**
  * Handles HTML5 onhashchange events on browsers where it is supported.
  * This is very similar to {@link #check_}, except that it is not executed
- * continuously. It is only used when
- * {@code goog.History.isOnHashChangeSupported()} is true.
+ * continuously. It is only used when {@code goog.History.HAS_ONHASHCHANGE} is
+ * true.
  * @param {goog.events.BrowserEvent} e The browser event.
  * @private
  */
@@ -646,7 +652,7 @@ goog.History.prototype.setHistoryState_ = function(token, replace, opt_title) {
     if (this.userVisible_) {
       this.setHash_(token, replace);
 
-      if (!goog.History.isOnHashChangeSupported()) {
+      if (!goog.History.HAS_ONHASHCHANGE) {
         if (goog.userAgent.IE) {
           // IE must save state using the iframe.
           this.setIframeToken_(token, replace, opt_title);
@@ -654,8 +660,8 @@ goog.History.prototype.setHistoryState_ = function(token, replace, opt_title) {
       }
 
       // This condition needs to be called even if
-      // goog.History.isOnHashChangeSupported() is true so the NAVIGATE event
-      // fires sychronously.
+      // goog.History.HAS_ONHASHCHANGE is true so the NAVIGATE event fires
+      // sychronously.
       if (this.enabled_) {
         this.check_(false);
       }
@@ -693,12 +699,8 @@ goog.History.prototype.setHistoryState_ = function(token, replace, opt_title) {
  * @private
  */
 goog.History.prototype.setHash_ = function(token, opt_replace) {
-  // If the page uses a BASE element, setting location.hash directly will
-  // navigate away from the current document. Also, the original URL path may
-  // possibly change from HTML5 history pushState. To account for these, the
-  // full path is always specified.
   var loc = this.window_.location;
-  var url = loc.href.split('#')[0];
+  var url = this.baseUrl_;
 
   // If a hash has already been set, then removing it programmatically will
   // reload the page. Once there is a hash, we won't remove it.
@@ -831,7 +833,7 @@ goog.History.prototype.getIframeToken_ = function() {
 
 /**
  * Checks the state of the document fragment and the iframe title to detect
- * navigation changes. If {@code goog.HistoryisOnHashChangeSupported()} is
+ * navigation changes. If {@code goog.History.HAS_ONHASHCHANGE} is
  * {@code false}, then this runs approximately twenty times per second.
  * @param {boolean} isNavigation True if the event was initiated by a browser
  *     action, false if it was caused by a setToken call. See
@@ -994,6 +996,5 @@ goog.History.EventType = goog.history.EventType;
  * @extends {goog.events.Event}
  * @constructor
  * @deprecated Use goog.history.Event.
- * @final
  */
 goog.History.Event = goog.history.Event;

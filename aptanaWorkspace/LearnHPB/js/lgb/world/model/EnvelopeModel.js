@@ -5,20 +5,20 @@
  
 goog.provide('lgb.world.model.EnvelopeModel');
 
-goog.require('lgb.world.model.BaseModel');
+goog.require('lgb.core.BaseModel');
 
 
 /**
  * @constructor
- * @extends lgb.world.model.BaseModel
+ * @extends lgb.core.BaseModel
  */
 lgb.world.model.EnvelopeModel = function() {
 
-  lgb.world.model.BaseModel.call(this);
+  lgb.core.BaseModel.call(this);
   
   this.init();
 };
-goog.inherits(lgb.world.model.EnvelopeModel, lgb.world.model.BaseModel);
+goog.inherits(lgb.world.model.EnvelopeModel, lgb.core.BaseModel);
 
 
 /**
@@ -30,7 +30,7 @@ lgb.world.model.EnvelopeModel.prototype.init = function() {
   /**@const */
   this._TITLE = 'Envelope Model';
 
-  lgb.world.model.BaseModel.call(this);
+  lgb.core.BaseModel.call(this);
 
   this.floorCount = 5;
   this.floorHeight = 11;

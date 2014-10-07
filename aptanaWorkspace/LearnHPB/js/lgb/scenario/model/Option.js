@@ -10,7 +10,7 @@ goog.require('lgb.scenario.model.NodeBase');
 /**
  * Primarily a container object for Sysvars
  * @constructor
- * @extends lgb.world.model.BaseModel
+ * @extends lgb.core.BaseModel
  * @param {!lgb.utils.XmlWrapper} xmlParser The parse used
  * to populate the object, contains an xml document.
  */
@@ -23,12 +23,36 @@ goog.inherits(lgb.scenario.model.Option, lgb.scenario.model.NodeBase);
 
 
 
-lgb.scenario.model.Option.prototype.parse_ = function(node) {
-  
-  this.setPropertyStr_('name');
-  this.setPropertyStr_('description');
-  this.setPropertyBool_('default');
-  this.setPropertyBool_('disabled');
+lgb.scenario.model.Option.prototype.parseXmlNode_ = function() {
+    
+  var propertyDefaults = this.getPropertyDefaults();
+  this.setPropertyDefaults_();
   
 };
+
+
+
+lgb.scenario.model.Option.prototype.setPropertyDefaults_ = function() {
+    
+  var propertyDefaultsObject = this.getPropertyDefaults();
+  
+  this.setPropertyStr_('name', propertyDefaultsObject.name);
+  this.setPropertyStr_('description', propertyDefaultsObject.description);
+  this.setPropertyBool_('dflt', propertyDefaultsObject.dflt);
+  this.setPropertyBool_('disabled', propertyDefaultsObject.disabled);
+  
+};
+
+lgb.scenario.model.Option.prototype.getPropertyDefaults = function() {
+    
+    var propertyDefaults = {
+        name:"{name not set}",
+        description:"{description not set}",
+        dflt:false,
+        disabled:false
+    };
+    
+    return propertyDefaults;
+};
+
 

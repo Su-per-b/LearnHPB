@@ -19,23 +19,49 @@
 
 goog.provide('goog.fs.FileSystem');
 
+goog.require('goog.fs.DirectoryEntry');
+
 
 
 /**
  * A local filesystem.
  *
- * @interface
+ * This shouldn't be instantiated directly. Instead, it should be accessed via
+ * {@link goog.fs.getTemporary} or {@link goog.fs.getPersistent}.
+ *
+ * @param {!FileSystem} fs The underlying FileSystem object.
+ * @constructor
  */
-goog.fs.FileSystem = function() {};
+goog.fs.FileSystem = function(fs) {
+  /**
+   * The underlying FileSystem object.
+   *
+   * @type {!FileSystem}
+   * @private
+   */
+  this.fs_ = fs;
+};
 
 
 /**
  * @return {string} The name of the filesystem.
  */
-goog.fs.FileSystem.prototype.getName = function() {};
+goog.fs.FileSystem.prototype.getName = function() {
+  return this.fs_.name;
+};
 
 
 /**
  * @return {!goog.fs.DirectoryEntry} The root directory of the filesystem.
  */
-goog.fs.FileSystem.prototype.getRoot = function() {};
+goog.fs.FileSystem.prototype.getRoot = function() {
+  return new goog.fs.DirectoryEntry(this, this.fs_.root);
+};
+
+
+/**
+ * @return {!FileSystem} The underlying FileSystem object.
+ */
+goog.fs.FileSystem.prototype.getBrowserFileSystem = function() {
+  return this.fs_;
+};

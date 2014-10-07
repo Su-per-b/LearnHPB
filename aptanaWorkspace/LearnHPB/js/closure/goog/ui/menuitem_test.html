@@ -14,12 +14,10 @@ Author: attila@google.com (Attila Bodis)
   <title>Closure Unit Tests - goog.ui.MenuItem</title>
   <script src="../base.js"></script>
   <script>
-    goog.require('goog.a11y.aria');
-    goog.require('goog.a11y.aria.Role');
     goog.require('goog.array');
     goog.require('goog.dom');
     goog.require('goog.dom.NodeType');
-    goog.require('goog.dom.classlist');
+    goog.require('goog.dom.classes');
     goog.require('goog.events.KeyCodes');
     goog.require('goog.testing.events');
     goog.require('goog.testing.jsunit');
@@ -198,9 +196,6 @@ Author: attila@google.com (Attila Bodis)
       item.createDom();
       assertTrue('Item must have checkbox structure',
           item.getRenderer().hasCheckBoxStructure(item.getElement()));
-      assertEquals('Element must have ARIA role menuitemcheckbox',
-      goog.a11y.aria.Role.MENU_ITEM_CHECKBOX,
-      goog.a11y.aria.getRole(item.getElement()));
       item.setCheckable(false);
       assertFalse('Item must no longer have checkbox structure',
           item.getRenderer().hasCheckBoxStructure(item.getElement()));
@@ -211,9 +206,6 @@ Author: attila@google.com (Attila Bodis)
       item.setSelectable(true);
       assertTrue('Item must have checkbox structure',
           item.getRenderer().hasCheckBoxStructure(item.getElement()));
-      assertEquals('Element must have ARIA role menuitemradio',
-      goog.a11y.aria.Role.MENU_ITEM_RADIO,
-      goog.a11y.aria.getRole(item.getElement()));
       item.setSelectable(false);
       assertFalse('Item must no longer have checkbox structure',
           item.getRenderer().hasCheckBoxStructure(item.getElement()));
@@ -313,14 +305,9 @@ Author: attila@google.com (Attila Bodis)
       assertEquals('getCaption() must not return the accelerator', 'Hello',
           item.getCaption());
 
-      item.setCaption([
-        goog.dom.createDom('span',goog.getCssName('goog-menuitem-accel'), 'Ctrl+1')
-      ]);
+      item.setCaption('');
       assertEquals('getCaption() must return empty string', '',
           item.getCaption());
-
-      assertEquals('getAccelerator() should return the accelerator', 'Ctrl+1',
-          item.getAccelerator());
     }
 
     function testGetSetCaptionForItemWithMnemonics() {
@@ -369,7 +356,7 @@ Author: attila@google.com (Attila Bodis)
       var contentElement = item.getContentElement();
       assertNotNull('Content element must exist', contentElement);
       assertTrue('Content element must have expected class name',
-          goog.dom.classlist.contains(contentElement,
+          goog.dom.classes.has(contentElement,
               item.getRenderer().getStructuralCssClass() + '-content'));
       assertHTMLEquals('Content element must have expected structure',
           'Item', contentElement.innerHTML);
@@ -391,7 +378,7 @@ Author: attila@google.com (Attila Bodis)
       assertTrue('Item must have checkbox structure',
           item.getRenderer().hasCheckBoxStructure(item.getElement()));
       assertTrue('Item must have selected style',
-          goog.dom.classlist.contains(item.getElement(),
+          goog.dom.classes.has(item.getElement(),
               item.getRenderer().getClassForState(
                   goog.ui.Component.State.SELECTED)));
     }
@@ -412,7 +399,7 @@ Author: attila@google.com (Attila Bodis)
       assertTrue('Item must have checkbox structure',
           item.getRenderer().hasCheckBoxStructure(item.getElement()));
       assertTrue('Item must have checked style',
-          goog.dom.classlist.contains(item.getElement(),
+          goog.dom.classes.has(item.getElement(),
               item.getRenderer().getClassForState(
                   goog.ui.Component.State.CHECKED)));
     }
@@ -424,7 +411,7 @@ Author: attila@google.com (Attila Bodis)
       assertEquals('Decorated element must be as expected', foo,
           item.getElement());
       assertTrue('Decorated element must have expected class name',
-          goog.dom.classlist.contains(item.getElement(),
+          goog.dom.classes.has(item.getElement(),
               item.getRenderer().getCssClass()));
       assertEquals('Content element must be the decorated element\'s child',
           item.getContentElement(), item.getElement().firstChild);
@@ -439,7 +426,7 @@ Author: attila@google.com (Attila Bodis)
       assertEquals('Decorated element must be as expected', foo,
           item.getElement());
       assertTrue('Decorated element must have expected class name',
-          goog.dom.classlist.contains(item.getElement(),
+          goog.dom.classes.has(item.getElement(),
               item.getRenderer().getCssClass()));
       assertEquals('Content element must be the decorated element\'s child',
           item.getContentElement(), item.getElement().firstChild);
@@ -457,7 +444,7 @@ Author: attila@google.com (Attila Bodis)
           item.getElement());
       assertSameElements('Decorated element must have expected class names',
           ['goog-menuitem', 'goog-option', 'goog-option-selected'],
-          goog.dom.classlist.get(item.getElement()));
+          goog.dom.classes.get(item.getElement()));
       assertEquals('Content element must be the decorated element\'s child',
           item.getContentElement(), item.getElement().firstChild);
       assertTrue('Item must have checkbox structure',
@@ -473,7 +460,7 @@ Author: attila@google.com (Attila Bodis)
       assertEquals('Decorated element must be as expected', foo,
           item.getElement());
       assertTrue('Decorated element must have expected class name',
-          goog.dom.classlist.contains(item.getElement(),
+          goog.dom.classes.has(item.getElement(),
               item.getRenderer().getCssClass()));
       assertEquals('Content element must be the decorated element\'s child',
           item.getContentElement(), item.getElement().firstChild);
@@ -491,7 +478,7 @@ Author: attila@google.com (Attila Bodis)
       assertEquals('Decorated element must be as expected', foo,
           item.getElement());
       assertTrue('Decorated element must have expected class name',
-          goog.dom.classlist.contains(item.getElement(),
+          goog.dom.classes.has(item.getElement(),
               item.getRenderer().getCssClass()));
       assertEquals('Content element must be the decorated element\'s child',
           item.getContentElement(), item.getElement().firstChild);
@@ -515,7 +502,7 @@ Author: attila@google.com (Attila Bodis)
           item.getElement());
       assertSameElements('Decorated element must have expected class names',
           ['goog-menuitem', 'goog-option', 'goog-option-selected'],
-          goog.dom.classlist.get(item.getElement()));
+          goog.dom.classes.get(item.getElement()));
       assertEquals('Content element must be the decorated element\'s child',
           item.getContentElement(), item.getElement().firstChild);
       assertTrue('Item must have checkbox structure',

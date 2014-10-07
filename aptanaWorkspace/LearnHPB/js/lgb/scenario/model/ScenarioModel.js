@@ -5,10 +5,11 @@
  
 goog.provide('lgb.scenario.model.ScenarioModel');
 
-goog.require('lgb.world.model.BaseModel');
+goog.require('lgb.core.BaseModel');
 goog.require('lgb.scenario.model.SystemList');
 goog.require('lgb.utils.XmlWrapper');
 goog.require('lgb.core.Config');
+goog.require('lgb.simulation.model.DisplayUnitSystem');
 
 
 /**
@@ -17,16 +18,18 @@ goog.require('lgb.core.Config');
  */
 lgb.scenario.model.ScenarioModel = function() {
 
-  lgb.world.model.BaseModel.call(this);
+  lgb.core.BaseModel.call(this);
   
   this.xml = null;
   this.systemNodeArray = [];
   this.idxToNodeMap = {};
   this.selectedSystemNode = null;
-
+  
+  this.loadSuccessDelegate_ = this.d(this.loadSuccess_);
+  this.loadErrorDelegate_ = this.d(this.loadError_);
 
 };
-goog.inherits(lgb.scenario.model.ScenarioModel, lgb.world.model.BaseModel);
+goog.inherits(lgb.scenario.model.ScenarioModel, lgb.core.BaseModel);
 
 
 
@@ -34,8 +37,6 @@ goog.inherits(lgb.scenario.model.ScenarioModel, lgb.world.model.BaseModel);
  * Loads the scario from a remote XML file.
  */
 lgb.scenario.model.ScenarioModel.prototype.load = function(fileName) {
-  
-  
   
   var url = lgb.core.Config.WEBROOT + lgb.core.Config.XML_BASE_PATH + fileName + ".xml";
 
@@ -45,18 +46,35 @@ lgb.scenario.model.ScenarioModel.prototype.load = function(fileName) {
       type: 'GET',
       url: url,
       dataType: 'xml',
-      success: delegate
-    });
+      success: this.loadSuccessDelegate_,
+      error: this.loadErrorDelegate_
+    }); 
     
 };
 
+
+lgb.scenario.model.ScenarioModel.prototype.loadError_ = function(req, status, err ) {
+
+    console.log( 'something went wrong', status, err );
+
+    debugger;
+
+};
+
+
+
+lgb.scenario.model.ScenarioModel.prototype.getChildren = function( ) {
+
+    return this.systemList.getChildren();
+
+};
 
 
 /**
  * After the XML  file is loaded it is parsed here.
  * @param {Document} xml The XML document to parse.
  */
-lgb.scenario.model.ScenarioModel.prototype.parse = function(xml) {
+lgb.scenario.model.ScenarioModel.prototype.loadSuccess_ = function(xml) {
 
   var xmlWrapper = new lgb.utils.XmlWrapper(xml);
   var node = xmlWrapper.makeRootNode('/SystemList');
@@ -67,12 +85,58 @@ lgb.scenario.model.ScenarioModel.prototype.parse = function(xml) {
   
   this.systemList = new lgb.scenario.model.SystemList(node);
   
- // this.systemMap = systemList.systemMap;
- // this.systemList = this.systemList.systemList;
-  
   this.triggerLocal(e.DataModelInitialized);
 
 };
+
+
+
+
+
+lgb.scenario.model.ScenarioModel.prototype.updateDisplayUnitSystem = function() {
+  
+    
+
+  if (undefined != this.systemList) {
+
+    this.systemList.updateDisplayUnitSystem();
+    
+  }
+
+};
+
+
+lgb.scenario.model.ScenarioModel.prototype.getVarList = function() {
+  
+    var varList = this.systemList.getVarList();
+    return varList;
+    
+};
+
+
+
+
+
+/*
+lgb.scenario.model.ScenarioModel.prototype.toggleDisplayUnitSystem = function() {
+  
+    
+  this.displayUnitSystem.toggle();
+  //
+   
+  if (undefined != this.systemList) {
+
+    this.systemList.setDisplayUnitSystem(this.displayUnitSystem);
+    
+  }
+  
+  this.dispatchChangedEx('displayUnitSystem', this.displayUnitSystem);
+
+};
+ */
+
+
+
 
 
 

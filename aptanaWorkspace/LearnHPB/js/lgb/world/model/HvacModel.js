@@ -5,19 +5,19 @@
  
 goog.provide('lgb.world.model.HvacModel');
 
-goog.require('lgb.world.model.BaseModel');
+goog.require('lgb.core.BaseModel');
 
 
 /**
  * @constructor
- * @extends lgb.world.model.BaseModel
+ * @extends lgb.core.BaseModel
  */
 lgb.world.model.HvacModel = function() {
   this._TITLE = 'Ductwork';
-  lgb.world.model.BaseModel.call(this);
+  lgb.core.BaseModel.call(this);
 
 };
-goog.inherits(lgb.world.model.HvacModel, lgb.world.model.BaseModel);
+goog.inherits(lgb.world.model.HvacModel, lgb.core.BaseModel);
 
 
 

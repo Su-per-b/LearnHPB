@@ -5,7 +5,6 @@
  
 goog.provide('lgb.scenario.model.SystemList');
 goog.require('lgb.scenario.model.NodeBase');
-
 goog.require('lgb.utils.XmlWrapper');
 goog.require('lgb.scenario.model.System');
 
@@ -13,7 +12,7 @@ goog.require('lgb.scenario.model.System');
 /**
  * Primarily a container object for Sysvars
  * @constructor
- * @extends lgb.world.model.BaseModel
+ * @extends lgb.core.BaseModel
  * @param {!lgb.utils.XmlWrapper} xmlParser The parse used
  * to populate the object, contains an xml document.
  */
@@ -26,13 +25,16 @@ goog.inherits(lgb.scenario.model.SystemList, lgb.scenario.model.NodeBase);
 
 
 
-lgb.scenario.model.SystemList.prototype.parse_ = function(node) {
-  this.setPropertyStr_('name');
-  this.systemMap_ = {};
+lgb.scenario.model.SystemList.prototype.parseXmlNode_ = function() {
+    
+  var propertyDefaults = this.getPropertyDefaults();
+  this.setPropertyStr_('name', propertyDefaults.name);
   
+  this.systemMap_ = {};
   this.makeChildren_();
   
 };
+
 
 
 lgb.scenario.model.SystemList.prototype.parseChild_ = function(childNode) {
@@ -65,6 +67,16 @@ lgb.scenario.model.SystemList.prototype.getSystem = function(name) {
 
 lgb.scenario.model.SystemList.childClassMap = {
     "System" : lgb.scenario.model.System
+};
+
+
+lgb.scenario.model.SystemList.prototype.getPropertyDefaults = function() {
+    
+    var propertyDefaults = {
+        name:"{name not set}"
+    };
+    
+    return propertyDefaults;
 };
 
 

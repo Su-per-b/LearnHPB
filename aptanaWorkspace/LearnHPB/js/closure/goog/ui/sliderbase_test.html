@@ -16,7 +16,7 @@ See the COPYING file for details.
   goog.require('goog.dom');
   goog.require('goog.a11y.aria');
   goog.require('goog.a11y.aria.State');
-  goog.require('goog.dom.classlist');
+  goog.require('goog.dom.classes');
   goog.require('goog.events');
   goog.require('goog.events.EventType');
   goog.require('goog.events.KeyCodes');
@@ -100,20 +100,18 @@ var mockAnimation;
  * @extends {goog.ui.SliderBase}
  */
 function OneThumbSlider() {
-  goog.ui.SliderBase.call(this, undefined /* domHelper */, function(value) {
-    return value > 5 ? 'A big value.' : 'A small value.';
-  });
+  goog.ui.SliderBase.call(this);
 }
 goog.inherits(OneThumbSlider, goog.ui.SliderBase);
 
 
-/** @override */
+/** {@override} */
 OneThumbSlider.prototype.createThumbs = function() {
   this.valueThumb = this.extentThumb = goog.dom.getElement('thumb');
 };
 
 
-/** @override */
+/** {@override} */
 OneThumbSlider.prototype.getCssClass = function(orientation) {
   return goog.getCssName('test-slider', orientation);
 };
@@ -130,7 +128,7 @@ function TwoThumbSlider() {
 goog.inherits(TwoThumbSlider, goog.ui.SliderBase);
 
 
-/** @override */
+/** {@override} */
 TwoThumbSlider.prototype.createThumbs = function() {
   this.valueThumb = goog.dom.getElement('valueThumb');
   this.extentThumb = goog.dom.getElement('extentThumb');
@@ -138,7 +136,7 @@ TwoThumbSlider.prototype.createThumbs = function() {
 };
 
 
-/** @override */
+/** {@override} */
 TwoThumbSlider.prototype.getCssClass = function(orientation) {
   return goog.getCssName('test-slider', orientation);
 };
@@ -225,6 +223,7 @@ function setUp() {
 }
 
 function tearDown() {
+  goog.events.removeAll();
   oneThumbSlider.dispose();
   twoThumbSlider.dispose();
   oneThumbSliderRtl.dispose();
@@ -366,26 +365,6 @@ function testUpdateValueExtent() {
   assertEquals(50, twoThumbSlider.getExtent());
 }
 
-function testValueText() {
-  oneThumbSlider.setValue(10);
-  assertEquals('Setting value results in correct aria-valuetext',
-      'A big value.', goog.a11y.aria.getState(oneThumbSlider.getElement(),
-          goog.a11y.aria.State.VALUETEXT));
-  oneThumbSlider.setValue(2);
-  assertEquals('Updating value results in updated aria-valuetext',
-      'A small value.', goog.a11y.aria.getState(oneThumbSlider.getElement(),
-          goog.a11y.aria.State.VALUETEXT));
-}
-
-function testGetValueText() {
-  oneThumbSlider.setValue(10);
-  assertEquals('Getting the text value gets the correct description',
-      'A big value.', oneThumbSlider.getTextValue());
-  oneThumbSlider.setValue(2);
-  assertEquals('Getting the updated text value gets the correct updated description',
-      'A small value.', oneThumbSlider.getTextValue());
-}
-
 function testRangeListener() {
   var slider = new goog.ui.SliderBase;
   slider.updateUi_ = slider.updateAriaStates = function() {};
@@ -472,34 +451,6 @@ function testKeyHandlingTests() {
       { shiftKey: true });
   assertEquals(0, twoThumbSlider.getValue());
   assertEquals(80, twoThumbSlider.getExtent());
-}
-
-function testKeyHandlingLargeStepSize() {
-  twoThumbSlider.setValue(0);
-  twoThumbSlider.setExtent(100);
-  twoThumbSlider.setStep(5);
-  assertEquals(0, twoThumbSlider.getValue());
-  assertEquals(100, twoThumbSlider.getExtent());
-
-  goog.testing.events.fireKeySequence(
-      twoThumbSlider.getElement(), goog.events.KeyCodes.RIGHT);
-  assertEquals(5, twoThumbSlider.getValue());
-  assertEquals(95, twoThumbSlider.getExtent());
-
-  goog.testing.events.fireKeySequence(
-      twoThumbSlider.getElement(), goog.events.KeyCodes.RIGHT);
-  assertEquals(10, twoThumbSlider.getValue());
-  assertEquals(90, twoThumbSlider.getExtent());
-
-  goog.testing.events.fireKeySequence(
-      twoThumbSlider.getElement(), goog.events.KeyCodes.LEFT);
-  assertEquals(5, twoThumbSlider.getValue());
-  assertEquals(90, twoThumbSlider.getExtent());
-
-  goog.testing.events.fireKeySequence(
-      twoThumbSlider.getElement(), goog.events.KeyCodes.LEFT);
-  assertEquals(0, twoThumbSlider.getValue());
-  assertEquals(90, twoThumbSlider.getExtent());
 }
 
 function testKeyHandlingRtl() {
@@ -670,7 +621,7 @@ function testDisabledAndEnabledSlider() {
   // Disable the slider and check its state
   oneThumbSlider.setEnabled(false);
   assertFalse(oneThumbSlider.isEnabled());
-  assertTrue(goog.dom.classlist.contains(
+  assertTrue(goog.dom.classes.has(
       oneThumbSlider.getElement(), 'goog-slider-disabled'));
   assertEquals(0, oneThumbSlider.getHandler().getListenerCount());
 
@@ -683,7 +634,7 @@ function testDisabledAndEnabledSlider() {
   // Test the transition from disabled to enabled
   oneThumbSlider.setEnabled(true);
   assertTrue(oneThumbSlider.isEnabled());
-  assertFalse(goog.dom.classlist.contains(
+  assertFalse(goog.dom.classes.has(
       oneThumbSlider.getElement(), 'goog-slider-disabled'));
   assertTrue(listenerCount == oneThumbSlider.getHandler().getListenerCount());
 }
@@ -762,28 +713,6 @@ function testMouseClickWithMoveToPointEnabled() {
   assertEquals(oneThumbSlider.getValue(), initialValue);
 }
 
-function testNonIntegerStepSize() {
-  var stepSize = 0.02;
-  oneThumbSlider.setStep(stepSize);
-  oneThumbSlider.setMinimum(-1);
-  oneThumbSlider.setMaximum(1);
-  oneThumbSlider.setValue(0.7);
-  assertRoughlyEquals(0.7, oneThumbSlider.getValue(), 0.000001);
-  oneThumbSlider.setValue(0.3);
-  assertRoughlyEquals(0.3, oneThumbSlider.getValue(), 0.000001);
-}
-
-function testSingleThumbSliderHasZeroExtent() {
-  var stepSize = 0.02;
-  oneThumbSlider.setStep(stepSize);
-  oneThumbSlider.setMinimum(-1);
-  oneThumbSlider.setMaximum(1);
-  oneThumbSlider.setValue(0.7);
-  assertEquals(0, oneThumbSlider.getExtent());
-  oneThumbSlider.setValue(0.3);
-  assertEquals(0, oneThumbSlider.getExtent());
-}
-
 /**
  * Tests getThumbCoordinateForValue method.
  */
@@ -851,48 +780,6 @@ function testValueFromMousePosition() {
   oneThumbSlider.setValue(value / 2);
   assertEquals(
       value, Math.round(oneThumbSlider.getValueFromMousePosition(e)));
-}
-
-/**
- * Tests ignoring click event after mousedown event.
- */
-function testClickAfterMousedown() {
-  // Get the center of the thumb at value zero.
-  oneThumbSlider.setValue(0);
-  var offset = goog.style.getPageOffset(oneThumbSlider.valueThumb);
-  var size = goog.style.getSize(oneThumbSlider.valueThumb);
-  offset.x += size.width / 2;
-  offset.y += size.height / 2;
-
-  var sliderElement = oneThumbSlider.getElement();
-  var width = sliderElement.clientWidth - size.width;
-  var range = oneThumbSlider.getMaximum() - oneThumbSlider.getMinimum();
-  var offsetXAtZero = offset.x;
-
-  // Temporarily control time.
-  var theTime = goog.now();
-  var saveGoogNow = goog.now;
-  goog.now = function() { return theTime; };
-
-  // set coordinate for a particular value.
-  var valueOne = 10;
-  offset.x = offsetXAtZero + Math.round(valueOne / range * width);
-  goog.testing.events.fireMouseDownEvent(sliderElement, null, offset);
-  assertEquals(valueOne, oneThumbSlider.getValue());
-
-  // Verify a click event with another value that follows quickly is ignored.
-  theTime += oneThumbSlider.MOUSE_DOWN_DELAY_ / 2;
-  var valueTwo = 20;
-  offset.x = offsetXAtZero + Math.round(valueTwo / range * width);
-  goog.testing.events.fireClickEvent(sliderElement, null, offset);
-  assertEquals(valueOne, oneThumbSlider.getValue());
-
-  // Verify a click later in time does move the thumb.
-  theTime += oneThumbSlider.MOUSE_DOWN_DELAY_;
-  goog.testing.events.fireClickEvent(sliderElement, null, offset);
-  assertEquals(valueTwo, oneThumbSlider.getValue());
-
-  goog.now = saveGoogNow;
 }
 
 /**

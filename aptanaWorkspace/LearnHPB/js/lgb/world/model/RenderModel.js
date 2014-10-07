@@ -5,13 +5,13 @@
  
 goog.provide('lgb.world.model.RenderModel');
 
-goog.require('lgb.world.model.BaseModel');
+goog.require('lgb.core.BaseModel');
 
 
 
 /**
  * @constructor
- * @extends lgb.world.model.BaseModel
+ * @extends lgb.core.BaseModel
  */
 lgb.world.model.RenderModel = function() {
 
@@ -19,7 +19,7 @@ lgb.world.model.RenderModel = function() {
 
   
 };
-goog.inherits(lgb.world.model.RenderModel, lgb.world.model.BaseModel);
+goog.inherits(lgb.world.model.RenderModel, lgb.core.BaseModel);
 
 
 

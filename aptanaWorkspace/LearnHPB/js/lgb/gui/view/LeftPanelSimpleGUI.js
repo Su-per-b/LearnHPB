@@ -31,10 +31,16 @@ lgb.gui.view.LeftPanelSimpleGUI.prototype.init_ = function() {
 
 lgb.gui.view.LeftPanelSimpleGUI.prototype.add = function(gui) {
 
-
   var el = this.getMainElement();
   gui.injectInto(el);
   
+};
+
+
+lgb.gui.view.LeftPanelSimpleGUI.prototype.setNewUnit = function(newUnit) {
+
+  var el = this.getMainElement();
+
 };
 
 
@@ -46,7 +52,6 @@ lgb.gui.view.LeftPanelSimpleGUI.prototype.injectInto = function(parentElement) {
     
   var el = this.getMainElement();
   
-    
    var titleDiv = $('<div>')
     .attr('title', 'Learn High Performance Buildings')
     .addClass("logo-lhpb");
@@ -63,18 +68,7 @@ lgb.gui.view.LeftPanelSimpleGUI.prototype.injectInto = function(parentElement) {
 
    Tipped.create(titleDiv, toolTipConfig);
   
-  
    this.append(titleDiv);
-   
- 
    parentElement.append(el);  
      
-
-
-  
-    
 };
-
-
-
-

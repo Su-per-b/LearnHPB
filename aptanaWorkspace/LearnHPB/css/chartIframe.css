@@ -6,18 +6,51 @@ svg {
  
 .line {
   fill: none;
-  stroke: #a00;
+  stroke: #fff;
   stroke-width: 1.5px;
 }
  
 .axis path,
 .axis line {
   fill: none;
-  stroke: #a00;
+  stroke: #fff;
   shape-rendering: crispEdges;
 }
+
+
+.tick {
+  color: #fff;
+}
+
+
 
 html {
   background-color : #ffffff;
   
 }
+
+
+svg {
+  font: 10px sans-serif;
+}
+ 
+
+ 
+.text-anchor {
+   color: #fff;
+}
+
+g.tick {
+  color: #fff;
+  fill:#fff;
+  stroke: #fff;
+}
+
+
+/*
+#bottomPanelGUI-tabStrip .k-content  {
+  
+  background-color:#FFFFFF;
+  
+}
+*/

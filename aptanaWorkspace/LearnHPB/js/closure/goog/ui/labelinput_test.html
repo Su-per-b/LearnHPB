@@ -53,28 +53,26 @@ function testSetLabel() {
   labelInput.setLabel('search');
   assertEquals('label is set', 'search', labelInput.getLabel());
 
+  // When browsers support the placeholder attribute, we use that instead of
+  // the value property - and this test will fail.
+  if (isPlaceholderSupported()) {
+    return;
+  }
+
   labelInput.createDom();
   labelInput.enterDocument();
   mockClock.tick(10);
+  assertEquals('label is rendered', 'search', labelInput.getElement().value);
   assertNotNull(labelInput.getElement());
-  assertLabelValue(labelInput, 'search');
+  assertEquals('label should have aria-label attribute \'search\'', 'search',
+      goog.a11y.aria.getState(labelInput.getElement(),
+          goog.a11y.aria.State.LABEL));
 
   labelInput.setLabel('new label');
-  assertLabelValue(labelInput, 'new label');
-}
-
-function assertLabelValue(labelInput, expectedLabel) {
-  assertEquals(
-      'label should have aria-label attribute \'' + expectedLabel + '\'',
-      expectedLabel, goog.a11y.aria.getState(labelInput.getElement(),
+  assertEquals('label is updated', 'new label', labelInput.getElement().value);
+  assertEquals('label should have aria-label attribute \'new label\'',
+      'new label', goog.a11y.aria.getState(labelInput.getElement(),
           goog.a11y.aria.State.LABEL));
-  // When browsers support the placeholder attribute, we use that instead of
-  // the value property - and this test will fail.
-  if (!isPlaceholderSupported()) {
-    assertEquals('label is updated', expectedLabel, labelInput.getElement().value);
-  } else {
-    assertEquals('value is empty', '', labelInput.getElement().value);
-  }
 }
 
 function testPlaceholderAttribute() {
@@ -151,43 +149,6 @@ function testDecorateElementWithFocus() {
     assertEquals('label not rendered for blurred element',
         'search', labelInput.getElement().value);
   }
-}
-
-function testDecorateElementWithFocusDelay() {
-  if (isPlaceholderSupported()) {
-    return; // Delay only affects the older browsers.
-  }
-  var placeholder = 'search';
-
-  labelInput = new goog.ui.LabelInput();
-  labelInput.setLabel(placeholder);
-  var delay = 150;
-  labelInput.labelRestoreDelayMs = delay;
-
-  var decoratedElement = goog.dom.getElement('i');
-
-  decoratedElement.value = '';
-  decoratedElement.focus();
-
-  labelInput.decorate(decoratedElement);
-  labelInput.enterDocument();
-  // wait for all initial setup to settle
-  mockClock.tick(delay);
-
-  // NOTE(user): element.blur() doesn't seem to trigger the BLUR event in
-  // IE in the test environment. This could be related to the IE issues with
-  // testClassName() below.
-  goog.testing.events.fireBrowserEvent(
-      new goog.testing.events.Event(
-          goog.events.EventType.BLUR, decoratedElement));
-
-  mockClock.tick(delay - 1);
-  assertEquals('label should not be restored before labelRestoreDelay',
-      '', labelInput.getElement().value);
-
-  mockClock.tick(1);
-  assertEquals('label not rendered for blurred element with labelRestoreDelay',
-      placeholder, labelInput.getElement().value);
 }
 
 function testClassName() {

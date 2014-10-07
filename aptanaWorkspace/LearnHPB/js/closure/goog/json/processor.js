@@ -23,7 +23,6 @@ goog.require('goog.string.Parser');
 goog.require('goog.string.Stringifier');
 
 
-
 /**
  * An interface for JSON parsing and serialization.
  * @interface

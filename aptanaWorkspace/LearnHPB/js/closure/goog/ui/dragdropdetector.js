@@ -44,10 +44,9 @@ goog.require('goog.userAgent');
  *     the demos directory.
  * @constructor
  * @extends {goog.events.EventTarget}
- * @final
  */
 goog.ui.DragDropDetector = function(opt_filePath) {
-  goog.ui.DragDropDetector.base(this, 'constructor');
+  goog.base(this);
 
   var iframe = goog.dom.createDom(goog.dom.TagName.IFRAME, {
     'frameborder': 0
@@ -218,7 +217,7 @@ goog.ui.DragDropDetector.prototype.window_ = null;
 
 /**
  * The iframe's document, null if the iframe hasn't loaded yet.
- * @type {Document}
+ * @type {HTMLDocument}
  * @private
  */
 goog.ui.DragDropDetector.prototype.document_ = null;
@@ -402,7 +401,7 @@ goog.ui.DragDropDetector.prototype.uncoverScreen_ = function() {
 goog.ui.DragDropDetector.prototype.switchToInput_ = function(e) {
   // This is only called on IE.
   if (this.isCoveringScreen_) {
-    goog.style.setElementShown(this.textInput_, true);
+    goog.style.showElement(this.textInput_, true);
   }
 };
 
@@ -416,7 +415,7 @@ goog.ui.DragDropDetector.prototype.switchToInput_ = function(e) {
 goog.ui.DragDropDetector.prototype.switchToIframe_ = function(e) {
   // This is only called on IE.
   if (this.isCoveringScreen_) {
-    goog.style.setElementShown(this.textInput_, false);
+    goog.style.showElement(this.textInput_, false);
     this.isShowingInput_ = false;
   }
 };
@@ -560,7 +559,7 @@ goog.ui.DragDropDetector.prototype.handleNodeInserted_ = function(e) {
 
 /** @override */
 goog.ui.DragDropDetector.prototype.disposeInternal = function() {
-  goog.ui.DragDropDetector.base(this, 'disposeInternal');
+  goog.base(this, 'disposeInternal');
   this.handler_.dispose();
   this.handler_ = null;
 };
@@ -574,11 +573,9 @@ goog.ui.DragDropDetector.prototype.disposeInternal = function() {
  *     occurred.
  * @constructor
  * @extends {goog.events.Event}
- * @final
  */
 goog.ui.DragDropDetector.ImageDropEvent = function(url, position) {
-  goog.ui.DragDropDetector.ImageDropEvent.base(this, 'constructor',
-      goog.ui.DragDropDetector.EventType.IMAGE_DROPPED);
+  goog.base(this, goog.ui.DragDropDetector.EventType.IMAGE_DROPPED);
 
   /**
    * The url of the image that was dropped.
@@ -622,11 +619,9 @@ goog.ui.DragDropDetector.ImageDropEvent.prototype.getPosition = function() {
  * @param {string} url The url of the dropped link.
  * @constructor
  * @extends {goog.events.Event}
- * @final
  */
 goog.ui.DragDropDetector.LinkDropEvent = function(url) {
-  goog.ui.DragDropDetector.LinkDropEvent.base(this, 'constructor',
-      goog.ui.DragDropDetector.EventType.LINK_DROPPED);
+  goog.base(this, goog.ui.DragDropDetector.EventType.LINK_DROPPED);
 
   /**
    * The url of the link that was dropped.

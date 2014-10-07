@@ -67,7 +67,10 @@ lgb.core.BaseClass.prototype.triggerLocal = function(type, payload) {
   
   
   var event = new lgb.core.Event(type, payload);
-  goog.events.dispatchEvent(this, event);
+ // goog.events.dispatchEvent(this, event);
+  
+  this.dispatchEvent(event);
+  
 };
 
 
@@ -132,12 +135,18 @@ lgb.core.BaseClass.prototype.listenHelper_ = function(
   eventTarget, eventType, handlerContext, handler) {
 
   /**@type {Function} */
-  var delegate = jQuery.proxy(handler, handlerContext);
+  //var delegate = jQuery.proxy(handler, handlerContext);
 
- var key = goog.events.listen(
-    eventTarget,
-    eventType,
-    delegate);
+ // var key = goog.events.listen(
+    // eventTarget,
+    // eventType,
+    // delegate);
+
+  //var key = goog.events.listen_(eventTarget, eventType, handler, false, handlerContext);
+    
+
+  var key = eventTarget.addEventListener (eventType, handler, false, handlerContext);
+
 
   return key;
 
@@ -194,7 +203,62 @@ lgb.core.BaseClass.prototype.listenOnceHelper_ = function(
     eventTarget,
     eventType,
     delegate);
+    
+    
+ 
 };
+
+
+lgb.core.BaseClass.prototype.getAdditionalArguments = function(theArguments, count) {
+  
+  var additionalArgs = null;
+  var allArguments = Array.prototype.slice.call(theArguments);
+  var len = allArguments.length;
+  if (len > count) {
+    additionalArgs = allArguments.slice(count, len);
+  }
+  
+  return additionalArgs;
+};
+
+
+/**
+ * loop though the array and
+ * supply each element as an argument
+ *  to the handler
+ * @param {Array} ary The array to loop though.
+ * @param {String} handler name The handler to call.
+ * additional argument to pass along for all function calls
+ * additional argument to pass along for all function calls
+ * additional argument to pass along for all function calls
+ * @protected
+ */
+lgb.core.BaseClass.prototype.eachHandlerName = function(ary, handlerName) {
+
+  var additionalArgs = this.getAdditionalArguments(arguments,2);
+  
+  var l = ary.length;
+  for (var i = 0; i < l; i++) {
+    var arrayElement = ary[i];
+    
+    var argList = [];
+    
+    if(null != additionalArgs) {
+      argList = argList.concat(additionalArgs);
+    }
+    
+    var theHander = arrayElement[handlerName];
+    
+    if (undefined == theHander) {
+        debugger;
+    }
+    
+    theHander.apply(arrayElement, argList);
+  }
+};
+
+
+
 
 /**
  * loop though the array and
@@ -208,12 +272,14 @@ lgb.core.BaseClass.prototype.listenOnceHelper_ = function(
  * @protected
  */
 lgb.core.BaseClass.prototype.each = function(ary, handler) {
-  var additionalArgs = null;
-  var allArguments = Array.prototype.slice.call(arguments);
-  var len = allArguments.length;
-  if (len > 2) {
-    additionalArgs = allArguments.slice(2, len);
-  }
+  // var additionalArgs = null;
+  // var allArguments = Array.prototype.slice.call(arguments);
+  // var len = allArguments.length;
+  // if (len > 2) {
+    // additionalArgs = allArguments.slice(2, len);
+  // }
+  
+  var additionalArgs = this.getAdditionalArguments(arguments,2);
   
   var l = ary.length;
   for (var i = 0; i < l; i++) {
@@ -225,6 +291,10 @@ lgb.core.BaseClass.prototype.each = function(ary, handler) {
       argList = argList.concat(additionalArgs);
     }
     
+    if (undefined == handler) {
+        debugger;
+    }
+    
     handler.apply(this, argList);
   }
 };
@@ -234,12 +304,14 @@ lgb.core.BaseClass.prototype.each = function(ary, handler) {
 
 lgb.core.BaseClass.prototype.eachProperty = function(object, handler) {
   
-  var additionalArgs = null;
-  var allArguments = Array.prototype.slice.call(arguments);
-  var len = allArguments.length;
-  if (len > 2) {
-    additionalArgs = allArguments.slice(2, len);
-  }
+  // var additionalArgs = null;
+  // var allArguments = Array.prototype.slice.call(arguments);
+  // var len = allArguments.length;
+  // if (len > 2) {
+    // additionalArgs = allArguments.slice(2, len);
+  // }
+  
+  var additionalArgs = this.getAdditionalArguments(arguments,2);
   
   for(var propertyName in object) {
 
@@ -257,12 +329,14 @@ lgb.core.BaseClass.prototype.eachProperty = function(object, handler) {
 
 lgb.core.BaseClass.prototype.eachPropertyName = function(object, handler) {
   
-  var additionalArgs = null;
-  var allArguments = Array.prototype.slice.call(arguments);
-  var len = allArguments.length;
-  if (len > 2) {
-    additionalArgs = allArguments.slice(2, len);
-  }
+  // var additionalArgs = null;
+  // var allArguments = Array.prototype.slice.call(arguments);
+  // var len = allArguments.length;
+  // if (len > 2) {
+    // additionalArgs = allArguments.slice(2, len);
+  // }
+  
+  var additionalArgs = this.getAdditionalArguments(arguments,2);
   
   for(var propertyName in object) {
 
@@ -319,12 +393,14 @@ lgb.core.BaseClass.prototype.eachPropertyName = function(object, handler) {
  * @protected
  */
 lgb.core.BaseClass.prototype.eachIdx = function(ary, handler) {
-  var additionalArgs = null;
-  var allArguments = Array.prototype.slice.call(arguments);
-  var len = allArguments.length;
-  if (len > 2) {
-    additionalArgs = allArguments.slice(2, len);
-  }
+  // var additionalArgs = null;
+  // var allArguments = Array.prototype.slice.call(arguments);
+  // var len = allArguments.length;
+  // if (len > 2) {
+    // additionalArgs = allArguments.slice(2, len);
+  // }
+  
+  var additionalArgs = this.getAdditionalArguments(arguments,2);
   
   var l = ary.length;
   for (var i = 0; i < l; i++) {
@@ -375,9 +451,51 @@ lgb.core.BaseClass.prototype.getClassConstructor = function() {
   
   var fullClassName = this.getFullClassName();
   var classConstructor = eval(fullClassName);
-
+  goog.asserts.assertFunction(classConstructor);
+  
   return classConstructor;
 };
+
+
+lgb.core.BaseClass.prototype.translateObject_ = function(srcObj, map) {
+    
+    if (undefined == map) {
+        var ownClass = this.getClassConstructor();
+        map = ownClass.classTranslationMap;
+    }
+    
+    return lgb.core.BaseClass.translateObjectWithMap(srcObj, map);
+    
+
+};
+
+
+lgb.core.BaseClass.translateObjectWithMap = function(srcObj, map) {
+    
+    var fullClassName = srcObj.getFullClassName();
+    var classReference = null;
+    
+    if ( map.hasOwnProperty(fullClassName)  ) {
+        classReference = map[fullClassName];
+        
+        if (null == classReference) {
+            debugger;
+            return null;
+        } else {
+            goog.asserts.assertFunction(classReference);
+            
+            var destObj = new classReference();
+            return destObj;
+        }
+
+    } else {
+        return null;
+    }
+    
+};
+
+
+
 
 
 

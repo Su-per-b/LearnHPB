@@ -1,7 +1,6 @@
 goog.provide('lgb.gui.controller.SimulationStateController');
 
 goog.require('lgb.core.BaseController');
-goog.require('lgb.gui.view.SimulationStateControlGUIh');
 goog.require('lgb.gui.view.SimulationStateControlGUI');
 
 
@@ -34,9 +33,7 @@ lgb.gui.controller.SimulationStateController.prototype.init = function(simulatio
   this.simulationMainController_ = simulationMainController;
   this.dataModel = this.simulationMainController_.getDataModel();
     
-  this.guiView = new lgb.gui.view.SimulationStateControlGUIh(this.dataModel);
-  
-  
+  this.guiView = new lgb.gui.view.SimulationStateControlGUI(this.dataModel);
   this.bind_();
   
   this.guiView.init();
@@ -56,7 +53,25 @@ lgb.gui.controller.SimulationStateController.prototype.bind_ = function() {
     );
     
     
+    this.listenTo (
+        this.guiView,
+        e.DisplayUnitSystemChangeRequest,
+        this.onDisplayUnitSystemChangeRequest_
+    );
+    
 
+};
+
+
+
+
+lgb.gui.controller.SimulationStateController.prototype.onDisplayUnitSystemChangeRequest_ = function(event) {
+
+
+      this.dataModel.displayUnitSystem.toggle();
+      
+      this.trigger(e.DisplayUnitSystemChangeNotify, this.dataModel.displayUnitSystem);
+      
 };
 
 

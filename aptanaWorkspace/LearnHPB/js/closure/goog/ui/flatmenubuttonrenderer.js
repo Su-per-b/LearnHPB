@@ -22,8 +22,8 @@
 
 goog.provide('goog.ui.FlatMenuButtonRenderer');
 
-goog.require('goog.dom');
 goog.require('goog.style');
+goog.require('goog.ui.ControlContent');
 goog.require('goog.ui.FlatButtonRenderer');
 goog.require('goog.ui.INLINE_BLOCK_CLASSNAME');
 goog.require('goog.ui.Menu');
@@ -69,22 +69,19 @@ goog.ui.FlatMenuButtonRenderer.CSS_CLASS =
  *    </div>
  * Overrides {@link goog.ui.FlatButtonRenderer#createDom}.
  * @param {goog.ui.Control} control Button to render.
- * @return {!Element} Root element for the button.
+ * @return {Element} Root element for the button.
  * @override
  */
 goog.ui.FlatMenuButtonRenderer.prototype.createDom = function(control) {
   var button = /** @type {goog.ui.Button} */ (control);
   var classNames = this.getClassNames(button);
   var attributes = {
-    'class': goog.ui.INLINE_BLOCK_CLASSNAME + ' ' + classNames.join(' ')
+    'class': goog.ui.INLINE_BLOCK_CLASSNAME + ' ' + classNames.join(' '),
+    'title': button.getTooltip() || ''
   };
-  var element = button.getDomHelper().createDom('div', attributes,
+  return button.getDomHelper().createDom('div', attributes,
       [this.createCaption(button.getContent(), button.getDomHelper()),
        this.createDropdown(button.getDomHelper())]);
-  this.setTooltip(
-      element, /** @type {!string}*/ (button.getTooltip()));
-  this.setAriaStates(button, element);
-  return element;
 };
 
 
@@ -119,7 +116,7 @@ goog.ui.FlatMenuButtonRenderer.prototype.decorate = function(button, element) {
   if (menuElem) {
     // Move the menu element directly under the body, but hide it first; see
     // bug 1089244.
-    goog.style.setElementShown(menuElem, false);
+    goog.style.showElement(menuElem, false);
     button.getDomHelper().getDocument().body.appendChild(menuElem);
 
     // Decorate the menu and attach it to the button.
@@ -175,15 +172,13 @@ goog.ui.FlatMenuButtonRenderer.prototype.createCaption = function(content,
  *      &nbsp;
  *    </div>
  * @param {goog.dom.DomHelper} dom DOM helper, used for document interaction.
- * @return {!Element} Dropdown element.
+ * @return {Element} Dropdown element.
  */
 goog.ui.FlatMenuButtonRenderer.prototype.createDropdown = function(dom) {
   // 00A0 is &nbsp;
-  return dom.createDom('div', {
-    'class': goog.ui.INLINE_BLOCK_CLASSNAME + ' ' +
-        goog.getCssName(this.getCssClass(), 'dropdown'),
-    'aria-hidden': true
-  }, '\u00A0');
+  return dom.createDom('div',
+      goog.ui.INLINE_BLOCK_CLASSNAME + ' ' +
+      goog.getCssName(this.getCssClass(), 'dropdown'), '\u00A0');
 };
 
 

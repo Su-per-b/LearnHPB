@@ -6,6 +6,10 @@ import subprocess
 
 CLOSURE_COMPILER_FILE = r'compilers\closure-compiler.jar'
 YUI_COMPILER_FILE = r'compilers\yuicompressor-2.4.2.jar'
+CLOSURE_BUILDER = r'closurebuilder\closurebuilder.py'
+PYTHON_EXE = r'C:\python\Python2.7\python.exe'
+CALC_DEPS = r'compilers\calcdeps.py'
+
 
 
 def printFileList(title, fileList):
@@ -156,7 +160,7 @@ def buildLgb(includesFileList=None):
     
     cmdAry3 = []
     
-    cmdAry3 += [r'C:\python\Python2.7\python.exe', r'compilers\closurebuilder.py']
+    cmdAry3 += [PYTHON_EXE, CLOSURE_BUILDER]
     cmdAry3 += includeAry
     cmdAry3 += rootAry
     cmdAry3 += namespaceAry
@@ -176,7 +180,7 @@ def buildLgb(includesFileList=None):
 
     cmdAry1 = []
     
-    cmdAry1 += [r'C:\python\Python2.7\python.exe', r'compilers\calcdeps.py']
+    cmdAry1 += [PYTHON_EXE, CALC_DEPS]
     cmdAry1 += includeAry
     cmdAry1 += pathAry
     cmdAry1 += ['--output_mode', 'script']
@@ -193,7 +197,7 @@ def buildLgb(includesFileList=None):
 
     cmdAry2 = []
     
-    cmdAry2 += [r'C:\python\Python2.7\python.exe', r'compilers\calcdeps.py']
+    cmdAry2 += [PYTHON_EXE, CALC_DEPS]
     cmdAry2 += includeAry
     cmdAry2 += pathAry
     cmdAry2 += ['--output_mode', 'compiled']

@@ -11,7 +11,7 @@ goog.require('lgb.scenario.model.NodeBase');
 /**
  * Primarily a container object for Sysvars
  * @constructor
- * @extends lgb.world.model.BaseModel
+ * @extends lgb.core.BaseModel
  * @param {!lgb.utils.XmlWrapper} xmlParser The parse used
  * to populate the object, contains an xml document.
  */
@@ -24,11 +24,36 @@ goog.inherits(lgb.scenario.model.Boolean, lgb.scenario.model.NodeBase);
 
 
 
-lgb.scenario.model.Boolean.prototype.parse_ = function(node) {
+lgb.scenario.model.Boolean.prototype.parseXmlNode_ = function() {
   
-  this.setPropertyBool_('default');  
+    this.setPropertyDefaults_();
 
+};
+
+
+lgb.scenario.model.Boolean.prototype.setPropertyDefaults_ = function() {
+  
+  var propertyDefaults = this.getPropertyDefaults();
+  this.setPropertyBool_(dflt, propertyDefaults.dflt);
   
 };
 
+
+
+lgb.scenario.model.Boolean.prototype.parseXmlNode_ = function() {
+    
+  var propertyDefaults = this.getPropertyDefaults();
+  this.setPropertyBool_(dflt, propertyDefaults.dflt);
+  
+};
+
+lgb.scenario.model.Boolean.prototype.getPropertyDefaults = function() {
+    
+    var propertyDefaults = {
+        dflt:false
+    };
+    
+    
+    return propertyDefaults;
+};
 

@@ -33,21 +33,20 @@ goog.require('goog.vec.Vec3');
  * @param {goog.vec.Vec3.AnyType=} opt_origin The optional origin.
  * @param {goog.vec.Vec3.AnyType=} opt_dir The optional direction.
  * @constructor
- * @final
  */
 goog.vec.Ray = function(opt_origin, opt_dir) {
   /**
-   * @type {goog.vec.Vec3.Float64}
+   * @type {goog.vec.Vec3.Number}
    */
-  this.origin = goog.vec.Vec3.createFloat64();
+  this.origin = goog.vec.Vec3.createNumber();
   if (opt_origin) {
     goog.vec.Vec3.setFromArray(this.origin, opt_origin);
   }
 
   /**
-   * @type {goog.vec.Vec3.Float64}
+   * @type {goog.vec.Vec3.Number}
    */
-  this.dir = goog.vec.Vec3.createFloat64();
+  this.dir = goog.vec.Vec3.createNumber();
   if (opt_dir) {
     goog.vec.Vec3.setFromArray(this.dir, opt_dir);
   }

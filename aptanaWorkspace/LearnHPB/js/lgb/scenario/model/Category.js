@@ -14,7 +14,7 @@ goog.require('lgb.scenario.model.Component');
 /**
  * Primarily a container object for Sysvars
  * @constructor
- * @extends lgb.world.model.BaseModel
+ * @extends lgb.core.BaseModel
  * @param {!lgb.utils.XmlWrapper} xmlParser The parse used
  * to populate the object, contains an xml document.
  */
@@ -27,9 +27,11 @@ goog.inherits(lgb.scenario.model.Category, lgb.scenario.model.NodeBase);
 
 
 
-lgb.scenario.model.Category.prototype.parse_ = function(node) {
+lgb.scenario.model.Category.prototype.parseXmlNode_ = function() {
+  
   this.setNameAndAbbr_();
   this.makeChildren_();
+
 };
 
 
@@ -37,3 +39,4 @@ lgb.scenario.model.Category.childClassMap = {
     "Variable" : lgb.scenario.model.Variable,
     "Component" : lgb.scenario.model.Component
 };
+

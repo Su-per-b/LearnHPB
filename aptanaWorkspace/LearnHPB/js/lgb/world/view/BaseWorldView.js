@@ -15,7 +15,7 @@ goog.require('lgb.core.Config');
  * MVC View base class
  * @constructor
  * @extends {lgb.world.view.BaseV}
- * @param {lgb.world.model.BaseModel=} dataModel that the view with display.
+ * @param {lgb.core.BaseModel=} dataModel that the view with display.
  */
 lgb.world.view.BaseWorldView = function(dataModel) {
   lgb.core.BaseClass.call(this);

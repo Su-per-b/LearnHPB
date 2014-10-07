@@ -40,8 +40,22 @@ lgb.gui.controller.SimulationOutputController.prototype.init = function(simulati
 lgb.gui.controller.SimulationOutputController.prototype.bind_ = function() {
 
     this.listen(e.LayoutChange, this.onLayoutChange_);
+    
+    this.listen(e.IntegratedDataModelVariablesUpdated, this.onIntegratedDataModelVariablesUpdated_);
+
 
 };
+
+
+lgb.gui.controller.SimulationOutputController.prototype.onIntegratedDataModelVariablesUpdated_ = function(event) {
+
+
+  var outputVariables = event.payload.getOutputVariables();
+  
+  this.guiView.updateIntegratedDataModelVariables(outputVariables);
+
+};
+
 
 
 lgb.gui.controller.SimulationOutputController.prototype.onLayoutChange_ = function(event) {

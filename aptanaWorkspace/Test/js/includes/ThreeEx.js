@@ -6,6 +6,10 @@ test.includes = (undefined == test.includes) ?  {} : test.includes;
 test.includes.ThreeEx= function() {};
 
 
+test.includes.ThreeEx.includeAll = function() {
+  test.includes.ThreeEx.init();
+};
+
 test.includes.ThreeEx.init = function() {
   
   
@@ -195,7 +199,8 @@ test.includes.ThreeEx.init = function() {
     "TrackballControlsEx",
     "BoundingBox",
     "CameraEx",
-    "Vector3Ex"
+    "Vector3Ex",
+    "LoaderEx"
     
   ];
   
@@ -206,31 +211,27 @@ test.includes.ThreeEx.init = function() {
 
 
 
-  test.includes.MainLibs.addOneScript("js/three/src/", "Three");
-  test.includes.MainLibs.addScripts("js/three/src/math/", math);
-  test.includes.MainLibs.addScripts("js/three/src/core/", core);
-  test.includes.MainLibs.addScripts("js/three/src/cameras/", cameras);
-  test.includes.MainLibs.addScripts("js/three/src/lights/", lights);
-  test.includes.MainLibs.addScripts("js/three/src/loaders/", loaders);
-  test.includes.MainLibs.addScripts("js/three/src/materials/", materials);
-  test.includes.MainLibs.addScripts("js/three/src/textures/", textures);
-  test.includes.MainLibs.addScripts("js/three/src/objects/", objects);
-  test.includes.MainLibs.addScripts("js/three/src/scenes/", scenes);
-  test.includes.MainLibs.addScripts("js/three/src/extras/shaders/", shaders);
-  test.includes.MainLibs.addScripts("js/three/src/renderers/", renderers);
-  test.includes.MainLibs.addScripts("js/three/src/extras/renderers/plugins/", extras_renderers_plugins);
-  test.includes.MainLibs.addScripts("js/three/src/extras/objects/", extras_objects);
-  test.includes.MainLibs.addScripts("js/three/src/renderers/", renderers2);
-  test.includes.MainLibs.addScripts("js/three/src/renderers/renderables/", renderables);
-  
-  test.includes.MainLibs.addScripts("js/three/src/extras/", extras);
-  
-  test.includes.MainLibs.addScripts("js/three/src/extras/geometries/", extras_geometries);
-  
-  
-  test.includes.MainLibs.addScripts("js/three/src/extras/", extras2);
-  test.includes.MainLibs.addScripts("js/three/custom-src/", customsrc);
-  test.includes.MainLibs.addScripts("js/three/loaders/", loaders2);
+  test.includes.MainLibs.addOneScript("../../LearnHPB/js/three/src/", "Three");
+  test.includes.MainLibs.addScripts("../../LearnHPB/js/three/src/math/", math);
+  test.includes.MainLibs.addScripts("../../LearnHPB/js/three/src/core/", core);
+  test.includes.MainLibs.addScripts("../../LearnHPB/js/three/src/cameras/", cameras);
+  test.includes.MainLibs.addScripts("../../LearnHPB/js/three/src/lights/", lights);
+  test.includes.MainLibs.addScripts("../../LearnHPB/js/three/src/loaders/", loaders);
+  test.includes.MainLibs.addScripts("../../LearnHPB/js/three/src/materials/", materials);
+  test.includes.MainLibs.addScripts("../../LearnHPB/js/three/src/textures/", textures);
+  test.includes.MainLibs.addScripts("../../LearnHPB/js/three/src/objects/", objects);
+  test.includes.MainLibs.addScripts("../../LearnHPB/js/three/src/scenes/", scenes);
+  test.includes.MainLibs.addScripts("../../LearnHPB/js/three/src/extras/shaders/", shaders);
+  test.includes.MainLibs.addScripts("../../LearnHPB/js/three/src/renderers/", renderers);
+  test.includes.MainLibs.addScripts("../../LearnHPB/js/three/src/extras/renderers/plugins/", extras_renderers_plugins);
+  test.includes.MainLibs.addScripts("../../LearnHPB/js/three/src/extras/objects/", extras_objects);
+  test.includes.MainLibs.addScripts("../../LearnHPB/js/three/src/renderers/", renderers2);
+  test.includes.MainLibs.addScripts("../../LearnHPB/js/three/src/renderers/renderables/", renderables);
+  test.includes.MainLibs.addScripts("../../LearnHPB/js/three/src/extras/", extras);
+  test.includes.MainLibs.addScripts("../../LearnHPB/js/three/src/extras/geometries/", extras_geometries);
+  test.includes.MainLibs.addScripts("../../LearnHPB/js/three/src/extras/", extras2);
+  test.includes.MainLibs.addScripts("../../LearnHPB/js/three/custom-src/", customsrc);
+  test.includes.MainLibs.addScripts("../../LearnHPB/js/three/loaders/", loaders2);
 
 
 

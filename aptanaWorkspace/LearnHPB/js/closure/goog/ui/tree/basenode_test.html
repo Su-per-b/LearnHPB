@@ -16,10 +16,7 @@ See the COPYING file for details.
 <script>
 
 goog.require('goog.dom');
-goog.require('goog.dom.classlist');
-goog.require('goog.html.legacyconversions');
-goog.require('goog.html.testing');
-goog.require('goog.testing.PropertyReplacer');
+goog.require('goog.dom.classes');
 goog.require('goog.testing.jsunit');
 goog.require('goog.ui.Component');
 goog.require('goog.ui.tree.BaseNode');
@@ -31,13 +28,6 @@ goog.require('goog.ui.tree.TreeNode');
 </head>
 <body>
 <script>
-
-var stubs = new goog.testing.PropertyReplacer();
-
-function setUp() {
-  // Reset global flags to their defaults.
-  stubs.set(goog.html.legacyconversions, 'ALLOW_LEGACY_CONVERSIONS', true);
-}
 
 function testAdd() {
   var node1 = new goog.ui.tree.TreeNode('node1');
@@ -71,13 +61,12 @@ function testExpandIconAfterAddChild() {
   tree.addChild(node1);
 
   node1.addChild(node2);
-  assertTrue('expand icon of node1 changed to L+', goog.dom.classlist.contains(
+  assertTrue('expand icon of node1 changed to L+', goog.dom.classes.has(
       node1.getExpandIconElement(), 'goog-tree-expand-icon-lplus'));
 
   node1.removeChild(node2);
-  assertFalse('expand icon of node1 changed back to L',
-      goog.dom.classlist.contains(
-          node1.getExpandIconElement(), 'goog-tree-expand-icon-lplus'));
+  assertFalse('expand icon of node1 changed back to L', goog.dom.classes.has(
+      node1.getExpandIconElement(), 'goog-tree-expand-icon-lplus'));
 }
 
 function testExpandEvents() {
@@ -236,34 +225,6 @@ function testInvisibleNodesInRenderedTree() {
   assertContains('Node should be rendered.', 'a', textContent);
   assertContains('Expanded node child should be rendered.', 'b', textContent);
   tree.dispose();
-}
-
-function testConstructor() {
-  var tree = new goog.ui.tree.TreeControl('tree');
-  assertEquals('tree', tree.getHtml());
-
-  tree = new goog.ui.tree.TreeControl(
-      goog.html.testing.newSafeHtmlForTest('tree'));
-  assertEquals('tree', tree.getHtml());
-}
-
-function testSetHtml() {
-  var tree = new goog.ui.tree.TreeControl('');
-  tree.setHtml('<b>tree</b>');
-  assertEquals('<b>tree</b>', tree.getHtml());
-
-  tree = new goog.ui.tree.TreeControl('');
-  tree.setSafeHtml(goog.html.testing.newSafeHtmlForTest('<b>tree</b>'));
-  assertEquals('<b>tree</b>', tree.getHtml());
-}
-
-function testSetHtml_guardedByGlobalFlag() {
-  stubs.set(goog.html.legacyconversions, 'ALLOW_LEGACY_CONVERSIONS', false);
-  assertEquals(
-      'Error: Legacy conversion from string to goog.html types is disabled',
-      assertThrows(function() {
-        new goog.ui.tree.TreeControl('<img src=blag onerror=evil();/>');
-      }).message);
 }
 
 </script>

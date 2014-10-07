@@ -49,13 +49,6 @@ goog.debug.Formatter = function(opt_prefix) {
 
 
 /**
- * Whether to append newlines to the end of formatted log records.
- * @type {boolean}
- */
-goog.debug.Formatter.prototype.appendNewline = true;
-
-
-/**
  * Whether to show absolute time in the DebugWindow.
  * @type {boolean}
  */
@@ -271,11 +264,10 @@ goog.debug.HtmlFormatter.prototype.formatRecord = function(logRecord) {
         goog.string.newLineToBr(goog.string.whitespaceEscape(
             logRecord.getExceptionText() || '')));
   }
-  sb.push('</span>');
-  if (this.appendNewline) {
-    sb.push('<br>');
-  }
+  sb.push('</span><br>');
 
+  // If the logger is enabled, open window and write html message to log
+  // otherwise save it
   return sb.join('');
 };
 
@@ -287,7 +279,6 @@ goog.debug.HtmlFormatter.prototype.formatRecord = function(logRecord) {
  * @param {string=} opt_prefix The prefix to place before text records.
  * @constructor
  * @extends {goog.debug.Formatter}
- * @final
  */
 goog.debug.TextFormatter = function(opt_prefix) {
   goog.debug.Formatter.call(this, opt_prefix);
@@ -319,12 +310,11 @@ goog.debug.TextFormatter.prototype.formatRecord = function(logRecord) {
   if (this.showSeverityLevel) {
     sb.push('[', logRecord.getLevel().name, '] ');
   }
-  sb.push(logRecord.getMessage());
+  sb.push(logRecord.getMessage(), '\n');
   if (this.showExceptionText && logRecord.getException()) {
-    sb.push('\n', logRecord.getExceptionText());
+    sb.push(logRecord.getExceptionText(), '\n');
   }
-  if (this.appendNewline) {
-    sb.push('\n');
-  }
+  // If the logger is enabled, open window and write html message to log
+  // otherwise save it
   return sb.join('');
 };

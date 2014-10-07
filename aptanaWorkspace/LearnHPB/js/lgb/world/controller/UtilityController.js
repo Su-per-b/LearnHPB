@@ -30,12 +30,11 @@ goog.inherits(lgb.world.controller.UtilityController, lgb.core.BaseController);
 lgb.world.controller.UtilityController.prototype.init_ = function() {
 
   if (lgb.core.Config.UTILITY_SHOW_GRID) {
+    
     this.gridView = new lgb.world.view.UtilityGridView();
-    
-    
     this.relay(this.gridView, e.AddToWorldRequest);
-    
     this.gridView.init();
+    
   }
 
   if (lgb.core.Config.UTILITY_SHOW_AXIS) {

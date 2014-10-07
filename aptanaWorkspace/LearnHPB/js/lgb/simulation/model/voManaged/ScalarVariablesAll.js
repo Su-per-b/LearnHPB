@@ -46,6 +46,13 @@ lgb.simulation.model.voManaged.ScalarVariablesAll.prototype.getInternal = functi
 };
 
 
+lgb.simulation.model.voManaged.ScalarVariablesAll.prototype.getAll = function() {
+    
+  var all = this.input_.realVarList_.concat(this.output_.realVarList_); 
+
+  return all;
+};
+
 
 
 lgb.simulation.model.voManaged.ScalarVariablesAll.fieldObjectsEx_ = {

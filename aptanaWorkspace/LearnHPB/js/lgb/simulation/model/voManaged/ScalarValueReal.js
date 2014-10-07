@@ -39,6 +39,3 @@ lgb.simulation.model.voManaged.ScalarValueReal.fieldPrimitivesEx_ = {
    value_: "v"
 };
 
-
-
-

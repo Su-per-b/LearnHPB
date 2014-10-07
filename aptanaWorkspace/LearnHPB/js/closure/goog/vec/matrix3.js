@@ -24,6 +24,8 @@
  */
 goog.provide('goog.vec.Matrix3');
 
+goog.require('goog.vec');
+
 
 /**
  * @typedef {goog.vec.ArrayType}

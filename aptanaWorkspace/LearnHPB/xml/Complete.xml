@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2013 sp1 (x64) (http://www.altova.com) by RD (pcd) -->
 
-<ScenarioInfo>
 
-</ScenarioInfo>
 
 <SystemList name="Complete Scenario">
   <System name="General" abbr="GN">
@@ -446,7 +444,7 @@
     </SubSystem>
     
     <SubSystem name="Interior Surfaces" abbr="IntSrf">
-       	  <Category name="NONE" abbr="">
+          <Category name="NONE" abbr="">
       <Variable name="Ceiling" abbr="Ceil" phase="1a" scope="input" variability="continuous">
         <OptionList>
           <Option name="0.7" />
@@ -508,7 +506,7 @@
     </SubSystem>
     
     <SubSystem name="Furniture" abbr="Furniture">
-       	  <Category name="NONE" abbr="">
+          <Category name="NONE" abbr="">
       <Variable name="Orientation of person" abbr="OrP" phase="1a" scope="input" variability="continuous">
         <OptionList>
           <Option name="toward window" />
@@ -767,14 +765,9 @@
             <Option name="adv barrier" disabled="true" />
           </OptionList>
         </Variable>
-        <Variable name="Venetian Blinds" abbr="ZN8Lvl" scope="gui" variability="parameter" phase="1a">
-          <OptionList>
-            <Option name="loose" disabled="true" />
-            <Option name="traditional" default="true" />
-            <Option name="basic barrier" />
-            <Option name="adv barrier" disabled="true" />
-          </OptionList>
-        </Variable>
+        
+
+        
       </Category>
     </SubSystem>
   </System>
@@ -975,7 +968,7 @@
     
     
     <SubSystem name="Air Handling Unit" abbr="AHU">
-   	  <Category name="NONE" abbr="">
+      <Category name="NONE" abbr="">
       <Variable name="Supply air temp reset high limit" abbr="AHUTSupRstHLM" modName="" scope="input" variability="continuous" unit="K">
         <Temperature />
       </Variable>
@@ -985,8 +978,8 @@
       <Variable name="Supply air temp set point" abbr="AHUTSupSP" modName="u_AHU[1]" scope="input" variability="continuous" unit="K">
         <Temperature />
       </Variable>
-      <Variable name="Duct static pressure reset override" abbr="AHUPresRstOve" modName="u_AHU[2]" scope="input" variability="continuous" unit="?">
-        <Boolean default="true" />
+      <Variable name="Duct static pressure reset override" abbr="AHUPresRstOve" modName="u_AHU[2]" scope="input" variability="continuous" unit="ratio">
+        <Decimal min="0" max="1" default="1" />
       </Variable>
       <Variable name="Supply duct static pressure set point" abbr="AHUPresSP" modName="u_AHU[3]" scope="input" variability="continuous" unit="Pa">
         <Decimal min="50" max="1000" default="300" />
@@ -1008,12 +1001,12 @@
     
     
     <SubSystem name="Mixing Box" abbr="MX">
-   	  <Category name="NONE" abbr="">
-      <Variable name="Minimum outside air damper position" abbr="MXDmprMin" modName="u_MX[1]" scope="input" variability="continuous" unit="?">
+      <Category name="NONE" abbr="">
+      <Variable name="Minimum outside air damper position" abbr="MXDmprMin" modName="u_MX[1]" scope="input" variability="continuous" unit="%">
         <Decimal min="0" max="10" default="0.1" />
       </Variable>
       `
-      <Variable name="Economizer PI controller P gain" abbr="MXKp" modName="u_MX[2]" scope="input" variability="continuous" unit="?">
+      <Variable name="Economizer PI controller P gain" abbr="MXKp" modName="u_MX[2]" scope="input" variability="continuous" unit="number">
         <Decimal min="0.1" max="2" default="1" />
       </Variable>
       <Variable name="Economizer PI controller integrator time constant" abbr="MXKi" modName="u_MX[3]" scope="input" variability="continuous" unit="second">
@@ -1025,26 +1018,26 @@
     <SubSystem name="Fan" abbr="FAN">
        <Category name="NONE" abbr="">
        
-	      <Variable name="Supply fan speed controller P gain" abbr="SFANKp" modName="u_FAN[2]" scope="input" variability="continuous" unit="K">
-	        <Temperature />
-	      </Variable>
-	      
-	      <Variable name="Supply fan speed controller integrator time constant" abbr="SFANki" modName="u_FAN[1]" scope="input" variability="continuous" unit="second">
-	        <Decimal min="1" max="100" default="60" />
-	      </Variable>
-	      
-	      <Variable name="Return fan speed controller P gain" abbr="RFANKp" modName="u_FAN[4]" scope="input" variability="continuous" unit="K">
-	        <Temperature />
-	      </Variable>
-	      
-	      <Variable name="Return fan speed controller integrator time constant" abbr="RFANki" modName="u_FAN[3]" scope="input" variability="continuous" unit="second">
-	        <Decimal min="1" max="100" default="60" />
-	      </Variable>
+        <Variable name="Supply fan speed controller P gain" abbr="SFANKp" modName="u_FAN[2]" scope="input" variability="continuous" unit="K">
+          <Temperature />
+        </Variable>
+        
+        <Variable name="Supply fan speed controller integrator time constant" abbr="SFANki" modName="u_FAN[1]" scope="input" variability="continuous" unit="second">
+          <Decimal min="1" max="100" default="60" />
+        </Variable>
+        
+        <Variable name="Return fan speed controller P gain" abbr="RFANKp" modName="u_FAN[4]" scope="input" variability="continuous" unit="K">
+          <Temperature />
+        </Variable>
+        
+        <Variable name="Return fan speed controller integrator time constant" abbr="RFANki" modName="u_FAN[3]" scope="input" variability="continuous" unit="second">
+          <Decimal min="1" max="100" default="60" />
+        </Variable>
       
       </Category>
     </SubSystem>
     <SubSystem name="Heating and Cooling Coil" abbr="CO">
-           	  <Category name="NONE" abbr="">
+              <Category name="NONE" abbr="">
       <Variable name="Heating coil valve controller P gain" abbr="HCKp" modName="u_CO[2]" scope="input" variability="continuous" unit="K">
         <Temperature />
       </Variable>
@@ -1072,7 +1065,7 @@
       </Category>
     </SubSystem>
     <SubSystem name="VAV box" abbr="VAV">
-       	  <Category name="NONE" abbr="">
+          <Category name="NONE" abbr="">
       <Variable name="Zone 1 VAV damper controller P gain" abbr="VAV1DmprKp" modName="u_VAV[1]" scope="input" variability="continuous" unit="K">
         <Temperature />
       </Variable>
@@ -1265,7 +1258,7 @@
       </Category>
     </SubSystem>
     <SubSystem name="Chiller" abbr="Chi">
-       	  <Category name="NONE" abbr="">
+          <Category name="NONE" abbr="">
       <Variable name="Supply air temp reset high limit" abbr="AHUTSupRstHLM" modName="" scope="input" variability="continuous" unit="K">
         <Temperature />
       </Variable>

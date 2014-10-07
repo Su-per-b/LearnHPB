@@ -544,20 +544,22 @@ goog.testing.asserts.findDifferences = function(expected, actual,
   // To avoid infinite recursion when the two parameters are self-referential
   // along the same path of properties, keep track of the object pairs already
   // seen in this call subtree, and abort when a cycle is detected.
+  // TODO(gboyer,user): The algorithm still does not terminate in cases
+  // with exponential recursion, e.g. a binary tree with leaf->root links.
+  // Investigate ways to solve this without significant performance loss
+  // for the common case.
   function innerAssert(var1, var2, path) {
-    // This is used for testing, so we can afford to be slow (but more
-    // accurate). So we just check whether var1 is in seen1. If we
-    // found var1 in index i, we simply need to check whether var2 is
-    // in seen2[i]. If it is, we do not recurse to check var1/var2. If
-    // it isn't, we know that the structures of the two objects must be
-    // different.
-    //
-    // This is based on the fact that values at index i in seen1 and
-    // seen2 will be checked for equality eventually (when
-    // innerAssert_(seen1[i], seen2[i], path) finishes).
-    for (var i = 0; i < seen1.length; ++i) {
-      var match1 = seen1[i] === var1;
-      var match2 = seen2[i] === var2;
+    var depth = seen1.length;
+    if (depth % 2) {
+      // Compare with midpoint of seen ("Tortoise and hare" loop detection).
+      // http://en.wikipedia.org/wiki/Cycle_detection#Tortoise_and_hare
+      // TODO(gboyer,user): For cases with complex cycles the algorithm
+      // can take a long time to terminate, look into ways to terminate sooner
+      // without adding more than constant-time work in non-cycle cases.
+      var mid = depth >> 1;
+      // Use === to avoid cases like ['x'] == 'x', which is true.
+      var match1 = seen1[mid] === var1;
+      var match2 = seen2[mid] === var2;
       if (match1 || match2) {
         if (!match1 || !match2) {
           // Asymmetric cycles, so the objects have different structure.
@@ -566,7 +568,6 @@ goog.testing.asserts.findDifferences = function(expected, actual,
         return;
       }
     }
-
     seen1.push(var1);
     seen2.push(var2);
     innerAssert_(var1, var2, path);
@@ -823,9 +824,9 @@ var assertArrayEquals = function(a, b, opt_c) {
  * @param {string|Object} a Failure message (3 arguments)
  *     or object #1 (2 arguments).
  * @param {Object} b Object #1 (2 arguments) or object #2 (3 arguments).
- * @param {Object=} opt_c Object #2 (3 arguments).
+ * @param {Object=} c Object #2 (3 arguments).
  */
-var assertElementsEquals = function(a, b, opt_c) {
+var assertElementsEquals = function(a, b, c) {
   _validateArguments(2, arguments);
 
   var v1 = nonCommentArg(1, 2, arguments);
@@ -1076,27 +1077,6 @@ var assertNotContains = function(a, b, opt_c) {
 
 
 /**
- * Checks if the given string matches the given regular expression.
- * @param {*} a Failure message (3 arguments) or the expected regular
- *     expression as a string or RegExp (2 arguments).
- * @param {*} b The regular expression (3 arguments) or the string to test
- *     (2 arguments).
- * @param {*=} opt_c The string to test.
- */
-var assertRegExp = function(a, b, opt_c) {
-  _validateArguments(2, arguments);
-  var regexp = nonCommentArg(1, 2, arguments);
-  var string = nonCommentArg(2, 2, arguments);
-  if (typeof(regexp) == 'string') {
-    regexp = new RegExp(regexp);
-  }
-  _assert(commentArg(2, arguments),
-      regexp.test(string),
-      'Expected \'' + string + '\' to match RegExp ' + regexp.toString());
-};
-
-
-/**
  * Converts an array like object to array or clones it if it's already array.
  * @param {goog.testing.asserts.ArrayLike} arrayLike The collection.
  * @return {!Array} Copy of the collection as array.
@@ -1204,8 +1184,6 @@ goog.testing.asserts.isArrayIndexProp_ = function(prop) {
  * @param {string} comment A summary for the exception.
  * @param {?string=} opt_message A description of the exception.
  * @constructor
- * @extends {Error}
- * @final
  */
 goog.testing.JsUnitException = function(comment, opt_message) {
   this.isJsUnitException = true;
@@ -1216,15 +1194,7 @@ goog.testing.JsUnitException = function(comment, opt_message) {
   // These fields are for compatibility with jsUnitTestManager.
   this.comment = comment || null;
   this.jsUnitMessage = opt_message || '';
-
-  // Ensure there is a stack trace.
-  if (Error.captureStackTrace) {
-    Error.captureStackTrace(this, goog.testing.JsUnitException);
-  } else {
-    this.stack = new Error().stack || '';
-  }
 };
-goog.inherits(goog.testing.JsUnitException, Error);
 
 
 /** @override */
@@ -1263,4 +1233,3 @@ goog.exportSymbol('assertHashEquals', assertHashEquals);
 goog.exportSymbol('assertRoughlyEquals', assertRoughlyEquals);
 goog.exportSymbol('assertContains', assertContains);
 goog.exportSymbol('assertNotContains', assertNotContains);
-goog.exportSymbol('assertRegExp', assertRegExp);

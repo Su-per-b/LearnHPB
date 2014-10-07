@@ -5,19 +5,19 @@
  
 goog.provide('lgb.world.model.VisibilityModel');
 
-goog.require('lgb.world.model.BaseModel');
+goog.require('lgb.core.BaseModel');
 goog.require('lgb.world.model.vo.VisibilityNode');
 
 
 /**
  * @constructor
- * @extends lgb.world.model.BaseModel
+ * @extends lgb.core.BaseModel
  */
 lgb.world.model.VisibilityModel = function() {
   this.init_();
 
 };
-goog.inherits(lgb.world.model.VisibilityModel, lgb.world.model.BaseModel);
+goog.inherits(lgb.world.model.VisibilityModel, lgb.core.BaseModel);
 
 
 

@@ -19,22 +19,18 @@
 goog.provide('goog.ui.ModalPopup');
 
 goog.require('goog.Timer');
-goog.require('goog.a11y.aria');
-goog.require('goog.a11y.aria.State');
 goog.require('goog.asserts');
 goog.require('goog.dom');
-goog.require('goog.dom.NodeType');
 goog.require('goog.dom.TagName');
-goog.require('goog.dom.classlist');
+goog.require('goog.dom.classes');
 goog.require('goog.dom.iframe');
 goog.require('goog.events');
 goog.require('goog.events.EventType');
 goog.require('goog.events.FocusHandler');
 goog.require('goog.fx.Transition');
-goog.require('goog.string');
 goog.require('goog.style');
 goog.require('goog.ui.Component');
-goog.require('goog.ui.PopupBase');
+goog.require('goog.ui.PopupBase.EventType');
 goog.require('goog.userAgent');
 
 
@@ -63,7 +59,7 @@ goog.require('goog.userAgent');
  * @extends {goog.ui.Component}
  */
 goog.ui.ModalPopup = function(opt_useIframeMask, opt_domHelper) {
-  goog.ui.ModalPopup.base(this, 'constructor', opt_domHelper);
+  goog.base(this, opt_domHelper);
 
   /**
    * Whether the modal popup should use an iframe as the background
@@ -72,13 +68,6 @@ goog.ui.ModalPopup = function(opt_useIframeMask, opt_domHelper) {
    * @private
    */
   this.useIframeMask_ = !!opt_useIframeMask;
-
-  /**
-   * The element that had focus before the popup was displayed.
-   * @type {Element}
-   * @private
-   */
-  this.lastFocus_ = null;
 };
 goog.inherits(goog.ui.ModalPopup, goog.ui.Component);
 
@@ -200,14 +189,12 @@ goog.ui.ModalPopup.prototype.getBackgroundElement = function() {
  */
 goog.ui.ModalPopup.prototype.createDom = function() {
   // Create the modal popup element, and make sure it's hidden.
-  goog.ui.ModalPopup.base(this, 'createDom');
+  goog.base(this, 'createDom');
 
   var element = this.getElement();
-  goog.asserts.assert(element);
-  var allClasses = goog.string.trim(this.getCssClass()).split(' ');
-  goog.dom.classlist.addAll(element, allClasses);
+  goog.dom.classes.add(element, this.getCssClass());
   goog.dom.setFocusableTabIndex(element, true);
-  goog.style.setElementShown(element, false);
+  goog.style.showElement(element, false);
 
   // Manages the DOM for background mask elements.
   this.manageBackgroundDom_();
@@ -227,7 +214,7 @@ goog.ui.ModalPopup.prototype.manageBackgroundDom_ = function() {
     // Flash and other controls behave in similar ways for other browsers
     this.bgIframeEl_ = goog.dom.iframe.createBlank(this.getDomHelper());
     this.bgIframeEl_.className = goog.getCssName(this.getCssClass(), 'bg');
-    goog.style.setElementShown(this.bgIframeEl_, false);
+    goog.style.showElement(this.bgIframeEl_, false);
     goog.style.setOpacity(this.bgIframeEl_, 0);
   }
 
@@ -236,7 +223,7 @@ goog.ui.ModalPopup.prototype.manageBackgroundDom_ = function() {
   if (!this.bgEl_) {
     this.bgEl_ = this.getDomHelper().createDom(
         'div', goog.getCssName(this.getCssClass(), 'bg'));
-    goog.style.setElementShown(this.bgEl_, false);
+    goog.style.showElement(this.bgEl_, false);
   }
 };
 
@@ -249,7 +236,7 @@ goog.ui.ModalPopup.prototype.createTabCatcher_ = function() {
   // Creates tab catcher element.
   if (!this.tabCatcherElement_) {
     this.tabCatcherElement_ = this.getDomHelper().createElement('span');
-    goog.style.setElementShown(this.tabCatcherElement_, false);
+    goog.style.showElement(this.tabCatcherElement_, false);
     goog.dom.setFocusableTabIndex(this.tabCatcherElement_, true);
     this.tabCatcherElement_.style.position = 'absolute';
   }
@@ -308,26 +295,22 @@ goog.ui.ModalPopup.prototype.canDecorate = function(element) {
 /** @override */
 goog.ui.ModalPopup.prototype.decorateInternal = function(element) {
   // Decorate the modal popup area element.
-  goog.ui.ModalPopup.base(this, 'decorateInternal', element);
-  var allClasses = goog.string.trim(this.getCssClass()).split(' ');
-
-  goog.dom.classlist.addAll(
-      goog.asserts.assert(this.getElement()),
-      allClasses);
+  goog.base(this, 'decorateInternal', element);
+  goog.dom.classes.add(this.getElement(), this.getCssClass());
 
   // Create the background mask...
   this.manageBackgroundDom_();
   this.createTabCatcher_();
 
   // Make sure the decorated modal popup is hidden.
-  goog.style.setElementShown(this.getElement(), false);
+  goog.style.showElement(this.getElement(), false);
 };
 
 
 /** @override */
 goog.ui.ModalPopup.prototype.enterDocument = function() {
   this.renderBackground_();
-  goog.ui.ModalPopup.base(this, 'enterDocument');
+  goog.base(this, 'enterDocument');
 
   goog.dom.insertSiblingAfter(this.tabCatcherElement_, this.getElement());
 
@@ -338,8 +321,7 @@ goog.ui.ModalPopup.prototype.enterDocument = function() {
   // focus is moved out of this modal popup.
   this.getHandler().listen(
       this.focusHandler_, goog.events.FocusHandler.EventType.FOCUSIN,
-      this.onFocus);
-  this.setA11YDetectBackground(false);
+      this.onFocus_);
 };
 
 
@@ -351,7 +333,7 @@ goog.ui.ModalPopup.prototype.exitDocument = function() {
 
   goog.dispose(this.focusHandler_);
 
-  goog.ui.ModalPopup.base(this, 'exitDocument');
+  goog.base(this, 'exitDocument');
   goog.dom.removeNode(this.bgIframeEl_);
   goog.dom.removeNode(this.bgEl_);
   goog.dom.removeNode(this.tabCatcherElement_);
@@ -376,46 +358,11 @@ goog.ui.ModalPopup.prototype.setVisible = function(visible) {
   if (this.popupHideTransition_) this.popupHideTransition_.stop();
   if (this.bgHideTransition_) this.bgHideTransition_.stop();
 
-  if (this.isInDocument()) {
-    this.setA11YDetectBackground(visible);
-  }
   if (visible) {
     this.show_();
   } else {
     this.hide_();
   }
-};
-
-
-/**
- * Sets the aria-hidden value for an element.
- * Removes the aria-hidden attribute if false.
- * @param {!Element} element DOM node to set aria-hidden to.
- * @param {boolean} hide Boolean being set as aria-hidden.
- * @private
- */
-goog.ui.ModalPopup.setAriaHidden_ = function(element, hide) {
-  if (hide) {
-    goog.a11y.aria.setState(element, goog.a11y.aria.State.HIDDEN, hide);
-  } else {
-    goog.a11y.aria.removeState(element, goog.a11y.aria.State.HIDDEN);
-  }
-};
-
-
-/**
- * Sets aria-hidden of the rest of the page to restrict keyboard focus.
- * @param {boolean} hide Whether to hide or show the rest of the page.
- * @protected
- */
-goog.ui.ModalPopup.prototype.setA11YDetectBackground = function(hide) {
-  for (var child = this.getDomHelper().getDocument().body.firstChild; child;
-      child = child.nextSibling) {
-    if (child.nodeType == goog.dom.NodeType.ELEMENT) {
-      goog.ui.ModalPopup.setAriaHidden_(/** @type {!Element}*/ (child), hide);
-    }
-  }
-  goog.ui.ModalPopup.setAriaHidden_(this.getElementStrict(), !hide);
 };
 
 
@@ -448,12 +395,6 @@ goog.ui.ModalPopup.prototype.show_ = function() {
     return;
   }
 
-  try {
-    this.lastFocus_ = this.getDomHelper().getDocument().activeElement;
-  } catch (e) {
-    // Focus-related actions often throw exceptions.
-    // Sample past issue: https://bugzilla.mozilla.org/show_bug.cgi?id=656283
-  }
   this.resizeBackground_();
   this.reposition();
 
@@ -510,18 +451,6 @@ goog.ui.ModalPopup.prototype.hide_ = function() {
   } else {
     this.onHide();
   }
-  try {
-    var body = this.getDomHelper().getDocument().body;
-    var active = this.getDomHelper().getDocument().activeElement || body;
-    if (this.lastFocus_ && active == body && this.lastFocus_ != body) {
-      this.lastFocus_.focus();
-    }
-  } catch (e) {
-    // Swallow this. IE can throw an error if the element can not be focused.
-  }
-  // Explicitly want to null this out even if there was an error focusing to
-  // avoid bleed over between dialog invocations.
-  this.lastFocus_ = null;
 };
 
 
@@ -532,13 +461,13 @@ goog.ui.ModalPopup.prototype.hide_ = function() {
  */
 goog.ui.ModalPopup.prototype.showPopupElement_ = function(visible) {
   if (this.bgIframeEl_) {
-    goog.style.setElementShown(this.bgIframeEl_, visible);
+    goog.style.showElement(this.bgIframeEl_, visible);
   }
   if (this.bgEl_) {
-    goog.style.setElementShown(this.bgEl_, visible);
+    goog.style.showElement(this.bgEl_, visible);
   }
-  goog.style.setElementShown(this.getElement(), visible);
-  goog.style.setElementShown(this.tabCatcherElement_, visible);
+  goog.style.showElement(this.getElement(), visible);
+  goog.style.showElement(this.tabCatcherElement_, visible);
 };
 
 
@@ -590,10 +519,10 @@ goog.ui.ModalPopup.prototype.focus = function() {
  */
 goog.ui.ModalPopup.prototype.resizeBackground_ = function() {
   if (this.bgIframeEl_) {
-    goog.style.setElementShown(this.bgIframeEl_, false);
+    goog.style.showElement(this.bgIframeEl_, false);
   }
   if (this.bgEl_) {
-    goog.style.setElementShown(this.bgEl_, false);
+    goog.style.showElement(this.bgEl_, false);
   }
 
   var doc = this.getDomHelper().getDocument();
@@ -610,11 +539,11 @@ goog.ui.ModalPopup.prototype.resizeBackground_ = function() {
       Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight));
 
   if (this.bgIframeEl_) {
-    goog.style.setElementShown(this.bgIframeEl_, true);
+    goog.style.showElement(this.bgIframeEl_, true);
     goog.style.setSize(this.bgIframeEl_, w, h);
   }
   if (this.bgEl_) {
-    goog.style.setElementShown(this.bgEl_, true);
+    goog.style.showElement(this.bgEl_, true);
     goog.style.setSize(this.bgEl_, w, h);
   }
 };
@@ -658,27 +587,14 @@ goog.ui.ModalPopup.prototype.reposition = function() {
  * if the user shift-tabs past the front of the modal popup, focus wraps around
  * to the end.
  * @param {goog.events.BrowserEvent} e Browser's event object.
- * @protected
+ * @private
  */
-goog.ui.ModalPopup.prototype.onFocus = function(e) {
+goog.ui.ModalPopup.prototype.onFocus_ = function(e) {
   if (this.backwardTabWrapInProgress_) {
     this.resetBackwardTabWrap_();
   } else if (e.target == this.tabCatcherElement_) {
     goog.Timer.callOnce(this.focusElement_, 0, this);
   }
-};
-
-
-/**
- * Returns the magic tab catcher element used to detect when the user has
- * rolled focus off of the popup content.  It is automatically created during
- * the createDom method() and can be used by subclasses to implement custom
- * tab-loop behavior.
- * @return {Element} The tab catcher element.
- * @protected
- */
-goog.ui.ModalPopup.prototype.getTabCatcherElement = function() {
-  return this.tabCatcherElement_;
 };
 
 
@@ -714,5 +630,5 @@ goog.ui.ModalPopup.prototype.disposeInternal = function() {
   goog.dispose(this.bgHideTransition_);
   this.bgHideTransition_ = null;
 
-  goog.ui.ModalPopup.base(this, 'disposeInternal');
+  goog.base(this, 'disposeInternal');
 };

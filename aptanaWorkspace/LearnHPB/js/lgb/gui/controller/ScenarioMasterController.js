@@ -66,15 +66,3 @@ lgb.gui.controller.ScenarioMasterController.prototype.onRequestLoadScenario_ =
 
 
 
-
-
-lgb.gui.controller.ScenarioMasterController.prototype.onDataModelInitialized_ =
-  function(event) {
-
-  this.trigger(e.ScenarioDataModelLoaded, this.dataModel.systemList);
-  
-  
-  
-};
-
-

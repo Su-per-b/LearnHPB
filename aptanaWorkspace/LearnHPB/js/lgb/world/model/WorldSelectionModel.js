@@ -5,22 +5,22 @@
  
 goog.provide('lgb.world.model.WorldSelectionModel');
 
-goog.require('lgb.world.model.BaseModel');
+goog.require('lgb.core.BaseModel');
 goog.require('goog.array');
 goog.require('lgb');
 
 
 /**
  * @constructor
- * @extends lgb.world.model.BaseModel
+ * @extends lgb.core.BaseModel
  */
 lgb.world.model.WorldSelectionModel = function() {
 
-  lgb.world.model.BaseModel.call(this);
+  lgb.core.BaseModel.call(this);
   this.init_();
 
 };
-goog.inherits(lgb.world.model.WorldSelectionModel, lgb.world.model.BaseModel);
+goog.inherits(lgb.world.model.WorldSelectionModel, lgb.core.BaseModel);
 
 /**
  * sets default properties.
