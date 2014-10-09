@@ -25,7 +25,8 @@ goog.inherits(lgb.chart.view.GraphGUI_05, lgb.gui.view.BaseGUI);
 
 lgb.chart.view.GraphGUI_05.prototype.init = function() {
 
-
+    this.chartModel.init();
+    
 };
 
 
@@ -35,67 +36,51 @@ lgb.chart.view.GraphGUI_05.prototype.init = function() {
 lgb.chart.view.GraphGUI_05.prototype.calculateLayout = function() {
     
     var content = this.calcContentArea_();
-    
-    var domainX = this.chartModel.getDomainX();
-    var domainY = this.chartModel.getDomainY();
-    
-    var scaleObjectX = d3.scale.linear();
-    var scaleX = scaleObjectX.domain(domainX).range([0, content.innerWidth]);
+    var that = this;
 
-    var scaleObjectY = d3.scale.linear();
-    var scaleY = scaleObjectY.domain(domainY).range([content.innerHeight, 0]); 
+    this.scaleX_.range([0, content.innerWidth]);
+    this.scaleY_.range([content.innerHeight, 0]);
     
     
-    this.line_  = d3.svg.line();
-    
-    this.line_.x(function(d, i) {
-        return scaleX(i);
-    });
+    this.line_.x(
+        function(d, i) {
+        return that.scaleX_(i);
+       }
+    ); 
 
-    this.line_.y(function(d, i) {
-        return scaleY(d);
+    this.line_.y(
+        function(d, i) {
+        return that.scaleY_(d);
     });
-      
-      
+    
     this.svg_.attr("width", content.outerWidth)
         .attr("height", content.outerHeight);
-      
-      
-    this.clipPath_.attr("width", content.innerWidth)
+         
+    this.rect_.attr("width", content.innerWidth)
         .attr("height", content.innerHeight);
-      
-      
-      
-    var axisXTransformValue = "translate(0,{0})".format(scaleY(0));
+        
+        
+    var axisXTransform = "translate(0,{0})".format(this.scaleY_(this.chartModel.y.min));    
+    this.axisX_.attr("transform", axisXTransform);
     
-    this.axisX_
-        .attr("transform", "translate(0," + scaleY(0) + ")")
-        .call(d3.svg.axis()
-        .scale(scaleX)
-        .orient("bottom"));
-        
-    this.axisY_
-        .call(d3.svg.axis()
-        .scale(scaleY)
-        .orient("left"));
-        
-        
-    this.path_
-        .attr("d", this.line_);
-        
+    this.axisX_.call(
+        d3.svg.axis().scale(this.scaleX_).orient("bottom")
+    );
+    
+
+    this.axisY_.call(
+        d3.svg.axis().scale(this.scaleY_).orient("left")
+    );
+
+    
+    this.path_.attr("d", this.line_);
 
 };
 
 
 lgb.chart.view.GraphGUI_05.prototype.updateValues = function() {
     
-    var rndfunction = this.chartModel.generateRandomFunction();
-    
-    // push a new data point onto the back
-    this.data_.push(rndfunction());
-   
-    var oneTickLeftPixelCount = this.scaleX_(-1);
-   
+
     // redraw the line, and slide it to the left
     this.path_
         .attr("d", this.line_)
@@ -103,13 +88,8 @@ lgb.chart.view.GraphGUI_05.prototype.updateValues = function() {
       .transition()
         .duration(500)
         .ease("linear")
-        .attr("transform", "translate(" + oneTickLeftPixelCount + ",0)");
+        .attr("transform", "translate(" + this.oneTickLeftPixelCount_ + ",0)");
    
-   
-    // pop the old data point off the front
-    this.data_.shift();
-    
-    
     
 };
 
@@ -117,93 +97,91 @@ lgb.chart.view.GraphGUI_05.prototype.updateValues = function() {
 
 lgb.chart.view.GraphGUI_05.prototype.makeChart_ = function() {
   
-    
 	var parent = this.getParentElement();
-	this.parent_x2_ = parent.parent();
-
-	var chartModel = this.chartModel;
-	
-	this.chartModel.init();
-
-	var domainX = this.chartModel.getDomainX();
-	var domainY = this.chartModel.getDomainY();
-
-	var n = domainX[1];
-	
-	var data = d3.range(n).map(this.chartModel.generateRandomFunction());
-
+    this.parent_x2_ = parent.parent();
+    
 	var content = this.calcContentArea_();
 
-	var scaleX = d3.scale.linear()
-	   .domain(domainX)
+    //create scaling functions
+	this.scaleX_ = d3.scale.linear()
+	   .domain(this.chartModel.getDomainX())
 	   .range([0, content.innerWidth]);
 	
-	
-	var scaleY = d3.scale.linear()
-	   .domain(domainY)
+	this.scaleY_ = d3.scale.linear()
+	   .domain(this.chartModel.getDomainY())
 	   .range([content.innerHeight, 0]); 
 	   
-	   
+    //make d3 line
     this.line_  = d3.svg.line();
     
-	this.line_.x(function(d, i) {
-		return scaleX(i);
-	}); 
-
+    var that = this;
+    
+	this.line_.x(
+	    function(d, i) {
+		return that.scaleX_(i);
+	   }
+	); 
 
 	this.line_.y(function(d, i) {
-		return scaleY(d);
+		return that.scaleY_(d);
 	});
 
-
-    var svgTransformValue = "translate({0},{1})".format(content.marginLeft, content.marginTop);
-    
-
+    //make svg
     this.svg_ = d3.select(parent[0]).append("svg")
         .attr("width", content.outerWidth)
         .attr("height", content.outerHeight)
         .attr('class', 'd3chart');
-        
+
+
+    //make mainGroup
+    var mainGroupTransform= "translate({0},{1})".format(content.marginLeft, content.marginTop);
+    
     this.mainGroup_ = this.svg_
         .append("g")
-        .attr("transform", svgTransformValue);
+        .attr("transform", mainGroupTransform);
    
-   
-    this.clipPath_ = this.mainGroup_.append("defs").append("clipPath")
-        .attr("id", "clip")
-        .append("rect")
+    //make clipPath
+    this.defs_ = this.mainGroup_.append("defs");
+    
+    this.clipPath_ = this.defs_.append("clipPath")
+        .attr("id", "clip");
+        
+    this.rect_ = this.clipPath_.append("rect")
         .attr("width", content.innerWidth)
         .attr("height", content.innerHeight);
    
-   
-    var axisXTransformValue = "translate(0,{0})".format(scaleY(0));
+    //make axisX
+    var axisXTransform = "translate(0,{0})".format(this.scaleY_(this.chartModel.y.min));
     
     this.axisX_ = this.mainGroup_.append("g")
         .attr("class", "x axis")
-        .attr("transform", axisXTransformValue);
+        .attr("transform", axisXTransform);
         
         
-    this.axisX_.call(d3.svg.axis().scale(scaleX).orient("bottom"));
+    this.axisX_.call(d3.svg.axis().scale(this.scaleX_).orient("bottom"));
    
-
+    //make axisY
     this.axisY_ = this.mainGroup_.append("g")
         .attr("class", "y axis");
         
     this.axisY_
         .call(d3.svg.axis()
-        .scale(scaleY)
+        .scale(this.scaleY_)
         .orient("left"));
         
-   
-    this.path_ = this.mainGroup_.append("g")
-        .append("path")
-        .datum(data)
+
+    this.clipPathGroup_ = this.mainGroup_.append("g")
+        .attr("clip-path", "url(#clip)");
+
+
+    this.path_ = this.clipPathGroup_.append("path")
+        .datum(this.chartModel.data)
         .attr("class", "line")
         .attr("d", this.line_);
-   
-    this.data_ = data;
-    this.scaleX_ = scaleX;
-
+    
+    
+    this.oneTickLeftPixelCount_ = this.scaleX_(-1);
+    
 };
 
 
