@@ -10,11 +10,10 @@ goog.require('lgb.chart.model.GraphGUImodel');
  * @constructor
  * @extends lgb.gui.view.BaseGUI
  */
-lgb.chart.view.GraphGUI_06 = function(dataModel, chartModel) {
+lgb.chart.view.GraphGUI_06 = function(dataModel) {
 
   this._TITLE = 'y_ZN[1] - Zone 1 temp';
   
-  this.chartModel = chartModel;
   
   lgb.gui.view.BaseGUI.call(this, dataModel);
 
@@ -25,15 +24,7 @@ goog.inherits(lgb.chart.view.GraphGUI_06, lgb.gui.view.BaseGUI);
 
 lgb.chart.view.GraphGUI_06.prototype.init = function() {
 
-
-    this.listenForChange_('scalarValueResultsConverted');
-    // this.listenForChange_('xmlParsedInfo');
-    
-    this.tickDelegate_ = this.d(this.tick_);
-    
     this.contentArea_ = {};
-    
-   // this.triggerLocal(e.RequestAddToParentGUI);
 
 };
 
@@ -48,33 +39,20 @@ lgb.chart.view.GraphGUI_06.prototype.onChange_xmlParsedInfo_ = function(xmlParse
 
 
 
+lgb.chart.view.GraphGUI_06.prototype.bind_ = function() {
 
+    this.listenForChange_('data');
 
-lgb.chart.view.GraphGUI_06.prototype.onChange_scalarValueResultsConverted_ = function(scalarValueResultsConverted) {
-  
-  var realList = scalarValueResultsConverted.output.realList;
-  var newRecord = { time: scalarValueResultsConverted.time_};
-  
-  var testTempRealVo = realList[7];
-  
-  this.chart_.data.push(testTempRealVo.value_);
- 
-  // redraw the line, and slide it to the left
-  this.chart_.path
-      .attr("d", this.chart_.line)
-      .attr("transform", null)
-    .transition()
-      .duration(500)
-      .ease("linear")
-      .attr("transform", "translate(" + this.chart_.x(-1) + ",0)");
- 
- 
-  // pop the old data point off the front
-  this.chart_.data.shift();
-    
-  return;
-  
 };
+
+lgb.chart.view.GraphGUI_06.prototype.onChange_data_ = function(data) {
+  
+    this.tick_();
+    
+        
+    return;
+};
+
 
 
 
@@ -85,17 +63,11 @@ lgb.chart.view.GraphGUI_06.prototype.calculateLayout = function() {
 };
 
 
-lgb.chart.view.GraphGUI_06.prototype.updateValues = function(values) {
-    
-    this.tick_();
-    
-};
-
 
 
 lgb.chart.view.GraphGUI_06.prototype.makeChart_ = function() {
   
-  var dm = this.chartModel;
+  var dm = this.dataModel;
   dm.init_05(); 
     
   var domainX = dm.getDomainX();
@@ -164,7 +136,7 @@ lgb.chart.view.GraphGUI_06.prototype.makeChart_ = function() {
  this.chart_.line = line;
  
 
-
+    this.bind_();
 
 
 
@@ -174,7 +146,7 @@ lgb.chart.view.GraphGUI_06.prototype.makeChart_ = function() {
 
 lgb.chart.view.GraphGUI_06.prototype.tick_ = function() {
   
-    var dm = this.chartModel;
+    var dm = this.dataModel;
    // var rndfunction = dm.generateRandomFunction();
    // var rndValue = rndfunction();
     

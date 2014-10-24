@@ -20,9 +20,6 @@ lgb.chart.model.GraphGUImodel_06 = function() {
   lgb.core.BaseModel.call(this);
   this.data = [];
   
-  this.init_();
-
-  
 };
 goog.inherits(lgb.chart.model.GraphGUImodel_06, lgb.core.BaseModel);
 
@@ -37,15 +34,18 @@ lgb.chart.model.GraphGUImodel_06.prototype.updateValues = function(integratedMai
   //var integratedVariable = integratedMainModel.integratedVariableNameMap_['y_SYS_1'];
   
   var value = integratedVariable.value.getDisplayValue();
-  
+
   
   this.data.push(value); 
   this.latestValue_ = value;
+  
+  this.dispatchChangedEx('data', this.data);
   
   if (this.data.length > 20) {
     this.data.shift();
   }
   
+
   
   return;
   
@@ -182,15 +182,7 @@ lgb.chart.model.GraphGUImodel_06.prototype.init_04 = function() {
 
 
 
-lgb.chart.model.GraphGUImodel_06.prototype.init_ = function() {
-  
- // this.generateData();
-   
-  
 
-  
-
-};
 
 lgb.chart.model.GraphGUImodel_06.prototype.getDomainX = function() {
  

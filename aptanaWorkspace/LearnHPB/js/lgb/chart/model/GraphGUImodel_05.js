@@ -17,7 +17,6 @@ lgb.chart.model.GraphGUImodel_05 = function() {
   /**@const */
   this._TITLE = 'GraphGUImodel';
 
-
   lgb.core.BaseModel.call(this);
   this.data = [];
 
@@ -88,9 +87,32 @@ lgb.chart.model.GraphGUImodel_05.prototype.init = function() {
 
   this.randomFunction_ = this.generateRandomFunction();
   
-  this.data = d3.range(this.x.max)
-       .map(this.randomFunction_);
+  // this.data = d3.range(this.x.max)
+       // .map(this.randomFunction_);
 
+    this.data = [];
+    
+    var dateObj = new Date(2000,5,24,9,00,00,0);
+    var ms = dateObj.getTime();
+    
+    
+        
+    var len = 20; //this.data.length;
+    for (i = 0; i < len; i++) {
+
+        var item = {
+            date:new Date(ms + (60000 * i)),
+            value: this.randomFunction_()
+        };
+        
+        this.data.push(item);
+        
+    }
+    
+    
+
+
+    return;
 
   
 };
@@ -137,7 +159,10 @@ lgb.chart.model.GraphGUImodel_05.prototype.generateRandomFunction = function() {
 
 lgb.chart.model.GraphGUImodel_05.prototype.getDomainX = function() {
  
-    return [this.x.min, this.x.max];
+    var date1 = this.data[0].date;
+    var date2 = this.data[this.data.length - 1].date;
+    
+    return [date1, date2];
 };
 
 

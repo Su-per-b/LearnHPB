@@ -843,13 +843,17 @@ goog.addDependency('../../LearnHPB/js/closure/goog/vec/vec4.js', ['goog.vec.Vec4
 goog.addDependency('../../LearnHPB/js/closure/goog/webgl/webgl.js', ['goog.webgl'], []);
 goog.addDependency('../../LearnHPB/js/closure/goog/window/window.js', ['goog.window'], ['goog.string', 'goog.userAgent']);
 goog.addDependency('js/lgb/base.js', ['lgb'], ['goog.debug.Console', 'goog.debug.LogRecord', 'goog.debug.Logger.Level', 'lgb.core.DebugLGB']);
-goog.addDependency('js/lgb/chart/controller/SimulationGraphController.js', ['lgb.chart.controller.SimulationGraphController'], ['lgb.chart.model.GraphGUImodel', 'lgb.chart.model.GraphGUImodel_05', 'lgb.chart.model.GraphGUImodel_06', 'lgb.chart.view.GraphGUI_05', 'lgb.chart.view.GraphGUI_06', 'lgb.core.BaseController']);
+goog.addDependency('js/lgb/chart/controller/SimulationGraphController.js', ['lgb.chart.controller.SimulationGraphController'], ['lgb.chart.model.GraphGUImodel', 'lgb.chart.model.GraphGUImodel_05', 'lgb.chart.model.GraphGUImodel_06', 'lgb.chart.model.GraphGUImodel_07', 'lgb.chart.model.GraphGUImodel_08', 'lgb.chart.view.GraphGUI_05', 'lgb.chart.view.GraphGUI_06', 'lgb.chart.view.GraphGUI_07', 'lgb.chart.view.GraphGUI_08', 'lgb.core.BaseController']);
 goog.addDependency('js/lgb/chart/model/GraphGUImodel.js', ['lgb.chart.model.GraphGUImodel'], ['lgb.core.BaseModel']);
 goog.addDependency('js/lgb/chart/model/GraphGUImodel_05.js', ['lgb.chart.model.GraphGUImodel_05'], ['lgb.core.BaseModel']);
 goog.addDependency('js/lgb/chart/model/GraphGUImodel_06.js', ['lgb.chart.model.GraphGUImodel_06'], ['lgb.core.BaseModel']);
+goog.addDependency('js/lgb/chart/model/GraphGUImodel_07.js', ['lgb.chart.model.GraphGUImodel_07'], ['lgb.core.BaseModel']);
+goog.addDependency('js/lgb/chart/model/GraphGUImodel_08.js', ['lgb.chart.model.GraphGUImodel_08'], ['lgb.core.BaseModel']);
 goog.addDependency('js/lgb/chart/view/GraphGUI_04.js', ['lgb.chart.view.GraphGUI_04'], ['lgb.chart.model.GraphGUImodel', 'lgb.gui.view.BaseGUI']);
 goog.addDependency('js/lgb/chart/view/GraphGUI_05.js', ['lgb.chart.view.GraphGUI_05'], ['lgb.chart.model.GraphGUImodel', 'lgb.gui.view.BaseGUI']);
 goog.addDependency('js/lgb/chart/view/GraphGUI_06.js', ['lgb.chart.view.GraphGUI_06'], ['lgb.chart.model.GraphGUImodel', 'lgb.gui.view.BaseGUI']);
+goog.addDependency('js/lgb/chart/view/GraphGUI_07.js', ['lgb.chart.view.GraphGUI_07'], ['lgb.chart.model.GraphGUImodel', 'lgb.gui.view.BaseGUI']);
+goog.addDependency('js/lgb/chart/view/GraphGUI_08.js', ['lgb.chart.view.GraphGUI_08'], ['lgb.chart.model.GraphGUImodel', 'lgb.gui.view.BaseGUI']);
 goog.addDependency('js/lgb/chart/view/LayoutView.js', ['lgb.chart.view.LayoutView'], ['lgb.gui.model.LayoutModel', 'lgb.gui.view.BaseGUI']);
 goog.addDependency('js/lgb/chart/view/SimulationGUI.js', ['lgb.chart.view.SimulationGUI'], []);
 goog.addDependency('js/lgb/chart/view/SimulationIframeGraphGUI.js', ['lgb.chart.view.SimulationIframeGraphGUI'], []);

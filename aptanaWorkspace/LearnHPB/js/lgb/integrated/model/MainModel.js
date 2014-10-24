@@ -38,9 +38,6 @@ lgb.integrated.model.MainModel.prototype.parseSrcObj = function(srcObj) {
     this.dateObjectTicks_ = [];
     this.timeAndDateStringTicks_ = [];
     
-
-    
-    
     this.each(this.leafNodes_, this.extractOneIntegratedVariable_);
     
 };
@@ -92,6 +89,7 @@ lgb.integrated.model.MainModel.prototype.extractOneIntegratedVariable_ = functio
 
 
 lgb.integrated.model.MainModel.prototype.processXMLparsedInfo = function(xmlParsedInfo) {
+    
     this.integratedVariableList_ = [];
     this.integratedVariableNameMap_ = {};
     this.integratedVariableIdxMap_ = {};
@@ -128,7 +126,7 @@ lgb.integrated.model.MainModel.prototype.setTime_ = function(time) {
 };
 
 
-lgb.integrated.model.MainModel.prototype.getDateObject = function(time) {
+lgb.integrated.model.MainModel.prototype.getDateObject = function() {
     
     return this.dateObject_;
     
