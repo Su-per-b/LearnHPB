@@ -502,7 +502,7 @@ lgb.simulation.controller.MainController.prototype.onMessage_ = function(event) 
 
     if (event.data) {
         var jsonString = event.data;
-        console.log("SimulationController.onMessage_() - " + jsonString);
+        //console.log("SimulationController.onMessage_() - " + jsonString);
 
         var event = this.jsonController_.deserialize(jsonString);
         this.dispatchLocal(event);

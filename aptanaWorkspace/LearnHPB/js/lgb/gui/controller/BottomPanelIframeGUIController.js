@@ -8,7 +8,6 @@ goog.require('lgb.gui.controller.SimulationConsoleController');
 goog.require('lgb.gui.controller.SimulationOutputController');
 goog.require('lgb.gui.controller.SimulationInputController');
 goog.require('lgb.gui.controller.SimulationResultsController');
-goog.require('lgb.gui.controller.SimulationGraphController');
 goog.require('lgb.gui.controller.SimulationIframeGraphController');
 
 

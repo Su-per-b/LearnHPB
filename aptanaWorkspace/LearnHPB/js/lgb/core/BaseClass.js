@@ -464,7 +464,14 @@ lgb.core.BaseClass.prototype.translateObject_ = function(srcObj, map) {
         map = ownClass.classTranslationMap;
     }
     
-    return lgb.core.BaseClass.translateObjectWithMap(srcObj, map);
+    
+    var newObject = lgb.core.BaseClass.translateObjectWithMap(srcObj, map);
+    
+    if (null == newObject) {
+        debugger;
+    }
+    
+    return newObject; 
     
 
 };

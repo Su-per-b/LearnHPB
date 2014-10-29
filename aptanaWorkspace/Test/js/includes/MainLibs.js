@@ -39,6 +39,14 @@ test.includes.MainLibs.addOneScript = function(path, name) {
   
 };
 
+test.includes.MainLibs.addOneScriptRawPath= function(path, name) {
+
+  var newPath = path + name + '.js' ;
+  var code = '<script charset="utf-8" src="' + newPath + '"></script>';
+  document.writeln(code);
+  
+};
+
 
 
 test.includes.MainLibs.addCssScripts = function(path, ary) {
@@ -185,7 +193,9 @@ test.includes.MainLibs.includeKendo = function() {
 test.includes.MainLibs.includeClosure = function() {
   
    test.includes.MainLibs.addOneScript("js/closure/", "base-nodeps");
-   test.includes.MainLibs.addOneScript("../Test/js/closure/", "deps");
+   
+   test.includes.MainLibs.addOneScriptRawPath("../js/closure/", "deps-Test");
+
    
 };
 

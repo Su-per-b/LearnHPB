@@ -17,6 +17,7 @@ lgb.chart.model.GraphGUImodel_08 = function() {
   this.data = [];
   this.title_ = "{title not set}";
   
+  this.varList_ = [];
   
 };
 goog.inherits(lgb.chart.model.GraphGUImodel_08, lgb.core.BaseModel);
@@ -26,34 +27,50 @@ goog.inherits(lgb.chart.model.GraphGUImodel_08, lgb.core.BaseModel);
 
 lgb.chart.model.GraphGUImodel_08.prototype.init = function(title) {
   
+    this.setTitle(title);
 
   return;
 };
 
 
 
-
 lgb.chart.model.GraphGUImodel_08.prototype.updateValues = function(integratedMainModel) {
   
-  var integratedVariable = integratedMainModel.integratedVariableNameMap_[this.varName_];
-  var value = integratedVariable.value.getDisplayValue();
+  var varName0 = this.varList_[0];
+  var varName1 = this.varList_[1];
   
+  
+  var integratedVariable0 = integratedMainModel.integratedVariableNameMap_[varName0];
+  var value0 = integratedVariable0.value.getDisplayValue();
+  
+  //var integratedVariable1 = integratedMainModel.integratedVariableNameMap_[varName1];
+  //var value1 = integratedVariable1.value.getDisplayValue();
+  
+
   var dateObject = integratedMainModel.getDateObject();
   var timeStr = integratedMainModel.getTimeStr();
-  
-  
-  
-  if (value > this.y.max) {
-    this.setDomainY(this.y.min, Math.ceil(value));
+  var dateObj = integratedMainModel.getDateObject();
+    
+  if (value0 > this.y.max) {
+    this.setDomainY(this.y.min, Math.ceil(value0));
   }
   
-  if (value < this.y.min ) {
-    this.setDomainY(Math.floor(value), this.y.max);
+  if (value0 < this.y.min ) {
+    this.setDomainY(Math.floor(value0), this.y.max);
   }
 
 
-  this.data.push(value); 
-  this.latestValue_ = value;
+    
+  var newItem = {
+      date: dateObj,
+      value: value0
+  };
+
+
+  this.data.push(newItem);
+  this.latestValue_ = newItem;
+  
+  this.calcDomainX();
   
   this.dispatchChangedEx('data', this.data);
   
@@ -88,9 +105,11 @@ lgb.chart.model.GraphGUImodel_08.prototype.getTitle = function() {
 
 
 
-lgb.chart.model.GraphGUImodel_08.prototype.addVariable = function(varName) {
+lgb.chart.model.GraphGUImodel_08.prototype.addVariable = function(varName, min, max) {
   
-  this.varName_ = varName;
+  this.varList_.push(varName);
+  
+  this.setDomainY(min, max);
   
 };
 
@@ -110,14 +129,51 @@ lgb.chart.model.GraphGUImodel_08.prototype.getLatestValue = function() {
 
 lgb.chart.model.GraphGUImodel_08.prototype.makeRandomData = function(count) {
     
+    
 	this.setDomainX(0, count);
 
 	this.randomFunction_ = this.generateRandomFunction(); 
-    this.data = d3.range(this.x.max).map(this.randomFunction_);
+	
+	
+    this.data = [];
+    
+    var dateObj = new Date(2000,5,29,1,20,00,0);
+    var ms = dateObj.getTime();
+       
+    var len = 20; //this.data.length;
+    for (i = 0; i < len; i++) {
+
+        var v0 = this.randomFunction_();
+        var v1 = v0 + 1.0;
+
+
+        var item = {
+            date:new Date(ms + (120000 * i)),
+            value: v0,
+            value2: v1,
+            valueList:[v0, v1]
+        };
+        
+        this.data.push(item);
+        
+    }
+    
+
+	this.calcDomainX();
+	
+
 
 };
 
 
+
+// lgb.chart.model.GraphGUImodel_08.prototype.getDomainX = function() {
+//  
+    // var date1 = this.data[0].date;
+    // var date2 = this.data[this.data.length - 1].date;
+//     
+    // return [date1, date2];
+// };
 
 
 lgb.chart.model.GraphGUImodel_08.prototype.getDomainX = function() {
@@ -152,20 +208,28 @@ lgb.chart.model.GraphGUImodel_08.prototype.setDomainY = function(minValue, maxVa
 };
 
 
+lgb.chart.model.GraphGUImodel_08.prototype.calcDomainX = function() {
+    
+    var date1 = this.data[0].date;
+    var date2 = this.data[this.data.length - 1].date;
+    
+    this.setDomainX(date1, date2);
+  
+};
+
 
 lgb.chart.model.GraphGUImodel_08.prototype.setDomainX = function(minValue, maxValue) {
     
   var rangeValue = maxValue - minValue;
-  var meanValue = minValue + (rangeValue / 2);
+  //var meanValue = minValue + (rangeValue / 2);
   
   this.x = {
     max:maxValue,
     min:minValue,
-    mean:meanValue,
     range:rangeValue,
   };
   
-  this.dispatchChangedEx('x', this.x);
+ // this.dispatchChangedEx('x', this.x);
   
   return;
 };

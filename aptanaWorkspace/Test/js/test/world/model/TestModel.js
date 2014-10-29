@@ -5,7 +5,7 @@
  
 goog.provide('test.world.model.TestModel');
 
-goog.require('lgb.world.model.BaseModel');
+goog.require('lgb.core.BaseModel');
 
 
 /**
@@ -14,11 +14,11 @@ goog.require('lgb.world.model.BaseModel');
  */
 test.world.model.TestModel = function() {
 
-  lgb.world.model.BaseModel.call(this);
+  lgb.core.BaseModel.call(this);
   
   this.init();
 };
-goog.inherits(test.world.model.TestModel, lgb.world.model.BaseModel);
+goog.inherits(test.world.model.TestModel, lgb.core.BaseModel);
 
 
 /**
@@ -29,9 +29,6 @@ test.world.model.TestModel.prototype.init = function() {
 
   /**@const */
   this._TITLE = 'Test Model';
-
-  lgb.world.model.BaseModel.call(this);
-
 
 };
 

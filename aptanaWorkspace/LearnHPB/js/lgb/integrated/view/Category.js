@@ -10,7 +10,7 @@ goog.require('lgb.integrated.view.Component');
 goog.require('goog.asserts');
 goog.require('lgb.integrated.view.VariableReal');
 goog.require('lgb.integrated.view.VariableOptionList');
-
+goog.require('lgb.integrated.view.VariableInteger');
 
 
 /**
@@ -111,6 +111,7 @@ lgb.integrated.view.Category.prototype.makeChildren_ = function(parentElement) {
 
 lgb.integrated.view.Category.classModelViewMap = {
     "lgb.integrated.model.VariableReal" : lgb.integrated.view.VariableReal,
+    "lgb.integrated.model.VariableInteger" : lgb.integrated.view.VariableInteger,
     "lgb.integrated.model.VariableOptionList" : lgb.integrated.view.VariableOptionList,
     "lgb.integrated.model.Component" : lgb.integrated.view.Component
 };

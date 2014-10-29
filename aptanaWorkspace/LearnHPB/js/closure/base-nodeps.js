@@ -571,8 +571,13 @@ if (!COMPILED && goog.ENABLE_DEBUG_LOADER) {
         }
       }
 
+      // doc.write(
+          // '<script type="text/javascript" src="' + src + '"></' + 'script>');
+          
       doc.write(
-          '<script type="text/javascript" src="' + src + '"></' + 'script>');
+          '<script src="' + src + '"></' + 'script> <!--closure: - base-nodeps.js -->');
+            
+          
       return true;
     } else {
       return false;

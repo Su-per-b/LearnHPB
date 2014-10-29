@@ -5,7 +5,39 @@
 
 <SystemList name="Scenario 1">
 
-  <System name="General" abbr="GN"></System>
+  <System name="General" abbr="GN">
+    <SubSystem name="Site" abbr="Sit">
+    
+      <Category name="Day of Year" abbr="DoY">
+        <Variable visible="false" name="Day of Year" abbr="DoY" scope="gui" phase="1a" variability="parameter" unit="Day">
+          <Integer min="1" max="365" default="1" />
+        </Variable>
+      </Category>
+      
+      <Category name="Time of Day" abbr="Tm">
+        <Variable  visible="false" name="Hours" abbr="Hr" scope="gui" phase="1a" variability="parameter" unit="Hour">
+          <Integer min="0" max="23" default="0" />
+        </Variable>
+        <Variable  visible="false" name="Minutes" abbr="Mn" scope="gui" phase="1a" variability="parameter" unit="Minute">
+          <Integer min="0" max="59" default="0" />
+        </Variable>
+        <Variable name="Seconds" abbr="Sc" scope="gui" phase="1a" variability="parameter" unit="Second">
+          <Integer min="0" max="59" default="0" />
+        </Variable>
+      </Category>
+      
+      <Category name="Location" abbr="Loc">
+        <Variable name="City"  visible="false"  abbr="Cit" scope="gui" phase="1a" variability="parameter" unit="latlong">
+          <OptionList>
+            <Option name="Chicago" default="true" />
+            <Option name="Palm Springs" />
+            <Option name="Pittsburgh" description="(40.497615-80.256329)" disabled="true" />
+          </OptionList>
+        </Variable>
+      </Category>
+      
+    </SubSystem>
+  </System>
   
 <System name="Lighting" abbr="Lt">
     <SubSystem name="Ceiling Mounted" abbr="Cm">

@@ -38,24 +38,8 @@ lgb.chart.view.GraphGUI_08.prototype.bind_ = function() {
 
 lgb.chart.view.GraphGUI_08.prototype.onChange_y_ = function(y) {
     
-    var that = this;
-    var content = this.calcContentArea_();
-    
-    this.scaleY_ = d3.scale.linear()
-       .domain(this.dataModel.getDomainY())
-       .range([content.innerHeight, 0]); 
-       
-    this.line_.y(
-        function(d, i) {
-        return that.scaleY_(d);
-    });
-    
-    var axisXTransform = "translate(0,{0})".format(this.scaleY_(this.dataModel.y.min));    
-    this.axisX_.attr("transform", axisXTransform);
-    
-    this.axisY_.call(
-        d3.svg.axis().scale(this.scaleY_).orient("left")
-    );
+    this.scaleY_.domain(this.dataModel.getDomainY()); 
+    this.axisY_.call(this.axisYb_);
     
     return;
 };
@@ -63,62 +47,48 @@ lgb.chart.view.GraphGUI_08.prototype.onChange_y_ = function(y) {
 
 
 lgb.chart.view.GraphGUI_08.prototype.onChange_data_ = function(data) {
-  
 
-  
     // redraw the line, and slide it to the left
+    var domainX = this.dataModel.getDomainX();
+    this.scaleX_.domain(domainX);
+        
+    this.axisXb_.scale(this.scaleX_)
+            .orient("bottom")
+            .tickFormat(d3.time.format("%H:%M"));
+            
+    this.axisX_.call(this.axisXb_);
+    
     this.path_
         .attr("d", this.line_)
         .attr("transform", null)
       .transition()
         .duration(500)
         .ease("linear")
-        .attr("transform", "translate(" + this.oneTickLeftPixelCount_ + ",0)");
-        
+        .attr("transform", this.transformVlaue_);
+    
     return;
 };
 
 
-
-
 lgb.chart.view.GraphGUI_08.prototype.calculateLayout = function() {
-    
-    var content = this.calcContentArea_();
-    var that = this;
 
-    this.scaleX_.range([0, content.innerWidth]);
-    this.scaleY_.range([content.innerHeight, 0]);
+    this.contentArea_ = this.calcContentArea_();
     
+    this.setSVGsize_();
+   
+    this.oneTickLeftPixelCount_ = -1 * (this.contentArea_.innerWidth / 20);
+    this.transformVlaue_ = "translate(" + this.oneTickLeftPixelCount_ + ",0)"; 
     
-    this.line_.x(
-        function(d, i) {
-        return that.scaleX_(i);
-       }
-    ); 
-
-    this.line_.y(
-        function(d, i) {
-        return that.scaleY_(d);
-    });
+  
+    var axisXTransform = "translate(0,{0})".format(this.scaleY_(this.dataModel.y.min));
     
-    this.svg_.attr("width", content.outerWidth)
-        .attr("height", content.outerHeight);
-         
-    this.rect_.attr("width", content.innerWidth)
-        .attr("height", content.innerHeight);
-        
-        
-    var axisXTransform = "translate(0,{0})".format(this.scaleY_(this.dataModel.y.min));    
     this.axisX_.attr("transform", axisXTransform);
+        
+    this.axisXb_.scale(this.scaleX_); 
+    this.axisX_.call(this.axisXb_);
     
-    this.axisX_.call(
-        d3.svg.axis().scale(this.scaleX_).orient("bottom")
-    );
-    
-
-    this.axisY_.call(
-        d3.svg.axis().scale(this.scaleY_).orient("left")
-    );
+    this.axisYb_.scale(this.scaleY_); 
+    this.axisY_.call(this.axisYb_);
 
     
     this.path_.attr("d", this.line_);
@@ -127,49 +97,66 @@ lgb.chart.view.GraphGUI_08.prototype.calculateLayout = function() {
 
 
 
-
+lgb.chart.view.GraphGUI_08.prototype.setSVGsize_ = function() {
     
+    this.scaleX_.range([0, this.contentArea_.innerWidth]);
+    this.scaleY_.range([this.contentArea_.innerHeight, 0]);
+    
+    this.svg_.attr("width", this.contentArea_.outerWidth)
+        .attr("height", this.contentArea_.outerHeight);
+        
+    this.rect_.attr("width", this.contentArea_.innerWidth)
+        .attr("height", this.contentArea_.innerHeight);
+        
+};
 
-lgb.chart.view.GraphGUI_08.prototype.makeChart2_ = function() {
+
+
+lgb.chart.view.GraphGUI_08.prototype.setScaleDomain_ = function() {
+    
+    this.scaleX_.domain(this.dataModel.getDomainX());
+    this.scaleY_.domain(this.dataModel.getDomainY());
+        
+};
+
+
+lgb.chart.view.GraphGUI_08.prototype.makeLine_ = function() {
+    
+    var that = this;
+    
+    //make d3 line
+    this.line_  = d3.svg.line();
+    this.line_.interpolate("monotone");
+    
+    this.line_.x(function(d, i) { 
+        return that.scaleX_(d.date); 
+    });
+     
+    this.line_.y(function(d, i) { 
+        return that.scaleY_(d.value); 
+    });
+        
+};
+
+lgb.chart.view.GraphGUI_08.prototype.makeChart_ = function() {
 
     var parent = this.getParentElement();
     this.parent_x2_ = parent.parent();
     
-    var content = this.calcContentArea_();
+    this.contentArea_ = this.calcContentArea_();
 
-    //create scaling functions
-    this.scaleX_ = d3.scale.linear()
-       .domain(this.dataModel.getDomainX())
-       .range([0, content.innerWidth]);
+    this.scaleX_  = d3.time.scale();
+    this.scaleY_ = d3.scale.linear();
     
-    this.scaleY_ = d3.scale.linear()
-       .domain(this.dataModel.getDomainY())
-       .range([content.innerHeight, 0]); 
-       
-    //make d3 line
-    this.line_  = d3.svg.line();
+    this.setScaleDomain_();
+    this.makeLine_();
     
-    var that = this;
-    
-    this.line_.x(
-        function(d, i) {
-        return that.scaleX_(i);
-       }
-    ); 
-
-    this.line_.y(function(d, i) {
-        return that.scaleY_(d);
-    });
-
     //make svg
     this.svg_ = d3.select(parent[0]).append("svg")
-        .attr("width", content.outerWidth)
-        .attr("height", content.outerHeight)
         .attr('class', 'd3chart');
 
-
     //make mainGroup
-    var mainGroupTransform= "translate({0},{1})".format(content.marginLeft, content.marginTop);
+    var mainGroupTransform= "translate({0},{1})".format(this.contentArea_.marginLeft, this.contentArea_.marginTop);
     
     this.mainGroup_ = this.svg_
         .append("g")
@@ -179,12 +166,15 @@ lgb.chart.view.GraphGUI_08.prototype.makeChart2_ = function() {
     this.defs_ = this.mainGroup_.append("defs");
     
     this.clipPath_ = this.defs_.append("clipPath")
-        .attr("id", "clip07");
+        .attr("id", "clip08");
         
-    this.rect_ = this.clipPath_.append("rect")
-        .attr("width", content.innerWidth)
-        .attr("height", content.innerHeight);
-   
+    this.rect_ = this.clipPath_.append("rect");
+    
+    
+    //this.setScaleRange_();
+    this.setSVGsize_();
+    
+    
     //make axisX
     var axisXTransform = "translate(0,{0})".format(this.scaleY_(this.dataModel.y.min));
     
@@ -192,22 +182,32 @@ lgb.chart.view.GraphGUI_08.prototype.makeChart2_ = function() {
         .attr("class", "x axis")
         .attr("transform", axisXTransform);
         
-        
-    this.axisX_.call(d3.svg.axis().scale(this.scaleX_).orient("bottom"));
+       
+    this.axisXb_ = d3.svg.axis();
+    
+    this.axisXb_.scale(this.scaleX_)
+            .orient("bottom")
+            .tickFormat(d3.time.format("%H:%M"));
+            
+    this.axisX_.call(this.axisXb_);
+   
    
     //make axisY
     this.axisY_ = this.mainGroup_.append("g")
         .attr("class", "y axis");
+    
+    
+    this.axisYb_ = d3.svg.axis();
+       
+    this.axisYb_.scale(this.scaleY_)
+            .orient("left");
+       
+    this.axisY_.call(this.axisYb_);
         
-    this.axisY_
-        .call(d3.svg.axis()
-        .scale(this.scaleY_)
-        .orient("left"));
         
     //make clip path
     this.clipPathGroup_ = this.mainGroup_.append("g")
-        .attr("clip-path", "url(#clip07)");
-
+        .attr("clip-path", "url(#clip08)");
 
     this.path_ = this.clipPathGroup_.append("path")
         .datum(this.dataModel.data)
@@ -215,16 +215,17 @@ lgb.chart.view.GraphGUI_08.prototype.makeChart2_ = function() {
         .attr("d", this.line_);
     
     
-    this.oneTickLeftPixelCount_ = this.scaleX_(-1);
     
-    
-    this.transformVlaue_ = "translate(" + this.oneTickLeftPixelCount_ + ",0)";  
+    this.oneTickLeftPixelCount_ = -1 * (this.contentArea_.innerWidth / 20);
+    this.transformVlaue_ = "translate(" + this.oneTickLeftPixelCount_ + ",0)"; 
+
     this.bind_();
     
-
     return;
 };
 
+
+   
 
 
 lgb.chart.view.GraphGUI_08.prototype.getDimensions = function() {
@@ -249,7 +250,7 @@ lgb.chart.view.GraphGUI_08.prototype.getDimensions = function() {
 lgb.chart.view.GraphGUI_08.prototype.injectInto = function(parentElement) {
   
     goog.base(this,  'injectInto', parentElement);
-    this.makeChart2_();
+    this.makeChart_();
 
 };
 
