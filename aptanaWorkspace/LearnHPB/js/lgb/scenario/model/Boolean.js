@@ -33,8 +33,8 @@ lgb.scenario.model.Boolean.prototype.parseXmlNode_ = function() {
 
 lgb.scenario.model.Boolean.prototype.setPropertyDefaults_ = function() {
   
-  var propertyDefaults = this.getPropertyDefaults();
-  this.setPropertyBool_(dflt, propertyDefaults.dflt);
+  var propertyDefaultsObj = this.getPropertyDefaults();
+  this.setPropertyBool_('dflt', propertyDefaultsObj.dflt);
   
 };
 
@@ -43,7 +43,7 @@ lgb.scenario.model.Boolean.prototype.setPropertyDefaults_ = function() {
 lgb.scenario.model.Boolean.prototype.parseXmlNode_ = function() {
     
   var propertyDefaults = this.getPropertyDefaults();
-  this.setPropertyBool_(dflt, propertyDefaults.dflt);
+  this.setPropertyBool_('dflt', propertyDefaults.dflt);
   
 };
 

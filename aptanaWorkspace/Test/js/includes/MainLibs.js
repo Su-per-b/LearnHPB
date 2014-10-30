@@ -84,7 +84,13 @@ test.includes.MainLibs.includeCharting = function() {
 };
 
 
-test.includes.MainLibs.includeStandAloneWithCharting = function() {
+
+
+
+
+
+
+test.includes.MainLibs.no3D = function() {
   
    test.includes.MainLibs.addScripts(
     "js/lib/", 
@@ -98,7 +104,6 @@ test.includes.MainLibs.includeStandAloneWithCharting = function() {
   
     test.includes.MainLibs.includeKendo();
     test.includes.MainLibs.includeCharting();
-
 
 };
 
@@ -149,6 +154,15 @@ test.includes.MainLibs.includeCSS = function() {
    test.includes.MainLibs.addOneCssScript("css/", "panels");
    test.includes.MainLibs.addOneCssScript("css/", "lhpb");
 };
+
+test.includes.MainLibs.includeCSSchart = function() {
+  
+   test.includes.MainLibs.addOneCssScript("css/", "chartIframe");
+
+};
+
+
+
 
 test.includes.MainLibs.includeKendo = function() {
   

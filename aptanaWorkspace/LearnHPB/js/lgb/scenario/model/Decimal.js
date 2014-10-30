@@ -18,8 +18,6 @@ goog.require('lgb.scenario.model.NodeBase');
 lgb.scenario.model.Decimal = function(node) {
 
   lgb.scenario.model.NodeBase.call(this, node);
-  // this.displayUnitSystem = lgb.simulation.model.DisplayUnitSystem.getInstance();
-
   
 };
 goog.inherits(lgb.scenario.model.Decimal, lgb.scenario.model.NodeBase);

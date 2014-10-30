@@ -18,6 +18,9 @@ lgb.chart.model.GraphGUImodel_08 = function() {
   this.title_ = "{title not set}";
   
   this.varList_ = [];
+  this.varMap_ = {};
+  
+  this.cities_ = [];
   
 };
 goog.inherits(lgb.chart.model.GraphGUImodel_08, lgb.core.BaseModel);
@@ -27,7 +30,9 @@ goog.inherits(lgb.chart.model.GraphGUImodel_08, lgb.core.BaseModel);
 
 lgb.chart.model.GraphGUImodel_08.prototype.init = function(title) {
   
-    this.setTitle(title);
+  this.setTitle(title);
+
+    
 
   return;
 };
@@ -60,10 +65,13 @@ lgb.chart.model.GraphGUImodel_08.prototype.updateValues = function(integratedMai
   }
 
 
-    
+  var value1 = value0 + 1.0;
+  var valueList = [value0, value1];
+        
+        
   var newItem = {
       date: dateObj,
-      value: value0
+      valueList: valueList
   };
 
 
@@ -111,6 +119,16 @@ lgb.chart.model.GraphGUImodel_08.prototype.addVariable = function(varName, min, 
   
   this.setDomainY(min, max);
   
+  this.varMap_[varName] = [];
+  
+  var city = {
+      name: varName,
+      values:[]
+  };
+  
+  this.cities_.push(city);
+
+  
 };
 
 
@@ -136,32 +154,50 @@ lgb.chart.model.GraphGUImodel_08.prototype.makeRandomData = function(count) {
 	
 	
     this.data = [];
+
     
-    var dateObj = new Date(2000,5,29,1,20,00,0);
+    var dateObj = new Date(2000,5,30,9,40,00,0);
     var ms = dateObj.getTime();
        
-    var len = 20; //this.data.length;
+    var len = count; //this.data.length;
     for (i = 0; i < len; i++) {
 
         var v0 = this.randomFunction_();
         var v1 = v0 + 1.0;
-
-
+        var latestDateObj = new Date(ms + (120000 * i));
+        var valueList = [v0, v1];
+        
         var item = {
-            date:new Date(ms + (120000 * i)),
-            value: v0,
-            value2: v1,
-            valueList:[v0, v1]
+            date:latestDateObj,
+            valueList:valueList
         };
         
         this.data.push(item);
         
+        
+        var varCount = this.cities_.length;
+        for (j = 0; j < varCount; j++) {
+            var city = this.cities_[j];
+            
+            city.values.push(
+                {
+                    date:latestDateObj,
+                    temperature:this.randomFunction_()
+                }
+                
+                );
+        }
+        
+        
     }
-    
 
+    
+        
 	this.calcDomainX();
 	
+    
 
+    
 
 };
 

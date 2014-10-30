@@ -9,6 +9,12 @@ svg {
   stroke: #fff;
   stroke-width: 1.5px;
 }
+
+.lineRed {
+  fill: none;
+  stroke: #f00;
+  stroke-width: 1.5px;
+}
  
 .axis path,
 .axis line {

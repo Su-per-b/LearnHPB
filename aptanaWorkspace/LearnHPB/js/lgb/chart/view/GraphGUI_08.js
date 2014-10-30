@@ -22,14 +22,12 @@ goog.inherits(lgb.chart.view.GraphGUI_08, lgb.gui.view.BaseGUI);
 
 lgb.chart.view.GraphGUI_08.prototype.init = function() {
 
-    //this.dataModel.init();
     return;
 };
 
 lgb.chart.view.GraphGUI_08.prototype.bind_ = function() {
 
     this.listenForChange_('data');
-    //this.listenForChange_('x');
     this.listenForChange_('y');
 
 };
@@ -39,7 +37,7 @@ lgb.chart.view.GraphGUI_08.prototype.bind_ = function() {
 lgb.chart.view.GraphGUI_08.prototype.onChange_y_ = function(y) {
     
     this.scaleY_.domain(this.dataModel.getDomainY()); 
-    this.axisY_.call(this.axisYb_);
+    this.axisY_.call(this.axisYc_);
     
     return;
 };
@@ -65,6 +63,14 @@ lgb.chart.view.GraphGUI_08.prototype.onChange_data_ = function(data) {
         .duration(500)
         .ease("linear")
         .attr("transform", this.transformVlaue_);
+        
+    this.path2_
+        .attr("d", this.line2_)
+        .attr("transform", null)
+      .transition()
+        .duration(500)
+        .ease("linear")
+        .attr("transform", this.transformVlaue_);
     
     return;
 };
@@ -84,14 +90,12 @@ lgb.chart.view.GraphGUI_08.prototype.calculateLayout = function() {
     
     this.axisX_.attr("transform", axisXTransform);
         
-    this.axisXb_.scale(this.scaleX_); 
-    this.axisX_.call(this.axisXb_);
     
-    this.axisYb_.scale(this.scaleY_); 
-    this.axisY_.call(this.axisYb_);
+    this.axisYc_.scale(this.scaleY_); 
+    this.axisY_.call(this.axisYc_);
 
-    
     this.path_.attr("d", this.line_);
+    this.path2_.attr("d", this.line2_);
 
 };
 
@@ -120,6 +124,15 @@ lgb.chart.view.GraphGUI_08.prototype.setScaleDomain_ = function() {
 };
 
 
+
+lgb.chart.view.GraphGUI_08.prototype.makeOneLine_ = function() {
+    
+
+        
+};
+
+
+
 lgb.chart.view.GraphGUI_08.prototype.makeLine_ = function() {
     
     var that = this;
@@ -133,7 +146,27 @@ lgb.chart.view.GraphGUI_08.prototype.makeLine_ = function() {
     });
      
     this.line_.y(function(d, i) { 
-        return that.scaleY_(d.value); 
+        if (undefined == d.valueList) {
+            debugger;
+        }
+        
+        return that.scaleY_(d.valueList[0]); 
+    });
+    
+    this.line2_  = d3.svg.line();
+    this.line2_.interpolate("monotone");
+    
+    this.line2_.x(function(d, i) { 
+        return that.scaleX_(d.date); 
+    });
+    
+    
+    this.line2_.y(function(d, i) { 
+        if (undefined == d.valueList) {
+            debugger;
+        }
+        
+        return that.scaleY_(d.valueList[1]); 
     });
         
 };
@@ -170,13 +203,12 @@ lgb.chart.view.GraphGUI_08.prototype.makeChart_ = function() {
         
     this.rect_ = this.clipPath_.append("rect");
     
-    
-    //this.setScaleRange_();
     this.setSVGsize_();
     
     
     //make axisX
     var axisXTransform = "translate(0,{0})".format(this.scaleY_(this.dataModel.y.min));
+    var axisYcTransform = "translate(0,{0})".format(this.scaleX_(this.dataModel.y.max));
     
     this.axisX_ = this.mainGroup_.append("g")
         .attr("class", "x axis")
@@ -197,12 +229,13 @@ lgb.chart.view.GraphGUI_08.prototype.makeChart_ = function() {
         .attr("class", "y axis");
     
     
-    this.axisYb_ = d3.svg.axis();
-       
-    this.axisYb_.scale(this.scaleY_)
+    this.axisYc_ = d3.svg.axis();
+    
+            
+    this.axisYc_.scale(this.scaleY_)
             .orient("left");
-       
-    this.axisY_.call(this.axisYb_);
+            
+    this.axisY_.call(this.axisYc_);
         
         
     //make clip path
@@ -214,6 +247,10 @@ lgb.chart.view.GraphGUI_08.prototype.makeChart_ = function() {
         .attr("class", "line")
         .attr("d", this.line_);
     
+    this.path2_ = this.clipPathGroup_.append("path")
+        .datum(this.dataModel.data)
+        .attr("class", "lineRed")
+        .attr("d", this.line2_);
     
     
     this.oneTickLeftPixelCount_ = -1 * (this.contentArea_.innerWidth / 20);

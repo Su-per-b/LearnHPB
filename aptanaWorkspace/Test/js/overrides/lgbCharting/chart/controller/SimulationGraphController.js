@@ -4,7 +4,7 @@
  */
  
 
-goog.provide('lgb.chart.controller.SimulationGraphController');
+goog.provide('lgbCharting.chart.controller.SimulationGraphController');
 
 goog.require('lgb.core.BaseController');
 
@@ -25,33 +25,31 @@ goog.require('lgb.chart.model.GraphGUImodel_08');
  * @constructor
  * @extends lgb.core.BaseController
  */
-lgb.chart.controller.SimulationGraphController = function() {
+lgbCharting.chart.controller.SimulationGraphController = function() {
 
   this.TITLE_ = 'Graph';
   lgb.core.BaseController.call(this);
 
 };
-goog.inherits(lgb.chart.controller.SimulationGraphController, lgb.core.BaseController);
+goog.inherits(lgbCharting.chart.controller.SimulationGraphController, lgb.core.BaseController);
 
 
 
-lgb.chart.controller.SimulationGraphController.prototype.init = function(simDataModel) {
+lgbCharting.chart.controller.SimulationGraphController.prototype.init = function(simDataModel) {
 
   this.dataModel = simDataModel;
   this.bind1_();
-
+  
+  this.init2_();
+  
 };
 
 
 
 
-lgb.chart.controller.SimulationGraphController.prototype.bind1_ = function() {
+lgbCharting.chart.controller.SimulationGraphController.prototype.bind1_ = function() {
 
 
-    this.listen (
-        e.SimulationInitialized,
-        this.onSimulationInitialized_
-    );
     
   this.listen(
       e.LayoutChange, 
@@ -61,14 +59,9 @@ lgb.chart.controller.SimulationGraphController.prototype.bind1_ = function() {
 
 };
 
-lgb.chart.controller.SimulationGraphController.prototype.onSimulationInitialized_ = function(event) {
-
-  this.init2_();
-
-};
 
 
-lgb.chart.controller.SimulationGraphController.prototype.bind2_ = function() {
+lgbCharting.chart.controller.SimulationGraphController.prototype.bind2_ = function() {
 
 
     this.listen (
@@ -80,7 +73,7 @@ lgb.chart.controller.SimulationGraphController.prototype.bind2_ = function() {
 };
 
 
-lgb.chart.controller.SimulationGraphController.prototype.onLayoutChange_ = function(event) {
+lgbCharting.chart.controller.SimulationGraphController.prototype.onLayoutChange_ = function(event) {
 
 
     if ( undefined != this.guiView_08) {
@@ -103,7 +96,7 @@ lgb.chart.controller.SimulationGraphController.prototype.onLayoutChange_ = funct
     }
 };
 
-lgb.chart.controller.SimulationGraphController.prototype.onIntegratedDataModelValuesUpdated_ = function(event) {
+lgbCharting.chart.controller.SimulationGraphController.prototype.onIntegratedDataModelValuesUpdated_ = function(event) {
 
 
   //this.chartModel_05.updateValues(event.payload);
@@ -123,7 +116,7 @@ lgb.chart.controller.SimulationGraphController.prototype.onIntegratedDataModelVa
 
 
 
-lgb.chart.controller.SimulationGraphController.prototype.init2_ = function() {
+lgbCharting.chart.controller.SimulationGraphController.prototype.init2_ = function() {
   
 
   // this.chartModel_06 = new lgb.chart.model.GraphGUImodel_06();
