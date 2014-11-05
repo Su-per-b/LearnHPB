@@ -10,7 +10,7 @@ goog.require('lgb.gui.controller.SimulationInputController');
 goog.require('lgb.gui.controller.SimulationResultsController');
 
 
-goog.require('lgb.chart.controller.SimulationGraphController');
+goog.require('lgb.chart.controller.GraphController');
 
 
 
@@ -47,7 +47,37 @@ lgb.gui.controller.BottomPanelGUIController.prototype.bind_ = function() {
         this.onSimulationEngineLoaded_
     );
     
+    this.listen (
+        e.IntegratedDataModelInitialized,
+        this.onIntegratedDataModelInitialized_
+    );
+    
 };
+
+
+
+lgb.gui.controller.BottomPanelGUIController.prototype.onIntegratedDataModelInitialized_ = function(event) {
+  
+  var integratedDataModel = event.payload;
+  var graphModelList = integratedDataModel.graphModelList;
+  
+  this.each(graphModelList, this.makeOneGraph_);
+ 
+};
+
+
+
+
+lgb.gui.controller.BottomPanelGUIController.prototype.makeOneGraph_ = function(graphGUIModel) {
+  
+  this.makeChildGUIcontroller_
+     (lgb.chart.controller.GraphController, graphGUIModel);
+     
+};
+
+
+
+
 
 
 lgb.gui.controller.BottomPanelGUIController.prototype.onSimulationEngineLoaded_ = function(event) {
@@ -79,10 +109,8 @@ lgb.gui.controller.BottomPanelGUIController.prototype.init2_ = function(simDataM
     (lgb.gui.controller.SimulationResultsController, simDataModel);
     
     
-  this.makeChildGUIcontroller_
-    (lgb.chart.controller.SimulationGraphController, simDataModel);
-    
-    
+
+   
 
    
 };

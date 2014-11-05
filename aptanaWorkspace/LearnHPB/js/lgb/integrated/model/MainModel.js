@@ -38,6 +38,8 @@ lgb.integrated.model.MainModel.prototype.parseSrcObj = function(srcObj) {
     this.dateObjectTicks_ = [];
     this.timeAndDateStringTicks_ = [];
     
+    this.graphModelList = srcObj.graphModelList;
+    
     this.each(this.leafNodes_, this.extractOneIntegratedVariable_);
     
 };
@@ -214,35 +216,6 @@ lgb.integrated.model.MainModel.prototype.processOneOutputVariable_ = function(sc
     return;
 };
 
-
-
-
-// lgb.integrated.model.MainModel.prototype.proccessOneVariable_ = function(scalarVariableReal) {
-//     
-    // var name = scalarVariableReal.getNormalizedName();
-//             
-    // if (this.integratedVariableNameMap_.hasOwnProperty(name)) {
-        // //names should be unique
-        // var integratedVariable = this.integratedVariableNameMap_[name];
-        // integratedVariable.setScalarVariable(scalarVariableReal);
-// 
-    // } else {
-        // var integratedVariable = new lgb.integrated.model.VariableReal();
-        // integratedVariable.setScalarVariable(scalarVariableReal);
-//         
-        // var causality = scalarVariableReal.getCausalityAsEnum();
-//         
-        // if (causality == lgb.simulation.model.voNative.Enu.ENUM.enu_input) {
-            // this.integratedVariableList_Input_.push(integratedVariable);
-        // } else {
-            // this.integratedVariableList_Output_.push(integratedVariable);
-        // }
-// 
-// 
-    // }
-//     
-    // return;
-// };
 
 
 

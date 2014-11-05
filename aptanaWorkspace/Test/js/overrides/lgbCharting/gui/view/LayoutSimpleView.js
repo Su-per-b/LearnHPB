@@ -35,9 +35,9 @@ lgbCharting.gui.view.LayoutSimpleView.prototype.init = function() {
   this.splitPanelVerticalDS_ = new lgb.component.SplitPanelDataSource();
 
   this.splitPanelVerticalDS_.panes =  [{
+      size:"36px",
       collapsible : false
     }, {
-      size:"900px",
       collapsible : true
     }];
     
@@ -87,6 +87,9 @@ lgbCharting.gui.view.LayoutSimpleView.prototype.add = function(guiView) {
     case "BottomPanelGUI":
       guiView.injectInto(this.bottomPanel_);
       break;
+    case "ButtonsTopRightHUD":
+      guiView.injectInto(this.topPanel_);
+      break;
 
 
     default:
@@ -128,7 +131,6 @@ lgbCharting.gui.view.LayoutSimpleView.prototype.inject = function() {
 
   this.viewportTop_.css({
     width : "100%",
-    height : "64px",
     background:"transparent"
   });
   

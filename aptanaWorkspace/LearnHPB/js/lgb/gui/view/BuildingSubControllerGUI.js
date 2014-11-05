@@ -66,11 +66,3 @@ lgb.gui.view.BuildingSubControllerGUI.prototype.calculateLayout = function() {
 
 
 
-/*
-
-lgb.gui.view.BuildingSubControllerGUI.prototype.injectInto = function(parentElement) {
-  goog.base(this,  'injectInto', parentElement);
-};
-
-*/
-

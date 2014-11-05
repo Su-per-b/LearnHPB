@@ -15,7 +15,7 @@ goog.require('lgb.gui.model.LayoutModel');
 
 goog.require('lgbCharting.chart.controller.SimulationGraphController');
 goog.require('lgbCharting.gui.controller.BottomPanelGUIController');
-
+goog.require('lgbCharting.gui.controller.ButtonsTopRightHUDController');
 
 
 /**
@@ -45,8 +45,7 @@ lgbCharting.gui.controller.LayoutController.prototype.init = function() {
     this.bind_();
     
     this.bottomPanelGUIController_ = this.makeChildGUIcontroller_(lgbCharting.gui.controller.BottomPanelGUIController);
-    
-
+    this.buttonsTopRightHUDController_ = this.makeChildGUIcontroller_(lgbCharting.gui.controller.ButtonsTopRightHUDController);
 };
 
 

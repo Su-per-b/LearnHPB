@@ -134,6 +134,7 @@ lgb.core.DebugLGB.prototype.getPackages3 = function() {
     
     'lgb.chart',
     'lgb.chart.controller',
+    'lgb.chart.model',
     'lgb.chart.view',
 
     'lgb.world',
