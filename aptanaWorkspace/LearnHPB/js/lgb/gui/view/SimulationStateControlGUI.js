@@ -31,46 +31,41 @@ goog.inherits(lgb.gui.view.SimulationStateControlGUI, lgb.gui.view.BaseGUI);
  */
 lgb.gui.view.SimulationStateControlGUI.prototype.init = function() {
 
-	this.listenForChange_('webSocketConnectionState');
-	this.listenForChange_('simStateNative');
-	this.listenForChange_('scalarValueResultsConverted');
-	this.listenForChange_('mergedResults');
+    this.bind2_();
 
-	this.listenTo(this.dataModel.displayUnitSystem, e.DataModelChangedEx, this.onChange_displayUnitSystemValue_);
+};
+
+
+lgb.gui.view.SimulationStateControlGUI.prototype.bind2_ = function() {
+
+    this.listenForChange_('webSocketConnectionState');
+    this.listenForChange_('simStateNative');
+
+    this.listenTo(this.dataModel.displayUnitSystem, e.DataModelChangedEx, this.onChange_displayUnitSystemValue_);
+       
+    this.listen(e.IntegratedDataModelValuesUpdated, this.onIntegratedDataModelValuesUpdated_);
 };
 
 
 
 
-lgb.gui.view.SimulationStateControlGUI.prototype.onChange_mergedResults_ = function(mergedResults) {
+
+lgb.gui.view.SimulationStateControlGUI.prototype.onIntegratedDataModelValuesUpdated_ = function(event) {
 
 
-    var dateStr = mergedResults.getDateStr();
-    var timeStr = mergedResults.getTimeStr();
+    var integratedMainModel = event.payload;
+    
+    var dateStr = integratedMainModel.getDateStr();
+    var timeStr = integratedMainModel.getTimeStr();
     
     if (null != dateStr) {
         this.simDate_.html(dateStr);
         this.simTime_.html(timeStr); 
     }
 
-    return;
-
 };
 
 
-
-lgb.gui.view.SimulationStateControlGUI.prototype.onChange_scalarValueResultsConverted_ = function(scalarValueResultsConverted) {
-
-	//var dateObject = scalarValueResultsConverted.dateObject_;
-	//var str = dateObject.toDateString();
-    
-    
-    var str = scalarValueResultsConverted.getTimeAndDateString();
-    
-	this.simTime_.html(str);
-	this.simDate_.html(str);
-
-};
 
 lgb.gui.view.SimulationStateControlGUI.prototype.onChange_displayUnitSystemValue_ = function(evnt) {
 
@@ -171,8 +166,6 @@ lgb.gui.view.SimulationStateControlGUI.prototype.injectInto = function(parentEle
 	el.append(time1);
 	
 	
-	
-	
 
 	var displaySystemUnit = this.dataModel.displayUnitSystem.toString();
 
@@ -200,11 +193,11 @@ lgb.gui.view.SimulationStateControlGUI.prototype.injectInto = function(parentEle
 	state2.append(this.simStatus_);
 
 	el.append(state2);
-	this.bind2_();
+	this.bind_();
 
 };
 
-lgb.gui.view.SimulationStateControlGUI.prototype.bind2_ = function() {
+lgb.gui.view.SimulationStateControlGUI.prototype.bind_ = function() {
 
 	this.listenTo(this.wsConnectLink_, e.MouseClick, this.onWsConnectLink_);
 	this.listenTo(this.wsDisConnectLink_, e.MouseClick, this.onWsDisConnectLink_);

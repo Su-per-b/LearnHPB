@@ -16,7 +16,6 @@ goog.require('lgb.gui.controller.LeftPanelSimpleController');
 
 
 goog.require('lgb.gui.controller.ButtonsTopRightHUDController');
-goog.require('lgb.gui.controller.TopMenuController');
 goog.require('lgb.world.controller.VisibilityController');
 goog.require('lgb.gui.controller.BottomPanelGUIController');
 //goog.require('lgb.gui.controller.BottomPanelIframeGUIController');

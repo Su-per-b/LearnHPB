@@ -215,6 +215,10 @@ lgb.chart.view.GraphView.prototype.injectInto = function(parentElement) {
     this.setSVGsize_();
     
     
+
+      
+
+
     //make axisX
     var axisXTransform = "translate(0,{0})".format(this.scaleY_(this.dataModel.y.min));
     var axisYcTransform = "translate(0,{0})".format(this.scaleX_(this.dataModel.y.max));
@@ -253,6 +257,11 @@ lgb.chart.view.GraphView.prototype.injectInto = function(parentElement) {
 
     this.oneTickLeftPixelCount_ = -1 * (this.contentArea_.innerWidth / 20);
     this.transformValue_ = "translate(" + this.oneTickLeftPixelCount_ + ",0)"; 
+    
+
+    
+    
+    
     
     this.bind_();
     

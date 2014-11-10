@@ -54,9 +54,31 @@ lgb.chart.controller.GraphController.prototype.bind_ = function() {
     this.listen(
         e.IntegratedDataModelValuesUpdated, 
         this.onIntegratedDataModelValuesUpdated_
+        );
+        
+    this.listen(
+        e.DisplayUnitSystemChangeNotify, 
+        this.onDisplayUnitSystemChangeNotify_
         ); 
+        
+        
+        
 
 };
+
+
+
+lgb.chart.controller.GraphController.prototype.onDisplayUnitSystemChangeNotify_ = function(event) {
+    
+    var displayUnitSystem = event.payload;
+    this.dataModel.changeDisplayUnitSystem(displayUnitSystem);
+
+
+};
+
+
+
+
 
 
 
@@ -64,6 +86,8 @@ lgb.chart.controller.GraphController.prototype.onLayoutChange_ = function(event)
     
     this.guiView.calculateLayout(event.payload);
 };
+
+
 
 
 

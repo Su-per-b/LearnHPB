@@ -37,6 +37,13 @@ lgb.chart.model.PathModel.prototype.init_= function() {
 };
 
 
+lgb.chart.model.PathModel.prototype.changeDisplayUnitSystem = function(displayUnitSystem) {
+
+    
+    return;   
+};
+
+
 
 
 

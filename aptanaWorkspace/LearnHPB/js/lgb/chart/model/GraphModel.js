@@ -16,6 +16,7 @@ lgb.chart.model.GraphModel = function() {
 
   lgb.core.BaseModel.call(this);
   this.title_ = "{title not set}";
+  this.displayUnitSystem_ = lgb.simulation.model.DisplayUnitSystem.getInstance();
   this.init_();
   
 };
@@ -44,6 +45,15 @@ lgb.chart.model.GraphModel.prototype.getTitle = function() {
   return this.title_;
   
 };
+
+
+
+lgb.chart.model.GraphModel.prototype.changeDisplayUnitSystem = function(displayUnitSystem) {
+
+    
+    return;   
+};
+
 
 
 

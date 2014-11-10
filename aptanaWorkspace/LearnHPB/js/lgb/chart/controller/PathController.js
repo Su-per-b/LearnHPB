@@ -49,3 +49,25 @@ lgb.chart.controller.PathController.prototype.addIntegratedMainModel = function(
 
 
 
+
+lgb.chart.controller.PathController.prototype.bind_ = function() {
+    
+
+    this.listen(
+        e.DisplayUnitSystemChangeNotify, 
+        this.onDisplayUnitSystemChangeNotify_
+        ); 
+        
+        
+};
+
+
+
+lgb.chart.controller.PathController.prototype.onDisplayUnitSystemChangeNotify_ = function(event) {
+    
+    var displayUnitSystem = event.payload;
+    this.dataModel.changeDisplayUnitSystem(displayUnitSystem);
+
+
+};
+

@@ -83,6 +83,20 @@ lgb.chart.view.PathView.prototype.injectInto = function(parentElement, scaleX, s
         .attr("class", this.dataModel.getCssClassName())
         .attr("d", this.line);
     
+    
+    // this.tip_ = d3.tip()
+      // .attr('class', 'd3-tip')
+      // .offset([-10, 0])
+      // .html(function(d) {
+          // var str = "<strong>Frequency:</strong> <span style='color:red'>";
+//           
+        // return "<strong>Frequency:</strong> <span style='color:red'>" + d.frequency + "</span>";
+      // });
+//     
+//     
+    // this.path.on('mouseover', this.tip_.show).on('mouseout', this.tip_.hide);
+    
+    
     return;
     
 };
