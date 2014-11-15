@@ -4,14 +4,9 @@ goog.require('lgb.core.BaseController');
 goog.require('lgb.gui.view.BottomPanelGUI');
 goog.require('lgb.gui.model.BaseGuiModel');
 
-goog.require('lgb.gui.controller.SimulationConsoleController');
-goog.require('lgb.gui.controller.SimulationOutputController');
-goog.require('lgb.gui.controller.SimulationInputController');
-goog.require('lgb.gui.controller.SimulationResultsController');
 
-
-goog.require('lgb.chart.controller.SimulationGraphController');
-
+goog.require('lgb.chart.controller.GraphControllerC3');
+goog.require('lgb.chart.model.GraphModelC3');
 
 
 
@@ -36,90 +31,48 @@ lgbCharting.gui.controller.BottomPanelGUIController.prototype.init = function() 
   
   this.triggerLocal(e.RequestAddToParentGUI, this.guiView);
   
-  // this.init2_({});
+  this.init2_();
 };
 
 
-// 
-// lgbCharting.gui.controller.BottomPanelGUIController.prototype.init2_ = function(simDataModel) {
-//   
-  // this.makeCharts_(simDataModel); 
-//  
-// };
-// 
 
+lgbCharting.gui.controller.BottomPanelGUIController.prototype.init2_ = function() {
+  
+   this.graphModelC3List = [];
+    
+   this.makeGraphC3('ZN1', ['y_ZN_1', 'y_SYS_1', 'u_ZN_1', 'u_ZN_2']);
+   // this.makeGraphC3('ZN2', ['y_ZN_5', 'y_SYS_1', 'u_ZN_5', 'u_ZN_6']);
+   // this.makeGraphC3('ZN3', ['y_ZN_9', 'y_SYS_1', 'u_ZN_9', 'u_ZN_10']);
+   // this.makeGraphC3('ZN4', ['y_ZN_13', 'y_SYS_1', 'u_ZN_13', 'u_ZN_14']);
+   // this.makeGraphC3('ZN5', ['y_ZN_17', 'y_SYS_1', 'u_ZN_17', 'u_ZN_18']);
+   // this.makeGraphC3('ZN6', ['y_ZN_21', 'y_SYS_1', 'u_ZN_21', 'u_ZN_22']);
+   // this.makeGraphC3('ZN7', ['y_ZN_25', 'y_SYS_1', 'u_ZN_25', 'u_ZN_26']);
+   // this.makeGraphC3('ZN8', ['y_ZN_29', 'y_SYS_1', 'u_ZN_29', 'u_ZN_30']);
+   // this.makeGraphC3('ZN9', ['y_ZN_33', 'y_SYS_1', 'u_ZN_33', 'u_ZN_34']);
+   
+ 
+   this.makeChildGUIcontroller_
+     (lgb.chart.controller.GraphControllerC3, this.graphModelC3List[0]);
+     
+};
 
-// 
-// 
-// lgbCharting.gui.controller.BottomPanelGUIController.prototype.makeCharts_ = function(simDataModel) {
-//   
-  // this.chartController01_ = this.makeChildGUIcontroller_
-     // (lgb.chart.controller.SimulationGraphController, simDataModel);
-//     
-// 
-//     
-   // var chartModel_01 = new lgb.chart.model.GraphGUImodel();
-   // chartModel_01.setTitle('ZN2 Temp');
-   // chartModel_01.addVariable('y_ZN_5', 5, 30);
-   // chartModel_01.addVariable('y_SYS_1', 5, 30);
-   // chartModel_01.makeRandomData(20);
-//   
-   // this.chartController01_.setChartModel(chartModel_01);
-// 
-//     
-  // this.chartController02_ = this.makeChildGUIcontroller_
-     // (lgb.chart.controller.SimulationGraphController, simDataModel);
-//     
-   // var chartModel_02 = new lgb.chart.model.GraphGUImodel();
-   // chartModel_02.setTitle('Outside Temp');
-   // chartModel_02.addVariable('y_SYS_1', 5, 30);
-   // chartModel_02.makeRandomData(20);
-//   
-   // this.chartController02_.setChartModel(chartModel_02);
-//    
-//    
-  // this.chartController03_ = this.makeChildGUIcontroller_
-     // (lgb.chart.controller.SimulationGraphController, simDataModel);
-//     
-   // var chartModel_03 = new lgb.chart.model.GraphGUImodel();
-   // chartModel_03.setTitle('ZN2 Heat');
-   // chartModel_03.addVariable('u_ZN_5', 5, 30);
-   // chartModel_03.makeRandomData(20);
-//   
-   // this.chartController03_.setChartModel(chartModel_03);
-//    
-//    
-  // this.chartController04_ = this.makeChildGUIcontroller_
-     // (lgb.chart.controller.SimulationGraphController, simDataModel);
-//     
-   // var chartModel_04 = new lgb.chart.model.GraphGUImodel();
-   // chartModel_04.setTitle('ZN2 Cool');
-   // chartModel_04.addVariable('u_ZN_6', 5, 30);
-   // chartModel_04.makeRandomData(20);
-//   
-   // this.chartController04_.setChartModel(chartModel_04);
-//    
-//    
-  // this.chartController05_ = this.makeChildGUIcontroller_
-     // (lgb.chart.controller.SimulationGraphController, simDataModel);
-//     
-   // var chartModel_05 = new lgb.chart.model.GraphGUImodel();
-   // chartModel_05.setTitle('ZN2 Heat Night');
-   // chartModel_05.addVariable('u_ZN_7', 5, 30);
-   // chartModel_05.makeRandomData(20);
-//   
-   // this.chartController05_.setChartModel(chartModel_05);
-//    
-//    
-  // this.chartController06_ = this.makeChildGUIcontroller_
-     // (lgb.chart.controller.SimulationGraphController, simDataModel);
-//     
-   // var chartModel_06 = new lgb.chart.model.GraphGUImodel();
-   // chartModel_06.setTitle('ZN2 Cool Night');
-   // chartModel_06.addVariable('u_ZN_8', 5, 30);
-   // chartModel_06.makeRandomData(20);
-//   
-   // this.chartController06_.setChartModel(chartModel_06);
-//    
-// 
-// };
+lgbCharting.gui.controller.BottomPanelGUIController.prototype.makeGraphC3 = function(title, varList) {
+  
+   var dateStart = new Date(2000,5,30,9,40,00,0);
+   
+   var graphGUIModel = new lgb.chart.model.GraphModelC3();
+   graphGUIModel.setTitle(title);
+   graphGUIModel.setDomainY(5, 30);
+   
+   graphGUIModel.setDomainX2(dateStart, 20);
+   
+   var len = varList.length;
+   for (var i=0; i < len; i++) {
+      graphGUIModel.makePathModel(varList[i]);
+   };
+
+   graphGUIModel.makeRandomData(20);
+   this.graphModelC3List.push(graphGUIModel);
+   
+   return graphGUIModel;
+};

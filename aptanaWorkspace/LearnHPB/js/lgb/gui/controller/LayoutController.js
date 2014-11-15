@@ -60,14 +60,24 @@ lgb.gui.controller.LayoutController.prototype.init_ = function() {
 
 lgb.gui.controller.LayoutController.prototype.bind_ = function() {
   
-  this.listenTo(this.guiView, e.LayoutChange, this.onLayoutChange_);
-  this.listen(e.WindowResize, this.onWindowResize_);
-  this.listen(e.RequestLayoutVisibilityChange, this.onRequestLayoutVisibilityChange_);
+  this.listen(
+      e.WindowResize,
+      this.onWindowResize_
+  );
+ 
+  this.listenTo(
+      this.guiView,
+      e.SplitterResize,
+      this.onSplitterResize_
+  );
+  
+  this.listen(
+      e.RequestLayoutVisibilityChange,
+      this.onRequestLayoutVisibilityChange_
+  );
   
 
-    
 };
-
 
 
 
@@ -81,15 +91,18 @@ lgb.gui.controller.LayoutController.prototype.onRequestLayoutVisibilityChange_ =
 };
 
 
-
 lgb.gui.controller.LayoutController.prototype.onWindowResize_ = function(event) {
-    this.guiView.calculateLayout(event.payload);
+    this.trigger(e.LayoutChange);
 };
 
+
+lgb.gui.controller.LayoutController.prototype.onSplitterResize_ = function(event) {
+    this.trigger(e.LayoutChange);
+};
+
+
 lgb.gui.controller.LayoutController.prototype.onLayoutChange_ = function(event) {
-    
     this.guiView.calculateLayout();
-    this.dispatch(event);
     
 };
 

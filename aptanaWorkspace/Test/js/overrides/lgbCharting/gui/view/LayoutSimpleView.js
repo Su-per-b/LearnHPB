@@ -56,12 +56,8 @@ lgbCharting.gui.view.LayoutSimpleView.prototype.init = function() {
 
 
 lgbCharting.gui.view.LayoutSimpleView.prototype.bind_ = function(guiView) {
-  
-  this.listenTo(this.splitPanelVerticalDS_, e.Resize, this.onSplitterResize_);
-  
+  this.listenTo(this.splitPanelVertical_, e.Resize, this.onSplitterResize_);
 };
-
-
 
 
 
@@ -114,18 +110,13 @@ lgbCharting.gui.view.LayoutSimpleView.prototype.onSplitterResize_ = function(eve
 lgbCharting.gui.view.LayoutSimpleView.prototype.inject = function() {
 
   var el = this.getMainElement();
-
-
   goog.base(this,'inject');
 
-  
   this.splitPanelVertical_.injectInto(el);
   
-
   this.topPanel_ = this.splitPanelVertical_.getPane(0);
   this.bottomPanel_ = this.splitPanelVertical_.getPane(1);
 
-  
   this.viewportTop_ = this.makeDiv('viewportTop');
   this.topPanel_.append(this.viewportTop_);
 

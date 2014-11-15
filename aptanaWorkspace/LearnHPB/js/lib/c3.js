@@ -3535,22 +3535,47 @@
             titleFormat = config.tooltip_format_title || defaultTitleFormat,
             nameFormat = config.tooltip_format_name || function (name) { return name; },
             valueFormat = config.tooltip_format_value || defaultValueFormat,
-            text, i, title, value, name, bgcolor;
+            text, i, title, value, name, bgcolor, unit;
+            
         for (i = 0; i < d.length; i++) {
             if (! (d[i] && (d[i].value || d[i].value === 0))) { continue; }
 
             if (! text) {
-                title = titleFormat ? titleFormat(d[i].x) : d[i].x;
+                var theDate = d[i].x;
+                var titleDateFormatFunction = $$.axisTimeFormat('%H:%M');
+                var time = titleDateFormatFunction(theDate);
+                
+                title = theDate.getMonth() + 1 + '/' + 
+                theDate.getDate() + '/' + 
+                theDate.getFullYear() + 
+                ' '+ 
+                time;
+                
+                
+                
+                //title = titleFormat ? titleFormat(theXvalue) : theXvalue;
                 text = "<table class='" + CLASS.tooltip + "'>" + (title || title === 0 ? "<tr><th colspan='2'>" + title + "</th></tr>" : "");
             }
 
             name = nameFormat(d[i].name, d[i].ratio, d[i].id, d[i].index);
             value = valueFormat(d[i].value, d[i].ratio, d[i].id, d[i].index);
             bgcolor = $$.levelColor ? $$.levelColor(d[i].value) : color(d[i].id);
+            unit = $$.data.targets[i].unit;
+            
 
             text += "<tr class='" + CLASS.tooltipName + "-" + d[i].id + "'>";
             text += "<td class='name'><span style='background-color:" + bgcolor + "'></span>" + name + "</td>";
-            text += "<td class='value'>" + value + "</td>";
+            
+            
+            if (undefined == unit) {
+                text += "<td class='value'>" + value + "</td>";              
+            } else {
+                text += "<td class='value'>" + value + ' ' + unit + "</td>";
+            }
+            
+
+            
+            
             text += "</tr>";
         }
         return text + "</table>";
@@ -4000,7 +4025,8 @@
                 format = config.axis_x_tick_format;
             } else if ($$.isTimeSeries()) {
                 format = function (date) {
-                    return date ? $$.axisTimeFormat(config.axis_x_tick_format)(date) : "";
+                    var theResult = date ? $$.axisTimeFormat(config.axis_x_tick_format)(date) : "";
+                    return theResult;
                 };
             }
         }

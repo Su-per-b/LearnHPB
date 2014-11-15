@@ -45,12 +45,13 @@ lgb.integrated.model.vo.Real.prototype.calcDisplayValues_ = function() {
     } else {
         
         this.displayValue_ = this.unitObject_.convertInternalToDisplayValue(this.internalValue_);
+        
     }
     
 
     
     this.displayString_ = this.displayValue_.toFixed(2);
-    
+    this.displayValue_ = this.displayValue_.toPrecision(4);
 
 };
 

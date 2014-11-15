@@ -33,10 +33,14 @@ lgb.chart.controller.GraphController.prototype.init = function(dataModel) {
   
   this.guiView = new lgb.chart.view.GraphView (this.dataModel);
 
+
+  
+  
   this.triggerLocal(e.RequestAddToParentGUI, this.guiView);
   
   this.pathModelList_ = this.dataModel.getPathModelList();
   this.each(this.pathModelList_, this.makeOnePathController_);
+  
   
   this.bind_();
   
@@ -121,5 +125,6 @@ lgb.chart.controller.GraphController.prototype.makeOnePathController_ = function
      
   
 };
+
 
 

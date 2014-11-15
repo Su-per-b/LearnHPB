@@ -48,7 +48,7 @@ lgb.world.view.CameraView.prototype.init = function() {
 };
 
 
-lgb.world.view.CameraView.prototype.bind_ = function() {
+  lgb.world.view.CameraView.prototype.bind_ = function() {
   this.listen(e.LayoutChange, this.onLayoutChange_);
 };
 

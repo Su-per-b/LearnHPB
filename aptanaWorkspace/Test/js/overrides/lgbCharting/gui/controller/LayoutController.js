@@ -12,8 +12,6 @@ goog.require('lgb.core.Config');
 goog.require('lgbCharting.gui.view.LayoutSimpleView');
 goog.require('lgb.gui.model.LayoutModel');
 
-
-goog.require('lgbCharting.chart.controller.SimulationGraphController');
 goog.require('lgbCharting.gui.controller.BottomPanelGUIController');
 goog.require('lgbCharting.gui.controller.ButtonsTopRightHUDController');
 
@@ -53,8 +51,26 @@ lgbCharting.gui.controller.LayoutController.prototype.init = function() {
 lgbCharting.gui.controller.LayoutController.prototype.bind_ = function() {
   
   this.relay(this.guiView, e.SplitterResize);
-
+  
+    this.listen(
+        e.SplitterResize, 
+        this.onSplitterResize_
+        );
+        
+    this.listen(
+        e.WindowResize, 
+        this.onWindowResize_
+        );
+  
 };
 
 
 
+lgbCharting.gui.controller.LayoutController.prototype.onWindowResize_ = function(event) {
+    this.trigger(e.LayoutChange);
+};
+
+
+lgbCharting.gui.controller.LayoutController.prototype.onSplitterResize_ = function(event) {
+    this.trigger(e.LayoutChange);
+};

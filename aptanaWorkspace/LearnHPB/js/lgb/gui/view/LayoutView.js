@@ -128,12 +128,12 @@ lgb.gui.view.LayoutView.prototype.add = function(guiView) {
 
 
 lgb.gui.view.LayoutView.prototype.onSplitterResizeVertical_ = function(event) {
-  this.triggerLocal(e.LayoutChange);
+  this.triggerLocal(e.SplitterResize);
 };
 
 
 lgb.gui.view.LayoutView.prototype.onSplitterResizeHorizontal_ = function(event) {
-  this.triggerLocal(e.LayoutChange);
+  this.triggerLocal(e.SplitterResize);
 };
 
 lgb.gui.view.LayoutView.prototype.calculateLayout = function(windowDimensions) {

@@ -75,6 +75,7 @@ test.includes.MainLibs.includeCharting = function() {
       "js/lib/", 
       [
       "d3.v3",
+      "c3",
       "crossfilter",
       "dc",
       "colorbrewer"

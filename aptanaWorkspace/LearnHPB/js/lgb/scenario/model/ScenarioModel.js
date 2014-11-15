@@ -10,6 +10,7 @@ goog.require('lgb.scenario.model.SystemList');
 goog.require('lgb.utils.XmlWrapper');
 goog.require('lgb.core.Config');
 goog.require('lgb.simulation.model.DisplayUnitSystem');
+goog.require('lgb.chart.model.GraphModelC3');
 
 
 /**
@@ -85,17 +86,32 @@ lgb.scenario.model.ScenarioModel.prototype.loadSuccess_ = function(xml) {
   
    this.systemList = new lgb.scenario.model.SystemList(node);
    this.graphModelList = [];
+   this.graphModelC3List = [];
   
-   this.makeGraph('ZN1', ['y_ZN_1', 'y_SYS_1', 'u_ZN_1', 'u_ZN_2']);
-   this.makeGraph('ZN2', ['y_ZN_5', 'y_SYS_1', 'u_ZN_5', 'u_ZN_6']);
-   this.makeGraph('ZN3', ['y_ZN_9', 'y_SYS_1', 'u_ZN_9', 'u_ZN_10']);
-   this.makeGraph('ZN4', ['y_ZN_13', 'y_SYS_1', 'u_ZN_13', 'u_ZN_14']);
-   this.makeGraph('ZN5', ['y_ZN_17', 'y_SYS_1', 'u_ZN_17', 'u_ZN_18']);
-   this.makeGraph('ZN6', ['y_ZN_21', 'y_SYS_1', 'u_ZN_21', 'u_ZN_22']);
-   this.makeGraph('ZN7', ['y_ZN_25', 'y_SYS_1', 'u_ZN_25', 'u_ZN_26']);
-   this.makeGraph('ZN8', ['y_ZN_29', 'y_SYS_1', 'u_ZN_29', 'u_ZN_30']);
-   this.makeGraph('ZN9', ['y_ZN_33', 'y_SYS_1', 'u_ZN_33', 'u_ZN_34']);
+   // this.makeGraph('ZN1', ['y_ZN_1', 'y_SYS_1', 'u_ZN_1', 'u_ZN_2']);
+   // this.makeGraph('ZN2', ['y_ZN_5', 'y_SYS_1', 'u_ZN_5', 'u_ZN_6']);
+   // this.makeGraph('ZN3', ['y_ZN_9', 'y_SYS_1', 'u_ZN_9', 'u_ZN_10']);
+   // this.makeGraph('ZN4', ['y_ZN_13', 'y_SYS_1', 'u_ZN_13', 'u_ZN_14']);
+   // this.makeGraph('ZN5', ['y_ZN_17', 'y_SYS_1', 'u_ZN_17', 'u_ZN_18']);
+   // this.makeGraph('ZN6', ['y_ZN_21', 'y_SYS_1', 'u_ZN_21', 'u_ZN_22']);
+   // this.makeGraph('ZN7', ['y_ZN_25', 'y_SYS_1', 'u_ZN_25', 'u_ZN_26']);
+   // this.makeGraph('ZN8', ['y_ZN_29', 'y_SYS_1', 'u_ZN_29', 'u_ZN_30']);
+   // this.makeGraph('ZN9', ['y_ZN_33', 'y_SYS_1', 'u_ZN_33', 'u_ZN_34']);
    
+   this.makeGraphC3b('ZN1', ['y_ZN_1', 'y_SYS_1', 'u_ZN_1', 'u_ZN_2']);
+   
+
+   // this.makeGraphC3('ZN2', ['y_ZN_5', 'y_SYS_1', 'u_ZN_5', 'u_ZN_6']);
+   // this.makeGraphC3('ZN3', ['y_ZN_9', 'y_SYS_1', 'u_ZN_9', 'u_ZN_10']);
+   // this.makeGraphC3('ZN4', ['y_ZN_13', 'y_SYS_1', 'u_ZN_13', 'u_ZN_14']);
+   // this.makeGraphC3('ZN5', ['y_ZN_17', 'y_SYS_1', 'u_ZN_17', 'u_ZN_18']);
+   // this.makeGraphC3('ZN6', ['y_ZN_21', 'y_SYS_1', 'u_ZN_21', 'u_ZN_22']);
+   // this.makeGraphC3('ZN7', ['y_ZN_25', 'y_SYS_1', 'u_ZN_25', 'u_ZN_26']);
+   // this.makeGraphC3('ZN8', ['y_ZN_29', 'y_SYS_1', 'u_ZN_29', 'u_ZN_30']);
+   // this.makeGraphC3('ZN9', ['y_ZN_33', 'y_SYS_1', 'u_ZN_33', 'u_ZN_34']);
+   
+   
+   //this.makeGraphC3('ZN1', ['y_ZN_1', 'y_SYS_1', 'u_ZN_1', 'u_ZN_2']);
    
    //this.makeGraph('Outside Temp', ['y_SYS_1']);
   // this.makeGraph('ZN2 Heat/Cool', ['u_ZN_5', 'u_ZN_6']);
@@ -108,6 +124,28 @@ lgb.scenario.model.ScenarioModel.prototype.loadSuccess_ = function(xml) {
 
 
 
+lgb.scenario.model.ScenarioModel.prototype.makeGraphC3b = function(title, varList) {
+  
+   var dateStart = new Date(2000,5,30,9,40,00,0);
+   
+   var graphGUIModel = new lgb.chart.model.GraphModelC3();
+   graphGUIModel.setTitle(title);
+   graphGUIModel.setDomainY(5, 30);
+   
+   graphGUIModel.setDomainX2(dateStart, 20);
+   
+   var len = varList.length;
+   this.graphModelC3List.push(graphGUIModel);
+   
+   
+   for (var i=0; i < len; i++) {
+      graphGUIModel.makePathModel(varList[i]);
+   };
+   
+
+   
+   graphGUIModel.makeRandomData(20);
+};
 
 
 lgb.scenario.model.ScenarioModel.prototype.makeGraph = function(title, varList) {
