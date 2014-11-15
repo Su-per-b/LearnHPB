@@ -39,7 +39,6 @@ lgb.integrated.model.MainModel.prototype.parseSrcObj = function(srcObj) {
     this.timeAndDateStringTicks_ = [];
     
     this.graphModelList = srcObj.graphModelList;
-    this.graphModelC3List = srcObj.graphModelC3List;
     
     this.each(this.leafNodes_, this.extractOneIntegratedVariable_);
     

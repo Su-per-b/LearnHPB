@@ -8,7 +8,7 @@ goog.provide('lgb.chart.controller.PathController');
 
 goog.require('lgb.core.BaseController');
 goog.require('lgb.chart.model.PathModel');
-goog.require('lgb.chart.view.PathView');
+
 
 /**
  * MVC controller for the App

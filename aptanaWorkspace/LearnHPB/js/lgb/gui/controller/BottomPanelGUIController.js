@@ -11,7 +11,6 @@ goog.require('lgb.gui.controller.SimulationResultsController');
 
 
 goog.require('lgb.chart.controller.GraphController');
-goog.require('lgb.chart.controller.GraphControllerC3');
 
 
 
@@ -61,33 +60,16 @@ lgb.gui.controller.BottomPanelGUIController.prototype.onIntegratedDataModelIniti
   
   var integratedDataModel = event.payload;
   var graphModelList = integratedDataModel.graphModelList;
-  var graphModelC3List = integratedDataModel.graphModelC3List;
   
- //this.each(graphModelList, this.makeOneGraph_);
+  this.each(graphModelList, this.makeOneGraphC3_);
   
-  
- // this.makeOneGraph_(graphModelList[0]);
-//  
- // this.makeOneGraph_(graphModelList[1]);
- 
- 
- this.makeOneGraphC3_(graphModelC3List[0]);
- // this.makeOneGraphC3_(graphModelC3List[1]);
- // this.makeOneGraphC3_(graphModelC3List[2]);
- // this.makeOneGraphC3_(graphModelC3List[3]);
- // this.makeOneGraphC3_(graphModelC3List[4]);
- // this.makeOneGraphC3_(graphModelC3List[5]);
- // this.makeOneGraphC3_(graphModelC3List[6]);
-  // this.makeOneGraphC3_(graphModelC3List[7]);
- // this.makeOneGraphC3_(graphModelC3List[8]);
- 
 };
 
 
 lgb.gui.controller.BottomPanelGUIController.prototype.makeOneGraphC3_ = function(graphGUIModelC3) {
   
   this.makeChildGUIcontroller_
-     (lgb.chart.controller.GraphControllerC3, graphGUIModelC3);
+     (lgb.chart.controller.GraphController, graphGUIModelC3);
      
 };
 

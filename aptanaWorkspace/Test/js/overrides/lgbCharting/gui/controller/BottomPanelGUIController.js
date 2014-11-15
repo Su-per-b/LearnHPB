@@ -5,8 +5,8 @@ goog.require('lgb.gui.view.BottomPanelGUI');
 goog.require('lgb.gui.model.BaseGuiModel');
 
 
-goog.require('lgb.chart.controller.GraphControllerC3');
-goog.require('lgb.chart.model.GraphModelC3');
+goog.require('lgb.chart.controller.GraphController');
+goog.require('lgb.chart.model.GraphModel');
 
 
 
@@ -52,7 +52,7 @@ lgbCharting.gui.controller.BottomPanelGUIController.prototype.init2_ = function(
    
  
    this.makeChildGUIcontroller_
-     (lgb.chart.controller.GraphControllerC3, this.graphModelC3List[0]);
+     (lgb.chart.controller.GraphController, this.graphModelC3List[0]);
      
 };
 
@@ -60,7 +60,7 @@ lgbCharting.gui.controller.BottomPanelGUIController.prototype.makeGraphC3 = func
   
    var dateStart = new Date(2000,5,30,9,40,00,0);
    
-   var graphGUIModel = new lgb.chart.model.GraphModelC3();
+   var graphGUIModel = new lgb.chart.model.GraphModel();
    graphGUIModel.setTitle(title);
    graphGUIModel.setDomainY(5, 30);
    

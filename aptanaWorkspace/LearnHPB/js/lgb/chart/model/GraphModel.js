@@ -24,28 +24,93 @@ goog.inherits(lgb.chart.model.GraphModel, lgb.core.BaseModel);
 
 
 
-
 lgb.chart.model.GraphModel.prototype.init_ = function() {
   
   this.pathModelList_ = [];
-
+  this.columns_ = [];
+  this.dateList_ = [];
+  
+  this.c3Data_ = {
+      x:[]
+  };
+  
+  this.varNameList_ = [];
+  
 };
 
 
-
 lgb.chart.model.GraphModel.prototype.setTitle = function(title) {
-  
   this.title_ = title;
-  
 };
 
 
 lgb.chart.model.GraphModel.prototype.getTitle = function() {
-  
   return this.title_;
-  
 };
 
+
+lgb.chart.model.GraphModel.prototype.getC3data = function() {
+  return this.c3Data_;
+};
+
+
+lgb.chart.model.GraphModel.prototype.getColumns = function() {
+  
+  this.columns_ = [];
+  this.each(this.pathModelList_, this.addOneColumn_);
+
+  var x = this.dateList_.slice(0);
+  x.unshift('x');
+  
+  
+  this.columns_.push(x);
+  
+  return this.columns_;
+};
+
+
+lgb.chart.model.GraphModel.prototype.addOneColumn_ = function(pathModel) {
+    
+    var oneColumn = pathModel.getColumn();
+    this.columns_.push(oneColumn);
+   
+};
+
+
+
+
+
+
+lgb.chart.model.GraphModel.prototype.updateIntegratedMainModel = function(integratedMainModel) {
+
+    this.integratedMainModel_ = integratedMainModel;
+    
+    var dateObj = integratedMainModel.getDateObject();
+    
+    this.dateList_.push(dateObj);
+    
+    if (this.dateList_.length > lgb.chart.model.PathModel.maxDataPoints) {
+        this.dateList_.shift();
+    }
+    
+    this.each(this.pathModelList_, this.update_);
+    
+   var columns = this.getColumns();
+   this.dispatchChangedEx('columns', columns);
+
+    return;   
+};
+
+
+
+lgb.chart.model.GraphModel.prototype.update_ = function(pathModel) {
+
+    var varName = pathModel.getVarName();
+    var integratedVariable = this.integratedMainModel_.integratedVariableNameMap_[varName];
+    pathModel.addIntegratedVariable(integratedVariable);
+    
+    return;   
+};
 
 
 lgb.chart.model.GraphModel.prototype.changeDisplayUnitSystem = function(displayUnitSystem) {
@@ -69,9 +134,7 @@ lgb.chart.model.GraphModel.prototype.makePathModel = function(varName) {
 
 
 lgb.chart.model.GraphModel.prototype.getLatestValue = function() {
-  
   return this.latestValue_;
-  
 };
 
 
@@ -79,6 +142,14 @@ lgb.chart.model.GraphModel.prototype.makeRandomData = function(count) {
     
     var dateObj = new Date(2000,5,30,9,40,00,0);
     var ms = dateObj.getTime();
+    
+    
+    for ( i = 0; i < count; i++) {
+
+        var latestDateObj = new Date(ms + (120000 * i));
+        this.dateList_.push(latestDateObj);
+    }
+    
     
     this.each(this.pathModelList_, this.makeOneRandomData_, count, ms);
   
@@ -89,22 +160,21 @@ lgb.chart.model.GraphModel.prototype.makeRandomData = function(count) {
 lgb.chart.model.GraphModel.prototype.makeOneRandomData_ = function(pathModel, count, ms) {
   
     pathModel.makeRandomData(count, ms);
-
+    
+   // var varName = pathModel.getVarName();
+    //this.c3Data_[varName] = pathModel.getValuesC3();
+    
 };
 
 
 
 lgb.chart.model.GraphModel.prototype.getDomainX = function() {
- 
     return [this.x.min, this.x.max];
-
 };
 
 
 lgb.chart.model.GraphModel.prototype.getDomainY = function() {
- 
     return [this.y.min, this.y.max];
-    
 };
 
 
@@ -227,11 +297,9 @@ lgb.chart.model.GraphModel.prototype.d3RandomNormal = function(µ, σ, min, max)
 };
 
 
-lgb.chart.model.GraphModel.prototype.getPathModelList = function() {
-  
-    return this.pathModelList_;
-    
 
+lgb.chart.model.GraphModel.prototype.getPathModelList = function() {
+    return this.pathModelList_;
 };
 
 

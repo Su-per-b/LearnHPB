@@ -4,12 +4,12 @@
  */
  
 
-goog.provide('lgb.chart.controller.GraphControllerC3');
+goog.provide('lgb.chart.controller.GraphController');
 
 goog.require('lgb.core.BaseController');
 
-goog.require('lgb.chart.view.GraphViewC3');
-goog.require('lgb.chart.model.GraphModelC3');
+goog.require('lgb.chart.view.GraphView');
+goog.require('lgb.chart.model.GraphModel');
 
 
 
@@ -18,26 +18,28 @@ goog.require('lgb.chart.model.GraphModelC3');
  * @constructor
  * @extends lgb.core.BaseController
  */
-lgb.chart.controller.GraphControllerC3 = function() {
+lgb.chart.controller.GraphController = function() {
 
   lgb.core.BaseController.call(this);
 
 };
-goog.inherits(lgb.chart.controller.GraphControllerC3, lgb.core.BaseController);
+goog.inherits(lgb.chart.controller.GraphController, lgb.core.BaseController);
 
 
 
-lgb.chart.controller.GraphControllerC3.prototype.init = function(dataModel) {
+lgb.chart.controller.GraphController.prototype.init = function(dataModel) {
 
   this.dataModel = dataModel;
-  this.guiView = new lgb.chart.view.GraphViewC3 (this.dataModel);
+  
+  this.guiView = new lgb.chart.view.GraphView (this.dataModel);
   this.triggerLocal(e.RequestAddToParentGUI, this.guiView);
   
   this.bind_();
+  
 };
 
 
-lgb.chart.controller.GraphControllerC3.prototype.bind_ = function() {
+lgb.chart.controller.GraphController.prototype.bind_ = function() {
     
 
     this.listen(
@@ -62,7 +64,7 @@ lgb.chart.controller.GraphControllerC3.prototype.bind_ = function() {
 
 
 
-lgb.chart.controller.GraphControllerC3.prototype.onDisplayUnitSystemChangeNotify_ = function(event) {
+lgb.chart.controller.GraphController.prototype.onDisplayUnitSystemChangeNotify_ = function(event) {
     
     var displayUnitSystem = event.payload;
     this.dataModel.changeDisplayUnitSystem(displayUnitSystem);
@@ -76,22 +78,24 @@ lgb.chart.controller.GraphControllerC3.prototype.onDisplayUnitSystemChangeNotify
 
 
 
-lgb.chart.controller.GraphControllerC3.prototype.onLayoutChange_ = function(event) {
+lgb.chart.controller.GraphController.prototype.onLayoutChange_ = function(event) {
+    
+    this.guiView.calculateLayout(event.payload);
+    
+    
+};
+
+
+
+lgb.chart.controller.GraphController.prototype.refreshOnePathController_ = function(integratedMainModel) {
     
     this.guiView.calculateLayout(event.payload);
 };
 
 
 
-lgb.chart.controller.GraphControllerC3.prototype.refreshOnePathController_ = function(integratedMainModel) {
-    
-    this.guiView.calculateLayout(event.payload);
-};
 
-
-
-
-lgb.chart.controller.GraphControllerC3.prototype.onIntegratedDataModelValuesUpdated_ = function(event) {
+lgb.chart.controller.GraphController.prototype.onIntegratedDataModelValuesUpdated_ = function(event) {
 
     var integratedMainModel = event.payload;
     
@@ -108,7 +112,7 @@ lgb.chart.controller.GraphControllerC3.prototype.onIntegratedDataModelValuesUpda
 
 
 
-lgb.chart.controller.GraphControllerC3.prototype.refreshOnePathController_ = function(pathController, integratedMainModel) {
+lgb.chart.controller.GraphController.prototype.refreshOnePathController_ = function(pathController, integratedMainModel) {
   
     pathController.addIntegratedMainModel(integratedMainModel);
 
