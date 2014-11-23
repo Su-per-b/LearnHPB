@@ -25,12 +25,3 @@ lgb.integrated.model.VariableOption.prototype.parseSrcObj = function(srcObj) {
 };
 
 
-lgb.integrated.model.VariableOption.prototype.changeDisplayUnitSystem = function(displayUnitSystem) {
-
-
-    
-    return;
-};
-
-
-

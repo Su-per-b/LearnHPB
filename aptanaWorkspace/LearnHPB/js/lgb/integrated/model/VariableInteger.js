@@ -31,7 +31,7 @@ lgb.integrated.model.VariableInteger.prototype.setScalarVariable = function(scal
 
 
     this.scalarVariable_ = scalarVariable;
-    this.name_simulation = scalarVariable.getNormalizedName();
+    this.name_simulation = scalarVariable.getName();
     
     this.makeUnitFromString(scalarVariable.typeSpecReal_.unit);
     
@@ -61,13 +61,11 @@ lgb.integrated.model.VariableInteger.prototype.setScalarValue = function(scalarV
 
 lgb.integrated.model.VariableInteger.prototype.parseSrcObj = function(srcObj) {
 
-    this.name = srcObj.name;
-    this.abbr = srcObj.abbr;
+    this.name_simulation = srcObj.modName;
+    this.name_scenario = srcObj.abbr;
     
     this.scenarioVariable_ = srcObj;
     
-    this.name_simulation = srcObj.modName;
-    this.name_scenario = srcObj.abbr;
     
     this.makeUnitFromString(srcObj.unit);
     

@@ -23,6 +23,9 @@ lgb.integrated.model.VariableOptionList.prototype.makeChildren_ = function(srcOb
 };
 
 
+lgb.integrated.model.VariableOptionList.prototype.calcAndGetIntegratedVariables = function() {
+    return [this];
+};
 
 
 

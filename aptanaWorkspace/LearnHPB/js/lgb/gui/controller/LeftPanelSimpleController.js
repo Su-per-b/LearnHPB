@@ -44,32 +44,17 @@ lgb.gui.controller.LeftPanelSimpleController.prototype.init = function() {
 lgb.gui.controller.LeftPanelSimpleController.prototype.bind_ = function() {
 
    this.listenOnce (
-     e.IntegratedDataModelInitialized,
-     this.onIntegratedDataModelInitializedFirstTime_
+     e.IntegratedDataModelScenarioInitialized,
+     this.onIntegratedDataModelScenarioInitializedFirstTime_
    );
   
 
   
 };
 
-// 
-// lgb.gui.controller.LeftPanelSimpleController.prototype.onDisplayUnitSystemChangeRequest_ = function(event) {
-// 
-// 
-  // var newUnit = event.payload;
-//   
-  // //this.guiView.setNewUnit(newUnit);
-// 
-// 
-  // return;
-// 
-// };
-// 
 
 
-
-
-lgb.gui.controller.LeftPanelSimpleController.prototype.onIntegratedDataModelInitializedFirstTime_ = function(event) {
+lgb.gui.controller.LeftPanelSimpleController.prototype.onIntegratedDataModelScenarioInitializedFirstTime_ = function(event) {
 
 
    var integratedMainModel = event.payload;
@@ -80,14 +65,14 @@ lgb.gui.controller.LeftPanelSimpleController.prototype.onIntegratedDataModelInit
 
 
     this.listen (
-      e.IntegratedDataModelInitialized,
-      this.onIntegratedDataModelInitializedNTime_
+      e.IntegratedDataModelScenarioInitialized,
+      this.onIntegratedDataModelScenarioInitializedNTime_
     );
   
 };
 
 
-lgb.gui.controller.LeftPanelSimpleController.prototype.onIntegratedDataModelInitializedNTime_ = function(event) {
+lgb.gui.controller.LeftPanelSimpleController.prototype.onIntegratedDataModelScenarioInitializedNTime_ = function(event) {
 
    var integratedMainModel = event.payload;
  

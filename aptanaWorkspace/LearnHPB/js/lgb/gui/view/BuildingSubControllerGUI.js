@@ -45,16 +45,10 @@ lgb.gui.view.BuildingSubControllerGUI.prototype.add = function(gui) {
 lgb.gui.view.BuildingSubControllerGUI.prototype.calculateLayout = function() {
   
   var el = this.getMainElement();
-  
   var h = window.innerHeight;
 
-  
   var p1 = this.getParentElement();
   var h1 = p1.height();
-  
- // var p2 = el.parent();
- //  var hh2 = p2.height();
-  
   
   var height = (h-295);
   

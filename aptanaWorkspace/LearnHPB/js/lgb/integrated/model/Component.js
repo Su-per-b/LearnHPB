@@ -23,3 +23,9 @@ lgb.integrated.model.Component.prototype.changeDisplayUnitSystem = function(disp
     return;
   
 };
+
+
+
+lgb.integrated.model.Component.prototype.calcAndGetIntegratedVariables = function() {
+    return null;
+};

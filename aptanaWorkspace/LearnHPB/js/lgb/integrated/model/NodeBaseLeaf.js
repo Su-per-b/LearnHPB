@@ -14,8 +14,8 @@ goog.inherits(lgb.integrated.model.NodeBaseLeaf, lgb.integrated.model.NodeBase);
 
 lgb.integrated.model.NodeBaseLeaf.prototype.parseSrcObj = function(srcObj) {
 
-    this.name = srcObj.name;
-    this.abbr = srcObj.abbr;
+    this.name_simulation = srcObj.modName;
+    this.name_scenario = srcObj.abbr;
     
     return;
   
@@ -23,7 +23,13 @@ lgb.integrated.model.NodeBaseLeaf.prototype.parseSrcObj = function(srcObj) {
 
 
 
-lgb.integrated.model.NodeBaseLeaf.prototype.getLeafNodes = function() {
+lgb.integrated.model.NodeBaseLeaf.prototype.calcAndGetLeafNodes = function() {
+
+    return [this];
+    
+};
+
+lgb.integrated.model.NodeBaseLeaf.prototype.calcAndGetIntegratedVariables = function() {
 
     return [this];
     

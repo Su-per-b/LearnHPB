@@ -95,9 +95,11 @@ e.SimulationInitialized = 'e.SimulationInitialized';
 e.DisplayUnitSystemChangeRequest = 'e.DisplayUnitSystemChangeRequest';
 e.DisplayUnitSystemChangeNotify = 'e.DisplayUnitSystemChangeNotify';
 
-e.IntegratedDataModelInitialized = 'e.IntegratedDataModelInitialized';
+e.IntegratedDataModelScenarioInitialized = 'e.IntegratedDataModelScenarioInitialized';
+e.IntegratedDataModelSimulationInitialized = 'e.IntegratedDataModelSimulationInitialized';
 e.IntegratedDataModelVariablesUpdated = 'e.IntegratedDataModelVariablesUpdated';
 e.IntegratedDataModelValuesUpdated = 'e.IntegratedDataModelValuesUpdated';
+
 
 //e.IntegratedDataModelOutputVariablesUpdated = 'e.IntegratedDataModelOutputVariablesUpdated';
 //e.IntegratedDataModelInputVariablesUpdated = 'e.IntegratedDataModelInputVariablesUpdated';

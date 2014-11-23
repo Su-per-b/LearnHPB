@@ -95,9 +95,9 @@ lgb.scenario.model.NodeBase.prototype.getChildren = function() {
 
 };
 
-lgb.scenario.model.NodeBase.prototype.makeChildrenAbbr_ = function(parentFqAbbr) {
+lgb.scenario.model.NodeBase.prototype.makeChildrenAbbr_ = function() {
   
-  this.parentFqAbbr_=parentFqAbbr;
+  //this.parentFqAbbr_ = parentFqAbbr;
   
   this.children_ = [];
   this.each(this.node.children, this.parseChild_);
@@ -138,7 +138,7 @@ lgb.scenario.model.NodeBase.prototype.parseChild_ = function(childNode) {
 
     
     if(theClass) {
-      var child = new theClass(childNode);
+      var child = new theClass(childNode, this.fqAbbr);
       this.children_.push(child);
     } else {
       debugger;

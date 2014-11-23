@@ -9,8 +9,7 @@ goog.require('lgb.simulation.model.voClient.ScalarValueResultsConverted');
  */
 lgb.simulation.model.voManaged.ScalarValueResults = function() {
 
-    //var year2000Date = new Date(2000,0,1,0,0,0,0);
-   // this.year2000ms_ = year2000Date.getTime();
+
     
     
 };
@@ -33,7 +32,12 @@ lgb.simulation.model.voManaged.ScalarValueResults.prototype.getOutput = function
 };
 
 
-
+lgb.simulation.model.voManaged.ScalarValueResults.prototype.getAllReal = function() {
+    
+    var all = this.output.realList_.concat(this.input.realList_.slice(0));
+    
+    return all;
+};
 
 
 lgb.simulation.model.voManaged.ScalarValueResults.fieldObjectsEx_ = {

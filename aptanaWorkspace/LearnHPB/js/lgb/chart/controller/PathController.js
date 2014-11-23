@@ -43,7 +43,6 @@ lgb.chart.controller.PathController.prototype.addIntegratedMainModel = function(
     
     this.dataModel.addValuePair(dateObj, integratedVariable);
     
-    
 };
 
 

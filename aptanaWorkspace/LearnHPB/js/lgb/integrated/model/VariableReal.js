@@ -17,9 +17,6 @@ lgb.integrated.model.VariableReal = function(  ) {
     this.valueListDisplayString = [];
     this.valueListInternal = [];
     
-    this.name_simulation = "{not set}";
-    this.name_scenario = "{not set}";
-    
     this.unit = null; 
     
 };
@@ -29,9 +26,8 @@ goog.inherits(lgb.integrated.model.VariableReal, lgb.integrated.model.Variable);
 
 lgb.integrated.model.VariableReal.prototype.setScalarVariable = function(scalarVariable) {
 
-
-    this.scalarVariable_ = scalarVariable;
-    this.name_simulation = scalarVariable.getNormalizedName();
+    
+    this.setScalarVariableBase_(scalarVariable);
     
     this.makeUnitFromString(scalarVariable.typeSpecReal_.unit);
     
@@ -46,11 +42,22 @@ lgb.integrated.model.VariableReal.prototype.setScalarVariable = function(scalarV
   
 };
 
+lgb.integrated.model.VariableReal.prototype.setChangeCallback = function(changeCallbackDelegate) {
+
+    this.changeCallbackDelegate_ = changeCallbackDelegate;
+    
+    return;
+};
 
 lgb.integrated.model.VariableReal.prototype.setScalarValue = function(scalarValue) {
 
+
+    var currentValue = this.value.getInternalValue();
+    var newValue = scalarValue.getValue();
+    
     this.setInternalValue(scalarValue.getValue());
     
+
     return;
   
 };
@@ -62,12 +69,12 @@ lgb.integrated.model.VariableReal.prototype.setScalarValue = function(scalarValu
 lgb.integrated.model.VariableReal.prototype.parseSrcObj = function(srcObj) {
 
     this.name = srcObj.name;
-    this.abbr = srcObj.abbr;
     
     this.scenarioVariable_ = srcObj;
     
     this.name_simulation = srcObj.modName;
     this.name_scenario = srcObj.abbr;
+    this.scope = srcObj.scope;
     
     this.makeUnitFromString(srcObj.unit);
     
@@ -122,11 +129,22 @@ lgb.integrated.model.VariableReal.prototype.setUnitObject = function(unitObject)
 
 
 
-lgb.integrated.model.VariableReal.prototype.setInternalValue = function(internalValue) {
+lgb.integrated.model.VariableReal.prototype.setInternalValue = function(newValue) {
     
-    this.value.setInternalValue(internalValue);
-    this.valueListInternal.push(internalValue);
+    var currentValue = this.value.getInternalValue();
+
+    this.value.setInternalValue(newValue);
+    this.valueListInternal.push(newValue);
     this.valueListDisplayString.push(this.value.getDisplayString());
+    
+    if (this.changeCallbackDelegate_) {
+        
+        if (currentValue != newValue) {
+            this.changeCallbackDelegate_(this.value);
+        }
+    }
+    
+
 
 };
 

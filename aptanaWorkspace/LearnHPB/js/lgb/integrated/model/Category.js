@@ -24,7 +24,6 @@ lgb.integrated.model.Category.prototype.makeOneChild_ = function(srcObjChild) {
          var destChild = lgb.integrated.model.Utils.makeVariable (srcObjChild);
          
          this.children_.push(destChild);
-         this.childMap_[destChild.name] = destChild;
          
          return;
      } else {
@@ -34,16 +33,16 @@ lgb.integrated.model.Category.prototype.makeOneChild_ = function(srcObjChild) {
 };
 
 
-lgb.integrated.model.Category.classTranslationMap = {
-    "lgb.scenario.model.Component" : lgb.integrated.model.Component
-};
 
 
 lgb.integrated.model.Category.prototype.makeChildren_ = function(srcObj) {
     
     this.children_ = [];
-    this.childMap_ = {};
     var childList = srcObj.getChildren();
     this.each(childList, this.makeOneChild_);
     
+};
+
+lgb.integrated.model.Category.classTranslationMap = {
+    "lgb.scenario.model.Component" : lgb.integrated.model.Component
 };

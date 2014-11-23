@@ -11,14 +11,14 @@ goog.require('lgb.core.BaseModel');
  * @constructor
  * @extends lgb.core.BaseModel
  */
-lgb.chart.model.PathModel = function(varName, idx) {
+lgb.chart.model.PathModel = function(integratedVariable, idx) {
 
 
   lgb.core.BaseModel.call(this);
   
   this.idx_ = idx;
-  this.setVarName(varName);
-  
+  this.setIntegratedVariable(integratedVariable);
+  this.setDomainY(5, 30);
   
   this.init_();
   
@@ -44,7 +44,6 @@ lgb.chart.model.PathModel.prototype.changeDisplayUnitSystem = function(displayUn
 
 
 
-
 lgb.chart.model.PathModel.prototype.makeRandomData = function(count) {
   
     this.randomFunction_ = this.generateRandomFunction();
@@ -64,7 +63,7 @@ lgb.chart.model.PathModel.prototype.makeRandomData = function(count) {
 lgb.chart.model.PathModel.prototype.getColumn = function() {
   
     var oneColumn = this.values_.slice(0);
-    oneColumn.unshift(this.varName_);
+    oneColumn.unshift(this.integratedVariable_.name_scenario);
     
     return oneColumn;
     
@@ -72,13 +71,20 @@ lgb.chart.model.PathModel.prototype.getColumn = function() {
 
 
 
-lgb.chart.model.PathModel.prototype.setVarName = function(varName) {
-  this.varName_ = varName;
+
+lgb.chart.model.PathModel.prototype.setIntegratedVariable = function(integratedVariable) {
+    
+  this.integratedVariable_ = integratedVariable;
 };
 
 
+// lgb.chart.model.PathModel.prototype.setVarName = function(varName) {
+  // this.varName_ = varName;
+// };
+
+
 lgb.chart.model.PathModel.prototype.getVarName = function() {
-  return this.varName_;
+  return this.integratedVariable_.name_scenario;
 };
 
 

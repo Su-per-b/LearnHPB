@@ -26,7 +26,10 @@ goog.inherits(lgb.scenario.model.System, lgb.scenario.model.NodeBase);
 
 lgb.scenario.model.System.prototype.parseXmlNode_ = function(node) {
   this.setNameAndAbbr_();
-  this.makeChildrenAbbr_(this.abbr);
+  this.fqAbbr = this.abbr;
+  
+  this.makeChildrenAbbr_();
+  
 };
 
 

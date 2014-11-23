@@ -18,6 +18,14 @@ lgb.integrated.model.SubSystem = function(  ) {
 goog.inherits(lgb.integrated.model.SubSystem, lgb.integrated.model.NodeBaseContainer);
 
 
+lgb.integrated.model.SubSystem.prototype.parseSrcObj = function(srcObj) {
+            
+    this.name = srcObj.name;
+    this.name_scenario = srcObj.abbr;
+    
+    this.makeChildren_(srcObj);
+
+};
 
 lgb.integrated.model.SubSystem.prototype.makeOneChild_ = function(srcObjChild) {
        
@@ -27,7 +35,6 @@ lgb.integrated.model.SubSystem.prototype.makeOneChild_ = function(srcObjChild) {
          var destChild = lgb.integrated.model.Utils.makeVariable (srcObjChild);
          
          this.children_.push(destChild);
-         this.childMap_[destChild.name] = destChild;
          
          return;
      } else {
@@ -47,11 +54,3 @@ lgb.integrated.model.SubSystem.classTranslationMap = {
 
 
 
-lgb.integrated.model.SubSystem.prototype.makeChildren_ = function(srcObj) {
-    
-    this.children_ = [];
-    this.childMap_ = {};
-    var childList = srcObj.getChildren();
-    this.each(childList, this.makeOneChild_);
-    
-};

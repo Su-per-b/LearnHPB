@@ -5,7 +5,6 @@
  
 goog.provide('lgb.scenario.model.Base');
 
-
 goog.require('lgb.core.BaseModel');
 goog.require('lgb.scenario.model.SystemNode');
 goog.require('lgb.utils.XmlWrapper');
@@ -29,23 +28,6 @@ goog.inherits(lgb.scenario.model.Base, lgb.core.BaseModel);
 
 
 
-/**
- * Loads the scario from a remote XML file.
- */
-lgb.scenario.model.Base.prototype.load = function() {
-   var url = lgb.core.Config.XML_BASE_PATH + 'DefaultScenario.xml';
-
-  var delegate = this.d(this.parse);
-  
-    $.ajax({
-      type: 'GET',
-      url: url,
-      dataType: 'xml',
-      success: delegate
-    });
-    
-    
-};
 
 
 /**

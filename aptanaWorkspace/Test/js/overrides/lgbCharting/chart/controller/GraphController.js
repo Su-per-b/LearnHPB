@@ -4,7 +4,7 @@
  */
  
 
-goog.provide('lgb.chart.controller.GraphController');
+goog.provide('lgbCharting.chart.controller.GraphController');
 
 goog.require('lgb.core.BaseController');
 
@@ -18,16 +18,16 @@ goog.require('lgb.chart.model.GraphModel');
  * @constructor
  * @extends lgb.core.BaseController
  */
-lgb.chart.controller.GraphController = function() {
+lgbCharting.chart.controller.GraphController = function() {
 
   lgb.core.BaseController.call(this);
 
 };
-goog.inherits(lgb.chart.controller.GraphController, lgb.core.BaseController);
+goog.inherits(lgbCharting.chart.controller.GraphController, lgb.core.BaseController);
 
 
 
-lgb.chart.controller.GraphController.prototype.init = function(dataModel) {
+lgbCharting.chart.controller.GraphController.prototype.init = function(dataModel) {
 
   this.dataModel = dataModel;
   
@@ -39,7 +39,7 @@ lgb.chart.controller.GraphController.prototype.init = function(dataModel) {
 };
 
 
-lgb.chart.controller.GraphController.prototype.bind_ = function() {
+lgbCharting.chart.controller.GraphController.prototype.bind_ = function() {
     
 
     this.listen(
@@ -64,7 +64,7 @@ lgb.chart.controller.GraphController.prototype.bind_ = function() {
 
 
 
-lgb.chart.controller.GraphController.prototype.onDisplayUnitSystemChangeNotify_ = function(event) {
+lgbCharting.chart.controller.GraphController.prototype.onDisplayUnitSystemChangeNotify_ = function(event) {
     
     var displayUnitSystem = event.payload;
     this.dataModel.changeDisplayUnitSystem(displayUnitSystem);
@@ -78,7 +78,7 @@ lgb.chart.controller.GraphController.prototype.onDisplayUnitSystemChangeNotify_ 
 
 
 
-lgb.chart.controller.GraphController.prototype.onLayoutChange_ = function(event) {
+lgbCharting.chart.controller.GraphController.prototype.onLayoutChange_ = function(event) {
     
     this.guiView.calculateLayout(event.payload);
     
@@ -87,7 +87,7 @@ lgb.chart.controller.GraphController.prototype.onLayoutChange_ = function(event)
 
 
 
-lgb.chart.controller.GraphController.prototype.refreshOnePathController_ = function(integratedMainModel) {
+lgbCharting.chart.controller.GraphController.prototype.refreshOnePathController_ = function(integratedMainModel) {
     
     this.guiView.calculateLayout(event.payload);
 };
@@ -95,7 +95,7 @@ lgb.chart.controller.GraphController.prototype.refreshOnePathController_ = funct
 
 
 
-lgb.chart.controller.GraphController.prototype.onIntegratedDataModelValuesUpdated_ = function(event) {
+lgbCharting.chart.controller.GraphController.prototype.onIntegratedDataModelValuesUpdated_ = function(event) {
 
     var integratedMainModel = event.payload;
     
@@ -112,7 +112,7 @@ lgb.chart.controller.GraphController.prototype.onIntegratedDataModelValuesUpdate
 
 
 
-lgb.chart.controller.GraphController.prototype.refreshOnePathController_ = function(pathController, integratedMainModel) {
+lgbCharting.chart.controller.GraphController.prototype.refreshOnePathController_ = function(pathController, integratedMainModel) {
   
     pathController.addIntegratedMainModel(integratedMainModel);
 

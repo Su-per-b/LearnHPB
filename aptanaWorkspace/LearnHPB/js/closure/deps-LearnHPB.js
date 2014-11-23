@@ -845,8 +845,8 @@ goog.addDependency('js/closure/goog/window/window.js', ['goog.window'], ['goog.s
 goog.addDependency('js/lgb/base.js', ['lgb'], ['goog.debug.Console', 'goog.debug.LogRecord', 'goog.debug.Logger.Level', 'lgb.core.DebugLGB']);
 goog.addDependency('js/lgb/chart/controller/GraphController.js', ['lgb.chart.controller.GraphController'], ['lgb.chart.model.GraphModel', 'lgb.chart.view.GraphView', 'lgb.core.BaseController']);
 goog.addDependency('js/lgb/chart/controller/PathController.js', ['lgb.chart.controller.PathController'], ['lgb.chart.model.PathModel', 'lgb.core.BaseController']);
-goog.addDependency('js/lgb/chart/model/ PathModel.js', ['lgb.chart.model.PathModel'], ['lgb.core.BaseModel']);
 goog.addDependency('js/lgb/chart/model/GraphModel.js', ['lgb.chart.model.GraphModel'], ['lgb.chart.model.PathModel', 'lgb.core.BaseModel']);
+goog.addDependency('js/lgb/chart/model/PathModel.js', ['lgb.chart.model.PathModel'], ['lgb.core.BaseModel']);
 goog.addDependency('js/lgb/chart/view/GraphView.js', ['lgb.chart.view.GraphView'], ['lgb.chart.controller.PathController', 'lgb.chart.model.GraphModel', 'lgb.chart.model.PathModel', 'lgb.gui.view.BaseGUI']);
 goog.addDependency('js/lgb/chart/view/LayoutView.js', ['lgb.chart.view.LayoutView'], ['lgb.gui.model.LayoutModel', 'lgb.gui.view.BaseGUI']);
 goog.addDependency('js/lgb/chart/view/SimulationGUI.js', ['lgb.chart.view.SimulationGUI'], []);
@@ -939,7 +939,7 @@ goog.addDependency('js/lgb/gui/view/TestLightingGUI.js', ['lgb.gui.view.TestLigh
 goog.addDependency('js/lgb/gui/view/TitleBarGUI.js', ['lgb.gui.view.TitleBarGUI'], ['lgb.core.Config', 'lgb.gui.view.BaseGUI']);
 goog.addDependency('js/lgb/gui/view/ViewPointGUI.js', ['lgb.gui.view.ViewpointGUI'], ['lgb.component.TreeDataSourceH', 'lgb.core.Config', 'lgb.gui.view.BaseGUI', 'lgb.world.model.ViewpointModel']);
 goog.addDependency('js/lgb/gui/view/VisibilityGUI.js', ['lgb.world.view.input.VisibilityGUI'], ['lgb.component.TreeDataSourceH', 'lgb.component.TreeH', 'lgb.core.Config', 'lgb.gui.view.BaseGUI', 'lgb.world.model.VisibilityModel']);
-goog.addDependency('js/lgb/integrated/controller/IntegratedController.js', ['lgb.integrated.controller.IntegratedController'], ['lgb.core.BaseController', 'lgb.integrated.model.MainModel', 'lgb.scenario.model.ScenarioModel', 'lgb.simulation.events.ResultEventList']);
+goog.addDependency('js/lgb/integrated/controller/IntegratedController.js', ['lgb.integrated.controller.IntegratedController'], ['lgb.core.BaseController', 'lgb.integrated.model.MainModel', 'lgb.scenario.model.MainModel', 'lgb.simulation.events.ResultEventList']);
 goog.addDependency('js/lgb/integrated/model/Category.js', ['lgb.integrated.model.Category'], ['lgb.integrated.model.Component', 'lgb.integrated.model.NodeBaseContainer', 'lgb.integrated.model.Utils', 'lgb.integrated.model.Variable', 'lgb.scenario.model.Component', 'lgb.scenario.model.Variable']);
 goog.addDependency('js/lgb/integrated/model/Component.js', ['lgb.integrated.model.Component'], ['lgb.integrated.model.NodeBaseLeaf']);
 goog.addDependency('js/lgb/integrated/model/MainModel.js', ['lgb.integrated.model.MainModel'], ['lgb.core.BaseModel', 'lgb.integrated.model.System', 'lgb.integrated.model.VariableOption', 'lgb.simulation.model.voManaged.XMLparsedInfo']);
@@ -948,8 +948,9 @@ goog.addDependency('js/lgb/integrated/model/NodeBaseContainer.js', ['lgb.integra
 goog.addDependency('js/lgb/integrated/model/NodeBaseLeaf.js', ['lgb.integrated.model.NodeBaseLeaf'], ['lgb.integrated.model.NodeBase']);
 goog.addDependency('js/lgb/integrated/model/SubSystem.js', ['lgb.integrated.model.SubSystem'], ['lgb.integrated.model.Category', 'lgb.integrated.model.NodeBaseContainer', 'lgb.integrated.model.Utils', 'lgb.integrated.model.Variable', 'lgb.scenario.model.Category', 'lgb.scenario.model.Variable']);
 goog.addDependency('js/lgb/integrated/model/System.js', ['lgb.integrated.model.System'], ['lgb.integrated.model.NodeBaseContainer', 'lgb.integrated.model.SubSystem', 'lgb.scenario.model.SubSystem']);
-goog.addDependency('js/lgb/integrated/model/Utils.js', ['lgb.integrated.model.Utils'], ['lgb.core.BaseClass', 'lgb.integrated.model.VariableInteger', 'lgb.integrated.model.VariableOptionList', 'lgb.integrated.model.VariableReal']);
+goog.addDependency('js/lgb/integrated/model/Utils.js', ['lgb.integrated.model.Utils'], ['lgb.core.BaseClass', 'lgb.integrated.model.VariableBoolean', 'lgb.integrated.model.VariableInteger', 'lgb.integrated.model.VariableOptionList', 'lgb.integrated.model.VariableReal']);
 goog.addDependency('js/lgb/integrated/model/Variable.js', ['lgb.integrated.model.Variable'], ['lgb.integrated.model.NodeBaseLeaf']);
+goog.addDependency('js/lgb/integrated/model/VariableBoolean.js', ['lgb.integrated.model.VariableBoolean'], ['lgb.integrated.model.Variable', 'lgb.integrated.model.unit.Factory', 'lgb.integrated.model.vo.Boolean']);
 goog.addDependency('js/lgb/integrated/model/VariableInteger.js', ['lgb.integrated.model.VariableInteger'], ['lgb.integrated.model.Variable', 'lgb.integrated.model.unit.Factory', 'lgb.integrated.model.vo.Real']);
 goog.addDependency('js/lgb/integrated/model/VariableOption.js', ['lgb.integrated.model.VariableOption'], ['lgb.integrated.model.Variable']);
 goog.addDependency('js/lgb/integrated/model/VariableOptionList.js', ['lgb.integrated.model.VariableOptionList'], ['lgb.integrated.model.Variable', 'lgb.integrated.model.VariableOption']);
@@ -964,6 +965,7 @@ goog.addDependency('js/lgb/integrated/model/unit/Pressure.js', ['lgb.integrated.
 goog.addDependency('js/lgb/integrated/model/unit/Temperature.js', ['lgb.integrated.model.unit.Temperature'], ['lgb.integrated.model.unit.UnitBase']);
 goog.addDependency('js/lgb/integrated/model/unit/UnitBase.js', ['lgb.integrated.model.unit.UnitBase'], []);
 goog.addDependency('js/lgb/integrated/model/unit/VolumetricFlowRate.js', ['lgb.integrated.model.unit.VolumetricFlowRate'], ['lgb.integrated.model.unit.UnitBase']);
+goog.addDependency('js/lgb/integrated/model/vo/Boolean.js', ['lgb.integrated.model.vo.Boolean'], []);
 goog.addDependency('js/lgb/integrated/model/vo/Real.js', ['lgb.integrated.model.vo.Real'], []);
 goog.addDependency('js/lgb/integrated/view/Boolean.js', ['lgb.integrated.view.Boolean'], ['lgb.integrated.view.Variable']);
 goog.addDependency('js/lgb/integrated/view/Category.js', ['lgb.integrated.view.Category'], ['goog.asserts', 'lgb.integrated.view.Component', 'lgb.integrated.view.NodeBaseContainer', 'lgb.integrated.view.VariableInteger', 'lgb.integrated.view.VariableOptionList', 'lgb.integrated.view.VariableReal']);
@@ -980,17 +982,16 @@ goog.addDependency('js/lgb/integrated/view/VariableInteger.js', ['lgb.integrated
 goog.addDependency('js/lgb/integrated/view/VariableOption.js', ['lgb.integrated.view.VariableOption'], ['lgb.integrated.view.NodeBaseLeaf']);
 goog.addDependency('js/lgb/integrated/view/VariableOptionList.js', ['lgb.integrated.view.VariableOptionList'], ['lgb.integrated.view.NodeBaseContainer', 'lgb.integrated.view.VariableOption']);
 goog.addDependency('js/lgb/integrated/view/VariableReal.js', ['lgb.integrated.view.VariableReal'], ['lgb.integrated.view.Variable']);
-goog.addDependency('js/lgb/scenario/controller/ScenarioController.js', ['lgb.scenario.controller.ScenarioController'], ['lgb.core.BaseController', 'lgb.scenario.model.ScenarioModel']);
-goog.addDependency('js/lgb/scenario/model/Base.js', ['lgb.scenario.model.Base'], ['lgb.core.BaseModel', 'lgb.scenario.model.SystemNode', 'lgb.utils.XmlWrapper']);
+goog.addDependency('js/lgb/scenario/controller/ScenarioController.js', ['lgb.scenario.controller.ScenarioController'], ['lgb.core.BaseController', 'lgb.scenario.model.MainModel']);
 goog.addDependency('js/lgb/scenario/model/Boolean.js', ['lgb.scenario.model.Boolean'], ['lgb.scenario.model.NodeBase']);
 goog.addDependency('js/lgb/scenario/model/Category.js', ['lgb.scenario.model.Category'], ['lgb.scenario.model.Component', 'lgb.scenario.model.NodeBase', 'lgb.scenario.model.Variable']);
 goog.addDependency('js/lgb/scenario/model/Component.js', ['lgb.scenario.model.Component'], ['lgb.scenario.model.NodeBase']);
 goog.addDependency('js/lgb/scenario/model/Decimal.js', ['lgb.scenario.model.Decimal'], ['lgb.scenario.model.NodeBase']);
 goog.addDependency('js/lgb/scenario/model/Integer.js', ['lgb.scenario.model.Integer'], ['lgb.scenario.model.NodeBase']);
+goog.addDependency('js/lgb/scenario/model/MainModel.js', ['lgb.scenario.model.MainModel'], ['lgb.chart.model.GraphModel', 'lgb.core.BaseModel', 'lgb.core.Config', 'lgb.scenario.model.SystemList', 'lgb.scenario.model.VariableList', 'lgb.simulation.model.DisplayUnitSystem', 'lgb.utils.XmlWrapper']);
 goog.addDependency('js/lgb/scenario/model/NodeBase.js', ['lgb.scenario.model.NodeBase'], ['lgb.core.BaseModel', 'lgb.simulation.model.DisplayUnitSystem']);
 goog.addDependency('js/lgb/scenario/model/Option.js', ['lgb.scenario.model.Option'], ['lgb.scenario.model.NodeBase']);
 goog.addDependency('js/lgb/scenario/model/OptionList.js', ['lgb.scenario.model.OptionList'], ['lgb.scenario.model.NodeBase', 'lgb.scenario.model.Option']);
-goog.addDependency('js/lgb/scenario/model/ScenarioModel.js', ['lgb.scenario.model.ScenarioModel'], ['lgb.chart.model.GraphModel', 'lgb.core.BaseModel', 'lgb.core.Config', 'lgb.scenario.model.SystemList', 'lgb.simulation.model.DisplayUnitSystem', 'lgb.utils.XmlWrapper']);
 goog.addDependency('js/lgb/scenario/model/SubSystem.js', ['lgb.scenario.model.SubSystem'], ['lgb.scenario.model.Category', 'lgb.scenario.model.NodeBase', 'lgb.simulation.model.DisplayUnitSystem', 'lgb.utils.XmlWrapper']);
 goog.addDependency('js/lgb/scenario/model/SysVar.js', ['lgb.scenario.model.SysVar'], ['lgb.core.BaseModel']);
 goog.addDependency('js/lgb/scenario/model/System.js', ['lgb.scenario.model.System'], ['lgb.scenario.model.NodeBase', 'lgb.scenario.model.SubSystem']);
@@ -998,6 +999,7 @@ goog.addDependency('js/lgb/scenario/model/SystemList.js', ['lgb.scenario.model.S
 goog.addDependency('js/lgb/scenario/model/SystemNode.js', ['lgb.scenario.model.SystemNode'], ['lgb', 'lgb.core.BaseModel', 'lgb.scenario.model.SysVar', 'lgb.utils.XmlWrapper']);
 goog.addDependency('js/lgb/scenario/model/Temperature.js', ['lgb.scenario.model.Temperature'], ['lgb.scenario.model.Decimal']);
 goog.addDependency('js/lgb/scenario/model/Variable.js', ['lgb.scenario.model.Variable'], ['lgb.scenario.model.Boolean', 'lgb.scenario.model.Decimal', 'lgb.scenario.model.Integer', 'lgb.scenario.model.NodeBase', 'lgb.scenario.model.OptionList', 'lgb.scenario.model.Temperature']);
+goog.addDependency('js/lgb/scenario/model/VariableList.js', ['lgb.scenario.model.VariableList'], ['lgb.scenario.model.NodeBase', 'lgb.scenario.model.Variable']);
 goog.addDependency('js/lgb/simulation/controller/JsonController.js', ['lgb.simulation.controller.JsonController'], ['lgb.core.BaseController', 'lgb.simulation.events.ConfigChangeNotify', 'lgb.simulation.events.MessageEvent', 'lgb.simulation.events.ResultEvent', 'lgb.simulation.events.ResultEventList', 'lgb.simulation.events.ScalarValueChangeRequest', 'lgb.simulation.events.SessionControlClientRequest', 'lgb.simulation.events.SessionControlEvent', 'lgb.simulation.events.SimStateNativeNotify', 'lgb.simulation.events.SimStateNativeRequest', 'lgb.simulation.events.XMLparsedEvent', 'lgb.simulation.model.voManaged.ScalarValueCollection', 'lgb.simulation.model.voManaged.ScalarValueReal', 'lgb.simulation.model.voManaged.ScalarValueResults', 'lgb.simulation.model.voManaged.ScalarVariableCollection', 'lgb.simulation.model.voManaged.ScalarVariableReal', 'lgb.simulation.model.voManaged.ScalarVariablesAll', 'lgb.simulation.model.voManaged.SerializableVector', 'lgb.simulation.model.voManaged.SessionControlModel', 'lgb.simulation.model.voManaged.XMLparsedInfo', 'lgb.simulation.model.voNative.ConfigStruct', 'lgb.simulation.model.voNative.DefaultExperimentStruct', 'lgb.simulation.model.voNative.MessageStruct', 'lgb.simulation.model.voNative.MessageType', 'lgb.simulation.model.voNative.ScalarValueRealStruct', 'lgb.simulation.model.voNative.SimStateNative', 'lgb.simulation.model.voNative.TypeSpecReal']);
 goog.addDependency('js/lgb/simulation/controller/MainController.js', ['lgb.simulation.controller.MainController'], ['lgb.core.BaseController', 'lgb.simulation.controller.JsonController', 'lgb.simulation.events.ResultEvent', 'lgb.simulation.events.ResultEventList', 'lgb.simulation.events.ScalarValueChangeRequest', 'lgb.simulation.events.SessionControlEvent', 'lgb.simulation.events.SimStateNativeRequest', 'lgb.simulation.model.DisplayUnitSystem', 'lgb.simulation.model.MainModel', 'lgb.simulation.model.WebSocketConnectionState', 'lgb.simulation.model.WebSocketConnectionStateRequest', 'lgb.simulation.model.voManaged.ScalarValueCollection', 'lgb.simulation.model.voManaged.ScalarValueReal', 'lgb.simulation.model.voManaged.SessionControl', 'lgb.simulation.model.voNative.ScalarValueRealStruct', 'se.Event']);
 goog.addDependency('js/lgb/simulation/events/BaseEvent.js', ['lgb.simulation.events.BaseEvent', 'se.Event'], ['goog.asserts', 'goog.events.Event']);

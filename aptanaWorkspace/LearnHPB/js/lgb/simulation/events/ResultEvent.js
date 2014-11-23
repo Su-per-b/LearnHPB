@@ -10,7 +10,6 @@ goog.require('lgb.simulation.model.voManaged.ScalarValueResults');
 
 /**
  * @constructor
- * @param {lgb.scenario.model.Base} scenarioBase The Data Model.
  * @extends {goog.events.Event}
  */
 lgb.simulation.events.ResultEvent = function(payload) {

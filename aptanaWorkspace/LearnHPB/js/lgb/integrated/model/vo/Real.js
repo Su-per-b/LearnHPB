@@ -20,6 +20,12 @@ lgb.integrated.model.vo.Real.prototype.setInternalValue = function(internal) {
     this.calcDisplayValues_();
 };
 
+lgb.integrated.model.vo.Real.prototype.getInternalValue = function() {
+
+    return this.internalValue_;
+
+};
+
 
 lgb.integrated.model.vo.Real.prototype.setUnitObject = function(unitObject) {
 
@@ -36,23 +42,31 @@ lgb.integrated.model.vo.Real.prototype.changeDisplayUnitSystem = function(displa
 
 lgb.integrated.model.vo.Real.prototype.calcDisplayValues_ = function() {
     
+    
+    var displayValue;
+    
     if(undefined == this.internalValue_) {
         debugger;
     }
     
     if(null == this.unitObject_) {
-        this.displayValue_ = this.internalValue_;
+        displayValue = this.internalValue_;
     } else {
         
-        this.displayValue_ = this.unitObject_.convertInternalToDisplayValue(this.internalValue_);
+        displayValue = this.unitObject_.convertInternalToDisplayValue(this.internalValue_);
         
     }
     
 
+    var str = displayValue.toPrecision(4);
+    this.displayValue_ = parseFloat(str);
     
-    this.displayString_ = this.displayValue_.toFixed(2);
-    this.displayValue_ = this.displayValue_.toPrecision(4);
+    
+    this.displayString_ = str;
 
+    
+   //this.displayValue_ = parseFloat(this.displayValue);
+    return;
 };
 
 

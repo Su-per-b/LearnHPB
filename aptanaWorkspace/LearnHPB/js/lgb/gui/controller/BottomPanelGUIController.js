@@ -48,41 +48,39 @@ lgb.gui.controller.BottomPanelGUIController.prototype.bind_ = function() {
     );
     
     this.listen (
-        e.IntegratedDataModelInitialized,
-        this.onIntegratedDataModelInitialized_
+        e.IntegratedDataModelScenarioInitialized,
+        this.onIntegratedDataModelScenarioInitialized_
     );
     
 };
 
 
 
-lgb.gui.controller.BottomPanelGUIController.prototype.onIntegratedDataModelInitialized_ = function(event) {
+lgb.gui.controller.BottomPanelGUIController.prototype.onIntegratedDataModelScenarioInitialized_ = function(event) {
   
   var integratedDataModel = event.payload;
   var graphModelList = integratedDataModel.graphModelList;
   
-  this.each(graphModelList, this.makeOneGraphC3_);
+  this.each(graphModelList, this.makeOneGraph_, integratedDataModel);
   
 };
 
 
-lgb.gui.controller.BottomPanelGUIController.prototype.makeOneGraphC3_ = function(graphGUIModelC3) {
+lgb.gui.controller.BottomPanelGUIController.prototype.makeOneGraph_ = function(graphGUIModel, integratedDataModel) {
   
-  this.makeChildGUIcontroller_
-     (lgb.chart.controller.GraphController, graphGUIModelC3);
-     
-};
-
-
-
-lgb.gui.controller.BottomPanelGUIController.prototype.makeOneGraph_ = function(graphGUIModel) {
+  var controller = new lgb.chart.controller.GraphController();
+  this.childGUIcontrollers_.push(controller);
   
-  this.makeChildGUIcontroller_
-     (lgb.chart.controller.GraphController, graphGUIModel);
-     
+  this.listenTo(
+    controller,
+    e.RequestAddToParentGUI, 
+    this.onRequestAddToParentGUI_
+    );
+    
+  controller.init(graphGUIModel, integratedDataModel);
+  
+
 };
-
-
 
 
 

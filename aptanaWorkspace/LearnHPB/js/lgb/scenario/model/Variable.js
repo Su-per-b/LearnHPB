@@ -55,6 +55,7 @@ lgb.scenario.model.Variable.prototype.parseXmlNode_ = function() {
   
   this.setNameAndAbbr_();
   this.setPropertyStr_('scope', propertyDefaults.scope);
+  
   this.setPropertyStr_('phase', propertyDefaults.phase);
   
   this.setPropertyStr_('variability', propertyDefaults.variability);
@@ -86,12 +87,12 @@ lgb.scenario.model.Variable.childClassMap = {
 lgb.scenario.model.Variable.prototype.getPropertyDefaults = function() {
     
     var propertyDefaults = {
-        name:"{name not set}",
-        scope:"{scope not set}",
-        phase:"{phase not set}",
-        variability:"{variability not set}",
-        unit:"{unit not set}",
-        modName:"{modName not set}"
+        name:"",
+        scope:"",
+        phase:"",
+        variability:"",
+        unit:"",
+        modName:""
     };
     
     return propertyDefaults;

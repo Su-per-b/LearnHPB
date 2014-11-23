@@ -27,9 +27,13 @@ goog.inherits(lgb.chart.controller.GraphController, lgb.core.BaseController);
 
 
 
-lgb.chart.controller.GraphController.prototype.init = function(dataModel) {
+lgb.chart.controller.GraphController.prototype.init = function(dataModel, integratedDataModel) {
 
   this.dataModel = dataModel;
+  this.dataModel.setIntegratedDataModel(integratedDataModel);
+  
+  //this.dataModel.makeRandomData(20);
+  
   this.guiView = new lgb.chart.view.GraphView (this.dataModel);
   this.triggerLocal(e.RequestAddToParentGUI, this.guiView);
   
@@ -50,14 +54,12 @@ lgb.chart.controller.GraphController.prototype.bind_ = function() {
         this.onIntegratedDataModelValuesUpdated_
         );
         
+        
     this.listen(
         e.DisplayUnitSystemChangeNotify, 
         this.onDisplayUnitSystemChangeNotify_
         ); 
         
-        
-        
-
 };
 
 
@@ -67,50 +69,27 @@ lgb.chart.controller.GraphController.prototype.onDisplayUnitSystemChangeNotify_ 
     var displayUnitSystem = event.payload;
     this.dataModel.changeDisplayUnitSystem(displayUnitSystem);
 
-
 };
 
 
 
-
-
-
-
 lgb.chart.controller.GraphController.prototype.onLayoutChange_ = function(event) {
-    
     this.guiView.calculateLayout(event.payload);
 };
 
 
 
 lgb.chart.controller.GraphController.prototype.refreshOnePathController_ = function(integratedMainModel) {
-    
     this.guiView.calculateLayout(event.payload);
 };
-
 
 
 
 lgb.chart.controller.GraphController.prototype.onIntegratedDataModelValuesUpdated_ = function(event) {
 
     var integratedMainModel = event.payload;
-    
-
-    this.each(this.childGUIcontrollers_, this.refreshOnePathController_, integratedMainModel);
-    
     this.dataModel.updateIntegratedMainModel(integratedMainModel);
-    
-    
-   // this.dataModel.calcDomainX();
-    //this.dataModel.calcDomainY();
 
 };
 
-
-
-lgb.chart.controller.GraphController.prototype.refreshOnePathController_ = function(pathController, integratedMainModel) {
-  
-    pathController.addIntegratedMainModel(integratedMainModel);
-
-};
 

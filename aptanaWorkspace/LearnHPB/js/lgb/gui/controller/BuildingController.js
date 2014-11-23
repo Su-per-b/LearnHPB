@@ -31,10 +31,10 @@ lgb.gui.controller.BuildingController.prototype.init = function(integratedMainMo
   this.guiView.init();
     
   this.triggerLocal(e.RequestAddToParentGUI, this.guiView);
-  this.integratedMainModel_ = integratedMainModel;
-  var children = this.integratedMainModel_.getChildren();
+  //this.integratedMainModel_ = integratedMainModel;
+
   
-  this.each (children, this.makeBuildingSubController_);
+  this.each (integratedMainModel.systemListInput, this.makeBuildingSubController_);
   this.guiView.init2();
     
 };
@@ -48,12 +48,14 @@ lgb.gui.controller.BuildingController.prototype.loadNew = function(integratedMai
 
 
   this.guiView.clear();
-  this.integratedMainModel_ = integratedMainModel;
+  //this.integratedMainModel_ = integratedMainModel;
   
   // this.systemListDataModel_ = systemListDataModel;
   
-  var children = this.integratedMainModel_.getChildren();
-  this.eachIdx (children, this.updateBuildingSubController_);
+  this.eachIdx (integratedMainModel.systemListInput, this.updateBuildingSubController_);
+  
+  //var children = this.integratedMainModel_.getChildren();
+  //this.eachIdx (children, this.updateBuildingSubController_);
   
   
   this.guiView.init2();

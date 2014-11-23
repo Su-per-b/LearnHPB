@@ -49,16 +49,12 @@ lgb.simulation.controller.MainController.prototype.init = function() {
 
 
     this.jsonController_ = lgb.simulation.controller.JsonController.getInstance();
-    
-    //var test = new lgb.simulation.controller.JsonController();
-    
     this.dataModel = new lgb.simulation.model.MainModel();
-
 
     this.delayedMessages = [];
     this.resultEventQueue_ = [];
     this.resultEventQueueIsDirty_ = false;
-    this.resultEventQueueIntervalMS_ = 1000; //ms
+    this.resultEventQueueIntervalMS_ = 100; //ms
     this.clearResultEventQueueDelegate_ = this.d(this.clearResultEventqueue_),
     this.resultEventQueueIntervalHandle_ = null;
     
@@ -333,10 +329,11 @@ lgb.simulation.controller.MainController.prototype.onXMLparsedEvent_ = function(
 lgb.simulation.controller.MainController.prototype.onResultEvent_ = function(event) {
 
   this.resultEventQueue_.push(event);
+  //this.clearResultEventqueue_();
   
   if (null == this.resultEventQueueIntervalHandle_) {
       this.resultEventQueueIntervalHandle_ = setInterval(
-        this.clearResultEventQueueDelegate_,this.resultEventQueueInterval_);
+        this.clearResultEventQueueDelegate_,this.resultEventQueueIntervalMS_);
   }
 
 };

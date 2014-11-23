@@ -289,20 +289,20 @@
         }
 
         // Bind resize event
-        if (window.onresize == null) {
-            window.onresize = $$.generateResize();
-        }
-        if (window.onresize.add) {
-            window.onresize.add(function () {
-                config.onresize.call($$);
-            });
-            window.onresize.add(function () {
-                $$.api.flush();
-            });
-            window.onresize.add(function () {
-                config.onresized.call($$);
-            });
-        }
+        // if (window.onresize == null) {
+            // window.onresize = $$.generateResize();
+        // }
+        // if (window.onresize.add) {
+            // window.onresize.add(function () {
+                // config.onresize.call($$);
+            // });
+            // window.onresize.add(function () {
+                // $$.api.flush();
+            // });
+            // window.onresize.add(function () {
+                // config.onresized.call($$);
+            // });
+        // }
 
         // export element of the chart
         $$.api.element = $$.selectChart.node();

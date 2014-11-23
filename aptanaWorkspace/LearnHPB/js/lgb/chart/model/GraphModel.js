@@ -35,13 +35,51 @@ lgb.chart.model.GraphModel.prototype.init_ = function() {
   };
   
   this.varNameList_ = [];
+  this.integratedVariableList_ = [];
   
 };
+
+
+
+lgb.chart.model.GraphModel.prototype.setIntegratedDataModel = function(integratedDataModel) {
+      
+  this.each(this.abbrList_, this.initOneVariable_, integratedDataModel);
+    
+  this.integratedDataModel_ = integratedDataModel;
+    
+
+    
+};
+
+
+
+
+lgb.chart.model.GraphModel.prototype.initOneVariable_ = function(name_scenario, integratedMainModel) {
+    
+    var integratedVariable = integratedMainModel.getVariableBy_name_scenario(name_scenario);
+    this.integratedVariableList_.push(integratedVariable);
+    
+    var pathModel = new lgb.chart.model.PathModel(integratedVariable, this.pathModelList_.length);
+    //pathModel.setDomainY(this.y.min, this.y.max);
+      
+    this.pathModelList_.push(pathModel);
+    
+    return;
+};
+
 
 
 lgb.chart.model.GraphModel.prototype.setTitle = function(title) {
   this.title_ = title;
 };
+
+
+lgb.chart.model.GraphModel.prototype.setVariablesByAbbrList = function(abbrList) {
+  this.abbrList_ = abbrList;
+};
+
+
+
 
 
 lgb.chart.model.GraphModel.prototype.getTitle = function() {
@@ -52,6 +90,9 @@ lgb.chart.model.GraphModel.prototype.getTitle = function() {
 lgb.chart.model.GraphModel.prototype.getC3data = function() {
   return this.c3Data_;
 };
+
+
+
 
 
 lgb.chart.model.GraphModel.prototype.getColumns = function() {
@@ -75,8 +116,6 @@ lgb.chart.model.GraphModel.prototype.addOneColumn_ = function(pathModel) {
     this.columns_.push(oneColumn);
    
 };
-
-
 
 
 
@@ -105,8 +144,8 @@ lgb.chart.model.GraphModel.prototype.updateIntegratedMainModel = function(integr
 
 lgb.chart.model.GraphModel.prototype.update_ = function(pathModel) {
 
-    var varName = pathModel.getVarName();
-    var integratedVariable = this.integratedMainModel_.integratedVariableNameMap_[varName];
+    var name_scenario = pathModel.getVarName();
+    var integratedVariable = this.integratedMainModel_.getVariableBy_name_scenario(name_scenario);
     pathModel.addIntegratedVariable(integratedVariable);
     
     return;   
@@ -122,9 +161,10 @@ lgb.chart.model.GraphModel.prototype.changeDisplayUnitSystem = function(displayU
 
 
 
-lgb.chart.model.GraphModel.prototype.makePathModel = function(varName) {
+lgb.chart.model.GraphModel.prototype.makePathModel = function(scenarioVariable) {
   
-  var pathModel = new lgb.chart.model.PathModel(varName, this.pathModelList_.length);
+  
+  var pathModel = new lgb.chart.model.PathModel(scenarioVariable.abbr, this.pathModelList_.length);
   pathModel.setDomainY(this.y.min, this.y.max);
   
   this.pathModelList_.push(pathModel);
@@ -160,9 +200,6 @@ lgb.chart.model.GraphModel.prototype.makeRandomData = function(count) {
 lgb.chart.model.GraphModel.prototype.makeOneRandomData_ = function(pathModel, count, ms) {
   
     pathModel.makeRandomData(count, ms);
-    
-   // var varName = pathModel.getVarName();
-    //this.c3Data_[varName] = pathModel.getValuesC3();
     
 };
 

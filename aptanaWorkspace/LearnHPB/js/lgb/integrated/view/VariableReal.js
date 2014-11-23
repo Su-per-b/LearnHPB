@@ -15,17 +15,31 @@ goog.require('lgb.integrated.view.Variable');
  */
 lgb.integrated.view.VariableReal = function(dataModel, debugFlag) {
   lgb.integrated.view.Variable.call(this, dataModel, debugFlag);
-  
-  lgb.integrated.view.VariableReal.variablesList.push(this);
-  
-  if(this.dataModel.modName) {
-    lgb.integrated.view.VariableReal.variablesMap[this.dataModel.modName] = this;
-  }
 
-  
 };
 goog.inherits(lgb.integrated.view.VariableReal, lgb.integrated.view.Variable);
 
+
+
+
+
+
+lgb.integrated.view.VariableReal.prototype.bind_ = function() {
+    
+    var changeCallbackDelegate = this.d(this.onChange_value_);
+    this.dataModel.setChangeCallback(changeCallbackDelegate);
+    
+    return;
+    
+};
+
+
+lgb.integrated.view.VariableReal.prototype.onChange_value_ = function(value) {
+    
+    var theValue = value.getDisplayString();
+    this.inputElement_.val(theValue);
+    
+};
 
 
 lgb.integrated.view.VariableReal.prototype.appendTo = function(parentElement) {
@@ -49,7 +63,7 @@ lgb.integrated.view.VariableReal.prototype.appendTo = function(parentElement) {
 
 	} else {
 
-		var txt = "{0} ({1})".format(this.dataModel.name, this.dataModel.abbr);
+		var txt = "{0} ({1})".format(this.dataModel.name, this.dataModel.name_scenario);
 
 		this.label_.text(txt);
 
@@ -73,7 +87,8 @@ lgb.integrated.view.VariableReal.prototype.appendTo = function(parentElement) {
 
 	}
 
-  
+
+  this.bind_();
 };
 
 
@@ -129,10 +144,10 @@ lgb.integrated.view.VariableReal.prototype.onGuiValueChanged_ = function(event) 
 
 
 
-lgb.integrated.view.VariableReal.showIcontentPopup = function(abbr) {
+lgb.integrated.view.VariableReal.showIcontentPopup = function(name_scenario) {
   
   
-    var url = "info-pages/iv-{0}.html".format(abbr);
+    var url = "info-pages/iv-{0}.html".format(name_scenario);
     
     var newWindow=window.open(url,'name','height=600,width=450');
     
@@ -155,14 +170,14 @@ lgb.integrated.view.VariableReal.prototype.getMainElement = function() {
     var divMore = $('<div>');
     divMore.addClass('more');
     
-    var abbr = this.dataModel.abbr;
-    var tooltip = 'Show info page for the variable: {0}'.format(abbr);
+    var name_scenario = this.dataModel.name_scenario;
+    var tooltip = 'Show info page for the variable: {0}'.format(name_scenario);
     
     var tag = '<a href="#" class="info" title="{0}"' +
     ' onclick="return lgb.integrated.view.VariableReal.showIcontentPopup (\'{1}\');"' +
     '></a>';
     
-    tag = tag.format(tooltip, abbr);
+    tag = tag.format(tooltip, name_scenario);
     divMore.append (tag);
     
     if ("parameter" == this.dataModel.variability) {
@@ -196,6 +211,3 @@ lgb.integrated.view.VariableReal.prototype.injectDebugContent = function() {
 };
 
 
-
-lgb.integrated.view.VariableReal.variablesList = [];
-lgb.integrated.view.VariableReal.variablesMap = {};

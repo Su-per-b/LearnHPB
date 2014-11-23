@@ -143,13 +143,13 @@ lgb.simulation.model.voManaged.ScalarVariableReal.prototype.getDisplayValue = fu
 
 
 
-lgb.simulation.model.voManaged.ScalarVariableReal.prototype.getNormalizedName = function() {
-    var normalizedName = this.name_.replace("[", "_");
-    var normalizedName = normalizedName.replace("]", "");
-    
-    
-    return normalizedName;
-};
+// lgb.simulation.model.voManaged.ScalarVariableReal.prototype.getNormalizedName = function() {
+    // var normalizedName = this.name_.replace("[", "_");
+    // var normalizedName = normalizedName.replace("]", "");
+//     
+//     
+    // return normalizedName;
+// };
 
 
 

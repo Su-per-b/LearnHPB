@@ -49,7 +49,7 @@ lgb.integrated.view.VariableInteger.prototype.appendTo = function(parentElement)
 
 	} else {
 
-		var txt = "{0} ({1})".format(this.dataModel.name, this.dataModel.abbr);
+		var txt = "{0} ({1})".format(this.dataModel.name, this.dataModel.name_scenario);
 
 		this.label_.text(txt);
 
@@ -132,7 +132,7 @@ lgb.integrated.view.VariableInteger.prototype.onGuiValueChanged_ = function(even
 lgb.integrated.view.VariableInteger.showIcontentPopup = function(abbr) {
   
   
-    var url = "info-pages/iv-{0}.html".format(abbr);
+    var url = "info-pages/iv-{0}.html".format(name_scenario);
     
     var newWindow=window.open(url,'name','height=600,width=450');
     
@@ -155,14 +155,14 @@ lgb.integrated.view.VariableInteger.prototype.getMainElement = function() {
     var divMore = $('<div>');
     divMore.addClass('more');
     
-    var abbr = this.dataModel.abbr;
-    var tooltip = 'Show info page for the variable: {0}'.format(abbr);
+    var name_scenario = this.dataModel.name_scenario;
+    var tooltip = 'Show info page for the variable: {0}'.format(name_scenario);
     
     var tag = '<a href="#" class="info" title="{0}"' +
     ' onclick="return lgb.integrated.view.VariableInteger.showIcontentPopup (\'{1}\');"' +
     '></a>';
     
-    tag = tag.format(tooltip, abbr);
+    tag = tag.format(tooltip, name_scenario);
     divMore.append (tag);
     
     if ("parameter" == this.dataModel.variability) {

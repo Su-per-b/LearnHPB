@@ -115,7 +115,7 @@ lgb.core.MainController.prototype.init = function() {
   this.simulationMainController_.init();
   
   
-  this.trigger(e.RequestLoadScenario, "SimpleScenario");
+  this.trigger(e.RequestLoadScenario, "VerySimpleScenario");
   this.logger_ = goog.debug.Logger.getLogger('lgb.core.MainController');
   lgb.logInfo(lgb.core.Config.getTitle());
   lgb.logInfo('jQuery version: ' + $('').jquery);

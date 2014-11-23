@@ -16,10 +16,10 @@ goog.require('lgb.simulation.model.DisplayUnitSystem');
  * @param {!lgb.utils.XmlWrapper} xmlParser The parse used
  * to populate the object, contains an xml document.
  */
-lgb.scenario.model.SubSystem = function(node) {
-
+lgb.scenario.model.SubSystem = function(node, parent_fqAbbr) {
+  this.parent_fqAbbr_ = parent_fqAbbr;
+  
   lgb.scenario.model.NodeBase.call(this, node);
-  this.displayUnitSystem = lgb.simulation.model.DisplayUnitSystem.getInstance();
 };
 goog.inherits(lgb.scenario.model.SubSystem, lgb.scenario.model.NodeBase);
 
@@ -27,6 +27,8 @@ goog.inherits(lgb.scenario.model.SubSystem, lgb.scenario.model.NodeBase);
 
 lgb.scenario.model.SubSystem.prototype.parseXmlNode_ = function() {
   this.setNameAndAbbr_();
+  this.fqAbbr = this.parent_fqAbbr_ + this.abbr;
+  
   this.makeChildren_();
 };
 

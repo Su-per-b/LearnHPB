@@ -6,7 +6,7 @@
 goog.provide('lgb.integrated.controller.IntegratedController');
 
 goog.require('lgb.core.BaseController');
-goog.require('lgb.scenario.model.ScenarioModel');
+goog.require('lgb.scenario.model.MainModel');
 goog.require('lgb.integrated.model.MainModel');
 goog.require('lgb.simulation.events.ResultEventList');
 
@@ -56,10 +56,7 @@ lgb.integrated.controller.IntegratedController.prototype.bind_ = function() {
     se.ResultEventList,
     this.onResultEventList_
   );
-  
-  
-  
-  
+
 
 };
 
@@ -82,7 +79,7 @@ lgb.integrated.controller.IntegratedController.prototype.onXMLparsedEvent_ = fun
 
     this.dataModel.processXMLparsedInfo(event.getPayload());
     
-    this.trigger(e.IntegratedDataModelVariablesUpdated, this.dataModel);
+    this.trigger(e.IntegratedDataModelSimulationInitialized, this.dataModel);
 
 };
 
@@ -99,7 +96,7 @@ lgb.integrated.controller.IntegratedController.prototype.onDisplayUnitSystemChan
 lgb.integrated.controller.IntegratedController.prototype.onScenarioDataModelLoaded_ = function(event) {
 
    this.dataModel.parseSrcObj(event.payload);
-   this.trigger(e.IntegratedDataModelInitialized, this.dataModel);
+   this.trigger(e.IntegratedDataModelScenarioInitialized, this.dataModel);
     
    
 };

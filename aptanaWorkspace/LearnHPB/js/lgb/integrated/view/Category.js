@@ -86,7 +86,7 @@ lgb.integrated.view.Category.prototype.appendTitle_ = function() {
   var html = this.dataModel.name;
   
   if (this.debugFlag_) {
-    html += " ({0})".format(this.dataModel.abbr);
+    html += " ({0})".format(this.dataModel.name_scenario);
   }
     
     if ("NONE" == this.dataModel.name) {

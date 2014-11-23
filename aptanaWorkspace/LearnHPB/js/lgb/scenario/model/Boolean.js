@@ -25,9 +25,7 @@ goog.inherits(lgb.scenario.model.Boolean, lgb.scenario.model.NodeBase);
 
 
 lgb.scenario.model.Boolean.prototype.parseXmlNode_ = function() {
-  
     this.setPropertyDefaults_();
-
 };
 
 
@@ -40,19 +38,11 @@ lgb.scenario.model.Boolean.prototype.setPropertyDefaults_ = function() {
 
 
 
-lgb.scenario.model.Boolean.prototype.parseXmlNode_ = function() {
-    
-  var propertyDefaults = this.getPropertyDefaults();
-  this.setPropertyBool_('dflt', propertyDefaults.dflt);
-  
-};
-
 lgb.scenario.model.Boolean.prototype.getPropertyDefaults = function() {
     
     var propertyDefaults = {
         dflt:false
     };
-    
     
     return propertyDefaults;
 };

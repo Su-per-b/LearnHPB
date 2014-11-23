@@ -12,27 +12,33 @@ goog.require('lgb.integrated.model.VariableOption');
 
 lgb.integrated.model.MainModel = function(  ) {
     
-    lgb.integrated.model.NodeBaseContainer.call(this);
-    
+    lgb.core.BaseModel.call(this);
+
     var year2000Date = new Date(2000,0,1,0,0,0,0);
     this.year2000ms_ = year2000Date.getTime();
 };
-goog.inherits(lgb.integrated.model.MainModel, lgb.integrated.model.NodeBaseContainer);
+goog.inherits(lgb.integrated.model.MainModel, lgb.core.BaseModel);
 
 
 
 lgb.integrated.model.MainModel.prototype.parseSrcObj = function(srcObj) {
 
-    this.name = srcObj.name;
-    this.makeChildren_(srcObj);
-    this.leafNodes_ = this.getLeafNodes();
     
-    this.integratedVariableList_ = [];
-    this.integratedVariableNameMap_ = {};
-    this.integratedVariableIdxMap_ = {};
+    this.name_scenario2integratedVariable_ = {};
+    this.name_simulation2integratedVariable_ = {};
+    this.idx2integratedVariable_ = {};
     
-    this.integratedVariableList_Input_ = [];
-    this.integratedVariableList_Output_ = [];
+    this.integratedVariableList_input_ = [];
+    this.integratedVariableList_output_ = [];
+    this.integratedVariableList_all_ = [];
+    
+    this.systemListInput = [];
+    this.parseSystemListInput_(srcObj.systemListInput);
+    
+    this.integratedVariableList_input_ = this.calcAndGetintegratedVariableList_input_();
+    this.calcAndIntegratedVariableList_output_(srcObj.variableListOutput);  //this.integratedVariableList_output_ = 
+    
+    this.variableListAll = this.integratedVariableList_output_.concat(this.integratedVariableList_input_.slice(0));
     
     this.timeTicks_ = [];
     this.dateObjectTicks_ = [];
@@ -40,79 +46,162 @@ lgb.integrated.model.MainModel.prototype.parseSrcObj = function(srcObj) {
     
     this.graphModelList = srcObj.graphModelList;
     
-    this.each(this.leafNodes_, this.extractOneIntegratedVariable_);
+    this.each(this.variableListAll, this.indexOneVariable_);
+    
+    return;
+};
+
+
+lgb.integrated.model.MainModel.prototype.processXMLparsedInfo = function(xmlParsedInfo) {
+
+    var varList = xmlParsedInfo.getAllVariables();
+    this.each(varList, this.processOneScalarVariable_);
+    
+    return;
+};
+
+
+lgb.integrated.model.MainModel.prototype.parseSystemListInput_ = function(systemListInput) {
+    
+    var childList = systemListInput.getChildren();
+    this.each(childList, this.parseOneSystemInput_);
     
 };
+
+
+lgb.integrated.model.MainModel.prototype.parseOneSystemInput_ = function(srcObjChild) {
+
+     var destChild = this.translateObject_(srcObjChild);
+    
+     if (null == destChild) {
+         debugger;
+     } else {
+         destChild.parseSrcObj(srcObjChild);
+         this.systemListInput.push(destChild);
+     }
+};
+
+
+
+
+
+
+lgb.integrated.model.MainModel.prototype.calcAndIntegratedVariableList_output_ = function(variableListOutput) {
+        
+    if (null != variableListOutput) {
+        var childList = variableListOutput.getChildren();
+        this.each(childList, this.parseOneVariableOutput_);
+    }
+
+};
+
+lgb.integrated.model.MainModel.prototype.parseOneVariableOutput_ = function(srcObjVariable) {
+    
+    var destChild = lgb.integrated.model.Utils.makeVariable (srcObjVariable);
+    
+     if (null == destChild) {
+         debugger;
+     } else {
+         this.integratedVariableList_output_.push(destChild);
+     }
+
+};
+
+
 
 
 
 lgb.integrated.model.MainModel.prototype.getInputVariables = function() {
     
-    return this.integratedVariableList_Input_;
+    return this.integratedVariableList_input_;
 };
 
 
 lgb.integrated.model.MainModel.prototype.getOutputVariables = function() {
     
-    return this.integratedVariableList_Output_;
+    return this.integratedVariableList_output_;
 };
 
 
 
-lgb.integrated.model.MainModel.prototype.extractOneIntegratedVariable_ = function(leafNode) {
+lgb.integrated.model.MainModel.prototype.indexOneVariable_ = function(integratedVariable) {
     
-    var isVariableOption = (leafNode instanceof lgb.integrated.model.VariableOption);
-    var isVariable = (leafNode instanceof lgb.integrated.model.Variable);
-     
-    if (isVariable) {
-        
-        var name = leafNode.getNormalizedName();
-        
-        if (name != "{modName not set}") {
-            
-            //this.integratedVariableList_.push(leafNode);
-            this.integratedVariableList_Input_.push(leafNode);
-        
-            if (this.integratedVariableNameMap_.hasOwnProperty(name)) {
-                //names should be unique
-                debugger;
-            } else {
-                this.integratedVariableNameMap_[name] = leafNode;
-            }
-               
+    
+    var name_simulation = integratedVariable.name_simulation;
+    var name_scenario = integratedVariable.name_scenario;
+    
+    
+    if (name_scenario != "") {
+        if (this.name_scenario2integratedVariable_.hasOwnProperty(name_scenario)) {
+            //name_simulation should be unique
+            debugger;
+        } else {
+            this.name_scenario2integratedVariable_[name_scenario] = integratedVariable;
         }
     }
-
+    
+    if (name_simulation != "") {
+        if (this.name_simulation2integratedVariable_.hasOwnProperty(name_simulation)) {
+            //name_simulation should be unique
+            debugger;
+        } else {
+            this.name_simulation2integratedVariable_[name_simulation] = integratedVariable;
+        }
+    }
+    
+    this.integratedVariableList_all_.push(integratedVariable);
+    
     return;
+};
+
+
+
+
+lgb.integrated.model.MainModel.prototype.getVariableBy_name_scenario = function(name_scenario) {
+    
+    if (this.name_scenario2integratedVariable_.hasOwnProperty(name_scenario)) {
+        return this.name_scenario2integratedVariable_[name_scenario];
+    } else {
+        debugger;
+    }
+        
+    
 };
 
 
 
 
+lgb.integrated.model.MainModel.prototype.processOneScalarVariable_ = function(scalarVariableReal) {
+    
+    var name_simulation = scalarVariableReal.getName();
+    var idx = scalarVariableReal.getIdx();        
+    var integratedVariable;    
 
-lgb.integrated.model.MainModel.prototype.processXMLparsedInfo = function(xmlParsedInfo) {
+    //find or make the integratedVariable
+    if (this.name_simulation2integratedVariable_.hasOwnProperty(name_simulation)) {
+        
+        integratedVariable = this.name_simulation2integratedVariable_[name_simulation];
+        integratedVariable.setScalarVariable(scalarVariableReal);
+        
+        if (this.idx2integratedVariable_.hasOwnProperty(idx)) {
+            debugger;
+        } else {
+            this.idx2integratedVariable_[idx] = integratedVariable;
+        }
+
+    } else {
+        
+        //we are going to ignore these variables from now on.
+        //debugger;
+    }
     
-    this.integratedVariableList_ = [];
-    this.integratedVariableNameMap_ = {};
-    this.integratedVariableIdxMap_ = {};
-    
-    this.integratedVariableList_Input_ = [];
-    this.integratedVariableList_Output_ = [];
-    
-    var inputVarList = xmlParsedInfo.getInputVariables();
-    this.each(inputVarList, this.processOneInputVariable_);
-    
-    var outputVarList = xmlParsedInfo.getOutputVariables();
-    this.each(outputVarList, this.processOneOutputVariable_);
-    
-    
+
     return;
 };
+
 
 
 lgb.integrated.model.MainModel.prototype.setTime_ = function(time) {
-    
-    
     
     var msAfterYear2000 = time * 1000;
     var dateMs = msAfterYear2000 + this.year2000ms_;
@@ -122,8 +211,6 @@ lgb.integrated.model.MainModel.prototype.setTime_ = function(time) {
      
     this.dateObjectTicks_.push(date);
     
-   // this.timeAndDateStringTicks_.push(scalarValueResults.getTimeAndDateString());
-     
     return;
 };
 
@@ -143,78 +230,40 @@ lgb.integrated.model.MainModel.prototype.processResultEventList = function(resul
      var scalarValueResults = latestResult.getPayload();
      
      this.setTime_(scalarValueResults.getTime());
-      var timeStr = this.getTimeStr();
+     var timeStr = this.getTimeStr();
       
+     var valList = scalarValueResults.getAllReal();
+     this.each(valList, this.processOneValue_);
      
-     var inputValList = scalarValueResults.input.realList_;
-     this.each(inputValList, this.processOneValue_);
-     
-     var outputValList = scalarValueResults.output.realList_;
-     this.each(outputValList, this.processOneValue_);
-
-
-    return;
+     return;
 };
+
+
+
 
 lgb.integrated.model.MainModel.prototype.processOneValue_ = function(scalarValue) {
     
     var idx = scalarValue.getIdx();
-    var integratedVariable = this.integratedVariableIdxMap_[idx];
-
-    integratedVariable.setScalarValue(scalarValue);
     
-    return;
-};
-
-
-lgb.integrated.model.MainModel.prototype.processOneInputVariable_ = function(scalarVariableReal) {
+    if (this.idx2integratedVariable_.hasOwnProperty(idx)) {
     
-    var name = scalarVariableReal.getNormalizedName();
-    var idx = scalarVariableReal.getIdx();        
-            
-    if (this.integratedVariableNameMap_.hasOwnProperty(name)) {
-        var integratedVariable = this.integratedVariableNameMap_[name];
-        integratedVariable.setScalarVariable(scalarVariableReal);
-        
-        if (!this.integratedVariableIdxMap_.hasOwnProperty(idx)) {
-            this.integratedVariableIdxMap_[idx] = integratedVariable;
+        var integratedVariable = this.idx2integratedVariable_[idx];
+    
+        if (undefined === integratedVariable) {
+            debugger;
+        } else {
+            integratedVariable.setScalarValue(scalarValue);
         }
+        
     } else {
-        
-        var integratedVariable = new lgb.integrated.model.VariableReal();
-        integratedVariable.setScalarVariable(scalarVariableReal);
-        
-        this.integratedVariableList_Input_.push(integratedVariable);
-        this.integratedVariableNameMap_[name] = integratedVariable;
-        this.integratedVariableIdxMap_[idx] = integratedVariable;
-        
+       // ignore
     }
-    
+        
     return;
 };
 
 
-lgb.integrated.model.MainModel.prototype.processOneOutputVariable_ = function(scalarVariableReal) {
-    
-    var name = scalarVariableReal.getNormalizedName();
-    var idx = scalarVariableReal.getIdx(); 
-         
-    if (this.integratedVariableNameMap_.hasOwnProperty(name)) {
-        debugger;
 
-    } else {
-        var integratedVariable = new lgb.integrated.model.VariableReal();
-        integratedVariable.setScalarVariable(scalarVariableReal);
-        
-        this.integratedVariableList_Output_.push(integratedVariable);
-        
-        this.integratedVariableNameMap_[name] = integratedVariable;
-        this.integratedVariableIdxMap_[idx] = integratedVariable;
-
-    }
-    
-    return;
-};
 
 
 
@@ -284,31 +333,58 @@ lgb.integrated.model.MainModel.prototype.changeOneDisplayUnitSystem_ = function(
 
 
 
-lgb.integrated.model.MainModel.prototype.makeChildren_ = function(srcObj) {
+lgb.integrated.model.MainModel.prototype.calcAndGetintegratedVariableList_input_ = function() {
+  
+    var len = this.systemListInput.length;
+    var integratedVariables = [];
     
-    this.children_ = [];
-    this.childMap_ = {};
-    var childList = srcObj.getChildren();
-    this.each(childList, this.makeOneChild_);
+    for (var j = 0; j < len; j++) {
+        
+        var child = this.systemListInput[j];
+        var childVarList = child.calcAndGetIntegratedVariables();
+        
+        if(null != childVarList) {
+            integratedVariables = childVarList.concat(integratedVariables);
+        }
+    }
     
+    return integratedVariables;
+    
+
+ 
 };
 
 
-lgb.integrated.model.MainModel.prototype.makeOneChild_ = function(srcObjChild) {
 
-     var destChild = this.translateObject_(srcObjChild);
+
+lgb.integrated.model.MainModel.prototype.calcAndGetLeafNodes = function() {
+  
+    var len = this.children_.length;
+    var leafNodes = [];
     
-     if (null == destChild) {
-         debugger;
-     } else {
-         destChild.parseSrcObj(srcObjChild);
-         
-         this.children_.push(destChild);
-         this.childMap_[destChild.name] = destChild;
-     }
+    for (var j = 0; j < len; j++) {
+        
+        var child = this.children_[j];
+        var childVarList = child.calcAndGetLeafNodes();
+        
+        if(null != childVarList) {
+            leafNodes = childVarList.concat(leafNodes);
+        }
+    }
+    
+    if (0 == leafNodes.length ) {
+        return null;
+    } else {
+        return leafNodes;
+    }
 };
 
 
+
+
+lgb.integrated.model.MainModel.prototype.getLeafNodes = function() {
+    return this.leafNodes_;
+};
 
 
 

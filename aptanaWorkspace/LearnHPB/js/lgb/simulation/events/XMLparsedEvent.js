@@ -10,7 +10,6 @@ goog.require('lgb.simulation.model.voManaged.XMLparsedInfo');
 
 /**
  * @constructor
- * @param {lgb.scenario.model.Base} scenarioBase The Data Model.
  * @extends {goog.events.Event}
  */
 lgb.simulation.events.XMLparsedEvent = function(payload) {

@@ -4,7 +4,7 @@ goog.require('lgb.core.BaseClass');
 goog.require('lgb.integrated.model.VariableReal');
 goog.require('lgb.integrated.model.VariableOptionList');
 goog.require('lgb.integrated.model.VariableInteger');
-
+goog.require('lgb.integrated.model.VariableBoolean');
 
 
  /**
@@ -48,8 +48,8 @@ lgb.integrated.model.Utils.classTranslationMap = {
   "lgb.scenario.model.Temperature":lgb.integrated.model.VariableReal,
   "lgb.scenario.model.Decimal":lgb.integrated.model.VariableReal,
   "lgb.scenario.model.Integer":lgb.integrated.model.VariableInteger,
-  "lgb.scenario.model.OptionList":lgb.integrated.model.VariableOptionList
-    
+  "lgb.scenario.model.OptionList":lgb.integrated.model.VariableOptionList,
+  "lgb.scenario.model.Boolean":lgb.integrated.model.VariableBoolean
     
 };
 
