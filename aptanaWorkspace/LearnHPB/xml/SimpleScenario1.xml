@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 sp1 (x64) (http://www.altova.com) by RD (pcd) -->
+<Scenario name="Simple Scenario 1">
+
+   <VariableList scope="gui">
+
+      <Variable description="Simulation Start Time" name="SIMstart1" variability="parameter" definedUnit="Seconds">
+         <Integer start="15663600" min="0" max="20000000" />
+      </Variable>
+      
+      <Variable description="Simulation Start Time" name="SIMstart2" variability="parameter" definedUnit="Seconds">
+         <SecondsAfter2000 start="15663600" min="0" max="20000000" />
+      </Variable>
+      
+      
+   </VariableList>
+   
+   <VariableList scope="output" variability="continuous" definedUnit="Temperature">
+      <Variable name="OATemp" scalarVariableName="y_SYS[1]" description="Outside air dry bulb">
+         <Real />
+      </Variable>
+      <Variable description="Zone 1 temp" name="ZN1Temp" scalarVariableName="y_ZN[1]">
+         <Real />
+      </Variable>
+      <Variable description="Zone 2 temp" name="ZN2Temp" scalarVariableName="y_ZN[5]">
+         <Real />
+      </Variable>
+      <Variable description="Zone 3 temp" name="ZN3Temp" scalarVariableName="y_ZN[9]">
+         <Real />
+      </Variable>
+      <Variable description="Zone 4 temp" name="ZN4Temp" scalarVariableName="y_ZN[13]">
+         <Real />
+      </Variable>
+      <Variable description="Zone 5 temp" name="ZN5Temp" scalarVariableName="y_ZN[17]">
+         <Real />
+      </Variable>
+      <Variable description="Zone 6 temp" name="ZN6Temp" scalarVariableName="y_ZN[21]">
+         <Real />
+      </Variable>
+      <Variable description="Zone 7 temp" name="ZN7Temp" scalarVariableName="y_ZN[25]">
+         <Real />
+      </Variable>
+      <Variable description="Zone 8 temp" name="ZN8Temp" scalarVariableName="y_ZN[29]">
+         <Real />
+      </Variable>
+      <Variable description="Zone 9 temp" name="ZN9Temp" scalarVariableName="y_ZN[33]">
+         <Real />
+      </Variable>
+   </VariableList>
+   
+   <VariableList variability="continuous" scope="input" definedUnit="Temperature">
+      <Variable description="heating set point" name="ZN1SPHeat" scalarVariableName="u_ZN[1]">
+         <Real start="294.65" min="283.15" max="313.15" />
+      </Variable>
+      <Variable description="cooling set point" name="ZN1SPCool" scalarVariableName="u_ZN[2]">
+         <Real start="297.65" min="283.15" max="313.15" />
+      </Variable>
+      <Variable description="heating set point" name="ZN2SPHeat" scalarVariableName="u_ZN[5]">
+         <Real start="294.65" min="283.15" max="313.15" />
+      </Variable>
+      <Variable description="cooling set point" name="ZN2SPCool" scalarVariableName="u_ZN[6]">
+         <Real start="297.65" min="283.15" max="313.15" />
+      </Variable>
+      <Variable description="heating set point" name="ZN3SPHeat" scalarVariableName="u_ZN[9]">
+         <Real start="294.65" min="283.15" max="313.15" />
+      </Variable>
+      <Variable description="cooling set point" name="ZN3SPCool" scalarVariableName="u_ZN[10]">
+         <Real start="297.65" min="283.15" max="313.15" />
+      </Variable>
+      <Variable description="heating set point" name="ZN4SPHeat" scalarVariableName="u_ZN[13]">
+         <Real start="294.65" min="283.15" max="313.15" />
+      </Variable>
+      <Variable description="cooling set point" name="ZN4SPCool" scalarVariableName="u_ZN[14]">
+         <Real start="297.65" min="283.15" max="313.15" />
+      </Variable>
+      <Variable description="heating set point" name="ZN5SPHeat" scalarVariableName="u_ZN[17]">
+         <Real start="294.65" min="283.15" max="313.15" />
+      </Variable>
+      <Variable description="cooling set point" name="ZN5SPCool" scalarVariableName="u_ZN[18]">
+         <Real start="297.65" min="283.15" max="313.15" />
+      </Variable>
+      <Variable description="heating set point" name="ZN6SPHeat" scalarVariableName="u_ZN[21]">
+         <Real start="294.65" min="283.15" max="313.15" />
+      </Variable>
+      <Variable description="cooling set point" name="ZN6SPCool" scalarVariableName="u_ZN[22]">
+         <Real start="297.65" min="283.15" max="313.15" />
+      </Variable>
+      <Variable description="heating set point" name="ZN7SPHeat" scalarVariableName="u_ZN[24]">
+         <Real start="294.65" min="283.15" max="313.15" />
+      </Variable>
+      <Variable description="cooling set point" name="ZN7SPCool" scalarVariableName="u_ZN[25]">
+         <Real start="297.65" min="283.15" max="313.15" />
+      </Variable>
+      <Variable description="heating set point" name="ZN8SPHeat" scalarVariableName="u_ZN[28]">
+         <Real start="294.65" min="283.15" max="313.15" />
+      </Variable>
+      <Variable description="cooling set point" name="ZN8SPCool" scalarVariableName="u_ZN[29]">
+         <Real start="297.65" min="283.15" max="313.15" />
+      </Variable>
+      <Variable description="heating set point" name="ZN9SPHeat" scalarVariableName="u_ZN[31]">
+         <Real start="294.65" min="283.15" max="313.15" />
+      </Variable>
+      <Variable description="cooling set point" name="ZN9SPCool" scalarVariableName="u_ZN[32]">
+         <Real start="297.65" min="283.15" max="313.15" />
+      </Variable>
+   </VariableList>
+   
+   <GraphList>
+	   <Graph name="ZN1" description="Zone 1">
+	   		<Line name="ZN1SPCool" />
+	   		<Line name="OATemp" />
+	   		<Line name="ZN1Temp" />
+	   		<Line name="ZN1SPHeat" />
+	   </Graph>
+   </GraphList>
+   
+   <SystemList>
+      <System name="General" description="General Things">      
+         <SubSystem name="Simulation">
+            <Category name="Time" abbr="Tm">
+            	<VariableReference name="SIMstart1" />
+            	<VariableReference name="SIMstart2" />
+            </Category>
+         </SubSystem>
+      </System>
+      <System name="Lighting" description="Building Lighting System" />
+      <System name="Daylighting" description="Building Daylighting" />
+      <System name="Enclosure" description="Building Enclosure" />
+      <System name="HVAC" description="Heating Ventilation and Air Conditioning">
+         <SubSystem name="Zones">
+            <Category name="Zone 1 (North)">
+               <VariableReference name="ZN1SPHeat" />
+               <VariableReference name="ZN1SPCool" />
+            </Category>
+            <Category name="Zone 2 (NorthWest)">
+               <VariableReference name="ZN2SPHeat" />
+               <VariableReference name="ZN2SPCool" />
+            </Category>
+            <Category name="Zone 3 (West)">
+               <VariableReference name="ZN3SPHeat" />
+               <VariableReference name="ZN3SPCool" />
+            </Category>
+            <Category name="Zone 4 (SouthWest)">
+               <VariableReference name="ZN4SPHeat" />
+               <VariableReference name="ZN4SPCool" />
+            </Category>
+            <Category name="Zone 5 (South)">
+               <VariableReference name="ZN5SPHeat" />
+               <VariableReference name="ZN5SPCool" />
+            </Category>
+            <Category name="Zone 6 (SouthEast)">
+               <VariableReference name="ZN6SPHeat" />
+               <VariableReference name="ZN6SPCool" />
+            </Category>
+            <Category name="Zone 7 (East)">
+               <VariableReference name="ZN7SPHeat" />
+               <VariableReference name="ZN7SPCool" />
+            </Category>
+            <Category name="Zone 8 (NorthEast)">
+               <VariableReference name="ZN8SPHeat" />
+               <VariableReference name="ZN8SPCool" />
+            </Category>
+            <Category name="Zone 9 (Core)">
+               <VariableReference name="ZN9SPHeat" />
+               <VariableReference name="ZN9SPCool" />
+            </Category>
+         </SubSystem>
+      </System>
+   </SystemList>
+</Scenario>

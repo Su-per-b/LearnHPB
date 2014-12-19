@@ -32,19 +32,23 @@ goog.inherits(lgb.gui.model.ScenarioMasterModel, lgb.core.BaseModel);
 lgb.gui.model.ScenarioMasterModel.prototype.init_ = function() {
   
   this.scenarios_ = [
-
     {
-      name:"Very Simple Scenario",
-      value:"VerySimpleScenario"
+      name:"Simple Scenario 1",
+      value:"SimpleScenario1"
     },
     {
-      name:"Simple Scenario",
-      value:"SimpleScenario"
+      name:"Very Simple Scenario 1",
+      value:"VerySimpleScenario1"
     },
     {
-      name:"Complete Scenario",
-      value:"Complete"
+      name:"Very Simple Scenario 5",
+      value:"VerySimpleScenario5"
+    },
+    {
+      name:"Very Simple Scenario 9",
+      value:"VerySimpleScenario9"
     }
+
     ];
   
   

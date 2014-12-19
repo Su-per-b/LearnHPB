@@ -24,7 +24,7 @@ lgb.integrated.model.unit.VolumetricFlowRate.prototype.getPropertyDefaults = fun
     var propertyDefaults = {
         min:250.00,
         max:325.00,
-        dflt:295.15
+        start:295.15
     };
     
     return propertyDefaults;
@@ -37,14 +37,14 @@ lgb.integrated.model.unit.VolumetricFlowRate.prototype.convertInternalToDisplayV
   
   switch (this.displayUnitSystem_.getIntValue()) {
     
-    case lgb.simulation.model.DisplayUnitSystem.ENUM.SI :
+    case lgb.integrated.model.DisplayUnitSystem.ENUM.SI :
     
       var celsiusVolumetricFlowRate = internalValue - 273.15;
       //celsiusVolumetricFlowRate = celsiusVolumetricFlowRate.toFixed(1);
       
       return celsiusVolumetricFlowRate;
       break;
-    case lgb.simulation.model.DisplayUnitSystem.ENUM.IP :
+    case lgb.integrated.model.DisplayUnitSystem.ENUM.IP :
     
       var fahrenheitVolumetricFlowRate = 1.8 * (internalValue - 273) + 32;
       //fahrenheitVolumetricFlowRate = fahrenheitVolumetricFlowRate.toFixed(1);
@@ -52,7 +52,7 @@ lgb.integrated.model.unit.VolumetricFlowRate.prototype.convertInternalToDisplayV
       return fahrenheitVolumetricFlowRate;
       break;
       
-    case lgb.simulation.model.DisplayUnitSystem.ENUM.INTERNAL : 
+    case lgb.integrated.model.DisplayUnitSystem.ENUM.INTERNAL : 
       return internalValue;
       break;
     default :

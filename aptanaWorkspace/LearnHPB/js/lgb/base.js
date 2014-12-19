@@ -41,9 +41,7 @@ lgb.init = function() {
 lgb.assert = function(obj) {
     
   if (obj === undefined  ) {
-    debugger;
-    throw "lgb.assert Failed";
-
+    lgb.logSevere ("lgb.assert Failed");
   }
 };
 
@@ -88,6 +86,7 @@ lgb.logWarning = function(msg, loggerName) {
  */
 lgb.logSevere = function(msg, loggerName) {
   lgb.logHelper_(msg, loggerName, goog.debug.Logger.Level.SEVERE);
+  debugger;
 };
 
 
@@ -100,7 +99,7 @@ lgb.logSevere = function(msg, loggerName) {
 lgb.logHelper_ = function(msg, loggerName, level) {
 
   if (loggerName === undefined) {
-  loggerName = 'lgb';
+    loggerName = 'lgb';
   }
 
   var logRecord = new goog.debug.LogRecord(level, msg, loggerName);
@@ -162,6 +161,35 @@ lgb.convertFeetToMeters = function(feet) {
 };
 
 
+lgb.extractTimeStrFromDateObject = function(dateObject) {
+    
+    var hours = dateObject.getHours();
+    var minutes = dateObject.getMinutes();
+    var seconds = dateObject.getSeconds();
+    
+    var amPM; // = "AM";
+    
+    if (hours > 12) {
+        hours = hours -12;
+        amPM = "PM";
+    } else {
+        amPM = "AM";
+    }
+    
+    
+    //if (hours   < 10) {hours   = "0"+hours;}
+    if (minutes < 10) {minutes = "0"+minutes;}
+    if (seconds < 10) {seconds = "0"+seconds;}
+
+
+    var timeStr = "{0}:{1} {2}".format(hours, minutes, amPM);
+    
+    return timeStr;
+
+};
+
+
+
 lgb.convertMapToArray = function(map) {
   
   var ary = [];
@@ -180,5 +208,64 @@ lgb.convertMapToArray = function(map) {
 
 
 
+lgb.translateObject = function(srcObj, map) {
+    
+    if (undefined == map) {
+        var ownClass = this.getClassConstructor();
+        map = ownClass.classTranslationMap;
+    }
+    
+    
+    var newObject = lgb.translateObjectWithMap(srcObj, map);
+    
+    if (null == newObject) {
+        debugger;
+    }
+    
+    return newObject; 
+    
 
+};
+
+
+lgb.translateObjectWithMap = function(srcObj, map) {
+    
+    if (undefined === srcObj) {
+        lgb.logSevere('srcObj is undefined');
+    }
+    
+    var fullClassName = srcObj.getFullClassName();
+    return lgb.translateWithMap(fullClassName, map);
+    
+
+};
+
+
+lgb.translateWithMap = function(fullClassName, map) {
+    
+
+    if ( map.hasOwnProperty(fullClassName)  ) {
+        var classReference = map[fullClassName];
+        
+        if (undefined == classReference) {
+            lgb.logSevere('found entry in map but cannot find class for: ' + fullClassName);
+            return null;
+        } else {
+            goog.asserts.assertFunction(classReference);
+            
+            var destObj = new classReference();
+            return destObj;
+        }
+
+    } else {
+        lgb.logSevere('cannot find entry in map for: ' + fullClassName);
+        return null;
+    }
+    
+};
+
+
+lgb.mustOverride = function() {
+    lgb.logSevere('child class should override');
+};
 

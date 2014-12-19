@@ -63,7 +63,7 @@ lgb.chart.model.PathModel.prototype.makeRandomData = function(count) {
 lgb.chart.model.PathModel.prototype.getColumn = function() {
   
     var oneColumn = this.values_.slice(0);
-    oneColumn.unshift(this.integratedVariable_.name_scenario);
+    oneColumn.unshift(this.integratedVariable_.name);
     
     return oneColumn;
     
@@ -84,7 +84,7 @@ lgb.chart.model.PathModel.prototype.setIntegratedVariable = function(integratedV
 
 
 lgb.chart.model.PathModel.prototype.getVarName = function() {
-  return this.integratedVariable_.name_scenario;
+  return this.integratedVariable_.name;
 };
 
 

@@ -1,23 +1,28 @@
 goog.provide('lgb.integrated.model.vo.Real');
 
 
+goog.require('lgb.core.BaseModel');
+
+
+
 
 lgb.integrated.model.vo.Real = function() {
     
     this.internalValue_ = null;
     this.displayValue_ = null;
-    this.displayString_ = "{not set}";
-    this.unitObject_ = null;
+    this.displayString_ = "";
     
+    lgb.core.BaseModel.call(this);
 };
-goog.inherits(lgb.integrated.model.vo.Real, lgb.integrated.model.Variable);
+goog.inherits(lgb.integrated.model.vo.Real, lgb.core.BaseModel);
+
 
 
 
 lgb.integrated.model.vo.Real.prototype.setInternalValue = function(internal) {
 
     this.internalValue_ = internal;
-    this.calcDisplayValues_();
+    this.calcDisplayValues();
 };
 
 lgb.integrated.model.vo.Real.prototype.getInternalValue = function() {
@@ -27,20 +32,15 @@ lgb.integrated.model.vo.Real.prototype.getInternalValue = function() {
 };
 
 
-lgb.integrated.model.vo.Real.prototype.setUnitObject = function(unitObject) {
 
-    this.unitObject_ = unitObject;
-};
+lgb.integrated.model.vo.Real.prototype.setUnitObject = function(unit) {
 
-lgb.integrated.model.vo.Real.prototype.changeDisplayUnitSystem = function(displayUnitSystem) {
-
-    this.calcDisplayValues_();
+    this.unit_ = unit;
+    this.calcDisplayValues();
 };
 
 
-
-
-lgb.integrated.model.vo.Real.prototype.calcDisplayValues_ = function() {
+lgb.integrated.model.vo.Real.prototype.calcDisplayValues = function() {
     
     
     var displayValue;
@@ -49,12 +49,11 @@ lgb.integrated.model.vo.Real.prototype.calcDisplayValues_ = function() {
         debugger;
     }
     
-    if(null == this.unitObject_) {
+    if(null == this.unit_) {
         displayValue = this.internalValue_;
     } else {
         
-        displayValue = this.unitObject_.convertInternalToDisplayValue(this.internalValue_);
-        
+        displayValue = this.unit_.convertInternalToDisplayValue(this.internalValue_);
     }
     
 
@@ -64,10 +63,10 @@ lgb.integrated.model.vo.Real.prototype.calcDisplayValues_ = function() {
     
     this.displayString_ = str;
 
-    
-   //this.displayValue_ = parseFloat(this.displayValue);
     return;
 };
+
+
 
 
 lgb.integrated.model.vo.Real.prototype.getDisplayString = function() {

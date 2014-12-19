@@ -6,12 +6,14 @@
 goog.provide('lgb.scenario.model.MainModel');
 
 goog.require('lgb.core.BaseModel');
-goog.require('lgb.scenario.model.SystemList');
+goog.require('lgb.scenario.model.tag.SystemList');
 goog.require('lgb.utils.XmlWrapper');
 goog.require('lgb.core.Config');
-goog.require('lgb.simulation.model.DisplayUnitSystem');
+goog.require('lgb.integrated.model.DisplayUnitSystem');
 goog.require('lgb.chart.model.GraphModel');
-goog.require('lgb.scenario.model.VariableList');
+goog.require('lgb.scenario.model.tag.VariableList');
+goog.require('lgb.scenario.model.tag.GraphList');
+goog.require('lgb.scenario.model.tag.Scenario');
 
 /**
  * @constructor
@@ -52,7 +54,6 @@ lgb.scenario.model.MainModel.prototype.load = function(fileName) {
 lgb.scenario.model.MainModel.prototype.loadError_ = function(req, status, err ) {
 
     console.log( 'something went wrong', status, err );
-
     debugger;
 
 };
@@ -71,72 +72,13 @@ lgb.scenario.model.MainModel.prototype.loadSuccess_ = function(xml) {
 
 	this.name = xmlWrapper.getName();
 
-	if (null == rootNode) { debugger;
-	}
-
-	var variableListOutputNode = xmlWrapper.makeRootNode('/Scenario/VariableList');
+    this.scenario = new lgb.scenario.model.tag.Scenario(rootNode);
     
-    if (null == variableListOutputNode) {
-        this.variableListOutput = null;
-    } else {
-        this.variableListOutput = new lgb.scenario.model.VariableList(variableListOutputNode);
-    }
-
-	var systemListNode = xmlWrapper.makeRootNode('/Scenario/SystemList');
-	this.systemListInput = new lgb.scenario.model.SystemList(systemListNode);
-	
-	this.graphModelList = [];
-
-	this.makeGraph_('ZN1', ['ZN1SPCool', 'OATemp', 'ZN1Temp', 'ZN1SPHeat']);
-    this.makeGraph_('ZN2', ['ZN2SPCool', 'OATemp', 'ZN2Temp', 'ZN2SPHeat']);
-    this.makeGraph_('ZN3', ['ZN3SPCool', 'OATemp', 'ZN3Temp', 'ZN3SPHeat']);
-    this.makeGraph_('ZN4', ['ZN4SPCool', 'OATemp', 'ZN4Temp', 'ZN4SPHeat']);
-    this.makeGraph_('ZN5', ['ZN5SPCool', 'OATemp', 'ZN5Temp', 'ZN5SPHeat']);
-    this.makeGraph_('ZN6', ['ZN6SPCool', 'OATemp', 'ZN6Temp', 'ZN6SPHeat']);
-    this.makeGraph_('ZN7', ['ZN7SPCool', 'OATemp', 'ZN7Temp', 'ZN7SPHeat']);
-    this.makeGraph_('ZN8', ['ZN8SPCool', 'OATemp', 'ZN8Temp', 'ZN8SPHeat']);
-    this.makeGraph_('ZN9', ['ZN9SPCool', 'OATemp', 'ZN9Temp', 'ZN9SPHeat']);
+    
     
 	this.triggerLocal(e.DataModelInitialized); 
 
 };
-
-
-
-
-lgb.scenario.model.MainModel.prototype.makeGraph_ = function(title, abbrList) {
-  
-   var graphGUIModel = new lgb.chart.model.GraphModel();
-   graphGUIModel.setTitle(title);
-   
-   graphGUIModel.setVariablesByAbbrList(abbrList);
-   this.graphModelList.push(graphGUIModel);
-
-};
-
- 
-
-   
-   
-   
-
-
-
-lgb.scenario.model.MainModel.prototype.updateDisplayUnitSystem = function() {
-  
-    
-
-  if (undefined != this.systemList) {
-
-    this.systemList.updateDisplayUnitSystem();
-    
-  }
-  
-
-};
-
-
-
 
 
 

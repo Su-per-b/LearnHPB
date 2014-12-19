@@ -52,7 +52,7 @@ lgb.integrated.view.NodeBase.prototype.appendTitle_ = function() {
   var html = this.dataModel.name;
   
   if (this.debugFlag_) {
-    html += " ({0})".format(this.dataModel.name_scenario);
+    html += " ({0})".format(this.dataModel.name);
   }
   
   this.append(html);
@@ -66,6 +66,12 @@ lgb.integrated.view.NodeBase.prototype.appendTitle_ = function() {
 lgb.integrated.view.NodeBase.prototype.getDisplayUnit_ = function() {
   
   return null;
+  
+};
+
+lgb.integrated.view.NodeBase.prototype.getModelViewClassMap_ = function() {
+  
+  lgb.logSevere('must override');
   
 };
 
@@ -86,34 +92,6 @@ lgb.integrated.view.NodeBase.prototype.appendDebugProperty_ = function(propertyN
 
 
 
-lgb.integrated.view.NodeBase.prototype.instantiateViewForModel_ = function(dataModel) {
-    
-    
-    var ownClass = this.getClassConstructor();
-    var map = ownClass.classModelViewMap;
-      
-    var fullClassName = dataModel.getFullClassName();
-    var classReference = null;
-    
-    if ( map.hasOwnProperty(fullClassName)  ) {
-        classReference = map[fullClassName];
-        
-        if (null == classReference) {
-            debugger;
-            return null;
-        } else {
-            goog.asserts.assertFunction(classReference);
-            
-            var destObj = new classReference(dataModel);
-            return destObj;
-        }
-
-    } else {
-        return null;
-    }
-    
- 
-};
 
 
 

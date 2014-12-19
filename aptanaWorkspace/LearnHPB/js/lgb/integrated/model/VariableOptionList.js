@@ -1,7 +1,8 @@
 goog.provide('lgb.integrated.model.VariableOptionList');
 
-goog.require('lgb.integrated.model.Variable');
+
 goog.require('lgb.integrated.model.VariableOption');
+goog.require('lgb.integrated.model.NodeBaseContainer');
 
 
 lgb.integrated.model.VariableOptionList = function(  ) {
@@ -23,12 +24,9 @@ lgb.integrated.model.VariableOptionList.prototype.makeChildren_ = function(srcOb
 };
 
 
-lgb.integrated.model.VariableOptionList.prototype.calcAndGetIntegratedVariables = function() {
+lgb.integrated.model.VariableOptionList.prototype.calcAndGetLeafNodes = function() {
     return [this];
 };
 
 
 
-lgb.integrated.model.VariableOptionList.classTranslationMap = {
-    "lgb.scenario.model.Option" : lgb.integrated.model.VariableOption
-};

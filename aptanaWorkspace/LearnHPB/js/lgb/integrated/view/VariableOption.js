@@ -24,7 +24,7 @@ lgb.integrated.view.VariableOption.prototype.appendTo = function(parentElement) 
   this.injectInto(parentElement);  
   this.appendDebugProperty_('name');
   this.appendDebugProperty_('disabled');
-  this.appendDebugProperty_('dflt');
+  this.appendDebugProperty_('start');
   
 };
 

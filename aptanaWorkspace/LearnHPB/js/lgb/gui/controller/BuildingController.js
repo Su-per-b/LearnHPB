@@ -37,11 +37,46 @@ lgb.gui.controller.BuildingController.prototype.init = function(integratedMainMo
   this.each (integratedMainModel.systemListInput, this.makeBuildingSubController_);
   this.guiView.init2();
     
+  this.view_integratedVariableList_ = [];
+  this.each(this.childGUIcontrollers_, this.addToIntegratedVariableList_);
+  
+  this.each(this.view_integratedVariableList_, this.bindVar_);
+  
+  return;
 };
 
+// lgb.gui.controller.BuildingController.prototype.bindVar_ = function(view_integratedVariable) {
+// 
+    // this.relay(view_integratedVariable, e.RequestIntegratedVariableChange);
+// 
+// };
 
 
+lgb.gui.controller.BuildingController.prototype.bindVar_ = function(view_integratedVariable) {
 
+    // this.listenTo(view_integratedVariable, 
+        // e.RequestIntegratedVariableChange,
+        // this.onRequestIntegratedVariableChange_);
+        
+
+    this.relay(view_integratedVariable, e.RequestIntegratedVariableChange);
+};
+
+// lgb.gui.controller.BuildingController.prototype.onRequestIntegratedVariableChange_ = function(event) {
+// 
+    // return;
+// 
+// };
+
+lgb.gui.controller.BuildingController.prototype.addToIntegratedVariableList_ = function(childGUIcontroller) {
+
+    var list = childGUIcontroller.getIntegratedVariableList();
+    
+    if(null != list) {
+        this.view_integratedVariableList_ = this.view_integratedVariableList_.concat(list.slice(0));
+    }  
+
+};
 
 
 lgb.gui.controller.BuildingController.prototype.loadNew = function(integratedMainModel) {
@@ -73,13 +108,12 @@ lgb.gui.controller.BuildingController.prototype.updateBuildingSubController_ = f
   
   controller.init(system);
   
-  // /controller.loadNew(system);
   
 };
 
-lgb.gui.controller.BuildingController.prototype.makeBuildingSubController_ = function(system) {
+lgb.gui.controller.BuildingController.prototype.makeBuildingSubController_ = function(scenario_model_System) {
 
-  this.makeChildGUIcontroller_(lgb.gui.controller.BuildingSubController, system);
+  this.makeChildGUIcontroller_(lgb.gui.controller.BuildingSubController, scenario_model_System);
   
 };
 

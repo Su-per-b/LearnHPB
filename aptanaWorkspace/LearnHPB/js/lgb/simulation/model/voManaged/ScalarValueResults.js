@@ -2,7 +2,7 @@ goog.provide('lgb.simulation.model.voManaged.ScalarValueResults');
 
 goog.require('lgb.simulation.model.BaseModel');
 goog.require('lgb.simulation.model.voManaged.ScalarValueCollection');
-goog.require('lgb.simulation.model.voClient.ScalarValueResultsConverted');
+
 
  /**
  * @constructor

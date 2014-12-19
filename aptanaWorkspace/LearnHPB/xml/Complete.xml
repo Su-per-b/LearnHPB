@@ -773,10 +773,10 @@
                <Variable name="Weather input/run period" abbr="SYSWea" modName="" scope="input" variability="parameter" unit="K">
                   <Temperature />
                </Variable>
-               <Variable name="HVAC system operation start time" abbr="sysSta" modName="occSch.occupancy[1]" scope="input" variability="parameter" unit="K">
+               <Variable name="HVAC system operation start time" abbr="sysSta" modName="occSch.occupancy[1]" scope="input" variability="parameter" >
                   <Temperature />
                </Variable>
-               <Variable name="HVAC system operation stop time" abbr="sysSto" modName="occSch.occupancy[2]" scope="input" variability="parameter" unit="K">
+               <Variable name="HVAC system operation stop time" abbr="sysSto" modName="occSch.occupancy[2]" scope="input" variability="parameter">
                   <Temperature />
                </Variable>
                <Variable name="Window to wall ratio" abbr="SYSWWR" modName="" scope="input" variability="parameter" unit="K">

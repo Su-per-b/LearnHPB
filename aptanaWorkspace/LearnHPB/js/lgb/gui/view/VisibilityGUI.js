@@ -3,7 +3,7 @@
  * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
  */
  
-goog.provide('lgb.world.view.input.VisibilityGUI');
+goog.provide('lgb.gui.view.VisibilityGUI');
 
 goog.require('lgb.world.model.VisibilityModel');
 goog.require('lgb.gui.view.BaseGUI');
@@ -20,7 +20,7 @@ goog.require('lgb.core.Config');
  * @param {lgb.world.model.VisibilityModel} dataModel The data model to display.
  * @extends lgb.gui.view.BaseGUI
  */
-lgb.world.view.input.VisibilityGUI = function(dataModel) {
+lgb.gui.view.VisibilityGUI = function(dataModel) {
 
   this._TITLE = "Visibility";
   lgb.gui.view.BaseGUI.call(this, dataModel);
@@ -31,19 +31,19 @@ lgb.world.view.input.VisibilityGUI = function(dataModel) {
   
   
 };
-goog.inherits(lgb.world.view.input.VisibilityGUI, lgb.gui.view.BaseGUI);
+goog.inherits(lgb.gui.view.VisibilityGUI, lgb.gui.view.BaseGUI);
 
 
 
-lgb.world.view.input.VisibilityGUI.prototype.onChange_addNode_ = function(visibilityNode) {
+lgb.gui.view.VisibilityGUI.prototype.onChange_addNode_ = function(visibilityNode) {
     this.treeDS_.update(visibilityNode);
 };
 
-lgb.world.view.input.VisibilityGUI.prototype.onChange_init_ = function(visibilityNode) {
+lgb.gui.view.VisibilityGUI.prototype.onChange_init_ = function(visibilityNode) {
   this.init_(visibilityNode);
 };
 
-lgb.world.view.input.VisibilityGUI.prototype.onChange_changedItems_ = function(changedItems) {
+lgb.gui.view.VisibilityGUI.prototype.onChange_changedItems_ = function(changedItems) {
   this.requestDataModelChange("changedItems", changedItems);
 };
 
@@ -52,7 +52,7 @@ lgb.world.view.input.VisibilityGUI.prototype.onChange_changedItems_ = function(c
  * Initializes the View
  */
 
-lgb.world.view.input.VisibilityGUI.prototype.init_ = function(visibilityNode) {
+lgb.gui.view.VisibilityGUI.prototype.init_ = function(visibilityNode) {
   
   this.treeDS_ = new lgb.component.TreeDataSourceH(visibilityNode,'isVisible',this.htmlID,  'tree', 'Visibility');
 
@@ -79,13 +79,13 @@ lgb.world.view.input.VisibilityGUI.prototype.init_ = function(visibilityNode) {
 
 
 
-lgb.world.view.input.VisibilityGUI.prototype.onTreeDS_DataModelChangedEx_ = function(event) {
+lgb.gui.view.VisibilityGUI.prototype.onTreeDS_DataModelChangedEx_ = function(event) {
  
    this.requestDataModelChange("changeVisibility", event.payload.changedItems);
 };
 
 
-lgb.world.view.input.VisibilityGUI.prototype.onChangeDataSource_ = function(event) {
+lgb.gui.view.VisibilityGUI.prototype.onChangeDataSource_ = function(event) {
     this.triggerLocal(e.RequestDataModelChange, event.payload);
 };
 

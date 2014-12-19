@@ -5,15 +5,15 @@
  
 goog.provide('lgb.integrated.view.Boolean');
 
-goog.require('lgb.integrated.view.Variable');
+goog.require('lgb.integrated.view.VariableBase');
 /**
  * @constructor
  * @extends {lgb.integrated.view.NodeBase}
  */
 lgb.integrated.view.Boolean = function(dataModel, debugFlag) {
-  lgb.integrated.view.Variable.call(this, dataModel, debugFlag);
+  lgb.integrated.view.VariableBase.call(this, dataModel, debugFlag);
 };
-goog.inherits(lgb.integrated.view.Boolean, lgb.integrated.view.Variable);
+goog.inherits(lgb.integrated.view.Boolean, lgb.integrated.view.VariableBase);
 
 
 
@@ -23,7 +23,7 @@ lgb.integrated.view.Boolean.prototype.appendTo = function(parentElement) {
   if (this.debugFlag_) {
     
     this.append('type : Boolean <br />');
-    this.appendDebugProperty_('dflt');
+    this.appendDebugProperty_('start');
     
   } 
   else {
@@ -31,7 +31,7 @@ lgb.integrated.view.Boolean.prototype.appendTo = function(parentElement) {
         this.inputElement_ = $('<input>')
           .attr("type", "checkbox");
           
-          if (true == this.dataModel.dflt) {
+          if (true == this.dataModel.start) {
             this.inputElement_.attr("checked", "true");
           }
           

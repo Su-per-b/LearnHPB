@@ -13,6 +13,7 @@ goog.require('lgb.simulation.model.WSConnectionState');
 goog.require('lgb.simulation.events.SimStateNativeRequest');
 goog.require('lgb.simulation.model.voNative.SimStateNative');
 
+goog.require('lgb.integrated.model.DisplayUnitSystem');
 
 /**
  * @constructor
@@ -30,7 +31,8 @@ goog.inherits(lgb.gui.view.SimulationStateControlGUI, lgb.gui.view.BaseGUI);
  * @public
  */
 lgb.gui.view.SimulationStateControlGUI.prototype.init = function() {
-
+    
+    this.displayUnitSystem_ = lgb.integrated.model.DisplayUnitSystem.getInstance();
     this.bind2_();
 
 };
@@ -41,7 +43,7 @@ lgb.gui.view.SimulationStateControlGUI.prototype.bind2_ = function() {
     this.listenForChange_('webSocketConnectionState');
     this.listenForChange_('simStateNative');
 
-    this.listenTo(this.dataModel.displayUnitSystem, e.DataModelChangedEx, this.onChange_displayUnitSystemValue_);
+    this.listenTo(this.displayUnitSystem_, e.DataModelChangedEx, this.onChange_displayUnitSystemValue_);
        
     this.listen(e.IntegratedDataModelValuesUpdated, this.onIntegratedDataModelValuesUpdated_);
 };
@@ -67,10 +69,10 @@ lgb.gui.view.SimulationStateControlGUI.prototype.onIntegratedDataModelValuesUpda
 
 
 
-lgb.gui.view.SimulationStateControlGUI.prototype.onChange_displayUnitSystemValue_ = function(evnt) {
+lgb.gui.view.SimulationStateControlGUI.prototype.onChange_displayUnitSystemValue_ = function(event) {
 
-	var x = this.displaySystemUnitLink_;
-	var displaySystemUnit = this.dataModel.displayUnitSystem.toString();
+	//var x = this.displaySystemUnitLink_;
+	var displaySystemUnit = this.displayUnitSystem_.toString();
 
 	//this.displaySystemUnitLink_.ds.title = displaySystemUnit;
 
@@ -165,9 +167,8 @@ lgb.gui.view.SimulationStateControlGUI.prototype.injectInto = function(parentEle
 	time1.append(this.simTime_);
 	el.append(time1);
 	
-	
 
-	var displaySystemUnit = this.dataModel.displayUnitSystem.toString();
+	var displaySystemUnit = this.displayUnitSystem_.toString();
 
 	this.displaySystemUnitLink_ = this.makeLink1_(displaySystemUnit, 'displaySystemUnit-link');
 	el.append(this.displaySystemUnitLink_);
@@ -254,7 +255,7 @@ lgb.gui.view.SimulationStateControlGUI.prototype.onDisplaySystemUnitLink_ = func
 
 	var title = event.payload.ds.title;
 	
-	var d = new lgb.simulation.model.DisplayUnitSystem();
+	var d = new lgb.integrated.model.DisplayUnitSystem();
 	
 	
 	this.triggerLocal(e.DisplayUnitSystemChangeRequest, title);

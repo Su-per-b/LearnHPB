@@ -14,18 +14,8 @@ goog.inherits(lgb.integrated.model.Component, lgb.integrated.model.NodeBaseLeaf)
 
 
 
-lgb.integrated.model.Component.prototype.changeDisplayUnitSystem = function(displayUnitSystem) {
 
 
-    //debugger; //should override
-
-    
-    return;
-  
-};
-
-
-
-lgb.integrated.model.Component.prototype.calcAndGetIntegratedVariables = function() {
+lgb.integrated.model.Component.prototype.calcAndGetLeafNodes = function() {
     return null;
 };

@@ -23,7 +23,7 @@ goog.require('lgb.simulation.events.ScalarValueChangeRequest');
 goog.require('lgb.simulation.events.ResultEventList');
 goog.require('lgb.simulation.events.ResultEvent');
 goog.require('lgb.simulation.events.SessionControlEvent');
-goog.require('lgb.simulation.model.DisplayUnitSystem');
+
 
 
 
@@ -152,8 +152,8 @@ lgb.simulation.controller.MainController.prototype.bind_ = function() {
     );
     
     this.listen (
-        se.RequestModelicaVariableChange,
-        this.onRequestModelicaVariableChange_
+        se.RequestSimulationVariableChange,
+        this.onRequestSimulationVariableChange_
     );
     
     this.listen (
@@ -172,17 +172,12 @@ lgb.simulation.controller.MainController.prototype.bind_ = function() {
         this.onSimStateNativeRequest_
     );
     
-    
     this.listen (
-        e.DisplayUnitSystemChangeRequest,
-        this.onDisplayUnitSystemChangeRequest_
+        se.InitialStateRequest,
+        this.onInitialStateRequest_
     );
-    
 
     
-   // this.listenForChange_('scalarValueResults');
-
-
 
     
     
@@ -190,20 +185,10 @@ lgb.simulation.controller.MainController.prototype.bind_ = function() {
 
 
 
-lgb.simulation.controller.MainController.prototype.onDisplayUnitSystemChangeRequest_ = function(event) {
+lgb.simulation.controller.MainController.prototype.onInitialStateRequest_ = function(event) {
   
-    this.dataModel.updateDisplayUnitSystem(event.payload);
-    
+    this.serializeAndSend(event);
 };
-
-
-
-// lgb.simulation.controller.MainController.prototype.onChange_scalarValueResults_ = function(scalarValueResults) {
-//   
-  // this.xmlParsedInfo = xmlParsedInfo;
-//   
-// };
-
 
 
 lgb.simulation.controller.MainController.prototype.onWebSocketChangeRequest_ = function(event) {
@@ -262,30 +247,28 @@ lgb.simulation.controller.MainController.prototype.getDataModel = function() {
 
 
 
-lgb.simulation.controller.MainController.prototype.onRequestModelicaVariableChange_ = function(event) {
+lgb.simulation.controller.MainController.prototype.onRequestSimulationVariableChange_ = function(event) {
   
-  if (undefined === event.payload.modName) {
-    debugger;
-  }
-  
-  
-  var theVar = this.dataModel.getIdxFromModelicaName(event.payload.modName);
-  
-  if (undefined === theVar) {
-    //debugger;
-  } else {
-    
-    var floatValue = event.payload.value;
-    var idx = theVar.idx;
-    
-    var scalarValueReal = new lgb.simulation.model.voManaged.ScalarValueReal(idx, floatValue);
-    var collection = new lgb.simulation.model.voManaged.ScalarValueCollection([scalarValueReal], []);
-    
-    var event = new lgb.simulation.events.ScalarValueChangeRequest(collection);
-    this.serializeAndSend(event);
-  
-  }
- 
+
+	var idx = event.payload.idx;
+	var value = event.payload.value;
+
+	if (undefined === idx) { 
+	    debugger;
+	}
+	
+	if (undefined === value) { 
+	    debugger;
+	}
+
+	var scalarValueReal = new lgb.simulation.model.voManaged.ScalarValueReal(idx, value);
+	var collection = new lgb.simulation.model.voManaged.ScalarValueCollection([scalarValueReal], []);
+
+	var event = new lgb.simulation.events.ScalarValueChangeRequest(collection);
+	this.serializeAndSend(event);
+
+	
+
 };
 
 
@@ -298,21 +281,44 @@ lgb.simulation.controller.MainController.prototype.onSimStateNativeNotify_ = fun
   this.dispatch(event);
   
   var theInt = simStateNativeWrapper.getIntValue();
-  var theString = simStateNativeWrapper.getString();
+  //var theString = simStateNativeWrapper.getString();
   
-  //fix for init_completed not reported
-  if (theInt ==  9) { //init_completed
-    
-   // var x= 0;
-    
-    this.trigger(e.SimulationInitialized, simStateNativeWrapper);
-    // return;
-  }
+  
+  this.triggerSimStateAfter_(simStateNativeWrapper);
   
   
   return;
   
 };
+
+
+lgb.simulation.controller.MainController.prototype.triggerSimStateAfter_ = function(simStateNativeWrapper) {
+
+  var theInt = simStateNativeWrapper.getIntValue();
+  var ENUM = lgb.simulation.model.voNative.SimStateNative.ENUM;
+  
+  
+    switch(theInt) {
+        //fix for init_completed not reported
+        case ENUM.simStateNative_3_init_completed:  {
+            this.trigger(e.SimulationInitialized, simStateNativeWrapper);
+        }
+        case ENUM.simStateNative_1_connect_completed:  {
+            
+            // var simStateNative = new lgb.simulation.model.voNative.SimStateNative(
+                // ENUM.simStateNative_2_xmlParse_requested
+                // );
+//                 
+            // var newEvent = new lgb.simulation.events.SimStateNativeRequest(simStateNative);
+            // this.dispatch(newEvent);
+        }
+        break;
+        
+    }
+};
+
+
+
 
 lgb.simulation.controller.MainController.prototype.onConfigChangeNotify_ = function(event) {
  // this.dataModel.changePropertyEx('simStateNative', event.getPayload());

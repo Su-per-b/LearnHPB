@@ -23,7 +23,7 @@ lgb.integrated.model.unit.ElectricalPower.prototype.getPropertyDefaults = functi
     var propertyDefaults = {
         min:0.00,
         max:99999.99,
-        dflt:1.0
+        start:1.0
     };
     
     return propertyDefaults;

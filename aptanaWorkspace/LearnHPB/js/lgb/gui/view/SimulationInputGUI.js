@@ -21,17 +21,11 @@ goog.inherits(lgb.gui.view.SimulationInputGUI, lgb.gui.view.BaseGUI);
 lgb.gui.view.SimulationInputGUI.prototype.init = function() {
 
     this.listenForChange_('xmlParsedInfo');
-    this.listenForChange_('scalarValueResultsConverted');
+
     
 };
 
 
-
-lgb.gui.view.SimulationInputGUI.prototype.onChange_scalarValueResultsConverted_ = function(scalarValueResultsConverted) {
-  
-  this.updateTable_(scalarValueResultsConverted.input.realList);
-  
-};
 
 
 lgb.gui.view.SimulationInputGUI.prototype.updateTable_ = function(realList) {
@@ -60,24 +54,8 @@ lgb.gui.view.SimulationInputGUI.prototype.updateRow_ = function(realVo, idx) {
 lgb.gui.view.SimulationInputGUI.prototype.onChange_xmlParsedInfo_ = function(xmlParsedInfo) {
   
   
-/*
-  var Input_= xmlParsedInfo.scalarVariablesAll_.Input_;
-  var internal_= xmlParsedInfo.scalarVariablesAll_.internal_;
-  var input_= xmlParsedInfo.scalarVariablesAll_.input_;*/
-
   this.realVarList_ = xmlParsedInfo.scalarVariablesAll_.input_.realVarList_;
-  
-  // var len = this.realVarList_.length;
-  // for (var i=0; i < len; i++) {
-    // if (this.realVarList_[i].unit_ == "K") {
-      // this.realVarList_[i].unit_ = "C";
-    // }
-  // };
-  
-  
   this.makeTable_(  this.realVarList_ );
-  
-  
 
 };
 

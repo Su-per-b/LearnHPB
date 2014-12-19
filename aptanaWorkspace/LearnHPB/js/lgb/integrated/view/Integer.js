@@ -5,7 +5,7 @@
  
 goog.provide('lgb.integrated.view.Integer');
 
-goog.require('lgb.integrated.view.Variable');
+goog.require('lgb.integrated.view.VariableBase');
 
 
 /**
@@ -13,10 +13,10 @@ goog.require('lgb.integrated.view.Variable');
  * @extends {lgb.integrated.view.NodeBase}
  */
 lgb.integrated.view.Integer = function(dataModel, debugFlag, unit) {
-  lgb.integrated.view.Variable.call(this, dataModel, debugFlag);
+  lgb.integrated.view.VariableBase.call(this, dataModel, debugFlag);
   this.unit_ = unit;
 };
-goog.inherits(lgb.integrated.view.Integer, lgb.integrated.view.Variable);
+goog.inherits(lgb.integrated.view.Integer, lgb.integrated.view.VariableBase);
 
 
 
@@ -27,7 +27,7 @@ lgb.integrated.view.Integer.prototype.appendTo = function(parentElement) {
     this.append('type : Integer <br />');
     this.appendDebugProperty_('min');
     this.appendDebugProperty_('max');
-    this.appendDebugProperty_(dflt);
+    this.appendDebugProperty_(start);
 
   } else {
 
@@ -35,7 +35,7 @@ lgb.integrated.view.Integer.prototype.appendTo = function(parentElement) {
     this.inputElement_ = $('<input>')
     .addClass('input-Integer-textbox')
     .attr("type", "text")
-    .attr("value", this.dataModel.dflt);
+    .attr("value", this.dataModel.start);
     
      // if (!this.isEnabled) {
        // // this.inputElement_.attr( "disabled", "disabled" );

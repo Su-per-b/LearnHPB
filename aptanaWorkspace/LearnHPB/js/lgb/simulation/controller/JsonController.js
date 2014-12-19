@@ -50,10 +50,9 @@ lgb.simulation.controller.JsonController = function() {
   
     
     if ( lgb.simulation.controller.JsonController.locked ) {
-      debugger;
-      throw new Error('You may not instantiate a Singleton - use: getInstance()');
+      lgb.logSevere('You may not instantiate a Singleton - use: getInstance()');
     }
-
+    
     this.deserializeMap_ = {
           "ConfigChangeNotify":         lgb.simulation.events.ConfigChangeNotify,  
           "MessageEvent":               lgb.simulation.events.MessageEvent,

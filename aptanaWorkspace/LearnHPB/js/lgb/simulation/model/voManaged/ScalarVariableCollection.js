@@ -12,7 +12,6 @@ goog.require('lgb.simulation.model.voManaged.SerializableVector');
 lgb.simulation.model.voManaged.ScalarVariableCollection = function(realVarList) {
   
   this.realVarList_ = realVarList || [];
-  //this.idx2RealVar_ = {};
   
 };
 goog.inherits(lgb.simulation.model.voManaged.ScalarVariableCollection, lgb.simulation.model.BaseModel);
@@ -39,70 +38,6 @@ lgb.simulation.model.voManaged.ScalarVariableCollection.fieldObjectsEx_ = {
      itemTypeString : "ScalarVariableReal"
    }
        
-};
-
-lgb.simulation.model.voManaged.ScalarVariableCollection.prototype.getRealVarListConverted2 = function() {
-  
-  var idx2realVar = {};
-  
-  var len = this.realVarList_.length;
-  for (var i=0; i < len; i++) {
-    
-    var realVar = this.realVarList_[i];
-    var newRealVar;
-    
-    var unit = realVar.getUnit();
-    
-    if (unit == "K") {
-      newRealVar = new lgb.scenario.model.Temperature();
-    } else {
-      newRealVar = new lgb.scenario.model.Decimal(); 
-    }
-
-    newRealVar.parseVar(realVar);
-    
-    var idx = realVar.getIdx();
-    
-    
-    realVarListConverted.push(newRealVar);
-    
-  };
-  
-  
-  return realVarListConverted;
-  
-  
-};
-
-
-
-lgb.simulation.model.voManaged.ScalarVariableCollection.prototype.getRealVarListConverted = function() {
-  
-  var realVarListConverted = [];
-  
-  var len = this.realVarList_.length;
-  for (var i=0; i < len; i++) {
-    
-    var realVar = this.realVarList_[i];
-    var newRealVar;
-    
-    var unit = realVar.getUnit();
-    
-    if (unit == "K") {
-      newRealVar = new lgb.scenario.model.Temperature();
-    } else {
-      newRealVar = new lgb.scenario.model.Decimal(); 
-    }
-
-    newRealVar.parseVar(realVar);
-    realVarListConverted.push(newRealVar);
-    
-  };
-  
-  
-  return realVarListConverted;
-  
-  
 };
 
 

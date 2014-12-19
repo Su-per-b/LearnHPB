@@ -100,6 +100,8 @@ e.IntegratedDataModelSimulationInitialized = 'e.IntegratedDataModelSimulationIni
 e.IntegratedDataModelVariablesUpdated = 'e.IntegratedDataModelVariablesUpdated';
 e.IntegratedDataModelValuesUpdated = 'e.IntegratedDataModelValuesUpdated';
 
+e.RequestIntegratedVariableChange = 'e.RequestIntegratedVariableChange';
+
 
 //e.IntegratedDataModelOutputVariablesUpdated = 'e.IntegratedDataModelOutputVariablesUpdated';
 //e.IntegratedDataModelInputVariablesUpdated = 'e.IntegratedDataModelInputVariablesUpdated';

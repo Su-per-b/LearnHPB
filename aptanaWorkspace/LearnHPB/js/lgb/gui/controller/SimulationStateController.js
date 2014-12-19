@@ -29,7 +29,8 @@ goog.inherits(lgb.gui.controller.SimulationStateController, lgb.core.BaseControl
 
 
 lgb.gui.controller.SimulationStateController.prototype.init = function(simulationMainController) {
-  
+    
+  this.displayUnitSystem_ = lgb.integrated.model.DisplayUnitSystem.getInstance();
   this.simulationMainController_ = simulationMainController;
   this.dataModel = this.simulationMainController_.getDataModel();
     
@@ -67,10 +68,8 @@ lgb.gui.controller.SimulationStateController.prototype.bind_ = function() {
 
 lgb.gui.controller.SimulationStateController.prototype.onDisplayUnitSystemChangeRequest_ = function(event) {
 
-
-      this.dataModel.displayUnitSystem.toggle();
-      
-      this.trigger(e.DisplayUnitSystemChangeNotify, this.dataModel.displayUnitSystem);
+      this.displayUnitSystem_.toggle();
+      this.trigger(e.DisplayUnitSystemChangeNotify, this.displayUnitSystem_);
       
 };
 

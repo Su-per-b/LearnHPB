@@ -69,11 +69,7 @@ lgb.core.MainController.prototype.init = function() {
    
 
   this.scenarioController_ = new lgb.scenario.controller.ScenarioController();
-  
-  this.scenarioController_ = new lgb.integrated.controller.IntegratedController();
-  
-  
-
+  this.integratedController_ = lgb.integrated.controller.IntegratedController.getInstance();
   
   
   this.renderController_ = new lgb.world.controller.RenderController();
@@ -115,7 +111,7 @@ lgb.core.MainController.prototype.init = function() {
   this.simulationMainController_.init();
   
   
-  this.trigger(e.RequestLoadScenario, "VerySimpleScenario");
+  this.trigger(e.RequestLoadScenario, "SimpleScenario1");
   this.logger_ = goog.debug.Logger.getLogger('lgb.core.MainController');
   lgb.logInfo(lgb.core.Config.getTitle());
   lgb.logInfo('jQuery version: ' + $('').jquery);

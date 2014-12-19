@@ -105,11 +105,7 @@ lgb.simulation.model.voManaged.SerializableVector.prototype.toJSON = function() 
 lgb.simulation.model.voManaged.SerializableVector.prototype.makeTyped = function(deserializedObj) {
   
     this.itemTypeString_ = deserializedObj.itemType;
-    
-    //this.fromJSONHelper_(deserializedObj);
-    
     this.itemArray_  = [];
-    
     
     if (undefined == deserializedObj.itemArray) {
       debugger;
@@ -121,7 +117,6 @@ lgb.simulation.model.voManaged.SerializableVector.prototype.makeTyped = function
       
       var deserializedItem =  deserializedObj.itemArray[i];
       deserializedItem.t = this.itemTypeString_;
-      
       
       
       var typedItem = lgb.simulation.controller.JsonController.getInstance().makeTyped(deserializedItem);

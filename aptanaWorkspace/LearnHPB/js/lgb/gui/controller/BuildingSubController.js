@@ -12,8 +12,7 @@ goog.require('lgb.gui.view.BuildingSubControllerGUI');
 
 
 goog.require('lgb.integrated.view.System');
-goog.require('lgb.integrated.model.System');
-
+goog.require('lgb.scenario.model.tag.System');
 
 /**
  * @constructor
@@ -36,21 +35,28 @@ lgb.gui.controller.BuildingSubController.prototype.init = function( system ) {
   this.dataModel = new lgb.gui.model.BaseGuiModel();
   this.guiView = new lgb.gui.view.BuildingSubControllerGUI (this.dataModel, system.name);
   
-  //this.systemView = new lgb.scenario.view.System (systemDataModel);
   this.systemView = new lgb.integrated.view.System (system);
-
-  // this.listenTo(systemView, se.RequestModelicaVariableChange, this.onRequestModelicaVariableChange_);
   
-  this.relay(this.systemView, se.RequestModelicaVariableChange);
+  this.relay(this.systemView, se.RequestSimulationVariableChange); 
+  
   this.guiView.add(this.systemView);
   
   this.triggerLocal(e.RequestAddToParentGUI, this.guiView);
   
   this.bind_();
   this.guiView.calculateLayout();
+  
+
+  
 };
 
 
+
+lgb.gui.controller.BuildingSubController.prototype.getIntegratedVariableList = function() {
+    
+    var nodes = this.systemView.getLeafNodes();
+    return nodes;
+};
 
 
 
@@ -64,6 +70,7 @@ lgb.gui.controller.BuildingSubController.prototype.bind_ = function() {
     );
     
 };
+
 
 
 lgb.gui.controller.BuildingSubController.prototype.onDisplayUnitSystemChangeNotify_ = function(event) {

@@ -84,9 +84,9 @@ se.SimStateNativeNotify = 'lgb.simulation.events.SimStateNativeNotify';
 se.XMLparsedEvent = 'lgb.simulation.events.XMLparsedEvent';
 se.ResultEvent = 'lgb.simulation.events.ResultEvent';
 se.MessageEvent = 'lgb.simulation.events.MessageEvent';
-se.RequestModelicaVariableChange = 'lgb.simulation.events.RequestModelicaVariableChange';
+se.RequestSimulationVariableChange = 'lgb.simulation.events.RequestSimulationVariableChange';
 se.ConfigChangeNotify = 'lgb.simulation.events.ConfigChangeNotify';
 
 se.SetRemoteHost = 'lgb.simulation.events.SetRemoteHost';
 se.ResultEventList = 'lgb.simulation.events.ResultEventList';
-
+se.InitialStateRequest = 'lgb.simulation.events.InitialStateRequest';

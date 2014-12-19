@@ -8,7 +8,7 @@ goog.provide('lgb.world.controller.VisibilityController');
 goog.require('lgb.core.BaseController');
 
 
-goog.require('lgb.world.view.input.VisibilityGUI');
+goog.require('lgb.gui.view.VisibilityGUI');
 goog.require('lgb.world.model.VisibilityModel');
 
 
@@ -34,7 +34,7 @@ goog.inherits(lgb.world.controller.VisibilityController, lgb.core.BaseController
 lgb.world.controller.VisibilityController.prototype.init = function() {
 
   this.dataModel = new lgb.world.model.VisibilityModel();
-  this.guiView = new lgb.world.view.input.VisibilityGUI ( this.dataModel );
+  this.guiView = new lgb.gui.view.VisibilityGUI ( this.dataModel );
 
   this.bind_();
 
@@ -98,9 +98,6 @@ lgb.world.controller.VisibilityController.prototype.onRequestDataModelChange_ =
   } else {
     debugger;
   }
-  
-
-
   
 };
 

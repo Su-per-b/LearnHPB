@@ -38,7 +38,7 @@ goog.inherits(lgb.component.FaultWidget, lgb.world.view.BaseV);
 lgb.component.FaultWidget.prototype.getHtml = function() {
 
   if (this.dataModel.faultWidgetType != 'SLIDER') {
-    throw Error('unknown faultWidgetType');
+    lgb.logSevere('unknown faultWidgetType');
   }
 
    var sl = $('<input>')
@@ -63,7 +63,7 @@ lgb.component.FaultWidget.prototype.injectInto =
   goog.base(this, 'injectInto', parentElement);
 
   if (this.dataModel.faultWidgetType != 'SLIDER') {
-    throw Error('unknown faultWidgetType');
+    lgb.logSevere('unknown faultWidgetType');
   }
 
   var id = this.htmlID + '-slider';

@@ -25,7 +25,7 @@ lgb.integrated.model.unit.Pressure.prototype.getPropertyDefaults = function() {
     var propertyDefaults = {
         min:250.00,
         max:325.00,
-        dflt:295.15
+        start:295.15
     };
     
     return propertyDefaults;

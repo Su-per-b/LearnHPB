@@ -23,7 +23,7 @@ lgb.integrated.model.unit.LightingPowerDensity.prototype.getPropertyDefaults = f
     var propertyDefaults = {
         min:0.00,
         max:99999.99,
-        dflt:1.0
+        start:1.0
     };
     
     return propertyDefaults;

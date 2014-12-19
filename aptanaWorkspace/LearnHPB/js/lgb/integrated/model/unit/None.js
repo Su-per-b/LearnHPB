@@ -31,7 +31,7 @@ lgb.integrated.model.unit.None.prototype.getPropertyDefaults = function() {
     var propertyDefaults = {
         min:0.00,
         max:99999.99,
-        dflt:1.0
+        start:1.0
     };
     
     return propertyDefaults;
@@ -39,7 +39,7 @@ lgb.integrated.model.unit.None.prototype.getPropertyDefaults = function() {
 
 
 
-lgb.integrated.model.unit.None.prototype.getUnitVo = function() {
+lgb.integrated.model.unit.None.prototype.getUnitInfo = function() {
  
   return {};
   

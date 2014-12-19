@@ -7,9 +7,6 @@ goog.provide('lgb.simulation.model.BaseModel');
 goog.require('lgb.core.BaseClass');
 
 
-
-
-
 /**
  * @constructor
  */
@@ -17,8 +14,6 @@ lgb.simulation.model.BaseModel  = function() {
 
 
 };
-
-
 
 
 lgb.simulation.model.BaseModel.prototype.getClassName = function() {

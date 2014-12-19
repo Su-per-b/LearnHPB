@@ -7,7 +7,7 @@ goog.provide('lgb.integrated.view.System');
 
 goog.require('lgb.integrated.view.NodeBaseContainer');
 goog.require('lgb.integrated.view.SubSystem');
-
+goog.require('lgb.scenario.model.tag.System');
 
 /**
  * @constructor
@@ -23,6 +23,11 @@ goog.inherits(lgb.integrated.view.System, lgb.integrated.view.NodeBaseContainer)
 lgb.integrated.view.System.prototype.init = function() {
     this.triggerLocal(e.RequestAddToParentGUI);
 };
+
+
+
+
+
 
 
 
@@ -65,6 +70,11 @@ lgb.integrated.view.System.prototype.getMainElement = function() {
 };
 
 
-lgb.integrated.view.System.classModelViewMap = {
-    "lgb.integrated.model.SubSystem" : lgb.integrated.view.SubSystem
+//for children
+lgb.integrated.view.System.prototype.getModelViewClassMap_ = function() {
+  
+    return {
+        "lgb.integrated.model.SubSystem" : lgb.integrated.view.SubSystem
+    };
 };
+

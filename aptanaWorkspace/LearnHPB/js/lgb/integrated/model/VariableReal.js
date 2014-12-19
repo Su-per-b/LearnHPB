@@ -1,26 +1,25 @@
 goog.provide('lgb.integrated.model.VariableReal');
 
-goog.require('lgb.integrated.model.Variable');
-goog.require('lgb.integrated.model.unit.Factory');
+goog.require('lgb.integrated.model.VariableBase');
 goog.require('lgb.integrated.model.vo.Real');
 
 
 lgb.integrated.model.VariableReal = function(  ) {
     
-    lgb.integrated.model.Variable.call(this);
+    lgb.integrated.model.VariableBase.call(this);
     
     this.value = new lgb.integrated.model.vo.Real();
-    this.dflt = new lgb.integrated.model.vo.Real();
+    this.start = new lgb.integrated.model.vo.Real();
     this.min = new lgb.integrated.model.vo.Real();
     this.max = new lgb.integrated.model.vo.Real();
     
     this.valueListDisplayString = [];
     this.valueListInternal = [];
     
-    this.unit = null; 
+    this.unit_ = null; 
     
 };
-goog.inherits(lgb.integrated.model.VariableReal, lgb.integrated.model.Variable);
+goog.inherits(lgb.integrated.model.VariableReal, lgb.integrated.model.VariableBase);
 
 
 
@@ -29,11 +28,9 @@ lgb.integrated.model.VariableReal.prototype.setScalarVariable = function(scalarV
     
     this.setScalarVariableBase_(scalarVariable);
     
-    this.makeUnitFromString(scalarVariable.typeSpecReal_.unit);
-    
     this.min.setInternalValue(scalarVariable.typeSpecReal_.min);
     this.max.setInternalValue(scalarVariable.typeSpecReal_.max);
-    this.dflt.setInternalValue(scalarVariable.typeSpecReal_.start);
+    this.start.setInternalValue(scalarVariable.typeSpecReal_.start);
     
     this.setInternalValue(scalarVariable.typeSpecReal_.start);
     
@@ -42,88 +39,47 @@ lgb.integrated.model.VariableReal.prototype.setScalarVariable = function(scalarV
   
 };
 
-lgb.integrated.model.VariableReal.prototype.setChangeCallback = function(changeCallbackDelegate) {
-
-    this.changeCallbackDelegate_ = changeCallbackDelegate;
-    
-    return;
-};
 
 lgb.integrated.model.VariableReal.prototype.setScalarValue = function(scalarValue) {
-
 
     var currentValue = this.value.getInternalValue();
     var newValue = scalarValue.getValue();
     
     this.setInternalValue(scalarValue.getValue());
     
-
     return;
   
 };
 
 
+// lgb.integrated.model.VariableReal.prototype.convertStringToValue = function(str) {
+// 
+    // return  parseFloat(str);
+//   
+// };
 
 
+lgb.integrated.model.VariableReal.prototype.calcDisplayValues = function() {
 
-lgb.integrated.model.VariableReal.prototype.parseSrcObj = function(srcObj) {
-
-    this.name = srcObj.name;
-    
-    this.scenarioVariable_ = srcObj;
-    
-    this.name_simulation = srcObj.modName;
-    this.name_scenario = srcObj.abbr;
-    this.scope = srcObj.scope;
-    
-    this.makeUnitFromString(srcObj.unit);
-    
-    var child = srcObj.getChildren()[0];
-
-    this.min.setInternalValue(child.min);
-    this.max.setInternalValue(child.max);
-    this.dflt.setInternalValue(child.dflt);
-    
-    this.setInternalValue(child.dflt);
+    this.start.calcDisplayValues();
+    this.min.calcDisplayValues();
+    this.max.calcDisplayValues();
+    this.value.calcDisplayValues();
     
     return;
   
 };
 
-
-lgb.integrated.model.VariableReal.prototype.changeDisplayUnitSystem = function(displayUnitSystem) {
-
-
-    this.unit.changeDisplayUnitSystem(displayUnitSystem);
-    
-    this.dflt.changeDisplayUnitSystem(displayUnitSystem);
-    this.min.changeDisplayUnitSystem(displayUnitSystem);
-    this.max.changeDisplayUnitSystem(displayUnitSystem);
-    this.value.changeDisplayUnitSystem(displayUnitSystem);
-    
-    return;
-  
-};
-
-
-
-lgb.integrated.model.VariableReal.prototype.makeUnitFromString = function(unitString) {
-    
-    var unitObject = lgb.integrated.model.unit.Factory.makeUnitFromString(unitString);
-    this.setUnitObject(unitObject);
-    
-    
-};
 
 
 lgb.integrated.model.VariableReal.prototype.setUnitObject = function(unitObject) {
     
-    this.unit = unitObject;
+    this.unit_ = unitObject;
     
-    this.value.setUnitObject(this.unit);
-    this.dflt.setUnitObject(this.unit);
-    this.min.setUnitObject(this.unit);
-    this.max.setUnitObject(this.unit);
+    this.value.setUnitObject(this.unit_);
+    this.start.setUnitObject(this.unit_);
+    this.min.setUnitObject(this.unit_);
+    this.max.setUnitObject(this.unit_);
 
 };
 
@@ -149,14 +105,27 @@ lgb.integrated.model.VariableReal.prototype.setInternalValue = function(newValue
 };
 
 
-lgb.integrated.model.VariableReal.prototype.getUnitDisplaySymbol = function() {
-  
-    if (null == this.unit) {
-        return null;
-    } else {
-        return this.unit.getUnitDisplaySymbol();
-    }
+
+
+
+lgb.integrated.model.VariableReal.prototype.isNewValue = function(newDisplayValueStr) {
     
+    var newDisplayValueFloat = parseFloat(newDisplayValueStr);
+    var existingDisplayValueFloat = this.value.getDisplayValue();
+    
+    var isNewValue = (newDisplayValueFloat != existingDisplayValueFloat);
+    return isNewValue;
 };
+
+
+lgb.integrated.model.VariableReal.prototype.isNewValue = function(newDisplayValueStr) {
+    
+    var newDisplayValueFloat = parseFloat(newDisplayValueStr);
+    var existingDisplayValueFloat = this.value.getDisplayValue();
+    
+    var isNewValue = (newDisplayValueFloat != existingDisplayValueFloat);
+    return isNewValue;
+};
+
 
 

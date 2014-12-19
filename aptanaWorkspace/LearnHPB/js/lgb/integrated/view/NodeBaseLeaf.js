@@ -23,9 +23,9 @@ goog.inherits(lgb.integrated.view.NodeBaseLeaf, lgb.integrated.view.NodeBase);
 
 
 
-lgb.integrated.view.NodeBaseLeaf.prototype.getLeafNodes = function() {
-
-    return [this];
-    
-};
+// lgb.integrated.view.NodeBaseLeaf.prototype.getLeafNodes = function() {
+// 
+    // return [this];
+//     
+// };
 

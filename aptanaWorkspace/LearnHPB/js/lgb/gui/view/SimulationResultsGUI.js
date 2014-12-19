@@ -20,7 +20,7 @@ goog.inherits(lgb.gui.view.SimulationResultsGUI, lgb.gui.view.BaseGUI);
 
 lgb.gui.view.SimulationResultsGUI.prototype.init = function() {
 
-  this.listenForChange_('scalarValueResultsConverted');
+  //this.listenForChange_('scalarValueResultsConverted');
   //this.listenForChange_('mergedResults');
   //this.listenForChange_('xmlParsedInfo');
 

@@ -1,45 +1,38 @@
 goog.provide('lgb.integrated.model.VariableInteger');
 
-goog.require('lgb.integrated.model.Variable');
-goog.require('lgb.integrated.model.unit.Factory');
-goog.require('lgb.integrated.model.vo.Real');
+goog.require('lgb.integrated.model.VariableBase');
+goog.require('lgb.integrated.model.vo.Integer');
 
 
 lgb.integrated.model.VariableInteger = function(  ) {
     
-    lgb.integrated.model.Variable.call(this);
+    lgb.integrated.model.VariableBase.call(this);
     
-    this.value = new lgb.integrated.model.vo.Real();
-    this.dflt = new lgb.integrated.model.vo.Real();
-    this.min = new lgb.integrated.model.vo.Real();
-    this.max = new lgb.integrated.model.vo.Real();
+    this.value = new lgb.integrated.model.vo.Integer();
+    this.start = new lgb.integrated.model.vo.Integer();
+    this.min = new lgb.integrated.model.vo.Integer();
+    this.max = new lgb.integrated.model.vo.Integer();
     
     this.valueListDisplayString = [];
     this.valueListInternal = [];
     
-    this.name_simulation = "{not set}";
-    this.name_scenario = "{not set}";
-    
-    this.unit = null; 
+    this.unit_ = null; 
     
 };
-goog.inherits(lgb.integrated.model.VariableInteger, lgb.integrated.model.Variable);
+goog.inherits(lgb.integrated.model.VariableInteger, lgb.integrated.model.VariableBase);
 
 
 
 lgb.integrated.model.VariableInteger.prototype.setScalarVariable = function(scalarVariable) {
 
-
-    this.scalarVariable_ = scalarVariable;
-    this.name_simulation = scalarVariable.getName();
     
-    this.makeUnitFromString(scalarVariable.typeSpecReal_.unit);
+    this.setScalarVariableBase_(scalarVariable);
     
-    this.min.setInternalValue(scalarVariable.typeSpecReal_.min);
-    this.max.setInternalValue(scalarVariable.typeSpecReal_.max);
-    this.dflt.setInternalValue(scalarVariable.typeSpecReal_.start);
+    this.min.setInternalValue(scalarVariable.typeSpecInteger_.min);
+    this.max.setInternalValue(scalarVariable.typeSpecInteger_.max);
+    this.start.setInternalValue(scalarVariable.typeSpecInteger_.start);
     
-    this.setInternalValue(scalarVariable.typeSpecReal_.start);
+    this.setInternalValue(scalarVariable.typeSpecInteger_.start);
     
     
     return;
@@ -49,6 +42,10 @@ lgb.integrated.model.VariableInteger.prototype.setScalarVariable = function(scal
 
 lgb.integrated.model.VariableInteger.prototype.setScalarValue = function(scalarValue) {
 
+
+    var currentValue = this.value.getInternalValue();
+    var newValue = scalarValue.getValue();
+    
     this.setInternalValue(scalarValue.getValue());
     
     return;
@@ -57,86 +54,67 @@ lgb.integrated.model.VariableInteger.prototype.setScalarValue = function(scalarV
 
 
 
+lgb.integrated.model.VariableInteger.prototype.calcDisplayValues = function() {
 
-
-lgb.integrated.model.VariableInteger.prototype.parseSrcObj = function(srcObj) {
-
-    this.name_simulation = srcObj.modName;
-    this.name_scenario = srcObj.abbr;
-    
-    this.scenarioVariable_ = srcObj;
-    
-    
-    this.makeUnitFromString(srcObj.unit);
-    
-    var child = srcObj.getChildren()[0];
-
-    this.min.setInternalValue(child.min);
-    this.max.setInternalValue(child.max);
-    this.dflt.setInternalValue(child.dflt);
-    
-    this.setInternalValue(child.dflt);
+    this.start.calcDisplayValues();
+    this.min.calcDisplayValues();
+    this.max.calcDisplayValues();
+    this.value.calcDisplayValues();
     
     return;
   
 };
 
-
-lgb.integrated.model.VariableInteger.prototype.changeDisplayUnitSystem = function(displayUnitSystem) {
-
-
-    this.unit.changeDisplayUnitSystem(displayUnitSystem);
-    
-    this.dflt.changeDisplayUnitSystem(displayUnitSystem);
-    this.min.changeDisplayUnitSystem(displayUnitSystem);
-    this.max.changeDisplayUnitSystem(displayUnitSystem);
-    this.value.changeDisplayUnitSystem(displayUnitSystem);
-    
-    return;
-  
-};
-
-
-
-lgb.integrated.model.VariableInteger.prototype.makeUnitFromString = function(unitString) {
-    
-    var unitObject = lgb.integrated.model.unit.Factory.makeUnitFromString(unitString);
-    this.setUnitObject(unitObject);
-    
-    
-};
 
 
 lgb.integrated.model.VariableInteger.prototype.setUnitObject = function(unitObject) {
     
-    this.unit = unitObject;
+    this.unit_ = unitObject;
     
-    this.value.setUnitObject(this.unit);
-    this.dflt.setUnitObject(this.unit);
-    this.min.setUnitObject(this.unit);
-    this.max.setUnitObject(this.unit);
+    this.value.setUnitObject(this.unit_);
+    this.start.setUnitObject(this.unit_);
+    this.min.setUnitObject(this.unit_);
+    this.max.setUnitObject(this.unit_);
 
 };
 
 
 
-lgb.integrated.model.VariableInteger.prototype.setInternalValue = function(internalValue) {
+lgb.integrated.model.VariableInteger.prototype.setInternalValue = function(newValue) {
     
-    this.value.setInternalValue(internalValue);
-    this.valueListInternal.push(internalValue);
+
+
+    this.value.setInternalValue(newValue);
+    this.valueListInternal.push(newValue);
     this.valueListDisplayString.push(this.value.getDisplayString());
-
-};
-
-
-lgb.integrated.model.VariableInteger.prototype.getUnitDisplaySymbol = function() {
-  
-    if (null == this.unit) {
-        return null;
-    } else {
-        return this.unit.getUnitDisplaySymbol();
-    }
     
+    if (this.changeCallbackDelegate_) {
+        var currentValue = this.value.getInternalValue();
+        
+        if (currentValue != newValue) {
+            this.changeCallbackDelegate_(this.value);
+        }
+    }
+
+};
+
+lgb.integrated.model.VariableInteger.prototype.getInternalValue = function() {
+
+    return this.value.internalValue_;
+
 };
 
 
+
+
+
+lgb.integrated.model.VariableInteger.prototype.isNewValue = function(newDisplayValueStr) {
+    
+    var newDisplayValueInt = parseInt(newDisplayValueStr);
+    var existingDisplayValueInt = this.value.getDisplayValue();
+    
+    var isNewValue = (newDisplayValueInt != existingDisplayValueInt);
+    
+    return isNewValue;
+
+};

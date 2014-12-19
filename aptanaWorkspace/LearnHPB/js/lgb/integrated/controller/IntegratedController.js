@@ -9,7 +9,11 @@ goog.require('lgb.core.BaseController');
 goog.require('lgb.scenario.model.MainModel');
 goog.require('lgb.integrated.model.MainModel');
 goog.require('lgb.simulation.events.ResultEventList');
-
+goog.require('lgb.simulation.events.InitialStateRequest');
+goog.require('lgb.simulation.model.voManaged.InitialState');
+goog.require('lgb.simulation.model.voManaged.ScalarValueCollection');
+goog.require('lgb.simulation.model.voManaged.SerializableVector');
+goog.require('lgb.simulation.model.voManaged.ScalarVariableReal');
 
 
 /**
@@ -18,11 +22,42 @@ goog.require('lgb.simulation.events.ResultEventList');
  */
 lgb.integrated.controller.IntegratedController = function() {
 
+ if ( lgb.integrated.controller.IntegratedController.locked ) {
+   debugger;
+   lgb.logSevere('You may not instantiate a Singleton - use: getInstance()');
+ }
+ 
+ 
   lgb.core.BaseController.call(this);
   this.init_();
-
+  
+  
+  lgb.integrated.controller.IntegratedController._singletonInstance = this;
+  
 };
 goog.inherits(lgb.integrated.controller.IntegratedController, lgb.core.BaseController);
+
+
+
+lgb.integrated.controller.IntegratedController.locked = true;
+
+
+lgb.integrated.controller.IntegratedController.getInstance = function() {
+            
+    if ( lgb.integrated.controller.IntegratedController._singletonInstance ) {
+      
+      return lgb.integrated.controller.IntegratedController._singletonInstance;
+      
+    } else {
+      var instance;
+      lgb.integrated.controller.IntegratedController.locked = false;
+      instance = new lgb.integrated.controller.IntegratedController();
+      lgb.integrated.controller.IntegratedController.locked = true;
+      
+      return instance;
+    }
+    
+};
 
 
 
@@ -32,6 +67,13 @@ lgb.integrated.controller.IntegratedController.prototype.init_ = function() {
   this.bind_();
 
 };
+
+lgb.integrated.controller.IntegratedController.prototype.getVariableByName = function(name) {
+  
+  return this.dataModel.getVariableByName(name);
+
+};
+
 
 
 
@@ -57,6 +99,97 @@ lgb.integrated.controller.IntegratedController.prototype.bind_ = function() {
     this.onResultEventList_
   );
 
+  this.listen (
+    e.RequestIntegratedVariableChange,
+    this.onRequestIntegratedVariableChange_
+  );
+
+    this.listen (
+        se.SimStateNativeNotify,
+        this.onSimStateNativeNotify_
+    );  
+
+
+};
+
+
+
+lgb.integrated.controller.IntegratedController.prototype.onSimStateNativeNotify_ = function(event) {
+
+    
+  var simStateNativeWrapper = event.getPayload();
+  
+  
+  var theInt = simStateNativeWrapper.getIntValue();
+  var ENUM = lgb.simulation.model.voNative.SimStateNative.ENUM;
+  
+  
+    switch(theInt) {
+
+        case ENUM.simStateNative_1_connect_completed:  {
+            
+            var sVal = new lgb.simulation.model.voManaged.ScalarValueReal(5000,15664999);
+            
+            //var vector = new lgb.simulation.model.voManaged.SerializableVector('ScalarVariableReal', [sVar]);
+            //var state = new lgb.simulation.model.voManaged.InitialState(vector);
+            
+            
+            var collection = new lgb.simulation.model.voManaged.ScalarValueCollection([sVal]);
+            
+
+            var newEvent = new lgb.simulation.events.InitialStateRequest(collection);
+            this.dispatch(newEvent);
+        }
+        break;
+        
+    }
+  
+
+
+};
+lgb.integrated.controller.IntegratedController.prototype.onRequestIntegratedVariableChange_ = function(event) {
+
+    
+    var integratedVariable = event.payload.integratedVariable;
+    var newValueDisplay = event.payload.newValueDisplay;
+    
+    if (integratedVariable.scope == "input" && undefined != integratedVariable.scalarVariableName) {
+        this.processInputVarChange_(); 
+    } else if (integratedVariable.scope == "gui") {
+        this.processGUIVarChange_(integratedVariable, newValueDisplay);
+    }
+    
+    
+    return;
+
+};
+
+
+lgb.integrated.controller.IntegratedController.prototype.processInputVarChange_ = function(integratedVariable, newValueDisplay) {
+
+    var newValueInternal = integratedVariable.convertDisplayToInternalValue(newValueDisplay);
+    
+    var newPayload = {
+       idx : integratedVariable.getIdx(),
+       value : newValueInternal
+    };
+    
+    
+    if (undefined != integratedVariable.getIdx()) {
+        
+        this.trigger(se.RequestSimulationVariableChange, newPayload);
+    }
+    
+    return;
+
+};
+
+lgb.integrated.controller.IntegratedController.prototype.processGUIVarChange_ = function(integratedVariable, newValueDisplay) {
+
+
+    integratedVariable.setInternalValue(newValueDisplay);
+    
+    return;
 
 };
 

@@ -120,6 +120,10 @@ lgb.core.DebugLGB.prototype.getPackages3 = function() {
     
     'lgb.scenario.controller',
     'lgb.scenario.model',
+    'lgb.scenario.model.attribute',
+    'lgb.scenario.model.tag',
+    'lgb.scenario.model.vo',
+    
     'lgb.scenario.view',
     
     'lgb.simulation.controller',

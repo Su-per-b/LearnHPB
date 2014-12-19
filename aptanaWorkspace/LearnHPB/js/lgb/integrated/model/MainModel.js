@@ -1,13 +1,10 @@
 goog.provide('lgb.integrated.model.MainModel');
 
 goog.require('lgb.core.BaseModel');
-
-
-goog.require('lgb.integrated.model.System');
 goog.require('lgb.simulation.model.voManaged.XMLparsedInfo');
 goog.require('lgb.integrated.model.VariableOption');
-
-
+goog.require('lgb.integrated.model.Factory');
+goog.require('lgb.integrated.model.System');
 
 
 lgb.integrated.model.MainModel = function(  ) {
@@ -24,32 +21,96 @@ goog.inherits(lgb.integrated.model.MainModel, lgb.core.BaseModel);
 lgb.integrated.model.MainModel.prototype.parseSrcObj = function(srcObj) {
 
     
-    this.name_scenario2integratedVariable_ = {};
-    this.name_simulation2integratedVariable_ = {};
-    this.idx2integratedVariable_ = {};
+    this.variableMap_ = {
+       name : {},
+       scalarVariableName : {},
+       idx : {}
+    };
     
-    this.integratedVariableList_input_ = [];
-    this.integratedVariableList_output_ = [];
-    this.integratedVariableList_all_ = [];
-    
-    this.systemListInput = [];
-    this.parseSystemListInput_(srcObj.systemListInput);
-    
-    this.integratedVariableList_input_ = this.calcAndGetintegratedVariableList_input_();
-    this.calcAndIntegratedVariableList_output_(srcObj.variableListOutput);  //this.integratedVariableList_output_ = 
-    
-    this.variableListAll = this.integratedVariableList_output_.concat(this.integratedVariableList_input_.slice(0));
+    this.variableListByScope_ = {
+       input : [],
+       output : [],
+       gui : [],
+       inputAndOutput :[]
+    };
     
     this.timeTicks_ = [];
     this.dateObjectTicks_ = [];
     this.timeAndDateStringTicks_ = [];
+    this.systemListInput = [];
     
-    this.graphModelList = srcObj.graphModelList;
+    this.variableListAll_ = [];
+    var tagVariableAry = srcObj.scenario.getVariableList();
+    this.each(tagVariableAry, this.parseOneVariable_);
     
-    this.each(this.variableListAll, this.indexOneVariable_);
     
+    var graphListTag = srcObj.scenario.getChildren('GraphList')[0];    
+    if (undefined != graphListTag) {
+        var graphChildren = graphListTag.getChildren();
+        this.graphModelList = [];
+        this.each(graphChildren, this.makeOneGraph_);
+    }
+    
+    var systemListObject = srcObj.scenario.getChildren('SystemList')[0];
+    var systemObjectAry = systemListObject.getChildren('System');
+    
+    //var subSystemObject
+    this.each(systemObjectAry, this.parseOneSystem_);
+
     return;
 };
+
+
+lgb.integrated.model.MainModel.prototype.parseOneSystem_ = function(systemObject) {
+
+    var integratedSystemObject = lgb.integrated.model.Factory.translateTag2Integrated (systemObject);
+    this.systemListInput.push(integratedSystemObject);
+     
+    return;
+};
+
+lgb.integrated.model.MainModel.prototype.parseOneVariable_ = function(srcObjVariable) {
+    
+    var integratedVariable = lgb.integrated.model.Factory.translateTag2Integrated (srcObjVariable);
+    var scope = integratedVariable.scope;
+    
+    
+    if (undefined != scope) {
+        this.variableListByScope_[scope].push(integratedVariable);
+         
+        if ("input" == scope || "output" == scope) {
+            this.variableListByScope_.inputAndOutput.push(integratedVariable);
+        }
+        
+    } else {
+        debugger;
+    }
+    
+    
+    if (undefined != integratedVariable.scalarVariableName) {
+        this.variableMap_.scalarVariableName[integratedVariable.scalarVariableName] = integratedVariable;
+    }
+    
+    this.variableMap_.name[integratedVariable.name] = integratedVariable;
+    this.variableListAll_.push(integratedVariable);
+
+    return;
+};
+
+
+
+lgb.integrated.model.MainModel.prototype.makeOneGraph_ = function(scenarioModelGraph) {
+  
+   var graphGUIModel = new lgb.chart.model.GraphModel();
+   graphGUIModel.setTitle(scenarioModelGraph.name);
+   
+   var variableNames = scenarioModelGraph.getLineNames();
+   
+   graphGUIModel.setVariablesByAbbrList(variableNames);
+   this.graphModelList.push(graphGUIModel);
+
+};
+
 
 
 lgb.integrated.model.MainModel.prototype.processXMLparsedInfo = function(xmlParsedInfo) {
@@ -61,143 +122,64 @@ lgb.integrated.model.MainModel.prototype.processXMLparsedInfo = function(xmlPars
 };
 
 
-lgb.integrated.model.MainModel.prototype.parseSystemListInput_ = function(systemListInput) {
-    
-    var childList = systemListInput.getChildren();
-    this.each(childList, this.parseOneSystemInput_);
-    
-};
 
 
-lgb.integrated.model.MainModel.prototype.parseOneSystemInput_ = function(srcObjChild) {
 
-     var destChild = this.translateObject_(srcObjChild);
+
+lgb.integrated.model.MainModel.prototype.getVariableListByScope = function(scope) {
     
-     if (null == destChild) {
-         debugger;
-     } else {
-         destChild.parseSrcObj(srcObjChild);
-         this.systemListInput.push(destChild);
-     }
+    return this.variableListByScope_[scope];
 };
 
 
 
 
-
-
-lgb.integrated.model.MainModel.prototype.calcAndIntegratedVariableList_output_ = function(variableListOutput) {
-        
-    if (null != variableListOutput) {
-        var childList = variableListOutput.getChildren();
-        this.each(childList, this.parseOneVariableOutput_);
-    }
-
-};
-
-lgb.integrated.model.MainModel.prototype.parseOneVariableOutput_ = function(srcObjVariable) {
+lgb.integrated.model.MainModel.prototype.getVariableByName = function(name) {
     
-    var destChild = lgb.integrated.model.Utils.makeVariable (srcObjVariable);
-    
-     if (null == destChild) {
-         debugger;
-     } else {
-         this.integratedVariableList_output_.push(destChild);
-     }
-
-};
-
-
-
-
-
-lgb.integrated.model.MainModel.prototype.getInputVariables = function() {
-    
-    return this.integratedVariableList_input_;
-};
-
-
-lgb.integrated.model.MainModel.prototype.getOutputVariables = function() {
-    
-    return this.integratedVariableList_output_;
-};
-
-
-
-lgb.integrated.model.MainModel.prototype.indexOneVariable_ = function(integratedVariable) {
-    
-    
-    var name_simulation = integratedVariable.name_simulation;
-    var name_scenario = integratedVariable.name_scenario;
-    
-    
-    if (name_scenario != "") {
-        if (this.name_scenario2integratedVariable_.hasOwnProperty(name_scenario)) {
-            //name_simulation should be unique
-            debugger;
-        } else {
-            this.name_scenario2integratedVariable_[name_scenario] = integratedVariable;
-        }
-    }
-    
-    if (name_simulation != "") {
-        if (this.name_simulation2integratedVariable_.hasOwnProperty(name_simulation)) {
-            //name_simulation should be unique
-            debugger;
-        } else {
-            this.name_simulation2integratedVariable_[name_simulation] = integratedVariable;
-        }
-    }
-    
-    this.integratedVariableList_all_.push(integratedVariable);
-    
-    return;
-};
-
-
-
-
-lgb.integrated.model.MainModel.prototype.getVariableBy_name_scenario = function(name_scenario) {
-    
-    if (this.name_scenario2integratedVariable_.hasOwnProperty(name_scenario)) {
-        return this.name_scenario2integratedVariable_[name_scenario];
+    if (this.variableMap_.name.hasOwnProperty(name)) {
+        return this.variableMap_.name[name];
     } else {
         debugger;
     }
-        
-    
 };
+
+lgb.integrated.model.MainModel.prototype.getVariableByIdx = function(idx) {
+    
+    if (this.variableMap_.idx.hasOwnProperty(idx)) {
+        return this.variableMap_.idx[idx];
+    } else {
+        debugger;
+    }
+};
+
 
 
 
 
 lgb.integrated.model.MainModel.prototype.processOneScalarVariable_ = function(scalarVariableReal) {
     
-    var name_simulation = scalarVariableReal.getName();
+    var scalarVariableName = scalarVariableReal.getName();
     var idx = scalarVariableReal.getIdx();        
-    var integratedVariable;    
+    var integratedVariable;
 
     //find or make the integratedVariable
-    if (this.name_simulation2integratedVariable_.hasOwnProperty(name_simulation)) {
+    if (this.variableMap_.scalarVariableName.hasOwnProperty(scalarVariableName)) {
         
-        integratedVariable = this.name_simulation2integratedVariable_[name_simulation];
+        integratedVariable = this.variableMap_.scalarVariableName[scalarVariableName];
         integratedVariable.setScalarVariable(scalarVariableReal);
         
-        if (this.idx2integratedVariable_.hasOwnProperty(idx)) {
+        if (this.variableMap_.idx.hasOwnProperty(idx)) {
             debugger;
         } else {
-            this.idx2integratedVariable_[idx] = integratedVariable;
+            this.variableMap_.idx[idx] = integratedVariable;
         }
 
-    } else {
-        
-        //we are going to ignore these variables from now on.
-        //debugger;
     }
-    
 
     return;
 };
+
+
 
 
 
@@ -233,7 +215,7 @@ lgb.integrated.model.MainModel.prototype.processResultEventList = function(resul
      var timeStr = this.getTimeStr();
       
      var valList = scalarValueResults.getAllReal();
-     this.each(valList, this.processOneValue_);
+     this.each(valList, this.processOneScalarValue_);
      
      return;
 };
@@ -241,13 +223,13 @@ lgb.integrated.model.MainModel.prototype.processResultEventList = function(resul
 
 
 
-lgb.integrated.model.MainModel.prototype.processOneValue_ = function(scalarValue) {
+lgb.integrated.model.MainModel.prototype.processOneScalarValue_ = function(scalarValue) {
     
     var idx = scalarValue.getIdx();
     
-    if (this.idx2integratedVariable_.hasOwnProperty(idx)) {
+    if (this.variableMap_.idx.hasOwnProperty(idx)) {
     
-        var integratedVariable = this.idx2integratedVariable_[idx];
+        var integratedVariable = this.variableMap_.idx[idx];
     
         if (undefined === integratedVariable) {
             debugger;
@@ -261,9 +243,6 @@ lgb.integrated.model.MainModel.prototype.processOneValue_ = function(scalarValue
         
     return;
 };
-
-
-
 
 
 
@@ -284,7 +263,6 @@ lgb.integrated.model.MainModel.prototype.getDateStr = function() {
     }
 
 };
-
 
 
 
@@ -313,11 +291,10 @@ lgb.integrated.model.MainModel.prototype.getTimeStr = function() {
 
 
 
-
 lgb.integrated.model.MainModel.prototype.changeDisplayUnitSystem = function(displayUnitSystem) {
 
-    var varList = this.getLeafNodes();
-    this.eachHandlerName(varList, 'changeDisplayUnitSystem', displayUnitSystem);
+    var varList = this.variableListByScope_.inputAndOutput;
+    this.eachHandlerName(varList, 'calcDisplayValues');
     
     return;   
 };
@@ -331,64 +308,9 @@ lgb.integrated.model.MainModel.prototype.changeOneDisplayUnitSystem_ = function(
 };
 
 
-
-
-lgb.integrated.model.MainModel.prototype.calcAndGetintegratedVariableList_input_ = function() {
-  
-    var len = this.systemListInput.length;
-    var integratedVariables = [];
-    
-    for (var j = 0; j < len; j++) {
-        
-        var child = this.systemListInput[j];
-        var childVarList = child.calcAndGetIntegratedVariables();
-        
-        if(null != childVarList) {
-            integratedVariables = childVarList.concat(integratedVariables);
-        }
-    }
-    
-    return integratedVariables;
-    
-
- 
-};
-
-
-
-
-lgb.integrated.model.MainModel.prototype.calcAndGetLeafNodes = function() {
-  
-    var len = this.children_.length;
-    var leafNodes = [];
-    
-    for (var j = 0; j < len; j++) {
-        
-        var child = this.children_[j];
-        var childVarList = child.calcAndGetLeafNodes();
-        
-        if(null != childVarList) {
-            leafNodes = childVarList.concat(leafNodes);
-        }
-    }
-    
-    if (0 == leafNodes.length ) {
-        return null;
-    } else {
-        return leafNodes;
-    }
-};
-
-
-
-
-lgb.integrated.model.MainModel.prototype.getLeafNodes = function() {
-    return this.leafNodes_;
-};
-
-
-
 lgb.integrated.model.MainModel.classTranslationMap = {
-    "lgb.scenario.model.System" : lgb.integrated.model.System
+    "lgb.scenario.model.tag.System" : lgb.integrated.model.System
 };
+
+
 

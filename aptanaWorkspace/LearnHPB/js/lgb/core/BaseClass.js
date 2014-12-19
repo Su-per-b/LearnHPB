@@ -144,7 +144,10 @@ lgb.core.BaseClass.prototype.listenHelper_ = function(
 
   //var key = goog.events.listen_(eventTarget, eventType, handler, false, handlerContext);
     
-
+  if (undefined == eventTarget) {
+      lgb.logSevere ('eventTarget is null');
+  }
+  
   var key = eventTarget.addEventListener (eventType, handler, false, handlerContext);
 
 
@@ -479,7 +482,40 @@ lgb.core.BaseClass.prototype.translateObject_ = function(srcObj, map) {
 
 lgb.core.BaseClass.translateObjectWithMap = function(srcObj, map) {
     
+    if (undefined === srcObj) {
+        debugger;
+    }
+    
     var fullClassName = srcObj.getFullClassName();
+    
+    return this.translateWithMap(fullClassName, map);
+    
+    // var classReference = null;
+//     
+    // if ( map.hasOwnProperty(fullClassName)  ) {
+        // classReference = map[fullClassName];
+//         
+        // if (null == classReference) {
+            // debugger;
+            // return null;
+        // } else {
+            // goog.asserts.assertFunction(classReference);
+//             
+            // var destObj = new classReference();
+            // return destObj;
+        // }
+// 
+    // } else {
+        // return null;
+    // }
+//  
+
+};
+
+
+lgb.core.BaseClass.translateWithMap = function(fullClassName, map) {
+    
+
     var classReference = null;
     
     if ( map.hasOwnProperty(fullClassName)  ) {
@@ -500,7 +536,6 @@ lgb.core.BaseClass.translateObjectWithMap = function(srcObj, map) {
     }
     
 };
-
 
 
 

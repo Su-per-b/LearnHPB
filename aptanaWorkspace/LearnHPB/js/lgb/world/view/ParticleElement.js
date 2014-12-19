@@ -80,7 +80,7 @@ lgb.world.view.ParticleElement.prototype.render = function() {
 
 
   if (this.isFinished) {
-    throw ('should not render particle that is finished');
+    lgb.logSevere ('should not render particle that is finished');
   }
 
   //get the postion

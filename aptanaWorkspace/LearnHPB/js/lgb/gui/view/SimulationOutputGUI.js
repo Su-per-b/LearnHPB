@@ -1,8 +1,8 @@
 goog.provide('lgb.gui.view.SimulationOutputGUI');
 
 
-goog.require('lgb.scenario.model.Temperature');
-goog.require('lgb.scenario.model.Decimal');
+
+goog.require('lgb.scenario.model.tag.Real');
 
 
 /**
@@ -15,7 +15,7 @@ lgb.gui.view.SimulationOutputGUI = function(dataModel) {
   
   lgb.gui.view.BaseGUI.call(this, dataModel);
   this.totalHeaderHeight_ = 94;
-  this.displayUnitSystem = lgb.simulation.model.DisplayUnitSystem.getInstance();
+  this.displayUnitSystem = lgb.integrated.model.DisplayUnitSystem.getInstance();
   this.realVarListConverted = [];
   this.xmlParsedInfo_ = null;
   
@@ -26,7 +26,6 @@ goog.inherits(lgb.gui.view.SimulationOutputGUI, lgb.gui.view.BaseGUI);
 
 lgb.gui.view.SimulationOutputGUI.prototype.init = function() {
 
-    // this.listenForChange_('mergedResults');
     this.listenForChange_('xmlParsedInfo');
 
     this.listenTo(this.displayUnitSystem, e.DataModelChangedEx, this.onChange_displayUnitSystemValue_);
@@ -45,7 +44,7 @@ lgb.gui.view.SimulationOutputGUI.prototype.updateIntegratedDataModelVariables = 
   this.xmlParsedInfo_ = xmlParsedInfo;
   
   this.realVarList_ = xmlParsedInfo.scalarVariablesAll_.output_.realVarList_;
-  this.realVarListConverted = xmlParsedInfo.scalarVariablesAll_.output_.getRealVarListConverted();
+  //this.realVarListConverted = xmlParsedInfo.scalarVariablesAll_.output_.getRealVarListConverted();
   
 
   
@@ -152,7 +151,7 @@ lgb.gui.view.SimulationOutputGUI.prototype.makeTable2_ = function(outputVariable
         schema: {
             model: {
                 fields: {
-                    name_simulation: { type: "string" },
+                    scalarVariableName: { type: "string" },
                     'value.displayString_': { type: "string" }
                 }
             }
@@ -172,7 +171,7 @@ lgb.gui.view.SimulationOutputGUI.prototype.makeTable2_ = function(outputVariable
           filterable: false,
           columnResize: true,
           columns: [
-              { field: "name_simulation", title: "Name" , width: "80px"},
+              { field: "scalarVariableName", title: "Name" , width: "80px"},
               { field: 'value.displayString_', title: "Value", width: "60px" }
           ]
       });

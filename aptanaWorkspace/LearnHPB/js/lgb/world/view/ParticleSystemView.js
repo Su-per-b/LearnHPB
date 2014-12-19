@@ -309,7 +309,7 @@ lgb.world.view.ParticleSystemView.prototype.onRender = function(event) {
     var p = this.activeParticles[i];
 
     if (p == null || p.render == null) {
-      throw ('error rendering particle element');
+      lgb.logSevere ('error rendering particle element');
     }
 
     p.render();

@@ -7,8 +7,7 @@ goog.provide('lgb.integrated.view.SubSystem');
 
 goog.require('lgb.integrated.view.NodeBaseContainer');
 goog.require('lgb.integrated.view.Category');
-goog.require('lgb.integrated.view.VariableReal');
-
+goog.require('lgb.scenario.model.tag.SubSystem');
 
 
 /**
@@ -32,7 +31,6 @@ lgb.integrated.view.SubSystem.prototype.appendTo = function(parentElement) {
 
 
 
-
 lgb.integrated.view.SubSystem.prototype.getMainElement = function() {
 
   if (undefined == this.mainElement_) {
@@ -48,8 +46,10 @@ lgb.integrated.view.SubSystem.prototype.getMainElement = function() {
 };
 
 
-
-lgb.integrated.view.SubSystem.classModelViewMap = {
-    "lgb.integrated.model.Category" : lgb.integrated.view.Category,
-    "lgb.integrated.model.VariableReal" : lgb.integrated.view.VariableReal
+//for children
+lgb.integrated.view.SubSystem.prototype.getModelViewClassMap_ = function() {
+  
+    return {
+        "lgb.integrated.model.Category" : lgb.integrated.view.Category
+    };
 };

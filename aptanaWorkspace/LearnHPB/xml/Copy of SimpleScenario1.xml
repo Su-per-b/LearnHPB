@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 sp1 (x64) (http://www.altova.com) by RD (pcd) -->
+
+<Scenario name="Simple Scenario 1">
+
+   <VariableList>
+       <Variable descriptino="Outside air dry bulb" abbr="OATemp" modelicaName="y_SYS[1]" scope="output" variability="continuous" definedUnit="Temperature">
+       		<Real />
+       </Variable>
+               
+       <Variable descriptino="Zone 1 temp" abbr="ZN1Temp" modelicaName="y_ZN[1]" scope="output" variability="continuous" definedUnit="Temperature">
+       		<Real />
+       </Variable>
+       
+       <Variable descriptino="Zone 2 temp" abbr="ZN2Temp" modelicaName="y_ZN[5]" scope="output" variability="continuous" definedUnit="Temperature">
+       		<Real />
+       </Variable>
+       
+       <Variable descriptino="Zone 3 temp" abbr="ZN3Temp" modelicaName="y_ZN[9]" scope="output" variability="continuous" definedUnit="Temperature">
+       		<Real />
+       </Variable>
+       
+       <Variable descriptino="Zone 4 temp" abbr="ZN4Temp" modelicaName="y_ZN[13]" scope="output" variability="continuous" definedUnit="Temperature">
+       		<Real />
+       </Variable>
+       
+       <Variable descriptino="Zone 5 temp" abbr="ZN5Temp" modelicaName="y_ZN[17]" scope="output" variability="continuous" definedUnit="Temperature">
+       		<Real />
+       </Variable>
+       
+       <Variable descriptino="Zone 6 temp" abbr="ZN6Temp" modelicaName="y_ZN[21]" scope="output" variability="continuous" definedUnit="Temperature">
+       		<Real />
+       </Variable>
+       
+       <Variable descriptino="Zone 7 temp" abbr="ZN7Temp" modelicaName="y_ZN[25]" scope="output" variability="continuous" definedUnit="Temperature">
+       		<Real />
+       </Variable>
+       
+       <Variable descriptino="Zone 8 temp" abbr="ZN8Temp" modelicaName="y_ZN[29]" scope="output" variability="continuous" definedUnit="Temperature">
+       		<Real />
+       </Variable>
+       
+       <Variable descriptino="Zone 9 temp" abbr="ZN9Temp" modelicaName="y_ZN[33]" scope="output" variability="continuous" definedUnit="Temperature">
+       		<Real />
+       </Variable>
+       
+   </VariableList>
+   
+   <GraphList>
+	   <Graph name="ZN1">
+	   		<Line name="ZN1SPCool" />
+	   		<Line name="OATemp" />
+	   		<Line name="ZN1Temp" />
+	   		<Line name="ZN1SPHeat" />		
+	   </Graph>
+   </GraphList>
+
+            	
+   <SystemList>
+   
+      <System name="General" abbr="GN">
+      
+         <SubSystem name="Simulation" abbr="Sim">
+            <Category name="Time" abbr="Tm">
+            
+               <Variable name="Start" abbr="Sta" scope="gui" variability="parameter" definedUnit="SecondsAfter2000" >
+                  <Integer start="15663600" />
+               </Variable>
+               
+               <Variable name="LengthOfTime" abbr="Len" scope="gui" variability="parameter" definedUnit="SecondsTimeSpan" >
+                  <Integer start="86400" />
+               </Variable>
+               
+               <Variable name="TimeStep" abbr="Stp" scope="gui" variability="parameter" definedUnit="SecondsTimeSpan" >
+                  <Integer start="300" />
+               </Variable>
+               
+            </Category>
+         </SubSystem>
+         
+         
+         <SubSystem name="Site" abbr="Sit">
+            <Category name="Location" abbr="Loc">
+               <Variable name="City" visible="false" abbr="Cit" scope="gui" phase="1a" variability="parameter" unit="latlong">
+                  <OptionList>
+                     <Option name="Chicago" start="true" />
+                     <Option name="Palm Springs" enabled="false" />
+                     <Option name="Pittsburgh" description="(40.497615-80.256329)" disabled="true" />
+                  </OptionList>
+               </Variable>
+            </Category>
+         </SubSystem>
+         
+      </System>
+      
+      <System name="Lighting" abbr="Lt" />
+      <System name="Daylighting" abbr="Dl" />
+      <System name="Enclosure" abbr="En" />
+      
+      <System name="HVAC" abbr="Hv">
+         <SubSystem name="Zone" abbr="ZN">
+            <Category name="NONE" abbr="">
+               <Variable name="Zone 1 (North) heating set point" abbr="ZN1SPHeat" modelicaName="u_ZN[1]" scope="input" variability="continuous" definedUnit="Temperature">
+                  <Real start="303.039" />
+               </Variable>
+               <Variable name="Zone 1 (North) cooling set point" abbr="ZN1SPCool" modelicaName="u_ZN[2]" scope="input" variability="continuous" definedUnit="Temperature">
+                  <Real start="304.817" />
+               </Variable>
+               <Variable name="Zone 2 (NorthWest) heating set point" abbr="ZN2SPHeat" modelicaName="u_ZN[5]" scope="input" variability="continuous" definedUnit="Temperature">
+                  <Real start="302.039" />
+               </Variable>
+               <Variable name="Zone 2 (NorthWest) cooling set point" abbr="ZN2SPCool" modelicaName="u_ZN[6]" scope="input" variability="continuous" definedUnit="Temperature">
+                  <Real start="304.817" />
+               </Variable>
+               <Variable name="Zone 3 (West) heating set point" abbr="ZN3SPHeat" modelicaName="u_ZN[9]" scope="input" variability="continuous" definedUnit="Temperature">
+                  <Real start="302.039" />
+               </Variable>
+               <Variable name="Zone 3 (West) cooling set point" abbr="ZN3SPCool" modelicaName="u_ZN[10]" scope="input" variability="continuous" definedUnit="Temperature">
+                  <Real start="304.817" />
+               </Variable>
+               <Variable name="Zone 4 (SouthWest) heating set point" abbr="ZN4SPHeat" modelicaName="u_ZN[13]" scope="input" variability="continuous" definedUnit="Temperature">
+                  <Real start="302.039" />
+               </Variable>
+               <Variable name="Zone 4 (SouthWest) cooling set point" abbr="ZN4SPCool" modelicaName="u_ZN[14]" scope="input" variability="continuous" definedUnit="Temperature">
+                  <Real start="304.817" />
+               </Variable>
+               <Variable name="Zone 5 (South) heating set point" abbr="ZN5SPHeat" modelicaName="u_ZN[17]" scope="input" variability="continuous" definedUnit="Temperature">
+                  <Real start="302.039" />
+               </Variable>
+               <Variable name="Zone 5 (South) cooling set point" abbr="ZN5SPCool" modelicaName="u_ZN[18]" scope="input" variability="continuous" definedUnit="Temperature">
+                  <Real start="304.817" />
+               </Variable>
+               <Variable name="Zone 6 (SouthEast) heating set point" abbr="ZN6SPHeat" modelicaName="u_ZN[21]" scope="input" variability="continuous" definedUnit="Temperature">
+                  <Real start="302.039" />
+               </Variable>
+               <Variable name="Zone 6 (SouthEast) cooling set point" abbr="ZN6SPCool" modelicaName="u_ZN[22]" scope="input" variability="continuous" definedUnit="Temperature">
+                  <Real start="304.817" />
+               </Variable>
+               <Variable name="Zone 7 (East) heating set point" abbr="ZN7SPHeat" modelicaName="u_ZN[25]" scope="input" variability="continuous" definedUnit="Temperature">
+                  <Real start="302.039" />
+               </Variable>
+               <Variable name="Zone 7 (East) cooling set point" abbr="ZN7SPCool" modelicaName="u_ZN[26]" scope="input" variability="continuous" definedUnit="Temperature">
+                  <Real start="304.817" />
+               </Variable>
+               <Variable name="Zone 8 (NorthEast) heating set point" abbr="ZN8SPHeat" modelicaName="u_ZN[29]" scope="input" variability="continuous" definedUnit="Temperature">
+                  <Real start="302.039" />
+               </Variable>
+               <Variable name="Zone 8 (NorthEast) cooling set point" abbr="ZN8SPCool" modelicaName="u_ZN[30]" scope="input" variability="continuous" definedUnit="Temperature">
+                  <Real start="304.817" />
+               </Variable>
+               <Variable name="Zone 9 (Core) heating set point" abbr="ZN9SPHeat" modelicaName="u_ZN[33]" scope="input" variability="continuous" definedUnit="Temperature">
+                  <Real start="302.039" />
+               </Variable>
+               <Variable name="Zone 9 (Core) cooling set point" abbr="ZN9SPCool" modelicaName="u_ZN[34]" scope="input" variability="continuous" definedUnit="Temperature">
+                  <Real start="304.817" />
+               </Variable>
+               
+            </Category>
+         </SubSystem>
+      </System>
+      
+   </SystemList>
+</Scenario>
+
+
+

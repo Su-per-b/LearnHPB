@@ -188,7 +188,7 @@ lgb.world.controller.RenderController.prototype.onAddToWorldRequest_ = function(
   var obj = event.payload;
 
   if ('' == obj.name) {
-    throw ('Please name the THREE.Object3D before ' +
+    lgb.logSevere('Please name the THREE.Object3D before ' +
     'you request to add it to the scene.');
   } else {
     lgb.logInfo('adding to scene: ' + obj.name);

@@ -91,7 +91,7 @@ lgb.world.view.BaseWorldView.prototype.onChangeEx_ = function(event) {
 lgb.world.view.BaseWorldView.prototype.init = function() {
 
   if (undefined === this._ASSETS_FOLDER) {
-    throw ("You must define this._ASSETS_FOLDER");
+    lgb.logSevere ("You must define this._ASSETS_FOLDER");
   }
 
   this.loadSceneFromFolder_(this._ASSETS_FOLDER);

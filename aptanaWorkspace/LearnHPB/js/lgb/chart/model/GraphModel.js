@@ -16,7 +16,7 @@ lgb.chart.model.GraphModel = function() {
 
   lgb.core.BaseModel.call(this);
   this.title_ = "{title not set}";
-  this.displayUnitSystem_ = lgb.simulation.model.DisplayUnitSystem.getInstance();
+  this.displayUnitSystem_ = lgb.integrated.model.DisplayUnitSystem.getInstance();
   this.init_();
   
 };
@@ -54,9 +54,9 @@ lgb.chart.model.GraphModel.prototype.setIntegratedDataModel = function(integrate
 
 
 
-lgb.chart.model.GraphModel.prototype.initOneVariable_ = function(name_scenario, integratedMainModel) {
+lgb.chart.model.GraphModel.prototype.initOneVariable_ = function(name, integratedMainModel) {
     
-    var integratedVariable = integratedMainModel.getVariableBy_name_scenario(name_scenario);
+    var integratedVariable = integratedMainModel.getVariableByName(name);
     this.integratedVariableList_.push(integratedVariable);
     
     var pathModel = new lgb.chart.model.PathModel(integratedVariable, this.pathModelList_.length);
@@ -144,8 +144,8 @@ lgb.chart.model.GraphModel.prototype.updateIntegratedMainModel = function(integr
 
 lgb.chart.model.GraphModel.prototype.update_ = function(pathModel) {
 
-    var name_scenario = pathModel.getVarName();
-    var integratedVariable = this.integratedMainModel_.getVariableBy_name_scenario(name_scenario);
+    var name = pathModel.getVarName();
+    var integratedVariable = this.integratedMainModel_.getVariableByName(name);
     pathModel.addIntegratedVariable(integratedVariable);
     
     return;   

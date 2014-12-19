@@ -102,11 +102,12 @@ lgb.world.model.WorldSelectionModel.prototype.selectIntersect = function(interse
   if (intersect != null) {
 
     if (intersect.object == null) {
-      throw ('intersect.object == null');
+      lgb.logSevere ('intersect.object == null');
+      
     }
     
     if (intersect.object.name == null || intersect.object.name == '') {
-      throw ('intersect.mesh.name  == null or ""');
+      lgb.logSevere ('intersect.mesh.name  == null or ""');
     }
     
     

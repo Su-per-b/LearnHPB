@@ -8,7 +8,7 @@ goog.provide('lgb.integrated.model.unit.UnitBase');
  */
 lgb.integrated.model.unit.UnitBase = function(  ) {
     
-  this.displayUnitSystem_ = lgb.simulation.model.DisplayUnitSystem.getInstance();
+  this.displayUnitSystem_ = lgb.integrated.model.DisplayUnitSystem.getInstance();
 };
 
 
@@ -28,6 +28,12 @@ lgb.integrated.model.unit.UnitBase.prototype.changeDisplayUnitSystem = function(
 };
 
 
+
+lgb.integrated.model.unit.UnitBase.prototype.convertDisplayToInternalValue = function(internalValue) {
+  
+    debugger;//must override
+  
+};
 
 
 lgb.integrated.model.unit.UnitBase.prototype.convertInternalToDisplayValue = function(internalValue) {
@@ -238,6 +244,12 @@ lgb.integrated.model.unit.UnitBase.UNIT =  {
            quantity:lgb.integrated.model.unit.UnitBase.QUANTITY.THERMODYNAMIC_TEMPERATURE,
            symbol:'&#176;C',
            description:'Celsius, also known as centigrade, is a scale and unit of measurement for temperature. It is named after the Swedish astronomer Anders Celsius (1701–1744), who developed a similar temperature scale. '
+       },
+       SECOND: {
+           name: 'second',
+           quantity:lgb.integrated.model.unit.UnitBase.QUANTITY.TIME,
+           symbol:'s',
+           description:'The second (symbol: s) is the base unit of time in the International System of Units (SI)and is also a unit of time in other systems of measurement (abbreviated s or sec)'
        },
        KELVIN: {
            name: 'kelvin',

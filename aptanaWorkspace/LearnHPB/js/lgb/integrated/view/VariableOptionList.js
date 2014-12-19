@@ -83,10 +83,3 @@ lgb.integrated.view.VariableOptionList.prototype.onDropDownChange = function(eve
 };
 
 
-
-
-lgb.integrated.view.VariableOptionList.classModelViewMap = {
-    "lgb.integrated.model.VariableOption" : lgb.integrated.view.VariableOption
-};
-
-

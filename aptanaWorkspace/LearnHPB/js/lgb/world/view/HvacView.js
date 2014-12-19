@@ -51,7 +51,7 @@ lgb.world.view.HvacView.prototype.onSceneLoaded_ = function(result) {
     } else {
 
       //console.log ("test");
-      throw ('Mesh is null');
+      lgb.logSevere ('Mesh is null');
     }
   }
 

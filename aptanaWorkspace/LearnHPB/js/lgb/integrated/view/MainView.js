@@ -74,6 +74,3 @@ lgb.integrated.view.MainView.prototype.getMainElement = function() {
 
 
 
-lgb.integrated.view.MainView.classModelViewMap = {
-    "lgb.integrated.model.System" : lgb.integrated.view.System
-};

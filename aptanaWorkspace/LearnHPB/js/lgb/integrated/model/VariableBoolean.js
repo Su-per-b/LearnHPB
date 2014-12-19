@@ -1,38 +1,37 @@
 goog.provide('lgb.integrated.model.VariableBoolean');
 
-goog.require('lgb.integrated.model.Variable');
 goog.require('lgb.integrated.model.unit.Factory');
 goog.require('lgb.integrated.model.vo.Boolean');
+goog.require('lgb.integrated.model.VariableBase');
 
 
 lgb.integrated.model.VariableBoolean = function(  ) {
     
-    lgb.integrated.model.Variable.call(this);
+    lgb.integrated.model.VariableBase.call(this);
     
     this.value = new lgb.integrated.model.vo.Boolean();
-    this.dflt = new lgb.integrated.model.vo.Boolean();
+    this.start = new lgb.integrated.model.vo.Boolean();
 
     this.valueListDisplayString = [];
     this.valueListInternal = [];
     
-    this.name_simulation = "{not set}";
-    this.name_scenario = "{not set}";
+    this.scalarVariableName = "{not set}";
+    this.name = "{not set}";
     
     this.unit = null; 
     
 };
-goog.inherits(lgb.integrated.model.VariableBoolean, lgb.integrated.model.Variable);
-
+goog.inherits(lgb.integrated.model.VariableBoolean, lgb.integrated.model.VariableBase);
 
 
 lgb.integrated.model.VariableBoolean.prototype.setScalarVariable = function(scalarVariable) {
 
 
     this.scalarVariable_ = scalarVariable;
-    this.name_simulation = scalarVariable.getName();
+    this.scalarVariableName = scalarVariable.getName();
     
     this.makeUnitFromString(scalarVariable.typeSpecBoolean_.unit);
-    this.dflt.setInternalValue(scalarVariable.typeSpecBoolean_.start);
+    this.start.setInternalValue(scalarVariable.typeSpecBoolean_.start);
     
     this.setInternalValue(scalarVariable.typeSpecBoolean_.start);
     
@@ -52,32 +51,11 @@ lgb.integrated.model.VariableBoolean.prototype.setScalarValue = function(scalarV
 
 
 
-lgb.integrated.model.VariableBoolean.prototype.parseSrcObj = function(srcObj) {
-
-    this.name = srcObj.name;
-    this.abbr = srcObj.abbr;
-    
-    this.scenarioVariable_ = srcObj;
-    
-    this.name_simulation = srcObj.modName;
-    this.name_scenario = srcObj.abbr;
-    
-    this.makeUnitFromString(srcObj.unit);
-    
-    var child = srcObj.getChildren()[0];
-    this.dflt.setInternalValue(child.dflt);
-    this.setInternalValue(child.dflt);
-    
-    return;
-  
-};
-
-
 lgb.integrated.model.VariableBoolean.prototype.changeDisplayUnitSystem = function(displayUnitSystem) {
 
     this.unit.changeDisplayUnitSystem(displayUnitSystem);
     
-    this.dflt.changeDisplayUnitSystem(displayUnitSystem);
+    this.start.changeDisplayUnitSystem(displayUnitSystem);
     this.value.changeDisplayUnitSystem(displayUnitSystem);
     
     return;
@@ -100,7 +78,7 @@ lgb.integrated.model.VariableBoolean.prototype.setUnitObject = function(unitObje
     this.unit = unitObject;
     
     this.value.setUnitObject(this.unit);
-    this.dflt.setUnitObject(this.unit);
+    this.start.setUnitObject(this.unit);
 
 
 };

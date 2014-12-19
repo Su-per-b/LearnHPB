@@ -1,5 +1,6 @@
 goog.provide('lgb.integrated.model.vo.Boolean');
 
+goog.require('lgb.core.BaseModel');
 
 
 lgb.integrated.model.vo.Boolean = function() {
@@ -9,8 +10,9 @@ lgb.integrated.model.vo.Boolean = function() {
     this.displayString_ = "{not set}";
     this.unitObject_ = null;
     
+    lgb.core.BaseModel.call(this);
 };
-goog.inherits(lgb.integrated.model.vo.Boolean, lgb.integrated.model.Variable);
+goog.inherits(lgb.integrated.model.vo.Boolean, lgb.core.BaseModel);
 
 
 

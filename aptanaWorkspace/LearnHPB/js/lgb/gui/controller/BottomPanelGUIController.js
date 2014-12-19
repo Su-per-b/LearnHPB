@@ -61,7 +61,10 @@ lgb.gui.controller.BottomPanelGUIController.prototype.onIntegratedDataModelScena
   var integratedDataModel = event.payload;
   var graphModelList = integratedDataModel.graphModelList;
   
-  this.each(graphModelList, this.makeOneGraph_, integratedDataModel);
+  if (undefined != graphModelList) {
+    this.each(graphModelList, this.makeOneGraph_, integratedDataModel);
+  }
+
   
 };
 
