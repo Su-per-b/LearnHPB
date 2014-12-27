@@ -1,6 +1,6 @@
 /**
  * @author Raj Dye - raj@rajdye.com
- * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
+ * Copyright (c) 2014 Institute for Sustainable Performance of Buildings (Superb)
  */
  
 goog.provide('lgb.integrated.controller.IntegratedController');
@@ -126,9 +126,13 @@ lgb.integrated.controller.IntegratedController.prototype.onSimStateNativeNotify_
   
     switch(theInt) {
 
-        case ENUM.simStateNative_1_connect_completed:  {
+        case ENUM.simStateNative_2_xmlParse_completed:  {
             
-            var sVal = new lgb.simulation.model.voManaged.ScalarValueReal(5000,15664999);
+            
+            var integratedVariable = this.getVariableByName('SIMstart2');
+            var v = integratedVariable.getInternalValue();
+           
+            var sVal = new lgb.simulation.model.voManaged.ScalarValueReal(5000,v);
             
             //var vector = new lgb.simulation.model.voManaged.SerializableVector('ScalarVariableReal', [sVar]);
             //var state = new lgb.simulation.model.voManaged.InitialState(vector);
@@ -154,7 +158,7 @@ lgb.integrated.controller.IntegratedController.prototype.onRequestIntegratedVari
     var newValueDisplay = event.payload.newValueDisplay;
     
     if (integratedVariable.scope == "input" && undefined != integratedVariable.scalarVariableName) {
-        this.processInputVarChange_(); 
+        this.processInputVarChange_(integratedVariable, newValueDisplay); 
     } else if (integratedVariable.scope == "gui") {
         this.processGUIVarChange_(integratedVariable, newValueDisplay);
     }
@@ -188,6 +192,8 @@ lgb.integrated.controller.IntegratedController.prototype.processGUIVarChange_ = 
 
 
     integratedVariable.setInternalValue(newValueDisplay);
+    
+    //var integratedVariable2 = this.getVariableByName('SIMstart2');
     
     return;
 

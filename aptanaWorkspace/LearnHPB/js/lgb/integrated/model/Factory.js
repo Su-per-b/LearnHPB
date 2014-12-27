@@ -19,7 +19,11 @@ lgb.integrated.model.Factory = function() {};
 
 lgb.integrated.model.Factory.makeVariableReference = function(variableReferenceTag ) {
 
-    return lgb.integrated.model.Factory.makeVariable( variableReferenceTag.variable );
+
+    var v = lgb.integrated.controller.IntegratedController.getInstance().getVariableByName(variableReferenceTag.name);
+    
+    return v;
+    // return lgb.integrated.model.Factory.makeVariable( variableReferenceTag.variable );
 
 };
 

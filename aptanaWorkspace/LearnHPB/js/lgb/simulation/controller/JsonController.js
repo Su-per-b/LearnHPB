@@ -1,7 +1,7 @@
 
 /**
  * @author Raj Dye - raj@rajdye.com
- * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
+ * Copyright (c) 2014 Institute for Sustainable Performance of Buildings (Superb)
  */
  
 goog.provide('lgb.simulation.controller.JsonController');
@@ -18,6 +18,7 @@ goog.require('lgb.simulation.events.SessionControlEvent');
 goog.require('lgb.simulation.events.SimStateNativeNotify');
 goog.require('lgb.simulation.events.SimStateNativeRequest');
 goog.require('lgb.simulation.events.XMLparsedEvent');
+goog.require('lgb.simulation.events.InitialStateRequest');
 
 goog.require('lgb.simulation.model.voNative.ConfigStruct');
 goog.require('lgb.simulation.model.voNative.DefaultExperimentStruct');
@@ -64,6 +65,9 @@ lgb.simulation.controller.JsonController = function() {
           "SimStateNativeRequest":      lgb.simulation.events.SimStateNativeRequest,
           "XMLparsedEvent":             lgb.simulation.events.XMLparsedEvent,
           "SessionControlClientRequest" : lgb.simulation.events.SessionControlClientRequest,
+          "InitialStateRequest" :       lgb.simulation.events.InitialStateRequest,
+          
+          
           "ConfigStruct" :              lgb.simulation.model.voNative.ConfigStruct,
           "DefaultExperimentStruct" :   lgb.simulation.model.voNative.DefaultExperimentStruct,
           "MessageStruct" :             lgb.simulation.model.voNative.MessageStruct,
@@ -176,12 +180,12 @@ lgb.simulation.controller.JsonController.prototype.makeTyped = function(deserial
     }
   
   
-    if (deserializedObj.hasOwnProperty("payload")) {
-      
-      var typedPayload = this.makeTyped(deserializedObj.payload);
-      instance.setPayload (typedPayload);
-      
-    }
+    // if (deserializedObj.hasOwnProperty("payload")) {
+//       
+      // var typedPayload = this.makeTyped(deserializedObj.payload);
+      // instance.setPayload (typedPayload);
+//       
+    // }
     
     
   

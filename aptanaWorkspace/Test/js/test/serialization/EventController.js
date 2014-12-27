@@ -43,6 +43,7 @@ goog.require('lgb.simulation.events.XMLparsedEvent');
 goog.require('lgb.simulation.events.SessionControlEvent');
 goog.require('lgb.simulation.events.ScalarValueChangeRequest');
 goog.require('lgb.simulation.events.SessionControlClientRequest');
+goog.require('lgb.simulation.events.InitialStateRequest');
 
 goog.require('test.main.TestDataGenerator');
 
@@ -62,7 +63,7 @@ test.serialization.EventController = function() {
   
   lgb.globalEventBus = new lgb.core.EventBus();
 
-  this.jsonController_ = new lgb.simulation.controller.JsonController();
+  this.jsonController_ = lgb.simulation.controller.JsonController.getInstance();
   
   var delegate = jQuery.proxy(this.runAll, this);
   jQuery(document).ready(delegate);
@@ -108,11 +109,12 @@ test.serialization.EventController.prototype.runAll = function() {
     
     test("SessionControlEvent Serialize", 1, this.T15_sessionControlClientRequest_serialize);
     test("SessionControlEvent Deserialize", 5, this.T16_sessionControlClientRequest_deserialize);
-
-
-
+    
+    test("InitialStateRequest Serialize", 1, this.T17_initialStateRequest_serialize);
+    test("InitialStateRequest Deserialize", 6, this.T18_initialStateRequest_deserialize);
 
 };
+
 
 
 test.serialization.EventController.prototype.T01_messageEvent_serialize = function() {
@@ -541,7 +543,46 @@ test.serialization.EventController.prototype.T16_sessionControlClientRequest_des
 };
 
 
+test.serialization.EventController.prototype.T17_initialStateRequest_serialize = function() {
 
+    var scalarValueReal_0 = new voManaged.ScalarValueReal(1, 2.0);
+    var scalarValueReal_1 = new voManaged.ScalarValueReal(2, 3.53);
+    
+    var realList_0 = [scalarValueReal_0, scalarValueReal_1];
+    
+    var scalarValueCollection_0 = new voManaged.ScalarValueCollection(realList_0);
+    var event_0 = new lgb.simulation.events.InitialStateRequest(scalarValueCollection_0);
+    
+    Util.serializeOk(
+      event_0,
+      CONSTANTS.STR_initialStateRequest_0
+    );
+    
+    return;
+};
+
+
+test.serialization.EventController.prototype.T18_initialStateRequest_deserialize = function() {
+
+    var event_0 = Util.deserializeOk(
+      CONSTANTS.STR_initialStateRequest_0,
+      simEvents.InitialStateRequest
+    );
+    
+    assertEquals("lgb.simulation.events.InitialStateRequest", event_0.type);
+    
+    var realList_0 = event_0.getPayload();
+    
+    var scalarValueReal_0 = realList_0.getRealList()[0];
+    assertEquals(1, scalarValueReal_0.getIdx());
+    assertEquals(2.0, scalarValueReal_0.getValue());
+           
+    var scalarValueReal_1 = realList_0.getRealList()[1];
+    assertEquals(2, scalarValueReal_1.getIdx());
+    assertEquals(3.53, scalarValueReal_1.getValue());
+          
+    
+};
 
 
 

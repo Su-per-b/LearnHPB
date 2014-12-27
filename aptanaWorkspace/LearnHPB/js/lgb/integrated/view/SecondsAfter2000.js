@@ -1,6 +1,6 @@
 /**
  * @author Raj Dye - raj@rajdye.com
- * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
+ * Copyright (c) 2014 Institute for Sustainable Performance of Buildings (Superb)
  */
  
 goog.provide('lgb.integrated.view.SecondsAfter2000');
@@ -46,7 +46,16 @@ lgb.integrated.view.SecondsAfter2000.prototype.onChangeTimePicker_ = function(ev
     var minutes = dateObject.getMinutes();
     
     this.dataModel.setHoursAndMinutes(hours, minutes);
+    var newValueDisplay = this.dataModel.getInternalValue();
     
+    
+     var newPayload = {
+       integratedVariable : this.dataModel,
+       newValueDisplay : newValueDisplay
+     };
+         
+         
+    this.triggerLocal(e.RequestIntegratedVariableChange, newPayload);
 
 };
 
@@ -68,17 +77,16 @@ lgb.integrated.view.SecondsAfter2000.prototype.onChangeDatePicker_ = function(ev
     
     this.dataModel.setYearMonthDate(year, month, date);
     
-    var newValueInternal = this.dataModel.getInternalValue();
+    var newValueDisplay = this.dataModel.getInternalValue();
     
     
      var newPayload = {
-       idx : this.dataModel.getIdx(),
-       value : newValueInternal
+       integratedVariable : this.dataModel,
+       newValueDisplay : newValueDisplay
      };
-    
-    
-    this.triggerLocal(se.RequestSimulationVariableChange, newPayload);
-        
+         
+         
+    this.triggerLocal(e.RequestIntegratedVariableChange, newPayload);
     
     return;
 };

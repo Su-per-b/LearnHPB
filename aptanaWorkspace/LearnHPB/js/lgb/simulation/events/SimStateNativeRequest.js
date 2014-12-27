@@ -1,6 +1,6 @@
 /**
  * @author Raj Dye - raj@rajdye.com
- * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
+ * Copyright (c) 2014 Institute for Sustainable Performance of Buildings (Superb)
  */
  
 goog.provide('lgb.simulation.events.SimStateNativeRequest');
@@ -9,7 +9,7 @@ goog.require('lgb.simulation.model.voNative.SimStateNative');
 
 /**
  * @constructor
- * @extends {goog.events.Event}
+ * @extends {lgb.simulation.events.BaseEvent}
  */
 lgb.simulation.events.SimStateNativeRequest = function(payload) {
   lgb.simulation.events.BaseEvent.call(this, payload);
@@ -18,6 +18,11 @@ goog.inherits(lgb.simulation.events.SimStateNativeRequest, lgb.simulation.events
 
 
 
-lgb.simulation.events.SimStateNativeRequest.prototype.getPayloadType = function() {
-  return lgb.simulation.model.voNative.SimStateNative;
+lgb.simulation.events.SimStateNativeRequest.fieldObjectsEx_ = {
+  
+   payload_: {
+     jsonFieldName : "payload",
+     classReference : lgb.simulation.model.voNative.SimStateNative
+   }
+       
 };

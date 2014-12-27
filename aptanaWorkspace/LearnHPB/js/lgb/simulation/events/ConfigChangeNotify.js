@@ -1,6 +1,6 @@
 /**
  * @author Raj Dye - raj@rajdye.com
- * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
+ * Copyright (c) 2014 Institute for Sustainable Performance of Buildings (Superb)
  */
  
 goog.provide('lgb.simulation.events.ConfigChangeNotify');
@@ -11,7 +11,7 @@ goog.require('lgb.simulation.events.BaseEvent');
 
 /**
  * @constructor
- * @extends {goog.events.Event}
+ * @extends {lgb.simulation.events.BaseEvent}
  */
 lgb.simulation.events.ConfigChangeNotify = function(payload) {
   lgb.simulation.events.BaseEvent.call(this,  payload);
@@ -21,8 +21,11 @@ goog.inherits(lgb.simulation.events.ConfigChangeNotify, lgb.simulation.events.Ba
 
 
 
-lgb.simulation.events.ConfigChangeNotify.prototype.getPayloadType = function() {
-  return lgb.simulation.model.voNative.ConfigStruct;
+lgb.simulation.events.ConfigChangeNotify.fieldObjectsEx_ = {
+  
+   payload_: {
+     jsonFieldName : "payload",
+     classReference : lgb.simulation.model.voNative.ConfigStruct
+   }
+       
 };
-
-

@@ -118,7 +118,6 @@
       <System name="General" description="General Things">      
          <SubSystem name="Simulation">
             <Category name="Time" abbr="Tm">
-            	<VariableReference name="SIMstart1" />
             	<VariableReference name="SIMstart2" />
             </Category>
          </SubSystem>

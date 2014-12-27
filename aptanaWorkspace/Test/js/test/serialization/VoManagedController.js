@@ -52,7 +52,7 @@ test.serialization.VoManagedController = function() {
   
   lgb.globalEventBus = new lgb.core.EventBus();
 
-  this.jsonController_ = new lgb.simulation.controller.JsonController();
+  this.jsonController_ = lgb.simulation.controller.JsonController.getInstance();
   
   var delegate = jQuery.proxy(this.runAll, this);
   jQuery(document).ready(delegate);

@@ -2,6 +2,7 @@ goog.provide('lgb.simulation.model.voManaged.SessionControlModel');
 
 goog.require('lgb.simulation.model.BaseModel');
 goog.require('lgb.simulation.model.voManaged.SessionControlAction');
+goog.require('lgb.simulation.model.voManaged.ScalarVariableCollection');
 
  /**
  * @constructor

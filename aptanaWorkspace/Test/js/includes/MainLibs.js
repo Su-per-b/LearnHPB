@@ -115,7 +115,26 @@ test.includes.MainLibs.includeJquery = function() {
   
 };
 
+test.includes.MainLibs.includesForUnitTests = function() {
+  
+   test.includes.MainLibs.includeMetaTags();
+   
+   test.includes.MainLibs.includeQunit();
+   test.includes.MainLibs.includeJquery();
+   
+   test.includes.MainLibs.includeClosureForTests();
+   
+};
 
+
+test.includes.MainLibs.includeQunit = function() {
+    
+   test.includes.MainLibs.addOneCssScript("../Test/css/", "qunit-1.14.0");
+   
+   test.includes.MainLibs.addOneScript("../Test/js/", "qunit-1.14.0");
+   test.includes.MainLibs.addOneScript("../Test/js/", "qunit-custom");
+   
+};
 
 
 test.includes.MainLibs.includeBaseLibs = function() {
@@ -205,12 +224,10 @@ test.includes.MainLibs.includeKendo = function() {
 
 
 
-test.includes.MainLibs.includeClosure = function() {
+test.includes.MainLibs.includeClosureForTests = function() {
   
    test.includes.MainLibs.addOneScript("js/closure/", "base-nodeps");
-   
-   test.includes.MainLibs.addOneScriptRawPath("../js/closure/", "deps-Test");
-
+   test.includes.MainLibs.addOneScriptRawPath("../../js/closure/", "deps-Test");
    
 };
 
@@ -245,7 +262,8 @@ test.includes.MainLibs.includeCreateJS = function() {
 
 
 test.includes.MainLibs.includeMetaTags = function() {
-  
+    
+  document.writeln('    <meta charset="utf-8" />');
   document.writeln('<meta name="author" content="Joseph Deringer"><!-- Project Leader -->');
   document.writeln('    <!--');
   document.writeln('    Learn Green Buildings (http://su-per-b.org/projects_lgb.html)');
@@ -258,10 +276,10 @@ test.includes.MainLibs.includeMetaTags = function() {
   document.writeln('    <meta name="author" content="Elliot Nahman"><!-- Information Architecture -->');
   document.writeln('    <meta name="author" content="Laura Strong"><!-- Design &  Information Architecture -->');
   document.writeln('');
-  document.writeln('    <meta name = "description" content = "Learn Green Buildings: Commercial building energy use simulation" />');
-  document.writeln('    <meta name = "revised" content = "August 8, 2014" />');
+  document.writeln('    <meta name = "description" content = "Learn High Performance Buildings: Commercial building energy use simulation" />');
+  document.writeln('    <meta name = "revised" content = "December 19, 2014" />');
   document.writeln('    <meta name="Copyright" content="Copyright 2014, Institute For Superior Performance of Buildings">');
-  document.writeln('    <meta charset="UTF-8" />');
+
 
 };
 

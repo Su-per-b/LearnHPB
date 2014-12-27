@@ -1,24 +1,25 @@
 /**
  * @author Raj Dye - raj@rajdye.com
- * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
+ * Copyright (c) 2014 Institute for Sustainable Performance of Buildings (Superb)
  */
  
 goog.provide('lgb.simulation.events.BaseEvent');
 goog.provide('se.Event');
 
 goog.require('goog.events.Event');
+goog.require('lgb.core.BaseClass');
 goog.require('goog.asserts');
 
 
 /**
  * @constructor
- * @extends {goog.events.Event}
+ * @extends {lgb.simulation.events.BaseEvent}
  */
 lgb.simulation.events.BaseEvent = function(payload) {
   
   
   var type = this.getFullClassName();
-  goog.events.Event.call( this,  type);
+  goog.events.Event.call(this,  type);
   
   if (undefined != payload) {
     this.setPayload(payload);
@@ -29,13 +30,14 @@ lgb.simulation.events.BaseEvent = function(payload) {
 goog.inherits(lgb.simulation.events.BaseEvent, goog.events.Event);
 
 
+lgb.simulation.events.BaseEvent.prototype.getClassConstructor = lgb.core.BaseClass.prototype.getClassConstructor;
 
 
-
-//must implement in subclass
-lgb.simulation.events.BaseEvent.prototype.getPayloadType = function() { debugger;};
-
-
+lgb.simulation.events.BaseEvent.prototype.getPayloadType = function() {
+    
+  var classReference = this.getClassConstructor();
+  return classReference.fieldObjectsEx_.payload_.classReference;
+};
 
 
 lgb.simulation.events.BaseEvent.prototype.getPayload = function() {
@@ -51,7 +53,6 @@ lgb.simulation.events.BaseEvent.prototype.setPayload = function(payload) {
 
     this.payload_ = payload;
 };
-
 
 
 

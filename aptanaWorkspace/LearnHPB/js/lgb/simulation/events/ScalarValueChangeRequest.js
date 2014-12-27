@@ -1,9 +1,10 @@
 /**
  * @author Raj Dye - raj@rajdye.com
- * Copyright (c) 2011 Institute for Sustainable Performance of Buildings (Superb)
+ * Copyright (c) 2014 Institute for Sustainable Performance of Buildings (Superb)
  */
  
 goog.provide('lgb.simulation.events.ScalarValueChangeRequest');
+
 goog.require('lgb.simulation.events.BaseEvent');
 goog.require('lgb.simulation.model.voManaged.ScalarValueCollection');
 
@@ -15,7 +16,11 @@ goog.inherits(lgb.simulation.events.ScalarValueChangeRequest, lgb.simulation.eve
 
 
 
- 
-lgb.simulation.events.ScalarValueChangeRequest.prototype.getPayloadType = function() {
-  return lgb.simulation.model.voManaged.ScalarValueCollection;
+lgb.simulation.events.ScalarValueChangeRequest.fieldObjectsEx_ = {
+  
+   payload_: {
+     jsonFieldName : "payload",
+     classReference : lgb.simulation.model.voManaged.ScalarValueCollection
+   }
+       
 };

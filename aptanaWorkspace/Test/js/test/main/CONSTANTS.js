@@ -11,6 +11,8 @@ test.main.CONSTANTS.STR_defaultExperimentStruct_1 = "{\"t\":\"DefaultExperimentS
 
 test.main.CONSTANTS.STR_configStruct_0 = "{\"t\":\"ConfigStruct\",\"stepDelta\":1,\"defaultExperimentStruct\":{\"t\":\"DefaultExperimentStruct\",\"startTime\":123.03,\"stopTime\":145.03,\"tolerance\":10}}";
 
+test.main.CONSTANTS.STR_scalarValueRealStruct_0 = "{\"t\":\"ScalarValueRealStruct\",\"i\":1,\"v\":2.1}";
+
 test.main.CONSTANTS.STR_messageStruct_0 = "{\"t\":\"MessageStruct\",\"msgText\":\"This is the message text\",\"messageType\":0}";
 
 test.main.CONSTANTS.STR_simStateNative_0 = "{\"t\":\"SimStateNative\",\"intValue\":0}";
@@ -65,3 +67,5 @@ test.main.CONSTANTS.STR_scalarValueChangeRequest_0 = "{\"t\":\"ScalarValueChange
 
 test.main.CONSTANTS.STR_sessionControlClientRequest_0 = "{\"t\":\"SessionControlClientRequest\",\"payload\":{\"t\":\"SessionControlModel\",\"v\":\"SESS1342\",\"action\":{\"t\":\"SessionControlAction\",\"intValue\":0}}}";
 
+test.main.CONSTANTS.STR_initialStateRequest_0 = "{\"t\":\"InitialStateRequest\",\"payload\":{\"t\":\"ScalarValueCollection\",\"realList\":{\"t\":\"SerializableVector\",\"itemType\":\"ScalarValueReal\",\"itemArray\":[{\"i\":1,\"v\":2},{\"i\":2,\"v\":3.53}]}}}";
+    
