@@ -10,7 +10,6 @@ lgb.simulation.model.voManaged.SerializableVector = function(itemTypeString, ite
 
   this.itemTypeString_ = itemTypeString;
   
-  
   if (undefined == itemArray) {
     this.itemTypeString_ = null;
   } else {
@@ -22,12 +21,9 @@ lgb.simulation.model.voManaged.SerializableVector = function(itemTypeString, ite
   } else {
     this.itemArray_ = itemArray;
   }
-  
-
 
 };
 goog.inherits(lgb.simulation.model.voManaged.SerializableVector, lgb.simulation.model.BaseModel);
-
 
 
 
@@ -41,9 +37,7 @@ lgb.simulation.model.voManaged.SerializableVector.prototype.get = function(idx) 
 
 lgb.simulation.model.voManaged.SerializableVector.prototype.add = function(item) {
 
-  
   this.itemArray_.push(item);
-  
   var itemTypeString = item.getClassName();
   
   
@@ -58,7 +52,6 @@ lgb.simulation.model.voManaged.SerializableVector.prototype.add = function(item)
     }
 
   }
-
 
 };
 
@@ -98,7 +91,9 @@ lgb.simulation.model.voManaged.SerializableVector.prototype.toJSON = function() 
     
     
     return jsonObj;
+
 };
+
 
 
 
@@ -111,6 +106,7 @@ lgb.simulation.model.voManaged.SerializableVector.prototype.makeTyped = function
       debugger;
     }
     
+    
     var len = deserializedObj.itemArray.length;
     
     for (var i=0; i < len; i++) {
@@ -118,13 +114,15 @@ lgb.simulation.model.voManaged.SerializableVector.prototype.makeTyped = function
       var deserializedItem =  deserializedObj.itemArray[i];
       deserializedItem.t = this.itemTypeString_;
       
-      
       var typedItem = lgb.simulation.controller.JsonController.getInstance().makeTyped(deserializedItem);
       this.itemArray_ .push(typedItem);
     };
+    
 
-  
+    return;
 };
+
+
 
 
 

@@ -32,13 +32,15 @@ goog.require('lgb.simulation.model.voManaged.ScalarValueResults');
 goog.require('lgb.simulation.model.voManaged.ScalarValueReal');
 goog.require('lgb.simulation.model.voManaged.ScalarValueCollection');
 
-
 goog.require('lgb.simulation.model.voManaged.ScalarVariableReal');
 goog.require('lgb.simulation.model.voManaged.ScalarVariableCollection');
 goog.require('lgb.simulation.model.voManaged.ScalarVariablesAll');
 goog.require('lgb.simulation.model.voManaged.SerializableVector');
 goog.require('lgb.simulation.model.voManaged.XMLparsedInfo');
 goog.require('lgb.simulation.model.voManaged.SessionControlModel');
+goog.require('lgb.simulation.model.voManaged.StringPrimitive');
+goog.require('lgb.simulation.model.voManaged.InitialState');
+
 goog.require('lgb.simulation.events.SessionControlClientRequest');
 
 
@@ -85,7 +87,9 @@ lgb.simulation.controller.JsonController = function() {
           "XMLparsedInfo" :             lgb.simulation.model.voManaged.XMLparsedInfo,
           "SessionControlAction" :      lgb.simulation.model.voManaged.SessionControlAction,
           "SessionControlModel" :       lgb.simulation.model.voManaged.SessionControlModel,
-          "SerializableVector" :        lgb.simulation.model.voManaged.SerializableVector
+          "SerializableVector" :        lgb.simulation.model.voManaged.SerializableVector,
+          "StringPrimitive" :           lgb.simulation.model.voManaged.StringPrimitive,
+          "InitialState" :              lgb.simulation.model.voManaged.InitialState
     };
 
     lgb.simulation.controller.JsonController._singletonInstance = this;

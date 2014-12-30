@@ -34,12 +34,13 @@ goog.require('lgb.simulation.model.voManaged.ScalarValueCollection');
 goog.require('lgb.simulation.model.voManaged.ScalarVariableReal');
 goog.require('lgb.simulation.model.voManaged.ScalarVariablesAll');
 goog.require('lgb.simulation.model.voManaged.XMLparsedInfo');
+goog.require('lgb.simulation.model.voManaged.InitialState');
 
 goog.require('test.main.TestDataGenerator');
 goog.require('lgb.simulation.model.voManaged.SerializableVector');
 goog.require('lgb.simulation.model.voManaged.SessionControlAction');
 goog.require('lgb.simulation.model.voManaged.SessionControlModel');
-
+goog.require('lgb.simulation.model.voManaged.StringPrimitive');
  
 /**
  * MVC controller for the App
@@ -75,6 +76,8 @@ test.serialization.VoManagedController.prototype.runAll = function() {
   
     module( "VoManaged" );
     
+
+    
     test("T01 ScalarValueReal Serialize", 2, this.T01_scalarValueReal_serialize);
     test("T02 ScalarValueReal Deserialize", 6, this.T02_scalarValueReal_deserialize);
     
@@ -84,8 +87,8 @@ test.serialization.VoManagedController.prototype.runAll = function() {
     test("T05 ScalarValueCollection Serialize", 1, this.T05_scalarValueCollection_serialize);
     test("T06 ScalarValueCollection Deserialize", 6, this.T06_scalarValueCollection_deserialize);
     
-    test("T07 SerializableVector Serialize", 1, this.T07_serializableVector_serialize);
-    test("T08 SerializableVector Deserialize", 6, this.T08_serializableVector_deserialize);
+    test("T07 SerializableVector A Serialize", 1, this.T07_serializableVectorA_serialize);
+    test("T08 SerializableVector A Deserialize", 6, this.T08_serializableVectorA_deserialize);
     
     test("T09 ScalarValueResults Serialize", 7, this.T09_scalarValueResults_serialize);
     test("T10 ScalarValueResults Deserialize", 12, this.T10_scalarValueResults_deserialize);
@@ -103,7 +106,13 @@ test.serialization.VoManagedController.prototype.runAll = function() {
     test("T18 SessionControlModel Deserialize", 3, this.T18_sessionControlModel_deserialize);
     
     test("T19 XMLparsedInfo Serialize", 4, this.T19_xmlParsedInfo_serialize);
-    test("T20 XMLparsedInfoDeserialize", 18, this.T20_xmlParsedInfo_deserialize);
+    test("T20 XMLparsedInfo Deserialize", 18, this.T20_xmlParsedInfo_deserialize);
+    
+    test("T21 SerializableVector B Serialize", 2, this.T21_serializableVectorB_serialize);
+    test("T22 SerializableVector B Deserialize", 5, this.T22_serializableVectorB_deserialize);
+
+    test("T23 InitialState Serialize", 3, this.T23_initialState_serialize);
+    test("T24 InitialState Deserialize", 16, this.T24_initialState_deserialize);
     
 
 };
@@ -287,7 +296,7 @@ test.serialization.VoManagedController.prototype.T06_scalarValueCollection_deser
 };
 
 
-test.serialization.VoManagedController.prototype.T07_serializableVector_serialize = function() {
+test.serialization.VoManagedController.prototype.T07_serializableVectorA_serialize = function() {
 
     //make real 1
     var scalarValueRealStruct_0 = new lgb.simulation.model.voNative.ScalarValueRealStruct();
@@ -323,7 +332,7 @@ test.serialization.VoManagedController.prototype.T07_serializableVector_serializ
 };
 
 
-test.serialization.VoManagedController.prototype.T08_serializableVector_deserialize = function() {
+test.serialization.VoManagedController.prototype.T08_serializableVectorA_deserialize = function() {
   
     var serializableVector_0 = Util.deserializeOk(
       CONSTANTS.STR_serializableVector_0,
@@ -790,6 +799,141 @@ test.serialization.VoManagedController.prototype.T20_xmlParsedInfo_deserialize =
 
 
 
+test.serialization.VoManagedController.prototype.T21_serializableVectorB_serialize = function() {
+  
+  
+  var ary = [
+    new lgb.simulation.model.voManaged.StringPrimitive ('y_ZN[1]'), 
+    new lgb.simulation.model.voManaged.StringPrimitive ('y_ZN[5]')
+  ];
+  
+  
+  var serializableVector_0 = new lgb.simulation.model.voManaged.SerializableVector('StringPrimitive', ary);
+
+  ok(serializableVector_0 instanceof voManaged.SerializableVector);
+  
+  Util.serializeOk(
+    serializableVector_0,
+    CONSTANTS.STR_serializableVector_1
+  );
+    
+  return;
+  
+};
+
+
+
+test.serialization.VoManagedController.prototype.T22_serializableVectorB_deserialize = function() {
+  
+  var serializableVector_0 = Util.deserializeOk(
+    CONSTANTS.STR_serializableVector_1,
+    voManaged.SerializableVector
+  );
+    
+  var stringPrimitive_0 = serializableVector_0.get(0);
+  ok(stringPrimitive_0 instanceof voManaged.StringPrimitive);
+  
+  var str_0 = stringPrimitive_0.getValue();
+  assertEquals("y_ZN[1]" , str_0);
+  
+  var stringPrimitive_1 = serializableVector_0.get(1);
+  ok(stringPrimitive_1 instanceof voManaged.StringPrimitive);
+  
+  var str_1 = stringPrimitive_1.getValue();
+  assertEquals("y_ZN[5]" , str_1);
+  
+
+    
+};
+
+
+test.serialization.VoManagedController.prototype.T23_initialState_serialize = function() {
+  
+  var scalarValueReal_0 = new voManaged.ScalarValueReal(1, 2.0);
+  ok(scalarValueReal_0 instanceof voManaged.ScalarValueReal);
+  
+  var scalarValueReal_1 = new voManaged.ScalarValueReal(2, 3.53);
+  ok(scalarValueReal_1 instanceof voManaged.ScalarValueReal);
+  
+  
+  var realList_0 = [scalarValueReal_0, scalarValueReal_1];
+  var scalarValueCollection_0 = new voManaged.ScalarValueCollection(realList_0);
+  
+  
+  var defaultExperimentStruct_0 = new lgb.simulation.model.voNative.DefaultExperimentStruct(123.03, 145.03, 10.0);
+  var configStruct_0 = new lgb.simulation.model.voNative.ConfigStruct(defaultExperimentStruct_0, 1);
+  
+  var outputVarList = [
+    new lgb.simulation.model.voManaged.StringPrimitive ('y_ZN[1]'), 
+    new lgb.simulation.model.voManaged.StringPrimitive ('y_ZN[5]')
+  ];
+  
+  var serializableVector_0 = new lgb.simulation.model.voManaged.SerializableVector('StringPrimitive', outputVarList);
+  
+  var initialState_0 = new lgb.simulation.model.voManaged.InitialState
+  ( scalarValueCollection_0,
+    configStruct_0,
+    outputVarList
+  );
+  
+  
+  Util.serializeOk(
+    initialState_0,
+    CONSTANTS.STR_InitialState_0
+  );
+  
+  return;
+
+};
+
+
+test.serialization.VoManagedController.prototype.T24_initialState_deserialize = function() {
+  
+  var initialState_0 = Util.deserializeOk(
+    CONSTANTS.STR_InitialState_0,
+    voManaged.InitialState
+  );
+  
+  var parameters_0 = initialState_0.getParameters();
+  var configStruct_0 = initialState_0.getConfigStruct();
+  var outputVarList_0 = initialState_0.getOutputVarList();
+  
+  var scalarValueReal_0 = parameters_0.getRealList()[0];
+  ok(scalarValueReal_0 instanceof voManaged.ScalarValueReal);
+  
+  assertEquals(1, scalarValueReal_0.getIdx());
+  assertEquals(2.0, scalarValueReal_0.getValue(), 0.0);
+  
+  var scalarValueReal_1 = parameters_0.getRealList()[1];
+  ok(scalarValueReal_1 instanceof voManaged.ScalarValueReal);
+  
+  assertEquals(2, scalarValueReal_1.getIdx());
+  assertEquals(3.53, scalarValueReal_1.getValue(), 0.0);
+    
+  var defaultExperimentStruct_0 = configStruct_0.defaultExperimentStruct;
+  ok(defaultExperimentStruct_0 instanceof voNative.DefaultExperimentStruct);
+  
+  assertEquals(1.0, configStruct_0.stepDelta, 0.0);
+ 
+  assertEquals(123.03, defaultExperimentStruct_0.startTime, 0.0);
+  assertEquals(145.03, defaultExperimentStruct_0.stopTime, 0.0);
+  assertEquals(10.0, defaultExperimentStruct_0.tolerance, 0.0);
+    
+  var stringPrimitive_0 = outputVarList_0[0];
+  ok(stringPrimitive_0 instanceof voManaged.StringPrimitive);
+  
+  var str_0 = stringPrimitive_0.getValue();
+  assertEquals("y_ZN[1]" , str_0);
+  
+  var stringPrimitive_1 = outputVarList_0[1];
+  ok(stringPrimitive_1 instanceof voManaged.StringPrimitive);
+  
+  var str_1 = stringPrimitive_1.getValue();
+  assertEquals("y_ZN[5]" , str_1);
+
+  return;
+ 
+};
 
 
 

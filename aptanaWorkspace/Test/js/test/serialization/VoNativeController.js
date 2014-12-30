@@ -70,7 +70,7 @@ test.serialization.VoNativeController.prototype.runAll = function() {
     test("T02 DefaultExperimentStruct Deserialize", 8, this.T02_defaultExperimentStruct_deserialize);
    
     test("T03 ConfigStruct Serialize", 1, this.T03_configStruct_serialize);
-    test("T04 ConfigStruct Deserialize", 6, this.T04_configStruct_serialize);
+    test("T04 ConfigStruct Deserialize", 6, this.T04_configStruct_deserialize);
     
     test("T05 MessageStruct Serialize", 1, this.T05_messageStruct_serialize);
     test("T06 MessageStruct Deserialize", 4, this.T06_messageStruct_deserialize);
@@ -152,7 +152,7 @@ test.serialization.VoNativeController.prototype.T03_configStruct_serialize = fun
 };
 
 
-test.serialization.VoNativeController.prototype.T04_configStruct_serialize = function() {
+test.serialization.VoNativeController.prototype.T04_configStruct_deserialize = function() {
 
 
     var configStruct_0 = Util.deserializeOk(
