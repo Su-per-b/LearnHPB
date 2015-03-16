@@ -1,0 +1,32 @@
+{
+
+    "metadata" :
+    {
+        "formatVersion" : 3.1,
+        "sourceFile"    : "FemaleSitting.obj",
+        "generatedBy"   : "OBJConverter",
+        "vertices"      : 57832,
+        "faces"         : 55308,
+        "normals"       : 0,
+        "uvs"           : 57061,
+        "materials"     : 1
+    },
+
+    "materials": [	{
+	"DbgColor" : 15658734,
+	"DbgIndex" : 0,
+	"DbgName" : "FemaleSittingWrap",
+	"colorAmbient" : [0.8, 0.8, 0.8],
+	"colorDiffuse" : [0.8, 0.8, 0.8],
+	"colorSpecular" : [0.8, 0.8, 0.8],
+	"illumination" : 2,
+	"mapAmbient" : "images/FemaleSittingUV.jpg",
+	"mapDiffuse" : "images/FemaleSittingUV.jpg",
+	"opticalDensity" : 1.0,
+	"specularCoef" : 247.058824,
+	"transparency" : 1.0
+	}],
+
+    "buffers": "FemaleSitting.obj.bin"
+
+}

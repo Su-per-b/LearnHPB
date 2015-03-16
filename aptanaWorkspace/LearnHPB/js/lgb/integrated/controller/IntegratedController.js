@@ -74,6 +74,11 @@ lgb.integrated.controller.IntegratedController.prototype.getVariableByName = fun
 
 };
 
+lgb.integrated.controller.IntegratedController.prototype.getVariableListByScope = function(scope) {
+  
+  return this.dataModel.getVariableListByScope(scope);
+
+};
 
 
 
@@ -129,19 +134,45 @@ lgb.integrated.controller.IntegratedController.prototype.onSimStateNativeNotify_
         case ENUM.simStateNative_2_xmlParse_completed:  {
             
             
-            var integratedVariable = this.getVariableByName('SIMstart2');
-            var v = integratedVariable.getInternalValue();
-           
-            var sVal = new lgb.simulation.model.voManaged.ScalarValueReal(5000,v);
+            var integratedVariable = this.getVariableByName('SIMstart');
+            var startTime = integratedVariable.getInternalValue();
+            var stopTime = startTime + 86400;
+            var tolerance = 0.0;
+
+            var defaultExperimentStruct = 
+              new lgb.simulation.model.voNative.DefaultExperimentStruct(startTime, stopTime, tolerance);
+            
+            var configStruct = new lgb.simulation.model.voNative.ConfigStruct(defaultExperimentStruct, 600);
+            
+            var outputVarList = this.getVariableListByScope('output');
+            var len = outputVarList.length;
+            
+            var outputVarNameList = [];
+            
+            for (var i=0; i < len; i++) {
+              
+              var name = outputVarList[i].name;
+              var nameStringPrimitive = new lgb.simulation.model.voManaged.StringPrimitive (name);
+              
+              outputVarNameList.push(nameStringPrimitive);
+              
+            };
+            
             
             //var vector = new lgb.simulation.model.voManaged.SerializableVector('ScalarVariableReal', [sVar]);
             //var state = new lgb.simulation.model.voManaged.InitialState(vector);
-            
-            
-            var collection = new lgb.simulation.model.voManaged.ScalarValueCollection([sVal]);
-            
 
-            var newEvent = new lgb.simulation.events.InitialStateRequest(collection);
+            var collection = new lgb.simulation.model.voManaged.ScalarValueCollection([]);
+            //
+            
+            var payload = new lgb.simulation.model.voManaged.InitialState
+            ( collection,
+              configStruct,
+              outputVarNameList
+            );
+            
+            var newEvent = new lgb.simulation.events.InitialStateRequest(payload);
+            
             this.dispatch(newEvent);
         }
         break;

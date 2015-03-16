@@ -50,6 +50,7 @@ goog.require('test.main.TestDataGenerator');
 goog.require('lgb.simulation.model.voManaged.SerializableVector');
 goog.require('lgb.simulation.model.voManaged.SessionControlAction');
 goog.require('lgb.simulation.model.voManaged.SessionControlModel');
+goog.require('lgb.simulation.model.voManaged.InitialState');
 
 
 /**
@@ -110,8 +111,8 @@ test.serialization.EventController.prototype.runAll = function() {
     test("SessionControlEvent Serialize", 1, this.T15_sessionControlClientRequest_serialize);
     test("SessionControlEvent Deserialize", 5, this.T16_sessionControlClientRequest_deserialize);
     
-    test("InitialStateRequest Serialize", 1, this.T17_initialStateRequest_serialize);
-    test("InitialStateRequest Deserialize", 6, this.T18_initialStateRequest_deserialize);
+    test("InitialStateRequest Serialize", 3, this.T17_initialStateRequest_serialize);
+    test("InitialStateRequest Deserialize", 18, this.T18_initialStateRequest_deserialize);
 
 };
 
@@ -545,13 +546,32 @@ test.serialization.EventController.prototype.T16_sessionControlClientRequest_des
 
 test.serialization.EventController.prototype.T17_initialStateRequest_serialize = function() {
 
-    var scalarValueReal_0 = new voManaged.ScalarValueReal(1, 2.0);
-    var scalarValueReal_1 = new voManaged.ScalarValueReal(2, 3.53);
-    
-    var realList_0 = [scalarValueReal_0, scalarValueReal_1];
-    
-    var scalarValueCollection_0 = new voManaged.ScalarValueCollection(realList_0);
-    var event_0 = new lgb.simulation.events.InitialStateRequest(scalarValueCollection_0);
+  var scalarValueReal_0 = new voManaged.ScalarValueReal(1, 2.0);
+  ok(scalarValueReal_0 instanceof voManaged.ScalarValueReal);
+  
+  var scalarValueReal_1 = new voManaged.ScalarValueReal(2, 3.53);
+  ok(scalarValueReal_1 instanceof voManaged.ScalarValueReal);
+  
+  var realList_0 = [scalarValueReal_0, scalarValueReal_1];
+  var scalarValueCollection_0 = new voManaged.ScalarValueCollection(realList_0);
+  
+  var defaultExperimentStruct_0 = new lgb.simulation.model.voNative.DefaultExperimentStruct(123.03, 145.03, 10.0);
+  var configStruct_0 = new lgb.simulation.model.voNative.ConfigStruct(defaultExperimentStruct_0, 1);
+  
+  var outputVarList = [
+    new lgb.simulation.model.voManaged.StringPrimitive ('y_ZN[1]'), 
+    new lgb.simulation.model.voManaged.StringPrimitive ('y_ZN[5]')
+  ];
+  
+  var serializableVector_0 = new lgb.simulation.model.voManaged.SerializableVector('StringPrimitive', outputVarList);
+  
+  var initialState_0 = new lgb.simulation.model.voManaged.InitialState
+  ( scalarValueCollection_0,
+    configStruct_0,
+    outputVarList
+  );
+
+    var event_0 = new lgb.simulation.events.InitialStateRequest(initialState_0);
     
     Util.serializeOk(
       event_0,
@@ -571,16 +591,47 @@ test.serialization.EventController.prototype.T18_initialStateRequest_deserialize
     
     assertEquals("lgb.simulation.events.InitialStateRequest", event_0.type);
     
-    var realList_0 = event_0.getPayload();
+    var initialState_0 = event_0.getPayload();
+    assertEquals("InitialState", initialState_0.getClassName());
     
-    var scalarValueReal_0 = realList_0.getRealList()[0];
-    assertEquals(1, scalarValueReal_0.getIdx());
-    assertEquals(2.0, scalarValueReal_0.getValue());
-           
-    var scalarValueReal_1 = realList_0.getRealList()[1];
-    assertEquals(2, scalarValueReal_1.getIdx());
-    assertEquals(3.53, scalarValueReal_1.getValue());
-          
+  var parameters_0 = initialState_0.getParameters();
+  var configStruct_0 = initialState_0.getConfigStruct();
+  var outputVarList_0 = initialState_0.getOutputVarList();
+  
+  var scalarValueReal_0 = parameters_0.getRealList()[0];
+  ok(scalarValueReal_0 instanceof voManaged.ScalarValueReal);
+  
+  assertEquals(1, scalarValueReal_0.getIdx());
+  assertEquals(2.0, scalarValueReal_0.getValue(), 0.0);
+  
+  var scalarValueReal_1 = parameters_0.getRealList()[1];
+  ok(scalarValueReal_1 instanceof voManaged.ScalarValueReal);
+  
+  assertEquals(2, scalarValueReal_1.getIdx());
+  assertEquals(3.53, scalarValueReal_1.getValue(), 0.0);
+    
+  var defaultExperimentStruct_0 = configStruct_0.defaultExperimentStruct;
+  ok(defaultExperimentStruct_0 instanceof voNative.DefaultExperimentStruct);
+  
+  assertEquals(1.0, configStruct_0.stepDelta, 0.0);
+ 
+  assertEquals(123.03, defaultExperimentStruct_0.startTime, 0.0);
+  assertEquals(145.03, defaultExperimentStruct_0.stopTime, 0.0);
+  assertEquals(10.0, defaultExperimentStruct_0.tolerance, 0.0);
+    
+  var stringPrimitive_0 = outputVarList_0[0];
+  ok(stringPrimitive_0 instanceof voManaged.StringPrimitive);
+  
+  var str_0 = stringPrimitive_0.getValue();
+  assertEquals("y_ZN[1]" , str_0);
+  
+  var stringPrimitive_1 = outputVarList_0[1];
+  ok(stringPrimitive_1 instanceof voManaged.StringPrimitive);
+  
+  var str_1 = stringPrimitive_1.getValue();
+  assertEquals("y_ZN[5]" , str_1);
+    
+   
     
 };
 

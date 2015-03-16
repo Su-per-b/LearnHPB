@@ -67,7 +67,9 @@ test.main.CONSTANTS.STR_scalarValueChangeRequest_0 = "{\"t\":\"ScalarValueChange
 
 test.main.CONSTANTS.STR_sessionControlClientRequest_0 = "{\"t\":\"SessionControlClientRequest\",\"payload\":{\"t\":\"SessionControlModel\",\"v\":\"SESS1342\",\"action\":{\"t\":\"SessionControlAction\",\"intValue\":0}}}";
 
-test.main.CONSTANTS.STR_initialStateRequest_0 = "{\"t\":\"InitialStateRequest\",\"payload\":{\"t\":\"ScalarValueCollection\",\"realList\":{\"t\":\"SerializableVector\",\"itemType\":\"ScalarValueReal\",\"itemArray\":[{\"i\":1,\"v\":2},{\"i\":2,\"v\":3.53}]}}}";
+test.main.CONSTANTS.STR_initialStateRequest_0 =   
+
+"{\"t\":\"InitialStateRequest\",\"payload\":{\"t\":\"InitialState\",\"parameters\":{\"t\":\"ScalarValueCollection\",\"realList\":{\"t\":\"SerializableVector\",\"itemType\":\"ScalarValueReal\",\"itemArray\":[{\"i\":1,\"v\":2},{\"i\":2,\"v\":3.53}]}},\"configStruct\":{\"t\":\"ConfigStruct\",\"stepDelta\":1,\"defaultExperimentStruct\":{\"t\":\"DefaultExperimentStruct\",\"startTime\":123.03,\"stopTime\":145.03,\"tolerance\":10}},\"outputVarList\":{\"t\":\"SerializableVector\",\"itemType\":\"StringPrimitive\",\"itemArray\":[{\"v\":\"y_ZN[1]\"},{\"v\":\"y_ZN[5]\"}]}}}";
     
 //test.main.CONSTANTS.STR_serializableVector_1 = "{\"t\":\"SerializableVector\",\"itemType\":\"String\",\"itemArray\":[\"y_ZN[1]\",\"y_ZN[5]\"]}";
    

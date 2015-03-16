@@ -4,11 +4,7 @@
 
    <VariableList scope="gui">
 
-      <Variable description="Simulation Start Time" name="SIMstart1" variability="parameter" definedUnit="Seconds">
-         <Integer start="15663600" min="0" max="20000000" />
-      </Variable>
-      
-      <Variable description="Simulation Start Time" name="SIMstart2" variability="parameter" definedUnit="Seconds">
+      <Variable description="Simulation Start Time" name="SIMstart" variability="parameter" definedUnit="Seconds">
          <SecondsAfter2000 start="15663600" min="0" max="20000000" />
       </Variable>
       
@@ -112,13 +108,19 @@
 	   		<Line name="ZN1Temp" />
 	   		<Line name="ZN1SPHeat" />
 	   </Graph>
+	   <Graph name="ZN2">
+	   		<Line name="ZN2SPCool" />
+	   		<Line name="OATemp" />
+	   		<Line name="ZN2Temp" />
+	   		<Line name="ZN2SPHeat" />		
+	   </Graph>
    </GraphList>
    
    <SystemList>
       <System name="General" description="General Things">      
          <SubSystem name="Simulation">
-            <Category name="Time" abbr="Tm">
-            	<VariableReference name="SIMstart2" />
+            <Category name="Start Time" abbr="Tm">
+            	<VariableReference name="SIMstart" />
             </Category>
          </SubSystem>
       </System>

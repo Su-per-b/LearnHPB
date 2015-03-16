@@ -1,0 +1,42 @@
+{
+
+
+
+    
+
+	"objects": {
+	
+    "Mesh" : {
+      "geometry" : "geom01",
+      "materials": [],
+      "position" : [ 0, 0, 0 ],
+      "rotation" : [ 0, 0, 0 ],
+      "scale"    : [ 1, 1, 1],
+      "visible"  : true
+    },
+    
+    "DefaultCamera": {
+      "type": "PerspectiveCamera",
+      "fov": 22,
+      "aspect": 1.6,
+      "near": 1,
+      "far": 10000,
+      "position": [0, 5.0, 65],
+      "target": [0, 0, 0]
+    }
+    
+	},
+
+	"geometries": {
+    "geom01":{
+      "type":"binary",
+      "url":"Envelope_ForStrip_WWR30p_9ft.obj.json"
+    }
+	},
+
+
+	"defaults": {
+		"bgalpha": 1
+	}
+
+}

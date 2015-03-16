@@ -6,7 +6,7 @@
 
 	"objects": {
 	
-    "ConcreteBlock" : {
+    "ConcreteBlock_02" : {
       "geometry" : "geom01",
       "materials": [],
       "position" : [ 0, 0, 0 ],
@@ -30,7 +30,7 @@
 	"geometries": {
     "geom01":{
       "type":"binary",
-      "url":"ConcreteBlock.obj.json"
+      "url":"ConcreteBlock_02.obj.json"
     }
 	},
 

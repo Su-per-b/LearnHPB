@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <!-- =========================   JavaScript  ============================ -->
+    <script src="../../js/includes/MainLibs.js"></script>
+    <script src="../../js/includes/ThreeEx.js"></script>
+    
+    <script>
+        LGB_WEBROOT = "../../../LearnHPB/";
+        test.includes.MainLibs.includeMetaTags();
+        test.includes.MainLibs.includeCSS();
+        
+        test.includes.MainLibs.includeClosureForTests();
+        test.includes.MainLibs.includeBaseLibs();
+        
+        test.includes.ThreeEx.includeAll();
+    </script>
+
+    
+    <script>
+      goog.require('lgbMin3d.core.MainController');
+    </script>
+    
+
+    <script>
+      lgbMin3d.core.MainController.start();
+    </script>
+    
+
+  </head>
+
+  <body id="theBody"></body>
+
+
+
+</html>

@@ -90,11 +90,11 @@ lgb.world.controller.RenderController.prototype.initLights_ = function() {
   this.lightGroup_ = new THREE.Object3D();
   this.lightGroup_.name = "LightGroup";
   
-  this.ambientLight_ = new THREE.AmbientLight(0x111111);
+  this.ambientLight_ = new THREE.AmbientLight(0x444444);
   this.ambientLight_ .name = "AmbientLight";
   this.lightGroup_.add(this.ambientLight_);
 
-  this.light1_ = new THREE.DirectionalLight( 0xffffff, 0.5 , 60);
+  this.light1_ = new THREE.DirectionalLight( 0xffffff, 0.6 , 60);
   this.light1_ .name = "Light1";
   this.light1_.position.set( 0, 70, -45 );
   this.light1_.target.name = "Light1_target";
@@ -108,7 +108,7 @@ lgb.world.controller.RenderController.prototype.initLights_ = function() {
   this.lightGroup_.add( this.light2_ );
   this.lightGroup_.add( this.light2_.target );
   
-  this.light3_ = new THREE.DirectionalLight( 0xffffff, 0.8 , 60);
+  this.light3_ = new THREE.DirectionalLight( 0xffffff, 0.7 , 60);
   this.light3_ .name = "Light3";
   this.light3_.position.set( 45, 0, 45 );
   this.light3_.target.name = "Light3_target";

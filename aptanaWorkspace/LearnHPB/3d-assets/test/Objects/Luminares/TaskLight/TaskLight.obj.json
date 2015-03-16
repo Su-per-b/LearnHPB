@@ -1,0 +1,66 @@
+{
+
+    "metadata" :
+    {
+        "formatVersion" : 3.1,
+        "sourceFile"    : "TaskLight.obj",
+        "generatedBy"   : "OBJConverter",
+        "vertices"      : 1214,
+        "faces"         : 594,
+        "normals"       : 1782,
+        "uvs"           : 1,
+        "materials"     : 4
+    },
+
+    "materials": [	{
+	"DbgColor" : 15658734,
+	"DbgIndex" : 0,
+	"DbgName" : "quadlamps_56",
+	"colorAmbient" : [0.042898, 0.0430043, 0.0433645],
+	"colorDiffuse" : [0.35, 0.35, 0.35],
+	"colorSpecular" : [0.5, 0.5, 0.5],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 159.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 15597568,
+	"DbgIndex" : 1,
+	"DbgName" : "metal",
+	"colorAmbient" : [0.883334, 0.905737, 0.941448],
+	"colorDiffuse" : [0.883334, 0.905737, 0.941448],
+	"colorSpecular" : [0.35, 0.35, 0.35],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 60928,
+	"DbgIndex" : 2,
+	"DbgName" : "BluePlastic",
+	"colorAmbient" : [0.117647, 0.117647, 0.8],
+	"colorDiffuse" : [0.117647, 0.117647, 0.8],
+	"colorSpecular" : [0.2, 0.2, 0.8],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 159.0,
+	"transparency" : 1.0,
+	"shading" : "phong"
+	},
+
+	{
+	"DbgColor" : 238,
+	"DbgIndex" : 3,
+	"DbgName" : "bulb",
+	"colorAmbient" : [1.0, 1.0, 1.0],
+	"colorDiffuse" : [1.0, 1.0, 1.0],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"opticalDensity" : 1.0,
+	"specularCoef" : 400.0,
+	"transparency" : 1.0
+	}],
+
+    "buffers": "TaskLight.obj.bin"
+
+}

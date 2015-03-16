@@ -6,9 +6,7 @@
 goog.provide('lgb.simulation.events.InitialStateRequest');
 
 goog.require('lgb.simulation.events.BaseEvent');
-goog.require('lgb.simulation.model.voManaged.ScalarValueCollection');
-
-
+goog.require('lgb.simulation.model.voManaged.InitialState');
 
 /**
  * @constructor
@@ -26,7 +24,7 @@ lgb.simulation.events.InitialStateRequest.fieldObjectsEx_ = {
   
    payload_: {
      jsonFieldName : "payload",
-     classReference : lgb.simulation.model.voManaged.ScalarValueCollection
+     classReference : lgb.simulation.model.voManaged.InitialState
    }
        
 };

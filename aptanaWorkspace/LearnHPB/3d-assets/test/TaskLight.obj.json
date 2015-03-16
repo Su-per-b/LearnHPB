@@ -3,7 +3,7 @@
 
     "materials": [	{
     
-	"DbgName" : "quadlamps_56",
+	"DbgName" : "BlackMetal",
   	"colorAmbient" : [0.042898, 0.0430043, 0.0433645],
   	"colorDiffuse" : [0.35, 0.35, 0.35],
   	"colorSpecular" : [0.5, 0.5, 0.5],
@@ -13,7 +13,7 @@
 	},
 
 	{
-	"DbgName" : "metal",
+	"DbgName" : "GreyMetal",
   	"colorAmbient" : [0.883334, 0.905737, 0.941448],
   	"colorDiffuse" : [0.883334, 0.905737, 0.941448],
   	"colorSpecular" : [0.35, 0.35, 0.35],
@@ -34,7 +34,7 @@
 	},
 
 	{
-	"DbgName" : "bulb",
+	"DbgName" : "Bulb",
   	"colorAmbient" : [1.0, 1.0, 1.0],
   	"colorDiffuse" : [1.0, 1.0, 1.0],
   	"colorSpecular" : [0.0, 0.0, 0.0],

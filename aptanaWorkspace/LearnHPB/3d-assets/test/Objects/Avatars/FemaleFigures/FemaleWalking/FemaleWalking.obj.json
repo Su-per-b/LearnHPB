@@ -1,0 +1,32 @@
+{
+
+    "metadata" :
+    {
+        "formatVersion" : 3.1,
+        "sourceFile"    : "FemaleWalking.obj",
+        "generatedBy"   : "OBJConverter",
+        "vertices"      : 57927,
+        "faces"         : 55308,
+        "normals"       : 0,
+        "uvs"           : 55434,
+        "materials"     : 1
+    },
+
+    "materials": [	{
+	"DbgColor" : 15658734,
+	"DbgIndex" : 0,
+	"DbgName" : "FemaleWalkingWrap",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [0.8, 0.8, 0.8],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"illumination" : 2,
+  "mapAmbient" : "images/FemaleSittingUV.jpg",
+  "mapDiffuse" : "images/FemaleSittingUV.jpg",
+	"opticalDensity" : 1.0,
+	"specularCoef" : 398.039216,
+	"transparency" : 1.0
+	}],
+
+    "buffers": "FemaleWalking.obj.bin"
+
+}

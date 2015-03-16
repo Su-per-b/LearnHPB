@@ -37,11 +37,11 @@
    </VariableList>
    
    <GraphList>
-	   <Graph name="ZN1">
-	   		<Line name="ZN1SPCool" />
+	   <Graph name="ZN2">
+	   		<Line name="ZN2SPCool" />
 	   		<Line name="OATemp" />
-	   		<Line name="ZN1Temp" />
-	   		<Line name="ZN1SPHeat" />		
+	   		<Line name="ZN2Temp" />
+	   		<Line name="ZN2SPHeat" />		
 	   </Graph>
    </GraphList>
 

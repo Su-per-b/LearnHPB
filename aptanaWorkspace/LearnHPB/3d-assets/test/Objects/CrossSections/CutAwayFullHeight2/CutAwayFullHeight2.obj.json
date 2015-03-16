@@ -1,0 +1,108 @@
+{
+
+    "metadata" :
+    {
+        "formatVersion" : 3.1,
+        "sourceFile"    : "CutAwayFullHeight2.obj",
+        "generatedBy"   : "OBJConverter",
+        "vertices"      : 292,
+        "faces"         : 272,
+        "normals"       : 0,
+        "uvs"           : 0,
+        "materials"     : 7
+    },
+
+    "materials": [	{
+	"DbgColor" : 15658734,
+	"DbgIndex" : 0,
+	"DbgName" : "Gypsum",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [0.540638, 0.537617, 0.543658],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"illumination" : 1,
+	"opticalDensity" : 1.0,
+	"specularCoef" : 131.372549,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 15597568,
+	"DbgIndex" : 1,
+	"DbgName" : "Sheathing",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [0.552327, 0.549241, 0.555412],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"illumination" : 1,
+	"opticalDensity" : 1.0,
+	"specularCoef" : 131.372549,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 60928,
+	"DbgIndex" : 2,
+	"DbgName" : "Ex._Insultation",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [0.934752, 0.92953, 0.939975],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"illumination" : 1,
+	"opticalDensity" : 1.0,
+	"specularCoef" : 131.372549,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 238,
+	"DbgIndex" : 3,
+	"DbgName" : "Vapor_Membrane",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [0.989825, 0.922521, 0.244052],
+	"colorSpecular" : [0.09, 0.09, 0.09],
+	"illumination" : 2,
+	"opticalDensity" : 1.0,
+	"specularCoef" : 578.431373,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 15658496,
+	"DbgIndex" : 4,
+	"DbgName" : "SteelStuds",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [0.58461, 0.581344, 0.587875],
+	"colorSpecular" : [0.33, 0.33, 0.33],
+	"illumination" : 2,
+	"opticalDensity" : 1.0,
+	"specularCoef" : 33.333333,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 61166,
+	"DbgIndex" : 5,
+	"DbgName" : "insulation",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [1.0, 0.863159, 0.812139],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"illumination" : 1,
+	"opticalDensity" : 1.0,
+	"specularCoef" : 201.960784,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 15597806,
+	"DbgIndex" : 6,
+	"DbgName" : "Stone",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [0.715777, 0.672648, 0.602652],
+	"colorSpecular" : [0.1, 0.1, 0.1],
+	"illumination" : 2,
+	"opticalDensity" : 1.0,
+	"specularCoef" : 54.901961,
+	"transparency" : 1.0
+	}],
+
+    "buffers": "CutAwayFullHeight2.obj.bin"
+
+}

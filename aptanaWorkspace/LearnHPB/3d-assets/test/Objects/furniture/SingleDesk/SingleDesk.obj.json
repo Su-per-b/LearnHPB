@@ -1,0 +1,30 @@
+{
+
+    "metadata" :
+    {
+        "formatVersion" : 3.1,
+        "sourceFile"    : "SingleDesk.obj",
+        "generatedBy"   : "OBJConverter",
+        "vertices"      : 1017,
+        "faces"         : 1276,
+        "normals"       : 0,
+        "uvs"           : 341,
+        "materials"     : 1
+    },
+
+    "materials": [	{
+	"DbgColor" : 15658734,
+	"DbgIndex" : 0,
+	"DbgName" : "Default_Smoothing",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [0.784314, 0.784314, 0.784314],
+	"colorSpecular" : [1.0, 1.0, 1.0],
+	"illumination" : 2,
+	"opticalDensity" : 1.0,
+	"specularCoef" : 458.823529,
+	"transparency" : 1.0
+	}],
+
+    "buffers": "SingleDesk.obj.bin"
+
+}

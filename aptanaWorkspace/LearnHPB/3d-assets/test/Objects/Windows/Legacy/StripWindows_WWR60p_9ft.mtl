@@ -1,0 +1,20 @@
+# Blender MTL File: 'StripWindows_WWR60p_9ft.blend'
+# Material Count: 2
+
+newmtl Mullion_Smoothing
+Ns 88.235294
+Ka 0.000000 0.000000 0.000000
+Kd 0.170654 0.170681 0.170642
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl tintglass_Smoothing
+Ns 17.647059
+Ka 0.000000 0.000000 0.000000
+Kd 0.000000 0.000000 0.000000
+Ks 0.800000 0.800000 0.800000
+Ni 1.000000
+d 0.525000
+illum 2

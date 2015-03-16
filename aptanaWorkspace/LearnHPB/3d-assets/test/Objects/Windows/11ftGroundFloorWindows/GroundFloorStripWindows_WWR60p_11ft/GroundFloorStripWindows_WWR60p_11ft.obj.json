@@ -1,0 +1,43 @@
+{
+
+    "metadata" :
+    {
+        "formatVersion" : 3.1,
+        "sourceFile"    : "GroundFloorStripWindows_WWR60p_11ft.obj",
+        "generatedBy"   : "OBJConverter",
+        "vertices"      : 3856,
+        "faces"         : 3770,
+        "normals"       : 0,
+        "uvs"           : 0,
+        "materials"     : 2
+    },
+
+    "materials": [	{
+	"DbgColor" : 15658734,
+	"DbgIndex" : 0,
+	"DbgName" : "Mullion_Smoothing",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [0.170654, 0.170681, 0.170642],
+	"colorSpecular" : [0.5, 0.5, 0.5],
+	"illumination" : 2,
+	"opticalDensity" : 1.0,
+	"specularCoef" : 88.235294,
+	"transparency" : 1.0
+	},
+
+	{
+	"DbgColor" : 15597568,
+	"DbgIndex" : 1,
+	"DbgName" : "tintglass_Smoothing",
+	"colorAmbient" : [0.0, 0.0, 0.0],
+	"colorDiffuse" : [0.0, 0.0, 0.0],
+	"colorSpecular" : [0.8, 0.8, 0.8],
+	"illumination" : 2,
+	"opticalDensity" : 1.0,
+	"specularCoef" : 17.647059,
+	"transparency" : 0.525
+	}],
+
+    "buffers": "GroundFloorStripWindows_WWR60p_11ft.obj.bin"
+
+}

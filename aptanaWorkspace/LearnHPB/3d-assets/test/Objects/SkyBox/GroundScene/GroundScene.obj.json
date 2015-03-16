@@ -1,0 +1,33 @@
+{
+
+    "metadata" :
+    {
+        "formatVersion" : 3.1,
+        "sourceFile"    : "GroundScene.obj",
+        "generatedBy"   : "OBJConverter",
+        "vertices"      : 8,
+        "faces"         : 6,
+        "normals"       : 0,
+        "uvs"           : 4,
+        "materials"     : 1
+    },
+
+    "materials": [	{
+	"DbgColor" : 15658734,
+	"DbgIndex" : 0,
+	"DbgName" : "Ground",
+	"colorAmbient" : [1, 1, 1],
+	"colorDiffuse" : [1, 1, 1],
+	"colorSpecular" : [0.0, 0.0, 0.0],
+	"illumination" : 2,
+  "mapAmbient" : "images/GroundA.jpg",
+	"mapDiffuse" : "images/GroundA.jpg",
+	
+	"opticalDensity" : 1.0,
+	"specularCoef" : 398.039216,
+	"transparency" : 1.0
+	}],
+
+    "buffers": "GroundScene.obj.bin"
+
+}

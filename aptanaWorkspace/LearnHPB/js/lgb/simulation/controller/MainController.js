@@ -178,9 +178,6 @@ lgb.simulation.controller.MainController.prototype.bind_ = function() {
     );
 
     
-
-    
-    
 };
 
 
