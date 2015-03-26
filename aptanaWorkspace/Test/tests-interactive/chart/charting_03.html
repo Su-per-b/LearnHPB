@@ -38,10 +38,16 @@
     
     <script>
       goog.require('lgbCharting.core.MainController');
+      goog.require('lgbCharting.gui.controller.BottomPanelGUIController_03');
     </script>
     
     <script>
+    
+      lgb.core.Config.TEST_GRAPH_CONTROLLER_CLASS_REFERENCE = lgbCharting.gui.controller.BottomPanelGUIController_03;
+          
       lgbCharting.core.MainController.start();
+      
+
     </script>
   
   

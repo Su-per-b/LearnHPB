@@ -7,6 +7,11 @@ goog.provide('lgb.chart.model.GraphModel');
 
 goog.require('lgb.core.BaseModel');
 goog.require('lgb.chart.model.PathModel');
+goog.require('lgb.simulation.model.voManaged.ScalarVariableReal');
+goog.require('lgb.simulation.model.voNative.TypeSpecReal');
+goog.require('lgb.integrated.model.VariableReal');
+
+
 
 /**
  * @constructor
@@ -59,10 +64,14 @@ lgb.chart.model.GraphModel.prototype.initOneVariable_ = function(name, integrate
     var integratedVariable = integratedMainModel.getVariableByName(name);
     this.integratedVariableList_.push(integratedVariable);
     
-    var pathModel = new lgb.chart.model.PathModel(integratedVariable, this.pathModelList_.length);
+    var pathModel = new lgb.chart.model.PathModel(this.pathModelList_.length);
+    pathModel.setIntegratedVariable(integratedVariable);
+    
     //pathModel.setDomainY(this.y.min, this.y.max);
       
     this.pathModelList_.push(pathModel);
+    
+   // this.calcDomainY();
     
     return;
 };
@@ -137,7 +146,7 @@ lgb.chart.model.GraphModel.prototype.updateIntegratedMainModel = function(integr
    var columns = this.getColumns();
    this.dispatchChangedEx('columns', columns);
 
-    return;   
+   return;   
 };
 
 
@@ -160,12 +169,7 @@ lgb.chart.model.GraphModel.prototype.changeDisplayUnitSystem = function(displayU
 
 
 
-
-lgb.chart.model.GraphModel.prototype.makePathModel = function(scenarioVariable) {
-  
-  
-  var pathModel = new lgb.chart.model.PathModel(scenarioVariable.abbr, this.pathModelList_.length);
-  pathModel.setDomainY(this.y.min, this.y.max);
+lgb.chart.model.GraphModel.prototype.addPathModel = function(pathModel) {
   
   this.pathModelList_.push(pathModel);
   
@@ -173,9 +177,40 @@ lgb.chart.model.GraphModel.prototype.makePathModel = function(scenarioVariable) 
 
 
 
+
+
 lgb.chart.model.GraphModel.prototype.getLatestValue = function() {
   return this.latestValue_;
 };
+
+
+lgb.chart.model.GraphModel.prototype.addDot = function() {
+    
+    var len = this.dateList_.length;
+    var dateObj = this.dateList_[len-1];
+    
+    var ms = dateObj.getTime();
+    
+    var latestDateObj = new Date(ms + (120000 * i));
+    this.dateList_.push(latestDateObj);
+    
+
+    this.each(this.pathModelList_, this.addOneDot_,  ms);
+  
+    this.dispatchChangedEx('addDot');
+    
+    return;
+};
+
+lgb.chart.model.GraphModel.prototype.addOneDot_ = function(pathModel, ms) {
+  
+    pathModel.addDot(ms);
+    
+};
+
+
+
+
 
 
 lgb.chart.model.GraphModel.prototype.makeRandomData = function(count) {
@@ -228,7 +263,7 @@ lgb.chart.model.GraphModel.prototype.setDomainY = function(minValue, maxValue) {
     range:rangeValue
   };
   
-  this.dispatchChangedEx('y', this.y);
+  //this.dispatchChangedEx('y', this.y);
   
   return;
 };
@@ -251,8 +286,17 @@ lgb.chart.model.GraphModel.prototype.calcDomainX = function() {
 
 lgb.chart.model.GraphModel.prototype.calcDomainY = function() {
     
+    
+  this.y = {
+    max:1,
+    min:0,
+    range:0
+  };
+  
+  
   this.each (this.pathModelList_, this.calcOnePathDomainY_);
   
+  return;
 };
 
 

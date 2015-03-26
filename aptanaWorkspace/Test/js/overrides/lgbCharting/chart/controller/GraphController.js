@@ -105,8 +105,7 @@ lgbCharting.chart.controller.GraphController.prototype.onIntegratedDataModelValu
     this.dataModel.updateIntegratedMainModel(integratedMainModel);
     
     
-   // this.dataModel.calcDomainX();
-    //this.dataModel.calcDomainY();
+
 
 };
 

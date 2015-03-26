@@ -29,14 +29,37 @@ goog.inherits(lgb.chart.view.GraphView, lgb.gui.view.BaseGUI);
 lgb.chart.view.GraphView.prototype.bind_ = function() {
     
     this.listenForChange_('columns');
+    this.listenForChange_('addDot');
     
+};
+
+
+
+lgb.chart.view.GraphView.prototype.onChange_addDot_ = function() {
+
+   var columns = this.dataModel.getColumns();
+    
+   //var domainY = this.dataModel.getDomainY();
+    
+    
+    
+    this.c3Chart_.load({
+          columns: columns
+    });
+    
+    
+    return;
 };
 
 
 
 lgb.chart.view.GraphView.prototype.onChange_columns_ = function(columns) {
 
-    var columns = this.dataModel.getColumns();
+   var columns = this.dataModel.getColumns();
+    
+   //var domainY = this.dataModel.getDomainY();
+    
+    
     
     this.c3Chart_.load({
           columns: columns
@@ -133,7 +156,7 @@ lgb.chart.view.GraphView.prototype.injectInto = function(parentElement) {
 
 lgb.chart.view.GraphView.prototype.tagOneTarget_ = function(target) {
 
-    target.unit = "°C";
+    target.unit = "&deg;C";
 
 };
 

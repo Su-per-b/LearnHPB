@@ -53,6 +53,10 @@ lgbCharting.core.MainController.prototype.init = function() {
 
 
 
+
+
+
+
 /**
  * Handles the browser resize event
  * then dispatches a lgb event
@@ -76,9 +80,9 @@ lgbCharting.core.MainController.prototype.onNativeWindowResize_ =
 
 
 lgbCharting.core.MainController.start =
-  function() {
+  function(classRef) {
 
-
+  
   if (undefined != LGB_WEBROOT) {
      lgb.core.Config.WEBROOT = LGB_WEBROOT;
   }

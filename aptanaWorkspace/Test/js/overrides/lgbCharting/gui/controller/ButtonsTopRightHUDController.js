@@ -42,13 +42,11 @@ lgbCharting.gui.controller.ButtonsTopRightHUDController.prototype.init = functio
 
 
 
-
 lgbCharting.gui.controller.ButtonsTopRightHUDController.prototype.bind_ = function() {
 
 
-
-
 };
+
 
 
 lgbCharting.gui.controller.ButtonsTopRightHUDController.prototype.onSimulationEngineLoaded_ = function(event) {

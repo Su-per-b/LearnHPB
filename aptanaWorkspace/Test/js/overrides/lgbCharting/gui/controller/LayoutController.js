@@ -11,8 +11,10 @@ goog.require('lgb.core.Config');
 
 goog.require('lgbCharting.gui.view.LayoutSimpleView');
 goog.require('lgb.gui.model.LayoutModel');
-
-goog.require('lgbCharting.gui.controller.BottomPanelGUIController');
+goog.require('lgbCharting.gui.view.LayoutSimplestView');
+goog.require('lgbCharting.gui.controller.BottomPanelGUIController_01');
+goog.require('lgbCharting.gui.controller.BottomPanelGUIController_02');
+goog.require('lgbCharting.gui.controller.BottomPanelGUIController_03');
 goog.require('lgbCharting.gui.controller.ButtonsTopRightHUDController');
 
 
@@ -37,15 +39,13 @@ lgbCharting.gui.controller.LayoutController.prototype.init = function() {
     
     
     this.dataModel = new lgb.gui.model.LayoutModel();
-    this.guiView = new lgbCharting.gui.view.LayoutSimpleView(this.dataModel);
-    this.guiView.init();
+    this.guiView = new lgbCharting.gui.view.LayoutSimplestView(this.dataModel);
     
+    this.guiView.init();
     this.bind_();
     
-    this.bottomPanelGUIController_ = this.makeChildGUIcontroller_(lgbCharting.gui.controller.BottomPanelGUIController);
-    this.buttonsTopRightHUDController_ = this.makeChildGUIcontroller_(lgbCharting.gui.controller.ButtonsTopRightHUDController);
+    this.bottomPanelGUIController_ = this.makeChildGUIcontroller_(lgb.core.Config.TEST_GRAPH_CONTROLLER_CLASS_REFERENCE);
 };
-
 
 
 lgbCharting.gui.controller.LayoutController.prototype.bind_ = function() {

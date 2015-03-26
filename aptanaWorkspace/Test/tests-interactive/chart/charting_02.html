@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+  <style>
+   
+    svg {
+      font: 10px sans-serif;
+    }
+     
+    .line {
+      fill: none;
+      stroke: #a00;
+      stroke-width: 1.5px;
+    }
+     
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #a00;
+      shape-rendering: crispEdges;
+    }
+
+  </style>
+  
+  
+    <script src="../../js/includes/MainLibs.js"></script>
+    
+    <script>
+        LGB_WEBROOT = "../../../LearnHPB/";
+        test.includes.MainLibs.includeMetaTags();
+        test.includes.MainLibs.includeCSS();
+        test.includes.MainLibs.includeCSSchart();
+        test.includes.MainLibs.includeClosureForTests();
+        test.includes.MainLibs.no3D();
+    </script>
+    
+    
+    <script>
+      goog.require('lgbCharting.core.MainController');
+      goog.require('lgbCharting.gui.controller.BottomPanelGUIController_02');
+    </script>
+    
+    <script>
+    
+      lgb.core.Config.TEST_GRAPH_CONTROLLER_CLASS_REFERENCE = lgbCharting.gui.controller.BottomPanelGUIController_02;
+          
+      lgbCharting.core.MainController.start();
+      
+
+    </script>
+  
+  
+    <title>Charting</title>
+    
+  </head>
+
+
+  <body id="theBody"></body>
+  
+
+</html>
+

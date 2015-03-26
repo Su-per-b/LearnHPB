@@ -11,15 +11,15 @@ goog.require('lgb.core.BaseModel');
  * @constructor
  * @extends lgb.core.BaseModel
  */
-lgb.chart.model.PathModel = function(integratedVariable, idx) {
+lgb.chart.model.PathModel = function(idx) {
 
 
   lgb.core.BaseModel.call(this);
   
   this.idx_ = idx;
-  this.setIntegratedVariable(integratedVariable);
-  this.setDomainY(5, 30);
-  
+  // this.setIntegratedVariable(integratedVariable);
+  //this.setDomainY(5, 30);
+
   this.init_();
   
 };
@@ -31,8 +31,17 @@ goog.inherits(lgb.chart.model.PathModel, lgb.core.BaseModel);
 lgb.chart.model.PathModel.prototype.init_= function() {
   
   this.values_ = [];
-    
+  this.name_ = "PathModelName_" + this.idx_;
+  
 };
+
+
+lgb.chart.model.PathModel.prototype.setName = function(name) {
+  
+  this.name_ = name;
+  
+};
+
 
 
 lgb.chart.model.PathModel.prototype.changeDisplayUnitSystem = function(displayUnitSystem) {
@@ -44,13 +53,39 @@ lgb.chart.model.PathModel.prototype.changeDisplayUnitSystem = function(displayUn
 
 
 
+lgb.chart.model.PathModel.prototype.addDot = function() {
+  
+  var deltaRandomFunction = this.d3RandomNormal(0.1, 0.5, -2.0, 2.0);
+  var delta = deltaRandomFunction();
+  
+  var len = this.values_.length;
+  var previousValue = this.values_[len-1];
+    
+  var newValue = previousValue + delta;
+  newValue = parseFloat((newValue).toFixed(2));
+  this.values_.push(newValue);
+  
+};
+
+
+
 lgb.chart.model.PathModel.prototype.makeRandomData = function(count) {
   
-    this.randomFunction_ = this.generateRandomFunction();
+  this.randomFunction_ = this.generateRandomFunction();
     
-	for ( i = 0; i < count; i++) {
-		var newValue = this.randomFunction_();
+  var deltaRandomFunction = this.d3RandomNormal(0.1, 0.5, -2.0, 2.0);
+  
+  var newValue = this.randomFunction_();
+  newValue = parseFloat((newValue).toFixed(2));
+    
+  this.values_.push(newValue);
+    
+	for ( i = 1; i < count; i++) {
 		
+    var delta = deltaRandomFunction();
+    var previousValue = this.values_[i-1];
+    
+    var newValue = previousValue + delta;
 		newValue = parseFloat((newValue).toFixed(2));
 		
 		this.values_.push(newValue);
@@ -63,7 +98,7 @@ lgb.chart.model.PathModel.prototype.makeRandomData = function(count) {
 lgb.chart.model.PathModel.prototype.getColumn = function() {
   
     var oneColumn = this.values_.slice(0);
-    //oneColumn.unshift(this.integratedVariable_.name);
+    oneColumn.unshift(this.name_);
     
     return oneColumn;
     
@@ -75,12 +110,10 @@ lgb.chart.model.PathModel.prototype.getColumn = function() {
 lgb.chart.model.PathModel.prototype.setIntegratedVariable = function(integratedVariable) {
     
   this.integratedVariable_ = integratedVariable;
+  this.setName(integratedVariable.name);
+  
 };
 
-
-// lgb.chart.model.PathModel.prototype.setVarName = function(varName) {
-  // this.varName_ = varName;
-// };
 
 
 lgb.chart.model.PathModel.prototype.getVarName = function() {
@@ -93,13 +126,6 @@ lgb.chart.model.PathModel.prototype.addIntegratedVariable = function(integratedV
     
   var displayValue = integratedVariable.value.getDisplayValue();
   
-  if (displayValue > this.y.max) {
-    this.setDomainY(this.y.min, Math.ceil(displayValue));
-  }
-  
-  if (displayValue < this.y.min ) {
-    this.setDomainY(Math.floor(displayValue), this.y.max);
-  }
   
     this.values_.push(displayValue);
   
@@ -150,68 +176,67 @@ lgb.chart.model.PathModel.prototype.d3RandomNormal = function(µ, σ, min, max) 
 };
 
 
+// 
+// 
+// lgb.chart.model.PathModel.prototype.getDomainX = function() {
+//  
+    // return [this.x.min, this.x.max];
+// };
+// 
+// 
+// lgb.chart.model.PathModel.prototype.getDomainY = function() {
+//  
+    // return [this.y.min, this.y.max];
+//     
+// };
 
 
-lgb.chart.model.PathModel.prototype.getDomainX = function() {
- 
-    return [this.x.min, this.x.max];
-};
+// lgb.chart.model.PathModel.prototype.setDomainY = function(minValue, maxValue) {
+//     
+  // var rangeValue = maxValue - minValue;
+  // var meanValue = minValue + (rangeValue / 2);
+//   
+  // this.y = {
+    // max:maxValue,
+    // min:minValue,
+    // mean:meanValue,
+    // range:rangeValue
+  // };
+//   
+//   
+  // return;
+// };
+// 
 
-
-lgb.chart.model.PathModel.prototype.getDomainY = function() {
- 
-    return [this.y.min, this.y.max];
-    
-};
-
-
-lgb.chart.model.PathModel.prototype.setDomainY = function(minValue, maxValue) {
-    
-  var rangeValue = maxValue - minValue;
-  var meanValue = minValue + (rangeValue / 2);
-  
-  this.y = {
-    max:maxValue,
-    min:minValue,
-    mean:meanValue,
-    range:rangeValue
-  };
-  
-  this.dispatchChangedEx('y', this.y);
-  
-  return;
-};
-
-
-lgb.chart.model.PathModel.prototype.setDomainX = function(minValue, maxValue) {
-    
-  var rangeValue = maxValue - minValue;
-  var meanValue = minValue + (rangeValue / 2);
-  
-  this.x = {
-    max:maxValue,
-    min:minValue,
-    mean:meanValue,
-    range:rangeValue
-  };
-  
-  this.dispatchChangedEx('x', this.y);
-  
-  return;
-};
+// lgb.chart.model.PathModel.prototype.setDomainX = function(minValue, maxValue) {
+//     
+  // var rangeValue = maxValue - minValue;
+  // var meanValue = minValue + (rangeValue / 2);
+//   
+  // this.x = {
+    // max:maxValue,
+    // min:minValue,
+    // mean:meanValue,
+    // range:rangeValue
+  // };
+//   
+ // // this.dispatchChangedEx('x', this.y);
+//   
+  // return;
+// };
 
 
 
 
-lgb.chart.model.PathModel.prototype.calcDomainX = function() {
-    
-	var date1 = this.values_[0].date;
-	var date2 = this.values_[this.values_.length - 1].date;
-
-	this.setDomainX(date1, date2);
-
-};
-
+// lgb.chart.model.PathModel.prototype.calcDomainX = function() {
+//     
+	// var date1 = this.values_[0].date;
+	// var date2 = this.values_[this.values_.length - 1].date;
+// 
+	// this.setDomainX(date1, date2);
+// 
+// };
+// 
 
 
 lgb.chart.model.PathModel.prototype.setTransformValue = function(transformValue) {
