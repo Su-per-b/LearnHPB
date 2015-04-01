@@ -15,11 +15,7 @@ lgb.chart.model.PathModel = function(idx) {
 
 
   lgb.core.BaseModel.call(this);
-  
   this.idx_ = idx;
-  // this.setIntegratedVariable(integratedVariable);
-  //this.setDomainY(5, 30);
-
   this.init_();
   
 };
@@ -37,9 +33,7 @@ lgb.chart.model.PathModel.prototype.init_= function() {
 
 
 lgb.chart.model.PathModel.prototype.setName = function(name) {
-  
   this.name_ = name;
-  
 };
 
 
@@ -141,8 +135,9 @@ lgb.chart.model.PathModel.prototype.addIntegratedVariable = function(integratedV
 
 lgb.chart.model.PathModel.prototype.generateRandomFunction = function() {
   
-    var standardDeviationValue = this.y.range * 0.3;
-    var randomFunction = this.d3RandomNormal(this.y.mean, standardDeviationValue, this.y.min, this.y.max);
+    var standardDeviationValue = 0.3;
+    var mean = 0.1;
+    var randomFunction = this.d3RandomNormal(mean, standardDeviationValue, -0.5, 0.5);
     
     return randomFunction;
    
@@ -175,68 +170,6 @@ lgb.chart.model.PathModel.prototype.d3RandomNormal = function(µ, σ, min, max) 
     return theFunction;
 };
 
-
-// 
-// 
-// lgb.chart.model.PathModel.prototype.getDomainX = function() {
-//  
-    // return [this.x.min, this.x.max];
-// };
-// 
-// 
-// lgb.chart.model.PathModel.prototype.getDomainY = function() {
-//  
-    // return [this.y.min, this.y.max];
-//     
-// };
-
-
-// lgb.chart.model.PathModel.prototype.setDomainY = function(minValue, maxValue) {
-//     
-  // var rangeValue = maxValue - minValue;
-  // var meanValue = minValue + (rangeValue / 2);
-//   
-  // this.y = {
-    // max:maxValue,
-    // min:minValue,
-    // mean:meanValue,
-    // range:rangeValue
-  // };
-//   
-//   
-  // return;
-// };
-// 
-
-// lgb.chart.model.PathModel.prototype.setDomainX = function(minValue, maxValue) {
-//     
-  // var rangeValue = maxValue - minValue;
-  // var meanValue = minValue + (rangeValue / 2);
-//   
-  // this.x = {
-    // max:maxValue,
-    // min:minValue,
-    // mean:meanValue,
-    // range:rangeValue
-  // };
-//   
- // // this.dispatchChangedEx('x', this.y);
-//   
-  // return;
-// };
-
-
-
-
-// lgb.chart.model.PathModel.prototype.calcDomainX = function() {
-//     
-	// var date1 = this.values_[0].date;
-	// var date2 = this.values_[this.values_.length - 1].date;
-// 
-	// this.setDomainX(date1, date2);
-// 
-// };
-// 
 
 
 lgb.chart.model.PathModel.prototype.setTransformValue = function(transformValue) {

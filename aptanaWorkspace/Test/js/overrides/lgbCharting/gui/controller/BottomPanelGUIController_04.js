@@ -79,7 +79,6 @@ lgbCharting.gui.controller.BottomPanelGUIController_04.prototype.makeGraph = fun
       var name = varList[i];
       var pathModel = new lgb.chart.model.PathModel(i);
       pathModel.setName(name);
-      pathModel.setDomainY(5, 25);
       
       graphGUIModel.addPathModel(pathModel);
    };
