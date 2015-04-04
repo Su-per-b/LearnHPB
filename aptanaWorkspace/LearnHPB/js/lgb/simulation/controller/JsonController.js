@@ -45,7 +45,7 @@ goog.require('lgb.simulation.events.SessionControlClientRequest');
 
 
 
-/*
+/**
  * @constructor
  * @extends {lgb.core.BaseController}
  */

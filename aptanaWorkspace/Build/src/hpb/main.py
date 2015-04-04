@@ -24,23 +24,21 @@ def main(argv=None):
     clean()
     copy1("templates\\min\\index.html", ROOT_MIN)
     copy1("templates\\src\\index.html", ROOT_SRC)
-    copySrc()
+
     
     blockMap = parseIndexSourceFile()
-
+    copySrc()
+    
     printBanner('Compile LGB')
     lgbIncludes = blockMap['LGB']
     compiler.buildLgb(lgbIncludes)
-
 
     printBanner('Compile three.js')
     threeIncludes = blockMap['Three']
     compiler.buildThreeJs(threeIncludes)
 
-
     printBanner('Compile CSS')
     compiler.buildCSS()
-
 
     printBanner('Copy 3d Assets')
     scene_mod.process3Dassets()
@@ -69,7 +67,9 @@ def parseIndexSourceFile():
         #theList = blockMap[key]
         
         for idx,filePath in enumerate(blockMap[key]):
-            blockMap[key][idx] = '../LearnHPB/%s' % filePath
+            relativePath = '../LearnHPB/%s' % filePath
+            #absolutePath = os.path.abspath(relativePath)
+            blockMap[key][idx] = relativePath
     
             
 
@@ -133,22 +133,38 @@ def copy1(indexFile, deployWebRoot):
     shutil.copytree(ROOT_ORIG + 'info-pages', deployWebRoot + 'info-pages')
     shutil.copyfile(ROOT_ORIG + 'css\\info.css', deployWebRoot + 'css\\info.css')
     shutil.copyfile(ROOT_ORIG + 'css\\normalize.css', deployWebRoot + 'css\\normalize.css')
-    
+    shutil.copyfile(ROOT_ORIG + 'css\\chartIframe.css', deployWebRoot + 'css\\chartIframe.css')
     shutil.copytree(ROOT_ORIG + '3d-assets\\textures', deployWebRoot + '3d-assets\\textures')
     
     shutil.copyfile(ROOT_ORIG + 'xml\\scene.xml', deployWebRoot + 'xml\\scene.xml')
     shutil.copyfile(ROOT_ORIG + 'xml\\Complete.xml', deployWebRoot + 'xml\\Complete.xml')
-    shutil.copyfile(ROOT_ORIG + 'xml\\VerySimpleScenario.xml', deployWebRoot + 'xml\\VerySimpleScenario.xml')
-    
+    shutil.copyfile(ROOT_ORIG + 'xml\\VerySimpleScenario1.xml', deployWebRoot + 'xml\\VerySimpleScenario1.xml')
+    shutil.copyfile(ROOT_ORIG + 'xml\\VerySimpleScenario5.xml', deployWebRoot + 'xml\\VerySimpleScenario5.xml')
+    shutil.copyfile(ROOT_ORIG + 'xml\\VerySimpleScenario9.xml', deployWebRoot + 'xml\\VerySimpleScenario9.xml')
+    shutil.copyfile(ROOT_ORIG + 'xml\\SimpleScenario1.xml', deployWebRoot + 'xml\\SimpleScenario1.xml')
     
 def copySrc():
     printBanner('Copy Src')
-    shutil.copyfile(ROOT_ORIG + 'css\\kendo.common.css', ROOT_SRC + 'css\\kendo.common.css')
-    shutil.copyfile(ROOT_ORIG + 'css\\kendo.lgb.css', ROOT_SRC + 'css\\kendo.lgb.css')
-    shutil.copyfile(ROOT_ORIG + 'css\\lhpb.css', ROOT_SRC + 'css\\lhpb.css')
-    shutil.copyfile(ROOT_ORIG + 'css\\panels.css', ROOT_SRC + 'css\\panels.css')
-    shutil.copyfile(ROOT_ORIG + 'css\\tipped.css', ROOT_SRC + 'css\\tipped.css')
-    shutil.copyfile(ROOT_ORIG + 'js\\lib\\jquery.src.js', ROOT_SRC + 'js\\jquery.src.js')
+    
+    jsonConfig = JsonConfig(r'build-config\css.json')
+    
+    #concatinatedOutputFile = jsonConfig.getConcatinatedOutputFile()
+    #minifiedOutputFile = jsonConfig.getMinifiedOutputFile()
+
+
+    includesFileNameList = jsonConfig.getFileNameList()
+    for fileName in includesFileNameList:
+        sourcePath = ROOT_ORIG + 'css\\' + fileName
+        destPath = ROOT_SRC + 'css\\' + fileName
+        shutil.copyfile(sourcePath, destPath)
+    
+    
+    #shutil.copyfile(ROOT_ORIG + 'css\\kendo.common.css', ROOT_SRC + 'css\\kendo.common.css')
+    #shutil.copyfile(ROOT_ORIG + 'css\\kendo.lgb.css', ROOT_SRC + 'css\\kendo.lgb.css')
+    #shutil.copyfile(ROOT_ORIG + 'css\\lhpb.css', ROOT_SRC + 'css\\lhpb.css')
+    #shutil.copyfile(ROOT_ORIG + 'css\\panels.css', ROOT_SRC + 'css\\panels.css')
+    #shutil.copyfile(ROOT_ORIG + 'css\\tipped.css', ROOT_SRC + 'css\\tipped.css')
+    #shutil.copyfile(ROOT_ORIG + 'js\\lib\\jquery.src.js', ROOT_SRC + 'js\\jquery.src.js')
 
 
     

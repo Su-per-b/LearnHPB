@@ -262,7 +262,7 @@ lgb.integrated.model.unit.UnitBase.UNIT =  {
            quantity:lgb.integrated.model.unit.UnitBase.QUANTITY.THERMAL_CONDUCTIVITY,
            symbol:'W&#8725;&#40;m&#183;K&#41;',
            description:'Watt Per Meter Per Kelvin is a unit in the category of Thermal conductivity. It is also known as watts per meter per kelvin, watt per metre per kelvin, watts per metre per kelvin.'
-       },
+       }
 
    },
    IP : {
@@ -296,7 +296,7 @@ lgb.integrated.model.unit.UnitBase.UNIT =  {
            description:'cubic feet per minute is the volumetric flow rate of a gas.',
            url:'http://en.wikipedia.org/wiki/Standard_cubic_feet_per_minute',
            base: false
-       },
+       }
    },
    MATH : {
        PERCENT_SIGN: {

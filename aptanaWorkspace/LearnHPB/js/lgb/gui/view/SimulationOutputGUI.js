@@ -41,9 +41,9 @@ lgb.gui.view.SimulationOutputGUI.prototype.updateIntegratedDataModelVariables = 
   this.makeTable2_(  integratedDataModelOutputVariables );
   
   return;
-  this.xmlParsedInfo_ = xmlParsedInfo;
+  //this.xmlParsedInfo_ = xmlParsedInfo;
   
-  this.realVarList_ = xmlParsedInfo.scalarVariablesAll_.output_.realVarList_;
+  //this.realVarList_ = xmlParsedInfo.scalarVariablesAll_.output_.realVarList_;
   //this.realVarListConverted = xmlParsedInfo.scalarVariablesAll_.output_.getRealVarListConverted();
   
 

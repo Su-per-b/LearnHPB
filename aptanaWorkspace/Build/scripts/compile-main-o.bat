@@ -1,13 +1,13 @@
 @echo off
-echo 3-compile.bat
 
-set "SRC=..\LearnHPB"
+
+set "SRC=..\..\LearnHPB"
 set "EXT=externs"
-set "DEST=..\LearnHPB\bin\normal"
+set "DEST=..\..\LearnHPB\bin\normal"
 
-copy /Y templates/lgb_license.txt temp\min\lgb.min.js  
+copy /Y ..\templates\lgb_license.txt ..\temp\min\lgb.min.js  
 
-compilers\calcdeps.py ^
+..\compilers\calcdeps.py ^
 -i %SRC%\inc.js ^
 -i %SRC%\main.src.js ^
 -i %SRC%\js\lib\jquery-plugins.js ^
@@ -55,8 +55,8 @@ compilers\calcdeps.py ^
 --compiler_flag=--externs=%EXT%\jquery-ui-raj.js ^
 --compiler_flag=--externs=%EXT%\tween.js ^
 --output_mode compiled ^
---compiler_jar compilers\compiler.jar ^
---output_file temp\src\lgb.src.js
+--compiler_jar ..\compilers\compiler.jar ^
+--output_file ..\temp\src\lgb.src.js
 
-type temp\src\lgb.src.js >> temp\min\lgb.min.js
+type ..\temp\src\lgb.src.js >> ..\temp\min\lgb.min.js
 

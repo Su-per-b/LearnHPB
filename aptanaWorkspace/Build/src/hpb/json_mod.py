@@ -22,7 +22,13 @@ class JsonConfig:
         self.prepend(outputAry, rootPath)
         return outputAry
 
+    def getFileNameList(self):
+        node = self.root['includes']
+        fileList = node['fileList']
 
+        return fileList
+        
+    
     def getCommandClause(self, nodeName, prefix):
 
         outputAry = self.getFileList(nodeName)
@@ -56,12 +62,12 @@ class JsonConfig:
         fileName = "temp\\src\\%s\\%s.src.%s" % (outputFileExtension, outputFileNameBase,outputFileExtension)
         return str(fileName)
     
-    def getConcatinatedOutputFile2(self):
+    def getConcatinatedOutputFileList(self):
         node = self.root['config']
         outputFileNameBase = node['outputFileNameBase']
         outputFileExtension = node['outputFileExtension']
 
-        fileName = "temp\\src\\%s\\%s.src2.%s" % (outputFileExtension, outputFileNameBase,outputFileExtension)
+        fileName = "temp\\src\\%s\\%s.list.%s" % (outputFileExtension, outputFileNameBase,outputFileExtension)
         return str(fileName)
     
     

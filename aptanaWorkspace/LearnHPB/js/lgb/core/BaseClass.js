@@ -134,7 +134,7 @@ lgb.core.BaseClass.prototype.hasListener = function(eventTarget, eventType, hand
 lgb.core.BaseClass.prototype.listenHelper_ = function(
   eventTarget, eventType, handlerContext, handler) {
 
-  /**@type {Function} */
+  ///**@type {Function} */
   //var delegate = jQuery.proxy(handler, handlerContext);
 
  // var key = goog.events.listen(

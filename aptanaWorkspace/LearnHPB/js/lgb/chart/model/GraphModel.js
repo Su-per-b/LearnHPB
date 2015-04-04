@@ -215,7 +215,7 @@ lgb.chart.model.GraphModel.prototype.addOneDot_ = function(pathModel, ms) {
 
 lgb.chart.model.GraphModel.prototype.makeRandomData = function(count) {
     
-    var dateObj = new Date(2000,5,30,9,40,00,0);
+    var dateObj = new Date(2000,5,30,9,40,0,0);
     var ms = dateObj.getTime();
     
     
@@ -331,7 +331,7 @@ lgb.chart.model.GraphModel.prototype.setDomainX = function(minValue, maxValue) {
   this.x = {
     max:maxValue,
     min:minValue,
-    range:rangeValue,
+    range:rangeValue
   };
   
   this.dispatchChangedEx('x', this.x);

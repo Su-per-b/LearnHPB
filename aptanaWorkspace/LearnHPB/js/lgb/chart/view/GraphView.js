@@ -131,7 +131,7 @@ lgb.chart.view.GraphView.prototype.injectInto = function(parentElement) {
             x: {
                 type: 'timeseries',
                 tick: {
-                    format: '%H:%M', //axis_x_tick_format
+                    format: '%H:%M' //axis_x_tick_format
                 }
             }
         },

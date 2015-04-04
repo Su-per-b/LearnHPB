@@ -3,6 +3,10 @@
 
 from json_mod import JsonConfig
 import subprocess
+import sys
+import os
+from cb.closurebuilder import make
+
 
 CLOSURE_COMPILER_FILE = r'compilers\closure-compiler.jar'
 YUI_COMPILER_FILE = r'compilers\yuicompressor-2.4.2.jar'
@@ -128,20 +132,20 @@ def buildLgb(includesFileList=None):
     jsonConfig = JsonConfig(r'build-config\lgb.json')
     
     concatinatedOutputFile = jsonConfig.getConcatinatedOutputFile()
-    concatinatedOutputFile2 = jsonConfig.getConcatinatedOutputFile2()
+    concatinatedOutputFileList = jsonConfig.getConcatinatedOutputFileList()
     minifiedOutputFile = jsonConfig.getMinifiedOutputFile()
     
-    if(includesFileList == None):
-        includesFileList = jsonConfig.getFileList('includes')
+#    if(includesFileList == None):
+#       includesFileList = jsonConfig.getFileList('includes')
     
     
-    includeAry = getCommandAry(includesFileList , '-i')
+    #includeAry = getCommandAry(includesFileList , '-i')
     printFileList('Processing includes for LGB', includesFileList)
     
     pathList = jsonConfig.getFileList('paths')
 
     
-    pathAry = getCommandAry(pathList , '-p')
+    #pathAry = getCommandAry(pathList , '-p')
     printFileList('Processing paths for LGB', pathList)
     
     
@@ -149,7 +153,7 @@ def buildLgb(includesFileList=None):
     printFileList('Skipping externs for LGB', externFileList)
 
 
-    rootAry = getCommandAry(pathList , '--root')
+    #rootAry = getCommandAry(pathList , '--root')
     printFileList('Processing paths for LGB', pathList)
   
   
@@ -158,61 +162,87 @@ def buildLgb(includesFileList=None):
     printFileList('Processing namespaces for LGB', namespaceAry)
     
     
-    cmdAry3 = []
+    #strPath = os.curdir
+    #strPath = os.path.abspath(strPath)
+    #print 'curdir: '+ strPath
     
-    cmdAry3 += [PYTHON_EXE, CLOSURE_BUILDER]
-    cmdAry3 += includeAry
-    cmdAry3 += rootAry
-    cmdAry3 += namespaceAry
-    cmdAry3 += ['--output_mode', 'list']
-    cmdAry3 += ['--output_file', concatinatedOutputFile2]
     
-    p = subprocess.Popen(cmdAry3, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    out, error = p.communicate()
-
-    print 'return code: '+ str(p.returncode)
-    print 'out: '+ out
-    print 'error: '+ error
-
-
-
-
-
-    cmdAry1 = []
+    make(includesFileList, [], namespaceList, pathList,
+                     'list', None, [], [], concatinatedOutputFileList,
+                     'base-nodeps.js')
     
-    cmdAry1 += [PYTHON_EXE, CALC_DEPS]
-    cmdAry1 += includeAry
-    cmdAry1 += pathAry
-    cmdAry1 += ['--output_mode', 'script']
-    cmdAry1 += ['--output_file', concatinatedOutputFile]
+    #cmdAry3 = []
     
-    p = subprocess.Popen(cmdAry1, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    out, error = p.communicate()
-
-    print 'return code: '+ str(p.returncode)
-    print 'out: '+ out
-    print 'error: '+ error
+    #cmdAry3 += [PYTHON_EXE, CLOSURE_BUILDER]
+    #cmdAry3 += includeAry
+    #cmdAry3 += rootAry
+    #cmdAry3 += namespaceAry
+    #cmdAry3 += ['--output_mode', 'list']
+    #cmdAry3 += ['--output_file', concatinatedOutputFile2]
     
+    #p = subprocess.Popen(cmdAry3, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    #out, error = p.communicate()
 
+    #print 'return code: '+ str(p.returncode)
+    #print 'out: '+ out
+    #print 'error: '+ error
 
-    cmdAry2 = []
+    #if(p.returncode == 1):
+    #    sys.exit()
+
     
-    cmdAry2 += [PYTHON_EXE, CALC_DEPS]
-    cmdAry2 += includeAry
-    cmdAry2 += pathAry
-    cmdAry2 += ['--output_mode', 'compiled']
-    cmdAry2 += ['--compiler_jar', CLOSURE_COMPILER_FILE]
-    cmdAry2 += ['--output_file', minifiedOutputFile]
-    
-    p = subprocess.Popen(cmdAry2, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    out, error = p.communicate()
-
-    print 'return code: '+ str(p.returncode)
-    print 'out: '+ out
-    print 'error: '+ error
+    make(includesFileList, [], namespaceList, pathList,
+                     'script', None, [], [], concatinatedOutputFile,
+                     'base-nodeps.js')
     
     
 
+    #cmdAry1 = []
+    
+    #cmdAry1 += [PYTHON_EXE, CALC_DEPS]
+    #cmdAry1 += includeAry
+    #cmdAry1 += pathAry
+    #cmdAry1 += ['--output_mode', 'script']
+    #cmdAry1 += ['--output_file', concatinatedOutputFile]
+    
+    #p = subprocess.Popen(cmdAry1, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    #out, error = p.communicate()
+
+    #print 'return code: '+ str(p.returncode)
+    #print 'out: '+ out
+    #print 'error: '+ error
+    
+    #if(p.returncode == 1):
+        #sys.exit()
+        
+        
+    #myClosureBuilder(myIncludes=[], inputAry=[], namespaceAry=[], rootAry=[],  
+    #                output_mode='list', compiler_jar=None, compiler_flags=[], 
+    #                jvm_flags=[], output_file=''):
+    
+    make(includesFileList, [], namespaceList, pathList,
+                     'compiled', CLOSURE_COMPILER_FILE, [], [], minifiedOutputFile,
+                     'base-nodeps.js')
+
+
+    #cmdAry2 = []
+    
+    #cmdAry2 += [PYTHON_EXE, CALC_DEPS]
+    #cmdAry2 += includeAry
+    #cmdAry2 += pathAry
+    #cmdAry2 += ['--output_mode', 'compiled']
+    #cmdAry2 += ['--compiler_jar', CLOSURE_COMPILER_FILE]
+    #cmdAry2 += ['--output_file', minifiedOutputFile]
+    
+    #p = subprocess.Popen(cmdAry2, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    #out, error = p.communicate()
+
+    #print 'return code: '+ str(p.returncode)
+    #print 'out: '+ out
+    #print 'error: '+ error
+
+    #if(p.returncode == 1):
+        #sys.exit()
     
     
     
@@ -228,6 +258,27 @@ def concatinateFiles(fileList, outputFile):
         with open(file, 'r') as f: outputFileH.write(f.read())
 
     outputFileH.close()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

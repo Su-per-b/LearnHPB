@@ -3,11 +3,12 @@
       "rootPath": "../LearnHPB/css/",
       "fileList":   [
         "tipped.css",
+        "normalize.css",
         "kendo.common.css",
         "kendo.lgb.css",
         "panels.css",
         "lhpb.css",
-        "normalize.css"
+        "chartIframe.css"
       ]
     },
     "config":{

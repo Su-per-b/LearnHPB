@@ -6,8 +6,11 @@
 goog.provide('lgb.scenario.model.tag.Scenario');
 
 goog.require('lgb.scenario.model.tag.NodeBase');
+
+goog.require('lgb.scenario.model.tag.GraphList');
 goog.require('lgb.scenario.model.tag.VariableList');
 goog.require('lgb.scenario.model.tag.SystemList');
+
 goog.require('lgb.utils.XmlWrapper');
 
 
@@ -79,7 +82,6 @@ lgb.scenario.model.tag.Scenario.prototype.parseVariableReference_ = function(var
         return;
     }
 
-    return;
 };
 
 

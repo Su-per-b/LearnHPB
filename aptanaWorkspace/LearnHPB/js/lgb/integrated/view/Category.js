@@ -132,7 +132,7 @@ lgb.integrated.view.Category.prototype.getModelViewClassMap_ = function() {
     return {
         "lgb.integrated.model.VariableReal" : lgb.integrated.view.VariableNumber,
         "lgb.integrated.model.VariableInteger" : lgb.integrated.view.VariableNumber,
-        "lgb.integrated.model.SecondsAfter2000" : lgb.integrated.view.SecondsAfter2000,
+        "lgb.integrated.model.SecondsAfter2000" : lgb.integrated.view.SecondsAfter2000
     };
 };
 

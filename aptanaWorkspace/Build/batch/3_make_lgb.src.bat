@@ -18,6 +18,7 @@ set "DEST=..\temp"
 --compiler_flags=--externs=%SRCJS%\externs\jquery-ui-raj.js ^
 --compiler_flags=--externs=%SRCJS%\externs\tween.js ^
 --output_mode script ^
+--compiler_flags=--js=%SRCJS%\lib\createjs\events\Event.js ^
 --compiler_flags=--js=%SRCJS%\lib\createjs\events\EventDispatcher.js ^
 --compiler_flags=--js=%SRCJS%\lib\tweenjs\Tween.js ^
 --compiler_flags=--js=%SRCJS%\lib\tweenjs\CSSPlugin.js ^

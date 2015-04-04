@@ -96,6 +96,14 @@ def _GetOptionsParser():
                     help='Additional flags to pass to the Closure compiler. '
                     'To pass multiple flags, --compiler_flags has to be '
                     'specified multiple times.')
+  parser.add_option('-j',
+                    '--jvm_flags',
+                    dest='jvm_flags',
+                    default=[],
+                    action='append',
+                    help='Additional flags to pass to the JVM compiler. '
+                    'To pass multiple flags, --jvm_flags has to be '
+                    'specified multiple times.')
   parser.add_option('--output_file',
                     dest='output_file',
                     action='store',
@@ -114,11 +122,11 @@ def _GetInputByPath(path, sources):
 
   Returns:
     The source from sources identified by path, if found.  Converts to
-    absolute paths for comparison.
+    real paths for comparison.
   """
   for js_source in sources:
-    # Convert both to absolute paths for comparison.
-    if os.path.abspath(path) == os.path.abspath(js_source.GetPath()):
+    # Convert both to real paths for comparison.
+    if os.path.realpath(path) == os.path.realpath(js_source.GetPath()):
       return js_source
 
 
@@ -168,16 +176,31 @@ class _PathSource(source.Source):
 
     self._path = path
 
+  def __str__(self):
+    return 'PathSource %s' % self._path
+
   def GetPath(self):
     """Returns the path."""
     return self._path
+
+
+def _WrapGoogModuleSource(src):
+  return ('goog.loadModule(function(exports) {{'
+          '"use strict";'
+          '{0}'
+          '\n'  # terminate any trailing single line comment.
+          ';return exports'
+          '}});\n').format(src)
 
 
 def main():
   logging.basicConfig(format=(sys.argv[0] + ': %(message)s'),
                       level=logging.INFO)
   options, args = _GetOptionsParser().parse_args()
-
+  
+  logging.info('args count: %s', len(args))
+  
+  
   # Make our output pipe.
   if options.output_file:
     out = open(options.output_file, 'w')
@@ -193,10 +216,12 @@ def main():
 
   # Add scripts specified on the command line.
   for js_path in args:
+    logging.info('js_path %s', js_path)
     sources.add(_PathSource(js_path))
 
   logging.info('%s sources scanned.', len(sources))
-
+    
+    
   # Though deps output doesn't need to query the tree, we still build it
   # to validate dependencies.
   logging.info('Building dependency tree..')
@@ -226,8 +251,21 @@ def main():
   if output_mode == 'list':
     out.writelines([js_source.GetPath() + '\n' for js_source in deps])
   elif output_mode == 'script':
-    out.writelines([js_source.GetSource() for js_source in deps])
+    for js_source in deps:
+      src = js_source.GetSource()
+      if js_source.is_goog_module:
+        src = _WrapGoogModuleSource(src)
+      out.write(src + '\n')
   elif output_mode == 'compiled':
+    logging.warning("""\
+Closure Compiler now natively understands and orders Closure dependencies and
+is prefererred over using this script for performing JavaScript compilation.
+
+Please migrate your codebase.
+
+See:
+https://github.com/google/closure-compiler/wiki/Manage-Closure-Dependencies
+""")
 
     # Make sure a .jar is specified.
     if not options.compiler_jar:
@@ -235,17 +273,15 @@ def main():
                     '"compiled"')
       sys.exit(2)
 
+    # Will throw an error if the compilation fails.
     compiled_source = jscompiler.Compile(
         options.compiler_jar,
         [js_source.GetPath() for js_source in deps],
-        options.compiler_flags)
+        jvm_flags=options.jvm_flags,
+        compiler_flags=options.compiler_flags)
 
-    if compiled_source is None:
-      logging.error('JavaScript compilation failed.')
-      sys.exit(1)
-    else:
-      logging.info('JavaScript compilation succeeded.')
-      out.write(compiled_source)
+    logging.info('JavaScript compilation succeeded.')
+    out.write(compiled_source)
 
   else:
     logging.error('Invalid value for --output flag.')

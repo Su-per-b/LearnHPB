@@ -26,9 +26,9 @@ lgb.scenario.model.tag.NodeBase = function(node, parentTag) {
   
   var className = this.getClassName();
   
-  if (null == node || className != node.tagName) {
+  //if (null == node || className != node.tagName) {
       //debugger;
-  }
+  //}
   
   this.classConstructor_ = this.getClassConstructor();
   
@@ -121,6 +121,12 @@ lgb.scenario.model.tag.NodeBase.prototype.makeOneChild_ = function(childNode) {
     
     var map = this.classConstructor_.childMap;
     
+     
+    if ("GraphList" == tagName) {
+        //debugger;
+        var i = 0;
+    }
+    
     if (undefined == map) {
         debugger;
     }
@@ -133,7 +139,13 @@ lgb.scenario.model.tag.NodeBase.prototype.makeOneChild_ = function(childNode) {
 
     if (mapEntry) {
         classReference = mapEntry.classReference;
-        child = new classReference(childNode, this);
+        
+        if (null == classReference) {
+          debugger;
+        } else {
+          child = new classReference(childNode, this);
+        }
+
     } else {
         debugger;
     }

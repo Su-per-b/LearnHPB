@@ -28977,8 +28977,16 @@ lgb.gui.model.ScenarioMasterModel.prototype.init_ = function() {
   this.scenarios_ = [
 
     {
-      name:"Very Simple Scenario",
-      value:"VerySimpleScenario"
+      name:"Very Simple Scenario1",
+      value:"VerySimpleScenario1"
+    },
+    {
+      name:"Very Simple Scenario5",
+      value:"VerySimpleScenario5"
+    },
+    {
+      name:"Very Simple Scenario9",
+      value:"VerySimpleScenario9"
     },
     {
       name:"Complete Scenario",
