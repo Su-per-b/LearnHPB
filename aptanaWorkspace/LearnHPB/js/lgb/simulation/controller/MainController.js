@@ -103,6 +103,10 @@ lgb.simulation.controller.MainController.prototype.setRemoteHost_ = function() {
       case lgb.core.Config.SOCKET_SERVER.Cube :
         this.socketServerHost = 'cube.straylightsim.com';
         break;
+      case lgb.core.Config.SOCKET_SERVER.Ofalco :
+        this.socketServerHost = 'ofalco.straylightsim.com';
+        break;
+        
     }
     
   }
@@ -263,8 +267,6 @@ lgb.simulation.controller.MainController.prototype.onRequestSimulationVariableCh
 
 	var event = new lgb.simulation.events.ScalarValueChangeRequest(collection);
 	this.serializeAndSend(event);
-
-	
 
 };
 

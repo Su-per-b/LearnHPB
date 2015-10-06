@@ -1,0 +1,201 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>The LHPB Learning Environment</title>
+<meta name="description" content="Info about LHPB.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, zoom=0%, target-densitydpi=high-dpi">
+<link href="css/normalize.css" rel="stylesheet" type="text/css">
+<link href="css/lhpb-public.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="css/responsiveslides.css">
+<link href="css/demo.css" rel="stylesheet" >
+<!--<link href="themes/themes.css" rel="stylesheet">
+--><link rel="shortcut icon" href="file:images/favicon.ico" >
+
+<!-- Slider documentation http://responsiveslides.com/-->
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="js/responsiveslides.js"></script>
+<script>
+// You can also use "$(window).load(function() {"
+$(function () {
+
+  	// Slideshow 1
+  	$("#slider1").responsiveSlides({
+    	maxwidth: 640,
+    	speed: 400,
+		auto: true,
+      	pager: true,
+     	nav: false,
+		namespace: "centered-btns"
+  	});
+
+ 	 // Slideshow 2
+//  	$("#slider2").responsiveSlides({
+//		maxwidth: 640,  
+//    	auto: false,
+//    	pager: true,
+//    	speed: 400,
+//		pauseControls: true,
+//  });
+
+	// Slideshow 3
+//  	$("#slider3").responsiveSlides({
+//    	manualControls: '#slider3-pager',
+//		maxwidth: 640,
+//  });
+  
+  // Slideshow 4
+      $("#slider4").responsiveSlides({
+		 maxwidth: 640,
+        auto: true,
+        pager: false,
+        nav: true,
+        speed: 500,
+//		 namespace: "centered-btns",
+        namespace: "callbacks",
+        	before: function () {
+          		$('.events');
+        	},
+        	after: function () {
+          		$('.events');
+        	}
+  	});
+});
+</script>
+
+</head>
+
+<body id="home">
+<div id="container">
+    <header>
+        <div class="content cf">
+            <div id="logo" title="LHPB: Learn High Performance Buildings"><a href="index.html"><img src="images/logo-lhpb.svg" alt=""/></a></div>
+            <div id="signin"><a class="show" href="create-account.html">Sign In or Join</a>
+                <div class="form-block signin">
+                    <form>
+                        <fieldset style="max-width: 400px">
+                            <h2>Sign In to LHPB</h2>
+                            <ul>
+                                <li>
+                                    <label>Email or Username
+                                        <input name="input" type="text" placeholder="Username" value="" >
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>Password
+                                        <input name="input" type="text" placeholder="Password" value="">
+                                        <br>
+                                        <span class="lost-password"><a href="#">I forgot my passowrd</a></span> </label>
+                                </li>
+                            </ul>
+                            <button type="button" class=" button-basic button-basic-text">Sign In</button>
+                            <h4><a href="create-account.html">Create an Account</a></h4>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li class="selected"><a href="index.html">Home</a></li>
+                    <li><a href="learning-environment.html">Learning Environment</a></li>
+                    <li><a href="features.html">Features</a></li>
+                    <li><a href="tour.html">Guided Tour</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div id="content" class="cf">
+        <h1>Learn High Performance Buildings</h1>
+        
+        <!-- Slideshow 1 -->
+        <div class="slider"> 
+            <ul class="rslides" id="slider1">
+                <li><img src="images/home-slider-site.jpg" alt=""/></li>
+                <li><img src="images/home-slider-interior.jpg" alt=""/></li>
+                <li><img src="images/home-slider-wall-cutaway-hidden.jpg" alt=""/></li>
+                <li><img src="images/home-slider-wall-cutaway.jpg" alt=""/></li>
+                <li><img src="images/home-slider-roof-hvac.jpg" alt=""/></li>
+            </ul>
+      	</div>  
+       	
+        <!-- Slideshow 2 -->
+<!--        <div class="slider">      
+            <ul class="rslides" id="slider2">
+                <li><a href="#"><img src="images/1.jpg" alt=""></a></li>
+                <li><a href="#"><img src="images/2.jpg" alt=""></a></li>
+                <li><a href="#"><img src="images/3.jpg" alt=""></a></li>
+            </ul>
+      	</div> -->
+       
+       <!-- Slideshow 3 -->
+<!--       	<div class="slider">             
+            <ul class="rslides" id="slider3">
+                <li><img src="images/home-slider-site.jpg" alt=""/></li>
+                <li><img src="images/home-slider-interior.jpg" alt=""/></li>
+                <li><img src="images/home-slider-wall-cutaway.jpg" alt=""/></li>
+                <li><img src="images/home-slider-roof-hvac.jpg" alt=""/></li>
+            </ul> -->          
+            <!-- Slideshow 3 Pager -->
+<!--            <ul id="slider3-pager">
+                <li><a href="#"><img src="images/1_thumb.jpg" alt=""></a></li>
+                <li><a href="#"><img src="images/2_thumb.jpg" alt=""></a></li>
+                <li><a href="#"><img src="images/3_thumb.jpg" alt=""></a></li>
+            </ul>
+      	</div>-->
+        
+        <!-- Slideshow 4 -->
+<!--       	<div class="slider">             
+			<div class="callbacks_container">
+                <ul class="rslides" id="slider4">
+                    <li>
+                        <img src="images/home-slider-site.jpg" alt=""/>
+                        <p class="caption">Exterior View</p>
+                    </li>
+                    <li>
+                        <img src="images/home-slider-interior.jpg" alt=""/>
+                        <p class="caption">Interior View</p>
+                    </li>
+                    <li>
+                        <img src="images/home-slider-wall-cutaway-hidden.jpg" alt=""/>
+                        <p class="caption">Wall Section</p>
+                    </li>
+                    <li>
+                        <img src="images/home-slider-wall-cutaway.jpg" alt=""/>
+                        <p class="caption">Wall Section Revealed</p>
+                    </li>
+                    <li>
+                        <img src="images/home-slider-roof-hvac.jpg" alt=""/>
+                        <p class="caption">Rooftop HVAc System</p>
+                    </li>
+                </ul>
+			</div>
+		</div>-->
+            
+<div class="intro">Short description of the game experience here and who is it designed for. Lorem impum delore Nunc auctor bibendum eros. Maecen as porta accumsan mauris. Suspendisse vestibulum dignissim quam. Integer vel augue. Phasellus nulla purus, interdum scelerisque felis. </div>
+<ul class="form-style2">
+    <div class="bottom-buttons">
+        <button type="button" class=" button-basic button-basic-text open" onClick="location.href='signin.html'">Launch LHPB</button>
+    </div>
+</ul>
+    </div>
+    <footer>
+        <div class="content cf">
+            <div class="about cf">
+                <h2><a href="about.html">About LHPB</a></h2>
+                Nulla facilisi. In vel sem. Morbi id urna in diam dignissim feugiat. Proin molestie tortor eu velit. Nulla dui purus, eleifend vel, consequat non, dictum porta, nulla. Duis ante mi, laoreet ut, commodo eleifend, cursus nec, lorem. <a class="more" href="about.html">Learn More</a></div>
+            <div class="about cf">
+                <h2><a href="http://www.su-per-b.org/" target="_blank">Brought to you by <img src="images/logo-superb-sm.png" alt="The Institute for Sustainable Performance of Buildings (SuPerB)" width="128" height="16"/></a></h2>
+                The Institute for Sustainable Performance of Buildings (SuPerB) is a non-profit organization that conducts research and develops educational resources to improve the performance, resource efficiency, and sustainabiliyt of buildings. <a href="http://www.su-per-b.org/" target="_blank" class="more">Visit www.su-per-b.org</a> </div>
+            <ul id="nav-footer">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="credits.html">Credits</a></li>
+                <li><a href="create-account.html">Start Using LHPB</a></li>
+            </ul>
+            <div class="copyright">© 2014 Learn High Performance Buildings. All Rights Reserved.</div>
+        </div>
+    </footer>
+</div>
+</body>
+</html>
